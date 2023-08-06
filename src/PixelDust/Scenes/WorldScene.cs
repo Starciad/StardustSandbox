@@ -11,6 +11,7 @@ namespace PixelDust
         protected override void OnLoad()
         {
             _world = new();
+            _world.Initialize();
         }
 
         protected override void OnUnload()

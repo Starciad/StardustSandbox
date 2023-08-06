@@ -39,9 +39,7 @@ namespace PixelDust.Core
         public void Unload()
         {
             isUnloaded = true;
-
             Clear();
-            _tempSlots.Clear();
         }
 
         public void Pause()
