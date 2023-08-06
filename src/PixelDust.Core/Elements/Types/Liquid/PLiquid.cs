@@ -24,7 +24,7 @@ namespace PixelDust.Core.Elements
 
             for (int i = 0; i < DefaultDispersionRate; i++)
             {
-                if (!ctx.IsEmpty(new(ctx.Position.X + direction, ctx.Position.Y)) ||
+                if (!ctx.IsEmpty(new(ctx.Position.X + direction, ctx.Position.Y)) &&
                     !ctx.IsEmpty(new(ctx.Position.X + direction, ctx.Position.Y + 1)))
                     break;
 

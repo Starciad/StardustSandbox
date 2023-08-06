@@ -20,7 +20,7 @@ namespace PixelDust.Game.Elements.Liquid
             DefaultDispersionRate = 4;
         }
 
-        protected override void OnBeforeStep(PElementContext ctx)
+        protected override void OnStep(PElementContext ctx)
         {
             Vector2[] downTargets = new Vector2[]
             {

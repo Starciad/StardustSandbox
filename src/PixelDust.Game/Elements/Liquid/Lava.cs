@@ -20,14 +20,21 @@ namespace PixelDust.Game.Elements.Liquid
 
         protected override void OnBeforeStep(PElementContext ctx)
         {
-            Vector2[] downTargets = new Vector2[]
+            Vector2[] targets = new Vector2[]
             {
+                new(ctx.Position.X    , ctx.Position.Y - 1),
+                new(ctx.Position.X + 1, ctx.Position.Y - 1),
+                new(ctx.Position.X - 1, ctx.Position.Y - 1),
+
+                new(ctx.Position.X + 1, ctx.Position.Y),
+                new(ctx.Position.X - 1, ctx.Position.Y),
+
                 new(ctx.Position.X    , ctx.Position.Y + 1),
                 new(ctx.Position.X + 1, ctx.Position.Y + 1),
                 new(ctx.Position.X - 1, ctx.Position.Y + 1),
             };
 
-            foreach (Vector2 targetPos in downTargets)
+            foreach (Vector2 targetPos in targets)
             {
                 if (ctx.TryGetElement(targetPos, out PElement value))
                 {
