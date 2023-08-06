@@ -15,6 +15,7 @@
 	<PropertyGroup>
 		<ApplicationManifest>Files/app.manifest</ApplicationManifest>
 		<ApplicationIcon>Files/Icon.ico</ApplicationIcon>
+		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -26,12 +27,6 @@
 	<!-- PROJECTS -->
 	<ItemGroup>
 	  <ProjectReference Include="..\PixelDust.Core\PixelDust.Core.csproj" />
-	</ItemGroup>
-	
-	<!-- USINGS -->
-	<ItemGroup>
-	  <Using Include="Microsoft.Xna.Framework" />
-	  <Using Include="PixelDust.Core" />
 	</ItemGroup>
 
 	<!-- TARGETS -->

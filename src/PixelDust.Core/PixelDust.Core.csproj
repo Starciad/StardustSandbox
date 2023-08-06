@@ -3,17 +3,16 @@
 	<Import Project="../Targets/Project_Compilation.targets" />
 	<Import Project="../Targets/Project_Settings.targets" />
 	<Import Project="../Targets/Project_Infos.targets" />
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+	</PropertyGroup>
 	
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
-	</ItemGroup>
-	
-	<!-- USINGS -->
-	<ItemGroup>
-		<Using Include="Microsoft.Xna.Framework" />
 	</ItemGroup>
 	
 	<ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace PixelDust
+﻿using PixelDust.Core;
+
+namespace PixelDust
 {
     [PElementRegister]
     internal sealed class Salt : PMovableSolid

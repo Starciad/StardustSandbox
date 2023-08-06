@@ -1,4 +1,8 @@
-﻿namespace PixelDust
+﻿using PixelDust.Core;
+
+using Microsoft.Xna.Framework;
+
+namespace PixelDust
 {
     [PElementRegister]
     internal sealed class Grass : PMovableSolid

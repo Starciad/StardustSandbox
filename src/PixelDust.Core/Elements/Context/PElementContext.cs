@@ -1,4 +1,8 @@
-﻿namespace PixelDust.Core
+﻿using Microsoft.Xna.Framework;
+
+using System;
+
+namespace PixelDust.Core
 {
     public class PElementContext
     {

@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using PixelDust.Core;
+
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 using System;
 using System.Collections.Generic;

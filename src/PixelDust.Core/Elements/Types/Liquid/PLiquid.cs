@@ -1,4 +1,6 @@
-﻿namespace PixelDust.Core
+﻿using Microsoft.Xna.Framework;
+
+namespace PixelDust.Core
 {
     public abstract class PLiquid : PElement
     {

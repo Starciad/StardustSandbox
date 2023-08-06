@@ -1,4 +1,6 @@
-﻿namespace PixelDust
+﻿using PixelDust.Core;
+
+namespace PixelDust
 {
     [PElementRegister]
     internal class Smoke : PGas

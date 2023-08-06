@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PixelDust.Core;
+
+using System;
 using System.Windows.Forms;
 
 namespace PixelDust

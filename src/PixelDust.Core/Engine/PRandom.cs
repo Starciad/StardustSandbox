@@ -1,4 +1,6 @@
-﻿namespace PixelDust.Core
+﻿using System;
+
+namespace PixelDust.Core
 {
     public static class PRandom
     {

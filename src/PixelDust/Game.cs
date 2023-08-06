@@ -1,4 +1,6 @@
-﻿namespace PixelDust
+﻿using PixelDust.Core;
+
+namespace PixelDust
 {
     public class Game : PEngineInstance
     {

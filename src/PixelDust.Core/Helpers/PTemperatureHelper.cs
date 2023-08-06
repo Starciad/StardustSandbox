@@ -1,4 +1,6 @@
-﻿namespace PixelDust.Core
+﻿using System;
+
+namespace PixelDust.Core
 {
     internal static class PTemperatureHelper
     {
