@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PixelDust.Core
+using PixelDust.Core.Utilities;
+
+namespace PixelDust.Core.Elements
 {
     public enum GasSpreadingType
     {
@@ -34,7 +36,7 @@ namespace PixelDust.Core
                 {
                     new(ctx.Position.X                   , ctx.Position.Y - 1),
                     new(ctx.Position.X + direction       , ctx.Position.Y - 1),
-                    new(ctx.Position.X + direction * (-1), ctx.Position.Y - 1),
+                    new(ctx.Position.X + direction * -1, ctx.Position.Y - 1),
                 };
 
                 foreach (Vector2 targetPos in targets)

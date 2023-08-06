@@ -15,7 +15,7 @@
     <PropertyGroup>
         <NoWarn>WFAC010</NoWarn>
     </PropertyGroup>
-
+	
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <DebugType>embedded</DebugType>
         <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>

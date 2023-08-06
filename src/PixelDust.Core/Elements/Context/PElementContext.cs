@@ -2,7 +2,9 @@
 
 using System;
 
-namespace PixelDust.Core
+using PixelDust.Core.World;
+
+namespace PixelDust.Core.Elements
 {
     public class PElementContext
     {
@@ -10,17 +12,17 @@ namespace PixelDust.Core
         public Vector2 Position => _position;
 
         private PElement _element;
-        private WorldSlot _slot;
+        private PWorldSlot _slot;
         private Vector2 _position;
 
-        private readonly World _world;
+        private readonly PWorld _world;
 
-        public PElementContext(World world)
+        public PElementContext(PWorld world)
         {
             _world = world;
         }
 
-        internal void Update(WorldSlot slot, Vector2 position)
+        internal void Update(PWorldSlot slot, Vector2 position)
         {
             _slot = slot;
             _element = slot.Get();
@@ -68,12 +70,12 @@ namespace PixelDust.Core
             return _world.TryGetElement(pos, out value);
         }
 
-        public bool TryGetSlot(Vector2 pos, ref WorldSlot slot)
+        public bool TryGetSlot(Vector2 pos, ref PWorldSlot slot)
         {
             return _world.TryGetSlot(pos, ref slot);
         }
 
-        public bool TryModifySlot(Vector2 pos, Func<WorldSlot, WorldSlot> function)
+        public bool TryModifySlot(Vector2 pos, Func<PWorldSlot, PWorldSlot> function)
         {
             return _world.TryModifySlot(pos, function);
         }

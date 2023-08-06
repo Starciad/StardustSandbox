@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PixelDust.Core
+namespace PixelDust.Core.Scenes
 {
     public static class PSceneManager
     {

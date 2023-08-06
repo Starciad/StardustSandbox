@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Core
+﻿namespace PixelDust.Core.Scenes
 {
     public abstract class PScene
     {

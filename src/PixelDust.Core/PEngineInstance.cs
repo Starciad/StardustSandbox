@@ -4,6 +4,11 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
 
+using PixelDust.Core.Managers;
+using PixelDust.Core.Scenes;
+using PixelDust.Core.Engine;
+using PixelDust.Core.Elements;
+
 namespace PixelDust.Core
 {
     public abstract class PEngineInstance : Game
@@ -51,7 +56,7 @@ namespace PixelDust.Core
             PGraphics.Load();
             PTextures.Load();
             PFonts.Load();
-            PElements.Load();
+            PElementManager.Load();
 
             OnStartup();
         }

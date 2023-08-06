@@ -3,8 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 
-
-namespace PixelDust.Core
+namespace PixelDust.Core.Managers
 {
     public static class PManagerPool
     {

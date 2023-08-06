@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Core
+﻿namespace PixelDust.Core.Managers
 {
     public abstract class PManager
     {

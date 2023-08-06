@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelDust", "PixelDust\PixelDust.csproj", "{C5B90CAE-725B-40B6-AA22-ED5C540611E7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelDust.Core", "PixelDust.Core\PixelDust.Core.csproj", "{2096DE1F-66BB-4D66-826B-A50FA1A091B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelDust.Game", "PixelDust.Game\PixelDust.Game.csproj", "{741D0286-6A83-4B90-9083-1EE1B6050F7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C5B90CAE-725B-40B6-AA22-ED5C540611E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5B90CAE-725B-40B6-AA22-ED5C540611E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5B90CAE-725B-40B6-AA22-ED5C540611E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5B90CAE-725B-40B6-AA22-ED5C540611E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2096DE1F-66BB-4D66-826B-A50FA1A091B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2096DE1F-66BB-4D66-826B-A50FA1A091B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2096DE1F-66BB-4D66-826B-A50FA1A091B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2096DE1F-66BB-4D66-826B-A50FA1A091B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{741D0286-6A83-4B90-9083-1EE1B6050F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{741D0286-6A83-4B90-9083-1EE1B6050F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{741D0286-6A83-4B90-9083-1EE1B6050F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{741D0286-6A83-4B90-9083-1EE1B6050F7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
