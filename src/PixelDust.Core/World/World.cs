@@ -2,7 +2,6 @@
 {
     public sealed partial class World
     {
-        // Const
         public const uint GridScale = 12;
 
         // System

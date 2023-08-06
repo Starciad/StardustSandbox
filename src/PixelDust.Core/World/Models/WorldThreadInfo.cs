@@ -1,11 +1,14 @@
-﻿namespace PixelDust.Core
+﻿using System.Runtime.InteropServices;
+
+namespace PixelDust.Core
 {
+    [StructLayout(LayoutKind.Sequential)]
     internal struct WorldThreadInfo
     {
-        public readonly int Index => _index;
-        public readonly int StartPosition => _startPosition;
-        public int EndPosition { readonly get => _endPosition; set => _endPosition = value; }
-        public readonly int Range => _endPosition - _startPosition;
+        internal readonly int Index => _index;
+        internal readonly int StartPosition => _startPosition;
+        internal int EndPosition { readonly get => _endPosition; set => _endPosition = value; }
+        internal readonly int Range => _endPosition - _startPosition;
 
         private readonly int _index;
         private readonly int _startPosition;
