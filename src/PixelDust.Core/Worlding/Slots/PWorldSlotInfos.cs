@@ -42,7 +42,7 @@ namespace PixelDust.Core.Worlding
         private void BuildColors()
         {
             Color colorResult;
-            if (EInstance.HasColorVariation) colorResult = EInstance.Color.Vary();
+            if (EInstance.HasColorVariation) colorResult = EInstance.Color.Vary(8);
             else colorResult = EInstance.Color;
 
             _colorR = colorResult.R;

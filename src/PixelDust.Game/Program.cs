@@ -12,7 +12,7 @@ namespace PixelDust.Game
         {
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
-            PEngine.SetEngineInstance<PixelDust>();
+            PEngine.SetGameInstance<PixelDust>();
             PEngine.Start();
         }
     }

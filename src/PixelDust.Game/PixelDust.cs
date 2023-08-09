@@ -5,7 +5,7 @@ using PixelDust.Game.Scenes;
 
 namespace PixelDust.Game
 {
-    public class PixelDust : PEngineInstance
+    public class PixelDust : PGame
     {
         protected override void Initialize()
         {

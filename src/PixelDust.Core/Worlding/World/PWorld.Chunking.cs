@@ -3,19 +3,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PixelDust.Core.Worlding
 {
-    public sealed partial class PWorld
+    public static partial class PWorld
     {
-        public int GetActiveChunksCount()
+        public static int GetActiveChunksCount()
         {
             return GetComponent<PWorldChunkingComponent>().GetActiveChunksCount();
         }
 
-        public bool TryGetChunkUpdateState(Vector2 pos, out bool result)
+        public static bool TryGetChunkUpdateState(Vector2 pos, out bool result)
         {
             return GetComponent<PWorldChunkingComponent>().TryGetChunkUpdateState(pos, out result);
         }
 
-        public bool TryNotifyChunk(Vector2 pos)
+        public static bool TryNotifyChunk(Vector2 pos)
         {
             return GetComponent<PWorldChunkingComponent>().TryNotifyChunk(pos);
         }

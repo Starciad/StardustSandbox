@@ -8,40 +8,34 @@ using System;
 
 namespace PixelDust.Core.Worlding
 {
-    public sealed partial class PWorld
+    public static partial class PWorld
     {
         public const int GridScale = 12;
 
-        private readonly PWorldComponent[] _components = new PWorldComponent[]
+        private static readonly PWorldComponent[] _components = new PWorldComponent[]
         {
             new PWorldChunkingComponent(),
             new PWorldThreadingComponent(),
         };
 
-        public PWorldStates States { get; private set; }
-        public PWorldInfos Infos { get; private set; }
+        public static PWorldStates States { get; private set; } = new();
+        public static PWorldInfos Infos { get; private set; } = new();
 
-        internal PWorldSlot[,] Slots { get; private set; }
-        internal PElementContext ElementContext { get; private set; }
+        internal static PWorldSlot[,] Slots { get; private set; }
+        internal static PElementContext ElementContext { get; private set; }
 
-        public PWorld()
+        internal static void Initialize()
         {
-            States = new();
-            Infos = new();
-
-            ElementContext = new(this);
+            ElementContext = new();
             Restart();
-        }
 
-        public void Initialize()
-        {
             foreach (PWorldComponent component in _components)
             {
-                component.Initialize(this);
+                component.Initialize();
             }
         }
 
-        public void Update()
+        internal static void Update()
         {
             if (States.IsPaused || States.IsUnloaded) return;
             foreach (PWorldComponent component in _components)
@@ -50,7 +44,7 @@ namespace PixelDust.Core.Worlding
             }
         }
 
-        public void Draw()
+        internal static void Draw()
         {
             DrawElements();
             foreach (PWorldComponent component in _components)
@@ -59,7 +53,7 @@ namespace PixelDust.Core.Worlding
             }
         }
 
-        private void DrawElements()
+        private static void DrawElements()
         {
             for (int x = 0; x < Infos.Width; x++)
             {
@@ -82,7 +76,7 @@ namespace PixelDust.Core.Worlding
             }
         }
 
-        internal T GetComponent<T>() where T : PWorldComponent
+        internal static T GetComponent<T>() where T : PWorldComponent
         {
             return (T)Array.Find(_components, x => x.GetType() == typeof(T));
         }

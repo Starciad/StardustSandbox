@@ -6,15 +6,15 @@ using System;
 
 namespace PixelDust.Core.Worlding
 {
-    public sealed partial class PWorld
+    public static partial class PWorld
     {
-        public bool InsideTheWorldDimensions(Vector2 pos)
+        public static bool InsideTheWorldDimensions(Vector2 pos)
         {
             return (int)pos.X >= 0 && (int)pos.X < Infos.Width &&
                    (int)pos.Y >= 0 && (int)pos.Y < Infos.Height;
         }
 
-        public void Restart()
+        public static void Restart()
         {
             Viewport viewport = PGraphics.Viewport;
             uint width = (uint)(viewport.Width / GridScale);
@@ -27,7 +27,7 @@ namespace PixelDust.Core.Worlding
             Infos.SetHeight(height);
         }
 
-        public void Clear()
+        public static void Clear()
         {
             if (Slots == null)
                 return;
@@ -46,7 +46,7 @@ namespace PixelDust.Core.Worlding
             GC.Collect(GC.GetGeneration(Slots), GCCollectionMode.Forced);
         }
 
-        public void Unload()
+        public static void Unload()
         {
             States.SetUnloaded(true);
             Clear();
@@ -54,12 +54,12 @@ namespace PixelDust.Core.Worlding
             GC.Collect(GC.GetGeneration(Slots), GCCollectionMode.Forced);
         }
 
-        public void Pause()
+        public static void Pause()
         {
             States.SetPaused(true);
         }
 
-        public void Resume()
+        public static void Resume()
         {
             States.SetPaused(false);
         }

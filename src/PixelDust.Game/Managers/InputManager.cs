@@ -44,14 +44,8 @@ namespace PixelDust.Game.Managers
             [Keys.D8] = PElementManager.GetElementByType<Wall>(),
         };
 
-        private static PWorld _world = null;
-
         protected override void OnUpdate()
         {
-            _world = PSceneManager.GetCurrentScene<WorldScene>().World;
-            if (_world == null)
-                return;
-
             Reset();
             MouseUpdate();
             PlaceElement();
@@ -67,7 +61,7 @@ namespace PixelDust.Game.Managers
         {
             if (PInput.KeyboardState.IsKeyDown(Keys.R))
             {
-                _world.Clear();
+                PWorld.Clear();
             }
         }
 
@@ -104,17 +98,17 @@ namespace PixelDust.Game.Managers
 
             Vector2 mousePos = PInput.MouseState.Position.ToVector2() / PWorld.GridScale;
 
-            if (!PSceneManager.GetCurrentScene<WorldScene>().World.InsideTheWorldDimensions(mousePos))
+            if (!PWorld.InsideTheWorldDimensions(mousePos))
                 return;
 
-            _world.TryGetElement(mousePos, out elementOver);
+            PWorld.TryGetElement(mousePos, out elementOver);
 
             // Place
             if (PInput.MouseState.LeftButton == ButtonState.Pressed)
             {
                 if (size == 0)
                 {
-                    _world.TryInstantiate(mousePos, elementSelected.Id);
+                    PWorld.TryInstantiate(mousePos, elementSelected.Id);
                     return;
                 }
 
@@ -123,10 +117,10 @@ namespace PixelDust.Game.Managers
                     for (int y = -(int)size; y < size; y++)
                     {
                         Vector2 lpos = new Vector2(x, y) + mousePos;
-                        if (!_world.InsideTheWorldDimensions(lpos))
+                        if (!PWorld.InsideTheWorldDimensions(lpos))
                             continue;
 
-                        _world.TryInstantiate(lpos, elementSelected.Id);
+                        PWorld.TryInstantiate(lpos, elementSelected.Id);
                     }
                 }
             }
@@ -136,7 +130,7 @@ namespace PixelDust.Game.Managers
             {
                 if (size == 0)
                 {
-                    _world.TryDestroy(mousePos);
+                    PWorld.TryDestroy(mousePos);
                     return;
                 }
 
@@ -145,10 +139,10 @@ namespace PixelDust.Game.Managers
                     for (int y = -(int)size; y < size; y++)
                     {
                         Vector2 lpos = new Vector2(x, y) + mousePos;
-                        if (!_world.InsideTheWorldDimensions(lpos))
+                        if (!PWorld.InsideTheWorldDimensions(lpos))
                             continue;
 
-                        _world.TryDestroy(lpos);
+                        PWorld.TryDestroy(lpos);
                     }
                 }
             }
