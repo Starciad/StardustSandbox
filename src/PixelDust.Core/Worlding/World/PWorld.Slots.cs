@@ -1,30 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 
-using System;
-
 using PixelDust.Core.Elements;
 
-namespace PixelDust.Core.World
+namespace PixelDust.Core.Worlding
 {
     public sealed partial class PWorld
     {
         public bool TryInstantiate<T>(Vector2 pos) where T : PElement
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                !IsEmpty(pos))
-                return false;
-
-            _slots[(int)pos.X, (int)pos.Y].Instantiate<T>();
-            return true;
+            return TryInstantiate(pos, PElementManager.GetIdOfElement<T>());
         }
-
-        public bool TryInstantiate(uint id, Vector2 pos)
+        public bool TryInstantiate(Vector2 pos, uint id)
         {
             if (!InsideTheWorldDimensions(pos) ||
                 !IsEmpty(pos))
                 return false;
 
-            _slots[(int)pos.X, (int)pos.Y].Instantiate(id);
+            TryNotifyChunk(pos);
+
+            Slots[(int)pos.X, (int)pos.Y] = new(id);
             return true;
         }
 
@@ -36,10 +30,11 @@ namespace PixelDust.Core.World
                 !IsEmpty(newPos))
                 return false;
 
-            PElement targetElement = _slots[(int)oldPos.X, (int)oldPos.Y].Get();
+            TryNotifyChunk(oldPos);
+            TryNotifyChunk(newPos);
 
-            _slots[(int)newPos.X, (int)newPos.Y].Instantiate(targetElement);
-            _slots[(int)oldPos.X, (int)oldPos.Y].Destroy();
+            Slots[(int)newPos.X, (int)newPos.Y] = Slots[(int)oldPos.X, (int)oldPos.Y];
+            Slots[(int)oldPos.X, (int)oldPos.Y] = null;
             return true;
         }
 
@@ -51,11 +46,10 @@ namespace PixelDust.Core.World
                 IsEmpty(newPos))
                 return false;
 
-            PElement e1 = _slots[(int)oldPos.X, (int)oldPos.Y].Get();
-            PElement e2 = _slots[(int)newPos.X, (int)newPos.Y].Get();
+            TryNotifyChunk(oldPos);
+            TryNotifyChunk(newPos);
 
-            _slots[(int)newPos.X, (int)newPos.Y].Instantiate(e1);
-            _slots[(int)oldPos.X, (int)oldPos.Y].Instantiate(e2);
+            (Slots[(int)newPos.X, (int)newPos.Y], Slots[(int)oldPos.X, (int)oldPos.Y]) = (Slots[(int)oldPos.X, (int)oldPos.Y], Slots[(int)newPos.X, (int)newPos.Y]);
             return true;
         }
 
@@ -65,7 +59,9 @@ namespace PixelDust.Core.World
                 IsEmpty(pos))
                 return false;
 
-            _slots[(int)pos.X, (int)pos.Y].Destroy();
+            TryNotifyChunk(pos);
+
+            Slots[(int)pos.X, (int)pos.Y] = null;
             return true;
         }
 
@@ -78,34 +74,27 @@ namespace PixelDust.Core.World
                 return false;
             }
 
-            value = _slots[(int)pos.X, (int)pos.Y].Get();
+            value = Slots[(int)pos.X, (int)pos.Y].Element;
             return true;
         }
 
-        public bool TryGetSlot(Vector2 pos, ref PWorldSlot slot)
+        public bool TryGetSlot(Vector2 pos, out PWorldSlot slot)
         {
+            slot = default;
             if (!InsideTheWorldDimensions(pos))
                 return false;
 
-            slot = _slots[(int)pos.X, (int)pos.Y];
-            return true;
-        }
-
-        public bool TryModifySlot(Vector2 pos, Func<PWorldSlot, PWorldSlot> function)
-        {
-            if (!InsideTheWorldDimensions(pos))
-                return false;
-
-            _slots[(int)pos.X, (int)pos.Y] = function.Invoke(_slots[(int)pos.X, (int)pos.Y]);
+            slot = Slots[(int)pos.X, (int)pos.Y];
             return true;
         }
 
         public bool IsEmpty(Vector2 pos)
         {
-            if (!InsideTheWorldDimensions(pos))
-                return false;
-
-            return _slots[(int)pos.X, (int)pos.Y].IsEmpty();
+            if (!InsideTheWorldDimensions(pos) ||
+                Slots[(int)pos.X, (int)pos.Y] == null)
+                return true;
+            
+            return false;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 using PixelDust.Core.Engine;
 using PixelDust.Core.Scenes;
-using PixelDust.Core.World;
+using PixelDust.Core.Worlding;
 using PixelDust.Game.Managers;
 
 namespace PixelDust.Game.Scenes
@@ -31,7 +31,7 @@ namespace PixelDust.Game.Scenes
 
         protected override void OnDraw()
         {
-            InputManager.DebugString.AppendLine($"Count: {_world.TotalElements}");
+            InputManager.DebugString.AppendLine($"Count: {_world.Infos.TotalElements}");
 
             _world.Draw();
             PGraphics.SpriteBatch.DrawString(PFonts.Arial, InputManager.DebugString, Vector2.Zero, Color.White);

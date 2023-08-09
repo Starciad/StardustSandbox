@@ -9,14 +9,13 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<RollForward>Major</RollForward>
+		<AssemblyName>PixelDust</AssemblyName>
 	</PropertyGroup>
 	
 	<!-- SYSTEM -->
 	<PropertyGroup>
-		<ApplicationManifest>Files/app.manifest</ApplicationManifest>
-		<ApplicationIcon>Files/Icon.ico</ApplicationIcon>
-		<ImplicitUsings>disable</ImplicitUsings>
-		<AssemblyName>PixelDust</AssemblyName>
+		<ApplicationManifest>Content/app.manifest</ApplicationManifest>
+		<ApplicationIcon>Content/Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->

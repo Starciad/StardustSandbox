@@ -11,7 +11,7 @@ using PixelDust.Core.Scenes;
 using PixelDust.Core.Managers;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
-using PixelDust.Core.World;
+using PixelDust.Core.Worlding;
 
 using PixelDust.Game.Scenes;
 using PixelDust.Game.Elements.Liquid;
@@ -114,7 +114,7 @@ namespace PixelDust.Game.Managers
             {
                 if (size == 0)
                 {
-                    _world.TryInstantiate(elementSelected.Id, mousePos);
+                    _world.TryInstantiate(mousePos, elementSelected.Id);
                     return;
                 }
 
@@ -126,7 +126,7 @@ namespace PixelDust.Game.Managers
                         if (!_world.InsideTheWorldDimensions(lpos))
                             continue;
 
-                        _world.TryInstantiate(elementSelected.Id, lpos);
+                        _world.TryInstantiate(lpos, elementSelected.Id);
                     }
                 }
             }

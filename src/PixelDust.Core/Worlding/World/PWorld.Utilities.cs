@@ -1,33 +1,35 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+
 using PixelDust.Core.Engine;
 
-namespace PixelDust.Core.World
+namespace PixelDust.Core.Worlding
 {
     public sealed partial class PWorld
     {
-        private bool isUnloaded = false;
-
         public bool InsideTheWorldDimensions(Vector2 pos)
         {
-            return (int)pos.X >= 0 && (int)pos.X < Width &&
-                   (int)pos.Y >= 0 && (int)pos.Y < Height;
+            return (int)pos.X >= 0 && (int)pos.X < Infos.Width &&
+                   (int)pos.Y >= 0 && (int)pos.Y < Infos.Height;
         }
 
         public void Restart()
         {
             Viewport viewport = PGraphics.Viewport;
-            _slots = new PWorldSlot[viewport.Width / GridScale, viewport.Height / GridScale];
+            uint width = (uint)(viewport.Width / GridScale);
+            uint height = (uint)(viewport.Height / GridScale);
 
-            Width = (uint)_slots.GetLength(0);
-            Height = (uint)_slots.GetLength(1);
+            Slots = new PWorldSlot[width, height];
+
+            Infos.SetWidth(width);
+            Infos.SetHeight(height);
         }
 
         public void Clear()
         {
-            for (int x = 0; x < Width; x++)
+            for (int x = 0; x < Infos.Width; x++)
             {
-                for (int y = 0; y < Height; y++)
+                for (int y = 0; y < Infos.Height; y++)
                 {
                     if (IsEmpty(new(x, y)))
                         continue;
@@ -39,18 +41,18 @@ namespace PixelDust.Core.World
 
         public void Unload()
         {
-            isUnloaded = true;
+            States.SetUnloaded(true);
             Clear();
         }
 
         public void Pause()
         {
-            IsPaused = true;
+            States.SetPaused(true);
         }
 
         public void Resume()
         {
-            IsPaused = false;
+            States.SetPaused(false);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace PixelDust.Core.Elements
 
         internal static void Load()
         {
-            uint id = 1;
+            byte id = 1;
             foreach (Type type in PEngine.Instance.Assembly.GetTypes())
             {
                 if (type.GetCustomAttribute<PElementRegisterAttribute>() == null)

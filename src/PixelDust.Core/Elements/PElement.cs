@@ -7,10 +7,10 @@ namespace PixelDust.Core.Elements
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public string Category { get; protected set; }
-        public uint Id { get; internal set; }
+        public byte Id { get; internal set; }
         public Color Color { get; protected set; }
 
-        public double DefaultTemperature { get; protected set; } = 20f;
+        public float DefaultTemperature { get; protected set; } = 20f;
         public int DefaultDispersionRate { get; protected set; } = 1;
         public bool HasColorVariation { get; protected set; } = true;
 
