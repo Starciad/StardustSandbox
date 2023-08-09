@@ -14,12 +14,12 @@ namespace PixelDust.Core.Elements
     {
         public GasSpreadingType SpreadingType { get; protected set; }
 
-        protected override void OnDefaultBehaviourStep(PElementContext ctx)
+        internal override void OnBehaviourStep()
         {
             switch (SpreadingType)
             {
                 case GasSpreadingType.Up:
-                    UpScatteringType();
+                    UpSpreadingTypeUpdate();
                     break;
 
                 case GasSpreadingType.Spread:
@@ -28,31 +28,38 @@ namespace PixelDust.Core.Elements
                 default:
                     break;
             }
+        }
 
-            void UpScatteringType()
+        private void UpSpreadingTypeUpdate()
+        {
+            int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
+            Vector2[] targets = new Vector2[]
             {
-                int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
-                Vector2[] targets = new Vector2[]
-                {
-                    new(ctx.Position.X                   , ctx.Position.Y - 1),
-                    new(ctx.Position.X + direction       , ctx.Position.Y - 1),
-                    new(ctx.Position.X + direction * -1, ctx.Position.Y - 1),
-                };
+                    new(Context.Position.X                   , Context.Position.Y - 1),
+                    new(Context.Position.X + direction       , Context.Position.Y - 1),
+                    new(Context.Position.X + direction * -1, Context.Position.Y - 1),
+            };
 
-                foreach (Vector2 targetPos in targets)
+            foreach (Vector2 targetPos in targets)
+            {
+                if (Context.IsEmpty(targetPos))
+                    if (Context.TrySetPosition(targetPos)) return;
+
+                if (Context.TryGetElement(targetPos, out PElement value))
                 {
-                    if (ctx.IsEmpty(targetPos))
-                        if (ctx.TrySetPosition(targetPos)) return;
+                    if (value is PLiquid ||
+                        value is PMovableSolid)
+                        if (Context.TrySwitchPosition(Context.Position, targetPos)) return;
                 }
+            }
 
-                for (int i = 0; i < DefaultDispersionRate; i++)
-                {
-                    if (!ctx.IsEmpty(new(ctx.Position.X + direction, ctx.Position.Y)) &&
-                        !ctx.IsEmpty(new(ctx.Position.X + direction, ctx.Position.Y - 1)))
-                        break;
+            for (int i = 0; i < DefaultDispersionRate; i++)
+            {
+                if (!Context.IsEmpty(new(Context.Position.X + direction, Context.Position.Y)) &&
+                    !Context.IsEmpty(new(Context.Position.X + direction, Context.Position.Y - 1)))
+                    break;
 
-                    ctx.TrySetPosition(new(ctx.Position.X + direction, ctx.Position.Y));
-                }
+                Context.TrySetPosition(new(Context.Position.X + direction, Context.Position.Y));
             }
         }
     }

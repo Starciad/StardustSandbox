@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Core.Elements;
-
+using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Solid.Movable;
 
 namespace PixelDust.Game.Elements.Liquid
@@ -9,8 +9,6 @@ namespace PixelDust.Game.Elements.Liquid
     [PElementRegister]
     internal class Water : PLiquid
     {
-        private static int InfiltrationLevel => 2;
-
         protected override void OnSettings()
         {
             Name = "Water";
@@ -20,34 +18,20 @@ namespace PixelDust.Game.Elements.Liquid
             DefaultDispersionRate = 4;
         }
 
-        protected override void OnStep(PElementContext ctx)
+        protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
         {
-            Vector2[] downTargets = new Vector2[]
+            foreach ((Vector2, PWorldSlot) neighbor in neighbors)
             {
-                new(ctx.Position.X    , ctx.Position.Y + 1),
-                new(ctx.Position.X - 1, ctx.Position.Y + 1),
-                new(ctx.Position.X + 1, ctx.Position.Y + 1),
-            };
-
-            // Soil infiltration
-            for (int i = 0; i < InfiltrationLevel; i++)
-            {
-                foreach (Vector2 targetPos in downTargets)
+                if (neighbor.Item2.Element is Dirt)
                 {
-                    if (ctx.TryGetElement(targetPos, out PElement value))
-                    {
-                        if (value is Dirt)
-                        {
-                            ctx.TryReplace<Mud>(targetPos);
-                            return;
-                        }
+                    Context.TryReplace<Mud>(neighbor.Item1);
+                    return;
+                }
 
-                        if (value is Stone)
-                        {
-                            ctx.TryReplace<Sand>(targetPos);
-                            return;
-                        }
-                    }
+                if (neighbor.Item2.Element is Stone)
+                {
+                    Context.TryReplace<Sand>(neighbor.Item1);
+                    return;
                 }
             }
         }

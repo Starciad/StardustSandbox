@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 
 using PixelDust.Core.Engine;
+using System;
 
 namespace PixelDust.Core.Worlding
 {
@@ -19,6 +20,7 @@ namespace PixelDust.Core.Worlding
             uint width = (uint)(viewport.Width / GridScale);
             uint height = (uint)(viewport.Height / GridScale);
 
+            Clear();
             Slots = new PWorldSlot[width, height];
 
             Infos.SetWidth(width);
@@ -27,6 +29,9 @@ namespace PixelDust.Core.Worlding
 
         public void Clear()
         {
+            if (Slots == null)
+                return;
+
             for (int x = 0; x < Infos.Width; x++)
             {
                 for (int y = 0; y < Infos.Height; y++)
@@ -37,12 +42,16 @@ namespace PixelDust.Core.Worlding
                     TryDestroy(new(x, y));
                 }
             }
+
+            GC.Collect(GC.GetGeneration(Slots), GCCollectionMode.Forced);
         }
 
         public void Unload()
         {
             States.SetUnloaded(true);
             Clear();
+
+            GC.Collect(GC.GetGeneration(Slots), GCCollectionMode.Forced);
         }
 
         public void Pause()

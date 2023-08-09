@@ -10,11 +10,12 @@ namespace PixelDust.Core.Elements
     {
         internal PWorld World => _world;
 
+        public PWorldSlot Slot => _slot;
         public PElement Element => _slot.Element;
         public Vector2 Position => _position;
 
-        private Vector2 _position;
         private PWorldSlot _slot;
+        private Vector2 _position;
 
         private readonly PWorld _world;
 

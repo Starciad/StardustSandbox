@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Worlding;
+
 namespace PixelDust.Core.Elements
 {
     public abstract class PElement
@@ -10,9 +12,13 @@ namespace PixelDust.Core.Elements
         public byte Id { get; internal set; }
         public Color Color { get; protected set; }
 
-        public float DefaultTemperature { get; protected set; } = 20f;
-        public int DefaultDispersionRate { get; protected set; } = 1;
+        public short DefaultTemperature { get; protected set; } = 20;
+        public short DefaultDensity { get; protected set; } = 1;
         public bool HasColorVariation { get; protected set; } = true;
+        public int DefaultDispersionRate { get; protected set; } = 1;
+        public bool EnableDefaultBehaviour { get; protected set; } = true;
+
+        protected PElementContext Context { get; private set; }
 
         internal void Build()
         {
@@ -21,16 +27,38 @@ namespace PixelDust.Core.Elements
 
         internal void Update(PElementContext ctx)
         {
-            OnBeforeStep(ctx);
-            OnStep(ctx);
-            OnDefaultBehaviourStep(ctx);
-            OnAfterStep(ctx);
+            Context = ctx;
+            UpdateSteps();
         }
 
+        private void UpdateSteps()
+        {
+            OnBeforeStep();
+            OnStep();
+
+            if (EnableDefaultBehaviour)
+            {
+                OnBehaviourStep();
+            }
+
+            if (Context.TryGetNeighbors(Context.Position, out (Vector2, PWorldSlot)[] neighbors))
+            {
+                OnNeighbors(neighbors, neighbors.Length);
+            }
+
+            OnAfterStep();
+        }
+
+        // Settings
         protected virtual void OnSettings() { return; }
-        protected virtual void OnBeforeStep(PElementContext ctx) { return; }
-        protected virtual void OnStep(PElementContext ctx) { return; }
-        protected virtual void OnDefaultBehaviourStep(PElementContext ctx) { return; }
-        protected virtual void OnAfterStep(PElementContext ctx) { return; }
+
+        // Steps
+        protected virtual void OnBeforeStep() { return; }
+        protected virtual void OnStep() { return; }
+        protected virtual void OnAfterStep() { return; }
+        internal virtual void OnBehaviourStep() { return; }
+
+        // Ambient
+        protected virtual void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length) { return; }
     }
 }

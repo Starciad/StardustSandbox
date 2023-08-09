@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Core.Elements;
-
+using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Gases;
 using PixelDust.Game.Elements.Solid.Immovable;
 using PixelDust.Game.Elements.Solid.Movable;
+
+using SharpDX.Direct3D9;
 
 namespace PixelDust.Game.Elements.Liquid
 {
@@ -18,50 +20,33 @@ namespace PixelDust.Game.Elements.Liquid
             Color = new(255, 116, 0);
         }
 
-        protected override void OnBeforeStep(PElementContext ctx)
+        protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
         {
-            Vector2[] targets = new Vector2[]
+            foreach ((Vector2, PWorldSlot) neighbor in neighbors)
             {
-                new(ctx.Position.X    , ctx.Position.Y - 1),
-                new(ctx.Position.X + 1, ctx.Position.Y - 1),
-                new(ctx.Position.X - 1, ctx.Position.Y - 1),
-
-                new(ctx.Position.X + 1, ctx.Position.Y),
-                new(ctx.Position.X - 1, ctx.Position.Y),
-
-                new(ctx.Position.X    , ctx.Position.Y + 1),
-                new(ctx.Position.X + 1, ctx.Position.Y + 1),
-                new(ctx.Position.X - 1, ctx.Position.Y + 1),
-            };
-
-            foreach (Vector2 targetPos in targets)
-            {
-                if (ctx.TryGetElement(targetPos, out PElement value))
+                if (neighbor.Item2.Element is Stone)
                 {
-                    if (value is Stone)
-                    {
-                        ctx.TryReplace<Lava>(targetPos);
-                        return;
-                    }
+                    Context.TryReplace<Lava>(neighbor.Item1);
+                    return;
+                }
 
-                    if (value is Water)
-                    {
-                        ctx.TryReplace<Stone>(ctx.Position);
-                        ctx.TryReplace<Steam>(targetPos);
-                        return;
-                    }
+                if (neighbor.Item2.Element is Water)
+                {
+                    Context.TryReplace<Stone>(Context.Position);
+                    Context.TryReplace<Steam>(neighbor.Item1);
+                    return;
+                }
 
-                    if (value is Sand)
-                    {
-                        ctx.TryReplace<Glass>(targetPos);
-                        return;
-                    }
+                if (neighbor.Item2.Element is Sand)
+                {
+                    Context.TryReplace<Glass>(neighbor.Item1);
+                    return;
+                }
 
-                    if (value is Grass)
-                    {
-                        ctx.TryDestroy(targetPos);
-                        return;
-                    }
+                if (neighbor.Item2.Element is Grass)
+                {
+                    Context.TryDestroy(neighbor.Item1);
+                    return;
                 }
             }
         }

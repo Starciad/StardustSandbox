@@ -5,14 +5,19 @@ namespace PixelDust.Core.Worlding
 {
     public sealed partial class PWorld
     {
+        public int GetActiveChunksCount()
+        {
+            return GetComponent<PWorldChunkingComponent>().GetActiveChunksCount();
+        }
+
         public bool TryGetChunkUpdateState(Vector2 pos, out bool result)
         {
-            return _chunking.TryGetChunkUpdateState(pos, out result);
+            return GetComponent<PWorldChunkingComponent>().TryGetChunkUpdateState(pos, out result);
         }
 
         public bool TryNotifyChunk(Vector2 pos)
         {
-            return _chunking.TryNotifyChunk(pos);
+            return GetComponent<PWorldChunkingComponent>().TryNotifyChunk(pos);
         }
     }
 }

@@ -42,6 +42,9 @@ namespace PixelDust.Core.Worlding
 
         protected override void OnUpdate()
         {
+            if (World.GetActiveChunksCount() == 0)
+                return;
+
             // Odds
             Task odds = Task.Run(() =>
             {
@@ -52,8 +55,9 @@ namespace PixelDust.Core.Worlding
                         ExecuteThreadColumn(_worldThreadsInfos[i]);
                     }
                 }
-            });
 
+                return Task.CompletedTask;
+            });
             odds.Wait();
 
             // Even
@@ -66,15 +70,16 @@ namespace PixelDust.Core.Worlding
                         ExecuteThreadColumn(_worldThreadsInfos[i]);
                     }
                 }
-            });
 
+                return Task.CompletedTask;
+            });
             even.Wait();
         }
 
         // THREAD
         private void ExecuteThreadColumn(PWorldThread threadInfo)
         {
-            List<Vector2> _capturedSlots = new();
+            List<Vector2> _capturedSlots = null;
             uint totalCapturedElements = 0;
 
             // Find slots
@@ -88,12 +93,14 @@ namespace PixelDust.Core.Worlding
                     if (World.IsEmpty(pos) || !chunkState) 
                         continue;
 
+                    _capturedSlots ??= new();
+
                     _capturedSlots.Add(pos);
                     totalCapturedElements++;
                 }
             }
 
-            // Update slots
+            // Update slots (Steps)
             for (int i = 0; i < totalCapturedElements; i++)
             {
                 Vector2 pos = _capturedSlots[i];
@@ -106,7 +113,7 @@ namespace PixelDust.Core.Worlding
                 }
             }
 
-            _capturedSlots.Clear();
+            _capturedSlots?.Clear();
         }
     }
 }

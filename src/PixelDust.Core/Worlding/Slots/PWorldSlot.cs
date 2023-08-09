@@ -1,58 +1,36 @@
-﻿using System.Runtime.InteropServices;
-
-using PixelDust.Core.Elements;
-using PixelDust.Core.Extensions;
-
-using Microsoft.Xna.Framework;
+﻿using PixelDust.Core.Elements;
 
 namespace PixelDust.Core.Worlding
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public class PWorldSlot
+    public sealed class PWorldSlot
     {
-        public Color Color => new(_colorR, _colorG, _colorB);
-        public PElement Element
-        {
-            get
-            {
-                return PElementManager.GetElementById<PElement>(_elementId);
-            }
-        }
-        public byte ElementId => _elementId;
+        public PElement Element => _element;
+        public PWorldSlotInfos Infos => _infos;
 
         // Header
-        private byte _elementId;
-        private byte _colorR, _colorG, _colorB;
+        private PElement _element;
+        private PWorldSlotInfos _infos;
 
-        public PWorldSlot(uint id)
+        internal PWorldSlot(uint id)
         {
             Instantiate(id);
         }
 
-        public PWorldSlot(PElement value)
+        internal PWorldSlot(PElement value)
         {
             Instantiate(value);
         }
 
-        #region Elements (Tools)
-        private void Instantiate(uint id)
+        internal void Instantiate(uint id)
         {
             Instantiate(PElementManager.GetElementById<PElement>(id));
         }
-        private void Instantiate(PElement value)
+        internal void Instantiate(PElement value)
         {
-            // Id
-            _elementId = value.Id;
+            _element = value;
 
-            // Color
-            Color colorResult;
-            if (value.HasColorVariation) colorResult = value.Color.Vary();
-            else colorResult = value.Color;
-
-            _colorR = colorResult.R;
-            _colorG = colorResult.G;
-            _colorB = colorResult.B;
+            _infos ??= new();
+            _infos.Instantiate(_element);
         }
-        #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Core.Elements;
-
+using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Solid.Immovable;
 
 namespace PixelDust.Game.Elements.Liquid
@@ -16,33 +16,16 @@ namespace PixelDust.Game.Elements.Liquid
             Color = new(0, 255, 0);
         }
 
-        protected override void OnBeforeStep(PElementContext ctx)
+        protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
         {
-            Vector2[] downTargets = new Vector2[]
+            foreach ((Vector2, PWorldSlot) neighbor in neighbors)
             {
-                new(ctx.Position.X    , ctx.Position.Y - 1),
-                new(ctx.Position.X - 1, ctx.Position.Y - 1),
-                new(ctx.Position.X + 1, ctx.Position.Y - 1),
+                if (neighbor.Item2.Element is Acid ||
+                    neighbor.Item2.Element is Wall)
+                    continue;
 
-                new(ctx.Position.X - 1, ctx.Position.Y),
-                new(ctx.Position.X + 1, ctx.Position.Y),
-
-                new(ctx.Position.X    , ctx.Position.Y + 1),
-                new(ctx.Position.X - 1, ctx.Position.Y + 1),
-                new(ctx.Position.X + 1, ctx.Position.Y + 1),
-            };
-
-            foreach (Vector2 targetPos in downTargets)
-            {
-                if (ctx.TryGetElement(targetPos, out PElement value))
-                {
-                    if (value is Acid ||
-                        value is Wall)
-                        continue;
-
-                    ctx.TryDestroy(ctx.Position);
-                    ctx.TryDestroy(targetPos);
-                }
+                Context.TryDestroy(Context.Position);
+                Context.TryDestroy(neighbor.Item1);
             }
         }
     }

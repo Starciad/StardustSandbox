@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Scenes;
 using PixelDust.Core.Worlding;

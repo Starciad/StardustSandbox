@@ -48,6 +48,7 @@ namespace PixelDust.Core.Worlding
         {
 #if DEBUG
             // Debug methods
+            // DEBUG_DrawActiveChunks();
 #endif
         }
 
@@ -61,6 +62,21 @@ namespace PixelDust.Core.Worlding
             Vector2 cPos = ToChunkCoordinateSystem(pos);
             result = _chunks[(int)cPos.X, (int)cPos.Y].ShouldUpdate;
             return true;
+        }
+
+        internal int GetActiveChunksCount()
+        {
+            int result = 0;
+            for (int x = 0; x < worldChunkWidth; x++)
+            {
+                for (int y = 0; y < worldChunkHeight; y++)
+                {
+                    if (_chunks[x, y].ShouldUpdate)
+                        result++;
+                }
+            }
+
+            return result;
         }
 
         internal bool TryNotifyChunk(Vector2 pos)
@@ -120,7 +136,6 @@ namespace PixelDust.Core.Worlding
             return new(pos.X / DefaultChunkSize, pos.Y / DefaultChunkSize);
         }
 
-
 #if DEBUG
         private void DEBUG_DrawActiveChunks()
         {
@@ -130,7 +145,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (_chunks[x, y].ShouldUpdate)
                     {
-                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new(_chunks[x, y].Position.X, _chunks[x, y].Position.Y), null, Color.Red, 0f, Vector2.Zero, DefaultChunkSize * PWorld.GridScale, SpriteEffects.None, 0f);
+                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new(_chunks[x, y].Position.X, _chunks[x, y].Position.Y), null, new(255, 0, 0, 35), 0f, Vector2.Zero, DefaultChunkSize * PWorld.GridScale, SpriteEffects.None, 0f);
                     }
                 }
             }

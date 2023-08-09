@@ -3,6 +3,7 @@
 using System;
 
 using PixelDust.Core.Worlding;
+using System.Collections.Generic;
 
 namespace PixelDust.Core.Elements
 {
@@ -65,6 +66,46 @@ namespace PixelDust.Core.Elements
         public bool IsEmpty(Vector2 pos)
         {
             return _world.IsEmpty(pos);
+        }
+
+        public bool TryGetNeighbors(Vector2 pos, out (Vector2, PWorldSlot)[] neighbors)
+        {
+            List<(Vector2, PWorldSlot)> slotsFound = new();
+            neighbors = Array.Empty<(Vector2, PWorldSlot)>();
+
+            if (!_world.InsideTheWorldDimensions(pos))
+                return false;
+
+            Vector2[] neighborsPositions = new Vector2[]
+            {
+                // Top
+                new(pos.X, pos.Y - 1),
+                new(pos.X + 1, pos.Y - 1),
+                new(pos.X - 1, pos.Y - 1),
+
+                // Center
+                new(pos.X + 1, pos.Y),
+                new(pos.X - 1, pos.Y),
+
+                // Down
+                new(pos.X, pos.Y + 1),
+                new(pos.X + 1, pos.Y + 1),
+                new(pos.X - 1, pos.Y + 1),
+            };
+
+            foreach (Vector2 neighborPos in neighborsPositions)
+            {
+                if (TryGetSlot(neighborPos, out PWorldSlot value))
+                    slotsFound.Add((neighborPos, value));
+            }
+
+            if (slotsFound.Count > 0)
+            {
+                neighbors = slotsFound.ToArray();
+                return true;
+            }
+
+            return false;
         }
     }
 }

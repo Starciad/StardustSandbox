@@ -4,17 +4,19 @@ using Microsoft.Xna.Framework.Graphics;
 using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
 
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System;
 
 namespace PixelDust.Core.Worlding
 {
     public sealed partial class PWorld
     {
-        public const int GridScale = 13;
+        public const int GridScale = 12;
 
-        private readonly PWorldThreadingComponent _threading = new();
-        private readonly PWorldChunkingComponent _chunking = new();
+        private readonly PWorldComponent[] _components = new PWorldComponent[]
+        {
+            new PWorldChunkingComponent(),
+            new PWorldThreadingComponent(),
+        };
 
         public PWorldStates States { get; private set; }
         public PWorldInfos Infos { get; private set; }
@@ -33,22 +35,28 @@ namespace PixelDust.Core.Worlding
 
         public void Initialize()
         {
-            _chunking.Initialize(this);
-            _threading.Initialize(this);
+            foreach (PWorldComponent component in _components)
+            {
+                component.Initialize(this);
+            }
         }
 
         public void Update()
         {
             if (States.IsPaused || States.IsUnloaded) return;
-            _chunking.Update();
-            _threading.Update();
+            foreach (PWorldComponent component in _components)
+            {
+                component.Update();
+            }
         }
 
         public void Draw()
         {
-            _chunking.Draw();
-            _threading.Draw();
             DrawElements();
+            foreach (PWorldComponent component in _components)
+            {
+                component.Draw();
+            }
         }
 
         private void DrawElements()
@@ -63,7 +71,7 @@ namespace PixelDust.Core.Worlding
                         PTextures.Pixel,
                         new Vector2(x * GridScale, y * GridScale),
                         null,
-                        Slots[x, y].Color,
+                        Slots[x, y].Infos.Color,
                         0f,
                         Vector2.Zero,
                         GridScale,
@@ -72,6 +80,11 @@ namespace PixelDust.Core.Worlding
                     );
                 }
             }
+        }
+
+        internal T GetComponent<T>() where T : PWorldComponent
+        {
+            return (T)Array.Find(_components, x => x.GetType() == typeof(T));
         }
     }
 }

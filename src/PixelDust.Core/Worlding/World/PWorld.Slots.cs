@@ -12,13 +12,16 @@ namespace PixelDust.Core.Worlding
         }
         public bool TryInstantiate(Vector2 pos, uint id)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                !IsEmpty(pos))
+            return TryInstantiate(pos, PElementManager.GetElementById<PElement>(id));
+        }
+        public bool TryInstantiate(Vector2 pos, PElement value)
+        {
+            if (!InsideTheWorldDimensions(pos) || !IsEmpty(pos))
                 return false;
 
             TryNotifyChunk(pos);
 
-            Slots[(int)pos.X, (int)pos.Y] = new(id);
+            Slots[(int)pos.X, (int)pos.Y] = new(value);
             return true;
         }
 
@@ -49,7 +52,9 @@ namespace PixelDust.Core.Worlding
             TryNotifyChunk(oldPos);
             TryNotifyChunk(newPos);
 
-            (Slots[(int)newPos.X, (int)newPos.Y], Slots[(int)oldPos.X, (int)oldPos.Y]) = (Slots[(int)oldPos.X, (int)oldPos.Y], Slots[(int)newPos.X, (int)newPos.Y]);
+            (Slots[(int)newPos.X, (int)newPos.Y], Slots[(int)oldPos.X, (int)oldPos.Y]) =
+            (Slots[(int)oldPos.X, (int)oldPos.Y], Slots[(int)newPos.X, (int)newPos.Y]);
+
             return true;
         }
 
@@ -80,18 +85,17 @@ namespace PixelDust.Core.Worlding
 
         public bool TryGetSlot(Vector2 pos, out PWorldSlot slot)
         {
-            slot = default;
+            slot = null;
             if (!InsideTheWorldDimensions(pos))
                 return false;
 
             slot = Slots[(int)pos.X, (int)pos.Y];
-            return true;
+            return slot != null;
         }
 
         public bool IsEmpty(Vector2 pos)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                Slots[(int)pos.X, (int)pos.Y] == null)
+            if (!InsideTheWorldDimensions(pos) || Slots[(int)pos.X, (int)pos.Y] == null)
                 return true;
             
             return false;
