@@ -15,7 +15,6 @@ namespace PixelDust.Game.Scenes
         protected override void OnUpdate() { }
         protected override void OnDraw()
         {
-            InputManager.DebugString.AppendLine($"Count: {PWorld.Infos.TotalElements}");
             PGraphics.SpriteBatch.DrawString(PFonts.Arial, InputManager.DebugString, Vector2.Zero, Color.White);
         }
     }

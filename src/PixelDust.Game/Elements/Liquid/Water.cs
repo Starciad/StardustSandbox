@@ -24,12 +24,14 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Element is Dirt)
                 {
+                    Context.TryDestroy(Context.Position);
                     Context.TryReplace<Mud>(neighbor.Item1);
                     return;
                 }
 
                 if (neighbor.Item2.Element is Stone)
                 {
+                    Context.TryDestroy(Context.Position);
                     Context.TryReplace<Sand>(neighbor.Item1);
                     return;
                 }

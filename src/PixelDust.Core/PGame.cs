@@ -27,8 +27,8 @@ namespace PixelDust.Core
             PGraphics.Build(new(this)
             {
                 IsFullScreen = false,
-                PreferredBackBufferWidth = PScreen.DefaultWidth,
-                PreferredBackBufferHeight = PScreen.DefaultHeight,
+                PreferredBackBufferWidth = (int)PScreen.Resolutions[3].X,
+                PreferredBackBufferHeight = (int)PScreen.Resolutions[3].Y,
                 SynchronizeWithVerticalRetrace = false,
             });
             PContent.Build(Content);
@@ -53,6 +53,8 @@ namespace PixelDust.Core
         protected override void Initialize()
         {
             PManagerPool.Initialize();
+            PCamera.Initialize();
+            PScreen.Initialize();
             OnAwake();
 
             base.Initialize();
@@ -64,6 +66,7 @@ namespace PixelDust.Core
             PTextures.Load();
             PFonts.Load();
             PElementManager.Load();
+            PEffects.Load();
 
             OnStartup();
         }
@@ -75,10 +78,20 @@ namespace PixelDust.Core
 
         protected override void Update(GameTime gameTime)
         {
-            PInput.Update();
-            PManagerPool.Update();
-            PSceneManager.Update();
+            // Time
+            PTime.Update(gameTime);
 
+            // Shaders
+            PEffects.Update();
+
+            // Inputs
+            PInput.Update();
+
+            // Managers
+            PManagerPool.Update();
+
+            // Scenes & World
+            PSceneManager.Update();
             PWorld.Update();
 
             base.Update(gameTime);
@@ -86,15 +99,24 @@ namespace PixelDust.Core
 
         protected override void Draw(GameTime gameTime)
         {
-            float scale = 1f / (PScreen.DefaultWidth / PGraphics.Viewport.Height);
+            PTime.Draw(gameTime);
+            PScreen.BeginDraw();
 
             // ==================== //
             // RENDER TARGET
             PGraphics.GraphicsDevice.SetRenderTarget(PGraphics.DefaultRenderTarget);
             PGraphics.GraphicsDevice.Clear(Color.Black);
 
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred);
-            PWorld.Draw();
+            // World
+            if (PWorld.States.IsActive)
+            {
+                PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PCamera.GetMatrix());
+                PWorld.Draw();
+                PGraphics.SpriteBatch.End();
+            }
+
+            // Scene
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PCamera.GetMatrix());
             PSceneManager.Draw();
             PGraphics.SpriteBatch.End();
 
@@ -104,11 +126,17 @@ namespace PixelDust.Core
             PGraphics.GraphicsDevice.SetRenderTarget(null);
             PGraphics.GraphicsDevice.Clear(Color.Black);
 
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred);
-            PGraphics.SpriteBatch.Draw(PGraphics.DefaultRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, PEffects.Effects["Global"], PCamera.GetMatrix());
+            PGraphics.SpriteBatch.Draw(PGraphics.DefaultRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             PGraphics.SpriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        protected override void UnloadContent()
+        {
+            PWorld.Unload();
+            PTextures.Unload();
         }
 
         /// <summary>

@@ -48,6 +48,7 @@ namespace PixelDust.Game.Managers
         {
             Reset();
             MouseUpdate();
+            KeyboardUpdate();
             PlaceElement();
 
             debugString = new();
@@ -76,7 +77,10 @@ namespace PixelDust.Game.Managers
                     break;
                 }
             }
+        }
 
+        private void KeyboardUpdate()
+        {
             // Scroll size
             if (PInput.KeyboardState.IsKeyDown(Keys.Add))
             {
@@ -89,6 +93,19 @@ namespace PixelDust.Game.Managers
             }
 
             size = Math.Clamp(size, 0, 10);
+
+            // Pause
+            if (PInput.KeyboardState.IsKeyDown(Keys.Space))
+            {
+                if (PWorld.States.IsPaused) PWorld.Resume();
+                else PWorld.Pause();
+            }
+
+            // Quit
+            if (PInput.KeyboardState.IsKeyDown(Keys.Escape))
+            {
+                PEngine.Stop();
+            }
         }
 
         private static void PlaceElement()
@@ -96,7 +113,7 @@ namespace PixelDust.Game.Managers
             if (elementSelected == null)
                 return;
 
-            Vector2 mousePos = PInput.MouseState.Position.ToVector2() / PWorld.GridScale;
+            Vector2 mousePos = PInput.MouseState.Position.ToVector2() / PWorld.Scale;
 
             if (!PWorld.InsideTheWorldDimensions(mousePos))
                 return;

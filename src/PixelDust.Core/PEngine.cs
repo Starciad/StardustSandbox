@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Threading;
 
 namespace PixelDust.Core
 {
@@ -7,6 +9,8 @@ namespace PixelDust.Core
     /// </summary>
     public static class PEngine
     {
+        public static Assembly Assembly { get; private set; }
+
         /// <summary>
         /// Current instance of the game being managed and observed by the Engine.
         /// </summary>
@@ -20,6 +24,7 @@ namespace PixelDust.Core
         /// </remarks>
         public static CancellationToken CancellationToken => _cancellationTokenSource.Token;
 
+        private static Assembly _assembly;
         private static PGame _instance;
         private static readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -30,6 +35,7 @@ namespace PixelDust.Core
         public static void SetGameInstance<T>() where T : PGame, new()
         {
             _instance = new T();
+            _assembly = typeof(PEngine).Assembly;
         }
 
         /// <summary>
