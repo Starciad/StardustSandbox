@@ -9,6 +9,7 @@ using PixelDust.Core.Scenes;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
 using PixelDust.Core.Worlding;
+using PixelDust.Core.GUI;
 
 namespace PixelDust.Core
 {
@@ -62,12 +63,14 @@ namespace PixelDust.Core
 
         protected override void LoadContent()
         {
+            // Assets
             PGraphics.Load();
             PTextures.Load();
             PFonts.Load();
             PElementManager.Load();
             PEffects.Load();
 
+            PGUIEngine.Initialize();
             OnStartup();
         }
 
@@ -90,6 +93,9 @@ namespace PixelDust.Core
             // Managers
             PManagerPool.Update();
 
+            // GUI
+            PGUIEngine.Update();
+
             // Scenes & World
             PSceneManager.Update();
             PWorld.Update();
@@ -107,7 +113,7 @@ namespace PixelDust.Core
             PGraphics.GraphicsDevice.SetRenderTarget(PGraphics.DefaultRenderTarget);
             PGraphics.GraphicsDevice.Clear(Color.Black);
 
-            // World
+            // WORLD
             if (PWorld.States.IsActive)
             {
                 PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PCamera.GetMatrix());
@@ -115,10 +121,13 @@ namespace PixelDust.Core
                 PGraphics.SpriteBatch.End();
             }
 
-            // Scene
+            // SCENE
             PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PCamera.GetMatrix());
             PSceneManager.Draw();
             PGraphics.SpriteBatch.End();
+
+            // GUI
+            PGUIEngine.Draw();
 
             // ==================== //
             // RENDER (RENDER TARGETS)

@@ -3,10 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace PixelDust.Core.Engine
 {
-    /// <summary>
-    /// Static class responsible for managing, storing and configuring game textures.
-    /// </summary>
-    internal static class PTextures
+    public static class PTextures
     {
         internal static Texture2D Pixel { get; private set; }
 

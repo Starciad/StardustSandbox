@@ -10,6 +10,7 @@
 		<TargetFramework>net7.0-windows</TargetFramework>
 		<RollForward>Major</RollForward>
 		<AssemblyName>PixelDust</AssemblyName>
+		<DefineConstants>WindowsDX</DefineConstants>
 	</PropertyGroup>
 	
 	<!-- SYSTEM -->
@@ -22,6 +23,8 @@
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
+		<PackageReference Include="MLEM" Version="6.2.0" />
+		<PackageReference Include="MLEM.Ui" Version="6.2.0" />
 	</ItemGroup>
 
 	<!-- PROJECTS -->

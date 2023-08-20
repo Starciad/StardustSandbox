@@ -28,7 +28,7 @@ namespace PixelDust.Core.Engine
         internal static void Load()
         {
             _spriteBatch = new(GraphicsDevice);
-            _renderTarget = new(GraphicsDevice, PScreen.DefaultWidth, PScreen.DefaultHeight, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
+            _renderTarget = new(GraphicsDevice, (int)PScreen.DefaultResolution.X, (int)PScreen.DefaultResolution.Y, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents);
         }
     }
 }

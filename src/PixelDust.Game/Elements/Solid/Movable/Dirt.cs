@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Elements;
+using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
@@ -12,6 +14,8 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Dirt";
             Description = string.Empty;
             Color = new Color(79, 58, 43);
+
+            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_1"));
         }
     }
 }

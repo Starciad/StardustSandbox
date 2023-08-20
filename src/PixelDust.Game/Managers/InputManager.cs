@@ -42,6 +42,8 @@ namespace PixelDust.Game.Managers
             [Keys.D6] = PElementManager.GetElementByType<Lava>(),
             [Keys.D7] = PElementManager.GetElementByType<Acid>(),
             [Keys.D8] = PElementManager.GetElementByType<Wall>(),
+            [Keys.D9] = PElementManager.GetElementByType<Corruption>(),
+            [Keys.D0] = PElementManager.GetElementByType<Ice>(),
         };
 
         protected override void OnUpdate()

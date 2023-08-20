@@ -1,6 +1,8 @@
-﻿using PixelDust.Core.Elements;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-using Microsoft.Xna.Framework;
+using PixelDust.Core.Elements;
+using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
@@ -12,6 +14,8 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Wall";
             Description = string.Empty;
             Color = Color.Gray;
+
+            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_13"));
         }
     }
 }

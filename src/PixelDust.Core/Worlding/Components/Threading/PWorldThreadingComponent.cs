@@ -42,9 +42,6 @@ namespace PixelDust.Core.Worlding
 
         protected override void OnUpdate()
         {
-            if (PWorld.GetActiveChunksCount() == 0)
-                return;
-
             // Odds
             Task odds = Task.Run(() =>
             {
@@ -77,7 +74,7 @@ namespace PixelDust.Core.Worlding
         }
 
         // THREAD
-        private void ExecuteThreadColumn(PWorldThread threadInfo)
+        private static void ExecuteThreadColumn(PWorldThread threadInfo)
         {
             List<Vector2> _capturedSlots = null;
             uint totalCapturedElements = 0;
@@ -88,8 +85,8 @@ namespace PixelDust.Core.Worlding
                 for (int y = 0; y < PWorld.Infos.Height; y++)
                 {
                     Vector2 pos = new(x + threadInfo.StartPosition, y);
-                    PWorld.TryGetChunkUpdateState(pos, out bool chunkState);
 
+                    PWorld.TryGetChunkUpdateState(pos, out bool chunkState);
                     if (PWorld.IsEmpty(pos) || !chunkState) 
                         continue;
 
@@ -109,7 +106,7 @@ namespace PixelDust.Core.Worlding
                 PWorld.ElementContext.Update(slot, pos);
                 if (PWorld.TryGetElement(pos, out PElement value))
                 {
-                    value?.Update(PWorld.ElementContext);
+                    value?.Steps(PWorld.ElementContext);
                 }
             }
 

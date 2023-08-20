@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
+using PixelDust.Core.TileSet;
 
 using System;
 
@@ -10,7 +11,7 @@ namespace PixelDust.Core.Worlding
 {
     public static class PWorld
     {
-        public const int Scale = 8;
+        public const int Scale = 16;
 
         private static readonly PWorldComponent[] _components = new PWorldComponent[]
         {
@@ -79,7 +80,16 @@ namespace PixelDust.Core.Worlding
             {
                 for (int y = 0; y < Infos.Height; y++)
                 {
-                    PGraphics.SpriteBatch.Draw(PTextures.Pixel, new Vector2(x * Scale, y * Scale), null, Slots[x, y].Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                    ElementContext.Update(Slots[x, y], new(x, y));
+
+                    if (!IsEmpty(new(x, y)))
+                    {
+                        Slots[x, y].Element.Draw(PGraphics.SpriteBatch);
+                    }
+                    else
+                    {
+                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new Vector2(x * Scale, y * Scale), null, Color.Black, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                    }
                 }
             }
         }
@@ -216,6 +226,7 @@ namespace PixelDust.Core.Worlding
 
             Infos.SetWidth(width);
             Infos.SetHeight(height);
+
             Slots = new PWorldSlot[width, height];
         }
         public static void Pause()

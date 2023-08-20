@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace PixelDust.Core.Engine
 {
     /// <summary>
@@ -8,11 +10,8 @@ namespace PixelDust.Core.Engine
     /// </summary>
     public static class PScreen
     {
-        public static Vector2 DefaultResolution { get; private set; }
+        public static Vector2 DefaultResolution => resolutions[3];
         public static Vector2 CurrentResolution { get; private set; }
-
-        public static int DefaultWidth => 1280;
-        public static int DefaultHeight => 720;
 
         internal static Vector2[] Resolutions => resolutions;
 
@@ -40,10 +39,9 @@ namespace PixelDust.Core.Engine
 
         internal static void Initialize()
         {
-            DefaultResolution = resolutions[3];
-            CurrentResolution = new(PGraphics.GraphicsDeviceManager.PreferredBackBufferWidth, PGraphics.GraphicsDeviceManager.PreferredBackBufferHeight);
-
+            CurrentResolution = DefaultResolution;
             _dirtyMatrix = true;
+
             ApplyResolutionSettings();
         }
 
@@ -53,12 +51,6 @@ namespace PixelDust.Core.Engine
             _FullScreen = fullScreen;
 
             ApplyResolutionSettings();
-        }
-
-        public static void SetDefaultResolution(Vector2 size)
-        {
-            DefaultResolution = size;
-            _dirtyMatrix = true;
         }
 
         private static void ApplyResolutionSettings()
