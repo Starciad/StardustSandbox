@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Engine;
 using PixelDust.Core.TileSet;
 using PixelDust.Core.Worlding;
 

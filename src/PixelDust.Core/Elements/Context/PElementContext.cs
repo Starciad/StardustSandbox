@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using System;
-
 using PixelDust.Core.Worlding;
 
 namespace PixelDust.Core.Elements

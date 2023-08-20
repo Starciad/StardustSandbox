@@ -6,14 +6,10 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
-using PixelDust.Core.Scenes;
 using PixelDust.Core.Managers;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
 using PixelDust.Core.Worlding;
-
-using PixelDust.Game.Scenes;
 using PixelDust.Game.Elements.Liquid;
 using PixelDust.Game.Elements.Solid.Immovable;
 using PixelDust.Game.Elements.Solid.Movable;

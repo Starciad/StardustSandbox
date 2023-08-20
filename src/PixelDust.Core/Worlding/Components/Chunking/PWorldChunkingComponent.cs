@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine;
 
-using System;
-
 namespace PixelDust.Core.Worlding
 {
     internal sealed class PWorldChunkingComponent : PWorldComponent

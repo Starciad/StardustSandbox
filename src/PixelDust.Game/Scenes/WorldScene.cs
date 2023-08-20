@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
-using PixelDust.Core.GUI;
 using PixelDust.Core.Scenes;
-using PixelDust.Core.Worlding;
-
-using PixelDust.Game.GUI;
 using PixelDust.Game.Managers;
 
 namespace PixelDust.Game.Scenes

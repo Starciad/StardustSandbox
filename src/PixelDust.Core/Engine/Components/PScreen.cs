@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace PixelDust.Core.Engine
 {
     /// <summary>

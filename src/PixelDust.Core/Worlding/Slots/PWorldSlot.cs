@@ -31,19 +31,19 @@ namespace PixelDust.Core.Worlding
         internal void Instantiate(PElement value)
         {
             // id
-            this.id = value.Id;
+            id = value.Id;
 
             // colors
             Color rColor = value.Color;
             if (value.HasColorVariation)
                 rColor = rColor.Vary(8);
 
-            this.cR = rColor.R;
-            this.cG = rColor.G;
-            this.cB = rColor.B;
+            cR = rColor.R;
+            cG = rColor.G;
+            cB = rColor.B;
 
             // temperature
-            this.temperature = value.DefaultTemperature;
+            temperature = value.DefaultTemperature;
         }
 
         public void Copy(PWorldSlot value)

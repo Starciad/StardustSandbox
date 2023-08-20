@@ -6,7 +6,6 @@ using PixelDust.Core.Engine;
 using PixelDust.Core.Worlding;
 
 using PixelDust.Game.Elements.Gases;
-using PixelDust.Game.Elements.Solid.Immovable;
 using PixelDust.Game.Elements.Solid.Movable;
 
 namespace PixelDust.Game.Elements.Liquid
