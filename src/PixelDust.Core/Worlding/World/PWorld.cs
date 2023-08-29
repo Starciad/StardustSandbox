@@ -5,35 +5,35 @@ using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
 
 using System;
+using System.Collections.Generic;
 
 namespace PixelDust.Core.Worlding
 {
     public static class PWorld
     {
-        public const int Scale = 16;
+        public const int Scale = 32;
 
+        public static PWorldCamera Camera => _camera;
+
+        public static PWorldStates States { get; private set; } = new();
+        public static PWorldInfos Infos { get; private set; } = new();
+
+        internal static PWorldSlot[,] Slots { get; private set; }
+
+        private static readonly PWorldCamera _camera = new();
         private static readonly PWorldComponent[] _components = new PWorldComponent[]
         {
             new PWorldChunkingComponent(),
             new PWorldThreadingComponent(),
         };
 
-        public static PWorldStates States { get; private set; } = new();
-        public static PWorldInfos Infos { get; private set; } = new();
-
-        internal static PWorldSlot[,] Slots { get; private set; }
-        internal static PElementContext ElementContext { get; private set; }
-
         // Engine
         internal static void Initialize()
         {
-            ElementContext = new();
             Restart();
 
             foreach (PWorldComponent component in _components)
-            {
                 component.Initialize();
-            }
 
             States.IsActive = true;
         }
@@ -62,7 +62,12 @@ namespace PixelDust.Core.Worlding
         // Draw
         internal static void Draw()
         {
-            if (!States.IsActive) return;
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, _camera.GetMatrix());
+            if (!States.IsActive)
+            {
+                PGraphics.SpriteBatch.End();
+                return;
+            }
 
             // System
             DrawSlots();
@@ -72,6 +77,8 @@ namespace PixelDust.Core.Worlding
             {
                 component.Draw();
             }
+
+            PGraphics.SpriteBatch.End();
         }
         private static void DrawSlots()
         {
@@ -79,11 +86,11 @@ namespace PixelDust.Core.Worlding
             {
                 for (int y = 0; y < Infos.Height; y++)
                 {
-                    ElementContext.Update(Slots[x, y], new(x, y));
+                    PElementContext.Update(Slots[x, y], new(x, y));
 
                     if (!IsEmpty(new(x, y)))
                     {
-                        Slots[x, y].Element.Draw(PGraphics.SpriteBatch);
+                        Slots[x, y].Element.Draw();
                     }
                     else
                     {
@@ -115,11 +122,11 @@ namespace PixelDust.Core.Worlding
         }
         public static bool TryInstantiate<T>(Vector2 pos) where T : PElement
         {
-            return TryInstantiate(pos, PElementManager.GetIdOfElement<T>());
+            return TryInstantiate(pos, (uint)PElementsHandler.GetIdOfElementType<T>());
         }
         public static bool TryInstantiate(Vector2 pos, uint id)
         {
-            return TryInstantiate(pos, PElementManager.GetElementById<PElement>(id));
+            return TryInstantiate(pos, PElementsHandler.GetElementById(id));
         }
         public static bool TryInstantiate(Vector2 pos, PElement value)
         {
@@ -176,6 +183,13 @@ namespace PixelDust.Core.Worlding
 
             return true;
         }
+        public static bool TryReplace<T>(Vector2 pos) where T : PElement
+        {
+            if (!TryDestroy(pos)) return false;
+            if (!TryInstantiate<T>(pos)) return false;
+
+            return true;
+        }
         public static bool TryGetElement(Vector2 pos, out PElement value)
         {
             if (!InsideTheWorldDimensions(pos) ||
@@ -196,6 +210,45 @@ namespace PixelDust.Core.Worlding
 
             value = Slots[(int)pos.X, (int)pos.Y];
             return !value.IsEmpty();
+        }
+        public static bool TryGetNeighbors(Vector2 pos, out (Vector2, PWorldSlot)[] neighbors)
+        {
+            List<(Vector2, PWorldSlot)> slotsFound = new();
+            neighbors = Array.Empty<(Vector2, PWorldSlot)>();
+
+            if (!InsideTheWorldDimensions(pos))
+                return false;
+
+            Vector2[] neighborsPositions = new Vector2[]
+            {
+                // Top
+                new(pos.X, pos.Y - 1),
+                new(pos.X + 1, pos.Y - 1),
+                new(pos.X - 1, pos.Y - 1),
+
+                // Center
+                new(pos.X + 1, pos.Y),
+                new(pos.X - 1, pos.Y),
+
+                // Down
+                new(pos.X, pos.Y + 1),
+                new(pos.X + 1, pos.Y + 1),
+                new(pos.X - 1, pos.Y + 1),
+            };
+
+            foreach (Vector2 neighborPos in neighborsPositions)
+            {
+                if (TryGetSlot(neighborPos, out PWorldSlot value))
+                    slotsFound.Add((neighborPos, value));
+            }
+
+            if (slotsFound.Count > 0)
+            {
+                neighbors = slotsFound.ToArray();
+                return true;
+            }
+
+            return false;
         }
         public static bool IsEmpty(Vector2 pos)
         {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 using System;
+using System.Reflection;
 
 namespace PixelDust.Core.Worlding
 {
@@ -39,7 +40,6 @@ namespace PixelDust.Core.Worlding
                 _worldThreadsInfos[TotalWorldThreads - 1].EndPosition += remainingValue;
             }
         }
-
         protected override void OnUpdate()
         {
             // Odds
@@ -85,8 +85,10 @@ namespace PixelDust.Core.Worlding
                 for (int y = 0; y < PWorld.Infos.Height; y++)
                 {
                     Vector2 pos = new(x + threadInfo.StartPosition, y);
-
                     PWorld.TryGetChunkUpdateState(pos, out bool chunkState);
+
+                    UpdateElement(pos, 1);
+
                     if (PWorld.IsEmpty(pos) || !chunkState) 
                         continue;
 
@@ -100,17 +102,32 @@ namespace PixelDust.Core.Worlding
             // Update slots (Steps)
             for (int i = 0; i < totalCapturedElements; i++)
             {
-                Vector2 pos = _capturedSlots[i];
-                PWorld.TryGetSlot(pos, out PWorldSlot slot);
-
-                PWorld.ElementContext.Update(slot, pos);
-                if (PWorld.TryGetElement(pos, out PElement value))
-                {
-                    value?.Steps(PWorld.ElementContext);
-                }
+                UpdateElement(_capturedSlots[i], 2);
             }
 
             _capturedSlots?.Clear();
+        }
+        private static void UpdateElement(Vector2 position, int updateType)
+        {
+            PWorld.TryGetSlot(position, out PWorldSlot slot);
+            PElementContext.Update(slot, position);
+
+            if (PWorld.TryGetElement(position, out PElement value))
+            {
+                switch (updateType)
+                {
+                    case 1:
+                        value?.Update();
+                        break;
+
+                    case 2:
+                        value?.Steps();
+                        break;
+
+                    default:
+                        return;
+                }
+            }
         }
     }
 }

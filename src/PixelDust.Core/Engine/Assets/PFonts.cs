@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
+using System.Collections.Generic;
+
 namespace PixelDust.Core.Engine
 {
     /// <summary>
@@ -7,11 +9,16 @@ namespace PixelDust.Core.Engine
     /// </summary>
     public static class PFonts
     {
-        public static SpriteFont Arial { get; private set; }
+        public static SpriteFont Arial => fonts["Arial"];
 
+        private static readonly Dictionary<string, SpriteFont> fonts = new();
+
+        /// <summary>
+        /// Loads all character fonts that will be used in the project.
+        /// </summary>
         internal static void Load()
         {
-            Arial = PContent.Load<SpriteFont>("Fonts/Arial");
+            fonts.Add("Arial", PContent.Fonts.Load<SpriteFont>("Arial"));
         }
     }
 }

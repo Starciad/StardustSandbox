@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace PixelDust.Core.Engine
 {
@@ -14,6 +15,8 @@ namespace PixelDust.Core.Engine
 
         internal static Viewport Viewport => GraphicsDevice.Viewport;
         internal static RenderTarget2D DefaultRenderTarget => _renderTarget;
+
+        internal static float FPS => 60f;
 
         private static GraphicsDeviceManager _graphicsDeviceManager;
         private static SpriteBatch _spriteBatch;

@@ -5,39 +5,87 @@ using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding;
+using PixelDust.Game.Elements.Solid.Immovable;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
-    [PElementRegister]
+    [PElementRegister(9)]
     internal sealed class Corruption : PMovableSolid
     {
+        private static bool canInfect = false;
+
+        private static int infectionDelay = infectionDelayRange.Start.Value;
+        private static int currentInfectionDelay = 0;
+
+        private static readonly Range infectionDelayRange = new(new(500), new(1000));
+
         protected override void OnSettings()
         {
             Name = "Corruption";
             Description = string.Empty;
-            Color = new Color(34, 26, 44);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_9"));
+            Render = new();
+
+            EnableNeighborsAction = true;
+            Render.AddFrame(new(8, 0));
+        }
+
+        protected override void OnUpdate()
+        {
+            if (canInfect)
+                return;
+
+            if (currentInfectionDelay < infectionDelay)
+            {
+                currentInfectionDelay++;
+            }
+            else
+            {
+                canInfect = true;
+
+                currentInfectionDelay = 0;
+                infectionDelay = PRandom.Range(infectionDelayRange.Start.Value, infectionDelayRange.End.Value);
+            }
         }
 
         protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
         {
-            if (length == 1)
+            if (!canInfect)
+                return;
+
+            List<(Vector2, PWorldSlot)> targets = new();
+            for (int i = 0; i < length; i++)
             {
-                if (neighbors[0].Item2.Element is Corruption)
-                    return;
-
-                Context.TryReplace<Corruption>(neighbors[0].Item1);
+                if (neighbors[i].Item2.Element is not Corruption &&
+                    neighbors[i].Item2.Element is not Wall)
+                {
+                    targets.Add(neighbors[i]);
+                }
             }
-            else
+
+            if (targets.Count == 0)
+                return;
+
+            (Vector2, PWorldSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
+
+            if (target.Item2.Element is PSolid)
             {
-                int index = PRandom.Range(0, length);
-
-                if (neighbors[index].Item2.Element is Corruption)
-                    return;
-
-                Context.TryReplace<Corruption>(neighbors[index].Item1);
+                PElementContext.TryReplace<Corruption>(target.Item1);
             }
+            else if (target.Item2.Element is PLiquid)
+            {
+                PElementContext.TryReplace<Corruption>(target.Item1);
+            }
+            else if (target.Item2.Element is PGas)
+            {
+                PElementContext.TryReplace<Corruption>(target.Item1);
+            }
+
+            canInfect = false;
         }
     }
 }

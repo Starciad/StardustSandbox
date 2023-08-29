@@ -5,16 +5,15 @@ using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Liquid
 {
-    [PElementRegister]
+    [PElementRegister(17)]
     internal class Oil : PLiquid
     {
         protected override void OnSettings()
         {
             Name = "Oil";
             Description = string.Empty;
-            Color = new(236, 162, 55);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_17"));
+            Render = new();
         }
     }
 }

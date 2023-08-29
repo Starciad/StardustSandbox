@@ -5,16 +5,16 @@ using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
-    [PElementRegister]
+    [PElementRegister(12)]
     internal sealed class Metal : PImmovableSolid
     {
         protected override void OnSettings()
         {
             Name = "Metal";
             Description = string.Empty;
-            Color = new(80, 80, 80);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_12"));
+            Render = new();
+            Render.AddFrame(new(2, 1));
         }
     }
 }

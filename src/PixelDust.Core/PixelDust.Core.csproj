@@ -14,7 +14,5 @@
 		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="MLEM" Version="6.2.0" />
-		<PackageReference Include="MLEM.Ui" Version="6.2.0" />
 	</ItemGroup>
 </Project>

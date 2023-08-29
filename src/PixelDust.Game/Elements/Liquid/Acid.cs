@@ -9,16 +9,18 @@ using PixelDust.Game.Elements.Solid.Immovable;
 
 namespace PixelDust.Game.Elements.Liquid
 {
-    [PElementRegister]
+    [PElementRegister(16)]
     internal class Acid : PLiquid
     {
         protected override void OnSettings()
         {
             Name = "Acid";
             Description = string.Empty;
-            Color = new(0, 255, 0);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_16"));
+            Render = new();
+            Render.AddFrame(new(0, 1));
+
+            EnableNeighborsAction = true;
         }
 
         protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
@@ -29,8 +31,8 @@ namespace PixelDust.Game.Elements.Liquid
                     neighbor.Item2.Element is Wall)
                     continue;
 
-                Context.TryDestroy(Context.Position);
-                Context.TryDestroy(neighbor.Item1);
+                PElementContext.TryDestroy(PElementContext.Position);
+                PElementContext.TryDestroy(neighbor.Item1);
             }
         }
     }

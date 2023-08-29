@@ -23,13 +23,27 @@
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
-		<PackageReference Include="MLEM" Version="6.2.0" />
-		<PackageReference Include="MLEM.Ui" Version="6.2.0" />
 	</ItemGroup>
 
 	<!-- PROJECTS -->
 	<ItemGroup>
 	  <ProjectReference Include="..\PixelDust.Core\PixelDust.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Resources\Language\en_US.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>en_US.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Language\en_US.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>en_US.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Content\Sprites\" />
 	</ItemGroup>
 
 	<!-- TARGETS -->

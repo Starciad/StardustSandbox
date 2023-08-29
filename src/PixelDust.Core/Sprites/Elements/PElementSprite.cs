@@ -1,25 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PixelDust.Core.TileSet
+namespace PixelDust.Core.Sprites
 {
-    internal sealed class PTileSprite
+    internal sealed class PElementSprite
     {
         internal Texture2D Texture { get; private set; }
         internal Vector2 Position { get; private set; }
         internal Rectangle Rectangle { get; private set; }
 
-        public PTileSprite(Texture2D texture)
+        public PElementSprite(Texture2D texture, Vector2 position, Rectangle rectangle)
         {
             Texture = texture;
-        }
-
-        internal PTileSprite Build(Vector2 position, Rectangle rectangle)
-        {
             Position = position;
             Rectangle = rectangle;
-
-            return this;
         }
     }
 }

@@ -8,17 +8,19 @@ using PixelDust.Game.Elements.Solid.Movable;
 
 namespace PixelDust.Game.Elements.Liquid
 {
-    [PElementRegister]
+    [PElementRegister(3)]
     internal class Water : PLiquid
     {
         protected override void OnSettings()
         {
             Name = "Water";
             Description = string.Empty;
-            Color = new(35, 137, 218);
+
+            Render = new();
+            Render.AddFrame(new(2, 0));
 
             DefaultDispersionRate = 4;
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_3"));
+            EnableNeighborsAction = true;
         }
 
         protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
@@ -27,15 +29,15 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Element is Dirt)
                 {
-                    Context.TryDestroy(Context.Position);
-                    Context.TryReplace<Mud>(neighbor.Item1);
+                    PElementContext.TryDestroy(PElementContext.Position);
+                    PElementContext.TryReplace<Mud>(neighbor.Item1);
                     return;
                 }
 
                 if (neighbor.Item2.Element is Stone)
                 {
-                    Context.TryDestroy(Context.Position);
-                    Context.TryReplace<Sand>(neighbor.Item1);
+                    PElementContext.TryDestroy(PElementContext.Position);
+                    PElementContext.TryReplace<Sand>(neighbor.Item1);
                     return;
                 }
             }

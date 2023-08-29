@@ -19,7 +19,7 @@ namespace PixelDust.Game
 
         protected override void OnStartup()
         {
-            PSceneManager.Load<WorldScene>();
+            PScenesHandler.Load<WorldScene>();
         }
     }
 }

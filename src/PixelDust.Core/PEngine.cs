@@ -1,26 +1,27 @@
 ﻿using System.Reflection;
 using System.Threading;
+using System;
 
 namespace PixelDust.Core
 {
     /// <summary>
-    /// Static class that manages most of the aspects that govern the PixelDust game, with general functionalities of status, performances, information and higher level actions.
+    /// Static class of PixelDust's main engine, responsible for controlling and storing important states of the game, in addition to having methods for general manipulation of the game's execution.
     /// </summary>
     public static class PEngine
     {
-        public static Assembly Assembly { get; private set; }
+        /// <summary>
+        /// Current project assembly where the <see cref="PEngine"/> class is located.
+        /// </summary>
+        public static Assembly Assembly => _assembly;
 
         /// <summary>
-        /// Current instance of the game being managed and observed by the Engine.
+        /// Main instance of the <see cref="PGame"/> class that is being executed and manipulated by the engine.
         /// </summary>
         public static PGame Instance => _instance;
 
         /// <summary>
-        /// Current game state token.
+        /// Responsible for containing information related to the current running state of the game. If game stop is requested, the cancellation token will be activated.
         /// </summary>
-        /// <remarks>
-        /// Indicates if the game is still running, otherwise the cancellation will be activated.
-        /// </remarks>
         public static CancellationToken CancellationToken => _cancellationTokenSource.Token;
 
         private static Assembly _assembly;
@@ -28,9 +29,9 @@ namespace PixelDust.Core
         private static readonly CancellationTokenSource _cancellationTokenSource = new();
 
         /// <summary>
-        /// Configures, based on a generic type, the instance that will be used by the engine to create and run the base game class.
+        /// Configure (based on a generic type that inherits from the <see cref="PGame"/> class) the class that will be instantiated and manipulated by <see cref="PEngine"/> throughout the life cycle of the game process.
         /// </summary>
-        /// <typeparam name="T">The generic game type that will be used by the engine.</typeparam>
+        /// <typeparam name="T">Generic type that inherits from the <see cref="PGame"/> class that will be used by the <see cref="PEngine"/>.</typeparam>
         public static void SetGameInstance<T>() where T : PGame, new()
         {
             _instance = new T();
@@ -38,24 +39,30 @@ namespace PixelDust.Core
         }
 
         /// <summary>
-        /// Initializes the game instance.
+        /// Makes a request for the engine to start the instance defined and created in <see cref="SetGameInstance{T}"/> method.
         /// </summary>
-        /// <remarks>
-        /// Before starting the instance, it is necessary to configure it with the <see cref="SetGameInstance{T}"/>.
-        /// </remarks>
+        /// <exception cref="InvalidOperationException" />
         public static void Start()
         {
-            _instance?.Run();
+            if (_instance == null)
+            {
+                throw new InvalidOperationException("The Start method was invoked correctly, however it was not possible to find any defined instance to execute. Did you remember to call the SetGameInstance<T>() method before executing Start()?");
+            }
+
+            _instance.Run();
         }
 
         /// <summary>
-        /// Halts the game and starts the full game stop process.
+        /// Makes a request to close the currently running game instance.
         /// </summary>
-        /// <remarks>
-        /// Use it when you need to close the game.
-        /// </remarks>
+        /// <exception cref="InvalidOperationException" />
         public static void Stop()
         {
+            if (_instance == null || !_instance.IsActive)
+            {
+                throw new InvalidOperationException("A game stop request was initiated, but no instance was created or executed to complete this action.");
+            }
+
             _cancellationTokenSource.Cancel();
             _instance.Exit();
         }

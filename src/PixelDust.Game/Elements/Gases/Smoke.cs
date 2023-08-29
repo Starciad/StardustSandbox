@@ -5,16 +5,16 @@ using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Gases
 {
-    [PElementRegister]
+    [PElementRegister(18)]
     internal class Smoke : PGas
     {
         protected override void OnSettings()
         {
             Name = "Smoke";
             Description = string.Empty;
-            Color = new(60, 61, 62);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_18"));
+            Render = new();
+            Render.AddFrame(new(9, 1));
         }
     }
 }

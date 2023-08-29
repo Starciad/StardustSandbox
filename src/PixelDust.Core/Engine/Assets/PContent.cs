@@ -1,5 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
+using System;
+using System.IO;
+using System.Collections.Generic;
+
 namespace PixelDust.Core.Engine
 {
     /// <summary>
@@ -7,22 +11,52 @@ namespace PixelDust.Core.Engine
     /// </summary>
     public static class PContent
     {
-        private static ContentManager _contentManager;
+        /// <summary>
+        /// Sprite Directory Content Manager.
+        /// </summary>
+        public static ContentManager Sprites => contentManagers["Sprites"];
 
-        internal static void Build(ContentManager contentManager)
+        /// <summary>
+        /// Effects Directory Content Manager.
+        /// </summary>
+        public static ContentManager Effects => contentManagers["Effects"];
+
+        /// <summary>
+        /// Fonts Directory Content Manager.
+        /// </summary>
+        public static ContentManager Fonts => contentManagers["Fonts"];
+
+        /// <summary>
+        /// Musics Directory Content Manager.
+        /// </summary>
+        public static ContentManager Musics => contentManagers["Musics"];
+
+        /// <summary>
+        /// Sounds Directory Content Manager.
+        /// </summary>
+        public static ContentManager Sounds => contentManagers["Sounds"];
+
+        private static readonly Dictionary<string, ContentManager> contentManagers = new();
+        private static readonly string[] contentDirectories = new string[] { "Sprites", "Effects", "Fonts", "Musics", "Sounds" };
+
+        /// <summary>
+        /// Builds and prepares all the project's internal specialized content managers.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider to be used.</param>
+        /// <param name="rootDirectory">The root path of the content directory.</param>
+        internal static void Build(IServiceProvider serviceProvider, string rootDirectory)
         {
-            _contentManager = contentManager;
+            foreach (string directory in contentDirectories)
+                contentManagers.Add(directory, new(serviceProvider, Path.Combine(rootDirectory, directory)));
         }
 
         /// <summary>
-        /// Loads a desired file based on a generic type and the path where it is located.
+        /// Unloads all instanced content managers from memory.
         /// </summary>
-        /// <typeparam name="T">Type of file to be uploaded.</typeparam>
-        /// <param name="assetName">Relative path where the file is in the project.</param>
-        /// <returns>Asset requested.</returns>
-        public static T Load<T>(string assetName)
+        internal static void Unload()
         {
-            return _contentManager.Load<T>(assetName);
+            foreach (ContentManager contentManager in contentManagers.Values)
+                contentManager.Dispose();
         }
     }
 }

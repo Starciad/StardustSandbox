@@ -6,16 +6,24 @@ using System.Collections.Generic;
 
 namespace PixelDust.Core
 {
+    /// <summary>
+    /// Static class responsible for managing, storing and configuring game effects.
+    /// </summary>
     public static class PEffects
     {
-        public static IReadOnlyDictionary<string, Effect> Effects => _effects;
         private static readonly Dictionary<string, Effect> _effects = new();
 
+        /// <summary>
+        /// Loads all the effects that will be used in the project.
+        /// </summary>
         internal static void Load()
         {
-            _effects.Add("Global", PContent.Load<Effect>("Effects/Global"));
+            _effects.Add("Global", PContent.Effects.Load<Effect>("Global"));
         }
 
+        /// <summary>
+        /// Update and configure variables and global constant parameters internal to each loaded effect.
+        /// </summary>
         internal static void Update()
         {
             // Setting global values

@@ -9,53 +9,57 @@ using PixelDust.Core.Scenes;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
 using PixelDust.Core.Worlding;
-using PixelDust.Core.GUI;
 
 namespace PixelDust.Core
 {
     /// <summary>
-    /// Base game class used as a reference by the engine to run PixelDust.
+    /// <see cref="PGame"/> is a PixelDust game base class that is configured and run as a core component by the <see cref="PEngine"/> class. In it, it is possible to find all the relevant information about the processing of the game, among other forms of configurations, executions and processing.
     /// </summary>
+    /// <remarks>
+    /// <see cref="PGame"/> is a wrapper of MonoGame's <see cref="Game"/> class that abstracts several functions and automates some things to favor the execution of the PixelDust game, with the creation of managers, definition of textures and fonts, among others.
+    /// </remarks>
     public abstract class PGame : Game
     {
         /// <summary>
-        /// Assembly of the current class that is inheriting <see cref="PGame"/>.
+        /// Assembly that references the project that the <see cref="PGame"/> class is part of.
         /// </summary>
-        public Assembly Assembly { get; private set; }
+        public Assembly Assembly => _assembly;
 
+        private readonly Assembly _assembly;
+
+        /// <summary>
+        /// It builds in a standardized and automated way the basic components for the instantiation and execution of <see cref="PGame"/>.
+        /// </summary>
         public PGame()
         {
             PGraphics.Build(new(this)
             {
                 IsFullScreen = false,
-                PreferredBackBufferWidth = (int)PScreen.Resolutions[3].X,
-                PreferredBackBufferHeight = (int)PScreen.Resolutions[3].Y,
+                PreferredBackBufferWidth = (int)PScreen.DefaultResolution.X,
+                PreferredBackBufferHeight = (int)PScreen.DefaultResolution.Y,
                 SynchronizeWithVerticalRetrace = false,
             });
-            PContent.Build(Content);
 
             // Content
-            Content.RootDirectory = "Content";
+            PContent.Build(Services, "Content");
 
             // Assembly
-            Assembly = GetType().Assembly;
+            _assembly = GetType().Assembly;
 
             // Window
             Window.Title = "PixelDust - v0.0.1";
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = false;
             Window.IsBorderless = false;
 
             // Settings
             IsMouseVisible = true;
             IsFixedTimeStep = true;
-            TargetElapsedTime = TimeSpan.FromSeconds(1f / 60f);
+            TargetElapsedTime = TimeSpan.FromSeconds(1f / PGraphics.FPS);
         }
 
         protected override void Initialize()
         {
-            PManagerPool.Initialize();
-            PCamera.Initialize();
-            PScreen.Initialize();
+            PManagersHandler.Initialize();
             OnAwake();
 
             base.Initialize();
@@ -67,18 +71,15 @@ namespace PixelDust.Core
             PGraphics.Load();
             PTextures.Load();
             PFonts.Load();
-            PElementManager.Load();
+            PElementsHandler.Load();
             PEffects.Load();
 
-            PGUIEngine.Initialize();
             OnStartup();
         }
-
         protected override void BeginRun()
         {
             PWorld.Initialize();
         }
-
         protected override void Update(GameTime gameTime)
         {
             // Time
@@ -91,22 +92,17 @@ namespace PixelDust.Core
             PInput.Update();
 
             // Managers
-            PManagerPool.Update();
-
-            // GUI
-            PGUIEngine.Update();
+            PManagersHandler.Update();
 
             // Scenes & World
-            PSceneManager.Update();
+            PScenesHandler.Update();
             PWorld.Update();
 
             base.Update(gameTime);
         }
-
         protected override void Draw(GameTime gameTime)
         {
             PTime.Draw(gameTime);
-            PScreen.BeginDraw();
 
             // ==================== //
             // RENDER TARGET
@@ -115,19 +111,12 @@ namespace PixelDust.Core
 
             // WORLD
             if (PWorld.States.IsActive)
-            {
-                PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PCamera.GetMatrix());
                 PWorld.Draw();
-                PGraphics.SpriteBatch.End();
-            }
 
             // SCENE
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PCamera.GetMatrix());
-            PSceneManager.Draw();
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            PScenesHandler.Draw();
             PGraphics.SpriteBatch.End();
-
-            // GUI
-            PGUIEngine.Draw();
 
             // ==================== //
             // RENDER (RENDER TARGETS)
@@ -135,26 +124,26 @@ namespace PixelDust.Core
             PGraphics.GraphicsDevice.SetRenderTarget(null);
             PGraphics.GraphicsDevice.Clear(Color.Black);
 
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, PEffects.Effects["Global"], PCamera.GetMatrix());
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             PGraphics.SpriteBatch.Draw(PGraphics.DefaultRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             PGraphics.SpriteBatch.End();
 
             base.Draw(gameTime);
         }
-
         protected override void UnloadContent()
         {
+            PContent.Unload();
             PWorld.Unload();
             PTextures.Unload();
         }
 
         /// <summary>
-        /// Invoked during program startup, after building sensitive aspects of the engine.
+        /// Called before the <see cref="OnStartup"/> method is executed during game initialization.
         /// </summary>
         protected virtual void OnAwake() { return; }
 
         /// <summary>
-        /// Invoked right after engine initialization and main game asset loading. Called before the game's first frame refresh.
+        /// Called after the <see cref="OnAwake"/> method, it is executed after all engine settings and before the first game update.
         /// </summary>
         protected virtual void OnStartup() { return; }
     }

@@ -1,7 +1,7 @@
 ﻿namespace PixelDust.Core.Elements
 {
-    public abstract class PSolid : PElement
-    {
-
-    }
+    /// <summary>
+    /// Base class for defining solid elements in PixelDust.
+    /// </summary>
+    public abstract class PSolid : PElement { }
 }

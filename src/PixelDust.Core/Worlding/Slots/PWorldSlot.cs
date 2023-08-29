@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using PixelDust.Core.Elements;
-using PixelDust.Core.Extensions;
+﻿using PixelDust.Core.Elements;
 
 using System.Runtime.InteropServices;
 
@@ -10,18 +7,14 @@ namespace PixelDust.Core.Worlding
     [StructLayout(LayoutKind.Sequential)]
     public struct PWorldSlot
     {
-        public readonly PElement Element => PElementManager.GetElementById<PElement>(id);
-        public readonly Color Color => new(cR, cG, cB);
+        public readonly PElement Element => PElementsHandler.GetElementById<PElement>(id);
 
         // Header
         private byte id;
-        private byte cR, cG, cB;
-        private short temperature;
-        private short density;
 
         internal PWorldSlot(byte id)
         {
-            Instantiate(PElementManager.GetElementById<PElement>(id));
+            Instantiate(PElementsHandler.GetElementById<PElement>(id));
         }
         internal PWorldSlot(PElement value)
         {
@@ -32,18 +25,6 @@ namespace PixelDust.Core.Worlding
         {
             // id
             id = value.Id;
-
-            // colors
-            Color rColor = value.Color;
-            if (value.HasColorVariation)
-                rColor = rColor.Vary(8);
-
-            cR = rColor.R;
-            cG = rColor.G;
-            cB = rColor.B;
-
-            // temperature
-            temperature = value.DefaultTemperature;
         }
 
         public void Copy(PWorldSlot value)
@@ -53,7 +34,6 @@ namespace PixelDust.Core.Worlding
         public void Destroy()
         {
             id = 0;
-            cR = 0; cG = 0; cB = 0;
         }
 
         public readonly bool IsEmpty()

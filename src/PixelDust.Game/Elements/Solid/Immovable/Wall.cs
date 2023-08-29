@@ -6,16 +6,16 @@ using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
-    [PElementRegister]
+    [PElementRegister(13)]
     internal sealed class Wall : PImmovableSolid
     {
         protected override void OnSettings()
         {
             Name = "Wall";
             Description = string.Empty;
-            Color = Color.Gray;
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_13"));
+            Render = new();
+            Render.AddFrame(new(3, 1));
         }
     }
 }

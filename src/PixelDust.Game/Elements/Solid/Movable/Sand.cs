@@ -5,16 +5,16 @@ using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
-    [PElementRegister]
+    [PElementRegister(5)]
     internal sealed class Sand : PMovableSolid
     {
         protected override void OnSettings()
         {
             Name = "Sand";
             Description = string.Empty;
-            Color = new(203, 165, 95);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_5"));
+            Render = new();
+            Render.AddFrame(new(6, 0));
         }
     }
 }

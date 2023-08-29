@@ -5,16 +5,16 @@ using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Gases
 {
-    [PElementRegister]
+    [PElementRegister(19)]
     internal class Steam : PGas
     {
         protected override void OnSettings()
         {
             Name = "Steam";
             Description = string.Empty;
-            Color = new(196, 228, 243);
 
-            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_19"));
+            Render = new();
+            Render.AddFrame(new(9, 1));
         }
     }
 }

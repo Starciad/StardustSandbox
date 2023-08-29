@@ -2,8 +2,13 @@
 
 using PixelDust.Core.Utilities;
 
+using System;
+
 namespace PixelDust.Core.Elements
 {
+    /// <summary>
+    /// Base class for defining liquid elements in PixelDust.
+    /// </summary>
     public abstract class PLiquid : PElement
     {
         internal override void OnBehaviourStep()
@@ -12,31 +17,57 @@ namespace PixelDust.Core.Elements
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
             Vector2[] targets = new Vector2[]
             {
-                new(Context.Position.X                   , Context.Position.Y + 1),
-                new(Context.Position.X + direction       , Context.Position.Y + 1),
-                new(Context.Position.X + direction * -1  , Context.Position.Y + 1),
+                new(PElementContext.Position.X                   , PElementContext.Position.Y + 1),
+                new(PElementContext.Position.X + direction       , PElementContext.Position.Y + 1),
+                new(PElementContext.Position.X + direction * -1  , PElementContext.Position.Y + 1),
             };
 
             // Down
             // Liquido tries to move to target positions
             foreach (Vector2 targetPos in targets)
             {
-                if (Context.IsEmpty(targetPos))
-                    if (Context.TrySetPosition(targetPos)) return;
+                if (PElementContext.IsEmpty(targetPos))
+                    if (PElementContext.TrySetPosition(targetPos)) return;
             }
 
-            // Horizontal
-            Vector2[] horizontal = new Vector2[]
-            {
-                new(Context.Position.X + direction     , Context.Position.Y),
-                new(Context.Position.X + direction * -1, Context.Position.Y),
-            };
+            HorizontalMovement();
+        }
 
-            foreach (Vector2 targetPos in horizontal)
+        private void HorizontalMovement()
+        {
+            int targetDirection, targetDistance;
+            int lDistance = 0, rDistance = 0;
+
+            // Check left side (<)
+            for (int i = 0; i < DefaultDispersionRate; i++)
             {
-                if (Context.IsEmpty(targetPos))
-                    if (Context.TrySetPosition(targetPos)) return;
+                if (PElementContext.IsEmpty(new(PElementContext.Position.X - (i + 1), PElementContext.Position.Y)))
+                    lDistance++;
+                else break;
             }
+
+            // Check right side (>)
+            for (int i = 0; i < DefaultDispersionRate; i++)
+            {
+                if (PElementContext.IsEmpty(new(PElementContext.Position.X + (i + 1), PElementContext.Position.Y)))
+                    rDistance++;
+                else break;
+            }
+
+            // Check for the largest
+            if ((int)MathF.Max(lDistance, rDistance) == lDistance)
+            {
+                targetDirection = -1;
+                targetDistance = lDistance;
+            }
+            else
+            {
+                targetDirection = 1;
+                targetDistance = rDistance;
+            }
+
+            // Set current position
+            PElementContext.TrySetPosition(new((PElementContext.Position.X + targetDistance) * targetDirection, PElementContext.Position.Y));
         }
     }
 }

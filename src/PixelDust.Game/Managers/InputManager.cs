@@ -1,4 +1,12 @@
 ﻿using PixelDust.Core;
+using PixelDust.Core.Managers;
+using PixelDust.Core.Engine;
+using PixelDust.Core.Elements;
+using PixelDust.Core.Worlding;
+
+using PixelDust.Game.Elements.Liquid;
+using PixelDust.Game.Elements.Solid.Immovable;
+using PixelDust.Game.Elements.Solid.Movable;
 
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
@@ -6,13 +14,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using PixelDust.Core.Managers;
-using PixelDust.Core.Engine;
-using PixelDust.Core.Elements;
-using PixelDust.Core.Worlding;
-using PixelDust.Game.Elements.Liquid;
-using PixelDust.Game.Elements.Solid.Immovable;
-using PixelDust.Game.Elements.Solid.Movable;
 
 namespace PixelDust.Game.Managers
 {
@@ -25,29 +26,27 @@ namespace PixelDust.Game.Managers
         private static PElement elementOver;
 
         private static float size = 1;
+        private static float speed = 10;
 
         private static StringBuilder debugString;
 
         private static readonly Dictionary<Keys, PElement> elementsKeys = new()
         {
-            [Keys.D1] = PElementManager.GetElementByType<Dirt>(),
-            [Keys.D2] = PElementManager.GetElementByType<Grass>(),
-            [Keys.D3] = PElementManager.GetElementByType<Stone>(),
-            [Keys.D4] = PElementManager.GetElementByType<Sand>(),
-            [Keys.D5] = PElementManager.GetElementByType<Water>(),
-            [Keys.D6] = PElementManager.GetElementByType<Lava>(),
-            [Keys.D7] = PElementManager.GetElementByType<Acid>(),
-            [Keys.D8] = PElementManager.GetElementByType<Wall>(),
-            [Keys.D9] = PElementManager.GetElementByType<Corruption>(),
-            [Keys.D0] = PElementManager.GetElementByType<Ice>(),
+            [Keys.D1] = PElementsHandler.GetElementByType<Dirt>(),
+            [Keys.D2] = PElementsHandler.GetElementByType<Grass>(),
+            [Keys.D3] = PElementsHandler.GetElementByType<Stone>(),
+            [Keys.D4] = PElementsHandler.GetElementByType<Sand>(),
+            [Keys.D5] = PElementsHandler.GetElementByType<Water>(),
+            [Keys.D6] = PElementsHandler.GetElementByType<Lava>(),
+            [Keys.D7] = PElementsHandler.GetElementByType<Acid>(),
+            [Keys.D8] = PElementsHandler.GetElementByType<Wall>(),
+            [Keys.D9] = PElementsHandler.GetElementByType<Corruption>(),
         };
 
         protected override void OnUpdate()
         {
-            Reset();
             MouseUpdate();
             KeyboardUpdate();
-            PlaceElement();
 
             debugString = new();
             debugString.AppendLine($"Selected: {elementSelected?.Name}");
@@ -56,74 +55,120 @@ namespace PixelDust.Game.Managers
             base.OnUpdate();
         }
 
-        private static void Reset()
+        private static void KeyboardUpdate()
         {
-            if (PInput.KeyboardState.IsKeyDown(Keys.R))
+            KeyboardSelectElement();
+            KeyboardPause();
+            KeyboardCameraMovement();
+            KeyboardResetWorld();
+            KeyboardQuit();
+        }
+        private static void MouseUpdate()
+        {
+            MousePlaceArea();
+            MousePlaceElements();
+            MouseEraseElements();
+        }
+
+        #region Keyboard
+        private static void KeyboardCameraMovement()
+        {
+            if (PInput.Keyboard.IsKeyDown(Keys.W))
+            {
+                PWorld.Camera.Position = new(PWorld.Camera.Position.X, PWorld.Camera.Position.Y + speed);
+            }
+
+            if (PInput.Keyboard.IsKeyDown(Keys.A))
+            {
+                PWorld.Camera.Position = new(PWorld.Camera.Position.X - speed, PWorld.Camera.Position.Y);
+            }
+
+            if (PInput.Keyboard.IsKeyDown(Keys.S))
+            {
+                PWorld.Camera.Position = new(PWorld.Camera.Position.X, PWorld.Camera.Position.Y - speed);
+            }
+
+            if (PInput.Keyboard.IsKeyDown(Keys.D))
+            {
+                PWorld.Camera.Position = new(PWorld.Camera.Position.X + speed, PWorld.Camera.Position.Y);
+            }
+
+            // Clamp
+            int totalX = (int)(PWorld.Infos.Width * PWorld.Scale - PScreen.DefaultResolution.X);
+            int totalY = (int)(PWorld.Infos.Height * PWorld.Scale - PScreen.DefaultResolution.Y);
+
+            PWorld.Camera.Position = new(
+                Math.Clamp(PWorld.Camera.Position.X, 0, totalX),
+                Math.Clamp(PWorld.Camera.Position.Y, -totalY, 0)
+            );
+        }
+        private static void KeyboardPause()
+        {
+            if (PInput.Keyboard.IsKeyDown(Keys.Space))
+            {
+                if (PWorld.States.IsPaused) PWorld.Resume();
+                else PWorld.Pause();
+            }
+        }
+        private static void KeyboardResetWorld()
+        {
+            if (PInput.Keyboard.IsKeyDown(Keys.R))
             {
                 PWorld.Clear();
             }
         }
-
-        private static void MouseUpdate()
+        private static void KeyboardQuit()
         {
-            // Select element
+            if (PInput.Keyboard.IsKeyDown(Keys.Escape))
+            {
+                PEngine.Stop();
+            }
+        }
+        private static void KeyboardSelectElement()
+        {
             foreach (var item in elementsKeys)
             {
-                if (PInput.KeyboardState.IsKeyDown(item.Key))
+                if (PInput.Keyboard.IsKeyDown(item.Key))
                 {
                     elementSelected = item.Value;
                     break;
                 }
             }
         }
+        #endregion
 
-        private void KeyboardUpdate()
+        #region Mouse
+        private static void MousePlaceArea()
         {
-            // Scroll size
-            if (PInput.KeyboardState.IsKeyDown(Keys.Add))
+            if (PInput.GetDeltaScrollWheel() > 0)
             {
-                size += 0.2f;
+                size -= 1f;
             }
-
-            if (PInput.KeyboardState.IsKeyDown(Keys.Subtract))
+            else if (PInput.GetDeltaScrollWheel() < 0)
             {
-                size -= 0.2f;
+                size += 1f;
             }
 
             size = Math.Clamp(size, 0, 10);
-
-            // Pause
-            if (PInput.KeyboardState.IsKeyDown(Keys.Space))
-            {
-                if (PWorld.States.IsPaused) PWorld.Resume();
-                else PWorld.Pause();
-            }
-
-            // Quit
-            if (PInput.KeyboardState.IsKeyDown(Keys.Escape))
-            {
-                PEngine.Stop();
-            }
         }
-
-        private static void PlaceElement()
+        private static void MousePlaceElements()
         {
             if (elementSelected == null)
                 return;
 
-            Vector2 mousePos = PInput.MouseState.Position.ToVector2() / PWorld.Scale;
+            Vector2 screenPos = PInput.Mouse.Position.ToVector2();
+            Vector2 worldPos = new Vector2(screenPos.X + PWorld.Camera.Position.X, screenPos.Y - PWorld.Camera.Position.Y) / PWorld.Scale;
 
-            if (!PWorld.InsideTheWorldDimensions(mousePos))
-                return;
+            if (!PWorld.InsideTheWorldDimensions(worldPos)) return;
 
-            PWorld.TryGetElement(mousePos, out elementOver);
+            PWorld.TryGetElement(worldPos, out elementOver);
 
             // Place
-            if (PInput.MouseState.LeftButton == ButtonState.Pressed)
+            if (PInput.Mouse.LeftButton == ButtonState.Pressed)
             {
                 if (size == 0)
                 {
-                    PWorld.TryInstantiate(mousePos, elementSelected.Id);
+                    PWorld.TryInstantiate(worldPos, elementSelected.Id);
                     return;
                 }
 
@@ -131,7 +176,7 @@ namespace PixelDust.Game.Managers
                 {
                     for (int y = -(int)size; y < size; y++)
                     {
-                        Vector2 lpos = new Vector2(x, y) + mousePos;
+                        Vector2 lpos = new Vector2(x, y) + worldPos;
                         if (!PWorld.InsideTheWorldDimensions(lpos))
                             continue;
 
@@ -139,9 +184,13 @@ namespace PixelDust.Game.Managers
                     }
                 }
             }
+        }
+        private static void MouseEraseElements()
+        {
+            Vector2 mousePos = PInput.Mouse.Position.ToVector2() / PWorld.Scale;
+            if (!PWorld.InsideTheWorldDimensions(mousePos)) return;
 
-            // Earase
-            if (PInput.MouseState.RightButton == ButtonState.Pressed)
+            if (PInput.Mouse.RightButton == ButtonState.Pressed)
             {
                 if (size == 0)
                 {
@@ -162,5 +211,6 @@ namespace PixelDust.Game.Managers
                 }
             }
         }
+        #endregion
     }
 }
