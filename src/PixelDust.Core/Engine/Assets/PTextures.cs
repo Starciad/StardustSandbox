@@ -12,5 +12,10 @@ namespace PixelDust.Core.Engine
             Pixel = new(PGraphics.GraphicsDevice, 1, 1);
             Pixel.SetData(new Color[] { Color.White });
         }
+
+        internal static void Unload()
+        {
+            Pixel.Dispose();
+        }
     }
 }

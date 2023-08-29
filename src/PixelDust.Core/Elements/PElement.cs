@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Core.TileSet;
 using PixelDust.Core.Worlding;
 
 namespace PixelDust.Core.Elements
@@ -18,6 +20,8 @@ namespace PixelDust.Core.Elements
         public int DefaultDispersionRate { get; protected set; } = 1;
         public bool EnableDefaultBehaviour { get; protected set; } = true;
 
+        public PTileSet TileSet { get; protected set; } = default;
+
         protected PElementContext Context { get; private set; }
 
         internal void Build()
@@ -25,14 +29,10 @@ namespace PixelDust.Core.Elements
             OnSettings();
         }
 
-        internal void Update(PElementContext ctx)
+        internal void Steps(PElementContext ctx)
         {
             Context = ctx;
-            UpdateSteps();
-        }
 
-        private void UpdateSteps()
-        {
             OnBeforeStep();
             OnStep();
 
@@ -47,6 +47,18 @@ namespace PixelDust.Core.Elements
             }
 
             OnAfterStep();
+        }
+        
+        // System
+        internal void Draw(SpriteBatch spriteBatch)
+        {
+            if (Context == null)
+                return;
+
+            foreach (PTileSprite tile in TileSet.BuildTileSpriteByContext(Context))
+            {
+                spriteBatch.Draw(tile.Texture, tile.Position, tile.Rectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            }
         }
 
         // Settings

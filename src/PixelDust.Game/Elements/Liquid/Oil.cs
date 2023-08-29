@@ -1,4 +1,7 @@
-﻿using PixelDust.Core.Elements;
+﻿using Microsoft.Xna.Framework.Graphics;
+
+using PixelDust.Core.Elements;
+using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Liquid
 {
@@ -10,6 +13,8 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Oil";
             Description = string.Empty;
             Color = new(236, 162, 55);
+
+            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_17"));
         }
     }
 }

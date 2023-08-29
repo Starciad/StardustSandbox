@@ -1,4 +1,8 @@
-﻿using PixelDust.Core;
+﻿using Microsoft.Xna.Framework;
+
+using MLEM.Misc;
+
+using PixelDust.Core;
 
 using System;
 using System.Windows.Forms;
@@ -10,9 +14,10 @@ namespace PixelDust.Game
         [STAThread]
         private static void Main()
         {
+            MlemPlatform.Current = new MlemPlatform.DesktopGl<TextInputEventArgs>((w, c) => w.TextInput += c);
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
-            PEngine.SetEngineInstance<PixelDust>();
+            PEngine.SetGameInstance<PixelDust>();
             PEngine.Start();
         }
     }

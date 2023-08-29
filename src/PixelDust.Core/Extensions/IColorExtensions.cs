@@ -6,14 +6,12 @@ namespace PixelDust.Core.Extensions
 {
     internal static class IColorExtensions
     {
-        private static int VariationFactor => 8;
-
-        public static Color Vary(this Color value)
+        public static Color Vary(this Color value, int variationFactor)
         {
             int r, g, b;
-            r = value.R + PRandom.Range(-VariationFactor, VariationFactor + 1);
-            g = value.G + PRandom.Range(-VariationFactor, VariationFactor + 1);
-            b = value.B + PRandom.Range(-VariationFactor, VariationFactor + 1);
+            r = value.R + PRandom.Range(-variationFactor, variationFactor + 1);
+            g = value.G + PRandom.Range(-variationFactor, variationFactor + 1);
+            b = value.B + PRandom.Range(-variationFactor, variationFactor + 1);
 
             return new(r, g, b);
         }

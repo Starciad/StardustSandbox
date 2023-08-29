@@ -2,11 +2,8 @@
 {
     public abstract class PWorldComponent
     {
-        protected PWorld World { get; private set; }
-
-        internal void Initialize(PWorld world)
+        internal void Initialize()
         {
-            World = world;
             OnInitialize();
         }
 

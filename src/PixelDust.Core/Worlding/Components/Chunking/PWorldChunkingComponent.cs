@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine;
 
-using System;
-
 namespace PixelDust.Core.Worlding
 {
     internal sealed class PWorldChunkingComponent : PWorldComponent
@@ -18,8 +16,8 @@ namespace PixelDust.Core.Worlding
 
         protected override void OnInitialize()
         {
-            _chunks = new PWorldChunk[(World.Infos.Width / DefaultChunkSize) + 1,
-                                      (World.Infos.Height / DefaultChunkSize) + 1];
+            _chunks = new PWorldChunk[(PWorld.Infos.Width / DefaultChunkSize) + 1,
+                                      (PWorld.Infos.Height / DefaultChunkSize) + 1];
 
             worldChunkWidth = _chunks.GetLength(0);
             worldChunkHeight = _chunks.GetLength(1);
@@ -28,7 +26,7 @@ namespace PixelDust.Core.Worlding
             {
                 for (int y = 0; y < worldChunkHeight; y++)
                 {
-                    _chunks[x, y] = new(new(x * DefaultChunkSize * PWorld.GridScale, y * DefaultChunkSize * PWorld.GridScale), DefaultChunkSize);
+                    _chunks[x, y] = new(new(x * DefaultChunkSize * PWorld.Scale, y * DefaultChunkSize * PWorld.Scale), DefaultChunkSize);
                 }
             }
         }
@@ -145,7 +143,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (_chunks[x, y].ShouldUpdate)
                     {
-                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new(_chunks[x, y].Position.X, _chunks[x, y].Position.Y), null, new(255, 0, 0, 35), 0f, Vector2.Zero, DefaultChunkSize * PWorld.GridScale, SpriteEffects.None, 0f);
+                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new Vector2(_chunks[x, y].Position.X, _chunks[x, y].Position.Y), null, new Color(255, 0, 0, 35), 0f, Vector2.Zero, DefaultChunkSize * PWorld.Scale, SpriteEffects.None, 0f);
                     }
                 }
             }

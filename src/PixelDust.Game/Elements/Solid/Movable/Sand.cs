@@ -1,4 +1,7 @@
-﻿using PixelDust.Core.Elements;
+﻿using Microsoft.Xna.Framework.Graphics;
+
+using PixelDust.Core.Elements;
+using PixelDust.Core.Engine;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
@@ -10,6 +13,8 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Sand";
             Description = string.Empty;
             Color = new(203, 165, 95);
+
+            TileSet = new(PContent.Load<Texture2D>("Sprites/Tiles/Tile_5"));
         }
     }
 }
