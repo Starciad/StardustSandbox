@@ -13,14 +13,11 @@ namespace PixelDust.Core.Worlding
     {
         public const int Scale = 32;
 
-        public static PWorldCamera Camera => _camera;
-
         public static PWorldStates States { get; private set; } = new();
         public static PWorldInfos Infos { get; private set; } = new();
 
         internal static PWorldSlot[,] Slots { get; private set; }
 
-        private static readonly PWorldCamera _camera = new();
         private static readonly PWorldComponent[] _components = new PWorldComponent[]
         {
             new PWorldChunkingComponent(),
@@ -62,7 +59,7 @@ namespace PixelDust.Core.Worlding
         // Draw
         internal static void Draw()
         {
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, _camera.GetMatrix());
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
             if (!States.IsActive)
             {
                 PGraphics.SpriteBatch.End();

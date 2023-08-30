@@ -75,31 +75,31 @@ namespace PixelDust.Game.Managers
         {
             if (PInput.Keyboard.IsKeyDown(Keys.W))
             {
-                PWorld.Camera.Position = new(PWorld.Camera.Position.X, PWorld.Camera.Position.Y + speed);
+                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y + speed);
             }
 
             if (PInput.Keyboard.IsKeyDown(Keys.A))
             {
-                PWorld.Camera.Position = new(PWorld.Camera.Position.X - speed, PWorld.Camera.Position.Y);
+                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X - speed, PWorldCamera.Camera.Position.Y);
             }
 
             if (PInput.Keyboard.IsKeyDown(Keys.S))
             {
-                PWorld.Camera.Position = new(PWorld.Camera.Position.X, PWorld.Camera.Position.Y - speed);
+                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y - speed);
             }
 
             if (PInput.Keyboard.IsKeyDown(Keys.D))
             {
-                PWorld.Camera.Position = new(PWorld.Camera.Position.X + speed, PWorld.Camera.Position.Y);
+                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X + speed, PWorldCamera.Camera.Position.Y);
             }
 
             // Clamp
             int totalX = (int)(PWorld.Infos.Width * PWorld.Scale - PScreen.DefaultResolution.X);
             int totalY = (int)(PWorld.Infos.Height * PWorld.Scale - PScreen.DefaultResolution.Y);
 
-            PWorld.Camera.Position = new(
-                Math.Clamp(PWorld.Camera.Position.X, 0, totalX),
-                Math.Clamp(PWorld.Camera.Position.Y, -totalY, 0)
+            PWorldCamera.Camera.Position = new(
+                Math.Clamp(PWorldCamera.Camera.Position.X, 0, totalX),
+                Math.Clamp(PWorldCamera.Camera.Position.Y, -totalY, 0)
             );
         }
         private static void KeyboardPause()
@@ -156,8 +156,8 @@ namespace PixelDust.Game.Managers
             if (elementSelected == null)
                 return;
 
-            Vector2 screenPos = PInput.Mouse.Position.ToVector2();
-            Vector2 worldPos = new Vector2(screenPos.X + PWorld.Camera.Position.X, screenPos.Y - PWorld.Camera.Position.Y) / PWorld.Scale;
+            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+            Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
 
             if (!PWorld.InsideTheWorldDimensions(worldPos)) return;
 
@@ -187,14 +187,16 @@ namespace PixelDust.Game.Managers
         }
         private static void MouseEraseElements()
         {
-            Vector2 mousePos = PInput.Mouse.Position.ToVector2() / PWorld.Scale;
-            if (!PWorld.InsideTheWorldDimensions(mousePos)) return;
+            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+            Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
+
+            if (!PWorld.InsideTheWorldDimensions(worldPos)) return;
 
             if (PInput.Mouse.RightButton == ButtonState.Pressed)
             {
                 if (size == 0)
                 {
-                    PWorld.TryDestroy(mousePos);
+                    PWorld.TryDestroy(worldPos);
                     return;
                 }
 
@@ -202,7 +204,7 @@ namespace PixelDust.Game.Managers
                 {
                     for (int y = -(int)size; y < size; y++)
                     {
-                        Vector2 lpos = new Vector2(x, y) + mousePos;
+                        Vector2 lpos = new Vector2(x, y) + worldPos;
                         if (!PWorld.InsideTheWorldDimensions(lpos))
                             continue;
 

@@ -21,6 +21,10 @@ namespace PixelDust.Core.Engine
         /// </summary>
         public static Vector2 CurrentResolution { get; private set; }
 
+        internal static Viewport Viewport => _viewport;
+
+        private static Viewport _viewport;
+
         // 16:9 Aspect Ratio
         private static readonly Vector2[] resolutions = new Vector2[]
         {
@@ -38,5 +42,10 @@ namespace PixelDust.Core.Engine
             new(7680, 4320), // 8K UHD
             new(15360, 8640) // 16K UHD
         };
+
+        internal static void Build(Viewport viewport)
+        {
+            _viewport = viewport;
+        }
     }
 }

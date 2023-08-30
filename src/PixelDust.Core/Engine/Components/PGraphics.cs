@@ -13,7 +13,6 @@ namespace PixelDust.Core.Engine
         public static GraphicsDevice GraphicsDevice => _graphicsDeviceManager.GraphicsDevice;
         public static SpriteBatch SpriteBatch => _spriteBatch;
 
-        internal static Viewport Viewport => GraphicsDevice.Viewport;
         internal static RenderTarget2D DefaultRenderTarget => _renderTarget;
 
         internal static float FPS => 60f;
