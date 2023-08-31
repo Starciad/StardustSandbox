@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine;
+using PixelDust.Core.Mathematics;
 
 namespace PixelDust.Core.Worlding
 {
@@ -10,17 +11,17 @@ namespace PixelDust.Core.Worlding
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        private static readonly (int, int)[] worldSizes = new (int, int)[]
+        private static readonly Size2Int[] worldSizes = new Size2Int[]
         {
-            (40, 20), // (0) Small
-            (80, 40), // (1) Medium
-            (160, 80), // (2) Large
+            new(40, 20), // (0) Small
+            new(80, 40), // (1) Medium
+            new(160, 80), // (2) Large
         };
 
         public PWorldInfos()
         {
-            Width = worldSizes[2].Item1;
-            Height = worldSizes[2].Item2;
+            Width = worldSizes[2].Width;
+            Height = worldSizes[2].Height;
         }
 
         internal void SetWidth(uint value)

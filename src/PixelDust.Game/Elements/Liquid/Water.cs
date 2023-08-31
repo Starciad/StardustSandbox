@@ -16,7 +16,6 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Water";
             Description = string.Empty;
 
-            Render = new();
             Render.AddFrame(new(2, 0));
 
             DefaultDispersionRate = 4;
@@ -29,15 +28,15 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Element is Dirt)
                 {
-                    PElementContext.TryDestroy(PElementContext.Position);
-                    PElementContext.TryReplace<Mud>(neighbor.Item1);
+                    Context.TryDestroy(Context.Position);
+                    Context.TryReplace<Mud>(neighbor.Item1);
                     return;
                 }
 
                 if (neighbor.Item2.Element is Stone)
                 {
-                    PElementContext.TryDestroy(PElementContext.Position);
-                    PElementContext.TryReplace<Sand>(neighbor.Item1);
+                    Context.TryDestroy(Context.Position);
+                    Context.TryReplace<Sand>(neighbor.Item1);
                     return;
                 }
             }

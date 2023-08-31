@@ -1,11 +1,12 @@
 ﻿using PixelDust.Core.Elements;
 
+using System;
 using System.Runtime.InteropServices;
 
 namespace PixelDust.Core.Worlding
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct PWorldSlot
+    public struct PWorldSlot : ICloneable
     {
         public readonly PElement Element => PElementsHandler.GetElementById<PElement>(id);
 
@@ -39,6 +40,11 @@ namespace PixelDust.Core.Worlding
         public readonly bool IsEmpty()
         {
             return id == 0;
+        }
+
+        public readonly object Clone()
+        {
+            return this;
         }
     }
 }

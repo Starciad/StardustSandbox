@@ -29,6 +29,14 @@
             OnUpdate();
         }
 
+        /// <summary>
+        /// Game draw call to manager.
+        /// </summary>
+        internal void Draw()
+        {
+            OnDraw();
+        }
+
         // ========================= //
 
         /// <summary>
@@ -45,5 +53,10 @@
         /// Game update call to manager.
         /// </summary>
         protected virtual void OnUpdate() { return; }
+
+        /// <summary>
+        /// Game draw call to manager.
+        /// </summary>
+        protected virtual void OnDraw() { return; }
     }
 }

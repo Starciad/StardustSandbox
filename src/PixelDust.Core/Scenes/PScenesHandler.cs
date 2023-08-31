@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using PixelDust.Core.Engine;
+
+using System;
 
 namespace PixelDust.Core.Scenes
 {
@@ -45,7 +48,9 @@ namespace PixelDust.Core.Scenes
         /// </summary>
         internal static void Draw()
         {
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             _sceneInstance?.Draw();
+            PGraphics.SpriteBatch.End();
         }
     }
 }

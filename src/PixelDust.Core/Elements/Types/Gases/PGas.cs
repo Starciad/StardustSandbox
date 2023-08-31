@@ -38,31 +38,31 @@ namespace PixelDust.Core.Elements
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
             Vector2[] targets = new Vector2[]
             {
-                    new(PElementContext.Position.X                   , PElementContext.Position.Y - 1),
-                    new(PElementContext.Position.X + direction       , PElementContext.Position.Y - 1),
-                    new(PElementContext.Position.X + direction * -1, PElementContext.Position.Y - 1),
+                    new(Context.Position.X                 , Context.Position.Y - 1),
+                    new(Context.Position.X + direction     , Context.Position.Y - 1),
+                    new(Context.Position.X + direction * -1, Context.Position.Y - 1),
             };
 
             foreach (Vector2 targetPos in targets)
             {
-                if (PElementContext.IsEmpty(targetPos))
-                    if (PElementContext.TrySetPosition(targetPos)) return;
+                if (Context.IsEmpty(targetPos))
+                    if (Context.TrySetPosition(targetPos)) return;
 
-                if (PElementContext.TryGetElement(targetPos, out PElement value))
+                if (Context.TryGetElement(targetPos, out PElement value))
                 {
                     if (value is PLiquid ||
                         value is PMovableSolid)
-                        if (PElementContext.TrySwitchPosition(PElementContext.Position, targetPos)) return;
+                        if (Context.TrySwitchPosition(Context.Position, targetPos)) return;
                 }
             }
 
             for (int i = 0; i < DefaultDispersionRate; i++)
             {
-                if (!PElementContext.IsEmpty(new(PElementContext.Position.X + direction, PElementContext.Position.Y)) &&
-                    !PElementContext.IsEmpty(new(PElementContext.Position.X + direction, PElementContext.Position.Y - 1)))
+                if (!Context.IsEmpty(new(Context.Position.X + direction, Context.Position.Y)) &&
+                    !Context.IsEmpty(new(Context.Position.X + direction, Context.Position.Y - 1)))
                     break;
 
-                PElementContext.TrySetPosition(new(PElementContext.Position.X + direction, PElementContext.Position.Y));
+                Context.TrySetPosition(new(Context.Position.X + direction, Context.Position.Y));
             }
         }
     }

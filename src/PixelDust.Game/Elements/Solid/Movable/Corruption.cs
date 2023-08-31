@@ -28,7 +28,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Corruption";
             Description = string.Empty;
 
-            Render = new();
+            
 
             EnableNeighborsAction = true;
             Render.AddFrame(new(8, 0));
@@ -74,15 +74,15 @@ namespace PixelDust.Game.Elements.Solid.Movable
 
             if (target.Item2.Element is PSolid)
             {
-                PElementContext.TryReplace<Corruption>(target.Item1);
+                Context.TryReplace<Corruption>(target.Item1);
             }
             else if (target.Item2.Element is PLiquid)
             {
-                PElementContext.TryReplace<Corruption>(target.Item1);
+                Context.TryReplace<Corruption>(target.Item1);
             }
             else if (target.Item2.Element is PGas)
             {
-                PElementContext.TryReplace<Corruption>(target.Item1);
+                Context.TryReplace<Corruption>(target.Item1);
             }
 
             canInfect = false;

@@ -14,7 +14,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Mud";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(1, 0));
         }
     }

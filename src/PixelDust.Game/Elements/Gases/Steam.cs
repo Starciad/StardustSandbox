@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Gases
             Name = "Steam";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(9, 1));
         }
     }

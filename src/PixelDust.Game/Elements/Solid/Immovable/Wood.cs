@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Wood";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(4, 1));
         }
     }

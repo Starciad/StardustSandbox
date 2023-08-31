@@ -15,12 +15,12 @@ namespace PixelDust.Core.Elements
     /// <br/><br/>
     /// The information within this context is updated every frame, automatically adapting to a newly selected element through internal engine processes. This eliminates the concern about the specific information being manipulated at any given moment.
     /// </remarks>
-    public static class PElementContext
+    public sealed class PElementContext
     {
         /// <summary>
         /// The slot that the current element is located.
         /// </summary>
-        public static PWorldSlot Slot => _slot;
+        public PWorldSlot Slot => _slot;
 
         /// <summary>
         /// The position that the current element is located, based on world coordinates.
@@ -28,22 +28,29 @@ namespace PixelDust.Core.Elements
         /// <remarks>
         /// Contains only integer values.
         /// </remarks>
-        public static Vector2 Position => _position;
+        public Vector2 Position => _position;
 
         /// <summary>
         /// Current element class.
         /// </summary>
-        public static PElement Element => _slot.Element;
+        public PElement Element => _slot.Element;
 
-        private static PWorldSlot _slot;
-        private static Vector2 _position;
+        private PWorldSlot _slot;
+        private Vector2 _position;
+
+        private readonly PWorld _world;
+
+        public PElementContext(PWorld world)
+        {
+            _world = world;
+        }
 
         /// <summary>
         /// Updates the parameters and information of the element's current context.
         /// </summary>
         /// <param name="slot">Slot the current element is in.</param>
         /// <param name="position">Position the current element is at.</param>
-        internal static void Update(PWorldSlot slot, Vector2 position)
+        internal void Update(PWorldSlot slot, Vector2 position)
         {
             _slot = slot;
             _position = position;
@@ -51,14 +58,14 @@ namespace PixelDust.Core.Elements
 
         #region World
         /// <summary>
-        /// Attempts to instantiate an element of type <typeparamref name="T"/> at a specific position in the <see cref="PWorld"/>.
+        /// Attempts to instantiate an element of type <typeparamref name="T"/> at a specific position in the <see cref="_world"/>.
         /// </summary>
         /// <typeparam name="T">The type of element to instantiate.</typeparam>
         /// <param name="pos">The position where the element should be instantiated.</param>
         /// <returns><c>true</c> if the instantiation was successful, otherwise <c>false</c>.</returns>
-        public static bool TryInstantiate<T>(Vector2 pos) where T : PElement
+        public bool TryInstantiate<T>(Vector2 pos) where T : PElement
         {
-            return PWorld.TryInstantiate<T>(pos);
+            return _world.TryInstantiate<T>(pos);
         }
 
         /// <summary>
@@ -66,9 +73,9 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="pos">The desired position to move the element to.</param>
         /// <returns><c>true</c> if the repositioning was successful, otherwise <c>false</c>.</returns>
-        public static bool TrySetPosition(Vector2 pos)
+        public bool TrySetPosition(Vector2 pos)
         {
-            if (PWorld.TryUpdatePosition(_position, pos))
+            if (_world.TryUpdatePosition(_position, pos))
             {
                 TryGetSlot(pos, out _slot);
                 Update(_slot, _position);
@@ -85,9 +92,9 @@ namespace PixelDust.Core.Elements
         /// <param name="oldPos">The position of the first element.</param>
         /// <param name="newPos">The position of the second element.</param>
         /// <returns><c>true</c> if the position swap was successful, otherwise <c>false</c>.</returns>
-        public static bool TrySwitchPosition(Vector2 oldPos, Vector2 newPos)
+        public bool TrySwitchPosition(Vector2 oldPos, Vector2 newPos)
         {
-            if (PWorld.TrySwitchPosition(oldPos, newPos))
+            if (_world.TrySwitchPosition(oldPos, newPos))
             {
                 TryGetSlot(newPos, out _slot);
                 Update(_slot, newPos);
@@ -103,9 +110,9 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="pos">The position of the element to destroy.</param>
         /// <returns><c>true</c> if the destruction was successful, otherwise <c>false</c>.</returns>
-        public static bool TryDestroy(Vector2 pos)
+        public bool TryDestroy(Vector2 pos)
         {
-            return PWorld.TryDestroy(pos);
+            return _world.TryDestroy(pos);
         }
 
         /// <summary>
@@ -114,20 +121,20 @@ namespace PixelDust.Core.Elements
         /// <param name="pos">The position to query for the element.</param>
         /// <param name="value">The retrieved element instance, if found.</param>
         /// <returns><c>true</c> if an element was found at the position, otherwise <c>false</c>.</returns>
-        public static bool TryGetElement(Vector2 pos, out PElement value)
+        public bool TryGetElement(Vector2 pos, out PElement value)
         {
-            return PWorld.TryGetElement(pos, out value);
+            return _world.TryGetElement(pos, out value);
         }
 
         /// <summary>
-        /// Attempts to retrieve a slot from the current <see cref="PWorld"/> instance at the specified position.
+        /// Attempts to retrieve a slot from the current <see cref="_world"/> instance at the specified position.
         /// </summary>
         /// <param name="pos">The position to query for the slot.</param>
         /// <param name="value">The retrieved slot instance, if found.</param>
         /// <returns><c>true</c> if a slot was found at the position, otherwise <c>false</c>.</returns>
-        public static bool TryGetSlot(Vector2 pos, out PWorldSlot value)
+        public bool TryGetSlot(Vector2 pos, out PWorldSlot value)
         {
-            return PWorld.TryGetSlot(pos, out value);
+            return _world.TryGetSlot(pos, out value);
         }
 
         /// <summary>
@@ -136,9 +143,9 @@ namespace PixelDust.Core.Elements
         /// <typeparam name="T">The type of element to replace with.</typeparam>
         /// <param name="pos">The position of the element to replace.</param>
         /// <returns><c>true</c> if the replacement was successful, otherwise <c>false</c>.</returns>
-        public static bool TryReplace<T>(Vector2 pos) where T : PElement
+        public bool TryReplace<T>(Vector2 pos) where T : PElement
         {
-            return PWorld.TryReplace<T>(pos);
+            return _world.TryReplace<T>(pos);
         }
 
         /// <summary>
@@ -147,9 +154,9 @@ namespace PixelDust.Core.Elements
         /// <param name="pos">Position specifies which will be used.t.</param>
         /// <param name="neighbors">An array containing positions and corresponding slots of neighboring elements.</param>
         /// <returns><c>true</c> if neighbors were found, otherwise <c>false</c>.</returns>
-        public static bool TryGetNeighbors(Vector2 pos, out (Vector2, PWorldSlot)[] neighbors)
+        public bool TryGetNeighbors(Vector2 pos, out (Vector2, PWorldSlot)[] neighbors)
         {
-            return PWorld.TryGetNeighbors(pos, out neighbors);
+            return _world.TryGetNeighbors(pos, out neighbors);
         }
 
         /// <summary>
@@ -157,9 +164,9 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="pos">The position to check.</param>
         /// <returns><c>true</c> if the slot is empty, otherwise <c>false</c>.</returns>
-        public static bool IsEmpty(Vector2 pos)
+        public bool IsEmpty(Vector2 pos)
         {
-            return PWorld.IsEmpty(pos);
+            return _world.IsEmpty(pos);
         }
         #endregion
 
@@ -169,9 +176,9 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="pos">The position of the chunk to notify.</param>
         /// <returns><c>true</c> if the notification was successful, otherwise <c>false</c>.</returns>
-        public static bool TryNotifyChunk(Vector2 pos)
+        public bool TryNotifyChunk(Vector2 pos)
         {
-            return PWorld.TryNotifyChunk(pos);
+            return _world.TryNotifyChunk(pos);
         }
         #endregion
     }

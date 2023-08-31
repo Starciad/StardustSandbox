@@ -14,7 +14,7 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Wall";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(3, 1));
         }
     }

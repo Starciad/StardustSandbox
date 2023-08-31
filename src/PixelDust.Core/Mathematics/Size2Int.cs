@@ -8,8 +8,8 @@ namespace PixelDust.Core.Mathematics
         public static readonly Size2Int Empty = new();
         public readonly bool IsEmpty => Width == 0 && Height == 0;
 
-        public int Width;
-        public int Height;
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public Size2Int(int width, int height)
         {
@@ -59,14 +59,14 @@ namespace PixelDust.Core.Mathematics
 
         public static Size2Int Add(Size2Int first, Size2Int second)
         {
-            Size2Int size;
+            Size2Int size = Empty;
             size.Width = first.Width + second.Width;
             size.Height = first.Height + second.Height;
             return size;
         }
         public static Size2Int Subtract(Size2Int first, Size2Int second)
         {
-            Size2Int size;
+            Size2Int size = Empty;
             size.Width = first.Width - second.Width;
             size.Height = first.Height - second.Height;
             return size;

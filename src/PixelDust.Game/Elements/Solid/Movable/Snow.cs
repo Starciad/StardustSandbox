@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Snow";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(7, 0));
         }
     }

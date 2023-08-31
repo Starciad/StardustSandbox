@@ -18,7 +18,7 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Lava";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(9, 0));
 
             EnableNeighborsAction = true;
@@ -30,27 +30,27 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Element is Stone)
                 {
-                    PElementContext.TryReplace<Lava>(neighbor.Item1);
+                    Context.TryReplace<Lava>(neighbor.Item1);
                     return;
                 }
 
                 if (neighbor.Item2.Element is Water)
                 {
-                    PElementContext.TryDestroy(PElementContext.Position);
-                    PElementContext.TryReplace<Steam>(neighbor.Item1);
+                    Context.TryDestroy(Context.Position);
+                    Context.TryReplace<Steam>(neighbor.Item1);
                     return;
                 }
 
                 if (neighbor.Item2.Element is Grass)
                 {
-                    PElementContext.TryDestroy(neighbor.Item1);
+                    Context.TryDestroy(neighbor.Item1);
                     return;
                 }
 
 
                 if (neighbor.Item2.Element is Mud)
                 {
-                    PElementContext.TryReplace<Dirt>(neighbor.Item1);
+                    Context.TryReplace<Dirt>(neighbor.Item1);
                     return;
                 }
             }

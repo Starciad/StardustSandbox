@@ -22,6 +22,14 @@ namespace PixelDust.Core.Elements
         private int _currentAnimationIndex;
         private readonly List<Rectangle> frames = new();
 
+        // Dependencies
+        private readonly PElementContext _context;
+
+        public PElementRender(PElementContext context)
+        {
+            _context = context;
+        }
+
         public void AddFrame(Vector2 pos)
         {
             frames.Add(new(new((int)pos.X * SpriteSize, (int)pos.Y * SpriteSize), new(SpriteSize)));
@@ -46,7 +54,7 @@ namespace PixelDust.Core.Elements
 
         internal void Draw()
         {
-            Vector2 pos = new(PElementContext.Position.X * PWorld.Scale, PElementContext.Position.Y * PWorld.Scale);
+            Vector2 pos = new(_context.Position.X * PWorld.Scale, _context.Position.Y * PWorld.Scale);
             Rectangle rectangle = frames[_currentAnimationIndex];
 
             PGraphics.SpriteBatch.Draw(PTextures.Elements, pos, rectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);

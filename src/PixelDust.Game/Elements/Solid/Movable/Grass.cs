@@ -14,7 +14,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Grass";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(4, 0));
         }
     }

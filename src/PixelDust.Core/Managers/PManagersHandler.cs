@@ -36,6 +36,14 @@ namespace PixelDust.Core.Managers
         }
 
         /// <summary>
+        /// Draws all instantiated managers.
+        /// </summary>
+        internal static void Draw()
+        {
+            _managers.Values.ToList().ForEach(x => x.Draw());
+        }
+
+        /// <summary>
         /// Tries to find a project manager instance of a specified type.
         /// </summary>
         /// <typeparam name="T">The type of the project manager to find.</typeparam>

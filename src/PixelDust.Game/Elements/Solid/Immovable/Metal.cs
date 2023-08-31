@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Metal";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(2, 1));
         }
     }

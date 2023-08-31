@@ -76,10 +76,6 @@ namespace PixelDust.Core
 
             OnStartup();
         }
-        protected override void BeginRun()
-        {
-            PWorld.Initialize();
-        }
         protected override void Update(GameTime gameTime)
         {
             // Time
@@ -96,7 +92,6 @@ namespace PixelDust.Core
 
             // Scenes & World
             PScenesHandler.Update();
-            PWorld.Update();
 
             base.Update(gameTime);
         }
@@ -109,14 +104,11 @@ namespace PixelDust.Core
             PGraphics.GraphicsDevice.SetRenderTarget(PGraphics.DefaultRenderTarget);
             PGraphics.GraphicsDevice.Clear(Color.Black);
 
-            // WORLD
-            if (PWorld.States.IsActive)
-                PWorld.Draw();
+            // Managers
+            PManagersHandler.Draw();
 
             // SCENE
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             PScenesHandler.Draw();
-            PGraphics.SpriteBatch.End();
 
             // ==================== //
             // RENDER (RENDER TARGETS)
@@ -133,7 +125,6 @@ namespace PixelDust.Core
         protected override void UnloadContent()
         {
             PContent.Unload();
-            PWorld.Unload();
             PTextures.Unload();
         }
 

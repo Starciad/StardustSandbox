@@ -25,6 +25,7 @@ namespace PixelDust.Core.Mathematics
         {
             return new Point((int)size.Width, (int)size.Height);
         }
+
         public static explicit operator Size2(Size2Int size)
         {
             return new Size2(size.Width, size.Height);

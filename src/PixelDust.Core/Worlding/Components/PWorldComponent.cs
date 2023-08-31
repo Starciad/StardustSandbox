@@ -1,9 +1,14 @@
-﻿namespace PixelDust.Core.Worlding
+﻿using PixelDust.Core.Elements;
+
+namespace PixelDust.Core.Worlding
 {
     public abstract class PWorldComponent
     {
-        internal void Initialize()
+        protected PWorld World { get; private set; }
+
+        internal void Initialize(PWorld world)
         {
+            World = world;
             OnInitialize();
         }
 

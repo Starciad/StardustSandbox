@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Stone";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(3, 0));
         }
     }

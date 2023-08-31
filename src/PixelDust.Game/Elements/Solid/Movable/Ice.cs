@@ -14,7 +14,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Ice";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(5, 0));
         }
     }

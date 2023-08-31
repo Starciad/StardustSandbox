@@ -59,12 +59,17 @@ namespace PixelDust.Core.Elements
 
         #endregion
 
-        #region Settings (Textures)
+        #region Helpers
 
         /// <summary>
         /// Set of render associated with this element.
         /// </summary>
-        public PElementRender Render { get; protected set; }
+        public PElementRender Render { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected PElementContext Context { get; private set; }
 
         #endregion
 
@@ -77,18 +82,21 @@ namespace PixelDust.Core.Elements
         /// </summary>
         internal void Build()
         {
+            Render = new(Context);
             OnSettings();
         }
 
         /// <summary>
         /// Updates the element's behavior.
         /// </summary>
-        internal void Update()
+        internal void Update(PElementContext context)
         {
+            Context = context;
+
             Render.Update();
             OnUpdate();
             
-            if (EnableNeighborsAction && PElementContext.TryGetNeighbors(PElementContext.Position, out (Vector2, PWorldSlot)[] neighbors))
+            if (EnableNeighborsAction && context.TryGetNeighbors(context.Position, out (Vector2, PWorldSlot)[] neighbors))
                 OnNeighbors(neighbors, neighbors.Length);
         }
 
@@ -103,8 +111,10 @@ namespace PixelDust.Core.Elements
         /// <summary>
         /// Executes various steps in the element's behavior.
         /// </summary>
-        internal void Steps()
+        internal void Steps(PElementContext context)
         {
+            Context = context;
+
             OnBeforeStep();
             OnStep();
             if (EnableDefaultBehaviour) { OnBehaviourStep(); }

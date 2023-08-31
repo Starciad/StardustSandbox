@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Gases
             Name = "Smoke";
             Description = string.Empty;
 
-            Render = new();
+            // Render
             Render.AddFrame(new(9, 1));
         }
     }

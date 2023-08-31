@@ -17,7 +17,7 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Acid";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(0, 1));
 
             EnableNeighborsAction = true;
@@ -31,8 +31,8 @@ namespace PixelDust.Game.Elements.Liquid
                     neighbor.Item2.Element is Wall)
                     continue;
 
-                PElementContext.TryDestroy(PElementContext.Position);
-                PElementContext.TryDestroy(neighbor.Item1);
+                Context.TryDestroy(Context.Position);
+                Context.TryDestroy(neighbor.Item1);
             }
         }
     }

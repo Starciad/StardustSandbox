@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿#pragma warning disable IDE0051
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine;
@@ -16,8 +18,8 @@ namespace PixelDust.Core.Worlding
 
         protected override void OnInitialize()
         {
-            _chunks = new PWorldChunk[(PWorld.Infos.Width / DefaultChunkSize) + 1,
-                                      (PWorld.Infos.Height / DefaultChunkSize) + 1];
+            _chunks = new PWorldChunk[(World.Infos.Width / DefaultChunkSize) + 1,
+                                      (World.Infos.Height / DefaultChunkSize) + 1];
 
             worldChunkWidth = _chunks.GetLength(0);
             worldChunkHeight = _chunks.GetLength(1);
@@ -41,7 +43,6 @@ namespace PixelDust.Core.Worlding
                 }
             }
         }
-
         protected override void OnDraw()
         {
 #if DEBUG
@@ -139,3 +140,4 @@ namespace PixelDust.Core.Worlding
 #endif
     }
 }
+#pragma warning restore IDE0051

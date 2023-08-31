@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Glass";
             Description = string.Empty;
 
-            Render = new();
+            
             Render.AddFrame(new(1, 1));
         }
     }

@@ -17,17 +17,17 @@ namespace PixelDust.Core.Elements
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
             Vector2[] targets = new Vector2[]
             {
-                new(PElementContext.Position.X                   , PElementContext.Position.Y + 1),
-                new(PElementContext.Position.X + direction       , PElementContext.Position.Y + 1),
-                new(PElementContext.Position.X + direction * -1  , PElementContext.Position.Y + 1),
+                new(Context.Position.X                  , Context.Position.Y + 1),
+                new(Context.Position.X + direction      , Context.Position.Y + 1),
+                new(Context.Position.X + direction * -1 , Context.Position.Y + 1),
             };
 
             // Down
             // Liquido tries to move to target positions
             foreach (Vector2 targetPos in targets)
             {
-                if (PElementContext.IsEmpty(targetPos))
-                    if (PElementContext.TrySetPosition(targetPos)) return;
+                if (Context.IsEmpty(targetPos))
+                    if (Context.TrySetPosition(targetPos)) return;
             }
 
             HorizontalMovement();
@@ -41,7 +41,7 @@ namespace PixelDust.Core.Elements
             // Check left side (<)
             for (int i = 0; i < DefaultDispersionRate; i++)
             {
-                if (PElementContext.IsEmpty(new(PElementContext.Position.X - (i + 1), PElementContext.Position.Y)))
+                if (Context.IsEmpty(new(Context.Position.X - (i + 1), Context.Position.Y)))
                     lDistance++;
                 else break;
             }
@@ -49,7 +49,7 @@ namespace PixelDust.Core.Elements
             // Check right side (>)
             for (int i = 0; i < DefaultDispersionRate; i++)
             {
-                if (PElementContext.IsEmpty(new(PElementContext.Position.X + (i + 1), PElementContext.Position.Y)))
+                if (Context.IsEmpty(new(Context.Position.X + (i + 1), Context.Position.Y)))
                     rDistance++;
                 else break;
             }
@@ -67,7 +67,7 @@ namespace PixelDust.Core.Elements
             }
 
             // Set current position
-            PElementContext.TrySetPosition(new((PElementContext.Position.X + targetDistance) * targetDirection, PElementContext.Position.Y));
+            Context.TrySetPosition(new((Context.Position.X + targetDistance) * targetDirection, Context.Position.Y));
         }
     }
 }

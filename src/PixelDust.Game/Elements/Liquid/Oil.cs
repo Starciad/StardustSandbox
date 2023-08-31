@@ -13,7 +13,7 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Oil";
             Description = string.Empty;
 
-            Render = new();
+            
         }
     }
 }
