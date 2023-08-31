@@ -14,14 +14,17 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PixelDust.Core.Input;
 
 namespace PixelDust.Game.Managers
 {
     [PManagerRegister]
-    internal sealed class InputManager : PManager
+    internal sealed class PInputManager : PManager
     {
         public static StringBuilder DebugString => debugString;
         private static StringBuilder debugString;
+
+        
 
         private PElement elementSelected;
         private PElement elementOver;
@@ -42,17 +45,79 @@ namespace PixelDust.Game.Managers
             [Keys.D9] = PElementsHandler.GetElementByType<Corruption>(),
         };
 
+        // Handlers
+        private readonly PInputActionMapHandler _actionHandler = new();
+
         // Managers
         private WorldManager _world;
 
+        protected override void OnAwake()
+        {
+            // World Inputs
+            // Keyboard
+            PInputActionMap worldKeyboardActionMap = _actionHandler.AddActionMap("World", new(true));
+
+            worldKeyboardActionMap.AddKeyAction("World_Camera_Up", new(Keys.W, Keys.Up)).SetAction(x =>
+            {
+                if (x.State == PKeyCallbackState.Performed)
+                {
+                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y + speed);
+                }
+            });
+
+            worldKeyboardActionMap.AddKeyAction("World_Camera_Down", new(Keys.S, Keys.Down)).SetAction(x => {
+                if (x.State == PKeyCallbackState.Performed)
+                {
+                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X - speed, PWorldCamera.Camera.Position.Y);
+                }
+            });
+
+            worldKeyboardActionMap.AddKeyAction("World_Camera_Left", new(Keys.A, Keys.Left)).SetAction(x => {
+                if (x.State == PKeyCallbackState.Performed)
+                {
+                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y - speed);
+                }
+            });
+
+            worldKeyboardActionMap.AddKeyAction("World_Camera_Right", new(Keys.D, Keys.Right)).SetAction(x => {
+                if (x.State == PKeyCallbackState.Performed)
+                {
+                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X + speed, PWorldCamera.Camera.Position.Y);
+                }
+            });
+
+            // ======================= //
+
+            worldKeyboardActionMap.AddKeyAction("World_Pause", new(Keys.Space)).SetAction(x => {
+                if (x.State == PKeyCallbackState.Started)
+                {
+                    if (_world.Instance.States.IsPaused) _world.Instance.Resume();
+                    else _world.Instance.Pause();
+                }
+            });
+
+            worldKeyboardActionMap.AddKeyAction("World_Reset", new(Keys.R)).SetAction(x => {
+                if (x.State == PKeyCallbackState.Started)
+                {
+                    _world.Instance.Clear();
+                }
+            });
+
+            worldKeyboardActionMap.AddKeyAction("World_Quit", new(Keys.Escape)).SetAction(x => {
+                if (x.State == PKeyCallbackState.Started)
+                {
+                    PEngine.Stop();
+                }
+            });
+        }
         protected override void OnStart()
         {
             PManagersHandler.TryFindByType(out _world);
         }
         protected override void OnUpdate()
         {
-            MouseUpdate();
-            KeyboardUpdate();
+            ClampCamera();
+            _actionHandler.Update();
 
             debugString = new();
             debugString.AppendLine($"Selected: {elementSelected?.Name}");
@@ -60,75 +125,6 @@ namespace PixelDust.Game.Managers
             debugString.AppendLine($"Size: {(int)size}");
         }
 
-        private void KeyboardUpdate()
-        {
-            KeyboardSelectElement();
-            KeyboardPause();
-            KeyboardCameraMovement();
-            KeyboardResetWorld();
-            KeyboardQuit();
-        }
-        private void MouseUpdate()
-        {
-            MousePlaceArea();
-            MousePlaceElements();
-            MouseEraseElements();
-        }
-
-        #region Keyboard
-        private void KeyboardCameraMovement()
-        {
-            if (PInput.Keyboard.IsKeyDown(Keys.W))
-            {
-                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y + speed);
-            }
-
-            if (PInput.Keyboard.IsKeyDown(Keys.A))
-            {
-                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X - speed, PWorldCamera.Camera.Position.Y);
-            }
-
-            if (PInput.Keyboard.IsKeyDown(Keys.S))
-            {
-                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y - speed);
-            }
-
-            if (PInput.Keyboard.IsKeyDown(Keys.D))
-            {
-                PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X + speed, PWorldCamera.Camera.Position.Y);
-            }
-
-            // Clamp
-            int totalX = (int)(_world.Instance.Infos.Width * PWorld.Scale - PScreen.DefaultResolution.X);
-            int totalY = (int)(_world.Instance.Infos.Height * PWorld.Scale - PScreen.DefaultResolution.Y);
-
-            PWorldCamera.Camera.Position = new(
-                Math.Clamp(PWorldCamera.Camera.Position.X, 0, totalX),
-                Math.Clamp(PWorldCamera.Camera.Position.Y, -totalY, 0)
-            );
-        }
-        private void KeyboardPause()
-        {
-            if (PInput.Keyboard.IsKeyDown(Keys.Space))
-            {
-                if (_world.Instance.States.IsPaused) _world.Instance.Resume();
-                else _world.Instance.Pause();
-            }
-        }
-        private void KeyboardResetWorld()
-        {
-            if (PInput.Keyboard.IsKeyDown(Keys.R))
-            {
-                _world.Instance.Clear();
-            }
-        }
-        private static void KeyboardQuit()
-        {
-            if (PInput.Keyboard.IsKeyDown(Keys.Escape))
-            {
-                PEngine.Stop();
-            }
-        }
         private void KeyboardSelectElement()
         {
             foreach (var item in elementsKeys)
@@ -140,9 +136,7 @@ namespace PixelDust.Game.Managers
                 }
             }
         }
-        #endregion
 
-        #region Mouse
         private void MousePlaceArea()
         {
             if (PInput.GetDeltaScrollWheel() > 0)
@@ -218,6 +212,17 @@ namespace PixelDust.Game.Managers
                 }
             }
         }
-        #endregion
+
+        private void ClampCamera()
+        {
+            // Clamp
+            int totalX = (int)(_world.Instance.Infos.Width * PWorld.Scale - PScreen.DefaultResolution.X);
+            int totalY = (int)(_world.Instance.Infos.Height * PWorld.Scale - PScreen.DefaultResolution.Y);
+
+            PWorldCamera.Camera.Position = new(
+                Math.Clamp(PWorldCamera.Camera.Position.X, 0, totalX),
+                Math.Clamp(PWorldCamera.Camera.Position.Y, -totalY, 0)
+            );
+        }
     }
 }

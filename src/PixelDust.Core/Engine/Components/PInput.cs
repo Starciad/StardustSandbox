@@ -21,6 +21,9 @@ namespace PixelDust.Core.Engine
         /// </summary>
         public static KeyboardState Keyboard => _keyboardState;
 
+        internal static MouseState PreviousMouse => _previousMouseState;
+        internal static KeyboardState PreviousKeyboard => _previousKeyboardState;
+
         private static MouseState _previousMouseState;
         private static KeyboardState _previousKeyboardState;
 

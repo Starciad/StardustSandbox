@@ -16,7 +16,7 @@ namespace PixelDust.Game.Scenes
         protected override void OnUpdate() { }
         protected override void OnDraw()
         {
-            PGraphics.SpriteBatch.DrawString(PFonts.Arial, InputManager.DebugString, Vector2.Zero, Color.White);
+            PGraphics.SpriteBatch.DrawString(PFonts.Arial, PInputManager.DebugString, Vector2.Zero, Color.White);
         }
     }
 }
