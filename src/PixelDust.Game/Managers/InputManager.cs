@@ -26,7 +26,7 @@ namespace PixelDust.Game.Managers
         private static PElement elementOver;
 
         private static float size = 1;
-        private static float speed = 10;
+        private readonly static float speed = 10;
 
         private static StringBuilder debugString;
 

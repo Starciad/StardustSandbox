@@ -151,7 +151,7 @@ namespace PixelDust.Core.Camera
             return Matrix.Invert(GetViewMatrix());
         }
 
-        private Matrix GetProjectionMatrix(Matrix viewMatrix)
+        private static Matrix GetProjectionMatrix(Matrix viewMatrix)
         {
             Matrix projection = Matrix.CreateOrthographicOffCenter(0, PScreen.DefaultResolution.X, PScreen.DefaultResolution.Y, 0, -1, 0);
             Matrix.Multiply(ref viewMatrix, ref projection, out projection);
