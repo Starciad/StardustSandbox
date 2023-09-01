@@ -6,11 +6,11 @@ namespace PixelDust.Core.Input
     {
         public bool Active => _active;
 
-        private readonly PInputActionMapHandler handler;
-
         private bool _active;
 
-        private readonly Dictionary<string, PKey> _keys = new();
+        private readonly PInputActionMapHandler handler;
+
+        private readonly Dictionary<string, PInputAction> _actions = new();
 
         public PInputActionMap(bool active)
         {
@@ -19,13 +19,13 @@ namespace PixelDust.Core.Input
 
         internal void Update()
         {
-            foreach (PKey key in _keys.Values)
-                key.Update();
+            foreach (PInputAction action in _actions.Values)
+                action.Update();
         }
 
-        public PKey AddKeyAction(string name, PKey value)
+        public PInputAction AddAction(string name, PInputAction value)
         {
-            if (_keys.TryAdd(name, value))
+            if (_actions.TryAdd(name, value))
             {
                 value.SetActionMap(this);
                 return value;

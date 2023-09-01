@@ -13,7 +13,6 @@ namespace PixelDust.Game.Managers
         protected override void OnAwake()
         {
             _world.Initialize();
-            base.OnAwake();
         }
 
         protected override void OnStart()
@@ -24,13 +23,11 @@ namespace PixelDust.Game.Managers
         protected override void OnUpdate()
         {
             _world.Update();
-            base.OnUpdate();
         }
 
         protected override void OnDraw()
         {
             _world.Draw();
-            base.OnUpdate();
         }
     }
 }

@@ -85,7 +85,7 @@ namespace PixelDust.Core.Worlding
 
                     if (!IsEmpty(new(x, y)))
                     {
-                        Slots[x, y].Element.Draw();
+                        Slots[x, y].Element.Draw(elementDrawContext);
                     }
                     else
                     {

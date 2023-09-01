@@ -59,6 +59,7 @@ namespace PixelDust.Core
 
         protected override void Initialize()
         {
+            PElementsHandler.Initialize();
             PManagersHandler.Initialize();
             OnAwake();
 
@@ -71,7 +72,6 @@ namespace PixelDust.Core
             PGraphics.Load();
             PTextures.Load();
             PFonts.Load();
-            PElementsHandler.Load();
             PEffects.Load();
 
             OnStartup();

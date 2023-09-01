@@ -70,7 +70,7 @@ namespace PixelDust.Core.Elements
         /// 
         /// </summary>
         protected PElementContext Context { get; private set; }
-
+        
         #endregion
 
         // ======= //
@@ -82,38 +82,38 @@ namespace PixelDust.Core.Elements
         /// </summary>
         internal void Build()
         {
-            Render = new(Context);
+            Render = new();
             OnSettings();
         }
 
         /// <summary>
         /// Updates the element's behavior.
         /// </summary>
-        internal void Update(PElementContext context)
+        internal void Update(PElementContext updateContext)
         {
-            Context = context;
+            Context = updateContext;
 
             Render.Update();
             OnUpdate();
             
-            if (EnableNeighborsAction && context.TryGetNeighbors(context.Position, out (Vector2, PWorldSlot)[] neighbors))
+            if (EnableNeighborsAction && Context.TryGetNeighbors(Context.Position, out (Vector2, PWorldSlot)[] neighbors))
                 OnNeighbors(neighbors, neighbors.Length);
         }
 
         /// <summary>
         /// Draws the element's associated tile sprites.
         /// </summary>
-        internal void Draw()
+        internal void Draw(PElementContext drawContext)
         {
-            Render.Draw();
+            Render.Draw(drawContext);
         }
 
         /// <summary>
         /// Executes various steps in the element's behavior.
         /// </summary>
-        internal void Steps(PElementContext context)
+        internal void Steps(PElementContext updateContext)
         {
-            Context = context;
+            Context = updateContext;
 
             OnBeforeStep();
             OnStep();

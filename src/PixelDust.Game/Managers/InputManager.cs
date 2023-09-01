@@ -19,12 +19,10 @@ using PixelDust.Core.Input;
 namespace PixelDust.Game.Managers
 {
     [PManagerRegister]
-    internal sealed class PInputManager : PManager
+    internal sealed class InputManager : PManager
     {
         public static StringBuilder DebugString => debugString;
         private static StringBuilder debugString;
-
-        
 
         private PElement elementSelected;
         private PElement elementOver;
@@ -51,71 +49,16 @@ namespace PixelDust.Game.Managers
         // Managers
         private WorldManager _world;
 
-        protected override void OnAwake()
-        {
-            // World Inputs
-            // Keyboard
-            PInputActionMap worldKeyboardActionMap = _actionHandler.AddActionMap("World", new(true));
-
-            worldKeyboardActionMap.AddKeyAction("World_Camera_Up", new(Keys.W, Keys.Up)).SetAction(x =>
-            {
-                if (x.State == PKeyCallbackState.Performed)
-                {
-                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y + speed);
-                }
-            });
-
-            worldKeyboardActionMap.AddKeyAction("World_Camera_Down", new(Keys.S, Keys.Down)).SetAction(x => {
-                if (x.State == PKeyCallbackState.Performed)
-                {
-                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X - speed, PWorldCamera.Camera.Position.Y);
-                }
-            });
-
-            worldKeyboardActionMap.AddKeyAction("World_Camera_Left", new(Keys.A, Keys.Left)).SetAction(x => {
-                if (x.State == PKeyCallbackState.Performed)
-                {
-                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X, PWorldCamera.Camera.Position.Y - speed);
-                }
-            });
-
-            worldKeyboardActionMap.AddKeyAction("World_Camera_Right", new(Keys.D, Keys.Right)).SetAction(x => {
-                if (x.State == PKeyCallbackState.Performed)
-                {
-                    PWorldCamera.Camera.Position = new(PWorldCamera.Camera.Position.X + speed, PWorldCamera.Camera.Position.Y);
-                }
-            });
-
-            // ======================= //
-
-            worldKeyboardActionMap.AddKeyAction("World_Pause", new(Keys.Space)).SetAction(x => {
-                if (x.State == PKeyCallbackState.Started)
-                {
-                    if (_world.Instance.States.IsPaused) _world.Instance.Resume();
-                    else _world.Instance.Pause();
-                }
-            });
-
-            worldKeyboardActionMap.AddKeyAction("World_Reset", new(Keys.R)).SetAction(x => {
-                if (x.State == PKeyCallbackState.Started)
-                {
-                    _world.Instance.Clear();
-                }
-            });
-
-            worldKeyboardActionMap.AddKeyAction("World_Quit", new(Keys.Escape)).SetAction(x => {
-                if (x.State == PKeyCallbackState.Started)
-                {
-                    PEngine.Stop();
-                }
-            });
-        }
         protected override void OnStart()
         {
             PManagersHandler.TryFindByType(out _world);
+
+            BuildKeyboardInputs();
+            BuildMouseInputs();
         }
         protected override void OnUpdate()
         {
+            UpdateMouse();
             ClampCamera();
             _actionHandler.Update();
 
@@ -125,19 +68,22 @@ namespace PixelDust.Game.Managers
             debugString.AppendLine($"Size: {(int)size}");
         }
 
-        private void KeyboardSelectElement()
+        private void BuildKeyboardInputs()
         {
-            foreach (var item in elementsKeys)
-            {
-                if (PInput.Keyboard.IsKeyDown(item.Key))
-                {
-                    elementSelected = item.Value;
-                    break;
-                }
-            }
+            BuildWorldKeyboard();
+        }
+        private void BuildMouseInputs()
+        {
+            BuildWorldMouse();
         }
 
-        private void MousePlaceArea()
+        #region Updates
+        private void UpdateMouse()
+        {
+            UpdatePlaceAreaSize();
+        }
+
+        private void UpdatePlaceAreaSize()
         {
             if (PInput.GetDeltaScrollWheel() > 0)
             {
@@ -150,21 +96,96 @@ namespace PixelDust.Game.Managers
 
             size = Math.Clamp(size, 0, 10);
         }
-        private void MousePlaceElements()
+
+        #endregion
+
+        #region Keyboard
+
+        private void BuildWorldKeyboard()
         {
-            if (elementSelected == null)
-                return;
+            PInputActionMap worldKeyboardActionMap = _actionHandler.AddActionMap("World_Keyboard", new(true));
 
-            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
-            Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
+            #region Camera
 
-            if (!_world.Instance.InsideTheWorldDimensions(worldPos)) return;
-
-            _world.Instance.TryGetElement(worldPos, out elementOver);
-
-            // Place
-            if (PInput.Mouse.LeftButton == ButtonState.Pressed)
+            worldKeyboardActionMap.AddAction("World_Camera_Up", new(Keys.W, Keys.Up)).OnPerformed += context =>
             {
+                PWorldCamera.Camera.Move(new(0, speed));
+            };
+
+            worldKeyboardActionMap.AddAction("World_Camera_Down", new(Keys.S, Keys.Down)).OnPerformed += context =>
+            {
+                PWorldCamera.Camera.Move(new(0, -speed));
+            };
+
+            worldKeyboardActionMap.AddAction("World_Camera_Left", new(Keys.A, Keys.Left)).OnPerformed += context =>
+            {
+                PWorldCamera.Camera.Move(new(-speed, 0));
+            };
+
+            worldKeyboardActionMap.AddAction("World_Camera_Right", new(Keys.D, Keys.Right)).OnPerformed += context =>
+            {
+                PWorldCamera.Camera.Move(new(speed, 0));
+            };
+
+            #endregion
+
+            #region Shortcuts
+
+            worldKeyboardActionMap.AddAction("World_Pause", new(Keys.Space)).OnStarted += context =>
+            {
+                if (_world.Instance.States.IsPaused) _world.Instance.Resume();
+                else _world.Instance.Pause();
+            };
+
+            worldKeyboardActionMap.AddAction("World_Reset", new(Keys.R)).OnStarted += context =>
+            {
+                _world.Instance.Clear();
+            };
+
+            worldKeyboardActionMap.AddAction("World_Quit", new(Keys.Escape)).OnStarted += context =>
+            {
+                PEngine.Stop();
+            };
+
+            #endregion
+
+            #region Elements
+
+            worldKeyboardActionMap.AddAction("World_Select_Element", new(Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0)).OnStarted += context =>
+            {
+                if (elementsKeys.TryGetValue(context.CapturedKey, out PElement value))
+                {
+                    if (value == null)
+                        return;
+
+                    elementSelected = value;
+                }
+            };
+
+            #endregion
+        }
+
+        #endregion
+
+        #region Mouse
+
+        private void BuildWorldMouse()
+        {
+            PInputActionMap worldMouseActionMap = _actionHandler.AddActionMap("World_Mouse", new(true));
+
+            #region Elements (Place)
+
+            worldMouseActionMap.AddAction("World_Place_Elements", new(PMouseButton.Left)).OnPerformed += context =>
+            {
+                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+                Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
+
+                if (!_world.Instance.InsideTheWorldDimensions(worldPos) ||
+                     elementSelected == null)
+                    return;
+
+                _world.Instance.TryGetElement(worldPos, out elementOver);
+
                 if (size == 0)
                 {
                     _world.Instance.TryInstantiate(worldPos, elementSelected.Id);
@@ -182,17 +203,19 @@ namespace PixelDust.Game.Managers
                         _world.Instance.TryInstantiate(lpos, elementSelected.Id);
                     }
                 }
-            }
-        }
-        private void MouseEraseElements()
-        {
-            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
-            Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
+            };
 
-            if (!_world.Instance.InsideTheWorldDimensions(worldPos)) return;
-
-            if (PInput.Mouse.RightButton == ButtonState.Pressed)
+            worldMouseActionMap.AddAction("World_Erase_Elements", new(PMouseButton.Right)).OnPerformed += context =>
             {
+                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+                Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
+
+                if (!_world.Instance.InsideTheWorldDimensions(worldPos) ||
+                     elementSelected == null)
+                    return;
+
+                _world.Instance.TryGetElement(worldPos, out elementOver);
+
                 if (size == 0)
                 {
                     _world.Instance.TryDestroy(worldPos);
@@ -210,8 +233,12 @@ namespace PixelDust.Game.Managers
                         _world.Instance.TryDestroy(lpos);
                     }
                 }
-            }
+            };
+
+            #endregion
         }
+
+        #endregion
 
         private void ClampCamera()
         {
