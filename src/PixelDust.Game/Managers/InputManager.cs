@@ -59,8 +59,9 @@ namespace PixelDust.Game.Managers
         protected override void OnUpdate()
         {
             UpdateMouse();
-            ClampCamera();
+            
             _actionHandler.Update();
+            ClampCamera();
 
             debugString = new();
             debugString.AppendLine($"Selected: {elementSelected?.Name}");

@@ -15,11 +15,6 @@ namespace PixelDust.Game.Managers
             _world.Initialize();
         }
 
-        protected override void OnStart()
-        {
-            base.OnStart();
-        }
-
         protected override void OnUpdate()
         {
             _world.Update();

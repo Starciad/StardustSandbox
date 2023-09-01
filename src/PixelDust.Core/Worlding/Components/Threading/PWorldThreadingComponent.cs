@@ -87,7 +87,7 @@ namespace PixelDust.Core.Worlding
                     Vector2 pos = new(x + threadInfo.StartPosition, y);
                     World.TryGetChunkUpdateState(pos, out bool chunkState);
 
-                    UpdateElement(pos, 1);
+                    PUpdateElementTarget(pos, 1);
 
                     if (World.IsEmpty(pos) || !chunkState) 
                         continue;
@@ -102,15 +102,15 @@ namespace PixelDust.Core.Worlding
             // Update slots (Steps)
             for (int i = 0; i < totalCapturedElements; i++)
             {
-                UpdateElement(_capturedSlots[i], 2);
+                PUpdateElementTarget(_capturedSlots[i], 2);
             }
 
             _capturedSlots?.Clear();
         }
-        private void UpdateElement(Vector2 position, int updateType)
+        private void PUpdateElementTarget(Vector2 position, int updateType)
         {
             World.TryGetSlot(position, out PWorldSlot slot);
-            World.elementDrawContext.Update(slot, position);
+            World.elementUpdateContext.Update(slot, position);
 
             if (World.TryGetElement(position, out PElement value))
             {
