@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
+using PixelDust.Core.Mathematics;
 
 using System;
 using System.Collections.Generic;
@@ -77,9 +78,9 @@ namespace PixelDust.Core.Worlding
         }
         private void DrawSlots()
         {
-            for (int x = 0; x < Infos.Width; x++)
+            for (int x = 0; x < Infos.Size.Width; x++)
             {
-                for (int y = 0; y < Infos.Height; y++)
+                for (int y = 0; y < Infos.Size.Height; y++)
                 {
                     elementDrawContext.Update(Slots[x, y], new(x, y));
 
@@ -106,40 +107,40 @@ namespace PixelDust.Core.Worlding
         {
             return GetComponent<PWorldChunkingComponent>().GetActiveChunksCount();
         }
-        internal bool TryGetChunkUpdateState(Vector2 pos, out bool result)
+        internal bool TryGetChunkUpdateState(Vector2Int pos, out bool result)
         {
             return GetComponent<PWorldChunkingComponent>().TryGetChunkUpdateState(pos, out result);
         }
-        internal bool TryNotifyChunk(Vector2 pos)
+        internal bool TryNotifyChunk(Vector2Int pos)
         {
             return GetComponent<PWorldChunkingComponent>().TryNotifyChunk(pos);
         }
 
         // Slots
-        public bool InsideTheWorldDimensions(Vector2 pos)
+        public bool InsideTheWorldDimensions(Vector2Int pos)
         {
-            return (int)pos.X >= 0 && (int)pos.X < Infos.Width &&
-                   (int)pos.Y >= 0 && (int)pos.Y < Infos.Height;
+            return pos.X >= 0 && pos.X < Infos.Size.Width &&
+                   pos.Y >= 0 && pos.Y < Infos.Size.Height;
         }
-        public bool TryInstantiate<T>(Vector2 pos) where T : PElement
+        public bool TryInstantiate<T>(Vector2Int pos) where T : PElement
         {
             return TryInstantiate(pos, (uint)PElementsHandler.GetIdOfElementType<T>());
         }
-        public bool TryInstantiate(Vector2 pos, uint id)
+        public bool TryInstantiate(Vector2Int pos, uint id)
         {
             return TryInstantiate(pos, PElementsHandler.GetElementById(id));
         }
-        public bool TryInstantiate(Vector2 pos, PElement value)
+        public bool TryInstantiate(Vector2Int pos, PElement value)
         {
             if (!InsideTheWorldDimensions(pos) || !IsEmpty(pos))
                 return false;
 
             TryNotifyChunk(pos);
 
-            Slots[(int)pos.X, (int)pos.Y].Instantiate(value);
+            Slots[pos.X, pos.Y].Instantiate(value);
             return true;
         }
-        public bool TryUpdatePosition(Vector2 oldPos, Vector2 newPos)
+        public bool TryUpdatePosition(Vector2Int oldPos, Vector2Int newPos)
         {
             if (!InsideTheWorldDimensions(oldPos) ||
                 !InsideTheWorldDimensions(newPos) ||
@@ -150,11 +151,11 @@ namespace PixelDust.Core.Worlding
             TryNotifyChunk(oldPos);
             TryNotifyChunk(newPos);
 
-            Slots[(int)newPos.X, (int)newPos.Y].Copy(Slots[(int)oldPos.X, (int)oldPos.Y]);
-            Slots[(int)oldPos.X, (int)oldPos.Y].Destroy();
+            Slots[newPos.X, newPos.Y].Copy(Slots[oldPos.X, oldPos.Y]);
+            Slots[oldPos.X, oldPos.Y].Destroy();
             return true;
         }
-        public bool TrySwitchPosition(Vector2 oldPos, Vector2 newPos)
+        public bool TrySwitchPosition(Vector2Int oldPos, Vector2Int newPos)
         {
             if (!InsideTheWorldDimensions(oldPos) ||
                 !InsideTheWorldDimensions(newPos) ||
@@ -165,33 +166,33 @@ namespace PixelDust.Core.Worlding
             TryNotifyChunk(oldPos);
             TryNotifyChunk(newPos);
 
-            PWorldSlot oldValue = Slots[(int)oldPos.X, (int)oldPos.Y];
-            PWorldSlot newValue = Slots[(int)newPos.X, (int)newPos.Y];
+            PWorldSlot oldValue = Slots[oldPos.X, oldPos.Y];
+            PWorldSlot newValue = Slots[newPos.X, newPos.Y];
 
-            Slots[(int)oldPos.X, (int)oldPos.Y].Copy(newValue);
-            Slots[(int)newPos.X, (int)newPos.Y].Copy(oldValue);
+            Slots[oldPos.X, oldPos.Y].Copy(newValue);
+            Slots[newPos.X, newPos.Y].Copy(oldValue);
 
             return true;
         }
-        public bool TryDestroy(Vector2 pos)
+        public bool TryDestroy(Vector2Int pos)
         {
             if (!InsideTheWorldDimensions(pos) ||
                 IsEmpty(pos))
                 return false;
 
             TryNotifyChunk(pos);
-            Slots[(int)pos.X, (int)pos.Y].Destroy();
+            Slots[pos.X, pos.Y].Destroy();
 
             return true;
         }
-        public bool TryReplace<T>(Vector2 pos) where T : PElement
+        public bool TryReplace<T>(Vector2Int pos) where T : PElement
         {
             if (!TryDestroy(pos)) return false;
             if (!TryInstantiate<T>(pos)) return false;
 
             return true;
         }
-        public bool TryGetElement(Vector2 pos, out PElement value)
+        public bool TryGetElement(Vector2Int pos, out PElement value)
         {
             if (!InsideTheWorldDimensions(pos) ||
                 IsEmpty(pos))
@@ -200,27 +201,27 @@ namespace PixelDust.Core.Worlding
                 return false;
             }
 
-            value = Slots[(int)pos.X, (int)pos.Y].Element;
+            value = Slots[pos.X, pos.Y].Element;
             return true;
         }
-        public bool TryGetSlot(Vector2 pos, out PWorldSlot value)
+        public bool TryGetSlot(Vector2Int pos, out PWorldSlot value)
         {
             value = default;
             if (!InsideTheWorldDimensions(pos))
                 return false;
 
-            value = Slots[(int)pos.X, (int)pos.Y];
+            value = Slots[pos.X, pos.Y];
             return !value.IsEmpty();
         }
-        public bool TryGetNeighbors(Vector2 pos, out (Vector2, PWorldSlot)[] neighbors)
+        public bool TryGetNeighbors(Vector2Int pos, out (Vector2Int, PWorldSlot)[] neighbors)
         {
-            List<(Vector2, PWorldSlot)> slotsFound = new();
-            neighbors = Array.Empty<(Vector2, PWorldSlot)>();
+            List<(Vector2Int, PWorldSlot)> slotsFound = new();
+            neighbors = Array.Empty<(Vector2Int, PWorldSlot)>();
 
             if (!InsideTheWorldDimensions(pos))
                 return false;
 
-            Vector2[] neighborsPositions = new Vector2[]
+            Vector2Int[] neighborsPositions = new Vector2Int[]
             {
                 // Top
                 new(pos.X, pos.Y - 1),
@@ -237,7 +238,7 @@ namespace PixelDust.Core.Worlding
                 new(pos.X - 1, pos.Y + 1),
             };
 
-            foreach (Vector2 neighborPos in neighborsPositions)
+            foreach (Vector2Int neighborPos in neighborsPositions)
             {
                 if (TryGetSlot(neighborPos, out PWorldSlot value))
                     slotsFound.Add((neighborPos, value));
@@ -251,36 +252,18 @@ namespace PixelDust.Core.Worlding
 
             return false;
         }
-        public bool IsEmpty(Vector2 pos)
+        public bool IsEmpty(Vector2Int pos)
         {
-            if (!InsideTheWorldDimensions(pos) || Slots[(int)pos.X, (int)pos.Y].IsEmpty())
+            if (!InsideTheWorldDimensions(pos) || Slots[pos.X, pos.Y].IsEmpty())
                 return true;
 
             return false;
         }
 
-        // Engine
-        public void Resize(Vector2 size)
-        {
-            Pause();
-            Clear();
-
-            Infos.SetWidth((uint)size.X);
-            Infos.SetWidth((uint)size.Y);
-
-            Restart();
-        }
-
         // States
         public void Restart()
         {
-            uint width = (uint)Infos.Width;
-            uint height = (uint)Infos.Height;
-
-            Infos.SetWidth(width);
-            Infos.SetHeight(height);
-
-            Slots = new PWorldSlot[width, height];
+            Slots = new PWorldSlot[Infos.Size.Width, Infos.Size.Height];
         }
         public void Pause()
         {
@@ -297,9 +280,9 @@ namespace PixelDust.Core.Worlding
             if (Slots == null)
                 return;
 
-            for (int x = 0; x < Infos.Width; x++)
+            for (int x = 0; x < Infos.Size.Width; x++)
             {
-                for (int y = 0; y < Infos.Height; y++)
+                for (int y = 0; y < Infos.Size.Height; y++)
                 {
                     if (IsEmpty(new(x, y)))
                         continue;

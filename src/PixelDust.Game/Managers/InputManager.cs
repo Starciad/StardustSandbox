@@ -244,8 +244,8 @@ namespace PixelDust.Game.Managers
         private void ClampCamera()
         {
             // Clamp
-            int totalX = (int)(_world.Instance.Infos.Width * PWorld.Scale - PScreen.DefaultResolution.X);
-            int totalY = (int)(_world.Instance.Infos.Height * PWorld.Scale - PScreen.DefaultResolution.Y);
+            int totalX = (int)(_world.Instance.Infos.Size.Width * PWorld.Scale - PScreen.DefaultResolution.X);
+            int totalY = (int)(_world.Instance.Infos.Size.Height * PWorld.Scale - PScreen.DefaultResolution.Y);
 
             PWorldCamera.Camera.Position = new(
                 Math.Clamp(PWorldCamera.Camera.Position.X, 0, totalX),

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Mathematics;
 using PixelDust.Core.Worlding;
 
 namespace PixelDust.Core.Elements
@@ -96,7 +97,7 @@ namespace PixelDust.Core.Elements
             Render.Update();
             OnUpdate();
             
-            if (EnableNeighborsAction && Context.TryGetNeighbors(Context.Position, out (Vector2, PWorldSlot)[] neighbors))
+            if (EnableNeighborsAction && Context.TryGetNeighbors(Context.Position, out (Vector2Int, PWorldSlot)[] neighbors))
                 OnNeighbors(neighbors, neighbors.Length);
         }
 
@@ -169,7 +170,7 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="neighbors">Array of neighboring elements.</param>
         /// <param name="length">Number of neighbors.</param>
-        protected virtual void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length) { return; }
+        protected virtual void OnNeighbors((Vector2Int, PWorldSlot)[] neighbors, int length) { return; }
 
         #endregion
     }

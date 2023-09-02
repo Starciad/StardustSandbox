@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 
 namespace PixelDust.Core.Elements
@@ -36,14 +37,14 @@ namespace PixelDust.Core.Elements
         private void UpSpreadingTypeUpdate()
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
-            Vector2[] targets = new Vector2[]
+            Vector2Int[] targets = new Vector2Int[]
             {
                     new(Context.Position.X                 , Context.Position.Y - 1),
                     new(Context.Position.X + direction     , Context.Position.Y - 1),
                     new(Context.Position.X + direction * -1, Context.Position.Y - 1),
             };
 
-            foreach (Vector2 targetPos in targets)
+            foreach (Vector2Int targetPos in targets)
             {
                 if (Context.IsEmpty(targetPos))
                     if (Context.TrySetPosition(targetPos)) return;

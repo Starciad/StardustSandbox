@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 
 namespace PixelDust.Core.Elements
@@ -13,8 +14,8 @@ namespace PixelDust.Core.Elements
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
 
-            Vector2 down = new(Context.Position.X, Context.Position.Y + 1);
-            Vector2[] sides = new Vector2[]
+            Vector2Int down = new(Context.Position.X, Context.Position.Y + 1);
+            Vector2Int[] sides = new Vector2Int[]
             {
                 new(Context.Position.X + direction     , Context.Position.Y),
                 new(Context.Position.X + direction * -1, Context.Position.Y),
@@ -22,19 +23,15 @@ namespace PixelDust.Core.Elements
 
             if (TrySetPosition(down)) { return; }
 
-            foreach (Vector2 targetPos in sides)
+            foreach (Vector2Int side in sides)
             {
-                if (Context.IsEmpty(targetPos))
-                {
-                    if (TrySetPosition(new(targetPos.X, targetPos.Y + 1))) { return; }
-                }
+                if (TrySetPosition(new(side.X, side.Y + 1))) { return; }
             }
         }
 
-        private bool TrySetPosition(Vector2 pos)
+        private bool TrySetPosition(Vector2Int pos)
         {
-            if (Context.IsEmpty(pos))
-                if (Context.TrySetPosition(pos)) return true;
+            if (Context.TrySetPosition(pos)) return true;
 
             if (Context.TryGetElement(pos, out PElement value))
             {

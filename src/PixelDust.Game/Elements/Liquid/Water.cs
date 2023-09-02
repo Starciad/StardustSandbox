@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
+using PixelDust.Core.Mathematics;
 using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Solid.Movable;
 
@@ -18,13 +19,13 @@ namespace PixelDust.Game.Elements.Liquid
 
             Render.AddFrame(new(2, 0));
 
-            DefaultDispersionRate = 4;
+            DefaultDispersionRate = 3;
             EnableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
+        protected override void OnNeighbors((Vector2Int, PWorldSlot)[] neighbors, int length)
         {
-            foreach ((Vector2, PWorldSlot) neighbor in neighbors)
+            foreach ((Vector2Int, PWorldSlot) neighbor in neighbors)
             {
                 if (neighbor.Item2.Element is Dirt)
                 {

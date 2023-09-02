@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine;
+using PixelDust.Core.Mathematics;
 
 namespace PixelDust.Core.Worlding
 {
@@ -18,8 +19,8 @@ namespace PixelDust.Core.Worlding
 
         protected override void OnInitialize()
         {
-            _chunks = new PWorldChunk[(World.Infos.Width / DefaultChunkSize) + 1,
-                                      (World.Infos.Height / DefaultChunkSize) + 1];
+            _chunks = new PWorldChunk[(WorldInstance.Infos.Size.Width / DefaultChunkSize) + 1,
+                                      (WorldInstance.Infos.Size.Height / DefaultChunkSize) + 1];
 
             worldChunkWidth = _chunks.GetLength(0);
             worldChunkHeight = _chunks.GetLength(1);
@@ -51,15 +52,15 @@ namespace PixelDust.Core.Worlding
 #endif
         }
 
-        internal bool TryGetChunkUpdateState(Vector2 pos, out bool result)
+        internal bool TryGetChunkUpdateState(Vector2Int pos, out bool result)
         {
             result = false;
-            Vector2 targetPos = ToChunkCoordinateSystem(pos);
+            Vector2Int targetPos = ToChunkCoordinateSystem(pos);
 
             if (!IsWithinChunkBoundaries(targetPos))
                 return false;
 
-            result = _chunks[(int)targetPos.X, (int)targetPos.Y].ShouldUpdate;
+            result = _chunks[targetPos.X, targetPos.Y].ShouldUpdate;
             return true;
         }
         internal int GetActiveChunksCount()
@@ -77,13 +78,13 @@ namespace PixelDust.Core.Worlding
             return result;
         }
         
-        internal bool TryNotifyChunk(Vector2 pos)
+        internal bool TryNotifyChunk(Vector2Int pos)
         {
-            Vector2 targetPos = ToChunkCoordinateSystem(pos);
+            Vector2Int targetPos = ToChunkCoordinateSystem(pos);
 
             if (IsWithinChunkBoundaries(targetPos))
             {
-                _chunks[(int)targetPos.X, (int)targetPos.Y].Notify();
+                _chunks[targetPos.X, targetPos.Y].Notify();
                 TryNotifyNeighboringChunks(pos, targetPos);
 
                 return true;
@@ -91,36 +92,30 @@ namespace PixelDust.Core.Worlding
 
             return false;
         }
-        private void TryNotifyNeighboringChunks(Vector2 ePos, Vector2 cPos)
+        private void TryNotifyNeighboringChunks(Vector2Int ePos, Vector2Int cPos)
         {
-            int cPosX = (int)cPos.X;
-            int cPosY = (int)cPos.Y;
+            if (ePos.X % DefaultChunkSize == 0 && IsWithinChunkBoundaries(new(cPos.X - 1, cPos.Y)))
+                _chunks[cPos.X - 1, cPos.Y].Notify();
 
-            if (ePos.X % DefaultChunkSize == 0 && IsWithinChunkBoundaries(new(cPosX - 1, cPosY)))
-                _chunks[cPosX - 1, cPosY].Notify();
+            if (ePos.X % DefaultChunkSize == DefaultChunkSize - 1 && IsWithinChunkBoundaries(new(cPos.X + 1, cPos.Y)))
+                _chunks[cPos.X + 1, cPos.Y].Notify();
 
-            if (ePos.X % DefaultChunkSize == DefaultChunkSize - 1 && IsWithinChunkBoundaries(new(cPosX + 1, cPosY)))
-                _chunks[cPosX + 1, cPosY].Notify();
+            if (ePos.Y % DefaultChunkSize == 0 && IsWithinChunkBoundaries(new(cPos.X, cPos.Y - 1)))
+                _chunks[cPos.X, cPos.Y - 1].Notify();
 
-            if (ePos.Y % DefaultChunkSize == 0 && IsWithinChunkBoundaries(new(cPosX, cPosY - 1)))
-                _chunks[cPosX, cPosY - 1].Notify();
-
-            if (ePos.Y % DefaultChunkSize == DefaultChunkSize - 1 && IsWithinChunkBoundaries(new(cPosX, cPosY + 1)))
-                _chunks[cPosX, cPosY + 1].Notify();
+            if (ePos.Y % DefaultChunkSize == DefaultChunkSize - 1 && IsWithinChunkBoundaries(new(cPos.X, cPos.Y + 1)))
+                _chunks[cPos.X, cPos.Y + 1].Notify();
         }
 
-        private bool IsWithinChunkBoundaries(Vector2 pos)
+        private bool IsWithinChunkBoundaries(Vector2Int pos)
         {
-            return (int)pos.X >= 0 && (int)pos.X < worldChunkWidth &&
-                   (int)pos.Y >= 0 && (int)pos.Y < worldChunkHeight;
+            return pos.X >= 0 && pos.X < worldChunkWidth &&
+                   pos.Y >= 0 && pos.Y < worldChunkHeight;
         }
 
-        internal static Vector2 ToChunkCoordinateSystem(Vector2 pos)
+        internal static Vector2Int ToChunkCoordinateSystem(Vector2Int pos)
         {
-            int x = (int)(pos.X / DefaultChunkSize);
-            int y = (int)(pos.Y / DefaultChunkSize);
-
-            return new(x, y);
+            return new(pos.X / DefaultChunkSize, pos.Y / DefaultChunkSize);
         }
 
 #if DEBUG

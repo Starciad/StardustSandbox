@@ -8,8 +8,7 @@ namespace PixelDust.Core.Worlding
 {
     public class PWorldInfos
     {
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        public Size2Int Size => worldSizes[2];
 
         private static readonly Size2Int[] worldSizes = new Size2Int[]
         {
@@ -17,20 +16,5 @@ namespace PixelDust.Core.Worlding
             new(80, 40), // (1) Medium
             new(160, 80), // (2) Large
         };
-
-        public PWorldInfos()
-        {
-            Width = worldSizes[2].Width;
-            Height = worldSizes[2].Height;
-        }
-
-        internal void SetWidth(uint value)
-        {
-            Width = (int)value;
-        }
-        internal void SetHeight(uint value)
-        {
-            Height = (int)value;
-        }
     }
 }

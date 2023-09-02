@@ -4,11 +4,11 @@ namespace PixelDust.Core.Worlding
 {
     public abstract class PWorldComponent
     {
-        protected PWorld World { get; private set; }
+        protected PWorld WorldInstance { get; private set; }
 
-        internal void Initialize(PWorld world)
+        internal void Initialize(PWorld instance)
         {
-            World = world;
+            WorldInstance = instance;
             OnInitialize();
         }
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Elements;
 using PixelDust.Core.Engine;
+using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Solid.Immovable;
@@ -52,12 +53,12 @@ namespace PixelDust.Game.Elements.Solid.Movable
             }
         }
 
-        protected override void OnNeighbors((Vector2, PWorldSlot)[] neighbors, int length)
+        protected override void OnNeighbors((Vector2Int, PWorldSlot)[] neighbors, int length)
         {
             if (!canInfect)
                 return;
 
-            List<(Vector2, PWorldSlot)> targets = new();
+            List<(Vector2Int, PWorldSlot)> targets = new();
             for (int i = 0; i < length; i++)
             {
                 if (neighbors[i].Item2.Element is not Corruption &&
@@ -70,7 +71,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             if (targets.Count == 0)
                 return;
 
-            (Vector2, PWorldSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
+            (Vector2Int, PWorldSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
 
             if (target.Item2.Element is PSolid)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 
 using System;
@@ -13,61 +14,82 @@ namespace PixelDust.Core.Elements
     {
         internal override void OnBehaviourStep()
         {
-            // Creation of quick access positions in the context of this current liquid
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
-            Vector2[] targets = new Vector2[]
+
+            Vector2Int down = new(Context.Position.X, Context.Position.Y + 1);
+            Vector2Int[] sides = new Vector2Int[]
             {
-                new(Context.Position.X                  , Context.Position.Y + 1),
-                new(Context.Position.X + direction      , Context.Position.Y + 1),
-                new(Context.Position.X + direction * -1 , Context.Position.Y + 1),
+                new(Context.Position.X + direction     , Context.Position.Y),
+                new(Context.Position.X + direction * -1, Context.Position.Y),
             };
 
-            // Down
-            // Liquido tries to move to target positions
-            foreach (Vector2 targetPos in targets)
-            {
-                if (Context.IsEmpty(targetPos))
-                    if (Context.TrySetPosition(targetPos)) return;
-            }
+            if (Context.TrySetPosition(down))
+                return;
 
-            HorizontalMovement();
+            foreach (Vector2Int side in sides)
+                if (Context.TrySetPosition(new(side.X, side.Y + 1))) { return; }
+
+            HorizontalMovementUpdate(direction);
         }
 
-        private void HorizontalMovement()
+        private void HorizontalMovementUpdate(int direction)
         {
-            int targetDirection, targetDistance;
-            int lDistance = 0, rDistance = 0;
+            int lCount = 0, rCount = 0;
+            bool lCountBreak = false, rCountBreak = false;
 
-            // Check left side (<)
+            // Left (<) && Right (>)
             for (int i = 0; i < DefaultDispersionRate; i++)
             {
-                if (Context.IsEmpty(new(Context.Position.X - (i + 1), Context.Position.Y)))
-                    lDistance++;
-                else break;
+                if (lCountBreak && rCountBreak)
+                    break;
+
+                if (!lCountBreak && Context.IsEmpty(new(Context.Position.X - (i + 1), Context.Position.Y)))
+                {
+                    lCount++;
+                }
+                else
+                {
+                    lCountBreak = true;
+                }
+
+                if (!rCountBreak && Context.IsEmpty(new(Context.Position.X + (i + 1), Context.Position.Y)))
+                {
+                    rCount++;
+                }
+                else
+                {
+                    rCountBreak = true;
+                }
             }
 
-            // Check right side (>)
-            for (int i = 0; i < DefaultDispersionRate; i++)
+            // Set new position
+            int tCount = int.Max(lCount, rCount);
+
+            Vector2Int lPosition = new(Context.Position.X - tCount, Context.Position.Y);
+            Vector2Int rPosition = new(Context.Position.X + tCount, Context.Position.Y);
+
+            if (tCount.Equals(lCount) && tCount.Equals(rCount))
             {
-                if (Context.IsEmpty(new(Context.Position.X + (i + 1), Context.Position.Y)))
-                    rDistance++;
-                else break;
+                if (direction.Equals(-1))
+                {
+                    if (Context.TrySetPosition(lPosition)) { return; }
+                }
+
+                if (direction.Equals(1))
+                {
+                    if (Context.TrySetPosition(rPosition)) { return; }
+                }
             }
 
-            // Check for the largest
-            if ((int)MathF.Max(lDistance, rDistance) == lDistance)
+            if (tCount.Equals(lCount))
             {
-                targetDirection = -1;
-                targetDistance = lDistance;
-            }
-            else
-            {
-                targetDirection = 1;
-                targetDistance = rDistance;
+                if (Context.TrySetPosition(lPosition)) { return; }
             }
 
-            // Set current position
-            Context.TrySetPosition(new((Context.Position.X + targetDistance) * targetDirection, Context.Position.Y));
+            if (tCount.Equals(rCount))
+            {
+                if (Context.TrySetPosition(rPosition)) { return; }
+            }
         }
     }
 }
