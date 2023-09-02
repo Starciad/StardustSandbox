@@ -1,9 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-
-using PixelDust.Core.Mathematics;
+﻿using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
-
-using System;
 
 namespace PixelDust.Core.Elements
 {

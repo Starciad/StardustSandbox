@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using PixelDust.Core.Elements;
-using PixelDust.Core.Engine;
+﻿using PixelDust.Core.Elements;
 using PixelDust.Core.Mathematics;
 using PixelDust.Core.Worlding;
 

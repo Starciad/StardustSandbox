@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Sprites;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Worlding;
 
-using System;
 using System.Collections.Generic;
 
 namespace PixelDust.Core.Elements

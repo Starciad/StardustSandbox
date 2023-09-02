@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using PixelDust.Core;
+﻿using PixelDust.Core;
 
 using System;
 using System.Windows.Forms;

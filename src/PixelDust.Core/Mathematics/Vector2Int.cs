@@ -294,7 +294,7 @@ namespace PixelDust.Core.Mathematics
         {
             return new Point(X, Y);
         }
-        public readonly override string ToString()
+        public override readonly string ToString()
         {
             return "{X:" + X + " Y:" + Y + "}";
         }
@@ -303,7 +303,7 @@ namespace PixelDust.Core.Mathematics
 
         #region System
 
-        public readonly override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Vector2Int @int)
             {
@@ -316,7 +316,7 @@ namespace PixelDust.Core.Mathematics
         {
             return (X == other.X) && (Y == other.Y);
         }
-        public readonly override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {

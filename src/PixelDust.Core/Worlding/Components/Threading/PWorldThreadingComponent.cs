@@ -3,10 +3,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Microsoft.Xna.Framework;
-
 using System;
-using System.Reflection;
 using PixelDust.Core.Mathematics;
 
 namespace PixelDust.Core.Worlding

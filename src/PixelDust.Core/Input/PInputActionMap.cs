@@ -8,7 +8,9 @@ namespace PixelDust.Core.Input
 
         private bool _active;
 
+#pragma warning disable CS0169 // O campo "PInputActionMap.handler" nunca é usado
         private readonly PInputActionMapHandler handler;
+#pragma warning restore CS0169 // O campo "PInputActionMap.handler" nunca é usado
 
         private readonly Dictionary<string, PInputAction> _actions = new();
 

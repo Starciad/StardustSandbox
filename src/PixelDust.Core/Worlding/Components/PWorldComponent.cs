@@ -1,6 +1,4 @@
-﻿using PixelDust.Core.Elements;
-
-namespace PixelDust.Core.Worlding
+﻿namespace PixelDust.Core.Worlding
 {
     public abstract class PWorldComponent
     {

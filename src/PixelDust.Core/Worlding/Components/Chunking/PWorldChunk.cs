@@ -1,7 +1,5 @@
 ﻿using System.Runtime.InteropServices;
 
-using Microsoft.Xna.Framework;
-
 using PixelDust.Core.Mathematics;
 
 namespace PixelDust.Core.Worlding

@@ -1,8 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using PixelDust.Core.Elements;
-using PixelDust.Core.Engine;
+﻿using PixelDust.Core.Elements;
 using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding;
@@ -10,7 +6,6 @@ using PixelDust.Game.Elements.Solid.Immovable;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {

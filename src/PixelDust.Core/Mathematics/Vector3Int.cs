@@ -347,7 +347,7 @@ namespace PixelDust.Core.Mathematics
 
         #region Conversions
 
-        public readonly override string ToString()
+        public override readonly string ToString()
         {
             StringBuilder sb = new(32);
             sb.Append("{X:");
@@ -363,7 +363,7 @@ namespace PixelDust.Core.Mathematics
         #endregion
 
         #region Override
-        public readonly override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is not Vector3Int)
                 return false;
@@ -379,7 +379,7 @@ namespace PixelDust.Core.Mathematics
                     Y == other.Y &&
                     Z == other.Z;
         }
-        public readonly override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return HashCode.Combine(X, Y, Z);
         }

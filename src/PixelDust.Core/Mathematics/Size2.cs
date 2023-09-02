@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.Xna.Framework;
 
 namespace PixelDust.Core.Mathematics
@@ -72,11 +73,11 @@ namespace PixelDust.Core.Mathematics
             return size;
         }
 
-        public readonly override string ToString()
+        public override readonly string ToString()
         {
             return $"{{ Width: {Width}, Height: {Height} }}";
         }
-        public readonly override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -92,7 +93,7 @@ namespace PixelDust.Core.Mathematics
         {
             return Width == size.Width && Height == size.Height;
         }
-        public readonly override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Size2 @float)
                 return Equals(@float);
