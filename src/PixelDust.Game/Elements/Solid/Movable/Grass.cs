@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Grass";
             Description = string.Empty;
 
-            
             Render.AddFrame(new(4, 0));
+
+            DefaultTemperature = 22;
         }
     }
 }

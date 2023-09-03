@@ -4,7 +4,7 @@ namespace PixelDust.Core.Worlding
 {
     public class PWorldInfos
     {
-        public Size2Int Size => worldSizes[2];
+        public Size2Int Size => worldSizes[1];
 
         private static readonly Size2Int[] worldSizes = new Size2Int[]
         {

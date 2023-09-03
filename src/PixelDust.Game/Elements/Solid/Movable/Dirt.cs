@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Dirt";
             Description = string.Empty;
 
-            
             Render.AddFrame(new(0, 0));
+
+            DefaultTemperature = 20;
         }
     }
 }

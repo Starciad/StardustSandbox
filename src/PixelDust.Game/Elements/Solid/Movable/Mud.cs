@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Name = "Mud";
             Description = string.Empty;
 
-            
             Render.AddFrame(new(1, 0));
+
+            DefaultTemperature = 18;
         }
     }
 }

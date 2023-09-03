@@ -14,8 +14,9 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Acid";
             Description = string.Empty;
 
-            
             Render.AddFrame(new(0, 1));
+
+            DefaultTemperature = 10;
 
             EnableNeighborsAction = true;
         }

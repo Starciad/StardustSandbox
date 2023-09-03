@@ -1,7 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Core.Mathematics;
+using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding;
+
+using System;
+using System.Xml.Linq;
 
 namespace PixelDust.Core.Elements
 {
@@ -41,6 +45,8 @@ namespace PixelDust.Core.Elements
         /// </summary>
         public int DefaultDispersionRate { get; protected set; } = 1;
 
+        public int DefaultTemperature { get; protected set; }
+
         #endregion
 
         #region Settings (Enables)
@@ -61,7 +67,7 @@ namespace PixelDust.Core.Elements
         /// <summary>
         /// 
         /// </summary>
-        public bool EnableGravity { get; protected set; } = true;
+        public bool EnableTemperature { get; protected set; } = true;
 
         #endregion
 
@@ -102,8 +108,11 @@ namespace PixelDust.Core.Elements
             Render.Update();
             OnUpdate();
             
-            if (EnableNeighborsAction && Context.TryGetNeighbors(Context.Position, out (Vector2Int, PWorldElementSlot)[] neighbors))
-                OnNeighbors(neighbors, neighbors.Length);
+            if (Context.TryGetNeighbors(Context.Position, out (Vector2Int, PWorldElementSlot)[] neighbors))
+            {
+                if (EnableTemperature) { UpdateTemperature(neighbors); }
+                if (EnableNeighborsAction) { OnNeighbors(neighbors, neighbors.Length); }
+            }
         }
 
         /// <summary>
@@ -166,7 +175,35 @@ namespace PixelDust.Core.Elements
 
         #endregion
 
-        // ======= //
+        #region System
+
+        private void UpdateTemperature((Vector2Int, PWorldElementSlot)[] neighbors)
+        {
+            float totalTemperatureChange = 0.0f;
+
+            foreach (var neighbor in neighbors)
+            {
+                if (!neighbor.Item2.Instance.EnableTemperature)
+                    continue;
+
+                float temperatureDifference = Context.Slot.Temperature - neighbor.Item2.Temperature;
+
+                float temperatureChange = temperatureDifference * PTemperature.HeatExchangeRate;
+                totalTemperatureChange += temperatureChange;
+            }
+
+            float averageTemperatureChange = totalTemperatureChange / neighbors.Length;
+            Context.TrySetTemperature(Context.Position, Context.Slot.Temperature - averageTemperatureChange);
+
+            if (MathF.Abs(averageTemperatureChange) < PTemperature.EquilibriumThreshold)
+            {
+                Context.TrySetTemperature(Context.Position, Context.Slot.Temperature + averageTemperatureChange);
+            }
+
+            OnTemperatureChanged(Context.Slot.Temperature);
+        }
+
+        #endregion
 
         #region Events
 
@@ -176,6 +213,7 @@ namespace PixelDust.Core.Elements
         /// <param name="neighbors">Array of neighboring elements.</param>
         /// <param name="length">Number of neighbors.</param>
         protected virtual void OnNeighbors((Vector2Int, PWorldElementSlot)[] neighbors, int length) { return; }
+        protected virtual void OnTemperatureChanged(float currentValue) { return; }
 
         #endregion
     }

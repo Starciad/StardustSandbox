@@ -10,7 +10,7 @@ namespace PixelDust.Game.Elements.Liquid
             Name = "Oil";
             Description = string.Empty;
 
-            
+            DefaultTemperature = 30;
         }
     }
 }

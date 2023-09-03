@@ -16,6 +16,8 @@ namespace PixelDust.Game.Elements.Liquid
             Render.AddFrame(new(2, 0));
 
             DefaultDispersionRate = 3;
+            DefaultTemperature = 25;
+
             EnableNeighborsAction = true;
         }
 

@@ -1,4 +1,8 @@
-﻿using PixelDust.Core.Elements;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Core.Elements;
+
+using System;
 
 namespace PixelDust.Core.Worlding
 {
@@ -6,8 +10,10 @@ namespace PixelDust.Core.Worlding
     {
         public readonly PElement Instance => PElementsHandler.GetElementById<PElement>(id);
         public readonly bool IsEmpty => id == 0;
+        public readonly float Temperature => temperature;
 
         private byte id;
+        private float temperature;
 
         internal void Instantiate(uint id)
         {
@@ -17,6 +23,7 @@ namespace PixelDust.Core.Worlding
         {
             Reset();
             id = value.Id;
+            temperature = value.DefaultTemperature;
         }
         internal void Destroy()
         {
@@ -27,10 +34,14 @@ namespace PixelDust.Core.Worlding
         {
             this = value;
         }
+        internal void SetTemperatureValue(float value)
+        {
+            temperature = value;
+        }
 
         private void Reset()
         {
-
+            temperature = 0;
         }
     }
 }

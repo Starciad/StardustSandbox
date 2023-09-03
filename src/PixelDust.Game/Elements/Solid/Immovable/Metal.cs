@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Metal";
             Description = string.Empty;
 
-            
             Render.AddFrame(new(2, 1));
+
+            DefaultTemperature = 30;
         }
     }
 }

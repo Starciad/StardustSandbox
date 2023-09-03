@@ -9,9 +9,10 @@ namespace PixelDust.Game.Elements.Solid.Immovable
         {
             Name = "Wall";
             Description = string.Empty;
-
             
             Render.AddFrame(new(3, 1));
+
+            EnableTemperature = false;
         }
     }
 }

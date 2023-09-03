@@ -155,6 +155,11 @@ namespace PixelDust.Core.Elements
             return _world.TryGetElementNeighbors(pos, out neighbors);
         }
 
+        public bool TrySetTemperature(Vector2Int pos, float value)
+        {
+            return _world.TrySetElementTemperature(pos, value);
+        }
+
         /// <summary>
         /// Checks whether the slot at a given position is empty.
         /// </summary>

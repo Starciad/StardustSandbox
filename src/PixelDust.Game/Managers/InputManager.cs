@@ -3,6 +3,8 @@ using PixelDust.Core.Managers;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
 using PixelDust.Core.Worlding;
+using PixelDust.Core.Input;
+using PixelDust.Core.Mathematics;
 
 using PixelDust.Game.Elements.Liquid;
 using PixelDust.Game.Elements.Solid.Immovable;
@@ -14,7 +16,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using PixelDust.Core.Input;
 
 namespace PixelDust.Game.Managers
 {
@@ -26,6 +27,7 @@ namespace PixelDust.Game.Managers
 
         private PElement elementSelected;
         private PElement elementOver;
+        private PWorldElementSlot elementOverSlot;
 
         private float size = 1;
         private readonly float speed = 10;
@@ -62,10 +64,12 @@ namespace PixelDust.Game.Managers
             
             _actionHandler.Update();
             ClampCamera();
+            GetMouseOverElement();
 
             debugString = new();
             debugString.AppendLine($"Selected: {elementSelected?.Name}");
             debugString.AppendLine($"Mouse: {elementOver?.Name}");
+            debugString.AppendLine($"Temperature: {elementOverSlot.Temperature}");
             debugString.AppendLine($"Size: {(int)size}");
         }
 
@@ -240,6 +244,14 @@ namespace PixelDust.Game.Managers
         }
 
         #endregion
+
+        private void GetMouseOverElement()
+        {
+            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+            Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
+
+            _world.Instance.TryGetElementSlot((Vector2Int)worldPos, out elementOverSlot);
+        }
 
         private void ClampCamera()
         {

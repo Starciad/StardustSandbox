@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Solid.Immovable
             Name = "Glass";
             Description = string.Empty;
 
-            
             Render.AddFrame(new(1, 1));
+
+            DefaultTemperature = 25;
         }
     }
 }

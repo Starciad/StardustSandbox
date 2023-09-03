@@ -9,9 +9,10 @@ namespace PixelDust.Game.Elements.Solid.Movable
         {
             Name = "Sand";
             Description = string.Empty;
-
             
             Render.AddFrame(new(6, 0));
+
+            DefaultTemperature = 22;
         }
     }
 }

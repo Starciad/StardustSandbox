@@ -14,9 +14,10 @@ namespace PixelDust.Game.Elements.Liquid
         {
             Name = "Lava";
             Description = string.Empty;
-
             
             Render.AddFrame(new(9, 0));
+
+            DefaultTemperature = 1000;
 
             EnableNeighborsAction = true;
         }
@@ -25,12 +26,6 @@ namespace PixelDust.Game.Elements.Liquid
         {
             foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (neighbor.Item2.Instance is Stone)
-                {
-                    Context.TryReplace<Lava>(neighbor.Item1);
-                    return;
-                }
-
                 if (neighbor.Item2.Instance is Water)
                 {
                     Context.TryDestroy(Context.Position);
@@ -50,6 +45,15 @@ namespace PixelDust.Game.Elements.Liquid
                     Context.TryReplace<Dirt>(neighbor.Item1);
                     return;
                 }
+            }
+        }
+
+        protected override void OnTemperatureChanged(float currentValue)
+        {
+            if (currentValue < 500)
+            {
+                Context.TryReplace<Stone>(Context.Position);
+                Context.TrySetTemperature(Context.Position, currentValue);
             }
         }
     }

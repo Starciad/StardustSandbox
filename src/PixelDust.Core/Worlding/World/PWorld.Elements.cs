@@ -146,6 +146,16 @@ namespace PixelDust.Core.Worlding
             return !value.IsEmpty;
         }
 
+        public bool TrySetElementTemperature(Vector2Int pos, float value)
+        {
+            if (!InsideTheWorldDimensions(pos))
+                return false;
+
+            Elements[pos.X, pos.Y].SetTemperatureValue(value);
+
+            return true;
+        }
+
         public bool IsEmptyElementSlot(Vector2Int pos)
         {
             if (!InsideTheWorldDimensions(pos) || Elements[pos.X, pos.Y].IsEmpty)

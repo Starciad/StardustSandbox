@@ -9,9 +9,10 @@ namespace PixelDust.Game.Elements.Gases
         {
             Name = "Steam";
             Description = string.Empty;
-
             
             Render.AddFrame(new(9, 1));
+
+            DefaultTemperature = 100;
         }
     }
 }
