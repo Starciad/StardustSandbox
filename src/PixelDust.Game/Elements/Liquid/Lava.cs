@@ -21,31 +21,31 @@ namespace PixelDust.Game.Elements.Liquid
             EnableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors((Vector2Int, PWorldSlot)[] neighbors, int length)
+        protected override void OnNeighbors((Vector2Int, PWorldElementSlot)[] neighbors, int length)
         {
-            foreach ((Vector2Int, PWorldSlot) neighbor in neighbors)
+            foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (neighbor.Item2.Element is Stone)
+                if (neighbor.Item2.Instance is Stone)
                 {
                     Context.TryReplace<Lava>(neighbor.Item1);
                     return;
                 }
 
-                if (neighbor.Item2.Element is Water)
+                if (neighbor.Item2.Instance is Water)
                 {
                     Context.TryDestroy(Context.Position);
                     Context.TryReplace<Steam>(neighbor.Item1);
                     return;
                 }
 
-                if (neighbor.Item2.Element is Grass)
+                if (neighbor.Item2.Instance is Grass)
                 {
                     Context.TryDestroy(neighbor.Item1);
                     return;
                 }
 
 
-                if (neighbor.Item2.Element is Mud)
+                if (neighbor.Item2.Instance is Mud)
                 {
                     Context.TryReplace<Dirt>(neighbor.Item1);
                     return;

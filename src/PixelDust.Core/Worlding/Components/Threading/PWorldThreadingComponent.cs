@@ -87,7 +87,7 @@ namespace PixelDust.Core.Worlding
 
                     PUpdateElementTarget(pos, 1);
 
-                    if (WorldInstance.IsEmpty(pos) || !chunkState) 
+                    if (WorldInstance.IsEmptyElementSlot(pos) || !chunkState) 
                         continue;
 
                     _capturedSlots ??= new();
@@ -107,7 +107,7 @@ namespace PixelDust.Core.Worlding
         }
         private void PUpdateElementTarget(Vector2Int position, int updateType)
         {
-            WorldInstance.TryGetSlot(position, out PWorldSlot slot);
+            WorldInstance.TryGetElementSlot(position, out PWorldElementSlot slot);
             WorldInstance.elementUpdateContext.Update(slot, position);
 
             if (WorldInstance.TryGetElement(position, out PElement value))

@@ -12,52 +12,26 @@ namespace PixelDust.Game.Elements.Solid.Movable
     [PElementRegister(9)]
     internal sealed class Corruption : PMovableSolid
     {
-        private static bool canInfect = false;
-
-        private static int infectionDelay = infectionDelayRange.Start.Value;
-        private static int currentInfectionDelay = 0;
-
-        private static readonly Range infectionDelayRange = new(new(500), new(1000));
-
         protected override void OnSettings()
         {
             Name = "Corruption";
             Description = string.Empty;
 
-            
+            Render.AddFrame(new(8, 0));
 
             EnableNeighborsAction = true;
-            Render.AddFrame(new(8, 0));
         }
 
-        protected override void OnUpdate()
+        protected override void OnNeighbors((Vector2Int, PWorldElementSlot)[] neighbors, int length)
         {
-            if (canInfect)
+            if (PRandom.Range(0, 300) != 0)
                 return;
 
-            if (currentInfectionDelay < infectionDelay)
-            {
-                currentInfectionDelay++;
-            }
-            else
-            {
-                canInfect = true;
-
-                currentInfectionDelay = 0;
-                infectionDelay = PRandom.Range(infectionDelayRange.Start.Value, infectionDelayRange.End.Value);
-            }
-        }
-
-        protected override void OnNeighbors((Vector2Int, PWorldSlot)[] neighbors, int length)
-        {
-            if (!canInfect)
-                return;
-
-            List<(Vector2Int, PWorldSlot)> targets = new();
+            List<(Vector2Int, PWorldElementSlot)> targets = new();
             for (int i = 0; i < length; i++)
             {
-                if (neighbors[i].Item2.Element is not Corruption &&
-                    neighbors[i].Item2.Element is not Wall)
+                if (neighbors[i].Item2.Instance is not Corruption &&
+                    neighbors[i].Item2.Instance is not Wall)
                 {
                     targets.Add(neighbors[i]);
                 }
@@ -66,22 +40,20 @@ namespace PixelDust.Game.Elements.Solid.Movable
             if (targets.Count == 0)
                 return;
 
-            (Vector2Int, PWorldSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
+            (Vector2Int, PWorldElementSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
 
-            if (target.Item2.Element is PSolid)
+            if (target.Item2.Instance is PSolid)
             {
                 Context.TryReplace<Corruption>(target.Item1);
             }
-            else if (target.Item2.Element is PLiquid)
+            else if (target.Item2.Instance is PLiquid)
             {
                 Context.TryReplace<Corruption>(target.Item1);
             }
-            else if (target.Item2.Element is PGas)
+            else if (target.Item2.Instance is PGas)
             {
                 Context.TryReplace<Corruption>(target.Item1);
             }
-
-            canInfect = false;
         }
     }
 }

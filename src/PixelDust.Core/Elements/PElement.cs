@@ -54,9 +54,14 @@ namespace PixelDust.Core.Elements
         public bool EnableDefaultBehaviour { get; protected set; } = true;
 
         /// <summary>
-        /// Enables the <see cref="OnNeighbors(ValueTuple{Vector2, PWorldSlot}[], int)"/> method that searches for the element's closest neighbors in a 3x3 area at each update.
+        /// Enables the <see cref="OnNeighbors(ValueTuple{Vector2, PWorldElementSlot}[], int)"/> method that searches for the element's closest neighbors in a 3x3 area at each update.
         /// </summary>
         public bool EnableNeighborsAction { get; protected set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool EnableGravity { get; protected set; } = true;
 
         #endregion
 
@@ -97,7 +102,7 @@ namespace PixelDust.Core.Elements
             Render.Update();
             OnUpdate();
             
-            if (EnableNeighborsAction && Context.TryGetNeighbors(Context.Position, out (Vector2Int, PWorldSlot)[] neighbors))
+            if (EnableNeighborsAction && Context.TryGetNeighbors(Context.Position, out (Vector2Int, PWorldElementSlot)[] neighbors))
                 OnNeighbors(neighbors, neighbors.Length);
         }
 
@@ -170,7 +175,7 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="neighbors">Array of neighboring elements.</param>
         /// <param name="length">Number of neighbors.</param>
-        protected virtual void OnNeighbors((Vector2Int, PWorldSlot)[] neighbors, int length) { return; }
+        protected virtual void OnNeighbors((Vector2Int, PWorldElementSlot)[] neighbors, int length) { return; }
 
         #endregion
     }

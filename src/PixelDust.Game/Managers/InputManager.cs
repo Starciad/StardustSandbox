@@ -189,7 +189,7 @@ namespace PixelDust.Game.Managers
 
                 if (size == 0)
                 {
-                    _world.Instance.TryInstantiate(worldPos, elementSelected.Id);
+                    _world.Instance.TryInstantiateElement(worldPos, elementSelected.Id);
                     return;
                 }
 
@@ -201,7 +201,7 @@ namespace PixelDust.Game.Managers
                         if (!_world.Instance.InsideTheWorldDimensions(lpos))
                             continue;
 
-                        _world.Instance.TryInstantiate(lpos, elementSelected.Id);
+                        _world.Instance.TryInstantiateElement(lpos, elementSelected.Id);
                     }
                 }
             };
@@ -219,7 +219,7 @@ namespace PixelDust.Game.Managers
 
                 if (size == 0)
                 {
-                    _world.Instance.TryDestroy(worldPos);
+                    _world.Instance.TryDestroyElement(worldPos);
                     return;
                 }
 
@@ -231,7 +231,7 @@ namespace PixelDust.Game.Managers
                         if (!_world.Instance.InsideTheWorldDimensions(lpos))
                             continue;
 
-                        _world.Instance.TryDestroy(lpos);
+                        _world.Instance.TryDestroyElement(lpos);
                     }
                 }
             };
