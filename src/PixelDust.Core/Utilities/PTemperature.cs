@@ -4,15 +4,14 @@ namespace PixelDust.Core.Utilities
 {
     internal static class PTemperature
     {
-        internal const double MinCelsiusValue = -275f;
-        internal const double MaxCelsiusValue = 9725.85f;
+        internal const short MinCelsiusValue = -275;
+        internal const short MaxCelsiusValue = 9725;
 
-        internal const float HeatExchangeRate = 1.5f;
-        internal const float EquilibriumThreshold = 0.1f;
+        internal const short EquilibriumThreshold = 1;
 
-        internal static double GetCelsiusInterval(double value)
+        internal static short Clamp(int value)
         {
-            return Math.Clamp(value, MinCelsiusValue, MaxCelsiusValue);
+            return (short)Math.Clamp(value, MinCelsiusValue, MaxCelsiusValue);
         }
     }
 }

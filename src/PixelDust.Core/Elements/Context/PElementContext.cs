@@ -1,6 +1,8 @@
 ﻿using PixelDust.Core.Mathematics;
 using PixelDust.Core.Worlding;
 
+using System;
+
 namespace PixelDust.Core.Elements
 {
     /// <summary>
@@ -150,12 +152,12 @@ namespace PixelDust.Core.Elements
         /// <param name="pos">Position specifies which will be used.t.</param>
         /// <param name="neighbors">An array containing positions and corresponding slots of neighboring elements.</param>
         /// <returns><c>true</c> if neighbors were found, otherwise <c>false</c>.</returns>
-        public bool TryGetNeighbors(Vector2Int pos, out (Vector2Int, PWorldElementSlot)[] neighbors)
+        public bool TryGetNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
             return _world.TryGetElementNeighbors(pos, out neighbors);
         }
 
-        public bool TrySetTemperature(Vector2Int pos, float value)
+        public bool TrySetTemperature(Vector2Int pos, short value)
         {
             return _world.TrySetElementTemperature(pos, value);
         }

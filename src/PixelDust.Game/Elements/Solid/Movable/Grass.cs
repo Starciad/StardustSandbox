@@ -14,5 +14,13 @@ namespace PixelDust.Game.Elements.Solid.Movable
 
             DefaultTemperature = 22;
         }
+
+        protected override void OnTemperatureChanged(short currentValue)
+        {
+            if (currentValue > 200)
+            {
+                Context.TryDestroy(Context.Position);
+            }
+        }
     }
 }

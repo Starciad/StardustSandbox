@@ -3,6 +3,8 @@ using PixelDust.Core.Mathematics;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace PixelDust.Core.Worlding
 {
@@ -96,44 +98,48 @@ namespace PixelDust.Core.Worlding
             return true;
         }
 
-        public bool TryGetElementNeighbors(Vector2Int pos, out (Vector2Int, PWorldElementSlot)[] neighbors)
+        public bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
-            List<(Vector2Int, PWorldElementSlot)> slotsFound = new();
-            neighbors = Array.Empty<(Vector2Int, PWorldElementSlot)>();
+            neighbors = default;
 
             if (!InsideTheWorldDimensions(pos))
                 return false;
 
-            Vector2Int[] neighborsPositions = new Vector2Int[]
+            Vector2Int[] neighborsPositions = GetElementNeighborPositions(pos);
+
+            var slotsFound = new (Vector2Int, PWorldElementSlot)[neighborsPositions.Length];
+            int count = 0;
+
+            foreach (Vector2Int position in neighborsPositions)
             {
-                // Top
-                new(pos.X, pos.Y - 1),
-                new(pos.X + 1, pos.Y - 1),
-                new(pos.X - 1, pos.Y - 1),
-
-                // Center
-                new(pos.X + 1, pos.Y),
-                new(pos.X - 1, pos.Y),
-
-                // Down
-                new(pos.X, pos.Y + 1),
-                new(pos.X + 1, pos.Y + 1),
-                new(pos.X - 1, pos.Y + 1),
-            };
-
-            foreach (Vector2Int neighborPos in neighborsPositions)
-            {
-                if (TryGetElementSlot(neighborPos, out PWorldElementSlot value))
-                    slotsFound.Add((neighborPos, value));
+                if (TryGetElementSlot(position, out PWorldElementSlot value))
+                {
+                    slotsFound[count] = (position, value);
+                    count++;
+                }
             }
 
-            if (slotsFound.Count > 0)
+            if (count > 0)
             {
-                neighbors = slotsFound.ToArray();
+                neighbors = new ReadOnlySpan<(Vector2Int, PWorldElementSlot)>(slotsFound, 0, count);
                 return true;
             }
 
             return false;
+        }
+        private static Vector2Int[] GetElementNeighborPositions(Vector2Int pos)
+        {
+            return new Vector2Int[]
+            {
+                new(pos.X, pos.Y - 1),
+                new(pos.X + 1, pos.Y - 1),
+                new(pos.X - 1, pos.Y - 1),
+                new(pos.X + 1, pos.Y),
+                new(pos.X - 1, pos.Y),
+                new(pos.X, pos.Y + 1),
+                new(pos.X + 1, pos.Y + 1),
+                new(pos.X - 1, pos.Y + 1),
+            };
         }
 
         public bool TryGetElementSlot(Vector2Int pos, out PWorldElementSlot value)
@@ -146,12 +152,16 @@ namespace PixelDust.Core.Worlding
             return !value.IsEmpty;
         }
 
-        public bool TrySetElementTemperature(Vector2Int pos, float value)
+        public bool TrySetElementTemperature(Vector2Int pos, short value)
         {
             if (!InsideTheWorldDimensions(pos))
                 return false;
 
-            Elements[pos.X, pos.Y].SetTemperatureValue(value);
+            if (Elements[pos.X, pos.Y].Temperature != value)
+            {
+                TryNotifyChunk(pos);
+                Elements[pos.X, pos.Y].SetTemperatureValue(value);
+            }
 
             return true;
         }

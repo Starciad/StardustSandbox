@@ -48,7 +48,7 @@ namespace PixelDust.Core.Worlding
         {
 #if DEBUG
             // Debug methods
-            // DEBUG_DrawActiveChunks();
+            DEBUG_DrawActiveChunks();
 #endif
         }
 

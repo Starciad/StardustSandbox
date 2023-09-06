@@ -45,7 +45,7 @@ namespace PixelDust.Core.Elements
         /// </summary>
         public int DefaultDispersionRate { get; protected set; } = 1;
 
-        public int DefaultTemperature { get; protected set; }
+        public short DefaultTemperature { get; protected set; }
 
         #endregion
 
@@ -107,12 +107,6 @@ namespace PixelDust.Core.Elements
 
             Render.Update();
             OnUpdate();
-            
-            if (Context.TryGetNeighbors(Context.Position, out (Vector2Int, PWorldElementSlot)[] neighbors))
-            {
-                if (EnableTemperature) { UpdateTemperature(neighbors); }
-                if (EnableNeighborsAction) { OnNeighbors(neighbors, neighbors.Length); }
-            }
         }
 
         /// <summary>
@@ -129,6 +123,12 @@ namespace PixelDust.Core.Elements
         internal void Steps(PElementContext updateContext)
         {
             Context = updateContext;
+
+            if (Context.TryGetNeighbors(Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            {
+                if (EnableTemperature) UpdateTemperature(neighbors);
+                if (EnableNeighborsAction) { OnNeighbors(neighbors, neighbors.Length); }
+            }
 
             OnBeforeStep();
             OnStep();
@@ -177,27 +177,24 @@ namespace PixelDust.Core.Elements
 
         #region System
 
-        private void UpdateTemperature((Vector2Int, PWorldElementSlot)[] neighbors)
+        private void UpdateTemperature(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
-            float totalTemperatureChange = 0.0f;
+            float totalTemperatureChange = 0;
 
             foreach (var neighbor in neighbors)
             {
                 if (!neighbor.Item2.Instance.EnableTemperature)
                     continue;
 
-                float temperatureDifference = Context.Slot.Temperature - neighbor.Item2.Temperature;
-
-                float temperatureChange = temperatureDifference * PTemperature.HeatExchangeRate;
-                totalTemperatureChange += temperatureChange;
+                totalTemperatureChange += Context.Slot.Temperature - neighbor.Item2.Temperature;
             }
 
-            float averageTemperatureChange = totalTemperatureChange / neighbors.Length;
-            Context.TrySetTemperature(Context.Position, Context.Slot.Temperature - averageTemperatureChange);
+            int averageTemperatureChange = (int)Math.Round(totalTemperatureChange / neighbors.Length);
 
+            Context.TrySetTemperature(Context.Position, PTemperature.Clamp(Context.Slot.Temperature - averageTemperatureChange));
             if (MathF.Abs(averageTemperatureChange) < PTemperature.EquilibriumThreshold)
             {
-                Context.TrySetTemperature(Context.Position, Context.Slot.Temperature + averageTemperatureChange);
+                Context.TrySetTemperature(Context.Position, PTemperature.Clamp(Context.Slot.Temperature + averageTemperatureChange));
             }
 
             OnTemperatureChanged(Context.Slot.Temperature);
@@ -212,8 +209,8 @@ namespace PixelDust.Core.Elements
         /// </summary>
         /// <param name="neighbors">Array of neighboring elements.</param>
         /// <param name="length">Number of neighbors.</param>
-        protected virtual void OnNeighbors((Vector2Int, PWorldElementSlot)[] neighbors, int length) { return; }
-        protected virtual void OnTemperatureChanged(float currentValue) { return; }
+        protected virtual void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length) { return; }
+        protected virtual void OnTemperatureChanged(short currentValue) { return; }
 
         #endregion
     }

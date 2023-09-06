@@ -16,12 +16,12 @@ namespace PixelDust.Game.Elements.Solid.Movable
             DefaultTemperature = 20;
         }
 
-        protected override void OnTemperatureChanged(float currentValue)
+        protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue > 600)
+            if (currentValue > 500)
             {
                 Context.TryReplace<Lava>(Context.Position);
-                Context.TrySetTemperature(Context.Position, 700);
+                Context.TrySetTemperature(Context.Position, 600);
             }
         }
     }

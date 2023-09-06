@@ -10,7 +10,7 @@ namespace PixelDust.Core.Worlding
 {
     internal sealed class PWorldThreadingComponent : PWorldComponent
     {
-        private const int TOTAL_WORLD_THREADS = 9;
+        private const int TOTAL_WORLD_THREADS = 12;
 
         private int _worldThreadSize;
         private readonly PWorldThread[] _worldThreadsInfos = new PWorldThread[TOTAL_WORLD_THREADS];

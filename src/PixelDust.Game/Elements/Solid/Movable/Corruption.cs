@@ -22,7 +22,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
             EnableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors((Vector2Int, PWorldElementSlot)[] neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
         {
             if (PRandom.Range(0, 300) != 0)
                 return;

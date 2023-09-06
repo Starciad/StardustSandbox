@@ -1,4 +1,5 @@
 ﻿using PixelDust.Core.Elements;
+using PixelDust.Game.Elements.Gases;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
@@ -13,6 +14,14 @@ namespace PixelDust.Game.Elements.Solid.Movable
             Render.AddFrame(new(1, 0));
 
             DefaultTemperature = 18;
+        }
+
+        protected override void OnTemperatureChanged(short currentValue)
+        {
+            if (currentValue >= 100)
+            {
+                Context.TryReplace<Dirt>(Context.Position);
+            }
         }
     }
 }

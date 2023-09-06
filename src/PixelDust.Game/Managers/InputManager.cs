@@ -69,7 +69,7 @@ namespace PixelDust.Game.Managers
             debugString = new();
             debugString.AppendLine($"Selected: {elementSelected?.Name}");
             debugString.AppendLine($"Mouse: {elementOver?.Name}");
-            debugString.AppendLine($"Temperature: {elementOverSlot.Temperature}");
+            debugString.AppendLine($"Temperature: {elementOverSlot.Temperature.ToString("0.##")}°C");
             debugString.AppendLine($"Size: {(int)size}");
         }
 
