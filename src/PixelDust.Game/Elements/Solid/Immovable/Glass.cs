@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
-    [PElementRegister(11)]
+    [PElementRegister(12)]
     internal sealed class Glass : PImmovableSolid
     {
         protected override void OnSettings()

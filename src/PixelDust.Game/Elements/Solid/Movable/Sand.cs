@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
-    [PElementRegister(5)]
+    [PElementRegister(7)]
     internal sealed class Sand : PMovableSolid
     {
         protected override void OnSettings()

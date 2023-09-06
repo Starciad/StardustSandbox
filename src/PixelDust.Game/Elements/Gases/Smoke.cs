@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Gases
 {
-    [PElementRegister(18)]
+    [PElementRegister(20)]
     internal class Smoke : PGas
     {
         protected override void OnSettings()

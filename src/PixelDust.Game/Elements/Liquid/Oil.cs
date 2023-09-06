@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Liquid
 {
-    [PElementRegister(17)]
+    [PElementRegister(21)]
     internal class Oil : PLiquid
     {
         protected override void OnSettings()

@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
-    [PElementRegister(8)]
+    [PElementRegister(6)]
     internal sealed class Ice : PMovableSolid
     {
         protected override void OnSettings()

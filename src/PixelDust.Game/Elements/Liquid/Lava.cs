@@ -9,7 +9,7 @@ using System;
 
 namespace PixelDust.Game.Elements.Liquid
 {
-    [PElementRegister(15)]
+    [PElementRegister(10)]
     internal class Lava : PLiquid
     {
         protected override void OnSettings()

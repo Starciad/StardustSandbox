@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
-    [PElementRegister(12)]
+    [PElementRegister(13)]
     internal sealed class Metal : PImmovableSolid
     {
         protected override void OnSettings()

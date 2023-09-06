@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
-    [PElementRegister(14)]
+    [PElementRegister(15)]
     internal sealed class Wood : PImmovableSolid
     {
         protected override void OnSettings()

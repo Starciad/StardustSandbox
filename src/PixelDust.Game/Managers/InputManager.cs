@@ -42,7 +42,7 @@ namespace PixelDust.Game.Managers
             [Keys.D6] = PElementsHandler.GetElementByType<Lava>(),
             [Keys.D7] = PElementsHandler.GetElementByType<Acid>(),
             [Keys.D8] = PElementsHandler.GetElementByType<Wall>(),
-            [Keys.D9] = PElementsHandler.GetElementByType<Corruption>(),
+            [Keys.D9] = PElementsHandler.GetElementByType<MCorruption>(),
         };
 
         // Handlers

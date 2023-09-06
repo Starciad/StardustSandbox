@@ -8,7 +8,7 @@ using System;
 
 namespace PixelDust.Game.Elements.Liquid
 {
-    [PElementRegister(16)]
+    [PElementRegister(11)]
     internal class Acid : PLiquid
     {
         protected override void OnSettings()

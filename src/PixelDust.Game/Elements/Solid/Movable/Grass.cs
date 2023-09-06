@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
-    [PElementRegister(6)]
+    [PElementRegister(5)]
     internal sealed class Grass : PMovableSolid
     {
         protected override void OnSettings()
