@@ -28,20 +28,11 @@
 	<!-- PROJECTS -->
 	<ItemGroup>
 	  <ProjectReference Include="..\PixelDust.Core\PixelDust.Core.csproj" />
+	  <ProjectReference Include="..\PixelDust.InputSystem\PixelDust.InputSystem.csproj" />
+	  <ProjectReference Include="..\PixelDust.Mathematics\PixelDust.Mathematics.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Compile Update="Resources\Language\en_US.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>en_US.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\Language\en_US.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>en_US.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
+
+	<!-- FILES -->
 	<ItemGroup>
 	  <Folder Include="Content\Sprites\" />
 	</ItemGroup>

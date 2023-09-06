@@ -1,5 +1,6 @@
-﻿using PixelDust.Core.Mathematics;
-using PixelDust.Core.Utilities;
+﻿using PixelDust.Core.Utilities;
+
+using PixelDust.Mathematics;
 
 namespace PixelDust.Core.Elements
 {

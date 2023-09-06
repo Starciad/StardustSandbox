@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<!-- IMPORTS -->
 	<Import Project="../Targets/Project_Compilation.targets" />
 	<Import Project="../Targets/Project_Settings.targets" />
@@ -15,9 +15,7 @@
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
-
-	<!-- PROJECTS -->
 	<ItemGroup>
-	  <ProjectReference Include="..\PixelDust.Mathematics\PixelDust.Mathematics.csproj" />
+	  <ProjectReference Include="..\PixelDust.Core\PixelDust.Core.csproj" />
 	</ItemGroup>
 </Project>

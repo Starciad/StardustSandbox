@@ -1,6 +1,6 @@
 ﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Mathematics;
 using PixelDust.Core.Worlding;
+using PixelDust.Mathematics;
 
 using PixelDust.Game.Elements.Gases;
 using PixelDust.Game.Elements.Solid.Movable;

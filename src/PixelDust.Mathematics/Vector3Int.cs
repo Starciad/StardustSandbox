@@ -5,10 +5,9 @@ using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 
-namespace PixelDust.Core.Mathematics
+namespace PixelDust.Mathematics
 {
     [DataContract]
-    [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Vector3Int : IEquatable<Vector3Int>
     {
         #region Private Fields
@@ -80,22 +79,6 @@ namespace PixelDust.Core.Mathematics
         public static Vector3Int Backward
         {
             get { return backward; }
-        }
-
-        #endregion
-
-        #region Internal Properties
-
-        internal readonly string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    X.ToString(), "  ",
-                    Y.ToString(), "  ",
-                    Z.ToString()
-                );
-            }
         }
 
         #endregion
@@ -246,11 +229,11 @@ namespace PixelDust.Core.Mathematics
 
         public readonly int Length()
         {
-            return (int)MathF.Sqrt((X * X) + (Y * Y) + (Z * Z));
+            return (int)MathF.Sqrt(X * X + Y * Y + Z * Z);
         }
         public readonly int LengthSquared()
         {
-            return (X * X) + (Y * Y) + (Z * Z);
+            return X * X + Y * Y + Z * Z;
         }
 
         public readonly void Deconstruct(out int x, out int y, out int z)

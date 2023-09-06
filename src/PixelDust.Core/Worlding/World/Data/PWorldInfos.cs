@@ -1,4 +1,4 @@
-﻿using PixelDust.Core.Mathematics;
+﻿using PixelDust.Mathematics;
 
 namespace PixelDust.Core.Worlding
 {

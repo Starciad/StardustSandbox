@@ -3,8 +3,9 @@ using PixelDust.Core.Managers;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
 using PixelDust.Core.Worlding;
-using PixelDust.Core.Input;
-using PixelDust.Core.Mathematics;
+
+using PixelDust.InputSystem;
+using PixelDust.Mathematics;
 
 using PixelDust.Game.Elements.Liquid;
 using PixelDust.Game.Elements.Solid.Immovable;
@@ -90,11 +91,11 @@ namespace PixelDust.Game.Managers
 
         private void UpdatePlaceAreaSize()
         {
-            if (PInput.GetDeltaScrollWheel() > 0)
+            if (PInputHandler.GetDeltaScrollWheel() > 0)
             {
                 size -= 1f;
             }
-            else if (PInput.GetDeltaScrollWheel() < 0)
+            else if (PInputHandler.GetDeltaScrollWheel() < 0)
             {
                 size += 1f;
             }
@@ -182,7 +183,7 @@ namespace PixelDust.Game.Managers
 
             worldMouseActionMap.AddAction("World_Place_Elements", new(PMouseButton.Left)).OnPerformed += context =>
             {
-                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInputHandler.Mouse.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
 
                 if (!_world.Instance.InsideTheWorldDimensions(worldPos) ||
@@ -212,7 +213,7 @@ namespace PixelDust.Game.Managers
 
             worldMouseActionMap.AddAction("World_Erase_Elements", new(PMouseButton.Right)).OnPerformed += context =>
             {
-                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInputHandler.Mouse.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
 
                 if (!_world.Instance.InsideTheWorldDimensions(worldPos) ||
@@ -247,7 +248,7 @@ namespace PixelDust.Game.Managers
 
         private void GetMouseOverElement()
         {
-            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInput.Mouse.Position.ToVector2());
+            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(PInputHandler.Mouse.Position.ToVector2());
             Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorld.Scale;
 
             _world.Instance.TryGetElementSlot((Vector2Int)worldPos, out elementOverSlot);

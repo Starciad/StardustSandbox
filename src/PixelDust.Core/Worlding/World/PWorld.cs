@@ -1,5 +1,6 @@
 ﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Mathematics;
+
+using PixelDust.Mathematics;
 
 using System;
 

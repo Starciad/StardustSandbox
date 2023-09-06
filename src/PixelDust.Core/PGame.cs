@@ -8,6 +8,9 @@ using PixelDust.Core.Managers;
 using PixelDust.Core.Scenes;
 using PixelDust.Core.Engine;
 using PixelDust.Core.Elements;
+using PixelDust.Core.Components;
+
+using System.Collections.Generic;
 
 namespace PixelDust.Core
 {
@@ -25,6 +28,7 @@ namespace PixelDust.Core
         public Assembly Assembly => _assembly;
 
         private readonly Assembly _assembly;
+        private readonly List<PGameComponent> _components = new();
 
         /// <summary>
         /// It builds in a standardized and automated way the basic components for the instantiation and execution of <see cref="PGame"/>.
@@ -58,6 +62,8 @@ namespace PixelDust.Core
 
         protected override void Initialize()
         {
+            _components.ForEach(x => x.Initialize());
+
             PElementsHandler.Initialize();
             PManagersHandler.Initialize();
             OnAwake();
@@ -67,6 +73,8 @@ namespace PixelDust.Core
 
         protected override void LoadContent()
         {
+            _components.ForEach(x => x.LoadContent());
+
             // Assets
             PGraphics.Load();
             PTextures.Load();
@@ -75,25 +83,19 @@ namespace PixelDust.Core
 
             OnStartup();
         }
+
         protected override void Update(GameTime gameTime)
         {
-            // Time
+            _components.ForEach(x => x.Update(gameTime));
+
             PTime.Update(gameTime);
-
-            // Shaders
             PEffects.Update();
-
-            // Inputs
-            PInput.Update();
-
-            // Managers
             PManagersHandler.Update();
-
-            // Scenes & World
             PScenesHandler.Update();
 
             base.Update(gameTime);
         }
+
         protected override void Draw(GameTime gameTime)
         {
             PTime.Draw(gameTime);
@@ -103,10 +105,7 @@ namespace PixelDust.Core
             PGraphics.GraphicsDevice.SetRenderTarget(PGraphics.DefaultRenderTarget);
             PGraphics.GraphicsDevice.Clear(Color.Black);
 
-            // Managers
             PManagersHandler.Draw();
-
-            // SCENE
             PScenesHandler.Draw();
 
             // ==================== //
@@ -121,10 +120,18 @@ namespace PixelDust.Core
 
             base.Draw(gameTime);
         }
+
         protected override void UnloadContent()
         {
+            _components.ForEach(x => x.UnloadContent());
+
             PContent.Unload();
             PTextures.Unload();
+        }
+
+        protected void AddComponent<T>() where T : PGameComponent, new()
+        {
+            _components.Add(new T());
         }
 
         /// <summary>

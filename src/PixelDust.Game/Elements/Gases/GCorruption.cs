@@ -1,7 +1,7 @@
 ﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Mathematics;
 using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Helpers;
+using PixelDust.Mathematics;
 
 using System;
 

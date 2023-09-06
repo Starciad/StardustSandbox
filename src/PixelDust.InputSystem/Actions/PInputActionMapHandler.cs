@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PixelDust.Core.Input
+namespace PixelDust.InputSystem
 {
     public sealed class PInputActionMapHandler
     {

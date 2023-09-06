@@ -5,10 +5,9 @@ using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 
-namespace PixelDust.Core.Mathematics
+namespace PixelDust.Mathematics
 {
     [DataContract]
-    [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct Vector2Int : IEquatable<Vector2Int>
     {
         #region Private Fields
@@ -44,21 +43,6 @@ namespace PixelDust.Core.Mathematics
         public static Vector2Int UnitY
         {
             get { return unitYVector; }
-        }
-
-        #endregion
-
-        #region Internal Properties
-
-        internal readonly string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    X.ToString(), "  ",
-                    Y.ToString()
-                );
-            }
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Core.Input
+﻿namespace PixelDust.InputSystem
 {
     public enum PInputCallbackState
     {

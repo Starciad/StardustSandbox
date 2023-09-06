@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine;
-using PixelDust.Core.Mathematics;
+
+using PixelDust.Mathematics;
 
 namespace PixelDust.Core.Worlding
 {
@@ -48,7 +49,7 @@ namespace PixelDust.Core.Worlding
         {
 #if DEBUG
             // Debug methods
-            DEBUG_DrawActiveChunks();
+            // DEBUG_DrawActiveChunks();
 #endif
         }
 

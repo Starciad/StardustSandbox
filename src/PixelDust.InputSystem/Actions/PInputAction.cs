@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-using PixelDust.Core.Engine;
+using PixelDust.InputSystem;
 
 using System;
 
-namespace PixelDust.Core.Input
+namespace PixelDust.InputSystem
 {
     public sealed class PInputAction
     {
@@ -94,7 +94,7 @@ namespace PixelDust.Core.Input
                 }
 
                 // Canceled
-                if (GetMouseCanceledState(mouseButton)&&
+                if (GetMouseCanceledState(mouseButton) &&
                     started && performed && !canceled)
                 {
                     callback.CapturedMouseButton = mouseButton;
@@ -106,20 +106,20 @@ namespace PixelDust.Core.Input
         // Keyboard State
         private bool GetKeyboardStartedState(Keys key)
         {
-            return !PInput.PreviousKeyboard.IsKeyDown(key) &&
-                    PInput.Keyboard.IsKeyDown(key) &&
+            return !PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
+                    PInputHandler.Keyboard.IsKeyDown(key) &&
                    !started && !performed && canceled;
         }
         private bool GetKeyboardPerformedState(Keys key)
         {
-            return PInput.PreviousKeyboard.IsKeyDown(key) &&
-                   PInput.Keyboard.IsKeyDown(key) &&
+            return PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
+                   PInputHandler.Keyboard.IsKeyDown(key) &&
                    started && !canceled;
         }
         private bool GetKeyboardCanceledState(Keys key)
         {
-            return PInput.PreviousKeyboard.IsKeyDown(key) &&
-                  !PInput.Keyboard.IsKeyDown(key) &&
+            return PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
+                  !PInputHandler.Keyboard.IsKeyDown(key) &&
                    started && performed && !canceled;
         }
 
@@ -144,16 +144,16 @@ namespace PixelDust.Core.Input
             switch (mouseButton)
             {
                 case PMouseButton.Left:
-                    previousState = PInput.PreviousMouse.LeftButton;
-                    currentState = PInput.Mouse.LeftButton;
+                    previousState = PInputHandler.PreviousMouse.LeftButton;
+                    currentState = PInputHandler.Mouse.LeftButton;
                     break;
                 case PMouseButton.Middle:
-                    previousState = PInput.PreviousMouse.MiddleButton;
-                    currentState = PInput.Mouse.MiddleButton;
+                    previousState = PInputHandler.PreviousMouse.MiddleButton;
+                    currentState = PInputHandler.Mouse.MiddleButton;
                     break;
                 case PMouseButton.Right:
-                    previousState = PInput.PreviousMouse.RightButton;
-                    currentState = PInput.Mouse.RightButton;
+                    previousState = PInputHandler.PreviousMouse.RightButton;
+                    currentState = PInputHandler.Mouse.RightButton;
                     break;
                 default:
                     return false;
@@ -170,7 +170,7 @@ namespace PixelDust.Core.Input
         private void UpdateStarting()
         {
             callback.State = PInputCallbackState.Started;
-            
+
             OnStarted?.Invoke(callback);
 
             started = true;

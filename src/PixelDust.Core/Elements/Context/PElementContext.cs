@@ -1,5 +1,6 @@
-﻿using PixelDust.Core.Mathematics;
-using PixelDust.Core.Worlding;
+﻿using PixelDust.Core.Worlding;
+
+using PixelDust.Mathematics;
 
 using System;
 

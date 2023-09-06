@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace PixelDust.Core.Engine
+namespace PixelDust.InputSystem
 {
     /// <summary>
     /// Static wrapper of engine input information.
     /// </summary>
-    public static class PInput
+    public static class PInputHandler
     {
         /// <summary>
         /// Current state the player's mouse is in.

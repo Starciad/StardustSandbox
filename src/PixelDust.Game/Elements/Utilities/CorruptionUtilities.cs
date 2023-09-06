@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using PixelDust.Mathematics;
 using PixelDust.Core.Elements;
-using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Gases;

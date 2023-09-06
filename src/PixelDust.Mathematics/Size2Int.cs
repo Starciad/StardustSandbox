@@ -2,7 +2,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace PixelDust.Core.Mathematics
+namespace PixelDust.Mathematics
 {
     public struct Size2Int : IEquatable<Size2Int>
     {

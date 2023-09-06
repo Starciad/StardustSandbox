@@ -2,6 +2,7 @@
 using PixelDust.Core.Scenes;
 
 using PixelDust.Game.Scenes;
+using PixelDust.InputSystem;
 
 namespace PixelDust.Game
 {
@@ -9,6 +10,8 @@ namespace PixelDust.Game
     {
         protected override void Initialize()
         {
+            AddComponent<PInputGameComponent>();
+
             base.Initialize();
         }
 

@@ -1,10 +1,10 @@
 ﻿using PixelDust.Core.Elements;
+using PixelDust.Mathematics;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using System;
-using PixelDust.Core.Mathematics;
 
 namespace PixelDust.Core.Worlding
 {

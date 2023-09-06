@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-using PixelDust.Core.Mathematics;
+using PixelDust.Mathematics;
 
 namespace PixelDust.Core.Worlding
 {

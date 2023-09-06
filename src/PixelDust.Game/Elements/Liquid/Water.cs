@@ -1,9 +1,9 @@
 ﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Mathematics;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding;
 using PixelDust.Game.Elements.Gases;
 using PixelDust.Game.Elements.Solid.Movable;
+using PixelDust.Mathematics;
 
 using System;
 
