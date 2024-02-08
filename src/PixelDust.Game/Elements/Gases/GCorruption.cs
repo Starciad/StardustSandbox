@@ -1,6 +1,7 @@
-﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Worlding;
-using PixelDust.Game.Elements.Helpers;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Gases;
+using PixelDust.Core.Worlding.World.Slots;
+using PixelDust.Game.Elements.Utilities;
 using PixelDust.Mathematics;
 
 using System;
@@ -12,19 +13,19 @@ namespace PixelDust.Game.Elements.Gases
     {
         protected override void OnSettings()
         {
-            Name = "Corruption (Gas)";
-            Description = string.Empty;
+            this.Name = "Corruption (Gas)";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(5, 1));
+            this.Render.AddFrame(new(5, 1));
 
-            EnableNeighborsAction = true;
+            this.EnableNeighborsAction = true;
         }
 
         protected override void OnStep()
         {
-            if (Context.TryGetNeighbors(Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
             {
-                Context.InfectNeighboringElements(neighbors, neighbors.Length);
+                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
             }
         }
     }

@@ -1,14 +1,14 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Core.Worlding.Components.Threading
 {
     [StructLayout(LayoutKind.Sequential)]
     internal struct PWorldThread
     {
-        public readonly int Index => _index;
-        public readonly int StartPosition => _startPosition;
-        public int EndPosition { readonly get => _endPosition; set => _endPosition = value; }
-        public readonly int Range => _endPosition - _startPosition;
+        public readonly int Index => this._index;
+        public readonly int StartPosition => this._startPosition;
+        public int EndPosition { readonly get => this._endPosition; set => this._endPosition = value; }
+        public readonly int Range => this._endPosition - this._startPosition;
 
         private readonly int _index;
         private readonly int _startPosition;
@@ -16,9 +16,9 @@ namespace PixelDust.Core.Worlding
 
         public PWorldThread(int index, int startPos, int endPos)
         {
-            _index = index;
-            _startPosition = startPos;
-            _endPosition = endPos;
+            this._index = index;
+            this._startPosition = startPos;
+            this._endPosition = endPos;
         }
     }
 }

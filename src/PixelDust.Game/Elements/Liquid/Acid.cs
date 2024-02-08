@@ -1,9 +1,8 @@
-﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Worlding;
-
-using PixelDust.Mathematics;
-
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Solid.Immovable;
+using PixelDust.Mathematics;
 
 using System;
 
@@ -14,14 +13,14 @@ namespace PixelDust.Game.Elements.Liquid
     {
         protected override void OnSettings()
         {
-            Name = "Acid";
-            Description = string.Empty;
+            this.Name = "Acid";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(0, 1));
+            this.Render.AddFrame(new(0, 1));
 
-            DefaultTemperature = 10;
+            this.DefaultTemperature = 10;
 
-            EnableNeighborsAction = true;
+            this.EnableNeighborsAction = true;
         }
 
         protected override void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
@@ -30,10 +29,12 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Instance is Acid ||
                     neighbor.Item2.Instance is Wall)
+                {
                     continue;
+                }
 
-                Context.TryDestroy(Context.Position);
-                Context.TryDestroy(neighbor.Item1);
+                _ = this.Context.TryDestroy(this.Context.Position);
+                _ = this.Context.TryDestroy(neighbor.Item1);
             }
         }
     }

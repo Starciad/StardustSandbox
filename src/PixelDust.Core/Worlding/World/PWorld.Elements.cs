@@ -1,10 +1,8 @@
 ﻿using PixelDust.Core.Elements;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
 
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace PixelDust.Core.Worlding
 {
@@ -21,11 +19,13 @@ namespace PixelDust.Core.Worlding
         public bool TryInstantiateElement(Vector2Int pos, PElement value)
         {
             if (!InsideTheWorldDimensions(pos) || !IsEmptyElementSlot(pos))
+            {
                 return false;
+            }
 
-            TryNotifyChunk(pos);
+            _ = TryNotifyChunk(pos);
 
-            Elements[pos.X, pos.Y].Instantiate(value);
+            this.Elements[pos.X, pos.Y].Instantiate(value);
             return true;
         }
 
@@ -35,13 +35,15 @@ namespace PixelDust.Core.Worlding
                 !InsideTheWorldDimensions(newPos) ||
                 IsEmptyElementSlot(oldPos) ||
                 !IsEmptyElementSlot(newPos))
+            {
                 return false;
+            }
 
-            TryNotifyChunk(oldPos);
-            TryNotifyChunk(newPos);
+            _ = TryNotifyChunk(oldPos);
+            _ = TryNotifyChunk(newPos);
 
-            Elements[newPos.X, newPos.Y].Copy(Elements[oldPos.X, oldPos.Y]);
-            Elements[oldPos.X, oldPos.Y].Destroy();
+            this.Elements[newPos.X, newPos.Y].Copy(this.Elements[oldPos.X, oldPos.Y]);
+            this.Elements[oldPos.X, oldPos.Y].Destroy();
             return true;
         }
 
@@ -51,16 +53,18 @@ namespace PixelDust.Core.Worlding
                 !InsideTheWorldDimensions(element2) ||
                 IsEmptyElementSlot(element1) ||
                 IsEmptyElementSlot(element2))
+            {
                 return false;
+            }
 
-            TryNotifyChunk(element1);
-            TryNotifyChunk(element2);
+            _ = TryNotifyChunk(element1);
+            _ = TryNotifyChunk(element2);
 
-            PWorldElementSlot oldValue = Elements[element1.X, element1.Y];
-            PWorldElementSlot newValue = Elements[element2.X, element2.Y];
+            PWorldElementSlot oldValue = this.Elements[element1.X, element1.Y];
+            PWorldElementSlot newValue = this.Elements[element2.X, element2.Y];
 
-            Elements[element1.X, element1.Y].Copy(newValue);
-            Elements[element2.X, element2.Y].Copy(oldValue);
+            this.Elements[element1.X, element1.Y].Copy(newValue);
+            this.Elements[element2.X, element2.Y].Copy(oldValue);
 
             return true;
         }
@@ -69,20 +73,19 @@ namespace PixelDust.Core.Worlding
         {
             if (!InsideTheWorldDimensions(pos) ||
                 IsEmptyElementSlot(pos))
+            {
                 return false;
+            }
 
-            TryNotifyChunk(pos);
-            Elements[pos.X, pos.Y].Destroy();
+            _ = TryNotifyChunk(pos);
+            this.Elements[pos.X, pos.Y].Destroy();
 
             return true;
         }
 
         public bool TryReplaceElement<T>(Vector2Int pos) where T : PElement
         {
-            if (!TryDestroyElement(pos)) return false;
-            if (!TryInstantiateElement<T>(pos)) return false;
-
-            return true;
+            return TryDestroyElement(pos) && TryInstantiateElement<T>(pos);
         }
 
         public bool TryGetElement(Vector2Int pos, out PElement value)
@@ -94,7 +97,7 @@ namespace PixelDust.Core.Worlding
                 return false;
             }
 
-            value = Elements[pos.X, pos.Y].Instance;
+            value = this.Elements[pos.X, pos.Y].Instance;
             return true;
         }
 
@@ -103,11 +106,13 @@ namespace PixelDust.Core.Worlding
             neighbors = default;
 
             if (!InsideTheWorldDimensions(pos))
+            {
                 return false;
+            }
 
             Vector2Int[] neighborsPositions = GetElementNeighborPositions(pos);
 
-            var slotsFound = new (Vector2Int, PWorldElementSlot)[neighborsPositions.Length];
+            (Vector2Int, PWorldElementSlot)[] slotsFound = new (Vector2Int, PWorldElementSlot)[neighborsPositions.Length];
             int count = 0;
 
             foreach (Vector2Int position in neighborsPositions)
@@ -146,21 +151,25 @@ namespace PixelDust.Core.Worlding
         {
             value = default;
             if (!InsideTheWorldDimensions(pos))
+            {
                 return false;
+            }
 
-            value = Elements[pos.X, pos.Y];
+            value = this.Elements[pos.X, pos.Y];
             return !value.IsEmpty;
         }
 
         public bool TrySetElementTemperature(Vector2Int pos, short value)
         {
             if (!InsideTheWorldDimensions(pos))
-                return false;
-
-            if (Elements[pos.X, pos.Y].Temperature != value)
             {
-                TryNotifyChunk(pos);
-                Elements[pos.X, pos.Y].SetTemperatureValue(value);
+                return false;
+            }
+
+            if (this.Elements[pos.X, pos.Y].Temperature != value)
+            {
+                _ = TryNotifyChunk(pos);
+                this.Elements[pos.X, pos.Y].SetTemperatureValue(value);
             }
 
             return true;
@@ -168,10 +177,7 @@ namespace PixelDust.Core.Worlding
 
         public bool IsEmptyElementSlot(Vector2Int pos)
         {
-            if (!InsideTheWorldDimensions(pos) || Elements[pos.X, pos.Y].IsEmpty)
-                return true;
-
-            return false;
+            return !InsideTheWorldDimensions(pos) || this.Elements[pos.X, pos.Y].IsEmpty;
         }
     }
 }

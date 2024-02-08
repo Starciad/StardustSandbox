@@ -1,6 +1,7 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Liquid;
 using PixelDust.Core.Utilities;
-using PixelDust.Core.Worlding;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Gases;
 using PixelDust.Game.Elements.Solid.Movable;
 using PixelDust.Mathematics;
@@ -14,15 +15,15 @@ namespace PixelDust.Game.Elements.Liquid
     {
         protected override void OnSettings()
         {
-            Name = "Water";
-            Description = string.Empty;
+            this.Name = "Water";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(2, 0));
+            this.Render.AddFrame(new(2, 0));
 
-            DefaultDispersionRate = 3;
-            DefaultTemperature = 25;
+            this.DefaultDispersionRate = 3;
+            this.DefaultTemperature = 25;
 
-            EnableNeighborsAction = true;
+            this.EnableNeighborsAction = true;
         }
 
         protected override void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
@@ -31,8 +32,8 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Instance is Dirt)
                 {
-                    Context.TryDestroy(Context.Position);
-                    Context.TryReplace<Mud>(neighbor.Item1);
+                    _ = this.Context.TryDestroy(this.Context.Position);
+                    _ = this.Context.TryReplace<Mud>(neighbor.Item1);
                     return;
                 }
 
@@ -40,8 +41,8 @@ namespace PixelDust.Game.Elements.Liquid
                 {
                     if (PRandom.Range(0, 150) == 0)
                     {
-                        Context.TryDestroy(Context.Position);
-                        Context.TryReplace<Sand>(neighbor.Item1);
+                        _ = this.Context.TryDestroy(this.Context.Position);
+                        _ = this.Context.TryReplace<Sand>(neighbor.Item1);
                         return;
                     }
                 }
@@ -52,12 +53,12 @@ namespace PixelDust.Game.Elements.Liquid
         {
             if (currentValue >= 100)
             {
-                Context.TryReplace<Steam>(Context.Position);
+                _ = this.Context.TryReplace<Steam>(this.Context.Position);
             }
 
             if (currentValue <= 0)
             {
-                Context.TryReplace<Ice>(Context.Position);
+                _ = this.Context.TryReplace<Ice>(this.Context.Position);
             }
         }
     }

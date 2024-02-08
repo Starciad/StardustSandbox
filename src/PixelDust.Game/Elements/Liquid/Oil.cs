@@ -1,4 +1,5 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Liquid;
 
 namespace PixelDust.Game.Elements.Liquid
 {
@@ -7,10 +8,10 @@ namespace PixelDust.Game.Elements.Liquid
     {
         protected override void OnSettings()
         {
-            Name = "Oil";
-            Description = string.Empty;
+            this.Name = "Oil";
+            this.Description = string.Empty;
 
-            DefaultTemperature = 30;
+            this.DefaultTemperature = 30;
         }
     }
 }

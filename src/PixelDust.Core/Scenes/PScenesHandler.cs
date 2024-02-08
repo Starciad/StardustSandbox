@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Engine;
+using PixelDust.Core.Engine.Components;
 
 using System;
 

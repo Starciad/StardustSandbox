@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Engine;
+using PixelDust.Core.Engine.Components;
 
 using System.Collections.Generic;
 
-namespace PixelDust.Core
+namespace PixelDust.Core.Engine.Assets
 {
     /// <summary>
     /// Static class responsible for managing, storing and configuring game effects.

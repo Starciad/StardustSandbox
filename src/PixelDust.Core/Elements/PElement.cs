@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Core.Elements.Context;
+using PixelDust.Core.Elements.Render;
+using PixelDust.Core.Elements.Types.Gases;
+using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Elements.Types.Solid;
+using PixelDust.Core.Utilities;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
 
-using PixelDust.Core.Utilities;
-using PixelDust.Core.Worlding;
-
 using System;
-using System.Xml.Linq;
 
 namespace PixelDust.Core.Elements
 {
@@ -83,7 +86,7 @@ namespace PixelDust.Core.Elements
         /// 
         /// </summary>
         protected PElementContext Context { get; private set; }
-        
+
         #endregion
 
         // ======= //
@@ -95,7 +98,7 @@ namespace PixelDust.Core.Elements
         /// </summary>
         internal void Build()
         {
-            Render = new();
+            this.Render = new();
             OnSettings();
         }
 
@@ -104,9 +107,9 @@ namespace PixelDust.Core.Elements
         /// </summary>
         internal void Update(PElementContext updateContext)
         {
-            Context = updateContext;
+            this.Context = updateContext;
 
-            Render.Update();
+            this.Render.Update();
             OnUpdate();
         }
 
@@ -115,7 +118,7 @@ namespace PixelDust.Core.Elements
         /// </summary>
         internal void Draw(PElementContext drawContext)
         {
-            Render.Draw(drawContext);
+            this.Render.Draw(drawContext);
         }
 
         /// <summary>
@@ -123,17 +126,24 @@ namespace PixelDust.Core.Elements
         /// </summary>
         internal void Steps(PElementContext updateContext)
         {
-            Context = updateContext;
+            this.Context = updateContext;
 
-            if (Context.TryGetNeighbors(Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
             {
-                if (EnableTemperature) UpdateTemperature(neighbors);
-                if (EnableNeighborsAction) { OnNeighbors(neighbors, neighbors.Length); }
+                if (this.EnableTemperature)
+                {
+                    UpdateTemperature(neighbors);
+                }
+
+                if (this.EnableNeighborsAction)
+                { OnNeighbors(neighbors, neighbors.Length); }
             }
 
             OnBeforeStep();
             OnStep();
-            if (EnableDefaultBehaviour) { OnBehaviourStep(); }
+            if (this.EnableDefaultBehaviour)
+            { OnBehaviourStep(); }
+
             OnAfterStep();
         }
 
@@ -182,23 +192,25 @@ namespace PixelDust.Core.Elements
         {
             float totalTemperatureChange = 0;
 
-            foreach (var neighbor in neighbors)
+            foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
                 if (!neighbor.Item2.Instance.EnableTemperature)
+                {
                     continue;
+                }
 
-                totalTemperatureChange += Context.Slot.Temperature - neighbor.Item2.Temperature;
+                totalTemperatureChange += this.Context.Slot.Temperature - neighbor.Item2.Temperature;
             }
 
             int averageTemperatureChange = (int)Math.Round(totalTemperatureChange / neighbors.Length);
 
-            Context.TrySetTemperature(Context.Position, PTemperature.Clamp(Context.Slot.Temperature - averageTemperatureChange));
+            _ = this.Context.TrySetTemperature(this.Context.Position, PTemperature.Clamp(this.Context.Slot.Temperature - averageTemperatureChange));
             if (MathF.Abs(averageTemperatureChange) < PTemperature.EquilibriumThreshold)
             {
-                Context.TrySetTemperature(Context.Position, PTemperature.Clamp(Context.Slot.Temperature + averageTemperatureChange));
+                _ = this.Context.TrySetTemperature(this.Context.Position, PTemperature.Clamp(this.Context.Slot.Temperature + averageTemperatureChange));
             }
 
-            OnTemperatureChanged(Context.Slot.Temperature);
+            OnTemperatureChanged(this.Context.Slot.Temperature);
         }
 
         #endregion

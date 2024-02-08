@@ -1,11 +1,6 @@
-﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Worlding;
-using PixelDust.Mathematics;
-
-using PixelDust.Game.Elements.Gases;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Liquid;
 using PixelDust.Game.Elements.Solid.Movable;
-
-using System;
 
 namespace PixelDust.Game.Elements.Liquid
 {
@@ -14,20 +9,20 @@ namespace PixelDust.Game.Elements.Liquid
     {
         protected override void OnSettings()
         {
-            Name = "Lava";
-            Description = string.Empty;
-            
-            Render.AddFrame(new(9, 0));
+            this.Name = "Lava";
+            this.Description = string.Empty;
 
-            DefaultTemperature = 1000;
+            this.Render.AddFrame(new(9, 0));
+
+            this.DefaultTemperature = 1000;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue < 500)
             {
-                Context.TryReplace<Stone>(Context.Position);
-                Context.TrySetTemperature(Context.Position, 550);
+                _ = this.Context.TryReplace<Stone>(this.Context.Position);
+                _ = this.Context.TrySetTemperature(this.Context.Position, 550);
             }
         }
     }

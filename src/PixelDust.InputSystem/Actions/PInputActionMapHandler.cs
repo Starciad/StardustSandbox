@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PixelDust.InputSystem
+namespace PixelDust.InputSystem.Actions
 {
     public sealed class PInputActionMapHandler
     {
@@ -8,21 +8,18 @@ namespace PixelDust.InputSystem
 
         public void Update()
         {
-            foreach (PInputActionMap actionMap in _maps.Values)
+            foreach (PInputActionMap actionMap in this._maps.Values)
             {
                 if (actionMap.Active)
+                {
                     actionMap.Update();
+                }
             }
         }
 
         public PInputActionMap AddActionMap(string name, PInputActionMap map)
         {
-            if (_maps.TryAdd(name, map))
-            {
-                return map;
-            }
-
-            return default;
+            return this._maps.TryAdd(name, map) ? map : default;
         }
     }
 }

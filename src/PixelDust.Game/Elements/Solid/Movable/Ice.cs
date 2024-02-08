@@ -1,4 +1,5 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Solid;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
@@ -7,12 +8,12 @@ namespace PixelDust.Game.Elements.Solid.Movable
     {
         protected override void OnSettings()
         {
-            Name = "Ice";
-            Description = string.Empty;
-            
-            Render.AddFrame(new(5, 0));
+            this.Name = "Ice";
+            this.Description = string.Empty;
 
-            DefaultTemperature = 0;
+            this.Render.AddFrame(new(5, 0));
+
+            this.DefaultTemperature = 0;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace PixelDust.Core.Engine
+namespace PixelDust.Core.Engine.Assets
 {
     /// <summary>
     /// Static class responsible for managing, storing and configuring game fonts.

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace PixelDust.InputSystem
+namespace PixelDust.InputSystem.Handlers
 {
     /// <summary>
     /// Static wrapper of engine input information.

@@ -1,4 +1,5 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Solid;
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
@@ -7,12 +8,12 @@ namespace PixelDust.Game.Elements.Solid.Immovable
     {
         protected override void OnSettings()
         {
-            Name = "Wood";
-            Description = string.Empty;
+            this.Name = "Wood";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(4, 1));
+            this.Render.AddFrame(new(4, 1));
 
-            DefaultTemperature = 20;
+            this.DefaultTemperature = 20;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace PixelDust.InputSystem
+namespace PixelDust.InputSystem.Actions
 {
     public sealed class PInputActionMap
     {
-        public bool Active => _active;
+        public bool Active => this._active;
 
         private bool _active;
 
@@ -16,18 +16,20 @@ namespace PixelDust.InputSystem
 
         public PInputActionMap(bool active)
         {
-            _active = active;
+            this._active = active;
         }
 
         internal void Update()
         {
-            foreach (PInputAction action in _actions.Values)
+            foreach (PInputAction action in this._actions.Values)
+            {
                 action.Update();
+            }
         }
 
         public PInputAction AddAction(string name, PInputAction value)
         {
-            if (_actions.TryAdd(name, value))
+            if (this._actions.TryAdd(name, value))
             {
                 value.SetActionMap(this);
                 return value;
@@ -38,7 +40,7 @@ namespace PixelDust.InputSystem
 
         public void SetActive(bool value)
         {
-            _active = value;
+            this._active = value;
         }
     }
 }

@@ -6,7 +6,7 @@
 
 	<!-- HEADER -->
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->

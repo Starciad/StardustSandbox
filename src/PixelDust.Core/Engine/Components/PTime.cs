@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace PixelDust.Core.Engine
+namespace PixelDust.Core.Engine.Components
 {
     /// <summary>
     /// Static class responsible for storing information related to project update and rendering times.

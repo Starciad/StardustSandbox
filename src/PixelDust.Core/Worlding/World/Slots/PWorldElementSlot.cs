@@ -1,17 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-
-using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements;
 using PixelDust.Core.Utilities;
 
-using System;
-
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Core.Worlding.World.Slots
 {
     public struct PWorldElementSlot
     {
-        public readonly PElement Instance => PElementsHandler.GetElementById<PElement>(id);
-        public readonly bool IsEmpty => id == 0;
-        public readonly short Temperature => temperature;
+        public readonly PElement Instance => PElementsHandler.GetElementById<PElement>(this.id);
+        public readonly bool IsEmpty => this.id == 0;
+        public readonly short Temperature => this.temperature;
 
         private byte id;
         private short temperature;
@@ -23,13 +19,13 @@ namespace PixelDust.Core.Worlding
         internal void Instantiate(PElement value)
         {
             Reset();
-            id = value.Id;
-            temperature = value.DefaultTemperature;
+            this.id = value.Id;
+            this.temperature = value.DefaultTemperature;
         }
         internal void Destroy()
         {
             Reset();
-            id = 0;
+            this.id = 0;
         }
         internal void Copy(PWorldElementSlot value)
         {
@@ -37,12 +33,12 @@ namespace PixelDust.Core.Worlding
         }
         internal void SetTemperatureValue(int value)
         {
-            temperature = PTemperature.Clamp(value);
+            this.temperature = PTemperature.Clamp(value);
         }
 
         private void Reset()
         {
-            temperature = 0;
+            this.temperature = 0;
         }
     }
 }

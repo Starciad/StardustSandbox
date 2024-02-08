@@ -1,12 +1,12 @@
 ﻿using PixelDust.Core.Elements;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using System;
-
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Core.Worlding.Components.Threading
 {
     internal sealed class PWorldThreadingComponent : PWorldComponent
     {
@@ -17,25 +17,25 @@ namespace PixelDust.Core.Worlding
 
         protected override void OnInitialize()
         {
-            int totalValue = WorldInstance.Infos.Size.Width;
+            int totalValue = this.WorldInstance.Infos.Size.Width;
             int remainingValue = totalValue;
 
-            _worldThreadSize = (int)MathF.Ceiling(totalValue / TOTAL_WORLD_THREADS);
+            this._worldThreadSize = (int)MathF.Ceiling(totalValue / TOTAL_WORLD_THREADS);
 
             // Setting Ranges
             int rangeStart = 0;
             for (int i = 0; i < TOTAL_WORLD_THREADS; i++)
             {
-                _worldThreadsInfos[i] = new(i + 1, rangeStart, rangeStart + _worldThreadSize - 1);
+                this._worldThreadsInfos[i] = new(i + 1, rangeStart, rangeStart + this._worldThreadSize - 1);
 
-                rangeStart = _worldThreadsInfos[i].EndPosition + 1;
-                remainingValue -= _worldThreadSize;
+                rangeStart = this._worldThreadsInfos[i].EndPosition + 1;
+                remainingValue -= this._worldThreadSize;
             }
 
             // Distribute the remaining value to the last object
             if (remainingValue > 0)
             {
-                _worldThreadsInfos[TOTAL_WORLD_THREADS - 1].EndPosition += remainingValue;
+                this._worldThreadsInfos[TOTAL_WORLD_THREADS - 1].EndPosition += remainingValue;
             }
         }
         protected override void OnUpdate()
@@ -47,7 +47,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (i % 2 == 0)
                     {
-                        ExecuteThreadColumn(_worldThreadsInfos[i]);
+                        ExecuteThreadColumn(this._worldThreadsInfos[i]);
                     }
                 }
 
@@ -62,7 +62,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (i % 2 != 0)
                     {
-                        ExecuteThreadColumn(_worldThreadsInfos[i]);
+                        ExecuteThreadColumn(this._worldThreadsInfos[i]);
                     }
                 }
 
@@ -80,15 +80,17 @@ namespace PixelDust.Core.Worlding
             // Find slots
             for (int x = 0; x < threadInfo.Range + 1; x++)
             {
-                for (int y = 0; y < WorldInstance.Infos.Size.Height; y++)
+                for (int y = 0; y < this.WorldInstance.Infos.Size.Height; y++)
                 {
                     Vector2Int pos = new(x + threadInfo.StartPosition, y);
-                    WorldInstance.TryGetChunkUpdateState(pos, out bool chunkState);
+                    _ = this.WorldInstance.TryGetChunkUpdateState(pos, out bool chunkState);
 
                     PUpdateElementTarget(pos, 1);
 
-                    if (WorldInstance.IsEmptyElementSlot(pos) || !chunkState) 
+                    if (this.WorldInstance.IsEmptyElementSlot(pos) || !chunkState)
+                    {
                         continue;
+                    }
 
                     _capturedSlots ??= new();
 
@@ -107,19 +109,19 @@ namespace PixelDust.Core.Worlding
         }
         private void PUpdateElementTarget(Vector2Int position, int updateType)
         {
-            WorldInstance.TryGetElementSlot(position, out PWorldElementSlot slot);
-            WorldInstance.elementUpdateContext.Update(slot, position);
+            _ = this.WorldInstance.TryGetElementSlot(position, out PWorldElementSlot slot);
+            this.WorldInstance.elementUpdateContext.Update(slot, position);
 
-            if (WorldInstance.TryGetElement(position, out PElement value))
+            if (this.WorldInstance.TryGetElement(position, out PElement value))
             {
                 switch (updateType)
                 {
                     case 1:
-                        value?.Update(WorldInstance.elementUpdateContext);
+                        value?.Update(this.WorldInstance.elementUpdateContext);
                         break;
 
                     case 2:
-                        value?.Steps(WorldInstance.elementUpdateContext);
+                        value?.Steps(this.WorldInstance.elementUpdateContext);
                         break;
 
                     default:

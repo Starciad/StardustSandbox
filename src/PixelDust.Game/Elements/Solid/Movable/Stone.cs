@@ -1,4 +1,5 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Solid;
 using PixelDust.Game.Elements.Liquid;
 
 namespace PixelDust.Game.Elements.Solid.Movable
@@ -8,20 +9,20 @@ namespace PixelDust.Game.Elements.Solid.Movable
     {
         protected override void OnSettings()
         {
-            Name = "Stone";
-            Description = string.Empty;
+            this.Name = "Stone";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(3, 0));
+            this.Render.AddFrame(new(3, 0));
 
-            DefaultTemperature = 20;
+            this.DefaultTemperature = 20;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue > 500)
             {
-                Context.TryReplace<Lava>(Context.Position);
-                Context.TrySetTemperature(Context.Position, 600);
+                _ = this.Context.TryReplace<Lava>(this.Context.Position);
+                _ = this.Context.TrySetTemperature(this.Context.Position, 600);
             }
         }
     }

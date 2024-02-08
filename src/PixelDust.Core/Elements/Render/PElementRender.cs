@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Engine;
+using PixelDust.Core.Elements.Context;
+using PixelDust.Core.Engine.Assets;
+using PixelDust.Core.Engine.Components;
 using PixelDust.Core.Worlding;
 
 using System.Collections.Generic;
 
-namespace PixelDust.Core.Elements
+namespace PixelDust.Core.Elements.Render
 {
     public sealed class PElementRender
     {
@@ -22,30 +24,31 @@ namespace PixelDust.Core.Elements
 
         public void AddFrame(Vector2 pos)
         {
-            frames.Add(new(new((int)pos.X * SpriteSize, (int)pos.Y * SpriteSize), new(SpriteSize)));
+            this.frames.Add(new(new((int)pos.X * SpriteSize, (int)pos.Y * SpriteSize), new(SpriteSize)));
         }
 
         internal void Update()
         {
-            if (EnableAnimation) { UpdateAnimation(); }
+            if (this.EnableAnimation)
+            { UpdateAnimation(); }
         }
         private void UpdateAnimation()
         {
-            if (_currentAnimationDelay < AnimationDelay)
+            if (this._currentAnimationDelay < this.AnimationDelay)
             {
-                _currentAnimationDelay++;
+                this._currentAnimationDelay++;
             }
             else
             {
-                _currentAnimationDelay = 0;
-                _currentAnimationIndex = _currentAnimationIndex < frames.Count ? _currentAnimationIndex + 1 : 0;
+                this._currentAnimationDelay = 0;
+                this._currentAnimationIndex = this._currentAnimationIndex < this.frames.Count ? this._currentAnimationIndex + 1 : 0;
             }
         }
 
         internal void Draw(PElementContext context)
         {
             Vector2 pos = new(context.Position.X * PWorld.Scale, context.Position.Y * PWorld.Scale);
-            Rectangle rectangle = frames[_currentAnimationIndex];
+            Rectangle rectangle = this.frames[this._currentAnimationIndex];
 
             PGraphics.SpriteBatch.Draw(PTextures.Elements, pos, rectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }

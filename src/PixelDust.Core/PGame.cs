@@ -1,16 +1,16 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-using System;
-using System.Reflection;
-
+using PixelDust.Core.Components;
+using PixelDust.Core.Elements;
+using PixelDust.Core.Engine.Assets;
+using PixelDust.Core.Engine.Components;
 using PixelDust.Core.Managers;
 using PixelDust.Core.Scenes;
-using PixelDust.Core.Engine;
-using PixelDust.Core.Elements;
-using PixelDust.Core.Components;
 
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace PixelDust.Core
 {
@@ -25,7 +25,7 @@ namespace PixelDust.Core
         /// <summary>
         /// Assembly that references the project that the <see cref="PGame"/> class is part of.
         /// </summary>
-        public Assembly Assembly => _assembly;
+        public Assembly Assembly => this._assembly;
 
         private readonly Assembly _assembly;
         private readonly List<PGameComponent> _components = new();
@@ -44,25 +44,25 @@ namespace PixelDust.Core
             });
 
             // Content
-            PContent.Build(Services, "Content");
+            PContent.Build(this.Services, "Content");
 
             // Assembly
-            _assembly = GetType().Assembly;
+            this._assembly = GetType().Assembly;
 
             // Window
-            Window.Title = "PixelDust - v0.0.1";
-            Window.AllowUserResizing = false;
-            Window.IsBorderless = false;
+            this.Window.Title = "PixelDust - v0.0.1";
+            this.Window.AllowUserResizing = false;
+            this.Window.IsBorderless = false;
 
             // Settings
-            IsMouseVisible = true;
-            IsFixedTimeStep = true;
-            TargetElapsedTime = TimeSpan.FromSeconds(1f / PGraphics.FPS);
+            this.IsMouseVisible = true;
+            this.IsFixedTimeStep = true;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / PGraphics.FPS);
         }
 
         protected override void Initialize()
         {
-            _components.ForEach(x => x.Initialize());
+            this._components.ForEach(x => x.Initialize());
 
             PElementsHandler.Initialize();
             PManagersHandler.Initialize();
@@ -73,7 +73,7 @@ namespace PixelDust.Core
 
         protected override void LoadContent()
         {
-            _components.ForEach(x => x.LoadContent());
+            this._components.ForEach(x => x.LoadContent());
 
             // Assets
             PGraphics.Load();
@@ -86,7 +86,7 @@ namespace PixelDust.Core
 
         protected override void Update(GameTime gameTime)
         {
-            _components.ForEach(x => x.Update(gameTime));
+            this._components.ForEach(x => x.Update(gameTime));
 
             PTime.Update(gameTime);
             PEffects.Update();
@@ -123,7 +123,7 @@ namespace PixelDust.Core
 
         protected override void UnloadContent()
         {
-            _components.ForEach(x => x.UnloadContent());
+            this._components.ForEach(x => x.UnloadContent());
 
             PContent.Unload();
             PTextures.Unload();
@@ -131,7 +131,7 @@ namespace PixelDust.Core
 
         protected void AddComponent<T>() where T : PGameComponent, new()
         {
-            _components.Add(new T());
+            this._components.Add(new T());
         }
 
         /// <summary>

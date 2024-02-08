@@ -1,7 +1,9 @@
-﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Worlding;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Worlding.World.Slots;
+using PixelDust.Game.Elements.Utilities;
 using PixelDust.Mathematics;
-using PixelDust.Game.Elements.Helpers;
+
 using System;
 
 namespace PixelDust.Game.Elements.Liquid
@@ -11,19 +13,19 @@ namespace PixelDust.Game.Elements.Liquid
     {
         protected override void OnSettings()
         {
-            Name = "Corruption (Liquid)";
-            Description = string.Empty;
+            this.Name = "Corruption (Liquid)";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(6, 1));
+            this.Render.AddFrame(new(6, 1));
 
-            EnableNeighborsAction = true;
+            this.EnableNeighborsAction = true;
         }
 
         protected override void OnStep()
         {
-            if (Context.TryGetNeighbors(Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
             {
-                Context.InfectNeighboringElements(neighbors, neighbors.Length);
+                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
             }
         }
     }

@@ -7,16 +7,25 @@
 	<!-- HEADER -->
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<RollForward>Major</RollForward>
 		<AssemblyName>PixelDust</AssemblyName>
 		<DefineConstants>WindowsDX</DefineConstants>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	</PropertyGroup>
-	
+
 	<!-- SYSTEM -->
 	<PropertyGroup>
 		<ApplicationManifest>Content/app.manifest</ApplicationManifest>
 		<ApplicationIcon>Content/Icon.ico</ApplicationIcon>
+		<StartupObject>PixelDust.Game.Program</StartupObject>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->

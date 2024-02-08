@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Core.Elements
+﻿namespace PixelDust.Core.Elements.Types.Solid
 {
     /// <summary>
     /// Base class for defining solid elements in PixelDust.

@@ -1,21 +1,21 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 
-using Microsoft.Xna.Framework;
+using System;
 
 namespace PixelDust.Mathematics
 {
     public struct Size2Int : IEquatable<Size2Int>
     {
         public static readonly Size2Int Empty = new();
-        public readonly bool IsEmpty => Width == 0 && Height == 0;
+        public readonly bool IsEmpty => this.Width == 0 && this.Height == 0;
 
         public int Width { get; set; }
         public int Height { get; set; }
 
         public Size2Int(int width, int height)
         {
-            Width = width;
-            Height = height;
+            this.Width = width;
+            this.Height = height;
         }
 
         public static implicit operator Size2Int(Point point)
@@ -75,13 +75,13 @@ namespace PixelDust.Mathematics
 
         public override readonly string ToString()
         {
-            return $"{{ Width: {Width}, Height: {Height} }}";
+            return $"{{ Width: {this.Width}, Height: {this.Height} }}";
         }
         public override readonly int GetHashCode()
         {
             unchecked
             {
-                return (Width.GetHashCode() * 397) ^ Height.GetHashCode();
+                return (this.Width.GetHashCode() * 397) ^ this.Height.GetHashCode();
             }
         }
 
@@ -91,13 +91,11 @@ namespace PixelDust.Mathematics
         }
         public readonly bool Equals(ref Size2Int size)
         {
-            return Width == size.Width && Height == size.Height;
+            return this.Width == size.Width && this.Height == size.Height;
         }
         public override readonly bool Equals(object obj)
         {
-            if (obj is Size2Int @int)
-                return Equals(@int);
-            return false;
+            return obj is Size2Int @int && Equals(@int);
         }
     }
 }

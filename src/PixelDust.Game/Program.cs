@@ -10,7 +10,7 @@ namespace PixelDust.Game
         [STAThread]
         private static void Main()
         {
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
             // Engine
             PEngine.SetGameInstance<PixelDust>();

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PixelDust.Core.Elements
+namespace PixelDust.Core.Elements.Attributes
 {
     /// <summary>
     /// Attribute used by the <see cref="PElementsHandler"/> class as a guide for registering elements during game startup.
@@ -18,7 +18,7 @@ namespace PixelDust.Core.Elements
 
         public PElementRegisterAttribute(byte id)
         {
-            Id = id;
+            this.Id = id;
         }
     }
 }

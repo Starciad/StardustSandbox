@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PixelDust.Core.Sprites
+namespace PixelDust.Core.Sprites.Elements
 {
     internal sealed class PElementSprite
     {
@@ -11,9 +11,9 @@ namespace PixelDust.Core.Sprites
 
         public PElementSprite(Texture2D texture, Vector2 position, Rectangle rectangle)
         {
-            Texture = texture;
-            Position = position;
-            Rectangle = rectangle;
+            this.Texture = texture;
+            this.Position = position;
+            this.Rectangle = rectangle;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using PixelDust.Mathematics;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Core.Worlding.World.Data
 {
     public class PWorldInfos
     {

@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using PixelDust.Core.Engine.Components;
+
 using System;
-using PixelDust.Core.Engine;
 
 namespace PixelDust.Core.Camera
 {
@@ -13,56 +15,66 @@ namespace PixelDust.Core.Camera
 
         public POrthographicCamera()
         {
-            Rotation = 0;
-            Zoom = 1;
-            Origin = new Vector2(PScreen.DefaultResolution.X / 2f, PScreen.DefaultResolution.Y / 2f);
-            Position = Vector2.Zero;
+            this.Rotation = 0;
+            this.Zoom = 1;
+            this.Origin = new Vector2(PScreen.DefaultResolution.X / 2f, PScreen.DefaultResolution.Y / 2f);
+            this.Position = Vector2.Zero;
         }
 
         public override Vector2 Position { get; set; }
         public override float Rotation { get; set; }
         public override Vector2 Origin { get; set; }
-        public override Vector2 Center => Position + Origin;
+        public override Vector2 Center => this.Position + this.Origin;
 
         public override float Zoom
         {
-            get => _zoom;
+            get => this._zoom;
             set
             {
-                if ((value < MinimumZoom) || (value > MaximumZoom))
+                if ((value < this.MinimumZoom) || (value > this.MaximumZoom))
+                {
                     throw new ArgumentException("Zoom must be between MinimumZoom and MaximumZoom");
+                }
 
-                _zoom = value;
+                this._zoom = value;
             }
         }
 
         public override float MinimumZoom
         {
-            get => _minimumZoom;
+            get => this._minimumZoom;
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentException("MinimumZoom must be greater than zero");
+                }
 
-                if (Zoom < value)
-                    Zoom = MinimumZoom;
+                if (this.Zoom < value)
+                {
+                    this.Zoom = this.MinimumZoom;
+                }
 
-                _minimumZoom = value;
+                this._minimumZoom = value;
             }
         }
 
         public override float MaximumZoom
         {
-            get => _maximumZoom;
+            get => this._maximumZoom;
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentException("MaximumZoom must be greater than zero");
+                }
 
-                if (Zoom > value)
-                    Zoom = value;
+                if (this.Zoom > value)
+                {
+                    this.Zoom = value;
+                }
 
-                _maximumZoom = value;
+                this._maximumZoom = value;
             }
         }
 
@@ -83,35 +95,32 @@ namespace PixelDust.Core.Camera
 
         public override void Move(Vector2 direction)
         {
-            Position += Vector2.Transform(direction, Matrix.CreateRotationZ(-Rotation));
+            this.Position += Vector2.Transform(direction, Matrix.CreateRotationZ(-this.Rotation));
         }
 
         public override void Rotate(float deltaRadians)
         {
-            Rotation += deltaRadians;
+            this.Rotation += deltaRadians;
         }
 
         public override void ZoomIn(float deltaZoom)
         {
-            ClampZoom(Zoom + deltaZoom);
+            ClampZoom(this.Zoom + deltaZoom);
         }
 
         public override void ZoomOut(float deltaZoom)
         {
-            ClampZoom(Zoom - deltaZoom);
+            ClampZoom(this.Zoom - deltaZoom);
         }
 
         private void ClampZoom(float value)
         {
-            if (value < MinimumZoom)
-                Zoom = MinimumZoom;
-            else
-                Zoom = value > MaximumZoom ? MaximumZoom : value;
+            this.Zoom = value < this.MinimumZoom ? this.MinimumZoom : value > this.MaximumZoom ? this.MaximumZoom : value;
         }
 
         public override void LookAt(Vector2 position)
         {
-            Position = position - new Vector2(PScreen.DefaultResolution.X / 2f, PScreen.DefaultResolution.Y / 2f);
+            this.Position = position - new Vector2(PScreen.DefaultResolution.X / 2f, PScreen.DefaultResolution.Y / 2f);
         }
 
         public Vector2 WorldToScreen(float x, float y)
@@ -134,11 +143,11 @@ namespace PixelDust.Core.Camera
 
         private Matrix GetVirtualViewMatrix()
         {
-            return Matrix.CreateTranslation(new(-Position.X, Position.Y, 0.0f)) *
-                   Matrix.CreateTranslation(new(-Origin, 0.0f)) *
-                   Matrix.CreateRotationZ(Rotation) *
-                   Matrix.CreateScale(Zoom, Zoom, 1) *
-                   Matrix.CreateTranslation(new(Origin, 0.0f));
+            return Matrix.CreateTranslation(new(-this.Position.X, this.Position.Y, 0.0f)) *
+                   Matrix.CreateTranslation(new(-this.Origin, 0.0f)) *
+                   Matrix.CreateRotationZ(this.Rotation) *
+                   Matrix.CreateScale(this.Zoom, this.Zoom, 1) *
+                   Matrix.CreateTranslation(new(this.Origin, 0.0f));
         }
 
         public override Matrix GetViewMatrix()

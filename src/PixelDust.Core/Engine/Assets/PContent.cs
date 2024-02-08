@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 
-namespace PixelDust.Core.Engine
+namespace PixelDust.Core.Engine.Assets
 {
     /// <summary>
     /// Static wrapper of the <see cref="ContentManager"/> class for loading project contents, resources and assets.
@@ -47,7 +47,9 @@ namespace PixelDust.Core.Engine
         internal static void Build(IServiceProvider serviceProvider, string rootDirectory)
         {
             foreach (string directory in contentDirectories)
+            {
                 contentManagers.Add(directory, new(serviceProvider, Path.Combine(rootDirectory, directory)));
+            }
         }
 
         /// <summary>
@@ -56,7 +58,9 @@ namespace PixelDust.Core.Engine
         internal static void Unload()
         {
             foreach (ContentManager contentManager in contentManagers.Values)
+            {
                 contentManager.Dispose();
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using PixelDust.Core.Elements;
-using PixelDust.Core.Worlding;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Solid;
+using PixelDust.Core.Worlding.World.Slots;
+using PixelDust.Game.Elements.Utilities;
 using PixelDust.Mathematics;
-using PixelDust.Game.Elements.Helpers;
+
 using System;
 
 namespace PixelDust.Game.Elements.Solid.Movable
@@ -11,19 +13,19 @@ namespace PixelDust.Game.Elements.Solid.Movable
     {
         protected override void OnSettings()
         {
-            Name = "Corruption (Movable)";
-            Description = string.Empty;
+            this.Name = "Corruption (Movable)";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(8, 0));
+            this.Render.AddFrame(new(8, 0));
 
-            EnableNeighborsAction = true;
+            this.EnableNeighborsAction = true;
         }
 
         protected override void OnStep()
         {
-            if (Context.TryGetNeighbors(Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
             {
-                Context.InfectNeighboringElements(neighbors, neighbors.Length);
+                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
             }
         }
     }

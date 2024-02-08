@@ -1,10 +1,10 @@
 ﻿using PixelDust.Core.Worlding;
-
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
 
 using System;
 
-namespace PixelDust.Core.Elements
+namespace PixelDust.Core.Elements.Context
 {
     /// <summary>
     /// The <see cref="PElementContext"/> class wraps around the <see cref="PWorld"/> class and includes various additional contextual details associated with a specific element.
@@ -19,7 +19,7 @@ namespace PixelDust.Core.Elements
         /// <summary>
         /// The slot that the current element is located.
         /// </summary>
-        public PWorldElementSlot Slot => _element;
+        public PWorldElementSlot Slot => this._element;
 
         /// <summary>
         /// The position that the current element is located, based on world coordinates.
@@ -27,12 +27,12 @@ namespace PixelDust.Core.Elements
         /// <remarks>
         /// Contains only integer values.
         /// </remarks>
-        public Vector2Int Position => _position;
+        public Vector2Int Position => this._position;
 
         /// <summary>
         /// Current element class.
         /// </summary>
-        public PElement Element => _element.Instance;
+        public PElement Element => this._element.Instance;
 
         private PWorldElementSlot _element;
         private Vector2Int _position;
@@ -41,7 +41,7 @@ namespace PixelDust.Core.Elements
 
         public PElementContext(PWorld world)
         {
-            _world = world;
+            this._world = world;
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace PixelDust.Core.Elements
         /// <param name="position">Position the current element is at.</param>
         internal void Update(PWorldElementSlot slot, Vector2Int position)
         {
-            _element = slot;
-            _position = position;
+            this._element = slot;
+            this._position = position;
         }
 
         #region World
@@ -64,7 +64,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the instantiation was successful, otherwise <c>false</c>.</returns>
         public bool TryInstantiate<T>(Vector2Int pos) where T : PElement
         {
-            return _world.TryInstantiateElement<T>(pos);
+            return this._world.TryInstantiateElement<T>(pos);
         }
 
         /// <summary>
@@ -74,10 +74,10 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the repositioning was successful, otherwise <c>false</c>.</returns>
         public bool TrySetPosition(Vector2Int pos)
         {
-            if (_world.TryUpdateElementPosition(_position, pos))
+            if (this._world.TryUpdateElementPosition(this._position, pos))
             {
-                TryGetSlot(pos, out _element);
-                Update(_element, _position);
+                _ = TryGetSlot(pos, out this._element);
+                Update(this._element, this._position);
 
                 return true;
             }
@@ -93,10 +93,10 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the position swap was successful, otherwise <c>false</c>.</returns>
         public bool TrySwitchPosition(Vector2Int oldPos, Vector2Int newPos)
         {
-            if (_world.TrySwappingElements(oldPos, newPos))
+            if (this._world.TrySwappingElements(oldPos, newPos))
             {
-                TryGetSlot(newPos, out _element);
-                Update(_element, newPos);
+                _ = TryGetSlot(newPos, out this._element);
+                Update(this._element, newPos);
 
                 return true;
             }
@@ -111,7 +111,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the destruction was successful, otherwise <c>false</c>.</returns>
         public bool TryDestroy(Vector2Int pos)
         {
-            return _world.TryDestroyElement(pos);
+            return this._world.TryDestroyElement(pos);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if an element was found at the position, otherwise <c>false</c>.</returns>
         public bool TryGetElement(Vector2Int pos, out PElement value)
         {
-            return _world.TryGetElement(pos, out value);
+            return this._world.TryGetElement(pos, out value);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if a slot was found at the position, otherwise <c>false</c>.</returns>
         public bool TryGetSlot(Vector2Int pos, out PWorldElementSlot value)
         {
-            return _world.TryGetElementSlot(pos, out value);
+            return this._world.TryGetElementSlot(pos, out value);
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the replacement was successful, otherwise <c>false</c>.</returns>
         public bool TryReplace<T>(Vector2Int pos) where T : PElement
         {
-            return _world.TryReplaceElement<T>(pos);
+            return this._world.TryReplaceElement<T>(pos);
         }
 
         /// <summary>
@@ -155,12 +155,12 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if neighbors were found, otherwise <c>false</c>.</returns>
         public bool TryGetNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
-            return _world.TryGetElementNeighbors(pos, out neighbors);
+            return this._world.TryGetElementNeighbors(pos, out neighbors);
         }
 
         public bool TrySetTemperature(Vector2Int pos, short value)
         {
-            return _world.TrySetElementTemperature(pos, value);
+            return this._world.TrySetElementTemperature(pos, value);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the slot is empty, otherwise <c>false</c>.</returns>
         public bool IsEmpty(Vector2Int pos)
         {
-            return _world.IsEmptyElementSlot(pos);
+            return this._world.IsEmptyElementSlot(pos);
         }
         #endregion
 
@@ -182,7 +182,7 @@ namespace PixelDust.Core.Elements
         /// <returns><c>true</c> if the notification was successful, otherwise <c>false</c>.</returns>
         public bool TryNotifyChunk(Vector2Int pos)
         {
-            return _world.TryNotifyChunk(pos);
+            return this._world.TryNotifyChunk(pos);
         }
         #endregion
     }

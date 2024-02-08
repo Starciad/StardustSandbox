@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace PixelDust.Core.Engine
+namespace PixelDust.Core.Engine.Components
 {
     /// <summary>
     /// Static class responsible for storing all the most relevant information about the game's graphics settings.

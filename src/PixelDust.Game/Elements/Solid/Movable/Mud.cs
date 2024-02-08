@@ -1,5 +1,5 @@
-﻿using PixelDust.Core.Elements;
-using PixelDust.Game.Elements.Gases;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Solid;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
@@ -8,19 +8,19 @@ namespace PixelDust.Game.Elements.Solid.Movable
     {
         protected override void OnSettings()
         {
-            Name = "Mud";
-            Description = string.Empty;
+            this.Name = "Mud";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(1, 0));
+            this.Render.AddFrame(new(1, 0));
 
-            DefaultTemperature = 18;
+            this.DefaultTemperature = 18;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue >= 100)
             {
-                Context.TryReplace<Dirt>(Context.Position);
+                _ = this.Context.TryReplace<Dirt>(this.Context.Position);
             }
         }
     }

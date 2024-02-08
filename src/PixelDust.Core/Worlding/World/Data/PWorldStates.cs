@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Core
+﻿namespace PixelDust.Core.Worlding.World.Data
 {
     public class PWorldStates
     {
@@ -7,8 +7,8 @@
 
         public PWorldStates()
         {
-            IsActive = false;
-            IsPaused = false;
+            this.IsActive = false;
+            this.IsPaused = false;
         }
     }
 }

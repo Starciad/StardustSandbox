@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Engine;
+using PixelDust.Core.Engine.Assets;
+using PixelDust.Core.Engine.Components;
+using PixelDust.Core.Worlding.Components;
 
 namespace PixelDust.Core.Worlding
 {
@@ -10,7 +12,7 @@ namespace PixelDust.Core.Worlding
         public void Draw()
         {
             PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
-            if (!States.IsActive)
+            if (!this.States.IsActive)
             {
                 PGraphics.SpriteBatch.End();
                 return;
@@ -20,7 +22,7 @@ namespace PixelDust.Core.Worlding
             DrawSlots();
 
             // Components
-            foreach (PWorldComponent component in _components)
+            foreach (PWorldComponent component in this._components)
             {
                 component.Draw();
             }
@@ -30,15 +32,15 @@ namespace PixelDust.Core.Worlding
 
         private void DrawSlots()
         {
-            for (int x = 0; x < Infos.Size.Width; x++)
+            for (int x = 0; x < this.Infos.Size.Width; x++)
             {
-                for (int y = 0; y < Infos.Size.Height; y++)
+                for (int y = 0; y < this.Infos.Size.Height; y++)
                 {
-                    elementDrawContext.Update(Elements[x, y], new(x, y));
+                    this.elementDrawContext.Update(this.Elements[x, y], new(x, y));
 
                     if (!IsEmptyElementSlot(new(x, y)))
                     {
-                        Elements[x, y].Instance.Draw(elementDrawContext);
+                        this.Elements[x, y].Instance.Draw(this.elementDrawContext);
                     }
                     else
                     {

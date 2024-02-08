@@ -1,14 +1,15 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-using PixelDust.InputSystem;
+using PixelDust.InputSystem.Enums;
+using PixelDust.InputSystem.Handlers;
 
 using System;
 
-namespace PixelDust.InputSystem
+namespace PixelDust.InputSystem.Actions
 {
     public sealed class PInputAction
     {
-        public PInputActionMap ActionMap => _actionMap;
+        public PInputActionMap ActionMap => this._actionMap;
 
         private PInputActionMap _actionMap;
 
@@ -45,59 +46,60 @@ namespace PixelDust.InputSystem
 
         internal void SetActionMap(PInputActionMap map)
         {
-            _actionMap = map;
+            this._actionMap = map;
         }
 
         internal void Update()
         {
-            callback = new();
+            this.callback = new();
 
-            foreach (Keys key in keys)
+            foreach (Keys key in this.keys)
             {
                 // Started
                 if (GetKeyboardStartedState(key))
                 {
-                    callback.CapturedKey = key;
+                    this.callback.CapturedKey = key;
                     UpdateStarting();
                 }
 
                 // Performed
                 if (GetKeyboardPerformedState(key))
                 {
-                    callback.CapturedKey = key;
+                    this.callback.CapturedKey = key;
                     UpdatePerformed();
                 }
 
                 // Canceled
                 if (GetKeyboardCanceledState(key))
                 {
-                    callback.CapturedKey = key;
+                    this.callback.CapturedKey = key;
                     UpdateCanceled();
                 }
             }
-            foreach (PMouseButton mouseButton in mouseButtons)
+
+            foreach (PMouseButton mouseButton in this.mouseButtons)
             {
                 // Started
                 if (GetMouseStartedState(mouseButton) &&
-                    !started && !performed && canceled)
+                    !this.started && !this.performed && this.canceled)
                 {
-                    callback.CapturedMouseButton = mouseButton;
+                    this.callback.CapturedMouseButton = mouseButton;
                     UpdateStarting();
                 }
 
                 // Performed
                 if (GetMousePerformedState(mouseButton) &&
-                    started && !canceled)
+                    this.started && !this.canceled)
                 {
-                    callback.CapturedMouseButton = mouseButton;
+                    this.callback.CapturedMouseButton = mouseButton;
                     UpdatePerformed();
                 }
 
                 // Canceled
                 if (GetMouseCanceledState(mouseButton) &&
-                    started && performed && !canceled)
+                    this.started && this.performed && !this.canceled)
                 {
-                    callback.CapturedMouseButton = mouseButton;
+                    this.callback.CapturedMouseButton = mouseButton;
                     UpdateCanceled();
                 }
             }
@@ -108,19 +110,19 @@ namespace PixelDust.InputSystem
         {
             return !PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
                     PInputHandler.Keyboard.IsKeyDown(key) &&
-                   !started && !performed && canceled;
+                   !this.started && !this.performed && this.canceled;
         }
         private bool GetKeyboardPerformedState(Keys key)
         {
             return PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
                    PInputHandler.Keyboard.IsKeyDown(key) &&
-                   started && !canceled;
+                   this.started && !this.canceled;
         }
         private bool GetKeyboardCanceledState(Keys key)
         {
             return PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
                   !PInputHandler.Keyboard.IsKeyDown(key) &&
-                   started && performed && !canceled;
+                   this.started && this.performed && !this.canceled;
         }
 
         // Mouse State
@@ -169,30 +171,30 @@ namespace PixelDust.InputSystem
         // Update
         private void UpdateStarting()
         {
-            callback.State = PInputCallbackState.Started;
+            this.callback.State = PInputCallbackState.Started;
 
-            OnStarted?.Invoke(callback);
+            OnStarted?.Invoke(this.callback);
 
-            started = true;
-            canceled = false;
+            this.started = true;
+            this.canceled = false;
         }
         private void UpdatePerformed()
         {
-            callback.State = PInputCallbackState.Performed;
+            this.callback.State = PInputCallbackState.Performed;
 
-            OnPerformed?.Invoke(callback);
+            OnPerformed?.Invoke(this.callback);
 
-            performed = true;
+            this.performed = true;
         }
         private void UpdateCanceled()
         {
-            callback.State = PInputCallbackState.Canceled;
+            this.callback.State = PInputCallbackState.Canceled;
 
-            OnCanceled?.Invoke(callback);
+            OnCanceled?.Invoke(this.callback);
 
-            started = false;
-            performed = false;
-            canceled = true;
+            this.started = false;
+            this.performed = false;
+            this.canceled = true;
         }
 
         public struct CallbackContext

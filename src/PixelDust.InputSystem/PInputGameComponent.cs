@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Core.Components;
+using PixelDust.InputSystem.Handlers;
 
 namespace PixelDust.InputSystem
 {

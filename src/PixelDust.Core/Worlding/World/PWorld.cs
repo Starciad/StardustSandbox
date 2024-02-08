@@ -1,5 +1,9 @@
-﻿using PixelDust.Core.Elements;
-
+﻿using PixelDust.Core.Elements.Context;
+using PixelDust.Core.Worlding.Components;
+using PixelDust.Core.Worlding.Components.Chunking;
+using PixelDust.Core.Worlding.Components.Threading;
+using PixelDust.Core.Worlding.World.Data;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
 
 using System;
@@ -16,19 +20,19 @@ namespace PixelDust.Core.Worlding
 
         internal PWorldElementSlot[,] Elements { get; private set; }
 
-        private readonly PWorldComponent[] _components = new PWorldComponent[]
-        {
+        private readonly PWorldComponent[] _components =
+        [
             new PWorldChunkingComponent(),
             new PWorldThreadingComponent(),
-        };
+        ];
 
         internal readonly PElementContext elementUpdateContext;
         internal readonly PElementContext elementDrawContext;
 
         public PWorld()
         {
-            elementUpdateContext = new(this);
-            elementDrawContext = new(this);
+            this.elementUpdateContext = new(this);
+            this.elementDrawContext = new(this);
         }
 
         // Engine
@@ -36,15 +40,21 @@ namespace PixelDust.Core.Worlding
         {
             Restart();
 
-            foreach (PWorldComponent component in _components)
+            foreach (PWorldComponent component in this._components)
+            {
                 component.Initialize(this);
+            }
 
-            States.IsActive = true;
+            this.States.IsActive = true;
         }
         public void Update()
         {
-            if (!States.IsActive || States.IsPaused) return;
-            foreach (PWorldComponent component in _components)
+            if (!this.States.IsActive || this.States.IsPaused)
+            {
+                return;
+            }
+
+            foreach (PWorldComponent component in this._components)
             {
                 component.Update();
             }
@@ -53,44 +63,48 @@ namespace PixelDust.Core.Worlding
         // Components
         internal T GetComponent<T>() where T : PWorldComponent
         {
-            return (T)Array.Find(_components, x => x.GetType() == typeof(T));
+            return (T)Array.Find(this._components, x => x.GetType() == typeof(T));
         }
 
         // World
         public bool InsideTheWorldDimensions(Vector2Int pos)
         {
-            return pos.X >= 0 && pos.X < Infos.Size.Width &&
-                   pos.Y >= 0 && pos.Y < Infos.Size.Height;
+            return pos.X >= 0 && pos.X < this.Infos.Size.Width &&
+                   pos.Y >= 0 && pos.Y < this.Infos.Size.Height;
         }
 
         // States
         public void Restart()
         {
-            Elements = new PWorldElementSlot[Infos.Size.Width, Infos.Size.Height];
+            this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
         }
         public void Pause()
         {
-            States.IsPaused = true;
+            this.States.IsPaused = true;
         }
         public void Resume()
         {
-            States.IsPaused = false;
+            this.States.IsPaused = false;
         }
 
         // Tools
         public void Clear()
         {
-            if (Elements == null)
-                return;
-
-            for (int x = 0; x < Infos.Size.Width; x++)
+            if (this.Elements == null)
             {
-                for (int y = 0; y < Infos.Size.Height; y++)
+                return;
+            }
+
+            for (int x = 0; x < this.Infos.Size.Width; x++)
+            {
+                for (int y = 0; y < this.Infos.Size.Height; y++)
                 {
                     if (IsEmptyElementSlot(new(x, y)))
+                    {
                         continue;
+                    }
 
-                    TryDestroyElement(new(x, y));
+                    _ = TryDestroyElement(new(x, y));
                 }
             }
         }

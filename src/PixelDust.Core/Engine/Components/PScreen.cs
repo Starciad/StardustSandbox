@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace PixelDust.Core.Engine
+namespace PixelDust.Core.Engine.Components
 {
     /// <summary>
     /// Static class that contains information related to the screen/window of the game.

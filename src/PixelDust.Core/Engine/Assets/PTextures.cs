@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace PixelDust.Core.Engine
+using PixelDust.Core.Engine.Components;
+
+namespace PixelDust.Core.Engine.Assets
 {
     /// <summary>
     /// Static class responsible for managing, storing and configuring all textures in the game.

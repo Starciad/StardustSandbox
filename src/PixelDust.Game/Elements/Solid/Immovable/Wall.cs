@@ -1,4 +1,5 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Solid;
 
 namespace PixelDust.Game.Elements.Solid.Immovable
 {
@@ -7,12 +8,12 @@ namespace PixelDust.Game.Elements.Solid.Immovable
     {
         protected override void OnSettings()
         {
-            Name = "Wall";
-            Description = string.Empty;
-            
-            Render.AddFrame(new(3, 1));
+            this.Name = "Wall";
+            this.Description = string.Empty;
 
-            EnableTemperature = false;
+            this.Render.AddFrame(new(3, 1));
+
+            this.EnableTemperature = false;
         }
     }
 }

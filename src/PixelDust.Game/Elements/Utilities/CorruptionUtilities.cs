@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using PixelDust.Mathematics;
-using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Context;
+using PixelDust.Core.Elements.Types.Gases;
+using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Elements.Types.Solid;
 using PixelDust.Core.Utilities;
-using PixelDust.Core.Worlding;
+using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Gases;
 using PixelDust.Game.Elements.Liquid;
 using PixelDust.Game.Elements.Solid.Immovable;
 using PixelDust.Game.Elements.Solid.Movable;
+using PixelDust.Mathematics;
 
-namespace PixelDust.Game.Elements.Helpers
+using System;
+using System.Collections.Generic;
+
+namespace PixelDust.Game.Elements.Utilities
 {
     internal static class CorruptionUtilities
     {
@@ -29,25 +33,27 @@ namespace PixelDust.Game.Elements.Helpers
             }
 
             if (targets.Count == 0)
+            {
                 return;
+            }
 
             (Vector2Int, PWorldElementSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
 
             if (target.Item2.Instance is PSolid)
             {
-                context.TryReplace<MCorruption>(target.Item1);
+                _ = context.TryReplace<MCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PImmovableSolid)
             {
-                context.TryReplace<ICorruption>(target.Item1);
+                _ = context.TryReplace<ICorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PLiquid)
             {
-                context.TryReplace<LCorruption>(target.Item1);
+                _ = context.TryReplace<LCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PGas)
             {
-                context.TryReplace<GCorruption>(target.Item1);
+                _ = context.TryReplace<GCorruption>(target.Item1);
             }
         }
     }

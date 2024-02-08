@@ -1,4 +1,5 @@
-﻿using PixelDust.Core.Elements;
+﻿using PixelDust.Core.Elements.Attributes;
+using PixelDust.Core.Elements.Types.Gases;
 
 namespace PixelDust.Game.Elements.Gases
 {
@@ -7,12 +8,12 @@ namespace PixelDust.Game.Elements.Gases
     {
         protected override void OnSettings()
         {
-            Name = "Smoke";
-            Description = string.Empty;
+            this.Name = "Smoke";
+            this.Description = string.Empty;
 
-            Render.AddFrame(new(9, 1));
+            this.Render.AddFrame(new(9, 1));
 
-            DefaultTemperature = 100;
+            this.DefaultTemperature = 100;
         }
     }
 }

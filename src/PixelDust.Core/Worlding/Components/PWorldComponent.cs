@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Core.Worlding
+﻿namespace PixelDust.Core.Worlding.Components
 {
     public abstract class PWorldComponent
     {
@@ -6,7 +6,7 @@
 
         internal void Initialize(PWorld instance)
         {
-            WorldInstance = instance;
+            this.WorldInstance = instance;
             OnInitialize();
         }
 

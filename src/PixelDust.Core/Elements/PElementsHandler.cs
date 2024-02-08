@@ -1,7 +1,9 @@
-﻿using System;
+﻿using PixelDust.Core.Elements.Attributes;
+
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Collections.Generic;
 
 namespace PixelDust.Core.Elements
 {
@@ -21,7 +23,9 @@ namespace PixelDust.Core.Elements
             {
                 PElementRegisterAttribute register = type.GetCustomAttribute<PElementRegisterAttribute>();
                 if (register == null)
+                {
                     continue;
+                }
 
                 PElement tempElement = (PElement)Activator.CreateInstance(type);
                 tempElement.Build();
@@ -54,10 +58,7 @@ namespace PixelDust.Core.Elements
         /// <returns>The requested element.</returns>
         public static PElement GetElementById(uint id)
         {
-            if (_elements.TryGetValue(id, out PElement value))
-                return value;
-
-            return default;
+            return _elements.TryGetValue(id, out PElement value) ? value : default;
         }
 
         /// <summary>

@@ -1,16 +1,16 @@
-﻿using System.Runtime.InteropServices;
+﻿using PixelDust.Mathematics;
 
-using PixelDust.Mathematics;
+using System.Runtime.InteropServices;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Core.Worlding.Components.Chunking
 {
     [StructLayout(LayoutKind.Sequential)]
     internal struct PWorldChunk
     {
-        internal readonly Vector2Int Position => _position;
-        internal readonly short Size => _size;
+        internal readonly Vector2Int Position => this._position;
+        internal readonly short Size => this._size;
 
-        internal readonly bool ShouldUpdate => _shouldUpdate;
+        internal readonly bool ShouldUpdate => this._shouldUpdate;
 
         private readonly Vector2Int _position;
         private readonly short _size;
@@ -20,22 +20,22 @@ namespace PixelDust.Core.Worlding
 
         public PWorldChunk(Vector2Int position, short size)
         {
-            _position = position;
-            _size = size;
+            this._position = position;
+            this._size = size;
 
-            _shouldUpdate = true;
-            _shouldUpdateNextFrame = true;
+            this._shouldUpdate = true;
+            this._shouldUpdateNextFrame = true;
         }
 
         internal void Update()
         {
-            _shouldUpdate = _shouldUpdateNextFrame;
-            _shouldUpdateNextFrame = false;
+            this._shouldUpdate = this._shouldUpdateNextFrame;
+            this._shouldUpdateNextFrame = false;
         }
 
         internal void Notify()
         {
-            _shouldUpdateNextFrame = true;
+            this._shouldUpdateNextFrame = true;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using PixelDust.Core.Utilities;
 using PixelDust.Mathematics;
 
-namespace PixelDust.Core.Elements
+namespace PixelDust.Core.Elements.Types.Liquid
 {
     /// <summary>
     /// Base class for defining liquid elements in PixelDust.
@@ -12,18 +12,23 @@ namespace PixelDust.Core.Elements
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
 
-            Vector2Int down = new(Context.Position.X, Context.Position.Y + 1);
+            Vector2Int down = new(this.Context.Position.X, this.Context.Position.Y + 1);
             Vector2Int[] sides = new Vector2Int[]
             {
-                new(Context.Position.X + direction     , Context.Position.Y),
-                new(Context.Position.X + direction * -1, Context.Position.Y),
+                new(this.Context.Position.X + direction     , this.Context.Position.Y),
+                new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
             };
 
-            if (Context.TrySetPosition(down))
+            if (this.Context.TrySetPosition(down))
+            {
                 return;
+            }
 
             foreach (Vector2Int side in sides)
-                if (Context.TrySetPosition(new(side.X, side.Y + 1))) { return; }
+            {
+                if (this.Context.TrySetPosition(new(side.X, side.Y + 1)))
+                { return; }
+            }
 
             HorizontalMovementUpdate(direction);
         }
@@ -34,12 +39,14 @@ namespace PixelDust.Core.Elements
             bool lCountBreak = false, rCountBreak = false;
 
             // Left (<) && Right (>)
-            for (int i = 0; i < DefaultDispersionRate; i++)
+            for (int i = 0; i < this.DefaultDispersionRate; i++)
             {
                 if (lCountBreak && rCountBreak)
+                {
                     break;
+                }
 
-                if (!lCountBreak && Context.IsEmpty(new(Context.Position.X - (i + 1), Context.Position.Y)))
+                if (!lCountBreak && this.Context.IsEmpty(new(this.Context.Position.X - (i + 1), this.Context.Position.Y)))
                 {
                     lCount++;
                 }
@@ -48,7 +55,7 @@ namespace PixelDust.Core.Elements
                     lCountBreak = true;
                 }
 
-                if (!rCountBreak && Context.IsEmpty(new(Context.Position.X + (i + 1), Context.Position.Y)))
+                if (!rCountBreak && this.Context.IsEmpty(new(this.Context.Position.X + i + 1, this.Context.Position.Y)))
                 {
                     rCount++;
                 }
@@ -61,30 +68,34 @@ namespace PixelDust.Core.Elements
             // Set new position
             int tCount = int.Max(lCount, rCount);
 
-            Vector2Int lPosition = new(Context.Position.X - tCount, Context.Position.Y);
-            Vector2Int rPosition = new(Context.Position.X + tCount, Context.Position.Y);
+            Vector2Int lPosition = new(this.Context.Position.X - tCount, this.Context.Position.Y);
+            Vector2Int rPosition = new(this.Context.Position.X + tCount, this.Context.Position.Y);
 
             if (tCount.Equals(lCount) && tCount.Equals(rCount))
             {
                 if (direction.Equals(-1))
                 {
-                    if (Context.TrySetPosition(lPosition)) { return; }
+                    if (this.Context.TrySetPosition(lPosition))
+                    { return; }
                 }
 
                 if (direction.Equals(1))
                 {
-                    if (Context.TrySetPosition(rPosition)) { return; }
+                    if (this.Context.TrySetPosition(rPosition))
+                    { return; }
                 }
             }
 
             if (tCount.Equals(lCount))
             {
-                if (Context.TrySetPosition(lPosition)) { return; }
+                if (this.Context.TrySetPosition(lPosition))
+                { return; }
             }
 
             if (tCount.Equals(rCount))
             {
-                if (Context.TrySetPosition(rPosition)) { return; }
+                if (this.Context.TrySetPosition(rPosition))
+                { return; }
             }
         }
     }

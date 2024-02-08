@@ -1,9 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Microsoft.Xna.Framework;
+
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-
-using Microsoft.Xna.Framework;
 
 namespace PixelDust.Mathematics
 {
@@ -28,22 +27,10 @@ namespace PixelDust.Mathematics
 
         #region Properties
 
-        public static Vector2Int Zero
-        {
-            get { return zeroVector; }
-        }
-        public static Vector2Int One
-        {
-            get { return unitVector; }
-        }
-        public static Vector2Int UnitX
-        {
-            get { return unitXVector; }
-        }
-        public static Vector2Int UnitY
-        {
-            get { return unitYVector; }
-        }
+        public static Vector2Int Zero => zeroVector;
+        public static Vector2Int One => unitVector;
+        public static Vector2Int UnitX => unitXVector;
+        public static Vector2Int UnitY => unitYVector;
 
         #endregion
 
@@ -51,13 +38,13 @@ namespace PixelDust.Mathematics
 
         public Vector2Int(int x, int y)
         {
-            X = x;
-            Y = y;
+            this.X = x;
+            this.Y = y;
         }
         public Vector2Int(int value)
         {
-            X = value;
-            Y = value;
+            this.X = value;
+            this.Y = value;
         }
 
         #endregion
@@ -110,8 +97,8 @@ namespace PixelDust.Mathematics
         }
         public void Ceiling()
         {
-            X = (int)MathF.Ceiling(X);
-            Y = (int)MathF.Ceiling(Y);
+            this.X = (int)MathF.Ceiling(this.X);
+            this.Y = (int)MathF.Ceiling(this.Y);
         }
         public static Vector2Int Ceiling(Vector2Int value)
         {
@@ -142,8 +129,8 @@ namespace PixelDust.Mathematics
         }
         public void Floor()
         {
-            X = (int)MathF.Floor(X);
-            Y = (int)MathF.Floor(Y);
+            this.X = (int)MathF.Floor(this.X);
+            this.Y = (int)MathF.Floor(this.Y);
         }
         public static Vector2Int Floor(Vector2Int value)
         {
@@ -171,17 +158,17 @@ namespace PixelDust.Mathematics
 
         public readonly int Length()
         {
-            return (int)MathF.Sqrt((X * X) + (Y * Y));
+            return (int)MathF.Sqrt((this.X * this.X) + (this.Y * this.Y));
         }
         public readonly int LengthSquared()
         {
-            return (X * X) + (Y * Y);
+            return (this.X * this.X) + (this.Y * this.Y);
         }
 
         public readonly void Deconstruct(out int x, out int y)
         {
-            x = X;
-            y = Y;
+            x = this.X;
+            y = this.Y;
         }
 
         #endregion
@@ -276,11 +263,11 @@ namespace PixelDust.Mathematics
 
         public readonly Point ToPoint()
         {
-            return new Point(X, Y);
+            return new Point(this.X, this.Y);
         }
         public override readonly string ToString()
         {
-            return "{X:" + X + " Y:" + Y + "}";
+            return "{X:" + this.X + " Y:" + this.Y + "}";
         }
 
         #endregion
@@ -289,22 +276,17 @@ namespace PixelDust.Mathematics
 
         public override readonly bool Equals(object obj)
         {
-            if (obj is Vector2Int @int)
-            {
-                return Equals(@int);
-            }
-
-            return false;
+            return obj is Vector2Int @int && Equals(@int);
         }
         public readonly bool Equals(Vector2Int other)
         {
-            return (X == other.X) && (Y == other.Y);
+            return (this.X == other.X) && (this.Y == other.Y);
         }
         public override readonly int GetHashCode()
         {
             unchecked
             {
-                return (X.GetHashCode() * 397) ^ Y.GetHashCode();
+                return (this.X.GetHashCode() * 397) ^ this.Y.GetHashCode();
             }
         }
 
