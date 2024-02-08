@@ -11,7 +11,7 @@ namespace PixelDust.Core.Engine.Assets
     /// </summary>
     public static class PEffects
     {
-        private static readonly Dictionary<string, Effect> _effects = new();
+        private static readonly Dictionary<string, Effect> _effects = [];
 
         /// <summary>
         /// Loads all the effects that will be used in the project.

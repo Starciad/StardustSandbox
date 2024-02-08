@@ -92,7 +92,7 @@ namespace PixelDust.Core.Worlding.Components.Threading
                         continue;
                     }
 
-                    _capturedSlots ??= new();
+                    _capturedSlots ??= [];
 
                     _capturedSlots.Add(pos);
                     totalCapturedElements++;

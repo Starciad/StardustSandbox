@@ -20,7 +20,7 @@ namespace PixelDust.Core.Elements.Render
         // Animation
         private float _currentAnimationDelay;
         private int _currentAnimationIndex;
-        private readonly List<Rectangle> frames = new();
+        private readonly List<Rectangle> frames = [];
 
         public void AddFrame(Vector2 pos)
         {

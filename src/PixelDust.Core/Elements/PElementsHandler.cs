@@ -12,7 +12,7 @@ namespace PixelDust.Core.Elements
     /// </summary>
     public static class PElementsHandler
     {
-        private static readonly Dictionary<uint, PElement> _elements = new();
+        private static readonly Dictionary<uint, PElement> _elements = [];
 
         /// <summary>
         /// Loads, instantiates, and registers all elements that have the <see cref="PElementRegisterAttribute"/> attribute in the main assembly that the <see cref="PGame"/> class has been implemented in.

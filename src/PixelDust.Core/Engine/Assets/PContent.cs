@@ -36,7 +36,7 @@ namespace PixelDust.Core.Engine.Assets
         /// </summary>
         public static ContentManager Sounds => contentManagers["Sounds"];
 
-        private static readonly Dictionary<string, ContentManager> contentManagers = new();
+        private static readonly Dictionary<string, ContentManager> contentManagers = [];
         private static readonly string[] contentDirectories = new string[] { "Sprites", "Effects", "Fonts", "Musics", "Sounds" };
 
         /// <summary>

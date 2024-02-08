@@ -28,7 +28,7 @@ namespace PixelDust.Core
         public Assembly Assembly => this._assembly;
 
         private readonly Assembly _assembly;
-        private readonly List<PGameComponent> _components = new();
+        private readonly List<PGameComponent> _components = [];
 
         /// <summary>
         /// It builds in a standardized and automated way the basic components for the instantiation and execution of <see cref="PGame"/>.

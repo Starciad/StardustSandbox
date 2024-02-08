@@ -4,7 +4,7 @@ namespace PixelDust.InputSystem.Actions
 {
     public sealed class PInputActionMapHandler
     {
-        private readonly Dictionary<string, PInputActionMap> _maps = new();
+        private readonly Dictionary<string, PInputActionMap> _maps = [];
 
         public void Update()
         {

@@ -19,7 +19,7 @@ namespace PixelDust.Game.Elements.Utilities
     {
         public static void InfectNeighboringElements(this PElementContext context, ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
         {
-            List<(Vector2Int, PWorldElementSlot)> targets = new();
+            List<(Vector2Int, PWorldElementSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
                 if (neighbors[i].Item2.Instance is not MCorruption &&

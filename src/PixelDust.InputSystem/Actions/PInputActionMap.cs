@@ -12,7 +12,7 @@ namespace PixelDust.InputSystem.Actions
         private readonly PInputActionMapHandler handler;
 #pragma warning restore CS0169 // O campo "PInputActionMap.handler" nunca é usado
 
-        private readonly Dictionary<string, PInputAction> _actions = new();
+        private readonly Dictionary<string, PInputAction> _actions = [];
 
         public PInputActionMap(bool active)
         {

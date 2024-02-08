@@ -12,7 +12,7 @@ namespace PixelDust.Core.Managers
     /// </summary>
     public static class PManagersHandler
     {
-        private static readonly Dictionary<Type, PManager> _managers = new();
+        private static readonly Dictionary<Type, PManager> _managers = [];
 
         /// <summary>
         /// Registers, instantiates, configures and initializes all project managers that have the <see cref="PManagerRegisterAttribute"/> attribute.

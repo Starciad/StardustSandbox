@@ -134,8 +134,8 @@ namespace PixelDust.Core.Worlding
         }
         private static Vector2Int[] GetElementNeighborPositions(Vector2Int pos)
         {
-            return new Vector2Int[]
-            {
+            return
+            [
                 new(pos.X, pos.Y - 1),
                 new(pos.X + 1, pos.Y - 1),
                 new(pos.X - 1, pos.Y - 1),
@@ -144,7 +144,7 @@ namespace PixelDust.Core.Worlding
                 new(pos.X, pos.Y + 1),
                 new(pos.X + 1, pos.Y + 1),
                 new(pos.X - 1, pos.Y + 1),
-            };
+            ];
         }
 
         public bool TryGetElementSlot(Vector2Int pos, out PWorldElementSlot value)

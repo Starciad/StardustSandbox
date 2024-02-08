@@ -11,7 +11,7 @@ namespace PixelDust.Core.Engine.Assets
     {
         public static SpriteFont Arial => fonts["Arial"];
 
-        private static readonly Dictionary<string, SpriteFont> fonts = new();
+        private static readonly Dictionary<string, SpriteFont> fonts = [];
 
         /// <summary>
         /// Loads all character fonts that will be used in the project.
