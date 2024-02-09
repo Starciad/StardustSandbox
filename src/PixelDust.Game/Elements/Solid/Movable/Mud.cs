@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Solid;
+using PixelDust.Core.Elements.Templates.Solid;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {
@@ -20,7 +20,7 @@ namespace PixelDust.Game.Elements.Solid.Movable
         {
             if (currentValue >= 100)
             {
-                _ = this.Context.TryReplace<Dirt>(this.Context.Position);
+                this.Context.ReplaceElement<Dirt>();
             }
         }
     }

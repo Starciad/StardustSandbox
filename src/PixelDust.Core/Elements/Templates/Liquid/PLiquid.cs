@@ -1,7 +1,7 @@
 ﻿using PixelDust.Core.Utilities;
 using PixelDust.Mathematics;
 
-namespace PixelDust.Core.Elements.Types.Liquid
+namespace PixelDust.Core.Elements.Templates.Liquid
 {
     /// <summary>
     /// Base class for defining liquid elements in PixelDust.
@@ -13,11 +13,11 @@ namespace PixelDust.Core.Elements.Types.Liquid
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
 
             Vector2Int down = new(this.Context.Position.X, this.Context.Position.Y + 1);
-            Vector2Int[] sides = new Vector2Int[]
-            {
-                new(this.Context.Position.X + direction     , this.Context.Position.Y),
-                new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
-            };
+            Vector2Int[] sides =
+            [
+                new Vector2Int(this.Context.Position.X + direction, this.Context.Position.Y),
+                new Vector2Int(this.Context.Position.X + direction * -1, this.Context.Position.Y),
+            ];
 
             if (this.Context.TrySetPosition(down))
             {
@@ -46,7 +46,7 @@ namespace PixelDust.Core.Elements.Types.Liquid
                     break;
                 }
 
-                if (!lCountBreak && this.Context.IsEmpty(new(this.Context.Position.X - (i + 1), this.Context.Position.Y)))
+                if (!lCountBreak && this.Context.IsEmptyElementSlot(new(this.Context.Position.X - (i + 1), this.Context.Position.Y)))
                 {
                     lCount++;
                 }
@@ -55,7 +55,7 @@ namespace PixelDust.Core.Elements.Types.Liquid
                     lCountBreak = true;
                 }
 
-                if (!rCountBreak && this.Context.IsEmpty(new(this.Context.Position.X + i + 1, this.Context.Position.Y)))
+                if (!rCountBreak && this.Context.IsEmptyElementSlot(new(this.Context.Position.X + i + 1, this.Context.Position.Y)))
                 {
                     rCount++;
                 }

@@ -38,7 +38,7 @@ namespace PixelDust.Core.Worlding.World.Slots
 
         private void Reset()
         {
-            this.temperature = 0;
+            SetTemperatureValue(0);
         }
     }
 }

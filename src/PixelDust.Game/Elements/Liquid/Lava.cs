@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Elements.Templates.Liquid;
 using PixelDust.Game.Elements.Solid.Movable;
 
 namespace PixelDust.Game.Elements.Liquid
@@ -21,8 +21,8 @@ namespace PixelDust.Game.Elements.Liquid
         {
             if (currentValue < 500)
             {
-                _ = this.Context.TryReplace<Stone>(this.Context.Position);
-                _ = this.Context.TrySetTemperature(this.Context.Position, 550);
+                this.Context.ReplaceElement<Stone>();
+                this.Context.SetElementTemperature(550);
             }
         }
     }

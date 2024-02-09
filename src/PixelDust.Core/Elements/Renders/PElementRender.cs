@@ -1,14 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Elements.Context;
+using PixelDust.Core.Elements.Contexts;
 using PixelDust.Core.Engine.Assets;
 using PixelDust.Core.Engine.Components;
 using PixelDust.Core.Worlding;
 
+using System;
 using System.Collections.Generic;
 
-namespace PixelDust.Core.Elements.Render
+namespace PixelDust.Core.Elements.Renders
 {
     public sealed class PElementRender
     {
@@ -21,6 +22,9 @@ namespace PixelDust.Core.Elements.Render
         private float _currentAnimationDelay;
         private int _currentAnimationIndex;
         private readonly List<Rectangle> frames = [];
+
+        // Colors
+        private const int DEFAULT_SHADOWING_VALUE = 50;
 
         public void AddFrame(Vector2 pos)
         {

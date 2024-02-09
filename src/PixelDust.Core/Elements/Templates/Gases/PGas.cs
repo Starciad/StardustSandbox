@@ -1,9 +1,9 @@
-﻿using PixelDust.Core.Elements.Types.Liquid;
-using PixelDust.Core.Elements.Types.Solid;
+﻿using PixelDust.Core.Elements.Templates.Liquid;
+using PixelDust.Core.Elements.Templates.Solid;
 using PixelDust.Core.Utilities;
 using PixelDust.Mathematics;
 
-namespace PixelDust.Core.Elements.Types.Gases
+namespace PixelDust.Core.Elements.Templates.Gases
 {
     public enum GasSpreadingType
     {
@@ -37,16 +37,16 @@ namespace PixelDust.Core.Elements.Types.Gases
         private void UpSpreadingTypeUpdate()
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
-            Vector2Int[] targets = new Vector2Int[]
-            {
-                    new(this.Context.Position.X                 , this.Context.Position.Y - 1),
-                    new(this.Context.Position.X + direction     , this.Context.Position.Y - 1),
-                    new(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
-            };
+            Vector2Int[] targets =
+            [
+                new Vector2Int(this.Context.Position.X, this.Context.Position.Y - 1),
+                new Vector2Int(this.Context.Position.X + direction, this.Context.Position.Y - 1),
+                new Vector2Int(this.Context.Position.X + direction * -1, this.Context.Position.Y - 1),
+            ];
 
             foreach (Vector2Int targetPos in targets)
             {
-                if (this.Context.IsEmpty(targetPos))
+                if (this.Context.IsEmptyElementSlot(targetPos))
                 {
                     if (this.Context.TrySetPosition(targetPos))
                     {
@@ -59,7 +59,7 @@ namespace PixelDust.Core.Elements.Types.Gases
                     if (value is PLiquid ||
                         value is PMovableSolid)
                     {
-                        if (this.Context.TrySwitchPosition(this.Context.Position, targetPos))
+                        if (this.Context.TrySwappingElements(targetPos))
                         {
                             return;
                         }
@@ -69,13 +69,13 @@ namespace PixelDust.Core.Elements.Types.Gases
 
             for (int i = 0; i < this.DefaultDispersionRate; i++)
             {
-                if (!this.Context.IsEmpty(new(this.Context.Position.X + direction, this.Context.Position.Y)) &&
-                    !this.Context.IsEmpty(new(this.Context.Position.X + direction, this.Context.Position.Y - 1)))
+                if (!this.Context.IsEmptyElementSlot(new(this.Context.Position.X + direction, this.Context.Position.Y)) &&
+                    !this.Context.IsEmptyElementSlot(new(this.Context.Position.X + direction, this.Context.Position.Y - 1)))
                 {
                     break;
                 }
 
-                _ = this.Context.TrySetPosition(new(this.Context.Position.X + direction, this.Context.Position.Y));
+                this.Context.SetPosition(new(this.Context.Position.X + direction, this.Context.Position.Y));
             }
         }
     }

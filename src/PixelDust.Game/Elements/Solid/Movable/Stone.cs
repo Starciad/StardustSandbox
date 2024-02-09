@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Solid;
+using PixelDust.Core.Elements.Templates.Solid;
 using PixelDust.Game.Elements.Liquid;
 
 namespace PixelDust.Game.Elements.Solid.Movable
@@ -21,8 +21,8 @@ namespace PixelDust.Game.Elements.Solid.Movable
         {
             if (currentValue > 500)
             {
-                _ = this.Context.TryReplace<Lava>(this.Context.Position);
-                _ = this.Context.TrySetTemperature(this.Context.Position, 600);
+                this.Context.ReplaceElement<Lava>();
+                this.Context.SetElementTemperature(600);
             }
         }
     }

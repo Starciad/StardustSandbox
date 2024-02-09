@@ -1,4 +1,4 @@
-﻿using PixelDust.Core.Elements.Context;
+﻿using PixelDust.Core.Elements.Contexts;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding.Components;
 using PixelDust.Core.Worlding.Components.Chunking;
@@ -27,16 +27,7 @@ namespace PixelDust.Core.Worlding
             new PWorldThreadingComponent(),
         ];
 
-        internal readonly PElementContext elementUpdateContext;
-        internal readonly PElementContext elementDrawContext;
-
         private readonly PTimer updateTimer = new(0.35f);
-
-        public PWorld()
-        {
-            this.elementUpdateContext = new(this);
-            this.elementDrawContext = new(this);
-        }
 
         // Engine
         public void Initialize()
@@ -121,7 +112,7 @@ namespace PixelDust.Core.Worlding
                         continue;
                     }
 
-                    _ = TryDestroyElement(new(x, y));
+                    DestroyElement(new(x, y));
                 }
             }
         }

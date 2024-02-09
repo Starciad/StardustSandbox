@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Elements.Templates.Liquid;
 
 namespace PixelDust.Game.Elements.Liquid
 {

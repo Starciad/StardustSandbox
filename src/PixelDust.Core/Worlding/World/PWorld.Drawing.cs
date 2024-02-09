@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Engine.Assets;
 using PixelDust.Core.Engine.Components;
+using PixelDust.Core.Elements.Contexts;
 using PixelDust.Core.Worlding.Components;
 
 namespace PixelDust.Core.Worlding
@@ -11,12 +12,12 @@ namespace PixelDust.Core.Worlding
     {
         public void Draw()
         {
-            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
             if (!this.States.IsActive)
             {
-                PGraphics.SpriteBatch.End();
                 return;
             }
+
+            PGraphics.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
 
             // System
             DrawSlots();
@@ -36,15 +37,13 @@ namespace PixelDust.Core.Worlding
             {
                 for (int y = 0; y < this.Infos.Size.Height; y++)
                 {
-                    this.elementDrawContext.Update(this.Elements[x, y], new(x, y));
-
-                    if (!IsEmptyElementSlot(new(x, y)))
+                    if (IsEmptyElementSlot(new(x, y)))
                     {
-                        this.Elements[x, y].Instance.Draw(this.elementDrawContext);
+                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new Vector2(x * Scale, y * Scale), null, Color.Black, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
                     }
                     else
                     {
-                        PGraphics.SpriteBatch.Draw(PTextures.Pixel, new Vector2(x * Scale, y * Scale), null, Color.Black, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+                        this.Elements[x, y].Instance.Draw(new PElementContext(this, this.Elements[x, y], new(x, y)));
                     }
                 }
             }

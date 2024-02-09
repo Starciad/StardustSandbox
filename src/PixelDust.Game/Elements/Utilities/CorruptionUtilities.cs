@@ -1,7 +1,7 @@
-﻿using PixelDust.Core.Elements.Context;
-using PixelDust.Core.Elements.Types.Gases;
-using PixelDust.Core.Elements.Types.Liquid;
-using PixelDust.Core.Elements.Types.Solid;
+﻿using PixelDust.Core.Elements.Contexts;
+using PixelDust.Core.Elements.Templates.Gases;
+using PixelDust.Core.Elements.Templates.Liquid;
+using PixelDust.Core.Elements.Templates.Solid;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Gases;
@@ -41,19 +41,19 @@ namespace PixelDust.Game.Elements.Utilities
 
             if (target.Item2.Instance is PSolid)
             {
-                _ = context.TryReplace<MCorruption>(target.Item1);
+                context.ReplaceElement<MCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PImmovableSolid)
             {
-                _ = context.TryReplace<ICorruption>(target.Item1);
+                context.ReplaceElement<ICorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PLiquid)
             {
-                _ = context.TryReplace<LCorruption>(target.Item1);
+                context.ReplaceElement<LCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PGas)
             {
-                _ = context.TryReplace<GCorruption>(target.Item1);
+                context.ReplaceElement<GCorruption>(target.Item1);
             }
         }
     }

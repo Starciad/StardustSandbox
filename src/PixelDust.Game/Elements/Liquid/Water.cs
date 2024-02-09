@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Elements.Templates.Liquid;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Gases;
@@ -32,8 +32,8 @@ namespace PixelDust.Game.Elements.Liquid
             {
                 if (neighbor.Item2.Instance is Dirt)
                 {
-                    _ = this.Context.TryDestroy(this.Context.Position);
-                    _ = this.Context.TryReplace<Mud>(neighbor.Item1);
+                    this.Context.DestroyElement();
+                    this.Context.ReplaceElement<Mud>(neighbor.Item1);
                     return;
                 }
 
@@ -41,8 +41,8 @@ namespace PixelDust.Game.Elements.Liquid
                 {
                     if (PRandom.Range(0, 150) == 0)
                     {
-                        _ = this.Context.TryDestroy(this.Context.Position);
-                        _ = this.Context.TryReplace<Sand>(neighbor.Item1);
+                        this.Context.DestroyElement();
+                        this.Context.ReplaceElement<Sand>(neighbor.Item1);
                         return;
                     }
                 }
@@ -53,12 +53,12 @@ namespace PixelDust.Game.Elements.Liquid
         {
             if (currentValue >= 100)
             {
-                _ = this.Context.TryReplace<Steam>(this.Context.Position);
+                this.Context.ReplaceElement<Steam>();
             }
 
             if (currentValue <= 0)
             {
-                _ = this.Context.TryReplace<Ice>(this.Context.Position);
+                this.Context.ReplaceElement<Ice>();
             }
         }
     }

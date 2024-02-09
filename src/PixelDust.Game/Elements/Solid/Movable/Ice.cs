@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Solid;
+using PixelDust.Core.Elements.Templates.Solid;
 
 namespace PixelDust.Game.Elements.Solid.Movable
 {

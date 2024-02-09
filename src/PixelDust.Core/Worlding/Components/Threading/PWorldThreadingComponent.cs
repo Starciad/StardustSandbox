@@ -1,4 +1,5 @@
 ﻿using PixelDust.Core.Elements;
+using PixelDust.Core.Elements.Contexts;
 using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
 
@@ -109,19 +110,18 @@ namespace PixelDust.Core.Worlding.Components.Threading
         }
         private void PUpdateElementTarget(Vector2Int position, int updateType)
         {
-            _ = this.WorldInstance.TryGetElementSlot(position, out PWorldElementSlot slot);
-            this.WorldInstance.elementUpdateContext.Update(slot, position);
+            PWorldElementSlot slot = this.WorldInstance.GetElementSlot(position);
 
             if (this.WorldInstance.TryGetElement(position, out PElement value))
             {
                 switch (updateType)
                 {
                     case 1:
-                        value?.Update(this.WorldInstance.elementUpdateContext);
+                        value?.Update(new PElementContext(this.WorldInstance, slot, position));
                         break;
 
                     case 2:
-                        value?.Steps(this.WorldInstance.elementUpdateContext);
+                        value?.Steps(new PElementContext(this.WorldInstance, slot, position));
                         break;
 
                     default:

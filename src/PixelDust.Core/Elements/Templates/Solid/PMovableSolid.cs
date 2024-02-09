@@ -1,9 +1,9 @@
-﻿using PixelDust.Core.Elements.Types.Liquid;
+﻿using PixelDust.Core.Elements.Templates.Liquid;
 using PixelDust.Core.Utilities;
 
 using PixelDust.Mathematics;
 
-namespace PixelDust.Core.Elements.Types.Solid
+namespace PixelDust.Core.Elements.Templates.Solid
 {
     /// <summary>
     /// Base class for defining movable solid elements in PixelDust.
@@ -15,11 +15,11 @@ namespace PixelDust.Core.Elements.Types.Solid
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
 
             Vector2Int down = new(this.Context.Position.X, this.Context.Position.Y + 1);
-            Vector2Int[] sides = new Vector2Int[]
-            {
+            Vector2Int[] sides =
+            [
                 new(this.Context.Position.X + direction     , this.Context.Position.Y),
-                new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
-            };
+                new(this.Context.Position.X + direction * -1, this.Context.Position.Y),
+            ];
 
             if (TrySetPosition(down))
             { return; }
@@ -42,7 +42,7 @@ namespace PixelDust.Core.Elements.Types.Solid
             {
                 if (value is PLiquid)
                 {
-                    if (this.Context.TrySwitchPosition(this.Context.Position, pos))
+                    if (this.Context.TrySwappingElements(pos))
                     {
                         return true;
                     }

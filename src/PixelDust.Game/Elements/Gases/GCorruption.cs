@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Gases;
+using PixelDust.Core.Elements.Templates.Gases;
 using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Utilities;
 using PixelDust.Mathematics;
@@ -23,7 +23,7 @@ namespace PixelDust.Game.Elements.Gases
 
         protected override void OnStep()
         {
-            if (this.Context.TryGetNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
             {
                 this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
             }

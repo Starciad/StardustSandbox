@@ -1,5 +1,5 @@
 ﻿using PixelDust.Core.Elements.Attributes;
-using PixelDust.Core.Elements.Types.Liquid;
+using PixelDust.Core.Elements.Templates.Liquid;
 using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Game.Elements.Solid.Immovable;
 using PixelDust.Mathematics;
@@ -33,8 +33,8 @@ namespace PixelDust.Game.Elements.Liquid
                     continue;
                 }
 
-                _ = this.Context.TryDestroy(this.Context.Position);
-                _ = this.Context.TryDestroy(neighbor.Item1);
+                this.Context.DestroyElement();
+                this.Context.DestroyElement(neighbor.Item1);
             }
         }
     }

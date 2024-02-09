@@ -9,6 +9,17 @@ namespace PixelDust.Core.Worlding
         {
             return GetComponent<PWorldChunkingComponent>().GetActiveChunksCount();
         }
+
+        internal bool GetChunkUpdateState(Vector2Int pos)
+        {
+            _ = TryGetChunkUpdateState(pos, out bool result);
+            return result;
+        }
+        internal void NotifyChunk(Vector2Int pos)
+        {
+            _ = TryNotifyChunk(pos);
+        }
+
         internal bool TryGetChunkUpdateState(Vector2Int pos, out bool result)
         {
             return GetComponent<PWorldChunkingComponent>().TryGetChunkUpdateState(pos, out result);

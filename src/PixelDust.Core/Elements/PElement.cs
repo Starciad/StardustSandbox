@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Core.Elements.Context;
-using PixelDust.Core.Elements.Render;
-using PixelDust.Core.Elements.Types.Gases;
-using PixelDust.Core.Elements.Types.Liquid;
-using PixelDust.Core.Elements.Types.Solid;
+using PixelDust.Core.Elements.Contexts;
+using PixelDust.Core.Elements.Renders;
+using PixelDust.Core.Elements.Templates.Gases;
+using PixelDust.Core.Elements.Templates.Liquid;
+using PixelDust.Core.Elements.Templates.Solid;
 using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding.World.Slots;
 using PixelDust.Mathematics;
@@ -69,7 +69,7 @@ namespace PixelDust.Core.Elements
         public bool EnableNeighborsAction { get; protected set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool EnableTemperature { get; protected set; } = true;
 
@@ -83,7 +83,7 @@ namespace PixelDust.Core.Elements
         public PElementRender Render { get; private set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         protected PElementContext Context { get; private set; }
 
@@ -128,7 +128,7 @@ namespace PixelDust.Core.Elements
         {
             this.Context = updateContext;
 
-            if (this.Context.TryGetNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
             {
                 if (this.EnableTemperature)
                 {
@@ -187,7 +187,6 @@ namespace PixelDust.Core.Elements
         #endregion
 
         #region System
-
         private void UpdateTemperature(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
             float totalTemperatureChange = 0;
@@ -204,10 +203,10 @@ namespace PixelDust.Core.Elements
 
             int averageTemperatureChange = (int)Math.Round(totalTemperatureChange / neighbors.Length);
 
-            _ = this.Context.TrySetTemperature(this.Context.Position, PTemperature.Clamp(this.Context.Slot.Temperature - averageTemperatureChange));
+            this.Context.SetElementTemperature(PTemperature.Clamp(this.Context.Slot.Temperature - averageTemperatureChange));
             if (MathF.Abs(averageTemperatureChange) < PTemperature.EquilibriumThreshold)
             {
-                _ = this.Context.TrySetTemperature(this.Context.Position, PTemperature.Clamp(this.Context.Slot.Temperature + averageTemperatureChange));
+                this.Context.SetElementTemperature(PTemperature.Clamp(this.Context.Slot.Temperature + averageTemperatureChange));
             }
 
             OnTemperatureChanged(this.Context.Slot.Temperature);
