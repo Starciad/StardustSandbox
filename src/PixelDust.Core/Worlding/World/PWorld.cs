@@ -1,4 +1,5 @@
 ﻿using PixelDust.Core.Elements.Context;
+using PixelDust.Core.Utilities;
 using PixelDust.Core.Worlding.Components;
 using PixelDust.Core.Worlding.Components.Chunking;
 using PixelDust.Core.Worlding.Components.Threading;
@@ -29,6 +30,8 @@ namespace PixelDust.Core.Worlding
         internal readonly PElementContext elementUpdateContext;
         internal readonly PElementContext elementDrawContext;
 
+        private readonly PTimer updateTimer = new(0.35f);
+
         public PWorld()
         {
             this.elementUpdateContext = new(this);
@@ -49,11 +52,24 @@ namespace PixelDust.Core.Worlding
         }
         public void Update()
         {
+            // Check current game status
             if (!this.States.IsActive || this.States.IsPaused)
             {
                 return;
             }
 
+            // Check update delay for the current game world
+            this.updateTimer.Update();
+            if (this.updateTimer.IsFinished)
+            {
+                this.updateTimer.Restart();
+            }
+            else
+            {
+                return;
+            }
+
+            // Update world
             foreach (PWorldComponent component in this._components)
             {
                 component.Update();
@@ -77,6 +93,7 @@ namespace PixelDust.Core.Worlding
         public void Restart()
         {
             this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
+            this.updateTimer.Restart();
         }
         public void Pause()
         {
