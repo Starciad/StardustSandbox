@@ -59,15 +59,15 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly void InstantiateElement<T>() where T : PElement
         {
-            InstantiateElement<T>(Position);
+            InstantiateElement<T>(this.Position);
         }
         public readonly void InstantiateElement(uint id)
         {
-            InstantiateElement(Position, id);
+            InstantiateElement(this.Position, id);
         }
         public readonly void InstantiateElement(PElement value)
         {
-            InstantiateElement(Position, value);
+            InstantiateElement(this.Position, value);
         }
         public readonly void InstantiateElement<T>(Vector2Int pos) where T : PElement
         {
@@ -83,15 +83,15 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryInstantiateElement<T>() where T : PElement
         {
-            return TryInstantiateElement<T>(Position);
+            return TryInstantiateElement<T>(this.Position);
         }
         public readonly bool TryInstantiateElement(uint id)
         {
-            return TryInstantiateElement(Position, id);
+            return TryInstantiateElement(this.Position, id);
         }
         public readonly bool TryInstantiateElement(PElement value)
         {
-            return TryInstantiateElement(Position, value);
+            return TryInstantiateElement(this.Position, value);
         }
         public readonly bool TryInstantiateElement<T>(Vector2Int pos) where T : PElement
         {
@@ -108,7 +108,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly void UpdateElementPosition(Vector2Int newPos)
         {
-            UpdateElementPosition(Position, newPos);
+            UpdateElementPosition(this.Position, newPos);
         }
         public readonly void UpdateElementPosition(Vector2Int oldPos, Vector2Int newPos)
         {
@@ -116,7 +116,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryUpdateElementPosition(Vector2Int newPos)
         {
-            return TryUpdateElementPosition(Position, newPos);
+            return TryUpdateElementPosition(this.Position, newPos);
         }
         public readonly bool TryUpdateElementPosition(Vector2Int oldPos, Vector2Int newPos)
         {
@@ -125,7 +125,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public void SwappingElements(Vector2Int element2)
         {
-            SwappingElements(Position, element2);
+            SwappingElements(this.Position, element2);
         }
         public void SwappingElements(Vector2Int element1, Vector2Int element2)
         {
@@ -133,7 +133,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public bool TrySwappingElements(Vector2Int element2)
         {
-            return TrySwappingElements(Position, element2);
+            return TrySwappingElements(this.Position, element2);
         }
         public bool TrySwappingElements(Vector2Int element1, Vector2Int element2)
         {
@@ -148,7 +148,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly void DestroyElement()
         {
-            this._world.DestroyElement(Position);
+            this._world.DestroyElement(this.Position);
         }
         public readonly void DestroyElement(Vector2Int pos)
         {
@@ -156,7 +156,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryDestroyElement()
         {
-            return TryDestroyElement(Position);
+            return TryDestroyElement(this.Position);
         }
         public readonly bool TryDestroyElement(Vector2Int pos)
         {
@@ -165,15 +165,15 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly void ReplaceElement<T>() where T : PElement
         {
-            ReplaceElement<T>(Position);
+            ReplaceElement<T>(this.Position);
         }
         public readonly void ReplaceElement(uint id)
         {
-            ReplaceElement(Position, id);
+            ReplaceElement(this.Position, id);
         }
         public readonly void ReplaceElement(PElement value)
         {
-            ReplaceElement(Position, value);
+            ReplaceElement(this.Position, value);
         }
         public readonly void ReplaceElement<T>(Vector2Int pos) where T : PElement
         {
@@ -189,15 +189,15 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryReplaceElement<T>() where T : PElement
         {
-            return TryReplaceElement<T>(Position);
+            return TryReplaceElement<T>(this.Position);
         }
         public readonly bool TryReplaceElement(uint id)
         {
-            return TryReplaceElement(Position, id);
+            return TryReplaceElement(this.Position, id);
         }
         public readonly bool TryReplaceElement(PElement value)
         {
-            return TryReplaceElement(Position, value);
+            return TryReplaceElement(this.Position, value);
         }
         public readonly bool TryReplaceElement<T>(Vector2Int pos) where T : PElement
         {
@@ -214,7 +214,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly PElement GetElement()
         {
-            return GetElement(Position);
+            return GetElement(this.Position);
         }
         public readonly PElement GetElement(Vector2Int pos)
         {
@@ -222,7 +222,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryGetElement(out PElement value)
         {
-            return TryGetElement(Position, out value);
+            return TryGetElement(this.Position, out value);
         }
         public readonly bool TryGetElement(Vector2Int pos, out PElement value)
         {
@@ -231,7 +231,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly ReadOnlySpan<(Vector2Int, PWorldElementSlot)> GetElementNeighbors()
         {
-            return GetElementNeighbors(Position);
+            return GetElementNeighbors(this.Position);
         }
         public readonly ReadOnlySpan<(Vector2Int, PWorldElementSlot)> GetElementNeighbors(Vector2Int pos)
         {
@@ -239,7 +239,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
-            return TryGetElementNeighbors(Position, out neighbors);
+            return TryGetElementNeighbors(this.Position, out neighbors);
         }
         public readonly bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
         {
@@ -248,7 +248,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly PWorldElementSlot GetElementSlot()
         {
-            return GetElementSlot(Position);
+            return GetElementSlot(this.Position);
         }
         public readonly PWorldElementSlot GetElementSlot(Vector2Int pos)
         {
@@ -256,7 +256,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TryGetElementSlot(out PWorldElementSlot value)
         {
-            return TryGetElementSlot(Position, out value);
+            return TryGetElementSlot(this.Position, out value);
         }
         public readonly bool TryGetElementSlot(Vector2Int pos, out PWorldElementSlot value)
         {
@@ -265,7 +265,7 @@ namespace PixelDust.Core.Elements.Contexts
 
         public readonly void SetElementTemperature(short value)
         {
-            SetElementTemperature(Position, value);
+            SetElementTemperature(this.Position, value);
         }
         public readonly void SetElementTemperature(Vector2Int pos, short value)
         {
@@ -273,7 +273,7 @@ namespace PixelDust.Core.Elements.Contexts
         }
         public readonly bool TrySetElementTemperature(short value)
         {
-            return TrySetElementTemperature(Position, value);
+            return TrySetElementTemperature(this.Position, value);
         }
         public readonly bool TrySetElementTemperature(Vector2Int pos, short value)
         {
@@ -283,7 +283,7 @@ namespace PixelDust.Core.Elements.Contexts
         // Tools
         public readonly bool IsEmptyElementSlot()
         {
-            return IsEmptyElementSlot(Position);
+            return IsEmptyElementSlot(this.Position);
         }
         public readonly bool IsEmptyElementSlot(Vector2Int pos)
         {

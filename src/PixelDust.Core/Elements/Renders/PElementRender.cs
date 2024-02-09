@@ -6,7 +6,6 @@ using PixelDust.Core.Engine.Assets;
 using PixelDust.Core.Engine.Components;
 using PixelDust.Core.Worlding;
 
-using System;
 using System.Collections.Generic;
 
 namespace PixelDust.Core.Elements.Renders
