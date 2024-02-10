@@ -83,13 +83,11 @@ namespace PixelDust.Core.Worlding
                 return;
             }
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
             DrawSlots(gameTime, spriteBatch);
             foreach (PWorldComponent component in this._components)
             {
                 component.Draw(gameTime,spriteBatch);
             }
-            spriteBatch.End();
         }
         private void DrawSlots(GameTime gameTime, SpriteBatch spriteBatch)
         {

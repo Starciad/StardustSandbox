@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 
 using PixelDust.Core.Worlding;
+using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Common.Liquid;
@@ -21,7 +22,7 @@ using System.Text;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed class PGameInputManager(PWorld world, PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
+    public sealed class PGameInputManager(POrthographicCamera orthographicCamera, PWorld world, PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
     {
         public static StringBuilder DebugString => debugString;
         private static StringBuilder debugString;
@@ -112,22 +113,22 @@ namespace PixelDust.Game.Managers
 
             worldKeyboardActionMap.AddAction("World_Camera_Up", new(_inputHandler, Keys.W, Keys.Up)).OnPerformed += context =>
             {
-                PWorldCamera.Camera.Move(new(0, this.speed));
+                orthographicCamera.Move(new(0, this.speed));
             };
 
             worldKeyboardActionMap.AddAction("World_Camera_Down", new(_inputHandler, Keys.S, Keys.Down)).OnPerformed += context =>
             {
-                PWorldCamera.Camera.Move(new(0, -this.speed));
+                orthographicCamera.Move(new(0, -this.speed));
             };
 
             worldKeyboardActionMap.AddAction("World_Camera_Left", new(_inputHandler, Keys.A, Keys.Left)).OnPerformed += context =>
             {
-                PWorldCamera.Camera.Move(new(-this.speed, 0));
+                orthographicCamera.Move(new(-this.speed, 0));
             };
 
             worldKeyboardActionMap.AddAction("World_Camera_Right", new(_inputHandler, Keys.D, Keys.Right)).OnPerformed += context =>
             {
-                PWorldCamera.Camera.Move(new(this.speed, 0));
+                orthographicCamera.Move(new(this.speed, 0));
             };
 
             #endregion
@@ -183,7 +184,7 @@ namespace PixelDust.Game.Managers
 
             worldMouseActionMap.AddAction("World_Place_Elements", new(_inputHandler, PMouseButton.Left)).OnPerformed += context =>
             {
-                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
+                Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
                 if (!world.InsideTheWorldDimensions(worldPos) ||
@@ -217,7 +218,7 @@ namespace PixelDust.Game.Managers
 
             worldMouseActionMap.AddAction("World_Erase_Elements", new(_inputHandler, PMouseButton.Right)).OnPerformed += context =>
             {
-                Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
+                Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
                 if (!world.InsideTheWorldDimensions(worldPos) ||
@@ -256,7 +257,7 @@ namespace PixelDust.Game.Managers
 
         private void GetMouseOverElement()
         {
-            Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
+            Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
             Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
             this.elementOverSlot = world.GetElementSlot((Vector2Int)worldPos);
@@ -268,9 +269,9 @@ namespace PixelDust.Game.Managers
             int totalX = (world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_WIDTH;
             int totalY = (world.Infos.Size.Height * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_HEIGHT;
 
-            PWorldCamera.Camera.Position = new(
-                Math.Clamp(PWorldCamera.Camera.Position.X, 0, totalX),
-                Math.Clamp(PWorldCamera.Camera.Position.Y, -totalY, 0)
+            orthographicCamera.Position = new Vector2(
+                Math.Clamp(orthographicCamera.Position.X, 0, totalX),
+                Math.Clamp(orthographicCamera.Position.Y, -totalY, 0)
             );
         }
     }

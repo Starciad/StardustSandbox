@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Core.Worlding;
+using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
@@ -9,6 +10,7 @@ using PixelDust.Game.Elements.Common.Gases;
 using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Common.Solid.Movable;
+using PixelDust.Game.Engine;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Scenes.Common;
 using PixelDust.Game.Worlding;
@@ -24,6 +26,7 @@ namespace PixelDust.Game
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PScenesManager ScenesManager => this._scenesManager;
         public PShaderManager ShaderManager => this._shaderManager;
+        public POrthographicCamera OrthographicCamera => this._orthographicCamera;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
         public PElementDatabase ElementDatabase => this._elementDatabase;
         public PInputManager InputManager => this._inputManager;
@@ -40,12 +43,14 @@ namespace PixelDust.Game
         private readonly PScenesManager _scenesManager;
         private readonly PShaderManager _shaderManager;
         private readonly PInputManager _inputManager;
+        private readonly PScreenManager _screenManager;
 
         // Databases
         private readonly PAssetDatabase _assetDatabase;
         private readonly PElementDatabase _elementDatabase;
 
         // Core
+        private readonly POrthographicCamera _orthographicCamera;
         private readonly PWorld _world;
 
         // ================================= //
@@ -80,13 +85,17 @@ namespace PixelDust.Game
             this._assetDatabase = new(this.Content);
             this._elementDatabase = new();
 
+            // Screen & Camera
+            this._screenManager = new();
+            this._orthographicCamera = new(this._screenManager);
+
             // Managers
             this._inputManager = new();
-            this._gameInputManager = new(this.World, this._inputManager, this._elementDatabase);
             this._scenesManager = new();
             this._shaderManager = new();
+            this._gameInputManager = new(this._orthographicCamera, this.World, this._inputManager, this._elementDatabase);
 
-            // Game
+            // Core
             this._world = new(this._elementDatabase, this._assetDatabase.GetTexture("particle_1"));
         }
 
@@ -153,14 +162,14 @@ namespace PixelDust.Game
             // WORLD
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.WorldRenderTarget);
             this.GraphicsDevice.Clear(Color.Black);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
+            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._orthographicCamera.GetViewMatrix());
             this._world.Draw(gameTime, this._sb);
             this._sb.End();
 
             // LIGHTING
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.LightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Black);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
+            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._orthographicCamera.GetViewMatrix());
             this._sb.End();
             #endregion
 
