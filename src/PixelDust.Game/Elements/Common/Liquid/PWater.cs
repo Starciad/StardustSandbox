@@ -10,8 +10,8 @@ using System;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
-    [PElementRegister(3)]
-    public class Water : PLiquid
+    [PElementRegister(2)]
+    public class PWater : PLiquid
     {
         protected override void OnSettings()
         {
@@ -30,19 +30,19 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (neighbor.Item2.Instance is Dirt)
+                if (neighbor.Item2.Instance is PDirt)
                 {
                     this.Context.DestroyElement();
-                    this.Context.ReplaceElement<Mud>(neighbor.Item1);
+                    this.Context.ReplaceElement<PMud>(neighbor.Item1);
                     return;
                 }
 
-                if (neighbor.Item2.Instance is Stone)
+                if (neighbor.Item2.Instance is PStone)
                 {
                     if (PRandom.Range(0, 150) == 0)
                     {
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement<Sand>(neighbor.Item1);
+                        this.Context.ReplaceElement<PSand>(neighbor.Item1);
                         return;
                     }
                 }
@@ -53,12 +53,12 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement<Steam>();
+                this.Context.ReplaceElement<PSteam>();
             }
 
             if (currentValue <= 0)
             {
-                this.Context.ReplaceElement<Ice>();
+                this.Context.ReplaceElement<PIce>();
             }
         }
     }

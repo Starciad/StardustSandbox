@@ -35,15 +35,15 @@ namespace PixelDust.Game.Managers
 
         private readonly Dictionary<Keys, PElement> elementsKeys = new()
         {
-            [Keys.D1] = PElementsHandler.GetElementByType<Dirt>(),
-            [Keys.D2] = PElementsHandler.GetElementByType<Grass>(),
-            [Keys.D3] = PElementsHandler.GetElementByType<Stone>(),
-            [Keys.D4] = PElementsHandler.GetElementByType<Sand>(),
-            [Keys.D5] = PElementsHandler.GetElementByType<Water>(),
-            [Keys.D6] = PElementsHandler.GetElementByType<Lava>(),
-            [Keys.D7] = PElementsHandler.GetElementByType<Acid>(),
-            [Keys.D8] = PElementsHandler.GetElementByType<Wall>(),
-            [Keys.D9] = PElementsHandler.GetElementByType<MCorruption>(),
+            [Keys.D1] = PElementDatabase.GetElementByType<PDirt>(),
+            [Keys.D2] = PElementDatabase.GetElementByType<PGrass>(),
+            [Keys.D3] = PElementDatabase.GetElementByType<PStone>(),
+            [Keys.D4] = PElementDatabase.GetElementByType<PSand>(),
+            [Keys.D5] = PElementDatabase.GetElementByType<PWater>(),
+            [Keys.D6] = PElementDatabase.GetElementByType<PLava>(),
+            [Keys.D7] = PElementDatabase.GetElementByType<PAcid>(),
+            [Keys.D8] = PElementDatabase.GetElementByType<PWall>(),
+            [Keys.D9] = PElementDatabase.GetElementByType<PMCorruption>(),
         };
 
         // Handlers

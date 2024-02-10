@@ -1,22 +1,22 @@
 ﻿using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Utilities;
-using PixelDust.Game.Elements.Templates.Gases;
+using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Worlding.World.Slots;
 
 using System;
 
-namespace PixelDust.Game.Elements.Common.Gases
+namespace PixelDust.Game.Elements.Common.Liquid
 {
     [PElementRegister(16)]
-    public class GCorruption : PGas
+    public class PLCorruption : PLiquid
     {
         protected override void OnSettings()
         {
-            this.Name = "Corruption (Gas)";
+            this.Name = "Corruption (Liquid)";
             this.Description = string.Empty;
 
-            this.Render.AddFrame(new(5, 1));
+            this.Render.AddFrame(new(6, 1));
 
             this.EnableNeighborsAction = true;
         }

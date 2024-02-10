@@ -4,8 +4,8 @@ using PixelDust.Game.Elements.Templates.Liquid;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
-    [PElementRegister(10)]
-    public class Lava : PLiquid
+    [PElementRegister(9)]
+    public class PLava : PLiquid
     {
         protected override void OnSettings()
         {
@@ -21,7 +21,7 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             if (currentValue < 500)
             {
-                this.Context.ReplaceElement<Stone>();
+                this.Context.ReplaceElement<PStone>();
                 this.Context.SetElementTemperature(550);
             }
         }

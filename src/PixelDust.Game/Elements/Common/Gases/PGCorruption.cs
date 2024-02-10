@@ -1,22 +1,22 @@
 ﻿using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Utilities;
-using PixelDust.Game.Elements.Templates.Solid;
+using PixelDust.Game.Elements.Templates.Gases;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Worlding.World.Slots;
 
 using System;
 
-namespace PixelDust.Game.Elements.Common.Solid.Immovable
+namespace PixelDust.Game.Elements.Common.Gases
 {
-    [PElementRegister(18)]
-    public class ICorruption : PImmovableSolid
+    [PElementRegister(15)]
+    public class PGCorruption : PGas
     {
         protected override void OnSettings()
         {
-            this.Name = "Corruption (Immovable)";
+            this.Name = "Corruption (Gas)";
             this.Description = string.Empty;
 
-            this.Render.AddFrame(new(7, 1));
+            this.Render.AddFrame(new(5, 1));
 
             this.EnableNeighborsAction = true;
         }

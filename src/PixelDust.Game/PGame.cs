@@ -4,6 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using PixelDust.Core.Worlding;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
+using PixelDust.Game.Elements;
+using PixelDust.Game.Elements.Common.Gases;
+using PixelDust.Game.Elements.Common.Liquid;
+using PixelDust.Game.Elements.Common.Solid.Immovable;
+using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Scenes.Common;
 using PixelDust.Game.Worlding;
@@ -19,7 +24,8 @@ namespace PixelDust.Game
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PScenesManager ScenesManager => this._scenesManager;
         public PShaderManager ShaderManager => this._shaderManager;
-        public PAssetsDatabase AssetsDatabase => this._assetsDatabase;
+        public PAssetDatabase AssetDatabase => this._assetDatabase;
+        public PElementDatabase ElementDatabase => this._elementDatabase;
         public PInputManager InputManager => this._inputManager;
         public PWorld World => this._world;
 
@@ -28,12 +34,18 @@ namespace PixelDust.Game
         private readonly Assembly _assembly;
         private SpriteBatch _sb;
 
+        // Managers
         private readonly PGraphicsManager _graphicsManager;
         private readonly PGameInputManager _gameInputManager;
         private readonly PScenesManager _scenesManager;
         private readonly PShaderManager _shaderManager;
-        private readonly PAssetsDatabase _assetsDatabase;
         private readonly PInputManager _inputManager;
+
+        // Databases
+        private readonly PAssetDatabase _assetDatabase;
+        private readonly PElementDatabase _elementDatabase;
+
+        // Core
         private readonly PWorld _world;
 
         // ================================= //
@@ -65,12 +77,11 @@ namespace PixelDust.Game
             this.TargetElapsedTime = PGraphicsConstants.FramesPerSecond;
 
             // Database
-            this._assetsDatabase = new(this.Content);
-
-            // Handlers
-            this._inputManager = new();
+            this._assetDatabase = new(this.Content);
+            this._elementDatabase = new();
 
             // Managers
+            this._inputManager = new();
             this._gameInputManager = new(this._inputManager);
             this._scenesManager = new();
             this._shaderManager = new();
@@ -82,7 +93,10 @@ namespace PixelDust.Game
         protected override void Initialize()
         {
             #region Databases
-            this._assetsDatabase.Initialize(this);
+            RegisterAllGameElements(this._elementDatabase);
+
+            this._assetDatabase.Initialize(this);
+            this._elementDatabase.Initialize(this);
             #endregion
 
             #region Managers
@@ -172,6 +186,32 @@ namespace PixelDust.Game
             #endregion
 
             base.Draw(gameTime);
+        }
+
+        // Utilities
+        private static void RegisterAllGameElements(PElementDatabase database)
+        {
+            database.AddElement<PDirt>();
+            database.AddElement<PMud>();
+            database.AddElement<PWater>();
+            database.AddElement<PStone>();
+            database.AddElement<PGrass>();
+            database.AddElement<PIce>();
+            database.AddElement<PSand>();
+            database.AddElement<PSnow>();
+            database.AddElement<PMCorruption>();
+            database.AddElement<PLava>();
+            database.AddElement<PAcid>();
+            database.AddElement<PGlass>();
+            database.AddElement<PMetal>();
+            database.AddElement<PWall>();
+            database.AddElement<PWood>();
+            database.AddElement<PGCorruption>();
+            database.AddElement<PLCorruption>();
+            database.AddElement<PIMCorruption>();
+            database.AddElement<PSteam>();
+            database.AddElement<PSmoke>();
+            database.AddElement<POil>();
         }
     }
 }

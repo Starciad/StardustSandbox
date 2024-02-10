@@ -3,24 +3,24 @@ using PixelDust.Game.Elements.Templates.Solid;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
-    [PElementRegister(2)]
-    public sealed class Mud : PMovableSolid
+    [PElementRegister(4)]
+    public sealed class PGrass : PMovableSolid
     {
         protected override void OnSettings()
         {
-            this.Name = "Mud";
+            this.Name = "Grass";
             this.Description = string.Empty;
 
-            this.Render.AddFrame(new(1, 0));
+            this.Render.AddFrame(new(4, 0));
 
-            this.DefaultTemperature = 18;
+            this.DefaultTemperature = 22;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue >= 100)
+            if (currentValue > 200)
             {
-                this.Context.ReplaceElement<Dirt>();
+                this.Context.DestroyElement();
             }
         }
     }

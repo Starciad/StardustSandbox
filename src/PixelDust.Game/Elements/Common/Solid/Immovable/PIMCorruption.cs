@@ -6,17 +6,17 @@ using PixelDust.Game.Worlding.World.Slots;
 
 using System;
 
-namespace PixelDust.Game.Elements.Common.Solid.Movable
+namespace PixelDust.Game.Elements.Common.Solid.Immovable
 {
-    [PElementRegister(9)]
-    public sealed class MCorruption : PMovableSolid
+    [PElementRegister(17)]
+    public class PIMCorruption : PImmovableSolid
     {
         protected override void OnSettings()
         {
-            this.Name = "Corruption (Movable)";
+            this.Name = "Corruption (Immovable)";
             this.Description = string.Empty;
 
-            this.Render.AddFrame(new(8, 0));
+            this.Render.AddFrame(new(7, 1));
 
             this.EnableNeighborsAction = true;
         }

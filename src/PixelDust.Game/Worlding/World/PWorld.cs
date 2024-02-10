@@ -37,7 +37,7 @@ namespace PixelDust.Core.Worlding
         {
             base.OnAwake();
 
-            this.pixelTexture = this.Game.AssetsDatabase.GetTexture("particle_1");
+            this.pixelTexture = this.Game.AssetDatabase.GetTexture("particle_1");
 
             Restart();
 

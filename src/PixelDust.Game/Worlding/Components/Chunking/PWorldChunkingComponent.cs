@@ -20,7 +20,7 @@ namespace PixelDust.Game.Worlding.Components.Chunking
 
         protected override void OnAwake()
         {
-            this.pixelTexture = this.Game.AssetsDatabase.GetTexture("particle_1");
+            this.pixelTexture = this.Game.AssetDatabase.GetTexture("particle_1");
 
             this._chunks = new PWorldChunk[this.World.Infos.Size.Width / DefaultChunkSize + 1, this.World.Infos.Size.Height / DefaultChunkSize + 1];
 

@@ -3,8 +3,8 @@ using PixelDust.Game.Elements.Templates.Gases;
 
 namespace PixelDust.Game.Elements.Common.Gases
 {
-    [PElementRegister(20)]
-    public class Smoke : PGas
+    [PElementRegister(19)]
+    public class PSmoke : PGas
     {
         protected override void OnSettings()
         {

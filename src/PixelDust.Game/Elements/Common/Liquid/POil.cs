@@ -3,8 +3,8 @@ using PixelDust.Game.Elements.Templates.Liquid;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
-    [PElementRegister(21)]
-    public class Oil : PLiquid
+    [PElementRegister(20)]
+    public class POil : PLiquid
     {
         protected override void OnSettings()
         {

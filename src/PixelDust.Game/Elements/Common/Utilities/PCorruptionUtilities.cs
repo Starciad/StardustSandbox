@@ -15,18 +15,18 @@ using System.Collections.Generic;
 
 namespace PixelDust.Game.Elements.Common.Utilities
 {
-    public static class CorruptionUtilities
+    public static class PCorruptionUtilities
     {
         public static void InfectNeighboringElements(this PElementContext context, ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
         {
             List<(Vector2Int, PWorldElementSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
-                if (neighbors[i].Item2.Instance is not MCorruption &&
-                    neighbors[i].Item2.Instance is not ICorruption &&
-                    neighbors[i].Item2.Instance is not LCorruption &&
-                    neighbors[i].Item2.Instance is not GCorruption &&
-                    neighbors[i].Item2.Instance is not Wall)
+                if (neighbors[i].Item2.Instance is not PMCorruption &&
+                    neighbors[i].Item2.Instance is not PIMCorruption &&
+                    neighbors[i].Item2.Instance is not PLCorruption &&
+                    neighbors[i].Item2.Instance is not PGCorruption &&
+                    neighbors[i].Item2.Instance is not PWall)
                 {
                     targets.Add(neighbors[i]);
                 }
@@ -41,19 +41,19 @@ namespace PixelDust.Game.Elements.Common.Utilities
 
             if (target.Item2.Instance is PSolid)
             {
-                context.ReplaceElement<MCorruption>(target.Item1);
+                context.ReplaceElement<PMCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PImmovableSolid)
             {
-                context.ReplaceElement<ICorruption>(target.Item1);
+                context.ReplaceElement<PIMCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PLiquid)
             {
-                context.ReplaceElement<LCorruption>(target.Item1);
+                context.ReplaceElement<PLCorruption>(target.Item1);
             }
             else if (target.Item2.Instance is PGas)
             {
-                context.ReplaceElement<GCorruption>(target.Item1);
+                context.ReplaceElement<PGCorruption>(target.Item1);
             }
         }
     }

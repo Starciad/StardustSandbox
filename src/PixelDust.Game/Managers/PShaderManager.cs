@@ -12,7 +12,7 @@ namespace PixelDust.Game.Managers
 
         protected override void OnAwake()
         {
-            this._shaders = this.Game.AssetsDatabase.Shaders;
+            this._shaders = this.Game.AssetDatabase.Shaders;
             this._shadersLength = this._shaders.Length;
         }
 

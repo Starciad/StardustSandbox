@@ -8,8 +8,8 @@ using System;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
-    [PElementRegister(11)]
-    public class Acid : PLiquid
+    [PElementRegister(10)]
+    public class PAcid : PLiquid
     {
         protected override void OnSettings()
         {
@@ -27,8 +27,8 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (neighbor.Item2.Instance is Acid ||
-                    neighbor.Item2.Instance is Wall)
+                if (neighbor.Item2.Instance is PAcid ||
+                    neighbor.Item2.Instance is PWall)
                 {
                     continue;
                 }

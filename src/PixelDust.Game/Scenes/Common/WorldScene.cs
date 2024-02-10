@@ -11,7 +11,7 @@ namespace PixelDust.Game.Scenes.Common
 
         protected override void OnAwake()
         {
-            this.font1 = this.Game.AssetsDatabase.GetFont("font_1");
+            this.font1 = this.Game.AssetDatabase.GetFont("font_1");
         }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)

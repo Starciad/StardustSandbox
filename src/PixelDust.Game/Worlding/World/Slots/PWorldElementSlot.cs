@@ -5,7 +5,7 @@ namespace PixelDust.Game.Worlding.World.Slots
 {
     public struct PWorldElementSlot
     {
-        public readonly PElement Instance => PElementsHandler.GetElementById<PElement>(this.id);
+        public readonly PElement Instance => PElementDatabase.GetElementById<PElement>(this.id);
         public readonly byte Depth => this.depth;
         public readonly bool IsEmpty => this.id == 0;
         public readonly short Temperature => this.temperature;
@@ -16,7 +16,7 @@ namespace PixelDust.Game.Worlding.World.Slots
 
         public void Instantiate(uint id)
         {
-            Instantiate(PElementsHandler.GetElementById(id));
+            Instantiate(PElementDatabase.GetElementById(id));
         }
         public void Instantiate(PElement value)
         {

@@ -1,22 +1,22 @@
 ﻿using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Utilities;
-using PixelDust.Game.Elements.Templates.Liquid;
+using PixelDust.Game.Elements.Templates.Solid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Worlding.World.Slots;
 
 using System;
 
-namespace PixelDust.Game.Elements.Common.Liquid
+namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
-    [PElementRegister(17)]
-    public class LCorruption : PLiquid
+    [PElementRegister(8)]
+    public sealed class PMCorruption : PMovableSolid
     {
         protected override void OnSettings()
         {
-            this.Name = "Corruption (Liquid)";
+            this.Name = "Corruption (Movable)";
             this.Description = string.Empty;
 
-            this.Render.AddFrame(new(6, 1));
+            this.Render.AddFrame(new(8, 0));
 
             this.EnableNeighborsAction = true;
         }

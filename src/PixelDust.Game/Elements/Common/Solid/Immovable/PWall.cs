@@ -3,8 +3,8 @@ using PixelDust.Game.Elements.Templates.Solid;
 
 namespace PixelDust.Game.Elements.Common.Solid.Immovable
 {
-    [PElementRegister(14)]
-    public sealed class Wall : PImmovableSolid
+    [PElementRegister(13)]
+    public sealed class PWall : PImmovableSolid
     {
         protected override void OnSettings()
         {

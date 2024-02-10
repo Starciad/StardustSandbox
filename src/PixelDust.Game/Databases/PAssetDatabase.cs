@@ -10,7 +10,7 @@ using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.Databases
 {
-    public sealed class PAssetsDatabase(ContentManager contentManager) : PGameObject
+    public sealed class PAssetDatabase(ContentManager contentManager) : PGameObject
     {
         private enum AssetType
         {

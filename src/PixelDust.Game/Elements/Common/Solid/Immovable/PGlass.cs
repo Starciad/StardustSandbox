@@ -3,17 +3,17 @@ using PixelDust.Game.Elements.Templates.Solid;
 
 namespace PixelDust.Game.Elements.Common.Solid.Immovable
 {
-    [PElementRegister(13)]
-    public sealed class Metal : PImmovableSolid
+    [PElementRegister(11)]
+    public sealed class PGlass : PImmovableSolid
     {
         protected override void OnSettings()
         {
-            this.Name = "Metal";
+            this.Name = "Glass";
             this.Description = string.Empty;
 
-            this.Render.AddFrame(new(2, 1));
+            this.Render.AddFrame(new(1, 1));
 
-            this.DefaultTemperature = 30;
+            this.DefaultTemperature = 25;
         }
     }
 }
