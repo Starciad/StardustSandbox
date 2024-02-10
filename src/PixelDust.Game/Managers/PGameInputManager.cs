@@ -21,7 +21,7 @@ using System.Text;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed class PGameInputManager(PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
+    public sealed class PGameInputManager(PWorld world, PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
     {
         public static StringBuilder DebugString => debugString;
         private static StringBuilder debugString;
@@ -51,12 +51,8 @@ namespace PixelDust.Game.Managers
         private readonly PInputManager _inputHandler = inputHandler;
 
         // Managers
-        private PWorld _world;
-
         protected override void OnStart()
         {
-            this._world = this.Game.World;
-
             BuildKeyboardInputs();
             BuildMouseInputs();
         }
@@ -140,19 +136,19 @@ namespace PixelDust.Game.Managers
 
             worldKeyboardActionMap.AddAction("World_Pause", new(_inputHandler, Keys.Space)).OnStarted += context =>
             {
-                if (this._world.States.IsPaused)
+                if (world.States.IsPaused)
                 {
-                    this._world.Resume();
+                    world.Resume();
                 }
                 else
                 {
-                    this._world.Pause();
+                    world.Pause();
                 }
             };
 
             worldKeyboardActionMap.AddAction("World_Reset", new(_inputHandler, Keys.R)).OnStarted += context =>
             {
-                this._world.Clear();
+                world.Clear();
             };
 
             #endregion
@@ -190,17 +186,17 @@ namespace PixelDust.Game.Managers
                 Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
-                if (!this._world.InsideTheWorldDimensions(worldPos) ||
+                if (!world.InsideTheWorldDimensions(worldPos) ||
                      this.elementSelected == null)
                 {
                     return;
                 }
 
-                this.elementOver = this._world.GetElement(worldPos);
+                this.elementOver = world.GetElement(worldPos);
 
                 if (this.size == 0)
                 {
-                    this._world.InstantiateElement(worldPos, this.elementSelected.Id);
+                    world.InstantiateElement(worldPos, this.elementSelected.Id);
                     return;
                 }
 
@@ -209,12 +205,12 @@ namespace PixelDust.Game.Managers
                     for (int y = -(int)this.size; y < this.size; y++)
                     {
                         Vector2 lpos = new Vector2(x, y) + worldPos;
-                        if (!this._world.InsideTheWorldDimensions(lpos))
+                        if (!world.InsideTheWorldDimensions(lpos))
                         {
                             continue;
                         }
 
-                        this._world.InstantiateElement(lpos, this.elementSelected.Id);
+                        world.InstantiateElement(lpos, this.elementSelected.Id);
                     }
                 }
             };
@@ -224,17 +220,17 @@ namespace PixelDust.Game.Managers
                 Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
-                if (!this._world.InsideTheWorldDimensions(worldPos) ||
+                if (!world.InsideTheWorldDimensions(worldPos) ||
                      this.elementSelected == null)
                 {
                     return;
                 }
 
-                this.elementOver = this._world.GetElement(worldPos);
+                this.elementOver = world.GetElement(worldPos);
 
                 if (this.size == 0)
                 {
-                    this._world.DestroyElement(worldPos);
+                    world.DestroyElement(worldPos);
                     return;
                 }
 
@@ -243,12 +239,12 @@ namespace PixelDust.Game.Managers
                     for (int y = -(int)this.size; y < this.size; y++)
                     {
                         Vector2 lpos = new Vector2(x, y) + worldPos;
-                        if (!this._world.InsideTheWorldDimensions(lpos))
+                        if (!world.InsideTheWorldDimensions(lpos))
                         {
                             continue;
                         }
 
-                        this._world.DestroyElement(lpos);
+                        world.DestroyElement(lpos);
                     }
                 }
             };
@@ -263,14 +259,14 @@ namespace PixelDust.Game.Managers
             Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
             Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
-            this.elementOverSlot = this._world.GetElementSlot((Vector2Int)worldPos);
+            this.elementOverSlot = world.GetElementSlot((Vector2Int)worldPos);
         }
 
         private void ClampCamera()
         {
             // Clamp
-            int totalX = (this._world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_WIDTH;
-            int totalY = (this._world.Infos.Size.Height * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_HEIGHT;
+            int totalX = (world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_WIDTH;
+            int totalY = (world.Infos.Size.Height * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_HEIGHT;
 
             PWorldCamera.Camera.Position = new(
                 Math.Clamp(PWorldCamera.Camera.Position.X, 0, totalX),

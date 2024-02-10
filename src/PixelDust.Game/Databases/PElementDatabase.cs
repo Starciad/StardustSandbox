@@ -53,12 +53,12 @@ namespace PixelDust.Game.Elements
             return _elements[id];
         }
 
-        public int GetIdOfElementType<T>() where T : PElement
+        public uint GetIdOfElementType<T>() where T : PElement
         {
             return GetIdOfElementType(typeof(T));
         }
 
-        public int GetIdOfElementType(Type type)
+        public uint GetIdOfElementType(Type type)
         {
             return GetElementByType(type).Id;
         }
