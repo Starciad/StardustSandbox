@@ -1,46 +1,51 @@
 ﻿using PixelDust.Game.Elements;
 using PixelDust.Game.Utilities;
 
+using System;
+
 namespace PixelDust.Game.Worlding.World.Slots
 {
-    public struct PWorldElementSlot
+    public struct PWorldElementSlot : ICloneable
     {
-        public readonly PElement Instance => PElementDatabase.GetElementById<PElement>(this.id);
-        public readonly byte Depth => this.depth;
-        public readonly bool IsEmpty => this.id == 0;
+        public readonly uint Id => this.id;
+        public readonly bool IsEmpty => isEmpty;
         public readonly short Temperature => this.temperature;
 
-        private byte id;
-        private byte depth;
+        private bool isEmpty;
+        private uint id;
         private short temperature;
 
-        public void Instantiate(uint id)
+        public PWorldElementSlot(PWorldElementSlot value)
         {
-            Instantiate(PElementDatabase.GetElementById(id));
+            this = value;
         }
+
         public void Instantiate(PElement value)
         {
-            Reset();
+            this.isEmpty = false;
             this.id = value.Id;
             this.temperature = value.DefaultTemperature;
         }
         public void Destroy()
         {
-            Reset();
+            this.isEmpty = true;
             this.id = 0;
+            this.temperature = 0;
         }
-        public void Copy(PWorldElementSlot value)
-        {
-            this = value;
-        }
+
         public void SetTemperatureValue(int value)
         {
             this.temperature = PTemperature.Clamp(value);
         }
 
-        private void Reset()
+        public readonly object Clone()
         {
-            SetTemperatureValue(0);
+            return new PWorldElementSlot
+            {
+                isEmpty = this.isEmpty,
+                id = this.id,
+                temperature = this.temperature
+            };
         }
     }
 }

@@ -102,7 +102,7 @@ namespace PixelDust.Core.Worlding
                     }
                     else
                     {
-                        PElement element = this.Elements[x, y].Instance;
+                        PElement element = elementDatabase.GetElementById(this.Elements[x, y].Id);
 
                         element.Context = new PElementContext(this, this.Elements[x, y], new(x, y));
                         element.Draw(gameTime, spriteBatch);

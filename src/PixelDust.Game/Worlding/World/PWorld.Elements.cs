@@ -59,7 +59,7 @@ namespace PixelDust.Core.Worlding
             NotifyChunk(oldPos);
             NotifyChunk(newPos);
 
-            this.Elements[newPos.X, newPos.Y].Copy(this.Elements[oldPos.X, oldPos.Y]);
+            this.Elements[newPos.X, newPos.Y] = (PWorldElementSlot)this.Elements[oldPos.X, oldPos.Y].Clone();
             this.Elements[oldPos.X, oldPos.Y].Destroy();
             return true;
         }
@@ -81,11 +81,11 @@ namespace PixelDust.Core.Worlding
             NotifyChunk(element1);
             NotifyChunk(element2);
 
-            PWorldElementSlot oldValue = this.Elements[element1.X, element1.Y];
-            PWorldElementSlot newValue = this.Elements[element2.X, element2.Y];
+            PWorldElementSlot oldValue = (PWorldElementSlot)this.Elements[element1.X, element1.Y].Clone();
+            PWorldElementSlot newValue = (PWorldElementSlot)this.Elements[element2.X, element2.Y].Clone();
 
-            this.Elements[element1.X, element1.Y].Copy(newValue);
-            this.Elements[element2.X, element2.Y].Copy(oldValue);
+            this.Elements[element1.X, element1.Y] = newValue;
+            this.Elements[element2.X, element2.Y] = oldValue;
 
             return true;
         }
@@ -147,7 +147,7 @@ namespace PixelDust.Core.Worlding
                 return false;
             }
 
-            value = this.Elements[pos.X, pos.Y].Instance;
+            value = elementDatabase.GetElementById(this.Elements[pos.X, pos.Y].Id);
             return true;
         }
 
