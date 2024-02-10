@@ -7,8 +7,6 @@ using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
-using SharpDX.Direct3D9;
-
 using System.Collections.Generic;
 
 namespace PixelDust.Game.Elements.Renders

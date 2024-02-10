@@ -1,31 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<!-- IMPORTS -->
-	<Import Project="../Targets/Project_Compilation.targets" />
-	<Import Project="../Targets/Project_Settings.targets" />
-	<Import Project="../Targets/Project_Infos.targets" />
+	<Import Project="../Targets/WindowsDX/Project_Compilation.targets" />
+	<Import Project="../Targets/WindowsDX/Project_Settings.targets" />
+	<Import Project="../Targets/WindowsDX/Project_Infos.targets" />
 
 	<!-- HEADER -->
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<RollForward>Major</RollForward>
-		<AssemblyName>PixelDust</AssemblyName>
-		<DefineConstants>WindowsDX</DefineConstants>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<!-- SYSTEM -->
 	<PropertyGroup>
-		<ApplicationManifest>assets/app.manifest</ApplicationManifest>
-		<ApplicationIcon>assets/icon.ico</ApplicationIcon>
-		<StartupObject>PixelDust.Game.Program</StartupObject>
-		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<AssemblyName>PixelDust</AssemblyName>
+		<RootNamespace>PixelDust.Game</RootNamespace>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -45,7 +37,18 @@
 		<Folder Include="IO\" />
 	</ItemGroup>
 
-	<!-- FILES -->
+	<!-- FILES (REMOVE) -->
+	<ItemGroup>
+		<None Remove="icon.ico" />
+	</ItemGroup>
+
+	<!-- FILES (RESOURCE) -->
+	<ItemGroup>
+		<EmbeddedResource Include="icon.ico">
+			<LogicalName>icon.ico</LogicalName>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
 
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
