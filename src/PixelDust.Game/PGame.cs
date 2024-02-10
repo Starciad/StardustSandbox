@@ -96,7 +96,7 @@ namespace PixelDust.Game
             this._gameInputManager = new(this._orthographicCamera, this.World, this._inputManager, this._elementDatabase);
 
             // Core
-            this._world = new(this._elementDatabase, this._assetDatabase.GetTexture("particle_1"));
+            this._world = new(this._elementDatabase, this._assetDatabase);
         }
 
         protected override void Initialize()

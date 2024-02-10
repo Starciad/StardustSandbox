@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Managers;
@@ -18,7 +19,7 @@ using System;
 
 namespace PixelDust.Core.Worlding
 {
-    public sealed partial class PWorld(PElementDatabase elementDatabase, Texture2D particleTexture) : PGameObject
+    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject
     {
         public PWorldStates States { get; private set; } = new();
         public PWorldInfos Infos { get; private set; } = new();
@@ -26,18 +27,20 @@ namespace PixelDust.Core.Worlding
         public PElementDatabase ElementDatabase => elementDatabase;
 
         private readonly PTimer updateTimer = new(0.35f);
-
         private readonly PWorldComponent[] _components =
         [
             new PWorldChunkingComponent(),
             new PWorldThreadingComponent(),
         ];
 
+        private Texture2D particleTexture;
+
         protected override void OnAwake()
         {
             base.OnAwake();
 
             Restart();
+            particleTexture = assetDatabase.GetTexture("particle_1");
 
             foreach (PWorldComponent component in this._components)
             {
