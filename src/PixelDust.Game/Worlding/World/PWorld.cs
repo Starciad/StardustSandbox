@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
@@ -85,14 +86,14 @@ namespace PixelDust.Core.Worlding
             }
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, PWorldCamera.Camera.GetViewMatrix());
-            DrawSlots(spriteBatch);
+            DrawSlots(gameTime, spriteBatch);
             foreach (PWorldComponent component in this._components)
             {
                 component.Draw(gameTime,spriteBatch);
             }
             spriteBatch.End();
         }
-        private void DrawSlots(SpriteBatch spriteBatch)
+        private void DrawSlots(GameTime gameTime, SpriteBatch spriteBatch)
         {
             for (int x = 0; x < this.Infos.Size.Width; x++)
             {
@@ -104,7 +105,10 @@ namespace PixelDust.Core.Worlding
                     }
                     else
                     {
-                        this.Elements[x, y].Instance.Draw(new PElementContext(this, this.Elements[x, y], new(x, y)));
+                        PElement element = this.Elements[x, y].Instance;
+
+                        element.Context = new PElementContext(this, this.Elements[x, y], new(x, y));
+                        element.Draw(gameTime, spriteBatch);
                     }
                 }
             }
