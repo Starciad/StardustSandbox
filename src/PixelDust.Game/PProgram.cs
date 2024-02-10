@@ -11,7 +11,7 @@ namespace PixelDust.Game
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
             using PGame game = new();
-            game.Start();
+            game.Run();
         }
     }
 }
