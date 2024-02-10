@@ -1,0 +1,65 @@
+﻿using PixelDust.Game.Elements.Attributes;
+using PixelDust.Game.Elements.Common.Gases;
+using PixelDust.Game.Elements.Common.Solid.Movable;
+using PixelDust.Game.Elements.Templates.Liquid;
+using PixelDust.Game.Mathematics;
+using PixelDust.Game.Utilities;
+using PixelDust.Game.Worlding.World.Slots;
+
+using System;
+
+namespace PixelDust.Game.Elements.Common.Liquid
+{
+    [PElementRegister(2)]
+    public class PWater : PLiquid
+    {
+        protected override void OnSettings()
+        {
+            this.Name = "Water";
+            this.Description = string.Empty;
+
+            this.Render.AddFrame(new(2, 0));
+
+            this.DefaultDispersionRate = 3;
+            this.DefaultTemperature = 25;
+
+            this.EnableNeighborsAction = true;
+        }
+
+        protected override void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
+        {
+            foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
+            {
+                if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PDirt)
+                {
+                    this.Context.DestroyElement();
+                    this.Context.ReplaceElement<PMud>(neighbor.Item1);
+                    return;
+                }
+
+                if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PStone)
+                {
+                    if (PRandom.Range(0, 150) == 0)
+                    {
+                        this.Context.DestroyElement();
+                        this.Context.ReplaceElement<PSand>(neighbor.Item1);
+                        return;
+                    }
+                }
+            }
+        }
+
+        protected override void OnTemperatureChanged(short currentValue)
+        {
+            if (currentValue >= 100)
+            {
+                this.Context.ReplaceElement<PSteam>();
+            }
+
+            if (currentValue <= 0)
+            {
+                this.Context.ReplaceElement<PIce>();
+            }
+        }
+    }
+}
