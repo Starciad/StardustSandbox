@@ -16,7 +16,7 @@ namespace PixelDust.Game.Scenes.Common
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font1, PInputManager.DebugString, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font1, PGameInputManager.DebugString, Vector2.Zero, Color.White);
         }
     }
 }

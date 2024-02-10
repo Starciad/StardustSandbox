@@ -1,29 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Objects;
+
+using System.Collections.Generic;
 
 namespace PixelDust.Game.InputSystem.Actions
 {
-    public sealed class PInputActionMap
+    public sealed class PInputActionMap(bool active) : PGameObject
     {
         public bool Active => this._active;
 
-        private bool _active;
-
-#pragma warning disable CS0169 // O campo "PInputActionMap.handler" nunca é usado
         private readonly PInputActionMapHandler handler;
-#pragma warning restore CS0169 // O campo "PInputActionMap.handler" nunca é usado
-
         private readonly Dictionary<string, PInputAction> _actions = [];
 
-        public PInputActionMap(bool active)
-        {
-            this._active = active;
-        }
+        private bool _active = active;
 
-        internal void Update()
+        protected override void OnUpdate(GameTime gameTime)
         {
             foreach (PInputAction action in this._actions.Values)
             {
-                action.Update();
+                action.Update(gameTime);
             }
         }
 

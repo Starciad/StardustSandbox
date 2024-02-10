@@ -1,20 +1,23 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 using PixelDust.Game.InputSystem.Enums;
-using PixelDust.Game.InputSystem.Handlers;
+using PixelDust.Game.Managers;
+using PixelDust.Game.Objects;
 
 using System;
 
 namespace PixelDust.Game.InputSystem.Actions
 {
-    public sealed class PInputAction
+    public sealed class PInputAction : PGameObject
     {
         public PInputActionMap ActionMap => this._actionMap;
 
         private PInputActionMap _actionMap;
+        private PInputManager _inputManager;
 
-        private readonly Keys[] keys = Array.Empty<Keys>();
-        private readonly PMouseButton[] mouseButtons = Array.Empty<PMouseButton>();
+        private readonly Keys[] keys;
+        private readonly PMouseButton[] mouseButtons;
 
         private CallbackContext callback;
 
@@ -30,26 +33,24 @@ namespace PixelDust.Game.InputSystem.Actions
         public delegate void Performed(CallbackContext context);
         public delegate void Canceled(CallbackContext context);
 
-        public PInputAction(params Keys[] keys)
+        public PInputAction(PInputManager inputManager, params Keys[] keys)
         {
+            this._inputManager = inputManager;
             this.keys = keys;
         }
-        public PInputAction(params PMouseButton[] mouseButtons)
+        public PInputAction(PInputManager inputManager, params PMouseButton[] mouseButtons)
         {
+            this._inputManager = inputManager;
             this.mouseButtons = mouseButtons;
         }
-        public PInputAction(Keys[] keys, PMouseButton[] mouseButtons)
+        public PInputAction(PInputManager inputManager, Keys[] keys, PMouseButton[] mouseButtons)
         {
+            this._inputManager = inputManager;
             this.keys = keys;
             this.mouseButtons = mouseButtons;
         }
 
-        internal void SetActionMap(PInputActionMap map)
-        {
-            this._actionMap = map;
-        }
-
-        internal void Update()
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.callback = new();
 
@@ -105,57 +106,62 @@ namespace PixelDust.Game.InputSystem.Actions
             }
         }
 
+        internal void SetActionMap(PInputActionMap map)
+        {
+            this._actionMap = map;
+        }
+
         // Keyboard State
         private bool GetKeyboardStartedState(Keys key)
         {
-            return !PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
-                    PInputHandler.Keyboard.IsKeyDown(key) &&
+            return !this._inputManager.PreviousKeyboardState.IsKeyDown(key) &&
+                    this._inputManager.KeyboardState.IsKeyDown(key) &&
                    !this.started && !this.performed && this.canceled;
         }
         private bool GetKeyboardPerformedState(Keys key)
         {
-            return PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
-                   PInputHandler.Keyboard.IsKeyDown(key) &&
+            return this._inputManager.PreviousKeyboardState.IsKeyDown(key) &&
+                   this._inputManager.KeyboardState.IsKeyDown(key) &&
                    this.started && !this.canceled;
         }
         private bool GetKeyboardCanceledState(Keys key)
         {
-            return PInputHandler.PreviousKeyboard.IsKeyDown(key) &&
-                  !PInputHandler.Keyboard.IsKeyDown(key) &&
+            return this._inputManager.PreviousKeyboardState.IsKeyDown(key) &&
+                  !this._inputManager.KeyboardState.IsKeyDown(key) &&
                    this.started && this.performed && !this.canceled;
         }
 
         // Mouse State
-        private static bool GetMouseStartedState(PMouseButton mouseButton)
+        private bool GetMouseStartedState(PMouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Pressed);
         }
-        private static bool GetMousePerformedState(PMouseButton mouseButton)
+        private bool GetMousePerformedState(PMouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Pressed);
         }
-        private static bool GetMouseCanceledState(PMouseButton mouseButton)
+        private bool GetMouseCanceledState(PMouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Released);
         }
 
-        private static bool GetMouseState(PMouseButton mouseButton, ButtonState desiredState)
+        private bool GetMouseState(PMouseButton mouseButton, ButtonState desiredState)
         {
             ButtonState previousState, currentState;
 
             switch (mouseButton)
             {
                 case PMouseButton.Left:
-                    previousState = PInputHandler.PreviousMouse.LeftButton;
-                    currentState = PInputHandler.Mouse.LeftButton;
+                    previousState = this._inputManager.PreviousMouseState.LeftButton;
+                    currentState = this._inputManager.MouseState.LeftButton;
                     break;
                 case PMouseButton.Middle:
-                    previousState = PInputHandler.PreviousMouse.MiddleButton;
-                    currentState = PInputHandler.Mouse.MiddleButton;
+                    previousState = this._inputManager.PreviousMouseState.MiddleButton;
+                    currentState = this._inputManager.MouseState.MiddleButton;
                     break;
                 case PMouseButton.Right:
-                    previousState = PInputHandler.PreviousMouse.RightButton;
-                    currentState = PInputHandler.Mouse.RightButton;
+                    previousState = this._inputManager.PreviousMouseState.RightButton;
+                    currentState = this._inputManager.MouseState.RightButton;
                     break;
                 default:
                     return false;

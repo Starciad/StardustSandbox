@@ -15,9 +15,12 @@ namespace PixelDust.Game
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
         public Assembly Assembly => this._assembly;
-
+        public PGraphicsManager GraphicsManager => this._graphicsManager;
+        public PGameInputManager GameInputManager => this._gameInputManager;
+        public PScenesManager ScenesManager => this._scenesManager;
+        public PShaderManager ShaderManager => this._shaderManager;
         public PAssetsDatabase AssetsDatabase => this._assetsDatabase;
-
+        public PInputManager InputManager => this._inputManager;
         public PWorld World => this._world;
 
         // ================================= //
@@ -26,12 +29,11 @@ namespace PixelDust.Game
         private SpriteBatch _sb;
 
         private readonly PGraphicsManager _graphicsManager;
-        private readonly PInputManager _inputManager;
+        private readonly PGameInputManager _gameInputManager;
         private readonly PScenesManager _scenesManager;
         private readonly PShaderManager _shaderManager;
-
         private readonly PAssetsDatabase _assetsDatabase;
-
+        private readonly PInputManager _inputManager;
         private readonly PWorld _world;
 
         // ================================= //
@@ -65,8 +67,11 @@ namespace PixelDust.Game
             // Database
             this._assetsDatabase = new(this.Content);
 
-            // Managers
+            // Handlers
             this._inputManager = new();
+
+            // Managers
+            this._gameInputManager = new(this._inputManager);
             this._scenesManager = new();
             this._shaderManager = new();
 
@@ -82,9 +87,13 @@ namespace PixelDust.Game
 
             #region Managers
             this._graphicsManager.Initialize(this);
-            this._inputManager.Initialize(this);
+            this._gameInputManager.Initialize(this);
             this._scenesManager.Initialize(this);
             this._shaderManager.Initialize(this);
+            #endregion
+
+            #region Handlers
+            this._inputManager.Initialize(this);
             #endregion
 
             #region Game
@@ -106,6 +115,9 @@ namespace PixelDust.Game
 
         protected override void Update(GameTime gameTime)
         {
+            this._inputManager.Update(gameTime);
+            this._world.Update(gameTime);
+
             base.Update(gameTime);
         }
 
