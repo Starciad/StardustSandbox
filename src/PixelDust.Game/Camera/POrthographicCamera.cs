@@ -9,23 +9,10 @@ namespace PixelDust.Game.Camera
 {
     public sealed class POrthographicCamera : PCamera
     {
-        private float _maximumZoom = float.MaxValue;
-        private float _minimumZoom;
-        private float _zoom;
-
-        public POrthographicCamera()
-        {
-            this.Rotation = 0;
-            this.Zoom = 1;
-            this.Origin = new Vector2(PScreen.DefaultResolution.X / 2f, PScreen.DefaultResolution.Y / 2f);
-            this.Position = Vector2.Zero;
-        }
-
         public override Vector2 Position { get; set; }
         public override float Rotation { get; set; }
         public override Vector2 Origin { get; set; }
         public override Vector2 Center => this.Position + this.Origin;
-
         public override float Zoom
         {
             get => this._zoom;
@@ -39,7 +26,6 @@ namespace PixelDust.Game.Camera
                 this._zoom = value;
             }
         }
-
         public override float MinimumZoom
         {
             get => this._minimumZoom;
@@ -58,7 +44,6 @@ namespace PixelDust.Game.Camera
                 this._minimumZoom = value;
             }
         }
-
         public override float MaximumZoom
         {
             get => this._maximumZoom;
@@ -77,7 +62,6 @@ namespace PixelDust.Game.Camera
                 this._maximumZoom = value;
             }
         }
-
         public override Rectangle BoundingRectangle
         {
             get
@@ -91,6 +75,18 @@ namespace PixelDust.Game.Camera
 
                 return new(new((int)topLeft.X, (int)topLeft.Y), new(width, height));
             }
+        }
+
+        private float _maximumZoom = float.MaxValue;
+        private float _minimumZoom;
+        private float _zoom;
+
+        public POrthographicCamera(PScreenManager screenManager) : base(screenManager)
+        {
+            this.Rotation = 0;
+            this.Zoom = 1;
+            this.Origin = new Vector2(screenManager.DefaultResolution.Width, screenManager.DefaultResolution.Height) / 2f;
+            this.Position = Vector2.Zero;
         }
 
         public override void Move(Vector2 direction)
@@ -120,7 +116,7 @@ namespace PixelDust.Game.Camera
 
         public override void LookAt(Vector2 position)
         {
-            this.Position = position - new Vector2(PScreen.DefaultResolution.X / 2f, PScreen.DefaultResolution.Y / 2f);
+            this.Position = position - new Vector2(this.ScreenManager.DefaultResolution.Width, this.ScreenManager.DefaultResolution.Height) / 2f;
         }
 
         public Vector2 WorldToScreen(float x, float y)
@@ -130,13 +126,13 @@ namespace PixelDust.Game.Camera
 
         public override Vector2 WorldToScreen(Vector2 worldPosition)
         {
-            Viewport viewport = PScreen.Viewport;
+            Viewport viewport = this.ScreenManager.Viewport;
             return Vector2.Transform(worldPosition + new Vector2(viewport.X, viewport.Y), GetViewMatrix());
         }
 
         public override Vector2 ScreenToWorld(Vector2 screenPosition)
         {
-            Viewport viewport = PScreen.Viewport;
+            Viewport viewport = this.ScreenManager.Viewport;
             return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y),
                    Matrix.Invert(GetViewMatrix()));
         }
@@ -160,9 +156,9 @@ namespace PixelDust.Game.Camera
             return Matrix.Invert(GetViewMatrix());
         }
 
-        private static Matrix GetProjectionMatrix(Matrix viewMatrix)
+        private Matrix GetProjectionMatrix(Matrix viewMatrix)
         {
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0, PScreen.DefaultResolution.X, PScreen.DefaultResolution.Y, 0, -1, 0);
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, this.ScreenManager.DefaultResolution.Width, this.ScreenManager.DefaultResolution.Height, 0, -1, 0);
             Matrix.Multiply(ref viewMatrix, ref projection, out projection);
             return projection;
         }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Game.Engine;
+
 namespace PixelDust.Game.Camera
 {
-    public abstract class PCamera
+    public abstract class PCamera(PScreenManager screenManager)
     {
         public abstract Vector2 Position { get; set; }
         public abstract float Rotation { get; set; }
@@ -12,6 +14,7 @@ namespace PixelDust.Game.Camera
         public abstract Rectangle BoundingRectangle { get; }
         public abstract Vector2 Origin { get; set; }
         public abstract Vector2 Center { get; }
+        public PScreenManager ScreenManager => screenManager;
 
         public abstract void Move(Vector2 direction);
         public abstract void Rotate(float deltaRadians);
