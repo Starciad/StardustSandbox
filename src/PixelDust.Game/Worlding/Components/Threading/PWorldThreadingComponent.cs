@@ -115,7 +115,7 @@ namespace PixelDust.Game.Worlding.Components.Threading
 
             if (this.World.TryGetElement(position, out PElement value))
             {
-                value.Context = new PElementContext(this.World, slot, position);
+                value.Context = new PElementContext(this.World, this.World.ElementDatabase, slot, position);
 
                 switch (updateType)
                 {

@@ -23,6 +23,7 @@ namespace PixelDust.Core.Worlding
         public PWorldStates States { get; private set; } = new();
         public PWorldInfos Infos { get; private set; } = new();
         public PWorldElementSlot[,] Elements { get; private set; }
+        public PElementDatabase ElementDatabase => elementDatabase;
 
         private readonly PTimer updateTimer = new(0.35f);
 
