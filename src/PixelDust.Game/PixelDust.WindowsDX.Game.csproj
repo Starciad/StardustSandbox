@@ -34,7 +34,6 @@
 		<Folder Include="assets\graphics\effects\" />
 		<Folder Include="assets\sounds\" />
 		<Folder Include="assets\songs\" />
-		<Folder Include="IO\" />
 	</ItemGroup>
 
 	<!-- FILES (REMOVE) -->

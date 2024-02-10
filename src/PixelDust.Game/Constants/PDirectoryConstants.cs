@@ -3,7 +3,10 @@
     public static class PDirectoryConstants
     {
         public const string ASSETS = "assets";
-        public const string LOGS = "logs";
+
+        #region APPDATA
+        public const string APPDATA_LOGS = "logs";
+        #endregion
 
         #region ASSETS
         public const string ASSETS_SHADERS = "shaders";

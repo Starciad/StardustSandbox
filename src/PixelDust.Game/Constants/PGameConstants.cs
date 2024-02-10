@@ -4,8 +4,8 @@ namespace PixelDust.Game.Constants
 {
     public static class PGameConstants
     {
-        public const string TITLE = "Pixel Dust";
-        public static Version VERSION = new(0, 0, 1, 0);
+        public const string TITLE = "PixelDust";
+        public static Version VERSION => new(0, 0, 1, 0);
 
         public static string GetTitleAndVersionString()
         {

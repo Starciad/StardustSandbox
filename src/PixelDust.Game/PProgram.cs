@@ -1,8 +1,14 @@
-﻿using System;
+﻿using PixelDust.Game.IO;
+
+using System;
 
 #if WINDOWS_DX
-using System.Text;
 using System.Windows.Forms;
+#endif
+
+#if !DEBUG
+using PixelDust.Game.Constants;
+using System.Text;
 #endif
 
 namespace PixelDust.Game
@@ -15,6 +21,8 @@ namespace PixelDust.Game
 #if WINDOWS_DX
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 #endif
+
+            PDirectory.Initialize();
 
 #if DEBUG
             EXECUTE_DEBUG_VERSION();
@@ -50,24 +58,24 @@ namespace PixelDust.Game
                 game.Dispose();
             }
         }
-#endif
 
         private static void HandleException(Exception value)
         {
 #if WINDOWS_DX
-            string logFilename = SFile.WriteException(value);
+            string logFilename = PFile.WriteException(value);
             StringBuilder logString = new();
-            logString.AppendLine("An unexpected error caused StellarDuelist to crash!");
+            logString.AppendLine(string.Concat("An unexpected error caused ", PGameConstants.TITLE, " to crash!"));
             logString.AppendLine($"Exception: {value.Message}");
 
             MessageBox.Show(logString.ToString(),
-                            $"{SInfos.GetTitle()} - Fatal Error",
+                            $"{PGameConstants.GetTitleAndVersionString()} - Fatal Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
 #else
-            // _ = SFile.WriteException(value);
+            _ = PFile.WriteException(value);
 #endif
         }
+#endif
 
         private static void OnGameExiting(object sender, EventArgs e)
         {
