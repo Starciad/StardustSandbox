@@ -87,7 +87,7 @@ namespace PixelDust.Game
             this._shaderManager = new();
 
             // Game
-            this._world = new();
+            this._world = new(this._elementDatabase, this._assetDatabase.GetTexture("particle_1"));
         }
 
         protected override void Initialize()

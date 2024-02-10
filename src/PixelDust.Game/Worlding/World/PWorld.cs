@@ -18,14 +18,13 @@ using System;
 
 namespace PixelDust.Core.Worlding
 {
-    public sealed partial class PWorld : PGameObject
+    public sealed partial class PWorld(PElementDatabase elementDatabase, Texture2D particleTexture) : PGameObject
     {
         public PWorldStates States { get; private set; } = new();
         public PWorldInfos Infos { get; private set; } = new();
         public PWorldElementSlot[,] Elements { get; private set; }
 
         private readonly PTimer updateTimer = new(0.35f);
-        private Texture2D pixelTexture;
 
         private readonly PWorldComponent[] _components =
         [
@@ -36,8 +35,6 @@ namespace PixelDust.Core.Worlding
         protected override void OnAwake()
         {
             base.OnAwake();
-
-            this.pixelTexture = this.Game.AssetDatabase.GetTexture("particle_1");
 
             Restart();
 
@@ -101,7 +98,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (IsEmptyElementSlot(new(x, y)))
                     {
-                        spriteBatch.Draw(pixelTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
                     }
                     else
                     {

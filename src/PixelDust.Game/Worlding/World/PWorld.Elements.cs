@@ -11,11 +11,11 @@ namespace PixelDust.Core.Worlding
     {
         public void InstantiateElement<T>(Vector2Int pos) where T : PElement
         {
-            InstantiateElement(pos, (uint)PElementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(pos, (uint)elementDatabase.GetIdOfElementType<T>());
         }
         public void InstantiateElement(Vector2Int pos, uint id)
         {
-            InstantiateElement(pos, PElementDatabase.GetElementById(id));
+            InstantiateElement(pos, elementDatabase.GetElementById(id));
         }
         public void InstantiateElement(Vector2Int pos, PElement value)
         {
@@ -23,11 +23,11 @@ namespace PixelDust.Core.Worlding
         }
         public bool TryInstantiateElement<T>(Vector2Int pos) where T : PElement
         {
-            return TryInstantiateElement(pos, (uint)PElementDatabase.GetIdOfElementType<T>());
+            return TryInstantiateElement(pos, (uint)elementDatabase.GetIdOfElementType<T>());
         }
         public bool TryInstantiateElement(Vector2Int pos, uint id)
         {
-            return TryInstantiateElement(pos, PElementDatabase.GetElementById(id));
+            return TryInstantiateElement(pos, elementDatabase.GetElementById(id));
         }
         public bool TryInstantiateElement(Vector2Int pos, PElement value)
         {
