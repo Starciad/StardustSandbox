@@ -22,11 +22,13 @@ namespace PixelDust.Game.Elements.Common.Utilities
             List<(Vector2Int, PWorldElementSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
-                if (neighbors[i].Item2.Instance is not PMCorruption &&
-                    neighbors[i].Item2.Instance is not PIMCorruption &&
-                    neighbors[i].Item2.Instance is not PLCorruption &&
-                    neighbors[i].Item2.Instance is not PGCorruption &&
-                    neighbors[i].Item2.Instance is not PWall)
+                PElement element = context.ElementDatabase.GetElementById(neighbors[i].Item2.Id);
+
+                if (element is not PMCorruption &&
+                    element is not PIMCorruption &&
+                    element is not PLCorruption &&
+                    element is not PGCorruption &&
+                    element is not PWall)
                 {
                     targets.Add(neighbors[i]);
                 }
@@ -38,22 +40,27 @@ namespace PixelDust.Game.Elements.Common.Utilities
             }
 
             (Vector2Int, PWorldElementSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
+            PElement targetElement = context.ElementDatabase.GetElementById(target.Item2.Id);
 
-            if (target.Item2.Instance is PSolid)
+            if (targetElement is PSolid)
             {
                 context.ReplaceElement<PMCorruption>(target.Item1);
             }
-            else if (target.Item2.Instance is PImmovableSolid)
+            else if (targetElement is PImmovableSolid)
             {
                 context.ReplaceElement<PIMCorruption>(target.Item1);
             }
-            else if (target.Item2.Instance is PLiquid)
+            else if (targetElement is PLiquid)
             {
                 context.ReplaceElement<PLCorruption>(target.Item1);
             }
-            else if (target.Item2.Instance is PGas)
+            else if (targetElement is PGas)
             {
                 context.ReplaceElement<PGCorruption>(target.Item1);
+            }
+            else
+            {
+                context.ReplaceElement<PMCorruption>(target.Item1);
             }
         }
     }

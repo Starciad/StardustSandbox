@@ -94,7 +94,7 @@ namespace PixelDust.Game.Elements
 
             foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (!neighbor.Item2.Instance.EnableTemperature)
+                if (!this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id).EnableTemperature)
                 {
                     continue;
                 }

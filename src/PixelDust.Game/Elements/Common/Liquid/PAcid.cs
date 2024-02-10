@@ -11,6 +11,11 @@ namespace PixelDust.Game.Elements.Common.Liquid
     [PElementRegister(10)]
     public class PAcid : PLiquid
     {
+        protected override void OnAwake()
+        {
+            base.OnAwake();
+        }
+
         protected override void OnSettings()
         {
             this.Name = "Acid";
@@ -27,8 +32,8 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (neighbor.Item2.Instance is PAcid ||
-                    neighbor.Item2.Instance is PWall)
+                if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PAcid ||
+                    this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PWall)
                 {
                     continue;
                 }

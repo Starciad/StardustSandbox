@@ -30,14 +30,14 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
             {
-                if (neighbor.Item2.Instance is PDirt)
+                if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PDirt)
                 {
                     this.Context.DestroyElement();
                     this.Context.ReplaceElement<PMud>(neighbor.Item1);
                     return;
                 }
 
-                if (neighbor.Item2.Instance is PStone)
+                if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PStone)
                 {
                     if (PRandom.Range(0, 150) == 0)
                     {

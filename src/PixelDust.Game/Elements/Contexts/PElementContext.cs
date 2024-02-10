@@ -15,25 +15,12 @@ namespace PixelDust.Game.Elements.Contexts
     /// <br/><br/>
     /// The information within this context is updated every frame, automatically adapting to a newly selected element through public engine processes. This eliminates the concern about the specific information being manipulated at any given moment.
     /// </remarks>
-    public struct PElementContext(PWorld world, PWorldElementSlot slot, Vector2Int position) : IElementManager
+    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldElementSlot slot, Vector2Int position) : IElementManager
     {
-        /// <summary>
-        /// The slot that the current element is located.
-        /// </summary>
         public readonly PWorldElementSlot Slot => this._element;
-
-        /// <summary>
-        /// The position that the current element is located, based on world coordinates.
-        /// </summary>
-        /// <remarks>
-        /// Contains only integer values.
-        /// </remarks>
         public readonly Vector2Int Position => this._position;
-
-        /// <summary>
-        /// Current element class.
-        /// </summary>
-        public readonly PElement Element => this._element.Instance;
+        public readonly PElement Element => ElementDatabase.GetElementById(this._element.Id);
+        public readonly PElementDatabase ElementDatabase => elementDatabase;
 
         private PWorldElementSlot _element = slot;
         private Vector2Int _position = position;
@@ -292,12 +279,7 @@ namespace PixelDust.Game.Elements.Contexts
         #endregion
 
         #region Chunks
-        /// <summary>
-        /// Notifies a specific chunk of the world to perform an update on the next game frame refresh.
-        /// </summary>
-        /// <param name="pos">The position of the chunk to notify.</param>
-        /// <returns><c>true</c> if the notification was successful, otherwise <c>false</c>.</returns>
-        public bool TryNotifyChunk(Vector2Int pos)
+        public readonly bool TryNotifyChunk(Vector2Int pos)
         {
             return this._world.TryNotifyChunk(pos);
         }
