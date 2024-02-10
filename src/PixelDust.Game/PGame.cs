@@ -11,10 +11,13 @@ using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.Engine;
+using PixelDust.Game.IO;
 using PixelDust.Game.Managers;
+using PixelDust.Game.Models.Settings;
 using PixelDust.Game.Scenes.Common;
 using PixelDust.Game.Worlding;
 
+using System;
 using System.Reflection;
 
 namespace PixelDust.Game
@@ -57,12 +60,15 @@ namespace PixelDust.Game
 
         public PGame()
         {
+            PGraphicsSettings graphicsSettings = PSystemSettingsFile.GetGraphicsSettings();
+
             this._graphicsManager = new(new(this)
             {
-                IsFullScreen = false,
-                PreferredBackBufferWidth = (int)PScreenConstants.SCREEN_WIDTH,
-                PreferredBackBufferHeight = (int)PScreenConstants.SCREEN_HEIGHT,
-                SynchronizeWithVerticalRetrace = false,
+                IsFullScreen = graphicsSettings.FullScreen,
+                PreferredBackBufferWidth = graphicsSettings.ScreenWidth,
+                PreferredBackBufferHeight = graphicsSettings.ScreenHeight,
+                SynchronizeWithVerticalRetrace = graphicsSettings.VSync,
+                GraphicsProfile = GraphicsProfile.HiDef,
             });
 
             // Assembly
@@ -73,13 +79,13 @@ namespace PixelDust.Game
 
             // Configure the game's window
             this.Window.Title = PGameConstants.GetTitleAndVersionString();
-            this.Window.AllowUserResizing = false;
-            this.Window.IsBorderless = false;
+            this.Window.AllowUserResizing = graphicsSettings.Resizable;
+            this.Window.IsBorderless = graphicsSettings.Borderless;
 
             // Configure game settings
             this.IsMouseVisible = true;
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = PGraphicsConstants.FramesPerSecond;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
 
             // Database
             this._assetDatabase = new(this.Content);

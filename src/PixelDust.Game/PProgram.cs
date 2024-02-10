@@ -23,6 +23,7 @@ namespace PixelDust.Game
 #endif
 
             PDirectory.Initialize();
+            PSystemSettingsFile.Initialize();
 
 #if DEBUG
             EXECUTE_DEBUG_VERSION();

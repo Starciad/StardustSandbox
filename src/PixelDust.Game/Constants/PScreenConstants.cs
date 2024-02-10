@@ -4,8 +4,8 @@ namespace PixelDust.Game.Constants
 {
     public static class PScreenConstants
     {
-        public const int SCREEN_WIDTH = 0;
-        public const int SCREEN_HEIGHT = 0;
+        public static int DEFAULT_SCREEN_WIDTH => RESOLUTIONS[3].Width;
+        public static int DEFAULT_SCREEN_HEIGHT => RESOLUTIONS[3].Height;
 
         // 16:9 Aspect Ratio
         public static Size2Int[] RESOLUTIONS =>
