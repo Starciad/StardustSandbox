@@ -2,6 +2,6 @@
 {
     public static class PFileConstants
     {
-        public const string SETTINGS_GRAPHICS = "graphics_settings.bin";
+        public const string SETTINGS_GRAPHICS = "graphics_settings" + PIOConstants.SETTINGS;
     }
 }
