@@ -30,11 +30,14 @@ namespace PixelDust.Game.Managers
 
         protected override void OnAwake()
         {
-            this.screenRenderTarget = new(this.GraphicsDevice, PScreenConstants.SCREEN_WIDTH, PScreenConstants.SCREEN_HEIGHT);
-            this.guiRenderTarget = new(this.GraphicsDevice, PScreenConstants.SCREEN_WIDTH, PScreenConstants.SCREEN_HEIGHT);
-            this.backgroundRenderTarget = new(this.GraphicsDevice, PScreenConstants.SCREEN_WIDTH, PScreenConstants.SCREEN_HEIGHT);
-            this.worldRenderTarget = new(this.GraphicsDevice, PScreenConstants.SCREEN_WIDTH, PScreenConstants.SCREEN_HEIGHT);
-            this.lightingRenderTarget = new(this.GraphicsDevice, PScreenConstants.SCREEN_WIDTH, PScreenConstants.SCREEN_HEIGHT);
+            int width = PScreenConstants.DEFAULT_SCREEN_WIDTH;
+            int height = PScreenConstants.DEFAULT_SCREEN_HEIGHT;
+
+            this.screenRenderTarget = new(this.GraphicsDevice, width, height);
+            this.guiRenderTarget = new(this.GraphicsDevice, width, height);
+            this.backgroundRenderTarget = new(this.GraphicsDevice, width, height);
+            this.worldRenderTarget = new(this.GraphicsDevice, width, height);
+            this.lightingRenderTarget = new(this.GraphicsDevice, width, height);
         }
     }
 }

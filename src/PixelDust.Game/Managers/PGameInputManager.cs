@@ -265,9 +265,8 @@ namespace PixelDust.Game.Managers
 
         private void ClampCamera()
         {
-            // Clamp
-            int totalX = (world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_WIDTH;
-            int totalY = (world.Infos.Size.Height * PWorldConstants.GRID_SCALE) - PScreenConstants.SCREEN_HEIGHT;
+            int totalX = (world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.DEFAULT_SCREEN_WIDTH;
+            int totalY = (world.Infos.Size.Height * PWorldConstants.GRID_SCALE) - PScreenConstants.DEFAULT_SCREEN_HEIGHT;
 
             orthographicCamera.Position = new Vector2(
                 Math.Clamp(orthographicCamera.Position.X, 0, totalX),

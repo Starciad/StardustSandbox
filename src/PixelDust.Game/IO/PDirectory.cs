@@ -9,11 +9,13 @@ namespace PixelDust.Game.IO
     {
         public static string Root => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), PGameConstants.TITLE);
         public static string Logs => Path.Combine(Root, PDirectoryConstants.APPDATA_LOGS);
+        public static string Settings => Path.Combine(Root, PDirectoryConstants.APPDATA_SETTINGS);
 
         public static void Initialize()
         {
             _ = Directory.CreateDirectory(Root);
             _ = Directory.CreateDirectory(Logs);
+            _ = Directory.CreateDirectory(Settings);
         }
     }
 }
