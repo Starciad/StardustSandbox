@@ -107,7 +107,7 @@ namespace PixelDust.Game.Managers
 
         private void BuildWorldKeyboard()
         {
-            PInputActionMap worldKeyboardActionMap = this._actionHandler.AddActionMap("World_Keyboard", new(true));
+            PInputActionMap worldKeyboardActionMap = this._actionHandler.AddActionMap("World_Keyboard", true);
 
             #region Camera
 
@@ -178,7 +178,7 @@ namespace PixelDust.Game.Managers
 
         private void BuildWorldMouse()
         {
-            PInputActionMap worldMouseActionMap = this._actionHandler.AddActionMap("World_Mouse", new(true));
+            PInputActionMap worldMouseActionMap = this._actionHandler.AddActionMap("World_Mouse", true);
 
             #region Elements (Place)
 
