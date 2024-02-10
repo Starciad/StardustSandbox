@@ -16,16 +16,16 @@
 
 	<!-- SYSTEM -->
 	<PropertyGroup>
-		<ApplicationManifest>Content/app.manifest</ApplicationManifest>
-		<ApplicationIcon>Content/Icon.ico</ApplicationIcon>
+		<ApplicationManifest>assets/app.manifest</ApplicationManifest>
+		<ApplicationIcon>assets/icon.ico</ApplicationIcon>
 		<StartupObject>PixelDust.Game.Program</StartupObject>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -36,15 +36,15 @@
 
 	<!-- PROJECTS -->
 	<ItemGroup>
-	  <ProjectReference Include="..\PixelDust.Core\PixelDust.Core.csproj" />
-	  <ProjectReference Include="..\PixelDust.InputSystem\PixelDust.InputSystem.csproj" />
-	  <ProjectReference Include="..\PixelDust.Mathematics\PixelDust.Mathematics.csproj" />
+		<Folder Include="assets\graphics\background\" />
+		<Folder Include="assets\graphics\bgos\" />
+		<Folder Include="assets\graphics\effects\" />
+		<Folder Include="assets\sounds\" />
+		<Folder Include="assets\songs\" />
+		<Folder Include="IO\" />
 	</ItemGroup>
 
 	<!-- FILES -->
-	<ItemGroup>
-	  <Folder Include="Content\Sprites\" />
-	</ItemGroup>
 
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
