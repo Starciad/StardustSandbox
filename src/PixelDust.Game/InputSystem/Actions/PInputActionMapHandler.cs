@@ -21,8 +21,10 @@ namespace PixelDust.Game.InputSystem.Actions
             }
         }
 
-        public PInputActionMap AddActionMap(string name, PInputActionMap map)
+        public PInputActionMap AddActionMap(string name, bool active)
         {
+            PInputActionMap map = new(this, active);
+
             return this._maps.TryAdd(name, map) ? map : default;
         }
     }

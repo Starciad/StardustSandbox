@@ -14,7 +14,7 @@ namespace PixelDust.Game.InputSystem.Actions
         public PInputActionMap ActionMap => this._actionMap;
 
         private PInputActionMap _actionMap;
-        private PInputManager _inputManager;
+        private readonly PInputManager _inputManager;
 
         private readonly Keys[] keys;
         private readonly PMouseButton[] mouseButtons;

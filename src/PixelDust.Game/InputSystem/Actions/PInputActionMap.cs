@@ -6,11 +6,12 @@ using System.Collections.Generic;
 
 namespace PixelDust.Game.InputSystem.Actions
 {
-    public sealed class PInputActionMap(bool active) : PGameObject
+    public sealed class PInputActionMap(PInputActionMapHandler handler, bool active) : PGameObject
     {
+        public PInputActionMapHandler Handler => this._handler;
         public bool Active => this._active;
 
-        private readonly PInputActionMapHandler handler;
+        private readonly PInputActionMapHandler _handler = handler;
         private readonly Dictionary<string, PInputAction> _actions = [];
 
         private bool _active = active;
