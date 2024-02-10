@@ -21,7 +21,7 @@ namespace PixelDust.Game.Elements
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public string Category { get; protected set; }
-        public int Id { get; internal set; }
+        public uint Id { get; internal set; }
         #endregion
 
         #region Settings (Defaults)

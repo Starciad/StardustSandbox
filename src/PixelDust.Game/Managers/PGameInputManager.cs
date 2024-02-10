@@ -21,7 +21,7 @@ using System.Text;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed class PGameInputManager(PInputManager inputHandler) : PGameObject
+    public sealed class PGameInputManager(PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
     {
         public static StringBuilder DebugString => debugString;
         private static StringBuilder debugString;
@@ -35,15 +35,15 @@ namespace PixelDust.Game.Managers
 
         private readonly Dictionary<Keys, PElement> elementsKeys = new()
         {
-            [Keys.D1] = PElementDatabase.GetElementByType<PDirt>(),
-            [Keys.D2] = PElementDatabase.GetElementByType<PGrass>(),
-            [Keys.D3] = PElementDatabase.GetElementByType<PStone>(),
-            [Keys.D4] = PElementDatabase.GetElementByType<PSand>(),
-            [Keys.D5] = PElementDatabase.GetElementByType<PWater>(),
-            [Keys.D6] = PElementDatabase.GetElementByType<PLava>(),
-            [Keys.D7] = PElementDatabase.GetElementByType<PAcid>(),
-            [Keys.D8] = PElementDatabase.GetElementByType<PWall>(),
-            [Keys.D9] = PElementDatabase.GetElementByType<PMCorruption>(),
+            [Keys.D1] = elementDatabase.GetElementByType<PDirt>(),
+            [Keys.D2] = elementDatabase.GetElementByType<PGrass>(),
+            [Keys.D3] = elementDatabase.GetElementByType<PStone>(),
+            [Keys.D4] = elementDatabase.GetElementByType<PSand>(),
+            [Keys.D5] = elementDatabase.GetElementByType<PWater>(),
+            [Keys.D6] = elementDatabase.GetElementByType<PLava>(),
+            [Keys.D7] = elementDatabase.GetElementByType<PAcid>(),
+            [Keys.D8] = elementDatabase.GetElementByType<PWall>(),
+            [Keys.D9] = elementDatabase.GetElementByType<PMCorruption>(),
         };
 
         // Handlers
@@ -196,11 +196,11 @@ namespace PixelDust.Game.Managers
                     return;
                 }
 
-                _ = this._world.TryGetElement(worldPos, out this.elementOver);
+                this.elementOver = this._world.GetElement(worldPos);
 
                 if (this.size == 0)
                 {
-                    _ = this._world.TryInstantiateElement(worldPos, this.elementSelected.Id);
+                    this._world.InstantiateElement(worldPos, this.elementSelected.Id);
                     return;
                 }
 
@@ -214,7 +214,7 @@ namespace PixelDust.Game.Managers
                             continue;
                         }
 
-                        _ = this._world.TryInstantiateElement(lpos, this.elementSelected.Id);
+                        this._world.InstantiateElement(lpos, this.elementSelected.Id);
                     }
                 }
             };
@@ -230,11 +230,11 @@ namespace PixelDust.Game.Managers
                     return;
                 }
 
-                _ = this._world.TryGetElement(worldPos, out this.elementOver);
+                this.elementOver = this._world.GetElement(worldPos);
 
                 if (this.size == 0)
                 {
-                    _ = this._world.TryDestroyElement(worldPos);
+                    this._world.DestroyElement(worldPos);
                     return;
                 }
 
@@ -248,7 +248,7 @@ namespace PixelDust.Game.Managers
                             continue;
                         }
 
-                        _ = this._world.TryDestroyElement(lpos);
+                        this._world.DestroyElement(lpos);
                     }
                 }
             };
@@ -263,7 +263,7 @@ namespace PixelDust.Game.Managers
             Vector2 screenPos = PWorldCamera.Camera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
             Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
-            _ = this._world.TryGetElementSlot((Vector2Int)worldPos, out this.elementOverSlot);
+            this.elementOverSlot = this._world.GetElementSlot((Vector2Int)worldPos);
         }
 
         private void ClampCamera()
