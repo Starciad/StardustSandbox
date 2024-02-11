@@ -11,7 +11,6 @@ namespace PixelDust.Game.GUI
         public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
-        public PGUILayout Layout => this.layout;
 
         private readonly PGUILayout layout;
         private bool isActive;
@@ -30,6 +29,7 @@ namespace PixelDust.Game.GUI
             this.layout.Initialize(this.Game);
             OnBuild(this.layout);
         }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             if (!this.isActive)
@@ -39,6 +39,7 @@ namespace PixelDust.Game.GUI
 
             this.layout.Update(gameTime);
         }
+
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (!this.isActive || !this.isShowing)
@@ -73,7 +74,7 @@ namespace PixelDust.Game.GUI
             OnClosed();
         }
 
-        protected abstract void OnBuild(IPGUILayoutBuilder builder);
+        protected abstract void OnBuild(IPGUILayoutBuilder layout);
         protected virtual void OnActivated() { return; }
         protected virtual void OnDisabled() { return; }
         protected virtual void OnShowed() { return; }
