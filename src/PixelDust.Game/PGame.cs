@@ -196,7 +196,7 @@ namespace PixelDust.Game
         // Utilities
         private static void RegisterAllGameGUIs(PGUIManager guiManager)
         {
-            guiManager.RegisterGUISystem<PExperimentalGUI>();
+            guiManager.RegisterGUISystem<PHudGUI>();
         }
         private static void RegisterAllGameElements(PElementDatabase database)
         {
