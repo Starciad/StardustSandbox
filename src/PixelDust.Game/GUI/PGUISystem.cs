@@ -49,21 +49,28 @@ namespace PixelDust.Game.GUI
         public void Activate()
         {
             this.isActive = true;
+            OnActivated();
         }
-
         public void Disable()
         {
             this.isActive = false;
+            OnDisabled();
         }
 
         public void Show()
         {
             this.isShowing = true;
+            OnShowed();
         }
-
         public void Close()
         {
             this.isShowing = false;
+            OnClosed();
         }
+
+        protected virtual void OnActivated() { return; }
+        protected virtual void OnDisabled() { return; }
+        protected virtual void OnShowed() { return; }
+        protected virtual void OnClosed() { return; }
     }
 }
