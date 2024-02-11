@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Engine;
+using PixelDust.Game.Managers;
 
 namespace PixelDust.Game.Camera
 {

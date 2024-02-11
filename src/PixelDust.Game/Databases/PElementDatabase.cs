@@ -1,11 +1,12 @@
-﻿using PixelDust.Game.Elements.Attributes;
+﻿using PixelDust.Game.Elements;
+using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Objects;
 
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace PixelDust.Game.Elements
+namespace PixelDust.Game.Databases
 {
     public sealed class PElementDatabase : PGameObject
     {
@@ -16,9 +17,10 @@ namespace PixelDust.Game.Elements
         {
             this._elements = new PElement[this._elementTypes.Count];
 
-            for (int i = 0; i < _elementTypes.Count; i++)
+            for (int i = 0; i < this._elements.Length; i++)
             {
-                Type type = _elementTypes[i];
+                Type type = this._elementTypes[i];
+
                 PElementRegisterAttribute register = type.GetCustomAttribute<PElementRegisterAttribute>();
                 if (register == null)
                 {
@@ -33,12 +35,12 @@ namespace PixelDust.Game.Elements
             }
         }
 
-        public void AddElement<T>() where T : PElement
+        public void RegisterElement<T>() where T : PElement
         {
-            AddElement(typeof(T));
+            RegisterElement(typeof(T));
         }
 
-        public void AddElement(Type type)
+        public void RegisterElement(Type type)
         {
             this._elementTypes.Add(type);
         }
@@ -50,7 +52,7 @@ namespace PixelDust.Game.Elements
 
         public PElement GetElementById(uint id)
         {
-            return _elements[id];
+            return this._elements[id];
         }
 
         public uint GetIdOfElementType<T>() where T : PElement

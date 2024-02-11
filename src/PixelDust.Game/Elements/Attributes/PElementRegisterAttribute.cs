@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PixelDust.Game.Databases;
+
+using System;
 
 namespace PixelDust.Game.Elements.Attributes
 {

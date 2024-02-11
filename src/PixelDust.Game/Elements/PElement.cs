@@ -3,13 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Elements.Renders;
-using PixelDust.Game.Elements.Templates.Gases;
-using PixelDust.Game.Elements.Templates.Liquid;
-using PixelDust.Game.Elements.Templates.Solid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 

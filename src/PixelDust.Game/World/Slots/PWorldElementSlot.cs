@@ -3,12 +3,12 @@ using PixelDust.Game.Utilities;
 
 using System;
 
-namespace PixelDust.Game.Worlding.World.Slots
+namespace PixelDust.Game.World.Slots
 {
     public struct PWorldElementSlot : ICloneable
     {
         public readonly uint Id => this.id;
-        public readonly bool IsEmpty => isEmpty;
+        public readonly bool IsEmpty => this.isEmpty;
         public readonly short Temperature => this.temperature;
 
         private bool isEmpty;

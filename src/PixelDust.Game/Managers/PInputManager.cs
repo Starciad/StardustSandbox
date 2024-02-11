@@ -7,10 +7,10 @@ namespace PixelDust.Game.Managers
 {
     public sealed class PInputManager : PGameObject
     {
-        public MouseState MouseState => _mouseState;
-        public MouseState PreviousMouseState => _previousMouseState;
-        public KeyboardState KeyboardState => _keyboardState;
-        public KeyboardState PreviousKeyboardState => _previousKeyboardState;
+        public MouseState MouseState => this._mouseState;
+        public MouseState PreviousMouseState => this._previousMouseState;
+        public KeyboardState KeyboardState => this._keyboardState;
+        public KeyboardState PreviousKeyboardState => this._previousKeyboardState;
 
         private MouseState _mouseState;
         private MouseState _previousMouseState;
@@ -19,16 +19,16 @@ namespace PixelDust.Game.Managers
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            _previousMouseState = _mouseState;
-            _previousKeyboardState = _keyboardState;
+            this._previousMouseState = this._mouseState;
+            this._previousKeyboardState = this._keyboardState;
 
-            _mouseState = Mouse.GetState();
-            _keyboardState = Keyboard.GetState();
+            this._mouseState = Mouse.GetState();
+            this._keyboardState = Keyboard.GetState();
         }
 
         public int GetDeltaScrollWheel()
         {
-            return _previousMouseState.ScrollWheelValue - _mouseState.ScrollWheelValue;
+            return this._previousMouseState.ScrollWheelValue - this._mouseState.ScrollWheelValue;
         }
     }
 }

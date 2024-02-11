@@ -1,20 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using PixelDust.Core.Worlding;
 using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
+using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Common.Solid.Movable;
-using PixelDust.Game.Engine;
 using PixelDust.Game.InputSystem.Actions;
 using PixelDust.Game.InputSystem.Enums;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
-using PixelDust.Game.Worlding;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World;
+using PixelDust.Game.World.Slots;
 
 using System;
 using System.Collections.Generic;
@@ -111,22 +110,22 @@ namespace PixelDust.Game.Managers
 
             #region Camera
 
-            worldKeyboardActionMap.AddAction("World_Camera_Up", new(_inputHandler, Keys.W, Keys.Up)).OnPerformed += context =>
+            worldKeyboardActionMap.AddAction("World_Camera_Up", new(this._inputHandler, Keys.W, Keys.Up)).OnPerformed += context =>
             {
                 orthographicCamera.Move(new(0, this.speed));
             };
 
-            worldKeyboardActionMap.AddAction("World_Camera_Down", new(_inputHandler, Keys.S, Keys.Down)).OnPerformed += context =>
+            worldKeyboardActionMap.AddAction("World_Camera_Down", new(this._inputHandler, Keys.S, Keys.Down)).OnPerformed += context =>
             {
                 orthographicCamera.Move(new(0, -this.speed));
             };
 
-            worldKeyboardActionMap.AddAction("World_Camera_Left", new(_inputHandler, Keys.A, Keys.Left)).OnPerformed += context =>
+            worldKeyboardActionMap.AddAction("World_Camera_Left", new(this._inputHandler, Keys.A, Keys.Left)).OnPerformed += context =>
             {
                 orthographicCamera.Move(new(-this.speed, 0));
             };
 
-            worldKeyboardActionMap.AddAction("World_Camera_Right", new(_inputHandler, Keys.D, Keys.Right)).OnPerformed += context =>
+            worldKeyboardActionMap.AddAction("World_Camera_Right", new(this._inputHandler, Keys.D, Keys.Right)).OnPerformed += context =>
             {
                 orthographicCamera.Move(new(this.speed, 0));
             };
@@ -135,7 +134,7 @@ namespace PixelDust.Game.Managers
 
             #region Shortcuts
 
-            worldKeyboardActionMap.AddAction("World_Pause", new(_inputHandler, Keys.Space)).OnStarted += context =>
+            worldKeyboardActionMap.AddAction("World_Pause", new(this._inputHandler, Keys.Space)).OnStarted += context =>
             {
                 if (world.States.IsPaused)
                 {
@@ -147,7 +146,7 @@ namespace PixelDust.Game.Managers
                 }
             };
 
-            worldKeyboardActionMap.AddAction("World_Reset", new(_inputHandler, Keys.R)).OnStarted += context =>
+            worldKeyboardActionMap.AddAction("World_Reset", new(this._inputHandler, Keys.R)).OnStarted += context =>
             {
                 world.Clear();
             };
@@ -156,7 +155,7 @@ namespace PixelDust.Game.Managers
 
             #region Elements
 
-            worldKeyboardActionMap.AddAction("World_Select_Element", new(_inputHandler, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0)).OnStarted += context =>
+            worldKeyboardActionMap.AddAction("World_Select_Element", new(this._inputHandler, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0)).OnStarted += context =>
             {
                 if (this.elementsKeys.TryGetValue(context.CapturedKey, out PElement value))
                 {
@@ -182,7 +181,7 @@ namespace PixelDust.Game.Managers
 
             #region Elements (Place)
 
-            worldMouseActionMap.AddAction("World_Place_Elements", new(_inputHandler, PMouseButton.Left)).OnPerformed += context =>
+            worldMouseActionMap.AddAction("World_Place_Elements", new(this._inputHandler, PMouseButton.Left)).OnPerformed += context =>
             {
                 Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
@@ -216,7 +215,7 @@ namespace PixelDust.Game.Managers
                 }
             };
 
-            worldMouseActionMap.AddAction("World_Erase_Elements", new(_inputHandler, PMouseButton.Right)).OnPerformed += context =>
+            worldMouseActionMap.AddAction("World_Erase_Elements", new(this._inputHandler, PMouseButton.Right)).OnPerformed += context =>
             {
                 Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
                 Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;

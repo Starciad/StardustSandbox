@@ -16,7 +16,7 @@ namespace PixelDust.Game.Elements.Templates.Liquid
             Vector2Int[] sides =
             [
                 new Vector2Int(this.Context.Position.X + direction, this.Context.Position.Y),
-                new Vector2Int(this.Context.Position.X + direction * -1, this.Context.Position.Y),
+                new Vector2Int(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
             ];
 
             if (this.Context.TrySetPosition(down))

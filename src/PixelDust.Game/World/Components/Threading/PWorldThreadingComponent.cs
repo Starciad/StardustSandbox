@@ -3,13 +3,13 @@
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PixelDust.Game.Worlding.Components.Threading
+namespace PixelDust.Game.World.Components.Threading
 {
     public sealed class PWorldThreadingComponent : PWorldComponent
     {
@@ -98,7 +98,7 @@ namespace PixelDust.Game.Worlding.Components.Threading
                         continue;
                     }
 
-                    _capturedSlots.Add(pos);
+                    this._capturedSlots.Add(pos);
                     totalCapturedElements++;
                 }
             }
@@ -106,7 +106,7 @@ namespace PixelDust.Game.Worlding.Components.Threading
             // Update slots (Steps)
             for (int i = 0; i < totalCapturedElements; i++)
             {
-                PUpdateElementTarget(gameTime, _capturedSlots[i], 2);
+                PUpdateElementTarget(gameTime, this._capturedSlots[i], 2);
             }
         }
         private void PUpdateElementTarget(GameTime gameTime, Vector2Int position, int updateType)

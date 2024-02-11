@@ -1,9 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using PixelDust.Game.Objects;
 
-using PixelDust.Core.Worlding;
-using PixelDust.Game.Objects;
-
-namespace PixelDust.Game.Worlding.Components
+namespace PixelDust.Game.World.Components
 {
     public abstract class PWorldComponent : PGameObject
     {

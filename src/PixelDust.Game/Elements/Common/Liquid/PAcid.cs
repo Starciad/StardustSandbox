@@ -2,7 +2,7 @@
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 

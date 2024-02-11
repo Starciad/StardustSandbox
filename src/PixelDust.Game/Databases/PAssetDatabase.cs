@@ -1,12 +1,13 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+
+using PixelDust.Game.Constants;
+using PixelDust.Game.Objects;
 
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Audio;
-using PixelDust.Game.Constants;
-using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.Databases
 {
@@ -47,27 +48,27 @@ namespace PixelDust.Game.Databases
         #region LOAD
         private void LoadShaders()
         {
-            AssetLoader(AssetType.Shader, PAssetsConstants.SHADERS_LENGTH, "shader_", PDirectoryConstants.ASSETS_SHADERS);
+            AssetLoader(AssetType.Shader, PAssetConstants.SHADERS_LENGTH, "shader_", PDirectoryConstants.ASSETS_SHADERS);
         }
         private void LoadFonts()
         {
-            AssetLoader(AssetType.Font, PAssetsConstants.FONTS_LENGTH, "font_", PDirectoryConstants.ASSETS_FONTS);
+            AssetLoader(AssetType.Font, PAssetConstants.FONTS_LENGTH, "font_", PDirectoryConstants.ASSETS_FONTS);
         }
         private void LoadGraphics()
         {
-            AssetLoader(AssetType.Texture, PAssetsConstants.GRAPHICS_BACKGROUND_LENGTH, "background_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_BACKGROUND));
-            AssetLoader(AssetType.Texture, PAssetsConstants.GRAPHICS_BGOS_LENGTH, "bgos_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_BGOS));
-            AssetLoader(AssetType.Texture, PAssetsConstants.GRAPHICS_EFFECTS_LENGTH, "effect_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_EFFECTS));
-            AssetLoader(AssetType.Texture, PAssetsConstants.GRAPHICS_ELEMENTS_LENGTH, "element_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ELEMENTS));
-            AssetLoader(AssetType.Texture, PAssetsConstants.GRAPHICS_PARTICLES_LENGTH, "particle_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_PARTICLES));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_BACKGROUND_LENGTH, "background_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_BACKGROUND));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_BGOS_LENGTH, "bgos_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_BGOS));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_EFFECTS_LENGTH, "effect_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_EFFECTS));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_ELEMENTS_LENGTH, "element_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ELEMENTS));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_PARTICLES_LENGTH, "particle_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_PARTICLES));
         }
         private void LoadSounds()
         {
-            AssetLoader(AssetType.Sound, PAssetsConstants.SOUNDS_LENGTH, "sound_", PDirectoryConstants.ASSETS_SOUNDS);
+            AssetLoader(AssetType.Sound, PAssetConstants.SOUNDS_LENGTH, "sound_", PDirectoryConstants.ASSETS_SOUNDS);
         }
         private void LoadSongs()
         {
-            AssetLoader(AssetType.Song, PAssetsConstants.SONGS_LENGTH, "song_", PDirectoryConstants.ASSETS_SONGS);
+            AssetLoader(AssetType.Song, PAssetConstants.SONGS_LENGTH, "song_", PDirectoryConstants.ASSETS_SONGS);
         }
         #endregion
 

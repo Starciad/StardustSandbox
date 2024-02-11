@@ -27,7 +27,7 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
 	</ItemGroup>
 
-	<!-- PROJECTS -->
+	<!-- FOLDERS -->
 	<ItemGroup>
 		<Folder Include="assets\graphics\background\" />
 		<Folder Include="assets\graphics\bgos\" />

@@ -2,7 +2,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace PixelDust.Game.Worlding.Components.Chunking
+namespace PixelDust.Game.World.Components.Chunking
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct PWorldChunk

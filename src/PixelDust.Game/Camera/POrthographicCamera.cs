@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Engine;
+using PixelDust.Game.Managers;
 
 using System;
 
@@ -116,7 +116,7 @@ namespace PixelDust.Game.Camera
 
         public override void LookAt(Vector2 position)
         {
-            this.Position = position - new Vector2(this.ScreenManager.DefaultResolution.Width, this.ScreenManager.DefaultResolution.Height) / 2f;
+            this.Position = position - (new Vector2(this.ScreenManager.DefaultResolution.Width, this.ScreenManager.DefaultResolution.Height) / 2f);
         }
 
         public Vector2 WorldToScreen(float x, float y)

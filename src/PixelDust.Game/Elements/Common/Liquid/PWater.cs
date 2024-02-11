@@ -4,7 +4,7 @@ using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Utilities;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 

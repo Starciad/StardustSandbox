@@ -1,17 +1,17 @@
 ﻿using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Interfaces;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Game.World
 {
     public sealed partial class PWorld : IElementManager
     {
         public void InstantiateElement<T>(Vector2Int pos) where T : PElement
         {
-            InstantiateElement(pos, (uint)elementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(pos, elementDatabase.GetIdOfElementType<T>());
         }
         public void InstantiateElement(Vector2Int pos, uint id)
         {
@@ -23,7 +23,7 @@ namespace PixelDust.Core.Worlding
         }
         public bool TryInstantiateElement<T>(Vector2Int pos) where T : PElement
         {
-            return TryInstantiateElement(pos, (uint)elementDatabase.GetIdOfElementType<T>());
+            return TryInstantiateElement(pos, elementDatabase.GetIdOfElementType<T>());
         }
         public bool TryInstantiateElement(Vector2Int pos, uint id)
         {

@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Worlding;
 using PixelDust.Game.Constants;
-using PixelDust.Game.Elements.Contexts;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 using System.Collections.Generic;

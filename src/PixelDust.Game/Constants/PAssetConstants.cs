@@ -1,6 +1,6 @@
 ﻿namespace PixelDust.Game.Constants
 {
-    public static class PAssetsConstants
+    public static class PAssetConstants
     {
         public const sbyte SONGS_LENGTH = 0;
         public const sbyte SOUNDS_LENGTH = 0;

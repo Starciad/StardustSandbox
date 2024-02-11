@@ -5,8 +5,6 @@ using PixelDust.Game.InputSystem.Enums;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
-using System;
-
 namespace PixelDust.Game.InputSystem.Actions
 {
     public sealed class PInputAction : PGameObject
@@ -37,10 +35,12 @@ namespace PixelDust.Game.InputSystem.Actions
         {
             this._inputManager = inputManager;
             this.keys = keys;
+            this.mouseButtons = [];
         }
         public PInputAction(PInputManager inputManager, params PMouseButton[] mouseButtons)
         {
             this._inputManager = inputManager;
+            this.keys = [];
             this.mouseButtons = mouseButtons;
         }
         public PInputAction(PInputManager inputManager, Keys[] keys, PMouseButton[] mouseButtons)

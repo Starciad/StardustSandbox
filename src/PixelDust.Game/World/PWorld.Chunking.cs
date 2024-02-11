@@ -1,7 +1,7 @@
 ﻿using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.Components.Chunking;
+using PixelDust.Game.World.Components.Chunking;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Game.World
 {
     public sealed partial class PWorld
     {

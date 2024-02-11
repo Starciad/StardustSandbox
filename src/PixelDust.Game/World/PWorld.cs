@@ -5,19 +5,17 @@ using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
-using PixelDust.Game.Worlding;
-using PixelDust.Game.Worlding.Components;
-using PixelDust.Game.Worlding.Components.Chunking;
-using PixelDust.Game.Worlding.Components.Threading;
-using PixelDust.Game.Worlding.World.Data;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Components;
+using PixelDust.Game.World.Components.Chunking;
+using PixelDust.Game.World.Components.Threading;
+using PixelDust.Game.World.Data;
+using PixelDust.Game.World.Slots;
 
 using System;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Game.World
 {
     public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject
     {
@@ -29,7 +27,7 @@ namespace PixelDust.Core.Worlding
         private readonly PTimer updateTimer = new(0.35f);
         private readonly PWorldComponent[] _components =
         [
-            new PWorldChunkingComponent(),
+            new PWorldChunkingComponent(assetDatabase),
             new PWorldThreadingComponent(),
         ];
 
@@ -40,7 +38,7 @@ namespace PixelDust.Core.Worlding
             base.OnAwake();
 
             Restart();
-            particleTexture = assetDatabase.GetTexture("particle_1");
+            this.particleTexture = assetDatabase.GetTexture("particle_1");
 
             foreach (PWorldComponent component in this._components)
             {
@@ -89,7 +87,7 @@ namespace PixelDust.Core.Worlding
             DrawSlots(gameTime, spriteBatch);
             foreach (PWorldComponent component in this._components)
             {
-                component.Draw(gameTime,spriteBatch);
+                component.Draw(gameTime, spriteBatch);
             }
         }
         private void DrawSlots(GameTime gameTime, SpriteBatch spriteBatch)
@@ -100,7 +98,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (IsEmptyElementSlot(new(x, y)))
                     {
-                        spriteBatch.Draw(particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(this.particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
                     }
                     else
                     {

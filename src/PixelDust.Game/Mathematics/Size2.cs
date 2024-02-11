@@ -81,7 +81,7 @@ namespace PixelDust.Game.Mathematics
         {
             unchecked
             {
-                return this.Width.GetHashCode() * 397 ^ this.Height.GetHashCode();
+                return (this.Width.GetHashCode() * 397) ^ this.Height.GetHashCode();
             }
         }
 

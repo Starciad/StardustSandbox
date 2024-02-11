@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace PixelDust.Game.Worlding.Components.Threading
+namespace PixelDust.Game.World.Components.Threading
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct PWorldThread

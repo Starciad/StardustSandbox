@@ -5,9 +5,9 @@
 		<Title>PixelDust</Title>
 		<Version>0.0.1</Version>
 		<Authors>Starciad</Authors>
-		<PackageProjectUrl>https://github.com/Starciad/SMBTE-Project</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Starciad/PixelDust.git</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/Starciad/SMBTE-Project</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Starciad/PixelDust.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
