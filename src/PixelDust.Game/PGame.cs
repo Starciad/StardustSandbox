@@ -34,6 +34,7 @@ namespace PixelDust.Game
         private readonly PShaderManager _shaderManager;
         private readonly PInputManager _inputManager;
         private readonly PScreenManager _screenManager;
+        private readonly PGUIManager _guiManager;
 
         // Databases
         private readonly PAssetDatabase _assetDatabase;
@@ -89,11 +90,13 @@ namespace PixelDust.Game
             this._inputManager = new();
             this._shaderManager = new(this._assetDatabase);
             this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
+            this._guiManager = new();
         }
 
         protected override void Initialize()
         {
             RegisterAllGameElements(this._elementDatabase);
+            RegisterAllGameGUIs(this._guiManager);
 
             #region Databases
             this._assetDatabase.Initialize(this);
@@ -105,6 +108,7 @@ namespace PixelDust.Game
             this._gameInputManager.Initialize(this);
             this._shaderManager.Initialize(this);
             this._inputManager.Initialize(this);
+            this._guiManager.Initialize(this);
             #endregion
 
             #region Game
@@ -126,6 +130,7 @@ namespace PixelDust.Game
             this._gameInputManager.Update(gameTime);
             this._shaderManager.Update(gameTime);
             this._inputManager.Update(gameTime);
+            this._guiManager.Update(gameTime);
 
             // Core
             this._world.Update(gameTime);
@@ -140,6 +145,7 @@ namespace PixelDust.Game
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.GuiRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this._guiManager.Draw(gameTime, this._sb);
             this._sb.End();
 
             // BACKGROUND
@@ -187,29 +193,33 @@ namespace PixelDust.Game
         }
 
         // Utilities
+        private static void RegisterAllGameGUIs(PGUIManager guiManager)
+        {
+            // guiManager.RegisterGUISystem<>();
+        }
         private static void RegisterAllGameElements(PElementDatabase database)
         {
-            database.AddElement<PDirt>();
-            database.AddElement<PMud>();
-            database.AddElement<PWater>();
-            database.AddElement<PStone>();
-            database.AddElement<PGrass>();
-            database.AddElement<PIce>();
-            database.AddElement<PSand>();
-            database.AddElement<PSnow>();
-            database.AddElement<PMCorruption>();
-            database.AddElement<PLava>();
-            database.AddElement<PAcid>();
-            database.AddElement<PGlass>();
-            database.AddElement<PMetal>();
-            database.AddElement<PWall>();
-            database.AddElement<PWood>();
-            database.AddElement<PGCorruption>();
-            database.AddElement<PLCorruption>();
-            database.AddElement<PIMCorruption>();
-            database.AddElement<PSteam>();
-            database.AddElement<PSmoke>();
-            database.AddElement<POil>();
+            database.RegisterElement<PDirt>();
+            database.RegisterElement<PMud>();
+            database.RegisterElement<PWater>();
+            database.RegisterElement<PStone>();
+            database.RegisterElement<PGrass>();
+            database.RegisterElement<PIce>();
+            database.RegisterElement<PSand>();
+            database.RegisterElement<PSnow>();
+            database.RegisterElement<PMCorruption>();
+            database.RegisterElement<PLava>();
+            database.RegisterElement<PAcid>();
+            database.RegisterElement<PGlass>();
+            database.RegisterElement<PMetal>();
+            database.RegisterElement<PWall>();
+            database.RegisterElement<PWood>();
+            database.RegisterElement<PGCorruption>();
+            database.RegisterElement<PLCorruption>();
+            database.RegisterElement<PIMCorruption>();
+            database.RegisterElement<PSteam>();
+            database.RegisterElement<PSmoke>();
+            database.RegisterElement<POil>();
         }
     }
 }

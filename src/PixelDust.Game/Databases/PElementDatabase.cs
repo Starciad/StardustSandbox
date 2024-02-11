@@ -17,9 +17,10 @@ namespace PixelDust.Game.Databases
         {
             this._elements = new PElement[this._elementTypes.Count];
 
-            for (int i = 0; i < this._elementTypes.Count; i++)
+            for (int i = 0; i < this._elements.Length; i++)
             {
                 Type type = this._elementTypes[i];
+
                 PElementRegisterAttribute register = type.GetCustomAttribute<PElementRegisterAttribute>();
                 if (register == null)
                 {
@@ -34,12 +35,12 @@ namespace PixelDust.Game.Databases
             }
         }
 
-        public void AddElement<T>() where T : PElement
+        public void RegisterElement<T>() where T : PElement
         {
-            AddElement(typeof(T));
+            RegisterElement(typeof(T));
         }
 
-        public void AddElement(Type type)
+        public void RegisterElement(Type type)
         {
             this._elementTypes.Add(type);
         }
