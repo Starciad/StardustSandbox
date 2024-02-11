@@ -8,6 +8,7 @@ using PixelDust.Game.Elements.Common.Gases;
 using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Common.Solid.Movable;
+using PixelDust.Game.GUI.Common;
 using PixelDust.Game.IO;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Models.Settings;
@@ -195,7 +196,7 @@ namespace PixelDust.Game
         // Utilities
         private static void RegisterAllGameGUIs(PGUIManager guiManager)
         {
-            // guiManager.RegisterGUISystem<>();
+            guiManager.RegisterGUISystem<PExperimentalGUI>();
         }
         private static void RegisterAllGameElements(PElementDatabase database)
         {

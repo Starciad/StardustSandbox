@@ -6,7 +6,10 @@ namespace PixelDust.Game.GUI.Common
     {
         protected override void OnBuild(IPGUILayoutBuilder layout)
         {
-
+            _ = layout.OpenElement<PGUIContainerElement>();
+            _ = layout.OpenElement<PGUIContainerElement>();
+            layout.CloseElement();
+            layout.CloseElement();
         }
     }
 }

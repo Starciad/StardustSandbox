@@ -69,7 +69,11 @@ namespace PixelDust.Game.GUI
             T element = Activator.CreateInstance<T>();
 
             this.elements.Add(element);
-            this.lastOpenElements.Last().AppendChild(element);
+
+            if (this.lastOpenElements.Count > 0)
+            {
+                this.lastOpenElements.Last().AppendChild(element);
+            }
 
             element.SetRootElement(this.root);
             element.Close();

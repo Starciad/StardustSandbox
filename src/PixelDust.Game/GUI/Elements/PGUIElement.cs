@@ -49,7 +49,7 @@ namespace PixelDust.Game.GUI.Elements
 
         public void AppendChild(PGUIElement element)
         {
-            element.parent.RemoveChild(element);
+            element.parent?.RemoveChild(element);
             element.parent = this;
 
             this.children.Add(element);

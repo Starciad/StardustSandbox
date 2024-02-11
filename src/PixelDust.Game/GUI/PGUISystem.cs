@@ -12,20 +12,15 @@ namespace PixelDust.Game.GUI
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
 
-        private readonly PGUILayout layout;
+        private readonly PGUILayout layout = new();
         private bool isActive;
         private bool isShowing;
 
-        public PGUISystem()
+        protected override void OnAwake()
         {
             Activate();
             Close();
 
-            this.layout = new();
-        }
-
-        protected override void OnAwake()
-        {
             this.layout.Initialize(this.Game);
             OnBuild(this.layout);
         }
