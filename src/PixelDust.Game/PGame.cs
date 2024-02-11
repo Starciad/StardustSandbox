@@ -22,15 +22,6 @@ namespace PixelDust.Game
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
         public Assembly Assembly => this._assembly;
-        public PGraphicsManager GraphicsManager => this._graphicsManager;
-        public PGameInputManager GameInputManager => this._gameInputManager;
-        public PScenesManager ScenesManager => this._scenesManager;
-        public PShaderManager ShaderManager => this._shaderManager;
-        public POrthographicCamera OrthographicCamera => this._orthographicCamera;
-        public PAssetDatabase AssetDatabase => this._assetDatabase;
-        public PElementDatabase ElementDatabase => this._elementDatabase;
-        public PInputManager InputManager => this._inputManager;
-        public PWorld World => this._world;
 
         // ================================= //
 
@@ -92,14 +83,14 @@ namespace PixelDust.Game
             this._screenManager = new();
             this._orthographicCamera = new(this._screenManager);
 
+            // Core
+            this._world = new(this._elementDatabase, this._assetDatabase);
+
             // Managers
             this._inputManager = new();
             this._scenesManager = new();
-            this._shaderManager = new();
-            this._gameInputManager = new(this._orthographicCamera, this.World, this._inputManager, this._elementDatabase);
-
-            // Core
-            this._world = new(this._elementDatabase, this._assetDatabase);
+            this._shaderManager = new(this._assetDatabase);
+            this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
         }
 
         protected override void Initialize()

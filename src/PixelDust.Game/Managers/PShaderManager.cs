@@ -1,18 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Databases;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed class PShaderManager : PGameObject
+    public sealed class PShaderManager(PAssetDatabase assetDatabase) : PGameObject
     {
         private Effect[] _shaders;
         private int _shadersLength;
 
         protected override void OnAwake()
         {
-            this._shaders = this.Game.AssetDatabase.Shaders;
+            this._shaders = assetDatabase.Shaders;
             this._shadersLength = this._shaders.Length;
         }
 

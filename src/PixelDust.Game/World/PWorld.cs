@@ -27,7 +27,7 @@ namespace PixelDust.Game.World
         private readonly PTimer updateTimer = new(0.35f);
         private readonly PWorldComponent[] _components =
         [
-            new PWorldChunkingComponent(),
+            new PWorldChunkingComponent(assetDatabase),
             new PWorldThreadingComponent(),
         ];
 

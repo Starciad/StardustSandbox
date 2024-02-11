@@ -2,11 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.Databases;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.World.Components.Chunking
 {
-    public sealed class PWorldChunkingComponent : PWorldComponent
+    public sealed class PWorldChunkingComponent(PAssetDatabase assetDatabase) : PWorldComponent
     {
         public static short DefaultChunkSize => 6;
 
@@ -19,7 +20,7 @@ namespace PixelDust.Game.World.Components.Chunking
 
         protected override void OnAwake()
         {
-            this.pixelTexture = this.Game.AssetDatabase.GetTexture("particle_1");
+            this.pixelTexture = assetDatabase.GetTexture("particle_1");
 
             this._chunks = new PWorldChunk[(this.World.Infos.Size.Width / DefaultChunkSize) + 1, (this.World.Infos.Size.Height / DefaultChunkSize) + 1];
 
