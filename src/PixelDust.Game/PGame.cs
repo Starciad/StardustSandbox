@@ -11,7 +11,6 @@ using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.IO;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Models.Settings;
-using PixelDust.Game.Scenes.Common;
 using PixelDust.Game.World;
 
 using System;
@@ -32,7 +31,6 @@ namespace PixelDust.Game
         // Managers
         private readonly PGraphicsManager _graphicsManager;
         private readonly PGameInputManager _gameInputManager;
-        private readonly PScenesManager _scenesManager;
         private readonly PShaderManager _shaderManager;
         private readonly PInputManager _inputManager;
         private readonly PScreenManager _screenManager;
@@ -89,14 +87,12 @@ namespace PixelDust.Game
 
             // Managers
             this._inputManager = new();
-            this._scenesManager = new();
             this._shaderManager = new(this._assetDatabase);
             this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
         }
 
         protected override void Initialize()
         {
-            RegisterAllGameScenes(this._scenesManager);
             RegisterAllGameElements(this._elementDatabase);
 
             #region Databases
@@ -107,11 +103,7 @@ namespace PixelDust.Game
             #region Managers
             this._graphicsManager.Initialize(this);
             this._gameInputManager.Initialize(this);
-            this._scenesManager.Initialize(this);
             this._shaderManager.Initialize(this);
-            #endregion
-
-            #region Handlers
             this._inputManager.Initialize(this);
             #endregion
 
@@ -127,14 +119,15 @@ namespace PixelDust.Game
             this._sb = new(this.GraphicsDevice);
         }
 
-        protected override void BeginRun()
-        {
-            this._scenesManager.Load(0);
-        }
-
         protected override void Update(GameTime gameTime)
         {
+            // Managers
+            this._graphicsManager.Update(gameTime);
+            this._gameInputManager.Update(gameTime);
+            this._shaderManager.Update(gameTime);
             this._inputManager.Update(gameTime);
+
+            // Core
             this._world.Update(gameTime);
 
             base.Update(gameTime);
@@ -145,26 +138,26 @@ namespace PixelDust.Game
             #region RENDERING (ELEMENTS)
             // GUI
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.GuiRenderTarget);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this._sb.End();
 
             // BACKGROUND
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.BackgroundRenderTarget);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this._sb.End();
 
             // WORLD
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.WorldRenderTarget);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._orthographicCamera.GetViewMatrix());
             this._world.Draw(gameTime, this._sb);
             this._sb.End();
 
             // LIGHTING
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.LightingRenderTarget);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._orthographicCamera.GetViewMatrix());
             this._sb.End();
             #endregion
@@ -194,11 +187,6 @@ namespace PixelDust.Game
         }
 
         // Utilities
-        private static void RegisterAllGameScenes(PScenesManager scenesManager)
-        {
-            scenesManager.AddScene<PWorldScene>();
-        }
-
         private static void RegisterAllGameElements(PElementDatabase database)
         {
             database.AddElement<PDirt>();
