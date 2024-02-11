@@ -17,7 +17,7 @@
 0. [Wood (Solid/Immovable)](Solid/Immovable/PWood.cs)
 0. [Corruption (Gases)](Gases/PGCorruption.cs)
 0. [Corruption (Liquid)](Liquid/PLCorruption.cs)
-0. [Corruption (Immovable)](Solid/Immovable/PIMCorruption.cs)
+0. [Corruption (Solid/Immovable)](Solid/Immovable/PIMCorruption.cs)
 0. [Steam (Gases)](Gases/PSteam.cs)
 0. [Smoke (Gases)](Gases/PSmoke.cs)
 0. [Oil (Gases)](Liquid/POil.cs)
