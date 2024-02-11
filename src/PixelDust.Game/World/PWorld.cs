@@ -7,15 +7,15 @@ using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
-using PixelDust.Game.Worlding.Components;
-using PixelDust.Game.Worlding.Components.Chunking;
-using PixelDust.Game.Worlding.Components.Threading;
-using PixelDust.Game.Worlding.World.Data;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Components;
+using PixelDust.Game.World.Components.Chunking;
+using PixelDust.Game.World.Components.Threading;
+using PixelDust.Game.World.Data;
+using PixelDust.Game.World.Slots;
 
 using System;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Game.World
 {
     public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject
     {

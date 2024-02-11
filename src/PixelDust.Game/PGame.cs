@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Core.Worlding;
 using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
@@ -13,6 +12,7 @@ using PixelDust.Game.IO;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Models.Settings;
 using PixelDust.Game.Scenes.Common;
+using PixelDust.Game.World;
 
 using System;
 using System.Reflection;

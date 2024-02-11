@@ -3,7 +3,7 @@ using PixelDust.Game.Utilities;
 
 using System;
 
-namespace PixelDust.Game.Worlding.World.Slots
+namespace PixelDust.Game.World.Slots
 {
     public struct PWorldElementSlot : ICloneable
     {

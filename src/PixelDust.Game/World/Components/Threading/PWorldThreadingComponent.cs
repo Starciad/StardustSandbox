@@ -3,13 +3,13 @@
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace PixelDust.Game.Worlding.Components.Threading
+namespace PixelDust.Game.World.Components.Threading
 {
     public sealed class PWorldThreadingComponent : PWorldComponent
     {

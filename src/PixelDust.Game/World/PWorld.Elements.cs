@@ -1,11 +1,11 @@
 ﻿using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Interfaces;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 
-namespace PixelDust.Core.Worlding
+namespace PixelDust.Game.World
 {
     public sealed partial class PWorld : IElementManager
     {

@@ -8,7 +8,7 @@ using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Elements.Templates.Solid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Utilities;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 using System.Collections.Generic;

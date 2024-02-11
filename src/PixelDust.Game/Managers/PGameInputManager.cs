@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using PixelDust.Core.Worlding;
 using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
@@ -13,7 +12,8 @@ using PixelDust.Game.InputSystem.Actions;
 using PixelDust.Game.InputSystem.Enums;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World;
+using PixelDust.Game.World.Slots;
 
 using System;
 using System.Collections.Generic;

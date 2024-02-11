@@ -1,5 +1,5 @@
 ﻿using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World.Slots;
 
 using System;
 

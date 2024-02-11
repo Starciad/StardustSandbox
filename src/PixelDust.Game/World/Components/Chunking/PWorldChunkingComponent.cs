@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Mathematics;
 
-namespace PixelDust.Game.Worlding.Components.Chunking
+namespace PixelDust.Game.World.Components.Chunking
 {
     public sealed class PWorldChunkingComponent : PWorldComponent
     {

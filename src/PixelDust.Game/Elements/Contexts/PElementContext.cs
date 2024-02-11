@@ -1,8 +1,8 @@
-﻿using PixelDust.Core.Worlding;
-using PixelDust.Game.Databases;
+﻿using PixelDust.Game.Databases;
 using PixelDust.Game.Elements.Interfaces;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Worlding.World.Slots;
+using PixelDust.Game.World;
+using PixelDust.Game.World.Slots;
 
 using System;
 
