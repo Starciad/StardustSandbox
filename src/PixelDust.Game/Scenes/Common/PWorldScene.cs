@@ -5,7 +5,7 @@ using PixelDust.Game.Managers;
 
 namespace PixelDust.Game.Scenes.Common
 {
-    public sealed class WorldScene : PScene
+    public sealed class PWorldScene : PScene
     {
         private SpriteFont font1;
 

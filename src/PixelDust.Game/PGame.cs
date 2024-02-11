@@ -22,6 +22,7 @@ namespace PixelDust.Game
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
         public Assembly Assembly => this._assembly;
+        public PAssetDatabase AssetDatabase => this._assetDatabase;
 
         // ================================= //
 
@@ -95,9 +96,10 @@ namespace PixelDust.Game
 
         protected override void Initialize()
         {
-            #region Databases
+            RegisterAllGameScenes(this._scenesManager);
             RegisterAllGameElements(this._elementDatabase);
 
+            #region Databases
             this._assetDatabase.Initialize(this);
             this._elementDatabase.Initialize(this);
             #endregion
@@ -127,7 +129,7 @@ namespace PixelDust.Game
 
         protected override void BeginRun()
         {
-            this._scenesManager.Load<WorldScene>();
+            this._scenesManager.Load(0);
         }
 
         protected override void Update(GameTime gameTime)
@@ -192,6 +194,11 @@ namespace PixelDust.Game
         }
 
         // Utilities
+        private static void RegisterAllGameScenes(PScenesManager scenesManager)
+        {
+            scenesManager.AddScene<PWorldScene>();
+        }
+
         private static void RegisterAllGameElements(PElementDatabase database)
         {
             database.AddElement<PDirt>();

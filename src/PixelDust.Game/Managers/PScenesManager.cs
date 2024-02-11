@@ -5,6 +5,7 @@ using PixelDust.Game.Objects;
 using PixelDust.Game.Scenes;
 
 using System;
+using System.Collections.Generic;
 
 namespace PixelDust.Game.Managers
 {
@@ -12,23 +13,26 @@ namespace PixelDust.Game.Managers
     {
         public bool IsEmpty => this._sceneInstance == null;
 
+        private readonly List<Type> _sceneTypes = [];
+        private PScene[] _scenes = [];
+
         private PScene _sceneInstance;
 
-        public void Load<T>() where T : PScene
+        protected override void OnAwake()
         {
-            if (!this.IsEmpty)
+            int length = this._sceneTypes.Count;
+            this._scenes = new PScene[length];
+
+            for (int i = 0; i < length; i++)
             {
-                this._sceneInstance.Unload();
+                Type type = this._sceneTypes[i];
+
+                PScene tempScene = (PScene)Activator.CreateInstance(type);
+                tempScene.Initialize(this.Game);
+
+                this._scenes[i] = tempScene;
             }
-
-            this._sceneInstance = Activator.CreateInstance<T>();
-            this._sceneInstance.Initialize(this.Game);
         }
-        public PScene GetCurrentScene()
-        {
-            return this._sceneInstance;
-        }
-
         protected override void OnUpdate(GameTime gameTime)
         {
             if (this.IsEmpty)
@@ -48,6 +52,36 @@ namespace PixelDust.Game.Managers
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this._sceneInstance.Draw(gameTime, spriteBatch);
             spriteBatch.End();
+        }
+
+        public void AddScene<T>() where T : PScene
+        {
+            AddScene(typeof(T));
+        }
+        public void AddScene(Type type)
+        {
+            this._sceneTypes.Add(type);
+        }
+
+        public void Load(int index)
+        {
+            Unload();
+
+            this._sceneInstance = this._scenes[index];
+            this._sceneInstance.Load();
+        }
+        public void Unload()
+        {
+            if (!this.IsEmpty)
+            {
+                this._sceneInstance.Unload();
+                this._sceneInstance = null;
+            }
+        }
+
+        public PScene GetCurrentScene()
+        {
+            return this._sceneInstance;
         }
     }
 }
