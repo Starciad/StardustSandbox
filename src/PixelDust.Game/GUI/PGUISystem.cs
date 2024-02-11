@@ -8,6 +8,7 @@ namespace PixelDust.Game.GUI
 {
     public abstract class PGUISystem : PGameObject
     {
+        public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
         public PGUILayout Layout => this.layout;

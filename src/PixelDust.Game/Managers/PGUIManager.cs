@@ -6,7 +6,7 @@ using System;
 using PixelDust.Game.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Reflection;
+using System.Linq;
 
 namespace PixelDust.Game.Managers
 {
@@ -28,6 +28,8 @@ namespace PixelDust.Game.Managers
 
                 this._guiSystems[i] = tempGUISystem;
             }
+
+            this._guiSystems = [.. this._guiSystems.OrderBy(x => x.ZIndex)];
         }
         protected override void OnUpdate(GameTime gameTime)
         {
