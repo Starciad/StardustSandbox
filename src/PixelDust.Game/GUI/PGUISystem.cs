@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI
@@ -26,6 +27,7 @@ namespace PixelDust.Game.GUI
         protected override void OnAwake()
         {
             this.layout.Initialize(this.Game);
+            OnBuild(this.layout);
         }
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -51,6 +53,7 @@ namespace PixelDust.Game.GUI
             this.isActive = true;
             OnActivated();
         }
+
         public void Disable()
         {
             this.isActive = false;
@@ -62,12 +65,14 @@ namespace PixelDust.Game.GUI
             this.isShowing = true;
             OnShowed();
         }
+
         public void Close()
         {
             this.isShowing = false;
             OnClosed();
         }
 
+        protected abstract void OnBuild(IPGUILayoutBuilder builder);
         protected virtual void OnActivated() { return; }
         protected virtual void OnDisabled() { return; }
         protected virtual void OnShowed() { return; }

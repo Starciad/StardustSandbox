@@ -6,6 +6,7 @@ using System;
 using PixelDust.Game.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Reflection;
 
 namespace PixelDust.Game.Managers
 {
@@ -50,6 +51,81 @@ namespace PixelDust.Game.Managers
         public void RegisterGUISystem(Type type)
         {
             this._guiTypes.Add(type);
+        }
+
+        public void ActivateGUI<T>() where T : PGUISystem
+        {
+            ActivateGUI(typeof(T));
+        }
+        public void ActivateGUI(Type type)
+        {
+            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            {
+                guiSystem.Activate();
+            }
+        }
+
+        public void DisableGUI<T>() where T : PGUISystem
+        {
+            DisableGUI(typeof(T));
+        }
+        public void DisableGUI(Type type)
+        {
+            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            {
+                guiSystem.Disable();
+            }
+        }
+
+        public void ShowGUI<T>() where T : PGUISystem
+        {
+            ShowGUI(typeof(T));
+        }
+        public void ShowGUI(Type type)
+        {
+            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            {
+                guiSystem.Show();
+            }
+        }
+
+        public void CloseGUI<T>() where T : PGUISystem
+        {
+            CloseGUI(typeof(T));
+        }
+        public void CloseGUI(Type type)
+        {
+            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            {
+                guiSystem.Close();
+            }
+        }
+
+        public PGUISystem GetGUIByType<T>() where T : PGUISystem
+        {
+            return GetGUIByType(typeof(T));
+        }
+        public PGUISystem GetGUIByType(Type type)
+        {
+            _ = TryGetGUIByType(type, out PGUISystem guiSystem);
+            return guiSystem;
+        }
+
+        public bool TryGetGUIByType<T>(out PGUISystem guiSystem) where T : PGUISystem
+        {
+            return TryGetGUIByType(typeof(T), out guiSystem);
+        }
+        public bool TryGetGUIByType(Type type, out PGUISystem guiSystem)
+        {
+            PGUISystem target = Array.Find(this._guiSystems, x => x.GetType() == type);
+            guiSystem = target;
+
+            if (target == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
