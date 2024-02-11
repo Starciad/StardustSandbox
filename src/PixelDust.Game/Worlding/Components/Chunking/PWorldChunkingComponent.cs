@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.Worlding.Components.Chunking
@@ -22,7 +21,7 @@ namespace PixelDust.Game.Worlding.Components.Chunking
         {
             this.pixelTexture = this.Game.AssetDatabase.GetTexture("particle_1");
 
-            this._chunks = new PWorldChunk[this.World.Infos.Size.Width / DefaultChunkSize + 1, this.World.Infos.Size.Height / DefaultChunkSize + 1];
+            this._chunks = new PWorldChunk[(this.World.Infos.Size.Width / DefaultChunkSize) + 1, (this.World.Infos.Size.Height / DefaultChunkSize) + 1];
 
             this.worldChunkWidth = this._chunks.GetLength(0);
             this.worldChunkHeight = this._chunks.GetLength(1);
@@ -148,4 +147,3 @@ namespace PixelDust.Game.Worlding.Components.Chunking
 #endif
     }
 }
-#pragma warning restore IDE0051

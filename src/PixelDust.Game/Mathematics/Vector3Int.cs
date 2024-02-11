@@ -162,14 +162,14 @@ namespace PixelDust.Game.Mathematics
         }
         public static float DistanceSquared(Vector3Int value1, Vector3Int value2)
         {
-            return (value1.X - value2.X) * (value1.X - value2.X) +
-                   (value1.Y - value2.Y) * (value1.Y - value2.Y) +
-                   (value1.Z - value2.Z) * (value1.Z - value2.Z);
+            return ((value1.X - value2.X) * (value1.X - value2.X)) +
+                   ((value1.Y - value2.Y) * (value1.Y - value2.Y)) +
+                   ((value1.Z - value2.Z) * (value1.Z - value2.Z));
         }
 
         public static int Dot(Vector3Int value1, Vector3Int value2)
         {
-            return value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z;
+            return (value1.X * value2.X) + (value1.Y * value2.Y) + (value1.Z * value2.Z);
         }
 
         public static Vector3Int Max(Vector3Int value1, Vector3Int value2)
@@ -195,11 +195,11 @@ namespace PixelDust.Game.Mathematics
 
         public readonly int Length()
         {
-            return (int)MathF.Sqrt(this.X * this.X + this.Y * this.Y + this.Z * this.Z);
+            return (int)MathF.Sqrt((this.X * this.X) + (this.Y * this.Y) + (this.Z * this.Z));
         }
         public readonly int LengthSquared()
         {
-            return this.X * this.X + this.Y * this.Y + this.Z * this.Z;
+            return (this.X * this.X) + (this.Y * this.Y) + (this.Z * this.Z);
         }
 
         public readonly void Deconstruct(out int x, out int y, out int z)

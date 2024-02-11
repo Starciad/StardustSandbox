@@ -5,8 +5,6 @@ using PixelDust.Game.InputSystem.Enums;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
-using System;
-
 namespace PixelDust.Game.InputSystem.Actions
 {
     public sealed class PInputAction : PGameObject

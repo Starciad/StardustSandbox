@@ -115,17 +115,17 @@ namespace PixelDust.Game.Mathematics
         public static float Distance(Vector2Int value1, Vector2Int value2)
         {
             int v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
-            return MathF.Sqrt(v1 * v1 + v2 * v2);
+            return MathF.Sqrt((v1 * v1) + (v2 * v2));
         }
         public static float DistanceSquared(Vector2Int value1, Vector2Int value2)
         {
             int v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
-            return v1 * v1 + v2 * v2;
+            return (v1 * v1) + (v2 * v2);
         }
 
         public static int Dot(Vector2Int value1, Vector2Int value2)
         {
-            return value1.X * value2.X + value1.Y * value2.Y;
+            return (value1.X * value2.X) + (value1.Y * value2.Y);
         }
         public void Floor()
         {
@@ -158,11 +158,11 @@ namespace PixelDust.Game.Mathematics
 
         public readonly int Length()
         {
-            return (int)MathF.Sqrt(this.X * this.X + this.Y * this.Y);
+            return (int)MathF.Sqrt((this.X * this.X) + (this.Y * this.Y));
         }
         public readonly int LengthSquared()
         {
-            return this.X * this.X + this.Y * this.Y;
+            return (this.X * this.X) + (this.Y * this.Y);
         }
 
         public readonly void Deconstruct(out int x, out int y)
@@ -286,7 +286,7 @@ namespace PixelDust.Game.Mathematics
         {
             unchecked
             {
-                return this.X.GetHashCode() * 397 ^ this.Y.GetHashCode();
+                return (this.X.GetHashCode() * 397) ^ this.Y.GetHashCode();
             }
         }
 

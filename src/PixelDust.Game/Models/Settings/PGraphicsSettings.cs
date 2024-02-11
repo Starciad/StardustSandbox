@@ -33,13 +33,13 @@ namespace PixelDust.Game.Models.Settings
         {
             Size2Int resolution = PScreenConstants.RESOLUTIONS[3];
 
-            ScreenWidth = resolution.Width;
-            ScreenHeight = resolution.Height;
-            Resizable = false;
-            FullScreen = false;
-            Framerate = 60f;
-            VSync = false;
-            Borderless = false;
+            this.ScreenWidth = resolution.Width;
+            this.ScreenHeight = resolution.Height;
+            this.Resizable = false;
+            this.FullScreen = false;
+            this.Framerate = 60f;
+            this.VSync = false;
+            this.Borderless = false;
         }
     }
 }

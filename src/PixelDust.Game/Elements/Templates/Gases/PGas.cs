@@ -41,7 +41,7 @@ namespace PixelDust.Game.Elements.Templates.Gases
             [
                 new Vector2Int(this.Context.Position.X, this.Context.Position.Y - 1),
                 new Vector2Int(this.Context.Position.X + direction, this.Context.Position.Y - 1),
-                new Vector2Int(this.Context.Position.X + direction * -1, this.Context.Position.Y - 1),
+                new Vector2Int(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
             ];
 
             foreach (Vector2Int targetPos in targets)

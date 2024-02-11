@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using PixelDust.Core.Worlding;
+﻿using PixelDust.Core.Worlding;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.Worlding.Components

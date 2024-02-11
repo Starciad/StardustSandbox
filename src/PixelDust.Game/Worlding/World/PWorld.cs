@@ -5,10 +5,8 @@ using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
-using PixelDust.Game.Worlding;
 using PixelDust.Game.Worlding.Components;
 using PixelDust.Game.Worlding.Components.Chunking;
 using PixelDust.Game.Worlding.Components.Threading;
@@ -40,7 +38,7 @@ namespace PixelDust.Core.Worlding
             base.OnAwake();
 
             Restart();
-            particleTexture = assetDatabase.GetTexture("particle_1");
+            this.particleTexture = assetDatabase.GetTexture("particle_1");
 
             foreach (PWorldComponent component in this._components)
             {
@@ -89,7 +87,7 @@ namespace PixelDust.Core.Worlding
             DrawSlots(gameTime, spriteBatch);
             foreach (PWorldComponent component in this._components)
             {
-                component.Draw(gameTime,spriteBatch);
+                component.Draw(gameTime, spriteBatch);
             }
         }
         private void DrawSlots(GameTime gameTime, SpriteBatch spriteBatch)
@@ -100,7 +98,7 @@ namespace PixelDust.Core.Worlding
                 {
                     if (IsEmptyElementSlot(new(x, y)))
                     {
-                        spriteBatch.Draw(particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(this.particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
                     }
                     else
                     {

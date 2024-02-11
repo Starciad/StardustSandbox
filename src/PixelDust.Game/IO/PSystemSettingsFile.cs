@@ -1,10 +1,10 @@
 ﻿using MessagePack;
-using System.IO;
-using System;
 
 using PixelDust.Game.Constants;
 using PixelDust.Game.Models.Settings;
-using PixelDust.Game.Mathematics;
+
+using System;
+using System.IO;
 
 namespace PixelDust.Game.IO
 {

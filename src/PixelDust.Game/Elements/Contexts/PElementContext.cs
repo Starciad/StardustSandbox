@@ -1,4 +1,5 @@
 ﻿using PixelDust.Core.Worlding;
+using PixelDust.Game.Databases;
 using PixelDust.Game.Elements.Interfaces;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Worlding.World.Slots;
@@ -19,7 +20,7 @@ namespace PixelDust.Game.Elements.Contexts
     {
         public readonly PWorldElementSlot Slot => this._element;
         public readonly Vector2Int Position => this._position;
-        public readonly PElement Element => ElementDatabase.GetElementById(this._element.Id);
+        public readonly PElement Element => this.ElementDatabase.GetElementById(this._element.Id);
         public readonly PElementDatabase ElementDatabase => elementDatabase;
 
         private PWorldElementSlot _element = slot;

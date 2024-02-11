@@ -17,7 +17,7 @@ namespace PixelDust.Game.Elements.Templates.Solid
             Vector2Int[] sides =
             [
                 new(this.Context.Position.X + direction, this.Context.Position.Y),
-                new(this.Context.Position.X + direction * -1, this.Context.Position.Y),
+                new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
             ];
 
             if (TrySetPosition(down))

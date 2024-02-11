@@ -18,9 +18,9 @@ namespace PixelDust.Game.Managers
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            for (int i = 0; i < _shadersLength; i++)
+            for (int i = 0; i < this._shadersLength; i++)
             {
-                _shaders[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
+                this._shaders[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
             }
         }
     }
