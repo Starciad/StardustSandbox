@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<!-- IMPORTS -->
 	<Import Project="../Targets/WindowsDX/Project_Compilation.targets" />
 	<Import Project="../Targets/WindowsDX/Project_Settings.targets" />
@@ -12,6 +12,8 @@
 
 	<!-- SYSTEM -->
 	<PropertyGroup>
+		<AssemblyName>PixelDust.Tests</AssemblyName>
+		<RootNamespace>PixelDust.Tests</RootNamespace>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<IsPackable>false</IsPackable>
