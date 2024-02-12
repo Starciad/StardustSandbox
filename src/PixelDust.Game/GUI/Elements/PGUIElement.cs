@@ -1,4 +1,6 @@
-﻿using PixelDust.Game.GUI.Elements.Common;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.Objects;
 
 using System.Collections.Generic;
@@ -18,17 +20,23 @@ namespace PixelDust.Game.GUI.Elements
         public PGUIElement Parent => this.parent;
         public PGUIElement[] Children => [.. this.children];
         public bool HasChildren => this.children.Count > 0;
+        public PGUIElementStyle Style => this.style;
+        public Vector2 Position => this.position;
 
+        private readonly PGUIElementStyle style;
         private readonly List<PGUIElement> children = [];
         private PGUIElement parent;
+        private Vector2 position;
 
         public PGUIElement()
         {
+            this.style = new(this);
             this.Id = string.Empty;
         }
 
         public PGUIElement(string id)
         {
+            this.style = new(this);
             this.Id = id;
         }
 
@@ -51,6 +59,7 @@ namespace PixelDust.Game.GUI.Elements
         {
             element.parent?.RemoveChild(element);
             element.parent = this;
+            element.position = element.style.GetPosition();
 
             this.children.Add(element);
         }

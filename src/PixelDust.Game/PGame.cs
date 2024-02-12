@@ -124,6 +124,11 @@ namespace PixelDust.Game
             this._sb = new(this.GraphicsDevice);
         }
 
+        protected override void BeginRun()
+        {
+            this._guiManager.ShowGUI<PExperimentalGUI>();
+        }
+
         protected override void Update(GameTime gameTime)
         {
             // Managers
@@ -196,7 +201,7 @@ namespace PixelDust.Game
         // Utilities
         private static void RegisterAllGameGUIs(PGUIManager guiManager)
         {
-            guiManager.RegisterGUISystem<PHudGUI>();
+            guiManager.RegisterGUISystem<PExperimentalGUI>();
         }
         private static void RegisterAllGameElements(PElementDatabase database)
         {

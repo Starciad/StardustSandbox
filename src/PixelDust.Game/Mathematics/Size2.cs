@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using SharpDX.Direct3D9;
+
 using System;
 
 namespace PixelDust.Game.Mathematics
@@ -9,9 +11,17 @@ namespace PixelDust.Game.Mathematics
         public static readonly Size2 Empty = new();
         public readonly bool IsEmpty => this.Width == 0 && this.Height == 0;
 
+        public static Size2 Zero => new(0, 0);
+        public static Size2 One => new(1, 1);
+
         public float Width;
         public float Height;
 
+        public Size2(float value)
+        {
+            this.Width = value;
+            this.Height = value;
+        }
         public Size2(float width, float height)
         {
             this.Width = width;

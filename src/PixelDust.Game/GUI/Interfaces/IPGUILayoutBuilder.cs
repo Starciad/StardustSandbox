@@ -1,11 +1,13 @@
 ﻿using PixelDust.Game.GUI.Elements;
+using PixelDust.Game.GUI.Elements.Common;
 
 namespace PixelDust.Game.GUI.Interfaces
 {
     public interface IPGUILayoutBuilder
     {
-        T OpenElement<T>() where T : PGUIElement;
+        PGUIRootElement Root { get; }
+        PGUIElement[] Elements { get; }
+
         T CreateElement<T>() where T : PGUIElement;
-        void CloseElement();
     }
 }

@@ -5,10 +5,13 @@ using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Objects;
+using PixelDust.Game.Enums.GUI;
+using PixelDust.Game.Mathematics;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PixelDust.Game.Constants;
 
 namespace PixelDust.Game.GUI
 {
@@ -18,13 +21,15 @@ namespace PixelDust.Game.GUI
         public PGUIElement[] Elements => [.. this.elements];
 
         private readonly List<PGUIElement> elements = [];
-        private readonly List<PGUIElement> lastOpenElements = [];
 
-        private PGUIRootElement root;
+        private PGUIRootElement root = null;
 
         protected override void OnAwake()
         {
-            this.root = OpenElement<PGUIRootElement>();
+            this.root = CreateElement<PGUIRootElement>();
+            this.root.Style.PositioningType = PPositioningType.Fixed;
+            this.root.Style.Size = new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
+            this.root.Style.Color = Color.Transparent;
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -56,37 +61,16 @@ namespace PixelDust.Game.GUI
             }
         }
 
-        public T OpenElement<T>() where T : PGUIElement
-        {
-            T element = CreateElement<T>();
-            element.Open();
-            this.lastOpenElements.Add(element);
-            return element;
-        }
-
         public T CreateElement<T>() where T : PGUIElement
         {
             T element = Activator.CreateInstance<T>();
+            element.SetRootElement(this.root);
+            element.Initialize(this.Game);
+            element.Close();
 
             this.elements.Add(element);
 
-            if (this.lastOpenElements.Count > 0)
-            {
-                this.lastOpenElements.Last().AppendChild(element);
-            }
-
-            element.SetRootElement(this.root);
-            element.Close();
-            element.Initialize(this.Game);
-
             return element;
-        }
-
-        public void CloseElement()
-        {
-            PGUIElement element = this.lastOpenElements.Last();
-            element.Close();
-            this.lastOpenElements.Remove(element);
         }
     }
 }

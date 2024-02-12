@@ -2,6 +2,7 @@
 {
     public enum PCardinalDirection
     {
+        Center,
         North,
         Northeast,
         East,
