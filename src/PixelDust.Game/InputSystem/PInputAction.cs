@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using PixelDust.Game.InputSystem.Enums;
+using PixelDust.Game.Enums.InputSystem;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
-namespace PixelDust.Game.InputSystem.Actions
+namespace PixelDust.Game.InputSystem
 {
     public sealed class PInputAction : PGameObject
     {

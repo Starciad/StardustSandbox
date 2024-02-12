@@ -4,7 +4,7 @@ using PixelDust.Game.Objects;
 
 using System.Collections.Generic;
 
-namespace PixelDust.Game.InputSystem.Actions
+namespace PixelDust.Game.InputSystem
 {
     public sealed class PInputActionMapHandler : PGameObject
     {

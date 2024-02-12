@@ -2,7 +2,7 @@
 
 using System;
 
-namespace PixelDust.Game.GUI
+namespace PixelDust.Game.GUI.Elements.Common
 {
     public sealed class PGUIContainerElement : PGUIElement
     {
