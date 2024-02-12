@@ -37,6 +37,7 @@ namespace PixelDust.Game
         private readonly PInputManager _inputManager;
         private readonly PScreenManager _screenManager;
         private readonly PGUIManager _guiManager;
+        private readonly PCursorManager _cursorManager;
 
         // Databases
         private readonly PAssetDatabase _assetDatabase;
@@ -73,7 +74,7 @@ namespace PixelDust.Game
             this.Window.IsBorderless = graphicsSettings.Borderless;
 
             // Configure game settings
-            this.IsMouseVisible = true;
+            this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
 
@@ -93,6 +94,7 @@ namespace PixelDust.Game
             this._shaderManager = new(this._assetDatabase);
             this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
             this._guiManager = new();
+            this._cursorManager = new(this._assetDatabase, this._inputManager);
         }
 
         protected override void Initialize()
@@ -111,6 +113,7 @@ namespace PixelDust.Game
             this._shaderManager.Initialize(this);
             this._inputManager.Initialize(this);
             this._guiManager.Initialize(this);
+            this._cursorManager.Initialize(this);
             #endregion
 
             #region Game
@@ -138,6 +141,7 @@ namespace PixelDust.Game
             this._shaderManager.Update(gameTime);
             this._inputManager.Update(gameTime);
             this._guiManager.Update(gameTime);
+            this._cursorManager.Update(gameTime);
 
             // Core
             this._world.Update(gameTime);
@@ -193,6 +197,7 @@ namespace PixelDust.Game
             this.GraphicsDevice.Clear(Color.Black);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this._sb.Draw(this._graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scaleFactor, SpriteEffects.None, 0f);
+            this._cursorManager.Draw(gameTime, this._sb);
             this._sb.End();
             #endregion
 

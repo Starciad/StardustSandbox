@@ -56,7 +56,7 @@
 /processorParam:TextureFormat=Color
 /build:graphics/elements/element_1.png
 
-#begin graphics/gui/background/background_1.png
+#begin graphics/gui/background/gui_background_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -66,9 +66,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:graphics/gui/background/background_1.png
+/build:graphics/gui/background/gui_background_1.png
 
-#begin graphics/gui/background/background_2.png
+#begin graphics/gui/background/gui_background_2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -78,9 +78,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:graphics/gui/background/background_2.png
+/build:graphics/gui/background/gui_background_2.png
 
-#begin graphics/gui/background/background_3.png
+#begin graphics/gui/background/gui_background_3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -90,9 +90,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:graphics/gui/background/background_3.png
+/build:graphics/gui/background/gui_background_3.png
 
-#begin graphics/gui/background/background_4.png
+#begin graphics/gui/background/gui_background_4.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -102,9 +102,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:graphics/gui/background/background_4.png
+/build:graphics/gui/background/gui_background_4.png
 
-#begin graphics/gui/background/background_5.png
+#begin graphics/gui/background/gui_background_5.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -114,9 +114,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:graphics/gui/background/background_5.png
+/build:graphics/gui/background/gui_background_5.png
 
-#begin graphics/gui/background/background_6.png
+#begin graphics/gui/background/gui_background_6.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -126,7 +126,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:graphics/gui/background/background_6.png
+/build:graphics/gui/background/gui_background_6.png
 
 #begin graphics/particles/particle_1.png
 /importer:TextureImporter
