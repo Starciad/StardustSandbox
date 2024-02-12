@@ -14,7 +14,6 @@ namespace PixelDust.Game.GUI.Elements
 
         // Internals
         internal PGUIRootElement RootElement { get; private set; }
-        internal bool IsOpen { get; private set; }
 
         // Readonly
         public PGUIElement Parent => this.parent;
@@ -38,16 +37,6 @@ namespace PixelDust.Game.GUI.Elements
         {
             this.style = new(this);
             this.Id = id;
-        }
-
-        internal void Open()
-        {
-            this.IsOpen = true;
-        }
-
-        internal void Close()
-        {
-            this.IsOpen = false;
         }
 
         internal void SetRootElement(PGUIRootElement rootElement)

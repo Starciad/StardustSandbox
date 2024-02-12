@@ -126,7 +126,7 @@ namespace PixelDust.Game
 
         protected override void BeginRun()
         {
-            this._guiManager.ShowGUI<PExperimentalGUI>();
+            this._guiManager.ShowGUI<PHudGUI>();
         }
 
         protected override void Update(GameTime gameTime)
@@ -201,7 +201,7 @@ namespace PixelDust.Game
         // Utilities
         private static void RegisterAllGameGUIs(PGUIManager guiManager)
         {
-            guiManager.RegisterGUISystem<PExperimentalGUI>();
+            guiManager.RegisterGUISystem<PHudGUI>();
         }
         private static void RegisterAllGameElements(PElementDatabase database)
         {

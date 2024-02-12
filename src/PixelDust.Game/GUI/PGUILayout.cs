@@ -66,7 +66,6 @@ namespace PixelDust.Game.GUI
             T element = Activator.CreateInstance<T>();
             element.SetRootElement(this.root);
             element.Initialize(this.Game);
-            element.Close();
 
             this.elements.Add(element);
 
