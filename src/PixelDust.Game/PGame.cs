@@ -22,6 +22,7 @@ namespace PixelDust.Game
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
         public Assembly Assembly => this._assembly;
+        public PInputManager InputManager => this._inputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
 
         // ================================= //
