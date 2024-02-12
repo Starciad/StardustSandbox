@@ -22,6 +22,9 @@
         public const string ASSETS_GRAPHICS_BACKGROUND = "background";
         public const string ASSETS_GRAPHICS_BGOS = "bgos";
         public const string ASSETS_GRAPHICS_EFFECTS = "effects";
+        public const string ASSETS_GRAPHICS_CURSORS = "cursors";
+        public const string ASSETS_GRAPHICS_GUI = "gui";
+        public const string ASSETS_GRAPHICS_GUI_BACKGROUND = "background";
         #endregion
     }
 }

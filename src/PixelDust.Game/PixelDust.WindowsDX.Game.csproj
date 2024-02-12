@@ -19,6 +19,14 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="assets\songs\**" />
+	  <Compile Remove="assets\sounds\**" />
+	  <EmbeddedResource Remove="assets\songs\**" />
+	  <EmbeddedResource Remove="assets\sounds\**" />
+	  <None Remove="assets\songs\**" />
+	  <None Remove="assets\sounds\**" />
+	</ItemGroup>
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
@@ -28,13 +36,6 @@
 	</ItemGroup>
 
 	<!-- FOLDERS -->
-	<ItemGroup>
-		<Folder Include="assets\graphics\background\" />
-		<Folder Include="assets\graphics\bgos\" />
-		<Folder Include="assets\graphics\effects\" />
-		<Folder Include="assets\sounds\" />
-		<Folder Include="assets\songs\" />
-	</ItemGroup>
 
 	<!-- FILES (REMOVE) -->
 	<ItemGroup>
