@@ -34,8 +34,7 @@ namespace PixelDust.Game.GUI.Common
         {
             PGUIImageElement canvas = layout.CreateElement<PGUIImageElement>();
 
-            canvas.Style.PositionAnchor = PCardinalDirection.Center;
-            canvas.Style.OriginPivot = PCardinalDirection.Center;
+            canvas.Style.PositionAnchor = PCardinalDirection.Northwest;
             canvas.Style.Size = new Size2(
                 PPercentageMath.PercentageOfValue(layout.Root.Style.Size.Width, 50),
                 PPercentageMath.PercentageOfValue(layout.Root.Style.Size.Height, 50)
@@ -49,8 +48,8 @@ namespace PixelDust.Game.GUI.Common
 
                 square.Style.Size = new Size2(32);
                 square.Style.PositionAnchor = directions[i].direction;
-                square.Style.OriginPivot = PCardinalDirection.Center;
                 square.Style.Color = directions[i].color;
+                square.SetOriginPivot(PCardinalDirection.Center);
                 square.SetTexture(this.particleTexture);
 
                 canvas.AppendChild(square);
