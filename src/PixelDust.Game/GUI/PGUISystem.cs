@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.GUI.Interfaces;
+using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI
@@ -11,10 +12,14 @@ namespace PixelDust.Game.GUI
         public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
+        public PGUIManager GUIManager => this._guiManager;
 
         private readonly PGUILayout layout = new();
+
         private bool isActive;
         private bool isShowing;
+
+        private PGUIManager _guiManager;
 
         protected override void OnAwake()
         {
@@ -24,7 +29,6 @@ namespace PixelDust.Game.GUI
             this.layout.Initialize(this.Game);
             OnBuild(this.layout);
         }
-
         protected override void OnUpdate(GameTime gameTime)
         {
             if (!this.isActive)
@@ -34,7 +38,6 @@ namespace PixelDust.Game.GUI
 
             this.layout.Update(gameTime);
         }
-
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (!this.isActive || !this.isShowing)
@@ -45,29 +48,35 @@ namespace PixelDust.Game.GUI
             this.layout.Draw(gameTime, spriteBatch);
         }
 
+        internal void SetGUIManager(PGUIManager guiManager)
+        {
+            this._guiManager = guiManager;
+        }
+
         public void Activate()
         {
             this.isActive = true;
             OnActivated();
         }
-
         public void Disable()
         {
             this.isActive = false;
             OnDisabled();
         }
-
         public void Show()
         {
             this.isShowing = true;
             OnShowed();
         }
-
         public void Close()
         {
             this.isShowing = false;
             OnClosed();
         }
+
+        #region EVENT CHECKER
+
+        #endregion
 
         protected abstract void OnBuild(IPGUILayoutBuilder layout);
         protected virtual void OnActivated() { return; }

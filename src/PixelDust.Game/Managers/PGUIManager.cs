@@ -24,6 +24,7 @@ namespace PixelDust.Game.Managers
                 Type type = this._guiTypes[i];
 
                 PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type);
+                tempGUISystem.SetGUIManager(this);
                 tempGUISystem.Initialize(this.Game);
 
                 this._guiSystems[i] = tempGUISystem;

@@ -3,8 +3,6 @@
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.Objects;
 
-using System.Collections.Generic;
-
 namespace PixelDust.Game.GUI.Elements
 {
     public abstract class PGUIElement : PGameObject
@@ -12,20 +10,35 @@ namespace PixelDust.Game.GUI.Elements
         // Settings
         public string Id { get; set; }
 
-        // Internals
-        internal PGUIRootElement RootElement { get; private set; }
-
         // Readonly
-        public PGUIElement Parent => this.parent;
-        public PGUIElement[] Children => [.. this.children];
-        public bool HasChildren => this.children.Count > 0;
         public PGUIElementStyle Style => this.style;
-        public Vector2 Position => this.position;
+        public Vector2 Position => this.style.GetPosition();
 
         private readonly PGUIElementStyle style;
-        private readonly List<PGUIElement> children = [];
-        private PGUIElement parent;
-        private Vector2 position;
+
+        #region DELEGATES
+        public delegate void ClickEventHandler();
+        public delegate void DoubleClickEventHandler();
+        public delegate void MouseDownEventHandler();
+        public delegate void MouseEnterEventHandler();
+        public delegate void MouseLeaveEventHandler();
+        public delegate void MouseMoveEventHandler();
+        public delegate void MouseOutEventHandler();
+        public delegate void MouseOverEventHandler();
+        public delegate void MouseUpEventHandler();
+        #endregion
+
+        #region EVENTS
+        public event ClickEventHandler OnClick;
+        public event DoubleClickEventHandler OnDoubleClick;
+        public event MouseDownEventHandler OnMouseDown;
+        public event MouseEnterEventHandler OnMouseEnter;
+        public event MouseLeaveEventHandler OnMouseLeave;
+        public event MouseMoveEventHandler OnMouseMove;
+        public event MouseOutEventHandler OnMouseOut;
+        public event MouseOverEventHandler OnMouseOver;
+        public event MouseUpEventHandler OnMouseUp;
+        #endregion
 
         public PGUIElement()
         {
@@ -39,32 +52,9 @@ namespace PixelDust.Game.GUI.Elements
             this.Id = id;
         }
 
-        internal void SetRootElement(PGUIRootElement rootElement)
+        protected override void OnUpdate(GameTime gameTime)
         {
-            this.RootElement = rootElement;
-        }
-
-        public void AppendChild(PGUIElement element)
-        {
-            element.parent?.RemoveChild(element);
-            element.parent = this;
-            element.position = element.style.GetPosition();
-
-            this.children.Add(element);
-        }
-
-        public void RemoveAllChildren()
-        {
-            foreach (PGUIElement element in Children)
-            {
-                RemoveChild(element);
-            }
-        }
-
-        public void RemoveChild(PGUIElement element)
-        {
-            element.parent = this.RootElement;
-            this.children.Remove(element);
+            base.OnUpdate(gameTime);
         }
     }
 }
