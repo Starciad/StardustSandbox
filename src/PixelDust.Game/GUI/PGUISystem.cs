@@ -12,14 +12,11 @@ namespace PixelDust.Game.GUI
         public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
-        public PGUIManager GUIManager => this._guiManager;
 
         private readonly PGUILayout layout = new();
 
         private bool isActive;
         private bool isShowing;
-
-        private PGUIManager _guiManager;
 
         protected override void OnAwake()
         {
@@ -46,11 +43,6 @@ namespace PixelDust.Game.GUI
             }
 
             this.layout.Draw(gameTime, spriteBatch);
-        }
-
-        internal void SetGUIManager(PGUIManager guiManager)
-        {
-            this._guiManager = guiManager;
         }
 
         public void Activate()

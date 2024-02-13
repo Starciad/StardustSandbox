@@ -24,13 +24,17 @@ namespace PixelDust.Game.GUI.Elements.Common
         {
             this.texture = null;
             this.textureClipArea = null;
+            this.rotationAngle = 0f;
             this.spriteEffects = SpriteEffects.None;
             this.originPivot = PCardinalDirection.Northwest;
         }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.Position, this.textureClipArea, this.Style.Color, this.rotationAngle, this.texture.GetOrigin(this.OriginPivot), new Vector2(this.Style.Size.Width, this.Style.Size.Height), this.spriteEffects, 0f);
+            if (this.texture != null)
+            {
+                spriteBatch.Draw(this.texture, this.Position, this.textureClipArea, this.Style.Color, this.rotationAngle, this.texture.GetOrigin(this.OriginPivot), new Vector2(this.Style.Size.Width, this.Style.Size.Height), this.spriteEffects, 0f);
+            }
         }
 
         public void SetTexture(Texture2D texture)
