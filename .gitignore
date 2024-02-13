@@ -398,4 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Game
-PixelDust.Game/assets/*
+assets/
