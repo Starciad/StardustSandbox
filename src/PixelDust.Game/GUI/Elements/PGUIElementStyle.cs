@@ -1,8 +1,8 @@
-﻿using PixelDust.Game.Mathematics;
-using PixelDust.Game.Enums.General;
-using PixelDust.Game.Constants;
+﻿using Microsoft.Xna.Framework;
 
-using Microsoft.Xna.Framework;
+using PixelDust.Game.Constants;
+using PixelDust.Game.Enums.General;
+using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Elements
 {
@@ -21,14 +21,14 @@ namespace PixelDust.Game.GUI.Elements
 
             return this.PositionAnchor switch
             {
-                PCardinalDirection.Center    => this.Margin + new Vector2(screenSize.Width, screenSize.Height) / 2,
-                PCardinalDirection.North     => this.Margin + new Vector2(screenSize.Width / 2, 0),
+                PCardinalDirection.Center => this.Margin + (new Vector2(screenSize.Width, screenSize.Height) / 2),
+                PCardinalDirection.North => this.Margin + new Vector2(screenSize.Width / 2, 0),
                 PCardinalDirection.Northeast => this.Margin + new Vector2(screenSize.Width, 0),
-                PCardinalDirection.East      => this.Margin + new Vector2(screenSize.Width, screenSize.Height / 2),
+                PCardinalDirection.East => this.Margin + new Vector2(screenSize.Width, screenSize.Height / 2),
                 PCardinalDirection.Southeast => this.Margin + new Vector2(screenSize.Width, screenSize.Height),
-                PCardinalDirection.South     => this.Margin + new Vector2(screenSize.Width / 2, screenSize.Height),
+                PCardinalDirection.South => this.Margin + new Vector2(screenSize.Width / 2, screenSize.Height),
                 PCardinalDirection.Southwest => this.Margin + new Vector2(0, screenSize.Height),
-                PCardinalDirection.West      => this.Margin + new Vector2(0, screenSize.Height / 2),
+                PCardinalDirection.West => this.Margin + new Vector2(0, screenSize.Height / 2),
                 PCardinalDirection.Northwest => this.Margin,
                 _ => Vector2.Zero,
             };

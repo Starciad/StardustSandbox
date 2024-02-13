@@ -77,22 +77,22 @@ namespace PixelDust.Game.GUI.Elements.Common
             this.textureSlices[(int)SliceIndex.Northeast].SetScale(Vector2.One);
 
             // East
-            this.textureSlices[(int)SliceIndex.East].SetPosition(new Vector2(this.Position.X + SLICE_SIZE * this.Style.Size.Width, this.Position.Y));
+            this.textureSlices[(int)SliceIndex.East].SetPosition(new Vector2(this.Position.X + (SLICE_SIZE * this.Style.Size.Width), this.Position.Y));
             this.textureSlices[(int)SliceIndex.East].SetTextureClipArea(new Rectangle(new Point(SLICE_SIZE * 2, SLICE_SIZE), sizePoint));
             this.textureSlices[(int)SliceIndex.East].SetScale(new Vector2(1, this.Style.Size.Height));
 
             // Southeast
-            this.textureSlices[(int)SliceIndex.Southeast].SetPosition(new Vector2(this.Position.X + SLICE_SIZE * this.Style.Size.Width, this.Position.Y + SLICE_SIZE * this.Style.Size.Height));
+            this.textureSlices[(int)SliceIndex.Southeast].SetPosition(new Vector2(this.Position.X + (SLICE_SIZE * this.Style.Size.Width), this.Position.Y + (SLICE_SIZE * this.Style.Size.Height)));
             this.textureSlices[(int)SliceIndex.Southeast].SetTextureClipArea(new Rectangle(new Point(SLICE_SIZE * 2, SLICE_SIZE * 2), sizePoint));
             this.textureSlices[(int)SliceIndex.Southeast].SetScale(Vector2.One);
 
             // South
-            this.textureSlices[(int)SliceIndex.South].SetPosition(new Vector2(this.Position.X, this.Position.Y + SLICE_SIZE * this.Style.Size.Height));
+            this.textureSlices[(int)SliceIndex.South].SetPosition(new Vector2(this.Position.X, this.Position.Y + (SLICE_SIZE * this.Style.Size.Height)));
             this.textureSlices[(int)SliceIndex.South].SetTextureClipArea(new Rectangle(new Point(SLICE_SIZE, SLICE_SIZE * 2), sizePoint));
             this.textureSlices[(int)SliceIndex.South].SetScale(new Vector2(this.Style.Size.Width, 1));
 
             // Southwest
-            this.textureSlices[(int)SliceIndex.Southwest].SetPosition(new Vector2(this.Position.X - SLICE_SIZE, this.Position.Y + SLICE_SIZE * this.Style.Size.Height));
+            this.textureSlices[(int)SliceIndex.Southwest].SetPosition(new Vector2(this.Position.X - SLICE_SIZE, this.Position.Y + (SLICE_SIZE * this.Style.Size.Height)));
             this.textureSlices[(int)SliceIndex.Southwest].SetTextureClipArea(new Rectangle(new Point(0, SLICE_SIZE * 2), sizePoint));
             this.textureSlices[(int)SliceIndex.Southwest].SetScale(Vector2.One);
 

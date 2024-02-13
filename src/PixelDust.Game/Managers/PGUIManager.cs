@@ -1,11 +1,11 @@
-﻿using PixelDust.Game.Objects;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
-using System.Collections.Generic;
+using PixelDust.Game.GUI;
+using PixelDust.Game.Objects;
 
 using System;
-using PixelDust.Game.GUI;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PixelDust.Game.Managers
@@ -122,12 +122,7 @@ namespace PixelDust.Game.Managers
             PGUISystem target = Array.Find(this._guiSystems, x => x.GetType() == type);
             guiSystem = target;
 
-            if (target == null)
-            {
-                return false;
-            }
-
-            return true;
+            return target != null;
         }
     }
 }

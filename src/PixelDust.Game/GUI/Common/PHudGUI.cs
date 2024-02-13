@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Enums.General;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Interfaces;
-using PixelDust.Game.Enums.General;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Common
@@ -14,7 +14,7 @@ namespace PixelDust.Game.GUI.Common
 
         protected override void OnAwake()
         {
-            backgroundTexture = this.Game.AssetDatabase.GetTexture("gui_background_6");
+            this.backgroundTexture = this.Game.AssetDatabase.GetTexture("gui_background_6");
             base.OnAwake();
         }
 

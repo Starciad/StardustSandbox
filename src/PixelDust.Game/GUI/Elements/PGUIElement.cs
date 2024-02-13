@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.GUI.Elements.Common;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI.Elements

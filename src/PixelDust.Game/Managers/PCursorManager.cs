@@ -15,8 +15,8 @@ namespace PixelDust.Game.Managers
 
         protected override void OnAwake()
         {
-            cursorTextures[0] = assetDatabase.GetTexture("cursor_1");
-            cursorTextures[1] = assetDatabase.GetTexture("cursor_2");
+            this.cursorTextures[0] = assetDatabase.GetTexture("cursor_1");
+            this.cursorTextures[1] = assetDatabase.GetTexture("cursor_2");
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -26,7 +26,7 @@ namespace PixelDust.Game.Managers
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.cursorTextures[cursorTextureSelected], this.mousePosition, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.cursorTextures[this.cursorTextureSelected], this.mousePosition, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
     }
 }
