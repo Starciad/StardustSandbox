@@ -17,14 +17,32 @@
         public const string ASSETS_SOUNDS = "sounds";
 
         // GRAPHICS
+        // Elements
         public const string ASSETS_GRAPHICS_ELEMENTS = "elements";
+
+        // Particles
         public const string ASSETS_GRAPHICS_PARTICLES = "particles";
-        public const string ASSETS_GRAPHICS_BACKGROUND = "background";
+
+        // Backgrounds
+        public const string ASSETS_GRAPHICS_BACKGROUNDS = "backgrounds";
+
+        // Bgos
         public const string ASSETS_GRAPHICS_BGOS = "bgos";
+
+        // Effects
         public const string ASSETS_GRAPHICS_EFFECTS = "effects";
+
+        // Cursors
         public const string ASSETS_GRAPHICS_CURSORS = "cursors";
+
+        // Gui
         public const string ASSETS_GRAPHICS_GUI = "gui";
-        public const string ASSETS_GRAPHICS_GUI_BACKGROUND = "background";
+        public const string ASSETS_GRAPHICS_GUI_BACKGROUNDS = "backgrounds";
+
+        // Icons
+        public const string ASSETS_GRAPHICS_ICONS = "icons";
+        public const string ASSETS_GRAPHICS_ICONS_ELEMENTS = "elements";
+        public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
         #endregion
     }
 }
