@@ -27,7 +27,7 @@ namespace PixelDust.Game.GUI.Elements.Common
             }
         }
 
-        private enum SliceIndex
+        private enum SliceIndex : sbyte
         {
             Center = 0,
             North = 1,
