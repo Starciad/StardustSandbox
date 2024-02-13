@@ -8,7 +8,7 @@ using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Common
 {
-    public sealed class PHudGUI : PGUISystem
+    public sealed class PGUI_HUD : PGUISystem
     {
         private Texture2D backgroundTexture;
 
@@ -27,19 +27,7 @@ namespace PixelDust.Game.GUI.Common
             sliceImageElement.Style.Margin = new Vector2(-96, -280);
             sliceImageElement.Style.PositionAnchor = PCardinalDirection.Center;
 
-            PGUISliceImageElement sliceImageElement2 = layout.CreateElement<PGUISliceImageElement>();
-            sliceImageElement2.SetTexture(this.backgroundTexture);
-            sliceImageElement2.Style.Color = Color.Cyan;
-            sliceImageElement2.Style.Size = new Size2(5, 12);
-            sliceImageElement2.Style.Margin = new Vector2(-360, 0);
-            sliceImageElement2.Style.PositionAnchor = PCardinalDirection.Center;
-
-            PGUISliceImageElement sliceImageElement3 = layout.CreateElement<PGUISliceImageElement>();
-            sliceImageElement3.SetTexture(this.backgroundTexture);
-            sliceImageElement3.Style.Color = Color.Cyan;
-            sliceImageElement3.Style.Size = new Size2(16, 16);
-            sliceImageElement3.Style.Margin = new Vector2(96, 32);
-            sliceImageElement3.Style.PositionAnchor = PCardinalDirection.Center;
+            layout.RootElement.AppendChild(sliceImageElement);
         }
     }
 }
