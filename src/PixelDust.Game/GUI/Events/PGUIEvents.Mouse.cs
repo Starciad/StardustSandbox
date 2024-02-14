@@ -4,6 +4,7 @@ using PixelDust.Game.Mathematics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using SharpDX.Direct2D1;
 
 namespace PixelDust.Game.GUI.Events
 {
@@ -14,18 +15,12 @@ namespace PixelDust.Game.GUI.Events
 
         }
 
-        public bool OnMouseDown(PGUIElement element, Size2 areaSize)
+        public bool OnMouseDown(Vector2 targetPosition, Size2 areaSize)
         {
-            Vector2 targetPosition = element.Position;
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
 
-            if (this._inputManager.MouseState.LeftButton == ButtonState.Pressed &&
-                IsMouseWithinArea(mousePosition, targetPosition, areaSize))
-            {
-                return true;
-            }
-
-            return false;
+            return this._inputManager.MouseState.LeftButton == ButtonState.Pressed &&
+                   IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
         public void OnDoubleClick()

@@ -29,7 +29,7 @@ namespace PixelDust.Game.GUI.Common
             {
                 PGUIElement slot = this.headerElementSlots[i];
 
-                if (this.GUIEvents.OnMouseDown(slot, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseDown(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
                     slot.Style.Color = Color.Red;
                 }
