@@ -89,10 +89,8 @@ namespace PixelDust.Game
         public void UpdateGameSettings()
         {
             PGraphicsSettings graphicsSettings = PSystemSettingsFile.GetGraphicsSettings();
-
             this.Window.AllowUserResizing = graphicsSettings.Resizable;
             this.Window.IsBorderless = graphicsSettings.Borderless;
-
             this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
 

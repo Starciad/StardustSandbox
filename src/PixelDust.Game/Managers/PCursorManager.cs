@@ -56,9 +56,9 @@ namespace PixelDust.Game.Managers
         {
             PCursorSettings cursorSettings = PSystemSettingsFile.GetCursorSettings();
 
-            // this.cursorScale = new(cursorSettings.Scale);
-            // this.cursorColor = cursorSettings.Color;
-            // this.cursorBackgroundColor = cursorSettings.BackgroundColor;
+            this.cursorScale = new(cursorSettings.Scale);
+            this.cursorColor = cursorSettings.Color;
+            this.cursorBackgroundColor = cursorSettings.BackgroundColor;
         }
     }
 }
