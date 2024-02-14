@@ -9,9 +9,13 @@ namespace PixelDust.Game.GUI.Events
 {
     public sealed partial class PGUIEvents
     {
-        public void OnClick()
+        public bool OnMouseClick(Vector2 targetPosition, Size2 areaSize)
         {
+            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
 
+            return this._inputManager.MouseState.LeftButton == ButtonState.Released &&
+                   this._inputManager.PreviousMouseState.LeftButton == ButtonState.Pressed &&
+                   IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
         public bool OnMouseDown(Vector2 targetPosition, Size2 areaSize)

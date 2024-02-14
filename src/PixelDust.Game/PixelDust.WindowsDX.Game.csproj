@@ -6,7 +6,7 @@
 
 	<!-- HEADER -->
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<RollForward>Major</RollForward>
 	</PropertyGroup>
