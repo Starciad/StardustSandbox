@@ -45,6 +45,7 @@ namespace PixelDust.Game.GUI.Elements
             this.GUILayout = layout;
         }
 
+        #region Parental
         public void AppendChild(PGUIElement element)
         {
             element.parent?.RemoveChild(element);
@@ -67,5 +68,6 @@ namespace PixelDust.Game.GUI.Elements
             element.parent = this.GUILayout.RootElement;
             this.children.Remove(element);
         }
+        #endregion
     }
 }

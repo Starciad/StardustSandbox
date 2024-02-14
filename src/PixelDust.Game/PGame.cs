@@ -82,7 +82,7 @@ namespace PixelDust.Game
             this._inputManager = new();
             this._shaderManager = new(this._assetDatabase);
             this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
-            this._guiManager = new();
+            this._guiManager = new(this._inputManager);
             this._cursorManager = new(this._assetDatabase, this._inputManager);
         }
 

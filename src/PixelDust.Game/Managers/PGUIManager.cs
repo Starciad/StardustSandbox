@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.GUI;
+using PixelDust.Game.GUI.Events;
 using PixelDust.Game.Objects;
 
 using System;
@@ -10,13 +11,18 @@ using System.Linq;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed class PGUIManager : PGameObject
+    public sealed class PGUIManager(PInputManager inputManager) : PGameObject
     {
+        public PGUIEvents GUIEvents => this._guiEvents;
+
         private readonly List<Type> _guiTypes = [];
         private PGUISystem[] _guiSystems = [];
 
+        private readonly PGUIEvents _guiEvents = new(inputManager);
+
         protected override void OnAwake()
         {
+            // Instantiate GUIs
             this._guiSystems = new PGUISystem[this._guiTypes.Count];
 
             for (int i = 0; i < this._guiSystems.Length; i++)
@@ -25,6 +31,7 @@ namespace PixelDust.Game.Managers
 
                 PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type);
                 tempGUISystem.Initialize(this.Game);
+                tempGUISystem.SetEvents(this.GUIEvents);
 
                 this._guiSystems[i] = tempGUISystem;
             }

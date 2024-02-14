@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.GUI.Events;
 using PixelDust.Game.GUI.Interfaces;
+using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI
@@ -11,6 +13,8 @@ namespace PixelDust.Game.GUI
         public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
+        public bool HasEvents => this.GUIEvents != null;
+        protected PGUIEvents GUIEvents { get; private set; }
 
         private readonly PGUILayout layout = new();
 
@@ -44,6 +48,10 @@ namespace PixelDust.Game.GUI
             this.layout.Draw(gameTime, spriteBatch);
         }
 
+        public void SetEvents(PGUIEvents guiEvents)
+        {
+            this.GUIEvents = guiEvents;
+        }
         public void Activate()
         {
             this.isActive = true;
@@ -64,10 +72,6 @@ namespace PixelDust.Game.GUI
             this.isShowing = false;
             OnClosed();
         }
-
-        #region EVENT CHECKER
-
-        #endregion
 
         protected abstract void OnBuild(IPGUILayoutBuilder layout);
         protected virtual void OnActivated() { return; }
