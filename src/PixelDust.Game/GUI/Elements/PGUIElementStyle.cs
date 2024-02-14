@@ -7,17 +7,31 @@ using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Elements
 {
-    public sealed class PGUIElementStyle(PGUIElement element)
+    public struct PGUIElementStyle
     {
-        public PPositioningType PositioningType { get; set; } = PPositioningType.Relative;
-        public PCardinalDirection PositionAnchor { get; set; } = PCardinalDirection.Northwest;
-        public Size2 Size { get; set; } = Size2.Zero;
-        public Color Color { get; set; } = Color.White;
-        public Vector2 Margin { get; set; } = Vector2.Zero;
+        public readonly PPositioningType PositioningType => this.positioningType;
+        public readonly PCardinalDirection PositionAnchor => this.positionAnchor;
+        public readonly Size2 Size => this.size;
+        public readonly Vector2 Margin => this.margin;
 
-        private readonly PGUIElement _element = element;
+        private readonly PGUIElement _element;
 
-        public Vector2 GetPosition()
+        private PPositioningType positioningType;
+        private PCardinalDirection positionAnchor;
+        private Size2 size;
+        private Vector2 margin;
+
+        public PGUIElementStyle(PGUIElement element)
+        {
+            this._element = element;
+
+            SetPositioningType(PPositioningType.Relative);
+            SetPositionAnchor(PCardinalDirection.Northwest);
+            SetSize(Size2.Zero);
+            SetMargin(Vector2.Zero);
+        }
+
+        public readonly Vector2 GetPosition()
         {
             Size2 screenSize = new(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
 
@@ -43,6 +57,23 @@ namespace PixelDust.Game.GUI.Elements
                 PCardinalDirection.Northwest => targetPosition + this.Margin,
                 _ => targetPosition,
             };
+        }
+
+        public void SetPositioningType(PPositioningType type)
+        {
+            this.positioningType = type;
+        }
+        public void SetPositionAnchor(PCardinalDirection cardinalDirection)
+        {
+            this.positionAnchor = cardinalDirection;
+        }
+        public void SetSize(Size2 size)
+        {
+            this.size = size;
+        }
+        public void SetMargin(Vector2 margin)
+        {
+            this.margin = margin;
         }
     }
 }
