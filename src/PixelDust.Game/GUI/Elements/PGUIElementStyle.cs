@@ -3,11 +3,12 @@
 using PixelDust.Game.Constants;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
+using PixelDust.Game.Interfaces;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Elements
 {
-    public struct PGUIElementStyle
+    public struct PGUIElementStyle : IReset
     {
         public readonly PPositioningType PositioningType => this.positioningType;
         public readonly PCardinalDirection PositionAnchor => this.positionAnchor;
@@ -24,11 +25,7 @@ namespace PixelDust.Game.GUI.Elements
         public PGUIElementStyle(PGUIElement element)
         {
             this._element = element;
-
-            SetPositioningType(PPositioningType.Relative);
-            SetPositionAnchor(PCardinalDirection.Northwest);
-            SetSize(Size2.Zero);
-            SetMargin(Vector2.Zero);
+            Reset();
         }
 
         public readonly Vector2 GetPosition()
@@ -74,6 +71,14 @@ namespace PixelDust.Game.GUI.Elements
         public void SetMargin(Vector2 margin)
         {
             this.margin = margin;
+        }
+
+        public void Reset()
+        {
+            SetPositioningType(PPositioningType.Relative);
+            SetPositionAnchor(PCardinalDirection.Northwest);
+            SetSize(Size2.Zero);
+            SetMargin(Vector2.Zero);
         }
     }
 }
