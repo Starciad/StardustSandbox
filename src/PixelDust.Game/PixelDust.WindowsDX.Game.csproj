@@ -19,14 +19,6 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
-	<ItemGroup>
-	  <Compile Remove="assets\songs\**" />
-	  <Compile Remove="assets\sounds\**" />
-	  <EmbeddedResource Remove="assets\songs\**" />
-	  <EmbeddedResource Remove="assets\sounds\**" />
-	  <None Remove="assets\songs\**" />
-	  <None Remove="assets\sounds\**" />
-	</ItemGroup>
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
@@ -36,16 +28,24 @@
 	</ItemGroup>
 
 	<!-- FOLDERS -->
-
-	<!-- FILES (REMOVE) -->
 	<ItemGroup>
-		<None Remove="icon.ico" />
+		<Compile Remove="assets\songs\**" />
+		<Compile Remove="assets\sounds\**" />
+		<EmbeddedResource Remove="assets\songs\**" />
+		<EmbeddedResource Remove="assets\sounds\**" />
+		<None Remove="assets\songs\**" />
+		<None Remove="assets\sounds\**" />
 	</ItemGroup>
 
 	<!-- FILES (RESOURCE) -->
 	<ItemGroup>
 		<EmbeddedResource Include="icon.ico">
-			<LogicalName>icon.ico</LogicalName>
+			<LogicalName>Icon.ico</LogicalName>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+
+		<EmbeddedResource Include="icon.bmp">
+			<LogicalName>Icon.bmp</LogicalName>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
