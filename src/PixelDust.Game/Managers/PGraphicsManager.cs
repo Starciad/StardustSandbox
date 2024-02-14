@@ -2,11 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.IO;
+using PixelDust.Game.Models.Settings;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed class PGraphicsManager(GraphicsDeviceManager gdm) : PGameObject
+    public sealed class PGraphicsManager : PGameObject
     {
         public GraphicsDeviceManager GraphicsDeviceManager => this._gdm;
         public GraphicsDevice GraphicsDevice => this._gdm.GraphicsDevice;
@@ -17,7 +19,7 @@ namespace PixelDust.Game.Managers
         public RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
         public RenderTarget2D LightingRenderTarget => this.lightingRenderTarget;
 
-        private readonly GraphicsDeviceManager _gdm = gdm;
+        private readonly GraphicsDeviceManager _gdm;
 
         // ENGINE
         private RenderTarget2D screenRenderTarget;
@@ -27,6 +29,12 @@ namespace PixelDust.Game.Managers
         private RenderTarget2D backgroundRenderTarget;
         private RenderTarget2D worldRenderTarget;
         private RenderTarget2D lightingRenderTarget;
+
+        public PGraphicsManager(GraphicsDeviceManager gdm)
+        {
+            this._gdm = gdm;
+            UpdateSettings();
+        }
 
         protected override void OnAwake()
         {
@@ -38,6 +46,18 @@ namespace PixelDust.Game.Managers
             this.backgroundRenderTarget = new(this.GraphicsDevice, width, height);
             this.worldRenderTarget = new(this.GraphicsDevice, width, height);
             this.lightingRenderTarget = new(this.GraphicsDevice, width, height);
+        }
+
+        public void UpdateSettings()
+        {
+            PGraphicsSettings graphicsSettings = PSystemSettingsFile.GetGraphicsSettings();
+
+            this._gdm.IsFullScreen = graphicsSettings.FullScreen;
+            this._gdm.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
+            this._gdm.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;
+            this._gdm.SynchronizeWithVerticalRetrace = graphicsSettings.VSync;
+            this._gdm.GraphicsProfile = GraphicsProfile.HiDef;
+            this._gdm.ApplyChanges();
         }
     }
 }

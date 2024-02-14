@@ -10,19 +10,31 @@ namespace PixelDust.Game.IO
 {
     public static class PSystemSettingsFile
     {
+        private static readonly MessagePackSerializerOptions serializerOptions = MessagePackSerializerOptions.Standard.WithSecurity(MessagePackSecurity.UntrustedData).WithCompression(MessagePackCompression.Lz4Block);
+
         public static void Initialize()
         {
             EnsureSettingsFileExists(PFileConstants.SETTINGS_GRAPHICS, () => new PGraphicsSettings());
+            EnsureSettingsFileExists(PFileConstants.SETTINGS_CURSOR, () => new PCursorSettings());
         }
 
         #region CORE
-        public static void UpdateGraphicsSettings(PGraphicsSettings value)
+        public static void SetGraphicsSettings(PGraphicsSettings value)
         {
             Serialize(value, PFileConstants.SETTINGS_GRAPHICS);
         }
+        public static void SetCursorSettings(PCursorSettings value)
+        {
+            Serialize(value, PFileConstants.SETTINGS_CURSOR);
+        }
+
         public static PGraphicsSettings GetGraphicsSettings()
         {
             return Deserialize<PGraphicsSettings>(PFileConstants.SETTINGS_GRAPHICS);
+        }
+        public static PCursorSettings GetCursorSettings()
+        {
+            return Deserialize<PCursorSettings>(PFileConstants.SETTINGS_CURSOR);
         }
         #endregion
 
@@ -37,7 +49,7 @@ namespace PixelDust.Game.IO
         private static void Serialize<T>(T value, string fileName)
         {
             string filePath = Path.Combine(PDirectory.Settings, fileName);
-            File.WriteAllBytes(filePath, MessagePackSerializer.Serialize(value));
+            File.WriteAllBytes(filePath, MessagePackSerializer.Serialize(value, serializerOptions));
         }
         private static T Deserialize<T>(string fileName)
         {

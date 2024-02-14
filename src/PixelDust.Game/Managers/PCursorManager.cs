@@ -5,6 +5,8 @@ using PixelDust.Game.Databases;
 using PixelDust.Game.Extensions;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Enums.General;
+using PixelDust.Game.IO;
+using PixelDust.Game.Models.Settings;
 
 namespace PixelDust.Game.Managers
 {
@@ -18,18 +20,20 @@ namespace PixelDust.Game.Managers
 
         private readonly int cursorTextureSelected = 0;
 
-        private readonly Vector2 cursorScale = new(1);
+        private Vector2 cursorScale;
 
-        private readonly Color cursorBackgroundColor = Color.Red;
-        private readonly Color cursorColor = Color.White;
+        private Color cursorBackgroundColor;
+        private Color cursorColor;
 
-        private Vector2 cursorBackgroundPosition = Vector2.Zero;
-        private Vector2 cursorPosition = Vector2.Zero;
+        private Vector2 cursorBackgroundPosition;
+        private Vector2 cursorPosition;
 
         protected override void OnAwake()
         {
             this.cursorTextures[0] = assetDatabase.GetTexture("cursor_1");
             this.cursorTextures[1] = assetDatabase.GetTexture("cursor_2");
+
+            UpdateCursorSettings();
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -46,6 +50,15 @@ namespace PixelDust.Game.Managers
 
             spriteBatch.Draw(cursorSelectedTexture, this.cursorBackgroundPosition, cursorClipAreas[1], this.cursorBackgroundColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
             spriteBatch.Draw(cursorSelectedTexture, this.cursorPosition, cursorClipAreas[0], this.cursorColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
+        }
+
+        public void UpdateCursorSettings()
+        {
+            PCursorSettings cursorSettings = PSystemSettingsFile.GetCursorSettings();
+
+            // this.cursorScale = new(cursorSettings.Scale);
+            // this.cursorColor = cursorSettings.Color;
+            // this.cursorBackgroundColor = cursorSettings.BackgroundColor;
         }
     }
 }

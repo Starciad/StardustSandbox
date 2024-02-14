@@ -51,16 +51,7 @@ namespace PixelDust.Game
 
         public PGame()
         {
-            PGraphicsSettings graphicsSettings = PSystemSettingsFile.GetGraphicsSettings();
-
-            this._graphicsManager = new(new(this)
-            {
-                IsFullScreen = graphicsSettings.FullScreen,
-                PreferredBackBufferWidth = graphicsSettings.ScreenWidth,
-                PreferredBackBufferHeight = graphicsSettings.ScreenHeight,
-                SynchronizeWithVerticalRetrace = graphicsSettings.VSync,
-                GraphicsProfile = GraphicsProfile.HiDef,
-            });
+            this._graphicsManager = new(new(this));
 
             // Assembly
             this._assembly = GetType().Assembly;
@@ -69,14 +60,12 @@ namespace PixelDust.Game
             this.Content.RootDirectory = PDirectoryConstants.ASSETS;
 
             // Configure the game's window
+            UpdateGameSettings();
             this.Window.Title = PGameConstants.GetTitleAndVersionString();
-            this.Window.AllowUserResizing = graphicsSettings.Resizable;
-            this.Window.IsBorderless = graphicsSettings.Borderless;
 
             // Configure game settings
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
 
             // Database
             this._assetDatabase = new(this.Content);
@@ -95,6 +84,16 @@ namespace PixelDust.Game
             this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
             this._guiManager = new();
             this._cursorManager = new(this._assetDatabase, this._inputManager);
+        }
+
+        public void UpdateGameSettings()
+        {
+            PGraphicsSettings graphicsSettings = PSystemSettingsFile.GetGraphicsSettings();
+
+            this.Window.AllowUserResizing = graphicsSettings.Resizable;
+            this.Window.IsBorderless = graphicsSettings.Borderless;
+
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
 
         protected override void Initialize()
