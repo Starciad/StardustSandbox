@@ -10,10 +10,7 @@ namespace PixelDust.Game.Models.Settings
         [IgnoreMember]
         public Color Color
         {
-            readonly get
-            {
-                return new Color(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
-            }
+            readonly get => new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
 
             set
             {
@@ -27,10 +24,7 @@ namespace PixelDust.Game.Models.Settings
         [IgnoreMember]
         public Color BackgroundColor
         {
-            readonly get
-            {
-                return new Color(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.BackgroundColorA);
-            }
+            readonly get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.BackgroundColorA);
 
             set
             {

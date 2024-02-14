@@ -1,10 +1,9 @@
-﻿using PixelDust.Game.GUI.Elements;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+
 using PixelDust.Game.Mathematics;
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
-using SharpDX.Direct2D1;
 
 namespace PixelDust.Game.GUI.Events
 {

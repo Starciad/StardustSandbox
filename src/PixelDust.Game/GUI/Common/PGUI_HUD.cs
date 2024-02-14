@@ -5,8 +5,6 @@ using PixelDust.Game.Constants.GUI.Common;
 using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.Mathematics;
 
-using System;
-
 namespace PixelDust.Game.GUI.Common
 {
     public sealed partial class PGUI_HUD : PGUISystem
@@ -29,14 +27,9 @@ namespace PixelDust.Game.GUI.Common
             {
                 PGUIElement slot = this.headerElementSlots[i];
 
-                if (this.GUIEvents.OnMouseDown(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
-                {
-                    slot.Style.Color = Color.Red;
-                }
-                else
-                {
-                    slot.Style.Color = Color.White;
-                }
+                slot.Style.Color = this.GUIEvents.OnMouseDown(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE))
+                    ? Color.Red
+                    : Color.White;
             }
         }
     }

@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Game.Constants.GUI.Common;
+using PixelDust.Game.Enums.General;
+using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.Enums.General;
-using System.Collections.Generic;
-using PixelDust.Game.GUI.Elements;
 
 namespace PixelDust.Game.GUI.Common
 {
@@ -84,7 +83,7 @@ namespace PixelDust.Game.GUI.Common
                     slotArea.AppendChild(slotBackground);
                     this.headerElementSlots[i] = slotBackground;
 
-                    slotMargin.X += slotSpacing + slotSize / 2;
+                    slotMargin.X += slotSpacing + (slotSize / 2);
                 }
             }
 

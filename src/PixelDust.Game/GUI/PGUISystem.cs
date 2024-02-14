@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.GUI.Events;
 using PixelDust.Game.GUI.Interfaces;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI

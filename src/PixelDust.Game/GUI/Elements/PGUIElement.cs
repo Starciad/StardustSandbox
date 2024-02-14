@@ -57,7 +57,7 @@ namespace PixelDust.Game.GUI.Elements
 
         public void RemoveAllChildren()
         {
-            foreach (PGUIElement element in Children)
+            foreach (PGUIElement element in this.Children)
             {
                 RemoveChild(element);
             }
@@ -66,7 +66,7 @@ namespace PixelDust.Game.GUI.Elements
         public void RemoveChild(PGUIElement element)
         {
             element.parent = this.GUILayout.RootElement;
-            this.children.Remove(element);
+            _ = this.children.Remove(element);
         }
         #endregion
     }

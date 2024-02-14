@@ -2,11 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Databases;
-using PixelDust.Game.Extensions;
-using PixelDust.Game.Objects;
-using PixelDust.Game.Enums.General;
 using PixelDust.Game.IO;
 using PixelDust.Game.Models.Settings;
+using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.Managers
 {
