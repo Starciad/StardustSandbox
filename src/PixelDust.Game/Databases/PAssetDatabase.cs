@@ -56,17 +56,37 @@ namespace PixelDust.Game.Databases
         }
         private void LoadGraphics()
         {
+            // Backgrounds
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_BACKGROUNDS_LENGTH, "background_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_BACKGROUNDS));
+
+            // BGOs
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_BGOS_LENGTH, "bgos_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_BGOS));
+
+            // Effects
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_EFFECTS_LENGTH, "effect_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_EFFECTS));
+
+            // Elements
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_ELEMENTS_LENGTH, "element_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ELEMENTS));
+
+            // Particles
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_PARTICLES_LENGTH, "particle_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_PARTICLES));
+
+            // Cursors
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_CURSORS_LENGTH, "cursor_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_CURSORS));
+
+            // GUI
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_GUI_BACKGROUNDS_LENGTH, "gui_background_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_GUI, PDirectoryConstants.ASSETS_GRAPHICS_GUI_BACKGROUNDS));
+
+            // Icons
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_ICONS_ELEMENTS_LENGTH, "icon_element_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS_ELEMENTS));
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_ICONS_GUI_LENGTH, "icon_gui_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS_GUI));
+
+            // Game
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_GAME_ICONS_LENGTH, "game_icon_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_GAME, PDirectoryConstants.ASSETS_GRAPHICS_GAME_ICONS));
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_GAME_TITLES_LENGTH, "game_title_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_GAME, PDirectoryConstants.ASSETS_GRAPHICS_GAME_TITLES));
+
+            // Shapes
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_SHAPES_SQUARES_LENGTH, "shape_square_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_SHAPES, PDirectoryConstants.ASSETS_GRAPHICS_SHAPES_SQUARES));
         }
         private void LoadSounds()
         {
