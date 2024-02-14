@@ -81,6 +81,14 @@ namespace PixelDust.Game.Mathematics
             return size;
         }
 
+        public readonly Point ToPoint()
+        {
+            return new Point((int)this.Width, (int)this.Height);
+        }
+        public readonly Vector2 ToVector2()
+        {
+            return new Vector2(this.Width, this.Height);
+        }
         public override readonly string ToString()
         {
             return $"{{ Width: {this.Width}, Height: {this.Height} }}";

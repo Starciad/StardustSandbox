@@ -9,9 +9,17 @@ namespace PixelDust.Game.Mathematics
         public static readonly Size2Int Empty = new();
         public readonly bool IsEmpty => this.Width == 0 && this.Height == 0;
 
+        public static Size2Int Zero => new(0, 0);
+        public static Size2Int One => new(1, 1);
+
         public int Width { get; set; }
         public int Height { get; set; }
 
+        public Size2Int(int value)
+        {
+            this.Width = value;
+            this.Height = value;
+        }
         public Size2Int(int width, int height)
         {
             this.Width = width;
@@ -73,6 +81,14 @@ namespace PixelDust.Game.Mathematics
             return size;
         }
 
+        public readonly Point ToPoint()
+        {
+            return new Point(this.Width, this.Height);
+        }
+        public readonly Vector2 ToVector2()
+        {
+            return new Vector2(this.Width, this.Height);
+        }
         public override readonly string ToString()
         {
             return $"{{ Width: {this.Width}, Height: {this.Height} }}";

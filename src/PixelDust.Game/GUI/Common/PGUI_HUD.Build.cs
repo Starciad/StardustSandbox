@@ -45,6 +45,8 @@ namespace PixelDust.Game.GUI.Common
 
             // Background
             backgroundImage.SetTexture(this.particleTexture);
+            backgroundImage.SetScale(headerContainer.Style.Size.ToVector2());
+
             backgroundImage.Style.Color = new Color(Color.White, 32);
             backgroundImage.Style.Size = headerContainer.Style.Size;
 
@@ -73,16 +75,33 @@ namespace PixelDust.Game.GUI.Common
 
                 for (int i = 0; i < PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
                 {
+                    // Creation
                     PGUIImageElement slotBackground = this._layout.CreateElement<PGUIImageElement>();
+                    PGUIImageElement slotIcon = this._layout.CreateElement<PGUIImageElement>();
+
+                    // Background
                     slotBackground.SetTexture(this.squareShapeTexture);
                     slotBackground.SetOriginPivot(PCardinalDirection.Center);
+                    slotBackground.SetScale(new(slotScale));
+
                     slotBackground.Style.PositionAnchor = PCardinalDirection.West;
-                    slotBackground.Style.Size = new Size2(slotScale);
+                    slotBackground.Style.Size = new Size2(slotSize);
                     slotBackground.Style.Margin = slotMargin;
 
+                    // Icon
+                    slotIcon.SetTexture(this.iconTexture);
+                    slotIcon.SetOriginPivot(PCardinalDirection.Center);
+                    slotIcon.SetScale(new(1.5f));
+                    slotIcon.Style.Size = new Size2(slotSize);
+
+                    // Append
                     slotArea.AppendChild(slotBackground);
+                    slotBackground.AppendChild(slotIcon);
+
+                    // Save
                     this.headerElementSlots[i] = slotBackground;
 
+                    // Spacing
                     slotMargin.X += slotSpacing + (slotSize / 2);
                 }
             }
@@ -92,6 +111,8 @@ namespace PixelDust.Game.GUI.Common
                 PGUIImageElement slotSearchBackground = this._layout.CreateElement<PGUIImageElement>();
                 slotSearchBackground.SetTexture(this.squareShapeTexture);
                 slotSearchBackground.SetOriginPivot(PCardinalDirection.Center);
+                slotSearchBackground.SetScale(new Vector2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SCALE + 0.45f));
+
                 slotSearchBackground.Style.PositionAnchor = PCardinalDirection.East;
                 slotSearchBackground.Style.Size = new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SCALE + 0.45f);
                 slotSearchBackground.Style.Margin = new Vector2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0);
