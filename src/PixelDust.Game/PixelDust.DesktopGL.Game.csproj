@@ -36,15 +36,15 @@
 		<Folder Include="IO\" />
 	</ItemGroup>
 
-	<!-- FILES (REMOVE) -->
-	<ItemGroup>
-		<None Remove="icon.ico" />
-	</ItemGroup>
-
 	<!-- FILES (RESOURCE) -->
 	<ItemGroup>
 		<EmbeddedResource Include="icon.ico">
-			<LogicalName>icon.ico</LogicalName>
+			<LogicalName>Icon.ico</LogicalName>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+
+		<EmbeddedResource Include="icon.bmp">
+			<LogicalName>Icon.bmp</LogicalName>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
