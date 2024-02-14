@@ -35,9 +35,15 @@ namespace PixelDust.Game.GUI.Events
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
-        public void OnMouseEnter()
+        public bool OnMouseEnter(Vector2 targetPosition, Size2 areaSize)
         {
+            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
+            Vector2 previousMousePosition = this._inputManager.PreviousMouseState.Position.ToVector2();
 
+            bool mouseWasOutside = !IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
+            bool mouseIsInside = IsMouseWithinArea(mousePosition, targetPosition, areaSize);
+
+            return mouseWasOutside && mouseIsInside;
         }
 
         public void OnMouseMove()
