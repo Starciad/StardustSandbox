@@ -4,6 +4,7 @@ using PixelDust.Game.Constants.GUI.Common;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
+using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
 
@@ -33,7 +34,7 @@ namespace PixelDust.Game.GUI.Common
 
             // Styles
             // (Header)
-            headerContainer.Style.Size = new Size2(this._root.Style.Size.Width, 96f);
+            headerContainer.Style.SetSize(new Size2(this._root.Style.Size.Width, 96f));
 
             // Process
             CreateHeader(headerContainer);
@@ -46,13 +47,11 @@ namespace PixelDust.Game.GUI.Common
             // Background
             backgroundImage.SetTexture(this.particleTexture);
             backgroundImage.SetScale(headerContainer.Style.Size.ToVector2());
-
-            backgroundImage.Style.Color = new Color(Color.White, 32);
-            backgroundImage.Style.Size = headerContainer.Style.Size;
+            backgroundImage.SetColor(new Color(Color.White, 32));
+            backgroundImage.Style.SetSize(headerContainer.Style.Size);
 
             // Slot
-            slotArea.Style.Color = Color.Transparent;
-            slotArea.Style.Size = headerContainer.Style.Size;
+            slotArea.Style.SetSize(headerContainer.Style.Size);
 
             // Append
             headerContainer.AppendChild(backgroundImage);
@@ -84,15 +83,16 @@ namespace PixelDust.Game.GUI.Common
                     slotBackground.SetOriginPivot(PCardinalDirection.Center);
                     slotBackground.SetScale(new(slotScale));
 
-                    slotBackground.Style.PositionAnchor = PCardinalDirection.West;
-                    slotBackground.Style.Size = new Size2(slotSize);
-                    slotBackground.Style.Margin = slotMargin;
+                    slotBackground.Style.SetPositionAnchor(PCardinalDirection.West);
+                    slotBackground.Style.SetSize(new Size2(slotSize));
+                    slotBackground.Style.SetMargin(slotMargin);
 
                     // Icon
                     slotIcon.SetTexture(this.iconTexture);
                     slotIcon.SetOriginPivot(PCardinalDirection.Center);
                     slotIcon.SetScale(new(1.5f));
-                    slotIcon.Style.Size = new Size2(slotSize);
+
+                    slotIcon.Style.SetSize(new Size2(slotSize));
 
                     // Append
                     slotArea.AppendChild(slotBackground);
@@ -113,9 +113,9 @@ namespace PixelDust.Game.GUI.Common
                 slotSearchBackground.SetOriginPivot(PCardinalDirection.Center);
                 slotSearchBackground.SetScale(new Vector2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SCALE + 0.45f));
 
-                slotSearchBackground.Style.PositionAnchor = PCardinalDirection.East;
-                slotSearchBackground.Style.Size = new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SCALE + 0.45f);
-                slotSearchBackground.Style.Margin = new Vector2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0);
+                slotSearchBackground.Style.SetPositionAnchor(PCardinalDirection.East);
+                slotSearchBackground.Style.SetSize(new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SCALE + 0.45f));
+                slotSearchBackground.Style.SetMargin(new Vector2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0));
 
                 slotArea.AppendChild(slotSearchBackground);
             }

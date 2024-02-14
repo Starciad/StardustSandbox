@@ -25,9 +25,8 @@ namespace PixelDust.Game.GUI
         protected override void OnAwake()
         {
             this.rootElement = CreateElement<PGUIRootElement>();
-            this.rootElement.Style.PositioningType = PPositioningType.Fixed;
-            this.rootElement.Style.Size = new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
-            this.rootElement.Style.Color = Color.Transparent;
+            this.rootElement.Style.SetPositioningType(PPositioningType.Fixed);
+            this.rootElement.Style.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
         }
 
         protected override void OnUpdate(GameTime gameTime)
