@@ -32,6 +32,10 @@
         // Icons
         public const sbyte GRAPHICS_ICONS_ELEMENTS_LENGTH = 20;
         public const sbyte GRAPHICS_ICONS_GUI_LENGTH = 14;
+
+        // Game
+        public const sbyte GRAPHICS_GAME_ICONS_LENGTH = 1;
+        public const sbyte GRAPHICS_GAME_TITLES_LENGTH = 1;
         #endregion
     }
 }

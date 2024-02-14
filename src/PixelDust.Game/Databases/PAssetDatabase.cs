@@ -65,6 +65,8 @@ namespace PixelDust.Game.Databases
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_GUI_BACKGROUNDS_LENGTH, "gui_background_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_GUI, PDirectoryConstants.ASSETS_GRAPHICS_GUI_BACKGROUNDS));
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_ICONS_ELEMENTS_LENGTH, "icon_element_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS_ELEMENTS));
             AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_ICONS_GUI_LENGTH, "icon_gui_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS, PDirectoryConstants.ASSETS_GRAPHICS_ICONS_GUI));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_GAME_ICONS_LENGTH, "game_icon_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_GAME, PDirectoryConstants.ASSETS_GRAPHICS_GAME_ICONS));
+            AssetLoader(AssetType.Texture, PAssetConstants.GRAPHICS_GAME_TITLES_LENGTH, "game_title_", Path.Combine(PDirectoryConstants.ASSETS_GRAPHICS, PDirectoryConstants.ASSETS_GRAPHICS_GAME, PDirectoryConstants.ASSETS_GRAPHICS_GAME_TITLES));
         }
         private void LoadSounds()
         {

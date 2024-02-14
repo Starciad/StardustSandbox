@@ -43,6 +43,11 @@
         public const string ASSETS_GRAPHICS_ICONS = "icons";
         public const string ASSETS_GRAPHICS_ICONS_ELEMENTS = "elements";
         public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
+
+        // Game
+        public const string ASSETS_GRAPHICS_GAME = "game";
+        public const string ASSETS_GRAPHICS_GAME_ICONS = "icons";
+        public const string ASSETS_GRAPHICS_GAME_TITLES = "titles";
         #endregion
     }
 }
