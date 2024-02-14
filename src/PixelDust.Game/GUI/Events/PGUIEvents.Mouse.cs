@@ -26,11 +26,6 @@ namespace PixelDust.Game.GUI.Events
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
-        public void OnDoubleClick()
-        {
-
-        }
-
         public void OnMouseDown()
         {
 
