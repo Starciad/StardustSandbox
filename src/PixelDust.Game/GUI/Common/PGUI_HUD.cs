@@ -29,9 +29,9 @@ namespace PixelDust.Game.GUI.Common
             {
                 PGUIElement slot = this.headerElementSlots[i];
 
-                if (this.GUIEvents.OnMouseClick(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseUp(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    Console.WriteLine("Click!");
+                    Console.WriteLine("Mouse Up!");
                     slot.Style.Color = Color.Red;
                 }
                 else
