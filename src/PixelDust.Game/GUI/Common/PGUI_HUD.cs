@@ -29,9 +29,9 @@ namespace PixelDust.Game.GUI.Common
             {
                 PGUIElement slot = this.headerElementSlots[i];
 
-                if (this.GUIEvents.OnMouseEnter(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseMove(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    Console.WriteLine("Mouse Enter!");
+                    Console.WriteLine("Mouse Move!");
                     slot.Style.Color = Color.Red;
                 }
                 else
