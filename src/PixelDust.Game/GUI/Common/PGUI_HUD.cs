@@ -28,16 +28,6 @@ namespace PixelDust.Game.GUI.Common
             for (int i = 0; i < PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
             {
                 PGUIElement slot = this.headerElementSlots[i];
-
-                if (this.GUIEvents.OnMouseLeave(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
-                {
-                    Console.WriteLine("Mouse Leave!");
-                    slot.Style.Color = Color.Red;
-                }
-                else
-                {
-                    slot.Style.Color = Color.White;
-                }
             }
         }
     }

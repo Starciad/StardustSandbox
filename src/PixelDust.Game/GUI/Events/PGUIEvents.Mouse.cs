@@ -9,6 +9,12 @@ namespace PixelDust.Game.GUI.Events
 {
     public sealed partial class PGUIEvents
     {
+        /// <summary>
+        /// Checks if the left mouse button was clicked within the specified area.
+        /// </summary>
+        /// <param name="targetPosition">The position of the GUI element.</param>
+        /// <param name="areaSize">The size of the GUI element's clickable area.</param>
+        /// <returns>True if the left mouse button was clicked within the area, otherwise false.</returns>
         public bool OnMouseClick(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
@@ -18,6 +24,12 @@ namespace PixelDust.Game.GUI.Events
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
+        /// <summary>
+        /// Checks if the left mouse button is pressed within the specified area.
+        /// </summary>
+        /// <param name="targetPosition">The position of the GUI element.</param>
+        /// <param name="areaSize">The size of the GUI element's clickable area.</param>
+        /// <returns>True if the left mouse button is pressed within the area, otherwise false.</returns>
         public bool OnMouseDown(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
@@ -26,6 +38,12 @@ namespace PixelDust.Game.GUI.Events
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
+        /// <summary>
+        /// Checks if the left mouse button is released within the specified area.
+        /// </summary>
+        /// <param name="targetPosition">The position of the GUI element.</param>
+        /// <param name="areaSize">The size of the GUI element's clickable area.</param>
+        /// <returns>True if the left mouse button is released within the area, otherwise false.</returns>
         public bool OnMouseUp(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
@@ -35,6 +53,12 @@ namespace PixelDust.Game.GUI.Events
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
+        /// <summary>
+        /// Checks if the mouse cursor enters the specified area.
+        /// </summary>
+        /// <param name="targetPosition">The position of the GUI element.</param>
+        /// <param name="areaSize">The size of the GUI element's clickable area.</param>
+        /// <returns>True if the mouse cursor enters the area, otherwise false.</returns>
         public bool OnMouseEnter(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
@@ -46,6 +70,12 @@ namespace PixelDust.Game.GUI.Events
             return mouseWasOutside && mouseIsInside;
         }
 
+        /// <summary>
+        /// Checks if the mouse cursor is over the specified area.
+        /// </summary>
+        /// <param name="targetPosition">The position of the GUI element.</param>
+        /// <param name="areaSize">The size of the GUI element's clickable area.</param>
+        /// <returns>True if the mouse cursor is over the area, otherwise false.</returns>
         public bool OnMouseOver(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
@@ -53,6 +83,12 @@ namespace PixelDust.Game.GUI.Events
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
+        /// <summary>
+        /// Checks if the mouse cursor leaves the specified area.
+        /// </summary>
+        /// <param name="targetPosition">The position of the GUI element.</param>
+        /// <param name="areaSize">The size of the GUI element's clickable area.</param>
+        /// <returns>True if the mouse cursor leaves the area, otherwise false.</returns>
         public bool OnMouseLeave(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
