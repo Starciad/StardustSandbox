@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Game.Constants;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Mathematics;
@@ -13,10 +14,9 @@ namespace PixelDust.Game.World.Components.Threading
 {
     public sealed class PWorldThreadingComponent : PWorldComponent
     {
-        private const int TOTAL_WORLD_THREADS = 12;
-
         private int _worldThreadSize;
-        private readonly PWorldThread[] _worldThreadsInfos = new PWorldThread[TOTAL_WORLD_THREADS];
+
+        private readonly PWorldThread[] _worldThreadsInfos = new PWorldThread[PWorldConstants.TOTAL_WORLD_THREADS];
 
         private readonly List<Vector2Int> _capturedSlots = [];
         protected override void OnAwake()
@@ -24,11 +24,11 @@ namespace PixelDust.Game.World.Components.Threading
             int totalValue = this.World.Infos.Size.Width;
             int remainingValue = totalValue;
 
-            this._worldThreadSize = (int)MathF.Ceiling(totalValue / TOTAL_WORLD_THREADS);
+            this._worldThreadSize = (int)MathF.Ceiling(totalValue / PWorldConstants.TOTAL_WORLD_THREADS);
 
             // Setting Ranges
             int rangeStart = 0;
-            for (int i = 0; i < TOTAL_WORLD_THREADS; i++)
+            for (int i = 0; i < PWorldConstants.TOTAL_WORLD_THREADS; i++)
             {
                 this._worldThreadsInfos[i] = new(i + 1, rangeStart, rangeStart + this._worldThreadSize - 1);
 
@@ -39,7 +39,7 @@ namespace PixelDust.Game.World.Components.Threading
             // Distribute the remaining value to the last object
             if (remainingValue > 0)
             {
-                this._worldThreadsInfos[TOTAL_WORLD_THREADS - 1].EndPosition += remainingValue;
+                this._worldThreadsInfos[PWorldConstants.TOTAL_WORLD_THREADS - 1].EndPosition += remainingValue;
             }
         }
         protected override void OnUpdate(GameTime gameTime)
@@ -47,7 +47,7 @@ namespace PixelDust.Game.World.Components.Threading
             // Odds
             Task odds = Task.Run(() =>
             {
-                for (int i = 0; i < TOTAL_WORLD_THREADS; i++)
+                for (int i = 0; i < PWorldConstants.TOTAL_WORLD_THREADS; i++)
                 {
                     if (i % 2 == 0)
                     {
@@ -63,7 +63,7 @@ namespace PixelDust.Game.World.Components.Threading
             // Even
             Task even = Task.Run(() =>
             {
-                for (int i = 0; i < TOTAL_WORLD_THREADS; i++)
+                for (int i = 0; i < PWorldConstants.TOTAL_WORLD_THREADS; i++)
                 {
                     if (i % 2 != 0)
                     {
