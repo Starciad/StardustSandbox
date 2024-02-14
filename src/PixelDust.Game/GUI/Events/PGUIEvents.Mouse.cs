@@ -46,16 +46,22 @@ namespace PixelDust.Game.GUI.Events
             return mouseWasOutside && mouseIsInside;
         }
 
-        public bool OnMouseMove(Vector2 targetPosition, Size2 areaSize)
+        public bool OnMouseOver(Vector2 targetPosition, Size2 areaSize)
         {
             Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
 
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
-        public void OnMouseLeave()
+        public bool OnMouseLeave(Vector2 targetPosition, Size2 areaSize)
         {
+            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
+            Vector2 previousMousePosition = this._inputManager.PreviousMouseState.Position.ToVector2();
 
+            bool mouseWasInside = IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
+            bool mouseIsOutside = !IsMouseWithinArea(mousePosition, targetPosition, areaSize);
+
+            return mouseWasInside && mouseIsOutside;
         }
 
         private static bool IsMouseWithinArea(Vector2 mousePosition, Vector2 targetPosition, Size2 areaSize)
