@@ -10,7 +10,7 @@ using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.Elements.Rendering.Common
 {
-    public sealed class PElementDynamicRendering : PElementRenderingMechanism
+    public sealed class PElementBlobRendering : PElementRenderingMechanism
     {
         private static readonly Rectangle[] spriteKeyPoints = [
             // Full

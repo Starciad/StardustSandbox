@@ -17,7 +17,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
             this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
             this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_1");
 
-            this.Rendering.SetRenderingMechanism(new PElementDynamicRendering());
+            this.Rendering.SetRenderingMechanism(new PElementBlobRendering());
 
             this.DefaultTemperature = 20;
         }
