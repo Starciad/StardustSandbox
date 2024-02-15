@@ -140,7 +140,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
         {
             byte result = 0;
 
-            for (int i = 0; i < PElementRenderingConstants.DIRECTIONS_LENGTH; i++)
+            for (int i = 0; i < targets.Length; i++)
             {
                 if (context.TryGetElement(targets[i].position, out PElement _))
                 {
@@ -159,14 +159,14 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 case 0:
                     this.spriteClipAreas[index] = blobValue switch
                     {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        128 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        192 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        066 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        193 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_EMPTY => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_CASE_1 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_CASE_2 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_CASE_3 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_CASE_4 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_CASE_5 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_CASE_6 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHWEST_PIVOT_SURROUNDED => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                         _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                     };
                     break;
@@ -175,14 +175,14 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 case 1:
                     this.spriteClipAreas[index] = blobValue switch
                     {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        004 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        002 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        006 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        005 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        007 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_EMPTY => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_1 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_2 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_3 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_4 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_5 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_6 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_SURROUNDED => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                         _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                     };
                     break;
@@ -191,14 +191,14 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 case 2:
                     this.spriteClipAreas[index] = blobValue switch
                     {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        032 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        016 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        096 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        048 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        080 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        112 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_EMPTY => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_CASE_1 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_CASE_2 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_CASE_3 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_CASE_4 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_CASE_5 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_CASE_6 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHEAST_PIVOT_SURROUNDED => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                         _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                     };
                     break;
@@ -207,14 +207,14 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 case 3:
                     this.spriteClipAreas[index] = blobValue switch
                     {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        004 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        008 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        016 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        012 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        024 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        020 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        028 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_EMPTY => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_CASE_1 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_CASE_2 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_CASE_3 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_CASE_4 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_CASE_5 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_CASE_6 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_SOUTHWEST_PIVOT_SURROUNDED => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                         _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                     };
                     break;
