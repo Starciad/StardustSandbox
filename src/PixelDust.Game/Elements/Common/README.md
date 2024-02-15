@@ -20,4 +20,3 @@
 0. [Corruption (Solid/Immovable)](Solid/Immovable/PIMCorruption.cs)
 0. [Steam (Gases)](Gases/PSteam.cs)
 0. [Smoke (Gases)](Gases/PSmoke.cs)
-0. [Oil (Gases)](Liquid/POil.cs)

@@ -19,6 +19,8 @@ namespace PixelDust.Game.Elements
         public string Description { get; protected set; }
         public string Category { get; protected set; }
         public uint Id { get; internal set; }
+        public Texture2D Texture { get; protected set; }
+        public Texture2D IconTexture { get; protected set; }
         #endregion
 
         #region Settings (Defaults)

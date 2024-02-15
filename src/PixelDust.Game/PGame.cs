@@ -24,6 +24,7 @@ namespace PixelDust.Game
         public Assembly Assembly => this._assembly;
         public PInputManager InputManager => this._inputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
+        public PElementDatabase ElementDatabase => this._elementDatabase;
 
         // ================================= //
 
@@ -228,7 +229,6 @@ namespace PixelDust.Game
             database.RegisterElement<PIMCorruption>();
             database.RegisterElement<PSteam>();
             database.RegisterElement<PSmoke>();
-            database.RegisterElement<POil>();
         }
     }
 }

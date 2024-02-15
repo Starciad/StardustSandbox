@@ -74,24 +74,24 @@ namespace PixelDust.Game.GUI.Elements
         #endregion
 
         #region Data
-        public void AddData(string id, object value)
+        public void AddData(string name, object value)
         {
-            this.data.Add(id, value);
+            this.data.Add(name, value);
         }
 
-        public object GetData(string id)
+        public object GetData(string name)
         {
-            return this.data[id];
+            return this.data[name];
         }
 
-        public void UpdateData(string id, object value)
+        public void UpdateData(string name, object value)
         {
-            this.data[id] = value;
+            this.data[name] = value;
         }
 
-        public void RemoveData(string id)
+        public void RemoveData(string name)
         {
-            _ = this.data.Remove(id);
+            _ = this.data.Remove(name);
         }
         #endregion
     }

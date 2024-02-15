@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Common.Gases
         {
             this.Name = "Steam";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(8, 1));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_19");
 
             this.DefaultTemperature = 100;
         }

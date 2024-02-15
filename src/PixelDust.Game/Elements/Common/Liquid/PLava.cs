@@ -11,8 +11,9 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             this.Name = "Lava";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(9, 0));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_10");
 
             this.DefaultTemperature = 1000;
         }

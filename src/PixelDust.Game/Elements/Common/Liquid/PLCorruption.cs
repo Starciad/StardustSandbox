@@ -15,8 +15,9 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             this.Name = "Corruption (Liquid)";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(6, 1));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_17");
 
             this.EnableNeighborsAction = true;
         }

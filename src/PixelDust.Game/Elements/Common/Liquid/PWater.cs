@@ -17,8 +17,9 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             this.Name = "Water";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(2, 0));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_3");
 
             this.DefaultDispersionRate = 3;
             this.DefaultTemperature = 25;

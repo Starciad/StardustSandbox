@@ -11,8 +11,9 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
         {
             this.Name = "Stone";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(3, 0));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_4");
 
             this.DefaultTemperature = 20;
         }

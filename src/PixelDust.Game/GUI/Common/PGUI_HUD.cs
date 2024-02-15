@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants.GUI.Common;
+using PixelDust.Game.Elements;
 using PixelDust.Game.GUI.Elements;
 
 namespace PixelDust.Game.GUI.Common
@@ -28,6 +29,11 @@ namespace PixelDust.Game.GUI.Common
             {
                 PGUIElement slot = this.headerElementSlots[i];
             }
+        }
+
+        public Texture2D GetElementIconTexture(int id)
+        {
+            return this.Game.ElementDatabase.GetElementById((uint)id).IconTexture;
         }
     }
 }

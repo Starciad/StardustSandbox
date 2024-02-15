@@ -5,5 +5,7 @@
         public const int HEADER_ELEMENT_SELECTION_SLOTS_LENGTH = 14;
         public const int HEADER_ELEMENT_SELECTION_SLOTS_SIZE = 32;
         public const int HEADER_ELEMENT_SELECTION_SLOTS_SCALE = 2;
+
+        public const string SLOT_ELEMENT_INDEX_NAME = "ei";
     }
 }

@@ -11,17 +11,13 @@ namespace PixelDust.Game.Elements.Common.Liquid
     [PElementRegister(10)]
     public class PAcid : PLiquid
     {
-        protected override void OnAwake()
-        {
-            base.OnAwake();
-        }
-
         protected override void OnSettings()
         {
             this.Name = "Acid";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(0, 1));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_11");
 
             this.DefaultTemperature = 10;
 

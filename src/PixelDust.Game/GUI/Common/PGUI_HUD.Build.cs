@@ -82,13 +82,14 @@ namespace PixelDust.Game.GUI.Common
                     slotBackground.SetTexture(this.squareShapeTexture);
                     slotBackground.SetOriginPivot(PCardinalDirection.Center);
                     slotBackground.SetScale(new(slotScale));
+                    slotBackground.AddData(PHUDConstants.SLOT_ELEMENT_INDEX_NAME, i);
 
                     slotBackground.Style.SetPositionAnchor(PCardinalDirection.West);
                     slotBackground.Style.SetSize(new Size2(slotSize));
                     slotBackground.Style.SetMargin(slotMargin);
 
                     // Icon
-                    slotIcon.SetTexture(this.iconTexture);
+                    slotIcon.SetTexture(GetElementIconTexture(i));
                     slotIcon.SetOriginPivot(PCardinalDirection.Center);
                     slotIcon.SetScale(new(1.5f));
 

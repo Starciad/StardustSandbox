@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
         {
             this.Name = "Glass";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(1, 1));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_12");
 
             this.DefaultTemperature = 25;
         }

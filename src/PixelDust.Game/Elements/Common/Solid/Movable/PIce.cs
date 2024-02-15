@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
         {
             this.Name = "Ice";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(5, 0));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_6");
 
             this.DefaultTemperature = 0;
         }

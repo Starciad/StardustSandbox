@@ -10,8 +10,9 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
         {
             this.Name = "Metal";
             this.Description = string.Empty;
-
-            this.Render.AddFrame(new(2, 1));
+            this.Category = string.Empty;
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_13");
 
             this.DefaultTemperature = 30;
         }
