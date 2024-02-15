@@ -33,15 +33,10 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
         public override Texture2D Texture => this.texture;
         public override Color Color => this.color;
 
-        private Texture2D texture;
-        private Color color;
+        private Texture2D texture = null;
+        private Color color = Color.White;
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
-
-        public PGUISliceImageElement()
-        {
-            this.texture = null;
-        }
 
         protected override void OnUpdate(GameTime gameTime)
         {

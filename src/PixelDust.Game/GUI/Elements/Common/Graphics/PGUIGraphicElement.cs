@@ -10,7 +10,7 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
         public virtual Texture2D Texture { get; }
         public virtual Rectangle? TextureClipArea { get; }
         public virtual Color Color { get; }
-        public virtual SpriteEffects SpriteEffect { get; }
+        public virtual SpriteEffects SpriteEffects { get; }
         public virtual PCardinalDirection OriginPivot { get; }
         public virtual float RotationAngle { get; }
         public virtual Vector2 Scale { get; }

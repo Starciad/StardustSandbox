@@ -8,12 +8,12 @@ using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Elements
 {
-    public struct PGUIElementStyle : IReset
+    public sealed class PGUIElementStyle : IReset
     {
-        public readonly PPositioningType PositioningType => this.positioningType;
-        public readonly PCardinalDirection PositionAnchor => this.positionAnchor;
-        public readonly Size2 Size => this.size;
-        public readonly Vector2 Margin => this.margin;
+        public PPositioningType PositioningType => this.positioningType;
+        public PCardinalDirection PositionAnchor => this.positionAnchor;
+        public Size2 Size => this.size;
+        public Vector2 Margin => this.margin;
 
         private readonly PGUIElement _element;
 
@@ -24,11 +24,11 @@ namespace PixelDust.Game.GUI.Elements
 
         public PGUIElementStyle(PGUIElement element)
         {
-            this._element = element;
             Reset();
+            this._element = element;
         }
 
-        public readonly Vector2 GetPosition()
+        public Vector2 GetPosition()
         {
             Size2 screenSize = new(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
 

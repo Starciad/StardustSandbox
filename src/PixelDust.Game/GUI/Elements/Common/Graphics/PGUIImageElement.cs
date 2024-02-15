@@ -11,28 +11,18 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
         public override Texture2D Texture => this.texture;
         public override Rectangle? TextureClipArea => this.textureClipArea;
         public override Color Color => this.color;
-        public override SpriteEffects SpriteEffect => this.spriteEffects;
+        public override SpriteEffects SpriteEffects => this.spriteEffects;
         public override PCardinalDirection OriginPivot => this.originPivot;
         public override float RotationAngle => this.rotationAngle;
         public override Vector2 Scale => this.scale;
 
-        private Texture2D texture;
-        private Rectangle? textureClipArea;
-        private Color color;
-        private float rotationAngle;
-        private SpriteEffects spriteEffects;
-        private PCardinalDirection originPivot;
-        private Vector2 scale;
-
-        public PGUIImageElement()
-        {
-            this.texture = null;
-            this.textureClipArea = null;
-            this.rotationAngle = 0f;
-            this.spriteEffects = SpriteEffects.None;
-            this.originPivot = PCardinalDirection.Northwest;
-            this.scale = Vector2.One;
-        }
+        private Texture2D texture = null;
+        private Rectangle? textureClipArea = null;
+        private Color color = Color.White;
+        private SpriteEffects spriteEffects = SpriteEffects.None;
+        private PCardinalDirection originPivot = PCardinalDirection.Northwest;
+        private float rotationAngle = 0f;
+        private Vector2 scale = Vector2.One;
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
