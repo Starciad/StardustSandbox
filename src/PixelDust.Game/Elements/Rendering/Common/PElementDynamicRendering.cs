@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Constants;
 using PixelDust.Game.Constants.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Enums.Elements;
@@ -59,25 +60,29 @@ namespace PixelDust.Game.Elements.Rendering.Common
             base.Initialize(element);
         }
 
-        public override void Update(GameTime gameTime, PElementContext context)
-        {
-            for (int i = 0; i < PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
-            {
-                UpdateSpriteSlice(context, i, context.Position);
-            }
-        }
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
             Texture2D texture = this.Element.Texture;
 
             for (int i = 0; i < PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
+                UpdateSpritePositions(context.Position);
+                UpdateSpriteSlice(context, i, context.Position);
                 spriteBatch.Draw(texture, this.spritePositions[i], this.spriteClipAreas[i], color, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
 
         // Updates
+        private void UpdateSpritePositions(Vector2Int position)
+        {
+            float xOffset = PElementRenderingConstants.SPRITE_X_OFFSET, yOffset = PElementRenderingConstants.SPRITE_Y_OFFSET;
+
+            this.spritePositions[0] = new Vector2(position.X, position.Y) * PWorldConstants.GRID_SCALE;
+            this.spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * PWorldConstants.GRID_SCALE;
+            this.spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * PWorldConstants.GRID_SCALE;
+            this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * PWorldConstants.GRID_SCALE;
+        }
+
         private void UpdateSpriteSlice(PElementContext context, int index, Vector2Int position)
         {
             // Get blob connection value.

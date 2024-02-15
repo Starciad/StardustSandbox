@@ -145,9 +145,6 @@ namespace PixelDust.Game
             // Core
             this._world.Update(gameTime);
 
-            // Databases
-            this._elementDatabase.UpdateRendering(gameTime);
-
             base.Update(gameTime);
         }
 

@@ -37,14 +37,6 @@ namespace PixelDust.Game.Databases
             }
         }
 
-        public void UpdateRendering(GameTime gameTime)
-        {
-            for (int i = 0; i < this._elements.Length; i++)
-            {
-                this._elements[i].UpdateRendering(gameTime);
-            }
-        }
-
         public void RegisterElement<T>() where T : PElement
         {
             RegisterElement(typeof(T));

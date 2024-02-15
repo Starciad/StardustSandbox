@@ -6,6 +6,9 @@
         public const int SPRITE_DIVISIONS_LENGTH = 4;
         public const int SPRITE_SLICE_SIZE = 16;
 
+        public const float SPRITE_X_OFFSET = 0.5f;
+        public const float SPRITE_Y_OFFSET = 0.5f;
+
         // BLOB
         public const int BLOB_ROTATION_VALUE = 4;
 

@@ -46,20 +46,15 @@ namespace PixelDust.Game.Elements
             OnSettings();
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        protected override void OnUpdate(GameTime gameTime)
         {
-            this.Rendering.Draw(gameTime, spriteBatch);
+            this.Rendering.Update(gameTime);
         }
 
-        public void UpdateRendering(GameTime gameTime)
+        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (this.Context.IsEmpty)
-            {
-                return;
-            }
-
-            this.Rendering.UpdateContext(this.Context);
-            this.Rendering.Update(gameTime);
+            this.Rendering.SetContext(this.Context);
+            this.Rendering.Draw(gameTime, spriteBatch);
         }
 
         public void Steps()

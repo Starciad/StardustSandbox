@@ -42,7 +42,7 @@ namespace PixelDust.Game.Elements.Rendering
             this.renderingMechanism.Initialize(this._element);
         }
 
-        public void UpdateContext(PElementContext context)
+        internal void SetContext(PElementContext context)
         {
             this._context = context;
         }
