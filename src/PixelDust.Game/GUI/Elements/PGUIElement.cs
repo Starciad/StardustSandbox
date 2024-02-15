@@ -24,7 +24,10 @@ namespace PixelDust.Game.GUI.Elements
         public bool HasChildren => this.children.Count > 0;
 
         private readonly PGUIElementStyle style;
+
         private readonly List<PGUIElement> children = [];
+        private readonly Dictionary<string, object> data = [];
+
         private PGUIElement parent;
         private Vector2 position;
 
@@ -67,6 +70,28 @@ namespace PixelDust.Game.GUI.Elements
         {
             element.parent = this.GUILayout.RootElement;
             _ = this.children.Remove(element);
+        }
+        #endregion
+
+        #region Data
+        public void AddData(string id, object value)
+        {
+            this.data.Add(id, value);
+        }
+
+        public object GetData(string id)
+        {
+            return this.data[id];
+        }
+
+        public void UpdateData(string id, object value)
+        {
+            this.data[id] = value;
+        }
+
+        public void RemoveData(string id)
+        {
+            _ = this.data.Remove(id);
         }
         #endregion
     }
