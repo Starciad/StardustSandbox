@@ -23,6 +23,7 @@ namespace PixelDust.Game
     {
         public Assembly Assembly => this._assembly;
         public PInputManager InputManager => this._inputManager;
+        public PGameInputManager GameInputManager => this._gameInputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
         public PElementDatabase ElementDatabase => this._elementDatabase;
 
@@ -82,7 +83,7 @@ namespace PixelDust.Game
             // Managers
             this._inputManager = new();
             this._shaderManager = new(this._assetDatabase);
-            this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager, this._elementDatabase);
+            this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager);
             this._guiManager = new(this._inputManager);
             this._cursorManager = new(this._assetDatabase, this._inputManager);
         }

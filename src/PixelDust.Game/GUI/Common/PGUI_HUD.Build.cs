@@ -89,7 +89,7 @@ namespace PixelDust.Game.GUI.Common
                     slotBackground.Style.SetMargin(slotMargin);
 
                     // Icon
-                    slotIcon.SetTexture(GetElementIconTexture(i));
+                    slotIcon.SetTexture(GetGameElement(i).IconTexture);
                     slotIcon.SetOriginPivot(PCardinalDirection.Center);
                     slotIcon.SetScale(new(1.5f));
 

@@ -2,8 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants.GUI.Common;
+using PixelDust.Game.Mathematics;
+using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.Elements;
-using PixelDust.Game.GUI.Elements;
 
 namespace PixelDust.Game.GUI.Common
 {
@@ -11,13 +12,15 @@ namespace PixelDust.Game.GUI.Common
     {
         private Texture2D particleTexture;
         private Texture2D squareShapeTexture;
-        private Texture2D iconTexture;
+
+        private int slotSelectedIndex = 0;
 
         protected override void OnAwake()
         {
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
-            this.iconTexture = this.Game.AssetDatabase.GetTexture("icon_element_1");
+
+            SelectElementSlot(0, 0);
 
             base.OnAwake();
         }
@@ -27,13 +30,35 @@ namespace PixelDust.Game.GUI.Common
 
             for (int i = 0; i < PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
             {
-                PGUIElement slot = this.headerElementSlots[i];
+                PGUIImageElement slot = (PGUIImageElement)this.headerElementSlots[i];
+
+                // Check Click
+                if (this.GUIEvents.OnMouseClick(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                {
+                    SelectElementSlot(i, (int)slot.GetData(PHUDConstants.SLOT_ELEMENT_INDEX_NAME));
+                }
+
+                // Set Color
+                if (i == this.slotSelectedIndex)
+                {
+                    slot.SetColor(Color.Red);
+                }
+                else
+                {
+                    slot.SetColor(Color.White);
+                }
             }
         }
 
-        public Texture2D GetElementIconTexture(int id)
+        private void SelectElementSlot(int slotIndex, int elementId)
         {
-            return this.Game.ElementDatabase.GetElementById((uint)id).IconTexture;
+            this.slotSelectedIndex = slotIndex;
+            this.Game.GameInputManager.SetSelectedElement(GetGameElement(elementId));
+        }
+
+        private PElement GetGameElement(int id)
+        {
+            return this.Game.ElementDatabase.GetElementById((uint)id);
         }
     }
 }
