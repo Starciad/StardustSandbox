@@ -175,14 +175,14 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 case 1:
                     this.spriteClipAreas[index] = blobValue switch
                     {
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_EMPTY => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_1 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_2 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_3 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_4 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_5 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_6 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_SURROUNDED => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_EMPTY => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_1 => spriteKeyPoints[(int)PSpriteKeyPoints.Horizontal_Edge_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_2 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_3 => spriteKeyPoints[(int)PSpriteKeyPoints.Vertical_Edge_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_4 => spriteKeyPoints[(int)PSpriteKeyPoints.Horizontal_Edge_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_5 => spriteKeyPoints[(int)PSpriteKeyPoints.Vertical_Edge_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_CASE_6 => spriteKeyPoints[(int)PSpriteKeyPoints.Gap_Northeast],
+                        PElementRenderingConstants.BLOB_NORTHEAST_PIVOT_SURROUNDED => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northeast],
                         _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
                     };
                     break;
