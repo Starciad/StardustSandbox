@@ -53,6 +53,11 @@ namespace PixelDust.Game.Elements
 
         public void UpdateRendering(GameTime gameTime)
         {
+            if (this.Context.IsEmpty)
+            {
+                return;
+            }
+
             this.Rendering.UpdateContext(this.Context);
             this.Rendering.Update(gameTime);
         }

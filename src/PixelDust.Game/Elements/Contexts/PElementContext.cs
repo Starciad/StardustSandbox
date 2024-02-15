@@ -18,13 +18,17 @@ namespace PixelDust.Game.Elements.Contexts
     /// </remarks>
     public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldElementSlot slot, Vector2Int position) : IElementManager
     {
+        public readonly bool IsEmpty => this._world == null;
+
         public readonly PWorldElementSlot Slot => this._element;
         public readonly Vector2Int Position => this._position;
         public readonly PElement Element => this.ElementDatabase.GetElementById(this._element.Id);
-        public readonly PElementDatabase ElementDatabase => elementDatabase;
+        public readonly PElementDatabase ElementDatabase => this._elementDatabase;
 
         private PWorldElementSlot _element = slot;
         private Vector2Int _position = position;
+
+        private readonly PElementDatabase _elementDatabase = elementDatabase;
         private readonly PWorld _world = world;
 
         #region World

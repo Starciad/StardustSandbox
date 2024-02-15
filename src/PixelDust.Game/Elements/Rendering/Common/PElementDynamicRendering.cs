@@ -6,11 +6,6 @@ using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Enums.Elements;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Slots;
-
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace PixelDust.Game.Elements.Rendering.Common
 {

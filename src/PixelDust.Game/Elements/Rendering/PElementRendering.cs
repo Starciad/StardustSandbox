@@ -14,7 +14,6 @@ namespace PixelDust.Game.Elements.Rendering
 
         // Dependencies
         private readonly PElement _element = element;
-        private readonly Texture2D _elementTexture = element.Texture;
         private PElementContext _context;
 
         protected override void OnUpdate(GameTime gameTime)
@@ -29,7 +28,7 @@ namespace PixelDust.Game.Elements.Rendering
                 throw new InvalidOperationException($"No rendering mechanism has been implemented for the {_element.Name} element. Please ensure a valid rendering mechanism is set using the {nameof(SetRenderingMechanism)} method.");
             }
 
-            if (this._elementTexture == null)
+            if (this._element.Texture == null)
             {
                 return;
             }
