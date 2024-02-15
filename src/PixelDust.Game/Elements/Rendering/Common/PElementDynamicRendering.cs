@@ -10,6 +10,7 @@ using PixelDust.Game.World.Slots;
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace PixelDust.Game.Elements.Rendering.Common
 {
@@ -85,7 +86,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
         private void UpdateSpriteSlice(PElementContext context, int index, Vector2Int position)
         {
             // Get blob connection value.
-            int blobValue = GetBlobValue(context, GetTargetPositionsFromIndex(index, position));
+            int blobValue = GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position));
 
             // Rotate blob value based on current index.
             blobValue *= PElementRenderingConstants.BLOB_ROTATION_VALUE * (index + 1);
@@ -95,75 +96,8 @@ namespace PixelDust.Game.Elements.Rendering.Common
             }
 
             // Define the sprite to be used.
-            switch (index)
-            {
-                // (Sprite - Northwest Pivot)
-                case 0:
-                    this.spriteClipAreas[index] = blobValue switch
-                    {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        128 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        192 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        066 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        193 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                    };
-                    break;
+            SetChunkSpriteFromIndexAndBlobValue(index, (byte)blobValue);
 
-                case 1:
-                    // (Sprite - Northeast Pivot)
-                    this.spriteClipAreas[index] = blobValue switch
-                    {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        128 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        192 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        066 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        193 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                    };
-                    break;
-
-                case 2:
-                    // (Sprite - Southeast Pivot)
-                    this.spriteClipAreas[index] = blobValue switch
-                    {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        128 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        192 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        066 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        193 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                    };
-                    break;
-
-                case 3:
-                    // (Sprite - Southwest Pivot)
-                    this.spriteClipAreas[index] = blobValue switch
-                    {
-                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
-                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        128 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        192 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        066 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        193 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
-                    };
-                    break;
-
-                default:
-                    break;
-            }
         }
 
         private static (byte, Vector2Int)[] GetTargetPositionsFromIndex(int index, Vector2Int position)
@@ -202,7 +136,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
             };
         }
 
-        private static byte GetBlobValue(PElementContext context, (byte blobValue, Vector2Int position)[] targets)
+        private static byte GetBlobValueFromTargetPositions(PElementContext context, (byte blobValue, Vector2Int position)[] targets)
         {
             byte result = 0;
 
@@ -215,6 +149,79 @@ namespace PixelDust.Game.Elements.Rendering.Common
             }
 
             return result;
+        }
+
+        private void SetChunkSpriteFromIndexAndBlobValue(int index, byte blobValue)
+        {
+            switch (index)
+            {
+                // (Sprite 1 - Northwest Pivot)
+                case 0:
+                    this.spriteClipAreas[index] = blobValue switch
+                    {
+                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        128 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        192 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        066 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        193 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                    };
+                    break;
+
+                // (Sprite 2 - Northeast Pivot)
+                case 1:
+                    this.spriteClipAreas[index] = blobValue switch
+                    {
+                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        004 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        002 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        001 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        006 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        003 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        005 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        007 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                    };
+                    break;
+
+                // (Sprite 3 - Southeast Pivot)
+                case 2:
+                    this.spriteClipAreas[index] = blobValue switch
+                    {
+                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        064 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        032 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        016 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        096 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        048 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        080 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        112 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                    };
+                    break;
+
+                // (Sprite 4 - Southwest Pivot)
+                case 3:
+                    this.spriteClipAreas[index] = blobValue switch
+                    {
+                        000 => spriteKeyPoints[(int)PSpriteKeyPoints.Corner_Northwest],
+                        004 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        008 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        016 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        012 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        024 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        020 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        028 => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                        _ => spriteKeyPoints[(int)PSpriteKeyPoints.Full_Northwest],
+                    };
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }
