@@ -24,7 +24,7 @@ namespace PixelDust.Game.Managers
             // Camera
             worldKeyboardActionMap.AddAction("World_Camera_Up", new PInputAction(this._inputHandler, Keys.W, Keys.Up)).OnPerformed += _ => MoveCamera(PCardinalDirection.North);
             worldKeyboardActionMap.AddAction("World_Camera_Right", new PInputAction(this._inputHandler, Keys.D, Keys.Right)).OnPerformed += _ => MoveCamera(PCardinalDirection.East);
-            worldKeyboardActionMap.AddAction("World_Camera_Down", new PInputAction(this._inputHandler, Keys.S, Keys.Down)).OnPerformed += _ => MoveCamera(PCardinalDirection.Southwest);
+            worldKeyboardActionMap.AddAction("World_Camera_Down", new PInputAction(this._inputHandler, Keys.S, Keys.Down)).OnPerformed += _ => MoveCamera(PCardinalDirection.South);
             worldKeyboardActionMap.AddAction("World_Camera_Left", new PInputAction(this._inputHandler, Keys.A, Keys.Left)).OnPerformed += _ => MoveCamera(PCardinalDirection.West);
 
             // Shortcuts
