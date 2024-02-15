@@ -18,6 +18,18 @@ namespace PixelDust.Game.Managers
 
         public int PenScale => this.penScale;
         public float CameraMovementSpeed => this.cameraMovementSpeed;
+        public bool CanModifyEnvironment
+        {
+            get
+            {
+                return this.canModifyEnvironment;
+            }
+
+            set
+            {
+                this.canModifyEnvironment = value;
+            }
+        }
 
         // Elements
         private PElement elementSelected;
@@ -27,6 +39,7 @@ namespace PixelDust.Game.Managers
         // Settings
         private int penScale = 1;
         private float cameraMovementSpeed = 10;
+        private bool canModifyEnvironment = true;
 
         protected override void OnAwake()
         {

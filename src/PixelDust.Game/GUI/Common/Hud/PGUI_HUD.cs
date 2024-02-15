@@ -13,8 +13,6 @@ namespace PixelDust.Game.GUI.Common
         private Texture2D particleTexture;
         private Texture2D squareShapeTexture;
 
-        private int slotSelectedIndex = 0;
-
         protected override void OnAwake()
         {
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
@@ -24,21 +22,42 @@ namespace PixelDust.Game.GUI.Common
 
             base.OnAwake();
         }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             base.OnUpdate(gameTime);
 
+            UpdateHeader();
+            UpdateHeaderElementSelectionSlots();
+        }
+
+        private void UpdateHeader()
+        {
+            // If the mouse is over the header, the player will not be able to interact with the environment. Otherwise, this permission is conceived.
+            if (this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Style.Size))
+            {
+                this.Game.GameInputManager.CanModifyEnvironment = false;
+            }
+            else
+            {
+                this.Game.GameInputManager.CanModifyEnvironment = true;
+            }
+        }
+
+        private void UpdateHeaderElementSelectionSlots()
+        {
+            // Individually check all element slots present in the HEADER.
             for (int i = 0; i < PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
             {
                 PGUIImageElement slot = (PGUIImageElement)this.headerElementSlots[i];
 
-                // Check Click
+                // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    SelectElementSlot(i, (int)slot.GetData(PHUDConstants.SLOT_ELEMENT_INDEX_NAME));
+                    SelectElementSlot(i, (int)slot.GetData(PHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
 
-                // Set Color
+                // Highlight coloring of currently selected slot.
                 if (i == this.slotSelectedIndex)
                 {
                     slot.SetColor(Color.Red);
@@ -48,17 +67,6 @@ namespace PixelDust.Game.GUI.Common
                     slot.SetColor(Color.White);
                 }
             }
-        }
-
-        private void SelectElementSlot(int slotIndex, int elementId)
-        {
-            this.slotSelectedIndex = slotIndex;
-            this.Game.GameInputManager.SetSelectedElement(GetGameElement(elementId));
-        }
-
-        private PElement GetGameElement(int id)
-        {
-            return this.Game.ElementDatabase.GetElementById((uint)id);
         }
     }
 }

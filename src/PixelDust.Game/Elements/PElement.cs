@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Elements.Contexts;
-using PixelDust.Game.Elements.Renders;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
@@ -42,15 +41,12 @@ namespace PixelDust.Game.Elements
         #region Engine
         protected override void OnAwake()
         {
-            this.Render = new();
             OnSettings();
-        }
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            this.Render.Update(gameTime);
+            this.Render = new(this.Texture);
         }
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            this.Render.UpdateContext(this.Context);
             this.Render.Draw(gameTime, spriteBatch);
         }
 

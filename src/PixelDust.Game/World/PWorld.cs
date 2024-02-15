@@ -5,6 +5,7 @@ using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
+using PixelDust.Game.Interfaces;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Components;
@@ -17,7 +18,7 @@ using System;
 
 namespace PixelDust.Game.World
 {
-    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject
+    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject, IReset
     {
         public PWorldStates States { get; private set; } = new();
         public PWorldInfos Infos { get; private set; } = new();
@@ -37,7 +38,9 @@ namespace PixelDust.Game.World
         {
             base.OnAwake();
 
-            Restart();
+            this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
+            Reset();
+
             this.particleTexture = assetDatabase.GetTexture("particle_1");
 
             foreach (PWorldComponent component in this._components)
@@ -115,9 +118,9 @@ namespace PixelDust.Game.World
         {
             return (T)Array.Find(this._components, x => x.GetType() == typeof(T));
         }
-        public void Restart()
+        public void Reset()
         {
-            this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
+            Clear();
             this.updateTimer.Restart();
         }
         public void Pause()

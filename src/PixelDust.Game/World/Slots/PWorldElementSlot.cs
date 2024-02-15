@@ -15,6 +15,10 @@ namespace PixelDust.Game.World.Slots
         private uint id;
         private short temperature;
 
+        public PWorldElementSlot()
+        {
+            Destroy();
+        }
         public PWorldElementSlot(PWorldElementSlot value)
         {
             this = value;
@@ -26,6 +30,7 @@ namespace PixelDust.Game.World.Slots
             this.id = value.Id;
             this.temperature = value.DefaultTemperature;
         }
+
         public void Destroy()
         {
             this.isEmpty = true;

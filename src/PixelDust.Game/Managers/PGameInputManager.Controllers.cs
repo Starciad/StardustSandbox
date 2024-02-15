@@ -84,6 +84,11 @@ namespace PixelDust.Game.Managers
 
         private void PlaceElementsInWorld()
         {
+            if (!this.canModifyEnvironment)
+            {
+                return;
+            }
+
             Vector2 worldPos = GetWorldPositionFromMouse();
 
             if (!IsValidWorldPosition(worldPos) || this.elementSelected == null)
@@ -103,6 +108,11 @@ namespace PixelDust.Game.Managers
         }
         private void DeleteElementsInWorld()
         {
+            if (!this.canModifyEnvironment)
+            {
+                return;
+            }
+
             Vector2 worldPos = GetWorldPositionFromMouse();
 
             if (!IsValidWorldPosition(worldPos) || this.elementSelected == null)
