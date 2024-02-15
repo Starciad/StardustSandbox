@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using PixelDust.Game.Elements;
+﻿using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Objects;
 

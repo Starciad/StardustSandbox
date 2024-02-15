@@ -12,7 +12,6 @@ namespace PixelDust.Game.Elements.Rendering
     {
         private PElementRenderingMechanism renderingMechanism;
 
-        // Dependencies
         private readonly PElement _element = element;
         private PElementContext _context;
 
@@ -25,7 +24,7 @@ namespace PixelDust.Game.Elements.Rendering
         {
             if (this.renderingMechanism == null)
             {
-                throw new InvalidOperationException($"No rendering mechanism has been implemented for the {_element.Name} element. Please ensure a valid rendering mechanism is set using the {nameof(SetRenderingMechanism)} method.");
+                throw new InvalidOperationException($"No rendering mechanism has been implemented for the {this._element.Name} element. Please ensure a valid rendering mechanism is set using the {nameof(SetRenderingMechanism)} method.");
             }
 
             if (this._element.Texture == null)

@@ -20,15 +20,9 @@ namespace PixelDust.Game.Managers
         public float CameraMovementSpeed => this.cameraMovementSpeed;
         public bool CanModifyEnvironment
         {
-            get
-            {
-                return this.canModifyEnvironment;
-            }
+            get => this.canModifyEnvironment;
 
-            set
-            {
-                this.canModifyEnvironment = value;
-            }
+            set => this.canModifyEnvironment = value;
         }
 
         // Elements
