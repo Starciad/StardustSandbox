@@ -1,4 +1,6 @@
-﻿using PixelDust.Game.Elements;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Objects;
 
@@ -32,6 +34,14 @@ namespace PixelDust.Game.Databases
                 tempElement.Id = register.Id;
 
                 this._elements[tempElement.Id] = tempElement;
+            }
+        }
+
+        public void UpdateRendering(GameTime gameTime)
+        {
+            for (int i = 0; i < this._elements.Length; i++)
+            {
+                this._elements[i].UpdateRendering(gameTime);
             }
         }
 

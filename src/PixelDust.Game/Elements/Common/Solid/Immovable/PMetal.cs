@@ -1,4 +1,5 @@
 ﻿using PixelDust.Game.Elements.Attributes;
+using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Solid;
 
 namespace PixelDust.Game.Elements.Common.Solid.Immovable
@@ -13,6 +14,8 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
             this.Category = string.Empty;
             this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
             this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_13");
+
+            this.Rendering.SetRenderingMechanism(new PElementSingleRenderingMechanism());
 
             this.DefaultTemperature = 30;
         }

@@ -1,5 +1,6 @@
 ﻿using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Utilities;
+using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.World.Slots;
@@ -18,6 +19,8 @@ namespace PixelDust.Game.Elements.Common.Liquid
             this.Category = string.Empty;
             this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
             this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_17");
+
+            this.Rendering.SetRenderingMechanism(new PElementSingleRenderingMechanism());
 
             this.EnableNeighborsAction = true;
         }

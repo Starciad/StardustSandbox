@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Elements.Contexts;
+using PixelDust.Game.Elements.Rendering;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
@@ -34,7 +35,7 @@ namespace PixelDust.Game.Elements
         #endregion
 
         #region Helpers
-        public PElementRender Render { get; private set; }
+        public PElementRendering Rendering { get; private set; }
         public PElementContext Context { get; internal set; }
         #endregion
 
@@ -42,12 +43,18 @@ namespace PixelDust.Game.Elements
         protected override void OnAwake()
         {
             OnSettings();
-            this.Render = new(this.Texture);
+            this.Rendering = new(this);
         }
+
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this.Render.UpdateContext(this.Context);
-            this.Render.Draw(gameTime, spriteBatch);
+            this.Rendering.Draw(gameTime, spriteBatch);
+        }
+
+        public void UpdateRendering(GameTime gameTime)
+        {
+            this.Rendering.UpdateContext(this.Context);
+            this.Rendering.Update(gameTime);
         }
 
         public void Steps()

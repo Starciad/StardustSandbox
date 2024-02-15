@@ -1,6 +1,7 @@
 ﻿using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Gases;
 using PixelDust.Game.Elements.Common.Solid.Movable;
+using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Utilities;
@@ -20,6 +21,8 @@ namespace PixelDust.Game.Elements.Common.Liquid
             this.Category = string.Empty;
             this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
             this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_3");
+
+            this.Rendering.SetRenderingMechanism(new PElementSingleRenderingMechanism());
 
             this.DefaultDispersionRate = 3;
             this.DefaultTemperature = 25;
