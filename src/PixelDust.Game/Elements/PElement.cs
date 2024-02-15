@@ -42,8 +42,8 @@ namespace PixelDust.Game.Elements
         #region Engine
         protected override void OnAwake()
         {
-            OnSettings();
             this.Rendering = new(this);
+            OnSettings();
         }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
