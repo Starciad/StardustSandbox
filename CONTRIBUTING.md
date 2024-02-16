@@ -74,4 +74,3 @@ When contributing and creating a PR, provide clear and informative documentation
 ## Code Review
 
 Each PR is carefully reviewed. If rejected, there will be justification. Thank you for dedicating time and effort to Pixel Dust. Questions? Contact the team or community.
-
