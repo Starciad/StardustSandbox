@@ -9,7 +9,7 @@
 
         #region GRAPHICS
         // Elements
-        public const sbyte GRAPHICS_ELEMENTS_LENGTH = 1;
+        public const sbyte GRAPHICS_ELEMENTS_LENGTH = 20;
 
         // Particles
         public const sbyte GRAPHICS_PARTICLES_LENGTH = 1;
