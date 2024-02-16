@@ -18,8 +18,8 @@
         public const byte BLOB_NORTHWEST_PIVOT_CASE_2 = 128;
         public const byte BLOB_NORTHWEST_PIVOT_CASE_3 = 1;
         public const byte BLOB_NORTHWEST_PIVOT_CASE_4 = 192;
-        public const byte BLOB_NORTHWEST_PIVOT_CASE_5 = 3;
-        public const byte BLOB_NORTHWEST_PIVOT_CASE_6 = 66;
+        public const byte BLOB_NORTHWEST_PIVOT_CASE_5 = 129;
+        public const byte BLOB_NORTHWEST_PIVOT_CASE_6 = 65;
         public const byte BLOB_NORTHWEST_PIVOT_SURROUNDED = 193;
 
         // (Sprite 2 - Northeast Pivot)
