@@ -1,5 +1,7 @@
 # ⏳ ➥ Pixel Dust
 
+![GAME LOGO][game_logo]
+
 ## Introduction
 
 **Pixel Dust** is a Sandbox game inspired by the classic "Falling-Sand," providing an immersive experience where the only limitation is your imagination!
@@ -65,5 +67,7 @@ All game assets (graphics, music, sound effects, and other content) are licensed
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
+<!-- IMAGES & ASSETS -->
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[game_logo]: ./.github/ASSETS/graphics/game/game_title.webp
