@@ -13,43 +13,43 @@
         public const int BLOB_ROTATION_VALUE = 4;
 
         // (Sprite 1 - Northwest Pivot)
-        public const byte BLOB_NORTHWEST_PIVOT_EMPTY = 000;
-        public const byte BLOB_NORTHWEST_PIVOT_CASE_1 = 064;
+        public const byte BLOB_NORTHWEST_PIVOT_EMPTY = 0;
+        public const byte BLOB_NORTHWEST_PIVOT_CASE_1 = 64;
         public const byte BLOB_NORTHWEST_PIVOT_CASE_2 = 128;
-        public const byte BLOB_NORTHWEST_PIVOT_CASE_3 = 001;
+        public const byte BLOB_NORTHWEST_PIVOT_CASE_3 = 1;
         public const byte BLOB_NORTHWEST_PIVOT_CASE_4 = 192;
-        public const byte BLOB_NORTHWEST_PIVOT_CASE_5 = 003;
-        public const byte BLOB_NORTHWEST_PIVOT_CASE_6 = 066;
+        public const byte BLOB_NORTHWEST_PIVOT_CASE_5 = 3;
+        public const byte BLOB_NORTHWEST_PIVOT_CASE_6 = 66;
         public const byte BLOB_NORTHWEST_PIVOT_SURROUNDED = 193;
 
         // (Sprite 2 - Northeast Pivot)
-        public const byte BLOB_NORTHEAST_PIVOT_EMPTY = 000;
-        public const byte BLOB_NORTHEAST_PIVOT_CASE_1 = 004;
-        public const byte BLOB_NORTHEAST_PIVOT_CASE_2 = 002;
-        public const byte BLOB_NORTHEAST_PIVOT_CASE_3 = 001;
-        public const byte BLOB_NORTHEAST_PIVOT_CASE_4 = 006;
-        public const byte BLOB_NORTHEAST_PIVOT_CASE_5 = 003;
-        public const byte BLOB_NORTHEAST_PIVOT_CASE_6 = 005;
-        public const byte BLOB_NORTHEAST_PIVOT_SURROUNDED = 007;
+        public const byte BLOB_NORTHEAST_PIVOT_EMPTY = 0;
+        public const byte BLOB_NORTHEAST_PIVOT_CASE_1 = 4;
+        public const byte BLOB_NORTHEAST_PIVOT_CASE_2 = 2;
+        public const byte BLOB_NORTHEAST_PIVOT_CASE_3 = 1;
+        public const byte BLOB_NORTHEAST_PIVOT_CASE_4 = 6;
+        public const byte BLOB_NORTHEAST_PIVOT_CASE_5 = 3;
+        public const byte BLOB_NORTHEAST_PIVOT_CASE_6 = 5;
+        public const byte BLOB_NORTHEAST_PIVOT_SURROUNDED = 7;
 
-        // (Sprite 3 - Southeast Pivot)
-        public const byte BLOB_SOUTHEAST_PIVOT_EMPTY = 000;
-        public const byte BLOB_SOUTHEAST_PIVOT_CASE_1 = 064;
-        public const byte BLOB_SOUTHEAST_PIVOT_CASE_2 = 032;
-        public const byte BLOB_SOUTHEAST_PIVOT_CASE_3 = 016;
-        public const byte BLOB_SOUTHEAST_PIVOT_CASE_4 = 096;
-        public const byte BLOB_SOUTHEAST_PIVOT_CASE_5 = 048;
-        public const byte BLOB_SOUTHEAST_PIVOT_CASE_6 = 080;
-        public const byte BLOB_SOUTHEAST_PIVOT_SURROUNDED = 112;
+        // (Sprite 3 - Southwest Pivot)
+        public const byte BLOB_SOUTHWEST_PIVOT_EMPTY = 0;
+        public const byte BLOB_SOUTHWEST_PIVOT_CASE_1 = 64;
+        public const byte BLOB_SOUTHWEST_PIVOT_CASE_2 = 32;
+        public const byte BLOB_SOUTHWEST_PIVOT_CASE_3 = 16;
+        public const byte BLOB_SOUTHWEST_PIVOT_CASE_4 = 96;
+        public const byte BLOB_SOUTHWEST_PIVOT_CASE_5 = 48;
+        public const byte BLOB_SOUTHWEST_PIVOT_CASE_6 = 80;
+        public const byte BLOB_SOUTHWEST_PIVOT_SURROUNDED = 112;
 
-        // (Sprite 4 - Southwest Pivot)
-        public const byte BLOB_SOUTHWEST_PIVOT_EMPTY = 000;
-        public const byte BLOB_SOUTHWEST_PIVOT_CASE_1 = 004;
-        public const byte BLOB_SOUTHWEST_PIVOT_CASE_2 = 008;
-        public const byte BLOB_SOUTHWEST_PIVOT_CASE_3 = 016;
-        public const byte BLOB_SOUTHWEST_PIVOT_CASE_4 = 012;
-        public const byte BLOB_SOUTHWEST_PIVOT_CASE_5 = 024;
-        public const byte BLOB_SOUTHWEST_PIVOT_CASE_6 = 020;
-        public const byte BLOB_SOUTHWEST_PIVOT_SURROUNDED = 028;
+        // (Sprite 4 - Southeast Pivot)
+        public const byte BLOB_SOUTHEAST_PIVOT_EMPTY = 0;
+        public const byte BLOB_SOUTHEAST_PIVOT_CASE_1 = 4;
+        public const byte BLOB_SOUTHEAST_PIVOT_CASE_2 = 8;
+        public const byte BLOB_SOUTHEAST_PIVOT_CASE_3 = 16;
+        public const byte BLOB_SOUTHEAST_PIVOT_CASE_4 = 12;
+        public const byte BLOB_SOUTHEAST_PIVOT_CASE_5 = 24;
+        public const byte BLOB_SOUTHEAST_PIVOT_CASE_6 = 20;
+        public const byte BLOB_SOUTHEAST_PIVOT_SURROUNDED = 28;
     }
 }

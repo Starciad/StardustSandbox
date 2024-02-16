@@ -10,40 +10,8 @@ using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.Elements.Rendering.Common
 {
-    public sealed class PElementBlobRenderingMechanism : PElementRenderingMechanism
+    public sealed partial class PElementBlobRenderingMechanism : PElementRenderingMechanism
     {
-        private static readonly Rectangle[] spriteKeyPoints = [
-            // Full
-            new Rectangle(location: new Point(00, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(16, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(00, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(16, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-
-            // Corner
-            new Rectangle(location: new Point(32, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(48, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(32, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(48, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-
-            // Vertical Edge
-            new Rectangle(location: new Point(64, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(80, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(64, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(80, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-
-            // Horizontal Border
-            new Rectangle(location: new Point(096, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(112, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(096, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(112, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-
-            // Gaps
-            new Rectangle(location: new Point(128, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(144, 00), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(128, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(144, 16), size: new Point(PElementRenderingConstants.SPRITE_SLICE_SIZE)),
-        ];
-
         private static readonly Color color = Color.White;
         private static readonly float rotation = 0f;
         private static readonly Vector2 origin = Vector2.Zero;
@@ -85,19 +53,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
 
         private void UpdateSpriteSlice(PElementContext context, int index, Vector2Int position)
         {
-            // Get blob connection value.
-            int blobValue = GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position));
-
-            // Rotate blob value based on current index.
-            blobValue *= PElementRenderingConstants.BLOB_ROTATION_VALUE * (index + 1);
-            if (blobValue > byte.MaxValue)
-            {
-                blobValue -= byte.MaxValue;
-            }
-
-            // Define the sprite to be used.
-            SetChunkSpriteFromIndexAndBlobValue(index, (byte)blobValue);
-
+            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position)));
         }
 
         private static (byte, Vector2Int)[] GetTargetPositionsFromIndex(int index, Vector2Int position)
