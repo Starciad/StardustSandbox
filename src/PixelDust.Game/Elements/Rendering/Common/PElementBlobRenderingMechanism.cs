@@ -92,14 +92,23 @@ namespace PixelDust.Game.Elements.Rendering.Common
             };
         }
 
-        private static byte GetBlobValueFromTargetPositions(PElementContext context, (byte blobValue, Vector2Int position)[] targets)
+        private byte GetBlobValueFromTargetPositions(PElementContext context, (byte blobValue, Vector2Int position)[] targets)
         {
             byte result = 0;
 
+            // Check each of the target positions.
             for (int i = 0; i < targets.Length; i++)
             {
-                if (context.TryGetElement(targets[i].position, out PElement _))
+                // Get element from target position.
+                if (context.TryGetElement(targets[i].position, out PElement value))
                 {
+                    // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
+                    if (value != this.Element)
+                    {
+                        continue;
+                    }
+
+                    // Upon successful completion of the conditions and steps, add to the blob value.
                     result += targets[i].blobValue;
                 }
             }
