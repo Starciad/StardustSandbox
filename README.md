@@ -70,4 +70,4 @@ All game assets (graphics, music, sound effects, and other content) are licensed
 <!-- IMAGES & ASSETS -->
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
-[game_logo]: ./.github/ASSETS/graphics/game/game_title.webp
+[game_logo]: ./.github/graphics/game/game_title.webp
