@@ -17,10 +17,10 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
             this.Name = "Corruption (Movable)";
             this.Description = string.Empty;
             this.Category = string.Empty;
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_9");
             this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_9");
 
-            this.Rendering.SetRenderingMechanism(new PElementSingleRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new PElementBlobRenderingMechanism());
 
             this.EnableNeighborsAction = true;
         }

@@ -17,10 +17,10 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
             this.Name = "Corruption (Immovable)";
             this.Description = string.Empty;
             this.Category = string.Empty;
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
+            this.Texture = this.Game.AssetDatabase.GetTexture("element_18");
             this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_18");
 
-            this.Rendering.SetRenderingMechanism(new PElementSingleRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new PElementBlobRenderingMechanism());
 
             this.EnableNeighborsAction = true;
         }
