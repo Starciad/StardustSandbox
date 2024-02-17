@@ -19,6 +19,8 @@ namespace PixelDust.Game.Managers
         public RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
         public RenderTarget2D LightingRenderTarget => this.lightingRenderTarget;
 
+        public Viewport Viewport => this.GraphicsDevice.Viewport;
+
         private readonly GraphicsDeviceManager _gdm;
 
         // ENGINE

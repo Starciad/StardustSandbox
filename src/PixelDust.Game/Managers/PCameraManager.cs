@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Constants;
+
 using System;
 
 namespace PixelDust.Game.Managers
@@ -65,14 +67,15 @@ namespace PixelDust.Game.Managers
         private float _minimumZoom;
         private float _zoom;
 
-        private readonly PScreenManager _screenManager;
+        private readonly PGraphicsManager _graphicsManager;
 
-        public PCameraManager(PScreenManager screenManager)
+        public PCameraManager(PGraphicsManager graphicsManager)
         {
-            this._screenManager = screenManager;
+            this._graphicsManager = graphicsManager;
+
             this.Rotation = 0;
             this.Zoom = 1;
-            this.Origin = new Vector2(screenManager.DefaultResolution.Width, screenManager.DefaultResolution.Height) / 2f;
+            this.Origin = new Vector2(this._graphicsManager.Viewport.Width, this._graphicsManager.Viewport.Height) / 2f;
             this.Position = Vector2.Zero;
         }
 
@@ -103,7 +106,7 @@ namespace PixelDust.Game.Managers
 
         public void LookAt(Vector2 position)
         {
-            this.Position = position - new Vector2(this._screenManager.DefaultResolution.Width, this._screenManager.DefaultResolution.Height) / 2f;
+            this.Position = position - new Vector2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT) / 2f;
         }
 
         public Vector2 WorldToScreen(float x, float y)
@@ -113,13 +116,13 @@ namespace PixelDust.Game.Managers
 
         public Vector2 WorldToScreen(Vector2 worldPosition)
         {
-            Viewport viewport = _screenManager.Viewport;
+            Viewport viewport = this._graphicsManager.Viewport;
             return Vector2.Transform(worldPosition + new Vector2(viewport.X, viewport.Y), GetViewMatrix());
         }
 
         public Vector2 ScreenToWorld(Vector2 screenPosition)
         {
-            Viewport viewport = this._screenManager.Viewport;
+            Viewport viewport = this._graphicsManager.Viewport;
             return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y),
                    Matrix.Invert(GetViewMatrix()));
         }

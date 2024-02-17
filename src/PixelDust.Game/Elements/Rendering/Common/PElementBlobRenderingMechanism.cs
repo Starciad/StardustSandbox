@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Constants.Elements;
 using PixelDust.Game.Elements.Contexts;

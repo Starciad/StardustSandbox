@@ -33,11 +33,11 @@ namespace PixelDust.Game
         private SpriteBatch _sb;
 
         // Managers
+        private readonly PCameraManager _cameraManager;
         private readonly PGraphicsManager _graphicsManager;
         private readonly PGameInputManager _gameInputManager;
         private readonly PShaderManager _shaderManager;
         private readonly PInputManager _inputManager;
-        private readonly PScreenManager _screenManager;
         private readonly PGUIManager _guiManager;
         private readonly PCursorManager _cursorManager;
 
@@ -69,10 +69,6 @@ namespace PixelDust.Game
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
-            // Screen & Camera
-            this._screenManager = new();
-            this._orthographicCamera = new(this._screenManager);
-
             // Database
             this._assetDatabase = new(this.Content);
             this._elementDatabase = new();
@@ -86,6 +82,7 @@ namespace PixelDust.Game
             this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager);
             this._guiManager = new(this._inputManager);
             this._cursorManager = new(this._assetDatabase, this._inputManager);
+            this._cameraManager = new(this._graphicsManager);
         }
 
         public void UpdateGameSettings()
