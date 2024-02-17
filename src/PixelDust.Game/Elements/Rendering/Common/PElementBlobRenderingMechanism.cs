@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Constants.Elements;
 using PixelDust.Game.Elements.Contexts;
@@ -22,16 +23,17 @@ namespace PixelDust.Game.Elements.Rendering.Common
         private readonly Vector2[] spritePositions = new Vector2[PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH];
         private readonly Rectangle[] spriteClipAreas = new Rectangle[PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH];
 
+        private PElement element;
         private Texture2D elementTexture;
 
         // Overrides
         public override void Initialize(PElement element)
         {
-            this.elementTexture = this.Element.Texture;
-            base.Initialize(element);
+            this.element = element;
+            this.elementTexture = element.Texture;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
+        public override void Draw(POrthographicCamera camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
             Vector2Int position = context.Position;
 
@@ -107,7 +109,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 if (context.TryGetElement(targets[i].position, out PElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
-                    if (value != this.Element)
+                    if (value != this.element)
                     {
                         continue;
                     }

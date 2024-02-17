@@ -15,11 +15,6 @@ namespace PixelDust.Game.Elements.Rendering
         private readonly PElement _element = element;
         private PElementContext _context;
 
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            this.renderingMechanism.Update(gameTime, this._context);
-        }
-
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.renderingMechanism == null)
@@ -32,7 +27,7 @@ namespace PixelDust.Game.Elements.Rendering
                 return;
             }
 
-            this.renderingMechanism.Draw(gameTime, spriteBatch, this._context);
+            this.renderingMechanism.Draw(this.Game.OrthographicCamera, gameTime, spriteBatch, this._context);
         }
 
         public void SetRenderingMechanism(PElementRenderingMechanism renderingMechanism)

@@ -26,6 +26,7 @@ namespace PixelDust.Game
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
         public PElementDatabase ElementDatabase => this._elementDatabase;
+        public POrthographicCamera OrthographicCamera => this._orthographicCamera;
 
         // ================================= //
 
