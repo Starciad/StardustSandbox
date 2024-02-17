@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Camera;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Objects;
 
@@ -8,7 +9,7 @@ using System;
 
 namespace PixelDust.Game.Elements.Rendering
 {
-    public sealed class PElementRendering(PElement element) : PGameObject
+    public sealed class PElementRendering(PElement element, POrthographicCamera camera) : PGameObject
     {
         private PElementRenderingMechanism renderingMechanism;
 
@@ -27,7 +28,7 @@ namespace PixelDust.Game.Elements.Rendering
                 return;
             }
 
-            this.renderingMechanism.Draw(this.Game.OrthographicCamera, gameTime, spriteBatch, this._context);
+            this.renderingMechanism.Draw(camera, gameTime, spriteBatch, this._context);
         }
 
         public void SetRenderingMechanism(PElementRenderingMechanism renderingMechanism)

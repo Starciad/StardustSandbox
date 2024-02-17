@@ -70,13 +70,13 @@ namespace PixelDust.Game
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
-            // Database
-            this._assetDatabase = new(this.Content);
-            this._elementDatabase = new();
-
             // Screen & Camera
             this._screenManager = new();
             this._orthographicCamera = new(this._screenManager);
+
+            // Database
+            this._assetDatabase = new(this.Content);
+            this._elementDatabase = new();
 
             // Core
             this._world = new(this._elementDatabase, this._assetDatabase);

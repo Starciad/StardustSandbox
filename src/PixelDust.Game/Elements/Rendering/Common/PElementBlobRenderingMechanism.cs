@@ -27,13 +27,13 @@ namespace PixelDust.Game.Elements.Rendering.Common
         private Texture2D elementTexture;
 
         // Overrides
-        public override void Initialize(PElement element)
+        protected override void OnInitialize(PElement element)
         {
             this.element = element;
             this.elementTexture = element.Texture;
         }
 
-        public override void Draw(POrthographicCamera camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
+        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
             Vector2Int position = context.Position;
 

@@ -21,12 +21,12 @@ namespace PixelDust.Game.Elements.Rendering.Common
             this.clipAreaRectangle = clipAreaRectangle;
         }
 
-        public override void Initialize(PElement element)
+        protected override void OnInitialize(PElement element)
         {
             this.elementTexture = element.Texture;
         }
 
-        public override void Draw(POrthographicCamera camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
+        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
             spriteBatch.Draw(this.elementTexture, new Vector2(context.Position.X, context.Position.Y) * PWorldConstants.GRID_SCALE, this.clipAreaRectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }

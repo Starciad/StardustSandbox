@@ -7,7 +7,7 @@ using System;
 
 namespace PixelDust.Game.Camera
 {
-    public sealed class PCamera
+    public sealed class PCameraManager
     {
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
@@ -69,7 +69,7 @@ namespace PixelDust.Game.Camera
 
         private readonly PScreenManager _screenManager;
 
-        public PCamera(PScreenManager screenManager)
+        public PCameraManager(PScreenManager screenManager)
         {
             this._screenManager = screenManager;
             this.Rotation = 0;
