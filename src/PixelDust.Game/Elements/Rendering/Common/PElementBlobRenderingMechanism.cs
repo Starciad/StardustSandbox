@@ -22,21 +22,25 @@ namespace PixelDust.Game.Elements.Rendering.Common
         private readonly Vector2[] spritePositions = new Vector2[PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH];
         private readonly Rectangle[] spriteClipAreas = new Rectangle[PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH];
 
+        private Texture2D elementTexture;
+
         // Overrides
         public override void Initialize(PElement element)
         {
+            this.elementTexture = this.Element.Texture;
             base.Initialize(element);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
-            Texture2D texture = this.Element.Texture;
+            Vector2Int position = context.Position;
+
+            UpdateSpritePositions(position);
 
             for (int i = 0; i < PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
-                UpdateSpritePositions(context.Position);
-                UpdateSpriteSlice(context, i, context.Position);
-                spriteBatch.Draw(texture, this.spritePositions[i], this.spriteClipAreas[i], color, rotation, origin, scale, spriteEffects, layerDepth);
+                UpdateSpriteSlice(context, i, position);
+                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], color, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
 
