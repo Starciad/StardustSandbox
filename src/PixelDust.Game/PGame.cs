@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements.Common.Gases;
@@ -26,7 +25,7 @@ namespace PixelDust.Game
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
         public PElementDatabase ElementDatabase => this._elementDatabase;
-        public POrthographicCamera OrthographicCamera => this._orthographicCamera;
+        public PCameraManager OrthographicCamera => this._orthographicCamera;
 
         // ================================= //
 
@@ -47,7 +46,7 @@ namespace PixelDust.Game
         private readonly PElementDatabase _elementDatabase;
 
         // Core
-        private readonly POrthographicCamera _orthographicCamera;
+        private readonly PCameraManager _orthographicCamera;
         private readonly PWorld _world;
 
         // ================================= //

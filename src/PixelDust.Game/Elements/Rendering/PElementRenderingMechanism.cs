@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Elements.Contexts;
+using PixelDust.Game.Managers;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.Elements.Rendering
@@ -14,7 +14,7 @@ namespace PixelDust.Game.Elements.Rendering
         {
             OnInitialize(element);
         }
-        public void Draw(POrthographicCamera camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
+        public void Draw(PCameraManager camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
             if (ShouldRender(camera, context))
             {
@@ -22,7 +22,7 @@ namespace PixelDust.Game.Elements.Rendering
             }
         }
 
-        private static bool ShouldRender(POrthographicCamera camera, PElementContext context)
+        private static bool ShouldRender(PCameraManager camera, PElementContext context)
         {
             Vector2Int elementPosition = context.Position;
             Vector2Int cameraPosition = camera.Position * PWorldConstants.GRID_SCALE;

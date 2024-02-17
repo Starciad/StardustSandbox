@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Camera;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Mathematics;
@@ -12,7 +11,7 @@ using System;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed partial class PGameInputManager(POrthographicCamera orthographicCamera, PWorld world, PInputManager inputHandler) : PGameObject
+    public sealed partial class PGameInputManager(PCameraManager orthographicCamera, PWorld world, PInputManager inputHandler) : PGameObject
     {
         public PElement ElementSelected => this.elementSelected;
 

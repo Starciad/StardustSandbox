@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Camera;
 using PixelDust.Game.Elements.Contexts;
+using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 using System;
 
 namespace PixelDust.Game.Elements.Rendering
 {
-    public sealed class PElementRendering(PElement element, POrthographicCamera camera) : PGameObject
+    public sealed class PElementRendering(PElement element, PCameraManager camera) : PGameObject
     {
         private PElementRenderingMechanism renderingMechanism;
 

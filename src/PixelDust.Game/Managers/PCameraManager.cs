@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Managers;
-
 using System;
 
-namespace PixelDust.Game.Camera
+namespace PixelDust.Game.Managers
 {
     public sealed class PCameraManager
     {
@@ -105,7 +103,7 @@ namespace PixelDust.Game.Camera
 
         public void LookAt(Vector2 position)
         {
-            this.Position = position - (new Vector2(this._screenManager.DefaultResolution.Width, this._screenManager.DefaultResolution.Height) / 2f);
+            this.Position = position - new Vector2(this._screenManager.DefaultResolution.Width, this._screenManager.DefaultResolution.Height) / 2f;
         }
 
         public Vector2 WorldToScreen(float x, float y)
