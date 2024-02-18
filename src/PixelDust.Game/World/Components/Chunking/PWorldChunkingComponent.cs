@@ -49,7 +49,7 @@ namespace PixelDust.Game.World.Components.Chunking
         {
 #if DEBUG
             // Debug methods
-            // DEBUG_DrawActiveChunks(spriteBatch);
+            DEBUG_DrawActiveChunks(spriteBatch);
 #endif
         }
 

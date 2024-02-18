@@ -28,7 +28,7 @@ namespace PixelDust.Game.World
         private readonly PWorldComponent[] _components =
         [
             new PWorldChunkingComponent(assetDatabase),
-            new PWorldThreadingComponent(),
+            new PWorldUpdatingComponent(),
             new PWorldRenderingComponent(elementDatabase, camera)
         ];
 
