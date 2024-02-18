@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Constants;
 using PixelDust.Game.Elements.Contexts;
-using PixelDust.Game.Managers;
-using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.Elements.Rendering
 {

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Elements.Contexts;
-using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 
 using System;

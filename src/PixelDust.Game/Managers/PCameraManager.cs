@@ -102,7 +102,7 @@ namespace PixelDust.Game.Managers
 
         public void ClampPosition(Vector2 min, Vector2 max)
         {
-            Vector2.Clamp(this.Position, min, max);
+            _ = Vector2.Clamp(this.Position, min, max);
         }
 
         public void ClampZoom(float value)
@@ -112,7 +112,7 @@ namespace PixelDust.Game.Managers
 
         public void LookAt(Vector2 position)
         {
-            this.Position = position - new Vector2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT) / 2f;
+            this.Position = position - (new Vector2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT) / 2f);
         }
 
         public Vector2 WorldToScreen(float x, float y)

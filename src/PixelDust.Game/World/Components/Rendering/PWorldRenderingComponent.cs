@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
-using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Elements;
-using PixelDust.Game.Mathematics;
+using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Managers;
+using PixelDust.Game.Mathematics;
+
+using System.Collections.Generic;
 
 namespace PixelDust.Game.World.Components.Rendering
 {
