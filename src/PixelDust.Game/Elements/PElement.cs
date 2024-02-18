@@ -42,7 +42,7 @@ namespace PixelDust.Game.Elements
         #region Engine
         protected override void OnAwake()
         {
-            this.Rendering = new(this, this.Game.CameraManager);
+            this.Rendering = new(this);
             OnSettings();
         }
 

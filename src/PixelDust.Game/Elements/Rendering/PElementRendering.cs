@@ -9,7 +9,7 @@ using System;
 
 namespace PixelDust.Game.Elements.Rendering
 {
-    public sealed class PElementRendering(PElement element, PCameraManager camera) : PGameObject
+    public sealed class PElementRendering(PElement element) : PGameObject
     {
         private PElementRenderingMechanism renderingMechanism;
 
@@ -28,7 +28,7 @@ namespace PixelDust.Game.Elements.Rendering
                 return;
             }
 
-            this.renderingMechanism.Draw(camera, gameTime, spriteBatch, this._context);
+            this.renderingMechanism.Draw(gameTime, spriteBatch, this._context);
         }
 
         public void SetRenderingMechanism(PElementRenderingMechanism renderingMechanism)

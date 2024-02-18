@@ -73,8 +73,8 @@ namespace PixelDust.Game
             this._elementDatabase = new();
 
             // Core
-            this._world = new(this._elementDatabase, this._assetDatabase);
             this._cameraManager = new(this._graphicsManager);
+            this._world = new(this._elementDatabase, this._assetDatabase, this._cameraManager);
 
             // Managers
             this._inputManager = new();

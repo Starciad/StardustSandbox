@@ -18,7 +18,8 @@ namespace PixelDust.Game.World.Components.Threading
 
         private readonly PWorldThread[] _worldThreadsInfos = new PWorldThread[PWorldConstants.TOTAL_WORLD_THREADS];
 
-        private readonly List<Vector2Int> _capturedSlots = [];
+        private readonly List<Vector2Int> _slotsCapturedForUpdate = [];
+
         protected override void OnAwake()
         {
             int totalValue = this.World.Infos.Size.Width;
@@ -42,8 +43,10 @@ namespace PixelDust.Game.World.Components.Threading
                 this._worldThreadsInfos[PWorldConstants.TOTAL_WORLD_THREADS - 1].EndPosition += remainingValue;
             }
         }
+
         protected override void OnUpdate(GameTime gameTime)
         {
+            # region Threading Update
             // Odds
             Task odds = Task.Run(() =>
             {
@@ -75,12 +78,13 @@ namespace PixelDust.Game.World.Components.Threading
             });
 
             even.Wait();
+            #endregion
         }
 
         // THREAD
         private void ExecuteThreadColumn(GameTime gameTime, PWorldThread threadInfo)
         {
-            this._capturedSlots.Clear();
+            this._slotsCapturedForUpdate.Clear();
             uint totalCapturedElements = 0;
 
             // Find slots
@@ -98,7 +102,8 @@ namespace PixelDust.Game.World.Components.Threading
                         continue;
                     }
 
-                    this._capturedSlots.Add(pos);
+                    this._slotsCapturedForUpdate.Add(pos);
+
                     totalCapturedElements++;
                 }
             }
@@ -106,9 +111,10 @@ namespace PixelDust.Game.World.Components.Threading
             // Update slots (Steps)
             for (int i = 0; i < totalCapturedElements; i++)
             {
-                PUpdateElementTarget(gameTime, this._capturedSlots[i], 2);
+                PUpdateElementTarget(gameTime, this._slotsCapturedForUpdate[i], 2);
             }
         }
+
         private void PUpdateElementTarget(GameTime gameTime, Vector2Int position, int updateType)
         {
             PWorldElementSlot slot = this.World.GetElementSlot(position);

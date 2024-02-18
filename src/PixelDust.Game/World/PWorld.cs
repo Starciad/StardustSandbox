@@ -6,10 +6,12 @@ using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Interfaces;
+using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Components;
 using PixelDust.Game.World.Components.Chunking;
+using PixelDust.Game.World.Components.Rendering;
 using PixelDust.Game.World.Components.Threading;
 using PixelDust.Game.World.Data;
 using PixelDust.Game.World.Slots;
@@ -18,7 +20,7 @@ using System;
 
 namespace PixelDust.Game.World
 {
-    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject, IReset
+    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase, PCameraManager camera) : PGameObject, IReset
     {
         public PWorldStates States { get; private set; } = new();
         public PWorldInfos Infos { get; private set; } = new();
@@ -30,9 +32,8 @@ namespace PixelDust.Game.World
         [
             new PWorldChunkingComponent(assetDatabase),
             new PWorldThreadingComponent(),
+            new PWorldRenderingComponent(elementDatabase, camera)
         ];
-
-        private Texture2D particleTexture;
 
         protected override void OnAwake()
         {
@@ -40,8 +41,6 @@ namespace PixelDust.Game.World
 
             this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
             Reset();
-
-            this.particleTexture = assetDatabase.GetTexture("particle_1");
 
             foreach (PWorldComponent component in this._components)
             {
@@ -87,30 +86,9 @@ namespace PixelDust.Game.World
                 return;
             }
 
-            DrawSlots(gameTime, spriteBatch);
             foreach (PWorldComponent component in this._components)
             {
                 component.Draw(gameTime, spriteBatch);
-            }
-        }
-        private void DrawSlots(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            for (int x = 0; x < this.Infos.Size.Width; x++)
-            {
-                for (int y = 0; y < this.Infos.Size.Height; y++)
-                {
-                    if (IsEmptyElementSlot(new(x, y)))
-                    {
-                        spriteBatch.Draw(this.particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
-                    }
-                    else
-                    {
-                        PElement element = elementDatabase.GetElementById(this.Elements[x, y].Id);
-
-                        element.Context = new PElementContext(this, elementDatabase, this.Elements[x, y], new(x, y));
-                        element.Draw(gameTime, spriteBatch);
-                    }
-                }
             }
         }
 
