@@ -11,7 +11,7 @@ using System;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed partial class PGameInputManager(PCameraManager orthographicCamera, PWorld world, PInputManager inputHandler) : PGameObject
+    public sealed partial class PGameInputManager(PCameraManager cameraManager, PWorld world, PInputManager inputHandler) : PGameObject
     {
         public PElement ElementSelected => this.elementSelected;
 
@@ -82,7 +82,7 @@ namespace PixelDust.Game.Managers
         // Utilities
         private void GetMouseOverElement()
         {
-            Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
+            Vector2 screenPos = cameraManager.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
             Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
 
             this.elementOverSlot = world.GetElementSlot((Vector2Int)worldPos);
@@ -94,10 +94,7 @@ namespace PixelDust.Game.Managers
             int totalX = (world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.DEFAULT_SCREEN_WIDTH;
             int totalY = (world.Infos.Size.Height * PWorldConstants.GRID_SCALE) - PScreenConstants.DEFAULT_SCREEN_HEIGHT;
 
-            orthographicCamera.Position = new Vector2(
-                Math.Clamp(orthographicCamera.Position.X, 0, totalX),
-                Math.Clamp(orthographicCamera.Position.Y, -totalY, 0)
-            );
+            cameraManager.ClampPosition(new Vector2(0, -totalY), new Vector2(totalX, 0));
         }
     }
 }

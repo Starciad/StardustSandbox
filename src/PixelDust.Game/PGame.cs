@@ -25,7 +25,7 @@ namespace PixelDust.Game
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
         public PElementDatabase ElementDatabase => this._elementDatabase;
-        public PCameraManager OrthographicCamera => this._orthographicCamera;
+        public PCameraManager CameraManager => this._cameraManager;
 
         // ================================= //
 
@@ -33,7 +33,6 @@ namespace PixelDust.Game
         private SpriteBatch _sb;
 
         // Managers
-        private readonly PCameraManager _cameraManager;
         private readonly PGraphicsManager _graphicsManager;
         private readonly PGameInputManager _gameInputManager;
         private readonly PShaderManager _shaderManager;
@@ -46,7 +45,7 @@ namespace PixelDust.Game
         private readonly PElementDatabase _elementDatabase;
 
         // Core
-        private readonly PCameraManager _orthographicCamera;
+        private readonly PCameraManager _cameraManager;
         private readonly PWorld _world;
 
         // ================================= //
@@ -75,14 +74,14 @@ namespace PixelDust.Game
 
             // Core
             this._world = new(this._elementDatabase, this._assetDatabase);
+            this._cameraManager = new(this._graphicsManager);
 
             // Managers
             this._inputManager = new();
             this._shaderManager = new(this._assetDatabase);
-            this._gameInputManager = new(this._orthographicCamera, this._world, this._inputManager);
+            this._gameInputManager = new(this._cameraManager, this._world, this._inputManager);
             this._guiManager = new(this._inputManager);
             this._cursorManager = new(this._assetDatabase, this._inputManager);
-            this._cameraManager = new(this._graphicsManager);
         }
 
         public void UpdateGameSettings()
@@ -164,14 +163,14 @@ namespace PixelDust.Game
             // WORLD
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.WorldRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._orthographicCamera.GetViewMatrix());
+            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._cameraManager.GetViewMatrix());
             this._world.Draw(gameTime, this._sb);
             this._sb.End();
 
             // LIGHTING
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.LightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._orthographicCamera.GetViewMatrix());
+            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._cameraManager.GetViewMatrix());
             this._sb.End();
             #endregion
 

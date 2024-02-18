@@ -16,7 +16,7 @@ namespace PixelDust.Game.Elements.Rendering
         }
         public void Draw(PCameraManager camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
-            if (camera.InsideCameraBounds((Vector2)context.Position, new Size2(PWorldConstants.GRID_SCALE)))
+            if (camera.InsideCameraBounds((Vector2)context.Position, new Size2(PWorldConstants.GRID_SCALE), -10))
             {
                 OnDraw(gameTime, spriteBatch, context);
             }
