@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.Mathematics;
 
 using System;
 
@@ -144,6 +145,23 @@ namespace PixelDust.Game.Managers
         public Matrix GetInverseViewMatrix()
         {
             return Matrix.Invert(GetViewMatrix());
+        }
+
+        public bool InsideCameraBounds(Vector2 targetPosition, Size2 targetSize, float toleranceFactor = 0f)
+        {
+            Vector2 topLeft = targetPosition;
+            Vector2 bottomRight = targetPosition + new Vector2(targetSize.Width, targetSize.Height);
+
+            topLeft -= new Vector2(toleranceFactor);
+            bottomRight += new Vector2(toleranceFactor);
+
+            Vector2 screenTopLeft = WorldToScreen(topLeft);
+            Vector2 screenBottomRight = WorldToScreen(bottomRight);
+
+            Viewport viewport = this._graphicsManager.Viewport;
+
+            return screenBottomRight.X > 0 && screenTopLeft.X < viewport.Width &&
+                   screenBottomRight.Y > 0 && screenTopLeft.Y < viewport.Height;
         }
     }
 }

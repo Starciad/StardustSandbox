@@ -16,25 +16,10 @@ namespace PixelDust.Game.Elements.Rendering
         }
         public void Draw(PCameraManager camera, GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
-            if (ShouldRender(camera, context))
+            if (camera.InsideCameraBounds((Vector2)context.Position, new Size2(PWorldConstants.GRID_SCALE)))
             {
                 OnDraw(gameTime, spriteBatch, context);
             }
-        }
-
-        private static bool ShouldRender(PCameraManager camera, PElementContext context)
-        {
-            Vector2Int elementPosition = context.Position;
-            Vector2Int cameraPosition = camera.Position * PWorldConstants.GRID_SCALE;
-
-            float zoomValue = 2 * camera.Zoom;
-
-            bool isInCamera = elementPosition.X > cameraPosition.X - PScreenConstants.DEFAULT_SCREEN_WIDTH / zoomValue &&
-                              elementPosition.X < cameraPosition.X + PScreenConstants.DEFAULT_SCREEN_WIDTH / zoomValue &&
-                              elementPosition.Y < cameraPosition.Y - PScreenConstants.DEFAULT_SCREEN_HEIGHT / zoomValue &&
-                              elementPosition.Y > cameraPosition.Y + PScreenConstants.DEFAULT_SCREEN_HEIGHT / zoomValue;
-
-            return isInCamera;
         }
 
         protected virtual void OnInitialize(PElement element) { return; }
