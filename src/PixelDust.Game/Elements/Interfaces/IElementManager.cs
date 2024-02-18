@@ -1,5 +1,5 @@
 ﻿using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
 using System;
 
@@ -33,11 +33,11 @@ namespace PixelDust.Game.Elements.Interfaces
         PElement GetElement(Vector2Int pos);
         bool TryGetElement(Vector2Int pos, out PElement value);
 
-        ReadOnlySpan<(Vector2Int, PWorldElementSlot)> GetElementNeighbors(Vector2Int pos);
-        bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors);
+        ReadOnlySpan<(Vector2Int, PWorldSlot)> GetElementNeighbors(Vector2Int pos);
+        bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors);
 
-        PWorldElementSlot GetElementSlot(Vector2Int pos);
-        bool TryGetElementSlot(Vector2Int pos, out PWorldElementSlot value);
+        PWorldSlot GetElementSlot(Vector2Int pos);
+        bool TryGetElementSlot(Vector2Int pos, out PWorldSlot value);
 
         void SetElementTemperature(Vector2Int pos, short value);
         bool TrySetElementTemperature(Vector2Int pos, short value);

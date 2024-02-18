@@ -2,7 +2,7 @@
 using PixelDust.Game.Elements.Interfaces;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.World;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
 using System;
 
@@ -16,16 +16,16 @@ namespace PixelDust.Game.Elements.Contexts
     /// <br/><br/>
     /// The information within this context is updated every frame, automatically adapting to a newly selected element through public engine processes. This eliminates the concern about the specific information being manipulated at any given moment.
     /// </remarks>
-    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldElementSlot slot, Vector2Int position) : IElementManager
+    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldSlot slot, Vector2Int position) : IElementManager
     {
         public readonly bool IsEmpty => this._world == null;
 
-        public readonly PWorldElementSlot Slot => this._element;
+        public readonly PWorldSlot Slot => this._element;
         public readonly Vector2Int Position => this._position;
         public readonly PElement Element => this.ElementDatabase.GetElementById(this._element.Id);
         public readonly PElementDatabase ElementDatabase => this._elementDatabase;
 
-        private PWorldElementSlot _element = slot;
+        private PWorldSlot _element = slot;
         private Vector2Int _position = position;
 
         private readonly PElementDatabase _elementDatabase = elementDatabase;
@@ -221,36 +221,36 @@ namespace PixelDust.Game.Elements.Contexts
             return this._world.TryGetElement(pos, out value);
         }
 
-        public readonly ReadOnlySpan<(Vector2Int, PWorldElementSlot)> GetElementNeighbors()
+        public readonly ReadOnlySpan<(Vector2Int, PWorldSlot)> GetElementNeighbors()
         {
             return GetElementNeighbors(this.Position);
         }
-        public readonly ReadOnlySpan<(Vector2Int, PWorldElementSlot)> GetElementNeighbors(Vector2Int pos)
+        public readonly ReadOnlySpan<(Vector2Int, PWorldSlot)> GetElementNeighbors(Vector2Int pos)
         {
             return this._world.GetElementNeighbors(pos);
         }
-        public readonly bool TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
+        public readonly bool TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors)
         {
             return TryGetElementNeighbors(this.Position, out neighbors);
         }
-        public readonly bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
+        public readonly bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors)
         {
             return this._world.TryGetElementNeighbors(pos, out neighbors);
         }
 
-        public readonly PWorldElementSlot GetElementSlot()
+        public readonly PWorldSlot GetElementSlot()
         {
             return GetElementSlot(this.Position);
         }
-        public readonly PWorldElementSlot GetElementSlot(Vector2Int pos)
+        public readonly PWorldSlot GetElementSlot(Vector2Int pos)
         {
             return this._world.GetElementSlot(pos);
         }
-        public readonly bool TryGetElementSlot(out PWorldElementSlot value)
+        public readonly bool TryGetElementSlot(out PWorldSlot value)
         {
             return TryGetElementSlot(this.Position, out value);
         }
-        public readonly bool TryGetElementSlot(Vector2Int pos, out PWorldElementSlot value)
+        public readonly bool TryGetElementSlot(Vector2Int pos, out PWorldSlot value)
         {
             return this._world.TryGetElementSlot(pos, out value);
         }

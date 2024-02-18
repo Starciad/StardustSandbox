@@ -10,7 +10,7 @@ using PixelDust.Game.Mathematics;
 
 using System.Collections.Generic;
 
-namespace PixelDust.Game.World.Components.Rendering
+namespace PixelDust.Game.World.Components.Common
 {
     public sealed class PWorldRenderingComponent(PElementDatabase elementDatabase, PCameraManager cameraManager) : PWorldComponent
     {
