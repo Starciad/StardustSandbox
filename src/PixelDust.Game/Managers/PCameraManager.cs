@@ -142,11 +142,6 @@ namespace PixelDust.Game.Managers
             return GetVirtualViewMatrix() * Matrix.Identity;
         }
 
-        public Matrix GetInverseViewMatrix()
-        {
-            return Matrix.Invert(GetViewMatrix());
-        }
-
         public bool InsideCameraBounds(Vector2 targetPosition, Size2 targetSize, float toleranceFactor = 0f)
         {
             Vector2 topLeft = targetPosition;
