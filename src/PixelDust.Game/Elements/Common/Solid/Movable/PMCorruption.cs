@@ -3,7 +3,7 @@ using PixelDust.Game.Elements.Common.Utilities;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Solid;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
 using System;
 
@@ -27,7 +27,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
 
         protected override void OnStep()
         {
-            if (this.Context.TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors))
             {
                 this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
             }

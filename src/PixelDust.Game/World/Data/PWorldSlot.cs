@@ -3,9 +3,9 @@ using PixelDust.Game.Utilities;
 
 using System;
 
-namespace PixelDust.Game.World.Slots
+namespace PixelDust.Game.World.Data
 {
-    public struct PWorldElementSlot : ICloneable
+    public struct PWorldSlot : ICloneable
     {
         public readonly uint Id => this.id;
         public readonly bool IsEmpty => this.isEmpty;
@@ -15,11 +15,11 @@ namespace PixelDust.Game.World.Slots
         private uint id;
         private short temperature;
 
-        public PWorldElementSlot()
+        public PWorldSlot()
         {
             Destroy();
         }
-        public PWorldElementSlot(PWorldElementSlot value)
+        public PWorldSlot(PWorldSlot value)
         {
             this = value;
         }
@@ -45,7 +45,7 @@ namespace PixelDust.Game.World.Slots
 
         public readonly object Clone()
         {
-            return new PWorldElementSlot
+            return new PWorldSlot
             {
                 isEmpty = this.isEmpty,
                 id = this.id,

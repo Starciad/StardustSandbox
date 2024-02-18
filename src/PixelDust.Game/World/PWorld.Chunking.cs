@@ -1,5 +1,5 @@
 ﻿using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Components.Chunking;
+using PixelDust.Game.World.Components.Common;
 
 namespace PixelDust.Game.World
 {

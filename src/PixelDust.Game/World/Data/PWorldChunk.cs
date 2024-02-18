@@ -1,19 +1,13 @@
 ﻿using PixelDust.Game.Mathematics;
 
-using System.Runtime.InteropServices;
-
-namespace PixelDust.Game.World.Components.Chunking
+namespace PixelDust.Game.World.Data
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public struct PWorldChunk(Vector2Int position, short size)
+    public sealed class PWorldChunk(Vector2Int position)
     {
-        public readonly Vector2Int Position => this._position;
-        public readonly short Size => this._size;
-
-        public readonly bool ShouldUpdate => this._shouldUpdate;
+        public Vector2Int Position => this._position;
+        public bool ShouldUpdate => this._shouldUpdate;
 
         private readonly Vector2Int _position = position;
-        private readonly short _size = size;
 
         private bool _shouldUpdate = true;
         private bool _shouldUpdateNextFrame = true;

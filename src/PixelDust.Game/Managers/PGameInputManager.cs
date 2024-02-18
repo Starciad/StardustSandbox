@@ -5,7 +5,7 @@ using PixelDust.Game.Elements;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 using PixelDust.Game.World;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
 using System;
 
@@ -27,7 +27,7 @@ namespace PixelDust.Game.Managers
         // Elements
         private PElement elementSelected;
         private PElement elementOver;
-        private PWorldElementSlot elementOverSlot;
+        private PWorldSlot elementOverSlot;
 
         // Settings
         private int penScale = 1;

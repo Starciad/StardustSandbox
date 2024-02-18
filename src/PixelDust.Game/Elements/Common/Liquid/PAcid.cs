@@ -3,7 +3,7 @@ using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
 using System;
 
@@ -27,9 +27,9 @@ namespace PixelDust.Game.Elements.Common.Liquid
             this.EnableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors, int length)
         {
-            foreach ((Vector2Int, PWorldElementSlot) neighbor in neighbors)
+            foreach ((Vector2Int, PWorldSlot) neighbor in neighbors)
             {
                 if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PAcid ||
                     this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is PWall)

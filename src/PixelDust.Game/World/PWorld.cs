@@ -7,11 +7,8 @@ using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Components;
-using PixelDust.Game.World.Components.Chunking;
-using PixelDust.Game.World.Components.Rendering;
-using PixelDust.Game.World.Components.Threading;
+using PixelDust.Game.World.Components.Common;
 using PixelDust.Game.World.Data;
-using PixelDust.Game.World.Slots;
 
 using System;
 
@@ -19,9 +16,8 @@ namespace PixelDust.Game.World
 {
     public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase, PCameraManager camera) : PGameObject, IReset
     {
-        public PWorldStates States { get; private set; } = new();
-        public PWorldInfos Infos { get; private set; } = new();
-        public PWorldElementSlot[,] Elements { get; private set; }
+        public PWorldState States { get; private set; } = new();
+        public PWorldInfo Infos { get; private set; } = new();
         public PElementDatabase ElementDatabase => elementDatabase;
 
         private readonly PTimer updateTimer = new(0.35f);
@@ -32,11 +28,13 @@ namespace PixelDust.Game.World
             new PWorldRenderingComponent(elementDatabase, camera)
         ];
 
+        private PWorldSlot[,] slots;
+
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
+            this.slots = new PWorldSlot[this.Infos.Size.Width, this.Infos.Size.Height];
             Reset();
 
             foreach (PWorldComponent component in this._components)
@@ -108,7 +106,7 @@ namespace PixelDust.Game.World
         }
         public void Clear()
         {
-            if (this.Elements == null)
+            if (this.slots == null)
             {
                 return;
             }

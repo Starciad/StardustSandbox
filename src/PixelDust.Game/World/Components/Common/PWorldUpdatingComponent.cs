@@ -4,12 +4,11 @@ using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Enums.World;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
-using System;
 using System.Collections.Generic;
 
-namespace PixelDust.Game.World.Components.Threading
+namespace PixelDust.Game.World.Components.Common
 {
     public sealed class PWorldUpdatingComponent : PWorldComponent
     {
@@ -17,7 +16,7 @@ namespace PixelDust.Game.World.Components.Threading
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            capturedSlots.Clear();
+            this.capturedSlots.Clear();
 
             GetAllElementsForUpdating(gameTime);
             UpdateAllCapturedElements(gameTime);
@@ -39,7 +38,7 @@ namespace PixelDust.Game.World.Components.Threading
                     else
                     {
                         UpdateElementTarget(gameTime, pos, PWorldThreadUpdateType.Update);
-                        capturedSlots.Add(pos);
+                        this.capturedSlots.Add(pos);
                     }
                 }
             }
@@ -47,16 +46,16 @@ namespace PixelDust.Game.World.Components.Threading
 
         private void UpdateAllCapturedElements(GameTime gameTime)
         {
-            int totalCapturedSlots = capturedSlots.Count;
+            int totalCapturedSlots = this.capturedSlots.Count;
             for (int i = 0; i < totalCapturedSlots; i++)
             {
-                UpdateElementTarget(gameTime, capturedSlots[i], PWorldThreadUpdateType.Step);
+                UpdateElementTarget(gameTime, this.capturedSlots[i], PWorldThreadUpdateType.Step);
             }
         }
 
         private void UpdateElementTarget(GameTime gameTime, Vector2Int position, PWorldThreadUpdateType updateType)
         {
-            PWorldElementSlot slot = this.World.GetElementSlot(position);
+            PWorldSlot slot = this.World.GetElementSlot(position);
 
             if (this.World.TryGetElement(position, out PElement value))
             {
