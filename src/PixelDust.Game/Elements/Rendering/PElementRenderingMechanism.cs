@@ -7,13 +7,16 @@ namespace PixelDust.Game.Elements.Rendering
 {
     public abstract class PElementRenderingMechanism
     {
-        protected PElement Element { get; private set; }
-
-        public virtual void Initialize(PElement element)
+        public void Initialize(PElement element)
         {
-            this.Element = element;
+            OnInitialize(element);
         }
-        public virtual void Update(GameTime gameTime, PElementContext context) { return; }
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context) { return; }
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
+        {
+            OnDraw(gameTime, spriteBatch, context);
+        }
+
+        protected virtual void OnInitialize(PElement element) { return; }
+        protected virtual void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context) { return; }
     }
 }

@@ -1,47 +1,41 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
-using PixelDust.Game.Elements;
-using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Interfaces;
+using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Components;
-using PixelDust.Game.World.Components.Chunking;
-using PixelDust.Game.World.Components.Threading;
+using PixelDust.Game.World.Components.Common;
 using PixelDust.Game.World.Data;
-using PixelDust.Game.World.Slots;
 
 using System;
 
 namespace PixelDust.Game.World
 {
-    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase) : PGameObject, IReset
+    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase, PCameraManager camera) : PGameObject, IReset
     {
-        public PWorldStates States { get; private set; } = new();
-        public PWorldInfos Infos { get; private set; } = new();
-        public PWorldElementSlot[,] Elements { get; private set; }
+        public PWorldState States { get; private set; } = new();
+        public PWorldInfo Infos { get; private set; } = new();
         public PElementDatabase ElementDatabase => elementDatabase;
 
         private readonly PTimer updateTimer = new(0.35f);
         private readonly PWorldComponent[] _components =
         [
             new PWorldChunkingComponent(assetDatabase),
-            new PWorldThreadingComponent(),
+            new PWorldUpdatingComponent(),
+            new PWorldRenderingComponent(elementDatabase, camera)
         ];
 
-        private Texture2D particleTexture;
+        private PWorldSlot[,] slots;
 
         protected override void OnAwake()
         {
             base.OnAwake();
 
-            this.Elements = new PWorldElementSlot[this.Infos.Size.Width, this.Infos.Size.Height];
+            this.slots = new PWorldSlot[this.Infos.Size.Width, this.Infos.Size.Height];
             Reset();
-
-            this.particleTexture = assetDatabase.GetTexture("particle_1");
 
             foreach (PWorldComponent component in this._components)
             {
@@ -87,30 +81,9 @@ namespace PixelDust.Game.World
                 return;
             }
 
-            DrawSlots(gameTime, spriteBatch);
             foreach (PWorldComponent component in this._components)
             {
                 component.Draw(gameTime, spriteBatch);
-            }
-        }
-        private void DrawSlots(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            for (int x = 0; x < this.Infos.Size.Width; x++)
-            {
-                for (int y = 0; y < this.Infos.Size.Height; y++)
-                {
-                    if (IsEmptyElementSlot(new(x, y)))
-                    {
-                        spriteBatch.Draw(this.particleTexture, new Vector2(x, y) * PWorldConstants.GRID_SCALE, null, Color.Black, 0f, Vector2.Zero, PWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
-                    }
-                    else
-                    {
-                        PElement element = elementDatabase.GetElementById(this.Elements[x, y].Id);
-
-                        element.Context = new PElementContext(this, elementDatabase, this.Elements[x, y], new(x, y));
-                        element.Draw(gameTime, spriteBatch);
-                    }
-                }
             }
         }
 
@@ -133,7 +106,7 @@ namespace PixelDust.Game.World
         }
         public void Clear()
         {
-            if (this.Elements == null)
+            if (this.slots == null)
             {
                 return;
             }

@@ -1,7 +1,7 @@
 ﻿using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Interfaces;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.World.Slots;
+using PixelDust.Game.World.Data;
 
 using System;
 
@@ -38,7 +38,7 @@ namespace PixelDust.Game.World
 
             NotifyChunk(pos);
 
-            this.Elements[pos.X, pos.Y].Instantiate(value);
+            this.slots[pos.X, pos.Y].Instantiate(value);
             return true;
         }
 
@@ -59,8 +59,8 @@ namespace PixelDust.Game.World
             NotifyChunk(oldPos);
             NotifyChunk(newPos);
 
-            this.Elements[newPos.X, newPos.Y] = (PWorldElementSlot)this.Elements[oldPos.X, oldPos.Y].Clone();
-            this.Elements[oldPos.X, oldPos.Y].Destroy();
+            this.slots[newPos.X, newPos.Y] = (PWorldSlot)this.slots[oldPos.X, oldPos.Y].Clone();
+            this.slots[oldPos.X, oldPos.Y].Destroy();
             return true;
         }
 
@@ -81,11 +81,11 @@ namespace PixelDust.Game.World
             NotifyChunk(element1);
             NotifyChunk(element2);
 
-            PWorldElementSlot oldValue = (PWorldElementSlot)this.Elements[element1.X, element1.Y].Clone();
-            PWorldElementSlot newValue = (PWorldElementSlot)this.Elements[element2.X, element2.Y].Clone();
+            PWorldSlot oldValue = (PWorldSlot)this.slots[element1.X, element1.Y].Clone();
+            PWorldSlot newValue = (PWorldSlot)this.slots[element2.X, element2.Y].Clone();
 
-            this.Elements[element1.X, element1.Y] = newValue;
-            this.Elements[element2.X, element2.Y] = oldValue;
+            this.slots[element1.X, element1.Y] = newValue;
+            this.slots[element2.X, element2.Y] = oldValue;
 
             return true;
         }
@@ -103,7 +103,7 @@ namespace PixelDust.Game.World
             }
 
             NotifyChunk(pos);
-            this.Elements[pos.X, pos.Y].Destroy();
+            this.slots[pos.X, pos.Y].Destroy();
 
             return true;
         }
@@ -147,16 +147,16 @@ namespace PixelDust.Game.World
                 return false;
             }
 
-            value = elementDatabase.GetElementById(this.Elements[pos.X, pos.Y].Id);
+            value = elementDatabase.GetElementById(this.slots[pos.X, pos.Y].Id);
             return true;
         }
 
-        public ReadOnlySpan<(Vector2Int, PWorldElementSlot)> GetElementNeighbors(Vector2Int pos)
+        public ReadOnlySpan<(Vector2Int, PWorldSlot)> GetElementNeighbors(Vector2Int pos)
         {
-            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors);
+            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors);
             return neighbors;
         }
-        public bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldElementSlot)> neighbors)
+        public bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors)
         {
             neighbors = default;
 
@@ -167,13 +167,13 @@ namespace PixelDust.Game.World
 
             Vector2Int[] neighborsPositions = GetElementNeighborPositions(pos);
 
-            (Vector2Int, PWorldElementSlot)[] slotsFound = new (Vector2Int, PWorldElementSlot)[neighborsPositions.Length];
+            (Vector2Int, PWorldSlot)[] slotsFound = new (Vector2Int, PWorldSlot)[neighborsPositions.Length];
             int count = 0;
 
             for (int i = 0; i < neighborsPositions.Length; i++)
             {
                 Vector2Int position = neighborsPositions[i];
-                if (TryGetElementSlot(position, out PWorldElementSlot value))
+                if (TryGetElementSlot(position, out PWorldSlot value))
                 {
                     slotsFound[count] = (position, value);
                     count++;
@@ -182,19 +182,19 @@ namespace PixelDust.Game.World
 
             if (count > 0)
             {
-                neighbors = new ReadOnlySpan<(Vector2Int, PWorldElementSlot)>(slotsFound, 0, count);
+                neighbors = new ReadOnlySpan<(Vector2Int, PWorldSlot)>(slotsFound, 0, count);
                 return true;
             }
 
             return false;
         }
 
-        public PWorldElementSlot GetElementSlot(Vector2Int pos)
+        public PWorldSlot GetElementSlot(Vector2Int pos)
         {
-            _ = TryGetElementSlot(pos, out PWorldElementSlot value);
+            _ = TryGetElementSlot(pos, out PWorldSlot value);
             return value;
         }
-        public bool TryGetElementSlot(Vector2Int pos, out PWorldElementSlot value)
+        public bool TryGetElementSlot(Vector2Int pos, out PWorldSlot value)
         {
             value = default;
             if (!InsideTheWorldDimensions(pos))
@@ -202,7 +202,7 @@ namespace PixelDust.Game.World
                 return false;
             }
 
-            value = this.Elements[pos.X, pos.Y];
+            value = this.slots[pos.X, pos.Y];
             return !value.IsEmpty;
         }
 
@@ -217,10 +217,10 @@ namespace PixelDust.Game.World
                 return false;
             }
 
-            if (this.Elements[pos.X, pos.Y].Temperature != value)
+            if (this.slots[pos.X, pos.Y].Temperature != value)
             {
                 NotifyChunk(pos);
-                this.Elements[pos.X, pos.Y].SetTemperatureValue(value);
+                this.slots[pos.X, pos.Y].SetTemperatureValue(value);
             }
 
             return true;
@@ -229,7 +229,7 @@ namespace PixelDust.Game.World
         // Tools
         public bool IsEmptyElementSlot(Vector2Int pos)
         {
-            return !InsideTheWorldDimensions(pos) || this.Elements[pos.X, pos.Y].IsEmpty;
+            return !InsideTheWorldDimensions(pos) || this.slots[pos.X, pos.Y].IsEmpty;
         }
 
         // Utilities

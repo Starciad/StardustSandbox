@@ -15,11 +15,6 @@ namespace PixelDust.Game.Elements.Rendering
         private readonly PElement _element = element;
         private PElementContext _context;
 
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            this.renderingMechanism.Update(gameTime, this._context);
-        }
-
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.renderingMechanism == null)

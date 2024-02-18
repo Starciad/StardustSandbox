@@ -46,19 +46,19 @@ namespace PixelDust.Game.Managers
             switch (direction)
             {
                 case PCardinalDirection.North:
-                    orthographicCamera.Move(new Vector2(0, this.cameraMovementSpeed));
+                    cameraManager.Move(new Vector2(0, this.cameraMovementSpeed));
                     break;
 
                 case PCardinalDirection.East:
-                    orthographicCamera.Move(new Vector2(this.cameraMovementSpeed, 0));
+                    cameraManager.Move(new Vector2(this.cameraMovementSpeed, 0));
                     break;
 
                 case PCardinalDirection.South:
-                    orthographicCamera.Move(new Vector2(0, -this.cameraMovementSpeed));
+                    cameraManager.Move(new Vector2(0, -this.cameraMovementSpeed));
                     break;
 
                 case PCardinalDirection.West:
-                    orthographicCamera.Move(new Vector2(-this.cameraMovementSpeed, 0));
+                    cameraManager.Move(new Vector2(-this.cameraMovementSpeed, 0));
                     break;
 
                 default:
@@ -133,7 +133,7 @@ namespace PixelDust.Game.Managers
 
         private Vector2 GetWorldPositionFromMouse()
         {
-            Vector2 screenPos = orthographicCamera.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
+            Vector2 screenPos = cameraManager.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
             return new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
         }
 

@@ -22,21 +22,26 @@ namespace PixelDust.Game.Elements.Rendering.Common
         private readonly Vector2[] spritePositions = new Vector2[PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH];
         private readonly Rectangle[] spriteClipAreas = new Rectangle[PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH];
 
+        private PElement element;
+        private Texture2D elementTexture;
+
         // Overrides
-        public override void Initialize(PElement element)
+        protected override void OnInitialize(PElement element)
         {
-            base.Initialize(element);
+            this.element = element;
+            this.elementTexture = element.Texture;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
+        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
-            Texture2D texture = this.Element.Texture;
+            Vector2Int position = context.Position;
+
+            UpdateSpritePositions(position);
 
             for (int i = 0; i < PElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
-                UpdateSpritePositions(context.Position);
-                UpdateSpriteSlice(context, i, context.Position);
-                spriteBatch.Draw(texture, this.spritePositions[i], this.spriteClipAreas[i], color, rotation, origin, scale, spriteEffects, layerDepth);
+                UpdateSpriteSlice(context, i, position);
+                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], color, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
 
@@ -103,7 +108,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
                 if (context.TryGetElement(targets[i].position, out PElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
-                    if (value != this.Element)
+                    if (value != this.element)
                     {
                         continue;
                     }
