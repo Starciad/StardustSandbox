@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Collections
 {
-    public sealed class ObjectPool
+    public sealed class PObjectPool
     {
         public int Count => this._pool.Count;
 
