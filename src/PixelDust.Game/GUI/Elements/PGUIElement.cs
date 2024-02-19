@@ -3,7 +3,6 @@
 using Microsoft.Xna.Framework;
 
 using PixelDust.Game.Objects;
-
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
 using PixelDust.Game.Mathematics;

@@ -33,7 +33,7 @@ namespace PixelDust.Game.GUI.Common
         private void UpdateHeader()
         {
             // If the mouse is over the header, the player will not be able to interact with the environment. Otherwise, this permission is conceived.
-            this.Game.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Style.Size);
+            this.Game.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Size);
         }
 
         private void UpdateHeaderElementSelectionSlots()
