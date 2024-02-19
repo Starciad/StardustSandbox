@@ -25,8 +25,8 @@ namespace PixelDust.Game.GUI
         protected override void OnAwake()
         {
             this.rootElement = CreateElement<PGUIRootElement>();
-            this.rootElement.Style.SetPositioningType(PPositioningType.Fixed);
-            this.rootElement.Style.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
+            this.rootElement.SetPositioningType(PPositioningType.Fixed);
+            this.rootElement.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -60,13 +60,14 @@ namespace PixelDust.Game.GUI
 
         public T CreateElement<T>() where T : PGUIElement
         {
-            T element = Activator.CreateInstance<T>();
+            return CreateElement(Activator.CreateInstance<T>());
+        }
 
-            element.SetGUILayout(this);
-            element.Initialize(this.Game);
-
-            this.elements.Add(element);
-            return element;
+        public T CreateElement<T>(T value) where T : PGUIElement
+        {
+            value.Initialize(this.Game);
+            this.elements.Add(value);
+            return value;
         }
     }
 }

@@ -8,5 +8,6 @@ namespace PixelDust.Game.GUI.Interfaces
         PGUIRootElement RootElement { get; }
 
         T CreateElement<T>() where T : PGUIElement;
+        T CreateElement<T>(T value) where T : PGUIElement;
     }
 }
