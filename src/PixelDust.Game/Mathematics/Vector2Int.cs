@@ -50,127 +50,11 @@ namespace PixelDust.Game.Mathematics
         #endregion
 
         #region Public Methods
-
-        public static Vector2Int Add(Vector2Int value1, Vector2Int value2)
-        {
-            value1.X += value2.X;
-            value1.Y += value2.Y;
-            return value1;
-        }
-        public static Vector2Int Subtract(Vector2Int value1, Vector2Int value2)
-        {
-            value1.X -= value2.X;
-            value1.Y -= value2.Y;
-            return value1;
-        }
-        public static Vector2Int Multiply(Vector2Int value1, Vector2Int value2)
-        {
-            value1.X *= value2.X;
-            value1.Y *= value2.Y;
-            return value1;
-        }
-        public static Vector2Int Multiply(Vector2Int value1, int scaleFactor)
-        {
-            value1.X *= scaleFactor;
-            value1.Y *= scaleFactor;
-            return value1;
-        }
-        public static Vector2Int Divide(Vector2Int value1, Vector2Int value2)
-        {
-            value1.X /= value2.X;
-            value1.Y /= value2.Y;
-            return value1;
-        }
-        public static Vector2Int Divide(Vector2Int value1, int divider)
-        {
-            int factor = 1 / divider;
-            value1.X *= factor;
-            value1.Y *= factor;
-            return value1;
-        }
-
-        public static Vector2Int CatmullRom(Vector2Int value1, Vector2Int value2, Vector2Int value3, Vector2Int value4, int amount)
-        {
-            return new Vector2Int(
-                (int)MathHelper.CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
-                (int)MathHelper.CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
-        }
-        public void Ceiling()
-        {
-            this.X = (int)MathF.Ceiling(this.X);
-            this.Y = (int)MathF.Ceiling(this.Y);
-        }
-        public static Vector2Int Ceiling(Vector2Int value)
-        {
-            value.X = (int)MathF.Ceiling(value.X);
-            value.Y = (int)MathF.Ceiling(value.Y);
-            return value;
-        }
-        public static Vector2Int Clamp(Vector2Int value1, Vector2Int min, Vector2Int max)
-        {
-            return new Vector2Int(
-                MathHelper.Clamp(value1.X, min.X, max.X),
-                MathHelper.Clamp(value1.Y, min.Y, max.Y));
-        }
-        public static float Distance(Vector2Int value1, Vector2Int value2)
-        {
-            int v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
-            return MathF.Sqrt((v1 * v1) + (v2 * v2));
-        }
-        public static float DistanceSquared(Vector2Int value1, Vector2Int value2)
-        {
-            int v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
-            return (v1 * v1) + (v2 * v2);
-        }
-
-        public static int Dot(Vector2Int value1, Vector2Int value2)
-        {
-            return (value1.X * value2.X) + (value1.Y * value2.Y);
-        }
-        public void Floor()
-        {
-            this.X = (int)MathF.Floor(this.X);
-            this.Y = (int)MathF.Floor(this.Y);
-        }
-        public static Vector2Int Floor(Vector2Int value)
-        {
-            value.X = (int)MathF.Floor(value.X);
-            value.Y = (int)MathF.Floor(value.Y);
-            return value;
-        }
-
-        public static Vector2Int Max(Vector2Int value1, Vector2Int value2)
-        {
-            return new Vector2Int(value1.X > value2.X ? value1.X : value2.X,
-                                  value1.Y > value2.Y ? value1.Y : value2.Y);
-        }
-        public static Vector2Int Min(Vector2Int value1, Vector2Int value2)
-        {
-            return new Vector2Int(value1.X < value2.X ? value1.X : value2.X,
-                               value1.Y < value2.Y ? value1.Y : value2.Y);
-        }
-        public static Vector2Int Negate(Vector2Int value)
-        {
-            value.X = -value.X;
-            value.Y = -value.Y;
-            return value;
-        }
-
-        public readonly int Length()
-        {
-            return (int)MathF.Sqrt((this.X * this.X) + (this.Y * this.Y));
-        }
-        public readonly int LengthSquared()
-        {
-            return (this.X * this.X) + (this.Y * this.Y);
-        }
-
         public readonly void Deconstruct(out int x, out int y)
         {
             x = this.X;
             y = this.Y;
         }
-
         #endregion
 
         #region Operators
@@ -209,6 +93,13 @@ namespace PixelDust.Game.Mathematics
             value1.Y += value2.Y;
             return value1;
         }
+        public static Vector2Int operator +(Vector2Int value1, int value2)
+        {
+            value1.X += value2;
+            value1.Y += value2;
+            return value1;
+        }
+
         public static Vector2Int operator -(Vector2Int value)
         {
             value.X = -value.X;
@@ -221,23 +112,24 @@ namespace PixelDust.Game.Mathematics
             value1.Y -= value2.Y;
             return value1;
         }
+        public static Vector2Int operator -(Vector2Int value1, int value2)
+        {
+            value1.X -= value2;
+            value1.Y -= value2;
+            return value1;
+        }
+
         public static Vector2Int operator *(Vector2Int value1, Vector2Int value2)
         {
             value1.X *= value2.X;
             value1.Y *= value2.Y;
             return value1;
         }
-        public static Vector2Int operator *(Vector2Int value, int scaleFactor)
+        public static Vector2Int operator *(Vector2Int value1, int value2)
         {
-            value.X *= scaleFactor;
-            value.Y *= scaleFactor;
-            return value;
-        }
-        public static Vector2Int operator *(int scaleFactor, Vector2Int value)
-        {
-            value.X *= scaleFactor;
-            value.Y *= scaleFactor;
-            return value;
+            value1.X *= value2;
+            value1.Y *= value2;
+            return value1;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -249,9 +141,9 @@ namespace PixelDust.Game.Mathematics
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2Int operator /(Vector2Int value1, int divider)
+        public static Vector2Int operator /(Vector2Int value1, int value2)
         {
-            int factor = 1 / divider;
+            int factor = 1 / value2;
             value1.X *= factor;
             value1.Y *= factor;
             return value1;
