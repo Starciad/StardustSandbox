@@ -2,7 +2,6 @@
 
 using PixelDust.Game.Constants;
 using PixelDust.Game.Elements;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 using PixelDust.Game.World;
 using PixelDust.Game.World.Data;
@@ -83,10 +82,10 @@ namespace PixelDust.Game.Managers
         private void GetMouseOverElement()
         {
             Vector2 screenPos = cameraManager.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
-            Vector2 worldPos = new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
+            Point worldPos = (new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE).ToPoint();
 
-            this.elementOverSlot = world.GetElementSlot((Vector2Int)worldPos);
-            this.elementOver = world.GetElement((Vector2Int)worldPos);
+            this.elementOverSlot = world.GetElementSlot(worldPos);
+            this.elementOver = world.GetElement(worldPos);
         }
 
         private void ClampCamera()

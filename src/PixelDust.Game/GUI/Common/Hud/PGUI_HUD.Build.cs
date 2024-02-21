@@ -2,11 +2,11 @@
 
 using PixelDust.Game.Constants.GUI.Common;
 using PixelDust.Game.Enums.General;
+using PixelDust.Game.Mathematics;
 using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.GUI.Interfaces;
-using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Common
 {

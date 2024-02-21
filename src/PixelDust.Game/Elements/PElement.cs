@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Elements.Rendering;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Data;
@@ -59,7 +58,7 @@ namespace PixelDust.Game.Elements
 
         public void Steps()
         {
-            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Point, PWorldSlot)> neighbors))
             {
                 if (this.EnableTemperature)
                 {
@@ -90,11 +89,11 @@ namespace PixelDust.Game.Elements
         #endregion
 
         #region System
-        private void UpdateTemperature(ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors)
+        private void UpdateTemperature(ReadOnlySpan<(Point, PWorldSlot)> neighbors)
         {
             float totalTemperatureChange = 0;
 
-            foreach ((Vector2Int, PWorldSlot) neighbor in neighbors)
+            foreach ((Point, PWorldSlot) neighbor in neighbors)
             {
                 if (!this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id).EnableTemperature)
                 {
@@ -117,7 +116,7 @@ namespace PixelDust.Game.Elements
         #endregion
 
         #region Events
-        protected virtual void OnNeighbors(ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors, int length) { return; }
+        protected virtual void OnNeighbors(ReadOnlySpan<(Point, PWorldSlot)> neighbors, int length) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
         #endregion
     }

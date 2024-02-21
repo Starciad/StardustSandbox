@@ -1,5 +1,5 @@
 ﻿using PixelDust.Game.Elements.Templates.Liquid;
-using PixelDust.Game.Mathematics;
+using Microsoft.Xna.Framework;
 using PixelDust.Game.Utilities;
 
 namespace PixelDust.Game.Elements.Templates.Solid
@@ -13,8 +13,8 @@ namespace PixelDust.Game.Elements.Templates.Solid
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
 
-            Vector2Int down = new(this.Context.Position.X, this.Context.Position.Y + 1);
-            Vector2Int[] sides =
+            Point down = new(this.Context.Position.X, this.Context.Position.Y + 1);
+            Point[] sides =
             [
                 new(this.Context.Position.X + direction, this.Context.Position.Y),
                 new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
@@ -23,14 +23,14 @@ namespace PixelDust.Game.Elements.Templates.Solid
             if (TrySetPosition(down))
             { return; }
 
-            foreach (Vector2Int side in sides)
+            foreach (Point side in sides)
             {
                 if (TrySetPosition(new(side.X, side.Y + 1)))
                 { return; }
             }
         }
 
-        private bool TrySetPosition(Vector2Int pos)
+        private bool TrySetPosition(Point pos)
         {
             if (this.Context.TrySetPosition(pos))
             {

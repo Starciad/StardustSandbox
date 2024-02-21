@@ -1,13 +1,13 @@
-﻿using PixelDust.Game.Mathematics;
+﻿using Microsoft.Xna.Framework;
 
 namespace PixelDust.Game.World.Data
 {
-    public sealed class PWorldChunk(Vector2Int position)
+    public sealed class PWorldChunk(Point position)
     {
-        public Vector2Int Position => this._position;
+        public Point Position => this._position;
         public bool ShouldUpdate => this._shouldUpdate;
 
-        private readonly Vector2Int _position = position;
+        private readonly Point _position = position;
 
         private bool _shouldUpdate = true;
         private bool _shouldUpdateNextFrame = true;

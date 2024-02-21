@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
 using PixelDust.Game.Databases;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.World.Data;
 
 namespace PixelDust.Game.World.Components.Common
@@ -30,7 +29,7 @@ namespace PixelDust.Game.World.Components.Common
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    this._chunks[x, y] = new PWorldChunk(new Vector2Int(x * PWorldConstants.CHUNK_SCALE * PWorldConstants.GRID_SCALE, y * PWorldConstants.CHUNK_SCALE * PWorldConstants.GRID_SCALE));
+                    this._chunks[x, y] = new PWorldChunk(new Point(x * PWorldConstants.CHUNK_SCALE * PWorldConstants.GRID_SCALE, y * PWorldConstants.CHUNK_SCALE * PWorldConstants.GRID_SCALE));
                 }
             }
         }
@@ -53,10 +52,10 @@ namespace PixelDust.Game.World.Components.Common
 #endif
         }
 
-        public bool TryGetChunkUpdateState(Vector2Int pos, out bool result)
+        public bool TryGetChunkUpdateState(Point pos, out bool result)
         {
             result = false;
-            Vector2Int targetPos = ToChunkCoordinateSystem(pos);
+            Point targetPos = ToChunkCoordinateSystem(pos);
 
             if (!IsWithinChunkBoundaries(targetPos))
             {
@@ -83,9 +82,9 @@ namespace PixelDust.Game.World.Components.Common
             return result;
         }
 
-        public bool TryNotifyChunk(Vector2Int pos)
+        public bool TryNotifyChunk(Point pos)
         {
-            Vector2Int targetPos = ToChunkCoordinateSystem(pos);
+            Point targetPos = ToChunkCoordinateSystem(pos);
 
             if (IsWithinChunkBoundaries(targetPos))
             {
@@ -97,7 +96,7 @@ namespace PixelDust.Game.World.Components.Common
 
             return false;
         }
-        private void TryNotifyNeighboringChunks(Vector2Int ePos, Vector2Int cPos)
+        private void TryNotifyNeighboringChunks(Point ePos, Point cPos)
         {
             if (ePos.X % PWorldConstants.CHUNK_SCALE == 0 && IsWithinChunkBoundaries(new(cPos.X - 1, cPos.Y)))
             {
@@ -120,13 +119,13 @@ namespace PixelDust.Game.World.Components.Common
             }
         }
 
-        private bool IsWithinChunkBoundaries(Vector2Int pos)
+        private bool IsWithinChunkBoundaries(Point pos)
         {
             return pos.X >= 0 && pos.X < this.worldChunkWidth &&
                    pos.Y >= 0 && pos.Y < this.worldChunkHeight;
         }
 
-        public static Vector2Int ToChunkCoordinateSystem(Vector2Int pos)
+        public static Point ToChunkCoordinateSystem(Point pos)
         {
             return new(pos.X / PWorldConstants.CHUNK_SCALE, pos.Y / PWorldConstants.CHUNK_SCALE);
         }

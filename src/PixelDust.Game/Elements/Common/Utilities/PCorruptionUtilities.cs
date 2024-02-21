@@ -6,7 +6,7 @@ using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Elements.Templates.Gases;
 using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Elements.Templates.Solid;
-using PixelDust.Game.Mathematics;
+using Microsoft.Xna.Framework;
 using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Data;
 
@@ -17,9 +17,9 @@ namespace PixelDust.Game.Elements.Common.Utilities
 {
     public static class PCorruptionUtilities
     {
-        public static void InfectNeighboringElements(this PElementContext context, ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors, int length)
+        public static void InfectNeighboringElements(this PElementContext context, ReadOnlySpan<(Point, PWorldSlot)> neighbors, int length)
         {
-            List<(Vector2Int, PWorldSlot)> targets = [];
+            List<(Point, PWorldSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
                 PElement element = context.ElementDatabase.GetElementById(neighbors[i].Item2.Id);
@@ -39,7 +39,7 @@ namespace PixelDust.Game.Elements.Common.Utilities
                 return;
             }
 
-            (Vector2Int, PWorldSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
+            (Point, PWorldSlot) target = targets.Count == 0 ? targets[0] : targets[PRandom.Range(0, targets.Count)];
             PElement targetElement = context.ElementDatabase.GetElementById(target.Item2.Id);
 
             if (targetElement is PSolid)

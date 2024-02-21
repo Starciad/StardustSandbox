@@ -5,9 +5,8 @@ using Microsoft.Xna.Framework;
 using PixelDust.Game.Objects;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.Constants;
-
+using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Elements
 {

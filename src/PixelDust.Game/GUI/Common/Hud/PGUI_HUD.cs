@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Mathematics;
 using PixelDust.Game.Constants.GUI.Common;
 using PixelDust.Game.GUI.Elements.Common.Graphics;
-using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Common
 {
