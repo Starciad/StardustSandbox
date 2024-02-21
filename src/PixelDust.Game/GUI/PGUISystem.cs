@@ -7,13 +7,14 @@ using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI
 {
-    public abstract class PGUISystem : PGameObject
+    public abstract class PGUISystem(PGUIEvents events) : PGameObject
     {
+        public string Name { get; protected set; }
         public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
-        public bool HasEvents => this.GUIEvents != null;
-        protected PGUIEvents GUIEvents { get; private set; }
+        public bool HasEvents => this.Events != null;
+        protected PGUIEvents Events => events;
 
         private readonly PGUILayout layout = new();
 
@@ -47,10 +48,6 @@ namespace PixelDust.Game.GUI
             this.layout.Draw(gameTime, spriteBatch);
         }
 
-        public void SetEvents(PGUIEvents guiEvents)
-        {
-            this.GUIEvents = guiEvents;
-        }
         public void Activate()
         {
             this.isActive = true;

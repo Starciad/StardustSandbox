@@ -7,6 +7,7 @@ using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.GUI.Interfaces;
+using PixelDust.Game.Constants.GUI;
 
 namespace PixelDust.Game.GUI.Common
 {
@@ -23,6 +24,7 @@ namespace PixelDust.Game.GUI.Common
 
         protected override void OnBuild(IPGUILayoutBuilder layout)
         {
+            this.Name = PGUIConstants.HUD_NAME;
             this._layout = layout;
             this._root = layout.RootElement;
 

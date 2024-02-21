@@ -13,8 +13,6 @@ namespace PixelDust.Game.Managers
 {
     public sealed class PGUIManager(PInputManager inputManager) : PGameObject
     {
-        public PGUIEvents GUIEvents => this._guiEvents;
-
         private readonly List<Type> _guiTypes = [];
         private PGUISystem[] _guiSystems = [];
 
@@ -29,15 +27,15 @@ namespace PixelDust.Game.Managers
             {
                 Type type = this._guiTypes[i];
 
-                PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type);
+                PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type, this._guiEvents);
                 tempGUISystem.Initialize(this.Game);
-                tempGUISystem.SetEvents(this.GUIEvents);
 
                 this._guiSystems[i] = tempGUISystem;
             }
 
             this._guiSystems = [.. this._guiSystems.OrderBy(x => x.ZIndex)];
         }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             for (int i = 0; i < this._guiSystems.Length; i++)
@@ -45,6 +43,7 @@ namespace PixelDust.Game.Managers
                 this._guiSystems[i].Update(gameTime);
             }
         }
+
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             for (int i = 0; i < this._guiSystems.Length; i++)
@@ -57,76 +56,53 @@ namespace PixelDust.Game.Managers
         {
             RegisterGUISystem(typeof(T));
         }
+
         public void RegisterGUISystem(Type type)
         {
             this._guiTypes.Add(type);
         }
 
-        public void ActivateGUI<T>() where T : PGUISystem
+        public void ActivateGUI(string id)
         {
-            ActivateGUI(typeof(T));
-        }
-        public void ActivateGUI(Type type)
-        {
-            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            if (TryGetGUIByName(id, out PGUISystem guiSystem))
             {
                 guiSystem.Activate();
             }
         }
 
-        public void DisableGUI<T>() where T : PGUISystem
+        public void DisableGUI(string id)
         {
-            DisableGUI(typeof(T));
-        }
-        public void DisableGUI(Type type)
-        {
-            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            if (TryGetGUIByName(id, out PGUISystem guiSystem))
             {
                 guiSystem.Disable();
             }
         }
 
-        public void ShowGUI<T>() where T : PGUISystem
+        public void ShowGUI(string id)
         {
-            ShowGUI(typeof(T));
-        }
-        public void ShowGUI(Type type)
-        {
-            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            if (TryGetGUIByName(id, out PGUISystem guiSystem))
             {
                 guiSystem.Show();
             }
         }
 
-        public void CloseGUI<T>() where T : PGUISystem
+        public void CloseGUI(string id)
         {
-            CloseGUI(typeof(T));
-        }
-        public void CloseGUI(Type type)
-        {
-            if (TryGetGUIByType(type, out PGUISystem guiSystem))
+            if (TryGetGUIByName(id, out PGUISystem guiSystem))
             {
                 guiSystem.Close();
             }
         }
 
-        public PGUISystem GetGUIByType<T>() where T : PGUISystem
+        public PGUISystem GetGUIByName(string name)
         {
-            return GetGUIByType(typeof(T));
-        }
-        public PGUISystem GetGUIByType(Type type)
-        {
-            _ = TryGetGUIByType(type, out PGUISystem guiSystem);
+            _ = TryGetGUIByName(name, out PGUISystem guiSystem);
             return guiSystem;
         }
 
-        public bool TryGetGUIByType<T>(out PGUISystem guiSystem) where T : PGUISystem
+        public bool TryGetGUIByName(string name, out PGUISystem guiSystem)
         {
-            return TryGetGUIByType(typeof(T), out guiSystem);
-        }
-        public bool TryGetGUIByType(Type type, out PGUISystem guiSystem)
-        {
-            PGUISystem target = Array.Find(this._guiSystems, x => x.GetType() == type);
+            PGUISystem target = Array.Find(this._guiSystems, x => x.Name == name);
             guiSystem = target;
 
             return target != null;
