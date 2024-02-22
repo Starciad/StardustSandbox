@@ -6,17 +6,12 @@ using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.GUI.Events;
 using PixelDust.Game.Mathematics;
 
-namespace PixelDust.Game.GUI.Common
+namespace PixelDust.Game.GUI.Common.HUD
 {
-    public sealed partial class PGUI_HUD : PGUISystem
+    public sealed partial class PGUI_HUD(PGUIEvents events) : PGUISystem(events)
     {
         private Texture2D particleTexture;
         private Texture2D squareShapeTexture;
-
-        public PGUI_HUD(PGUIEvents events) : base(events)
-        {
-
-        }
 
         protected override void OnAwake()
         {

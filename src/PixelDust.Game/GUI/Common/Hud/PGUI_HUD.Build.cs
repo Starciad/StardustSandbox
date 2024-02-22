@@ -9,7 +9,7 @@ using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
 
-namespace PixelDust.Game.GUI.Common
+namespace PixelDust.Game.GUI.Common.HUD
 {
     public partial class PGUI_HUD
     {

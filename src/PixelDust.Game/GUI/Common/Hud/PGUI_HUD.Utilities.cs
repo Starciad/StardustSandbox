@@ -1,6 +1,6 @@
 ﻿using PixelDust.Game.Elements;
 
-namespace PixelDust.Game.GUI.Common
+namespace PixelDust.Game.GUI.Common.HUD
 {
     public sealed partial class PGUI_HUD
     {

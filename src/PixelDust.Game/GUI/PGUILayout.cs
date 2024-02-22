@@ -17,6 +17,7 @@ namespace PixelDust.Game.GUI
     public sealed class PGUILayout : PGameObject, IPGUILayoutBuilder
     {
         public PGUIRootElement RootElement => this.rootElement;
+        public int ElementCount => this.elements.Count;
 
         private readonly List<PGUIElement> elements = [];
         private PGUIRootElement rootElement = null;
