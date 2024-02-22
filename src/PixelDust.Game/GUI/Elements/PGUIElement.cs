@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 
-using Microsoft.Xna.Framework;
-
-using PixelDust.Game.Objects;
+using PixelDust.Game.Constants;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
-using PixelDust.Game.Constants;
 using PixelDust.Game.Mathematics;
-using PixelDust.Game.GUI.Elements.Common;
+using PixelDust.Game.Objects;
+
+using System.Collections.Generic;
 
 namespace PixelDust.Game.GUI.Elements
 {

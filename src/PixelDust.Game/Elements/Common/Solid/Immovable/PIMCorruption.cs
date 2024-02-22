@@ -1,8 +1,9 @@
-﻿using PixelDust.Game.Elements.Attributes;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Utilities;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Solid;
-using Microsoft.Xna.Framework;
 using PixelDust.Game.World.Data;
 
 using System;

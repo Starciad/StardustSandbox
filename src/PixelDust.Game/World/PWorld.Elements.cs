@@ -1,6 +1,7 @@
-﻿using PixelDust.Game.Elements;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Interfaces;
-using Microsoft.Xna.Framework;
 using PixelDust.Game.World.Data;
 
 using System;

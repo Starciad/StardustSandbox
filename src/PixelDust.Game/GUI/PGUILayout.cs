@@ -6,8 +6,8 @@ using PixelDust.Game.Enums.GUI;
 using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Interfaces;
-using PixelDust.Game.Objects;
 using PixelDust.Game.Mathematics;
+using PixelDust.Game.Objects;
 
 using System;
 using System.Collections.Generic;

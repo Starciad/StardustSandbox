@@ -157,7 +157,7 @@ namespace PixelDust.Game.Managers
 
                     if (world.InsideTheWorldDimensions(localPos))
                     {
-                        action.Invoke((int)localPos.X, (int)localPos.Y);
+                        action.Invoke(localPos.X, localPos.Y);
                     }
                 }
             }

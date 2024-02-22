@@ -1,5 +1,6 @@
-﻿using PixelDust.Game.Elements.Templates.Liquid;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Utilities;
 
 namespace PixelDust.Game.Elements.Templates.Solid
