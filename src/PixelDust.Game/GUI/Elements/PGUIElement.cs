@@ -7,62 +7,51 @@ using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Mathematics;
+using PixelDust.Game.GUI.Elements.Common;
 
 namespace PixelDust.Game.GUI.Elements
 {
     public abstract class PGUIElement : PGameObject
     {
-        // Settings
-        public string Id { get; set; }
-
-        // Readonly
         public Vector2 Position => this.position;
-
-        // Parental
-        public PGUIElement Parent => this.parent;
-        public PGUIElement[] Children => [.. this.children];
-        public bool HasChildren => this.children.Count > 0;
         public PPositioningType PositioningType => this.positioningType;
         public PCardinalDirection PositionAnchor => this.positionAnchor;
         public Size2 Size => this.size;
         public Vector2 Margin => this.margin;
 
-        private readonly List<PGUIElement> children = [];
         private readonly Dictionary<string, object> data = [];
 
-        private PPositioningType positioningType;
-        private PCardinalDirection positionAnchor;
-        private Size2 size;
-        private Vector2 margin;
-        private Vector2 position;
+        private PPositioningType positioningType = PPositioningType.Relative;
+        private PCardinalDirection positionAnchor = PCardinalDirection.Northwest;
+        private Size2 size = Size2.One;
+        private Vector2 margin = Vector2.Zero;
+        private Vector2 position = Vector2.Zero;
 
-        private PGUIElement parent;
-
-        public PGUIElement()
+        // [ Settings ]
+        public void PositionRelativeToElement(PGUIElement reference)
         {
-            this.Id = string.Empty;
+            PositionRelativeToElement(reference.position, reference.size);
         }
 
-        public PGUIElement(string id)
-        {
-            this.Id = id;
-        }
-
-        #region Settings
-        public Vector2 GetPosition()
+        public void PositionRelativeToElement(Vector2 position, Size2 size)
         {
             Size2 screenSize = new(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
 
-            Size2 targetSize = screenSize;
             Vector2 targetPosition = Vector2.Zero;
+            Size2 targetSize = screenSize;
 
-            if (this.positioningType == PPositioningType.Relative && this.parent != null)
+            if (this.positioningType == PPositioningType.Relative)
             {
-                targetSize = this.parent.size;
-                targetPosition = this.parent.position;
+                targetPosition = position;
+                targetSize = size;
             }
 
-            return this.PositionAnchor switch
+            this.position = CalculatePosition(targetPosition, targetSize);
+        }
+
+        private Vector2 CalculatePosition(Vector2 targetPosition, Size2 targetSize)
+        {
+            return this.positionAnchor switch
             {
                 PCardinalDirection.Center => targetPosition + this.Margin + (new Vector2(targetSize.Width, targetSize.Height) / 2),
                 PCardinalDirection.North => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, 0),
@@ -96,33 +85,8 @@ namespace PixelDust.Game.GUI.Elements
         {
             this.margin = margin;
         }
-        #endregion
 
-        #region Parental
-        public void AppendChild(PGUIElement element)
-        {
-            element.parent?.RemoveChild(element);
-            element.parent = this;
-            element.position = element.GetPosition();
-
-            this.children.Add(element);
-        }
-
-        public void RemoveAllChildren()
-        {
-            foreach (PGUIElement element in this.Children)
-            {
-                RemoveChild(element);
-            }
-        }
-
-        public void RemoveChild(PGUIElement element)
-        {
-            _ = this.children.Remove(element);
-        }
-        #endregion
-
-        #region Data
+        // [ Data ]
         public void AddData(string name, object value)
         {
             this.data.Add(name, value);
@@ -142,6 +106,5 @@ namespace PixelDust.Game.GUI.Elements
         {
             _ = this.data.Remove(name);
         }
-        #endregion
     }
 }

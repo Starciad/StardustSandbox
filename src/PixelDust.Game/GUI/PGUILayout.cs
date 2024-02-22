@@ -17,7 +17,6 @@ namespace PixelDust.Game.GUI
     public sealed class PGUILayout : PGameObject, IPGUILayoutBuilder
     {
         public PGUIRootElement RootElement => this.rootElement;
-        public PGUIElement[] Elements => [.. this.elements];
 
         private readonly List<PGUIElement> elements = [];
         private PGUIRootElement rootElement = null;
@@ -31,7 +30,7 @@ namespace PixelDust.Game.GUI
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            foreach (PGUIElement element in this.Elements)
+            foreach (PGUIElement element in this.elements)
             {
                 element.Update(gameTime);
             }
@@ -39,22 +38,9 @@ namespace PixelDust.Game.GUI
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (this.RootElement != null)
+            foreach (PGUIElement element in this.elements)
             {
-                DrawElementsRecursively(this.RootElement, gameTime, spriteBatch);
-            }
-        }
-
-        private static void DrawElementsRecursively(PGUIElement element, GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            element.Draw(gameTime, spriteBatch);
-
-            if (element.HasChildren)
-            {
-                foreach (PGUIElement child in element.Children)
-                {
-                    DrawElementsRecursively(child, gameTime, spriteBatch);
-                }
+                element.Draw(gameTime, spriteBatch);
             }
         }
 
