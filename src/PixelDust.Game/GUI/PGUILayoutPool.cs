@@ -13,7 +13,7 @@ namespace PixelDust.Game.GUI
         {
             T element;
 
-            if (objectPool.TryGet(out IPoolableObject poolableObject))
+            if (this.objectPool.TryGet(out IPoolableObject poolableObject))
             {
                 element = (T)poolableObject;
             }
