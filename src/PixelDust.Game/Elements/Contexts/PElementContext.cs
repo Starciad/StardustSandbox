@@ -1,6 +1,7 @@
-﻿using PixelDust.Game.Databases;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Databases;
 using PixelDust.Game.Elements.Interfaces;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.World;
 using PixelDust.Game.World.Data;
 
@@ -16,27 +17,27 @@ namespace PixelDust.Game.Elements.Contexts
     /// <br/><br/>
     /// The information within this context is updated every frame, automatically adapting to a newly selected element through public engine processes. This eliminates the concern about the specific information being manipulated at any given moment.
     /// </remarks>
-    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldSlot slot, Vector2Int position) : IElementManager
+    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldSlot slot, Point position) : IElementManager
     {
         public readonly bool IsEmpty => this._world == null;
 
         public readonly PWorldSlot Slot => this._element;
-        public readonly Vector2Int Position => this._position;
+        public readonly Point Position => this._position;
         public readonly PElement Element => this.ElementDatabase.GetElementById(this._element.Id);
         public readonly PElementDatabase ElementDatabase => this._elementDatabase;
 
         private PWorldSlot _element = slot;
-        private Vector2Int _position = position;
+        private Point _position = position;
 
         private readonly PElementDatabase _elementDatabase = elementDatabase;
         private readonly PWorld _world = world;
 
         #region World
-        public void SetPosition(Vector2Int newPos)
+        public void SetPosition(Point newPos)
         {
             _ = TrySetPosition(newPos);
         }
-        public bool TrySetPosition(Vector2Int newPos)
+        public bool TrySetPosition(Point newPos)
         {
             if (this._world.TryUpdateElementPosition(this._position, newPos))
             {
@@ -61,15 +62,15 @@ namespace PixelDust.Game.Elements.Contexts
         {
             InstantiateElement(this.Position, value);
         }
-        public readonly void InstantiateElement<T>(Vector2Int pos) where T : PElement
+        public readonly void InstantiateElement<T>(Point pos) where T : PElement
         {
             this._world.InstantiateElement<T>(pos);
         }
-        public readonly void InstantiateElement(Vector2Int pos, uint id)
+        public readonly void InstantiateElement(Point pos, uint id)
         {
             this._world.InstantiateElement(pos, id);
         }
-        public readonly void InstantiateElement(Vector2Int pos, PElement value)
+        public readonly void InstantiateElement(Point pos, PElement value)
         {
             this._world.InstantiateElement(pos, value);
         }
@@ -85,49 +86,49 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return TryInstantiateElement(this.Position, value);
         }
-        public readonly bool TryInstantiateElement<T>(Vector2Int pos) where T : PElement
+        public readonly bool TryInstantiateElement<T>(Point pos) where T : PElement
         {
             return this._world.TryInstantiateElement<T>(pos);
         }
-        public readonly bool TryInstantiateElement(Vector2Int pos, uint id)
+        public readonly bool TryInstantiateElement(Point pos, uint id)
         {
             return this._world.TryInstantiateElement(pos, id);
         }
-        public readonly bool TryInstantiateElement(Vector2Int pos, PElement value)
+        public readonly bool TryInstantiateElement(Point pos, PElement value)
         {
             return this._world.TryInstantiateElement(pos, value);
         }
 
-        public readonly void UpdateElementPosition(Vector2Int newPos)
+        public readonly void UpdateElementPosition(Point newPos)
         {
             UpdateElementPosition(this.Position, newPos);
         }
-        public readonly void UpdateElementPosition(Vector2Int oldPos, Vector2Int newPos)
+        public readonly void UpdateElementPosition(Point oldPos, Point newPos)
         {
             this._world.UpdateElementPosition(oldPos, newPos);
         }
-        public readonly bool TryUpdateElementPosition(Vector2Int newPos)
+        public readonly bool TryUpdateElementPosition(Point newPos)
         {
             return TryUpdateElementPosition(this.Position, newPos);
         }
-        public readonly bool TryUpdateElementPosition(Vector2Int oldPos, Vector2Int newPos)
+        public readonly bool TryUpdateElementPosition(Point oldPos, Point newPos)
         {
             return this._world.TryUpdateElementPosition(oldPos, newPos);
         }
 
-        public void SwappingElements(Vector2Int element2)
+        public void SwappingElements(Point element2)
         {
             SwappingElements(this.Position, element2);
         }
-        public void SwappingElements(Vector2Int element1, Vector2Int element2)
+        public void SwappingElements(Point element1, Point element2)
         {
             _ = TrySwappingElements(element1, element2);
         }
-        public bool TrySwappingElements(Vector2Int element2)
+        public bool TrySwappingElements(Point element2)
         {
             return TrySwappingElements(this.Position, element2);
         }
-        public bool TrySwappingElements(Vector2Int element1, Vector2Int element2)
+        public bool TrySwappingElements(Point element1, Point element2)
         {
             if (this._world.TrySwappingElements(element1, element2))
             {
@@ -142,7 +143,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             this._world.DestroyElement(this.Position);
         }
-        public readonly void DestroyElement(Vector2Int pos)
+        public readonly void DestroyElement(Point pos)
         {
             this._world.DestroyElement(pos);
         }
@@ -150,7 +151,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return TryDestroyElement(this.Position);
         }
-        public readonly bool TryDestroyElement(Vector2Int pos)
+        public readonly bool TryDestroyElement(Point pos)
         {
             return this._world.TryDestroyElement(pos);
         }
@@ -167,15 +168,15 @@ namespace PixelDust.Game.Elements.Contexts
         {
             ReplaceElement(this.Position, value);
         }
-        public readonly void ReplaceElement<T>(Vector2Int pos) where T : PElement
+        public readonly void ReplaceElement<T>(Point pos) where T : PElement
         {
             this._world.ReplaceElement<T>(pos);
         }
-        public readonly void ReplaceElement(Vector2Int pos, uint id)
+        public readonly void ReplaceElement(Point pos, uint id)
         {
             this._world.ReplaceElement(pos, id);
         }
-        public readonly void ReplaceElement(Vector2Int pos, PElement value)
+        public readonly void ReplaceElement(Point pos, PElement value)
         {
             this._world.ReplaceElement(pos, value);
         }
@@ -191,15 +192,15 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return TryReplaceElement(this.Position, value);
         }
-        public readonly bool TryReplaceElement<T>(Vector2Int pos) where T : PElement
+        public readonly bool TryReplaceElement<T>(Point pos) where T : PElement
         {
             return this._world.TryReplaceElement<T>(pos);
         }
-        public readonly bool TryReplaceElement(Vector2Int pos, uint id)
+        public readonly bool TryReplaceElement(Point pos, uint id)
         {
             return this._world.TryReplaceElement(pos, id);
         }
-        public readonly bool TryReplaceElement(Vector2Int pos, PElement value)
+        public readonly bool TryReplaceElement(Point pos, PElement value)
         {
             return this._world.TryReplaceElement(pos, value);
         }
@@ -208,7 +209,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return GetElement(this.Position);
         }
-        public readonly PElement GetElement(Vector2Int pos)
+        public readonly PElement GetElement(Point pos)
         {
             return this._world.GetElement(pos);
         }
@@ -216,24 +217,24 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return TryGetElement(this.Position, out value);
         }
-        public readonly bool TryGetElement(Vector2Int pos, out PElement value)
+        public readonly bool TryGetElement(Point pos, out PElement value)
         {
             return this._world.TryGetElement(pos, out value);
         }
 
-        public readonly ReadOnlySpan<(Vector2Int, PWorldSlot)> GetElementNeighbors()
+        public readonly ReadOnlySpan<(Point, PWorldSlot)> GetElementNeighbors()
         {
             return GetElementNeighbors(this.Position);
         }
-        public readonly ReadOnlySpan<(Vector2Int, PWorldSlot)> GetElementNeighbors(Vector2Int pos)
+        public readonly ReadOnlySpan<(Point, PWorldSlot)> GetElementNeighbors(Point pos)
         {
             return this._world.GetElementNeighbors(pos);
         }
-        public readonly bool TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors)
+        public readonly bool TryGetElementNeighbors(out ReadOnlySpan<(Point, PWorldSlot)> neighbors)
         {
             return TryGetElementNeighbors(this.Position, out neighbors);
         }
-        public readonly bool TryGetElementNeighbors(Vector2Int pos, out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors)
+        public readonly bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, PWorldSlot)> neighbors)
         {
             return this._world.TryGetElementNeighbors(pos, out neighbors);
         }
@@ -242,7 +243,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return GetElementSlot(this.Position);
         }
-        public readonly PWorldSlot GetElementSlot(Vector2Int pos)
+        public readonly PWorldSlot GetElementSlot(Point pos)
         {
             return this._world.GetElementSlot(pos);
         }
@@ -250,7 +251,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return TryGetElementSlot(this.Position, out value);
         }
-        public readonly bool TryGetElementSlot(Vector2Int pos, out PWorldSlot value)
+        public readonly bool TryGetElementSlot(Point pos, out PWorldSlot value)
         {
             return this._world.TryGetElementSlot(pos, out value);
         }
@@ -259,7 +260,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             SetElementTemperature(this.Position, value);
         }
-        public readonly void SetElementTemperature(Vector2Int pos, short value)
+        public readonly void SetElementTemperature(Point pos, short value)
         {
             this._world.SetElementTemperature(pos, value);
         }
@@ -267,7 +268,7 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return TrySetElementTemperature(this.Position, value);
         }
-        public readonly bool TrySetElementTemperature(Vector2Int pos, short value)
+        public readonly bool TrySetElementTemperature(Point pos, short value)
         {
             return this._world.TrySetElementTemperature(pos, value);
         }
@@ -277,14 +278,14 @@ namespace PixelDust.Game.Elements.Contexts
         {
             return IsEmptyElementSlot(this.Position);
         }
-        public readonly bool IsEmptyElementSlot(Vector2Int pos)
+        public readonly bool IsEmptyElementSlot(Point pos)
         {
             return this._world.IsEmptyElementSlot(pos);
         }
         #endregion
 
         #region Chunks
-        public readonly bool TryNotifyChunk(Vector2Int pos)
+        public readonly bool TryNotifyChunk(Point pos)
         {
             return this._world.TryNotifyChunk(pos);
         }

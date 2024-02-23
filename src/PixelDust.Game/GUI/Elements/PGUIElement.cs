@@ -1,79 +1,99 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Game.Collections;
+using PixelDust.Game.Constants;
+using PixelDust.Game.Enums.General;
+using PixelDust.Game.Enums.GUI;
+using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 
 using System.Collections.Generic;
 
 namespace PixelDust.Game.GUI.Elements
 {
-    public abstract class PGUIElement : PGameObject
+    public abstract class PGUIElement : PGameObject, IPoolableObject
     {
-        // Settings
-        public string Id { get; set; }
-
-        // System
-        protected PGUILayout GUILayout { get; private set; }
-
-        // Readonly
-        public PGUIElementStyle Style => this.style;
+        public bool ShouldUpdate { get; set; }
+        public bool IsVisible { get; set; }
         public Vector2 Position => this.position;
+        public PPositioningType PositioningType => this.positioningType;
+        public PCardinalDirection PositionAnchor => this.positionAnchor;
+        public Size2 Size => this.size;
+        public Vector2 Margin => this.margin;
 
-        // Parental
-        public PGUIElement Parent => this.parent;
-        public PGUIElement[] Children => [.. this.children];
-        public bool HasChildren => this.children.Count > 0;
-
-        private readonly PGUIElementStyle style;
-
-        private readonly List<PGUIElement> children = [];
         private readonly Dictionary<string, object> data = [];
 
-        private PGUIElement parent;
-        private Vector2 position;
+        private PPositioningType positioningType = PPositioningType.Relative;
+        private PCardinalDirection positionAnchor = PCardinalDirection.Northwest;
+        private Size2 size = Size2.One;
+        private Vector2 margin = Vector2.Zero;
+        private Vector2 position = Vector2.Zero;
 
-        public PGUIElement()
+        private static Size2 ScreenSize = new(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
+
+        // [ Settings ]
+        public void PositionRelativeToElement(PGUIElement reference)
         {
-            this.style = new(this);
-            this.Id = string.Empty;
+            PositionRelativeToElement(reference.position, reference.size);
         }
 
-        public PGUIElement(string id)
+        public void PositionRelativeToElement(Vector2 position, Size2 size)
         {
-            this.style = new(this);
-            this.Id = id;
-        }
+            Vector2 targetPosition = Vector2.Zero;
+            Size2 targetSize = ScreenSize;
 
-        internal void SetGUILayout(PGUILayout layout)
-        {
-            this.GUILayout = layout;
-        }
-
-        #region Parental
-        public void AppendChild(PGUIElement element)
-        {
-            element.parent?.RemoveChild(element);
-            element.parent = this;
-            element.position = element.style.GetPosition();
-
-            this.children.Add(element);
-        }
-
-        public void RemoveAllChildren()
-        {
-            foreach (PGUIElement element in this.Children)
+            if (this.positioningType == PPositioningType.Relative)
             {
-                RemoveChild(element);
+                targetPosition = position;
+                targetSize = size;
             }
+
+            this.position = CalculatePosition(targetPosition, targetSize);
         }
 
-        public void RemoveChild(PGUIElement element)
+        private Vector2 CalculatePosition(Vector2 targetPosition, Size2 targetSize)
         {
-            element.parent = this.GUILayout.RootElement;
-            _ = this.children.Remove(element);
+            return this.positionAnchor switch
+            {
+                PCardinalDirection.Center => targetPosition + this.Margin + (new Vector2(targetSize.Width, targetSize.Height) / 2),
+                PCardinalDirection.North => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, 0),
+                PCardinalDirection.Northeast => targetPosition + this.Margin + new Vector2(targetSize.Width, 0),
+                PCardinalDirection.East => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height / 2),
+                PCardinalDirection.Southeast => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height),
+                PCardinalDirection.South => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, targetSize.Height),
+                PCardinalDirection.Southwest => targetPosition + this.Margin + new Vector2(0, targetSize.Height),
+                PCardinalDirection.West => targetPosition + this.Margin + new Vector2(0, targetSize.Height / 2),
+                PCardinalDirection.Northwest => targetPosition + this.Margin,
+                _ => targetPosition,
+            };
         }
-        #endregion
 
-        #region Data
+        public void SetPositioningType(PPositioningType type)
+        {
+            this.positioningType = type;
+        }
+
+        public void SetPositionAnchor(PCardinalDirection cardinalDirection)
+        {
+            this.positionAnchor = cardinalDirection;
+        }
+
+        public void SetSize(Size2 size)
+        {
+            this.size = size;
+        }
+
+        public void SetMargin(Vector2 margin)
+        {
+            this.margin = margin;
+        }
+
+        // [ Data ]
+        public bool ContainsData(string name)
+        {
+            return this.data.ContainsKey(name);
+        }
+
         public void AddData(string name, object value)
         {
             this.data.Add(name, value);
@@ -93,6 +113,14 @@ namespace PixelDust.Game.GUI.Elements
         {
             _ = this.data.Remove(name);
         }
-        #endregion
+
+        public void Reset()
+        {
+            this.positioningType = PPositioningType.Relative;
+            this.positionAnchor = PCardinalDirection.Northwest;
+            this.size = Size2.One;
+            this.margin = Vector2.Zero;
+            this.position = Vector2.Zero;
+        }
     }
 }

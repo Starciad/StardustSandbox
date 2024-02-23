@@ -1,4 +1,5 @@
-﻿using PixelDust.Game.Mathematics;
+﻿using Microsoft.Xna.Framework;
+
 using PixelDust.Game.World.Components.Common;
 
 namespace PixelDust.Game.World
@@ -10,21 +11,21 @@ namespace PixelDust.Game.World
             return GetComponent<PWorldChunkingComponent>().GetActiveChunksCount();
         }
 
-        public bool GetChunkUpdateState(Vector2Int pos)
+        public bool GetChunkUpdateState(Point pos)
         {
             _ = TryGetChunkUpdateState(pos, out bool result);
             return result;
         }
-        public void NotifyChunk(Vector2Int pos)
+        public void NotifyChunk(Point pos)
         {
             _ = TryNotifyChunk(pos);
         }
 
-        public bool TryGetChunkUpdateState(Vector2Int pos, out bool result)
+        public bool TryGetChunkUpdateState(Point pos, out bool result)
         {
             return GetComponent<PWorldChunkingComponent>().TryGetChunkUpdateState(pos, out result);
         }
-        public bool TryNotifyChunk(Vector2Int pos)
+        public bool TryNotifyChunk(Point pos)
         {
             return GetComponent<PWorldChunkingComponent>().TryNotifyChunk(pos);
         }

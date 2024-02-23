@@ -9,63 +9,62 @@ using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PixelDust.Game.GUI
 {
-    public sealed class PGUILayout : PGameObject, IPGUILayoutBuilder
+    public sealed class PGUILayout(PGUILayoutPool layoutPool) : PGameObject, IPGUILayoutBuilder
     {
         public PGUIRootElement RootElement => this.rootElement;
-        public PGUIElement[] Elements => [.. this.elements];
+        public int ElementCount => this.elements.Count;
 
         private readonly List<PGUIElement> elements = [];
+        private PGUIElement[] elementsThatShouldUpdate;
+        private PGUIElement[] elementsThatShouldDraw;
+
         private PGUIRootElement rootElement = null;
 
-        protected override void OnAwake()
+        public void Load()
         {
             this.rootElement = CreateElement<PGUIRootElement>();
-            this.rootElement.Style.SetPositioningType(PPositioningType.Fixed);
-            this.rootElement.Style.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
+            this.rootElement.SetPositioningType(PPositioningType.Fixed);
+            this.rootElement.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
+        }
+
+        public void Configure()
+        {
+            this.elementsThatShouldUpdate = this.elements.Where(x => x.ShouldUpdate).ToArray();
+            this.elementsThatShouldDraw = this.elements.Where(x => x.IsVisible).ToArray();
+        }
+
+        public void Unload()
+        {
+            this.elements.ForEach(x => layoutPool.AddElement(x));
+            this.elements.Clear();
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            foreach (PGUIElement element in this.Elements)
+            for (int i = 0; i < this.elementsThatShouldUpdate.Length; i++)
             {
-                element.Update(gameTime);
+                this.elementsThatShouldUpdate[i].Update(gameTime);
             }
         }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (this.RootElement != null)
+            for (int i = 0; i < this.elementsThatShouldDraw.Length; i++)
             {
-                DrawElementsRecursively(this.RootElement, gameTime, spriteBatch);
-            }
-        }
-
-        private static void DrawElementsRecursively(PGUIElement element, GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            element.Draw(gameTime, spriteBatch);
-
-            if (element.HasChildren)
-            {
-                foreach (PGUIElement child in element.Children)
-                {
-                    DrawElementsRecursively(child, gameTime, spriteBatch);
-                }
+                this.elementsThatShouldDraw[i].Draw(gameTime, spriteBatch);
             }
         }
 
         public T CreateElement<T>() where T : PGUIElement
         {
-            T element = Activator.CreateInstance<T>();
-
-            element.SetGUILayout(this);
-            element.Initialize(this.Game);
-
+            T element = layoutPool.GetElement<T>(this.Game);
             this.elements.Add(element);
+
             return element;
         }
     }

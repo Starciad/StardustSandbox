@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.Constants.GUI;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements.Common.Gases;
 using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Common.Solid.Movable;
-using PixelDust.Game.GUI.Common;
+using PixelDust.Game.GUI.Common.HUD;
 using PixelDust.Game.IO;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Models.Settings;
@@ -125,7 +126,7 @@ namespace PixelDust.Game
 
         protected override void BeginRun()
         {
-            this._guiManager.ShowGUI<PGUI_HUD>();
+            this._guiManager.ShowGUI(PGUIConstants.HUD_NAME);
         }
 
         protected override void Update(GameTime gameTime)

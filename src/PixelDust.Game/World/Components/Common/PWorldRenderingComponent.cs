@@ -14,7 +14,7 @@ namespace PixelDust.Game.World.Components.Common
 {
     public sealed class PWorldRenderingComponent(PElementDatabase elementDatabase, PCameraManager cameraManager) : PWorldComponent
     {
-        private readonly List<Vector2> _slotsCapturedForRendering = [];
+        private readonly List<Point> _slotsCapturedForRendering = [];
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -35,7 +35,7 @@ namespace PixelDust.Game.World.Components.Common
 
                     if (cameraManager.InsideCameraBounds(targetPosition * PWorldConstants.GRID_SCALE, targetSize, PWorldConstants.GRID_SCALE))
                     {
-                        this._slotsCapturedForRendering.Add(targetPosition);
+                        this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
                     }
                 }
             }
@@ -43,7 +43,7 @@ namespace PixelDust.Game.World.Components.Common
 
         private void DrawAllCapturedElements(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (Vector2 position in this._slotsCapturedForRendering)
+            foreach (Point position in this._slotsCapturedForRendering)
             {
                 if (!this.World.IsEmptyElementSlot(position))
                 {

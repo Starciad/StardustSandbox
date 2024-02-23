@@ -89,7 +89,7 @@ namespace PixelDust.Game.Managers
                 return;
             }
 
-            Vector2 worldPos = GetWorldPositionFromMouse();
+            Point worldPos = GetWorldPositionFromMouse().ToPoint();
 
             if (!IsValidWorldPosition(worldPos) || this.elementSelected == null)
             {
@@ -104,7 +104,7 @@ namespace PixelDust.Game.Managers
                 return;
             }
 
-            ApplyPenAction(worldPos, (x, y) => world.InstantiateElement(new Vector2(x, y), this.elementSelected.Id));
+            ApplyPenAction(worldPos, (x, y) => world.InstantiateElement(new Point(x, y), this.elementSelected.Id));
         }
         private void DeleteElementsInWorld()
         {
@@ -113,7 +113,7 @@ namespace PixelDust.Game.Managers
                 return;
             }
 
-            Vector2 worldPos = GetWorldPositionFromMouse();
+            Point worldPos = GetWorldPositionFromMouse().ToPoint();
 
             if (!IsValidWorldPosition(worldPos) || this.elementSelected == null)
             {
@@ -128,7 +128,7 @@ namespace PixelDust.Game.Managers
                 return;
             }
 
-            ApplyPenAction(worldPos, (x, y) => world.DestroyElement(new Vector2(x, y)));
+            ApplyPenAction(worldPos, (x, y) => world.DestroyElement(new Point(x, y)));
         }
 
         private Vector2 GetWorldPositionFromMouse()
@@ -137,27 +137,27 @@ namespace PixelDust.Game.Managers
             return new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
         }
 
-        private bool IsValidWorldPosition(Vector2 worldPos)
+        private bool IsValidWorldPosition(Point worldPos)
         {
             return world.InsideTheWorldDimensions(worldPos) && this.elementSelected != null;
         }
 
-        private void UpdateElementOver(Vector2 worldPos)
+        private void UpdateElementOver(Point worldPos)
         {
             this.elementOver = world.GetElement(worldPos);
         }
 
-        private void ApplyPenAction(Vector2 centerPos, Action<int, int> action)
+        private void ApplyPenAction(Point centerPos, Action<int, int> action)
         {
             for (int x = -this.penScale; x < this.penScale; x++)
             {
                 for (int y = -this.penScale; y < this.penScale; y++)
                 {
-                    Vector2 localPos = new Vector2(x, y) + centerPos;
+                    Point localPos = new Point(x, y) + centerPos;
 
                     if (world.InsideTheWorldDimensions(localPos))
                     {
-                        action.Invoke((int)localPos.X, (int)localPos.Y);
+                        action.Invoke(localPos.X, localPos.Y);
                     }
                 }
             }

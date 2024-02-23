@@ -1,4 +1,5 @@
-﻿using PixelDust.Game.Mathematics;
+﻿using Microsoft.Xna.Framework;
+
 using PixelDust.Game.Utilities;
 
 namespace PixelDust.Game.Elements.Templates.Liquid
@@ -12,11 +13,11 @@ namespace PixelDust.Game.Elements.Templates.Liquid
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
 
-            Vector2Int down = new(this.Context.Position.X, this.Context.Position.Y + 1);
-            Vector2Int[] sides =
+            Point down = new(this.Context.Position.X, this.Context.Position.Y + 1);
+            Point[] sides =
             [
-                new Vector2Int(this.Context.Position.X + direction, this.Context.Position.Y),
-                new Vector2Int(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
+                new Point(this.Context.Position.X + direction, this.Context.Position.Y),
+                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
             ];
 
             if (this.Context.TrySetPosition(down))
@@ -24,7 +25,7 @@ namespace PixelDust.Game.Elements.Templates.Liquid
                 return;
             }
 
-            foreach (Vector2Int side in sides)
+            foreach (Point side in sides)
             {
                 if (this.Context.TrySetPosition(new(side.X, side.Y + 1)))
                 { return; }
@@ -68,8 +69,8 @@ namespace PixelDust.Game.Elements.Templates.Liquid
             // Set new position
             int tCount = int.Max(lCount, rCount);
 
-            Vector2Int lPosition = new(this.Context.Position.X - tCount, this.Context.Position.Y);
-            Vector2Int rPosition = new(this.Context.Position.X + tCount, this.Context.Position.Y);
+            Point lPosition = new(this.Context.Position.X - tCount, this.Context.Position.Y);
+            Point rPosition = new(this.Context.Position.X + tCount, this.Context.Position.Y);
 
             if (tCount.Equals(lCount) && tCount.Equals(rCount))
             {

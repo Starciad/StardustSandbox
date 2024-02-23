@@ -1,8 +1,9 @@
-﻿using PixelDust.Game.Elements.Attributes;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Elements.Attributes;
 using PixelDust.Game.Elements.Common.Utilities;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Elements.Templates.Liquid;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.World.Data;
 
 using System;
@@ -27,7 +28,7 @@ namespace PixelDust.Game.Elements.Common.Liquid
 
         protected override void OnStep()
         {
-            if (this.Context.TryGetElementNeighbors(out ReadOnlySpan<(Vector2Int, PWorldSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(out ReadOnlySpan<(Point, PWorldSlot)> neighbors))
             {
                 this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
             }

@@ -3,7 +3,6 @@
 using PixelDust.Game.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Enums.World;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.World.Data;
 
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace PixelDust.Game.World.Components.Common
 {
     public sealed class PWorldUpdatingComponent : PWorldComponent
     {
-        private readonly List<Vector2Int> capturedSlots = [];
+        private readonly List<Point> capturedSlots = [];
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -28,7 +27,7 @@ namespace PixelDust.Game.World.Components.Common
             {
                 for (int x = 0; x < this.World.Infos.Size.Width; x++)
                 {
-                    Vector2Int pos = new(x, y);
+                    Point pos = new(x, y);
                     bool chunkState = this.World.GetChunkUpdateState(pos);
 
                     if (this.World.IsEmptyElementSlot(pos) || !chunkState)
@@ -53,7 +52,7 @@ namespace PixelDust.Game.World.Components.Common
             }
         }
 
-        private void UpdateElementTarget(GameTime gameTime, Vector2Int position, PWorldThreadUpdateType updateType)
+        private void UpdateElementTarget(GameTime gameTime, Point position, PWorldThreadUpdateType updateType)
         {
             PWorldSlot slot = this.World.GetElementSlot(position);
 

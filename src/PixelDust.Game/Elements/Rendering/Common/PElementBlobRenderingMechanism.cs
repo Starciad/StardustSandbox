@@ -6,7 +6,6 @@ using PixelDust.Game.Constants.Elements;
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Enums.Elements;
 using PixelDust.Game.Enums.General;
-using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.Elements.Rendering.Common
 {
@@ -34,7 +33,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, PElementContext context)
         {
-            Vector2Int position = context.Position;
+            Point position = context.Position;
 
             UpdateSpritePositions(position);
 
@@ -46,7 +45,7 @@ namespace PixelDust.Game.Elements.Rendering.Common
         }
 
         // Updates
-        private void UpdateSpritePositions(Vector2Int position)
+        private void UpdateSpritePositions(Point position)
         {
             float xOffset = PElementRenderingConstants.SPRITE_X_OFFSET, yOffset = PElementRenderingConstants.SPRITE_Y_OFFSET;
 
@@ -56,48 +55,48 @@ namespace PixelDust.Game.Elements.Rendering.Common
             this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * PWorldConstants.GRID_SCALE;
         }
 
-        private void UpdateSpriteSlice(PElementContext context, int index, Vector2Int position)
+        private void UpdateSpriteSlice(PElementContext context, int index, Point position)
         {
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position)));
         }
 
-        private static (byte, Vector2Int)[] GetTargetPositionsFromIndex(int index, Vector2Int position)
+        private static (byte, Point)[] GetTargetPositionsFromIndex(int index, Point position)
         {
             return index switch
             {
                 // Sprite Piece 1 (Northwest Pivot)
                 0 => [
-                    ((byte)PBlobCardinalDirection.West, new Vector2Int(position.X - 1, position.Y)),
-                    ((byte)PBlobCardinalDirection.Northwest, new Vector2Int(position.X - 1, position.Y - 1)),
-                    ((byte)PBlobCardinalDirection.North, new Vector2Int(position.X, position.Y - 1))
+                    ((byte)PBlobCardinalDirection.West, new Point(position.X - 1, position.Y)),
+                    ((byte)PBlobCardinalDirection.Northwest, new Point(position.X - 1, position.Y - 1)),
+                    ((byte)PBlobCardinalDirection.North, new Point(position.X, position.Y - 1))
                 ],
 
                 // Sprite Piece 2 (Northeast Pivot)
                 1 => [
-                    ((byte)PBlobCardinalDirection.East, new Vector2Int(position.X + 1, position.Y)),
-                    ((byte)PBlobCardinalDirection.Northeast, new Vector2Int(position.X + 1, position.Y - 1)),
-                    ((byte)PBlobCardinalDirection.North, new Vector2Int(position.X, position.Y - 1))
+                    ((byte)PBlobCardinalDirection.East, new Point(position.X + 1, position.Y)),
+                    ((byte)PBlobCardinalDirection.Northeast, new Point(position.X + 1, position.Y - 1)),
+                    ((byte)PBlobCardinalDirection.North, new Point(position.X, position.Y - 1))
                 ],
 
                 // Sprite Piece 3 (Southwest Pivot)
                 2 => [
-                    ((byte)PBlobCardinalDirection.West, new Vector2Int(position.X - 1, position.Y)),
-                    ((byte)PBlobCardinalDirection.Southwest, new Vector2Int(position.X - 1, position.Y + 1)),
-                    ((byte)PBlobCardinalDirection.South, new Vector2Int(position.X, position.Y + 1))
+                    ((byte)PBlobCardinalDirection.West, new Point(position.X - 1, position.Y)),
+                    ((byte)PBlobCardinalDirection.Southwest, new Point(position.X - 1, position.Y + 1)),
+                    ((byte)PBlobCardinalDirection.South, new Point(position.X, position.Y + 1))
                 ],
 
                 // Sprite Piece 4 (Southeast Pivot)
                 3 => [
-                    ((byte)PBlobCardinalDirection.East, new Vector2Int(position.X + 1, position.Y)),
-                    ((byte)PBlobCardinalDirection.Southeast, new Vector2Int(position.X + 1, position.Y + 1)),
-                    ((byte)PBlobCardinalDirection.South, new Vector2Int(position.X, position.Y + 1))
+                    ((byte)PBlobCardinalDirection.East, new Point(position.X + 1, position.Y)),
+                    ((byte)PBlobCardinalDirection.Southeast, new Point(position.X + 1, position.Y + 1)),
+                    ((byte)PBlobCardinalDirection.South, new Point(position.X, position.Y + 1))
                 ],
 
                 _ => [],
             };
         }
 
-        private byte GetBlobValueFromTargetPositions(PElementContext context, (byte blobValue, Vector2Int position)[] targets)
+        private byte GetBlobValueFromTargetPositions(PElementContext context, (byte blobValue, Point position)[] targets)
         {
             byte result = 0;
 

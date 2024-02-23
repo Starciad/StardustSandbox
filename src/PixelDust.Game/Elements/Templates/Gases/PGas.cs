@@ -1,6 +1,7 @@
-﻿using PixelDust.Game.Elements.Templates.Liquid;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Elements.Templates.Liquid;
 using PixelDust.Game.Elements.Templates.Solid;
-using PixelDust.Game.Mathematics;
 using PixelDust.Game.Utilities;
 
 namespace PixelDust.Game.Elements.Templates.Gases
@@ -37,14 +38,14 @@ namespace PixelDust.Game.Elements.Templates.Gases
         private void UpSpreadingTypeUpdate()
         {
             int direction = PRandom.Range(0, 101) < 50 ? 1 : -1;
-            Vector2Int[] targets =
+            Point[] targets =
             [
-                new Vector2Int(this.Context.Position.X, this.Context.Position.Y - 1),
-                new Vector2Int(this.Context.Position.X + direction, this.Context.Position.Y - 1),
-                new Vector2Int(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
+                new Point(this.Context.Position.X, this.Context.Position.Y - 1),
+                new Point(this.Context.Position.X + direction, this.Context.Position.Y - 1),
+                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
             ];
 
-            foreach (Vector2Int targetPos in targets)
+            foreach (Point targetPos in targets)
             {
                 if (this.Context.IsEmptyElementSlot(targetPos))
                 {

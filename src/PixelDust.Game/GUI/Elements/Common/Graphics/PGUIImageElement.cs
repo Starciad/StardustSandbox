@@ -24,6 +24,12 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
         private float rotationAngle = 0f;
         private Vector2 scale = Vector2.One;
 
+        public PGUIImageElement()
+        {
+            this.ShouldUpdate = false;
+            this.IsVisible = true;
+        }
+
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.texture != null)
