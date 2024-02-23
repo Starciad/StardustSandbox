@@ -10,6 +10,7 @@ using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PixelDust.Game.GUI
 {
@@ -19,22 +20,43 @@ namespace PixelDust.Game.GUI
         public int ElementCount => this.elements.Count;
 
         private readonly List<PGUIElement> elements = [];
+        private PGUIElement[] elementsThatShouldUpdate;
+        private PGUIElement[] elementsThatShouldDraw;
 
         private PGUIRootElement rootElement = null;
 
+        public void Load()
+        {
+            this.rootElement = CreateElement<PGUIRootElement>();
+            this.rootElement.SetPositioningType(PPositioningType.Fixed);
+            this.rootElement.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
+        }
+
+        public void Configure()
+        {
+            this.elementsThatShouldUpdate = this.elements.Where(x => x.ShouldUpdate).ToArray();
+            this.elementsThatShouldDraw = this.elements.Where(x => x.IsVisible).ToArray();
+        }
+
+        public void Unload()
+        {
+            this.elements.ForEach(x => layoutPool.AddElement(x));
+            this.elements.Clear();
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
-            foreach (PGUIElement element in this.elements)
+            for (int i = 0; i < this.elementsThatShouldUpdate.Length; i++)
             {
-                element.Update(gameTime);
+                this.elementsThatShouldUpdate[i].Update(gameTime);
             }
         }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (PGUIElement element in this.elements)
+            for (int i = 0; i < this.elementsThatShouldDraw.Length; i++)
             {
-                element.Draw(gameTime, spriteBatch);
+                this.elementsThatShouldDraw[i].Draw(gameTime, spriteBatch);
             }
         }
 
@@ -44,19 +66,6 @@ namespace PixelDust.Game.GUI
             this.elements.Add(element);
 
             return element;
-        }
-
-        public void Load()
-        {
-            this.rootElement = CreateElement<PGUIRootElement>();
-            this.rootElement.SetPositioningType(PPositioningType.Fixed);
-            this.rootElement.SetSize(new Size2(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT));
-        }
-
-        public void Unload()
-        {
-            this.elements.ForEach(x => layoutPool.AddElement(x));
-            this.elements.Clear();
         }
     }
 }

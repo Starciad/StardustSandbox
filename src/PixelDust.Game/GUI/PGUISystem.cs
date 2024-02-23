@@ -40,6 +40,7 @@ namespace PixelDust.Game.GUI
         {
             this.layout.Load();
             OnBuild(this.layout);
+            this.layout.Configure();
 
             this.isActive = true;
             this.isShowing = true;

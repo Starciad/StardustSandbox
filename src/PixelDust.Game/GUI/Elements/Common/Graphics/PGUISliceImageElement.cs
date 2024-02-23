@@ -38,6 +38,12 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
+        public PGUISliceImageElement()
+        {
+            this.ShouldUpdate = true;
+            this.IsVisible = true;
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             if (this.texture == null)

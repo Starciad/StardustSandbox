@@ -13,6 +13,8 @@ namespace PixelDust.Game.GUI.Elements
 {
     public abstract class PGUIElement : PGameObject, IPoolableObject
     {
+        public bool ShouldUpdate { get; set; }
+        public bool IsVisible { get; set; }
         public Vector2 Position => this.position;
         public PPositioningType PositioningType => this.positioningType;
         public PCardinalDirection PositionAnchor => this.positionAnchor;
@@ -27,6 +29,8 @@ namespace PixelDust.Game.GUI.Elements
         private Vector2 margin = Vector2.Zero;
         private Vector2 position = Vector2.Zero;
 
+        private static Size2 ScreenSize = new(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
+
         // [ Settings ]
         public void PositionRelativeToElement(PGUIElement reference)
         {
@@ -35,10 +39,8 @@ namespace PixelDust.Game.GUI.Elements
 
         public void PositionRelativeToElement(Vector2 position, Size2 size)
         {
-            Size2 screenSize = new(PScreenConstants.DEFAULT_SCREEN_WIDTH, PScreenConstants.DEFAULT_SCREEN_HEIGHT);
-
             Vector2 targetPosition = Vector2.Zero;
-            Size2 targetSize = screenSize;
+            Size2 targetSize = ScreenSize;
 
             if (this.positioningType == PPositioningType.Relative)
             {
