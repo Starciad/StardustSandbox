@@ -1,8 +1,4 @@
-﻿using PixelDust.Game.Constants;
-using PixelDust.Game.Enums.GUI;
-using PixelDust.Game.Mathematics;
-
-namespace PixelDust.Game.GUI.Elements.Common
+﻿namespace PixelDust.Game.GUI.Elements.Common
 {
     public sealed class PGUIRootElement : PGUIContainerElement
     {

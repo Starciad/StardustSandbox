@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Constants.GUI;
 using PixelDust.Game.Constants.GUI.Common;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.GUI.Elements;
