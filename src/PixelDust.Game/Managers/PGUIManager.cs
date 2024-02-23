@@ -17,17 +17,17 @@ namespace PixelDust.Game.Managers
         private PGUISystem[] _guiSystems = [];
 
         private readonly PGUIEvents _guiEvents = new(inputManager);
+        private readonly PGUILayoutPool _layoutPool = new();
 
         protected override void OnAwake()
         {
-            // Instantiate GUIs
             this._guiSystems = new PGUISystem[this._guiTypes.Count];
 
             for (int i = 0; i < this._guiSystems.Length; i++)
             {
                 Type type = this._guiTypes[i];
 
-                PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type, this._guiEvents);
+                PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type, this._guiEvents, this._layoutPool);
                 tempGUISystem.Initialize(this.Game);
 
                 this._guiSystems[i] = tempGUISystem;
@@ -40,7 +40,12 @@ namespace PixelDust.Game.Managers
         {
             for (int i = 0; i < this._guiSystems.Length; i++)
             {
-                this._guiSystems[i].Update(gameTime);
+                PGUISystem guiSystem = this._guiSystems[i];
+
+                if (guiSystem.IsActive)
+                {
+                    guiSystem.Update(gameTime);
+                }
             }
         }
 
@@ -48,7 +53,12 @@ namespace PixelDust.Game.Managers
         {
             for (int i = 0; i < this._guiSystems.Length; i++)
             {
-                this._guiSystems[i].Draw(gameTime, spriteBatch);
+                PGUISystem guiSystem = this._guiSystems[i];
+
+                if (guiSystem.IsActive || guiSystem.IsShowing)
+                {
+                    guiSystem.Draw(gameTime, spriteBatch);
+                }
             }
         }
 
@@ -60,22 +70,6 @@ namespace PixelDust.Game.Managers
         public void RegisterGUISystem(Type type)
         {
             this._guiTypes.Add(type);
-        }
-
-        public void ActivateGUI(string id)
-        {
-            if (TryGetGUIByName(id, out PGUISystem guiSystem))
-            {
-                guiSystem.Activate();
-            }
-        }
-
-        public void DisableGUI(string id)
-        {
-            if (TryGetGUIByName(id, out PGUISystem guiSystem))
-            {
-                guiSystem.Disable();
-            }
         }
 
         public void ShowGUI(string id)

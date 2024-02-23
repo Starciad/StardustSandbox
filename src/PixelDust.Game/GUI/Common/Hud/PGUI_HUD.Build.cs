@@ -24,7 +24,6 @@ namespace PixelDust.Game.GUI.Common.HUD
 
         protected override void OnBuild(IPGUILayoutBuilder layout)
         {
-            this.Name = PGUIConstants.HUD_NAME;
             this._layout = layout;
             this._root = layout.RootElement;
 
@@ -86,7 +85,11 @@ namespace PixelDust.Game.GUI.Common.HUD
                     slotBackground.SetPositionAnchor(PCardinalDirection.West);
                     slotBackground.SetSize(new Size2(slotSize));
                     slotBackground.SetMargin(slotMargin);
-                    slotBackground.AddData(PHUDConstants.DATA_FILED_ELEMENT_ID, i);
+
+                    if (!slotBackground.ContainsData(PHUDConstants.DATA_FILED_ELEMENT_ID))
+                    {
+                        slotBackground.AddData(PHUDConstants.DATA_FILED_ELEMENT_ID, i);
+                    }
 
                     // Icon
                     slotIcon.SetTexture(GetGameElement(i).IconTexture);

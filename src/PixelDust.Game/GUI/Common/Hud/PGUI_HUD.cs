@@ -1,26 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Constants.GUI;
 using PixelDust.Game.Constants.GUI.Common;
 using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.GUI.Events;
+using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Common.HUD
 {
-    public sealed partial class PGUI_HUD(PGUIEvents events) : PGUISystem(events)
+    public sealed partial class PGUI_HUD(PGUIEvents events, PGUILayoutPool layoutPool) : PGUISystem(events, layoutPool)
     {
         private Texture2D particleTexture;
         private Texture2D squareShapeTexture;
 
         protected override void OnAwake()
         {
+            base.OnAwake();
+
+            this.Name = PGUIConstants.HUD_NAME;
+
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
 
             SelectElementSlot(0, 0);
-
-            base.OnAwake();
         }
 
         protected override void OnUpdate(GameTime gameTime)

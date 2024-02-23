@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Game.Collections;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 
 namespace PixelDust.Game.GUI.Elements
 {
-    public abstract class PGUIElement : PGameObject
+    public abstract class PGUIElement : PGameObject, IPoolableObject
     {
         public Vector2 Position => this.position;
         public PPositioningType PositioningType => this.positioningType;
@@ -86,6 +87,11 @@ namespace PixelDust.Game.GUI.Elements
         }
 
         // [ Data ]
+        public bool ContainsData(string name)
+        {
+            return this.data.ContainsKey(name);
+        }
+
         public void AddData(string name, object value)
         {
             this.data.Add(name, value);
@@ -104,6 +110,15 @@ namespace PixelDust.Game.GUI.Elements
         public void RemoveData(string name)
         {
             _ = this.data.Remove(name);
+        }
+
+        public void Reset()
+        {
+            this.positioningType = PPositioningType.Relative;
+            this.positionAnchor = PCardinalDirection.Northwest;
+            this.size = Size2.One;
+            this.margin = Vector2.Zero;
+            this.position = Vector2.Zero;
         }
     }
 }
