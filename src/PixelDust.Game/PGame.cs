@@ -9,7 +9,7 @@ using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.GUI.Common.HUD;
-using PixelDust.Game.GUI.Common.Menus.ElementExplorer;
+using PixelDust.Game.GUI.Common.Menus.ItemExplorer;
 using PixelDust.Game.IO;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Models.Settings;
@@ -206,7 +206,7 @@ namespace PixelDust.Game
         private static void RegisterAllGameGUIs(PGUIManager guiManager)
         {
             guiManager.RegisterGUISystem<PGUI_HUD>();
-            guiManager.RegisterGUISystem<PGUI_ElementExplorer>();
+            guiManager.RegisterGUISystem<PGUI_ItemExplorer>();
         }
         private static void RegisterAllGameElements(PElementDatabase database)
         {

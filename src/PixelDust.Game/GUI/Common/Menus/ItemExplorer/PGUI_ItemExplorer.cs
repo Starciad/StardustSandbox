@@ -3,9 +3,9 @@
 using PixelDust.Game.Constants.GUI;
 using PixelDust.Game.GUI.Events;
 
-namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
+namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 {
-    public sealed partial class PGUI_ElementExplorer(PGUIEvents events, PGUILayoutPool layoutPool) : PGUISystem(events, layoutPool)
+    public sealed partial class PGUI_ItemExplorer(PGUIEvents events, PGUILayoutPool layoutPool) : PGUISystem(events, layoutPool)
     {
         private Texture2D particleTexture;
         private Texture2D guiBackgroundTexture;
