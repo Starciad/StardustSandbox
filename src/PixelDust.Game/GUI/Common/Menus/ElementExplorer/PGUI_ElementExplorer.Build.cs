@@ -44,7 +44,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
 
             PGUILabelElement explorerTitleLabel = this._layout.CreateElement<PGUILabelElement>();
             explorerTitleLabel.SetTextContent("TITLE");
-            explorerTitleLabel.SetFontFamily(PFontFamilyConstant.ARIAL);
+            explorerTitleLabel.SetFontFamily(PFontFamilyConstants.ARIAL);
             explorerTitleLabel.PositionRelativeToElement(explorerBackground);
         }
     }

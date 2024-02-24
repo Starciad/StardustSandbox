@@ -4,7 +4,7 @@
     {
         public const sbyte SONGS_LENGTH = 0;
         public const sbyte SOUNDS_LENGTH = 0;
-        public const sbyte FONTS_LENGTH = 1;
+        public const sbyte FONTS_LENGTH = 9;
         public const sbyte SHADERS_LENGTH = 1;
 
         #region GRAPHICS
