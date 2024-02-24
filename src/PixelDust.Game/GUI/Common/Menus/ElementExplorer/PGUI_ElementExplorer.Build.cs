@@ -48,6 +48,9 @@ namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
             explorerTitleLabel.SetMargin(new Vector2(-8, -16));
             explorerTitleLabel.SetColor(new Color(206, 214, 237, 255));
             explorerTitleLabel.SetFontFamily(PFontFamilyConstants.BIG_APPLE_3PM);
+            explorerTitleLabel.SetBorders(true);
+            explorerTitleLabel.SetBordersColor(new Color(45, 53, 74, 255));
+            explorerTitleLabel.SetBorderOffset(new Vector2(4.4f));
             explorerTitleLabel.PositionRelativeToElement(explorerBackground);
         }
     }
