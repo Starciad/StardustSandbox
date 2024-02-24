@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Elements.Contexts;
 using PixelDust.Game.Elements.Rendering;
+using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
-using PixelDust.Game.Utilities;
 using PixelDust.Game.World.Data;
 
 using System;
@@ -105,10 +105,10 @@ namespace PixelDust.Game.Elements
 
             int averageTemperatureChange = (int)Math.Round(totalTemperatureChange / neighbors.Length);
 
-            this.Context.SetElementTemperature(PTemperature.Clamp(this.Context.Slot.Temperature - averageTemperatureChange));
-            if (MathF.Abs(averageTemperatureChange) < PTemperature.EquilibriumThreshold)
+            this.Context.SetElementTemperature(PTemperatureMath.Clamp(this.Context.Slot.Temperature - averageTemperatureChange));
+            if (MathF.Abs(averageTemperatureChange) < PTemperatureMath.EquilibriumThreshold)
             {
-                this.Context.SetElementTemperature(PTemperature.Clamp(this.Context.Slot.Temperature + averageTemperatureChange));
+                this.Context.SetElementTemperature(PTemperatureMath.Clamp(this.Context.Slot.Temperature + averageTemperatureChange));
             }
 
             OnTemperatureChanged(this.Context.Slot.Temperature);

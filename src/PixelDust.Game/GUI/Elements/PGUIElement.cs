@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Collections;
 using PixelDust.Game.Constants;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
+using PixelDust.Game.Interfaces;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 

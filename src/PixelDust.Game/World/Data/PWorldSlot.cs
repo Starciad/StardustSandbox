@@ -1,5 +1,5 @@
 ﻿using PixelDust.Game.Elements;
-using PixelDust.Game.Utilities;
+using PixelDust.Game.Mathematics;
 
 using System;
 
@@ -40,7 +40,7 @@ namespace PixelDust.Game.World.Data
 
         public void SetTemperatureValue(int value)
         {
-            this.temperature = PTemperature.Clamp(value);
+            this.temperature = PTemperatureMath.Clamp(value);
         }
 
         public readonly object Clone()

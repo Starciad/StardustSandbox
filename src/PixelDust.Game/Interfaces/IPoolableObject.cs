@@ -1,6 +1,4 @@
-﻿using PixelDust.Game.Interfaces;
-
-namespace PixelDust.Game.Collections
+﻿namespace PixelDust.Game.Interfaces
 {
     public interface IPoolableObject : IReset { }
 }

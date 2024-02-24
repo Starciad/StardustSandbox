@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace PixelDust.Game.Utilities
+namespace PixelDust.Game.Mathematics
 {
-    public static class PTemperature
+    public static class PTemperatureMath
     {
         public const short MinCelsiusValue = -275;
         public const short MaxCelsiusValue = 9725;

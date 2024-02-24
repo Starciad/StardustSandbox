@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PixelDust.Game.Interfaces;
+
+using System.Collections.Generic;
 
 namespace PixelDust.Game.Collections
 {
