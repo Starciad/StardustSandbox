@@ -4,6 +4,7 @@ using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
 
 using Microsoft.Xna.Framework;
+using PixelDust.Game.Constants;
 
 namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
 {
@@ -43,7 +44,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
 
             PGUILabelElement explorerTitleLabel = this._layout.CreateElement<PGUILabelElement>();
             explorerTitleLabel.SetTextContent("TITLE");
-            explorerTitleLabel.SetFontFamily("font_1");
+            explorerTitleLabel.SetFontFamily(PFontFamilyConstant.ARIAL);
             explorerTitleLabel.PositionRelativeToElement(explorerBackground);
         }
     }
