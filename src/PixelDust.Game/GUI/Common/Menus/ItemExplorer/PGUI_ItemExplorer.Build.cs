@@ -35,6 +35,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
         {
             // ================================== //
             // Background & Title
+
             PGUISliceImageElement explorerBackground = this._layout.CreateElement<PGUISliceImageElement>();
             explorerBackground.SetTexture(this.guiBackgroundTexture);
             explorerBackground.SetScale(new Vector2(32, 15));
@@ -45,7 +46,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             PGUILabelElement explorerTitleLabel = this._layout.CreateElement<PGUILabelElement>();
             explorerTitleLabel.SetTextContent("TITLE");
             explorerTitleLabel.SetScale(new Vector2(0.15f));
-            explorerTitleLabel.SetMargin(new Vector2(-8, -16));
+            explorerTitleLabel.SetMargin(new Vector2(18, -16));
             explorerTitleLabel.SetColor(new Color(206, 214, 237, 255));
             explorerTitleLabel.SetFontFamily(PFontFamilyConstants.BIG_APPLE_3PM);
             explorerTitleLabel.SetBorders(true);
@@ -54,7 +55,17 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 
             // ================================== //
-            // Items Selection
+            // Item Grid
+
+            PGUISliceImageElement itemGridBackground = this._layout.CreateElement<PGUISliceImageElement>();
+            itemGridBackground.SetTexture(this.guiBackgroundTexture);
+            itemGridBackground.SetScale(new Vector2(30, 10));
+            itemGridBackground.SetMargin(new Vector2(32, 88));
+            itemGridBackground.SetColor(new Color(94, 101, 110, 255));
+            itemGridBackground.PositionRelativeToElement(explorerBackground);
+
+            // ================================== //
+            // Pagination
         }
     }
 }
