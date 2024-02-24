@@ -38,6 +38,13 @@ namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
             explorerBackground.SetMargin(new Vector2(128, 128));
             explorerBackground.SetColor(new Color(104, 111, 121, 255));
             explorerBackground.PositionRelativeToElement(this._rootElement);
+
+            // ================================ //
+
+            PGUILabelElement explorerTitleLabel = this._layout.CreateElement<PGUILabelElement>();
+            explorerTitleLabel.SetTextContent("TITLE");
+            explorerTitleLabel.SetFontFamily("font_1");
+            explorerTitleLabel.PositionRelativeToElement(explorerBackground);
         }
     }
 }

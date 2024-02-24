@@ -10,9 +10,9 @@ namespace PixelDust.Game.GUI.Elements.Common
         private readonly StringBuilder textContentStringBuilder = new();
 
         private SpriteFont textFont;
-        private Color textColor;
-        private float textRotation;
-        private Vector2 textScale;
+        private Color textColor = Color.White;
+        private float textRotation = 0f;
+        private Vector2 textScale = Vector2.One;
 
         public PGUILabelElement()
         {
@@ -32,7 +32,7 @@ namespace PixelDust.Game.GUI.Elements.Common
 
         public void SetFontFamily(string fontFamilyName)
         {
-            textFont = Game.AssetDatabase.GetFont(fontFamilyName);
+            this.textFont = this.Game.AssetDatabase.GetFont(fontFamilyName);
         }
 
         public void SetColor(Color color)
