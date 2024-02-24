@@ -34,9 +34,10 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
         private void BuildExplorer()
         {
             // ================================== //
+            // Background & Title
             PGUISliceImageElement explorerBackground = this._layout.CreateElement<PGUISliceImageElement>();
             explorerBackground.SetTexture(this.guiBackgroundTexture);
-            explorerBackground.SetSize(new Size2(32, 15));
+            explorerBackground.SetScale(new Vector2(32, 15));
             explorerBackground.SetMargin(new Vector2(128, 128));
             explorerBackground.SetColor(new Color(104, 111, 121, 255));
             explorerBackground.PositionRelativeToElement(this._rootElement);

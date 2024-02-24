@@ -32,9 +32,11 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
 
         public override Texture2D Texture => this.texture;
         public override Color Color => this.color;
+        public override Vector2 Scale => this.scale;
 
         private Texture2D texture = null;
         private Color color = Color.White;
+        private Vector2 scale;
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
@@ -56,42 +58,42 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
             // Center
             this.textureSlices[(int)PCardinalDirection.Center].SetPosition(this.Position);
             this.textureSlices[(int)PCardinalDirection.Center].SetTextureClipArea(new Rectangle(new Point(PSliceImageConstants.SPRITE_SLICE_SIZE, PSliceImageConstants.SPRITE_SLICE_SIZE), sizePoint));
-            this.textureSlices[(int)PCardinalDirection.Center].SetScale(this.Size.ToVector2());
+            this.textureSlices[(int)PCardinalDirection.Center].SetScale(this.Scale);
 
             // North
             this.textureSlices[(int)PCardinalDirection.North].SetPosition(new Vector2(this.Position.X, this.Position.Y - PSliceImageConstants.SPRITE_SLICE_SIZE));
             this.textureSlices[(int)PCardinalDirection.North].SetTextureClipArea(new Rectangle(new Point(PSliceImageConstants.SPRITE_SLICE_SIZE, 0), sizePoint));
-            this.textureSlices[(int)PCardinalDirection.North].SetScale(new Vector2(this.Size.Width, 1));
+            this.textureSlices[(int)PCardinalDirection.North].SetScale(new Vector2(this.Scale.X, 1));
 
             // Northeast
-            this.textureSlices[(int)PCardinalDirection.Northeast].SetPosition(new Vector2(this.Position.X + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Size.Width), this.Position.Y - PSliceImageConstants.SPRITE_SLICE_SIZE));
+            this.textureSlices[(int)PCardinalDirection.Northeast].SetPosition(new Vector2(this.Position.X + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y - PSliceImageConstants.SPRITE_SLICE_SIZE));
             this.textureSlices[(int)PCardinalDirection.Northeast].SetTextureClipArea(new Rectangle(new Point(PSliceImageConstants.SPRITE_SLICE_SIZE * 2, 0), sizePoint));
             this.textureSlices[(int)PCardinalDirection.Northeast].SetScale(Vector2.One);
 
             // East
-            this.textureSlices[(int)PCardinalDirection.East].SetPosition(new Vector2(this.Position.X + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Size.Width), this.Position.Y));
+            this.textureSlices[(int)PCardinalDirection.East].SetPosition(new Vector2(this.Position.X + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y));
             this.textureSlices[(int)PCardinalDirection.East].SetTextureClipArea(new Rectangle(new Point(PSliceImageConstants.SPRITE_SLICE_SIZE * 2, PSliceImageConstants.SPRITE_SLICE_SIZE), sizePoint));
-            this.textureSlices[(int)PCardinalDirection.East].SetScale(new Vector2(1, this.Size.Height));
+            this.textureSlices[(int)PCardinalDirection.East].SetScale(new Vector2(1, this.Scale.Y));
 
             // Southeast
-            this.textureSlices[(int)PCardinalDirection.Southeast].SetPosition(new Vector2(this.Position.X + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Size.Width), this.Position.Y + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Size.Height)));
+            this.textureSlices[(int)PCardinalDirection.Southeast].SetPosition(new Vector2(this.Position.X + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
             this.textureSlices[(int)PCardinalDirection.Southeast].SetTextureClipArea(new Rectangle(new Point(PSliceImageConstants.SPRITE_SLICE_SIZE * 2, PSliceImageConstants.SPRITE_SLICE_SIZE * 2), sizePoint));
             this.textureSlices[(int)PCardinalDirection.Southeast].SetScale(Vector2.One);
 
             // South
-            this.textureSlices[(int)PCardinalDirection.South].SetPosition(new Vector2(this.Position.X, this.Position.Y + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Size.Height)));
+            this.textureSlices[(int)PCardinalDirection.South].SetPosition(new Vector2(this.Position.X, this.Position.Y + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
             this.textureSlices[(int)PCardinalDirection.South].SetTextureClipArea(new Rectangle(new Point(PSliceImageConstants.SPRITE_SLICE_SIZE, PSliceImageConstants.SPRITE_SLICE_SIZE * 2), sizePoint));
-            this.textureSlices[(int)PCardinalDirection.South].SetScale(new Vector2(this.Size.Width, 1));
+            this.textureSlices[(int)PCardinalDirection.South].SetScale(new Vector2(this.Scale.X, 1));
 
             // Southwest
-            this.textureSlices[(int)PCardinalDirection.Southwest].SetPosition(new Vector2(this.Position.X - PSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Size.Height)));
+            this.textureSlices[(int)PCardinalDirection.Southwest].SetPosition(new Vector2(this.Position.X - PSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y + (PSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
             this.textureSlices[(int)PCardinalDirection.Southwest].SetTextureClipArea(new Rectangle(new Point(0, PSliceImageConstants.SPRITE_SLICE_SIZE * 2), sizePoint));
             this.textureSlices[(int)PCardinalDirection.Southwest].SetScale(Vector2.One);
 
             // West
             this.textureSlices[(int)PCardinalDirection.West].SetPosition(new Vector2(this.Position.X - PSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y));
             this.textureSlices[(int)PCardinalDirection.West].SetTextureClipArea(new Rectangle(new Point(0, PSliceImageConstants.SPRITE_SLICE_SIZE), sizePoint));
-            this.textureSlices[(int)PCardinalDirection.West].SetScale(new Vector2(1, this.Size.Height));
+            this.textureSlices[(int)PCardinalDirection.West].SetScale(new Vector2(1, this.Scale.Y));
 
             // Northwest
             this.textureSlices[(int)PCardinalDirection.Northwest].SetPosition(new Vector2(this.Position.X - PSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y - PSliceImageConstants.SPRITE_SLICE_SIZE));
@@ -119,6 +121,11 @@ namespace PixelDust.Game.GUI.Elements.Common.Graphics
         public override void SetColor(Color color)
         {
             this.color = color;
+        }
+
+        public override void SetScale(Vector2 scale)
+        {
+            this.scale = scale;
         }
     }
 }
