@@ -44,7 +44,10 @@ namespace PixelDust.Game.GUI.Common.Menus.ElementExplorer
 
             PGUILabelElement explorerTitleLabel = this._layout.CreateElement<PGUILabelElement>();
             explorerTitleLabel.SetTextContent("TITLE");
-            explorerTitleLabel.SetFontFamily(PFontFamilyConstants.ARIAL);
+            explorerTitleLabel.SetScale(new Vector2(0.15f));
+            explorerTitleLabel.SetMargin(new Vector2(-8, -16));
+            explorerTitleLabel.SetColor(new Color(206, 214, 237, 255));
+            explorerTitleLabel.SetFontFamily(PFontFamilyConstants.BIG_APPLE_3PM);
             explorerTitleLabel.PositionRelativeToElement(explorerBackground);
         }
     }

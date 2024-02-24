@@ -45,6 +45,11 @@ namespace PixelDust.Game.GUI.Elements.Common
             this.textRotation = rotation;
         }
 
+        public void SetScale(Vector2 scale)
+        {
+            this.textScale = scale;
+        }
+
         private static Vector2 GetOrigin()
         {
             return Vector2.Zero;
