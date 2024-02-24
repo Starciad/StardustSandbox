@@ -127,6 +127,7 @@ namespace PixelDust.Game
         protected override void BeginRun()
         {
             this._guiManager.ShowGUI(PGUIConstants.HUD_NAME);
+            this._guiManager.ShowGUI(PGUIConstants.ELEMENT_EXPLORER);
         }
 
         protected override void Update(GameTime gameTime)
