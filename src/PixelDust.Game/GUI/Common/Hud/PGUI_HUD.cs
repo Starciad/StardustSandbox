@@ -25,6 +25,8 @@ namespace PixelDust.Game.GUI.Common.HUD
 
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
+
+            SelectItemSlot(0, GetGameItemByIndex(0).Identifier);
         }
 
         protected override void OnUpdate(GameTime gameTime)
