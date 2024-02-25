@@ -6,6 +6,7 @@ using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Elements.Common.Graphics;
 using PixelDust.Game.Interfaces.GUI;
+using PixelDust.Game.Items;
 using PixelDust.Game.Mathematics;
 
 namespace PixelDust.Game.GUI.Common.HUD
@@ -85,13 +86,15 @@ namespace PixelDust.Game.GUI.Common.HUD
                     slotBackground.SetSize(new Size2(slotSize));
                     slotBackground.SetMargin(slotMargin);
 
+                    PItem selectedItem = GetGameItemByIndex(i);
+
                     if (!slotBackground.ContainsData(PHUDConstants.DATA_FILED_ELEMENT_ID))
                     {
-                        slotBackground.AddData(PHUDConstants.DATA_FILED_ELEMENT_ID, i);
+                        slotBackground.AddData(PHUDConstants.DATA_FILED_ELEMENT_ID, selectedItem.Identifier);
                     }
 
                     // Icon
-                    slotIcon.SetTexture(GetGameElement(i).IconTexture);
+                    slotIcon.SetTexture(selectedItem.IconTexture);
                     slotIcon.SetOriginPivot(PCardinalDirection.Center);
                     slotIcon.SetScale(new Vector2(1.5f));
                     slotIcon.SetSize(new Size2(slotSize));

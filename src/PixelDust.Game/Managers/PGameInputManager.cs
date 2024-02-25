@@ -1,32 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Game.Constants;
-using PixelDust.Game.Elements;
+using PixelDust.Game.Databases;
+using PixelDust.Game.Items;
 using PixelDust.Game.Objects;
 using PixelDust.Game.World;
-using PixelDust.Game.World.Data;
 
 using System;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed partial class PGameInputManager(PCameraManager cameraManager, PWorld world, PInputManager inputHandler) : PGameObject
+    public sealed partial class PGameInputManager(PCameraManager cameraManager, PWorld world, PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
     {
-        public PElement ElementSelected => this.elementSelected;
+        public PItem ItemSelected => this.itemSelected;
 
         public int PenScale => this.penScale;
         public float CameraMovementSpeed => this.cameraMovementSpeed;
         public bool CanModifyEnvironment
         {
             get => this.canModifyEnvironment;
-
             set => this.canModifyEnvironment = value;
         }
 
-        // Elements
-        private PElement elementSelected;
-        private PElement elementOver;
-        private PWorldSlot elementOverSlot;
+        // Items
+        private PItem itemSelected;
 
         // Settings
         private int penScale = 1;
@@ -46,7 +43,6 @@ namespace PixelDust.Game.Managers
 
             // External
             ClampCamera();
-            GetMouseOverElement();
         }
 
         // Update
@@ -65,9 +61,9 @@ namespace PixelDust.Game.Managers
         }
 
         // Settings
-        public void SetSelectedElement(PElement value)
+        public void SelectItem(PItem value)
         {
-            this.elementSelected = value;
+            this.itemSelected = value;
         }
         public void SetPenScale(int value)
         {
@@ -79,15 +75,6 @@ namespace PixelDust.Game.Managers
         }
 
         // Utilities
-        private void GetMouseOverElement()
-        {
-            Vector2 screenPos = cameraManager.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
-            Point worldPos = (new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE).ToPoint();
-
-            this.elementOverSlot = world.GetElementSlot(worldPos);
-            this.elementOver = world.GetElement(worldPos);
-        }
-
         private void ClampCamera()
         {
             int totalX = (world.Infos.Size.Width * PWorldConstants.GRID_SCALE) - PScreenConstants.DEFAULT_SCREEN_WIDTH;

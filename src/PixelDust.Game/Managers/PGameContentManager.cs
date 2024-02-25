@@ -65,12 +65,13 @@ namespace PixelDust.Game.Managers
 
         private void RegisterItem(Type type)
         {
-            if (type.GetCustomAttribute<PItemRegisterAttribute>() == null)
+            PItemRegisterAttribute itemRegisterAttribute = type.GetCustomAttribute<PItemRegisterAttribute>();
+            if (itemRegisterAttribute == null)
             {
                 return;
             }
 
-            this._itemDatabase.RegisterItem((PItem)Activator.CreateInstance(type));
+            this._itemDatabase.RegisterItem(itemRegisterAttribute.Item);
         }
     }
 }

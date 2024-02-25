@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Input;
 
 using PixelDust.Game.Constants;
+using PixelDust.Game.Elements;
+using PixelDust.Game.Enums.Gameplay;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.InputSystem;
 using PixelDust.Game.InputSystem;
@@ -35,12 +37,12 @@ namespace PixelDust.Game.Managers
         {
             PInputActionMap worldMouseActionMap = this._actionHandler.AddActionMap("World_Mouse", true);
 
-            worldMouseActionMap.AddAction("World_Place_Elements", new(this._inputHandler, PMouseButton.Left)).OnPerformed += _ => PlaceElementsInWorld();
-            worldMouseActionMap.AddAction("World_Erase_Elements", new(this._inputHandler, PMouseButton.Right)).OnPerformed += _ => DeleteElementsInWorld();
+            worldMouseActionMap.AddAction("World_Place_Elements", new(this._inputHandler, PMouseButton.Left)).OnPerformed += _ => PerformMapAction(PMapActionType.Put);
+            worldMouseActionMap.AddAction("World_Erase_Elements", new(this._inputHandler, PMouseButton.Right)).OnPerformed += _ => PerformMapAction(PMapActionType.Remove);
         }
 
         // ================================== //
-
+        // Camera
         private void MoveCamera(PCardinalDirection direction)
         {
             switch (direction)
@@ -66,6 +68,8 @@ namespace PixelDust.Game.Managers
             }
         }
 
+        // ================================== //
+        // World
         private void PauseWorld()
         {
             if (world.States.IsPaused)
@@ -82,45 +86,58 @@ namespace PixelDust.Game.Managers
             world.Clear();
         }
 
-        private void PlaceElementsInWorld()
+        // ================================== //
+        // Perform
+        private void PerformMapAction(PMapActionType mapActionType)
         {
-            if (!this.canModifyEnvironment)
+            if (!this.canModifyEnvironment || this.itemSelected == null)
             {
                 return;
             }
 
+            if (typeof(PElement).IsAssignableFrom(this.itemSelected.ReferencedType))
+            {
+                // ====================================================== //
+                // The currently selected item corresponds to an element.
+                // ====================================================== //
+
+                if (mapActionType == PMapActionType.Put)
+                {
+                    PutElementsInWorld(elementDatabase.GetElementByType(this.itemSelected.ReferencedType));
+                }
+                else if (mapActionType == PMapActionType.Remove)
+                {
+                    RemoveElementsFromWorld();
+                }
+            }
+        }
+
+        #region ELEMENTS
+        private void PutElementsInWorld(PElement element)
+        {
             Point worldPos = GetWorldPositionFromMouse().ToPoint();
 
-            if (!IsValidWorldPosition(worldPos) || this.elementSelected == null)
+            if (!IsValidWorldPosition(worldPos))
             {
                 return;
             }
-
-            UpdateElementOver(worldPos);
 
             if (this.penScale == 0)
             {
-                world.InstantiateElement(worldPos, this.elementSelected.Id);
+                world.InstantiateElement(worldPos, element.Id);
                 return;
             }
 
-            ApplyPenAction(worldPos, (x, y) => world.InstantiateElement(new Point(x, y), this.elementSelected.Id));
+            ApplyPenAction(worldPos, (int x, int y) => world.InstantiateElement(new Point(x, y), element.Id));
         }
-        private void DeleteElementsInWorld()
+        private void RemoveElementsFromWorld()
         {
-            if (!this.canModifyEnvironment)
-            {
-                return;
-            }
-
             Point worldPos = GetWorldPositionFromMouse().ToPoint();
 
-            if (!IsValidWorldPosition(worldPos) || this.elementSelected == null)
+            if (!IsValidWorldPosition(worldPos))
             {
                 return;
             }
-
-            UpdateElementOver(worldPos);
 
             if (this.penScale == 0)
             {
@@ -130,23 +147,10 @@ namespace PixelDust.Game.Managers
 
             ApplyPenAction(worldPos, (x, y) => world.DestroyElement(new Point(x, y)));
         }
-
-        private Vector2 GetWorldPositionFromMouse()
-        {
-            Vector2 screenPos = cameraManager.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
-            return new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
-        }
-
         private bool IsValidWorldPosition(Point worldPos)
         {
-            return world.InsideTheWorldDimensions(worldPos) && this.elementSelected != null;
+            return world.InsideTheWorldDimensions(worldPos);
         }
-
-        private void UpdateElementOver(Point worldPos)
-        {
-            this.elementOver = world.GetElement(worldPos);
-        }
-
         private void ApplyPenAction(Point centerPos, Action<int, int> action)
         {
             for (int x = -this.penScale; x < this.penScale; x++)
@@ -161,6 +165,15 @@ namespace PixelDust.Game.Managers
                     }
                 }
             }
+        }
+        #endregion
+
+        // ================================== //
+        // Utilities
+        private Vector2 GetWorldPositionFromMouse()
+        {
+            Vector2 screenPos = cameraManager.ScreenToWorld(this._inputHandler.MouseState.Position.ToVector2());
+            return new Vector2(screenPos.X, screenPos.Y) / PWorldConstants.GRID_SCALE;
         }
     }
 }

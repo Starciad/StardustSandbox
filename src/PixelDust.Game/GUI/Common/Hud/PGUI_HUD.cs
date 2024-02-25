@@ -25,8 +25,6 @@ namespace PixelDust.Game.GUI.Common.HUD
 
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
-
-            SelectElementSlot(0, 0);
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -53,7 +51,7 @@ namespace PixelDust.Game.GUI.Common.HUD
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(slot.Position, new Size2(PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    SelectElementSlot(i, (int)slot.GetData(PHUDConstants.DATA_FILED_ELEMENT_ID));
+                    SelectItemSlot(i, (string)slot.GetData(PHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
 
                 // Highlight coloring of currently selected slot.

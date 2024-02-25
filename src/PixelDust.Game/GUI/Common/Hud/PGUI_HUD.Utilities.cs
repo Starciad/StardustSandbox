@@ -1,4 +1,4 @@
-﻿using PixelDust.Game.Elements;
+﻿using PixelDust.Game.Items;
 
 namespace PixelDust.Game.GUI.Common.HUD
 {
@@ -6,15 +6,20 @@ namespace PixelDust.Game.GUI.Common.HUD
     {
         private int slotSelectedIndex = 0;
 
-        private void SelectElementSlot(int slotIndex, int elementId)
+        private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
-            this.Game.GameInputManager.SetSelectedElement(GetGameElement(elementId));
+            this.Game.GameInputManager.SelectItem(GetGameItemById(itemId));
         }
 
-        private PElement GetGameElement(int id)
+        private PItem GetGameItemByIndex(int index)
         {
-            return this.Game.ElementDatabase.GetElementById((uint)id);
+            return this.Game.ItemDatabase.GetItemByIndex(index);
+        }
+
+        private PItem GetGameItemById(string id)
+        {
+            return this.Game.ItemDatabase.GetItemById(id);
         }
     }
 }
