@@ -19,7 +19,7 @@ namespace PixelDust.Game.Databases
             this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }
 
-        public void RegisterGUISystem(PGUISystem guiSystem, PGUIEvents guiEvents, PGUILayoutPool layoutPool)
+        internal void RegisterGUISystem(PGUISystem guiSystem, PGUIEvents guiEvents, PGUILayoutPool layoutPool)
         {
             guiSystem.Configure(guiEvents, layoutPool);
             this._registeredGUIs.Add(guiSystem);

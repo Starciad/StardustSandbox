@@ -17,6 +17,8 @@ namespace PixelDust.Game.GUI.Common.HUD
         private Texture2D particleTexture;
         private Texture2D squareShapeTexture;
 
+        private int slotSelectedIndex = 0;
+
         protected override void OnAwake()
         {
             base.OnAwake();

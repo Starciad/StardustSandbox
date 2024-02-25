@@ -3,6 +3,7 @@
 using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Attributes.GUI;
 using PixelDust.Game.Constants.GUI;
+using PixelDust.Game.Items;
 
 namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 {
@@ -12,6 +13,11 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
     {
         private Texture2D particleTexture;
         private Texture2D guiBackgroundTexture;
+        private Texture2D squareShapeTexture;
+
+        private string selectedCategoryName;
+        private int selectedPageIndex;
+        private PItem[] selectedItems;
 
         protected override void OnAwake()
         {
@@ -21,6 +27,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = this.Game.AssetDatabase.GetTexture("gui_background_1");
+            this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
         }
 
         protected override void OnLoad()

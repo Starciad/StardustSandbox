@@ -4,8 +4,6 @@ namespace PixelDust.Game.GUI.Common.HUD
 {
     public sealed partial class PGUI_HUD
     {
-        private int slotSelectedIndex = 0;
-
         private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
@@ -14,7 +12,7 @@ namespace PixelDust.Game.GUI.Common.HUD
 
         private PItem GetGameItemByIndex(int index)
         {
-            return this.Game.ItemDatabase.GetItemByIndex(index);
+            return this.Game.ItemDatabase.Items[index];
         }
 
         private PItem GetGameItemById(string id)

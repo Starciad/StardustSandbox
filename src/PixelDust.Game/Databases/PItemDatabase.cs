@@ -3,13 +3,19 @@ using PixelDust.Game.Objects;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PixelDust.Game.Databases
 {
     public sealed class PItemDatabase : PGameObject
     {
+        public string[] Categories => [.. this.categories];
+        public PItem[] Items => [.. this.items];
+
         private readonly List<PItem> items = [];
-        private readonly Dictionary<string, List<PItem>> categories = [];
+        private readonly List<string> categories = [];
+
+        private readonly Dictionary<string, List<PItem>> catalog = [];
 
         public void Build(PAssetDatabase assetDatabase)
         {
@@ -22,32 +28,46 @@ namespace PixelDust.Game.Databases
         }
         private void BuildCategories()
         {
-            foreach (PItem item in this.items)
+            IEnumerable<IGrouping<string, PItem>> groupedItems = this.items.GroupBy(item => item.Category);
+
+            foreach (IGrouping<string, PItem> group in groupedItems)
             {
-                if (this.categories.TryGetValue(item.Category, out List<PItem> value))
+                string category = group.Key;
+
+                if (!this.categories.Contains(category))
                 {
-                    value.Add(item);
+                    this.categories.Add(category);
+                }
+
+                if (this.catalog.TryGetValue(category, out List<PItem> value))
+                {
+                    value.AddRange([.. group]);
                 }
                 else
                 {
-                    this.categories.Add(item.Category, [item]);
+                    this.catalog.Add(category, [.. group]);
                 }
             }
         }
 
-        public void RegisterItem(PItem item)
+        internal void RegisterItem(PItem item)
         {
             this.items.Add(item);
+        }
+
+        public PItem[] GetCatalogItems(int categoryIndex)
+        {
+            return [.. this.catalog[this.categories[categoryIndex]]];
+        }
+
+        public PItem[] GetCatalogItems(string categoryId)
+        {
+            return [.. this.catalog[categoryId]];
         }
 
         public PItem GetItemById(string id)
         {
             return this.items.Find(x => x.Identifier == id);
-        }
-
-        public PItem GetItemByIndex(int index)
-        {
-            return this.items[Math.Clamp(index, 0, this.items.Count - 1)];
         }
     }
 }

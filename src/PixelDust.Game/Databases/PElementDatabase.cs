@@ -18,7 +18,7 @@ namespace PixelDust.Game.Databases
             this._registeredElements = [.. this._registeredElements.OrderBy(x => x.Id)];
         }
 
-        public void RegisterElement(PElement element)
+        internal void RegisterElement(PElement element)
         {
             element.Initialize(this.Game);
             element.Id = element.GetType().GetCustomAttribute<PElementRegisterAttribute>().Id;
