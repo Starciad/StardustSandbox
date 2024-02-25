@@ -11,6 +11,7 @@ using PixelDust.Game.Items;
 using PixelDust.Game.Mathematics;
 
 using System;
+using System.Reflection;
 
 namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 {
@@ -20,7 +21,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
         private PGUIRootElement _rootElement;
 
         private PGUILabelElement explorerTitleLabel;
-        private PGUISliceImageElement itemGridBackground;
+        private (PGUIImageElement background, PGUIImageElement icon)[] itemSlots;
 
         protected override void OnBuild(IPGUILayoutBuilder layout)
         {
@@ -74,12 +75,14 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 
             #region ITEM DISPLAY
             // Background
-            this.itemGridBackground = this._layout.CreateElement<PGUISliceImageElement>();
-            this.itemGridBackground.SetTexture(this.guiBackgroundTexture);
-            this.itemGridBackground.SetScale(new Vector2(30, 10));
-            this.itemGridBackground.SetMargin(new Vector2(32, 88));
-            this.itemGridBackground.SetColor(new Color(94, 101, 110, 255));
-            this.itemGridBackground.PositionRelativeToElement(explorerBackground);
+            PGUISliceImageElement itemGridBackground = this._layout.CreateElement<PGUISliceImageElement>();
+            itemGridBackground.SetTexture(this.guiBackgroundTexture);
+            itemGridBackground.SetScale(new Vector2(30, 10));
+            itemGridBackground.SetMargin(new Vector2(32, 88));
+            itemGridBackground.SetColor(new Color(94, 101, 110, 255));
+            itemGridBackground.PositionRelativeToElement(explorerBackground);
+
+            BuildItemsGrid(itemGridBackground);
             #endregion
 
             #region Pagination
@@ -90,52 +93,66 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
         // ================================== //
         // Updates
 
-        private void UpdateItemsGrid()
+        private void BuildItemsGrid(PGUIElement parent)
         {
             int slotSize = PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
             int slotScale = PHUDConstants.SLOT_SCALE;
             int slotSpacing = slotSize * 2;
 
-            Vector2 slotMargin = new(32);
+            Vector2 slotMargin = new(32, 40);
 
-            int itemsPerRow = PItemExplorerConstants.ITEMS_PER_ROW;
+            int rows = PItemExplorerConstants.ITEMS_PER_ROW;
+            int columns = PItemExplorerConstants.ITEMS_PER_COLUMN;
 
-            int rows = (int)Math.Ceiling((double)this.selectedItems.Length / itemsPerRow);
-            int columns = Math.Min(itemsPerRow, this.selectedItems.Length);
+            this.itemSlots = new (PGUIImageElement background, PGUIImageElement icon)[rows * columns];
 
-            for (int row = 0; row < rows; row++)
+            int index = 0;
+            for (int col = 0; col < columns; col++)
             {
-                for (int col = 0; col < columns; col++)
+                for (int row = 0; row < rows; row++)
                 {
-                    int index = row * itemsPerRow + col;
+                    PGUIImageElement slotBackground = this._layout.CreateElement<PGUIImageElement>();
+                    slotBackground.SetTexture(this.squareShapeTexture);
+                    slotBackground.SetOriginPivot(PCardinalDirection.Center);
+                    slotBackground.SetScale(new Vector2(slotScale));
+                    slotBackground.SetPositionAnchor(PCardinalDirection.West);
+                    slotBackground.SetSize(new Size2(slotSize));
+                    slotBackground.SetMargin(slotMargin);
 
-                    if (index < this.selectedItems.Length)
-                    {
-                        PItem item = this.selectedItems[index];
+                    PGUIImageElement slotIcon = this._layout.CreateElement<PGUIImageElement>();
+                    slotIcon.SetOriginPivot(PCardinalDirection.Center);
+                    slotIcon.SetScale(new Vector2(1.5f));
+                    slotIcon.SetSize(new Size2(slotSize));
 
-                        PGUIImageElement slotBackground = this._layout.CreateElement<PGUIImageElement>();
-                        slotBackground.SetTexture(this.squareShapeTexture);
-                        slotBackground.SetOriginPivot(PCardinalDirection.Center);
-                        slotBackground.SetScale(new Vector2(slotScale));
-                        slotBackground.SetPositionAnchor(PCardinalDirection.West);
-                        slotBackground.SetSize(new Size2(slotSize));
-                        slotBackground.SetMargin(slotMargin);
+                    slotBackground.PositionRelativeToElement(parent);
+                    slotIcon.PositionRelativeToElement(slotBackground);
 
-                        PGUIImageElement slotIcon = this._layout.CreateElement<PGUIImageElement>();
-                        slotIcon.SetTexture(item.IconTexture);
-                        slotIcon.SetOriginPivot(PCardinalDirection.Center);
-                        slotIcon.SetScale(new Vector2(1.5f));
-                        slotIcon.SetSize(new Size2(slotSize));
-
-                        slotBackground.PositionRelativeToElement(this.itemGridBackground);
-                        slotIcon.PositionRelativeToElement(slotBackground);
-
-                        slotMargin.X += slotSpacing + (slotSize / 2);
-                    }
+                    slotMargin.X += slotSpacing + (slotSize / 2);
+                    this.itemSlots[index] = (slotBackground, slotIcon);
+                    index++;
                 }
 
                 slotMargin.X = 32;
                 slotMargin.Y += slotSpacing + (slotSize / 2);
+            }
+        }
+
+        private void UpdateItemsGrid()
+        {
+            for (int i = 0; i < this.itemSlots.Length; i++)
+            {
+                (PGUIImageElement itemSlotbackground, PGUIImageElement itemSlotIcon) = this.itemSlots[i];
+
+                if (i < selectedItems.Length)
+                {
+                    PItem item = this.selectedItems[i];
+                    itemSlotIcon.SetTexture(item.IconTexture);
+                }
+                else
+                {
+                    itemSlotbackground.SetTexture(null);
+                    itemSlotIcon.SetTexture(null);
+                }
             }
         }
     }
