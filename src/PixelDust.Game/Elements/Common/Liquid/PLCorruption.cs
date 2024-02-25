@@ -24,7 +24,7 @@ namespace PixelDust.Game.Elements.Common.Liquid
                 this.Identifier = "ELEMENT_CORRUPTION_LIQUID";
                 this.Name = "Corruption (Liquid)";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Liquids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_17");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

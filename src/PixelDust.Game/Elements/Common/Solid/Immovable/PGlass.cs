@@ -19,7 +19,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
                 this.Identifier = "ELEMENT_GLASS";
                 this.Name = "Glass";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Solids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_12");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

@@ -24,7 +24,7 @@ namespace PixelDust.Game.Elements.Common.Liquid
                 this.Identifier = "ELEMENT_ACID";
                 this.Name = "Acid";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Liquids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_11");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

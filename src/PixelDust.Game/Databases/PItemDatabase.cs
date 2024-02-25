@@ -9,10 +9,30 @@ namespace PixelDust.Game.Databases
     public sealed class PItemDatabase : PGameObject
     {
         private readonly List<PItem> items = [];
+        private readonly Dictionary<string, List<PItem>> categories = [];
 
         public void Build(PAssetDatabase assetDatabase)
         {
+            BuildItems(assetDatabase);
+            BuildCategories();
+        }
+        private void BuildItems(PAssetDatabase assetDatabase)
+        {
             this.items.ForEach(x => x.Build(assetDatabase));
+        }
+        private void BuildCategories()
+        {
+            foreach (PItem item in this.items)
+            {
+                if (this.categories.TryGetValue(item.Category, out List<PItem> value))
+                {
+                    value.Add(item);
+                }
+                else
+                {
+                    this.categories.Add(item.Category, [item]);
+                }
+            }
         }
 
         public void RegisterItem(PItem item)

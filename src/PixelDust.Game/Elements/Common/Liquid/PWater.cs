@@ -26,7 +26,7 @@ namespace PixelDust.Game.Elements.Common.Liquid
                 this.Identifier = "ELEMENT_WATER";
                 this.Name = "Water";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Liquids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_3");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

@@ -18,7 +18,7 @@ namespace PixelDust.Game.Elements.Common.Gases
                 this.Identifier = "ELEMENT_SMOKE";
                 this.Name = "Smoke";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Gases";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_20");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

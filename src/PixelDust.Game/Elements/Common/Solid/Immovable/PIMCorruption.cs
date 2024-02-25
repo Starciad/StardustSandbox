@@ -24,7 +24,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
                 this.Identifier = "ELEMENT_CORRUPTION_IMMOVABLE";
                 this.Name = "Corruption (Immovable)";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Solids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_18");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

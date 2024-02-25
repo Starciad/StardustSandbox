@@ -18,7 +18,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
                 this.Identifier = "ELEMENT_SNOW";
                 this.Name = "Snow";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Powders";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_8");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

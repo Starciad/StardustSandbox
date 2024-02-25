@@ -19,7 +19,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
                 this.Identifier = "ELEMENT_STONE";
                 this.Name = "Stone";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Powders";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_4");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

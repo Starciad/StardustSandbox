@@ -18,7 +18,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
                 this.Identifier = "ELEMENT_WALL";
                 this.Name = "Wall";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Solids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_14");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

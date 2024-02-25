@@ -18,7 +18,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
                 this.Identifier = "ELEMENT_WOOD";
                 this.Name = "Wood";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Solids";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_15");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;

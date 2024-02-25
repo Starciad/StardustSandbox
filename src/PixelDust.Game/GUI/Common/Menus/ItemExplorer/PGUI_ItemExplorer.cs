@@ -22,5 +22,15 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = this.Game.AssetDatabase.GetTexture("gui_background_1");
         }
+
+        protected override void OnLoad()
+        {
+            this.Game.GameInputManager.CanModifyEnvironment = false;
+        }
+
+        protected override void OnUnload()
+        {
+            this.Game.GameInputManager.CanModifyEnvironment = true;
+        }
     }
 }
