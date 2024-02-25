@@ -14,13 +14,19 @@ namespace PixelDust.Game.Managers
 {
     public sealed class PGameContentManager(Assembly assembly) : PGameObject
     {
-        private PGUIManager _guiManager;
+        // Databases
+        private PGUIDatabase _guiDatabase;
         private PElementDatabase _elementDatabase;
+
+        // Managers
+        private PGUIManager _guiManager;
 
         protected override void OnAwake()
         {
-            this._guiManager = this.Game.GUIManager;
+            this._guiDatabase = this.Game.GUIDatabase;
             this._elementDatabase = this.Game.ElementDatabase;
+
+            this._guiManager = this.Game.GUIManager;
         }
 
         public void RegisterAllGameContent()
@@ -40,7 +46,7 @@ namespace PixelDust.Game.Managers
                 return;
             }
 
-            this._guiManager.RegisterGUISystem((PGUISystem)Activator.CreateInstance(type));
+            this._guiDatabase.RegisterGUISystem((PGUISystem)Activator.CreateInstance(type), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
         }
 
         private void RegisterElement(Type type)

@@ -22,12 +22,17 @@ namespace PixelDust.Game
 {
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
+        // Managers
         public PInputManager InputManager => this._inputManager;
         public PGameInputManager GameInputManager => this._gameInputManager;
-        public PAssetDatabase AssetDatabase => this._assetDatabase;
-        public PElementDatabase ElementDatabase => this._elementDatabase;
         public PCameraManager CameraManager => this._cameraManager;
         public PGUIManager GUIManager => this._guiManager;
+
+        // Databases
+        public PAssetDatabase AssetDatabase => this._assetDatabase;
+        public PElementDatabase ElementDatabase => this._elementDatabase;
+        public PGUIDatabase GUIDatabase => this._guiDatabase;
+
 
         // ================================= //
 
@@ -47,6 +52,7 @@ namespace PixelDust.Game
         // Databases
         private readonly PAssetDatabase _assetDatabase;
         private readonly PElementDatabase _elementDatabase;
+        private readonly PGUIDatabase _guiDatabase;
         private readonly PItemDatabase _itemDatabase;
 
         // Core
@@ -77,8 +83,8 @@ namespace PixelDust.Game
             // Database
             this._assetDatabase = new(this.Content);
             this._elementDatabase = new();
+            this._guiDatabase = new();
             this._itemDatabase = new();
-            this._gameContentManager = new(this._assembly);
 
             // Core
             this._cameraManager = new(this._graphicsManager);
@@ -88,8 +94,9 @@ namespace PixelDust.Game
             this._inputManager = new();
             this._shaderManager = new(this._assetDatabase);
             this._gameInputManager = new(this._cameraManager, this._world, this._inputManager);
-            this._guiManager = new(this._inputManager);
+            this._guiManager = new(this._guiDatabase, this._inputManager);
             this._cursorManager = new(this._assetDatabase, this._inputManager);
+            this._gameContentManager = new(this._assembly);
         }
 
         public void UpdateGameSettings()
@@ -108,6 +115,7 @@ namespace PixelDust.Game
             this._assetDatabase.Initialize(this);
             this._elementDatabase.Initialize(this);
             this._itemDatabase.Initialize(this);
+            this._guiDatabase.Initialize(this);
             #endregion
 
             #region Managers
