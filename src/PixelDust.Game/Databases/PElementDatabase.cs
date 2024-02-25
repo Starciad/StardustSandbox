@@ -1,4 +1,6 @@
-﻿using PixelDust.Game.Attributes.Elements;
+﻿using Microsoft.Win32;
+
+using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Objects;
 
@@ -10,39 +12,14 @@ namespace PixelDust.Game.Databases
 {
     public sealed class PElementDatabase : PGameObject
     {
-        private readonly List<Type> _elementTypes = [];
-        private PElement[] _elements = [];
+        private readonly List<PElement> _registeredElements = [];
 
-        protected override void OnAwake()
+        public void RegisterElement(PElement element)
         {
-            this._elements = new PElement[this._elementTypes.Count];
+            element.Initialize(this.Game);
+            element.Id = element.GetType().GetCustomAttribute<PElementRegisterAttribute>().Id;
 
-            for (int i = 0; i < this._elements.Length; i++)
-            {
-                Type type = this._elementTypes[i];
-
-                PElementRegisterAttribute register = type.GetCustomAttribute<PElementRegisterAttribute>();
-                if (register == null)
-                {
-                    return;
-                }
-
-                PElement tempElement = (PElement)Activator.CreateInstance(type);
-                tempElement.Initialize(this.Game);
-                tempElement.Id = register.Id;
-
-                this._elements[tempElement.Id] = tempElement;
-            }
-        }
-
-        public void RegisterElement<T>() where T : PElement
-        {
-            RegisterElement(typeof(T));
-        }
-
-        public void RegisterElement(Type type)
-        {
-            this._elementTypes.Add(type);
+            this._registeredElements.Add(element);
         }
 
         public T GetElementById<T>(uint id) where T : PElement
@@ -52,7 +29,7 @@ namespace PixelDust.Game.Databases
 
         public PElement GetElementById(uint id)
         {
-            return this._elements[id];
+            return this._registeredElements[(int)id];
         }
 
         public uint GetIdOfElementType<T>() where T : PElement
@@ -72,7 +49,7 @@ namespace PixelDust.Game.Databases
 
         public PElement GetElementByType(Type type)
         {
-            return Array.Find(this._elements, x => x.GetType() == type);
+            return this._registeredElements.Find(x => x.GetType() == type);
         }
     }
 }

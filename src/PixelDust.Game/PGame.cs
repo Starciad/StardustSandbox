@@ -209,29 +209,6 @@ namespace PixelDust.Game
         }
 
         // Utilities
-        private static void RegisterAllGameElements(PElementDatabase database)
-        {
-            database.RegisterElement<PDirt>();
-            database.RegisterElement<PMud>();
-            database.RegisterElement<PWater>();
-            database.RegisterElement<PStone>();
-            database.RegisterElement<PGrass>();
-            database.RegisterElement<PIce>();
-            database.RegisterElement<PSand>();
-            database.RegisterElement<PSnow>();
-            database.RegisterElement<PMCorruption>();
-            database.RegisterElement<PLava>();
-            database.RegisterElement<PAcid>();
-            database.RegisterElement<PGlass>();
-            database.RegisterElement<PMetal>();
-            database.RegisterElement<PWall>();
-            database.RegisterElement<PWood>();
-            database.RegisterElement<PGCorruption>();
-            database.RegisterElement<PLCorruption>();
-            database.RegisterElement<PIMCorruption>();
-            database.RegisterElement<PSteam>();
-            database.RegisterElement<PSmoke>();
-        }
         private void RegisterAllGameItems(PItemDatabase database)
         {
 
