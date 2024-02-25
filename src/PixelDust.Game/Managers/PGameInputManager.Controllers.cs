@@ -103,7 +103,7 @@ namespace PixelDust.Game.Managers
 
                 if (mapActionType == PMapActionType.Put)
                 {
-                    PutElementsInWorld(elementDatabase.GetElementByType(this.itemSelected.ReferencedType));
+                    PutElementsInWorld(this.Game.ElementDatabase.GetElementByType(this.itemSelected.ReferencedType));
                 }
                 else if (mapActionType == PMapActionType.Remove)
                 {

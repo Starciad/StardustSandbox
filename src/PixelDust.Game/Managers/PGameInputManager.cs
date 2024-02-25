@@ -10,7 +10,7 @@ using System;
 
 namespace PixelDust.Game.Managers
 {
-    public sealed partial class PGameInputManager(PCameraManager cameraManager, PWorld world, PInputManager inputHandler, PElementDatabase elementDatabase) : PGameObject
+    public sealed partial class PGameInputManager(PCameraManager cameraManager, PWorld world, PInputManager inputHandler) : PGameObject
     {
         public PItem ItemSelected => this.itemSelected;
 
