@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using PixelDust.Game.Mathematics;
-
-using SharpDX.Direct3D9;
-
 using System.Text;
 
 namespace PixelDust.Game.GUI.Elements.Common
@@ -31,7 +27,7 @@ namespace PixelDust.Game.GUI.Elements.Common
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (HasBorders)
+            if (this.HasBorders)
             {
                 if (this.topLeftBorder)
                 {
@@ -67,8 +63,8 @@ namespace PixelDust.Game.GUI.Elements.Common
 
         public void SetTextContent(string value)
         {
-            this.textContentStringBuilder.Clear();
-            this.textContentStringBuilder.Append(value);
+            _ = this.textContentStringBuilder.Clear();
+            _ = this.textContentStringBuilder.Append(value);
         }
 
         public void SetFontFamily(string fontFamilyName)

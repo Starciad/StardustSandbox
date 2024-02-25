@@ -1,6 +1,4 @@
-﻿using PixelDust.Game.Elements.Common.Solid;
-
-namespace PixelDust.Game.Elements.Common.Solid.Immovable
+﻿namespace PixelDust.Game.Elements.Common.Solid.Immovable
 {
     /// <summary>
     /// Base class for defining immovable solid elements in PixelDust.

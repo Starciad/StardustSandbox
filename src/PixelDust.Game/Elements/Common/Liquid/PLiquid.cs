@@ -17,7 +17,7 @@ namespace PixelDust.Game.Elements.Common.Liquid
             Point[] sides =
             [
                 new Point(this.Context.Position.X + direction, this.Context.Position.Y),
-                new Point(this.Context.Position.X + direction * -1, this.Context.Position.Y),
+                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
             ];
 
             if (this.Context.TrySetPosition(down))

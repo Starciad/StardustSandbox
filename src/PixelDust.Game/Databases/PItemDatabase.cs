@@ -11,7 +11,7 @@ namespace PixelDust.Game.Databases
 
         public void RegisterItem(PItem item)
         {
-            items.Add(item);
+            this.items.Add(item);
         }
     }
 }

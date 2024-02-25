@@ -42,7 +42,7 @@ namespace PixelDust.Game.Elements.Common.Gases
             [
                 new Point(this.Context.Position.X, this.Context.Position.Y - 1),
                 new Point(this.Context.Position.X + direction, this.Context.Position.Y - 1),
-                new Point(this.Context.Position.X + direction * -1, this.Context.Position.Y - 1),
+                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
             ];
 
             foreach (Point targetPos in targets)
