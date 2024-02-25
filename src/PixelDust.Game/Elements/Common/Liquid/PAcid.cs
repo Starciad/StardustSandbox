@@ -2,8 +2,10 @@
 
 using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Attributes.GameContent;
+using PixelDust.Game.Attributes.Items;
 using PixelDust.Game.Elements.Common.Solid.Immovable;
 using PixelDust.Game.Elements.Rendering.Common;
+using PixelDust.Game.Items;
 using PixelDust.Game.World.Data;
 
 using System;
@@ -12,20 +14,25 @@ namespace PixelDust.Game.Elements.Common.Liquid
 {
     [PGameContent]
     [PElementRegister(10)]
+    [PItemRegister(typeof(PAcidItem))]
     public class PAcid : PLiquid
     {
+        private sealed class PAcidItem : PItem
+        {
+            protected override void OnBuild()
+            {
+                this.Name = "Acid";
+                this.Description = string.Empty;
+                this.Category = string.Empty;
+                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_11");
+            }
+        }
+
         protected override void OnSettings()
         {
-            this.Name = "Acid";
-            this.Description = string.Empty;
-            this.Category = string.Empty;
             this.Texture = this.Game.AssetDatabase.GetTexture("element_11");
-            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_11");
-
             this.Rendering.SetRenderingMechanism(new PElementBlobRenderingMechanism());
-
             this.DefaultTemperature = 10;
-
             this.EnableNeighborsAction = true;
         }
 

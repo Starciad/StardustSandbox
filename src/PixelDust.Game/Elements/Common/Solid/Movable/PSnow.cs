@@ -1,23 +1,31 @@
 ﻿using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Attributes.GameContent;
+using PixelDust.Game.Attributes.Items;
 using PixelDust.Game.Elements.Rendering.Common;
+using PixelDust.Game.Items;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
     [PGameContent]
     [PElementRegister(7)]
+    [PItemRegister(typeof(PSnowItem))]
     public sealed class PSnow : PMovableSolid
     {
+        private sealed class PSnowItem : PItem
+        {
+            protected override void OnBuild()
+            {
+                this.Name = "Snow";
+                this.Description = string.Empty;
+                this.Category = string.Empty;
+                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_8");
+            }
+        }
+
         protected override void OnSettings()
         {
-            this.Name = "Snow";
-            this.Description = string.Empty;
-            this.Category = string.Empty;
             this.Texture = this.Game.AssetDatabase.GetTexture("element_8");
-            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_8");
-
             this.Rendering.SetRenderingMechanism(new PElementBlobRenderingMechanism());
-
             this.DefaultTemperature = -5;
         }
     }

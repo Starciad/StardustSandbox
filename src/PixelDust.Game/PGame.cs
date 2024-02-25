@@ -116,6 +116,7 @@ namespace PixelDust.Game
 
             this._gameContentManager.RegisterAllGameContent();
 
+            this._itemDatabase.Build(this._assetDatabase);
             this._elementDatabase.Build();
             this._guiDatabase.Build();
             #endregion

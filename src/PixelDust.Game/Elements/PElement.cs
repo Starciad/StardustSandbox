@@ -14,12 +14,8 @@ namespace PixelDust.Game.Elements
     public abstract class PElement : PGameObject
     {
         #region Settings (Header)
-        public string Name { get; protected set; }
-        public string Description { get; protected set; }
-        public string Category { get; protected set; }
         public uint Id { get; internal set; }
         public Texture2D Texture { get; protected set; }
-        public Texture2D IconTexture { get; protected set; }
         #endregion
 
         #region Settings (Defaults)

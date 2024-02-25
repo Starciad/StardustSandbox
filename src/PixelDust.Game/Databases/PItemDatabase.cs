@@ -9,6 +9,11 @@ namespace PixelDust.Game.Databases
     {
         private readonly List<PItem> items = [];
 
+        public void Build(PAssetDatabase assetDatabase)
+        {
+            this.items.ForEach(x => x.Build(assetDatabase));
+        }
+
         public void RegisterItem(PItem item)
         {
             this.items.Add(item);

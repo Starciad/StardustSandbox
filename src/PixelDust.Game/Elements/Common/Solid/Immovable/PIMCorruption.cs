@@ -2,8 +2,10 @@
 
 using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Attributes.GameContent;
+using PixelDust.Game.Attributes.Items;
 using PixelDust.Game.Elements.Common.Utilities;
 using PixelDust.Game.Elements.Rendering.Common;
+using PixelDust.Game.Items;
 using PixelDust.Game.World.Data;
 
 using System;
@@ -12,18 +14,24 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
 {
     [PGameContent]
     [PElementRegister(17)]
+    [PItemRegister(typeof(PIMCorruptionItem))]
     public class PIMCorruption : PImmovableSolid
     {
+        private sealed class PIMCorruptionItem : PItem
+        {
+            protected override void OnBuild()
+            {
+                this.Name = "Corruption (Immovable)";
+                this.Description = string.Empty;
+                this.Category = string.Empty;
+                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_18");
+            }
+        }
+
         protected override void OnSettings()
         {
-            this.Name = "Corruption (Immovable)";
-            this.Description = string.Empty;
-            this.Category = string.Empty;
             this.Texture = this.Game.AssetDatabase.GetTexture("element_18");
-            this.IconTexture = this.Game.AssetDatabase.GetTexture("icon_element_18");
-
             this.Rendering.SetRenderingMechanism(new PElementBlobRenderingMechanism());
-
             this.EnableNeighborsAction = true;
         }
 
