@@ -28,6 +28,7 @@ namespace PixelDust.Game.Managers
         {
             this._guiDatabase = this.Game.GUIDatabase;
             this._elementDatabase = this.Game.ElementDatabase;
+            this._itemDatabase = this.Game.ItemDatabase;
 
             this._guiManager = this.Game.GUIManager;
         }

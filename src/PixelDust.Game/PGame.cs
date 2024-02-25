@@ -116,6 +116,7 @@ namespace PixelDust.Game
 
             this._gameContentManager.RegisterAllGameContent();
 
+            this._elementDatabase.Build();
             this._guiDatabase.Build();
             #endregion
 
@@ -142,8 +143,8 @@ namespace PixelDust.Game
 
         protected override void BeginRun()
         {
-            // this._guiManager.ShowGUI(PGUIConstants.HUD_NAME);
-            this._guiManager.ShowGUI(PGUIConstants.ELEMENT_EXPLORER_NAME);
+            this._guiManager.ShowGUI(PGUIConstants.HUD_NAME);
+            // this._guiManager.ShowGUI(PGUIConstants.ELEMENT_EXPLORER_NAME);
         }
 
         protected override void Update(GameTime gameTime)
@@ -215,12 +216,6 @@ namespace PixelDust.Game
             #endregion
 
             base.Draw(gameTime);
-        }
-
-        // Utilities
-        private void RegisterAllGameItems(PItemDatabase database)
-        {
-
         }
     }
 }

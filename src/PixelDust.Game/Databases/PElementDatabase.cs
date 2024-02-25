@@ -3,6 +3,7 @@ using PixelDust.Game.Elements;
 using PixelDust.Game.Objects;
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -10,7 +11,12 @@ namespace PixelDust.Game.Databases
 {
     public sealed class PElementDatabase : PGameObject
     {
-        private readonly List<PElement> _registeredElements = [];
+        private List<PElement> _registeredElements = [];
+
+        public void Build()
+        {
+            this._registeredElements = [.. this._registeredElements.OrderBy(x => x.Id)];
+        }
 
         public void RegisterElement(PElement element)
         {

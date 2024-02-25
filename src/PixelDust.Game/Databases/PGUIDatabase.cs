@@ -15,14 +15,13 @@ namespace PixelDust.Game.Databases
 
         public void Build()
         {
+            this._registeredGUIs.ForEach(x => x.Initialize(this.Game));
             this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }
 
         public void RegisterGUISystem(PGUISystem guiSystem, PGUIEvents guiEvents, PGUILayoutPool layoutPool)
         {
             guiSystem.Configure(guiEvents, layoutPool);
-            guiSystem.Initialize(this.Game);
-
             this._registeredGUIs.Add(guiSystem);
         }
 
