@@ -1,7 +1,6 @@
-﻿using PixelDust.Game.Elements.Attributes;
+﻿using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.Elements.Rendering.Common;
-using PixelDust.Game.Elements.Templates.Liquid;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {

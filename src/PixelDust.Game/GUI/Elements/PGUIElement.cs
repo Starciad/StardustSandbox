@@ -3,7 +3,7 @@
 using PixelDust.Game.Constants;
 using PixelDust.Game.Enums.General;
 using PixelDust.Game.Enums.GUI;
-using PixelDust.Game.Interfaces;
+using PixelDust.Game.Interfaces.General;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace PixelDust.Game.GUI.Elements
 {
-    public abstract class PGUIElement : PGameObject, IPoolableObject
+    public abstract class PGUIElement : PGameObject, IPPoolableObject
     {
         public bool ShouldUpdate { get; set; }
         public bool IsVisible { get; set; }

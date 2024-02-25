@@ -1,6 +1,5 @@
-﻿using PixelDust.Game.Elements.Attributes;
+﻿using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Elements.Rendering.Common;
-using PixelDust.Game.Elements.Templates.Gases;
 
 namespace PixelDust.Game.Elements.Common.Gases
 {

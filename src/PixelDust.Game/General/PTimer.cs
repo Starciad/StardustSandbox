@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PixelDust.Game.Tools
+namespace PixelDust.Game.General
 {
     internal sealed class PTimer
     {

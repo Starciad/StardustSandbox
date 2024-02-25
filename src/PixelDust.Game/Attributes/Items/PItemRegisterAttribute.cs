@@ -1,6 +1,8 @@
-﻿using System;
+﻿using PixelDust.Game.Items;
 
-namespace PixelDust.Game.Items.Attributes
+using System;
+
+namespace PixelDust.Game.Attributes.Items
 {
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class PItemRegisterAttribute : Attribute

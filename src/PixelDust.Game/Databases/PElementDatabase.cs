@@ -1,5 +1,5 @@
-﻿using PixelDust.Game.Elements;
-using PixelDust.Game.Elements.Attributes;
+﻿using PixelDust.Game.Attributes.Elements;
+using PixelDust.Game.Elements;
 using PixelDust.Game.Objects;
 
 using System;

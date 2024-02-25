@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Elements.Templates.Liquid;
-using PixelDust.Game.Elements.Templates.Solid;
-using PixelDust.Game.Tools;
+using PixelDust.Game.Elements.Common.Liquid;
+using PixelDust.Game.Elements.Common.Solid.Movable;
+using PixelDust.Game.General;
 
-namespace PixelDust.Game.Elements.Templates.Gases
+namespace PixelDust.Game.Elements.Common.Gases
 {
     public enum GasSpreadingType
     {
@@ -42,7 +42,7 @@ namespace PixelDust.Game.Elements.Templates.Gases
             [
                 new Point(this.Context.Position.X, this.Context.Position.Y - 1),
                 new Point(this.Context.Position.X + direction, this.Context.Position.Y - 1),
-                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
+                new Point(this.Context.Position.X + direction * -1, this.Context.Position.Y - 1),
             ];
 
             foreach (Point targetPos in targets)

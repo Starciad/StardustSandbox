@@ -1,10 +1,10 @@
 ﻿using PixelDust.Game.GUI.Elements.Common;
 using PixelDust.Game.GUI.Elements.Common.Graphics;
-using PixelDust.Game.GUI.Interfaces;
 using PixelDust.Game.Mathematics;
 
 using Microsoft.Xna.Framework;
 using PixelDust.Game.Constants;
+using PixelDust.Game.Interfaces.GUI;
 
 namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Game.Databases;
-using PixelDust.Game.Elements.Interfaces;
+using PixelDust.Game.Interfaces.Elements;
 using PixelDust.Game.World;
 using PixelDust.Game.World.Data;
 
@@ -17,7 +17,7 @@ namespace PixelDust.Game.Elements.Contexts
     /// <br/><br/>
     /// The information within this context is updated every frame, automatically adapting to a newly selected element through public engine processes. This eliminates the concern about the specific information being manipulated at any given moment.
     /// </remarks>
-    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldSlot slot, Point position) : IElementManager
+    public struct PElementContext(PWorld world, PElementDatabase elementDatabase, PWorldSlot slot, Point position) : IPElementManager
     {
         public readonly bool IsEmpty => this._world == null;
 

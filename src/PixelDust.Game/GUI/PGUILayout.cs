@@ -5,7 +5,7 @@ using PixelDust.Game.Constants;
 using PixelDust.Game.Enums.GUI;
 using PixelDust.Game.GUI.Elements;
 using PixelDust.Game.GUI.Elements.Common;
-using PixelDust.Game.GUI.Interfaces;
+using PixelDust.Game.Interfaces.GUI;
 using PixelDust.Game.Mathematics;
 using PixelDust.Game.Objects;
 

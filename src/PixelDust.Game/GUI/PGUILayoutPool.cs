@@ -1,6 +1,6 @@
 ﻿using PixelDust.Game.Collections;
 using PixelDust.Game.GUI.Elements;
-using PixelDust.Game.Interfaces;
+using PixelDust.Game.Interfaces.General;
 
 using System;
 
@@ -14,7 +14,7 @@ namespace PixelDust.Game.GUI
         {
             T element;
 
-            if (this.objectPool.TryGet(out IPoolableObject poolableObject))
+            if (this.objectPool.TryGet(out IPPoolableObject poolableObject))
             {
                 element = (T)poolableObject;
             }

@@ -2,7 +2,7 @@
 
 using System;
 
-namespace PixelDust.Game.Elements.Attributes
+namespace PixelDust.Game.Attributes.Elements
 {
     /// <summary>
     /// Attribute used by the <see cref="PElementDatabase"/> class as a guide for registering elements during game startup.

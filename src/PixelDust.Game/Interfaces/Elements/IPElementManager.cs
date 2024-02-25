@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
+using PixelDust.Game.Elements;
 using PixelDust.Game.World.Data;
 
 using System;
 
-namespace PixelDust.Game.Elements.Interfaces
+namespace PixelDust.Game.Interfaces.Elements
 {
-    public interface IElementManager
+    public interface IPElementManager
     {
         void InstantiateElement<T>(Point pos) where T : PElement;
         void InstantiateElement(Point pos, uint id);

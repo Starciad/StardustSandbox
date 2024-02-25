@@ -1,4 +1,4 @@
-﻿namespace PixelDust.Game.Elements.Templates.Solid
+﻿namespace PixelDust.Game.Elements.Common.Solid
 {
     /// <summary>
     /// Base class for defining solid elements in PixelDust.

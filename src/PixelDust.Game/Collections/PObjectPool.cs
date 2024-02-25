@@ -1,4 +1,4 @@
-﻿using PixelDust.Game.Interfaces;
+﻿using PixelDust.Game.Interfaces.General;
 
 using System.Collections.Generic;
 
@@ -8,15 +8,15 @@ namespace PixelDust.Game.Collections
     {
         public int Count => this._pool.Count;
 
-        private readonly Queue<IPoolableObject> _pool = [];
+        private readonly Queue<IPPoolableObject> _pool = [];
 
-        public IPoolableObject Get()
+        public IPPoolableObject Get()
         {
-            _ = TryGet(out IPoolableObject value);
+            _ = TryGet(out IPPoolableObject value);
             return value;
         }
 
-        public bool TryGet(out IPoolableObject value)
+        public bool TryGet(out IPPoolableObject value)
         {
             value = default;
 
@@ -32,7 +32,7 @@ namespace PixelDust.Game.Collections
             }
         }
 
-        public void Add(IPoolableObject value)
+        public void Add(IPPoolableObject value)
         {
             this._pool.Enqueue(value);
         }

@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using PixelDust.Game.Databases;
-using PixelDust.Game.Interfaces;
+using PixelDust.Game.General;
+using PixelDust.Game.Interfaces.General;
 using PixelDust.Game.Managers;
 using PixelDust.Game.Objects;
-using PixelDust.Game.Tools;
 using PixelDust.Game.World.Components;
 using PixelDust.Game.World.Components.Common;
 using PixelDust.Game.World.Data;
@@ -14,7 +14,7 @@ using System;
 
 namespace PixelDust.Game.World
 {
-    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase, PCameraManager camera) : PGameObject, IReset
+    public sealed partial class PWorld(PElementDatabase elementDatabase, PAssetDatabase assetDatabase, PCameraManager camera) : PGameObject, IPReset
     {
         public PWorldState States { get; private set; } = new();
         public PWorldInfo Infos { get; private set; } = new();

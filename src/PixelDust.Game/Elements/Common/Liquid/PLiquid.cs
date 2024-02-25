@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Tools;
+using PixelDust.Game.General;
 
-namespace PixelDust.Game.Elements.Templates.Liquid
+namespace PixelDust.Game.Elements.Common.Liquid
 {
     /// <summary>
     /// Base class for defining liquid elements in PixelDust.
@@ -17,7 +17,7 @@ namespace PixelDust.Game.Elements.Templates.Liquid
             Point[] sides =
             [
                 new Point(this.Context.Position.X + direction, this.Context.Position.Y),
-                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
+                new Point(this.Context.Position.X + direction * -1, this.Context.Position.Y),
             ];
 
             if (this.Context.TrySetPosition(down))

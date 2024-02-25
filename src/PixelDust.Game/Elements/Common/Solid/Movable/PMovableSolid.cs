@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using PixelDust.Game.Elements.Templates.Liquid;
-using PixelDust.Game.Tools;
+using PixelDust.Game.Elements.Common.Liquid;
+using PixelDust.Game.Elements.Common.Solid;
+using PixelDust.Game.General;
 
-namespace PixelDust.Game.Elements.Templates.Solid
+namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
     /// <summary>
     /// Base class for defining movable solid elements in PixelDust.
@@ -18,7 +19,7 @@ namespace PixelDust.Game.Elements.Templates.Solid
             Point[] sides =
             [
                 new(this.Context.Position.X + direction, this.Context.Position.Y),
-                new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
+                new(this.Context.Position.X + direction * -1, this.Context.Position.Y),
             ];
 
             if (TrySetPosition(down))
