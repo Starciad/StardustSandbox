@@ -5,18 +5,18 @@ namespace PixelDust.Game.Items.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class PItemRegisterAttribute : Attribute
     {
-        public PItemDetails Details => this.details;
+        public PItem Item => this.item;
 
-        private readonly PItemDetails details;
+        private readonly PItem item;
 
-        public PItemRegisterAttribute(Type itemDetailsType)
+        public PItemRegisterAttribute(Type itemType)
         {
-            if (!typeof(PItemDetails).IsAssignableFrom(itemDetailsType))
+            if (!typeof(PItem).IsAssignableFrom(itemType))
             {
-                throw new ArgumentException($"The type {itemDetailsType} does not inherit from {nameof(PItemDetails)}.");
+                throw new ArgumentException($"The type {itemType} does not inherit from {nameof(PItem)}.");
             }
 
-            this.details = (PItemDetails)Activator.CreateInstance(itemDetailsType);
+            this.item = (PItem)Activator.CreateInstance(itemType);
         }
     }
 }

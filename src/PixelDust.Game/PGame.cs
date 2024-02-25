@@ -32,6 +32,7 @@ namespace PixelDust.Game
         // ================================= //
 
         private readonly Assembly _assembly;
+        private readonly Type[] _types;
         private SpriteBatch _sb;
 
         // Managers
@@ -45,6 +46,7 @@ namespace PixelDust.Game
         // Databases
         private readonly PAssetDatabase _assetDatabase;
         private readonly PElementDatabase _elementDatabase;
+        private readonly PItemDatabase _itemDatabase;
 
         // Core
         private readonly PCameraManager _cameraManager;
@@ -58,6 +60,7 @@ namespace PixelDust.Game
 
             // Assembly
             this._assembly = GetType().Assembly;
+            this._types = this._assembly.GetTypes();
 
             // Initialize Content
             this.Content.RootDirectory = PDirectoryConstants.ASSETS;
@@ -73,6 +76,7 @@ namespace PixelDust.Game
             // Database
             this._assetDatabase = new(this.Content);
             this._elementDatabase = new();
+            this._itemDatabase = new();
 
             // Core
             this._cameraManager = new(this._graphicsManager);
@@ -98,10 +102,12 @@ namespace PixelDust.Game
         {
             RegisterAllGameElements(this._elementDatabase);
             RegisterAllGameGUIs(this._guiManager);
+            RegisterAllGameItems(this._itemDatabase);
 
             #region Databases
             this._assetDatabase.Initialize(this);
             this._elementDatabase.Initialize(this);
+            this._itemDatabase.Initialize(this);
             #endregion
 
             #region Managers
@@ -203,6 +209,10 @@ namespace PixelDust.Game
         }
 
         // Utilities
+        private void RegisterGameContent()
+        {
+
+        }
         private static void RegisterAllGameGUIs(PGUIManager guiManager)
         {
             guiManager.RegisterGUISystem<PGUI_HUD>();
@@ -230,6 +240,10 @@ namespace PixelDust.Game
             database.RegisterElement<PIMCorruption>();
             database.RegisterElement<PSteam>();
             database.RegisterElement<PSmoke>();
+        }
+        private void RegisterAllGameItems(PItemDatabase database)
+        {
+
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace PixelDust.Game.Items
 {
-    public abstract class PItemDetails
+    public abstract class PItem
     {
         public string Name { get; protected set; }
         public string Description { get; protected set; }
