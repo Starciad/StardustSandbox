@@ -13,35 +13,20 @@ namespace PixelDust.Game.Managers
 {
     public sealed class PGUIManager(PInputManager inputManager) : PGameObject
     {
-        private readonly List<Type> _guiTypes = [];
-        private PGUISystem[] _guiSystems = [];
-
         private readonly PGUIEvents _guiEvents = new(inputManager);
         private readonly PGUILayoutPool _layoutPool = new();
 
+        private List<PGUISystem> _registeredGUIs = [];
+
         protected override void OnAwake()
         {
-            this._guiSystems = new PGUISystem[this._guiTypes.Count];
-
-            for (int i = 0; i < this._guiSystems.Length; i++)
-            {
-                Type type = this._guiTypes[i];
-
-                PGUISystem tempGUISystem = (PGUISystem)Activator.CreateInstance(type, this._guiEvents, this._layoutPool);
-                tempGUISystem.Initialize(this.Game);
-
-                this._guiSystems[i] = tempGUISystem;
-            }
-
-            this._guiSystems = [.. this._guiSystems.OrderBy(x => x.ZIndex)];
+            this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            for (int i = 0; i < this._guiSystems.Length; i++)
+            foreach (PGUISystem guiSystem in this._registeredGUIs)
             {
-                PGUISystem guiSystem = this._guiSystems[i];
-
                 if (guiSystem.IsActive)
                 {
                     guiSystem.Update(gameTime);
@@ -51,10 +36,8 @@ namespace PixelDust.Game.Managers
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this._guiSystems.Length; i++)
+            foreach (PGUISystem guiSystem in this._registeredGUIs)
             {
-                PGUISystem guiSystem = this._guiSystems[i];
-
                 if (guiSystem.IsActive || guiSystem.IsShowing)
                 {
                     guiSystem.Draw(gameTime, spriteBatch);
@@ -62,14 +45,12 @@ namespace PixelDust.Game.Managers
             }
         }
 
-        public void RegisterGUISystem<T>() where T : PGUISystem
+        public void RegisterGUISystem(PGUISystem guiSystem)
         {
-            RegisterGUISystem(typeof(T));
-        }
+            guiSystem.Configure(this._guiEvents, this._layoutPool);
+            guiSystem.Initialize(this.Game);
 
-        public void RegisterGUISystem(Type type)
-        {
-            this._guiTypes.Add(type);
+            this._registeredGUIs.Add(guiSystem);
         }
 
         public void ShowGUI(string id)
@@ -96,7 +77,7 @@ namespace PixelDust.Game.Managers
 
         public bool TryGetGUIByName(string name, out PGUISystem guiSystem)
         {
-            PGUISystem target = Array.Find(this._guiSystems, x => x.Name == name);
+            PGUISystem target = this._registeredGUIs.Find(x => x.Name == name);
             guiSystem = target;
 
             return target != null;

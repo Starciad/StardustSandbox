@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
+using PixelDust.Game.Attributes.GameContent;
+using PixelDust.Game.Attributes.GUI;
 using PixelDust.Game.Constants.GUI;
-using PixelDust.Game.GUI.Events;
 
 namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 {
-    public sealed partial class PGUI_ItemExplorer(PGUIEvents events, PGUILayoutPool layoutPool) : PGUISystem(events, layoutPool)
+    [PGameContent]
+    [PGUIRegister]
+    public sealed partial class PGUI_ItemExplorer : PGUISystem
     {
         private Texture2D particleTexture;
         private Texture2D guiBackgroundTexture;

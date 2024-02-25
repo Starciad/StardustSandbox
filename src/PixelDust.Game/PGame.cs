@@ -22,12 +22,12 @@ namespace PixelDust.Game
 {
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
-        public Assembly Assembly => this._assembly;
         public PInputManager InputManager => this._inputManager;
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PAssetDatabase AssetDatabase => this._assetDatabase;
         public PElementDatabase ElementDatabase => this._elementDatabase;
         public PCameraManager CameraManager => this._cameraManager;
+        public PGUIManager GUIManager => this._guiManager;
 
         // ================================= //
 
@@ -42,6 +42,7 @@ namespace PixelDust.Game
         private readonly PInputManager _inputManager;
         private readonly PGUIManager _guiManager;
         private readonly PCursorManager _cursorManager;
+        private readonly PGameContentManager _gameContentManager;
 
         // Databases
         private readonly PAssetDatabase _assetDatabase;
@@ -59,7 +60,7 @@ namespace PixelDust.Game
             this._graphicsManager = new(new(this));
 
             // Assembly
-            this._assembly = GetType().Assembly;
+            this._assembly = Assembly.GetExecutingAssembly();
             this._types = this._assembly.GetTypes();
 
             // Initialize Content
@@ -77,6 +78,7 @@ namespace PixelDust.Game
             this._assetDatabase = new(this.Content);
             this._elementDatabase = new();
             this._itemDatabase = new();
+            this._gameContentManager = new(this._assembly);
 
             // Core
             this._cameraManager = new(this._graphicsManager);
@@ -100,9 +102,7 @@ namespace PixelDust.Game
 
         protected override void Initialize()
         {
-            RegisterAllGameElements(this._elementDatabase);
-            RegisterAllGameGUIs(this._guiManager);
-            RegisterAllGameItems(this._itemDatabase);
+            this._gameContentManager.RegisterAllGameContent();
 
             #region Databases
             this._assetDatabase.Initialize(this);
@@ -209,15 +209,6 @@ namespace PixelDust.Game
         }
 
         // Utilities
-        private void RegisterGameContent()
-        {
-
-        }
-        private static void RegisterAllGameGUIs(PGUIManager guiManager)
-        {
-            guiManager.RegisterGUISystem<PGUI_HUD>();
-            guiManager.RegisterGUISystem<PGUI_ItemExplorer>();
-        }
         private static void RegisterAllGameElements(PElementDatabase database)
         {
             database.RegisterElement<PDirt>();

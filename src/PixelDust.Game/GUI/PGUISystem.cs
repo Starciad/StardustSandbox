@@ -7,19 +7,25 @@ using PixelDust.Game.Objects;
 
 namespace PixelDust.Game.GUI
 {
-    public abstract class PGUISystem(PGUIEvents events, PGUILayoutPool layoutPool) : PGameObject
+    public abstract class PGUISystem : PGameObject
     {
         public string Name { get; protected set; }
         public int ZIndex { get; protected set; }
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
-        public bool HasEvents => this.Events != null;
-        protected PGUIEvents Events => events;
+        public bool HasEvents => this.GUIEvents != null;
+        protected PGUIEvents GUIEvents { get; private set; }
 
-        private readonly PGUILayout layout = new(layoutPool);
+        private PGUILayout layout;
 
         private bool isActive;
         private bool isShowing;
+
+        internal void Configure(PGUIEvents guiEvents, PGUILayoutPool layoutPool)
+        {
+            this.GUIEvents = guiEvents;
+            this.layout = new(layoutPool);
+        }
 
         protected override void OnAwake()
         {
