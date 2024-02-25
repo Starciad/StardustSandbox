@@ -29,7 +29,6 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             this._rootElement = layout.RootElement;
 
             BuildGUIBackground();
-            BuildCategoryButtons();
             BuildExplorer();
 
             SelectItemCatalog(0, 0);
@@ -45,11 +44,6 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
         }
 
         // ================================== //
-
-        private void BuildCategoryButtons()
-        {
-
-        }
 
         private void BuildExplorer()
         {
@@ -82,7 +76,11 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             itemGridBackground.SetColor(new Color(94, 101, 110, 255));
             itemGridBackground.PositionRelativeToElement(explorerBackground);
 
-            BuildItemsGrid(itemGridBackground);
+            BuildItemCatalog(itemGridBackground);
+            #endregion
+
+            #region CATEGORY BUTTONS
+            BuildCategoryButtons(itemGridBackground);
             #endregion
 
             #region Pagination
@@ -90,10 +88,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             #endregion
         }
 
-        // ================================== //
-        // Updates
-
-        private void BuildItemsGrid(PGUIElement parent)
+        private void BuildItemCatalog(PGUIElement parent)
         {
             int slotSize = PHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
             int slotScale = PHUDConstants.SLOT_SCALE;
@@ -136,8 +131,14 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
                 slotMargin.Y += slotSpacing + (slotSize / 2);
             }
         }
+        private void BuildCategoryButtons(PGUIElement parent)
+        {
 
-        private void UpdateItemsGrid()
+        }
+
+        // ================================== //
+        // Updates
+        private void UpdateItemCatalog()
         {
             for (int i = 0; i < this.itemSlots.Length; i++)
             {

@@ -15,6 +15,7 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
         private Texture2D guiBackgroundTexture;
         private Texture2D squareShapeTexture;
 
+        private string[] categories;
         private string selectedCategoryName;
         private int selectedPageIndex;
         private PItem[] selectedItems;
@@ -28,6 +29,8 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
             this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = this.Game.AssetDatabase.GetTexture("gui_background_1");
             this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
+
+            this.categories = this.Game.ItemDatabase.Categories;
         }
 
         protected override void OnLoad()

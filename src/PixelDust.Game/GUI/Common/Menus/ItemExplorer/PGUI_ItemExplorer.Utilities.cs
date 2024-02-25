@@ -26,13 +26,9 @@ namespace PixelDust.Game.GUI.Common.Menus.ItemExplorer
 
             endIndex = Math.Min(endIndex, this.Game.ItemDatabase.Items.Length);
 
-            // === [ TEMP ] === //
+            this.selectedItems = [.. this.Game.ItemDatabase.GetCatalogItems(categoryName).Take(new Range(startIndex, endIndex - startIndex))];
 
-            this.selectedItems = [.. this.Game.ItemDatabase.Items.Take(new Range(startIndex, endIndex - startIndex))];
-
-            // ================ //
-
-            UpdateItemsGrid();
+            UpdateItemCatalog();
         }
     }
 }
