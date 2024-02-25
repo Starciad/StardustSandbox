@@ -22,32 +22,22 @@ namespace PixelDust.Game
 {
     public sealed class PGame : Microsoft.Xna.Framework.Game
     {
+        // Databases
+        public PAssetDatabase AssetDatabase => this._assetDatabase;
+        public PElementDatabase ElementDatabase => this._elementDatabase;
+        public PGUIDatabase GUIDatabase => this._guiDatabase;
+        public PItemDatabase ItemDatabase => this._itemDatabase;
+
         // Managers
         public PInputManager InputManager => this._inputManager;
         public PGameInputManager GameInputManager => this._gameInputManager;
         public PCameraManager CameraManager => this._cameraManager;
         public PGUIManager GUIManager => this._guiManager;
 
-        // Databases
-        public PAssetDatabase AssetDatabase => this._assetDatabase;
-        public PElementDatabase ElementDatabase => this._elementDatabase;
-        public PGUIDatabase GUIDatabase => this._guiDatabase;
-
-
         // ================================= //
 
         private readonly Assembly _assembly;
-        private readonly Type[] _types;
         private SpriteBatch _sb;
-
-        // Managers
-        private readonly PGraphicsManager _graphicsManager;
-        private readonly PGameInputManager _gameInputManager;
-        private readonly PShaderManager _shaderManager;
-        private readonly PInputManager _inputManager;
-        private readonly PGUIManager _guiManager;
-        private readonly PCursorManager _cursorManager;
-        private readonly PGameContentManager _gameContentManager;
 
         // Databases
         private readonly PAssetDatabase _assetDatabase;
@@ -59,6 +49,15 @@ namespace PixelDust.Game
         private readonly PCameraManager _cameraManager;
         private readonly PWorld _world;
 
+        // Managers
+        private readonly PGraphicsManager _graphicsManager;
+        private readonly PGameInputManager _gameInputManager;
+        private readonly PShaderManager _shaderManager;
+        private readonly PInputManager _inputManager;
+        private readonly PGUIManager _guiManager;
+        private readonly PCursorManager _cursorManager;
+        private readonly PGameContentManager _gameContentManager;
+
         // ================================= //
 
         public PGame()
@@ -67,7 +66,6 @@ namespace PixelDust.Game
 
             // Assembly
             this._assembly = Assembly.GetExecutingAssembly();
-            this._types = this._assembly.GetTypes();
 
             // Initialize Content
             this.Content.RootDirectory = PDirectoryConstants.ASSETS;

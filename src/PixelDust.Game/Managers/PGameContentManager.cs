@@ -1,6 +1,7 @@
 ﻿using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Attributes.GUI;
+using PixelDust.Game.Attributes.Items;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.GUI;
@@ -61,7 +62,10 @@ namespace PixelDust.Game.Managers
 
         private void RegisterItem(Type type)
         {
-
+            if (type.GetCustomAttribute<PItemRegisterAttribute>() == null)
+            {
+                return;
+            }
         }
     }
 }
