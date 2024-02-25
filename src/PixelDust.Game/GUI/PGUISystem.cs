@@ -50,6 +50,8 @@ namespace PixelDust.Game.GUI
 
             this.isActive = true;
             this.isShowing = true;
+
+            OnLoad();
         }
 
         public void Close()
@@ -58,8 +60,12 @@ namespace PixelDust.Game.GUI
             this.isShowing = false;
 
             this.layout.Unload();
+
+            OnUnload();
         }
 
         protected abstract void OnBuild(IPGUILayoutBuilder layout);
+        protected virtual void OnLoad() { return; }
+        protected virtual void OnUnload() { return; }
     }
 }
