@@ -107,13 +107,16 @@ namespace PixelDust.Game
 
         protected override void Initialize()
         {
-            this._gameContentManager.RegisterAllGameContent();
-
             #region Databases
             this._assetDatabase.Initialize(this);
             this._elementDatabase.Initialize(this);
             this._itemDatabase.Initialize(this);
             this._guiDatabase.Initialize(this);
+            this._gameContentManager.Initialize(this);
+
+            this._gameContentManager.RegisterAllGameContent();
+
+            this._guiDatabase.Build();
             #endregion
 
             #region Managers

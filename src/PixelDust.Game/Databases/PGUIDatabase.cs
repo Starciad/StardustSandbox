@@ -13,7 +13,7 @@ namespace PixelDust.Game.Databases
 
         private List<PGUISystem> _registeredGUIs = [];
 
-        protected override void OnAwake()
+        public void Build()
         {
             this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }

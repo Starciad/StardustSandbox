@@ -5,6 +5,7 @@ using PixelDust.Game.Attributes.Items;
 using PixelDust.Game.Databases;
 using PixelDust.Game.Elements;
 using PixelDust.Game.GUI;
+using PixelDust.Game.Items;
 using PixelDust.Game.Objects;
 
 using System;
@@ -18,6 +19,7 @@ namespace PixelDust.Game.Managers
         // Databases
         private PGUIDatabase _guiDatabase;
         private PElementDatabase _elementDatabase;
+        private PItemDatabase _itemDatabase;
 
         // Managers
         private PGUIManager _guiManager;
@@ -66,6 +68,8 @@ namespace PixelDust.Game.Managers
             {
                 return;
             }
+
+            this._itemDatabase.RegisterItem((PItem)Activator.CreateInstance(type));
         }
     }
 }
