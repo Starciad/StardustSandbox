@@ -15,10 +15,14 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_MUD";
                 this.Name = "Mud";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_2");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PMud);
             }
         }
 

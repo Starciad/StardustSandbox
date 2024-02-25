@@ -15,10 +15,14 @@ namespace PixelDust.Game.Elements.Common.Solid.Immovable
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_WOOD";
                 this.Name = "Wood";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_15");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PWood);
             }
         }
 

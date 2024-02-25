@@ -16,10 +16,14 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_LAVA";
                 this.Name = "Lava";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_10");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PLava);
             }
         }
 

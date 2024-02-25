@@ -23,10 +23,14 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_WATER";
                 this.Name = "Water";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_3");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PWater);
             }
         }
 

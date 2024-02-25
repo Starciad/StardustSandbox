@@ -21,10 +21,14 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_ACID";
                 this.Name = "Acid";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_11");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PAcid);
             }
         }
 

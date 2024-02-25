@@ -1,8 +1,14 @@
-﻿using PixelDust.Game.Attributes.Elements;
+﻿using Microsoft.Xna.Framework;
+
+using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Attributes.Items;
+using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Items;
+using PixelDust.Game.World.Data;
+
+using System;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
@@ -15,13 +21,13 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
         {
             protected override void OnBuild()
             {
-                this.Identifier = "DIRT";
+                this.Identifier = "ELEMENT_DIRT";
                 this.Name = "Dirt";
                 this.Description = string.Empty;
-                this.Category = string.Empty;
+                this.Category = "Powders";
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_1");
-                this.IsHidden = false;
-                this.LevelRequired = 0;
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
                 this.ReferencedType = typeof(PDirt);
             }
         }
@@ -31,6 +37,7 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
             this.Texture = this.Game.AssetDatabase.GetTexture("element_1");
             this.Rendering.SetRenderingMechanism(new PElementBlobRenderingMechanism());
             this.DefaultTemperature = 20;
+            this.EnableNeighborsAction = true;
         }
     }
 }

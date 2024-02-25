@@ -15,10 +15,14 @@ namespace PixelDust.Game.Elements.Common.Gases
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_STEAM";
                 this.Name = "Steam";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_19");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PSteam);
             }
         }
 

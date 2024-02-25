@@ -21,10 +21,14 @@ namespace PixelDust.Game.Elements.Common.Liquid
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_CORRUPTION_LIQUID";
                 this.Name = "Corruption (Liquid)";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_17");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PLCorruption);
             }
         }
 

@@ -15,10 +15,14 @@ namespace PixelDust.Game.Elements.Common.Solid.Movable
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_SNOW";
                 this.Name = "Snow";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_8");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PSnow);
             }
         }
 

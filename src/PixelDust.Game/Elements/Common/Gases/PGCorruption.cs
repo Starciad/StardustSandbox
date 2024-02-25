@@ -3,6 +3,7 @@
 using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Attributes.Items;
+using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Common.Utilities;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.Items;
@@ -21,10 +22,14 @@ namespace PixelDust.Game.Elements.Common.Gases
         {
             protected override void OnBuild()
             {
+                this.Identifier = "ELEMENT_CORRUPTION_GAS";
                 this.Name = "Corruption (Gas)";
                 this.Description = string.Empty;
                 this.Category = string.Empty;
                 this.IconTexture = this.AssetDatabase.GetTexture("icon_element_16");
+                this.IsVisible = true;
+                this.UnlockProgress = 0;
+                this.ReferencedType = typeof(PGCorruption);
             }
         }
 
