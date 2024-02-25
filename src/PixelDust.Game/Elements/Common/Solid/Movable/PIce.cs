@@ -1,8 +1,10 @@
 ﻿using PixelDust.Game.Attributes.Elements;
+using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Elements.Rendering.Common;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
+    [PGameContent]
     [PElementRegister(5)]
     public sealed class PIce : PMovableSolid
     {

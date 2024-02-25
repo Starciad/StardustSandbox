@@ -12,9 +12,6 @@ namespace PixelDust.Game.Elements.Common.Gases
         Spread
     }
 
-    /// <summary>
-    /// Base class for defining gases elements in PixelDust.
-    /// </summary>
     public abstract class PGas : PElement
     {
         public GasSpreadingType SpreadingType { get; protected set; }

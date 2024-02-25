@@ -5,9 +5,6 @@ using PixelDust.Game.General;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
-    /// <summary>
-    /// Base class for defining movable solid elements in PixelDust.
-    /// </summary>
     public abstract class PMovableSolid : PSolid
     {
         public override void OnBehaviourStep()

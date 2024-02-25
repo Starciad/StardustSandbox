@@ -4,9 +4,6 @@ using PixelDust.Game.General;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
-    /// <summary>
-    /// Base class for defining liquid elements in PixelDust.
-    /// </summary>
     public abstract class PLiquid : PElement
     {
         public override void OnBehaviourStep()

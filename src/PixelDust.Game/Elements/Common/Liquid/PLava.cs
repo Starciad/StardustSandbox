@@ -1,9 +1,11 @@
 ﻿using PixelDust.Game.Attributes.Elements;
+using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.Elements.Rendering.Common;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
+    [PGameContent]
     [PElementRegister(9)]
     public class PLava : PLiquid
     {

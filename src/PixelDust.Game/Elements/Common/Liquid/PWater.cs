@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Game.Attributes.Elements;
+using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Elements.Common.Gases;
 using PixelDust.Game.Elements.Common.Solid.Movable;
 using PixelDust.Game.Elements.Rendering.Common;
@@ -11,6 +12,7 @@ using System;
 
 namespace PixelDust.Game.Elements.Common.Liquid
 {
+    [PGameContent]
     [PElementRegister(2)]
     public class PWater : PLiquid
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using PixelDust.Game.Attributes.Elements;
+using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Elements.Common.Utilities;
 using PixelDust.Game.Elements.Rendering.Common;
 using PixelDust.Game.World.Data;
@@ -9,6 +10,7 @@ using System;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
+    [PGameContent]
     [PElementRegister(8)]
     public sealed class PMCorruption : PMovableSolid
     {

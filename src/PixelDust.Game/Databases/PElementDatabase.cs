@@ -1,6 +1,4 @@
-﻿using Microsoft.Win32;
-
-using PixelDust.Game.Attributes.Elements;
+﻿using PixelDust.Game.Attributes.Elements;
 using PixelDust.Game.Elements;
 using PixelDust.Game.Objects;
 

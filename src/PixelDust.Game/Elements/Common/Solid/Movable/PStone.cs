@@ -1,9 +1,11 @@
 ﻿using PixelDust.Game.Attributes.Elements;
+using PixelDust.Game.Attributes.GameContent;
 using PixelDust.Game.Elements.Common.Liquid;
 using PixelDust.Game.Elements.Rendering.Common;
 
 namespace PixelDust.Game.Elements.Common.Solid.Movable
 {
+    [PGameContent]
     [PElementRegister(3)]
     public sealed class PStone : PMovableSolid
     {
