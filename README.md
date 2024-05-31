@@ -1,20 +1,21 @@
-# ⏳ ➥ Pixel Dust
+# ⏳ ➥ Stardust Sandbox
 
 ![GAME LOGO][game_logo]
 
 ## Introduction
 
-**Pixel Dust** is a Sandbox game inspired by the classic "Falling-Sand," providing an immersive experience where the only limitation is your imagination!
+**Stardust Sandbox** is a Sandbox game inspired by the classic "Falling-Sand," providing an immersive experience where the only limitation is your imagination!
 
 ## Description
 
-Written in C# (CSharp) using the MonoGame framework, Pixel Dust is a simulation game filled with content to be explored by the player. Enjoy the freedom to create and experiment on a large semi-open map of customizable size. Allocate elements, build contraptions, and develop ingenious concepts, all while testing your ideas!
+Written in C# (CSharp) using the MonoGame framework, Stardust Sandbox is a simulation game filled with content to be explored by the player. Enjoy the freedom to create and experiment on a large semi-open map of customizable size. Allocate elements, build contraptions, and develop ingenious concepts, all while testing your ideas!
 
 You are encouraged to create and share your creations in a constantly evolving game, providing more and more content to satisfy your creativity. Explore the endless possibilities of the game by configuring the environment according to your preferences, with no limitations hindering your creations!
 
 ## Download
 
-The game has not been officially released yet, preventing a complete experience. Even when trying to build it from the source code, the assets are not available to provide a full experience.
+> [!IMPORTANT]  
+> The game has not been officially released yet, preventing a complete experience. Even when trying to build it from the source code, the assets are not available to provide a full experience.
 
 ## Requirements
 

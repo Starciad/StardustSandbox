@@ -1,6 +1,6 @@
 # Security Policy
 
-Pixel Dust is a collaborative public project that grows and evolves slowly; developers and supporters strive to ensure security and efficiency in using this package, and this is not possible without constant regulation of the project. Sometimes, small things can become significant, and in these cases, it's always good to report to us!
+Stardust Sandbox is a collaborative public project that grows and evolves slowly; developers and supporters strive to ensure security and efficiency in using this package, and this is not possible without constant regulation of the project. Sometimes, small things can become significant, and in these cases, it's always good to report to us!
 
 ## `1.` I Found a Bug
 
