@@ -1,6 +1,6 @@
 # Code of Conduct
 
-Welcome to the Pixel Dust Code of Conduct. This document contains important information on how you (along with the community) should conduct yourself during the development and interaction with the game.
+Welcome to the Stardust Sandbox Code of Conduct. This document contains important information on how you (along with the community) should conduct yourself during the development and interaction with the game.
 
 ## `1.` Our Commitment
 
