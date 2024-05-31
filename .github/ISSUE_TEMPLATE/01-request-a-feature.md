@@ -18,7 +18,7 @@ assignees: ''
 
 ## Description
 
-> Please provide a clear and concise description of the new feature you would like to see implemented in the Pixel Dust game. Be sure to explain why this feature would be beneficial for the game or player experience.
+> Please provide a clear and concise description of the new feature you would like to see implemented in the Stardust Sandbox game. Be sure to explain why this feature would be beneficial for the game or player experience.
 
 ## Justification
 
