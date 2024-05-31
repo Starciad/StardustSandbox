@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: StardustSandbox.DesktopGL.Game (Debug)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/SS.Game/StardustSandbox.DesktopGL.Game.csproj"
+        },
+        {
+            "name": "C#: StardustSandbox.WindowsDX.Game (Debug)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/SS.Game/StardustSandbox.WindowsDX.Game.csproj"
+        }
+
+    ]
+}
