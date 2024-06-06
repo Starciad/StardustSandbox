@@ -42,7 +42,7 @@ namespace StardustSandbox.Game
 #else
         private static void EXECUTE_PUBLISHED_VERSION()
         {
-            using PGame game = new();
+            using SGame game = new();
             game.Exiting += OnGameExiting;
 
             try
@@ -63,17 +63,17 @@ namespace StardustSandbox.Game
         private static void HandleException(Exception value)
         {
 #if WINDOWS_DX
-            string logFilename = PFile.WriteException(value);
+            string logFilename = SFile.WriteException(value);
             StringBuilder logString = new();
-            logString.AppendLine(string.Concat("An unexpected error caused ", PGameConstants.TITLE, " to crash!"));
+            logString.AppendLine(string.Concat("An unexpected error caused ", SGameConstants.TITLE, " to crash!"));
             logString.AppendLine($"Exception: {value.Message}");
 
             MessageBox.Show(logString.ToString(),
-                            $"{PGameConstants.GetTitleAndVersionString()} - Fatal Error",
+                            $"{SGameConstants.GetTitleAndVersionString()} - Fatal Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
 #else
-            _ = PFile.WriteException(value);
+            _ = SFile.WriteException(value);
 #endif
         }
 #endif
