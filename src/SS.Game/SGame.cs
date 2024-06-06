@@ -138,8 +138,8 @@ namespace StardustSandbox.Game
 
         protected override void BeginRun()
         {
-            // this._guiManager.ShowGUI(PGUIConstants.HUD_NAME);
-            this._guiManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
+            this._guiManager.ShowGUI(SGUIConstants.HUD_NAME);
+            //this._guiManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
         }
 
         protected override void Update(GameTime gameTime)
