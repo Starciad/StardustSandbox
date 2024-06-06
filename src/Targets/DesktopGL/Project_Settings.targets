@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<!-- GENERAL -->
 	<PropertyGroup>
-		<RootNamespace>PixelDust</RootNamespace>
+		<RootNamespace>StardustSandbox</RootNamespace>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>

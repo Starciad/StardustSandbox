@@ -1,0 +1,258 @@
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Game.Elements;
+using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.World.Data;
+
+using System;
+
+namespace StardustSandbox.Game.World
+{
+    public sealed partial class SWorld : ISElementManager
+    {
+        public void InstantiateElement<T>(Point pos) where T : SElement
+        {
+            InstantiateElement(pos, elementDatabase.GetIdOfElementType<T>());
+        }
+        public void InstantiateElement(Point pos, uint id)
+        {
+            InstantiateElement(pos, elementDatabase.GetElementById(id));
+        }
+        public void InstantiateElement(Point pos, SElement value)
+        {
+            _ = TryInstantiateElement(pos, value);
+        }
+        public bool TryInstantiateElement<T>(Point pos) where T : SElement
+        {
+            return TryInstantiateElement(pos, elementDatabase.GetIdOfElementType<T>());
+        }
+        public bool TryInstantiateElement(Point pos, uint id)
+        {
+            return TryInstantiateElement(pos, elementDatabase.GetElementById(id));
+        }
+        public bool TryInstantiateElement(Point pos, SElement value)
+        {
+            if (!InsideTheWorldDimensions(pos) || !IsEmptyElementSlot(pos))
+            {
+                return false;
+            }
+
+            NotifyChunk(pos);
+
+            this.slots[pos.X, pos.Y].Instantiate(value);
+            return true;
+        }
+
+        public void UpdateElementPosition(Point oldPos, Point newPos)
+        {
+            _ = TryUpdateElementPosition(oldPos, newPos);
+        }
+        public bool TryUpdateElementPosition(Point oldPos, Point newPos)
+        {
+            if (!InsideTheWorldDimensions(oldPos) ||
+                !InsideTheWorldDimensions(newPos) ||
+                IsEmptyElementSlot(oldPos) ||
+                !IsEmptyElementSlot(newPos))
+            {
+                return false;
+            }
+
+            NotifyChunk(oldPos);
+            NotifyChunk(newPos);
+
+            this.slots[newPos.X, newPos.Y] = (SWorldSlot)this.slots[oldPos.X, oldPos.Y].Clone();
+            this.slots[oldPos.X, oldPos.Y].Destroy();
+            return true;
+        }
+
+        public void SwappingElements(Point element1, Point element2)
+        {
+            _ = TrySwappingElements(element1, element2);
+        }
+        public bool TrySwappingElements(Point element1, Point element2)
+        {
+            if (!InsideTheWorldDimensions(element1) ||
+                !InsideTheWorldDimensions(element2) ||
+                IsEmptyElementSlot(element1) ||
+                IsEmptyElementSlot(element2))
+            {
+                return false;
+            }
+
+            NotifyChunk(element1);
+            NotifyChunk(element2);
+
+            SWorldSlot oldValue = (SWorldSlot)this.slots[element1.X, element1.Y].Clone();
+            SWorldSlot newValue = (SWorldSlot)this.slots[element2.X, element2.Y].Clone();
+
+            this.slots[element1.X, element1.Y] = newValue;
+            this.slots[element2.X, element2.Y] = oldValue;
+
+            return true;
+        }
+
+        public void DestroyElement(Point pos)
+        {
+            _ = TryDestroyElement(pos);
+        }
+        public bool TryDestroyElement(Point pos)
+        {
+            if (!InsideTheWorldDimensions(pos) ||
+                IsEmptyElementSlot(pos))
+            {
+                return false;
+            }
+
+            NotifyChunk(pos);
+            this.slots[pos.X, pos.Y].Destroy();
+
+            return true;
+        }
+
+        public void ReplaceElement<T>(Point pos) where T : SElement
+        {
+            _ = TryReplaceElement<T>(pos);
+        }
+        public void ReplaceElement(Point pos, uint id)
+        {
+            _ = TryReplaceElement(pos, id);
+        }
+        public void ReplaceElement(Point pos, SElement value)
+        {
+            _ = TryReplaceElement(pos, value);
+        }
+        public bool TryReplaceElement<T>(Point pos) where T : SElement
+        {
+            return TryDestroyElement(pos) && TryInstantiateElement<T>(pos);
+        }
+        public bool TryReplaceElement(Point pos, uint id)
+        {
+            return TryDestroyElement(pos) && TryInstantiateElement(pos, id);
+        }
+        public bool TryReplaceElement(Point pos, SElement value)
+        {
+            return TryDestroyElement(pos) && TryInstantiateElement(pos, value);
+        }
+
+        public SElement GetElement(Point pos)
+        {
+            _ = TryGetElement(pos, out SElement value);
+            return value;
+        }
+        public bool TryGetElement(Point pos, out SElement value)
+        {
+            if (!InsideTheWorldDimensions(pos) ||
+                IsEmptyElementSlot(pos))
+            {
+                value = null;
+                return false;
+            }
+
+            value = elementDatabase.GetElementById(this.slots[pos.X, pos.Y].Id);
+            return true;
+        }
+
+        public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos)
+        {
+            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors);
+            return neighbors;
+        }
+        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        {
+            neighbors = default;
+
+            if (!InsideTheWorldDimensions(pos))
+            {
+                return false;
+            }
+
+            Point[] neighborsPositions = GetElementNeighborPositions(pos);
+
+            (Point, SWorldSlot)[] slotsFound = new (Point, SWorldSlot)[neighborsPositions.Length];
+            int count = 0;
+
+            for (int i = 0; i < neighborsPositions.Length; i++)
+            {
+                Point position = neighborsPositions[i];
+                if (TryGetElementSlot(position, out SWorldSlot value))
+                {
+                    slotsFound[count] = (position, value);
+                    count++;
+                }
+            }
+
+            if (count > 0)
+            {
+                neighbors = new ReadOnlySpan<(Point, SWorldSlot)>(slotsFound, 0, count);
+                return true;
+            }
+
+            return false;
+        }
+
+        public SWorldSlot GetElementSlot(Point pos)
+        {
+            _ = TryGetElementSlot(pos, out SWorldSlot value);
+            return value;
+        }
+        public bool TryGetElementSlot(Point pos, out SWorldSlot value)
+        {
+            value = default;
+            if (!InsideTheWorldDimensions(pos))
+            {
+                return false;
+            }
+
+            value = this.slots[pos.X, pos.Y];
+            return !value.IsEmpty;
+        }
+
+        public void SetElementTemperature(Point pos, short value)
+        {
+            _ = TrySetElementTemperature(pos, value);
+        }
+        public bool TrySetElementTemperature(Point pos, short value)
+        {
+            if (!InsideTheWorldDimensions(pos))
+            {
+                return false;
+            }
+
+            if (this.slots[pos.X, pos.Y].Temperature != value)
+            {
+                NotifyChunk(pos);
+                this.slots[pos.X, pos.Y].SetTemperatureValue(value);
+            }
+
+            return true;
+        }
+
+        // Tools
+        public bool IsEmptyElementSlot(Point pos)
+        {
+            return !InsideTheWorldDimensions(pos) || this.slots[pos.X, pos.Y].IsEmpty;
+        }
+
+        // Utilities
+        private static Point[] GetElementNeighborPositions(Point pos)
+        {
+            return
+            [
+                new(pos.X, pos.Y - 1),
+                new(pos.X + 1, pos.Y - 1),
+                new(pos.X - 1, pos.Y - 1),
+                new(pos.X + 1, pos.Y),
+                new(pos.X - 1, pos.Y),
+                new(pos.X, pos.Y + 1),
+                new(pos.X + 1, pos.Y + 1),
+                new(pos.X - 1, pos.Y + 1),
+            ];
+        }
+
+        public bool InsideTheWorldDimensions(Point pos)
+        {
+            return pos.X >= 0 && pos.X < this.Infos.Size.Width &&
+                   pos.Y >= 0 && pos.Y < this.Infos.Size.Height;
+        }
+    }
+}
