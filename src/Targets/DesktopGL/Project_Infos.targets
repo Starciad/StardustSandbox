@@ -2,12 +2,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<!-- INFORMATIONS -->
 	<PropertyGroup>
-		<Title>PixelDust</Title>
+		<Title>StardustSandbox</Title>
 		<Version>0.0.1</Version>
 		<Authors>Starciad</Authors>
-		<PackageProjectUrl>https://github.com/Starciad/PixelDust.git</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Starciad/StardustSandbox.git</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/Starciad/PixelDust.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Starciad/StardustSandbox.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
