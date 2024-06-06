@@ -60,7 +60,7 @@ namespace StardustSandbox.Game.GUI.Common.HUD
             // ================================= //
 
             CreateSlots();
-            CreateSearchSlot();
+            // CreateSearchSlot();
 
             // ================================= //
 
@@ -111,19 +111,19 @@ namespace StardustSandbox.Game.GUI.Common.HUD
                 }
             }
 
-            void CreateSearchSlot()
-            {
-                SGUIImageElement slotSearchBackground = this._layout.CreateElement<SGUIImageElement>();
-
-                slotSearchBackground.SetTexture(this.squareShapeTexture);
-                slotSearchBackground.SetOriginPivot(SCardinalDirection.Center);
-                slotSearchBackground.SetScale(new Vector2(SHUDConstants.SLOT_SCALE + 0.45f));
-                slotSearchBackground.SetPositionAnchor(SCardinalDirection.East);
-                slotSearchBackground.SetSize(new SSize2(SHUDConstants.SLOT_SCALE + 0.45f));
-                slotSearchBackground.SetMargin(new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0));
-
-                slotSearchBackground.PositionRelativeToElement(slotAreaBackground);
-            }
+            //void CreateSearchSlot()
+            //{
+            //    SGUIImageElement slotSearchBackground = this._layout.CreateElement<SGUIImageElement>();
+            //
+            //    slotSearchBackground.SetTexture(this.squareShapeTexture);
+            //    slotSearchBackground.SetOriginPivot(SCardinalDirection.Center);
+            //    slotSearchBackground.SetScale(new Vector2(SHUDConstants.SLOT_SCALE + 0.45f));
+            //    slotSearchBackground.SetPositionAnchor(SCardinalDirection.East);
+            //    slotSearchBackground.SetSize(new SSize2(SHUDConstants.SLOT_SCALE + 0.45f));
+            //    slotSearchBackground.SetMargin(new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0));
+            //
+            //    slotSearchBackground.PositionRelativeToElement(slotAreaBackground);
+            //}
         }
     }
 }
