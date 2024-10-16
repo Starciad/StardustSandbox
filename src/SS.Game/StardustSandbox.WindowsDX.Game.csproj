@@ -15,16 +15,16 @@
 	<PropertyGroup>
 		<AssemblyName>StardustSandbox</AssemblyName>
 		<RootNamespace>StardustSandbox.Game</RootNamespace>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
-		<PackageReference Include="MessagePack" Version="2.6.100-alpha" />
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
+		<PackageReference Include="MessagePack" Version="2.6.100-alpha" />
+		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
 	</ItemGroup>
 
 	<!-- FILES (RESOURCE) -->
@@ -40,6 +40,19 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<!-- BEAUTY (BUILD) -->
+	<PropertyGroup>
+		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../data</BeautyLibsDir>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./data</BeautyLibsDir>
+		<DisableBeauty>False</DisableBeauty>
+		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
+		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
+		<BeautyEnableDebugging>False</BeautyEnableDebugging>
+		<BeautyUsePatch>True</BeautyUsePatch>
+		<BeautyLogLevel>Detail</BeautyLogLevel>
+	</PropertyGroup>
+	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
 		<Message Text="[ Restoring Dotnet Tools ]" Importance="high" />
