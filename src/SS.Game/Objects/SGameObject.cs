@@ -5,12 +5,15 @@ namespace StardustSandbox.Game.Objects
 {
     public abstract class SGameObject
     {
-        protected SGame Game { get; private set; }
+        protected SGame SGameInstance { get; private set; }
 
-        public void Initialize(SGame game)
+        public SGameObject(SGame gameInstance)
         {
-            this.Game = game;
+            this.SGameInstance = gameInstance;
+        }
 
+        public void Initialize()
+        {
             OnAwake();
             OnStart();
         }
