@@ -18,11 +18,9 @@ namespace StardustSandbox.Game.Items
         public int UnlockProgress { get; protected set; }
         public Type ReferencedType { get; protected set; }
 
-        protected SAssetDatabase AssetDatabase { get; private set; }
-
-        public SItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance)
+        public SItem(SGame gameInstance) : base(gameInstance)
         {
-            this.AssetDatabase = assetDatabase;
+
         }
     }
 }

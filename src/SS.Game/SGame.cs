@@ -10,7 +10,6 @@ using StardustSandbox.Game.Models.Settings;
 using StardustSandbox.Game.World;
 
 using System;
-using System.Reflection;
 
 namespace StardustSandbox.Game
 {
@@ -30,7 +29,6 @@ namespace StardustSandbox.Game
 
         // ================================= //
 
-        private readonly Assembly _assembly;
         private SpriteBatch _sb;
 
         // Databases
@@ -57,9 +55,6 @@ namespace StardustSandbox.Game
         public SGame()
         {
             this._graphicsManager = new(this, new GraphicsDeviceManager(this));
-
-            // Assembly
-            this._assembly = Assembly.GetExecutingAssembly();
 
             // Initialize Content
             this.Content.RootDirectory = SDirectoryConstants.ASSETS;
@@ -88,7 +83,7 @@ namespace StardustSandbox.Game
             this._gameInputManager = new(this, this._cameraManager, this._world, this._inputManager);
             this._guiManager = new(this, this._guiDatabase, this._inputManager);
             this._cursorManager = new(this, this._assetDatabase, this._inputManager);
-            this._gameContentManager = new(this, this._assembly);
+            this._gameContentManager = new(this);
         }
 
         public void UpdateGameSettings()

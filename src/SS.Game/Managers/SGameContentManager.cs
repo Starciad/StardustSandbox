@@ -1,16 +1,18 @@
-﻿using StardustSandbox.Game.Attributes.Elements;
-using StardustSandbox.Game.Attributes.GameContent;
-using StardustSandbox.Game.Attributes.GUI;
-using StardustSandbox.Game.Attributes.Items;
-using StardustSandbox.Game.Databases;
+﻿using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements;
+using StardustSandbox.Game.Elements.Common.Gases;
+using StardustSandbox.Game.Elements.Common.Liquid;
+using StardustSandbox.Game.Elements.Common.Solid.Immovable;
+using StardustSandbox.Game.Elements.Common.Solid.Movable;
+using StardustSandbox.Game.GameContent.Items.Elements;
 using StardustSandbox.Game.GUI;
+using StardustSandbox.Game.GUI.Common.HUD;
+using StardustSandbox.Game.GUI.Common.Menus.ItemExplorer;
 using StardustSandbox.Game.Objects;
 
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 
 namespace StardustSandbox.Game.Managers
 {
@@ -23,11 +25,10 @@ namespace StardustSandbox.Game.Managers
 
         // Managers
         private SGUIManager _guiManager;
-        private readonly Assembly assembly;
 
-        public SGameContentManager(SGame gameInstance, Assembly assembly) : base(gameInstance)
+        public SGameContentManager(SGame gameInstance) : base(gameInstance)
         {
-            this.assembly = assembly;
+
         }
 
         protected override void OnInitialize()
@@ -39,46 +40,65 @@ namespace StardustSandbox.Game.Managers
             this._guiManager = this.SGameInstance.GUIManager;
         }
 
-        [RequiresUnreferencedCode()]
         public void RegisterAllGameContent()
         {
-            foreach (Type gameContentType in assembly.GetTypes().Where(x => x.GetCustomAttribute(typeof(SGameContentAttribute), true) != null))
-            {
-                RegisterGUI(gameContentType);
-                RegisterElement(gameContentType);
-                RegisterItem(gameContentType);
-            }
+            RegisterGUIs();
+            RegisterElements();
+            RegisterItems();
         }
 
-        private void RegisterGUI([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type)
+        private void RegisterElements()
         {
-            if (type.GetCustomAttribute<SGUIRegisterAttribute>() == null)
-            {
-                return;
-            }
-
-            this._guiDatabase.RegisterGUISystem((SGUISystem)Activator.CreateInstance(type), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
+            /* ID : 00 */ this._elementDatabase.RegisterElement(new SDirt(this.SGameInstance));
+            /* ID : 01 */ this._elementDatabase.RegisterElement(new SMud(this.SGameInstance));
+            /* ID : 02 */ this._elementDatabase.RegisterElement(new SWater(this.SGameInstance));
+            /* ID : 03 */ this._elementDatabase.RegisterElement(new SStone(this.SGameInstance));
+            /* ID : 04 */ this._elementDatabase.RegisterElement(new SGrass(this.SGameInstance));
+            /* ID : 05 */ this._elementDatabase.RegisterElement(new SIce(this.SGameInstance));
+            /* ID : 06 */ this._elementDatabase.RegisterElement(new SSand(this.SGameInstance));
+            /* ID : 07 */ this._elementDatabase.RegisterElement(new SSnow(this.SGameInstance));
+            /* ID : 08 */ this._elementDatabase.RegisterElement(new SMCorruption(this.SGameInstance));
+            /* ID : 09 */ this._elementDatabase.RegisterElement(new SLava(this.SGameInstance));
+            /* ID : 10 */ this._elementDatabase.RegisterElement(new SAcid(this.SGameInstance));
+            /* ID : 11 */ this._elementDatabase.RegisterElement(new SGlass(this.SGameInstance));
+            /* ID : 12 */ this._elementDatabase.RegisterElement(new SMetal(this.SGameInstance));
+            /* ID : 13 */ this._elementDatabase.RegisterElement(new SWall(this.SGameInstance));
+            /* ID : 14 */ this._elementDatabase.RegisterElement(new SWood(this.SGameInstance));
+            /* ID : 15 */ this._elementDatabase.RegisterElement(new SGCorruption(this.SGameInstance));
+            /* ID : 16 */ this._elementDatabase.RegisterElement(new SLCorruption(this.SGameInstance));
+            /* ID : 17 */ this._elementDatabase.RegisterElement(new SIMCorruption(this.SGameInstance));
+            /* ID : 18 */ this._elementDatabase.RegisterElement(new SSteam(this.SGameInstance));
+            /* ID : 19 */ this._elementDatabase.RegisterElement(new SSmoke(this.SGameInstance));
         }
 
-        private void RegisterElement([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type)
+        private void RegisterGUIs()
         {
-            if (type.GetCustomAttribute<SElementRegisterAttribute>() == null)
-            {
-                return;
-            }
-
-            this._elementDatabase.RegisterElement((SElement)Activator.CreateInstance(type));
+            this._guiDatabase.RegisterGUISystem(new SGUI_HUD(this.SGameInstance), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
+            this._guiDatabase.RegisterGUISystem(new SGUI_ItemExplorer(this.SGameInstance), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
         }
 
-        private void RegisterItem(Type type)
+        private void RegisterItems()
         {
-            SItemRegisterAttribute itemRegisterAttribute = type.GetCustomAttribute<SItemRegisterAttribute>();
-            if (itemRegisterAttribute == null)
-            {
-                return;
-            }
-
-            this._itemDatabase.RegisterItem(itemRegisterAttribute.Item);
+            /* ID : 00 */ this._itemDatabase.RegisterItem(new SDirtItem(this.SGameInstance));
+            /* ID : 01 */ this._itemDatabase.RegisterItem(new SMudItem(this.SGameInstance));
+            /* ID : 02 */ this._itemDatabase.RegisterItem(new SWaterItem(this.SGameInstance));
+            /* ID : 03 */ this._itemDatabase.RegisterItem(new SStoneItem(this.SGameInstance));
+            /* ID : 04 */ this._itemDatabase.RegisterItem(new SGrassItem(this.SGameInstance));
+            /* ID : 05 */ this._itemDatabase.RegisterItem(new SIceItem(this.SGameInstance));
+            /* ID : 06 */ this._itemDatabase.RegisterItem(new SSandItem(this.SGameInstance));
+            /* ID : 07 */ this._itemDatabase.RegisterItem(new SSnowItem(this.SGameInstance));
+            /* ID : 08 */ this._itemDatabase.RegisterItem(new SMCorruptionItem(this.SGameInstance));
+            /* ID : 09 */ this._itemDatabase.RegisterItem(new SLavaItem(this.SGameInstance));
+            /* ID : 10 */ this._itemDatabase.RegisterItem(new SAcidItem(this.SGameInstance));
+            /* ID : 11 */ this._itemDatabase.RegisterItem(new SGlassItem(this.SGameInstance));
+            /* ID : 12 */ this._itemDatabase.RegisterItem(new SMetalItem(this.SGameInstance));
+            /* ID : 13 */ this._itemDatabase.RegisterItem(new SWallItem(this.SGameInstance));
+            /* ID : 14 */ this._itemDatabase.RegisterItem(new SWoodItem(this.SGameInstance));
+            /* ID : 15 */ this._itemDatabase.RegisterItem(new SGCorruptionItem(this.SGameInstance));
+            /* ID : 16 */ this._itemDatabase.RegisterItem(new SLCorruptionItem(this.SGameInstance));
+            /* ID : 17 */ this._itemDatabase.RegisterItem(new SIMCorruptionItem(this.SGameInstance));
+            /* ID : 18 */ this._itemDatabase.RegisterItem(new SSteamItem(this.SGameInstance));
+            /* ID : 19 */ this._itemDatabase.RegisterItem(new SSmokeItem(this.SGameInstance));
         }
     }
 }

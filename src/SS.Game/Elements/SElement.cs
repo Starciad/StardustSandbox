@@ -13,8 +13,10 @@ namespace StardustSandbox.Game.Elements
 {
     public abstract class SElement : SGameObject
     {
+        // VARIABLES
+
         #region Settings (Header)
-        public uint Id { get; internal set; }
+        public uint Id { get; protected set; }
         public Texture2D Texture { get; protected set; }
         #endregion
 
@@ -38,6 +40,8 @@ namespace StardustSandbox.Game.Elements
         {
             this.Rendering = new(this.SGameInstance, this);
         }
+
+        // METHODS
 
         #region Engine
         protected override void OnUpdate(GameTime gameTime)

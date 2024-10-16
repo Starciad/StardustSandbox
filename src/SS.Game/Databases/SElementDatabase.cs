@@ -1,11 +1,10 @@
-﻿using StardustSandbox.Game.Attributes.Elements;
-using StardustSandbox.Game.Elements;
+﻿using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Objects;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+
 
 namespace StardustSandbox.Game.Databases
 {
@@ -26,7 +25,6 @@ namespace StardustSandbox.Game.Databases
         internal void RegisterElement(SElement element)
         {
             element.Initialize();
-            element.Id = element.GetType().GetCustomAttribute<SElementRegisterAttribute>().Id;
 
             this._registeredElements.Add(element);
         }
