@@ -13,7 +13,6 @@
 Clear-Host
 
 # Define solutions and publishing directories
-$desktopGL = "..\..\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
 $windowsDX = "..\..\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
 $outputDirectory = "..\..\Publish"
 
@@ -50,13 +49,6 @@ if (Test-Path $outputDirectory -PathType Container) {
 Clear-Host
 Write-Host "Publishing Stardust Sandbox (WindowsDX) for Win-x64..."
 Publish-Project "windowsdx" $windowsDX $platforms[0]
-
-# Publish DesktopGL for all platforms
-Write-Host "Publishing Stardust Sandbox (DesktopGL) to all platforms..."
-foreach ($platform in $platforms) {
-    Publish-Project "desktopgl" $desktopGL $platform
-    Write-Host "Next..."
-}
 
 Write-Host "All publishing processes have been completed."
 

@@ -2,12 +2,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <!-- PUBLISH -->
     <PropertyGroup>
-        <PublishTrimmed>false</PublishTrimmed>
+        <UseWindowsForms>true</UseWindowsForms>
         <PublishSingleFile>true</PublishSingleFile>
+        <PublishTrimmed>false</PublishTrimmed>
         <PublishAot>false</PublishAot>
         <PublishReadyToRun>false</PublishReadyToRun>
         <TieredCompilation>false</TieredCompilation>
-        <UseWindowsForms>true</UseWindowsForms>
         <UseWPF>false</UseWPF>
     </PropertyGroup>
 
@@ -16,13 +16,8 @@
         <NoWarn>WFAC010</NoWarn>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PropertyGroup>
         <DebugType>embedded</DebugType>
-        <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <DebugType>embedded</DebugType>
-        <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+        <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     </PropertyGroup>
 </Project>

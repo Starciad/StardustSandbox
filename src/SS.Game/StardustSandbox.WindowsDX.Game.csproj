@@ -27,16 +27,6 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
 	</ItemGroup>
 
-	<!-- FOLDERS -->
-	<ItemGroup>
-		<Compile Remove="assets\songs\**" />
-		<Compile Remove="assets\sounds\**" />
-		<EmbeddedResource Remove="assets\songs\**" />
-		<EmbeddedResource Remove="assets\sounds\**" />
-		<None Remove="assets\songs\**" />
-		<None Remove="assets\sounds\**" />
-	</ItemGroup>
-
 	<!-- FILES (RESOURCE) -->
 	<ItemGroup>
 		<EmbeddedResource Include="icon.ico">
