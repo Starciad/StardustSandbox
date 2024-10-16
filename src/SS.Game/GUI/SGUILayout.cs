@@ -34,9 +34,11 @@ namespace StardustSandbox.Game.GUI
 
         public void Load()
         {
-            this.rootElement = AddElement(new SGUIRootElement(this.SGameInstance));
+            this.rootElement = new(this.SGameInstance);
             this.rootElement.SetPositioningType(SPositioningType.Fixed);
             this.rootElement.SetSize(new SSize2(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
+
+            AddElement(this.rootElement);
         }
 
         public void Configure()
@@ -66,11 +68,9 @@ namespace StardustSandbox.Game.GUI
             }
         }
 
-        public T AddElement<T>(T value) where T : SGUIElement
+        public void AddElement<T>(T value) where T : SGUIElement
         {
             this.elements.Add(value);
-
-            return value;
         }
     }
 }

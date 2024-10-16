@@ -28,13 +28,17 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
             this._root = layout.RootElement;
 
             // Containers
-            this.headerContainer = layout.AddElement(new SGUIContainerElement(this.SGameInstance));
-            this.leftMenuContainer = layout.AddElement(new SGUIContainerElement(this.SGameInstance));
-            this.rightMenuContainer = layout.AddElement(new SGUIContainerElement(this.SGameInstance));
+            this.headerContainer = new SGUIContainerElement(this.SGameInstance);
+            this.leftMenuContainer = new SGUIContainerElement(this.SGameInstance);
+            this.rightMenuContainer = new SGUIContainerElement(this.SGameInstance);
 
             this.headerContainer.PositionRelativeToElement(this._root);
             this.leftMenuContainer.PositionRelativeToElement(this._root);
             this.rightMenuContainer.PositionRelativeToElement(this._root);
+
+            layout.AddElement(this.headerContainer);
+            layout.AddElement(this.leftMenuContainer);
+            layout.AddElement(this.rightMenuContainer);
 
             // Styles
             // (Header)
@@ -46,7 +50,9 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
 
         private void CreateHeader(SGUIElement header)
         {
-            SGUIImageElement slotAreaBackground = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
+            SGUIImageElement slotAreaBackground = new(this.SGameInstance);
+
+            this._layout.AddElement(slotAreaBackground);
 
             // Background
             slotAreaBackground.SetTexture(this.particleTexture);
@@ -75,8 +81,8 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
                 for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
                 {
                     // Creation
-                    SGUIImageElement slotBackground = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
-                    SGUIImageElement slotIcon = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
+                    SGUIImageElement slotBackground = new(this.SGameInstance);
+                    SGUIImageElement slotIcon = new(this.SGameInstance);
 
                     // Background
                     slotBackground.SetTexture(this.squareShapeTexture);
@@ -108,6 +114,9 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
 
                     // Spacing
                     slotMargin.X += slotSpacing + (slotSize / 2);
+
+                    this._layout.AddElement(slotBackground);
+                    this._layout.AddElement(slotIcon);
                 }
             }
 
