@@ -3,7 +3,8 @@
     <!-- PUBLISH -->
     <PropertyGroup>
         <UseWindowsForms>true</UseWindowsForms>
-        <PublishSingleFile>true</PublishSingleFile>
+		<PublishSelfContained>false</PublishSelfContained>
+        <PublishSingleFile>false</PublishSingleFile>
         <PublishTrimmed>false</PublishTrimmed>
         <PublishAot>false</PublishAot>
         <PublishReadyToRun>false</PublishReadyToRun>
