@@ -1,0 +1,155 @@
+  Stardust Sandbox Contributor License Agreement (CLA)
+
+  Thank you for your interest in contributing to Stardust Sandbox, a
+project created and owned by Starciad. This Contributor License 
+Agreement ("Agreement") outlines the terms under which 
+contributions ("Contributions") are accepted into the Stardust 
+Sandbox project ("Project"). This agreement is designed to protect 
+both you as the Contributor and Starciad, ensuring that 
+Contributions are integrated in compliance with the relevant 
+intellectual property laws.
+
+  1. Definitions
+
+  "You" (or "Contributor") means the individual or legal entity 
+who submits a Contribution to Stardust Sandbox. For legal 
+entities, the term "Contributor" includes any entities that 
+control, are controlled by, or are under common control with the 
+legal entity making the Contribution.
+
+  "Contribution" means any original work of authorship, 
+including modifications or additions to existing work, that is 
+submitted to Stardust Sandbox. Contributions include, but are not 
+limited to, source code, bug fixes, configuration changes, tools, 
+documentation, and any other material provided for inclusion in 
+the Project.
+
+  "Submitted" refers to any form of communication (written, 
+electronic, or otherwise) provided to Stardust Sandbox or its 
+maintainers with the intent of integrating the material into the 
+Project. This includes pull requests, email submissions, or issue 
+discussions within the Stardust Sandbox repository.
+
+  2. Grant of Copyright License
+
+  Subject to the terms of this Agreement, You hereby grant Starciad 
+and recipients of Stardust Sandbox software a perpetual, worldwide, 
+non-exclusive, royalty-free, irrevocable copyright license to:
+
+  - Reproduce, distribute, and transmit Your Contributions.
+  - Prepare derivative works of Your Contributions.
+  - Publicly display and publicly perform Your Contributions.
+  - Sublicense these rights through multiple tiers of sublicensees.
+
+  3. Grant of Patent License
+
+  Subject to the terms of this Agreement, You hereby grant Starciad 
+and recipients of Stardust Sandbox software a perpetual, worldwide, 
+non-exclusive, royalty-free, irrevocable patent license to make, 
+have made, use, offer to sell, sell, import, and otherwise transfer 
+Your Contributions. This license applies only to patent claims that 
+are necessarily infringed by Your Contribution(s) alone or by 
+combination of Your Contribution(s) with Stardust Sandbox.
+
+  In the event that any entity initiates patent litigation against 
+You or another entity alleging that Your Contribution infringes a 
+patent, any patent licenses granted to that entity for Your 
+Contribution under this Agreement shall terminate as of the date 
+such litigation is initiated.
+
+  4. Moral Rights
+
+  To the fullest extent permitted under applicable law, You hereby 
+waive and agree not to assert any and all moral rights in or 
+relating to Your Contributions. This includes, but is not limited 
+to, the right to be identified as the author and the right to 
+object to derogatory treatments of Your Contributions.
+
+  5. Representations and Warranties
+
+  By submitting a Contribution, You represent that:
+
+  - You are the original author of the Contribution or have 
+sufficient rights to grant the licenses described in this 
+Agreement.
+
+  If the Contribution was created in the course of employment, You 
+represent that Your employer has authorized You to submit the 
+Contribution on its behalf or has waived any applicable rights 
+over the Contribution.
+
+  You have disclosed any third-party content or intellectual 
+property rights associated with Your Contribution and have 
+ensured that any third-party content used is appropriately 
+licensed and disclosed.
+
+  6. Third-Party Content and Rights
+
+  If Your Contribution includes content or works not authored by You 
+("Third-Party Content") or if Your Contribution incorporates 
+third-party intellectual property rights ("Third-Party Rights"), 
+You must include a clear description of such content and rights. 
+This includes identification of the author or owner of the 
+Third-Party Content, where it was obtained, and any applicable 
+license terms.
+
+  7. Disclaimer of Warranties
+
+  Unless required by applicable law or agreed upon in writing, You 
+provide Your Contributions on an "AS IS" basis, without warranties 
+or conditions of any kind, either express or implied. This includes, 
+without limitation, any warranties or conditions of title, 
+non-infringement, merchantability, or fitness for a particular 
+purpose.
+
+  8. No Obligation to Use
+
+  Stardust Sandbox and Starciad are under no obligation to use or 
+incorporate Your Contributions. The decision to include Your 
+Contributions is at the sole discretion of Starciad or authorized 
+delegates.
+
+  9. No Support Obligation
+
+  You are not expected to provide ongoing support for Your 
+Contributions. However, if You choose to provide support, You may 
+do so at Your own discretion, either for free or for a fee. Unless 
+otherwise agreed, Your Contributions are provided without any 
+obligation for support.
+
+  10. Assignment
+
+  You agree that Starciad may assign this Agreement and all licenses 
+granted herein to any successor or assignee of the Stardust Sandbox 
+project. Any assignment will be subject to the same terms and 
+conditions as this Agreement.
+
+  11. Governing Law and Dispute Resolution
+
+  Applicable Law and Jurisdiction. This Agreement shall 
+be governed by and construed in accordance with the laws 
+of Brazil, without regard to conflict of law principles. 
+Any disputes arising out of or in connection with this 
+Agreement shall be exclusively subject to the jurisdiction 
+of the courts located in Brazil, where the Author resides. 
+The parties expressly consent to the personal jurisdiction 
+and venue of these courts for the resolution of any such 
+disputes.
+
+  12. Notification of Changes
+
+  You agree to promptly notify Starciad of any facts or circumstances 
+that would make any of the representations and warranties provided 
+by You under this Agreement inaccurate or misleading in any respect.
+
+  13. Entire Agreement
+
+  This Agreement constitutes the entire agreement between You and 
+Starciad with respect to Contributions to Stardust Sandbox and 
+supersedes any prior agreements or communications.
+
+---
+
+  By submitting a Contribution to Stardust Sandbox, You indicate that 
+You have read and agree to the terms of this Contributor License 
+Agreement.
