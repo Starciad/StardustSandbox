@@ -1,8 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Rendering.Common;
+﻿using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.Items;
 
-namespace StardustSandbox.Game.Elements.Common.Solid.Immovable
+namespace StardustSandbox.Game.GameContent.Items.Elements.Solids.Immovables
 {
     public sealed class SWallItem : SItem
     {

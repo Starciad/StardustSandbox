@@ -1,8 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Rendering.Common;
+﻿using StardustSandbox.Game.GameContent.Elements.Gases;
 using StardustSandbox.Game.Items;
 
-namespace StardustSandbox.Game.Elements.Common.Gases
+namespace StardustSandbox.Game.GameContent.Items.Elements.Gases
 {
     public sealed class SSteamItem : SItem
     {

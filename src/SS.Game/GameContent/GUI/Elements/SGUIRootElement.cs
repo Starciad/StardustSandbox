@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.GUI.Elements.Common
+﻿namespace StardustSandbox.Game.GameContent.GUI.Elements
 {
     public sealed class SGUIRootElement : SGUIContainerElement
     {

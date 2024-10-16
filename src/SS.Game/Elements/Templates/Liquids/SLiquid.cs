@@ -2,7 +2,7 @@
 
 using StardustSandbox.Game.General;
 
-namespace StardustSandbox.Game.Elements.Common.Liquid
+namespace StardustSandbox.Game.Elements.Templates.Liquids
 {
     public abstract class SLiquid : SElement
     {

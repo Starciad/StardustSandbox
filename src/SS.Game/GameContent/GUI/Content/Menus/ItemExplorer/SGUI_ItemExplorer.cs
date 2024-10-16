@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI;
+using StardustSandbox.Game.GUI;
 using StardustSandbox.Game.Items;
 
-namespace StardustSandbox.Game.GUI.Common.Menus.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer : SGUISystem
     {

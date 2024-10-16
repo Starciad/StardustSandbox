@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Utilities;
 using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Game.GameContent.Elements.Utilities;
 using StardustSandbox.Game.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Common.Solid.Immovable
+namespace StardustSandbox.Game.GameContent.Elements.Solids.Immovables
 {
     public class SIMCorruption : SImmovableSolid
     {

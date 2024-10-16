@@ -1,14 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Utilities;
-using StardustSandbox.Game.Elements.Rendering.Common;
+﻿using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 using StardustSandbox.Game.Items;
-using StardustSandbox.Game.World.Data;
 
-using System;
-
-namespace StardustSandbox.Game.Elements.Common.Solid.Movable
+namespace StardustSandbox.Game.GameContent.Items.Elements.Solids.Movables
 {
     public sealed class SMCorruptionItem : SItem
     {

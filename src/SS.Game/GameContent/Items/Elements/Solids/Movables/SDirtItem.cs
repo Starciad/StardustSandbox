@@ -1,8 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Solid.Movable;
+﻿using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 using StardustSandbox.Game.Items;
 
-namespace StardustSandbox.Game.GameContent.Items.Elements
+namespace StardustSandbox.Game.GameContent.Items.Elements.Solids.Movables
 {
     public sealed class SDirtItem : SItem
     {

@@ -1,9 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Solid.Movable;
-using StardustSandbox.Game.Elements.Rendering.Common;
+﻿using StardustSandbox.Game.GameContent.Elements.Liquids;
 using StardustSandbox.Game.Items;
 
-namespace StardustSandbox.Game.Elements.Common.Liquid
+namespace StardustSandbox.Game.GameContent.Items.Elements.Liquids
 {
     public sealed class SLavaItem : SItem
     {

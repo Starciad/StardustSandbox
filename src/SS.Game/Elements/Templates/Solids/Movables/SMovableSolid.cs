@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Common.Liquid;
+using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.General;
 
-namespace StardustSandbox.Game.Elements.Common.Solid.Movable
+namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 {
     public abstract class SMovableSolid : SSolid
     {

@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Elements.Common.Solid
+﻿namespace StardustSandbox.Game.Elements.Templates.Solids
 {
     public abstract class SSolid : SElement
     {

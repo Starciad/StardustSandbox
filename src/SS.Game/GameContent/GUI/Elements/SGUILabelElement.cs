@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Game.GUI.Elements;
+
 using System.Text;
 
-namespace StardustSandbox.Game.GUI.Elements.Common
+namespace StardustSandbox.Game.GameContent.GUI.Elements
 {
     public class SGUILabelElement : SGUIElement
     {

@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Enums.GUI;
+using StardustSandbox.Game.GameContent.GUI.Elements;
 using StardustSandbox.Game.GUI.Elements;
-using StardustSandbox.Game.GUI.Elements.Common;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;

@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 
-namespace StardustSandbox.Game.GUI.Common.Menus.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer
     {

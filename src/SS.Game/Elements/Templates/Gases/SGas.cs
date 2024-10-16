@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Common.Liquid;
-using StardustSandbox.Game.Elements.Common.Solid.Movable;
+using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.Elements.Templates.Solids.Movables;
 using StardustSandbox.Game.General;
 
-namespace StardustSandbox.Game.Elements.Common.Gases
+namespace StardustSandbox.Game.Elements.Templates.Gases
 {
     public enum GasSpreadingType
     {

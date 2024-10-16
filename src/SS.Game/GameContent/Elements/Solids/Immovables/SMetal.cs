@@ -1,8 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+﻿using StardustSandbox.Game.Elements.Rendering.Common;
+using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
 
-namespace StardustSandbox.Game.Elements.Common.Solid.Immovable
+namespace StardustSandbox.Game.GameContent.Elements.Solids.Immovables
 {
     public sealed class SMetal : SImmovableSolid
     {

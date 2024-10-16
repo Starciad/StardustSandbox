@@ -1,14 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Utilities;
-using StardustSandbox.Game.Elements.Rendering.Common;
+﻿using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.Items;
-using StardustSandbox.Game.World.Data;
 
-using System;
-
-namespace StardustSandbox.Game.Elements.Common.Solid.Immovable
+namespace StardustSandbox.Game.GameContent.Items.Elements.Solids.Immovables
 {
     public sealed class SIMCorruptionItem : SItem
     {

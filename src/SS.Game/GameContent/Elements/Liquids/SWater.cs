@@ -1,16 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Gases;
-using StardustSandbox.Game.Elements.Common.Solid.Movable;
 using StardustSandbox.Game.Elements.Rendering.Common;
+using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.GameContent.Elements.Gases;
+using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 using StardustSandbox.Game.General;
-using StardustSandbox.Game.Items;
 using StardustSandbox.Game.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Common.Liquid
+namespace StardustSandbox.Game.GameContent.Elements.Liquids
 {
     public class SWater : SLiquid
     {

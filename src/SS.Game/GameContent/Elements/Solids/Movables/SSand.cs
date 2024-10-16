@@ -1,8 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+﻿using StardustSandbox.Game.Elements.Rendering.Common;
+using StardustSandbox.Game.Elements.Templates.Solids.Movables;
 
-namespace StardustSandbox.Game.Elements.Common.Solid.Movable
+namespace StardustSandbox.Game.GameContent.Elements.Solids.Movables
 {
     public sealed class SSand : SMovableSolid
     {

@@ -1,9 +1,8 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Solid.Movable;
-using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+﻿using StardustSandbox.Game.Elements.Rendering.Common;
+using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 
-namespace StardustSandbox.Game.Elements.Common.Liquid
+namespace StardustSandbox.Game.GameContent.Elements.Liquids
 {
     public class SLava : SLiquid
     {

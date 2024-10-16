@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Constants.GUI.Elements;
 using StardustSandbox.Game.Enums.General;
 
-namespace StardustSandbox.Game.GUI.Elements.Common.Graphics
+namespace StardustSandbox.Game.GameContent.GUI.Elements.Graphics
 {
     public sealed class SGUISliceImageElement : SGUIGraphicElement
     {

@@ -1,18 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Common.Gases;
-using StardustSandbox.Game.Elements.Common.Liquid;
-using StardustSandbox.Game.Elements.Common.Solid;
-using StardustSandbox.Game.Elements.Common.Solid.Immovable;
-using StardustSandbox.Game.Elements.Common.Solid.Movable;
+using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
+using StardustSandbox.Game.Elements.Templates.Gases;
+using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.Elements.Templates.Solids;
+using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Game.GameContent.Elements.Gases;
+using StardustSandbox.Game.GameContent.Elements.Liquids;
+using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
+using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 using StardustSandbox.Game.General;
 using StardustSandbox.Game.World.Data;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Elements.Common.Utilities
+namespace StardustSandbox.Game.GameContent.Elements.Utilities
 {
     public static class SCorruptionUtilities
     {

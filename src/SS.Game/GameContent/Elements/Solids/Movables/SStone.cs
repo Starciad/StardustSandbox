@@ -1,9 +1,8 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Liquid;
-using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+﻿using StardustSandbox.Game.Elements.Rendering.Common;
+using StardustSandbox.Game.Elements.Templates.Solids.Movables;
+using StardustSandbox.Game.GameContent.Elements.Liquids;
 
-namespace StardustSandbox.Game.Elements.Common.Solid.Movable
+namespace StardustSandbox.Game.GameContent.Elements.Solids.Movables
 {
     public sealed class SStone : SMovableSolid
     {

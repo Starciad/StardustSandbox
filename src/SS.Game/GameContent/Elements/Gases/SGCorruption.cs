@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Utilities;
 using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+using StardustSandbox.Game.Elements.Templates.Gases;
+using StardustSandbox.Game.GameContent.Elements.Utilities;
 using StardustSandbox.Game.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Common.Gases
+namespace StardustSandbox.Game.GameContent.Elements.Gases
 {
     public sealed class SGCorruption : SGas
     {

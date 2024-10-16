@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Common.Solid.Immovable;
 using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Common.Liquid
+namespace StardustSandbox.Game.GameContent.Elements.Liquids
 {
     public class SAcid : SLiquid
     {

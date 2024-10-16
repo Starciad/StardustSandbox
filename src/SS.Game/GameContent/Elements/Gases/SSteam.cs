@@ -1,8 +1,7 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Items;
+﻿using StardustSandbox.Game.Elements.Rendering.Common;
+using StardustSandbox.Game.Elements.Templates.Gases;
 
-namespace StardustSandbox.Game.Elements.Common.Gases
+namespace StardustSandbox.Game.GameContent.Elements.Gases
 {
     public class SSteam : SGas
     {
