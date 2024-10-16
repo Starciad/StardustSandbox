@@ -69,7 +69,7 @@ namespace StardustSandbox.Game.GUI.Elements.Common
 
         public void SetFontFamily(string fontFamilyName)
         {
-            this.textFont = this.Game.AssetDatabase.GetFont(fontFamilyName);
+            this.textFont = this.SGameInstance.AssetDatabase.GetFont(fontFamilyName);
         }
 
         public void SetColor(Color color)

@@ -13,14 +13,19 @@ namespace StardustSandbox.Game.Databases
     {
         private List<SElement> _registeredElements = [];
 
-        public void Build()
+        public SElementDatabase(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
+        protected override void OnInitialize()
         {
             this._registeredElements = [.. this._registeredElements.OrderBy(x => x.Id)];
         }
 
         internal void RegisterElement(SElement element)
         {
-            element.Initialize(this.Game);
+            element.Initialize();
             element.Id = element.GetType().GetCustomAttribute<SElementRegisterAttribute>().Id;
 
             this._registeredElements.Add(element);

@@ -14,33 +14,38 @@ using System;
 
 namespace StardustSandbox.Game.World
 {
-    public sealed partial class SWorld(SElementDatabase elementDatabase, SAssetDatabase assetDatabase, SCameraManager camera) : SGameObject, ISReset
+    public sealed partial class SWorld : SGameObject, ISReset
     {
-        public SWorldState States { get; private set; } = new();
-        public SWorldInfo Infos { get; private set; } = new();
-        public SElementDatabase ElementDatabase => elementDatabase;
+        public SWorldState States { get; private set; }
+        public SWorldInfo Infos { get; private set; }
+        public SElementDatabase ElementDatabase { get; private set; }
 
         private readonly STimer updateTimer = new(0.35f);
-        private readonly SWorldComponent[] _components =
-        [
-            new SWorldChunkingComponent(assetDatabase),
-            new SWorldUpdatingComponent(),
-            new SWorldRenderingComponent(elementDatabase, camera)
-        ];
+        private readonly SWorldComponent[] _components;
 
         private SWorldSlot[,] slots;
 
-        protected override void OnAwake()
+        public SWorld(SGame gameInstance, SElementDatabase elementDatabase, SAssetDatabase assetDatabase, SCameraManager camera) : base(gameInstance)
         {
-            base.OnAwake();
+            this.States = new();
+            this.Infos = new();
+            this.ElementDatabase = elementDatabase;
 
+            this._components = [
+                new SWorldChunkingComponent(gameInstance, this, assetDatabase),
+                new SWorldUpdatingComponent(gameInstance, this),
+                new SWorldRenderingComponent(gameInstance, this, elementDatabase, camera)
+            ];
+        }
+
+        protected override void OnInitialize()
+        {
             this.slots = new SWorldSlot[(int)this.Infos.Size.Width, (int)this.Infos.Size.Height];
             Reset();
 
             foreach (SWorldComponent component in this._components)
             {
-                component.SetWorldInstance(this);
-                component.Initialize(this.Game);
+                component.Initialize();
             }
 
             this.States.IsActive = true;

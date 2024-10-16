@@ -7,7 +7,7 @@ using StardustSandbox.Game.World.Data;
 
 namespace StardustSandbox.Game.World.Components.Common
 {
-    public sealed class SWorldChunkingComponent(SAssetDatabase assetDatabase) : SWorldComponent
+    public sealed class SWorldChunkingComponent : SWorldComponent
     {
         private int worldChunkWidth;
         private int worldChunkHeight;
@@ -16,11 +16,18 @@ namespace StardustSandbox.Game.World.Components.Common
 
         private Texture2D pixelTexture;
 
-        protected override void OnAwake()
-        {
-            this.pixelTexture = assetDatabase.GetTexture("particle_1");
+        private readonly SAssetDatabase _assetDatabase;
 
-            this._chunks = new SWorldChunk[(int)(this.World.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (int)(this.World.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
+        public SWorldChunkingComponent(SGame gameInstance, SWorld worldInstance, SAssetDatabase assetDatabase) : base(gameInstance, worldInstance)
+        {
+            this._assetDatabase = assetDatabase;
+        }
+
+        protected override void OnInitialize()
+        {
+            this.pixelTexture = this._assetDatabase.GetTexture("particle_1");
+
+            this._chunks = new SWorldChunk[(int)(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (int)(this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
 
             this.worldChunkWidth = this._chunks.GetLength(0);
             this.worldChunkHeight = this._chunks.GetLength(1);

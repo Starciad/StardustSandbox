@@ -34,7 +34,7 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
 
         protected override void OnSettings()
         {
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_17");
+            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_17");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.EnableNeighborsAction = true;
         }

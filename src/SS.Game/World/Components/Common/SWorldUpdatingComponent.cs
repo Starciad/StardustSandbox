@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Enums.World;
@@ -13,6 +14,11 @@ namespace StardustSandbox.Game.World.Components.Common
     {
         private readonly List<Point> capturedSlots = [];
 
+        public SWorldUpdatingComponent(SGame gameInstance, SWorld worldInstance) : base(gameInstance, worldInstance)
+        {
+
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.capturedSlots.Clear();
@@ -23,14 +29,14 @@ namespace StardustSandbox.Game.World.Components.Common
 
         private void GetAllElementsForUpdating(GameTime gameTime)
         {
-            for (int y = 0; y < this.World.Infos.Size.Height; y++)
+            for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
             {
-                for (int x = 0; x < this.World.Infos.Size.Width; x++)
+                for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
                 {
                     Point pos = new(x, y);
-                    bool chunkState = this.World.GetChunkUpdateState(pos);
+                    bool chunkState = this.SWorldInstance.GetChunkUpdateState(pos);
 
-                    if (this.World.IsEmptyElementSlot(pos) || !chunkState)
+                    if (this.SWorldInstance.IsEmptyElementSlot(pos) || !chunkState)
                     {
                         continue;
                     }
@@ -54,11 +60,11 @@ namespace StardustSandbox.Game.World.Components.Common
 
         private void UpdateElementTarget(GameTime gameTime, Point position, SWorldThreadUpdateType updateType)
         {
-            SWorldSlot slot = this.World.GetElementSlot(position);
+            SWorldSlot slot = this.SWorldInstance.GetElementSlot(position);
 
-            if (this.World.TryGetElement(position, out SElement value))
+            if (this.SWorldInstance.TryGetElement(position, out SElement value))
             {
-                value.Context = new SElementContext(this.World, this.World.ElementDatabase, slot, position);
+                value.Context = new SElementContext(this.SWorldInstance, this.SWorldInstance.ElementDatabase, slot, position);
 
                 switch (updateType)
                 {

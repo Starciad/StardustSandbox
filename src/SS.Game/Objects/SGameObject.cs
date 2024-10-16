@@ -14,20 +14,20 @@ namespace StardustSandbox.Game.Objects
 
         public void Initialize()
         {
-            OnAwake();
-            OnStart();
+            OnInitialize();
         }
+
         public void Update(GameTime gameTime)
         {
             OnUpdate(gameTime);
         }
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             OnDraw(gameTime, spriteBatch);
         }
 
-        protected virtual void OnAwake() { return; }
-        protected virtual void OnStart() { return; }
+        protected virtual void OnInitialize() { return; }
         protected virtual void OnUpdate(GameTime gameTime) { return; }
         protected virtual void OnDraw(GameTime gameTime, SpriteBatch spriteBatch) { return; }
     }

@@ -36,7 +36,7 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
 
         protected override void OnSettings()
         {
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_3");
+            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_3");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultDispersionRate = 3;
             this.DefaultTemperature = 25;

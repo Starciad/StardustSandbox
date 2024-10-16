@@ -11,7 +11,7 @@ using System.IO;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SAssetDatabase(ContentManager contentManager) : SGameObject
+    public sealed class SAssetDatabase : SGameObject
     {
         private enum AssetType
         {
@@ -28,7 +28,7 @@ namespace StardustSandbox.Game.Databases
         public SoundEffect[] Sounds => [.. this.sounds.Values];
         public Effect[] Shaders => [.. this.shaders.Values];
 
-        private readonly ContentManager _cm = contentManager;
+        private readonly ContentManager _contentManager;
 
         private readonly Dictionary<string, Texture2D> textures = [];
         private readonly Dictionary<string, SpriteFont> fonts = [];
@@ -36,7 +36,12 @@ namespace StardustSandbox.Game.Databases
         private readonly Dictionary<string, SoundEffect> sounds = [];
         private readonly Dictionary<string, Effect> shaders = [];
 
-        protected override void OnAwake()
+        public SAssetDatabase(SGame gameInstance, ContentManager contentManager) : base(gameInstance)
+        {
+            this._contentManager = contentManager;
+        }
+
+        protected override void OnInitialize()
         {
             LoadShaders();
             LoadFonts();
@@ -136,19 +141,19 @@ namespace StardustSandbox.Game.Databases
                 switch (assetType)
                 {
                     case AssetType.Texture:
-                        this.textures.Add(targetName, this._cm.Load<Texture2D>(targetPath));
+                        this.textures.Add(targetName, this._contentManager.Load<Texture2D>(targetPath));
                         break;
 
                     case AssetType.Font:
-                        this.fonts.Add(targetName, this._cm.Load<SpriteFont>(targetPath));
+                        this.fonts.Add(targetName, this._contentManager.Load<SpriteFont>(targetPath));
                         break;
 
                     case AssetType.Song:
-                        this.songs.Add(targetName, this._cm.Load<Song>(targetPath));
+                        this.songs.Add(targetName, this._contentManager.Load<Song>(targetPath));
                         break;
 
                     case AssetType.Sound:
-                        this.sounds.Add(targetName, this._cm.Load<SoundEffect>(targetPath));
+                        this.sounds.Add(targetName, this._contentManager.Load<SoundEffect>(targetPath));
                         break;
 
                     default:

@@ -9,7 +9,7 @@ namespace StardustSandbox.Game.GUI.Common.Menus.ItemExplorer
     {
         private void SelectItemCatalog(int categoryIndex, int pageIndex)
         {
-            SelectItemCatalog(this.Game.ItemDatabase.Categories[categoryIndex], pageIndex);
+            SelectItemCatalog(this.SGameInstance.ItemDatabase.Categories[categoryIndex], pageIndex);
         }
 
         private void SelectItemCatalog(string categoryName, int pageIndex)
@@ -24,9 +24,9 @@ namespace StardustSandbox.Game.GUI.Common.Menus.ItemExplorer
             int startIndex = pageIndex * itemsPerPage;
             int endIndex = startIndex + itemsPerPage;
 
-            endIndex = Math.Min(endIndex, this.Game.ItemDatabase.Items.Length);
+            endIndex = Math.Min(endIndex, this.SGameInstance.ItemDatabase.Items.Length);
 
-            this.selectedItems = [.. this.Game.ItemDatabase.GetCatalogItems(categoryName).Take(new Range(startIndex, endIndex - startIndex))];
+            this.selectedItems = [.. this.SGameInstance.ItemDatabase.GetCatalogItems(categoryName).Take(new Range(startIndex, endIndex - startIndex))];
 
             UpdateItemCatalog();
         }

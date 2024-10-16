@@ -25,11 +25,11 @@ namespace StardustSandbox.Game.Managers
 
         protected override void OnAwake()
         {
-            this._guiDatabase = this.Game.GUIDatabase;
-            this._elementDatabase = this.Game.ElementDatabase;
-            this._itemDatabase = this.Game.ItemDatabase;
+            this._guiDatabase = this.SGameInstance.GUIDatabase;
+            this._elementDatabase = this.SGameInstance.ElementDatabase;
+            this._itemDatabase = this.SGameInstance.ItemDatabase;
 
-            this._guiManager = this.Game.GUIManager;
+            this._guiManager = this.SGameInstance.GUIManager;
         }
 
         public void RegisterAllGameContent()

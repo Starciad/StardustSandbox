@@ -9,7 +9,7 @@ using System;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed partial class SGameInputManager(SCameraManager cameraManager, SWorld world, SInputManager inputHandler) : SGameObject
+    public sealed partial class SGameInputManager : SGameObject
     {
         public SItem ItemSelected => this.itemSelected;
 
@@ -29,11 +29,23 @@ namespace StardustSandbox.Game.Managers
         private float cameraMovementSpeed = 10;
         private bool canModifyEnvironment = true;
 
-        protected override void OnAwake()
+        private readonly SCameraManager _cameraManager;
+        private readonly SWorld _world;
+        private readonly SInputManager _inputManager;
+
+        public SGameInputManager(SGame gameInstance, SCameraManager cameraManager, SWorld world, SInputManager inputManager) : base(gameInstance)
+        {
+            this._cameraManager = cameraManager;
+            this._world = world;
+            this._inputManager = inputManager;
+        }
+
+        protected override void OnInitialize()
         {
             BuildKeyboardInputs();
             BuildMouseInputs();
         }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             // Inputs
@@ -76,10 +88,10 @@ namespace StardustSandbox.Game.Managers
         // Utilities
         private void ClampCamera()
         {
-            int totalX = (int)(world.Infos.Size.Width * SWorldConstants.GRID_SCALE) - SScreenConstants.DEFAULT_SCREEN_WIDTH;
-            int totalY = (int)(world.Infos.Size.Height * SWorldConstants.GRID_SCALE) - SScreenConstants.DEFAULT_SCREEN_HEIGHT;
+            int totalX = (int)(this._world.Infos.Size.Width * SWorldConstants.GRID_SCALE) - SScreenConstants.DEFAULT_SCREEN_WIDTH;
+            int totalY = (int)(this._world.Infos.Size.Height * SWorldConstants.GRID_SCALE) - SScreenConstants.DEFAULT_SCREEN_HEIGHT;
 
-            cameraManager.ClampPosition(new Vector2(0, -totalY), new Vector2(totalX, 0));
+            this._cameraManager.ClampPosition(new Vector2(0, -totalY), new Vector2(totalX, 0));
         }
     }
 }

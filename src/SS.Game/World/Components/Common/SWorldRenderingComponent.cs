@@ -12,9 +12,17 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.World.Components.Common
 {
-    public sealed class SWorldRenderingComponent(SElementDatabase elementDatabase, SCameraManager cameraManager) : SWorldComponent
+    public sealed class SWorldRenderingComponent : SWorldComponent
     {
         private readonly List<Point> _slotsCapturedForRendering = [];
+        private readonly SElementDatabase elementDatabase;
+        private readonly SCameraManager cameraManager;
+
+        public SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance, SElementDatabase elementDatabase, SCameraManager cameraManager) : base(gameInstance, worldInstance)
+        {
+            this.elementDatabase = elementDatabase;
+            this.cameraManager = cameraManager;
+        }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -26,9 +34,9 @@ namespace StardustSandbox.Game.World.Components.Common
         {
             this._slotsCapturedForRendering.Clear();
 
-            for (int y = 0; y < this.World.Infos.Size.Height; y++)
+            for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
             {
-                for (int x = 0; x < this.World.Infos.Size.Width; x++)
+                for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
                 {
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
@@ -45,11 +53,11 @@ namespace StardustSandbox.Game.World.Components.Common
         {
             foreach (Point position in this._slotsCapturedForRendering)
             {
-                if (!this.World.IsEmptyElementSlot(position))
+                if (!this.SWorldInstance.IsEmptyElementSlot(position))
                 {
-                    SElement element = elementDatabase.GetElementById(this.World.GetElementSlot(position).Id);
+                    SElement element = elementDatabase.GetElementById(this.SWorldInstance.GetElementSlot(position).Id);
 
-                    element.Context = new SElementContext(this.World, elementDatabase, this.World.GetElementSlot(position), position);
+                    element.Context = new SElementContext(this.SWorldInstance, elementDatabase, this.SWorldInstance.GetElementSlot(position), position);
                     element.Draw(gameTime, spriteBatch);
                 }
             }

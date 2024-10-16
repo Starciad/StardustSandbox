@@ -29,7 +29,7 @@ namespace StardustSandbox.Game.Elements.Common.Solid.Movable
 
         protected override void OnSettings()
         {
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_4");
+            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_4");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 20;
         }

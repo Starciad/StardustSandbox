@@ -25,8 +25,8 @@ namespace StardustSandbox.Game.GUI.Common.HUD
 
             this.Name = SGUIConstants.HUD_NAME;
 
-            this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
-            this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
+            this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+            this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
 
             SelectItemSlot(0, GetGameItemByIndex(0).Identifier);
         }
@@ -42,7 +42,7 @@ namespace StardustSandbox.Game.GUI.Common.HUD
         private void UpdateHeader()
         {
             // If the mouse is over the header, the player will not be able to interact with the environment. Otherwise, this permission is conceived.
-            this.Game.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Size);
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Size);
         }
 
         private void UpdateHeaderElementSelectionSlots()

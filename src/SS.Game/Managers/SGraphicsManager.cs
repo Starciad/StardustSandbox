@@ -10,8 +10,8 @@ namespace StardustSandbox.Game.Managers
 {
     public sealed class SGraphicsManager : SGameObject
     {
-        public GraphicsDeviceManager GraphicsDeviceManager => this._gdm;
-        public GraphicsDevice GraphicsDevice => this._gdm.GraphicsDevice;
+        public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
+        public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;
 
         public RenderTarget2D ScreenRenderTarget => this.screenRenderTarget;
         public RenderTarget2D GuiRenderTarget => this.guiRenderTarget;
@@ -21,7 +21,7 @@ namespace StardustSandbox.Game.Managers
 
         public Viewport Viewport => this.GraphicsDevice.Viewport;
 
-        private readonly GraphicsDeviceManager _gdm;
+        private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
         // ENGINE
         private RenderTarget2D screenRenderTarget;
@@ -32,13 +32,13 @@ namespace StardustSandbox.Game.Managers
         private RenderTarget2D worldRenderTarget;
         private RenderTarget2D lightingRenderTarget;
 
-        public SGraphicsManager(GraphicsDeviceManager gdm)
+        public SGraphicsManager(SGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
         {
-            this._gdm = gdm;
+            this._graphicsDeviceManager = graphicsDeviceManager;
             UpdateSettings();
         }
 
-        protected override void OnAwake()
+        protected override void OnInitialize()
         {
             int width = SScreenConstants.DEFAULT_SCREEN_WIDTH;
             int height = SScreenConstants.DEFAULT_SCREEN_HEIGHT;
@@ -54,12 +54,12 @@ namespace StardustSandbox.Game.Managers
         {
             SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
 
-            this._gdm.IsFullScreen = graphicsSettings.FullScreen;
-            this._gdm.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
-            this._gdm.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;
-            this._gdm.SynchronizeWithVerticalRetrace = graphicsSettings.VSync;
-            this._gdm.GraphicsProfile = GraphicsProfile.HiDef;
-            this._gdm.ApplyChanges();
+            this._graphicsDeviceManager.IsFullScreen = graphicsSettings.FullScreen;
+            this._graphicsDeviceManager.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
+            this._graphicsDeviceManager.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;
+            this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = graphicsSettings.VSync;
+            this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
+            this._graphicsDeviceManager.ApplyChanges();
         }
     }
 }

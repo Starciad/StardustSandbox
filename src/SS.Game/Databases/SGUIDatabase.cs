@@ -13,9 +13,14 @@ namespace StardustSandbox.Game.Databases
 
         private List<SGUISystem> _registeredGUIs = [];
 
-        public void Build()
+        public SGUIDatabase(SGame gameInstance) : base(gameInstance)
         {
-            this._registeredGUIs.ForEach(x => x.Initialize(this.Game));
+
+        }
+
+        protected override void OnInitialize()
+        {
+            this._registeredGUIs.ForEach(x => x.Initialize());
             this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }
 

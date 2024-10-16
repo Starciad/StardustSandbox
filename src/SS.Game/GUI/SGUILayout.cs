@@ -62,7 +62,7 @@ namespace StardustSandbox.Game.GUI
 
         public T CreateElement<T>() where T : SGUIElement
         {
-            T element = layoutPool.GetElement<T>(this.Game);
+            T element = layoutPool.GetElement<T>(this.SGameInstance);
             this.elements.Add(element);
 
             return element;

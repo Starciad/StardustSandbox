@@ -29,7 +29,7 @@ namespace StardustSandbox.Game.GUI
 
         protected override void OnAwake()
         {
-            this.layout.Initialize(this.Game);
+            this.layout.Initialize(this.SGameInstance);
         }
 
         protected override void OnUpdate(GameTime gameTime)

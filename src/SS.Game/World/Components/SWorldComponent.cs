@@ -4,11 +4,11 @@ namespace StardustSandbox.Game.World.Components
 {
     public abstract class SWorldComponent : SGameObject
     {
-        protected SWorld World { get; private set; }
+        protected SWorld SWorldInstance { get; private set; }
 
-        public void SetWorldInstance(SWorld instance)
+        public SWorldComponent(SGame gameInstance, SWorld worldInstance) : base(gameInstance)
         {
-            this.World = instance;
+            this.SWorldInstance = worldInstance;
         }
     }
 }

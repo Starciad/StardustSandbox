@@ -103,7 +103,7 @@ namespace StardustSandbox.Game.Managers
 
                 if (mapActionType == SMapActionType.Put)
                 {
-                    PutElementsInWorld(this.Game.ElementDatabase.GetElementByType(this.itemSelected.ReferencedType));
+                    PutElementsInWorld(this.SGameInstance.ElementDatabase.GetElementByType(this.itemSelected.ReferencedType));
                 }
                 else if (mapActionType == SMapActionType.Remove)
                 {

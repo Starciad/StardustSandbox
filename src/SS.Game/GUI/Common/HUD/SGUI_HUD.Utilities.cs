@@ -7,17 +7,17 @@ namespace StardustSandbox.Game.GUI.Common.HUD
         private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
-            this.Game.GameInputManager.SelectItem(GetGameItemById(itemId));
+            this.SGameInstance.GameInputManager.SelectItem(GetGameItemById(itemId));
         }
 
         private SItem GetGameItemByIndex(int index)
         {
-            return this.Game.ItemDatabase.Items[index];
+            return this.SGameInstance.ItemDatabase.Items[index];
         }
 
         private SItem GetGameItemById(string id)
         {
-            return this.Game.ItemDatabase.GetItemById(id);
+            return this.SGameInstance.ItemDatabase.GetItemById(id);
         }
     }
 }

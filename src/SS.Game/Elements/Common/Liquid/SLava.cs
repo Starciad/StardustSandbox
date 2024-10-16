@@ -29,7 +29,7 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
 
         protected override void OnSettings()
         {
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_10");
+            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 1000;
         }

@@ -26,21 +26,21 @@ namespace StardustSandbox.Game.GUI.Common.Menus.ItemExplorer
 
             this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
 
-            this.particleTexture = this.Game.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = this.Game.AssetDatabase.GetTexture("gui_background_1");
-            this.squareShapeTexture = this.Game.AssetDatabase.GetTexture("shape_square_1");
+            this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+            this.guiBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
 
-            this.categories = this.Game.ItemDatabase.Categories;
+            this.categories = this.SGameInstance.ItemDatabase.Categories;
         }
 
         protected override void OnLoad()
         {
-            this.Game.GameInputManager.CanModifyEnvironment = false;
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
         }
 
         protected override void OnUnload()
         {
-            this.Game.GameInputManager.CanModifyEnvironment = true;
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
         }
     }
 }

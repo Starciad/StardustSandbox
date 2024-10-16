@@ -16,15 +16,24 @@ namespace StardustSandbox.Game.Databases
 
         private readonly Dictionary<string, List<SItem>> catalog = [];
 
-        public void Build(SAssetDatabase assetDatabase)
+        private readonly SAssetDatabase _assetDatabase;
+
+        public SItemDatabase(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance)
         {
-            BuildItems(assetDatabase);
+            this._assetDatabase = assetDatabase;
+        }
+
+        protected override void OnInitialize()
+        {
+            BuildItems(this._assetDatabase);
             BuildCategories();
         }
+        
         private void BuildItems(SAssetDatabase assetDatabase)
         {
             this.items.ForEach(x => x.Build(assetDatabase));
         }
+
         private void BuildCategories()
         {
             IEnumerable<IGrouping<string, SItem>> groupedItems = this.items.GroupBy(item => item.Category);

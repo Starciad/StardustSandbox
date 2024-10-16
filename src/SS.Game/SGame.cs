@@ -56,7 +56,7 @@ namespace StardustSandbox.Game
 
         public SGame()
         {
-            this._graphicsManager = new(new(this));
+            this._graphicsManager = new(this, new GraphicsDeviceManager(this));
 
             // Assembly
             this._assembly = Assembly.GetExecutingAssembly();
@@ -73,22 +73,22 @@ namespace StardustSandbox.Game
             this.IsFixedTimeStep = true;
 
             // Database
-            this._assetDatabase = new(this.Content);
-            this._elementDatabase = new();
-            this._guiDatabase = new();
-            this._itemDatabase = new();
+            this._assetDatabase = new(this, this.Content);
+            this._elementDatabase = new(this);
+            this._guiDatabase = new(this);
+            this._itemDatabase = new(this, this._assetDatabase);
 
             // Core
             this._cameraManager = new(this._graphicsManager);
-            this._world = new(this._elementDatabase, this._assetDatabase, this._cameraManager);
+            this._world = new(this, this._elementDatabase, this._assetDatabase, this._cameraManager);
 
             // Managers
-            this._inputManager = new();
-            this._shaderManager = new(this._assetDatabase);
-            this._gameInputManager = new(this._cameraManager, this._world, this._inputManager);
-            this._guiManager = new(this._guiDatabase, this._inputManager);
-            this._cursorManager = new(this._assetDatabase, this._inputManager);
-            this._gameContentManager = new(this._assembly);
+            this._inputManager = new(this);
+            this._shaderManager = new(this, this._assetDatabase);
+            this._gameInputManager = new(this, this._cameraManager, this._world, this._inputManager);
+            this._guiManager = new(this, this._guiDatabase, this._inputManager);
+            this._cursorManager = new(this, this._assetDatabase, this._inputManager);
+            this._gameContentManager = new(this, this._assembly);
         }
 
         public void UpdateGameSettings()
@@ -102,30 +102,26 @@ namespace StardustSandbox.Game
         protected override void Initialize()
         {
             #region Databases
-            this._assetDatabase.Initialize(this);
-            this._elementDatabase.Initialize(this);
-            this._itemDatabase.Initialize(this);
-            this._guiDatabase.Initialize(this);
-            this._gameContentManager.Initialize(this);
+            this._assetDatabase.Initialize();
+            this._itemDatabase.Initialize();
+            this._elementDatabase.Initialize();
+            this._guiDatabase.Initialize();
+            this._gameContentManager.Initialize();
 
             this._gameContentManager.RegisterAllGameContent();
-
-            this._itemDatabase.Build(this._assetDatabase);
-            this._elementDatabase.Build();
-            this._guiDatabase.Build();
             #endregion
 
             #region Managers
-            this._graphicsManager.Initialize(this);
-            this._gameInputManager.Initialize(this);
-            this._shaderManager.Initialize(this);
-            this._inputManager.Initialize(this);
-            this._guiManager.Initialize(this);
-            this._cursorManager.Initialize(this);
+            this._graphicsManager.Initialize();
+            this._gameInputManager.Initialize();
+            this._shaderManager.Initialize();
+            this._inputManager.Initialize();
+            this._guiManager.Initialize();
+            this._cursorManager.Initialize();
             #endregion
 
             #region Game
-            this._world.Initialize(this);
+            this._world.Initialize();
             #endregion
 
             base.Initialize();

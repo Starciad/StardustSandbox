@@ -28,7 +28,7 @@ namespace StardustSandbox.Game.Elements.Common.Solid.Immovable
 
         protected override void OnSettings()
         {
-            this.Texture = this.Game.AssetDatabase.GetTexture("element_14");
+            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_14");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.EnableTemperature = false;
         }
