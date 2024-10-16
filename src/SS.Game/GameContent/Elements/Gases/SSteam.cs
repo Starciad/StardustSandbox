@@ -1,5 +1,5 @@
-﻿using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Elements.Templates.Gases;
+﻿using StardustSandbox.Game.Elements.Templates.Gases;
+using StardustSandbox.Game.GameContent.Elements.Rendering;
 
 namespace StardustSandbox.Game.GameContent.Elements.Gases
 {

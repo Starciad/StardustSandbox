@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.GameContent.Elements.Rendering;
 using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.World.Data;
 

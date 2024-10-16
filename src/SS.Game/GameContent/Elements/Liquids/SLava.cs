@@ -1,5 +1,5 @@
-﻿using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Elements.Templates.Liquids;
+﻿using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.GameContent.Elements.Rendering;
 using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 
 namespace StardustSandbox.Game.GameContent.Elements.Liquids

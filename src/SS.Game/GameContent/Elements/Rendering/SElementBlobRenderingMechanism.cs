@@ -3,11 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Constants.Elements;
+using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
+using StardustSandbox.Game.Elements.Rendering;
 using StardustSandbox.Game.Enums.Elements;
 using StardustSandbox.Game.Enums.General;
 
-namespace StardustSandbox.Game.Elements.Rendering.Common
+namespace StardustSandbox.Game.GameContent.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {

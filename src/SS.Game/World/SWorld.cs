@@ -2,12 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Databases;
+using StardustSandbox.Game.GameContent.World.Components;
 using StardustSandbox.Game.General;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Managers;
 using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.World.Components;
-using StardustSandbox.Game.World.Components.Common;
 using StardustSandbox.Game.World.Data;
 
 using System;

@@ -3,11 +3,13 @@
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Enums.World;
+using StardustSandbox.Game.World;
+using StardustSandbox.Game.World.Components;
 using StardustSandbox.Game.World.Data;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.World.Components.Common
+namespace StardustSandbox.Game.GameContent.World.Components
 {
     public sealed class SWorldUpdatingComponent : SWorldComponent
     {

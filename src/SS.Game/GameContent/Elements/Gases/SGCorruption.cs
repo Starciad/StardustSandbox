@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Elements.Templates.Gases;
+using StardustSandbox.Game.GameContent.Elements.Rendering;
 using StardustSandbox.Game.GameContent.Elements.Utilities;
 using StardustSandbox.Game.World.Data;
 

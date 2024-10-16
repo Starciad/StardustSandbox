@@ -1,5 +1,5 @@
-﻿using StardustSandbox.Game.Elements.Rendering.Common;
-using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+﻿using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Game.GameContent.Elements.Rendering;
 
 namespace StardustSandbox.Game.GameContent.Elements.Solids.Immovables
 {

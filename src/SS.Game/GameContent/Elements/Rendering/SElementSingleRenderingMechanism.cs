@@ -2,9 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
+using StardustSandbox.Game.Elements.Rendering;
 
-namespace StardustSandbox.Game.Elements.Rendering.Common
+namespace StardustSandbox.Game.GameContent.Elements.Rendering
 {
     public sealed class SElementSingleRenderingMechanism : SElementRenderingMechanism
     {

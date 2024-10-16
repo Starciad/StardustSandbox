@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Constants.Elements;
+using StardustSandbox.Game.Elements.Rendering;
 
-namespace StardustSandbox.Game.Elements.Rendering.Common
+namespace StardustSandbox.Game.GameContent.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {

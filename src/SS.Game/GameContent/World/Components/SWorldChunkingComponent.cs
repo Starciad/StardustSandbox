@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Databases;
+using StardustSandbox.Game.World;
+using StardustSandbox.Game.World.Components;
 using StardustSandbox.Game.World.Data;
 
-namespace StardustSandbox.Game.World.Components.Common
+namespace StardustSandbox.Game.GameContent.World.Components
 {
     public sealed class SWorldChunkingComponent : SWorldComponent
     {

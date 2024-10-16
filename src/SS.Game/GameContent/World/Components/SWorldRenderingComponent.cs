@@ -7,10 +7,12 @@ using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Managers;
 using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.World;
+using StardustSandbox.Game.World.Components;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.World.Components.Common
+namespace StardustSandbox.Game.GameContent.World.Components
 {
     public sealed class SWorldRenderingComponent : SWorldComponent
     {
