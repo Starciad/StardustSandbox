@@ -24,7 +24,7 @@ namespace StardustSandbox.Game.GUI.Elements.Common.Graphics
         private float rotationAngle = 0f;
         private Vector2 scale = Vector2.One;
 
-        public SGUIImageElement()
+        public SGUIImageElement(SGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = false;
             this.IsVisible = true;

@@ -40,7 +40,7 @@ namespace StardustSandbox.Game.GUI.Elements.Common.Graphics
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
-        public SGUISliceImageElement()
+        public SGUISliceImageElement(SGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = true;
             this.IsVisible = true;

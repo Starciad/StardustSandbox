@@ -29,7 +29,7 @@ namespace StardustSandbox.Game.GUI
         internal void Configure(SGUIEvents guiEvents, SGUILayoutPool layoutPool)
         {
             this.GUIEvents = guiEvents;
-            this.layout = new(layoutPool);
+            this.layout = new(this.SGameInstance, layoutPool);
         }
 
         protected override void OnInitialize()

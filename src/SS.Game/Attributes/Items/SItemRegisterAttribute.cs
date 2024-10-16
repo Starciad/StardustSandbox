@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.Game.Items;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace StardustSandbox.Game.Attributes.Items
 {
@@ -11,7 +12,7 @@ namespace StardustSandbox.Game.Attributes.Items
 
         private readonly SItem item;
 
-        public SItemRegisterAttribute(Type itemType)
+        public SItemRegisterAttribute([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type itemType)
         {
             if (!typeof(SItem).IsAssignableFrom(itemType))
             {

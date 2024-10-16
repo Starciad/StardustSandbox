@@ -14,30 +14,26 @@ namespace StardustSandbox.Game.Managers
 {
     public sealed partial class SGameInputManager
     {
-        private readonly SInputActionMapHandler _actionHandler = new();
-
-        // ================================== //
-
         private void BuildKeyboardInputs()
         {
             SInputActionMap worldKeyboardActionMap = this._actionHandler.AddActionMap("World_Keyboard", true);
 
             // Camera
-            worldKeyboardActionMap.AddAction("World_Camera_Up", new SInputAction(this._inputManager, Keys.W, Keys.Up)).OnPerformed += _ => MoveCamera(SCardinalDirection.North);
-            worldKeyboardActionMap.AddAction("World_Camera_Right", new SInputAction(this._inputManager, Keys.D, Keys.Right)).OnPerformed += _ => MoveCamera(SCardinalDirection.East);
-            worldKeyboardActionMap.AddAction("World_Camera_Down", new SInputAction(this._inputManager, Keys.S, Keys.Down)).OnPerformed += _ => MoveCamera(SCardinalDirection.South);
-            worldKeyboardActionMap.AddAction("World_Camera_Left", new SInputAction(this._inputManager, Keys.A, Keys.Left)).OnPerformed += _ => MoveCamera(SCardinalDirection.West);
+            worldKeyboardActionMap.AddAction("World_Camera_Up", new SInputAction(this.SGameInstance, this._inputManager, Keys.W, Keys.Up)).OnPerformed += _ => MoveCamera(SCardinalDirection.North);
+            worldKeyboardActionMap.AddAction("World_Camera_Right", new SInputAction(this.SGameInstance, this._inputManager, Keys.D, Keys.Right)).OnPerformed += _ => MoveCamera(SCardinalDirection.East);
+            worldKeyboardActionMap.AddAction("World_Camera_Down", new SInputAction(this.SGameInstance, this._inputManager, Keys.S, Keys.Down)).OnPerformed += _ => MoveCamera(SCardinalDirection.South);
+            worldKeyboardActionMap.AddAction("World_Camera_Left", new SInputAction(this.SGameInstance, this._inputManager, Keys.A, Keys.Left)).OnPerformed += _ => MoveCamera(SCardinalDirection.West);
 
             // Shortcuts
-            worldKeyboardActionMap.AddAction("World_Pause", new(this._inputManager, Keys.Space)).OnStarted += _ => PauseWorld();
-            worldKeyboardActionMap.AddAction("World_Reset", new(this._inputManager, Keys.R)).OnStarted += _ => ResetWorld();
+            worldKeyboardActionMap.AddAction("World_Pause", new(this.SGameInstance, this._inputManager, Keys.Space)).OnStarted += _ => PauseWorld();
+            worldKeyboardActionMap.AddAction("World_Reset", new(this.SGameInstance, this._inputManager, Keys.R)).OnStarted += _ => ResetWorld();
         }
         private void BuildMouseInputs()
         {
             SInputActionMap worldMouseActionMap = this._actionHandler.AddActionMap("World_Mouse", true);
 
-            worldMouseActionMap.AddAction("World_Place_Elements", new(this._inputManager, SMouseButton.Left)).OnPerformed += _ => PerformMapAction(SMapActionType.Put);
-            worldMouseActionMap.AddAction("World_Erase_Elements", new(this._inputManager, SMouseButton.Right)).OnPerformed += _ => PerformMapAction(SMapActionType.Remove);
+            worldMouseActionMap.AddAction("World_Place_Elements", new(this.SGameInstance, this._inputManager, SMouseButton.Left)).OnPerformed += _ => PerformMapAction(SMapActionType.Put);
+            worldMouseActionMap.AddAction("World_Erase_Elements", new(this.SGameInstance, this._inputManager, SMouseButton.Right)).OnPerformed += _ => PerformMapAction(SMapActionType.Remove);
         }
 
         // ================================== //

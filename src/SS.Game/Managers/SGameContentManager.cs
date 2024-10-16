@@ -8,6 +8,7 @@ using StardustSandbox.Game.GUI;
 using StardustSandbox.Game.Objects;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -38,6 +39,7 @@ namespace StardustSandbox.Game.Managers
             this._guiManager = this.SGameInstance.GUIManager;
         }
 
+        [RequiresUnreferencedCode()]
         public void RegisterAllGameContent()
         {
             foreach (Type gameContentType in assembly.GetTypes().Where(x => x.GetCustomAttribute(typeof(SGameContentAttribute), true) != null))
@@ -48,7 +50,7 @@ namespace StardustSandbox.Game.Managers
             }
         }
 
-        private void RegisterGUI(Type type)
+        private void RegisterGUI([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type)
         {
             if (type.GetCustomAttribute<SGUIRegisterAttribute>() == null)
             {
@@ -58,7 +60,7 @@ namespace StardustSandbox.Game.Managers
             this._guiDatabase.RegisterGUISystem((SGUISystem)Activator.CreateInstance(type), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
         }
 
-        private void RegisterElement(Type type)
+        private void RegisterElement([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] Type type)
         {
             if (type.GetCustomAttribute<SElementRegisterAttribute>() == null)
             {

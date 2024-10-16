@@ -3,6 +3,7 @@ using StardustSandbox.Game.GUI.Elements;
 using StardustSandbox.Game.Interfaces.General;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace StardustSandbox.Game.GUI
 {
@@ -10,7 +11,7 @@ namespace StardustSandbox.Game.GUI
     {
         private readonly SObjectPool objectPool = new();
 
-        public T GetElement<T>(SGame game) where T : SGUIElement
+        public T GetElement<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T>(SGame game) where T : SGUIElement
         {
             T element;
 
@@ -24,7 +25,7 @@ namespace StardustSandbox.Game.GUI
                 element.Reset();
             }
 
-            element.Initialize(game);
+            element.Initialize();
 
             return element;
         }

@@ -10,6 +10,7 @@ using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace StardustSandbox.Game.GUI
@@ -68,7 +69,7 @@ namespace StardustSandbox.Game.GUI
             }
         }
 
-        public T CreateElement<T>() where T : SGUIElement
+        public T CreateElement<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T>() where T : SGUIElement
         {
             T element = _layoutPool.GetElement<T>(this.SGameInstance);
             this.elements.Add(element);

@@ -25,13 +25,7 @@ namespace StardustSandbox.Game.Databases
 
         protected override void OnInitialize()
         {
-            BuildItems(this._assetDatabase);
             BuildCategories();
-        }
-        
-        private void BuildItems(SAssetDatabase assetDatabase)
-        {
-            this.items.ForEach(x => x.Build(assetDatabase));
         }
 
         private void BuildCategories()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.InputSystem;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.World;
@@ -32,12 +33,14 @@ namespace StardustSandbox.Game.Managers
         private readonly SCameraManager _cameraManager;
         private readonly SWorld _world;
         private readonly SInputManager _inputManager;
+        private readonly SInputActionMapHandler _actionHandler;
 
         public SGameInputManager(SGame gameInstance, SCameraManager cameraManager, SWorld world, SInputManager inputManager) : base(gameInstance)
         {
             this._cameraManager = cameraManager;
             this._world = world;
             this._inputManager = inputManager;
+            this._actionHandler = new(gameInstance);
         }
 
         protected override void OnInitialize()

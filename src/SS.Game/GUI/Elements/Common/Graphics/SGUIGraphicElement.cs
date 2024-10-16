@@ -15,6 +15,11 @@ namespace StardustSandbox.Game.GUI.Elements.Common.Graphics
         public virtual float RotationAngle { get; }
         public virtual Vector2 Scale { get; }
 
+        public SGUIGraphicElement(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         public virtual void SetTexture(Texture2D texture) { return; }
         public virtual void SetTextureClipArea(Rectangle clipArea) { return; }
         public virtual void SetColor(Color color) { return; }

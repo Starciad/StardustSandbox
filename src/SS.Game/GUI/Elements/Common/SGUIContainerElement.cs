@@ -2,7 +2,7 @@
 {
     public class SGUIContainerElement : SGUIElement
     {
-        public SGUIContainerElement()
+        public SGUIContainerElement(SGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = false;
             this.IsVisible = false;

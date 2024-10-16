@@ -20,7 +20,7 @@ namespace StardustSandbox.Game.GUI.Elements.Common
         private Color topLeftBorderColor, topRightBorderColor, bottomLeftBorderColor, bottomRightBorderColor;
         private Vector2 borderOffset = Vector2.One;
 
-        public SGUILabelElement()
+        public SGUILabelElement(SGame gameInstance) : base(gameInstance)
         {
             this.IsVisible = true;
         }
