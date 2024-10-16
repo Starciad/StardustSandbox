@@ -19,11 +19,6 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 
         public SGUI_ItemExplorer(SGame gameInstance) : base(gameInstance)
         {
-
-        }
-
-        protected override void OnInitialize()
-        {
             this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");

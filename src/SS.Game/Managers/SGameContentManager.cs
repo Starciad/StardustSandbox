@@ -39,9 +39,9 @@ namespace StardustSandbox.Game.Managers
 
         public void RegisterAllGameContent()
         {
-            RegisterGUIs();
             RegisterElements();
             RegisterItems();
+            RegisterGUIs();
         }
 
         private void RegisterElements()

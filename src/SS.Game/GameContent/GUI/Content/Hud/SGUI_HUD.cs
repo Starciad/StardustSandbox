@@ -18,11 +18,6 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
 
         public SGUI_HUD(SGame gameInstance) : base(gameInstance)
         {
-
-        }
-
-        protected override void OnInitialize()
-        {
             this.Name = SGUIConstants.HUD_NAME;
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
