@@ -8,15 +8,13 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SCursorManager(SAssetDatabase assetDatabase, SInputManager inputManager) : SGameObject
+    public sealed class SCursorManager : SGameObject
     {
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [
             new Rectangle(new Point(0, 0), new Point(36, 36)),
             new Rectangle(new Point(0, 36), new Point(36, 36)),
         ];
-
-        private readonly int cursorTextureSelected = 0;
 
         private Vector2 cursorScale;
 
@@ -26,17 +24,28 @@ namespace StardustSandbox.Game.Managers
         private Vector2 cursorBackgroundPosition;
         private Vector2 cursorPosition;
 
-        protected override void OnAwake()
+        private readonly int cursorTextureSelected = 0;
+
+        private readonly SAssetDatabase _assetDatabase;
+        private readonly SInputManager _inputManager;
+
+        public SCursorManager(SGame gameInstance, SAssetDatabase assetDatabase, SInputManager inputManager) : base(gameInstance)
         {
-            this.cursorTextures[0] = assetDatabase.GetTexture("cursor_1");
-            this.cursorTextures[1] = assetDatabase.GetTexture("cursor_2");
+            this._assetDatabase = assetDatabase;
+            this._inputManager = inputManager;
+        }
+
+        protected override void OnInitialize()
+        {
+            this.cursorTextures[0] = this._assetDatabase.GetTexture("cursor_1");
+            this.cursorTextures[1] = this._assetDatabase.GetTexture("cursor_2");
 
             UpdateCursorSettings();
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            Vector2 pos = inputManager.MouseState.Position.ToVector2();
+            Vector2 pos = _inputManager.MouseState.Position.ToVector2();
 
             this.cursorBackgroundPosition = pos;
             this.cursorPosition = pos;

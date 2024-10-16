@@ -16,6 +16,11 @@ namespace StardustSandbox.Game.Elements.Common.Gases
     {
         public GasSpreadingType SpreadingType { get; protected set; }
 
+        protected SGas(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         public override void OnBehaviourStep()
         {
             switch (this.SpreadingType)

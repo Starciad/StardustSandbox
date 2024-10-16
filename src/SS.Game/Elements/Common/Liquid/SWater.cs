@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Attributes.Elements;
 using StardustSandbox.Game.Attributes.GameContent;
 using StardustSandbox.Game.Attributes.Items;
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements.Common.Gases;
 using StardustSandbox.Game.Elements.Common.Solid.Movable;
 using StardustSandbox.Game.Elements.Rendering.Common;
@@ -21,22 +22,22 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
     {
         private sealed class SWaterItem : SItem
         {
-            protected override void OnBuild()
+            public SWaterItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance, assetDatabase)
             {
                 this.Identifier = "ELEMENT_WATER";
                 this.Name = "Water";
                 this.Description = string.Empty;
                 this.Category = "Liquids";
-                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_3");
+                this.IconTexture = assetDatabase.GetTexture("icon_element_3");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;
                 this.ReferencedType = typeof(SWater);
             }
         }
 
-        protected override void OnSettings()
+        public SWater(SGame gameInstance) : base(gameInstance)
         {
-            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_3");
+            this.Texture = gameInstance.AssetDatabase.GetTexture("element_3");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultDispersionRate = 3;
             this.DefaultTemperature = 25;

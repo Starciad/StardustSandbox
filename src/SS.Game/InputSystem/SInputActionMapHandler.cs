@@ -10,6 +10,11 @@ namespace StardustSandbox.Game.InputSystem
     {
         private readonly Dictionary<string, SInputActionMap> _maps = [];
 
+        public SInputActionMapHandler(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             foreach (SInputActionMap actionMap in this._maps.Values)
@@ -23,7 +28,7 @@ namespace StardustSandbox.Game.InputSystem
 
         public SInputActionMap AddActionMap(string name, bool active)
         {
-            SInputActionMap map = new(this, active);
+            SInputActionMap map = new(this.SGameInstance, this, active);
 
             return this._maps.TryAdd(name, map) ? map : default;
         }

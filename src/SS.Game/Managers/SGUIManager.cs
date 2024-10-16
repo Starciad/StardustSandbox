@@ -8,17 +8,25 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SGUIManager(SGUIDatabase guiDatabase, SInputManager inputManager) : SGameObject
+    public sealed class SGUIManager : SGameObject
     {
         public SGUIEvents GUIEvents => this._guiEvents;
-        public SGUILayoutPool GUILayoutPool => this._guiLayoutPool;
+        public SGUILayoutPool GUILayoutPool => this.guiLayoutPool;
 
-        private readonly SGUIEvents _guiEvents = new(inputManager);
-        private readonly SGUILayoutPool _guiLayoutPool = new();
+        private readonly SGUILayoutPool guiLayoutPool = new();
+
+        private readonly SGUIEvents _guiEvents;
+        private readonly SGUIDatabase _guiDatabase;
+
+        public SGUIManager(SGame gameInstance, SGUIDatabase guiDatabase, SInputManager inputManager) : base(gameInstance)
+        {
+            this._guiDatabase = guiDatabase;
+            this._guiEvents = new(inputManager);
+        }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            foreach (SGUISystem guiSystem in guiDatabase.RegisteredGUIs)
+            foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
             {
                 if (guiSystem.IsActive)
                 {
@@ -29,7 +37,7 @@ namespace StardustSandbox.Game.Managers
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (SGUISystem guiSystem in guiDatabase.RegisteredGUIs)
+            foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
             {
                 if (guiSystem.IsActive || guiSystem.IsShowing)
                 {
@@ -62,7 +70,7 @@ namespace StardustSandbox.Game.Managers
 
         public bool TryGetGUIByName(string name, out SGUISystem guiSystem)
         {
-            SGUISystem target = guiDatabase.Find(name);
+            SGUISystem target = this._guiDatabase.Find(name);
             guiSystem = target;
 
             return target != null;

@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Attributes.Elements;
 using StardustSandbox.Game.Attributes.GameContent;
 using StardustSandbox.Game.Attributes.Items;
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements.Common.Utilities;
 using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Items;
@@ -19,22 +20,22 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
     {
         private sealed class SLCorruptionItem : SItem
         {
-            protected override void OnBuild()
+            public SLCorruptionItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance, assetDatabase)
             {
                 this.Identifier = "ELEMENT_CORRUPTION_LIQUID";
                 this.Name = "Corruption (Liquid)";
                 this.Description = string.Empty;
                 this.Category = "Liquids";
-                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_17");
+                this.IconTexture = assetDatabase.GetTexture("icon_element_17");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;
                 this.ReferencedType = typeof(SLCorruption);
             }
         }
 
-        protected override void OnSettings()
+        public SLCorruption(SGame gameInstance) : base(gameInstance)
         {
-            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_17");
+            this.Texture = gameInstance.AssetDatabase.GetTexture("element_17");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.EnableNeighborsAction = true;
         }

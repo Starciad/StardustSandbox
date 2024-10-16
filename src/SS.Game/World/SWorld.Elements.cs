@@ -12,11 +12,11 @@ namespace StardustSandbox.Game.World
     {
         public void InstantiateElement<T>(Point pos) where T : SElement
         {
-            InstantiateElement(pos, elementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(pos, this.ElementDatabase.GetIdOfElementType<T>());
         }
         public void InstantiateElement(Point pos, uint id)
         {
-            InstantiateElement(pos, elementDatabase.GetElementById(id));
+            InstantiateElement(pos, this.ElementDatabase.GetElementById(id));
         }
         public void InstantiateElement(Point pos, SElement value)
         {
@@ -24,11 +24,11 @@ namespace StardustSandbox.Game.World
         }
         public bool TryInstantiateElement<T>(Point pos) where T : SElement
         {
-            return TryInstantiateElement(pos, elementDatabase.GetIdOfElementType<T>());
+            return TryInstantiateElement(pos, this.ElementDatabase.GetIdOfElementType<T>());
         }
         public bool TryInstantiateElement(Point pos, uint id)
         {
-            return TryInstantiateElement(pos, elementDatabase.GetElementById(id));
+            return TryInstantiateElement(pos, this.ElementDatabase.GetElementById(id));
         }
         public bool TryInstantiateElement(Point pos, SElement value)
         {
@@ -148,7 +148,7 @@ namespace StardustSandbox.Game.World
                 return false;
             }
 
-            value = elementDatabase.GetElementById(this.slots[pos.X, pos.Y].Id);
+            value = this.ElementDatabase.GetElementById(this.slots[pos.X, pos.Y].Id);
             return true;
         }
 

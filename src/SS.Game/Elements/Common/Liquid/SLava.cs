@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.Game.Attributes.Elements;
 using StardustSandbox.Game.Attributes.GameContent;
 using StardustSandbox.Game.Attributes.Items;
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements.Common.Solid.Movable;
 using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Items;
@@ -14,22 +15,22 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
     {
         private sealed class SLavaItem : SItem
         {
-            protected override void OnBuild()
+            public SLavaItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance, assetDatabase)
             {
                 this.Identifier = "ELEMENT_LAVA";
                 this.Name = "Lava";
                 this.Description = string.Empty;
                 this.Category = "Liquids";
-                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_10");
+                this.IconTexture = assetDatabase.GetTexture("icon_element_10");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;
                 this.ReferencedType = typeof(SLava);
             }
         }
 
-        protected override void OnSettings()
+        public SLava(SGame gameInstance) : base(gameInstance)
         {
-            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_10");
+            this.Texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 1000;
         }

@@ -34,13 +34,12 @@ namespace StardustSandbox.Game.Elements
         public SElementContext Context { get; internal set; }
         #endregion
 
-        #region Engine
-        protected override void OnAwake()
+        public SElement(SGame gameInstance) : base(gameInstance)
         {
-            this.Rendering = new(this);
-            OnSettings();
+            this.Rendering = new(this.SGameInstance, this);
         }
 
+        #region Engine
         protected override void OnUpdate(GameTime gameTime)
         {
             this.Rendering.Update(gameTime);
@@ -75,8 +74,6 @@ namespace StardustSandbox.Game.Elements
         #endregion
 
         #region Configurations
-        protected virtual void OnSettings() { return; }
-
         // Steps
         protected virtual void OnBeforeStep() { return; }
         protected virtual void OnStep() { return; }

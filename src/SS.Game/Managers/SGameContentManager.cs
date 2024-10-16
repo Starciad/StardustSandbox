@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SGameContentManager(Assembly assembly) : SGameObject
+    public sealed class SGameContentManager : SGameObject
     {
         // Databases
         private SGUIDatabase _guiDatabase;
@@ -22,8 +22,14 @@ namespace StardustSandbox.Game.Managers
 
         // Managers
         private SGUIManager _guiManager;
+        private readonly Assembly assembly;
 
-        protected override void OnAwake()
+        public SGameContentManager(SGame gameInstance, Assembly assembly) : base(gameInstance)
+        {
+            this.assembly = assembly;
+        }
+
+        protected override void OnInitialize()
         {
             this._guiDatabase = this.SGameInstance.GUIDatabase;
             this._elementDatabase = this.SGameInstance.ElementDatabase;

@@ -14,8 +14,8 @@ namespace StardustSandbox.Game.InputSystem
         private SInputActionMap _actionMap;
         private readonly SInputManager _inputManager;
 
-        private readonly Keys[] keys;
-        private readonly SMouseButton[] mouseButtons;
+        private readonly Keys[] _keys;
+        private readonly SMouseButton[] _mouseButtons;
 
         private CallbackContext callback;
 
@@ -31,30 +31,32 @@ namespace StardustSandbox.Game.InputSystem
         public delegate void Performed(CallbackContext context);
         public delegate void Canceled(CallbackContext context);
 
-        public SInputAction(SInputManager inputManager, params Keys[] keys)
+        public SInputAction(SGame gameInstance, SInputManager inputManager, params Keys[] keys) : base(gameInstance)
         {
             this._inputManager = inputManager;
-            this.keys = keys;
-            this.mouseButtons = [];
+            this._keys = keys;
+            this._mouseButtons = [];
         }
-        public SInputAction(SInputManager inputManager, params SMouseButton[] mouseButtons)
+
+        public SInputAction(SGame gameInstance, SInputManager inputManager, params SMouseButton[] mouseButtons) : base(gameInstance)
         {
             this._inputManager = inputManager;
-            this.keys = [];
-            this.mouseButtons = mouseButtons;
+            this._keys = [];
+            this._mouseButtons = mouseButtons;
         }
-        public SInputAction(SInputManager inputManager, Keys[] keys, SMouseButton[] mouseButtons)
+
+        public SInputAction(SGame gameInstance, SInputManager inputManager, Keys[] keys, SMouseButton[] mouseButtons) : base(gameInstance)
         {
             this._inputManager = inputManager;
-            this.keys = keys;
-            this.mouseButtons = mouseButtons;
+            this._keys = keys;
+            this._mouseButtons = mouseButtons;
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
             this.callback = new();
 
-            foreach (Keys key in this.keys)
+            foreach (Keys key in this._keys)
             {
                 // Started
                 if (GetKeyboardStartedState(key))
@@ -78,7 +80,7 @@ namespace StardustSandbox.Game.InputSystem
                 }
             }
 
-            foreach (SMouseButton mouseButton in this.mouseButtons)
+            foreach (SMouseButton mouseButton in this._mouseButtons)
             {
                 // Started
                 if (GetMouseStartedState(mouseButton) &&

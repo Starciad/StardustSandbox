@@ -8,12 +8,17 @@ using System;
 
 namespace StardustSandbox.Game.Elements.Rendering
 {
-    public sealed class SElementRendering(SElement element) : SGameObject
+    public sealed class SElementRendering : SGameObject
     {
         private SElementRenderingMechanism renderingMechanism;
 
-        private readonly SElement _element = element;
+        private readonly SElement _element;
         private SElementContext _context;
+
+        public SElementRendering(SGame gameInstance, SElement element) : base(gameInstance)
+        {
+            this._element = element;
+        }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {

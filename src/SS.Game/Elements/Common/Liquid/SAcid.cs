@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Attributes.Elements;
 using StardustSandbox.Game.Attributes.GameContent;
 using StardustSandbox.Game.Attributes.Items;
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements.Common.Solid.Immovable;
 using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Items;
@@ -19,22 +20,22 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
     {
         private sealed class SAcidItem : SItem
         {
-            protected override void OnBuild()
+            public SAcidItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance, assetDatabase)
             {
                 this.Identifier = "ELEMENT_ACID";
                 this.Name = "Acid";
                 this.Description = string.Empty;
                 this.Category = "Liquids";
-                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_11");
+                this.IconTexture = assetDatabase.GetTexture("icon_element_11");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;
                 this.ReferencedType = typeof(SAcid);
             }
         }
 
-        protected override void OnSettings()
+        public SAcid(SGame gameInstance) : base(gameInstance)
         {
-            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_11");
+            this.Texture = gameInstance.AssetDatabase.GetTexture("element_11");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 10;
             this.EnableNeighborsAction = true;

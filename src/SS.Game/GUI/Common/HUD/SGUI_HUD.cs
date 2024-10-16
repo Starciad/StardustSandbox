@@ -19,10 +19,13 @@ namespace StardustSandbox.Game.GUI.Common.HUD
 
         private int slotSelectedIndex = 0;
 
-        protected override void OnAwake()
+        public SGUI_HUD(SGame gameInstance) : base(gameInstance)
         {
-            base.OnAwake();
 
+        }
+
+        protected override void OnInitialize()
+        {
             this.Name = SGUIConstants.HUD_NAME;
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");

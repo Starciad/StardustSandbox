@@ -20,10 +20,8 @@ namespace StardustSandbox.Game.GUI.Common.Menus.ItemExplorer
         private int selectedPageIndex;
         private SItem[] selectedItems;
 
-        protected override void OnAwake()
+        protected override void OnInitialize()
         {
-            base.OnAwake();
-
             this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");

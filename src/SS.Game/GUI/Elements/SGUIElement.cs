@@ -31,6 +31,11 @@ namespace StardustSandbox.Game.GUI.Elements
 
         private static SSize2 ScreenSize = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT);
 
+        public SGUIElement(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         // [ Settings ]
         public void PositionRelativeToElement(SGUIElement reference)
         {

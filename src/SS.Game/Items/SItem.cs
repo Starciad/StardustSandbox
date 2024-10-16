@@ -20,13 +20,9 @@ namespace StardustSandbox.Game.Items
 
         protected SAssetDatabase AssetDatabase { get; private set; }
 
-        internal void Build(SAssetDatabase assetDatabase)
+        public SItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance)
         {
             this.AssetDatabase = assetDatabase;
-
-            OnBuild();
         }
-
-        protected abstract void OnBuild();
     }
 }

@@ -7,6 +7,11 @@ namespace StardustSandbox.Game.Elements.Common.Solid.Movable
 {
     public abstract class SMovableSolid : SSolid
     {
+        public SMovableSolid(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         public override void OnBehaviourStep()
         {
             int direction = SRandom.Range(0, 101) < 50 ? 1 : -1;

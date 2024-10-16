@@ -14,16 +14,24 @@ using System.Linq;
 
 namespace StardustSandbox.Game.GUI
 {
-    public sealed class SGUILayout(SGUILayoutPool layoutPool) : SGameObject, ISGUILayoutBuilder
+    public sealed class SGUILayout : SGameObject, ISGUILayoutBuilder
     {
         public SGUIRootElement RootElement => this.rootElement;
         public int ElementCount => this.elements.Count;
 
         private readonly List<SGUIElement> elements = [];
+
         private SGUIElement[] elementsThatShouldUpdate;
         private SGUIElement[] elementsThatShouldDraw;
 
         private SGUIRootElement rootElement = null;
+
+        private readonly SGUILayoutPool _layoutPool;
+
+        public SGUILayout(SGame gameInstance, SGUILayoutPool layoutPool) : base(gameInstance)
+        {
+            this._layoutPool = layoutPool;
+        }
 
         public void Load()
         {
@@ -40,7 +48,7 @@ namespace StardustSandbox.Game.GUI
 
         public void Unload()
         {
-            this.elements.ForEach(x => layoutPool.AddElement(x));
+            this.elements.ForEach(x => _layoutPool.AddElement(x));
             this.elements.Clear();
         }
 
@@ -62,7 +70,7 @@ namespace StardustSandbox.Game.GUI
 
         public T CreateElement<T>() where T : SGUIElement
         {
-            T element = layoutPool.GetElement<T>(this.SGameInstance);
+            T element = _layoutPool.GetElement<T>(this.SGameInstance);
             this.elements.Add(element);
 
             return element;

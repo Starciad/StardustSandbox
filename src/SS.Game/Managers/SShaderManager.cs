@@ -6,22 +6,29 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SShaderManager(SAssetDatabase assetDatabase) : SGameObject
+    public sealed class SShaderManager : SGameObject
     {
-        private Effect[] _shaders;
-        private int _shadersLength;
+        private Effect[] shaders;
+        private int shadersLength;
 
-        protected override void OnAwake()
+        private readonly SAssetDatabase _assetDatabase;
+
+        public SShaderManager(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance)
         {
-            this._shaders = assetDatabase.Shaders;
-            this._shadersLength = this._shaders.Length;
+            this._assetDatabase = assetDatabase;
+        }
+
+        protected override void OnInitialize()
+        {
+            this.shaders = this._assetDatabase.Shaders;
+            this.shadersLength = this.shaders.Length;
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            for (int i = 0; i < this._shadersLength; i++)
+            for (int i = 0; i < this.shadersLength; i++)
             {
-                this._shaders[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
+                this.shaders[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
             }
         }
     }

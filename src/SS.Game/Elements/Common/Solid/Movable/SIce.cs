@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.Game.Attributes.Elements;
 using StardustSandbox.Game.Attributes.GameContent;
 using StardustSandbox.Game.Attributes.Items;
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Items;
 
@@ -13,20 +14,20 @@ namespace StardustSandbox.Game.Elements.Common.Solid.Movable
     {
         private sealed class SIceItem : SItem
         {
-            protected override void OnBuild()
+            public SIceItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance, assetDatabase)
             {
                 this.Identifier = "ELEMENT_ICE";
                 this.Name = "Ice";
                 this.Description = string.Empty;
                 this.Category = "Powders";
-                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_6");
+                this.IconTexture = assetDatabase.GetTexture("icon_element_6");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;
                 this.ReferencedType = typeof(SIce);
             }
         }
 
-        protected override void OnSettings()
+        public SIce(SGame gameInstance) : base(gameInstance)
         {
             this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_6");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

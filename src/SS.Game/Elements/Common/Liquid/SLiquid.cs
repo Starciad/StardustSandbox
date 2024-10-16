@@ -6,6 +6,11 @@ namespace StardustSandbox.Game.Elements.Common.Liquid
 {
     public abstract class SLiquid : SElement
     {
+        public SLiquid(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         public override void OnBehaviourStep()
         {
             int direction = SRandom.Range(0, 101) < 50 ? 1 : -1;

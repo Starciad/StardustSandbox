@@ -59,11 +59,11 @@ namespace StardustSandbox.Game.Managers
         // Update
         private void UpdatePlaceAreaSize()
         {
-            if (this._inputHandler.GetDeltaScrollWheel() > 0)
+            if (this._inputManager.GetDeltaScrollWheel() > 0)
             {
                 this.penScale -= 1;
             }
-            else if (this._inputHandler.GetDeltaScrollWheel() < 0)
+            else if (this._inputManager.GetDeltaScrollWheel() < 0)
             {
                 this.penScale += 1;
             }

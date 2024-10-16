@@ -21,15 +21,20 @@ namespace StardustSandbox.Game.GUI
         private bool isActive;
         private bool isShowing;
 
+        public SGUISystem(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         internal void Configure(SGUIEvents guiEvents, SGUILayoutPool layoutPool)
         {
             this.GUIEvents = guiEvents;
             this.layout = new(layoutPool);
         }
 
-        protected override void OnAwake()
+        protected override void OnInitialize()
         {
-            this.layout.Initialize(this.SGameInstance);
+            this.layout.Initialize();
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Attributes.Elements;
 using StardustSandbox.Game.Attributes.GameContent;
 using StardustSandbox.Game.Attributes.Items;
+using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements.Common.Utilities;
 using StardustSandbox.Game.Elements.Rendering.Common;
 using StardustSandbox.Game.Items;
@@ -19,22 +20,22 @@ namespace StardustSandbox.Game.Elements.Common.Solid.Immovable
     {
         private sealed class SIMCorruptionItem : SItem
         {
-            protected override void OnBuild()
+            public SIMCorruptionItem(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance, assetDatabase)
             {
                 this.Identifier = "ELEMENT_CORRUPTION_IMMOVABLE";
                 this.Name = "Corruption (Immovable)";
                 this.Description = string.Empty;
                 this.Category = "Solids";
-                this.IconTexture = this.AssetDatabase.GetTexture("icon_element_18");
+                this.IconTexture = assetDatabase.GetTexture("icon_element_18");
                 this.IsVisible = true;
                 this.UnlockProgress = 0;
                 this.ReferencedType = typeof(SIMCorruption);
             }
         }
 
-        protected override void OnSettings()
+        public SIMCorruption(SGame gameInstance) : base(gameInstance)
         {
-            this.Texture = this.SGameInstance.AssetDatabase.GetTexture("element_18");
+            this.Texture = gameInstance.AssetDatabase.GetTexture("element_18");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.EnableNeighborsAction = true;
         }

@@ -17,6 +17,11 @@ namespace StardustSandbox.Game.Managers
         private KeyboardState _keyboardState;
         private KeyboardState _previousKeyboardState;
 
+        public SInputManager(SGame gameInstance) : base(gameInstance)
+        {
+
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this._previousMouseState = this._mouseState;
