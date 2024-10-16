@@ -27,16 +27,14 @@ namespace StardustSandbox.Game.GUI
 
         private SGUIRootElement rootElement = null;
 
-        private readonly SGUILayoutPool _layoutPool;
-
-        public SGUILayout(SGame gameInstance, SGUILayoutPool layoutPool) : base(gameInstance)
+        public SGUILayout(SGame gameInstance) : base(gameInstance)
         {
-            this._layoutPool = layoutPool;
+
         }
 
         public void Load()
         {
-            this.rootElement = CreateElement<SGUIRootElement>();
+            this.rootElement = AddElement(new SGUIRootElement(this.SGameInstance));
             this.rootElement.SetPositioningType(SPositioningType.Fixed);
             this.rootElement.SetSize(new SSize2(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
         }
@@ -49,7 +47,6 @@ namespace StardustSandbox.Game.GUI
 
         public void Unload()
         {
-            this.elements.ForEach(x => _layoutPool.AddElement(x));
             this.elements.Clear();
         }
 
@@ -69,12 +66,11 @@ namespace StardustSandbox.Game.GUI
             }
         }
 
-        public T CreateElement<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] T>() where T : SGUIElement
+        public T AddElement<T>(T value) where T : SGUIElement
         {
-            T element = _layoutPool.GetElement<T>(this.SGameInstance);
-            this.elements.Add(element);
+            this.elements.Add(value);
 
-            return element;
+            return value;
         }
     }
 }

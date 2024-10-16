@@ -24,9 +24,9 @@ namespace StardustSandbox.Game.Databases
             this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }
 
-        internal void RegisterGUISystem(SGUISystem guiSystem, SGUIEvents guiEvents, SGUILayoutPool layoutPool)
+        internal void RegisterGUISystem(SGUISystem guiSystem, SGUIEvents guiEvents)
         {
-            guiSystem.Configure(guiEvents, layoutPool);
+            guiSystem.Configure(guiEvents);
             this._registeredGUIs.Add(guiSystem);
         }
 

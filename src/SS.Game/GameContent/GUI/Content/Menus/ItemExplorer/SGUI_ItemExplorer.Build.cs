@@ -33,7 +33,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 
         private void BuildGUIBackground()
         {
-            SGUIImageElement guiBackground = this._layout.CreateElement<SGUIImageElement>();
+            SGUIImageElement guiBackground = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
             guiBackground.SetTexture(this.particleTexture);
             guiBackground.SetScale(this._rootElement.Size.ToVector2());
             guiBackground.SetSize(this._rootElement.Size);
@@ -45,14 +45,14 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
         private void BuildExplorer()
         {
             #region Background & Title
-            SGUISliceImageElement explorerBackground = this._layout.CreateElement<SGUISliceImageElement>();
+            SGUISliceImageElement explorerBackground = this._layout.AddElement(new SGUISliceImageElement(this.SGameInstance));
             explorerBackground.SetTexture(this.guiBackgroundTexture);
             explorerBackground.SetScale(new Vector2(32, 15));
             explorerBackground.SetMargin(new Vector2(128, 128));
             explorerBackground.SetColor(new Color(104, 111, 121, 255));
             explorerBackground.PositionRelativeToElement(this._rootElement);
 
-            this.explorerTitleLabel = this._layout.CreateElement<SGUILabelElement>();
+            this.explorerTitleLabel = this._layout.AddElement(new SGUILabelElement(this.SGameInstance));
             this.explorerTitleLabel.SetTextContent("TITLE");
             this.explorerTitleLabel.SetScale(new Vector2(0.15f));
             this.explorerTitleLabel.SetMargin(new Vector2(18, -16));
@@ -66,7 +66,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 
             #region ITEM DISPLAY
             // Background
-            SGUISliceImageElement itemGridBackground = this._layout.CreateElement<SGUISliceImageElement>();
+            SGUISliceImageElement itemGridBackground = this._layout.AddElement(new SGUISliceImageElement(this.SGameInstance));
             itemGridBackground.SetTexture(this.guiBackgroundTexture);
             itemGridBackground.SetScale(new Vector2(30, 10));
             itemGridBackground.SetMargin(new Vector2(32, 88));
@@ -103,7 +103,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
             {
                 for (int row = 0; row < rows; row++)
                 {
-                    SGUIImageElement slotBackground = this._layout.CreateElement<SGUIImageElement>();
+                    SGUIImageElement slotBackground = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
                     slotBackground.SetTexture(this.squareShapeTexture);
                     slotBackground.SetOriginPivot(SCardinalDirection.Center);
                     slotBackground.SetScale(new Vector2(slotScale));
@@ -111,7 +111,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
                     slotBackground.SetSize(new SSize2(slotSize));
                     slotBackground.SetMargin(slotMargin);
 
-                    SGUIImageElement slotIcon = this._layout.CreateElement<SGUIImageElement>();
+                    SGUIImageElement slotIcon = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
                     slotIcon.SetOriginPivot(SCardinalDirection.Center);
                     slotIcon.SetScale(new Vector2(1.5f));
                     slotIcon.SetSize(new SSize2(slotSize));

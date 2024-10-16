@@ -5,7 +5,6 @@ using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
 using StardustSandbox.Game.GameContent.GUI.Content.Hud;
 using StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer;
-using StardustSandbox.Game.GameContent.Items.Elements;
 using StardustSandbox.Game.GameContent.Items.Elements.Gases;
 using StardustSandbox.Game.GameContent.Items.Elements.Liquids;
 using StardustSandbox.Game.GameContent.Items.Elements.Solids.Immovables;
@@ -91,51 +90,33 @@ namespace StardustSandbox.Game.Managers
 
         private void RegisterGUIs()
         {
-            this._guiDatabase.RegisterGUISystem(new SGUI_HUD(this.SGameInstance), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
-            this._guiDatabase.RegisterGUISystem(new SGUI_ItemExplorer(this.SGameInstance), this._guiManager.GUIEvents, this._guiManager.GUILayoutPool);
+            this._guiDatabase.RegisterGUISystem(new SGUI_HUD(this.SGameInstance), this._guiManager.GUIEvents);
+            this._guiDatabase.RegisterGUISystem(new SGUI_ItemExplorer(this.SGameInstance), this._guiManager.GUIEvents);
         }
 
         private void RegisterItems()
         {
-            /* ID : 00 */
+            // Elements
+
             this._itemDatabase.RegisterItem(new SDirtItem(this.SGameInstance));
-            /* ID : 01 */
             this._itemDatabase.RegisterItem(new SMudItem(this.SGameInstance));
-            /* ID : 02 */
             this._itemDatabase.RegisterItem(new SWaterItem(this.SGameInstance));
-            /* ID : 03 */
             this._itemDatabase.RegisterItem(new SStoneItem(this.SGameInstance));
-            /* ID : 04 */
             this._itemDatabase.RegisterItem(new SGrassItem(this.SGameInstance));
-            /* ID : 05 */
             this._itemDatabase.RegisterItem(new SIceItem(this.SGameInstance));
-            /* ID : 06 */
             this._itemDatabase.RegisterItem(new SSandItem(this.SGameInstance));
-            /* ID : 07 */
             this._itemDatabase.RegisterItem(new SSnowItem(this.SGameInstance));
-            /* ID : 08 */
             this._itemDatabase.RegisterItem(new SMCorruptionItem(this.SGameInstance));
-            /* ID : 09 */
             this._itemDatabase.RegisterItem(new SLavaItem(this.SGameInstance));
-            /* ID : 10 */
             this._itemDatabase.RegisterItem(new SAcidItem(this.SGameInstance));
-            /* ID : 11 */
             this._itemDatabase.RegisterItem(new SGlassItem(this.SGameInstance));
-            /* ID : 12 */
             this._itemDatabase.RegisterItem(new SMetalItem(this.SGameInstance));
-            /* ID : 13 */
             this._itemDatabase.RegisterItem(new SWallItem(this.SGameInstance));
-            /* ID : 14 */
             this._itemDatabase.RegisterItem(new SWoodItem(this.SGameInstance));
-            /* ID : 15 */
             this._itemDatabase.RegisterItem(new SGCorruptionItem(this.SGameInstance));
-            /* ID : 16 */
             this._itemDatabase.RegisterItem(new SLCorruptionItem(this.SGameInstance));
-            /* ID : 17 */
             this._itemDatabase.RegisterItem(new SIMCorruptionItem(this.SGameInstance));
-            /* ID : 18 */
             this._itemDatabase.RegisterItem(new SSteamItem(this.SGameInstance));
-            /* ID : 19 */
             this._itemDatabase.RegisterItem(new SSmokeItem(this.SGameInstance));
         }
     }

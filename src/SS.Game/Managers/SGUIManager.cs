@@ -11,9 +11,6 @@ namespace StardustSandbox.Game.Managers
     public sealed class SGUIManager : SGameObject
     {
         public SGUIEvents GUIEvents => this._guiEvents;
-        public SGUILayoutPool GUILayoutPool => this.guiLayoutPool;
-
-        private readonly SGUILayoutPool guiLayoutPool = new();
 
         private readonly SGUIEvents _guiEvents;
         private readonly SGUIDatabase _guiDatabase;

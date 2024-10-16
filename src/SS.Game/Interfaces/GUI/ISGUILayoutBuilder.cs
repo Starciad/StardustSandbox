@@ -7,6 +7,6 @@ namespace StardustSandbox.Game.Interfaces.GUI
     {
         SGUIRootElement RootElement { get; }
 
-        T CreateElement<T>() where T : SGUIElement;
+        T AddElement<T>(T value) where T : SGUIElement;
     }
 }

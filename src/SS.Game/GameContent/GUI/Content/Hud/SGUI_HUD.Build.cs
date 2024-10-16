@@ -28,9 +28,9 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
             this._root = layout.RootElement;
 
             // Containers
-            this.headerContainer = layout.CreateElement<SGUIContainerElement>();
-            this.leftMenuContainer = layout.CreateElement<SGUIContainerElement>();
-            this.rightMenuContainer = layout.CreateElement<SGUIContainerElement>();
+            this.headerContainer = layout.AddElement(new SGUIContainerElement(this.SGameInstance));
+            this.leftMenuContainer = layout.AddElement(new SGUIContainerElement(this.SGameInstance));
+            this.rightMenuContainer = layout.AddElement(new SGUIContainerElement(this.SGameInstance));
 
             this.headerContainer.PositionRelativeToElement(this._root);
             this.leftMenuContainer.PositionRelativeToElement(this._root);
@@ -46,7 +46,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
 
         private void CreateHeader(SGUIElement header)
         {
-            SGUIImageElement slotAreaBackground = this._layout.CreateElement<SGUIImageElement>();
+            SGUIImageElement slotAreaBackground = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
 
             // Background
             slotAreaBackground.SetTexture(this.particleTexture);
@@ -75,8 +75,8 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
                 for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
                 {
                     // Creation
-                    SGUIImageElement slotBackground = this._layout.CreateElement<SGUIImageElement>();
-                    SGUIImageElement slotIcon = this._layout.CreateElement<SGUIImageElement>();
+                    SGUIImageElement slotBackground = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
+                    SGUIImageElement slotIcon = this._layout.AddElement(new SGUIImageElement(this.SGameInstance));
 
                     // Background
                     slotBackground.SetTexture(this.squareShapeTexture);
@@ -113,7 +113,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
 
             //void CreateSearchSlot()
             //{
-            //    SGUIImageElement slotSearchBackground = this._layout.CreateElement<SGUIImageElement>();
+            //    SGUIImageElement slotSearchBackground = this._layout.AddElement<SGUIImageElement>();
             //
             //    slotSearchBackground.SetTexture(this.squareShapeTexture);
             //    slotSearchBackground.SetOriginPivot(SCardinalDirection.Center);
