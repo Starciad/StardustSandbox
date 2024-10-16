@@ -50,7 +50,7 @@
 		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
 		<BeautyEnableDebugging>False</BeautyEnableDebugging>
 		<BeautyUsePatch>True</BeautyUsePatch>
-		<BeautyLogLevel>Detail</BeautyLogLevel>
+		<BeautyLogLevel>Info</BeautyLogLevel>
 	</PropertyGroup>
 	
 	<!-- TARGETS -->

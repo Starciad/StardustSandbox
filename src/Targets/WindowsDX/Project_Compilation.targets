@@ -13,6 +13,7 @@
 
     <PropertyGroup>
         <NoWarn>WFAC010</NoWarn>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     </PropertyGroup>
 
     <PropertyGroup>
