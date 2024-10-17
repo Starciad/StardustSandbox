@@ -20,8 +20,8 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
         private SGUIElement leftToolbarContainer;
         private SGUIElement rightToolbarContainer;
 
-        private SGUIImageElement headerSearchButton;
-        private readonly SGUIElement[] headerElementSlots = new SGUIElement[SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH];
+        private SGUIImageElement toolbarElementSearchButton;
+        private readonly (SGUIImageElement background, SGUIImageElement icon)[] toolbarElementSlots = new (SGUIImageElement, SGUIImageElement)[SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH];
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -111,7 +111,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Save
-                    this.headerElementSlots[i] = slotBackground;
+                    this.toolbarElementSlots[i] = (slotBackground, slotIcon);
 
                     // Spacing
                     slotMargin.X += slotSpacing + (slotSize / 2);
@@ -145,7 +145,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
                 this._layout.AddElement(slotSearchBackground);
                 this._layout.AddElement(slotIcon);
 
-                this.headerSearchButton = slotSearchBackground;
+                this.toolbarElementSearchButton = slotSearchBackground;
             }
         }
         private void BuildLeftToolbar(SGUIElement container) { return; }

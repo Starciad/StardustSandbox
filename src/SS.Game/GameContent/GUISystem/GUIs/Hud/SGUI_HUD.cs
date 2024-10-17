@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
+using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
+using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
@@ -46,47 +48,47 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             // Individually check all element slots present in the HEADER.
             for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
             {
-                SGUIImageElement slot = (SGUIImageElement)this.headerElementSlots[i];
+                (SGUIImageElement slotBackground, _) = this.toolbarElementSlots[i];
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(slot.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    SelectItemSlot(i, (string)slot.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    SelectItemSlot(i, (string)slotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
 
                 // Highlight coloring of currently selected slot.
                 if (i == this.slotSelectedIndex)
                 {
-                    slot.SetColor(Color.Red);
+                    slotBackground.SetColor(Color.Red);
                 }
                 // Highlight when mouse is over slot.
-                else if (this.GUIEvents.OnMouseOver(slot.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                else if (this.GUIEvents.OnMouseOver(slotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    slot.SetColor(Color.DarkGray);
+                    slotBackground.SetColor(Color.DarkGray);
                 }
                 // If none of the above events occur, the slot continues with its normal color.
                 else
                 {
-                    slot.SetColor(Color.White);
+                    slotBackground.SetColor(Color.White);
                 }
             }
             #endregion
 
             #region SEARCH BUTTON
             // Check if the mouse clicked on the search button.
-            if (this.GUIEvents.OnMouseDown(this.headerSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+            if (this.GUIEvents.OnMouseDown(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
             {
                 this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_NAME);
                 this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
             }
 
-            if (this.GUIEvents.OnMouseOver(this.headerSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+            if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
             {
-                this.headerSearchButton.SetColor(Color.DarkGray);
+                this.toolbarElementSearchButton.SetColor(Color.DarkGray);
             }
             else
             {
-                this.headerSearchButton.SetColor(Color.White);
+                this.toolbarElementSearchButton.SetColor(Color.White);
             }
             #endregion
         }
@@ -99,7 +101,60 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             return;
         }
 
-        public void SelectItemSlot(int slotIndex, string itemId)
+        public void AddItemToToolbar(string elementId)
+        {
+            SItem item = GetGameItemById(elementId);
+
+            // ================================================= //
+            // Check if the item is already in the Toolbar. If so, it will be highlighted without changing the other items.
+
+            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
+            {
+                (SGUIImageElement slotBackground, _) = this.toolbarElementSlots[i];
+
+                if (slotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                {
+                    if (item == GetGameItemById((string)slotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID)))
+                    {
+                        SelectItemSlot(i, (string)slotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                        return;
+                    }
+                }
+            }
+
+            // ================================================= //
+            // If the item is not present in the toolbar, it will be added to the first slot next to the canvas and will push all others in the opposite direction. The last item will be removed from the toolbar until it is added again later.
+
+            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH - 1; i++)
+            {
+                (SGUIImageElement currentSlotBackground, SGUIImageElement currentSlotIcon) = this.toolbarElementSlots[i];
+                (SGUIImageElement nextSlotBackground, SGUIImageElement nextSlotIcon) = this.toolbarElementSlots[i + 1];
+
+                if (currentSlotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID) &&
+                    nextSlotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                {
+                    currentSlotBackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, nextSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    currentSlotIcon.SetTexture(nextSlotIcon.Texture);
+                }
+            }
+
+            // Update last element slot.
+
+            (SGUIImageElement lastElementBackground, SGUIImageElement lastElementIcon) = this.toolbarElementSlots[^1];
+
+            if (lastElementBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+            {
+                lastElementBackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+            }
+
+            lastElementIcon.SetTexture(item.IconTexture);
+
+            // Select last slot.
+
+            SelectItemSlot(this.toolbarElementSlots.Length - 1, item.Identifier);
+        }
+
+        private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
             this.SGameInstance.GameInputManager.SelectItem(GetGameItemById(itemId));
@@ -109,6 +164,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
         {
             return this.SGameInstance.ItemDatabase.Items[index];
         }
+
         private SItem GetGameItemById(string id)
         {
             return this.SGameInstance.ItemDatabase.GetItemById(id);

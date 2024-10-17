@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Enums.Items;
 using StardustSandbox.Game.GameContent.GUISystem.Elements;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUISystem.Elements;
@@ -27,7 +28,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
             BuildGUIBackground();
             BuildExplorer();
 
-            SelectItemCatalog(0, 0);
+            SelectItemCatalog((byte)SItemCategoryId.Gases, 0);
         }
 
         private void BuildGUIBackground()

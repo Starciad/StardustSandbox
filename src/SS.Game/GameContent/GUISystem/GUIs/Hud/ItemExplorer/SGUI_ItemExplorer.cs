@@ -62,14 +62,12 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(itemSlotbackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    // SelectItemSlot(i, (string)slot.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    this._guiHUD.AddItemToToolbar((string)itemSlotbackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+
+                    this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
+                    this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_NAME);
                 }
 
-                // Highlight coloring of currently selected slot.
-                //if (i == this.slotSelectedIndex)
-                //{
-                //    itemSlotbackground.SetColor(Color.Red);
-                //}
                 // Highlight when mouse is over slot.
                 if (this.GUIEvents.OnMouseOver(itemSlotbackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {

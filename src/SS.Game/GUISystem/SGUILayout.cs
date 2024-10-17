@@ -22,18 +22,13 @@ namespace StardustSandbox.Game.GUISystem
 
         private SGUIRootElement rootElement = null;
 
-        public void Load()
+        protected override void OnInitialize()
         {
             this.rootElement = new(this.SGameInstance);
             this.rootElement.SetPositioningType(SPositioningType.Fixed);
             this.rootElement.SetSize(new SSize2(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
 
             AddElement(this.rootElement);
-        }
-
-        public void Unload()
-        {
-            this.elements.Clear();
         }
 
         protected override void OnUpdate(GameTime gameTime)

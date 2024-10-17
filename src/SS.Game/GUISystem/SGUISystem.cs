@@ -30,6 +30,7 @@ namespace StardustSandbox.Game.GUISystem
         protected override void OnInitialize()
         {
             this.layout.Initialize();
+            OnBuild(this.layout);
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -44,9 +45,6 @@ namespace StardustSandbox.Game.GUISystem
 
         public void Show()
         {
-            this.layout.Load();
-            OnBuild(this.layout);
-
             this.isActive = true;
             this.isShowing = true;
 
@@ -57,8 +55,6 @@ namespace StardustSandbox.Game.GUISystem
         {
             this.isActive = false;
             this.isShowing = false;
-
-            this.layout.Unload();
 
             OnUnload();
         }

@@ -3,14 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StardustSandbox.Game.Objects
 {
-    public abstract class SGameObject
+    public abstract class SGameObject(SGame gameInstance)
     {
-        protected SGame SGameInstance { get; private set; }
-
-        public SGameObject(SGame gameInstance)
-        {
-            this.SGameInstance = gameInstance;
-        }
+        protected SGame SGameInstance { get; private set; } = gameInstance;
 
         public void Initialize()
         {
