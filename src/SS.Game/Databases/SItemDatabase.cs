@@ -10,7 +10,7 @@ using System;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SItemDatabase : SGameObject
+    public sealed class SItemDatabase(SGame gameInstance, SAssetDatabase assetDatabase) : SGameObject(gameInstance)
     {
         public SItemCategory[] Categories => this.categories;
         public SItem[] Items => this.items;
@@ -18,12 +18,7 @@ namespace StardustSandbox.Game.Databases
         private SItem[] items;
         private SItemCategory[] categories;
 
-        private readonly SAssetDatabase _assetDatabase;
-
-        public SItemDatabase(SGame gameInstance, SAssetDatabase assetDatabase) : base(gameInstance)
-        {
-            this._assetDatabase = assetDatabase;
-        }
+        private readonly SAssetDatabase _assetDatabase = assetDatabase;
 
         public override void Initialize()
         {
@@ -50,11 +45,11 @@ namespace StardustSandbox.Game.Databases
         private void BuildCategories()
         {
             this.categories = [
-                new SItemCategory("powders", "Powders", "", null),
-                new SItemCategory("liquids", "Liquids", "", null),
-                new SItemCategory("gases", "Gases", "", null),
-                new SItemCategory("solids", "Solids", "", null),
-                new SItemCategory("walls", "Walls", "", null),
+                new SItemCategory("powders", "Powders", "", this._assetDatabase.GetTexture("icon_element_1")),
+                new SItemCategory("liquids", "Liquids", "", this._assetDatabase.GetTexture("icon_element_3")),
+                new SItemCategory("gases", "Gases", "", this._assetDatabase.GetTexture("icon_element_20")),
+                new SItemCategory("solids", "Solids", "", this._assetDatabase.GetTexture("icon_element_13")),
+                new SItemCategory("walls", "Walls", "", this._assetDatabase.GetTexture("icon_element_14")),
                 // new SItemCategory("electronics", "", "", null),
                 // new SItemCategory("explosives", "", "", null),
                 // new SItemCategory("entities", "", "", null),

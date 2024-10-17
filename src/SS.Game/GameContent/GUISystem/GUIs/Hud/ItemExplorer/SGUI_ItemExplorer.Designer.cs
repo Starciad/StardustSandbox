@@ -8,6 +8,7 @@ using StardustSandbox.Game.GameContent.GUISystem.Elements;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Interfaces.GUI;
+using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
@@ -18,7 +19,9 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
         private SGUIRootElement _rootElement;
 
         private SGUILabelElement explorerTitleLabel;
-        private (SGUIImageElement background, SGUIImageElement icon)[] itemSlots;
+
+        private (SGUIImageElement background, SGUIImageElement icon)[] itemButtonSlots;
+        private (SGUIImageElement background, SGUIImageElement icon)[] categoryButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -28,7 +31,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
             BuildGUIBackground();
             BuildExplorer();
 
-            SelectItemCatalog((byte)SItemCategoryId.Gases, 0);
+            SelectItemCatalog((byte)SItemCategoryId.Powders, 0);
         }
 
         private void BuildGUIBackground()
@@ -102,7 +105,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
             int rows = SItemExplorerConstants.ITEMS_PER_ROW;
             int columns = SItemExplorerConstants.ITEMS_PER_COLUMN;
 
-            this.itemSlots = new (SGUIImageElement background, SGUIImageElement icon)[rows * columns];
+            this.itemButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[rows * columns];
 
             int index = 0;
             for (int col = 0; col < columns; col++)
@@ -131,7 +134,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 
                     // Spacing
                     slotMargin.X += slotSpacing + (slotSize / 2);
-                    this.itemSlots[index] = (slotBackground, slotIcon);
+                    this.itemButtonSlots[index] = (slotBackground, slotIcon);
                     index++;
 
                     // Adding
@@ -143,9 +146,57 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
                 slotMargin.Y += slotSpacing + (slotSize / 2);
             }
         }
+
         private void BuildCategoryButtons(SGUIElement parent)
         {
+            int slotSize = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
+            int slotScale = SHUDConstants.SLOT_SCALE;
+            int slotSpacing = slotSize * 2;
 
+            Vector2 slotMargin = new(0, -160);
+
+            this.categoryButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[this.SGameInstance.ItemDatabase.Categories.Length];
+
+            int index = 0;
+
+            foreach (SItemCategory category in this.SGameInstance.ItemDatabase.Categories)
+            {
+                SGUIImageElement slotBackground = new(this.SGameInstance);
+                SGUIImageElement slotIcon = new(this.SGameInstance);
+
+                // Background
+                slotBackground.SetTexture(this.squareShapeTexture);
+                slotBackground.SetOriginPivot(SCardinalDirection.Center);
+                slotBackground.SetScale(new Vector2(slotScale));
+                slotBackground.SetPositionAnchor(SCardinalDirection.Northwest);
+                slotBackground.SetSize(new SSize2(slotSize));
+                slotBackground.SetMargin(slotMargin);
+
+                // Icon
+                slotIcon.SetOriginPivot(SCardinalDirection.Center);
+                slotIcon.SetScale(new Vector2(1.5f));
+                slotIcon.SetSize(new SSize2(slotSize));
+                slotIcon.SetTexture(category.IconTexture);
+
+                // Data
+                if (!slotBackground.ContainsData("category_id"))
+                {
+                    slotBackground.AddData("category_id", index);
+                }
+
+                // Position
+                slotBackground.PositionRelativeToElement(parent);
+                slotIcon.PositionRelativeToElement(slotBackground);
+
+                // Spacing
+                slotMargin.X += slotSpacing + (slotSize / 2);
+                this.categoryButtonSlots[index] = (slotBackground, slotIcon);
+                index++;
+
+                // Adding
+                this._layout.AddElement(slotBackground);
+                this._layout.AddElement(slotIcon);
+            }
         }
     }
 }

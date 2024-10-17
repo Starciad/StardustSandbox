@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
+using StardustSandbox.Game.Enums.Items;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
@@ -51,15 +52,30 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
         {
             base.Update(gameTime);
 
+            UpdateCategoryButtons();
             UpdateItemCatalog();
+        }
+
+        private void UpdateCategoryButtons()
+        {
+            for (int i = 0; i < this.categoryButtonSlots.Length; i++)
+            {
+                (SGUIImageElement categoryButtonBackground, _) = this.categoryButtonSlots[i];
+
+                // Check if the mouse clicked on the current slot.
+                if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                {
+                    SelectItemCatalog((int)categoryButtonBackground.GetData("category_id"), 0);
+                }
+            }
         }
 
         private void UpdateItemCatalog()
         {
             // Individually check all element slots present in the item catalog.
-            for (int i = 0; i < this.itemSlots.Length; i++)
+            for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotBackground, _) = this.itemSlots[i];
+                (SGUIImageElement itemSlotBackground, _) = this.itemButtonSlots[i];
 
                 if (!itemSlotBackground.IsVisible)
                 {
@@ -116,9 +132,9 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 
         private void ChangeItemCatalog()
         {
-            for (int i = 0; i < this.itemSlots.Length; i++)
+            for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotBackground, SGUIImageElement itemSlotIcon) = this.itemSlots[i];
+                (SGUIImageElement itemSlotBackground, SGUIImageElement itemSlotIcon) = this.itemButtonSlots[i];
 
                 if (i < this.selectedItems.Length)
                 {
