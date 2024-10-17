@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud;
-using StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer;
 using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Objects;
 
@@ -15,6 +14,7 @@ namespace StardustSandbox.Game.Databases
 
         public override void Initialize()
         {
+            // HUD
             SGUI_HUD guiHUD = new(this.SGameInstance, this.SGameInstance.GUIManager.GUIEvents);
             SGUI_ItemExplorer guiItemExplorer = new(this.SGameInstance, this.SGameInstance.GUIManager.GUIEvents, guiHUD);
 

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
-using StardustSandbox.Game.Enums.Items;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
@@ -13,7 +12,7 @@ using StardustSandbox.Game.Mathematics;
 using System;
 using System.Linq;
 
-namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 {
     public sealed partial class SGUI_ItemExplorer : SGUISystem
     {

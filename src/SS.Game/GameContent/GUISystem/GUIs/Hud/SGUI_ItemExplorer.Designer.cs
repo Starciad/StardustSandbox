@@ -11,7 +11,7 @@ using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
-namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 {
     public sealed partial class SGUI_ItemExplorer
     {
