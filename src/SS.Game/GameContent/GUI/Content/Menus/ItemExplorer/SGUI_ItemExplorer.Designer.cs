@@ -80,8 +80,8 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
             itemGridBackground.SetColor(new Color(94, 101, 110, 255));
             itemGridBackground.PositionRelativeToElement(explorerBackground);
 
-            BuildItemCatalog(itemGridBackground);
             this._layout.AddElement(itemGridBackground);
+            BuildItemCatalog(itemGridBackground);
             #endregion
 
             #region CATEGORY BUTTONS
@@ -112,6 +112,9 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
                 for (int row = 0; row < rows; row++)
                 {
                     SGUIImageElement slotBackground = new(this.SGameInstance);
+                    SGUIImageElement slotIcon = new(this.SGameInstance);
+
+                    // Background
                     slotBackground.SetTexture(this.squareShapeTexture);
                     slotBackground.SetOriginPivot(SCardinalDirection.Center);
                     slotBackground.SetScale(new Vector2(slotScale));
@@ -119,18 +122,21 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
                     slotBackground.SetSize(new SSize2(slotSize));
                     slotBackground.SetMargin(slotMargin);
 
-                    SGUIImageElement slotIcon = new(this.SGameInstance);
+                    // Icon
                     slotIcon.SetOriginPivot(SCardinalDirection.Center);
                     slotIcon.SetScale(new Vector2(1.5f));
                     slotIcon.SetSize(new SSize2(slotSize));
 
+                    // Position
                     slotBackground.PositionRelativeToElement(parent);
                     slotIcon.PositionRelativeToElement(slotBackground);
 
+                    // Spacing
                     slotMargin.X += slotSpacing + (slotSize / 2);
                     this.itemSlots[index] = (slotBackground, slotIcon);
                     index++;
 
+                    // Adding
                     this._layout.AddElement(slotBackground);
                     this._layout.AddElement(slotIcon);
                 }
@@ -156,6 +162,16 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
                 {
                     SItem item = this.selectedItems[i];
                     itemSlotIcon.SetTexture(item.IconTexture);
+
+                    // Add or Update Data
+                    if (!itemSlotbackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                    {
+                        itemSlotbackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                    }
+                    else
+                    {
+                        itemSlotbackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                    }
                 }
                 else
                 {

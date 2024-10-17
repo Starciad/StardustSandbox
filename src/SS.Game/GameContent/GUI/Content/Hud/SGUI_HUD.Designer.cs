@@ -94,7 +94,6 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
                     slotBackground.SetMargin(slotMargin);
 
                     SItem selectedItem = GetGameItemByIndex(i);
-
                     if (!slotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                     {
                         slotBackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, selectedItem.Identifier);

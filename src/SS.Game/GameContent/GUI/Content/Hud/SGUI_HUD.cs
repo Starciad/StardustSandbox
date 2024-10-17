@@ -76,6 +76,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
             // Check if the mouse clicked on the search button.
             if (this.GUIEvents.OnMouseDown(this.headerSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
             {
+                this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_NAME);
                 this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
             }
 
