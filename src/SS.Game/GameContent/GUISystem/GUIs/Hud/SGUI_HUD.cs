@@ -6,6 +6,7 @@ using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
+using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
@@ -31,18 +32,16 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
         {
             base.OnUpdate(gameTime);
 
-            UpdateHeader();
-            UpdateHeaderElements();
+            UpdateTopToolbar();
+            UpdateLeftToolbar();
+            UpdateRightToolbar();
         }
 
-        private void UpdateHeader()
+        private void UpdateTopToolbar()
         {
             // If the mouse is over the header, the player will not be able to interact with the environment. Otherwise, this permission is conceived.
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Size);
-        }
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size);
 
-        private void UpdateHeaderElements()
-        {
             #region ELEMENT SLOTS
             // Individually check all element slots present in the HEADER.
             for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
@@ -90,6 +89,29 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
                 this.headerSearchButton.SetColor(Color.White);
             }
             #endregion
+        }
+        private static void UpdateLeftToolbar()
+        {
+            return;
+        }
+        private static void UpdateRightToolbar()
+        {
+            return;
+        }
+
+        public void SelectItemSlot(int slotIndex, string itemId)
+        {
+            this.slotSelectedIndex = slotIndex;
+            this.SGameInstance.GameInputManager.SelectItem(GetGameItemById(itemId));
+        }
+
+        private SItem GetGameItemByIndex(int index)
+        {
+            return this.SGameInstance.ItemDatabase.Items[index];
+        }
+        private SItem GetGameItemById(string id)
+        {
+            return this.SGameInstance.ItemDatabase.GetItemById(id);
         }
     }
 }

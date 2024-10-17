@@ -16,9 +16,9 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
         private ISGUILayoutBuilder _layout;
         private SGUIRootElement _root;
 
-        private SGUIElement headerContainer;
-        private SGUIElement leftMenuContainer;
-        private SGUIElement rightMenuContainer;
+        private SGUIElement topToolbarContainer;
+        private SGUIElement leftToolbarContainer;
+        private SGUIElement rightToolbarContainer;
 
         private SGUIImageElement headerSearchButton;
         private readonly SGUIElement[] headerElementSlots = new SGUIElement[SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH];
@@ -29,27 +29,28 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             this._root = layout.RootElement;
 
             // Containers
-            this.headerContainer = new SGUIContainerElement(this.SGameInstance);
-            this.leftMenuContainer = new SGUIContainerElement(this.SGameInstance);
-            this.rightMenuContainer = new SGUIContainerElement(this.SGameInstance);
+            this.topToolbarContainer = new SGUIContainerElement(this.SGameInstance);
+            this.leftToolbarContainer = new SGUIContainerElement(this.SGameInstance);
+            this.rightToolbarContainer = new SGUIContainerElement(this.SGameInstance);
 
-            this.headerContainer.PositionRelativeToElement(this._root);
-            this.leftMenuContainer.PositionRelativeToElement(this._root);
-            this.rightMenuContainer.PositionRelativeToElement(this._root);
+            this.topToolbarContainer.PositionRelativeToElement(this._root);
+            this.leftToolbarContainer.PositionRelativeToElement(this._root);
+            this.rightToolbarContainer.PositionRelativeToElement(this._root);
 
-            layout.AddElement(this.headerContainer);
-            layout.AddElement(this.leftMenuContainer);
-            layout.AddElement(this.rightMenuContainer);
+            layout.AddElement(this.topToolbarContainer);
+            layout.AddElement(this.leftToolbarContainer);
+            layout.AddElement(this.rightToolbarContainer);
 
             // Styles
-            // (Header)
-            this.headerContainer.SetSize(new SSize2(this._root.Size.Width, 96f));
+            this.topToolbarContainer.SetSize(new SSize2(this._root.Size.Width, 96f));
 
             // Process
-            CreateHeader(this.headerContainer);
+            BuildTopToolbar(this.topToolbarContainer);
+            BuildLeftToolbar(this.leftToolbarContainer);
+            BuildRightToolbar(this.rightToolbarContainer);
         }
 
-        private void CreateHeader(SGUIElement header)
+        private void BuildTopToolbar(SGUIElement container)
         {
             SGUIImageElement slotAreaBackground = new(this.SGameInstance);
 
@@ -57,12 +58,12 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 
             // Background
             slotAreaBackground.SetTexture(this.particleTexture);
-            slotAreaBackground.SetScale(header.Size.ToVector2());
+            slotAreaBackground.SetScale(container.Size.ToVector2());
             slotAreaBackground.SetColor(new Color(Color.White, 32));
-            slotAreaBackground.SetSize(header.Size);
+            slotAreaBackground.SetSize(container.Size);
 
             // Append
-            slotAreaBackground.PositionRelativeToElement(header);
+            slotAreaBackground.PositionRelativeToElement(container);
 
             // ================================= //
 
@@ -147,5 +148,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
                 this.headerSearchButton = slotSearchBackground;
             }
         }
+        private void BuildLeftToolbar(SGUIElement container) { return; }
+        private void BuildRightToolbar(SGUIElement container) { return; }
     }
 }

@@ -10,14 +10,9 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SElementDatabase : SGameObject
+    public sealed class SElementDatabase(SGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly List<SElement> _registeredElements = [];
-
-        public SElementDatabase(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         protected override void OnInitialize()
         {

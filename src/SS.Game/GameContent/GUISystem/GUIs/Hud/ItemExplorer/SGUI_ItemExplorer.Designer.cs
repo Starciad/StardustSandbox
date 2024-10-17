@@ -7,10 +7,7 @@ using StardustSandbox.Game.GameContent.GUISystem.Elements;
 using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Interfaces.GUI;
-using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
-
-using System.Configuration;
 
 namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 {
@@ -48,7 +45,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 
         private void BuildExplorer()
         {
-            #region Background & Title
+            #region BACKGROUND & TITLE
             SGUISliceImageElement explorerBackground = new(this.SGameInstance);
             explorerBackground.SetTexture(this.guiBackgroundTexture);
             explorerBackground.SetScale(new Vector2(32, 15));
@@ -81,19 +78,19 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
             itemGridBackground.PositionRelativeToElement(explorerBackground);
 
             this._layout.AddElement(itemGridBackground);
-            BuildItemCatalog(itemGridBackground);
+            BuildItemCatalogSlots(itemGridBackground);
             #endregion
 
             #region CATEGORY BUTTONS
             BuildCategoryButtons(itemGridBackground);
             #endregion
 
-            #region Pagination
+            #region PAGINATION
             // [...]
             #endregion
         }
 
-        private void BuildItemCatalog(SGUIElement parent)
+        private void BuildItemCatalogSlots(SGUIElement parent)
         {
             int slotSize = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
             int slotScale = SHUDConstants.SLOT_SCALE;
@@ -148,37 +145,6 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
         private void BuildCategoryButtons(SGUIElement parent)
         {
 
-        }
-
-        // ================================== //
-        // Updates
-        private void UpdateItemCatalog()
-        {
-            for (int i = 0; i < this.itemSlots.Length; i++)
-            {
-                (SGUIImageElement itemSlotbackground, SGUIImageElement itemSlotIcon) = this.itemSlots[i];
-
-                if (i < this.selectedItems.Length)
-                {
-                    SItem item = this.selectedItems[i];
-                    itemSlotIcon.SetTexture(item.IconTexture);
-
-                    // Add or Update Data
-                    if (!itemSlotbackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
-                    {
-                        itemSlotbackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
-                    }
-                    else
-                    {
-                        itemSlotbackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
-                    }
-                }
-                else
-                {
-                    itemSlotbackground.SetTexture(null);
-                    itemSlotIcon.SetTexture(null);
-                }
-            }
         }
     }
 }

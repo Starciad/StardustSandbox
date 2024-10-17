@@ -37,9 +37,9 @@ namespace StardustSandbox.Game.Databases
 
                 for (int j = 0; j < this.items.Length; j++)
                 {
-                    SItem item = this.items[i];
+                    SItem item = this.items[j];
 
-                    if (this.items[i].Category == category)
+                    if (item.Category == category)
                     {
                         category.AddItem(item);
                     }
@@ -50,11 +50,11 @@ namespace StardustSandbox.Game.Databases
         private void BuildCategories()
         {
             this.categories = [
-                new SItemCategory("powders", "", "", null),
-                new SItemCategory("liquids", "", "", null),
-                new SItemCategory("gases", "", "", null),
-                new SItemCategory("solids", "", "", null),
-                new SItemCategory("walls", "", "", null),
+                new SItemCategory("powders", "Powders", "", null),
+                new SItemCategory("liquids", "Liquids", "", null),
+                new SItemCategory("gases", "Gases", "", null),
+                new SItemCategory("solids", "Solids", "", null),
+                new SItemCategory("walls", "Walls", "", null),
                 // new SItemCategory("electronics", "", "", null),
                 // new SItemCategory("explosives", "", "", null),
                 // new SItemCategory("entities", "", "", null),

@@ -9,6 +9,9 @@ using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
+using System;
+using System.Linq;
+
 namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer : SGUISystem
@@ -21,13 +24,17 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
         private int selectedPageIndex;
         private SItem[] selectedItems;
 
-        public SGUI_ItemExplorer(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
+        private readonly SGUI_HUD _guiHUD;
+
+        public SGUI_ItemExplorer(SGame gameInstance, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, guiEvents)
         {
             this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
 
-            this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_1");
-            this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
+            this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
+            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
+
+            this._guiHUD = guiHUD;
         }
 
         protected override void OnLoad()
@@ -42,7 +49,11 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            #region ITEM CATALOG
+            UpdateItemCatalog();
+        }
+
+        private void UpdateItemCatalog()
+        {
             // Individually check all element slots present in the item catalog.
             for (int i = 0; i < this.itemSlots.Length; i++)
             {
@@ -70,7 +81,64 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
                     itemSlotbackground.SetColor(Color.White);
                 }
             }
-            #endregion
+        }
+
+        // ============================================== //
+
+        private void SelectItemCatalog(int categoryIndex, int pageIndex)
+        {
+            SelectItemCatalog(this.SGameInstance.ItemDatabase.Categories[categoryIndex], pageIndex);
+        }
+
+        private void SelectItemCatalog(SItemCategory category, int pageIndex)
+        {
+            this.explorerTitleLabel.SetTextContent(category.DisplayName);
+
+            this.selectedCategoryName = category.Identifier;
+            this.selectedPageIndex = pageIndex;
+
+            int itemsPerPage = SItemExplorerConstants.ITEMS_PER_PAGE;
+
+            int startIndex = pageIndex * itemsPerPage;
+            int endIndex = startIndex + itemsPerPage;
+
+            endIndex = Math.Min(endIndex, this.SGameInstance.ItemDatabase.Items.Length);
+
+            this.selectedItems = [.. category.Items.Take(new Range(startIndex, endIndex - startIndex))];
+
+            ChangeItemCatalog();
+        }
+
+        private void ChangeItemCatalog()
+        {
+            for (int i = 0; i < this.itemSlots.Length; i++)
+            {
+                (SGUIImageElement itemSlotbackground, SGUIImageElement itemSlotIcon) = this.itemSlots[i];
+
+                if (i < this.selectedItems.Length)
+                {
+                    itemSlotbackground.IsVisible = true;
+                    itemSlotIcon.IsVisible = true;
+
+                    SItem item = this.selectedItems[i];
+                    itemSlotIcon.SetTexture(item.IconTexture);
+
+                    // Add or Update Data
+                    if (!itemSlotbackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                    {
+                        itemSlotbackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                    }
+                    else
+                    {
+                        itemSlotbackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                    }
+                }
+                else
+                {
+                    itemSlotbackground.IsVisible = false;
+                    itemSlotIcon.IsVisible = false;
+                }
+            }
         }
     }
 }
