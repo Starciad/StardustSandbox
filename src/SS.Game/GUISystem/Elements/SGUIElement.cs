@@ -60,7 +60,7 @@ namespace StardustSandbox.Game.GUISystem.Elements
         {
             return this.positionAnchor switch
             {
-                SCardinalDirection.Center => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height) / 2,
+                SCardinalDirection.Center => targetPosition + this.Margin + (new Vector2(targetSize.Width, targetSize.Height) / 2),
                 SCardinalDirection.North => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, 0),
                 SCardinalDirection.Northeast => targetPosition + this.Margin + new Vector2(targetSize.Width, 0),
                 SCardinalDirection.East => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height / 2),
