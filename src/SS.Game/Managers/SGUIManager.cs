@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.GUI;
 using StardustSandbox.Game.GUI.Events;
+using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers

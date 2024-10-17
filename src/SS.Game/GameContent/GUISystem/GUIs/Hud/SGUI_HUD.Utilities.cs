@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Game.Items;
 
-namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 {
     public sealed partial class SGUI_HUD
     {

@@ -1,7 +1,6 @@
-﻿using StardustSandbox.Game.GameContent.GUI.Content.Hud;
-using StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer;
-using StardustSandbox.Game.GUI;
-using StardustSandbox.Game.GUI.Events;
+﻿using StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud;
+using StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer;
+using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;

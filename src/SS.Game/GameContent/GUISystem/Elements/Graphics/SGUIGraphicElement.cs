@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.GUI.Elements;
+using StardustSandbox.Game.GUISystem.Elements;
 
-namespace StardustSandbox.Game.GameContent.GUI.Elements.Graphics
+namespace StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics
 {
     public abstract class SGUIGraphicElement : SGUIElement
     {

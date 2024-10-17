@@ -2,14 +2,14 @@
 
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.GameContent.GUI.Elements;
-using StardustSandbox.Game.GameContent.GUI.Elements.Graphics;
-using StardustSandbox.Game.GUI.Elements;
+using StardustSandbox.Game.GameContent.GUISystem.Elements;
+using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
-namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 {
     public partial class SGUI_HUD
     {

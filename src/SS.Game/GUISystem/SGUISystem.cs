@@ -5,7 +5,7 @@ using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Objects;
 
-namespace StardustSandbox.Game.GUI
+namespace StardustSandbox.Game.GUISystem
 {
     public abstract class SGUISystem : SGameObject
     {

@@ -3,16 +3,16 @@
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.GameContent.GUI.Elements;
-using StardustSandbox.Game.GameContent.GUI.Elements.Graphics;
-using StardustSandbox.Game.GUI.Elements;
+using StardustSandbox.Game.GameContent.GUISystem.Elements;
+using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
 using System.Configuration;
 
-namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer
     {

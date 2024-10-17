@@ -2,9 +2,8 @@
 using StardustSandbox.Game.Items;
 
 using System;
-using System.Collections.Generic;
 
-namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer
     {

@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.GUI.Elements;
+﻿using StardustSandbox.Game.GUISystem.Elements;
 
-namespace StardustSandbox.Game.GameContent.GUI.Elements
+namespace StardustSandbox.Game.GameContent.GUISystem.Elements
 {
     public class SGUIContainerElement : SGUIElement
     {

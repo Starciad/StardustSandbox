@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
-using StardustSandbox.Game.GameContent.GUI.Elements.Graphics;
-using StardustSandbox.Game.GUI;
+using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
+using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Mathematics;
 
-namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 {
     public sealed partial class SGUI_HUD : SGUISystem
     {

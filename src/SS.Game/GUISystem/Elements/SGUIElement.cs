@@ -9,7 +9,7 @@ using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.GUI.Elements
+namespace StardustSandbox.Game.GUISystem.Elements
 {
     public abstract class SGUIElement : SGameObject, ISPoolableObject
     {
@@ -60,7 +60,7 @@ namespace StardustSandbox.Game.GUI.Elements
         {
             return this.positionAnchor switch
             {
-                SCardinalDirection.Center => targetPosition + this.Margin + (new Vector2(targetSize.Width, targetSize.Height) / 2),
+                SCardinalDirection.Center => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height) / 2,
                 SCardinalDirection.North => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, 0),
                 SCardinalDirection.Northeast => targetPosition + this.Margin + new Vector2(targetSize.Width, 0),
                 SCardinalDirection.East => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height / 2),

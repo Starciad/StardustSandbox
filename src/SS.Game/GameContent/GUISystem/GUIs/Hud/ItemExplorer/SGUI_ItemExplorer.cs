@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
-using StardustSandbox.Game.GameContent.GUI.Elements.Graphics;
-using StardustSandbox.Game.GUI;
+using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
+using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
-namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
+namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer : SGUISystem
     {
@@ -17,8 +17,8 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
         private readonly Texture2D guiBackgroundTexture;
         private readonly Texture2D squareShapeTexture;
 
-        private readonly string selectedCategoryName;
-        private readonly int selectedPageIndex;
+        private string selectedCategoryName;
+        private int selectedPageIndex;
         private SItem[] selectedItems;
 
         public SGUI_ItemExplorer(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
