@@ -31,7 +31,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
             base.OnUpdate(gameTime);
 
             UpdateHeader();
-            UpdateHeaderElementSelectionSlots();
+            UpdateHeaderElements();
         }
 
         private void UpdateHeader()
@@ -40,8 +40,9 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
             this.SGameInstance.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.headerContainer.Position, this.headerContainer.Size);
         }
 
-        private void UpdateHeaderElementSelectionSlots()
+        private void UpdateHeaderElements()
         {
+            #region ELEMENT SLOTS
             // Individually check all element slots present in the HEADER.
             for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
             {
@@ -58,11 +59,35 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
                 {
                     slot.SetColor(Color.Red);
                 }
+                // Highlight when mouse is over slot.
+                else if (this.GUIEvents.OnMouseOver(slot.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                {
+                    slot.SetColor(Color.DarkGray);
+                }
+                // If none of the above events occur, the slot continues with its normal color.
                 else
                 {
                     slot.SetColor(Color.White);
                 }
             }
+            #endregion
+
+            #region SEARCH BUTTON
+            // Check if the mouse clicked on the search button.
+            if (this.GUIEvents.OnMouseDown(this.headerSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+            {
+                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
+            }
+
+            if (this.GUIEvents.OnMouseOver(this.headerSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+            {
+                this.headerSearchButton.SetColor(Color.DarkGray);
+            }
+            else
+            {
+                this.headerSearchButton.SetColor(Color.White);
+            }
+            #endregion
         }
     }
 }

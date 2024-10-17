@@ -20,6 +20,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
         private SGUIElement leftMenuContainer;
         private SGUIElement rightMenuContainer;
 
+        private SGUIImageElement headerSearchButton;
         private readonly SGUIElement[] headerElementSlots = new SGUIElement[SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH];
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
@@ -66,7 +67,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
             // ================================= //
 
             CreateSlots();
-            // CreateSearchSlot();
+            CreateSearchSlot();
 
             // ================================= //
 
@@ -120,19 +121,32 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
                 }
             }
 
-            //void CreateSearchSlot()
-            //{
-            //    SGUIImageElement slotSearchBackground = this._layout.AddElement<SGUIImageElement>();
-            //
-            //    slotSearchBackground.SetTexture(this.squareShapeTexture);
-            //    slotSearchBackground.SetOriginPivot(SCardinalDirection.Center);
-            //    slotSearchBackground.SetScale(new Vector2(SHUDConstants.SLOT_SCALE + 0.45f));
-            //    slotSearchBackground.SetPositionAnchor(SCardinalDirection.East);
-            //    slotSearchBackground.SetSize(new SSize2(SHUDConstants.SLOT_SCALE + 0.45f));
-            //    slotSearchBackground.SetMargin(new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0));
-            //
-            //    slotSearchBackground.PositionRelativeToElement(slotAreaBackground);
-            //}
+            void CreateSearchSlot()
+            {
+                SGUIImageElement slotSearchBackground = new(this.SGameInstance);
+                SGUIImageElement slotIcon = new(this.SGameInstance);
+
+                // Background
+                slotSearchBackground.SetTexture(this.squareShapeTexture);
+                slotSearchBackground.SetOriginPivot(SCardinalDirection.Center);
+                slotSearchBackground.SetScale(new Vector2(SHUDConstants.SLOT_SCALE + 0.45f));
+                slotSearchBackground.SetPositionAnchor(SCardinalDirection.East);
+                slotSearchBackground.SetSize(new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE));
+                slotSearchBackground.SetMargin(new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0));
+                slotSearchBackground.PositionRelativeToElement(slotAreaBackground);
+
+                // Icon
+                slotIcon.SetTexture(this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1"));
+                slotIcon.SetOriginPivot(SCardinalDirection.Center);
+                slotIcon.SetScale(new Vector2(2f));
+                slotIcon.SetSize(new SSize2(1));
+                slotIcon.PositionRelativeToElement(slotSearchBackground);
+
+                this._layout.AddElement(slotSearchBackground);
+                this._layout.AddElement(slotIcon);
+
+                this.headerSearchButton = slotSearchBackground;
+            }
         }
     }
 }
