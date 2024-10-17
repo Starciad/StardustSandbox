@@ -2,7 +2,7 @@
 {
     public static class SGUIConstants
     {
-        public const string HUD_NAME = "P_HUD";
-        public const string ELEMENT_EXPLORER_NAME = "P_ELEMENT_EXPLORER";
+        public const string HUD_NAME = "S_HUD";
+        public const string ELEMENT_EXPLORER_NAME = "S_HUD_ELEMENT_EXPLORER";
     }
 }

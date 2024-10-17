@@ -10,6 +10,6 @@
         public const int HEADER_ELEMENT_SELECTION_SLOTS_SIZE = 32;
 
         // Data Fields
-        public const string DATA_FILED_ELEMENT_ID = "ei";
+        public const string DATA_FILED_ELEMENT_ID = "element_id";
     }
 }
