@@ -43,13 +43,13 @@ namespace StardustSandbox.Game.Managers
             this._actionHandler = new(gameInstance);
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             BuildKeyboardInputs();
             BuildMouseInputs();
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Inputs
             UpdatePlaceAreaSize();

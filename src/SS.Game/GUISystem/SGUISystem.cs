@@ -27,18 +27,18 @@ namespace StardustSandbox.Game.GUISystem
             this.layout = new(this.SGameInstance);
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             this.layout.Initialize();
             OnBuild(this.layout);
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             this.layout.Update(gameTime);
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             this.layout.Draw(gameTime, spriteBatch);
         }

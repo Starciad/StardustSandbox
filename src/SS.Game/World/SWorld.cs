@@ -38,7 +38,7 @@ namespace StardustSandbox.Game.World
             ];
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             this.slots = new SWorldSlot[(int)this.Infos.Size.Width, (int)this.Infos.Size.Height];
             Reset();
@@ -50,9 +50,9 @@ namespace StardustSandbox.Game.World
 
             this.States.IsActive = true;
         }
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            base.OnUpdate(gameTime);
+            base.Update(gameTime);
 
             // Check current game status
             if (!this.States.IsActive || this.States.IsPaused)
@@ -77,9 +77,9 @@ namespace StardustSandbox.Game.World
                 component.Update(gameTime);
             }
         }
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.OnDraw(gameTime, spriteBatch);
+            base.Draw(gameTime, spriteBatch);
 
             if (!this.States.IsActive)
             {

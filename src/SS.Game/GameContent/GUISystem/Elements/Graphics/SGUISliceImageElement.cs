@@ -46,7 +46,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics
             this.IsVisible = true;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (this.texture == null)
             {
@@ -100,15 +100,16 @@ namespace StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics
             this.textureSlices[(int)SCardinalDirection.Northwest].SetTextureClipArea(new Rectangle(new Point(0, 0), sizePoint));
             this.textureSlices[(int)SCardinalDirection.Northwest].SetScale(Vector2.One);
         }
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.texture == null)
             {
                 return;
             }
 
-            foreach (SliceInfo texturePiece in this.textureSlices)
+            for (int i = 0; i < this.textureSlices.Length; i++)
             {
+                SliceInfo texturePiece = this.textureSlices[i];
                 spriteBatch.Draw(this.texture, texturePiece.Position, texturePiece.TextureClipArea, this.color, 0f, Vector2.Zero, texturePiece.Scale, SpriteEffects.None, 0f);
             }
         }

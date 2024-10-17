@@ -20,7 +20,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
 
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             this.capturedSlots.Clear();
 

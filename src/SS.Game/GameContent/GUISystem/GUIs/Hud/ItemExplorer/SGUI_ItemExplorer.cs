@@ -47,8 +47,10 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
             this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             UpdateItemCatalog();
         }
 
@@ -57,26 +59,31 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
             // Individually check all element slots present in the item catalog.
             for (int i = 0; i < this.itemSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotbackground, _) = this.itemSlots[i];
+                (SGUIImageElement itemSlotBackground, _) = this.itemSlots[i];
+
+                if (!itemSlotBackground.IsVisible)
+                {
+                    continue;
+                }
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(itemSlotbackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseClick(itemSlotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    this._guiHUD.AddItemToToolbar((string)itemSlotbackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                     this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
                     this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_NAME);
                 }
 
                 // Highlight when mouse is over slot.
-                if (this.GUIEvents.OnMouseOver(itemSlotbackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    itemSlotbackground.SetColor(Color.DarkGray);
+                    itemSlotBackground.SetColor(Color.DarkGray);
                 }
                 // If none of the above events occur, the slot continues with its normal color.
                 else
                 {
-                    itemSlotbackground.SetColor(Color.White);
+                    itemSlotBackground.SetColor(Color.White);
                 }
             }
         }
@@ -111,29 +118,29 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud.ItemExplorer
         {
             for (int i = 0; i < this.itemSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotbackground, SGUIImageElement itemSlotIcon) = this.itemSlots[i];
+                (SGUIImageElement itemSlotBackground, SGUIImageElement itemSlotIcon) = this.itemSlots[i];
 
                 if (i < this.selectedItems.Length)
                 {
-                    itemSlotbackground.IsVisible = true;
+                    itemSlotBackground.IsVisible = true;
                     itemSlotIcon.IsVisible = true;
 
                     SItem item = this.selectedItems[i];
                     itemSlotIcon.SetTexture(item.IconTexture);
 
                     // Add or Update Data
-                    if (!itemSlotbackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                    if (!itemSlotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                     {
-                        itemSlotbackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                        itemSlotBackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
                     }
                     else
                     {
-                        itemSlotbackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                        itemSlotBackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
                     }
                 }
                 else
                 {
-                    itemSlotbackground.IsVisible = false;
+                    itemSlotBackground.IsVisible = false;
                     itemSlotIcon.IsVisible = false;
                 }
             }

@@ -38,7 +38,7 @@ namespace StardustSandbox.Game.Managers
             UpdateSettings();
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             int width = SScreenConstants.DEFAULT_SCREEN_WIDTH;
             int height = SScreenConstants.DEFAULT_SCREEN_HEIGHT;

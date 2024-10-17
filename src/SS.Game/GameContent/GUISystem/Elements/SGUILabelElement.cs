@@ -27,7 +27,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.Elements
             this.IsVisible = true;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.HasBorders)
             {

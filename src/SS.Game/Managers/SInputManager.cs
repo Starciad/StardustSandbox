@@ -22,7 +22,7 @@ namespace StardustSandbox.Game.Managers
 
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             this._previousMouseState = this._mouseState;
             this._previousKeyboardState = this._keyboardState;

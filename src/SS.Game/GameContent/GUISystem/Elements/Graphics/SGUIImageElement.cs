@@ -30,7 +30,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics
             this.IsVisible = true;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.texture != null)
             {

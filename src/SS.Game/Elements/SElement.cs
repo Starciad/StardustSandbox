@@ -44,12 +44,12 @@ namespace StardustSandbox.Game.Elements
         // METHODS
 
         #region Engine
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             this.Rendering.Update(gameTime);
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             this.Rendering.SetContext(this.Context);
             this.Rendering.Draw(gameTime, spriteBatch);

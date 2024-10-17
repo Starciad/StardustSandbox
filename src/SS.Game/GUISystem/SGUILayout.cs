@@ -22,7 +22,7 @@ namespace StardustSandbox.Game.GUISystem
 
         private SGUIRootElement rootElement = null;
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             this.rootElement = new(this.SGameInstance);
             this.rootElement.SetPositioningType(SPositioningType.Fixed);
@@ -31,7 +31,7 @@ namespace StardustSandbox.Game.GUISystem
             AddElement(this.rootElement);
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.elements.Count; i++)
             {
@@ -44,7 +44,7 @@ namespace StardustSandbox.Game.GUISystem
             }
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             for (int i = 0; i < this.elements.Count; i++)
             {

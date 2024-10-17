@@ -22,12 +22,12 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
             this.clipAreaRectangle = clipAreaRectangle;
         }
 
-        protected override void OnInitialize(SElement element)
+        public override void Initialize(SElement element)
         {
             this.elementTexture = element.Texture;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, SElementContext context)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, SElementContext context)
         {
             spriteBatch.Draw(this.elementTexture, new Vector2(context.Position.X, context.Position.Y) * SWorldConstants.GRID_SCALE, this.clipAreaRectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }

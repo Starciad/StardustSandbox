@@ -20,7 +20,7 @@ namespace StardustSandbox.Game.Elements.Rendering
             this._element = element;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.renderingMechanism == null)
             {

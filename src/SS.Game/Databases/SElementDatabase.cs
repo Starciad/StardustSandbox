@@ -14,7 +14,7 @@ namespace StardustSandbox.Game.Databases
     {
         private readonly List<SElement> _registeredElements = [];
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             // ID : 00
             RegisterElement(new SDirt(this.SGameInstance));

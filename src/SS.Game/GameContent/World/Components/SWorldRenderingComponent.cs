@@ -26,7 +26,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
             this.cameraManager = cameraManager;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             GetAllElementsForRendering();
             DrawAllCapturedElements(gameTime, spriteBatch);

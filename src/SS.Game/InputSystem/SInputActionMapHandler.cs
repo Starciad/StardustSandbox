@@ -15,7 +15,7 @@ namespace StardustSandbox.Game.InputSystem
 
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (SInputActionMap actionMap in this._maps.Values)
             {

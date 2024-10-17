@@ -26,14 +26,13 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
         private SElement element;
         private Texture2D elementTexture;
 
-        // Overrides
-        protected override void OnInitialize(SElement element)
+        public override void Initialize(SElement element)
         {
             this.element = element;
             this.elementTexture = element.Texture;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch, SElementContext context)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, SElementContext context)
         {
             Point position = context.Position;
 

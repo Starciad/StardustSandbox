@@ -52,7 +52,7 @@ namespace StardustSandbox.Game.InputSystem
             this._mouseButtons = mouseButtons;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             this.callback = new();
 

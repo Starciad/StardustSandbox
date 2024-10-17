@@ -8,20 +8,14 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SGUIManager : SGameObject
+    public sealed class SGUIManager(SGame gameInstance, SGUIDatabase guiDatabase, SInputManager inputManager) : SGameObject(gameInstance)
     {
         public SGUIEvents GUIEvents => this._guiEvents;
 
-        private readonly SGUIEvents _guiEvents;
-        private readonly SGUIDatabase _guiDatabase;
+        private readonly SGUIEvents _guiEvents = new(inputManager);
+        private readonly SGUIDatabase _guiDatabase = guiDatabase;
 
-        public SGUIManager(SGame gameInstance, SGUIDatabase guiDatabase, SInputManager inputManager) : base(gameInstance)
-        {
-            this._guiDatabase = guiDatabase;
-            this._guiEvents = new(inputManager);
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
             {
@@ -32,7 +26,7 @@ namespace StardustSandbox.Game.Managers
             }
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
             {

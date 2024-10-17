@@ -11,7 +11,7 @@ using System.IO;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SAssetDatabase : SGameObject
+    public sealed class SAssetDatabase(SGame gameInstance, ContentManager contentManager) : SGameObject(gameInstance)
     {
         private enum AssetType
         {
@@ -28,7 +28,7 @@ namespace StardustSandbox.Game.Databases
         public SoundEffect[] Sounds => [.. this.sounds.Values];
         public Effect[] Shaders => [.. this.shaders.Values];
 
-        private readonly ContentManager _contentManager;
+        private readonly ContentManager _contentManager = contentManager;
 
         private readonly Dictionary<string, Texture2D> textures = [];
         private readonly Dictionary<string, SpriteFont> fonts = [];
@@ -36,12 +36,7 @@ namespace StardustSandbox.Game.Databases
         private readonly Dictionary<string, SoundEffect> sounds = [];
         private readonly Dictionary<string, Effect> shaders = [];
 
-        public SAssetDatabase(SGame gameInstance, ContentManager contentManager) : base(gameInstance)
-        {
-            this._contentManager = contentManager;
-        }
-
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             LoadShaders();
             LoadFonts();

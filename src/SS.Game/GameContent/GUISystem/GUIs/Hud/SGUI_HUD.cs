@@ -28,9 +28,9 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             SelectItemSlot(0, GetGameItemByIndex(0).Identifier);
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            base.OnUpdate(gameTime);
+            base.Update(gameTime);
 
             UpdateTopToolbar();
             UpdateLeftToolbar();

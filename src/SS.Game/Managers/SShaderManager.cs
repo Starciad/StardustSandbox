@@ -18,13 +18,13 @@ namespace StardustSandbox.Game.Managers
             this._assetDatabase = assetDatabase;
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             this.shaders = this._assetDatabase.Shaders;
             this.shadersLength = this.shaders.Length;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.shadersLength; i++)
             {

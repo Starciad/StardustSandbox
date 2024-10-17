@@ -13,7 +13,7 @@ namespace StardustSandbox.Game.Databases
 
         private readonly List<SGUISystem> _registeredGUIs = [];
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             SGUI_HUD guiHUD = new(this.SGameInstance, this.SGameInstance.GUIManager.GUIEvents);
             SGUI_ItemExplorer guiItemExplorer = new(this.SGameInstance, this.SGameInstance.GUIManager.GUIEvents, guiHUD);

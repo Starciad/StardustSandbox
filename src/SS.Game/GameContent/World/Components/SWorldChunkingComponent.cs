@@ -25,7 +25,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
             this._assetDatabase = assetDatabase;
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             this.pixelTexture = this._assetDatabase.GetTexture("particle_1");
 
@@ -43,7 +43,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
             }
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             for (int x = 0; x < this.worldChunkWidth; x++)
             {
@@ -53,7 +53,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                 }
             }
         }
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 #if DEBUG
             // Debug methods

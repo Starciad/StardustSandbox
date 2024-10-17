@@ -35,7 +35,7 @@ namespace StardustSandbox.Game.Managers
             this._inputManager = inputManager;
         }
 
-        protected override void OnInitialize()
+        public override void Initialize()
         {
             this.cursorTextures[0] = this._assetDatabase.GetTexture("cursor_1");
             this.cursorTextures[1] = this._assetDatabase.GetTexture("cursor_2");
@@ -43,7 +43,7 @@ namespace StardustSandbox.Game.Managers
             UpdateCursorSettings();
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Vector2 pos = this._inputManager.MouseState.Position.ToVector2();
 
@@ -51,7 +51,7 @@ namespace StardustSandbox.Game.Managers
             this.cursorPosition = pos;
         }
 
-        protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Texture2D cursorSelectedTexture = this.cursorTextures[this.cursorTextureSelected];
 

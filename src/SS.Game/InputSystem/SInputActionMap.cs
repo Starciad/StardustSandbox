@@ -22,7 +22,7 @@ namespace StardustSandbox.Game.InputSystem
             this._active = active;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (SInputAction action in this._actions.Values)
             {
