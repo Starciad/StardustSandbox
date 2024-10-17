@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GUISystem.Elements
 {
-    public abstract class SGUIElement : SGameObject, ISPoolableObject
+    public abstract class SGUIElement(SGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {
         public bool ShouldUpdate { get; set; }
         public bool IsVisible { get; set; }
@@ -30,11 +30,6 @@ namespace StardustSandbox.Game.GUISystem.Elements
         private Vector2 position = Vector2.Zero;
 
         private static SSize2 ScreenSize = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT);
-
-        public SGUIElement(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         // [ Settings ]
         public void PositionRelativeToElement(SGUIElement reference)
