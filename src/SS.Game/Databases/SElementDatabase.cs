@@ -7,14 +7,12 @@ using StardustSandbox.Game.Objects;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-
 
 namespace StardustSandbox.Game.Databases
 {
     public sealed class SElementDatabase : SGameObject
     {
-        private List<SElement> _registeredElements = [];
+        private readonly List<SElement> _registeredElements = [];
 
         public SElementDatabase(SGame gameInstance) : base(gameInstance)
         {

@@ -7,8 +7,6 @@ using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Objects;
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace StardustSandbox.Game.Databases
 {
@@ -36,7 +34,16 @@ namespace StardustSandbox.Game.Databases
             for (int i = 0; i < this.categories.Length; i++)
             {
                 SItemCategory category = this.categories[i];
-                category.SetItems([.. this.items.Where(x => x.Category == category)]);
+
+                for (int j = 0; j < this.items.Length; j++)
+                {
+                    SItem item = this.items[i];
+
+                    if (this.items[i].Category == category)
+                    {
+                        category.AddItem(item);
+                    }
+                }
             }
         }
 

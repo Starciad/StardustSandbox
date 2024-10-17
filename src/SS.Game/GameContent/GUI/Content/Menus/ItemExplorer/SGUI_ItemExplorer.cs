@@ -5,6 +5,7 @@ using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.GameContent.GUI.Elements.Graphics;
 using StardustSandbox.Game.GUI;
+using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics;
 
@@ -12,15 +13,15 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 {
     public sealed partial class SGUI_ItemExplorer : SGUISystem
     {
-        private Texture2D particleTexture;
-        private Texture2D guiBackgroundTexture;
-        private Texture2D squareShapeTexture;
+        private readonly Texture2D particleTexture;
+        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D squareShapeTexture;
 
-        private string selectedCategoryName;
-        private int selectedPageIndex;
+        private readonly string selectedCategoryName;
+        private readonly int selectedPageIndex;
         private SItem[] selectedItems;
 
-        public SGUI_ItemExplorer(SGame gameInstance) : base(gameInstance)
+        public SGUI_ItemExplorer(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
         {
             this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
 
@@ -45,7 +46,7 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
             // Individually check all element slots present in the item catalog.
             for (int i = 0; i < this.itemSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotbackground, SGUIImageElement itemSlotIcon) = this.itemSlots[i];
+                (SGUIImageElement itemSlotbackground, _) = this.itemSlots[i];
 
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(itemSlotbackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))

@@ -43,7 +43,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, SWorldConstants.GRID_SCALE))
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, SWorldConstants.GRID_SCALE))
                     {
                         this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
                     }
@@ -57,9 +57,9 @@ namespace StardustSandbox.Game.GameContent.World.Components
             {
                 if (!this.SWorldInstance.IsEmptyElementSlot(position))
                 {
-                    SElement element = elementDatabase.GetElementById(this.SWorldInstance.GetElementSlot(position).Id);
+                    SElement element = this.elementDatabase.GetElementById(this.SWorldInstance.GetElementSlot(position).Id);
 
-                    element.Context = new SElementContext(this.SWorldInstance, elementDatabase, this.SWorldInstance.GetElementSlot(position), position);
+                    element.Context = new SElementContext(this.SWorldInstance, this.elementDatabase, this.SWorldInstance.GetElementSlot(position), position);
                     element.Draw(gameTime, spriteBatch);
                 }
             }

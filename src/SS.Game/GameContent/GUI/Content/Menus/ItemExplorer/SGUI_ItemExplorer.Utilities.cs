@@ -2,7 +2,7 @@
 using StardustSandbox.Game.Items;
 
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 {
@@ -27,9 +27,23 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
 
             endIndex = Math.Min(endIndex, this.SGameInstance.ItemDatabase.Items.Length);
 
-            this.selectedItems = [.. category.Items.Take(new Range(startIndex, endIndex - startIndex))];
+            this.selectedItems = GetSelectedItems(category.Items, startIndex, endIndex);
 
             UpdateItemCatalog();
+        }
+
+        private static SItem[] GetSelectedItems(SItem[] items, int startIndex, int endIndex)
+        {
+            int length = endIndex - startIndex;
+
+            SItem[] selectedItems = new SItem[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                selectedItems[i] = items[startIndex + i];
+            }
+
+            return selectedItems;
         }
     }
 }

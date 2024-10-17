@@ -5,18 +5,19 @@ using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.GameContent.GUI.Elements.Graphics;
 using StardustSandbox.Game.GUI;
+using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.GameContent.GUI.Content.Hud
 {
     public sealed partial class SGUI_HUD : SGUISystem
     {
-        private Texture2D particleTexture;
-        private Texture2D squareShapeTexture;
+        private readonly Texture2D particleTexture;
+        private readonly Texture2D squareShapeTexture;
 
         private int slotSelectedIndex = 0;
 
-        public SGUI_HUD(SGame gameInstance) : base(gameInstance)
+        public SGUI_HUD(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
         {
             this.Name = SGUIConstants.HUD_NAME;
 

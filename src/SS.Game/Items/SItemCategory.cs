@@ -10,7 +10,9 @@ namespace StardustSandbox.Game.Items
         public string DisplayName { get; private set; }
         public string Description { get; private set; }
         public Texture2D IconTexture { get; private set; }
-        public SItem[] Items { get; private set; }
+        public SItem[] Items => [.. this.items];
+
+        private readonly List<SItem> items = [];
 
         public SItemCategory(string identifier, string displayName, string description, Texture2D iconTexture)
         {
@@ -20,9 +22,9 @@ namespace StardustSandbox.Game.Items
             this.IconTexture = iconTexture;
         }
 
-        internal void SetItems(SItem[] items)
+        internal void AddItem(SItem item)
         {
-            this.Items = items;
+            this.items.Add(item);
         }
     }
 }

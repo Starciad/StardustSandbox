@@ -45,7 +45,7 @@ namespace StardustSandbox.Game.Managers
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            Vector2 pos = _inputManager.MouseState.Position.ToVector2();
+            Vector2 pos = this._inputManager.MouseState.Position.ToVector2();
 
             this.cursorBackgroundPosition = pos;
             this.cursorPosition = pos;

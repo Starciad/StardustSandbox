@@ -16,17 +16,12 @@ namespace StardustSandbox.Game.GUI
         public bool HasEvents => this.GUIEvents != null;
         protected SGUIEvents GUIEvents { get; private set; }
 
-        private SGUILayout layout;
+        private readonly SGUILayout layout;
 
         private bool isActive;
         private bool isShowing;
 
-        public SGUISystem(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
-
-        internal void Configure(SGUIEvents guiEvents)
+        public SGUISystem(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance)
         {
             this.GUIEvents = guiEvents;
             this.layout = new(this.SGameInstance);
@@ -51,7 +46,6 @@ namespace StardustSandbox.Game.GUI
         {
             this.layout.Load();
             OnBuild(this.layout);
-            this.layout.Configure();
 
             this.isActive = true;
             this.isShowing = true;

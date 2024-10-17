@@ -10,27 +10,17 @@ using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace StardustSandbox.Game.GUI
 {
-    public sealed class SGUILayout : SGameObject, ISGUILayoutBuilder
+    public sealed class SGUILayout(SGame gameInstance) : SGameObject(gameInstance), ISGUILayoutBuilder
     {
         public SGUIRootElement RootElement => this.rootElement;
         public int ElementCount => this.elements.Count;
 
         private readonly List<SGUIElement> elements = [];
 
-        private SGUIElement[] elementsThatShouldUpdate;
-        private SGUIElement[] elementsThatShouldDraw;
-
         private SGUIRootElement rootElement = null;
-
-        public SGUILayout(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         public void Load()
         {
@@ -41,12 +31,6 @@ namespace StardustSandbox.Game.GUI
             AddElement(this.rootElement);
         }
 
-        public void Configure()
-        {
-            this.elementsThatShouldUpdate = this.elements.Where(x => x.ShouldUpdate).ToArray();
-            this.elementsThatShouldDraw = this.elements.Where(x => x.IsVisible).ToArray();
-        }
-
         public void Unload()
         {
             this.elements.Clear();
@@ -54,17 +38,27 @@ namespace StardustSandbox.Game.GUI
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            for (int i = 0; i < this.elementsThatShouldUpdate.Length; i++)
+            for (int i = 0; i < this.elements.Count; i++)
             {
-                this.elementsThatShouldUpdate[i].Update(gameTime);
+                SGUIElement element = this.elements[i];
+
+                if (element.ShouldUpdate)
+                {
+                    element.Update(gameTime);
+                }
             }
         }
 
         protected override void OnDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.elementsThatShouldDraw.Length; i++)
+            for (int i = 0; i < this.elements.Count; i++)
             {
-                this.elementsThatShouldDraw[i].Draw(gameTime, spriteBatch);
+                SGUIElement element = this.elements[i];
+
+                if (element.IsVisible)
+                {
+                    element.Draw(gameTime, spriteBatch);
+                }
             }
         }
 

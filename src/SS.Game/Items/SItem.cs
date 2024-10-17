@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Enums.Items;
-using StardustSandbox.Game.Objects;
 
 using System;
 
