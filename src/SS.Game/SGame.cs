@@ -48,7 +48,6 @@ namespace StardustSandbox.Game
         private readonly SInputManager _inputManager;
         private readonly SGUIManager _guiManager;
         private readonly SCursorManager _cursorManager;
-        private readonly SGameContentManager _gameContentManager;
 
         // ================================= //
 
@@ -83,7 +82,6 @@ namespace StardustSandbox.Game
             this._gameInputManager = new(this, this._cameraManager, this._world, this._inputManager);
             this._guiManager = new(this, this._guiDatabase, this._inputManager);
             this._cursorManager = new(this, this._assetDatabase, this._inputManager);
-            this._gameContentManager = new(this);
         }
 
         public void UpdateGameSettings()
@@ -98,12 +96,9 @@ namespace StardustSandbox.Game
         {
             #region Databases
             this._assetDatabase.Initialize();
-            this._itemDatabase.Initialize();
             this._elementDatabase.Initialize();
+            this._itemDatabase.Initialize();
             this._guiDatabase.Initialize();
-            this._gameContentManager.Initialize();
-
-            this._gameContentManager.RegisterAllGameContent();
             #endregion
 
             #region Managers

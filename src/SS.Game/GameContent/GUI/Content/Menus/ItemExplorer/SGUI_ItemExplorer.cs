@@ -12,7 +12,6 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
         private Texture2D guiBackgroundTexture;
         private Texture2D squareShapeTexture;
 
-        private string[] categories;
         private string selectedCategoryName;
         private int selectedPageIndex;
         private SItem[] selectedItems;
@@ -24,8 +23,6 @@ namespace StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_1");
             this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
-
-            this.categories = this.SGameInstance.ItemDatabase.Categories;
         }
 
         protected override void OnLoad()

@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Game.GUI;
+﻿using StardustSandbox.Game.GameContent.GUI.Content.Hud;
+using StardustSandbox.Game.GameContent.GUI.Content.Menus.ItemExplorer;
+using StardustSandbox.Game.GUI;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.Objects;
 
@@ -20,11 +22,14 @@ namespace StardustSandbox.Game.Databases
 
         protected override void OnInitialize()
         {
+            RegisterGUISystem(new SGUI_HUD(this.SGameInstance), this.SGameInstance.GUIManager.GUIEvents);
+            RegisterGUISystem(new SGUI_ItemExplorer(this.SGameInstance), this.SGameInstance.GUIManager.GUIEvents);
+
             this._registeredGUIs.ForEach(x => x.Initialize());
             this._registeredGUIs = [.. this._registeredGUIs.OrderBy(x => x.ZIndex)];
         }
 
-        internal void RegisterGUISystem(SGUISystem guiSystem, SGUIEvents guiEvents)
+        private void RegisterGUISystem(SGUISystem guiSystem, SGUIEvents guiEvents)
         {
             guiSystem.Configure(guiEvents);
             this._registeredGUIs.Add(guiSystem);
