@@ -75,6 +75,15 @@ namespace StardustSandbox.Game.Databases
 
             // ID : 19
             RegisterElement(new SSmoke(this.SGameInstance));
+
+            // ID : 20
+            RegisterElement(new SRedBrick(this.SGameInstance));
+
+            // ID : 21
+            RegisterElement(new STreeLeaf(this.SGameInstance));
+
+            // ID : 22
+            RegisterElement(new SMountingBlock(this.SGameInstance));
         }
 
         private void RegisterElement(SElement element)

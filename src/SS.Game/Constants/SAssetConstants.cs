@@ -9,7 +9,7 @@
 
         #region GRAPHICS
         // Elements
-        public const sbyte GRAPHICS_ELEMENTS_LENGTH = 20;
+        public const sbyte GRAPHICS_ELEMENTS_LENGTH = 23;
 
         // Particles
         public const sbyte GRAPHICS_PARTICLES_LENGTH = 1;
@@ -30,7 +30,7 @@
         public const sbyte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 6;
 
         // Icons
-        public const sbyte GRAPHICS_ICONS_ELEMENTS_LENGTH = 20;
+        public const sbyte GRAPHICS_ICONS_ELEMENTS_LENGTH = 23;
         public const sbyte GRAPHICS_ICONS_GUI_LENGTH = 14;
 
         // Game

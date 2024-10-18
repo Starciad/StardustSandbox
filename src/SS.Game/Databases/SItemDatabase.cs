@@ -262,6 +262,36 @@ namespace StardustSandbox.Game.Databases
                     iconTexture: this._assetDatabase.GetTexture("icon_element_20"),
                     referencedType: typeof(SSmoke)
                 ),
+
+                new(
+                    identifier: "element_red_brick",
+                    displayName: "Red Brick",
+                    description: string.Empty,
+                    contentType: SItemContentType.Element,
+                    category: this.categories[(byte)SItemCategoryId.Solids],
+                    iconTexture: this._assetDatabase.GetTexture("icon_element_21"),
+                    referencedType: typeof(SRedBrick)
+                ),
+
+                new(
+                    identifier: "element_tree_leaf",
+                    displayName: "Tree Leaf",
+                    description: string.Empty,
+                    contentType: SItemContentType.Element,
+                    category: this.categories[(byte)SItemCategoryId.Solids],
+                    iconTexture: this._assetDatabase.GetTexture("icon_element_22"),
+                    referencedType: typeof(STreeLeaf)
+                ),
+
+                new(
+                    identifier: "element_mounting_block",
+                    displayName: "Mounting Block",
+                    description: string.Empty,
+                    contentType: SItemContentType.Element,
+                    category: this.categories[(byte)SItemCategoryId.Powders],
+                    iconTexture: this._assetDatabase.GetTexture("icon_element_23"),
+                    referencedType: typeof(SMountingBlock)
+                ),
                 #endregion
             ];
         }
