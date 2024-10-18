@@ -75,7 +75,7 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 
         private static Point[] GetRandomBelowPositions(Point targetPosition)
         {
-            int rDirection = SRandom.Chance(50, 100) ? 1 : -1;
+            int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
 
             return [
                 new(targetPosition.X, targetPosition.Y + 1),

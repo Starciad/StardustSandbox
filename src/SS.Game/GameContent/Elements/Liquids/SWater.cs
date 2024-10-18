@@ -36,7 +36,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Liquids
 
                 if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is SStone)
                 {
-                    if (SRandom.Range(0, 150) == 0)
+                    if (SRandomMath.Range(0, 150) == 0)
                     {
                         this.Context.DestroyElement();
                         this.Context.ReplaceElement<SSand>(neighbor.Item1);

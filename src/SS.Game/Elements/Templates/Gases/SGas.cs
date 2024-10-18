@@ -39,7 +39,7 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
 
         private void UpSpreadingTypeUpdate()
         {
-            int direction = SRandom.Range(0, 101) < 50 ? 1 : -1;
+            int direction = SRandomMath.Range(0, 101) < 50 ? 1 : -1;
             Point[] targets =
             [
                 new Point(this.Context.Position.X, this.Context.Position.Y - 1),

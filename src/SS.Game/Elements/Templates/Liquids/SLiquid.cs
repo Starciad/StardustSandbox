@@ -13,7 +13,7 @@ namespace StardustSandbox.Game.Elements.Templates.Liquids
 
         public override void OnBehaviourStep()
         {
-            int direction = SRandom.Range(0, 101) < 50 ? 1 : -1;
+            int direction = SRandomMath.Range(0, 101) < 50 ? 1 : -1;
 
             Point down = new(this.Context.Position.X, this.Context.Position.Y + 1);
             Point[] sides =

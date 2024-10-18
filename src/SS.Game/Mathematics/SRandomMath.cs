@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.Game.Mathematics
 {
-    public static class SRandom
+    public static class SRandomMath
     {
         private static readonly Random _random = new();
 

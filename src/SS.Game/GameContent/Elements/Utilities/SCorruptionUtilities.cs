@@ -42,7 +42,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
                 return;
             }
 
-            (Point, SWorldSlot) target = targets.Count == 0 ? targets[0] : targets[SRandom.Range(0, targets.Count)];
+            (Point, SWorldSlot) target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
             SElement targetElement = context.ElementDatabase.GetElementById(target.Item2.Id);
 
             if (targetElement is SSolid)
