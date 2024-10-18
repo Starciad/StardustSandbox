@@ -198,13 +198,14 @@ namespace StardustSandbox.Game.World
         public bool TryGetElementSlot(Point pos, out SWorldSlot value)
         {
             value = default;
-            if (!InsideTheWorldDimensions(pos))
+            if (!InsideTheWorldDimensions(pos) ||
+                IsEmptyElementSlot(pos))
             {
                 return false;
             }
 
             value = this.slots[pos.X, pos.Y];
-            return !value.IsEmpty;
+            return true;
         }
 
         public void SetElementTemperature(Point pos, short value)
@@ -213,7 +214,8 @@ namespace StardustSandbox.Game.World
         }
         public bool TrySetElementTemperature(Point pos, short value)
         {
-            if (!InsideTheWorldDimensions(pos))
+            if (!InsideTheWorldDimensions(pos) ||
+                IsEmptyElementSlot(pos))
             {
                 return false;
             }
@@ -223,6 +225,25 @@ namespace StardustSandbox.Game.World
                 NotifyChunk(pos);
                 this.slots[pos.X, pos.Y].SetTemperatureValue(value);
             }
+
+            return true;
+        }
+
+        public void SetElementFreeFalling(Point pos, bool value)
+        {
+            _ = TrySetElementFreeFalling(pos, value);
+        }
+
+        public bool TrySetElementFreeFalling(Point pos, bool value)
+        {
+            if (!InsideTheWorldDimensions(pos) ||
+                IsEmptyElementSlot(pos))
+            {
+                return false;
+            }
+
+            NotifyChunk(pos);
+            this.slots[pos.X, pos.Y].SetFreeFalling(value);
 
             return true;
         }

@@ -265,6 +265,24 @@ namespace StardustSandbox.Game.Elements.Contexts
             return this._world.TrySetElementTemperature(pos, value);
         }
 
+        public readonly void SetElementFreeFalling(bool value)
+        {
+            SetElementFreeFalling(this.Position, value);
+        }
+        public readonly void SetElementFreeFalling(Point pos, bool value)
+        {
+            this._world.SetElementFreeFalling(pos, value);
+        }
+
+        public readonly bool TrySetElementFreeFalling(bool value)
+        {
+            return TrySetElementFreeFalling(this.Position, value);
+        }
+        public readonly bool TrySetElementFreeFalling(Point pos, bool value)
+        {
+            return this._world.TrySetElementFreeFalling(pos, value);
+        }
+
         // Tools
         public readonly bool IsEmptyElementSlot()
         {

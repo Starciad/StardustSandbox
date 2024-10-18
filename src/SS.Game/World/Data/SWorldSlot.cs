@@ -10,10 +10,12 @@ namespace StardustSandbox.Game.World.Data
         public readonly uint Id => this.id;
         public readonly bool IsEmpty => this.isEmpty;
         public readonly short Temperature => this.temperature;
+        public readonly bool FreeFalling => this.freeFalling;
 
         private bool isEmpty;
         private uint id;
         private short temperature;
+        private bool freeFalling;
 
         public SWorldSlot()
         {
@@ -29,6 +31,7 @@ namespace StardustSandbox.Game.World.Data
             this.isEmpty = false;
             this.id = value.Id;
             this.temperature = value.DefaultTemperature;
+            this.freeFalling = false;
         }
 
         public void Destroy()
@@ -36,11 +39,17 @@ namespace StardustSandbox.Game.World.Data
             this.isEmpty = true;
             this.id = 0;
             this.temperature = 0;
+            this.freeFalling = false;
         }
 
         public void SetTemperatureValue(int value)
         {
             this.temperature = STemperatureMath.Clamp(value);
+        }
+
+        public void SetFreeFalling(bool value)
+        {
+            this.freeFalling = value;
         }
 
         public readonly object Clone()
@@ -49,7 +58,8 @@ namespace StardustSandbox.Game.World.Data
             {
                 isEmpty = this.isEmpty,
                 id = this.id,
-                temperature = this.temperature
+                temperature = this.temperature,
+                freeFalling = this.freeFalling,
             };
         }
     }
