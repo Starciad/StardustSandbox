@@ -81,7 +81,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                     element.Context = new SElementContext(this.SWorldInstance, this.elementDatabase, this.SWorldInstance.GetElementSlot(position), position);
                     element.Draw(gameTime, spriteBatch);
 
-                    // spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).FreeFalling.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false );
+                    //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);
                 }
             }
         }

@@ -16,10 +16,10 @@ namespace StardustSandbox.Game.GameContent.Elements.Liquids
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue < 500)
+            if (currentValue <= 500)
             {
                 this.Context.ReplaceElement<SStone>();
-                this.Context.SetElementTemperature(550);
+                this.Context.SetElementTemperature(500);
             }
         }
     }

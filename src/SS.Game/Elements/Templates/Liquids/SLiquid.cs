@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Templates.Gases;
 using StardustSandbox.Game.Elements.Utilities;
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Mathematics;
@@ -94,16 +93,19 @@ namespace StardustSandbox.Game.Elements.Templates.Liquids
                     case 1:
                         if (this.Context.TrySetPosition(rPosition))
                         { return; }
+
                         break;
 
                     case -1:
                         if (this.Context.TrySetPosition(lPosition))
                         { return; }
+
                         break;
 
                     default:
                         if (this.Context.TrySetPosition(rPosition))
                         { return; }
+
                         break;
                 }
             }

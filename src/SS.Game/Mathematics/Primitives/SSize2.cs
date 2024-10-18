@@ -92,7 +92,7 @@ namespace StardustSandbox.Game.Mathematics.Primitives
         {
             unchecked
             {
-                return this.Width.GetHashCode() * 397 ^ this.Height.GetHashCode();
+                return (this.Width.GetHashCode() * 397) ^ this.Height.GetHashCode();
             }
         }
 

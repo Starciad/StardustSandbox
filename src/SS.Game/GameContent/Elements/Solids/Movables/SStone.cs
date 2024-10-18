@@ -16,10 +16,9 @@ namespace StardustSandbox.Game.GameContent.Elements.Solids.Movables
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue > 500)
+            if (currentValue > 600)
             {
                 this.Context.ReplaceElement<SLava>();
-                this.Context.SetElementTemperature(600);
             }
         }
     }

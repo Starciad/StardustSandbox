@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Templates.Gases;
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Elements.Utilities;
 using StardustSandbox.Game.Enums.General;
@@ -60,7 +59,7 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
                     return true;
                 }
             }
-            
+
             return false;
         }
     }

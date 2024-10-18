@@ -1,8 +1,8 @@
-﻿using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Mathematics;
+﻿using Microsoft.Xna.Framework;
 
-using Microsoft.Xna.Framework;
 using StardustSandbox.Game.Elements.Contexts;
+using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Utilities
 {
@@ -16,36 +16,36 @@ namespace StardustSandbox.Game.Elements.Utilities
             {
                 SDirection.Up => [
                     new(targetPosition.X, targetPosition.Y - 1),
-                    new(targetPosition.X + (rDirection), targetPosition.Y - 1),
+                    new(targetPosition.X + rDirection, targetPosition.Y - 1),
                     new(targetPosition.X + (rDirection * -1), targetPosition.Y - 1),
                 ],
 
                 SDirection.Left => [
                     new(targetPosition.X + 1, targetPosition.Y),
-                    new(targetPosition.X + 1, targetPosition.Y + (rDirection)),
+                    new(targetPosition.X + 1, targetPosition.Y + rDirection),
                     new(targetPosition.X + 1, targetPosition.Y + (rDirection * -1)),
                 ],
-                
+
                 SDirection.Down => [
                     new(targetPosition.X, targetPosition.Y + 1),
-                    new(targetPosition.X + (rDirection), targetPosition.Y + 1),
+                    new(targetPosition.X + rDirection, targetPosition.Y + 1),
                     new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1),
                 ],
-                
+
                 SDirection.Right => [
                     new(targetPosition.X - 1, targetPosition.Y),
-                    new(targetPosition.X - 1, targetPosition.Y + (rDirection)),
+                    new(targetPosition.X - 1, targetPosition.Y + rDirection),
                     new(targetPosition.X - 1, targetPosition.Y + (rDirection * -1)),
                 ],
 
                 _ => [
                     new(targetPosition.X, targetPosition.Y + 1),
-                    new(targetPosition.X + (rDirection), targetPosition.Y + 1),
+                    new(targetPosition.X + rDirection, targetPosition.Y + 1),
                     new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1),
                 ],
             };
         }
-        
+
         public static void NotifyFreeFallingFromAdjacentNeighbors(SElementContext context, Point position)
         {
             context.SetElementFreeFalling(new(position.X, position.Y - 1), true);
