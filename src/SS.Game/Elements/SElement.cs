@@ -38,7 +38,7 @@ namespace StardustSandbox.Game.Elements
 
         public SElement(SGame gameInstance) : base(gameInstance)
         {
-            this.Rendering = new(this.SGameInstance, this);
+            this.Rendering = new(gameInstance, this);
         }
 
         // METHODS

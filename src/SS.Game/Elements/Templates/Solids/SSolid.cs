@@ -1,10 +1,6 @@
 ﻿namespace StardustSandbox.Game.Elements.Templates.Solids
 {
-    public abstract class SSolid : SElement
+    public abstract class SSolid(SGame gameInstance) : SElement(gameInstance)
     {
-        public SSolid(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
     }
 }

@@ -14,22 +14,41 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GameContent.World.Components
 {
-    public sealed class SWorldRenderingComponent : SWorldComponent
+    public sealed class SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance, SElementDatabase elementDatabase, SCameraManager cameraManager) : SWorldComponent(gameInstance, worldInstance)
     {
         private readonly List<Point> _slotsCapturedForRendering = [];
-        private readonly SElementDatabase elementDatabase;
-        private readonly SCameraManager cameraManager;
+        private readonly SElementDatabase elementDatabase = elementDatabase;
+        private readonly SCameraManager cameraManager = cameraManager;
 
-        public SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance, SElementDatabase elementDatabase, SCameraManager cameraManager) : base(gameInstance, worldInstance)
+        private Texture2D _gridTexture;
+
+        public override void Initialize()
         {
-            this.elementDatabase = elementDatabase;
-            this.cameraManager = cameraManager;
+            this._gridTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_2");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Draw2DWorldGrid(spriteBatch);
             GetAllElementsForRendering();
             DrawAllCapturedElements(gameTime, spriteBatch);
+        }
+
+        private void Draw2DWorldGrid(SpriteBatch spriteBatch)
+        {
+            for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
+            {
+                for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
+                {
+                    Vector2 targetPosition = new(x, y);
+                    SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
+
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, SWorldConstants.GRID_SCALE))
+                    {
+                        spriteBatch.Draw(this._gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                    }
+                }
+            }
         }
 
         private void GetAllElementsForRendering()

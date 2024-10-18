@@ -38,7 +38,7 @@
         public const sbyte GRAPHICS_GAME_TITLES_LENGTH = 1;
 
         // Shapes
-        public const sbyte GRAPHICS_SHAPES_SQUARES_LENGTH = 1;
+        public const sbyte GRAPHICS_SHAPES_SQUARES_LENGTH = 2;
         #endregion
     }
 }
