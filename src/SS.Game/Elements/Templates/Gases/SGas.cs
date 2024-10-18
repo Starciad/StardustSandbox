@@ -12,14 +12,9 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
         Spread
     }
 
-    public abstract class SGas : SElement
+    public abstract class SGas(SGame gameInstance) : SElement(gameInstance)
     {
         public GasSpreadingType SpreadingType { get; protected set; }
-
-        protected SGas(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         public override void OnBehaviourStep()
         {
@@ -59,13 +54,9 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
 
                 if (this.Context.TryGetElement(targetPos, out SElement value))
                 {
-                    if (value is SLiquid ||
-                        value is SMovableSolid)
+                    if ((value is SLiquid || value is SMovableSolid) && this.Context.TrySwappingElements(targetPos))
                     {
-                        if (this.Context.TrySwappingElements(targetPos))
-                        {
-                            return;
-                        }
+                        return;
                     }
                 }
             }

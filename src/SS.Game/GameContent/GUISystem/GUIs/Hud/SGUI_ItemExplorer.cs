@@ -7,7 +7,7 @@ using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Items;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Mathematics.Primitives;
 
 using System;
 using System.Linq;

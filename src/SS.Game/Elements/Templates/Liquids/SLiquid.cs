@@ -1,43 +1,56 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Game.Elements.Templates.Gases;
+using StardustSandbox.Game.Elements.Utilities;
+using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Templates.Liquids
 {
-    public abstract class SLiquid : SElement
+    public abstract class SLiquid(SGame gameInstance) : SElement(gameInstance)
     {
-        public SLiquid(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
-
         public override void OnBehaviourStep()
         {
-            int direction = SRandomMath.Range(0, 101) < 50 ? 1 : -1;
+            Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Down);
 
-            Point down = new(this.Context.Position.X, this.Context.Position.Y + 1);
-            Point[] sides =
-            [
-                new Point(this.Context.Position.X + direction, this.Context.Position.Y),
-                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
-            ];
-
-            if (this.Context.TrySetPosition(down))
+            if (this.Context.Slot.FreeFalling)
             {
-                return;
-            }
+                for (int i = 0; i < belowPositions.Length; i++)
+                {
+                    Point sidePos = belowPositions[i];
+                    Point finalPos = new(sidePos.X, sidePos.Y);
 
-            foreach (Point side in sides)
+                    if (this.Context.TrySetPosition(finalPos))
+                    {
+                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, finalPos);
+                        this.Context.SetElementFreeFalling(finalPos, true);
+                        return;
+                    }
+                }
+
+                HorizontalMovementUpdate();
+                this.Context.SetElementFreeFalling(false);
+            }
+            else
             {
-                if (this.Context.TrySetPosition(new(side.X, side.Y + 1)))
-                { return; }
+                if (this.Context.TrySetPosition(new(this.Context.Position.X, this.Context.Position.Y + 1)))
+                {
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
+                    this.Context.SetElementFreeFalling(belowPositions[0], true);
+                    return;
+                }
+                else
+                {
+                    HorizontalMovementUpdate();
+                    this.Context.SetElementFreeFalling(false);
+                    return;
+                }
             }
-
-            HorizontalMovementUpdate(direction);
         }
 
-        private void HorizontalMovementUpdate(int direction)
+        private void HorizontalMovementUpdate()
         {
+            int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
             int lCount = 0, rCount = 0;
             bool lCountBreak = false, rCountBreak = false;
 
@@ -76,16 +89,22 @@ namespace StardustSandbox.Game.Elements.Templates.Liquids
 
             if (tCount.Equals(lCount) && tCount.Equals(rCount))
             {
-                if (direction.Equals(-1))
+                switch (rDirection)
                 {
-                    if (this.Context.TrySetPosition(lPosition))
-                    { return; }
-                }
+                    case 1:
+                        if (this.Context.TrySetPosition(rPosition))
+                        { return; }
+                        break;
 
-                if (direction.Equals(1))
-                {
-                    if (this.Context.TrySetPosition(rPosition))
-                    { return; }
+                    case -1:
+                        if (this.Context.TrySetPosition(lPosition))
+                        { return; }
+                        break;
+
+                    default:
+                        if (this.Context.TrySetPosition(rPosition))
+                        { return; }
+                        break;
                 }
             }
 

@@ -6,7 +6,7 @@ using StardustSandbox.Game.Enums.GUI;
 using StardustSandbox.Game.GameContent.GUISystem.Elements;
 using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Interfaces.GUI;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;

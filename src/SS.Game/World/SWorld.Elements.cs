@@ -242,7 +242,6 @@ namespace StardustSandbox.Game.World
                 return false;
             }
 
-            NotifyChunk(pos);
             this.slots[pos.X, pos.Y].SetFreeFalling(value);
 
             return true;

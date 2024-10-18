@@ -9,7 +9,7 @@ using StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics;
 using StardustSandbox.Game.GUISystem.Elements;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Items;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Mathematics.Primitives;
 
 namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 {

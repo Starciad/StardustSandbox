@@ -292,6 +292,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             return this._world.IsEmptyElementSlot(pos);
         }
+
         #endregion
 
         #region Chunks

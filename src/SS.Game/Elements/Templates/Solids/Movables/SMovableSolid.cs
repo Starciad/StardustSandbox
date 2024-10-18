@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Game.Elements.Templates.Gases;
 using StardustSandbox.Game.Elements.Templates.Liquids;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Elements.Utilities;
+using StardustSandbox.Game.Enums.General;
 
 namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 {
@@ -9,7 +11,7 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
     {
         public override void OnBehaviourStep()
         {
-            Point[] belowPositions = GetRandomBelowPositions(this.Context.Position);
+            Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Down);
 
             if (this.Context.Slot.FreeFalling)
             {
@@ -20,7 +22,7 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 
                     if (TrySetPosition(finalPos))
                     {
-                        NotifyFreeFallingFromAdjacentNeighbors(finalPos);
+                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, finalPos);
                         this.Context.SetElementFreeFalling(finalPos, true);
                         return;
                     }
@@ -32,7 +34,7 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
             {
                 if (TrySetPosition(new(this.Context.Position.X, this.Context.Position.Y + 1)))
                 {
-                    NotifyFreeFallingFromAdjacentNeighbors(belowPositions[0]);
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
                     this.Context.SetElementFreeFalling(belowPositions[0], true);
                     return;
                 }
@@ -53,35 +55,13 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 
             if (this.Context.TryGetElement(pos, out SElement value))
             {
-                if (value is SLiquid)
+                if (value is SLiquid && this.Context.TrySwappingElements(pos))
                 {
-                    if (this.Context.TrySwappingElements(pos))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             
             return false;
-        }
-
-        private void NotifyFreeFallingFromAdjacentNeighbors(Point position)
-        {
-            this.Context.SetElementFreeFalling(new(position.X, position.Y - 1), true);
-            this.Context.SetElementFreeFalling(new(position.X, position.Y + 1), true);
-            this.Context.SetElementFreeFalling(new(position.X - 1, position.Y), true);
-            this.Context.SetElementFreeFalling(new(position.X + 1, position.Y), true);
-        }
-
-        private static Point[] GetRandomBelowPositions(Point targetPosition)
-        {
-            int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
-
-            return [
-                new(targetPosition.X, targetPosition.Y + 1),
-                new(targetPosition.X + (rDirection), targetPosition.Y + 1),
-                new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1),
-            ];
         }
     }
 }
