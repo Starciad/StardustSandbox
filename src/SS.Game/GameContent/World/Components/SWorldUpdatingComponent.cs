@@ -11,14 +11,9 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GameContent.World.Components
 {
-    public sealed class SWorldUpdatingComponent : SWorldComponent
+    public sealed class SWorldUpdatingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private readonly List<Point> capturedSlots = [];
-
-        public SWorldUpdatingComponent(SGame gameInstance, SWorld worldInstance) : base(gameInstance, worldInstance)
-        {
-
-        }
 
         public override void Update(GameTime gameTime)
         {

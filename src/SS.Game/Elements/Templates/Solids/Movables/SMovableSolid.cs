@@ -9,27 +9,14 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
     {
         public override void OnBehaviourStep()
         {
-            int direction = SRandom.Range(0, 101) < 50 ? 1 : -1;
-            Point down = new(this.Context.Position.X, this.Context.Position.Y + 1);
+            Point[] belowPositions = GetRandomBelowPositions(this.Context.Position);
 
             if (this.Context.Slot.FreeFalling)
             {
-                Point[] sides = [
-                    new(this.Context.Position.X + direction, this.Context.Position.Y),
-                    new(this.Context.Position.X + (direction * -1), this.Context.Position.Y),
-                ];
-
-                if (TrySetPosition(down))
+                for (int i = 0; i < belowPositions.Length; i++)
                 {
-                    NotifyFreeFallingFromAdjacentNeighbors(down);
-                    this.Context.SetElementFreeFalling(down, true);
-                    return;
-                }
-
-                for (int i = 0; i < sides.Length; i++)
-                {
-                    Point sidePos = sides[i];
-                    Point finalPos = new(sidePos.X, sidePos.Y + 1);
+                    Point sidePos = belowPositions[i];
+                    Point finalPos = new(sidePos.X, sidePos.Y);
 
                     if (TrySetPosition(finalPos))
                     {
@@ -43,10 +30,10 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
             }
             else
             {
-                if (TrySetPosition(down))
+                if (TrySetPosition(new(this.Context.Position.X, this.Context.Position.Y + 1)))
                 {
-                    NotifyFreeFallingFromAdjacentNeighbors(down);
-                    this.Context.SetElementFreeFalling(down, true);
+                    NotifyFreeFallingFromAdjacentNeighbors(belowPositions[0]);
+                    this.Context.SetElementFreeFalling(belowPositions[0], true);
                     return;
                 }
                 else
@@ -84,6 +71,17 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
             this.Context.SetElementFreeFalling(new(position.X, position.Y + 1), true);
             this.Context.SetElementFreeFalling(new(position.X - 1, position.Y), true);
             this.Context.SetElementFreeFalling(new(position.X + 1, position.Y), true);
+        }
+
+        private static Point[] GetRandomBelowPositions(Point targetPosition)
+        {
+            int rDirection = SRandom.Chance(50, 100) ? 1 : -1;
+
+            return [
+                new(targetPosition.X, targetPosition.Y + 1),
+                new(targetPosition.X + (rDirection), targetPosition.Y + 1),
+                new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1),
+            ];
         }
     }
 }

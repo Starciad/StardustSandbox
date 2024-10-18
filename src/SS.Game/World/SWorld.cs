@@ -20,10 +20,12 @@ namespace StardustSandbox.Game.World
         public SWorldInfo Infos { get; private set; }
         public SElementDatabase ElementDatabase { get; private set; }
 
-        private readonly STimer updateTimer = new(0.35f);
         private readonly SWorldComponent[] _components;
 
         private SWorldSlot[,] slots;
+
+        private readonly uint totalFramesUpdateDelay = 5;
+        private uint currentFramesUpdateDelay;
 
         public SWorld(SGame gameInstance, SElementDatabase elementDatabase, SAssetDatabase assetDatabase, SCameraManager camera) : base(gameInstance)
         {
@@ -60,14 +62,14 @@ namespace StardustSandbox.Game.World
                 return;
             }
 
-            // Check update delay for the current game world
-            this.updateTimer.Update();
-            if (this.updateTimer.IsFinished)
+            // Delay
+            if (this.currentFramesUpdateDelay == 0)
             {
-                this.updateTimer.Restart();
+                this.currentFramesUpdateDelay = this.totalFramesUpdateDelay;
             }
             else
             {
+                this.currentFramesUpdateDelay--;
                 return;
             }
 
@@ -99,7 +101,6 @@ namespace StardustSandbox.Game.World
         public void Reset()
         {
             Clear();
-            this.updateTimer.Restart();
         }
         public void Pause()
         {

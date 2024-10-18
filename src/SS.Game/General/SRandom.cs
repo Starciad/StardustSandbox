@@ -10,5 +10,10 @@ namespace StardustSandbox.Game.General
         {
             return _random.Next(min, max);
         }
+
+        public static bool Chance(int chance, int total)
+        {
+            return Range(0, total) < chance;
+        }
     }
 }
