@@ -12,5 +12,13 @@ namespace StardustSandbox.Game.GameContent.Elements.Solids.Movables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 20;
         }
+
+        protected override void OnTemperatureChanged(short currentValue)
+        {
+            if (currentValue > 300)
+            {
+                this.Context.DestroyElement();
+            }
+        }
     }
 }

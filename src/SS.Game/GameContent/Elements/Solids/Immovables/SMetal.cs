@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Game.GameContent.Elements.Liquids;
 using StardustSandbox.Game.GameContent.Elements.Rendering;
 
 namespace StardustSandbox.Game.GameContent.Elements.Solids.Immovables
@@ -11,6 +12,14 @@ namespace StardustSandbox.Game.GameContent.Elements.Solids.Immovables
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_13");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 30;
+        }
+
+        protected override void OnTemperatureChanged(short currentValue)
+        {
+            if (currentValue > 1200)
+            {
+                this.Context.ReplaceElement<SLava>();
+            }
         }
     }
 }
