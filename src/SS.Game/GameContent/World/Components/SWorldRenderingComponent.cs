@@ -6,7 +6,7 @@ using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Managers;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.World;
 using StardustSandbox.Game.World.Components;
 

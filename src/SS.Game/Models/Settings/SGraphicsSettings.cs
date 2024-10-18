@@ -1,7 +1,7 @@
 ﻿using MessagePack;
 
 using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Mathematics.Primitives;
 
 namespace StardustSandbox.Game.Models.Settings
 {

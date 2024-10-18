@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.General;
+using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Templates.Liquids
 {

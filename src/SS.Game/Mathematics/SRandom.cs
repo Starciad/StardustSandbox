@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.Game.General
+namespace StardustSandbox.Game.Mathematics
 {
     public static class SRandom
     {

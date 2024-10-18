@@ -2,7 +2,7 @@
 
 using System;
 
-namespace StardustSandbox.Game.Mathematics
+namespace StardustSandbox.Game.Mathematics.Primitives
 {
     public struct SSize2 : IEquatable<SSize2>
     {
@@ -92,7 +92,7 @@ namespace StardustSandbox.Game.Mathematics
         {
             unchecked
             {
-                return (this.Width.GetHashCode() * 397) ^ this.Height.GetHashCode();
+                return this.Width.GetHashCode() * 397 ^ this.Height.GetHashCode();
             }
         }
 

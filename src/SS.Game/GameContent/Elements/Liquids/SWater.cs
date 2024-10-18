@@ -4,7 +4,7 @@ using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.GameContent.Elements.Gases;
 using StardustSandbox.Game.GameContent.Elements.Rendering;
 using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
-using StardustSandbox.Game.General;
+using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.World.Data;
 
 using System;

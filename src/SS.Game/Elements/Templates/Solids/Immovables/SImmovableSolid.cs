@@ -1,10 +1,6 @@
 ﻿namespace StardustSandbox.Game.Elements.Templates.Solids.Immovables
 {
-    public abstract class SImmovableSolid : SSolid
+    public abstract class SImmovableSolid(SGame gameInstance) : SSolid(gameInstance)
     {
-        public SImmovableSolid(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
     }
 }

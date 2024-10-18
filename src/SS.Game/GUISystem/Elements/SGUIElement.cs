@@ -4,7 +4,7 @@ using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Enums.GUI;
 using StardustSandbox.Game.Interfaces.General;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
