@@ -1,10 +1,10 @@
-﻿using StardustSandbox.Game.Background;
-using StardustSandbox.Game.Objects;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardustSandbox.Game.Controllers.Background;
+
+using StardustSandbox.Game.Background;
 using StardustSandbox.Game.Background.Details;
+using StardustSandbox.Game.Controllers.Background;
+using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {

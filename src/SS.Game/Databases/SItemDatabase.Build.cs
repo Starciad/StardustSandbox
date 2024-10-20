@@ -3,7 +3,6 @@ using StardustSandbox.Game.GameContent.Elements.Gases;
 using StardustSandbox.Game.GameContent.Elements.Liquids;
 using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
-using StardustSandbox.Game.Items;
 
 namespace StardustSandbox.Game.Databases
 {

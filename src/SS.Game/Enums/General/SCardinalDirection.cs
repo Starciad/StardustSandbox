@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Game.Enums.General
 {
-    public enum SCardinalDirection : sbyte
+    public enum SCardinalDirection : byte
     {
         Center = 0,
         North = 1,

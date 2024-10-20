@@ -5,8 +5,6 @@ using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 
-using System;
-
 namespace StardustSandbox.Game.Background.Details
 {
     public sealed class SCloud : SGameObject, ISReset
@@ -39,7 +37,7 @@ namespace StardustSandbox.Game.Background.Details
         {
             this.Position = new Vector2(this.Texture.Width, 0f);
             this.Speed = SRandomMath.Range(10, 50);
-            this.Opacity = (float)SRandomMath.RandomDouble() * 0.5f + 0.5f;
+            this.Opacity = ((float)SRandomMath.RandomDouble() * 0.5f) + 0.5f;
         }
     }
 }

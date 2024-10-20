@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Game.Enums.Elements
 {
-    public enum SSpriteKeyPoints : sbyte
+    public enum SSpriteKeyPoints : byte
     {
         // Full
         Full_Northwest = 0,

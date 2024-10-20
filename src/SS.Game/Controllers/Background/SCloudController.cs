@@ -31,14 +31,14 @@ namespace StardustSandbox.Game.Controllers.Background
 
         private void AddCloud()
         {
-            Texture2D cloudTexture = _cloudTextures[Random.Shared.Next(_cloudTextures.Length)];
+            Texture2D cloudTexture = this._cloudTextures[Random.Shared.Next(this._cloudTextures.Length)];
             SCloud newCloud = new(this.SGameInstance, cloudTexture, SRandomMath.Range(10, 50), (float)Random.Shared.NextDouble());
-            _clouds.Add(newCloud);
+            this._clouds.Add(newCloud);
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (SCloud cloud in _clouds)
+            foreach (SCloud cloud in this._clouds)
             {
                 cloud.Update(gameTime);
             }
@@ -51,7 +51,7 @@ namespace StardustSandbox.Game.Controllers.Background
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (SCloud cloud in _clouds)
+            foreach (SCloud cloud in this._clouds)
             {
                 cloud.Draw(gameTime, spriteBatch);
             }

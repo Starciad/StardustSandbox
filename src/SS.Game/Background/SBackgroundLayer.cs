@@ -37,23 +37,13 @@ namespace StardustSandbox.Game.Background
                 this.layerPosition.Y %= this._textureClippingRectangle.Height;
             }
 
-            if (this.layerPosition.X >= 0)
-            {
-                this.horizontalLayerPosition.X = this.layerPosition.X - this._textureClippingRectangle.Width;
-            }
-            else
-            {
-                this.horizontalLayerPosition.X = this.layerPosition.X + this._textureClippingRectangle.Width;
-            }
+            this.horizontalLayerPosition.X = this.layerPosition.X >= 0
+                ? this.layerPosition.X - this._textureClippingRectangle.Width
+                : this.layerPosition.X + this._textureClippingRectangle.Width;
 
-            if (this.layerPosition.Y >= 0)
-            {
-                this.verticalLayerPosition.Y = this.layerPosition.Y - this._textureClippingRectangle.Height;
-            }
-            else
-            {
-                this.verticalLayerPosition.Y = this.layerPosition.Y + this._textureClippingRectangle.Height;
-            }
+            this.verticalLayerPosition.Y = this.layerPosition.Y >= 0
+                ? this.layerPosition.Y - this._textureClippingRectangle.Height
+                : this.layerPosition.Y + this._textureClippingRectangle.Height;
 
             this.horizontalLayerPosition.Y = this.layerPosition.Y;
             this.verticalLayerPosition.X = this.layerPosition.X;
@@ -65,7 +55,7 @@ namespace StardustSandbox.Game.Background
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this._texture, this.layerPosition, this._textureClippingRectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            
+
             if (!this._lockX)
             {
                 spriteBatch.Draw(this._texture, this.horizontalLayerPosition, this._textureClippingRectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);

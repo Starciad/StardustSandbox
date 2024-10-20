@@ -6,7 +6,7 @@ using StardustSandbox.Game.Objects;
 
 using System;
 
-namespace StardustSandbox.Game.Background.Details
+namespace StardustSandbox.Game.Controllers.Background
 {
     public class SCelestialBodyController : SGameObject
     {
@@ -16,7 +16,7 @@ namespace StardustSandbox.Game.Background.Details
 
         private Vector2 _position;
         private float _rotationAngle;
-        private float _cycleDuration;
+        private readonly float _cycleDuration;
         private bool _isDay;
 
         public SCelestialBodyController(SGame gameInstance, Texture2D sunTexture, Texture2D moonTexture, Texture2D starsTexture, float cycleDuration) : base(gameInstance)
@@ -31,29 +31,29 @@ namespace StardustSandbox.Game.Background.Details
 
         public override void Update(GameTime gameTime)
         {
-            _rotationAngle += (float)(MathHelper.TwoPi / _cycleDuration) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this._rotationAngle += (float)(MathHelper.TwoPi / this._cycleDuration) * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            _isDay = _rotationAngle <= MathHelper.Pi;
+            this._isDay = this._rotationAngle <= MathHelper.Pi;
 
-            if (_rotationAngle >= MathHelper.TwoPi)
+            if (this._rotationAngle >= MathHelper.TwoPi)
             {
-                _rotationAngle = 0f;
+                this._rotationAngle = 0f;
             }
 
-            _position.X = (float)Math.Cos(_rotationAngle) * SScreenConstants.DEFAULT_SCREEN_WIDTH / 2 + SScreenConstants.DEFAULT_SCREEN_WIDTH / 2;
-            _position.Y = (float)Math.Sin(_rotationAngle) * SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2;
+            this._position.X = (float)Math.Cos(this._rotationAngle) * SScreenConstants.DEFAULT_SCREEN_WIDTH / 2 + SScreenConstants.DEFAULT_SCREEN_WIDTH / 2;
+            this._position.Y = (float)Math.Sin(this._rotationAngle) * SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (_isDay)
+            if (this._isDay)
             {
-                spriteBatch.Draw(_sunTexture, _position, Color.White);
+                spriteBatch.Draw(this._sunTexture, this._position, Color.White);
             }
             else
             {
-                spriteBatch.Draw(_moonTexture, _position, Color.White);
-                spriteBatch.Draw(_starsTexture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(this._moonTexture, this._position, Color.White);
+                spriteBatch.Draw(this._starsTexture, Vector2.Zero, Color.White);
             }
         }
     }

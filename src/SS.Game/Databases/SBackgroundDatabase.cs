@@ -1,11 +1,11 @@
-﻿using StardustSandbox.Game.Background;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using StardustSandbox.Game.Background;
 using StardustSandbox.Game.Objects;
 
-using Microsoft.Xna.Framework;
-
-using System.Collections.Generic;
 using System;
-using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Databases
 {
