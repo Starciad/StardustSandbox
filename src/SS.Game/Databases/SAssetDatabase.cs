@@ -60,7 +60,8 @@ namespace StardustSandbox.Game.Databases
             AssetLoader(AssetType.Texture, SAssetConstants.GRAPHICS_BACKGROUNDS_LENGTH, "background_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_BACKGROUNDS));
 
             // BGOs
-            AssetLoader(AssetType.Texture, SAssetConstants.GRAPHICS_BGOS_LENGTH, "bgos_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_BGOS));
+            AssetLoader(AssetType.Texture, SAssetConstants.GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH, "bgo_celestial_body_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_BGOS, SDirectoryConstants.ASSETS_GRAPHICS_BGOS_CELESTIAL_BODIES));
+            AssetLoader(AssetType.Texture, SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH, "bgo_cloud_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_BGOS, SDirectoryConstants.ASSETS_GRAPHICS_BGOS_CLOUDS));
 
             // Effects
             AssetLoader(AssetType.Texture, SAssetConstants.GRAPHICS_EFFECTS_LENGTH, "effect_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_EFFECTS));

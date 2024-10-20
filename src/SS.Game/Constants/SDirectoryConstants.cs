@@ -28,6 +28,8 @@
 
         // Bgos
         public const string ASSETS_GRAPHICS_BGOS = "bgos";
+        public const string ASSETS_GRAPHICS_BGOS_CELESTIAL_BODIES = "celestial_bodies";
+        public const string ASSETS_GRAPHICS_BGOS_CLOUDS = "clouds";
 
         // Effects
         public const string ASSETS_GRAPHICS_EFFECTS = "effects";

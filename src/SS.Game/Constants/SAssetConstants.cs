@@ -15,10 +15,11 @@
         public const sbyte GRAPHICS_PARTICLES_LENGTH = 1;
 
         // Backgrounds
-        public const sbyte GRAPHICS_BACKGROUNDS_LENGTH = 1;
+        public const sbyte GRAPHICS_BACKGROUNDS_LENGTH = 2;
 
         // Bgos
-        public const sbyte GRAPHICS_BGOS_LENGTH = 0;
+        public const sbyte GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH = 1;
+        public const sbyte GRAPHICS_BGOS_CLOUDS_LENGTH = 5;
 
         // Effects
         public const sbyte GRAPHICS_EFFECTS_LENGTH = 0;
