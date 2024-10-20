@@ -64,7 +64,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
                 {
-                    SelectItemCatalog((int)categoryButtonBackground.GetData("category_id"), 0);
+                    SelectItemCatalog((string)categoryButtonBackground.GetData("category_id"), 0);
                 }
             }
         }
@@ -105,9 +105,9 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 
         // ============================================== //
 
-        private void SelectItemCatalog(int categoryIndex, int pageIndex)
+        private void SelectItemCatalog(string categoryId, int pageIndex)
         {
-            SelectItemCatalog(this.SGameInstance.ItemDatabase.Categories[categoryIndex], pageIndex);
+            SelectItemCatalog(this.SGameInstance.ItemDatabase.GetCategoryById(categoryId), pageIndex);
         }
 
         private void SelectItemCatalog(SItemCategory category, int pageIndex)
@@ -122,7 +122,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             int startIndex = pageIndex * itemsPerPage;
             int endIndex = startIndex + itemsPerPage;
 
-            endIndex = Math.Min(endIndex, this.SGameInstance.ItemDatabase.Items.Length);
+            endIndex = Math.Min(endIndex, this.SGameInstance.ItemDatabase.TotalItemCount);
 
             this.selectedItems = [.. category.Items.Take(new Range(startIndex, endIndex - startIndex))];
 

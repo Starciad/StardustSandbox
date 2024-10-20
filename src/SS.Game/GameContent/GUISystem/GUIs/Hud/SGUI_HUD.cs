@@ -25,7 +25,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
 
-            SelectItemSlot(0, GetGameItemByIndex(0).Identifier);
+            SelectItemSlot(0, GetGameItemById("element_dirt").Identifier);
         }
 
         public override void Update(GameTime gameTime)
@@ -156,11 +156,6 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
         {
             this.slotSelectedIndex = slotIndex;
             this.SGameInstance.GameInputManager.SelectItem(GetGameItemById(itemId));
-        }
-
-        private SItem GetGameItemByIndex(int index)
-        {
-            return this.SGameInstance.ItemDatabase.Items[index];
         }
 
         private SItem GetGameItemById(string id)

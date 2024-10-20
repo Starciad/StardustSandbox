@@ -8,7 +8,7 @@ namespace StardustSandbox.Game.Databases
 {
     public sealed class SGUIDatabase(SGame gameInstance) : SGameObject(gameInstance)
     {
-        public IReadOnlyList<SGUISystem> RegisteredGUIs => this._registeredGUIs;
+        public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs];
 
         private readonly List<SGUISystem> _registeredGUIs = [];
 

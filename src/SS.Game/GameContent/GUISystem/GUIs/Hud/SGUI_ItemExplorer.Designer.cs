@@ -31,7 +31,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
             BuildGUIBackground();
             BuildExplorer();
 
-            SelectItemCatalog((byte)SItemCategoryId.Powders, 0);
+            SelectItemCatalog("powders", 0);
         }
 
         private void BuildGUIBackground()
@@ -155,7 +155,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
 
             Vector2 slotMargin = new(0, -160);
 
-            this.categoryButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[this.SGameInstance.ItemDatabase.Categories.Length];
+            this.categoryButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[this.SGameInstance.ItemDatabase.TotalCategoryCount];
 
             int index = 0;
 
@@ -181,7 +181,7 @@ namespace StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud
                 // Data
                 if (!slotBackground.ContainsData("category_id"))
                 {
-                    slotBackground.AddData("category_id", index);
+                    slotBackground.AddData("category_id", category.Identifier);
                 }
 
                 // Position
