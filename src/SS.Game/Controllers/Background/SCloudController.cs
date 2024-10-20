@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Background.Details;
+using StardustSandbox.Game.Collections;
+using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 
@@ -10,51 +13,69 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Controllers.Background
 {
-    internal sealed class SCloudController : SGameObject
+    internal sealed class SCloudController(SGame gameInstance) : SGameObject(gameInstance)
     {
-        private readonly List<SCloud> _clouds = [];
-        private readonly Texture2D[] _cloudTextures;
-
-        public SCloudController(SGame gameInstance, Texture2D[] cloudTextures) : base(gameInstance)
-        {
-            this._cloudTextures = cloudTextures;
-            SpawnClouds();
-        }
-
-        private void SpawnClouds()
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                AddCloud();
-            }
-        }
-
-        private void AddCloud()
-        {
-            Texture2D cloudTexture = this._cloudTextures[Random.Shared.Next(this._cloudTextures.Length)];
-            SCloud newCloud = new(this.SGameInstance, cloudTexture, SRandomMath.Range(10, 50), (float)Random.Shared.NextDouble());
-            this._clouds.Add(newCloud);
-        }
+        private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
+        private readonly SObjectPool cloudPool = new();
 
         public override void Update(GameTime gameTime)
         {
-            foreach (SCloud cloud in this._clouds)
+            for (int i = 0; i < this.activeClouds.Count; i++)
             {
-                cloud.Update(gameTime);
+                this.activeClouds[i].Update(gameTime);
             }
 
-            if (SRandomMath.Range(0, 500) == 1)
+            if (SRandomMath.Chance(1, 500))
             {
-                AddCloud();
+                CreateCloud();
             }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (SCloud cloud in this._clouds)
+            for (int i = 0; i < this.activeClouds.Count; i++)
             {
-                cloud.Draw(gameTime, spriteBatch);
+                this.activeClouds[i].Draw(gameTime, spriteBatch);
             }
+        }
+
+        private void CreateCloud()
+        {
+            if (this.activeClouds.Count > SBackgroundConstants.ACTIVE_CLOUDS_LIMIT)
+            {
+                return;
+            }
+
+            SCloud target;
+            Texture2D randomBGOCloudTexture = GetRandomBGOCloudTexture();
+
+            if (this.cloudPool.TryGet(out ISPoolableObject value))
+            {
+                target = (SCloud)value;
+                target.SetTexture(randomBGOCloudTexture);
+                target.Initialize();
+
+                this.activeClouds.Add(target);
+            }
+            else
+            {
+                target = new(this.SGameInstance);
+                target.SetTexture(randomBGOCloudTexture);
+                target.Initialize();
+
+                this.activeClouds.Add(target);
+            }
+        }
+
+        private void DestroyCloud(SCloud cloud)
+        {
+            this.activeClouds.Remove(cloud);
+            this.activeClouds.Add(cloud);
+        }
+
+        private Texture2D GetRandomBGOCloudTexture()
+        {
+            return this.SGameInstance.AssetDatabase.GetTexture($"bgo_cloud_{SRandomMath.Range(1, SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH + 1)}");
         }
     }
 }

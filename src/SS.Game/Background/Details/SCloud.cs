@@ -4,40 +4,42 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
+using StardustSandbox.Game.Constants;
 
 namespace StardustSandbox.Game.Background.Details
 {
-    public sealed class SCloud : SGameObject, ISReset
+    public sealed class SCloud(SGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {
-        public Vector2 Position;
-        public Texture2D Texture;
-        public float Speed;
-        public float Opacity;
+        private Texture2D texture;
+        private Vector2 position;
+        private float speed;
+        private float opacity;
 
-        public SCloud(SGame gameInstance, Texture2D texture, float speed, float opacity) : base(gameInstance)
+        public override void Initialize()
         {
-            this.Texture = texture;
-            this.Speed = speed;
-            this.Opacity = opacity;
             Reset();
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.Position.X += this.Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            this.position.X += this.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Color color = Color.White * this.Opacity;
-            spriteBatch.Draw(this.Texture, this.Position, color);
+            spriteBatch.Draw(this.texture, this.position, null, Color.White * this.opacity, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+        }
+
+        public void SetTexture(Texture2D texture)
+        {
+            this.texture = texture;
         }
 
         public void Reset()
         {
-            this.Position = new Vector2(this.Texture.Width, 0f);
-            this.Speed = SRandomMath.Range(10, 50);
-            this.Opacity = ((float)SRandomMath.RandomDouble() * 0.5f) + 0.5f;
+            this.position = new Vector2(-this.texture.Width - SWorldConstants.GRID_SCALE, SRandomMath.Range(0, SWorldConstants.GRID_SCALE * 10));
+            this.speed = SRandomMath.Range(10, 50);
+            this.opacity = ((float)SRandomMath.GetDouble() * 0.5f) + 0.5f;
         }
     }
 }

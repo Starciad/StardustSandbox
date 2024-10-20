@@ -6,7 +6,7 @@ namespace StardustSandbox.Game.Mathematics
     {
         private static readonly Random _random = new();
 
-        public static double RandomDouble()
+        public static double GetDouble()
         {
             return _random.NextDouble();
         }
