@@ -48,8 +48,6 @@ namespace StardustSandbox.Game.Elements.Utilities
 
         public static void NotifyFreeFallingFromAdjacentNeighbors(SElementContext context, Point position)
         {
-            context.SetElementFreeFalling(new(position.X, position.Y - 1), true);
-            context.SetElementFreeFalling(new(position.X, position.Y + 1), true);
             context.SetElementFreeFalling(new(position.X - 1, position.Y), true);
             context.SetElementFreeFalling(new(position.X + 1, position.Y), true);
         }
