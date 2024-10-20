@@ -15,7 +15,7 @@
         public const sbyte GRAPHICS_PARTICLES_LENGTH = 1;
 
         // Backgrounds
-        public const sbyte GRAPHICS_BACKGROUNDS_LENGTH = 0;
+        public const sbyte GRAPHICS_BACKGROUNDS_LENGTH = 1;
 
         // Bgos
         public const sbyte GRAPHICS_BGOS_LENGTH = 0;

@@ -48,6 +48,7 @@ namespace StardustSandbox.Game
         private readonly SInputManager _inputManager;
         private readonly SGUIManager _guiManager;
         private readonly SCursorManager _cursorManager;
+        private readonly SBackgroundManager _backgroundManager;
 
         // ================================= //
 
@@ -82,6 +83,7 @@ namespace StardustSandbox.Game
             this._gameInputManager = new(this, this._cameraManager, this._world, this._inputManager);
             this._guiManager = new(this, this._guiDatabase, this._inputManager);
             this._cursorManager = new(this, this._assetDatabase, this._inputManager);
+            this._backgroundManager = new(this);
         }
 
         public void UpdateGameSettings()
@@ -108,6 +110,7 @@ namespace StardustSandbox.Game
             this._inputManager.Initialize();
             this._guiManager.Initialize();
             this._cursorManager.Initialize();
+            this._backgroundManager.Initialize();
             #endregion
 
             #region Game
@@ -137,6 +140,7 @@ namespace StardustSandbox.Game
             this._inputManager.Update(gameTime);
             this._guiManager.Update(gameTime);
             this._cursorManager.Update(gameTime);
+            this._backgroundManager.Update(gameTime);
 
             // Core
             this._world.Update(gameTime);
@@ -158,6 +162,7 @@ namespace StardustSandbox.Game
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.BackgroundRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this._backgroundManager.Draw(gameTime, this._sb);
             this._sb.End();
 
             // WORLD
