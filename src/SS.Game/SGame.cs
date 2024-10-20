@@ -20,6 +20,7 @@ namespace StardustSandbox.Game
         public SElementDatabase ElementDatabase => this._elementDatabase;
         public SGUIDatabase GUIDatabase => this._guiDatabase;
         public SItemDatabase ItemDatabase => this._itemDatabase;
+        public SBackgroundDatabase BackgroundDatabase => this._backgroundDatabase;
 
         // Managers
         public SInputManager InputManager => this._inputManager;
@@ -36,6 +37,7 @@ namespace StardustSandbox.Game
         private readonly SElementDatabase _elementDatabase;
         private readonly SGUIDatabase _guiDatabase;
         private readonly SItemDatabase _itemDatabase;
+        private readonly SBackgroundDatabase _backgroundDatabase;
 
         // Core
         private readonly SCameraManager _cameraManager;
@@ -71,7 +73,8 @@ namespace StardustSandbox.Game
             this._assetDatabase = new(this, this.Content);
             this._elementDatabase = new(this);
             this._guiDatabase = new(this);
-            this._itemDatabase = new(this, this._assetDatabase);
+            this._itemDatabase = new(this);
+            this._backgroundDatabase = new(this);
 
             // Core
             this._cameraManager = new(this._graphicsManager);
@@ -101,6 +104,7 @@ namespace StardustSandbox.Game
             this._elementDatabase.Initialize();
             this._itemDatabase.Initialize();
             this._guiDatabase.Initialize();
+            this._backgroundDatabase.Initialize();
             #endregion
 
             #region Managers
@@ -151,16 +155,9 @@ namespace StardustSandbox.Game
         protected override void Draw(GameTime gameTime)
         {
             #region RENDERING (ELEMENTS)
-            // GUI
-            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.GuiRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this._guiManager.Draw(gameTime, this._sb);
-            this._sb.End();
-
             // BACKGROUND
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.BackgroundRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
+            this.GraphicsDevice.Clear(this._backgroundManager.SolidColor);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this._backgroundManager.Draw(gameTime, this._sb);
             this._sb.End();
@@ -176,6 +173,13 @@ namespace StardustSandbox.Game
             this.GraphicsDevice.SetRenderTarget(this._graphicsManager.LightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._cameraManager.GetViewMatrix());
+            this._sb.End();
+
+            // GUI
+            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.GuiRenderTarget);
+            this.GraphicsDevice.Clear(Color.Transparent);
+            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this._guiManager.Draw(gameTime, this._sb);
             this._sb.End();
             #endregion
 

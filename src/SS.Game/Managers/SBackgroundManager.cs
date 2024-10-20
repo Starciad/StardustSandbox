@@ -8,26 +8,35 @@ namespace StardustSandbox.Game.Managers
 {
     public sealed class SBackgroundManager(SGame gameInstance) : SGameObject(gameInstance)
     {
-        private SBackground background01;
+        public Color SolidColor => this.solidColor;
+
+        private Color solidColor;
+        private SBackground selectedBackground;
 
         public override void Initialize()
         {
-            this.background01 = new(this.SGameInstance, this.SGameInstance.AssetDatabase.GetTexture("background_1"));
-            this.background01.AddLayer(new Point(0, 0), new Vector2(0f), true, true);
-            this.background01.AddLayer(new Point(0, 1), new Vector2(5f), false, true);
-            this.background01.AddLayer(new Point(0, 2), new Vector2(8f), false, true);
-            this.background01.AddLayer(new Point(0, 3), new Vector2(10f), false, true);
-            this.background01.AddLayer(new Point(0, 4), new Vector2(15f), false, true);
+            SetColor(new Color(64, 116, 155));
+            SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.background01.Update(gameTime);
+            this.selectedBackground.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            this.background01.Draw(gameTime, spriteBatch);
+            this.selectedBackground.Draw(gameTime, spriteBatch);
+        }
+
+        public void SetColor(Color value)
+        {
+            this.solidColor = value;
+        }
+
+        public void SetBackground(SBackground background)
+        {
+            this.selectedBackground = background;
         }
     }
 }

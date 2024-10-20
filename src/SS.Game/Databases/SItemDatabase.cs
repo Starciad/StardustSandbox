@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed partial class SItemDatabase(SGame gameInstance, SAssetDatabase assetDatabase) : SGameObject(gameInstance)
+    public sealed partial class SItemDatabase(SGame gameInstance) : SGameObject(gameInstance)
     {
         public int TotalCategoryCount => this.categories.Count;
         public int TotalItemCount => this.items.Count;
@@ -19,8 +19,6 @@ namespace StardustSandbox.Game.Databases
 
         private readonly Dictionary<string, SItemCategory> categories = [];
         private readonly Dictionary<string, SItem> items = [];
-
-        private readonly SAssetDatabase _assetDatabase = assetDatabase;
 
         public override void Initialize()
         {
