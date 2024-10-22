@@ -147,7 +147,7 @@ namespace StardustSandbox.Game.Managers
             return GetVirtualViewMatrix() * Matrix.Identity;
         }
 
-        public bool InsideCameraBounds(Vector2 targetPosition, SSize2 targetSize, float toleranceFactor = 0f)
+        public bool InsideCameraBounds(Vector2 targetPosition, SSize2 targetSize, bool inWorldPosition, float toleranceFactor = 0f)
         {
             Vector2 topLeft = targetPosition;
             Vector2 bottomRight = targetPosition + new Vector2(targetSize.Width, targetSize.Height);
@@ -155,13 +155,28 @@ namespace StardustSandbox.Game.Managers
             topLeft -= new Vector2(toleranceFactor);
             bottomRight += new Vector2(toleranceFactor);
 
-            Vector2 screenTopLeft = WorldToScreen(topLeft);
-            Vector2 screenBottomRight = WorldToScreen(bottomRight);
+            Vector2 screenTopLeft = topLeft;
+            Vector2 screenBottomRight = bottomRight;
 
+            if (inWorldPosition)
+            {
+                screenTopLeft = WorldToScreen(topLeft);
+                screenBottomRight = WorldToScreen(bottomRight);
+            }
+
+            // =========================== //
+
+            // FAKE | DEBUG ONLY
+            // Viewport temp = this._graphicsManager.Viewport;
+            // Viewport viewport = new(temp.X, temp.Y, SScreenConstants.DEFAULT_SCREEN_WIDTH / 2, SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2);
+
+            // IN-GAME | FINAL
             Viewport viewport = this._graphicsManager.Viewport;
 
-            return screenBottomRight.X > 0 && screenTopLeft.X < viewport.Width &&
-                   screenBottomRight.Y > 0 && screenTopLeft.Y < viewport.Height;
+            // =========================== //
+
+            return screenBottomRight.X >= 0 && screenTopLeft.X < viewport.Width &&
+                   screenBottomRight.Y >= 0 && screenTopLeft.Y < viewport.Height;
         }
     }
 }

@@ -10,6 +10,9 @@ namespace StardustSandbox.Game.Background.Details
 {
     public sealed class SCloud(SGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {
+        public Texture2D Texture => this.texture;
+        public Vector2 Position => this.position;
+
         private Texture2D texture;
         private Vector2 position;
         private float speed;

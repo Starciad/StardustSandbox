@@ -7,6 +7,7 @@ using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
+using StardustSandbox.Game.Mathematics.Primitives;
 
 using System.Collections.Generic;
 
@@ -21,10 +22,18 @@ namespace StardustSandbox.Game.Controllers.Background
         {
             for (int i = 0; i < this.activeClouds.Count; i++)
             {
-                this.activeClouds[i].Update(gameTime);
+                SCloud cloud = this.activeClouds[i];
+
+                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + SWorldConstants.GRID_SCALE * 2))
+                {
+                    DestroyCloud(cloud);
+                    continue;
+                }
+
+                cloud.Update(gameTime);
             }
 
-            if (SRandomMath.Chance(1, 500))
+            if (SRandomMath.Chance(SBackgroundConstants.CHANCE_OF_CLOUD_SPAWNING, SBackgroundConstants.CHANCE_OF_CLOUD_SPAWNING_TOTAL))
             {
                 CreateCloud();
             }
@@ -69,7 +78,7 @@ namespace StardustSandbox.Game.Controllers.Background
         private void DestroyCloud(SCloud cloud)
         {
             _ = this.activeClouds.Remove(cloud);
-            this.activeClouds.Add(cloud);
+            this.cloudPool.Add(cloud);
         }
 
         private Texture2D GetRandomBGOCloudTexture()

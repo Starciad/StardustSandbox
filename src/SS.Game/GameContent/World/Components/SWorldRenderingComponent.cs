@@ -45,7 +45,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, SWorldConstants.GRID_SCALE))
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
                         spriteBatch.Draw(this._gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
@@ -64,7 +64,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, SWorldConstants.GRID_SCALE))
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
                         this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
                     }
