@@ -142,14 +142,7 @@ namespace StardustSandbox.Game.World
             {
                 for (int x = 0; x < this.Infos.Size.Width; x++)
                 {
-                    if (this.worldSlotsPool.TryGet(out ISPoolableObject value))
-                    {
-                        this.slots[x, y] = (SWorldSlot)value;
-                    }
-                    else
-                    {
-                        this.slots[x, y] = new();
-                    }
+                    this.slots[x, y] = this.worldSlotsPool.TryGet(out ISPoolableObject value) ? (SWorldSlot)value : new();
                 }
             }
         }

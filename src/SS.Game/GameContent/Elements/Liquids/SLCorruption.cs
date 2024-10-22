@@ -19,12 +19,9 @@ namespace StardustSandbox.Game.GameContent.Elements.Liquids
             this.EnableNeighborsAction = true;
         }
 
-        protected override void OnStep()
+        protected override void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
         {
-            if (this.Context.TryGetElementNeighbors(out ReadOnlySpan<(Point, SWorldSlot)> neighbors))
-            {
-                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
-            }
+            this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
         }
     }
 }

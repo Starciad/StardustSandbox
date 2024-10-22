@@ -83,16 +83,7 @@ namespace StardustSandbox.Game.World
             NotifyChunk(element1);
             NotifyChunk(element2);
 
-            SWorldSlot tempSlot;
-
-            if (this.worldSlotsPool.TryGet(out ISPoolableObject value))
-            {
-                tempSlot = (SWorldSlot)value;
-            }
-            else
-            {
-                tempSlot = new();
-            }
+            SWorldSlot tempSlot = this.worldSlotsPool.TryGet(out ISPoolableObject value) ? (SWorldSlot)value : new();
 
             tempSlot.Copy(this.slots[element1.X, element1.Y]);
 

@@ -8,7 +8,6 @@ using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Controllers.Background
@@ -69,7 +68,7 @@ namespace StardustSandbox.Game.Controllers.Background
 
         private void DestroyCloud(SCloud cloud)
         {
-            this.activeClouds.Remove(cloud);
+            _ = this.activeClouds.Remove(cloud);
             this.activeClouds.Add(cloud);
         }
 

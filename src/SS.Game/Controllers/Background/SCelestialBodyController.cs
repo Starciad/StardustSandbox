@@ -40,8 +40,8 @@ namespace StardustSandbox.Game.Controllers.Background
                 this._rotationAngle = 0f;
             }
 
-            this._position.X = (float)Math.Cos(this._rotationAngle) * SScreenConstants.DEFAULT_SCREEN_WIDTH / 2 + SScreenConstants.DEFAULT_SCREEN_WIDTH / 2;
-            this._position.Y = (float)Math.Sin(this._rotationAngle) * SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2;
+            this._position.X = ((float)Math.Cos(this._rotationAngle) * SScreenConstants.DEFAULT_SCREEN_WIDTH / 2) + (SScreenConstants.DEFAULT_SCREEN_WIDTH / 2);
+            this._position.Y = ((float)Math.Sin(this._rotationAngle) * SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2) + (SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

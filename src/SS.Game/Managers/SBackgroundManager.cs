@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Background;
-using StardustSandbox.Game.Background.Details;
 using StardustSandbox.Game.Controllers.Background;
 using StardustSandbox.Game.Objects;
 
