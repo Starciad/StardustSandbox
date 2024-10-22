@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.World;
 using StardustSandbox.Game.World.Data;
 

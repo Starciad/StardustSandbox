@@ -25,7 +25,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
             List<(Point, SWorldSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
-                SElement element = gameInstance.ElementDatabase.GetElementById(neighbors[i].Item2.Id);
+                SElement element = neighbors[i].Item2.Element;
 
                 if (element is not SMCorruption &&
                     element is not SIMCorruption &&
@@ -43,7 +43,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
             }
 
             (Point, SWorldSlot) target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
-            SElement targetElement = gameInstance.ElementDatabase.GetElementById(target.Item2.Id);
+            SElement targetElement = target.Item2.Element;
 
             if (targetElement is SSolid)
             {

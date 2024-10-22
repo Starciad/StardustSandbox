@@ -27,14 +27,14 @@ namespace StardustSandbox.Game.GameContent.Elements.Liquids
         {
             foreach ((Point, SWorldSlot) neighbor in neighbors)
             {
-                if (this.SGameInstance.ElementDatabase.GetElementById(neighbor.Item2.Id) is SDirt)
+                if (neighbor.Item2.Element is SDirt)
                 {
                     this.Context.DestroyElement();
                     this.Context.ReplaceElement<SMud>(neighbor.Item1);
                     return;
                 }
 
-                if (this.SGameInstance.ElementDatabase.GetElementById(neighbor.Item2.Id) is SStone)
+                if (neighbor.Item2.Element is SStone)
                 {
                     if (SRandomMath.Range(0, 150) == 0)
                     {

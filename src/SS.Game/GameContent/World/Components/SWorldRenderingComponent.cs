@@ -78,7 +78,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
             {
                 if (!this.SWorldInstance.IsEmptyElementSlot(position))
                 {
-                    SElement element = this.elementDatabase.GetElementById(this.SWorldInstance.GetElementSlot(position).Id);
+                    SElement element = this.SWorldInstance.GetElementSlot(position).Element;
 
                     this.elementRenderingContext.UpdateInformation(this.SWorldInstance.GetElementSlot(position), position);
 

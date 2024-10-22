@@ -92,7 +92,7 @@ namespace StardustSandbox.Game.Elements
 
             foreach ((Point, SWorldSlot) neighbor in neighbors)
             {
-                if (!this.SGameInstance.ElementDatabase.GetElementById(neighbor.Item2.Id).EnableTemperature)
+                if (!neighbor.Item2.Element.EnableTemperature)
                 {
                     continue;
                 }

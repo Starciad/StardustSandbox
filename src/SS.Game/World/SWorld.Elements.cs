@@ -152,7 +152,7 @@ namespace StardustSandbox.Game.World
                 return false;
             }
 
-            value = this.ElementDatabase.GetElementById(this.slots[pos.X, pos.Y].Id);
+            value = this.slots[pos.X, pos.Y].Element;
             return true;
         }
 
