@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Elements.Contexts;
+using StardustSandbox.Game.Interfaces.Elements;
 
 namespace StardustSandbox.Game.Elements.Rendering
 {

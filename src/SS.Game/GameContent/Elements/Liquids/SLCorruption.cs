@@ -1,15 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Game.Constants.Elements;
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.GameContent.Elements.Rendering;
 using StardustSandbox.Game.GameContent.Elements.Utilities;
+using StardustSandbox.Game.Interfaces.Elements.Templates;
+using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.World.Data;
 
 using System;
 
 namespace StardustSandbox.Game.GameContent.Elements.Liquids
 {
-    public class SLCorruption : SLiquid
+    public class SLCorruption : SLiquid, ISCorruption
     {
         public SLCorruption(SGame gameInstance) : base(gameInstance)
         {
@@ -21,7 +24,17 @@ namespace StardustSandbox.Game.GameContent.Elements.Liquids
 
         protected override void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
         {
-            this.Context.InfectNeighboringElements(this.SGameInstance, neighbors, neighbors.Length);
+            if (this.Context.CheckIfNeighboringElementsAreCorrupted(neighbors, neighbors.Length))
+            {
+                return;
+            }
+
+            this.Context.NotifyChunk();
+
+            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD, SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL))
+            {
+                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
+            }
         }
     }
 }

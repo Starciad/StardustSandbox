@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Elements.Templates.Gases;
 using StardustSandbox.Game.Elements.Templates.Liquids;
-using StardustSandbox.Game.Elements.Templates.Solids;
 using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Game.Elements.Templates.Solids.Movables;
 using StardustSandbox.Game.GameContent.Elements.Gases;
 using StardustSandbox.Game.GameContent.Elements.Liquids;
 using StardustSandbox.Game.GameContent.Elements.Solids.Immovables;
 using StardustSandbox.Game.GameContent.Elements.Solids.Movables;
+using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.Elements.Templates;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.World.Data;
 
@@ -20,17 +21,44 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
 {
     public static class SCorruptionUtilities
     {
-        public static void InfectNeighboringElements(this ISElementContext context, SGame gameInstance, ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
+        public static bool CheckIfNeighboringElementsAreCorrupted(this ISElementContext context, ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
         {
+            if (length == 0)
+            {
+                return true;
+            }
+
+            int corruptNeighboringElements = 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (neighbors[i].Item2.Element is ISCorruption)
+                {
+                    corruptNeighboringElements++;
+                }
+            }
+
+            if (corruptNeighboringElements == length)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static void InfectNeighboringElements(this ISElementContext context, ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
+        {
+            if (length == 0)
+            {
+                return;
+            }
+
             List<(Point, SWorldSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
                 SElement element = neighbors[i].Item2.Element;
 
-                if (element is not SMCorruption &&
-                    element is not SIMCorruption &&
-                    element is not SLCorruption &&
-                    element is not SGCorruption &&
+                if (element is not ISCorruption &&
                     element is not SWall)
                 {
                     targets.Add(neighbors[i]);
@@ -45,7 +73,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
             (Point, SWorldSlot) target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
             SElement targetElement = target.Item2.Element;
 
-            if (targetElement is SSolid)
+            if (targetElement is SMovableSolid)
             {
                 context.ReplaceElement<SMCorruption>(target.Item1);
             }

@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Constants.Elements;
 using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Elements.Rendering;
 using StardustSandbox.Game.Enums.Elements;
 using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Interfaces.Elements;
 
 namespace StardustSandbox.Game.GameContent.Elements.Rendering
 {

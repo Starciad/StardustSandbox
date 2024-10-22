@@ -9,7 +9,7 @@ using StardustSandbox.Game.World.Data;
 
 namespace StardustSandbox.Game.GameContent.World.Components
 {
-    public sealed class SWorldChunkingComponent : SWorldComponent
+    public sealed class SWorldChunkingComponent(SGame gameInstance, SWorld worldInstance, SAssetDatabase assetDatabase) : SWorldComponent(gameInstance, worldInstance)
     {
         private int worldChunkWidth;
         private int worldChunkHeight;
@@ -18,12 +18,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
 
         private Texture2D pixelTexture;
 
-        private readonly SAssetDatabase _assetDatabase;
-
-        public SWorldChunkingComponent(SGame gameInstance, SWorld worldInstance, SAssetDatabase assetDatabase) : base(gameInstance, worldInstance)
-        {
-            this._assetDatabase = assetDatabase;
-        }
+        private readonly SAssetDatabase _assetDatabase = assetDatabase;
 
         public override void Initialize()
         {

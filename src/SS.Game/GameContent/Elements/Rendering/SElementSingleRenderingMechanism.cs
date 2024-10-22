@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Elements.Rendering;
+using StardustSandbox.Game.Interfaces.Elements;
 
 namespace StardustSandbox.Game.GameContent.Elements.Rendering
 {

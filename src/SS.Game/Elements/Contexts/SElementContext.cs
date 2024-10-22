@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Databases;
+using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.World;
 using StardustSandbox.Game.World.Data;
 
@@ -46,15 +47,15 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void InstantiateElement<T>() where T : SElement
         {
-            InstantiateElement<T>(this.Position);
+            InstantiateElement<T>(this._position);
         }
         public void InstantiateElement(uint id)
         {
-            InstantiateElement(this.Position, id);
+            InstantiateElement(this._position, id);
         }
         public void InstantiateElement(SElement value)
         {
-            InstantiateElement(this.Position, value);
+            InstantiateElement(this._position, value);
         }
         public void InstantiateElement<T>(Point pos) where T : SElement
         {
@@ -70,15 +71,15 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryInstantiateElement<T>() where T : SElement
         {
-            return TryInstantiateElement<T>(this.Position);
+            return TryInstantiateElement<T>(this._position);
         }
         public bool TryInstantiateElement(uint id)
         {
-            return TryInstantiateElement(this.Position, id);
+            return TryInstantiateElement(this._position, id);
         }
         public bool TryInstantiateElement(SElement value)
         {
-            return TryInstantiateElement(this.Position, value);
+            return TryInstantiateElement(this._position, value);
         }
         public bool TryInstantiateElement<T>(Point pos) where T : SElement
         {
@@ -95,7 +96,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void UpdateElementPosition(Point newPos)
         {
-            UpdateElementPosition(this.Position, newPos);
+            UpdateElementPosition(this._position, newPos);
         }
         public void UpdateElementPosition(Point oldPos, Point newPos)
         {
@@ -103,7 +104,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryUpdateElementPosition(Point newPos)
         {
-            return TryUpdateElementPosition(this.Position, newPos);
+            return TryUpdateElementPosition(this._position, newPos);
         }
         public bool TryUpdateElementPosition(Point oldPos, Point newPos)
         {
@@ -112,7 +113,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void SwappingElements(Point targetPos)
         {
-            SwappingElements(this.Position, targetPos);
+            SwappingElements(this._position, targetPos);
         }
         public void SwappingElements(Point element1Pos, Point element2Pos)
         {
@@ -120,7 +121,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TrySwappingElements(Point targetPos)
         {
-            return TrySwappingElements(this.Position, targetPos);
+            return TrySwappingElements(this._position, targetPos);
         }
         public bool TrySwappingElements(Point element1Pos, Point element2Pos)
         {
@@ -135,7 +136,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void DestroyElement()
         {
-            this._world.DestroyElement(this.Position);
+            this._world.DestroyElement(this._position);
         }
         public void DestroyElement(Point pos)
         {
@@ -143,7 +144,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryDestroyElement()
         {
-            return TryDestroyElement(this.Position);
+            return TryDestroyElement(this._position);
         }
         public bool TryDestroyElement(Point pos)
         {
@@ -152,15 +153,15 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void ReplaceElement<T>() where T : SElement
         {
-            ReplaceElement<T>(this.Position);
+            ReplaceElement<T>(this._position);
         }
         public void ReplaceElement(uint id)
         {
-            ReplaceElement(this.Position, id);
+            ReplaceElement(this._position, id);
         }
         public void ReplaceElement(SElement value)
         {
-            ReplaceElement(this.Position, value);
+            ReplaceElement(this._position, value);
         }
         public void ReplaceElement<T>(Point pos) where T : SElement
         {
@@ -176,15 +177,15 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryReplaceElement<T>() where T : SElement
         {
-            return TryReplaceElement<T>(this.Position);
+            return TryReplaceElement<T>(this._position);
         }
         public bool TryReplaceElement(uint id)
         {
-            return TryReplaceElement(this.Position, id);
+            return TryReplaceElement(this._position, id);
         }
         public bool TryReplaceElement(SElement value)
         {
-            return TryReplaceElement(this.Position, value);
+            return TryReplaceElement(this._position, value);
         }
         public bool TryReplaceElement<T>(Point pos) where T : SElement
         {
@@ -201,7 +202,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public SElement GetElement()
         {
-            return GetElement(this.Position);
+            return GetElement(this._position);
         }
         public SElement GetElement(Point pos)
         {
@@ -209,7 +210,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryGetElement(out SElement value)
         {
-            return TryGetElement(this.Position, out value);
+            return TryGetElement(this._position, out value);
         }
         public bool TryGetElement(Point pos, out SElement value)
         {
@@ -218,7 +219,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors()
         {
-            return GetElementNeighbors(this.Position);
+            return GetElementNeighbors(this._position);
         }
         public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos)
         {
@@ -226,7 +227,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryGetElementNeighbors(out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
         {
-            return TryGetElementNeighbors(this.Position, out neighbors);
+            return TryGetElementNeighbors(this._position, out neighbors);
         }
         public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
         {
@@ -235,7 +236,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public SWorldSlot GetElementSlot()
         {
-            return GetElementSlot(this.Position);
+            return GetElementSlot(this._position);
         }
         public SWorldSlot GetElementSlot(Point pos)
         {
@@ -243,7 +244,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TryGetElementSlot(out SWorldSlot value)
         {
-            return TryGetElementSlot(this.Position, out value);
+            return TryGetElementSlot(this._position, out value);
         }
         public bool TryGetElementSlot(Point pos, out SWorldSlot value)
         {
@@ -252,7 +253,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void SetElementTemperature(short value)
         {
-            SetElementTemperature(this.Position, value);
+            SetElementTemperature(this._position, value);
         }
         public void SetElementTemperature(Point pos, short value)
         {
@@ -260,7 +261,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         }
         public bool TrySetElementTemperature(short value)
         {
-            return TrySetElementTemperature(this.Position, value);
+            return TrySetElementTemperature(this._position, value);
         }
         public bool TrySetElementTemperature(Point pos, short value)
         {
@@ -269,7 +270,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public void SetElementFreeFalling(bool value)
         {
-            SetElementFreeFalling(this.Position, value);
+            SetElementFreeFalling(this._position, value);
         }
         public void SetElementFreeFalling(Point pos, bool value)
         {
@@ -278,7 +279,7 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         public bool TrySetElementFreeFalling(bool value)
         {
-            return TrySetElementFreeFalling(this.Position, value);
+            return TrySetElementFreeFalling(this._position, value);
         }
         public bool TrySetElementFreeFalling(Point pos, bool value)
         {
@@ -288,7 +289,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         // Tools
         public bool IsEmptyElementSlot()
         {
-            return IsEmptyElementSlot(this.Position);
+            return IsEmptyElementSlot(this._position);
         }
         public bool IsEmptyElementSlot(Point pos)
         {
@@ -298,6 +299,18 @@ namespace StardustSandbox.Game.Elements.Contexts
         #endregion
 
         #region Chunks
+        public void NotifyChunk()
+        {
+            NotifyChunk(this._position);
+        }
+        public void NotifyChunk(Point pos)
+        {
+            this._world.NotifyChunk(pos);
+        }
+        public bool TryNotifyChunk()
+        {
+            return TryNotifyChunk(this._position);
+        }
         public bool TryNotifyChunk(Point pos)
         {
             return this._world.TryNotifyChunk(pos);

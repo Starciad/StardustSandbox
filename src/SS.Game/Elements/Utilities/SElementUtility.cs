@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Utilities

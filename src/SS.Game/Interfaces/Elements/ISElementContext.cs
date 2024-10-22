@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Contexts
+namespace StardustSandbox.Game.Interfaces.Elements
 {
     public interface ISElementContext : ISElementManager
     {
@@ -53,6 +53,11 @@ namespace StardustSandbox.Game.Elements.Contexts
 
         void SetElementFreeFalling(bool value);
         bool TrySetElementFreeFalling(bool value);
+
+        void NotifyChunk();
+        void NotifyChunk(Point pos);
+        bool TryNotifyChunk();
+        bool TryNotifyChunk(Point pos);
 
         bool IsEmptyElementSlot();
     }
