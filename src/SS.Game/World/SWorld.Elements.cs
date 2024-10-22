@@ -13,11 +13,11 @@ namespace StardustSandbox.Game.World
     {
         public void InstantiateElement<T>(Point pos) where T : SElement
         {
-            InstantiateElement(pos, this.ElementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
         public void InstantiateElement(Point pos, uint id)
         {
-            InstantiateElement(pos, this.ElementDatabase.GetElementById(id));
+            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
         }
         public void InstantiateElement(Point pos, SElement value)
         {
@@ -25,11 +25,11 @@ namespace StardustSandbox.Game.World
         }
         public bool TryInstantiateElement<T>(Point pos) where T : SElement
         {
-            return TryInstantiateElement(pos, this.ElementDatabase.GetIdOfElementType<T>());
+            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
         public bool TryInstantiateElement(Point pos, uint id)
         {
-            return TryInstantiateElement(pos, this.ElementDatabase.GetElementById(id));
+            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
         }
         public bool TryInstantiateElement(Point pos, SElement value)
         {

@@ -5,7 +5,7 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SInputManager : SGameObject
+    public sealed class SInputManager(SGame gameInstance) : SGameObject(gameInstance)
     {
         public MouseState MouseState => this._mouseState;
         public MouseState PreviousMouseState => this._previousMouseState;
@@ -16,11 +16,6 @@ namespace StardustSandbox.Game.Managers
         private MouseState _previousMouseState;
         private KeyboardState _keyboardState;
         private KeyboardState _previousKeyboardState;
-
-        public SInputManager(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         public override void Update(GameTime gameTime)
         {

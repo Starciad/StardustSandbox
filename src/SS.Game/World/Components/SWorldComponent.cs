@@ -2,13 +2,8 @@
 
 namespace StardustSandbox.Game.World.Components
 {
-    public abstract class SWorldComponent : SGameObject
+    public abstract class SWorldComponent(SGame gameInstance, SWorld worldInstance) : SGameObject(gameInstance)
     {
-        protected SWorld SWorldInstance { get; private set; }
-
-        public SWorldComponent(SGame gameInstance, SWorld worldInstance) : base(gameInstance)
-        {
-            this.SWorldInstance = worldInstance;
-        }
+        protected SWorld SWorldInstance { get; private set; } = worldInstance;
     }
 }

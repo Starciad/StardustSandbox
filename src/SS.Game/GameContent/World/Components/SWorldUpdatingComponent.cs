@@ -13,7 +13,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
 {
     public sealed class SWorldUpdatingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
-        private readonly SElementContext elementUpdateContext = new(worldInstance, worldInstance.ElementDatabase);
+        private readonly SElementContext elementUpdateContext = new(worldInstance, gameInstance.ElementDatabase);
         private readonly List<Point> capturedSlots = [];
 
         public override void Update(GameTime gameTime)

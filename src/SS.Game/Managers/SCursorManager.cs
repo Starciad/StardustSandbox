@@ -8,7 +8,7 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SCursorManager : SGameObject
+    public sealed class SCursorManager(SGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [
@@ -26,14 +26,8 @@ namespace StardustSandbox.Game.Managers
 
         private readonly int cursorTextureSelected = 0;
 
-        private readonly SAssetDatabase _assetDatabase;
-        private readonly SInputManager _inputManager;
-
-        public SCursorManager(SGame gameInstance, SAssetDatabase assetDatabase, SInputManager inputManager) : base(gameInstance)
-        {
-            this._assetDatabase = assetDatabase;
-            this._inputManager = inputManager;
-        }
+        private readonly SAssetDatabase _assetDatabase = gameInstance.AssetDatabase;
+        private readonly SInputManager _inputManager = gameInstance.InputManager;
 
         public override void Initialize()
         {

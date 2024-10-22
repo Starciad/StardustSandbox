@@ -14,15 +14,14 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GameContent.World.Components
 {
-    public sealed class SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance, SElementDatabase elementDatabase, SCameraManager cameraManager) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
-        private readonly SElementContext elementRenderingContext = new(worldInstance, worldInstance.ElementDatabase);
-
-        private readonly List<Point> _slotsCapturedForRendering = [];
-        private readonly SElementDatabase elementDatabase = elementDatabase;
-        private readonly SCameraManager cameraManager = cameraManager;
+        private readonly SElementContext elementRenderingContext = new(worldInstance, gameInstance.ElementDatabase);
 
         private Texture2D _gridTexture;
+
+        private readonly List<Point> _slotsCapturedForRendering = [];
+        private readonly SCameraManager _cameraManager = gameInstance.CameraManager;
 
         public override void Initialize()
         {
@@ -45,7 +44,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
+                    if (this._cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
                         spriteBatch.Draw(this._gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
@@ -64,7 +63,7 @@ namespace StardustSandbox.Game.GameContent.World.Components
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
+                    if (this._cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
                         this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
                     }
