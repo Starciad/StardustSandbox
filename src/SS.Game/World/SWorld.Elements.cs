@@ -2,6 +2,7 @@
 
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.World.Data;
 
 using System;
@@ -60,7 +61,7 @@ namespace StardustSandbox.Game.World
             NotifyChunk(oldPos);
             NotifyChunk(newPos);
 
-            this.slots[newPos.X, newPos.Y] = (SWorldSlot)this.slots[oldPos.X, oldPos.Y].Clone();
+            this.slots[newPos.X, newPos.Y].Copy(this.slots[oldPos.X, oldPos.Y]);
             this.slots[oldPos.X, oldPos.Y].Destroy();
             return true;
         }
@@ -82,11 +83,23 @@ namespace StardustSandbox.Game.World
             NotifyChunk(element1);
             NotifyChunk(element2);
 
-            SWorldSlot oldValue = (SWorldSlot)this.slots[element1.X, element1.Y].Clone();
-            SWorldSlot newValue = (SWorldSlot)this.slots[element2.X, element2.Y].Clone();
+            SWorldSlot tempSlot;
 
-            this.slots[element1.X, element1.Y] = newValue;
-            this.slots[element2.X, element2.Y] = oldValue;
+            if (this.worldSlotsPool.TryGet(out ISPoolableObject value))
+            {
+                tempSlot = (SWorldSlot)value;
+            }
+            else
+            {
+                tempSlot = new();
+            }
+
+            tempSlot.Copy(this.slots[element1.X, element1.Y]);
+
+            this.slots[element1.X, element1.Y].Copy(this.slots[element2.X, element2.Y]);
+            this.slots[element2.X, element2.Y].Copy(tempSlot);
+
+            this.worldSlotsPool.Add(tempSlot);
 
             return true;
         }

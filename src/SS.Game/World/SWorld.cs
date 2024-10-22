@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Game.Collections;
 using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.GameContent.World.Components;
 using StardustSandbox.Game.Interfaces.General;
@@ -19,6 +20,7 @@ namespace StardustSandbox.Game.World
         public SWorldInfo Infos { get; private set; }
         public SElementDatabase ElementDatabase { get; private set; }
 
+        private readonly SObjectPool worldSlotsPool;
         private readonly SWorldComponent[] _components;
 
         private SWorldSlot[,] slots;
@@ -32,6 +34,8 @@ namespace StardustSandbox.Game.World
             this.Infos = new();
             this.ElementDatabase = elementDatabase;
 
+            this.worldSlotsPool = new();
+
             this._components = [
                 new SWorldChunkingComponent(gameInstance, this, assetDatabase),
                 new SWorldUpdatingComponent(gameInstance, this),
@@ -42,6 +46,8 @@ namespace StardustSandbox.Game.World
         public override void Initialize()
         {
             this.slots = new SWorldSlot[(int)this.Infos.Size.Width, (int)this.Infos.Size.Height];
+
+            InstantiateWorldSlots();
             Reset();
 
             foreach (SWorldComponent component in this._components)
@@ -126,6 +132,40 @@ namespace StardustSandbox.Game.World
                     }
 
                     DestroyElement(new(x, y));
+                }
+            }
+        }
+
+        private void InstantiateWorldSlots()
+        {
+            for (int y = 0; y < this.Infos.Size.Height; y++)
+            {
+                for (int x = 0; x < this.Infos.Size.Width; x++)
+                {
+                    if (this.worldSlotsPool.TryGet(out ISPoolableObject value))
+                    {
+                        this.slots[x, y] = (SWorldSlot)value;
+                    }
+                    else
+                    {
+                        this.slots[x, y] = new();
+                    }
+                }
+            }
+        }
+        private void DestroyWorldSlots()
+        {
+            for (int y = 0; y < this.Infos.Size.Height; y++)
+            {
+                for (int x = 0; x < this.Infos.Size.Width; x++)
+                {
+                    if (this.slots[x, y] == null)
+                    {
+                        continue;
+                    }
+
+                    this.worldSlotsPool.Add(this.slots[x, y]);
+                    this.slots[x, y] = null;
                 }
             }
         }

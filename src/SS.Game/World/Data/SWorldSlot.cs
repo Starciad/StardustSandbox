@@ -1,16 +1,15 @@
 ﻿using StardustSandbox.Game.Elements;
+using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
-
-using System;
 
 namespace StardustSandbox.Game.World.Data
 {
-    public struct SWorldSlot : ICloneable
+    public sealed class SWorldSlot : ISPoolableObject
     {
-        public readonly uint Id => this.id;
-        public readonly bool IsEmpty => this.isEmpty;
-        public readonly short Temperature => this.temperature;
-        public readonly bool FreeFalling => this.freeFalling;
+        public uint Id => this.id;
+        public bool IsEmpty => this.isEmpty;
+        public short Temperature => this.temperature;
+        public bool FreeFalling => this.freeFalling;
 
         private bool isEmpty;
         private uint id;
@@ -19,11 +18,15 @@ namespace StardustSandbox.Game.World.Data
 
         public SWorldSlot()
         {
-            Destroy();
+            Reset();
         }
-        public SWorldSlot(SWorldSlot value)
+
+        public void Copy(SWorldSlot value)
         {
-            this = value;
+            this.isEmpty = value.isEmpty;
+            this.id = value.id;
+            this.temperature = value.temperature;
+            this.freeFalling = value.freeFalling;
         }
 
         public void Instantiate(SElement value)
@@ -52,15 +55,9 @@ namespace StardustSandbox.Game.World.Data
             this.freeFalling = value;
         }
 
-        public readonly object Clone()
+        public void Reset()
         {
-            return new SWorldSlot
-            {
-                isEmpty = this.isEmpty,
-                id = this.id,
-                temperature = this.temperature,
-                freeFalling = this.freeFalling,
-            };
+            Destroy();
         }
     }
 }
