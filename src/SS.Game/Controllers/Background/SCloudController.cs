@@ -6,8 +6,8 @@ using StardustSandbox.Game.Collections;
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
-using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.Mathematics.Primitives;
+using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
 
@@ -24,7 +24,7 @@ namespace StardustSandbox.Game.Controllers.Background
             {
                 SCloud cloud = this.activeClouds[i];
 
-                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + SWorldConstants.GRID_SCALE * 2))
+                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + (SWorldConstants.GRID_SCALE * 2)))
                 {
                     DestroyCloud(cloud);
                     continue;

@@ -38,12 +38,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
                 }
             }
 
-            if (corruptNeighboringElements == length)
-            {
-                return true;
-            }
-
-            return false;
+            return corruptNeighboringElements == length;
         }
 
         public static void InfectNeighboringElements(this ISElementContext context, ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)

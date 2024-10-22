@@ -92,14 +92,6 @@ namespace StardustSandbox.Game
             this._backgroundManager = new(this);
         }
 
-        public void UpdateGameSettings()
-        {
-            SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
-            this.Window.AllowUserResizing = graphicsSettings.Resizable;
-            this.Window.IsBorderless = graphicsSettings.Borderless;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
-        }
-
         protected override void Initialize()
         {
             #region Databases
@@ -209,6 +201,14 @@ namespace StardustSandbox.Game
             #endregion
 
             base.Draw(gameTime);
+        }
+
+        public void UpdateGameSettings()
+        {
+            SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
+            this.Window.AllowUserResizing = graphicsSettings.Resizable;
+            this.Window.IsBorderless = graphicsSettings.Borderless;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
     }
 }

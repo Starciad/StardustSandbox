@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.World;
 using StardustSandbox.Game.World.Components;
 using StardustSandbox.Game.World.Data;
