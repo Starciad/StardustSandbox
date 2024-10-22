@@ -21,7 +21,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Solids.Immovables
 
         protected override void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
         {
-            this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
+            this.Context.InfectNeighboringElements(this.SGameInstance, neighbors, neighbors.Length);
         }
     }
 }

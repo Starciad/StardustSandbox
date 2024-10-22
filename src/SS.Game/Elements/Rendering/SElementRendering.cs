@@ -8,17 +8,12 @@ using System;
 
 namespace StardustSandbox.Game.Elements.Rendering
 {
-    public sealed class SElementRendering : SGameObject
+    public sealed class SElementRendering(SGame gameInstance, SElement element) : SGameObject(gameInstance)
     {
         private SElementRenderingMechanism renderingMechanism;
 
-        private readonly SElement _element;
-        private SElementContext _context;
-
-        public SElementRendering(SGame gameInstance, SElement element) : base(gameInstance)
-        {
-            this._element = element;
-        }
+        private readonly SElement _element = element;
+        private ISElementContext _context;
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -41,7 +36,7 @@ namespace StardustSandbox.Game.Elements.Rendering
             this.renderingMechanism.Initialize(this._element);
         }
 
-        internal void SetContext(SElementContext context)
+        internal void SetContext(ISElementContext context)
         {
             this._context = context;
         }

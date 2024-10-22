@@ -32,7 +32,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
             this.elementTexture = element.Texture;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, SElementContext context)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
             Point position = context.Position;
 
@@ -56,7 +56,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
             this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * SWorldConstants.GRID_SCALE;
         }
 
-        private void UpdateSpriteSlice(SElementContext context, int index, Point position)
+        private void UpdateSpriteSlice(ISElementContext context, int index, Point position)
         {
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position)));
         }
@@ -97,7 +97,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
             };
         }
 
-        private byte GetBlobValueFromTargetPositions(SElementContext context, (byte blobValue, Point position)[] targets)
+        private byte GetBlobValueFromTargetPositions(ISElementContext context, (byte blobValue, Point position)[] targets)
         {
             byte result = 0;
 

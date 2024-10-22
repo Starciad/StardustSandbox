@@ -66,29 +66,29 @@ namespace StardustSandbox.Game.World
             return true;
         }
 
-        public void SwappingElements(Point element1, Point element2)
+        public void SwappingElements(Point element1Pos, Point element2Pos)
         {
-            _ = TrySwappingElements(element1, element2);
+            _ = TrySwappingElements(element1Pos, element2Pos);
         }
-        public bool TrySwappingElements(Point element1, Point element2)
+        public bool TrySwappingElements(Point element1Pos, Point element2Pos)
         {
-            if (!InsideTheWorldDimensions(element1) ||
-                !InsideTheWorldDimensions(element2) ||
-                IsEmptyElementSlot(element1) ||
-                IsEmptyElementSlot(element2))
+            if (!InsideTheWorldDimensions(element1Pos) ||
+                !InsideTheWorldDimensions(element2Pos) ||
+                IsEmptyElementSlot(element1Pos) ||
+                IsEmptyElementSlot(element2Pos))
             {
                 return false;
             }
 
-            NotifyChunk(element1);
-            NotifyChunk(element2);
+            NotifyChunk(element1Pos);
+            NotifyChunk(element2Pos);
 
             SWorldSlot tempSlot = this.worldSlotsPool.TryGet(out ISPoolableObject value) ? (SWorldSlot)value : new();
 
-            tempSlot.Copy(this.slots[element1.X, element1.Y]);
+            tempSlot.Copy(this.slots[element1Pos.X, element1Pos.Y]);
 
-            this.slots[element1.X, element1.Y].Copy(this.slots[element2.X, element2.Y]);
-            this.slots[element2.X, element2.Y].Copy(tempSlot);
+            this.slots[element1Pos.X, element1Pos.Y].Copy(this.slots[element2Pos.X, element2Pos.Y]);
+            this.slots[element2Pos.X, element2Pos.Y].Copy(tempSlot);
 
             this.worldSlotsPool.Add(tempSlot);
 

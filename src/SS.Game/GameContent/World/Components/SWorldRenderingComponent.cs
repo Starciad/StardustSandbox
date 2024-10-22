@@ -16,6 +16,8 @@ namespace StardustSandbox.Game.GameContent.World.Components
 {
     public sealed class SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance, SElementDatabase elementDatabase, SCameraManager cameraManager) : SWorldComponent(gameInstance, worldInstance)
     {
+        private readonly SElementContext elementRenderingContext = new(worldInstance, worldInstance.ElementDatabase);
+
         private readonly List<Point> _slotsCapturedForRendering = [];
         private readonly SElementDatabase elementDatabase = elementDatabase;
         private readonly SCameraManager cameraManager = cameraManager;
@@ -78,7 +80,9 @@ namespace StardustSandbox.Game.GameContent.World.Components
                 {
                     SElement element = this.elementDatabase.GetElementById(this.SWorldInstance.GetElementSlot(position).Id);
 
-                    element.Context = new SElementContext(this.SWorldInstance, this.elementDatabase, this.SWorldInstance.GetElementSlot(position), position);
+                    this.elementRenderingContext.UpdateInformation(this.SWorldInstance.GetElementSlot(position), position);
+
+                    element.Context = this.elementRenderingContext;
                     element.Draw(gameTime, spriteBatch);
 
                     //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);

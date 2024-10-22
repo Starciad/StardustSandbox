@@ -9,20 +9,23 @@ using System;
 
 namespace StardustSandbox.Game.Elements.Contexts
 {
-    public struct SElementContext(SWorld world, SElementDatabase elementDatabase, SWorldSlot slot, Point position) : ISElementManager
+    public sealed class SElementContext(SWorld world, SElementDatabase elementDatabase) : ISElementContext
     {
-        public readonly bool IsEmpty => this._world == null;
+        public SWorldSlot Slot => this._worldSlot;
+        public Point Position => this._position;
+        public SElement Element => this._worldSlot.Element;
 
-        public readonly SWorldSlot Slot => this._element;
-        public readonly Point Position => this._position;
-        public readonly SElement Element => this.ElementDatabase.GetElementById(this._element.Id);
-        public readonly SElementDatabase ElementDatabase => this._elementDatabase;
-
-        private SWorldSlot _element = slot;
-        private Point _position = position;
+        private SWorldSlot _worldSlot;
+        private Point _position;
 
         private readonly SElementDatabase _elementDatabase = elementDatabase;
         private readonly SWorld _world = world;
+
+        public void UpdateInformation(SWorldSlot worldSlot, Point position)
+        {
+            this._worldSlot = worldSlot;
+            this._position = position;
+        }
 
         #region World
         public void SetPosition(Point newPos)
@@ -33,7 +36,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             if (this._world.TryUpdateElementPosition(this._position, newPos))
             {
-                this._element = GetElementSlot(newPos);
+                this._worldSlot = GetElementSlot(newPos);
                 this._position = newPos;
 
                 return true;
@@ -42,253 +45,253 @@ namespace StardustSandbox.Game.Elements.Contexts
             return false;
         }
 
-        public readonly void InstantiateElement<T>() where T : SElement
+        public void InstantiateElement<T>() where T : SElement
         {
             InstantiateElement<T>(this.Position);
         }
-        public readonly void InstantiateElement(uint id)
+        public void InstantiateElement(uint id)
         {
             InstantiateElement(this.Position, id);
         }
-        public readonly void InstantiateElement(SElement value)
+        public void InstantiateElement(SElement value)
         {
             InstantiateElement(this.Position, value);
         }
-        public readonly void InstantiateElement<T>(Point pos) where T : SElement
+        public void InstantiateElement<T>(Point pos) where T : SElement
         {
             this._world.InstantiateElement<T>(pos);
         }
-        public readonly void InstantiateElement(Point pos, uint id)
+        public void InstantiateElement(Point pos, uint id)
         {
             this._world.InstantiateElement(pos, id);
         }
-        public readonly void InstantiateElement(Point pos, SElement value)
+        public void InstantiateElement(Point pos, SElement value)
         {
             this._world.InstantiateElement(pos, value);
         }
-        public readonly bool TryInstantiateElement<T>() where T : SElement
+        public bool TryInstantiateElement<T>() where T : SElement
         {
             return TryInstantiateElement<T>(this.Position);
         }
-        public readonly bool TryInstantiateElement(uint id)
+        public bool TryInstantiateElement(uint id)
         {
             return TryInstantiateElement(this.Position, id);
         }
-        public readonly bool TryInstantiateElement(SElement value)
+        public bool TryInstantiateElement(SElement value)
         {
             return TryInstantiateElement(this.Position, value);
         }
-        public readonly bool TryInstantiateElement<T>(Point pos) where T : SElement
+        public bool TryInstantiateElement<T>(Point pos) where T : SElement
         {
             return this._world.TryInstantiateElement<T>(pos);
         }
-        public readonly bool TryInstantiateElement(Point pos, uint id)
+        public bool TryInstantiateElement(Point pos, uint id)
         {
             return this._world.TryInstantiateElement(pos, id);
         }
-        public readonly bool TryInstantiateElement(Point pos, SElement value)
+        public bool TryInstantiateElement(Point pos, SElement value)
         {
             return this._world.TryInstantiateElement(pos, value);
         }
 
-        public readonly void UpdateElementPosition(Point newPos)
+        public void UpdateElementPosition(Point newPos)
         {
             UpdateElementPosition(this.Position, newPos);
         }
-        public readonly void UpdateElementPosition(Point oldPos, Point newPos)
+        public void UpdateElementPosition(Point oldPos, Point newPos)
         {
             this._world.UpdateElementPosition(oldPos, newPos);
         }
-        public readonly bool TryUpdateElementPosition(Point newPos)
+        public bool TryUpdateElementPosition(Point newPos)
         {
             return TryUpdateElementPosition(this.Position, newPos);
         }
-        public readonly bool TryUpdateElementPosition(Point oldPos, Point newPos)
+        public bool TryUpdateElementPosition(Point oldPos, Point newPos)
         {
             return this._world.TryUpdateElementPosition(oldPos, newPos);
         }
 
-        public void SwappingElements(Point element2)
+        public void SwappingElements(Point targetPos)
         {
-            SwappingElements(this.Position, element2);
+            SwappingElements(this.Position, targetPos);
         }
-        public void SwappingElements(Point element1, Point element2)
+        public void SwappingElements(Point element1Pos, Point element2Pos)
         {
-            _ = TrySwappingElements(element1, element2);
+            _ = TrySwappingElements(element1Pos, element2Pos);
         }
-        public bool TrySwappingElements(Point element2)
+        public bool TrySwappingElements(Point targetPos)
         {
-            return TrySwappingElements(this.Position, element2);
+            return TrySwappingElements(this.Position, targetPos);
         }
-        public bool TrySwappingElements(Point element1, Point element2)
+        public bool TrySwappingElements(Point element1Pos, Point element2Pos)
         {
-            if (this._world.TrySwappingElements(element1, element2))
+            if (this._world.TrySwappingElements(element1Pos, element2Pos))
             {
-                this._position = element2;
+                this._position = element2Pos;
                 return true;
             }
 
             return false;
         }
 
-        public readonly void DestroyElement()
+        public void DestroyElement()
         {
             this._world.DestroyElement(this.Position);
         }
-        public readonly void DestroyElement(Point pos)
+        public void DestroyElement(Point pos)
         {
             this._world.DestroyElement(pos);
         }
-        public readonly bool TryDestroyElement()
+        public bool TryDestroyElement()
         {
             return TryDestroyElement(this.Position);
         }
-        public readonly bool TryDestroyElement(Point pos)
+        public bool TryDestroyElement(Point pos)
         {
             return this._world.TryDestroyElement(pos);
         }
 
-        public readonly void ReplaceElement<T>() where T : SElement
+        public void ReplaceElement<T>() where T : SElement
         {
             ReplaceElement<T>(this.Position);
         }
-        public readonly void ReplaceElement(uint id)
+        public void ReplaceElement(uint id)
         {
             ReplaceElement(this.Position, id);
         }
-        public readonly void ReplaceElement(SElement value)
+        public void ReplaceElement(SElement value)
         {
             ReplaceElement(this.Position, value);
         }
-        public readonly void ReplaceElement<T>(Point pos) where T : SElement
+        public void ReplaceElement<T>(Point pos) where T : SElement
         {
             this._world.ReplaceElement<T>(pos);
         }
-        public readonly void ReplaceElement(Point pos, uint id)
+        public void ReplaceElement(Point pos, uint id)
         {
             this._world.ReplaceElement(pos, id);
         }
-        public readonly void ReplaceElement(Point pos, SElement value)
+        public void ReplaceElement(Point pos, SElement value)
         {
             this._world.ReplaceElement(pos, value);
         }
-        public readonly bool TryReplaceElement<T>() where T : SElement
+        public bool TryReplaceElement<T>() where T : SElement
         {
             return TryReplaceElement<T>(this.Position);
         }
-        public readonly bool TryReplaceElement(uint id)
+        public bool TryReplaceElement(uint id)
         {
             return TryReplaceElement(this.Position, id);
         }
-        public readonly bool TryReplaceElement(SElement value)
+        public bool TryReplaceElement(SElement value)
         {
             return TryReplaceElement(this.Position, value);
         }
-        public readonly bool TryReplaceElement<T>(Point pos) where T : SElement
+        public bool TryReplaceElement<T>(Point pos) where T : SElement
         {
             return this._world.TryReplaceElement<T>(pos);
         }
-        public readonly bool TryReplaceElement(Point pos, uint id)
+        public bool TryReplaceElement(Point pos, uint id)
         {
             return this._world.TryReplaceElement(pos, id);
         }
-        public readonly bool TryReplaceElement(Point pos, SElement value)
+        public bool TryReplaceElement(Point pos, SElement value)
         {
             return this._world.TryReplaceElement(pos, value);
         }
 
-        public readonly SElement GetElement()
+        public SElement GetElement()
         {
             return GetElement(this.Position);
         }
-        public readonly SElement GetElement(Point pos)
+        public SElement GetElement(Point pos)
         {
             return this._world.GetElement(pos);
         }
-        public readonly bool TryGetElement(out SElement value)
+        public bool TryGetElement(out SElement value)
         {
             return TryGetElement(this.Position, out value);
         }
-        public readonly bool TryGetElement(Point pos, out SElement value)
+        public bool TryGetElement(Point pos, out SElement value)
         {
             return this._world.TryGetElement(pos, out value);
         }
 
-        public readonly ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors()
+        public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors()
         {
             return GetElementNeighbors(this.Position);
         }
-        public readonly ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos)
+        public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos)
         {
             return this._world.GetElementNeighbors(pos);
         }
-        public readonly bool TryGetElementNeighbors(out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        public bool TryGetElementNeighbors(out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
         {
             return TryGetElementNeighbors(this.Position, out neighbors);
         }
-        public readonly bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
         {
             return this._world.TryGetElementNeighbors(pos, out neighbors);
         }
 
-        public readonly SWorldSlot GetElementSlot()
+        public SWorldSlot GetElementSlot()
         {
             return GetElementSlot(this.Position);
         }
-        public readonly SWorldSlot GetElementSlot(Point pos)
+        public SWorldSlot GetElementSlot(Point pos)
         {
             return this._world.GetElementSlot(pos);
         }
-        public readonly bool TryGetElementSlot(out SWorldSlot value)
+        public bool TryGetElementSlot(out SWorldSlot value)
         {
             return TryGetElementSlot(this.Position, out value);
         }
-        public readonly bool TryGetElementSlot(Point pos, out SWorldSlot value)
+        public bool TryGetElementSlot(Point pos, out SWorldSlot value)
         {
             return this._world.TryGetElementSlot(pos, out value);
         }
 
-        public readonly void SetElementTemperature(short value)
+        public void SetElementTemperature(short value)
         {
             SetElementTemperature(this.Position, value);
         }
-        public readonly void SetElementTemperature(Point pos, short value)
+        public void SetElementTemperature(Point pos, short value)
         {
             this._world.SetElementTemperature(pos, value);
         }
-        public readonly bool TrySetElementTemperature(short value)
+        public bool TrySetElementTemperature(short value)
         {
             return TrySetElementTemperature(this.Position, value);
         }
-        public readonly bool TrySetElementTemperature(Point pos, short value)
+        public bool TrySetElementTemperature(Point pos, short value)
         {
             return this._world.TrySetElementTemperature(pos, value);
         }
 
-        public readonly void SetElementFreeFalling(bool value)
+        public void SetElementFreeFalling(bool value)
         {
             SetElementFreeFalling(this.Position, value);
         }
-        public readonly void SetElementFreeFalling(Point pos, bool value)
+        public void SetElementFreeFalling(Point pos, bool value)
         {
             this._world.SetElementFreeFalling(pos, value);
         }
 
-        public readonly bool TrySetElementFreeFalling(bool value)
+        public bool TrySetElementFreeFalling(bool value)
         {
             return TrySetElementFreeFalling(this.Position, value);
         }
-        public readonly bool TrySetElementFreeFalling(Point pos, bool value)
+        public bool TrySetElementFreeFalling(Point pos, bool value)
         {
             return this._world.TrySetElementFreeFalling(pos, value);
         }
 
         // Tools
-        public readonly bool IsEmptyElementSlot()
+        public bool IsEmptyElementSlot()
         {
             return IsEmptyElementSlot(this.Position);
         }
-        public readonly bool IsEmptyElementSlot(Point pos)
+        public bool IsEmptyElementSlot(Point pos)
         {
             return this._world.IsEmptyElementSlot(pos);
         }
@@ -296,7 +299,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         #endregion
 
         #region Chunks
-        public readonly bool TryNotifyChunk(Point pos)
+        public bool TryNotifyChunk(Point pos)
         {
             return this._world.TryNotifyChunk(pos);
         }

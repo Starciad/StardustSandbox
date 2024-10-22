@@ -6,6 +6,7 @@ namespace StardustSandbox.Game.World.Data
 {
     public sealed class SWorldSlot : ISPoolableObject
     {
+        public SElement Element => this.element;
         public uint Id => this.id;
         public bool IsEmpty => this.isEmpty;
         public short Temperature => this.temperature;
@@ -15,6 +16,7 @@ namespace StardustSandbox.Game.World.Data
         private uint id;
         private short temperature;
         private bool freeFalling;
+        private SElement element;
 
         public SWorldSlot()
         {
@@ -27,6 +29,7 @@ namespace StardustSandbox.Game.World.Data
             this.id = value.id;
             this.temperature = value.temperature;
             this.freeFalling = value.freeFalling;
+            this.element = value.element;
         }
 
         public void Instantiate(SElement value)
@@ -35,6 +38,7 @@ namespace StardustSandbox.Game.World.Data
             this.id = value.Id;
             this.temperature = value.DefaultTemperature;
             this.freeFalling = false;
+            this.element = value;
         }
 
         public void Destroy()
@@ -43,6 +47,7 @@ namespace StardustSandbox.Game.World.Data
             this.id = 0;
             this.temperature = 0;
             this.freeFalling = false;
+            this.element = null;
         }
 
         public void SetTemperatureValue(int value)

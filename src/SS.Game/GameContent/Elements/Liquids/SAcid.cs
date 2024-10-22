@@ -24,8 +24,8 @@ namespace StardustSandbox.Game.GameContent.Elements.Liquids
         {
             foreach ((Point, SWorldSlot) neighbor in neighbors)
             {
-                if (this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is SAcid ||
-                    this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id) is SWall)
+                if (this.SGameInstance.ElementDatabase.GetElementById(neighbor.Item2.Id) is SAcid ||
+                    this.SGameInstance.ElementDatabase.GetElementById(neighbor.Item2.Id) is SWall)
                 {
                     continue;
                 }

@@ -33,7 +33,7 @@ namespace StardustSandbox.Game.Elements
 
         #region Helpers
         public SElementRendering Rendering { get; private set; }
-        public SElementContext Context { get; internal set; }
+        public ISElementContext Context { get; internal set; }
         #endregion
 
         public SElement(SGame gameInstance) : base(gameInstance)
@@ -92,7 +92,7 @@ namespace StardustSandbox.Game.Elements
 
             foreach ((Point, SWorldSlot) neighbor in neighbors)
             {
-                if (!this.Context.ElementDatabase.GetElementById(neighbor.Item2.Id).EnableTemperature)
+                if (!this.SGameInstance.ElementDatabase.GetElementById(neighbor.Item2.Id).EnableTemperature)
                 {
                     continue;
                 }

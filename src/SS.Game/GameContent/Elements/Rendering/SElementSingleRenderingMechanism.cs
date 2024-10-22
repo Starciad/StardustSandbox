@@ -27,7 +27,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
             this.elementTexture = element.Texture;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, SElementContext context)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
             spriteBatch.Draw(this.elementTexture, new Vector2(context.Position.X, context.Position.Y) * SWorldConstants.GRID_SCALE, this.clipAreaRectangle, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }

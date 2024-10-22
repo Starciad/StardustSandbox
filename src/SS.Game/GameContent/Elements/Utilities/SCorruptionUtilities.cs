@@ -20,12 +20,12 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
 {
     public static class SCorruptionUtilities
     {
-        public static void InfectNeighboringElements(this SElementContext context, ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
+        public static void InfectNeighboringElements(this ISElementContext context, SGame gameInstance, ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
         {
             List<(Point, SWorldSlot)> targets = [];
             for (int i = 0; i < length; i++)
             {
-                SElement element = context.ElementDatabase.GetElementById(neighbors[i].Item2.Id);
+                SElement element = gameInstance.ElementDatabase.GetElementById(neighbors[i].Item2.Id);
 
                 if (element is not SMCorruption &&
                     element is not SIMCorruption &&
@@ -43,7 +43,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Utilities
             }
 
             (Point, SWorldSlot) target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
-            SElement targetElement = context.ElementDatabase.GetElementById(target.Item2.Id);
+            SElement targetElement = gameInstance.ElementDatabase.GetElementById(target.Item2.Id);
 
             if (targetElement is SSolid)
             {

@@ -19,8 +19,8 @@ namespace StardustSandbox.Game.Interfaces.Elements
         void UpdateElementPosition(Point oldPos, Point newPos);
         bool TryUpdateElementPosition(Point oldPos, Point newPos);
 
-        void SwappingElements(Point element1, Point element2);
-        bool TrySwappingElements(Point element1, Point element2);
+        void SwappingElements(Point element1Pos, Point element2Pos);
+        bool TrySwappingElements(Point element1Pos, Point element2Pos);
 
         void DestroyElement(Point pos);
         bool TryDestroyElement(Point pos);
