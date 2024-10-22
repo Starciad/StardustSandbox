@@ -47,6 +47,9 @@ namespace StardustSandbox.Game.Interfaces.Elements
         void SetElementFreeFalling(Point pos, bool value);
         bool TrySetElementFreeFalling(Point pos, bool value);
 
+        void SetElementColor(Point pos, Color value);
+        bool TrySetElementColor(Point pos, Color value);
+
         bool IsEmptyElementSlot(Point pos);
     }
 }

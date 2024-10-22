@@ -55,6 +55,11 @@ namespace StardustSandbox.Game.Elements
             this.Rendering.Draw(gameTime, spriteBatch);
         }
 
+        public void AwakeStep(SWorldSlot worldSlot)
+        {
+            OnAwakeStep(worldSlot);
+        }
+
         public void Steps()
         {
             if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Point, SWorldSlot)> neighbors))
@@ -78,6 +83,8 @@ namespace StardustSandbox.Game.Elements
         #endregion
 
         #region Configurations
+        protected virtual void OnAwakeStep(SWorldSlot worldSlot) { return; }
+
         // Steps
         protected virtual void OnBeforeStep() { return; }
         protected virtual void OnStep() { return; }

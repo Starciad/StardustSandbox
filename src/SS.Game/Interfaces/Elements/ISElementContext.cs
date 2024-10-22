@@ -54,6 +54,9 @@ namespace StardustSandbox.Game.Interfaces.Elements
         void SetElementFreeFalling(bool value);
         bool TrySetElementFreeFalling(bool value);
 
+        void SetElementColor(Color value);
+        bool TryElementSetColor(Color value);
+
         void NotifyChunk();
         void NotifyChunk(Point pos);
         bool TryNotifyChunk();

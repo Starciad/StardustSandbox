@@ -52,7 +52,7 @@ namespace StardustSandbox.Game.World
         {
             if (!InsideTheWorldDimensions(oldPos) ||
                 !InsideTheWorldDimensions(newPos) ||
-                IsEmptyElementSlot(oldPos) ||
+                 IsEmptyElementSlot(oldPos) ||
                 !IsEmptyElementSlot(newPos))
             {
                 return false;
@@ -102,7 +102,7 @@ namespace StardustSandbox.Game.World
         public bool TryDestroyElement(Point pos)
         {
             if (!InsideTheWorldDimensions(pos) ||
-                IsEmptyElementSlot(pos))
+                 IsEmptyElementSlot(pos))
             {
                 return false;
             }
@@ -146,7 +146,7 @@ namespace StardustSandbox.Game.World
         public bool TryGetElement(Point pos, out SElement value)
         {
             if (!InsideTheWorldDimensions(pos) ||
-                IsEmptyElementSlot(pos))
+                 IsEmptyElementSlot(pos))
             {
                 value = null;
                 return false;
@@ -203,7 +203,7 @@ namespace StardustSandbox.Game.World
         {
             value = default;
             if (!InsideTheWorldDimensions(pos) ||
-                IsEmptyElementSlot(pos))
+                 IsEmptyElementSlot(pos))
             {
                 return false;
             }
@@ -219,7 +219,7 @@ namespace StardustSandbox.Game.World
         public bool TrySetElementTemperature(Point pos, short value)
         {
             if (!InsideTheWorldDimensions(pos) ||
-                IsEmptyElementSlot(pos))
+                 IsEmptyElementSlot(pos))
             {
                 return false;
             }
@@ -241,12 +241,29 @@ namespace StardustSandbox.Game.World
         public bool TrySetElementFreeFalling(Point pos, bool value)
         {
             if (!InsideTheWorldDimensions(pos) ||
-                IsEmptyElementSlot(pos))
+                 IsEmptyElementSlot(pos))
             {
                 return false;
             }
 
             this.slots[pos.X, pos.Y].SetFreeFalling(value);
+
+            return true;
+        }
+
+        public void SetElementColor(Point pos, Color value)
+        {
+            _ = TrySetElementColor(pos, value);
+        }
+        public bool TrySetElementColor(Point pos, Color value)
+        {
+            if (!InsideTheWorldDimensions(pos) ||
+                 IsEmptyElementSlot(pos))
+            {
+                return false;
+            }
+
+            this.slots[pos.X, pos.Y].SetColor(value);
 
             return true;
         }

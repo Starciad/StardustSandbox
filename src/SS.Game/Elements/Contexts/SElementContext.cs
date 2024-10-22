@@ -286,6 +286,24 @@ namespace StardustSandbox.Game.Elements.Contexts
             return this._world.TrySetElementFreeFalling(pos, value);
         }
 
+        public void SetElementColor(Color value)
+        {
+            SetElementColor(this._position, value);
+        }
+        public void SetElementColor(Point pos, Color value)
+        {
+            this._world.SetElementColor(pos, value);
+        }
+
+        public bool TryElementSetColor(Color value)
+        {
+            return TrySetElementColor(this._position, value);
+        }
+        public bool TrySetElementColor(Point pos, Color value)
+        {
+            return this._world.TrySetElementColor(pos, value);
+        }
+
         // Tools
         public bool IsEmptyElementSlot()
         {
@@ -295,7 +313,6 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             return this._world.IsEmptyElementSlot(pos);
         }
-
         #endregion
 
         #region Chunks

@@ -13,7 +13,6 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {
-        private static readonly Color color = Color.White;
         private static readonly float rotation = 0f;
         private static readonly Vector2 origin = Vector2.Zero;
         private static readonly Vector2 scale = Vector2.One;
@@ -41,7 +40,7 @@ namespace StardustSandbox.Game.GameContent.Elements.Rendering
             for (int i = 0; i < SElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, i, position);
-                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], color, rotation, origin, scale, spriteEffects, layerDepth);
+                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], context.Slot.Color, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
 
