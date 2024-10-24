@@ -21,20 +21,11 @@ You are encouraged to create and share your creations in a constantly evolving g
 
 Here are the necessary requirements for the game to function correctly:
 
-- **Operating System:** Windows, MacOS, or Linux;
+- **Operating System:** Windows (only for now);
 - **DirectX:** Version 9.0c or higher;
-- **OpenGL:** Version 2.0 or higher;
 - **RAM:** At least 500 MB;
 - **Disk Space:** Minimum of 100 MB available;
-- **System Architecture:** x64 (64 bits);
-- **.NET Runtime:** Required for the game to run.
-
-> [!NOTE]  
-> Compiling the game from the source code also requires the same requirements.
-
-## Compilation/Build
-
-Learn how to compile the project with all assets by consulting the [Compilation Articles in the Wiki](LINK_TO_WIKI) (under construction).
+- **System Architecture:** x64 (64 bits).
 
 ## Changelog
 
@@ -60,7 +51,7 @@ Get details about the credits [here](CREDITS.md).
 
 ### Project
 
-All game source code is under the MIT license. See the [LICENSE](LICENSE.txt) file for more details on the license.
+All game source code is under the  GPL-3.0 license. See the [LICENSE](LICENSE.txt) file for more details on the license.
 
 ### Assets
 
