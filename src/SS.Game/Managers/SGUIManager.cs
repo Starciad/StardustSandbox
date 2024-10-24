@@ -8,12 +8,12 @@ using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SGUIManager(SGame gameInstance, SGUIDatabase guiDatabase, SInputManager inputManager) : SGameObject(gameInstance)
+    public sealed class SGUIManager(SGame gameInstance) : SGameObject(gameInstance)
     {
         public SGUIEvents GUIEvents => this._guiEvents;
 
-        private readonly SGUIEvents _guiEvents = new(inputManager);
-        private readonly SGUIDatabase _guiDatabase = guiDatabase;
+        private readonly SGUIEvents _guiEvents = new(gameInstance.InputManager);
+        private readonly SGUIDatabase _guiDatabase = gameInstance.GUIDatabase;
 
         public override void Update(GameTime gameTime)
         {

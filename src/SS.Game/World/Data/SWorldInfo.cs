@@ -4,18 +4,13 @@ namespace StardustSandbox.Game.World.Data
 {
     public sealed class SWorldInfo
     {
-        public SSize2 Size => worldSizes[2];
+        public SSize2 Size => this.size;
 
-        private static readonly SSize2[] worldSizes =
-        [
-            // (0) Small
-            new SSize2(40, 23),
+        private SSize2 size;
 
-            // (1) Medium
-            new SSize2(80, 46),
-
-            // (2) Large
-            new SSize2(160, 92),
-        ];
+        public void SetSize(SSize2 size)
+        {
+            this.size = size;
+        }
     }
 }

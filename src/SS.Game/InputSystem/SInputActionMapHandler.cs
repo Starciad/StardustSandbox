@@ -6,14 +6,9 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.InputSystem
 {
-    public sealed class SInputActionMapHandler : SGameObject
+    public sealed class SInputActionMapHandler(SGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly Dictionary<string, SInputActionMap> _maps = [];
-
-        public SInputActionMapHandler(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         public override void Update(GameTime gameTime)
         {

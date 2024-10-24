@@ -10,7 +10,7 @@ using System;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed partial class SGameInputManager : SGameObject
+    public sealed partial class SGameInputManager(SGame gameInstance) : SGameObject(gameInstance)
     {
         public SItem ItemSelected => this.itemSelected;
 
@@ -30,18 +30,10 @@ namespace StardustSandbox.Game.Managers
         private float cameraMovementSpeed = 10;
         private bool canModifyEnvironment = true;
 
-        private readonly SCameraManager _cameraManager;
-        private readonly SWorld _world;
-        private readonly SInputManager _inputManager;
-        private readonly SInputActionMapHandler _actionHandler;
-
-        public SGameInputManager(SGame gameInstance, SCameraManager cameraManager, SWorld world, SInputManager inputManager) : base(gameInstance)
-        {
-            this._cameraManager = cameraManager;
-            this._world = world;
-            this._inputManager = inputManager;
-            this._actionHandler = new(gameInstance);
-        }
+        private readonly SCameraManager _cameraManager = gameInstance.CameraManager;
+        private readonly SWorld _world = gameInstance.World;
+        private readonly SInputManager _inputManager = gameInstance.InputManager;
+        private readonly SInputActionMapHandler _actionHandler = new(gameInstance);
 
         public override void Initialize()
         {

@@ -28,6 +28,9 @@ namespace StardustSandbox.Game
         public SCameraManager CameraManager => this._cameraManager;
         public SGUIManager GUIManager => this._guiManager;
 
+        // Core
+        public SWorld World => this._world;
+
         // ================================= //
 
         private SpriteBatch _sb;
@@ -39,11 +42,8 @@ namespace StardustSandbox.Game
         private readonly SItemDatabase _itemDatabase;
         private readonly SBackgroundDatabase _backgroundDatabase;
 
-        // Core
-        private readonly SCameraManager _cameraManager;
-        private readonly SWorld _world;
-
         // Managers
+        private readonly SCameraManager _cameraManager;
         private readonly SGraphicsManager _graphicsManager;
         private readonly SGameInputManager _gameInputManager;
         private readonly SShaderManager _shaderManager;
@@ -51,6 +51,9 @@ namespace StardustSandbox.Game
         private readonly SGUIManager _guiManager;
         private readonly SCursorManager _cursorManager;
         private readonly SBackgroundManager _backgroundManager;
+
+        // Core
+        private readonly SWorld _world;
 
         // ================================= //
 
@@ -78,23 +81,15 @@ namespace StardustSandbox.Game
 
             // Core
             this._cameraManager = new(this._graphicsManager);
-            this._world = new(this, this._elementDatabase, this._assetDatabase, this._cameraManager);
+            this._world = new(this);
 
             // Managers
             this._inputManager = new(this);
-            this._shaderManager = new(this, this._assetDatabase);
-            this._gameInputManager = new(this, this._cameraManager, this._world, this._inputManager);
-            this._guiManager = new(this, this._guiDatabase, this._inputManager);
-            this._cursorManager = new(this, this._assetDatabase, this._inputManager);
+            this._shaderManager = new(this);
+            this._gameInputManager = new(this);
+            this._guiManager = new(this);
+            this._cursorManager = new(this);
             this._backgroundManager = new(this);
-        }
-
-        public void UpdateGameSettings()
-        {
-            SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
-            this.Window.AllowUserResizing = graphicsSettings.Resizable;
-            this.Window.IsBorderless = graphicsSettings.Borderless;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
 
         protected override void Initialize()
@@ -206,6 +201,14 @@ namespace StardustSandbox.Game
             #endregion
 
             base.Draw(gameTime);
+        }
+
+        public void UpdateGameSettings()
+        {
+            SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
+            this.Window.AllowUserResizing = graphicsSettings.Resizable;
+            this.Window.IsBorderless = graphicsSettings.Borderless;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
     }
 }

@@ -2,75 +2,54 @@
 
 We are excited to receive your contributions. However, it is crucial to follow guidelines to ensure effective collaboration.
 
-## Branch Selection
+> [!IMPORTANT]  
+> Before contributing, please read and accept the Contributor License Agreement (CLA) available in this repository. This ensures that both you and the project maintain clarity regarding the rights and responsibilities associated with your contributions. You can read the license file by [clicking here](./CONTRIBUTOR-LICENSE-AGREEMENT.txt).
 
-When creating a pull request (PR) in this project, choosing the correct branch is essential for smooth and conflict-free integration. Here's a detailed guide:
+---
 
-### `stable-*` Branches
+> [!WARNING]  
+> The game is currently in a very early stage, and contributions from external sources are limited for now. When a first stable version is officially released, more information and updates will be provided.
 
-We recommend contributors choose a recent `stable-*` branch to work with secure and stable code. These branches contain released versions with assets available for download, ensuring a complete experience when building the project.
+## 1. Introduction
 
-### `main` Branch
+Welcome to the Stardust Sandbox project! A sandbox-style game inspired by the classic "falling-sand" games. This project is open-source, allowing us to receive contributions from the community. Feel free to contribute with whatever you find most relevant and interesting, whether in the game itself or other specific aspects.
 
-While it contains the latest code, avoid basing on `main`. It may contain unstable code and assets not publicly released. If opting for `main`, be aware of these challenges and consider `stable-*` branches as a more stable alternative.
+The purpose of this document is to provide you with a general overview of the different ways you can contribute to the project. Each section has its own unique details and important information, so please read carefully before officially contributing.
 
-Differences between `stable-*` and `main` may exist, so refer to issues and keep track of recent changes to understand the differences.
+## 2. Contributions
 
-## Versioning
+### 2.1. Coding
 
-We follow [Semantic Versioning (SemVer)](https://semver.org/). Prioritize PRs with `patch` or `minor` changes. Significant changes require prior discussion for integration in the next major release. Mark removals of public properties or methods as `Obsolete` in the latest release branch.
+If you are interested, you can contribute to the project with coding efforts. For more details, please refer to the [CODIFICATION](./.github/docs/contributions/codification/CODIFICATION.md) file in the repository.
 
-## Descriptive Titles
+## 3. Best Practices
 
-Use concise and descriptive titles in issues or PRs. Details should be in the description.
+### 3.1. Descriptive Titles
 
-## Commit Messages
+Use concise and descriptive titles in issues or PRs. Detailed information should be provided in the description.
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Each commit should describe the change. Reference open issues with `#`.
+### 3.2. Commit Messages
+
+Follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard. Each commit should clearly describe the change and reference open issues using the `#` symbol.
 
 **Examples of good commit messages:**
 
-- `fix: Fix potential memory leak (#142).`;
-- `feat: Add new entity (#169).`;
-- `refactor: Refactor code for the 5th entity.`;
-- `feat: Add new GUI component.`.
+- `fix: Fix potential memory leak (#142)`;  
+- `feat: Add new entity (#169)`;  
+- `refactor: Refactor code for the 5th entity`;  
+- `feat: Add new GUI component`.
 
-**Examples of incorrect messages:**
+**Examples of incorrect commit messages:**
 
-- `I'm bad.`;
-- `Tit and tat.`;
-- `Fixed.`;
-- `Oops.`.
+- `I'm bad`;  
+- `Tit and tat`;  
+- `Fixed`;  
+- `Oops`.
 
-## Code Style
+### 3.3. Pull Request
 
-We follow the [Microsoft C# coding conventions](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions), with some exceptions.
+When contributing and creating a PR, provide clear and informative documentation. This increases the likelihood of a successful integration.
 
-### Main Preferences
+## 4. Code Review
 
-1. Prefix `P` in file names and `IP` for interfaces;
-1. Use `this` to reference fields and properties;
-1. Avoid asynchronous code in inappropriate contexts.
-
-### Other Preferences
-
-1. Do not use `var`;
-1. Mark immutable fields as `readonly`;
-1. Use `internal` and `public` sparingly;
-1. Utilize object initializers whenever possible.
-
-### Inline `out` Declarations
-
-Prefer inline form for `out` declarations: `SomeOutMethod(42, out PType value);`.
-
-### Member Ordering
-
-Always order members and properties: Properties, `const` Fields, Variable Fields, Events and Delegates, Constructors, Methods.
-
-## Pull Request
-
-When contributing and creating a PR, provide clear and informative documentation. This increases the chances of integration.
-
-## Code Review
-
-Each PR is carefully reviewed. If rejected, there will be justification. Thank you for dedicating time and effort to Stardust Sandbox. Questions? Contact the team or community.
+Each PR is carefully reviewed. If your PR is rejected, a detailed justification will be provided. We appreciate the time and effort you dedicate to Stardust Sandbox. If you have any questions, feel free to contact the team or the community.

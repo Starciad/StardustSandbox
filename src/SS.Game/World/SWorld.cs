@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Collections;
-using StardustSandbox.Game.Databases;
+using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.GameContent.World.Components;
 using StardustSandbox.Game.Interfaces.General;
-using StardustSandbox.Game.Managers;
+using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.World.Components;
 using StardustSandbox.Game.World.Data;
@@ -16,11 +16,10 @@ namespace StardustSandbox.Game.World
 {
     public sealed partial class SWorld : SGameObject, ISReset
     {
-        public SWorldState States { get; private set; }
-        public SWorldInfo Infos { get; private set; }
-        public SElementDatabase ElementDatabase { get; private set; }
+        public SWorldState States { get; private set; } = new();
+        public SWorldInfo Infos { get; private set; } = new();
 
-        private readonly SObjectPool worldSlotsPool;
+        private readonly SObjectPool worldSlotsPool = new();
         private readonly SWorldComponent[] _components;
 
         private SWorldSlot[,] slots;
@@ -28,26 +27,18 @@ namespace StardustSandbox.Game.World
         private readonly uint totalFramesUpdateDelay = 5;
         private uint currentFramesUpdateDelay;
 
-        public SWorld(SGame gameInstance, SElementDatabase elementDatabase, SAssetDatabase assetDatabase, SCameraManager camera) : base(gameInstance)
+        public SWorld(SGame gameInstance) : base(gameInstance)
         {
-            this.States = new();
-            this.Infos = new();
-            this.ElementDatabase = elementDatabase;
-
-            this.worldSlotsPool = new();
-
             this._components = [
-                new SWorldChunkingComponent(gameInstance, this, assetDatabase),
+                new SWorldChunkingComponent(gameInstance, this),
                 new SWorldUpdatingComponent(gameInstance, this),
-                new SWorldRenderingComponent(gameInstance, this, elementDatabase, camera)
+                new SWorldRenderingComponent(gameInstance, this)
             ];
         }
 
         public override void Initialize()
         {
-            this.slots = new SWorldSlot[(int)this.Infos.Size.Width, (int)this.Infos.Size.Height];
-
-            InstantiateWorldSlots();
+            Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
             Reset();
 
             foreach (SWorldComponent component in this._components)
@@ -79,9 +70,9 @@ namespace StardustSandbox.Game.World
             }
 
             // Update world
-            foreach (SWorldComponent component in this._components)
+            for (int i = 0; i < this._components.Length; i++)
             {
-                component.Update(gameTime);
+                this._components[i].Update(gameTime);
             }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -93,9 +84,9 @@ namespace StardustSandbox.Game.World
                 return;
             }
 
-            foreach (SWorldComponent component in this._components)
+            for (int i = 0; i < this._components.Length; i++)
             {
-                component.Draw(gameTime, spriteBatch);
+                this._components[i].Draw(gameTime, spriteBatch);
             }
         }
 
@@ -114,6 +105,14 @@ namespace StardustSandbox.Game.World
         public void Resume()
         {
             this.States.IsPaused = false;
+        }
+        public void Resize(SSize2 size)
+        {
+            this.Infos.SetSize(size);
+
+            DestroyWorldSlots();
+            this.slots = new SWorldSlot[(int)size.Width, (int)size.Height];
+            InstantiateWorldSlots();
         }
         public void Clear()
         {
@@ -138,6 +137,11 @@ namespace StardustSandbox.Game.World
 
         private void InstantiateWorldSlots()
         {
+            if (this.slots == null || this.slots.Length == 0)
+            {
+                return;
+            }
+
             for (int y = 0; y < this.Infos.Size.Height; y++)
             {
                 for (int x = 0; x < this.Infos.Size.Width; x++)
@@ -148,6 +152,11 @@ namespace StardustSandbox.Game.World
         }
         private void DestroyWorldSlots()
         {
+            if (this.slots == null || this.slots.Length == 0)
+            {
+                return;
+            }
+
             for (int y = 0; y < this.Infos.Size.Height; y++)
             {
                 for (int x = 0; x < this.Infos.Size.Width; x++)

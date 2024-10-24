@@ -2,14 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.World;
 using StardustSandbox.Game.World.Components;
 using StardustSandbox.Game.World.Data;
 
 namespace StardustSandbox.Game.GameContent.World.Components
 {
-    public sealed class SWorldChunkingComponent(SGame gameInstance, SWorld worldInstance, SAssetDatabase assetDatabase) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldChunkingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private int worldChunkWidth;
         private int worldChunkHeight;
@@ -18,11 +17,9 @@ namespace StardustSandbox.Game.GameContent.World.Components
 
         private Texture2D pixelTexture;
 
-        private readonly SAssetDatabase _assetDatabase = assetDatabase;
-
         public override void Initialize()
         {
-            this.pixelTexture = this._assetDatabase.GetTexture("particle_1");
+            this.pixelTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
 
             this._chunks = new SWorldChunk[(int)(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (int)(this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
 

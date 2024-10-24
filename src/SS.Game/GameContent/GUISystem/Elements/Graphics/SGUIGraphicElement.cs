@@ -6,7 +6,7 @@ using StardustSandbox.Game.GUISystem.Elements;
 
 namespace StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics
 {
-    public abstract class SGUIGraphicElement : SGUIElement
+    public abstract class SGUIGraphicElement(SGame gameInstance) : SGUIElement(gameInstance)
     {
         public virtual Texture2D Texture { get; }
         public virtual Rectangle? TextureClipArea { get; }
@@ -15,11 +15,6 @@ namespace StardustSandbox.Game.GameContent.GUISystem.Elements.Graphics
         public virtual SCardinalDirection OriginPivot { get; }
         public virtual float RotationAngle { get; }
         public virtual Vector2 Scale { get; }
-
-        public SGUIGraphicElement(SGame gameInstance) : base(gameInstance)
-        {
-
-        }
 
         public virtual void SetTexture(Texture2D texture) { return; }
         public virtual void SetTextureClipArea(Rectangle clipArea) { return; }
