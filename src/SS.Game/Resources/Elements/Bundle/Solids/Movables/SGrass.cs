@@ -1,11 +1,12 @@
 ﻿using StardustSandbox.Game.Elements.Templates.Solids.Movables;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
 namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
 {
     public sealed class SGrass : SMovableSolid
     {
-        public SGrass(SGame gameInstance) : base(gameInstance)
+        public SGrass(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 004;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_5");

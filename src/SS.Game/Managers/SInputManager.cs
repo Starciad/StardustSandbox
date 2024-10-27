@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SInputManager(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SInputManager(ISGame gameInstance) : SGameObject(gameInstance)
     {
         public MouseState MouseState => this._mouseState;
         public MouseState PreviousMouseState => this._previousMouseState;

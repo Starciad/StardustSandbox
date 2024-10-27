@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.GUI.Events;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Objects;
 
@@ -21,7 +22,7 @@ namespace StardustSandbox.Game.GUISystem
         private bool isActive;
         private bool isShowing;
 
-        public SGUISystem(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance)
+        public SGUISystem(ISGame gameInstance, SGUIEvents guiEvents) : base(gameInstance)
         {
             this.GUIEvents = guiEvents;
             this.layout = new(this.SGameInstance);

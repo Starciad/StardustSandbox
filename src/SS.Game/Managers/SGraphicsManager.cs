@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.IO;
 using StardustSandbox.Game.Models.Settings;
 using StardustSandbox.Game.Objects;
@@ -32,7 +33,7 @@ namespace StardustSandbox.Game.Managers
         private RenderTarget2D worldRenderTarget;
         private RenderTarget2D lightingRenderTarget;
 
-        public SGraphicsManager(SGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
+        public SGraphicsManager(ISGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
         {
             this._graphicsDeviceManager = graphicsDeviceManager;
             UpdateSettings();

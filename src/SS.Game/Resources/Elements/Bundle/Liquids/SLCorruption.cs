@@ -2,6 +2,7 @@
 
 using StardustSandbox.Game.Constants.Elements;
 using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements.Templates;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Rendering;
@@ -14,7 +15,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
 {
     public class SLCorruption : SLiquid, ISCorruption
     {
-        public SLCorruption(SGame gameInstance) : base(gameInstance)
+        public SLCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 016;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_17");

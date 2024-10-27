@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Databases;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.IO;
 using StardustSandbox.Game.Models.Settings;
 using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SCursorManager(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SCursorManager(ISGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [

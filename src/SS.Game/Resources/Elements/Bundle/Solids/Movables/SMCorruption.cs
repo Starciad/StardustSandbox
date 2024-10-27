@@ -2,6 +2,7 @@
 
 using StardustSandbox.Game.Constants.Elements;
 using StardustSandbox.Game.Elements.Templates.Solids.Movables;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements.Templates;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Rendering;
@@ -14,7 +15,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
 {
     public sealed class SMCorruption : SMovableSolid, ISCorruption
     {
-        public SMCorruption(SGame gameInstance) : base(gameInstance)
+        public SMCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 008;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_9");

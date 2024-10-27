@@ -3,13 +3,14 @@
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Enums.World;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.World.Data;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Game.World.Components
 {
-    public sealed class SWorldUpdatingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldUpdatingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private readonly SElementContext elementUpdateContext = new(worldInstance, gameInstance.ElementDatabase);
         private readonly List<Point> capturedSlots = [];

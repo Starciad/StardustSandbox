@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Collections;
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
@@ -26,7 +27,7 @@ namespace StardustSandbox.Game.World
         private readonly uint totalFramesUpdateDelay = 5;
         private uint currentFramesUpdateDelay;
 
-        public SWorld(SGame gameInstance) : base(gameInstance)
+        public SWorld(ISGame gameInstance) : base(gameInstance)
         {
             this._components = [
                 new SWorldChunkingComponent(gameInstance, this),

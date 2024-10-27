@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Game.Enums.InputSystem;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Managers;
 using StardustSandbox.Game.Objects;
 
@@ -31,21 +32,21 @@ namespace StardustSandbox.Game.InputSystem
         public delegate void Performed(CallbackContext context);
         public delegate void Canceled(CallbackContext context);
 
-        public SInputAction(SGame gameInstance, SInputManager inputManager, params Keys[] keys) : base(gameInstance)
+        public SInputAction(ISGame gameInstance, SInputManager inputManager, params Keys[] keys) : base(gameInstance)
         {
             this._inputManager = inputManager;
             this._keys = keys;
             this._mouseButtons = [];
         }
 
-        public SInputAction(SGame gameInstance, SInputManager inputManager, params SMouseButton[] mouseButtons) : base(gameInstance)
+        public SInputAction(ISGame gameInstance, SInputManager inputManager, params SMouseButton[] mouseButtons) : base(gameInstance)
         {
             this._inputManager = inputManager;
             this._keys = [];
             this._mouseButtons = mouseButtons;
         }
 
-        public SInputAction(SGame gameInstance, SInputManager inputManager, Keys[] keys, SMouseButton[] mouseButtons) : base(gameInstance)
+        public SInputAction(ISGame gameInstance, SInputManager inputManager, Keys[] keys, SMouseButton[] mouseButtons) : base(gameInstance)
         {
             this._inputManager = inputManager;
             this._keys = keys;

@@ -5,6 +5,7 @@ using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Resources.GUISystem.Elements.Graphics;
@@ -26,7 +27,7 @@ namespace StardustSandbox.Game.Resources.GUISystem.Bundle.Hud
 
         private readonly SGUI_HUD _guiHUD;
 
-        public SGUI_ItemExplorer(SGame gameInstance, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, guiEvents)
+        public SGUI_ItemExplorer(ISGame gameInstance, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, guiEvents)
         {
             this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
 

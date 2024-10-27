@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
@@ -6,7 +7,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
 {
     public class SLava : SLiquid
     {
-        public SLava(SGame gameInstance) : base(gameInstance)
+        public SLava(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 009;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_10");

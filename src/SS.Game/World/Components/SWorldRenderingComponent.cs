@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Managers;
 using StardustSandbox.Game.Mathematics.Primitives;
 
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.World.Components
 {
-    public sealed class SWorldRenderingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldRenderingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private readonly SElementContext elementRenderingContext = new(worldInstance, gameInstance.ElementDatabase);
 

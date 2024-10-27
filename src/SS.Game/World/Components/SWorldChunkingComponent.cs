@@ -2,11 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.World.Data;
 
 namespace StardustSandbox.Game.World.Components
 {
-    public sealed class SWorldChunkingComponent(SGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldChunkingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private int worldChunkWidth;
         private int worldChunkHeight;

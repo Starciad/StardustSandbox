@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.GUISystem.Elements;
+using StardustSandbox.Game.Interfaces;
 
 using System.Text;
 
@@ -22,7 +23,7 @@ namespace StardustSandbox.Game.Resources.GUISystem.Elements
         private Color topLeftBorderColor, topRightBorderColor, bottomLeftBorderColor, bottomRightBorderColor;
         private Vector2 borderOffset = Vector2.One;
 
-        public SGUILabelElement(SGame gameInstance) : base(gameInstance)
+        public SGUILabelElement(ISGame gameInstance) : base(gameInstance)
         {
             this.IsVisible = true;
         }

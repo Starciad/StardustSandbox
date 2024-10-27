@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Enums.GUI;
 using StardustSandbox.Game.GUISystem.Elements;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.GUI;
 using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
@@ -13,7 +14,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GUISystem
 {
-    public sealed class SGUILayout(SGame gameInstance) : SGameObject(gameInstance), ISGUILayoutBuilder
+    public sealed class SGUILayout(ISGame gameInstance) : SGameObject(gameInstance), ISGUILayoutBuilder
     {
         public SGUIRootElement RootElement => this.rootElement;
         public int ElementCount => this.elements.Count;

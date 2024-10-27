@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Background.Details;
 using StardustSandbox.Game.Collections;
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Mathematics.Primitives;
@@ -13,7 +14,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Controllers.Background
 {
-    internal sealed class SCloudController(SGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SCloudController(ISGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly SObjectPool cloudPool = new();

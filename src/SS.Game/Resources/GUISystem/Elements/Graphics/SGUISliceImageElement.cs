@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants.GUI.Elements;
 using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Interfaces;
 
 namespace StardustSandbox.Game.Resources.GUISystem.Elements.Graphics
 {
@@ -40,7 +41,7 @@ namespace StardustSandbox.Game.Resources.GUISystem.Elements.Graphics
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
-        public SGUISliceImageElement(SGame gameInstance) : base(gameInstance)
+        public SGUISliceImageElement(ISGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = true;
             this.IsVisible = true;

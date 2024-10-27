@@ -2,6 +2,7 @@
 
 using StardustSandbox.Game.Constants.Elements;
 using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements.Templates;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Rendering;
@@ -14,7 +15,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
 {
     public class SIMCorruption : SImmovableSolid, ISCorruption
     {
-        public SIMCorruption(SGame gameInstance) : base(gameInstance)
+        public SIMCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 017;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_18");

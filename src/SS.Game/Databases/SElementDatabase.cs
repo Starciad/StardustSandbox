@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Game.Elements;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SElementDatabase(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SElementDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly List<SElement> _registeredElements = [];
 

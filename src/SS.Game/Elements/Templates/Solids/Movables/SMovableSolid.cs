@@ -3,10 +3,11 @@
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Elements.Utilities;
 using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Interfaces;
 
 namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 {
-    public abstract class SMovableSolid(SGame gameInstance) : SSolid(gameInstance)
+    public abstract class SMovableSolid(ISGame gameInstance) : SSolid(gameInstance)
     {
         public override void OnBehaviourStep()
         {

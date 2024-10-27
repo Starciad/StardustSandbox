@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Game.InputSystem
 {
-    public sealed class SInputActionMapHandler(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SInputActionMapHandler(ISGame gameInstance) : SGameObject(gameInstance)
     {
         private readonly Dictionary<string, SInputActionMap> _maps = [];
 

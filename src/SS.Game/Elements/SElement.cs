@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Elements.Rendering;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
@@ -36,7 +37,7 @@ namespace StardustSandbox.Game.Elements
         public ISElementContext Context { get; internal set; }
         #endregion
 
-        public SElement(SGame gameInstance) : base(gameInstance)
+        public SElement(ISGame gameInstance) : base(gameInstance)
         {
             this.Rendering = new(gameInstance, this);
         }

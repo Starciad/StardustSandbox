@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Game.Elements.Templates.Solids.Movables;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
@@ -6,7 +7,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
 {
     public sealed class SSnow : SMovableSolid
     {
-        public SSnow(SGame gameInstance) : base(gameInstance)
+        public SSnow(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 007;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_8");

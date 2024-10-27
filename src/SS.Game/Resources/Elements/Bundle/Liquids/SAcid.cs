@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 using StardustSandbox.Game.World.Data;
@@ -11,7 +12,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
 {
     public class SAcid : SLiquid
     {
-        public SAcid(SGame gameInstance) : base(gameInstance)
+        public SAcid(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 010;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_11");

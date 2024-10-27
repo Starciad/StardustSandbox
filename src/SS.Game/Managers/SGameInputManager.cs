@@ -2,6 +2,7 @@
 
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.InputSystem;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.World;
@@ -10,7 +11,7 @@ using System;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed partial class SGameInputManager(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed partial class SGameInputManager(ISGame gameInstance) : SGameObject(gameInstance)
     {
         public SItem ItemSelected => this.itemSelected;
 

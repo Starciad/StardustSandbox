@@ -3,10 +3,11 @@ using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
+using StardustSandbox.Game.Interfaces;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SGUIDatabase(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {
         public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs];
 

@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Background;
 using StardustSandbox.Game.Controllers.Background;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Managers
 {
-    public sealed class SBackgroundManager(SGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SBackgroundManager(ISGame gameInstance) : SGameObject(gameInstance)
     {
         public Color SolidColor => this.solidColor;
 

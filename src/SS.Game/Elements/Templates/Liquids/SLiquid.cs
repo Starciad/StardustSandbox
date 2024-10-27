@@ -2,11 +2,12 @@
 
 using StardustSandbox.Game.Elements.Utilities;
 using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Templates.Liquids
 {
-    public abstract class SLiquid(SGame gameInstance) : SElement(gameInstance)
+    public abstract class SLiquid(ISGame gameInstance) : SElement(gameInstance)
     {
         public override void OnBehaviourStep()
         {

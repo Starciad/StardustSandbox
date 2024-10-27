@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Background
 {
-    public sealed class SBackgroundLayer(SGame gameInstance, Texture2D texture, Rectangle textureClippingRectangle, Vector2 parallaxFactor, bool lockX = false, bool lockY = false) : SGameObject(gameInstance)
+    public sealed class SBackgroundLayer(ISGame gameInstance, Texture2D texture, Rectangle textureClippingRectangle, Vector2 parallaxFactor, bool lockX = false, bool lockY = false) : SGameObject(gameInstance)
     {
         private Vector2 layerPosition = Vector2.Zero;
 

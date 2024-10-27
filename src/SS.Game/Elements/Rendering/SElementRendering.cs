@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Objects;
 
@@ -8,7 +9,7 @@ using System;
 
 namespace StardustSandbox.Game.Elements.Rendering
 {
-    public sealed class SElementRendering(SGame gameInstance, SElement element) : SGameObject(gameInstance)
+    public sealed class SElementRendering(ISGame gameInstance, SElement element) : SGameObject(gameInstance)
     {
         private SElementRenderingMechanism renderingMechanism;
 

@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.GUISystem.Elements;
+using StardustSandbox.Game.Interfaces;
 
 namespace StardustSandbox.Game.Resources.GUISystem.Elements.Graphics
 {
-    public abstract class SGUIGraphicElement(SGame gameInstance) : SGUIElement(gameInstance)
+    public abstract class SGUIGraphicElement(ISGame gameInstance) : SGUIElement(gameInstance)
     {
         public virtual Texture2D Texture { get; }
         public virtual Rectangle? TextureClipArea { get; }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Extensions;
+using StardustSandbox.Game.Interfaces;
 
 namespace StardustSandbox.Game.Resources.GUISystem.Elements.Graphics
 {
@@ -24,7 +25,7 @@ namespace StardustSandbox.Game.Resources.GUISystem.Elements.Graphics
         private float rotationAngle = 0f;
         private Vector2 scale = Vector2.One;
 
-        public SGUIImageElement(SGame gameInstance) : base(gameInstance)
+        public SGUIImageElement(ISGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = false;
             this.IsVisible = true;

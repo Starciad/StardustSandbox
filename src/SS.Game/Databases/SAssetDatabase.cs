@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
 
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.IO;
 
 namespace StardustSandbox.Game.Databases
 {
-    public sealed class SAssetDatabase(SGame gameInstance, ContentManager contentManager) : SGameObject(gameInstance)
+    public sealed class SAssetDatabase(ISGame gameInstance, ContentManager contentManager) : SGameObject(gameInstance)
     {
         private enum AssetType
         {

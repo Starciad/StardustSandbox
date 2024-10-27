@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Constants;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 
 namespace StardustSandbox.Game.Background.Details
 {
-    public sealed class SCloud(SGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
+    public sealed class SCloud(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {
         public Texture2D Texture => this.texture;
         public Vector2 Position => this.position;

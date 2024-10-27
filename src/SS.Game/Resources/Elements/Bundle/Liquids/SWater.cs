@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Elements.Templates.Liquids;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
@@ -13,7 +14,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
 {
     public class SWater : SLiquid
     {
-        public SWater(SGame gameInstance) : base(gameInstance)
+        public SWater(ISGame gameInstance) : base(gameInstance)
         {
             this.Id = 002;
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_3");

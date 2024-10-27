@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Databases;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.IO;
 using StardustSandbox.Game.Managers;
 using StardustSandbox.Game.Models.Settings;
@@ -13,7 +14,7 @@ using System;
 
 namespace StardustSandbox.Game
 {
-    public sealed class SGame : Microsoft.Xna.Framework.Game
+    public sealed class SGame : Microsoft.Xna.Framework.Game, ISGame
     {
         // Databases
         public SAssetDatabase AssetDatabase => this._assetDatabase;

@@ -2,6 +2,7 @@
 
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Elements.Templates.Solids.Movables;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Templates.Gases
@@ -12,7 +13,7 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
         Spread
     }
 
-    public abstract class SGas(SGame gameInstance) : SElement(gameInstance)
+    public abstract class SGas(ISGame gameInstance) : SElement(gameInstance)
     {
         public GasSpreadingType SpreadingType { get; protected set; }
 

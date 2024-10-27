@@ -5,6 +5,7 @@ using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Constants.GUI.Common;
 using StardustSandbox.Game.GUI.Events;
 using StardustSandbox.Game.GUISystem;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Items;
 using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Resources.GUISystem.Elements.Graphics;
@@ -18,7 +19,7 @@ namespace StardustSandbox.Game.Resources.GUISystem.Bundle.Hud
 
         private int slotSelectedIndex = 0;
 
-        public SGUI_HUD(SGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
+        public SGUI_HUD(ISGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
         {
             this.Name = SGUIConstants.HUD_NAME;
 

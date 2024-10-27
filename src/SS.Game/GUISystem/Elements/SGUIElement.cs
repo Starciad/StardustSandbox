@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Enums.GUI;
+using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.GUISystem.Elements
 {
-    public abstract class SGUIElement(SGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
+    public abstract class SGUIElement(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {
         public bool ShouldUpdate { get; set; }
         public bool IsVisible { get; set; }
