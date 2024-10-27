@@ -1,5 +1,5 @@
-﻿using StardustSandbox.Game.GameContent.GUISystem.Elements;
-using StardustSandbox.Game.GUISystem.Elements;
+﻿using StardustSandbox.Game.GUISystem.Elements;
+using StardustSandbox.Game.Resources.GUISystem.Elements;
 
 namespace StardustSandbox.Game.Interfaces.GUI
 {

@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Game.GameContent.GUISystem.GUIs.Hud;
+﻿using StardustSandbox.Game.Resources.GUISystem.Bundle.Hud;
 using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Objects;
 

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Game.Collections;
 using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.GameContent.World.Components;
 using StardustSandbox.Game.Interfaces.General;
 using StardustSandbox.Game.Mathematics.Primitives;
 using StardustSandbox.Game.Objects;
