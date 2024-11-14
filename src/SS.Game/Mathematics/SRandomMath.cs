@@ -11,6 +11,11 @@ namespace StardustSandbox.Game.Mathematics
             return _random.NextDouble();
         }
 
+        public static int Range(int max)
+        {
+            return _random.Next(max);
+        }
+
         public static int Range(int min, int max)
         {
             return _random.Next(min, max);

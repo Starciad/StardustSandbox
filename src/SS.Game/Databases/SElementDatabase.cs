@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
+using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
@@ -85,6 +86,9 @@ namespace StardustSandbox.Game.Databases
 
             // ID : 22
             RegisterElement(new SMountingBlock(this.SGameInstance));
+
+            // ID : 23
+            RegisterElement(new SFire(this.SGameInstance));
         }
 
         private void RegisterElement(SElement element)

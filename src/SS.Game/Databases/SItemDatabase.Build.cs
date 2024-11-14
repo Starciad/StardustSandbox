@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Game.Enums.Items;
+using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
@@ -15,6 +16,7 @@ namespace StardustSandbox.Game.Databases
             AddCategory("gases", "Gases", "", this.SGameInstance.AssetDatabase.GetTexture("icon_element_20"));
             AddCategory("solids", "Solids", "", this.SGameInstance.AssetDatabase.GetTexture("icon_element_13"));
             AddCategory("walls", "Walls", "", this.SGameInstance.AssetDatabase.GetTexture("icon_element_14"));
+            AddCategory("energies", "Energies", "", this.SGameInstance.AssetDatabase.GetTexture("icon_element_24"));
 
             // "electronics"
             // "explosives"
@@ -49,6 +51,7 @@ namespace StardustSandbox.Game.Databases
             AddItem("element_red_brick", "Red Brick", string.Empty, SItemContentType.Element, this.categories["solids"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_21"), typeof(SRedBrick));
             AddItem("element_tree_leaf", "Tree Leaf", string.Empty, SItemContentType.Element, this.categories["solids"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_22"), typeof(STreeLeaf));
             AddItem("element_mounting_block", "Mounting Block", string.Empty, SItemContentType.Element, this.categories["powders"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_23"), typeof(SMountingBlock));
+            AddItem("element_fire", "Fire", string.Empty, SItemContentType.Element, this.categories["energies"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_24"), typeof(SFire));
         }
     }
 }
