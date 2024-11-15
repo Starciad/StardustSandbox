@@ -6,17 +6,15 @@
 
 	<!-- HEADER -->
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Library</OutputType>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<RollForward>Major</RollForward>
 	</PropertyGroup>
 
 	<!-- SYSTEM -->
 	<PropertyGroup>
-		<AssemblyName>StardustSandbox</AssemblyName>
-		<RootNamespace>StardustSandbox.Game</RootNamespace>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<ApplicationIcon>icon.ico</ApplicationIcon>
+		<AssemblyName>StardustSandbox.Core</AssemblyName>
+		<RootNamespace>StardustSandbox.Core</RootNamespace>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -25,25 +23,6 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
 		<PackageReference Include="MessagePack" Version="3.0.214-rc.1" />
 		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
-	</ItemGroup>
-
-	<!-- PROJECTS -->
-	<ItemGroup>
-		<ProjectReference Include="..\SS.ContentBundle\StardustSandbox.WindowsDX.ContentBundle.csproj" />
-		<ProjectReference Include="..\SS.Core\StardustSandbox.WindowsDX.Core.csproj" />
-	</ItemGroup>
-
-	<!-- FILES (RESOURCE) -->
-	<ItemGroup>
-		<EmbeddedResource Include="icon.ico">
-			<LogicalName>Icon.ico</LogicalName>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</EmbeddedResource>
-
-		<EmbeddedResource Include="icon.bmp">
-			<LogicalName>Icon.bmp</LogicalName>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</EmbeddedResource>
 	</ItemGroup>
 
 	<!-- BEAUTY (BUILD) -->

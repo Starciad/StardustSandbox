@@ -5,6 +5,10 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustSandbox.WindowsDX.Game", "SS.Game\StardustSandbox.WindowsDX.Game.csproj", "{2DCB0206-EE6A-4E11-8037-98B932C8FD43}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustSandbox.WindowsDX.Core", "SS.Core\StardustSandbox.WindowsDX.Core.csproj", "{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustSandbox.WindowsDX.ContentBundle", "SS.ContentBundle\StardustSandbox.WindowsDX.ContentBundle.csproj", "{B1354C63-AE9C-414B-95C7-E6DA51224557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{2DCB0206-EE6A-4E11-8037-98B932C8FD43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DCB0206-EE6A-4E11-8037-98B932C8FD43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DCB0206-EE6A-4E11-8037-98B932C8FD43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

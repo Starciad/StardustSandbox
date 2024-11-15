@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Game.IO;
+﻿using StardustSandbox.ContentBundle;
+using StardustSandbox.Core;
+using StardustSandbox.Core.IO;
 
 using System;
 
@@ -7,7 +9,7 @@ using System.Windows.Forms;
 #endif
 
 #if !DEBUG
-using StardustSandbox.Game.Constants;
+using StardustSandbox.Core.Constants;
 using System.Text;
 #endif
 
@@ -35,19 +37,19 @@ namespace StardustSandbox.Game
 #if DEBUG
         private static void EXECUTE_DEBUG_VERSION()
         {
-            using SGame game = new();
-            game.Exiting += OnGameExiting;
-            game.Run();
+            using SStardustSandboxEngine stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
+            stardustSandboxEngine.Start();
         }
 #else
         private static void EXECUTE_PUBLISHED_VERSION()
         {
-            using SGame game = new();
-            game.Exiting += OnGameExiting;
+            using SStardustSandboxEngine stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
 
             try
             {
-                game.Run();
+                stardustSandboxEngine.Start();
             }
             catch (Exception e)
             {
@@ -55,8 +57,8 @@ namespace StardustSandbox.Game
             }
             finally
             {
-                game.Exit();
-                game.Dispose();
+                stardustSandboxEngine.Stop();
+                stardustSandboxEngine.Dispose();
             }
         }
 
@@ -77,10 +79,5 @@ namespace StardustSandbox.Game
 #endif
         }
 #endif
-
-        private static void OnGameExiting(object sender, EventArgs e)
-        {
-            return;
-        }
     }
 }
