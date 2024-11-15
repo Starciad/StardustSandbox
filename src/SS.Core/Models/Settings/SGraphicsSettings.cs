@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Models.Settings
 
         public SGraphicsSettings()
         {
-            SSize2 resolution = SScreenConstants.RESOLUTIONS[3];
+            SSize2 resolution = SScreenConstants.RESOLUTIONS[4];
 
             this.ScreenWidth = (int)resolution.Width;
             this.ScreenHeight = (int)resolution.Height;

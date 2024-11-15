@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Constants;
+
 namespace StardustSandbox.Core
 {
     public sealed partial class SGame
@@ -48,9 +50,13 @@ namespace StardustSandbox.Core
             #endregion
 
             #region RENDERING (FINAL)
-            Vector2 scaleFactor = Vector2.One;
-
             this.GraphicsDevice.SetRenderTarget(null);
+
+            Vector2 scaleFactor = new(
+                this._graphicsManager.GraphicsDeviceManager.PreferredBackBufferWidth / (float)SScreenConstants.DEFAULT_SCREEN_WIDTH,
+                this._graphicsManager.GraphicsDeviceManager.PreferredBackBufferHeight / (float)SScreenConstants.DEFAULT_SCREEN_HEIGHT
+            );
+
             this.GraphicsDevice.Clear(Color.Black);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this._sb.Draw(this._graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scaleFactor, SpriteEffects.None, 0f);
