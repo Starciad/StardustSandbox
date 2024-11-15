@@ -9,7 +9,7 @@
 
         #region GRAPHICS
         // Elements
-        public const byte GRAPHICS_ELEMENTS_LENGTH = 23;
+        public const byte GRAPHICS_ELEMENTS_LENGTH = 24;
 
         // Particles
         public const byte GRAPHICS_PARTICLES_LENGTH = 1;
@@ -31,7 +31,7 @@
         public const byte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 6;
 
         // Icons
-        public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 23;
+        public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 24;
         public const byte GRAPHICS_ICONS_GUI_LENGTH = 14;
 
         // Game

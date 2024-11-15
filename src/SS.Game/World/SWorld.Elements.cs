@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Interfaces.General;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.World.Data;
 
 using System;
@@ -11,7 +11,7 @@ namespace StardustSandbox.Game.World
 {
     public sealed partial class SWorld : ISElementManager
     {
-        public void InstantiateElement<T>(Point pos) where T : SElement
+        public void InstantiateElement<T>(Point pos) where T : ISElement
         {
             InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
@@ -19,11 +19,11 @@ namespace StardustSandbox.Game.World
         {
             InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
         }
-        public void InstantiateElement(Point pos, SElement value)
+        public void InstantiateElement(Point pos, ISElement value)
         {
             _ = TryInstantiateElement(pos, value);
         }
-        public bool TryInstantiateElement<T>(Point pos) where T : SElement
+        public bool TryInstantiateElement<T>(Point pos) where T : ISElement
         {
             return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
@@ -31,7 +31,7 @@ namespace StardustSandbox.Game.World
         {
             return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
         }
-        public bool TryInstantiateElement(Point pos, SElement value)
+        public bool TryInstantiateElement(Point pos, ISElement value)
         {
             if (!InsideTheWorldDimensions(pos) || !IsEmptyElementSlot(pos))
             {
@@ -113,7 +113,7 @@ namespace StardustSandbox.Game.World
             return true;
         }
 
-        public void ReplaceElement<T>(Point pos) where T : SElement
+        public void ReplaceElement<T>(Point pos) where T : ISElement
         {
             _ = TryReplaceElement<T>(pos);
         }
@@ -121,11 +121,11 @@ namespace StardustSandbox.Game.World
         {
             _ = TryReplaceElement(pos, id);
         }
-        public void ReplaceElement(Point pos, SElement value)
+        public void ReplaceElement(Point pos, ISElement value)
         {
             _ = TryReplaceElement(pos, value);
         }
-        public bool TryReplaceElement<T>(Point pos) where T : SElement
+        public bool TryReplaceElement<T>(Point pos) where T : ISElement
         {
             return TryDestroyElement(pos) && TryInstantiateElement<T>(pos);
         }
@@ -133,17 +133,17 @@ namespace StardustSandbox.Game.World
         {
             return TryDestroyElement(pos) && TryInstantiateElement(pos, id);
         }
-        public bool TryReplaceElement(Point pos, SElement value)
+        public bool TryReplaceElement(Point pos, ISElement value)
         {
             return TryDestroyElement(pos) && TryInstantiateElement(pos, value);
         }
 
-        public SElement GetElement(Point pos)
+        public ISElement GetElement(Point pos)
         {
-            _ = TryGetElement(pos, out SElement value);
+            _ = TryGetElement(pos, out ISElement value);
             return value;
         }
-        public bool TryGetElement(Point pos, out SElement value)
+        public bool TryGetElement(Point pos, out ISElement value)
         {
             if (!InsideTheWorldDimensions(pos) ||
                  IsEmptyElementSlot(pos))
@@ -156,12 +156,12 @@ namespace StardustSandbox.Game.World
             return true;
         }
 
-        public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos)
+        public ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors(Point pos)
         {
-            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors);
+            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors);
             return neighbors;
         }
-        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
         {
             neighbors = default;
 
@@ -172,13 +172,13 @@ namespace StardustSandbox.Game.World
 
             Point[] neighborsPositions = GetElementNeighborPositions(pos);
 
-            (Point, SWorldSlot)[] slotsFound = new (Point, SWorldSlot)[neighborsPositions.Length];
+            (Point, ISWorldSlot)[] slotsFound = new (Point, ISWorldSlot)[neighborsPositions.Length];
             int count = 0;
 
             for (int i = 0; i < neighborsPositions.Length; i++)
             {
                 Point position = neighborsPositions[i];
-                if (TryGetElementSlot(position, out SWorldSlot value))
+                if (TryGetElementSlot(position, out ISWorldSlot value))
                 {
                     slotsFound[count] = (position, value);
                     count++;
@@ -187,19 +187,19 @@ namespace StardustSandbox.Game.World
 
             if (count > 0)
             {
-                neighbors = new ReadOnlySpan<(Point, SWorldSlot)>(slotsFound, 0, count);
+                neighbors = new ReadOnlySpan<(Point, ISWorldSlot)>(slotsFound, 0, count);
                 return true;
             }
 
             return false;
         }
 
-        public SWorldSlot GetElementSlot(Point pos)
+        public ISWorldSlot GetElementSlot(Point pos)
         {
-            _ = TryGetElementSlot(pos, out SWorldSlot value);
+            _ = TryGetElementSlot(pos, out ISWorldSlot value);
             return value;
         }
-        public bool TryGetElementSlot(Point pos, out SWorldSlot value)
+        public bool TryGetElementSlot(Point pos, out ISWorldSlot value)
         {
             value = default;
             if (!InsideTheWorldDimensions(pos) ||

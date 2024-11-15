@@ -2,9 +2,9 @@
 
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
 using StardustSandbox.Game.Resources.Elements.Rendering;
-using StardustSandbox.Game.World.Data;
 
 using System;
 
@@ -14,25 +14,27 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
     {
         public SAcid(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 010;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_11");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 10;
-            this.EnableNeighborsAction = true;
+            this.id = 010;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_11");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 10;
+            this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
         {
-            foreach ((Point, SWorldSlot) neighbor in neighbors)
+            for (int i = 0; i < length; i++)
             {
-                if (neighbor.Item2.Element is SAcid ||
-                    neighbor.Item2.Element is SWall)
+                (Point position, ISWorldSlot slot) = neighbors[i];
+
+                if (slot.Element is SAcid ||
+                    slot.Element is SWall)
                 {
                     continue;
                 }
 
                 this.Context.DestroyElement();
-                this.Context.DestroyElement(neighbor.Item1);
+                this.Context.DestroyElement(position);
             }
         }
     }

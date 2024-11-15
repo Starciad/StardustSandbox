@@ -1,20 +1,23 @@
 ﻿using StardustSandbox.Game.Constants.Elements;
-using StardustSandbox.Game.Elements.Templates.Solids.Movables;
+using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 using StardustSandbox.Game.World.Data;
 
-namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
+namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
 {
-    public sealed class SMountingBlock : SMovableSolid
+    public sealed class SMountingBlock : SImmovableSolid
     {
         public SMountingBlock(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 022;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_23");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
-            this.DefaultTemperature = 20;
+            this.id = 022;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_23");
+            this.rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
+            this.defaultTemperature = 20;
+            this.enableFlammability = true;
+            this.defaultFlammabilityResistance = 150;
         }
 
         protected override void OnAwakeStep(SWorldSlot worldSlot)
@@ -26,7 +29,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
         {
             if (currentValue > 300)
             {
-                this.Context.DestroyElement();
+                this.Context.ReplaceElement<SFire>();
             }
         }
     }

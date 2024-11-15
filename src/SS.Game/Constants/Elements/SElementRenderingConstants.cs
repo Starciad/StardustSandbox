@@ -3,8 +3,8 @@
     public static class SElementRenderingConstants
     {
         #region SPRITES
-        public const int SPRITE_DIVISIONS_LENGTH = 4;
-        public const int SPRITE_SLICE_SIZE = 16;
+        public const byte SPRITE_DIVISIONS_LENGTH = 4;
+        public const byte SPRITE_SLICE_SIZE = 16;
 
         public const float SPRITE_X_OFFSET = 0.5f;
         public const float SPRITE_Y_OFFSET = 0.5f;

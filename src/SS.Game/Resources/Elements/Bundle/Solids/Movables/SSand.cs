@@ -9,10 +9,10 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
     {
         public SSand(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 006;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_7");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 22;
+            this.id = 006;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_7");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 22;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

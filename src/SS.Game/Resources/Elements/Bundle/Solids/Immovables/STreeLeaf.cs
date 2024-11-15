@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
 namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
@@ -8,17 +9,19 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
     {
         public STreeLeaf(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 021;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_22");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 22;
+            this.id = 021;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_22");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 22;
+            this.enableFlammability = true;
+            this.defaultFlammabilityResistance = 5;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue >= 250)
             {
-                this.Context.DestroyElement();
+                this.Context.ReplaceElement<SFire>();
             }
         }
     }
