@@ -24,12 +24,14 @@ namespace StardustSandbox.Game.Elements
         #region Settings (Defaults)
         public int DefaultDispersionRate { get; protected set; } = 1;
         public short DefaultTemperature { get; protected set; }
+        public short DefaultFlammabilityResistance { get; protected set; }
         #endregion
 
         #region Settings (Enables)
         public bool EnableDefaultBehaviour { get; protected set; } = true;
         public bool EnableNeighborsAction { get; protected set; }
         public bool EnableTemperature { get; protected set; } = true;
+        public bool EnableFlammability { get; protected set; }
         #endregion
 
         #region Helpers

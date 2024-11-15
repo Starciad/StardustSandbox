@@ -12,6 +12,8 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
             this.Texture = gameInstance.AssetDatabase.GetTexture("element_22");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.DefaultTemperature = 22;
+            this.EnableFlammability = true;
+            this.DefaultFlammabilityResistance = 5;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

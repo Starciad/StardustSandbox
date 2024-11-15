@@ -13,7 +13,10 @@ namespace StardustSandbox.Game.Constants.Elements
         public const int CHANCE_OF_FIRE_TO_DISAPPEAR = 15;
 
         public const int CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL = 100;
-        public const int CHANCE_FOR_FIRE_TO_LEAVE_SMOKE = 32;
+        public const int CHANCE_FOR_FIRE_TO_LEAVE_SMOKE = 25;
+
+        public const int FIRE_HEAT_VALUE = 5;
+        public const int CHANCE_OF_COMBUSTION = 25;
 
         // Mounting Block
         public static readonly Color[] COLORS_OF_MOUNTING_BLOCKS = [

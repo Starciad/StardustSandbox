@@ -58,14 +58,36 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Energies
         {
             for (int i = 0; i < length; i++)
             {
-                SWorldSlot slot = neighbors[i].Item2;
+                (Point position, SWorldSlot slot) = neighbors[i];
+                SElement element = slot.Element;
 
-                if (slot == null)
+                if (slot == null || element == null)
                 {
                     continue;
                 }
 
-                slot.SetTemperatureValue(slot.Temperature + 1);
+                // Increase neighboring temperature by fire's heat value
+                this.Context.TrySetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
+
+                // Check if the element is flammable
+                if (element.EnableFlammability)
+                {
+                    // Adjust combustion chance based on the element's flammability resistance
+                    int combustionChance = SElementConstants.CHANCE_OF_COMBUSTION;
+                    bool isAbove = position.Y < this.Context.Position.Y;
+
+                    // Increase chance of combustion if the element is directly above
+                    if (isAbove)
+                    {
+                        combustionChance += 10;
+                    }
+
+                    // Attempt combustion based on flammabilityResistance
+                    if (SRandomMath.Chance(combustionChance, 100 + element.DefaultFlammabilityResistance))
+                    {
+                        this.Context.ReplaceElement<SFire>(position);
+                    }
+                }
             }
         }
     }
