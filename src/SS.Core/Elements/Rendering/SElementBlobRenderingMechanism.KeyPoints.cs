@@ -3,7 +3,7 @@
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 
-namespace StardustSandbox.Core.Resources.Elements.Rendering
+namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {

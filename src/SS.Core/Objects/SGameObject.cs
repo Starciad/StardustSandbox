@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Objects
 {

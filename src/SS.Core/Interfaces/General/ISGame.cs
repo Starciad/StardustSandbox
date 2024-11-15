@@ -1,9 +1,8 @@
 ﻿using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.World;
 
-namespace StardustSandbox.Core.Interfaces
+namespace StardustSandbox.Core.Interfaces.General
 {
     public interface ISGame
     {

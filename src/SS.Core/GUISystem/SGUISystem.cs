@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.GUI.Events;
+using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.GUISystem.Events;
 
 namespace StardustSandbox.Core.GUISystem
 {

@@ -2,7 +2,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Objects;

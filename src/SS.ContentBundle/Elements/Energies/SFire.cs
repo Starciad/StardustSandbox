@@ -4,8 +4,8 @@ using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Energies;
-using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 

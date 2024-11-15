@@ -3,8 +3,8 @@
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
 {

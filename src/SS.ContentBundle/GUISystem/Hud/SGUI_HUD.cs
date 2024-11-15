@@ -5,10 +5,10 @@ using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.GUISystem.Events;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Game.GUI.Events;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Hud
 {

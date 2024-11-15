@@ -9,7 +9,7 @@ using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.Elements;
 
-namespace StardustSandbox.Core.Resources.Elements.Rendering
+namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {

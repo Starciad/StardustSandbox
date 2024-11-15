@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Game.Resources.Elements.Rendering;
 
 using System;
 
