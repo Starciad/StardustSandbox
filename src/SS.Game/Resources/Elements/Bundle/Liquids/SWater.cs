@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
 using StardustSandbox.Game.Resources.Elements.Rendering;
@@ -43,6 +44,12 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
                         this.Context.ReplaceElement<SSand>(neighbor.Item1);
                         return;
                     }
+                }
+
+                if (neighbor.Item2.Element is SFire)
+                {
+                    this.Context.DestroyElement(neighbor.Item1);
+                    return;
                 }
             }
         }

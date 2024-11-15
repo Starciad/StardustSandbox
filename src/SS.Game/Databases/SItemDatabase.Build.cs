@@ -50,7 +50,7 @@ namespace StardustSandbox.Game.Databases
             AddItem("element_smoke", "Smoke", string.Empty, SItemContentType.Element, this.categories["gases"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_20"), typeof(SSmoke));
             AddItem("element_red_brick", "Red Brick", string.Empty, SItemContentType.Element, this.categories["solids"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_21"), typeof(SRedBrick));
             AddItem("element_tree_leaf", "Tree Leaf", string.Empty, SItemContentType.Element, this.categories["solids"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_22"), typeof(STreeLeaf));
-            AddItem("element_mounting_block", "Mounting Block", string.Empty, SItemContentType.Element, this.categories["powders"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_23"), typeof(SMountingBlock));
+            AddItem("element_mounting_block", "Mounting Block", string.Empty, SItemContentType.Element, this.categories["solids"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_23"), typeof(SMountingBlock));
             AddItem("element_fire", "Fire", string.Empty, SItemContentType.Element, this.categories["energies"], this.SGameInstance.AssetDatabase.GetTexture("icon_element_24"), typeof(SFire));
         }
     }

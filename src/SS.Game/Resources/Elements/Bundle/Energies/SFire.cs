@@ -3,10 +3,6 @@
 using StardustSandbox.Game.Constants.Elements;
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Templates.Energies;
-using StardustSandbox.Game.Elements.Templates.Liquids;
-using StardustSandbox.Game.Elements.Templates.Solids.Movables;
-using StardustSandbox.Game.Elements.Utilities;
-using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
@@ -67,7 +63,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Energies
                 }
 
                 // Increase neighboring temperature by fire's heat value
-                this.Context.TrySetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
+                _ = this.Context.TrySetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
 
                 // Check if the element is flammable
                 if (element.EnableFlammability)

@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.Game.Elements.Templates.Solids.Movables;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
 namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
@@ -20,7 +21,7 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
         {
             if (currentValue > 200)
             {
-                this.Context.DestroyElement();
+                this.Context.ReplaceElement<SFire>();
             }
         }
     }
