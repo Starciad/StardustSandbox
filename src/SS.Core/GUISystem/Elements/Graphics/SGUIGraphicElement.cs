@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.GUISystem.Elements.Graphics
 {

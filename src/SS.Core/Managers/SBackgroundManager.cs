@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Background;
 using StardustSandbox.Core.Controllers.Background;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Managers

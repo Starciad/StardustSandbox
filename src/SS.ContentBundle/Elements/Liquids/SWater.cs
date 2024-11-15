@@ -3,11 +3,11 @@
 using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Game.Resources.Elements.Rendering;
 
 using System;
 

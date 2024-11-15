@@ -5,7 +5,7 @@ using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle
 {

@@ -2,7 +2,7 @@
 
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.Elements.Templates.Liquids

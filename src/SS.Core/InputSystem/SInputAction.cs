@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Enums.InputSystem;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Objects;
 

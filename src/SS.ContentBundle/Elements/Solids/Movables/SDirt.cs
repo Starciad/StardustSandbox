@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Core.Elements.Templates.Solids.Movables;
-using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Game.Resources.Elements.Rendering;
+﻿using StardustSandbox.Core.Elements.Rendering;
+using StardustSandbox.Core.Elements.Templates.Solids.Movables;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {

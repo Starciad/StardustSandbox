@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Interfaces;
+﻿using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.GUISystem.Elements
 {

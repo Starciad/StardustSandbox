@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Interfaces;
+﻿using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World;
 

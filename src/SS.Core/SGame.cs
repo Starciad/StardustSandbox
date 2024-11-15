@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Models.Settings;

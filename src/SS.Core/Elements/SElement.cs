@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Elements.Rendering;
-using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Objects;
