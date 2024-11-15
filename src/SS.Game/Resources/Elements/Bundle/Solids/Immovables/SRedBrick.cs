@@ -9,10 +9,10 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
     {
         public SRedBrick(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 020;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_21");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 25;
+            this.id = 020;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_21");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 25;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

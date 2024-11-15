@@ -9,7 +9,7 @@ namespace StardustSandbox.Game.Elements.Templates.Liquids
 {
     public abstract class SLiquid(ISGame gameInstance) : SElement(gameInstance)
     {
-        public override void OnBehaviourStep()
+        protected override void OnBehaviourStep()
         {
             Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Down);
 

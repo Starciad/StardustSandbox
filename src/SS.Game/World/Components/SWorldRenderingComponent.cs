@@ -5,6 +5,7 @@ using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Managers;
 using StardustSandbox.Game.Mathematics.Primitives;
 
@@ -14,7 +15,7 @@ namespace StardustSandbox.Game.World.Components
 {
     public sealed class SWorldRenderingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
-        private readonly SElementContext elementRenderingContext = new(worldInstance, gameInstance.ElementDatabase);
+        private readonly SElementContext elementRenderingContext = new(worldInstance);
 
         private Texture2D _gridTexture;
 
@@ -75,13 +76,14 @@ namespace StardustSandbox.Game.World.Components
             {
                 if (!this.SWorldInstance.IsEmptyElementSlot(position))
                 {
-                    SElement element = this.SWorldInstance.GetElementSlot(position).Element;
+                    ISElement element = this.SWorldInstance.GetElementSlot(position).Element;
 
                     this.elementRenderingContext.UpdateInformation(this.SWorldInstance.GetElementSlot(position), position);
 
                     element.Context = this.elementRenderingContext;
-                    element.Draw(gameTime, spriteBatch);
+                    ((SElement)element).Draw(gameTime, spriteBatch);
 
+                    // [ DEBUG ]
                     //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);
                 }
             }

@@ -3,6 +3,7 @@
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Elements.Templates.Solids.Movables;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.Elements.Templates.Gases
@@ -17,7 +18,7 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
     {
         public GasSpreadingType SpreadingType { get; protected set; }
 
-        public override void OnBehaviourStep()
+        protected override void OnBehaviourStep()
         {
             switch (this.SpreadingType)
             {
@@ -43,8 +44,10 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
                 new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
             ];
 
-            foreach (Point targetPos in targets)
+            for (int i = 0; i < targets.Length; i++)
             {
+                Point targetPos = targets[i];
+
                 if (this.Context.IsEmptyElementSlot(targetPos))
                 {
                     if (this.Context.TrySetPosition(targetPos))
@@ -53,7 +56,7 @@ namespace StardustSandbox.Game.Elements.Templates.Gases
                     }
                 }
 
-                if (this.Context.TryGetElement(targetPos, out SElement value))
+                if (this.Context.TryGetElement(targetPos, out ISElement value))
                 {
                     if ((value is SLiquid || value is SMovableSolid) && this.Context.TrySwappingElements(targetPos))
                     {

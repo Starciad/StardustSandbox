@@ -8,10 +8,10 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Gases
     {
         public SSmoke(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 019;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_20");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 100;
+            this.id = 019;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_20");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 100;
         }
     }
 }

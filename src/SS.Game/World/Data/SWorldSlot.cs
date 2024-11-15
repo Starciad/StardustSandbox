@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Interfaces.General;
+using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.Mathematics;
 
 namespace StardustSandbox.Game.World.Data
 {
-    public sealed class SWorldSlot : ISPoolableObject
+    public sealed class SWorldSlot : ISWorldSlot
     {
-        public SElement Element => this.element;
+        public ISElement Element => this.element;
         public bool IsEmpty => this.isEmpty;
         public short Temperature => this.temperature;
         public bool FreeFalling => this.freeFalling;
@@ -19,14 +19,14 @@ namespace StardustSandbox.Game.World.Data
         private bool freeFalling;
         private Color color;
 
-        private SElement element;
+        private ISElement element;
 
         public SWorldSlot()
         {
             Reset();
         }
 
-        public void Instantiate(SElement value)
+        public void Instantiate(ISElement value)
         {
             this.isEmpty = false;
             this.temperature = value.DefaultTemperature;
@@ -34,7 +34,6 @@ namespace StardustSandbox.Game.World.Data
             this.color = Color.White;
 
             this.element = value;
-            this.element?.AwakeStep(this);
         }
 
         public void Destroy()

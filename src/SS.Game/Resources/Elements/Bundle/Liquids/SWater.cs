@@ -2,12 +2,12 @@
 
 using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
 using StardustSandbox.Game.Resources.Elements.Rendering;
-using StardustSandbox.Game.World.Data;
 
 using System;
 
@@ -17,38 +17,40 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
     {
         public SWater(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 002;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_3");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultDispersionRate = 3;
-            this.DefaultTemperature = 25;
-            this.EnableNeighborsAction = true;
+            this.id = 002;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultDispersionRate = 3;
+            this.defaultTemperature = 25;
+            this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
         {
-            foreach ((Point, SWorldSlot) neighbor in neighbors)
+            for (int i = 0; i < length; i++)
             {
-                if (neighbor.Item2.Element is SDirt)
+                (Point position, ISWorldSlot slot) = neighbors[i];
+
+                if (slot.Element is SDirt)
                 {
                     this.Context.DestroyElement();
-                    this.Context.ReplaceElement<SMud>(neighbor.Item1);
+                    this.Context.ReplaceElement<SMud>(position);
                     return;
                 }
 
-                if (neighbor.Item2.Element is SStone)
+                if (slot.Element is SStone)
                 {
                     if (SRandomMath.Range(0, 150) == 0)
                     {
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement<SSand>(neighbor.Item1);
+                        this.Context.ReplaceElement<SSand>(position);
                         return;
                     }
                 }
 
-                if (neighbor.Item2.Element is SFire)
+                if (slot.Element is SFire)
                 {
-                    this.Context.DestroyElement(neighbor.Item1);
+                    this.Context.DestroyElement(position);
                     return;
                 }
             }
