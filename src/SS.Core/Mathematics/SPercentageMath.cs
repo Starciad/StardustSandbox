@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.Game.Mathematics
+namespace StardustSandbox.Core.Mathematics
 {
     public static class SPercentageMath
     {

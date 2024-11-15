@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Enums.Items;
+using StardustSandbox.Core.Enums.Items;
 
 using System;
 
-namespace StardustSandbox.Game.Items
+namespace StardustSandbox.Core.Items
 {
     public sealed class SItem(string identifier, string displayName, string description, SItemContentType contentType, SItemCategory category, Texture2D iconTexture, Type referencedType)
     {

@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Constants.GUI.Common
+﻿namespace StardustSandbox.Core.Constants.GUI.Common
 {
     public static class SItemExplorerConstants
     {

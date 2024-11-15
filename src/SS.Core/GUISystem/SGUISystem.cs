@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.Core.Objects;
 using StardustSandbox.Game.GUI.Events;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.GUI;
-using StardustSandbox.Game.Objects;
 
-namespace StardustSandbox.Game.GUISystem
+namespace StardustSandbox.Core.GUISystem
 {
     public abstract class SGUISystem : SGameObject
     {

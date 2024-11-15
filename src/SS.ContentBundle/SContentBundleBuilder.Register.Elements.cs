@@ -1,10 +1,5 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
-using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
-using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
+﻿using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle
 {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces.World;
+using StardustSandbox.Core.Interfaces.World;
 
 using System;
 
-namespace StardustSandbox.Game.Interfaces.Elements
+namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementManager
     {

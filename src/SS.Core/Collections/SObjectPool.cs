@@ -1,8 +1,8 @@
-﻿using StardustSandbox.Game.Interfaces.General;
+﻿using StardustSandbox.Core.Interfaces.General;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Collections
+namespace StardustSandbox.Core.Collections
 {
     public sealed class SObjectPool
     {

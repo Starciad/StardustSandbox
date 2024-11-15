@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.Interfaces;
+﻿using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Game.Elements.Templates.Solids.Immovables
+namespace StardustSandbox.Core.Elements.Templates.Solids.Immovables
 {
     public abstract class SImmovableSolid(ISGame gameInstance) : SSolid(gameInstance)
     {

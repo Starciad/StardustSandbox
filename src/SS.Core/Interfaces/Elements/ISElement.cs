@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Elements.Rendering;
+using StardustSandbox.Core.Elements.Rendering;
 
-namespace StardustSandbox.Game.Interfaces.Elements
+namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElement
     {

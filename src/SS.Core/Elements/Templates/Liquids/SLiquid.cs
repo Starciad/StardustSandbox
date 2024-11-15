@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Utilities;
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Core.Elements.Utilities;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.Game.Elements.Templates.Liquids
+namespace StardustSandbox.Core.Elements.Templates.Liquids
 {
     public abstract class SLiquid(ISGame gameInstance) : SElement(gameInstance)
     {

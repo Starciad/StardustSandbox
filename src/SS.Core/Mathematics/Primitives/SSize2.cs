@@ -2,7 +2,7 @@
 
 using System;
 
-namespace StardustSandbox.Game.Mathematics.Primitives
+namespace StardustSandbox.Core.Mathematics.Primitives
 {
     public struct SSize2 : IEquatable<SSize2>
     {

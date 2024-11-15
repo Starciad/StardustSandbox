@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.Mathematics.Primitives;
+﻿using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.Game.Constants
+namespace StardustSandbox.Core.Constants
 {
     public static class SWorldConstants
     {

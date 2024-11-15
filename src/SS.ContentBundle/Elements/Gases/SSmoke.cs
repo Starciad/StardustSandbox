@@ -1,8 +1,8 @@
-﻿using StardustSandbox.Game.Elements.Templates.Gases;
-using StardustSandbox.Game.Interfaces;
+﻿using StardustSandbox.Core.Elements.Templates.Gases;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
-namespace StardustSandbox.Game.Resources.Elements.Bundle.Gases
+namespace StardustSandbox.ContentBundle.Elements.Gases
 {
     public class SSmoke : SGas
     {

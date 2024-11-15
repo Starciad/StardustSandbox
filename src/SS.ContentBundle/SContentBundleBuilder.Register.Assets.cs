@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces;
 
 using System.IO;
 

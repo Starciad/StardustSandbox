@@ -1,9 +1,9 @@
-﻿using StardustSandbox.Game.Constants;
+﻿using StardustSandbox.Core.Constants;
 
 using System;
 using System.IO;
 
-namespace StardustSandbox.Game.IO
+namespace StardustSandbox.Core.IO
 {
     public static class SFile
     {

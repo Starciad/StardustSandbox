@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Game.Managers
+namespace StardustSandbox.Core.Managers
 {
     public sealed class SShaderManager(ISGame gameInstance) : SGameObject(gameInstance)
     {

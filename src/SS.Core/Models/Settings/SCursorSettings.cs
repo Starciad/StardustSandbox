@@ -2,7 +2,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.Game.Models.Settings
+namespace StardustSandbox.Core.Models.Settings
 {
     [MessagePackObject]
     public struct SCursorSettings

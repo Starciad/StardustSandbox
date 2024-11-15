@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Databases
+namespace StardustSandbox.Core.Databases
 {
     public sealed class SAssetDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {

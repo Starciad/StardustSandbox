@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
-using StardustSandbox.Game.Constants.GUI;
+using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Plugins;
 
 namespace StardustSandbox.Game
 {

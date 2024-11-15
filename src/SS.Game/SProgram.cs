@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.ContentBundle;
 using StardustSandbox.Core;
-using StardustSandbox.Game.IO;
+using StardustSandbox.Core.IO;
 
 using System;
 

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
-using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Core
+namespace StardustSandbox.Core.Plugins
 {
     public abstract partial class SPluginBuilder
     {

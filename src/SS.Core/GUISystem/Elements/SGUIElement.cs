@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Enums.GUI;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.General;
-using StardustSandbox.Game.Mathematics.Primitives;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Enums.GUI;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.GUISystem.Elements
+namespace StardustSandbox.Core.GUISystem.Elements
 {
     public abstract class SGUIElement(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {

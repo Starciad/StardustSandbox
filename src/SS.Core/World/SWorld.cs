@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Collections;
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.General;
-using StardustSandbox.Game.Mathematics.Primitives;
-using StardustSandbox.Game.Objects;
-using StardustSandbox.Game.World.Components;
-using StardustSandbox.Game.World.Data;
+using StardustSandbox.Core.Collections;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.Objects;
+using StardustSandbox.Core.World.Components;
+using StardustSandbox.Core.World.Data;
 
 using System;
 

@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Elements.Contexts;
-using StardustSandbox.Game.Enums.World;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.World;
+using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Game.World;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.World.Components
+namespace StardustSandbox.Core.World.Components
 {
     public sealed class SWorldUpdatingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {

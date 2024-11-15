@@ -1,24 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Constants.Elements;
-using StardustSandbox.Game.Elements.Templates.Solids.Movables;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements.Templates;
-using StardustSandbox.Game.Interfaces.World;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.ContentBundle.Elements.Utilities;
+using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements.Templates;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Rendering;
-using StardustSandbox.Game.Resources.Elements.Utilities;
 
 using System;
 
-namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
+namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SMCorruption : SMovableSolid, ISCorruption
+    public class SIMCorruption : SImmovableSolid, ISCorruption
     {
-        public SMCorruption(ISGame gameInstance) : base(gameInstance)
+        public SIMCorruption(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 008;
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_9");
+            this.id = 017;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_18");
             this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
         }

@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Game.Managers;
+﻿using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Game.GUI.Events
 {

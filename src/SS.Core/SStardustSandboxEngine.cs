@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Game;
+﻿using StardustSandbox.Core.Plugins;
+using StardustSandbox.Game;
 
 using System;
 
@@ -21,14 +22,14 @@ namespace StardustSandbox.Core
 
         private void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this.disposedValue)
             {
                 if (disposing)
                 {
                     this.game.Dispose();
                 }
 
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 

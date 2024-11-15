@@ -1,7 +1,6 @@
-﻿using StardustSandbox.Game.GUISystem.Elements;
-using StardustSandbox.Game.Resources.GUISystem.Elements;
+﻿using StardustSandbox.Core.GUISystem.Elements;
 
-namespace StardustSandbox.Game.Interfaces.GUI
+namespace StardustSandbox.Core.Interfaces.GUI
 {
     public interface ISGUILayoutBuilder
     {

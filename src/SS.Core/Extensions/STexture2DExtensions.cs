@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Enums.General;
+using StardustSandbox.Core.Enums.General;
 
-namespace StardustSandbox.Game.Extensions
+namespace StardustSandbox.Core.Extensions
 {
     public static class STexture2DExtensions
     {

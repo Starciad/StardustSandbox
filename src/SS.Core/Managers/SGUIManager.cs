@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Databases;
+using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
 using StardustSandbox.Game.GUI.Events;
-using StardustSandbox.Game.GUISystem;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
 
-namespace StardustSandbox.Game.Managers
+namespace StardustSandbox.Core.Managers
 {
     public sealed class SGUIManager(ISGame gameInstance) : SGameObject(gameInstance)
     {

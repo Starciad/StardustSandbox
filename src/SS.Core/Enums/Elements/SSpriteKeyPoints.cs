@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.Elements
+﻿namespace StardustSandbox.Core.Enums.Elements
 {
     public enum SSpriteKeyPoints : byte
     {

@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.Gameplay
+﻿namespace StardustSandbox.Core.Enums.Gameplay
 {
     public enum SMapActionType
     {

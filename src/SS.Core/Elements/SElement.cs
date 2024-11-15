@@ -1,17 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Elements.Rendering;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.World;
-using StardustSandbox.Game.Mathematics;
-using StardustSandbox.Game.Objects;
-using StardustSandbox.Game.World.Data;
+using StardustSandbox.Core.Elements.Rendering;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Objects;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.Elements
+namespace StardustSandbox.Core.Elements
 {
     public abstract class SElement : SGameObject, ISElement
     {

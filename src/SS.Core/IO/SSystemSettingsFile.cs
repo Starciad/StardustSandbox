@@ -1,12 +1,12 @@
 ﻿using MessagePack;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Models.Settings;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Models.Settings;
 
 using System;
 using System.IO;
 
-namespace StardustSandbox.Game.IO
+namespace StardustSandbox.Core.IO
 {
     public static class SSystemSettingsFile
     {

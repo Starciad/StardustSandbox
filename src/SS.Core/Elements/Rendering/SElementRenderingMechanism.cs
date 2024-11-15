@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.Elements;
 
-namespace StardustSandbox.Game.Elements.Rendering
+namespace StardustSandbox.Core.Elements.Rendering
 {
     public abstract class SElementRenderingMechanism
     {

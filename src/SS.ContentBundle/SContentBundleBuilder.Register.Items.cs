@@ -1,11 +1,11 @@
-﻿using StardustSandbox.Game.Databases;
-using StardustSandbox.Game.Enums.Items;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
-using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
-using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
+﻿using StardustSandbox.ContentBundle.Elements.Energies;
+using StardustSandbox.ContentBundle.Elements.Gases;
+using StardustSandbox.ContentBundle.Elements.Liquids;
+using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
+using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Enums.Items;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle
 {

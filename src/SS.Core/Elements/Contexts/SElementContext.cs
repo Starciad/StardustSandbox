@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.World;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Game.World;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Contexts
+namespace StardustSandbox.Core.Elements.Contexts
 {
     public sealed class SElementContext(SWorld world) : ISElementContext
     {

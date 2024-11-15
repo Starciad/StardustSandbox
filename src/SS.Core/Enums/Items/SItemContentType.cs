@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.Items
+﻿namespace StardustSandbox.Core.Enums.Items
 {
     public enum SItemContentType
     {

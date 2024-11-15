@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Constants.Elements
+﻿namespace StardustSandbox.Core.Constants.Elements
 {
     public static class SElementRenderingConstants
     {

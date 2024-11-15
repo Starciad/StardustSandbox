@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Elements.Contexts;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Managers;
-using StardustSandbox.Game.Mathematics.Primitives;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Game.World;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.World.Components
+namespace StardustSandbox.Core.World.Components
 {
     public sealed class SWorldRenderingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {

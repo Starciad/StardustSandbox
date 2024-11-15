@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.Interfaces;
+﻿using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Game.Elements.Templates.Energies
+namespace StardustSandbox.Core.Elements.Templates.Energies
 {
     public abstract class SEnergy(ISGame gameInstance) : SElement(gameInstance)
     {

@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Enums.Items;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Items;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Enums.Items;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Items;
+using StardustSandbox.Core.Objects;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Databases
+namespace StardustSandbox.Core.Databases
 {
     public sealed partial class SItemDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {

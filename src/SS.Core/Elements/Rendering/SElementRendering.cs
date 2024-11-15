@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Objects;
 
 using System;
 
-namespace StardustSandbox.Game.Elements.Rendering
+namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed class SElementRendering(ISGame gameInstance, SElement element) : SGameObject(gameInstance)
     {

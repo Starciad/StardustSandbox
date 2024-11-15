@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Extensions;
-using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Game.Resources.GUISystem.Elements.Graphics
+namespace StardustSandbox.Core.GUISystem.Elements.Graphics
 {
     public sealed class SGUIImageElement : SGUIGraphicElement
     {

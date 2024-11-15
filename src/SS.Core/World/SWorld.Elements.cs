@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.General;
-using StardustSandbox.Game.Interfaces.World;
-using StardustSandbox.Game.World.Data;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
 using System;
 

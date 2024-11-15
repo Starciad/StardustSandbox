@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.InputSystem
+namespace StardustSandbox.Core.InputSystem
 {
     public sealed class SInputActionMapHandler(ISGame gameInstance) : SGameObject(gameInstance)
     {

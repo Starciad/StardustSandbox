@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.InputSystem
+﻿namespace StardustSandbox.Core.Enums.InputSystem
 {
     public enum SMouseButton
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Templates.Liquids;
-using StardustSandbox.Game.Elements.Templates.Solids.Movables;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Core.Elements.Templates.Liquids;
+using StardustSandbox.Core.Elements.Templates.Solids.Movables;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.Game.Elements.Templates.Gases
+namespace StardustSandbox.Core.Elements.Templates.Gases
 {
     public enum GasSpreadingType
     {

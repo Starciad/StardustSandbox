@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.Game.World.Data
+namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldChunk(Point position)
     {

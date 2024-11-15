@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Constants
+﻿namespace StardustSandbox.Core.Constants
 {
     public static class SDirectoryConstants
     {

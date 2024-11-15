@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Constants.GUI.Common;
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.GUISystem.Elements;
-using StardustSandbox.Game.Interfaces.GUI;
-using StardustSandbox.Game.Items;
+using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.GUISystem.Elements;
+using StardustSandbox.Core.GUISystem.Elements.Graphics;
+using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.Core.Items;
 using StardustSandbox.Game.Mathematics.Primitives;
-using StardustSandbox.Game.Resources.GUISystem.Elements;
-using StardustSandbox.Game.Resources.GUISystem.Elements.Graphics;
 
 namespace StardustSandbox.Game.Resources.GUISystem.Bundle.Hud
 {

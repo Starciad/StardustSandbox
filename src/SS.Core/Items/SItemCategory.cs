@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Items
+namespace StardustSandbox.Core.Items
 {
     public sealed class SItemCategory(string identifier, string displayName, string description, Texture2D iconTexture)
     {

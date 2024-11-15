@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.IO;
-using StardustSandbox.Game.Models.Settings;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.IO;
+using StardustSandbox.Core.Models.Settings;
+using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Game.Managers
+namespace StardustSandbox.Core.Managers
 {
     public sealed class SGraphicsManager : SGameObject
     {

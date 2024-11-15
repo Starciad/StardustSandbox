@@ -1,12 +1,12 @@
-﻿using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Objects;
+﻿using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Objects;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Databases
+namespace StardustSandbox.Core.Databases
 {
     public sealed class SElementDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {

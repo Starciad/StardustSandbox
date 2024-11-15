@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.Interfaces;
+﻿using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Game.Elements.Templates.Solids
+namespace StardustSandbox.Core.Elements.Templates.Solids
 {
     public abstract class SSolid(ISGame gameInstance) : SElement(gameInstance)
     {

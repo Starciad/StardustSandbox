@@ -1,17 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Constants.Elements;
-using StardustSandbox.Game.Elements.Templates.Energies;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.World;
-using StardustSandbox.Game.Mathematics;
-using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
-using StardustSandbox.Game.Resources.Elements.Rendering;
+using StardustSandbox.ContentBundle.Elements.Gases;
+using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Templates.Energies;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Mathematics;
 
 using System;
 
-namespace StardustSandbox.Game.Resources.Elements.Bundle.Energies
+namespace StardustSandbox.ContentBundle.Elements.Energies
 {
     public sealed class SFire : SEnergy
     {

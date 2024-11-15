@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.General;
-using StardustSandbox.Game.Mathematics;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Game.Background.Details
+namespace StardustSandbox.Core.Background.Details
 {
     public sealed class SCloud(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {

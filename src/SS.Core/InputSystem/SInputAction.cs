@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Game.Enums.InputSystem;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Managers;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Enums.InputSystem;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Game.InputSystem
+namespace StardustSandbox.Core.InputSystem
 {
     public sealed class SInputAction : SGameObject
     {

@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.Interfaces;
+﻿using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Game.Resources.GUISystem.Elements
+namespace StardustSandbox.Core.GUISystem.Elements
 {
     public sealed class SGUIRootElement : SGUIContainerElement
     {

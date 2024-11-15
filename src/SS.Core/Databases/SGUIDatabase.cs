@@ -1,10 +1,10 @@
-﻿using StardustSandbox.Game.GUISystem;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
+﻿using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Databases
+namespace StardustSandbox.Core.Databases
 {
     public sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.World;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.Game.World.Data
+namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldSlot : ISWorldSlot
     {

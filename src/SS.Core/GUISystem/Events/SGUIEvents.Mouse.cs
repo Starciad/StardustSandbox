@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Game.Mathematics.Primitives;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 

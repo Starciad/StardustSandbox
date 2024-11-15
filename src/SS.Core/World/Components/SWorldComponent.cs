@@ -1,7 +1,8 @@
-﻿using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
+﻿using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
+using StardustSandbox.Game.World;
 
-namespace StardustSandbox.Game.World.Components
+namespace StardustSandbox.Core.World.Components
 {
     public abstract class SWorldComponent(ISGame gameInstance, SWorld worldInstance) : SGameObject(gameInstance)
     {

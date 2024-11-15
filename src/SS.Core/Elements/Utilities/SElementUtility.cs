@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Mathematics;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.Game.Elements.Utilities
+namespace StardustSandbox.Core.Elements.Utilities
 {
     public static class SElementUtility
     {

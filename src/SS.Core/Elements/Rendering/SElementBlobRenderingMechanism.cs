@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Constants.Elements;
-using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.Elements.Rendering;
-using StardustSandbox.Game.Enums.Elements;
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Elements.Rendering;
+using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Interfaces.Elements;
 
 namespace StardustSandbox.Game.Resources.Elements.Rendering
 {

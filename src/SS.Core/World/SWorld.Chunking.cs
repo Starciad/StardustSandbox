@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.World.Components;
+using StardustSandbox.Core.World.Components;
 
 namespace StardustSandbox.Game.World
 {

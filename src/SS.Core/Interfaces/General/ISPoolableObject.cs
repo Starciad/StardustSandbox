@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Interfaces.General
+﻿namespace StardustSandbox.Core.Interfaces.General
 {
     public interface ISPoolableObject : ISReset { }
 }

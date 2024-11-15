@@ -1,9 +1,9 @@
-﻿using StardustSandbox.Game.Elements.Templates.Solids.Movables;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
+﻿using StardustSandbox.ContentBundle.Elements.Energies;
+using StardustSandbox.Core.Elements.Templates.Solids.Movables;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Game.Resources.Elements.Rendering;
 
-namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
+namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
     public sealed class SGrass : SMovableSolid
     {

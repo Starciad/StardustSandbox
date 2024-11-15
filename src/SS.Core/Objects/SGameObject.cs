@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Game.Objects
+namespace StardustSandbox.Core.Objects
 {
     public abstract class SGameObject(ISGame gameInstance)
     {

@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.InputSystem;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Items;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.InputSystem;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Items;
+using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Objects;
 using StardustSandbox.Game.World;
 
 using System;

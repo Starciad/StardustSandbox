@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.GUI
+﻿namespace StardustSandbox.Core.Enums.GUI
 {
     public enum SPositioningType
     {

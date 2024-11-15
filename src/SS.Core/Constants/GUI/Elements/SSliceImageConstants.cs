@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Constants.GUI.Elements
+﻿namespace StardustSandbox.Core.Constants.GUI.Elements
 {
     public static class SSliceImageConstants
     {

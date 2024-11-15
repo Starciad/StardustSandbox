@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Interfaces.Elements;
-using StardustSandbox.Game.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.General;
 
-namespace StardustSandbox.Game.Interfaces.World
+namespace StardustSandbox.Core.Interfaces.World
 {
     public interface ISWorldSlot : ISPoolableObject
     {

@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Constants
+﻿namespace StardustSandbox.Core.Constants
 {
     internal static class SIOConstants
     {

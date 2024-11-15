@@ -1,12 +1,11 @@
-﻿using StardustSandbox.Game.Constants.Elements;
-using StardustSandbox.Game.Elements.Templates.Solids.Immovables;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Mathematics;
-using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
-using StardustSandbox.Game.Resources.Elements.Rendering;
-using StardustSandbox.Game.World.Data;
+﻿using StardustSandbox.ContentBundle.Elements.Energies;
+using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Data;
 
-namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
+namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     public sealed class SMountingBlock : SImmovableSolid
     {

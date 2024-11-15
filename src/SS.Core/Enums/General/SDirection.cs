@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.General
+﻿namespace StardustSandbox.Core.Enums.General
 {
     public enum SDirection
     {

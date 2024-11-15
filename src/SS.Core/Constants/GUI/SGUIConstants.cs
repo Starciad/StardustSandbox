@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Constants.GUI
+﻿namespace StardustSandbox.Core.Constants.GUI
 {
     public static class SGUIConstants
     {

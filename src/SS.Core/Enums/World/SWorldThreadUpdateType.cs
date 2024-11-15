@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Game.Enums.World
+﻿namespace StardustSandbox.Core.Enums.World
 {
     public enum SWorldThreadUpdateType
     {

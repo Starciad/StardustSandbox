@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements.Templates.Liquids;
-using StardustSandbox.Game.Elements.Utilities;
-using StardustSandbox.Game.Enums.General;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Core.Elements.Templates.Liquids;
+using StardustSandbox.Core.Elements.Utilities;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Elements;
 
-namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
+namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
 {
     public abstract class SMovableSolid(ISGame gameInstance) : SSolid(gameInstance)
     {

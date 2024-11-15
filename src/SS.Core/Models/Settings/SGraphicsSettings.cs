@@ -1,9 +1,9 @@
 ﻿using MessagePack;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Mathematics.Primitives;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.Game.Models.Settings
+namespace StardustSandbox.Core.Models.Settings
 {
     [MessagePackObject]
     public struct SGraphicsSettings

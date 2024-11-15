@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Game.Constants;
-using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.Objects;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game.Background
+namespace StardustSandbox.Core.Background
 {
     public sealed class SBackground(ISGame gameInstance, string identifier, Texture2D texture) : SGameObject(gameInstance)
     {

@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Game.Mathematics.Primitives;
+﻿using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.Game.World.Data
+namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldInfo
     {
