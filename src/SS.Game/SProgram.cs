@@ -9,7 +9,7 @@ using System.Windows.Forms;
 #endif
 
 #if !DEBUG
-using StardustSandbox.Game.Constants;
+using StardustSandbox.Core.Constants;
 using System.Text;
 #endif
 
@@ -44,12 +44,12 @@ namespace StardustSandbox.Game
 #else
         private static void EXECUTE_PUBLISHED_VERSION()
         {
-            using SGame game = new();
-            game.Exiting += OnGameExiting;
+            using SStardustSandboxEngine stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
 
             try
             {
-                game.Run();
+                stardustSandboxEngine.Start();
             }
             catch (Exception e)
             {
@@ -57,8 +57,8 @@ namespace StardustSandbox.Game
             }
             finally
             {
-                game.Exit();
-                game.Dispose();
+                stardustSandboxEngine.Stop();
+                stardustSandboxEngine.Dispose();
             }
         }
 

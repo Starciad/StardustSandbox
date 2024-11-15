@@ -1,4 +1,9 @@
-﻿using StardustSandbox.Core.Databases;
+﻿using StardustSandbox.ContentBundle.Elements.Energies;
+using StardustSandbox.ContentBundle.Elements.Gases;
+using StardustSandbox.ContentBundle.Elements.Liquids;
+using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
+using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle

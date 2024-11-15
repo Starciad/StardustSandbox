@@ -1,6 +1,6 @@
-﻿using StardustSandbox.Core.Databases;
+﻿using StardustSandbox.ContentBundle.GUISystem.Hud;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Game.Resources.GUISystem.Bundle.Hud;
 
 namespace StardustSandbox.ContentBundle
 {

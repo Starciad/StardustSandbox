@@ -7,6 +7,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;

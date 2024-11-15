@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;

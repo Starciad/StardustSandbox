@@ -6,9 +6,9 @@ using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
-using StardustSandbox.Game.Mathematics.Primitives;
+using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.Game.Resources.GUISystem.Bundle.Hud
+namespace StardustSandbox.ContentBundle.GUISystem.Hud
 {
     public partial class SGUI_HUD
     {

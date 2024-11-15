@@ -20,6 +20,11 @@ namespace StardustSandbox.Core
             this.game.Run();
         }
 
+        public void Stop()
+        {
+            this.game.Exit();
+        }
+
         private void Dispose(bool disposing)
         {
             if (!this.disposedValue)
