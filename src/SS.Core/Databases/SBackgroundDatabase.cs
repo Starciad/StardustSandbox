@@ -14,17 +14,9 @@ namespace StardustSandbox.Game.Databases
     {
         private readonly Dictionary<string, SBackground> backgrounds = [];
 
-        public override void Initialize()
+        public void RegisterBackground(string id, Texture2D texture, Action<SBackground> builderAction)
         {
-            AddBackground("ocean_1", this.SGameInstance.AssetDatabase.GetTexture("background_1"), new Action<SBackground>((background) =>
-            {
-                background.AddLayer(new Point(0, 0), new Vector2(2f, 0f), false, true);
-            }));
-        }
-
-        private void AddBackground(string id, Texture2D texture, Action<SBackground> builderAction)
-        {
-            SBackground background = new(this.SGameInstance, texture);
+            SBackground background = new(this.SGameInstance, id, texture);
 
             builderAction.Invoke(background);
 

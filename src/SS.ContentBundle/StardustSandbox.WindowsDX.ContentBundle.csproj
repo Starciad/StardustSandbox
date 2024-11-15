@@ -13,8 +13,8 @@
 
 	<!-- SYSTEM -->
 	<PropertyGroup>
-		<AssemblyName>StardustSandbox.Core</AssemblyName>
-		<RootNamespace>StardustSandbox.Core</RootNamespace>
+		<AssemblyName>StardustSandbox.ContentBundle</AssemblyName>
+		<RootNamespace>StardustSandbox.ContentBundle</RootNamespace>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -23,6 +23,11 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
 		<PackageReference Include="MessagePack" Version="3.0.214-rc.1" />
 		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
+	</ItemGroup>
+
+	<!-- PROJECTS -->
+	<ItemGroup>
+		<ProjectReference Include="..\SS.Core\StardustSandbox.WindowsDX.Core.csproj" />
 	</ItemGroup>
 
 	<!-- BEAUTY (BUILD) -->
@@ -38,11 +43,6 @@
 		<BeautyLogLevel>Info</BeautyLogLevel>
 	</PropertyGroup>
 
-	<!-- MONOGAME -->
-	<ItemGroup>
-		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
-	</ItemGroup>
-	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
 		<Message Text="[ Restoring Dotnet Tools ]" Importance="high" />

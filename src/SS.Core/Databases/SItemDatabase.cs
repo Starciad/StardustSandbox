@@ -23,10 +23,6 @@ namespace StardustSandbox.Game.Databases
 
         public override void Initialize()
         {
-            BuildCategories();
-            BuildItems();
-
-            // After the categories and items are constructed individually, all items that are part of the category are allocated to the categories.
             foreach (SItemCategory category in this.categories.Values)
             {
                 foreach (SItem item in this.items.Values)
@@ -42,14 +38,14 @@ namespace StardustSandbox.Game.Databases
             this.Items = [.. this.items.Values];
         }
 
-        private void AddCategory(string identifier, string displayName, string description, Texture2D iconTexture)
+        public void RegisterCategory(string identifier, string displayName, string description, Texture2D iconTexture)
         {
             this.categories.Add(identifier, new(identifier, displayName, description, iconTexture));
         }
 
-        private void AddItem(string identifier, string displayName, string description, SItemContentType contentType, SItemCategory category, Texture2D iconTexture, Type referencedType)
+        public void RegisterItem(string identifier, string displayName, string description, SItemContentType contentType, string categoryIdentifier, Texture2D iconTexture, Type referencedType)
         {
-            this.items.Add(identifier, new(identifier, displayName, description, contentType, category, iconTexture, referencedType));
+            this.items.Add(identifier, new(identifier, displayName, description, contentType, this.categories[categoryIdentifier], iconTexture, referencedType));
         }
 
         public SItemCategory GetCategoryById(string id)

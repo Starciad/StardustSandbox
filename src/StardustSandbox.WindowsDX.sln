@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustSandbox.WindowsDX.G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustSandbox.WindowsDX.Core", "SS.Core\StardustSandbox.WindowsDX.Core.csproj", "{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustSandbox.WindowsDX.ContentBundle", "SS.ContentBundle\StardustSandbox.WindowsDX.ContentBundle.csproj", "{B1354C63-AE9C-414B-95C7-E6DA51224557}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF55EA61-8B7F-4C8C-9CC7-D726BA5C2893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1354C63-AE9C-414B-95C7-E6DA51224557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

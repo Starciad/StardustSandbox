@@ -1,7 +1,6 @@
 ﻿using StardustSandbox.Game.GUISystem;
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Objects;
-using StardustSandbox.Game.Resources.GUISystem.Bundle.Hud;
 
 using System.Collections.Generic;
 
@@ -15,17 +14,10 @@ namespace StardustSandbox.Game.Databases
 
         public override void Initialize()
         {
-            // HUD
-            SGUI_HUD guiHUD = new(this.SGameInstance, this.SGameInstance.GUIManager.GUIEvents);
-            SGUI_ItemExplorer guiItemExplorer = new(this.SGameInstance, this.SGameInstance.GUIManager.GUIEvents, guiHUD);
-
-            RegisterGUISystem(guiHUD);
-            RegisterGUISystem(guiItemExplorer);
-
             this._registeredGUIs.ForEach(x => x.Initialize());
         }
 
-        private void RegisterGUISystem(SGUISystem guiSystem)
+        public void RegisterGUISystem(SGUISystem guiSystem)
         {
             this._registeredGUIs.Add(guiSystem);
         }

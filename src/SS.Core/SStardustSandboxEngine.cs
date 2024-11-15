@@ -4,7 +4,7 @@ namespace StardustSandbox.Core
 {
     public sealed class SStardustSandboxEngine
     {
-        private readonly SGameBuilder builder;
+        private readonly SPluginBuilder builder;
         private readonly SGame game;
     }
 }

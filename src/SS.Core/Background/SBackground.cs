@@ -9,8 +9,10 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Game.Background
 {
-    public sealed class SBackground(ISGame gameInstance, Texture2D texture) : SGameObject(gameInstance)
+    public sealed class SBackground(ISGame gameInstance, string identifier, Texture2D texture) : SGameObject(gameInstance)
     {
+        public string Identifier => identifier;
+
         private readonly Texture2D _texture = texture;
 
         private readonly List<SBackgroundLayer> layers = [];
