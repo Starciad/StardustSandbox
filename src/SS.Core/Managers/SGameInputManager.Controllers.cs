@@ -24,6 +24,8 @@ namespace StardustSandbox.Core.Managers
             worldKeyboardActionMap.AddAction("World_Camera_Right", new SInputAction(this.SGameInstance, this._inputManager, Keys.D, Keys.Right)).OnPerformed += _ => MoveCamera(SCardinalDirection.East);
             worldKeyboardActionMap.AddAction("World_Camera_Down", new SInputAction(this.SGameInstance, this._inputManager, Keys.S, Keys.Down)).OnPerformed += _ => MoveCamera(SCardinalDirection.South);
             worldKeyboardActionMap.AddAction("World_Camera_Left", new SInputAction(this.SGameInstance, this._inputManager, Keys.A, Keys.Left)).OnPerformed += _ => MoveCamera(SCardinalDirection.West);
+            worldKeyboardActionMap.AddAction("World_Camera_Zoom_In", new SInputAction(this.SGameInstance, this._inputManager, Keys.OemPlus)).OnPerformed += _ => CameraZoomIn();
+            worldKeyboardActionMap.AddAction("World_Camera_Zoom_Out", new SInputAction(this.SGameInstance, this._inputManager, Keys.OemMinus)).OnPerformed += _ => CameraZoomOut();
 
             // Shortcuts
             worldKeyboardActionMap.AddAction("World_Pause", new(this.SGameInstance, this._inputManager, Keys.Space)).OnStarted += _ => PauseWorld();
@@ -62,6 +64,16 @@ namespace StardustSandbox.Core.Managers
                 default:
                     return;
             }
+        }
+
+        private void CameraZoomIn()
+        {
+            this._cameraManager.ZoomIn(0.005f);
+        }
+
+        private void CameraZoomOut()
+        {
+            this._cameraManager.ZoomOut(0.005f);
         }
 
         // ================================== //

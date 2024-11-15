@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
@@ -13,7 +12,6 @@ namespace StardustSandbox.Core.Managers
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
-        public Vector2 Center => this.Position + this.Origin;
         public float Zoom
         {
             get => this._zoom;
@@ -110,16 +108,6 @@ namespace StardustSandbox.Core.Managers
             this.Zoom = value < this.MinimumZoom ? this.MinimumZoom : value > this.MaximumZoom ? this.MaximumZoom : value;
         }
 
-        public void LookAt(Vector2 position)
-        {
-            this.Position = position - (new Vector2(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT) / 2f);
-        }
-
-        public Vector2 WorldToScreen(float x, float y)
-        {
-            return WorldToScreen(new Vector2(x, y));
-        }
-
         public Vector2 WorldToScreen(Vector2 worldPosition)
         {
             Viewport viewport = this._graphicsManager.Viewport;
@@ -129,8 +117,7 @@ namespace StardustSandbox.Core.Managers
         public Vector2 ScreenToWorld(Vector2 screenPosition)
         {
             Viewport viewport = this._graphicsManager.Viewport;
-            return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y),
-                   Matrix.Invert(GetViewMatrix()));
+            return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y), Matrix.Invert(GetViewMatrix()));
         }
 
         private Matrix GetVirtualViewMatrix()
