@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Content;
 
 using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Interfaces;
@@ -12,8 +11,8 @@ namespace StardustSandbox.Core
         {
             OnRegisterAssets(game, contentManager, game.AssetDatabase);
             OnRegisterElements(game, game.ElementDatabase);
-            OnRegisterGUIs(game, game.GUIDatabase);
             OnRegisterItems(game, game.ItemDatabase);
+            OnRegisterGUIs(game, game.GUIDatabase);
             OnRegisterBackgrounds(game, game.BackgroundDatabase);
         }
 

@@ -22,12 +22,14 @@
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
 		<PackageReference Include="MessagePack" Version="3.0.214-rc.1" />
 		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
 	</ItemGroup>
 
 	<!-- PROJECTS -->
 	<ItemGroup>
+		<ProjectReference Include="..\SS.ContentBundle\StardustSandbox.WindowsDX.ContentBundle.csproj" />
 		<ProjectReference Include="..\SS.Core\StardustSandbox.WindowsDX.Core.csproj" />
 	</ItemGroup>
 

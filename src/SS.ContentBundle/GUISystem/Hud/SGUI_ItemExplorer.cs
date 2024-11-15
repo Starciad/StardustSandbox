@@ -38,7 +38,7 @@ namespace StardustSandbox.Game.Resources.GUISystem.Bundle.Hud
             this._guiHUD = guiHUD;
         }
 
-        protected override void OnRegister()
+        protected override void OnLoad()
         {
             this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
         }

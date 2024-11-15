@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Game.IO;
+﻿using StardustSandbox.ContentBundle;
+using StardustSandbox.Core;
+using StardustSandbox.Game.IO;
 
 using System;
 
@@ -35,9 +37,9 @@ namespace StardustSandbox.Game
 #if DEBUG
         private static void EXECUTE_DEBUG_VERSION()
         {
-            using SGame game = new();
-            game.Exiting += OnGameExiting;
-            game.Run();
+            using SStardustSandboxEngine stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
+            stardustSandboxEngine.Start();
         }
 #else
         private static void EXECUTE_PUBLISHED_VERSION()
@@ -77,10 +79,5 @@ namespace StardustSandbox.Game
 #endif
         }
 #endif
-
-        private static void OnGameExiting(object sender, EventArgs e)
-        {
-            return;
-        }
     }
 }
