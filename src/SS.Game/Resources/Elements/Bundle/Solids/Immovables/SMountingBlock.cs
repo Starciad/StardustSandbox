@@ -12,12 +12,12 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables
     {
         public SMountingBlock(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 022;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_23");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
-            this.DefaultTemperature = 20;
-            this.EnableFlammability = true;
-            this.DefaultFlammabilityResistance = 150;
+            this.id = 022;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_23");
+            this.rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
+            this.defaultTemperature = 20;
+            this.enableFlammability = true;
+            this.defaultFlammabilityResistance = 150;
         }
 
         protected override void OnAwakeStep(SWorldSlot worldSlot)

@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Game.Constants.Elements;
-using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Templates.Energies;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
 using StardustSandbox.Game.Resources.Elements.Rendering;
-using StardustSandbox.Game.World.Data;
 
 using System;
 
@@ -17,11 +17,11 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Energies
     {
         public SFire(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 023;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_24");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
-            this.EnableNeighborsAction = true;
-            this.DefaultTemperature = 500;
+            this.id = 023;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
+            this.rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
+            this.enableNeighborsAction = true;
+            this.defaultTemperature = 500;
         }
 
         protected override void OnBeforeStep()
@@ -50,12 +50,12 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Energies
             }
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
         {
             for (int i = 0; i < length; i++)
             {
-                (Point position, SWorldSlot slot) = neighbors[i];
-                SElement element = slot.Element;
+                (Point position, ISWorldSlot slot) = neighbors[i];
+                ISElement element = slot.Element;
 
                 if (slot == null || element == null)
                 {

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Game.Elements.Rendering;
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.Mathematics;
 using StardustSandbox.Game.Objects;
 using StardustSandbox.Game.World.Data;
@@ -12,41 +13,50 @@ using System;
 
 namespace StardustSandbox.Game.Elements
 {
-    public abstract class SElement : SGameObject
+    public abstract class SElement : SGameObject, ISElement
     {
-        // VARIABLES
+        public uint Id => this.id;
+        public Texture2D Texture => this.texture;
 
-        #region Settings (Header)
-        public uint Id { get; protected set; }
-        public Texture2D Texture { get; protected set; }
-        #endregion
+        public int DefaultDispersionRate => this.defaultDispersionRate;
+        public short DefaultTemperature => this.defaultTemperature;
+        public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
 
-        #region Settings (Defaults)
-        public int DefaultDispersionRate { get; protected set; } = 1;
-        public short DefaultTemperature { get; protected set; }
-        public short DefaultFlammabilityResistance { get; protected set; }
-        #endregion
+        public bool EnableDefaultBehaviour => this.enableDefaultBehaviour;
+        public bool EnableNeighborsAction => this.enableNeighborsAction;
+        public bool EnableTemperature => this.enableTemperature;
+        public bool EnableFlammability => this.enableFlammability;
 
-        #region Settings (Enables)
-        public bool EnableDefaultBehaviour { get; protected set; } = true;
-        public bool EnableNeighborsAction { get; protected set; }
-        public bool EnableTemperature { get; protected set; } = true;
-        public bool EnableFlammability { get; protected set; }
-        #endregion
+        public SElementRendering Rendering => this.rendering;
+        public ISElementContext Context
+        {
+            get => this.context;
 
-        #region Helpers
-        public SElementRendering Rendering { get; private set; }
-        public ISElementContext Context { get; internal set; }
-        #endregion
+            set => this.context = value;
+        }
+
+        // =========================== //
+
+        protected uint id;
+        protected Texture2D texture;
+
+        protected int defaultDispersionRate = 1;
+        protected short defaultTemperature;
+        protected short defaultFlammabilityResistance;
+
+        protected bool enableDefaultBehaviour = true;
+        protected bool enableNeighborsAction;
+        protected bool enableTemperature = true;
+        protected bool enableFlammability;
+
+        protected SElementRendering rendering;
+        private ISElementContext context;
 
         public SElement(ISGame gameInstance) : base(gameInstance)
         {
-            this.Rendering = new(gameInstance, this);
+            this.rendering = new(gameInstance, this);
         }
 
-        // METHODS
-
-        #region Engine
         public override void Update(GameTime gameTime)
         {
             this.Rendering.Update(gameTime);
@@ -65,7 +75,7 @@ namespace StardustSandbox.Game.Elements
 
         public void Steps()
         {
-            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Point, SWorldSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors))
             {
                 if (this.EnableTemperature)
                 {
@@ -83,24 +93,12 @@ namespace StardustSandbox.Game.Elements
 
             OnAfterStep();
         }
-        #endregion
 
-        #region Configurations
-        protected virtual void OnAwakeStep(SWorldSlot worldSlot) { return; }
-
-        // Steps
-        protected virtual void OnBeforeStep() { return; }
-        protected virtual void OnStep() { return; }
-        protected virtual void OnAfterStep() { return; }
-        public virtual void OnBehaviourStep() { return; }
-        #endregion
-
-        #region System
-        private void UpdateTemperature(ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        private void UpdateTemperature(ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
         {
             float totalTemperatureChange = 0;
 
-            foreach ((Point, SWorldSlot) neighbor in neighbors)
+            foreach ((Point, ISWorldSlot) neighbor in neighbors)
             {
                 if (!neighbor.Item2.Element.EnableTemperature)
                 {
@@ -120,11 +118,14 @@ namespace StardustSandbox.Game.Elements
 
             OnTemperatureChanged(this.Context.Slot.Temperature);
         }
-        #endregion
 
-        #region Events
-        protected virtual void OnNeighbors(ReadOnlySpan<(Point, SWorldSlot)> neighbors, int length) { return; }
+        protected virtual void OnAwakeStep(SWorldSlot worldSlot) { return; }
+        protected virtual void OnBeforeStep() { return; }
+        protected virtual void OnStep() { return; }
+        protected virtual void OnAfterStep() { return; }
+        protected virtual void OnBehaviourStep() { return; }
+
+        protected virtual void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
-        #endregion
     }
 }

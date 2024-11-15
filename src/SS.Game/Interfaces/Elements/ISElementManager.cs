@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Elements;
-using StardustSandbox.Game.World.Data;
+using StardustSandbox.Game.Interfaces.World;
 
 using System;
 
@@ -9,12 +8,12 @@ namespace StardustSandbox.Game.Interfaces.Elements
 {
     public interface ISElementManager
     {
-        void InstantiateElement<T>(Point pos) where T : SElement;
+        void InstantiateElement<T>(Point pos) where T : ISElement;
         void InstantiateElement(Point pos, uint id);
-        void InstantiateElement(Point pos, SElement value);
-        bool TryInstantiateElement<T>(Point pos) where T : SElement;
+        void InstantiateElement(Point pos, ISElement value);
+        bool TryInstantiateElement<T>(Point pos) where T : ISElement;
         bool TryInstantiateElement(Point pos, uint id);
-        bool TryInstantiateElement(Point pos, SElement value);
+        bool TryInstantiateElement(Point pos, ISElement value);
 
         void UpdateElementPosition(Point oldPos, Point newPos);
         bool TryUpdateElementPosition(Point oldPos, Point newPos);
@@ -25,21 +24,21 @@ namespace StardustSandbox.Game.Interfaces.Elements
         void DestroyElement(Point pos);
         bool TryDestroyElement(Point pos);
 
-        void ReplaceElement<T>(Point pos) where T : SElement;
+        void ReplaceElement<T>(Point pos) where T : ISElement;
         void ReplaceElement(Point pos, uint id);
-        void ReplaceElement(Point pos, SElement value);
-        bool TryReplaceElement<T>(Point pos) where T : SElement;
+        void ReplaceElement(Point pos, ISElement value);
+        bool TryReplaceElement<T>(Point pos) where T : ISElement;
         bool TryReplaceElement(Point pos, uint id);
-        bool TryReplaceElement(Point pos, SElement value);
+        bool TryReplaceElement(Point pos, ISElement value);
 
-        SElement GetElement(Point pos);
-        bool TryGetElement(Point pos, out SElement value);
+        ISElement GetElement(Point pos);
+        bool TryGetElement(Point pos, out ISElement value);
 
-        ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos);
-        bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors);
+        ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors(Point pos);
+        bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors);
 
-        SWorldSlot GetElementSlot(Point pos);
-        bool TryGetElementSlot(Point pos, out SWorldSlot value);
+        ISWorldSlot GetElementSlot(Point pos);
+        bool TryGetElementSlot(Point pos, out ISWorldSlot value);
 
         void SetElementTemperature(Point pos, short value);
         bool TrySetElementTemperature(Point pos, short value);

@@ -4,12 +4,13 @@ using StardustSandbox.Game.Elements.Templates.Liquids;
 using StardustSandbox.Game.Elements.Utilities;
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Interfaces;
+using StardustSandbox.Game.Interfaces.Elements;
 
 namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
 {
     public abstract class SMovableSolid(ISGame gameInstance) : SSolid(gameInstance)
     {
-        public override void OnBehaviourStep()
+        protected override void OnBehaviourStep()
         {
             Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Down);
 
@@ -53,7 +54,7 @@ namespace StardustSandbox.Game.Elements.Templates.Solids.Movables
                 return true;
             }
 
-            if (this.Context.TryGetElement(pos, out SElement value))
+            if (this.Context.TryGetElement(pos, out ISElement value))
             {
                 if (value is SLiquid && this.Context.TrySwappingElements(pos))
                 {

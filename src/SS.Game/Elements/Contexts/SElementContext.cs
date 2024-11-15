@@ -1,27 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Game.Databases;
 using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.World;
 using StardustSandbox.Game.World;
-using StardustSandbox.Game.World.Data;
 
 using System;
 
 namespace StardustSandbox.Game.Elements.Contexts
 {
-    public sealed class SElementContext(SWorld world, SElementDatabase elementDatabase) : ISElementContext
+    public sealed class SElementContext(SWorld world) : ISElementContext
     {
-        public SWorldSlot Slot => this._worldSlot;
+        public ISWorldSlot Slot => this._worldSlot;
+        public ISElement Element => this._worldSlot.Element;
         public Point Position => this._position;
-        public SElement Element => this._worldSlot.Element;
 
-        private SWorldSlot _worldSlot;
+        private ISWorldSlot _worldSlot;
         private Point _position;
 
-        private readonly SElementDatabase _elementDatabase = elementDatabase;
         private readonly SWorld _world = world;
 
-        public void UpdateInformation(SWorldSlot worldSlot, Point position)
+        public void UpdateInformation(ISWorldSlot worldSlot, Point position)
         {
             this._worldSlot = worldSlot;
             this._position = position;
@@ -45,7 +43,7 @@ namespace StardustSandbox.Game.Elements.Contexts
             return false;
         }
 
-        public void InstantiateElement<T>() where T : SElement
+        public void InstantiateElement<T>() where T : ISElement
         {
             InstantiateElement<T>(this._position);
         }
@@ -53,11 +51,11 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             InstantiateElement(this._position, id);
         }
-        public void InstantiateElement(SElement value)
+        public void InstantiateElement(ISElement value)
         {
             InstantiateElement(this._position, value);
         }
-        public void InstantiateElement<T>(Point pos) where T : SElement
+        public void InstantiateElement<T>(Point pos) where T : ISElement
         {
             this._world.InstantiateElement<T>(pos);
         }
@@ -65,11 +63,11 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             this._world.InstantiateElement(pos, id);
         }
-        public void InstantiateElement(Point pos, SElement value)
+        public void InstantiateElement(Point pos, ISElement value)
         {
             this._world.InstantiateElement(pos, value);
         }
-        public bool TryInstantiateElement<T>() where T : SElement
+        public bool TryInstantiateElement<T>() where T : ISElement
         {
             return TryInstantiateElement<T>(this._position);
         }
@@ -77,11 +75,11 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             return TryInstantiateElement(this._position, id);
         }
-        public bool TryInstantiateElement(SElement value)
+        public bool TryInstantiateElement(ISElement value)
         {
             return TryInstantiateElement(this._position, value);
         }
-        public bool TryInstantiateElement<T>(Point pos) where T : SElement
+        public bool TryInstantiateElement<T>(Point pos) where T : ISElement
         {
             return this._world.TryInstantiateElement<T>(pos);
         }
@@ -89,7 +87,7 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             return this._world.TryInstantiateElement(pos, id);
         }
-        public bool TryInstantiateElement(Point pos, SElement value)
+        public bool TryInstantiateElement(Point pos, ISElement value)
         {
             return this._world.TryInstantiateElement(pos, value);
         }
@@ -151,7 +149,7 @@ namespace StardustSandbox.Game.Elements.Contexts
             return this._world.TryDestroyElement(pos);
         }
 
-        public void ReplaceElement<T>() where T : SElement
+        public void ReplaceElement<T>() where T : ISElement
         {
             ReplaceElement<T>(this._position);
         }
@@ -159,11 +157,11 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             ReplaceElement(this._position, id);
         }
-        public void ReplaceElement(SElement value)
+        public void ReplaceElement(ISElement value)
         {
             ReplaceElement(this._position, value);
         }
-        public void ReplaceElement<T>(Point pos) where T : SElement
+        public void ReplaceElement<T>(Point pos) where T : ISElement
         {
             this._world.ReplaceElement<T>(pos);
         }
@@ -171,11 +169,11 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             this._world.ReplaceElement(pos, id);
         }
-        public void ReplaceElement(Point pos, SElement value)
+        public void ReplaceElement(Point pos, ISElement value)
         {
             this._world.ReplaceElement(pos, value);
         }
-        public bool TryReplaceElement<T>() where T : SElement
+        public bool TryReplaceElement<T>() where T : ISElement
         {
             return TryReplaceElement<T>(this._position);
         }
@@ -183,11 +181,11 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             return TryReplaceElement(this._position, id);
         }
-        public bool TryReplaceElement(SElement value)
+        public bool TryReplaceElement(ISElement value)
         {
             return TryReplaceElement(this._position, value);
         }
-        public bool TryReplaceElement<T>(Point pos) where T : SElement
+        public bool TryReplaceElement<T>(Point pos) where T : ISElement
         {
             return this._world.TryReplaceElement<T>(pos);
         }
@@ -195,58 +193,58 @@ namespace StardustSandbox.Game.Elements.Contexts
         {
             return this._world.TryReplaceElement(pos, id);
         }
-        public bool TryReplaceElement(Point pos, SElement value)
+        public bool TryReplaceElement(Point pos, ISElement value)
         {
             return this._world.TryReplaceElement(pos, value);
         }
 
-        public SElement GetElement()
+        public ISElement GetElement()
         {
             return GetElement(this._position);
         }
-        public SElement GetElement(Point pos)
+        public ISElement GetElement(Point pos)
         {
             return this._world.GetElement(pos);
         }
-        public bool TryGetElement(out SElement value)
+        public bool TryGetElement(out ISElement value)
         {
             return TryGetElement(this._position, out value);
         }
-        public bool TryGetElement(Point pos, out SElement value)
+        public bool TryGetElement(Point pos, out ISElement value)
         {
             return this._world.TryGetElement(pos, out value);
         }
 
-        public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors()
+        public ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors()
         {
             return GetElementNeighbors(this._position);
         }
-        public ReadOnlySpan<(Point, SWorldSlot)> GetElementNeighbors(Point pos)
+        public ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors(Point pos)
         {
             return this._world.GetElementNeighbors(pos);
         }
-        public bool TryGetElementNeighbors(out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        public bool TryGetElementNeighbors(out ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
         {
             return TryGetElementNeighbors(this._position, out neighbors);
         }
-        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, SWorldSlot)> neighbors)
+        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
         {
             return this._world.TryGetElementNeighbors(pos, out neighbors);
         }
 
-        public SWorldSlot GetElementSlot()
+        public ISWorldSlot GetElementSlot()
         {
             return GetElementSlot(this._position);
         }
-        public SWorldSlot GetElementSlot(Point pos)
+        public ISWorldSlot GetElementSlot(Point pos)
         {
             return this._world.GetElementSlot(pos);
         }
-        public bool TryGetElementSlot(out SWorldSlot value)
+        public bool TryGetElementSlot(out ISWorldSlot value)
         {
             return TryGetElementSlot(this._position, out value);
         }
-        public bool TryGetElementSlot(Point pos, out SWorldSlot value)
+        public bool TryGetElementSlot(Point pos, out ISWorldSlot value)
         {
             return this._world.TryGetElementSlot(pos, out value);
         }

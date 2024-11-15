@@ -8,10 +8,10 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables
     {
         public SDirt(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 000;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_1");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 20;
+            this.id = 000;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_1");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 20;
         }
     }
 }

@@ -9,10 +9,10 @@ namespace StardustSandbox.Game.Resources.Elements.Bundle.Liquids
     {
         public SLava(ISGame gameInstance) : base(gameInstance)
         {
-            this.Id = 009;
-            this.Texture = gameInstance.AssetDatabase.GetTexture("element_10");
-            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.DefaultTemperature = 1000;
+            this.id = 009;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
+            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.defaultTemperature = 1000;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

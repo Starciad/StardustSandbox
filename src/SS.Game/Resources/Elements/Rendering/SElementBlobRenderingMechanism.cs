@@ -104,7 +104,7 @@ namespace StardustSandbox.Game.Resources.Elements.Rendering
             for (int i = 0; i < targets.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(targets[i].position, out SElement value))
+                if (context.TryGetElement(targets[i].position, out ISElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (value != this.element)

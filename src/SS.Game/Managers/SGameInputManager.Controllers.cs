@@ -7,6 +7,7 @@ using StardustSandbox.Game.Enums.Gameplay;
 using StardustSandbox.Game.Enums.General;
 using StardustSandbox.Game.Enums.InputSystem;
 using StardustSandbox.Game.InputSystem;
+using StardustSandbox.Game.Interfaces.Elements;
 
 using System;
 
@@ -108,7 +109,7 @@ namespace StardustSandbox.Game.Managers
         }
 
         #region ELEMENTS
-        private void PutElementsInWorld(SElement element)
+        private void PutElementsInWorld(ISElement element)
         {
             Point worldPos = GetWorldPositionFromMouse().ToPoint();
 

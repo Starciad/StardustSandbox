@@ -4,7 +4,8 @@ using StardustSandbox.Game.Elements;
 using StardustSandbox.Game.Elements.Contexts;
 using StardustSandbox.Game.Enums.World;
 using StardustSandbox.Game.Interfaces;
-using StardustSandbox.Game.World.Data;
+using StardustSandbox.Game.Interfaces.Elements;
+using StardustSandbox.Game.Interfaces.World;
 
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace StardustSandbox.Game.World.Components
 {
     public sealed class SWorldUpdatingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
-        private readonly SElementContext elementUpdateContext = new(worldInstance, gameInstance.ElementDatabase);
+        private readonly SElementContext elementUpdateContext = new(worldInstance);
         private readonly List<Point> capturedSlots = [];
 
         public override void Update(GameTime gameTime)
@@ -56,9 +57,9 @@ namespace StardustSandbox.Game.World.Components
 
         private void UpdateElementTarget(GameTime gameTime, Point position, SWorldThreadUpdateType updateType)
         {
-            SWorldSlot slot = this.SWorldInstance.GetElementSlot(position);
+            ISWorldSlot slot = this.SWorldInstance.GetElementSlot(position);
 
-            if (this.SWorldInstance.TryGetElement(position, out SElement value))
+            if (this.SWorldInstance.TryGetElement(position, out ISElement value))
             {
                 this.elementUpdateContext.UpdateInformation(slot, position);
                 value.Context = this.elementUpdateContext;
@@ -66,11 +67,11 @@ namespace StardustSandbox.Game.World.Components
                 switch (updateType)
                 {
                     case SWorldThreadUpdateType.Update:
-                        value.Update(gameTime);
+                        ((SElement)value).Update(gameTime);
                         break;
 
                     case SWorldThreadUpdateType.Step:
-                        value.Steps();
+                        ((SElement)value).Steps();
                         break;
 
                     default:
