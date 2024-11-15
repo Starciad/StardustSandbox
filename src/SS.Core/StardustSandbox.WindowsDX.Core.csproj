@@ -37,6 +37,11 @@
 		<BeautyUsePatch>True</BeautyUsePatch>
 		<BeautyLogLevel>Info</BeautyLogLevel>
 	</PropertyGroup>
+
+	<!-- MONOGAME -->
+	<ItemGroup>
+		<MonoGameContentReference Include="..\SS.Game\assets\assets.mgcb" Link="assets\assets.mgcb" />
+	</ItemGroup>
 	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

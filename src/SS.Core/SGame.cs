@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core;
 using StardustSandbox.Game.Constants;
 using StardustSandbox.Game.Constants.GUI;
 using StardustSandbox.Game.Databases;
@@ -55,10 +56,11 @@ namespace StardustSandbox.Game
 
         // Core
         private readonly SWorld _world;
+        private readonly SGameBuilder _gameBuilder;
 
         // ================================= //
 
-        public SGame()
+        public SGame(SGameBuilder gameBuilder)
         {
             this._graphicsManager = new(this, new GraphicsDeviceManager(this));
 
@@ -83,6 +85,7 @@ namespace StardustSandbox.Game
             // Core
             this._cameraManager = new(this._graphicsManager);
             this._world = new(this);
+            this._gameBuilder = gameBuilder;
 
             // Managers
             this._inputManager = new(this);

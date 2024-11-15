@@ -1,9 +1,4 @@
 ﻿using StardustSandbox.Game.Enums.Items;
-using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
-using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
-using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
 
 namespace StardustSandbox.Game.Databases
 {

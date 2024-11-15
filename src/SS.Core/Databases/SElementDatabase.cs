@@ -2,11 +2,6 @@
 using StardustSandbox.Game.Interfaces;
 using StardustSandbox.Game.Interfaces.Elements;
 using StardustSandbox.Game.Objects;
-using StardustSandbox.Game.Resources.Elements.Bundle.Energies;
-using StardustSandbox.Game.Resources.Elements.Bundle.Gases;
-using StardustSandbox.Game.Resources.Elements.Bundle.Liquids;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Immovables;
-using StardustSandbox.Game.Resources.Elements.Bundle.Solids.Movables;
 
 using System;
 using System.Collections.Generic;
