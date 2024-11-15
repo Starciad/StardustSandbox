@@ -1,5 +1,5 @@
 ﻿using StardustSandbox.Core.Plugins;
-using StardustSandbox.Game;
+using StardustSandbox.Core;
 
 using System;
 

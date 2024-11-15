@@ -11,7 +11,7 @@ using StardustSandbox.Core.Interfaces.Elements;
 
 using System;
 
-namespace StardustSandbox.Game.Managers
+namespace StardustSandbox.Core.Managers
 {
     public sealed partial class SGameInputManager
     {

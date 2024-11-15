@@ -7,7 +7,7 @@ using StardustSandbox.Core.World.Data;
 
 using System;
 
-namespace StardustSandbox.Game.World
+namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld : ISElementManager
     {

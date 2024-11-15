@@ -5,7 +5,7 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Game.GUI.Events;
+using StardustSandbox.Core.GUI.Events;
 
 namespace StardustSandbox.Core.Managers
 {

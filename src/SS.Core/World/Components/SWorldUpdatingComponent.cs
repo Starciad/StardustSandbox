@@ -6,7 +6,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Game.World;
+using StardustSandbox.Core.World;
 
 using System.Collections.Generic;
 

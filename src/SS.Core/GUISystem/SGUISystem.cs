@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Game.GUI.Events;
+using StardustSandbox.Core.GUI.Events;
 
 namespace StardustSandbox.Core.GUISystem
 {

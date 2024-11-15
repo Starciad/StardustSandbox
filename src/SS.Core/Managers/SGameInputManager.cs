@@ -6,11 +6,11 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Game.World;
+using StardustSandbox.Core.World;
 
 using System;
 
-namespace StardustSandbox.Game.Managers
+namespace StardustSandbox.Core.Managers
 {
     public sealed partial class SGameInputManager(ISGame gameInstance) : SGameObject(gameInstance)
     {

@@ -5,7 +5,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.Game.GUI.Events
+namespace StardustSandbox.Core.GUI.Events
 {
     public sealed partial class SGUIEvents
     {

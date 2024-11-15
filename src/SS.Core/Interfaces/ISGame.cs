@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Game.Managers;
-using StardustSandbox.Game.World;
+using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Interfaces
 {

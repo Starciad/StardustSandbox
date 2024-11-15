@@ -8,13 +8,12 @@ using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Models.Settings;
 using StardustSandbox.Core.Plugins;
-using StardustSandbox.Game.Managers;
-using StardustSandbox.Game.World;
+using StardustSandbox.Core.World;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Game
+namespace StardustSandbox.Core
 {
     public sealed partial class SGame : Microsoft.Xna.Framework.Game, ISGame
     {

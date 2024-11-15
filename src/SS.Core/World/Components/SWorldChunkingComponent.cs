@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Data;
-using StardustSandbox.Game.World;
+using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.World.Components
 {

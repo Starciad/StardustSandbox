@@ -8,7 +8,7 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Game.World;
+using StardustSandbox.Core.World;
 
 using System.Collections.Generic;
 

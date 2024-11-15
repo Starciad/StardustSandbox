@@ -3,7 +3,7 @@
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Plugins;
 
-namespace StardustSandbox.Game
+namespace StardustSandbox.Core
 {
     public sealed partial class SGame
     {

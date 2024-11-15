@@ -2,7 +2,7 @@
 
 using StardustSandbox.Core.World.Components;
 
-namespace StardustSandbox.Game.World
+namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld
     {
