@@ -4,8 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
+using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Models.Settings;
 using StardustSandbox.Core.Objects;
+
+using System.Linq;
+using System.Windows.Forms;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -54,7 +58,6 @@ namespace StardustSandbox.Core.Managers
         public void UpdateSettings()
         {
             SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
-
             this._graphicsDeviceManager.IsFullScreen = graphicsSettings.FullScreen;
             this._graphicsDeviceManager.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
             this._graphicsDeviceManager.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;
