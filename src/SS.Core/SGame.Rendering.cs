@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
-
 namespace StardustSandbox.Core
 {
     public sealed partial class SGame
