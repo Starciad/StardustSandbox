@@ -123,7 +123,7 @@ namespace StardustSandbox.Core.Managers
         #region ELEMENTS
         private void PutElementsInWorld(ISElement element)
         {
-            Point worldPos = GetWorldPositionFromMouse().ToPoint();
+            Point worldPos = GetWorldGridPositionFromMouse();
 
             if (!IsValidWorldPosition(worldPos))
             {
@@ -140,7 +140,7 @@ namespace StardustSandbox.Core.Managers
         }
         private void RemoveElementsFromWorld()
         {
-            Point worldPos = GetWorldPositionFromMouse().ToPoint();
+            Point worldPos = GetWorldGridPositionFromMouse();
 
             if (!IsValidWorldPosition(worldPos))
             {
@@ -178,10 +178,38 @@ namespace StardustSandbox.Core.Managers
 
         // ================================== //
         // Utilities
-        private Vector2 GetWorldPositionFromMouse()
+        private Point GetWorldGridPositionFromMouse()
         {
-            Vector2 screenPos = this._cameraManager.ScreenToWorld(this._inputManager.MouseState.Position.ToVector2());
-            return new Vector2(screenPos.X, screenPos.Y) / SWorldConstants.GRID_SCALE;
+            Vector2 mousePosition = GetMousePositionInScreenSpace();
+            Vector2 worldPosition = ConvertScreenToWorld(mousePosition);
+            Vector2 gridPosition = SnapToGrid(worldPosition);
+
+            return gridPosition.ToPoint();
+        }
+
+        private Vector2 GetMousePositionInScreenSpace()
+        {
+            return this._inputManager.GetScaledMousePosition();
+        }
+
+        private Vector2 ConvertScreenToWorld(Vector2 screenPosition)
+        {
+            Vector3 screenPosition3D = new(screenPosition, 0);
+
+            Matrix viewMatrix = this._cameraManager.GetViewMatrix();
+            Matrix inverseViewMatrix = Matrix.Invert(viewMatrix);
+
+            Vector3 worldPosition3D = Vector3.Transform(screenPosition3D, inverseViewMatrix);
+
+            return new Vector2(worldPosition3D.X, worldPosition3D.Y);
+        }
+
+        private static Vector2 SnapToGrid(Vector2 worldPosition)
+        {
+            return new Vector2(
+                (int)(worldPosition.X / SWorldConstants.GRID_SCALE),
+                (int)(worldPosition.Y / SWorldConstants.GRID_SCALE)
+            );
         }
     }
 }

@@ -26,6 +26,7 @@ namespace StardustSandbox.Core
         public SInputManager InputManager => this._inputManager;
         public SGameInputManager GameInputManager => this._gameInputManager;
         public SCameraManager CameraManager => this._cameraManager;
+        public SGraphicsManager GraphicsManager => this._graphicsManager;
         public SGUIManager GUIManager => this._guiManager;
 
         public SWorld World => this._world;

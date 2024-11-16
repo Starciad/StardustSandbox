@@ -120,6 +120,11 @@ namespace StardustSandbox.Core.Managers
             return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y), Matrix.Invert(GetViewMatrix()));
         }
 
+        public Matrix GetViewMatrix()
+        {
+            return GetVirtualViewMatrix() * Matrix.Identity;
+        }
+
         private Matrix GetVirtualViewMatrix()
         {
             return Matrix.CreateTranslation(new(-this.Position.X, this.Position.Y, 0.0f)) *
@@ -127,11 +132,6 @@ namespace StardustSandbox.Core.Managers
                    Matrix.CreateRotationZ(this.Rotation) *
                    Matrix.CreateScale(this.Zoom, this.Zoom, 1) *
                    Matrix.CreateTranslation(new(this.Origin, 0.0f));
-        }
-
-        public Matrix GetViewMatrix()
-        {
-            return GetVirtualViewMatrix() * Matrix.Identity;
         }
 
         public bool InsideCameraBounds(Vector2 targetPosition, SSize2 targetSize, bool inWorldPosition, float toleranceFactor = 0f)

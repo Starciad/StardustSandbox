@@ -17,6 +17,7 @@ namespace StardustSandbox.Core.Interfaces.General
         SInputManager InputManager { get; }
         SGameInputManager GameInputManager { get; }
         SCameraManager CameraManager { get; }
+        SGraphicsManager GraphicsManager { get; }
         SGUIManager GUIManager { get; }
 
         // Core

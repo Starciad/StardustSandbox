@@ -62,5 +62,13 @@ namespace StardustSandbox.Core.Managers
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
         }
+
+        public Vector2 GetScreenScaleFactor()
+        {
+            return new(
+                this._graphicsDeviceManager.PreferredBackBufferWidth / (float)SScreenConstants.DEFAULT_SCREEN_WIDTH,
+                this._graphicsDeviceManager.PreferredBackBufferHeight / (float)SScreenConstants.DEFAULT_SCREEN_HEIGHT
+            );
+        }
     }
 }

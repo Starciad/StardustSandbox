@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
@@ -27,9 +28,28 @@ namespace StardustSandbox.Core.Managers
             this._keyboardState = Keyboard.GetState();
         }
 
+        public Vector2 GetScaledMousePosition()
+        {
+            return CalculateScaledMousePosition(this._mouseState, this.SGameInstance.GraphicsManager);
+        }
+
+        public Vector2 GetScaledPreviousMousePosition()
+        {
+            return CalculateScaledMousePosition(this._previousMouseState, this.SGameInstance.GraphicsManager);
+        }
+
         public int GetDeltaScrollWheel()
         {
             return this._previousMouseState.ScrollWheelValue - this._mouseState.ScrollWheelValue;
+        }
+
+        private static Vector2 CalculateScaledMousePosition(MouseState mouseState, SGraphicsManager graphicsManager)
+        {
+            Vector2 mousePosition = new(mouseState.X, mouseState.Y);
+
+            mousePosition /= graphicsManager.GetScreenScaleFactor();
+
+            return mousePosition;
         }
     }
 }
