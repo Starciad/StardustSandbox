@@ -48,8 +48,8 @@ namespace StardustSandbox.Core.Managers
             UpdatePlaceAreaSize();
             this._actionHandler.Update(gameTime);
 
-            // External
-            ClampCamera();
+            // Camera
+            ClampCameraInTheWorld();
         }
 
         // Update
@@ -82,12 +82,26 @@ namespace StardustSandbox.Core.Managers
         }
 
         // Utilities
-        private void ClampCamera()
+        private void ClampCameraInTheWorld()
         {
-            int totalX = (int)(this._world.Infos.Size.Width * SWorldConstants.GRID_SCALE) - SScreenConstants.DEFAULT_SCREEN_WIDTH;
-            int totalY = (int)(this._world.Infos.Size.Height * SWorldConstants.GRID_SCALE) - SScreenConstants.DEFAULT_SCREEN_HEIGHT;
+            int totalWorldWidth = (int)(this._world.Infos.Size.Width * SWorldConstants.GRID_SCALE);
+            int totalWorldHeight = (int)(this._world.Infos.Size.Height * SWorldConstants.GRID_SCALE);
 
-            this._cameraManager.ClampPosition(new Vector2(0, -totalY), new Vector2(totalX, 0));
+            float visibleWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
+            float visibleHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;
+
+            float worldLeftLimit = 0f;
+            float worldRightLimit = totalWorldWidth - visibleWidth;
+
+            float worldBottomLimit = (totalWorldHeight - visibleHeight) * -1;
+            float worldTopLimit = 0f;
+
+            Vector2 cameraPosition = this._cameraManager.Position;
+
+            cameraPosition.X = MathHelper.Clamp(cameraPosition.X, worldLeftLimit, worldRightLimit);
+            cameraPosition.Y = MathHelper.Clamp(cameraPosition.Y, worldBottomLimit, worldTopLimit);
+
+            this._cameraManager.Position = cameraPosition;
         }
     }
 }

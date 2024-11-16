@@ -98,11 +98,6 @@ namespace StardustSandbox.Core.Managers
             ClampZoom(this.Zoom - deltaZoom);
         }
 
-        public void ClampPosition(Vector2 min, Vector2 max)
-        {
-            _ = Vector2.Clamp(this.Position, min, max);
-        }
-
         public void ClampZoom(float value)
         {
             this.Zoom = value < this.MinimumZoom ? this.MinimumZoom : value > this.MaximumZoom ? this.MaximumZoom : value;
