@@ -48,12 +48,10 @@ namespace StardustSandbox.Core
             #endregion
 
             #region RENDERING (FINAL)
-            Vector2 scaleFactor = Vector2.One;
-
             this.GraphicsDevice.SetRenderTarget(null);
             this.GraphicsDevice.Clear(Color.Black);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this._sb.Draw(this._graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, scaleFactor, SpriteEffects.None, 0f);
+            this._sb.Draw(this._graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, this._graphicsManager.GetScreenScaleFactor(), SpriteEffects.None, 0f);
             this._cursorManager.Draw(gameTime, this._sb);
             this._sb.End();
             #endregion

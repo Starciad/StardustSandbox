@@ -14,15 +14,14 @@ namespace StardustSandbox.Core
                 pluginBuilder.Initialize(this, this.Content);
             }
 
-            #region Databases
+            // Databases
             this._assetDatabase.Initialize();
             this._elementDatabase.Initialize();
             this._itemDatabase.Initialize();
             this._guiDatabase.Initialize();
             this._backgroundDatabase.Initialize();
-            #endregion
 
-            #region Managers
+            // Managers
             this._graphicsManager.Initialize();
             this._gameInputManager.Initialize();
             this._shaderManager.Initialize();
@@ -30,11 +29,9 @@ namespace StardustSandbox.Core
             this._guiManager.Initialize();
             this._cursorManager.Initialize();
             this._backgroundManager.Initialize();
-            #endregion
 
-            #region Game
+            // Core
             this._world.Initialize();
-            #endregion
 
             base.Initialize();
         }
@@ -47,11 +44,15 @@ namespace StardustSandbox.Core
         protected override void BeginRun()
         {
             this._guiManager.ShowGUI(SGUIConstants.HUD_NAME);
-            // this._guiManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
         }
 
         protected override void Update(GameTime gameTime)
         {
+            if (!this.isFocused)
+            {
+                return;
+            }
+
             // Managers
             this._graphicsManager.Update(gameTime);
             this._gameInputManager.Update(gameTime);

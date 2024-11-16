@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core
 {
-    public sealed partial class SGame : Microsoft.Xna.Framework.Game, ISGame
+    public sealed partial class SGame : Game, ISGame
     {
         public SAssetDatabase AssetDatabase => this._assetDatabase;
         public SElementDatabase ElementDatabase => this._elementDatabase;
@@ -26,6 +26,7 @@ namespace StardustSandbox.Core
         public SInputManager InputManager => this._inputManager;
         public SGameInputManager GameInputManager => this._gameInputManager;
         public SCameraManager CameraManager => this._cameraManager;
+        public SGraphicsManager GraphicsManager => this._graphicsManager;
         public SGUIManager GUIManager => this._guiManager;
 
         public SWorld World => this._world;
@@ -56,6 +57,9 @@ namespace StardustSandbox.Core
 
         // Plugin System
         private readonly List<SPluginBuilder> pluginBuilders = [];
+
+        // Status
+        private bool isFocused;
 
         // ================================= //
 

@@ -14,7 +14,7 @@ namespace StardustSandbox.Core.GUISystem.Events
         /// </summary>
         public bool OnMouseClick(Vector2 targetPosition, SSize2 areaSize)
         {
-            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
+            Vector2 mousePosition = this._inputManager.GetScaledMousePosition();
 
             return this._inputManager.MouseState.LeftButton == ButtonState.Released &&
                    this._inputManager.PreviousMouseState.LeftButton == ButtonState.Pressed &&
@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.GUISystem.Events
         /// </summary>
         public bool OnMouseDown(Vector2 targetPosition, SSize2 areaSize)
         {
-            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
+            Vector2 mousePosition = this._inputManager.GetScaledMousePosition();
 
             return this._inputManager.MouseState.LeftButton == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.GUISystem.Events
         /// </summary>
         public bool OnMouseUp(Vector2 targetPosition, SSize2 areaSize)
         {
-            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
+            Vector2 mousePosition = this._inputManager.GetScaledMousePosition();
 
             return this._inputManager.MouseState.LeftButton == ButtonState.Released &&
                    this._inputManager.PreviousMouseState.LeftButton == ButtonState.Pressed &&
@@ -49,8 +49,8 @@ namespace StardustSandbox.Core.GUISystem.Events
         /// </summary>
         public bool OnMouseEnter(Vector2 targetPosition, SSize2 areaSize)
         {
-            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
-            Vector2 previousMousePosition = this._inputManager.PreviousMouseState.Position.ToVector2();
+            Vector2 mousePosition = this._inputManager.GetScaledMousePosition();
+            Vector2 previousMousePosition = this._inputManager.GetScaledPreviousMousePosition();
 
             bool mouseWasOutside = !IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
             bool mouseIsInside = IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.GUISystem.Events
         /// </summary>
         public bool OnMouseOver(Vector2 targetPosition, SSize2 areaSize)
         {
-            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
+            Vector2 mousePosition = this._inputManager.GetScaledMousePosition();
 
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
@@ -73,8 +73,8 @@ namespace StardustSandbox.Core.GUISystem.Events
         /// </summary>
         public bool OnMouseLeave(Vector2 targetPosition, SSize2 areaSize)
         {
-            Vector2 mousePosition = this._inputManager.MouseState.Position.ToVector2();
-            Vector2 previousMousePosition = this._inputManager.PreviousMouseState.Position.ToVector2();
+            Vector2 mousePosition = this._inputManager.GetScaledMousePosition();
+            Vector2 previousMousePosition = this._inputManager.GetScaledPreviousMousePosition();
 
             bool mouseWasInside = IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
             bool mouseIsOutside = !IsMouseWithinArea(mousePosition, targetPosition, areaSize);

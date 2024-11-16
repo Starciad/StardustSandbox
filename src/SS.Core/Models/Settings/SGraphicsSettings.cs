@@ -3,6 +3,10 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System;
+using System.Linq;
+using System.Windows.Forms;
+
 namespace StardustSandbox.Core.Models.Settings
 {
     [MessagePackObject]
@@ -31,15 +35,38 @@ namespace StardustSandbox.Core.Models.Settings
 
         public SGraphicsSettings()
         {
-            SSize2 resolution = SScreenConstants.RESOLUTIONS[3];
+            SSize2 monitorResolution = GetMonitorResolution();
+            SSize2 autoResolution = GetAutoResolution(monitorResolution);
 
-            this.ScreenWidth = (int)resolution.Width;
-            this.ScreenHeight = (int)resolution.Height;
-            this.Resizable = false;
+            this.ScreenWidth = (int)autoResolution.Width;
+            this.ScreenHeight = (int)autoResolution.Height;
+            this.Resizable = true;
             this.FullScreen = false;
             this.Framerate = 60f;
             this.VSync = false;
             this.Borderless = false;
+        }
+        
+        private static SSize2 GetAutoResolution(SSize2 monitorResolution)
+        {
+            for (int i = SScreenConstants.RESOLUTIONS.Length - 1; i >= 0; i--)
+            {
+                SSize2 resolution = SScreenConstants.RESOLUTIONS[i];
+
+                if (resolution.Width <= monitorResolution.Width && resolution.Height <= monitorResolution.Height)
+                {
+                    return resolution;
+                }
+            }
+
+            return SScreenConstants.RESOLUTIONS[0];
+        }
+
+        private static SSize2 GetMonitorResolution()
+        {
+            int width = Screen.PrimaryScreen.Bounds.Width;
+            int height = Screen.PrimaryScreen.Bounds.Height;
+            return new SSize2(width, height);
         }
     }
 }
