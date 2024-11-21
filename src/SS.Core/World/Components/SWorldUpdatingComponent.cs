@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.World;
