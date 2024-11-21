@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 

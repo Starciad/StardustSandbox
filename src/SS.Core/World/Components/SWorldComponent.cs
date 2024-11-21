@@ -1,6 +1,5 @@
 ﻿using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.World.Components
 {

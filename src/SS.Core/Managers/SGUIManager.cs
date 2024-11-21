@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.GUISystem.Events;
+using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Managers
 {

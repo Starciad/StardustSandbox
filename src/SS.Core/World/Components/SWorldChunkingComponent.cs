@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.World.Data;
-using StardustSandbox.Core.World;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.World.Components
 {

@@ -3,8 +3,6 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace StardustSandbox.Core.Models.Settings
@@ -46,7 +44,7 @@ namespace StardustSandbox.Core.Models.Settings
             this.VSync = false;
             this.Borderless = false;
         }
-        
+
         private static SSize2 GetAutoResolution(SSize2 monitorResolution)
         {
             for (int i = SScreenConstants.RESOLUTIONS.Length - 1; i >= 0; i--)

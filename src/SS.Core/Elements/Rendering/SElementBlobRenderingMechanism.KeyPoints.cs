@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants.Elements;
-using StardustSandbox.Core.Elements.Rendering;
 
 namespace StardustSandbox.Core.Elements.Rendering
 {
