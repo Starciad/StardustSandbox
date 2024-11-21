@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             this.id = 017;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_18");
-            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
         }
 

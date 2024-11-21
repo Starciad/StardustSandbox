@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
         {
             this.id = 015;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_16");
-            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
         }
 

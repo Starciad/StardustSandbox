@@ -11,7 +11,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             this.id = 004;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_5");
-            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 22;
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 10;

@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
         {
             this.id = 023;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
-            this.rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
             this.enableNeighborsAction = true;
             this.defaultTemperature = 500;
         }

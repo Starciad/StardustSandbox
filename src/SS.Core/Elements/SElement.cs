@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Elements
         protected bool enableTemperature = true;
         protected bool enableFlammability;
 
-        protected SElementRendering rendering;
+        private SElementRendering rendering;
         private ISElementContext context;
 
         public SElement(ISGame gameInstance) : base(gameInstance)
