@@ -14,6 +14,10 @@ Thank you for dedicating your time to play and experience this game.
 
 ## Contributors
 
+### Programmers
+
+- [@igorunderplayer](https://github.com/igorunderplayer): general code operations helper.
+
 ### Artists
 
 - **Focsi**: designed the fire sprite.
