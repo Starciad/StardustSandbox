@@ -28,12 +28,7 @@ namespace StardustSandbox.Core.Elements
         public bool EnableFlammability => this.enableFlammability;
 
         public SElementRendering Rendering => this.rendering;
-        public ISElementContext Context
-        {
-            get => this.context;
-
-            set => this.context = value;
-        }
+        public ISElementContext Context { get => this.context; set => this.context = value; }
 
         // =========================== //
 
@@ -68,9 +63,9 @@ namespace StardustSandbox.Core.Elements
             this.Rendering.Draw(gameTime, spriteBatch);
         }
 
-        public void AwakeStep(SWorldSlot worldSlot)
+        public void InstantiateStep(SWorldSlot worldSlot)
         {
-            OnAwakeStep(worldSlot);
+            OnInstantiateStep(worldSlot);
         }
 
         public void Steps()
@@ -119,7 +114,7 @@ namespace StardustSandbox.Core.Elements
             OnTemperatureChanged(this.Context.Slot.Temperature);
         }
 
-        protected virtual void OnAwakeStep(SWorldSlot worldSlot) { return; }
+        protected virtual void OnInstantiateStep(SWorldSlot worldSlot) { return; }
         protected virtual void OnBeforeStep() { return; }
         protected virtual void OnStep() { return; }
         protected virtual void OnAfterStep() { return; }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
@@ -40,7 +41,11 @@ namespace StardustSandbox.Core.World
 
             NotifyChunk(pos);
 
-            this.slots[pos.X, pos.Y].Instantiate(value);
+            SWorldSlot worldSlot = this.slots[pos.X, pos.Y];
+
+            worldSlot.Instantiate(value);
+            ((SElement)value).InstantiateStep(worldSlot);
+
             return true;
         }
 

@@ -24,7 +24,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultFlammabilityResistance = 150;
         }
 
-        protected override void OnAwakeStep(SWorldSlot worldSlot)
+        protected override void OnInstantiateStep(SWorldSlot worldSlot)
         {
             worldSlot.SetColor(SElementConstants.COLORS_OF_MOUNTING_BLOCKS[SRandomMath.Range(0, SElementConstants.COLORS_OF_MOUNTING_BLOCKS.Length)]);
         }
