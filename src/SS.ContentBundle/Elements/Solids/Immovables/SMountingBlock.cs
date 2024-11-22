@@ -6,6 +6,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
@@ -26,7 +27,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 
         protected override void OnInstantiateStep(SWorldSlot worldSlot)
         {
-            worldSlot.SetColor(SElementConstants.COLORS_OF_MOUNTING_BLOCKS[SRandomMath.Range(0, SElementConstants.COLORS_OF_MOUNTING_BLOCKS.Length)]);
+            worldSlot.SetColor(SElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
 
         protected override void OnTemperatureChanged(short currentValue)
