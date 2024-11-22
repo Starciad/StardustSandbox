@@ -6,9 +6,9 @@ using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Animations
 {
-    public sealed class SAnimation(ISGame gameInstance, Texture2D texture, SAnimationFrame[] frames) : SGameObject(gameInstance), ISReset
+    public sealed class SAnimation(ISGame gameInstance, SAnimationFrame[] frames) : SGameObject(gameInstance), ISReset
     {
-        public Texture2D Texture => texture;
+        public Texture2D Texture { get; set; }
         public SAnimationFrame CurrentFrame => this.frames[this.currentFrameIndex];
 
         public bool Paused { get; set; } = false;
@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Animations
 
         public override void Update(GameTime gameTime)
         {
-            if (this.Paused)
+            if (this.Paused && this.frames.Length <= 1)
             {
                 return;
             }
@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.Animations
 
         public void NextFrame()
         {
-            if (this.currentFrameIndex < this.frames.Length)
+            if (this.currentFrameIndex < this.frames.Length - 1)
             {
                 this.currentFrameIndex++;
                 return;

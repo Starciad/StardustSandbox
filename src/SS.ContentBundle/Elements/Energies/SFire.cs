@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.Elements.Gases;
+using StardustSandbox.Core.Animations;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Energies;
@@ -19,7 +21,12 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
         {
             this.id = 023;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [
+                new(new(new(00, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
+                new(new(new(32, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
+                new(new(new(64, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
+                new(new(new(96, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
+            ])));
             this.enableNeighborsAction = true;
             this.defaultTemperature = 500;
         }

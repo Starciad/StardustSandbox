@@ -16,6 +16,16 @@ namespace StardustSandbox.Core.Elements.Rendering
         private readonly SElement _element = element;
         private ISElementContext _context;
 
+        public override void Update(GameTime gameTime)
+        {
+            if (this.renderingMechanism == null)
+            {
+                throw new InvalidOperationException($"No rendering mechanism has been implemented for the {this._element.GetType().Name} element. Please ensure a valid rendering mechanism is set using the {nameof(SetRenderingMechanism)} method.");
+            }
+
+            this.renderingMechanism.Update(gameTime);
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (this.renderingMechanism == null)
