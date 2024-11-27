@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.World.Components
                         {
                             continue;
                         }
-                            
+
                         UpdateElementTarget(gameTime, pos, SWorldThreadUpdateType.Update);
                         this.capturedSlots.Add(pos);
                     }

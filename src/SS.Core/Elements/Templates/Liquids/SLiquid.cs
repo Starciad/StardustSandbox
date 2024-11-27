@@ -2,8 +2,12 @@
 
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
+
+using System;
 
 namespace StardustSandbox.Core.Elements.Templates.Liquids
 {
@@ -50,78 +54,77 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
 
         private void HorizontalMovementUpdate()
         {
-            int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
-            int lCount = 0, rCount = 0;
-            bool lCountBreak = false, rCountBreak = false;
+            Point currentPosition = this.Context.Position;
 
-            // Left (<) && Right (>)
-            for (int i = 0; i < this.DefaultDispersionRate; i++)
+            (Point leftDispersionPosition, Point rightDispersionPosition) = GetSidewaysSpreadPositions(this.Context, currentPosition, this.DefaultDispersionRate);
+
+            float leftDistance = SPointExtensions.Distance(currentPosition, leftDispersionPosition);
+            float rightDistance = SPointExtensions.Distance(currentPosition, rightDispersionPosition);
+
+            // When the distances are equal, the position decided will be random.
+            if (leftDistance.Equals(rightDistance))
             {
-                if (lCountBreak && rCountBreak)
+                if (SRandomMath.Chance(50, 101))
                 {
-                    break;
-                }
-
-                if (!lCountBreak && this.Context.IsEmptyElementSlot(new(this.Context.Position.X - (i + 1), this.Context.Position.Y)))
-                {
-                    lCount++;
+                    this.Context.TrySetPosition(leftDispersionPosition);
                 }
                 else
                 {
-                    lCountBreak = true;
+                    this.Context.TrySetPosition(rightDispersionPosition);
                 }
-
-                if (!rCountBreak && this.Context.IsEmptyElementSlot(new(this.Context.Position.X + i + 1, this.Context.Position.Y)))
-                {
-                    rCount++;
-                }
-                else
-                {
-                    rCountBreak = true;
-                }
+                                
+                return;
             }
 
-            // Set new position
-            int tCount = int.Max(lCount, rCount);
-
-            Point lPosition = new(this.Context.Position.X - tCount, this.Context.Position.Y);
-            Point rPosition = new(this.Context.Position.X + tCount, this.Context.Position.Y);
-
-            if (tCount.Equals(lCount) && tCount.Equals(rCount))
+            // If the distances are not equal, the element chooses the largest one to position itself.
+            if (leftDistance > rightDistance)
             {
-                switch (rDirection)
+                this.Context.TrySetPosition(leftDispersionPosition);
+            }
+            else
+            {
+                this.Context.TrySetPosition(rightDispersionPosition);
+            }
+        }
+
+        private static (Point leftDispersionPosition, Point rightDispersionPosition) GetSidewaysSpreadPositions(ISElementContext elementContext, Point currentPosition, int dispersionRate)
+        {
+            Point leftDispersionPosition = currentPosition;
+            Point rightDispersionPosition = currentPosition;
+
+            bool leftIsObstructed = false;
+            bool rightIsObstructed = false;
+
+            for (int i = 0; i < dispersionRate; i++)
+            {
+                // Left (<)
+                if (!leftIsObstructed)
                 {
-                    case 1:
-                        if (this.Context.TrySetPosition(rPosition))
-                        { return; }
+                    if (elementContext.IsEmptyElementSlot(new Point(leftDispersionPosition.X - 1, leftDispersionPosition.Y)))
+                    {
+                        leftDispersionPosition.X--;
+                    }
+                    else
+                    {
+                        leftIsObstructed = true;
+                    }
+                }
 
-                        break;
-
-                    case -1:
-                        if (this.Context.TrySetPosition(lPosition))
-                        { return; }
-
-                        break;
-
-                    default:
-                        if (this.Context.TrySetPosition(rPosition))
-                        { return; }
-
-                        break;
+                // Right (>)
+                if (!rightIsObstructed)
+                {
+                    if (elementContext.IsEmptyElementSlot(new Point(rightDispersionPosition.X + 1, rightDispersionPosition.Y)))
+                    {
+                        rightDispersionPosition.X++;
+                    }
+                    else
+                    {
+                        rightIsObstructed = true;
+                    }
                 }
             }
 
-            if (tCount.Equals(lCount))
-            {
-                if (this.Context.TrySetPosition(lPosition))
-                { return; }
-            }
-
-            if (tCount.Equals(rCount))
-            {
-                if (this.Context.TrySetPosition(rPosition))
-                { return; }
-            }
+            return (leftDispersionPosition, rightDispersionPosition);
         }
     }
 }
