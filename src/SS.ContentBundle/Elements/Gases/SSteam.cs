@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Elements.Rendering;
-using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Elements.Templates.Gases;
+using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases

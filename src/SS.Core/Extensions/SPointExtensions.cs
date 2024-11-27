@@ -11,7 +11,7 @@ namespace StardustSandbox.Core.Extensions
             float dx = value1.X - value2.X;
             float dy = value1.Y - value2.Y;
 
-            return (float)Math.Sqrt(dx * dx + dy * dy);
+            return (float)Math.Sqrt((dx * dx) + (dy * dy));
         }
 
         public static Point[] GetNeighboringCardinalPoints(Point value)
