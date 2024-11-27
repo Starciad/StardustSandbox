@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
@@ -18,13 +19,12 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
             {
                 for (int i = 0; i < belowPositions.Length; i++)
                 {
-                    Point sidePos = belowPositions[i];
-                    Point finalPos = new(sidePos.X, sidePos.Y);
+                    Point position = belowPositions[i];
 
-                    if (TrySetPosition(finalPos))
+                    if (TrySetPosition(position))
                     {
-                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, finalPos);
-                        this.Context.SetElementFreeFalling(finalPos, true);
+                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, position);
+                        this.Context.SetElementFreeFalling(position, true);
                         return;
                     }
                 }
@@ -47,16 +47,16 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
             }
         }
 
-        private bool TrySetPosition(Point pos)
+        private bool TrySetPosition(Point position)
         {
-            if (this.Context.TrySetPosition(pos))
+            if (this.Context.TrySetPosition(position))
             {
                 return true;
             }
 
-            if (this.Context.TryGetElement(pos, out ISElement value))
+            if (this.Context.TryGetElement(position, out ISElement value))
             {
-                if (value is SLiquid && this.Context.TrySwappingElements(pos))
+                if ((value is SLiquid || value is SGas) && this.Context.TrySwappingElements(position))
                 {
                     return true;
                 }

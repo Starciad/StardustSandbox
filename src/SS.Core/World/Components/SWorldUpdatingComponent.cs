@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Components.Templates;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World;
+using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
 
@@ -20,26 +22,29 @@ namespace StardustSandbox.Core.World.Components
         public override void Update(GameTime gameTime)
         {
             this.capturedSlots.Clear();
-
             GetAllElementsForUpdating(gameTime);
             UpdateAllCapturedElements(gameTime);
         }
 
         private void GetAllElementsForUpdating(GameTime gameTime)
         {
-            for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
-            {
-                for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
-                {
-                    Point pos = new(x, y);
-                    bool chunkState = this.SWorldInstance.GetChunkUpdateState(pos);
+            SWorldChunk[] worldChunks = this.SWorldInstance.GetActiveChunks();
 
-                    if (this.SWorldInstance.IsEmptyElementSlot(pos) || !chunkState)
+            for (int i = 0; i < worldChunks.Length; i++)
+            {
+                SWorldChunk worldChunk = worldChunks[i];
+
+                for (int y = 0; y < SWorldConstants.CHUNK_SCALE; y++)
+                {
+                    for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
                     {
-                        continue;
-                    }
-                    else
-                    {
+                        Point pos = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
+
+                        if (this.SWorldInstance.IsEmptyElementSlot(pos))
+                        {
+                            continue;
+                        }
+
                         UpdateElementTarget(gameTime, pos, SWorldThreadUpdateType.Update);
                         this.capturedSlots.Add(pos);
                     }
@@ -49,11 +54,7 @@ namespace StardustSandbox.Core.World.Components
 
         private void UpdateAllCapturedElements(GameTime gameTime)
         {
-            int totalCapturedSlots = this.capturedSlots.Count;
-            for (int i = 0; i < totalCapturedSlots; i++)
-            {
-                UpdateElementTarget(gameTime, this.capturedSlots[i], SWorldThreadUpdateType.Step);
-            }
+            this.capturedSlots.ForEach(x => UpdateElementTarget(gameTime, x, SWorldThreadUpdateType.Step));
         }
 
         private void UpdateElementTarget(GameTime gameTime, Point position, SWorldThreadUpdateType updateType)

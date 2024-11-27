@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.Core.Plugins;
-using StardustSandbox.Core;
 
 using System;
 

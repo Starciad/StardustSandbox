@@ -6,7 +6,7 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Core.Background.Details
+namespace StardustSandbox.Core.Backgrounds.Details
 {
     public sealed class SCloud(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {

@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             this.id = 002;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
-            this.rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultDispersionRate = 3;
             this.defaultTemperature = 25;
             this.enableNeighborsAction = true;

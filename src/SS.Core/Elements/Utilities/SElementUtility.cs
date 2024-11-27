@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Mathematics;
 
@@ -50,6 +51,51 @@ namespace StardustSandbox.Core.Elements.Utilities
         {
             context.SetElementFreeFalling(new(position.X - 1, position.Y), true);
             context.SetElementFreeFalling(new(position.X + 1, position.Y), true);
+        }
+
+        public static void UpdateHorizontalPosition(ISElementContext context, int dispersionRate)
+        {
+            Point currentPosition = context.Position;
+
+            (Point leftPos, Point rightPos) = GetSidewaysSpreadPositions(context, currentPosition, dispersionRate);
+
+            float leftDistance = SPointExtensions.Distance(currentPosition, leftPos);
+            float rightDistance = SPointExtensions.Distance(currentPosition, rightPos);
+
+            Point targetPosition = leftDistance == rightDistance
+                ? (SRandomMath.Chance(50, 101) ? leftPos : rightPos)
+                : (leftDistance > rightDistance ? leftPos : rightPos);
+
+            _ = context.TrySetPosition(targetPosition);
+        }
+
+        public static (Point left, Point right) GetSidewaysSpreadPositions(ISElementContext context, Point position, int rate)
+        {
+            return (
+                GetDispersionPosition(context, position, rate, -1),
+                GetDispersionPosition(context, position, rate, 1)
+            );
+        }
+
+        private static Point GetDispersionPosition(ISElementContext context, Point position, int rate, int direction)
+        {
+            Point dispersionPosition = position;
+
+            for (int i = 0; i < rate; i++)
+            {
+                Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
+
+                if (context.IsEmptyElementSlot(nextPosition))
+                {
+                    dispersionPosition = nextPosition;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return dispersionPosition;
         }
     }
 }

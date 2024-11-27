@@ -29,19 +29,18 @@ namespace StardustSandbox.Core.World.Data
         public void Instantiate(ISElement value)
         {
             this.isEmpty = false;
+            this.element = value;
             this.temperature = value.DefaultTemperature;
             this.freeFalling = false;
             this.color = Color.White;
-
-            this.element = value;
         }
 
         public void Destroy()
         {
             this.isEmpty = true;
+            this.element = null;
             this.temperature = 0;
             this.freeFalling = false;
-            this.element = null;
             this.color = Color.Transparent;
         }
 

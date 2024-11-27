@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.World.Data;
-using StardustSandbox.Core.World;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.World.Data;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World.Components
 {
@@ -21,7 +23,7 @@ namespace StardustSandbox.Core.World.Components
         {
             this.pixelTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
 
-            this._chunks = new SWorldChunk[(int)(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (int)(this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
+            this._chunks = new SWorldChunk[(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
 
             this.worldChunkWidth = this._chunks.GetLength(0);
             this.worldChunkHeight = this._chunks.GetLength(1);
@@ -66,9 +68,11 @@ namespace StardustSandbox.Core.World.Components
             result = this._chunks[targetPos.X, targetPos.Y].ShouldUpdate;
             return true;
         }
+
         public int GetActiveChunksCount()
         {
             int result = 0;
+
             for (int x = 0; x < this.worldChunkWidth; x++)
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
@@ -81,6 +85,26 @@ namespace StardustSandbox.Core.World.Components
             }
 
             return result;
+        }
+
+        public SWorldChunk[] GetActiveChunks()
+        {
+            List<SWorldChunk> chunks = [];
+
+            for (int x = 0; x < this.worldChunkWidth; x++)
+            {
+                for (int y = 0; y < this.worldChunkHeight; y++)
+                {
+                    SWorldChunk worldChunk = this._chunks[x, y];
+
+                    if (worldChunk.ShouldUpdate)
+                    {
+                        chunks.Add(worldChunk);
+                    }
+                }
+            }
+
+            return [.. chunks];
         }
 
         public bool TryNotifyChunk(Point pos)

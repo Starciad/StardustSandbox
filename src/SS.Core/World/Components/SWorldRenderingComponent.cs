@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
@@ -8,7 +9,6 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
 
 using System.Collections.Generic;
 

@@ -12,15 +12,15 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         public static SSize2 Zero => new(0, 0);
         public static SSize2 One => new(1, 1);
 
-        public float Width;
-        public float Height;
+        public int Width;
+        public int Height;
 
-        public SSize2(float value)
+        public SSize2(int value)
         {
             this.Width = value;
             this.Height = value;
         }
-        public SSize2(float width, float height)
+        public SSize2(int width, int height)
         {
             this.Width = width;
             this.Height = height;
@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         }
         public static implicit operator Point(SSize2 size)
         {
-            return new Point((int)size.Width, (int)size.Height);
+            return new Point(size.Width, size.Height);
         }
 
         public static SSize2 operator +(SSize2 first, SSize2 second)
@@ -43,11 +43,11 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         {
             return Subtract(first, second);
         }
-        public static SSize2 operator *(SSize2 size, float value)
+        public static SSize2 operator *(SSize2 size, int value)
         {
             return new SSize2(size.Width * value, size.Height * value);
         }
-        public static SSize2 operator /(SSize2 size, float value)
+        public static SSize2 operator /(SSize2 size, int value)
         {
             return new SSize2(size.Width / value, size.Height / value);
         }
@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.Mathematics.Primitives
 
         public readonly Point ToPoint()
         {
-            return new Point((int)this.Width, (int)this.Height);
+            return new Point(this.Width, this.Height);
         }
         public readonly Vector2 ToVector2()
         {
@@ -106,7 +106,7 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         }
         public override readonly bool Equals(object obj)
         {
-            return obj is SSize2 @float && Equals(@float);
+            return obj is SSize2 @int && Equals(@int);
         }
     }
 }

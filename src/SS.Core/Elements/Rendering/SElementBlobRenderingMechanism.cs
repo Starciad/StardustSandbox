@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
-using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.Elements;

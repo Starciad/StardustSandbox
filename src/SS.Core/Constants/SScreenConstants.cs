@@ -4,8 +4,8 @@ namespace StardustSandbox.Core.Constants
 {
     public static class SScreenConstants
     {
-        public static int DEFAULT_SCREEN_WIDTH => (int)RESOLUTIONS[3].Width;
-        public static int DEFAULT_SCREEN_HEIGHT => (int)RESOLUTIONS[3].Height;
+        public static int DEFAULT_SCREEN_WIDTH => RESOLUTIONS[3].Width;
+        public static int DEFAULT_SCREEN_HEIGHT => RESOLUTIONS[3].Height;
 
         // 16:9 Aspect Ratio
         public static SSize2[] RESOLUTIONS =>

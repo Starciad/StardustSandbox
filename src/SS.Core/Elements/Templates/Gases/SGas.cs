@@ -1,32 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Elements.Templates.Solids.Movables;
-using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Elements.Utilities;
+using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Mathematics;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Elements.Templates.Gases
 {
-    public enum GasSpreadingType
-    {
-        Up,
-        Spread
-    }
-
     public abstract class SGas(ISGame gameInstance) : SElement(gameInstance)
     {
-        public GasSpreadingType SpreadingType { get; protected set; }
+        public SGasMovementType MovementType => this.movementType;
+
+        protected SGasMovementType movementType;
+
+        private readonly List<Point> emptyPositionsCache = [];
 
         protected override void OnBehaviourStep()
         {
-            switch (this.SpreadingType)
+            switch (this.movementType)
             {
-                case GasSpreadingType.Up:
-                    UpSpreadingTypeUpdate();
+                case SGasMovementType.Up:
+                    UpMovementTypeUpdate();
                     break;
 
-                case GasSpreadingType.Spread:
+                case SGasMovementType.Spread:
+                    SpreadMovementTypeUpdate();
                     break;
 
                 default:
@@ -34,46 +35,46 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
             }
         }
 
-        private void UpSpreadingTypeUpdate()
+        private void UpMovementTypeUpdate()
         {
-            int direction = SRandomMath.Range(0, 101) < 50 ? 1 : -1;
-            Point[] targets =
-            [
-                new Point(this.Context.Position.X, this.Context.Position.Y - 1),
-                new Point(this.Context.Position.X + direction, this.Context.Position.Y - 1),
-                new Point(this.Context.Position.X + (direction * -1), this.Context.Position.Y - 1),
-            ];
+            Point[] abovePositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Up);
 
-            for (int i = 0; i < targets.Length; i++)
+            for (int i = 0; i < abovePositions.Length; i++)
             {
-                Point targetPos = targets[i];
+                Point position = abovePositions[i];
 
-                if (this.Context.IsEmptyElementSlot(targetPos))
+                if (this.Context.TrySetPosition(position))
                 {
-                    if (this.Context.TrySetPosition(targetPos))
-                    {
-                        return;
-                    }
+                    return;
                 }
 
-                if (this.Context.TryGetElement(targetPos, out ISElement value))
+                SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
+            }
+        }
+
+        private void SpreadMovementTypeUpdate()
+        {
+            this.emptyPositionsCache.Clear();
+
+            foreach (Point point in SPointExtensions.GetNeighboringCardinalPoints(this.Context.Position))
+            {
+                if (this.Context.IsEmptyElementSlot(point))
                 {
-                    if ((value is SLiquid || value is SMovableSolid) && this.Context.TrySwappingElements(targetPos))
-                    {
-                        return;
-                    }
+                    this.emptyPositionsCache.Add(point);
                 }
             }
 
-            for (int i = 0; i < this.DefaultDispersionRate; i++)
+            if (this.emptyPositionsCache.Count == 0)
             {
-                if (!this.Context.IsEmptyElementSlot(new(this.Context.Position.X + direction, this.Context.Position.Y)) &&
-                    !this.Context.IsEmptyElementSlot(new(this.Context.Position.X + direction, this.Context.Position.Y - 1)))
-                {
-                    break;
-                }
-
-                this.Context.SetPosition(new(this.Context.Position.X + direction, this.Context.Position.Y));
+                return;
+            }
+            else if (this.emptyPositionsCache.Count == 1)
+            {
+                this.Context.SetPosition(this.emptyPositionsCache[0]);
+            }
+            else
+            {
+                this.Context.SetPosition(this.emptyPositionsCache.GetRandomItem());
             }
         }
     }
