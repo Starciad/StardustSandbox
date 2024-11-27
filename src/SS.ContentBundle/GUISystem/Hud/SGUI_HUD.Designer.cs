@@ -41,7 +41,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             layout.AddElement(this.rightToolbarContainer);
 
             // Styles
-            this.topToolbarContainer.SetSize(new SSize2(this._root.Size.Width, 96f));
+            this.topToolbarContainer.SetSize(new SSize2(this._root.Size.Width, 96));
 
             // Process
             BuildTopToolbar(this.topToolbarContainer);

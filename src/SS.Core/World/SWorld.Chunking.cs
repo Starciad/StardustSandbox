@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.World.Data;
+
 namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld
@@ -7,6 +9,11 @@ namespace StardustSandbox.Core.World
         public int GetActiveChunksCount()
         {
             return this.worldChunkingComponent.GetActiveChunksCount();
+        }
+
+        public SWorldChunk[] GetActiveChunks()
+        {
+            return this.worldChunkingComponent.GetActiveChunks();
         }
 
         public bool GetChunkUpdateState(Point pos)
