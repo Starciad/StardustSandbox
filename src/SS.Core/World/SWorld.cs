@@ -10,8 +10,6 @@ using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Components;
 using StardustSandbox.Core.World.Data;
 
-using System;
-
 namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld : SGameObject, ISReset
@@ -105,7 +103,7 @@ namespace StardustSandbox.Core.World
             this.Infos.SetSize(size);
 
             DestroyWorldSlots();
-            this.slots = new SWorldSlot[(int)size.Width, (int)size.Height];
+            this.slots = new SWorldSlot[size.Width, size.Height];
             InstantiateWorldSlots();
         }
 

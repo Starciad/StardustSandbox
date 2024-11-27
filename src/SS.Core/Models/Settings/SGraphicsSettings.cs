@@ -36,8 +36,8 @@ namespace StardustSandbox.Core.Models.Settings
             SSize2 monitorResolution = GetMonitorResolution();
             SSize2 autoResolution = GetAutoResolution(monitorResolution);
 
-            this.ScreenWidth = (int)autoResolution.Width;
-            this.ScreenHeight = (int)autoResolution.Height;
+            this.ScreenWidth = autoResolution.Width;
+            this.ScreenHeight = autoResolution.Height;
             this.Resizable = true;
             this.FullScreen = false;
             this.Framerate = 60f;

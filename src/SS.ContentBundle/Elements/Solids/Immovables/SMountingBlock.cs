@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.ContentBundle.Elements.Energies;
+﻿using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
@@ -8,7 +6,6 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables

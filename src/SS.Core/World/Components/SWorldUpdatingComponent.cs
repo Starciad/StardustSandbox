@@ -10,9 +10,7 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Data;
 
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace StardustSandbox.Core.World.Components
 {
@@ -40,7 +38,7 @@ namespace StardustSandbox.Core.World.Components
                 {
                     for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point pos = new(worldChunk.Position.X / SWorldConstants.GRID_SCALE + x, worldChunk.Position.Y / SWorldConstants.GRID_SCALE + y);
+                        Point pos = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
 
                         if (this.SWorldInstance.IsEmptyElementSlot(pos))
                         {

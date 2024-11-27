@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                 ? (SRandomMath.Chance(50, 101) ? leftPos : rightPos)
                 : (leftDistance > rightDistance ? leftPos : rightPos);
 
-            context.TrySetPosition(targetPosition);
+            _ = context.TrySetPosition(targetPosition);
         }
 
         public static (Point left, Point right) GetSidewaysSpreadPositions(ISElementContext context, Point position, int rate)
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
             for (int i = 0; i < rate; i++)
             {
-                Point nextPosition = new Point(dispersionPosition.X + direction, dispersionPosition.Y);
+                Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
                 if (context.IsEmptyElementSlot(nextPosition))
                 {
@@ -94,6 +94,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                     break;
                 }
             }
+
             return dispersionPosition;
         }
     }

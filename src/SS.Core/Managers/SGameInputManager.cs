@@ -84,8 +84,8 @@ namespace StardustSandbox.Core.Managers
         // Utilities
         private void ClampCameraInTheWorld()
         {
-            int totalWorldWidth = (int)(this._world.Infos.Size.Width * SWorldConstants.GRID_SCALE);
-            int totalWorldHeight = (int)(this._world.Infos.Size.Height * SWorldConstants.GRID_SCALE);
+            int totalWorldWidth = this._world.Infos.Size.Width * SWorldConstants.GRID_SCALE;
+            int totalWorldHeight = this._world.Infos.Size.Height * SWorldConstants.GRID_SCALE;
 
             float visibleWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
             float visibleHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;

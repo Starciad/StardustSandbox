@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         }
         public static implicit operator Point(SSize2 size)
         {
-            return new Point((int)size.Width, (int)size.Height);
+            return new Point(size.Width, size.Height);
         }
 
         public static SSize2 operator +(SSize2 first, SSize2 second)
