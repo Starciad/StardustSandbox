@@ -4,7 +4,7 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases
 {
-    public class SSmoke : SGas
+    public sealed class SSmoke : SGas
     {
         public SSmoke(ISGame gameInstance) : base(gameInstance)
         {

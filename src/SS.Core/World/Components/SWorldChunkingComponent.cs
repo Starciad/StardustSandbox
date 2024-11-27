@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.World.Components
         {
 #if DEBUG
             // Debug methods
-            DEBUG_DrawActiveChunks(spriteBatch);
+            // DEBUG_DrawActiveChunks(spriteBatch);
 #endif
         }
 

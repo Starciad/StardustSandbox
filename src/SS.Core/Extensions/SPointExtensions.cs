@@ -13,5 +13,20 @@ namespace StardustSandbox.Core.Extensions
 
             return (float)Math.Sqrt(dx * dx + dy * dy);
         }
+
+        public static Point[] GetNeighboringCardinalPoints(Point value)
+        {
+            return
+            [
+                new(value.X, value.Y - 1),
+                new(value.X + 1, value.Y - 1),
+                new(value.X - 1, value.Y - 1),
+                new(value.X + 1, value.Y),
+                new(value.X - 1, value.Y),
+                new(value.X, value.Y + 1),
+                new(value.X + 1, value.Y + 1),
+                new(value.X - 1, value.Y + 1),
+            ];
+        }
     }
 }

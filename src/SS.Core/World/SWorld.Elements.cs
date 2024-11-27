@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
@@ -175,7 +176,7 @@ namespace StardustSandbox.Core.World
                 return false;
             }
 
-            Point[] neighborsPositions = GetElementNeighborPositions(pos);
+            Point[] neighborsPositions = SPointExtensions.GetNeighboringCardinalPoints(pos);
 
             (Point, ISWorldSlot)[] slotsFound = new (Point, ISWorldSlot)[neighborsPositions.Length];
             int count = 0;
@@ -277,22 +278,6 @@ namespace StardustSandbox.Core.World
         public bool IsEmptyElementSlot(Point pos)
         {
             return !InsideTheWorldDimensions(pos) || this.slots[pos.X, pos.Y].IsEmpty;
-        }
-
-        // Utilities
-        private static Point[] GetElementNeighborPositions(Point pos)
-        {
-            return
-            [
-                new(pos.X, pos.Y - 1),
-                new(pos.X + 1, pos.Y - 1),
-                new(pos.X - 1, pos.Y - 1),
-                new(pos.X + 1, pos.Y),
-                new(pos.X - 1, pos.Y),
-                new(pos.X, pos.Y + 1),
-                new(pos.X + 1, pos.Y + 1),
-                new(pos.X - 1, pos.Y + 1),
-            ];
         }
 
         public bool InsideTheWorldDimensions(Point pos)
