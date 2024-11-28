@@ -45,6 +45,7 @@
         public const string ASSETS_GRAPHICS_ICONS = "icons";
         public const string ASSETS_GRAPHICS_ICONS_ELEMENTS = "elements";
         public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
+        public const string ASSETS_GRAPHICS_ICONS_CONTROLLERS = "controllers";
 
         // Game
         public const string ASSETS_GRAPHICS_GAME = "game";
