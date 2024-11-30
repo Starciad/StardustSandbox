@@ -35,13 +35,13 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         {
             return new SSize2F(value.Width, value.Height);
         }
-        public static implicit operator SSize2F(Point point)
+        public static implicit operator SSize2F(Point value)
         {
-            return new SSize2F(point.X, point.Y);
+            return new SSize2F(value.X, value.Y);
         }
-        public static implicit operator Point(SSize2F size)
+        public static implicit operator Point(SSize2F value)
         {
-            return new Point((int)size.Width, (int)size.Height);
+            return new Point((int)value.Width, (int)value.Height);
         }
 
         public static SSize2F operator +(SSize2F first, SSize2F second)

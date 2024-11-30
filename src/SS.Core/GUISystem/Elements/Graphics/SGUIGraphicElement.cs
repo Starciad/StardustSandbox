@@ -10,16 +10,8 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
     {
         public virtual Texture2D Texture { get; }
         public virtual Rectangle? TextureClipArea { get; }
-        public virtual Color Color { get; }
-        public virtual SpriteEffects SpriteEffects { get; }
-        public virtual SCardinalDirection OriginPivot { get; }
-        public virtual float RotationAngle { get; }
 
         public virtual void SetTexture(Texture2D texture) { return; }
         public virtual void SetTextureClipArea(Rectangle clipArea) { return; }
-        public virtual void SetColor(Color color) { return; }
-        public virtual void SetSpriteEffects(SpriteEffects spriteEffects) { return; }
-        public virtual void SetOriginPivot(SCardinalDirection direction) { return; }
-        public virtual void SetRotationAngle(float angle) { return; }
     }
 }

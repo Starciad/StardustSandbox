@@ -30,18 +30,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.rootElement = layout.RootElement;
 
             BuildMainPanel();
+            BuildInfos();
         }
 
         private void BuildMainPanel()
         {
             #region Instantiating
-            // [ CREATING ]
             SGUIImageElement panelBackground = new(this.SGameInstance);
-
-            // TITLE
             SGUIImageElement gameTitle = new(this.SGameInstance);
-
-            // BUTTONS
             this.menuButtons = [
                 (new(this.SGameInstance), new(this.SGameInstance)),
                 (new(this.SGameInstance), new(this.SGameInstance)),
@@ -51,18 +47,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             #endregion
 
             #region Configuring
-            // Panel
             panelBackground.SetTexture(this.particleTexture);
             panelBackground.SetScale(new Vector2(672, this.rootElement.Size.Height));
             panelBackground.SetSize(SSize2F.One);
             panelBackground.SetColor(new(Color.Black, 180));
 
-            // Title
             gameTitle.SetTexture(this.gameTitleTexture);
-            gameTitle.SetScale(new Vector2(2));
+            gameTitle.SetScale(new Vector2(1.5f));
             gameTitle.SetPositionAnchor(SCardinalDirection.Northwest);
             gameTitle.SetSize(new SSize2(292, 112));
-            gameTitle.SetMargin(new Vector2(32, 0));
+            gameTitle.SetMargin(new Vector2(32, 16));
             gameTitle.PositionRelativeToElement(this.rootElement);
 
             // BUTTONS
@@ -110,6 +104,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.layout.AddElement(this.menuButtons[i].label);
             }
             #endregion
+        }
+
+        private void BuildInfos()
+        {
+            SGUILabelElement gameVersionLabel = new(this.SGameInstance);
+
+            gameVersionLabel.SetTextContent($"Ver. {SGameConstants.VERSION}");
+            gameVersionLabel.SetMargin(new Vector2(-128f, -64f));
+            gameVersionLabel.SetScale(new Vector2(0.1f));
+            gameVersionLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            gameVersionLabel.SetColor(Color.White);
+            gameVersionLabel.SetPositionAnchor(SCardinalDirection.Southeast);
+            gameVersionLabel.SetOriginPivot(SCardinalDirection.Southeast);
+            gameVersionLabel.PositionRelativeToElement(this.rootElement);
+
+            this.layout.AddElement(gameVersionLabel);
         }
     }
 }

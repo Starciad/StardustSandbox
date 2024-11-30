@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics;
 
 using System.Text;
 
@@ -14,8 +15,6 @@ namespace StardustSandbox.Core.GUISystem.Elements
         private readonly StringBuilder textContentStringBuilder = new();
 
         private SpriteFont textFont;
-        private Color textColor = Color.White;
-        private float textRotation = 0f;
 
         private bool topLeftBorder, topRightBorder, bottomLeftBorder, bottomRightBorder;
         private Color topLeftBorderColor, topRightBorderColor, bottomLeftBorderColor, bottomRightBorderColor;
@@ -51,13 +50,13 @@ namespace StardustSandbox.Core.GUISystem.Elements
                 }
             }
 
-            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position, this.textColor, this.textRotation, GetOrigin(), this.Scale, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position, this.Color, this.RotationAngle, this.textFont.GetSpriteFontOriginPoint(this.textContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
         }
 
         private void DrawTextWithBorder(SpriteBatch spriteBatch, Color color, float xOffset, float yOffset)
         {
             Vector2 offset = new(xOffset, yOffset);
-            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.textRotation, GetOrigin(), this.Scale, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.RotationAngle, this.textFont.GetSpriteFontOriginPoint(this.textContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
         }
 
         // ========================================= //
@@ -71,16 +70,6 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public void SetFontFamily(string fontFamilyName)
         {
             this.textFont = this.SGameInstance.AssetDatabase.GetFont(fontFamilyName);
-        }
-
-        public void SetColor(Color color)
-        {
-            this.textColor = color;
-        }
-
-        public void SetRotation(float rotation)
-        {
-            this.textRotation = rotation;
         }
 
         // ========================================= //
@@ -115,14 +104,6 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public void SetBorderOffset(Vector2 offset)
         {
             this.borderOffset = offset;
-        }
-
-        // ========================================= //
-        // Utilities
-
-        private static Vector2 GetOrigin()
-        {
-            return Vector2.Zero;
         }
     }
 }

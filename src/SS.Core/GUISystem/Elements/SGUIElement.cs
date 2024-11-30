@@ -1,4 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using SharpDX.Direct3D9;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
@@ -21,8 +24,10 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public SSize2F Size => new(this.size.Width * this.scale.X, this.size.Height * this.scale.Y);
         public Vector2 Margin => this.margin;
         public Vector2 Scale => this.scale;
-
-        private readonly Dictionary<string, object> data = [];
+        public SCardinalDirection OriginPivot => this.originPivot;
+        public SpriteEffects SpriteEffects => this.spriteEffects;
+        public float RotationAngle => this.rotationAngle;
+        public Color Color => this.color;
 
         private SPositioningType positioningType = SPositioningType.Relative;
         private SCardinalDirection positionAnchor = SCardinalDirection.Northwest;
@@ -30,6 +35,12 @@ namespace StardustSandbox.Core.GUISystem.Elements
         private Vector2 margin = Vector2.Zero;
         private Vector2 position = Vector2.Zero;
         private Vector2 scale = Vector2.Zero;
+        private SCardinalDirection originPivot = SCardinalDirection.Northwest;
+        private SpriteEffects spriteEffects = SpriteEffects.None;
+        private float rotationAngle = 0f;
+        private Color color = Color.White;
+
+        private readonly Dictionary<string, object> data = [];
 
         private static SSize2 ScreenSize = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT);
 
@@ -80,19 +91,39 @@ namespace StardustSandbox.Core.GUISystem.Elements
             this.positionAnchor = cardinalDirection;
         }
 
-        public void SetSize(SSize2 size)
+        public void SetSize(SSize2F value)
         {
-            this.size = size;
+            this.size = value;
         }
 
-        public void SetMargin(Vector2 margin)
+        public void SetMargin(Vector2 value)
         {
-            this.margin = margin;
+            this.margin = value;
         }
 
-        public void SetScale(Vector2 scale)
+        public void SetScale(Vector2 value)
         {
-            this.scale = scale;
+            this.scale = value;
+        }
+
+        public void SetColor(Color value)
+        {
+            this.color = value;
+        }
+
+        public void SetOriginPivot(SCardinalDirection direction)
+        {
+            this.originPivot = direction;
+        }
+
+        public void SetSpriteEffects(SpriteEffects value)
+        {
+            this.spriteEffects = value;
+        }
+
+        public void SetRotationAngle(float value)
+        {
+            this.rotationAngle = value;
         }
 
         // [ Data ]

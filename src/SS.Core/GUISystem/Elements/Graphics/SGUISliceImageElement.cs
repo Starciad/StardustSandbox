@@ -32,10 +32,8 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         }
 
         public override Texture2D Texture => this.texture;
-        public override Color Color => this.color;
 
         private Texture2D texture = null;
-        private Color color = Color.White;
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
@@ -109,18 +107,13 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
             for (int i = 0; i < this.textureSlices.Length; i++)
             {
                 SliceInfo texturePiece = this.textureSlices[i];
-                spriteBatch.Draw(this.texture, texturePiece.Position, texturePiece.TextureClipArea, this.color, 0f, Vector2.Zero, texturePiece.Scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(this.texture, texturePiece.Position, texturePiece.TextureClipArea, this.Color, 0f, Vector2.Zero, texturePiece.Scale, SpriteEffects.None, 0f);
             }
         }
 
         public override void SetTexture(Texture2D texture)
         {
             this.texture = texture;
-        }
-
-        public override void SetColor(Color color)
-        {
-            this.color = color;
         }
     }
 }
