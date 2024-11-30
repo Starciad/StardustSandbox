@@ -13,8 +13,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 {
     public sealed partial class SGUI_ItemExplorer
     {
-        private ISGUILayoutBuilder _layout;
-        private SGUIRootElement _rootElement;
+        private ISGUILayoutBuilder layout;
+        private SGUIRootElement rootElement;
 
         private SGUILabelElement explorerTitleLabel;
 
@@ -23,8 +23,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
-            this._layout = layout;
-            this._rootElement = layout.RootElement;
+            this.layout = layout;
+            this.rootElement = layout.RootElement;
 
             BuildGUIBackground();
             BuildExplorer();
@@ -36,11 +36,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
         {
             SGUIImageElement guiBackground = new(this.SGameInstance);
             guiBackground.SetTexture(this.particleTexture);
-            guiBackground.SetScale(this._rootElement.Size.ToVector2());
-            guiBackground.SetSize(this._rootElement.Size);
+            guiBackground.SetScale(this.rootElement.Size.ToVector2());
+            guiBackground.SetSize(this.rootElement.Size);
             guiBackground.SetColor(new Color(Color.Black, 160));
 
-            this._layout.AddElement(guiBackground);
+            this.layout.AddElement(guiBackground);
         }
 
         // ================================== //
@@ -53,7 +53,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             explorerBackground.SetScale(new Vector2(32, 15));
             explorerBackground.SetMargin(new Vector2(128, 128));
             explorerBackground.SetColor(new Color(104, 111, 121, 255));
-            explorerBackground.PositionRelativeToElement(this._rootElement);
+            explorerBackground.PositionRelativeToElement(this.rootElement);
 
             this.explorerTitleLabel = new(this.SGameInstance);
             this.explorerTitleLabel.SetTextContent("TITLE");
@@ -66,8 +66,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             this.explorerTitleLabel.SetBorderOffset(new Vector2(4.4f));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 
-            this._layout.AddElement(explorerBackground);
-            this._layout.AddElement(this.explorerTitleLabel);
+            this.layout.AddElement(explorerBackground);
+            this.layout.AddElement(this.explorerTitleLabel);
             #endregion
 
             #region ITEM DISPLAY
@@ -79,7 +79,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             itemGridBackground.SetColor(new Color(94, 101, 110, 255));
             itemGridBackground.PositionRelativeToElement(explorerBackground);
 
-            this._layout.AddElement(itemGridBackground);
+            this.layout.AddElement(itemGridBackground);
             BuildItemCatalogSlots(itemGridBackground);
             #endregion
 
@@ -136,8 +136,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                     index++;
 
                     // Adding
-                    this._layout.AddElement(slotBackground);
-                    this._layout.AddElement(slotIcon);
+                    this.layout.AddElement(slotBackground);
+                    this.layout.AddElement(slotIcon);
                 }
 
                 slotMargin.X = 32;
@@ -192,8 +192,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                 index++;
 
                 // Adding
-                this._layout.AddElement(slotBackground);
-                this._layout.AddElement(slotIcon);
+                this.layout.AddElement(slotBackground);
+                this.layout.AddElement(slotIcon);
             }
         }
     }

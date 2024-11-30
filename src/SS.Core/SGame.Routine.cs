@@ -43,7 +43,7 @@ namespace StardustSandbox.Core
 
         protected override void BeginRun()
         {
-            this._guiManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
+            this._guiManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
         }
 
         protected override void Update(GameTime gameTime)
