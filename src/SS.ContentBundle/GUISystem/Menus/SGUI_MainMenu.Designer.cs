@@ -7,6 +7,8 @@ using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System.Windows.Forms;
+
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
     public sealed partial class SGUI_MainMenu
@@ -21,7 +23,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private ISGUILayoutBuilder layout;
 
-        private (SGUISliceImageElement background, SGUILabelElement label)[] menuButtons;
+        private SGUILabelElement[] menuButtons;
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -37,10 +39,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             SGUIImageElement panelBackground = new(this.SGameInstance);
             SGUIImageElement gameTitle = new(this.SGameInstance);
             this.menuButtons = [
-                (new(this.SGameInstance), new(this.SGameInstance)),
-                (new(this.SGameInstance), new(this.SGameInstance)),
-                (new(this.SGameInstance), new(this.SGameInstance)),
-                (new(this.SGameInstance), new(this.SGameInstance))
+                new(this.SGameInstance),
+                new(this.SGameInstance),
+                new(this.SGameInstance),
+                new(this.SGameInstance)
             ];
             #endregion
 
@@ -60,38 +62,49 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             gameTitle.PositionRelativeToElement(panelBackground);
 
             // BUTTONS
-            // Backgrounds
             Vector2 baseMargin = new(0, 0);
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
-            {
-                this.menuButtons[i].background.SetTexture(this.buttonBackgroundTexture);
-                this.menuButtons[i].background.SetScale(new Vector2(8, 1f));
-                this.menuButtons[i].background.SetSize(new SSize2(96, 96));
-                this.menuButtons[i].background.SetMargin(baseMargin);
-                this.menuButtons[i].background.SetColor(Color.White);
-                this.menuButtons[i].background.SetPositionAnchor(SCardinalDirection.Center);
-                this.menuButtons[i].background.PositionRelativeToElement(panelBackground);
-                baseMargin.Y += 110;
-            }
-
             // Labels
-            this.menuButtons[(byte)SMainMenuButtonIndex.Create].label.SetTextContent("Create");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Play].label.SetTextContent("Play");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Options].label.SetTextContent("Options");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Quit].label.SetTextContent("Quit");
+            this.menuButtons[(byte)SMainMenuButtonIndex.Create].SetTextContent("Create");
+            this.menuButtons[(byte)SMainMenuButtonIndex.Create].AddData("action", () =>
+            {
+
+            });
+
+            this.menuButtons[(byte)SMainMenuButtonIndex.Play].SetTextContent("Play");
+            this.menuButtons[(byte)SMainMenuButtonIndex.Play].AddData("action", () =>
+            {
+
+            });
+
+            this.menuButtons[(byte)SMainMenuButtonIndex.Options].SetTextContent("Options");
+            this.menuButtons[(byte)SMainMenuButtonIndex.Options].AddData("action", () =>
+            {
+
+            });
+
+            this.menuButtons[(byte)SMainMenuButtonIndex.Quit].SetTextContent("Quit");
+            this.menuButtons[(byte)SMainMenuButtonIndex.Quit].AddData("action", () =>
+            {
+                Application.Exit();
+            });
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                this.menuButtons[i].label.SetScale(new Vector2(0.15f));
-                this.menuButtons[i].label.SetMargin(new Vector2(18, -16));
-                this.menuButtons[i].label.SetColor(new Color(206, 214, 237, 255));
-                this.menuButtons[i].label.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
-                this.menuButtons[i].label.SetBorders(true);
-                this.menuButtons[i].label.SetBordersColor(new Color(45, 53, 74, 255));
-                this.menuButtons[i].label.SetBorderOffset(new Vector2(4.4f));
-                this.menuButtons[i].label.SetPositionAnchor(SCardinalDirection.West);
-                this.menuButtons[i].label.PositionRelativeToElement(this.menuButtons[i].background);
+                SGUILabelElement labelElement = this.menuButtons[i];
+
+                labelElement.SetScale(new Vector2(0.15f));
+                labelElement.SetMargin(baseMargin);
+                labelElement.SetColor(new Color(206, 214, 237, 255));
+                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+                labelElement.SetBorders(true);
+                labelElement.SetBordersColor(Color.Black);
+                labelElement.SetBorderOffset(new Vector2(4f));
+                labelElement.SetPositionAnchor(SCardinalDirection.Center);
+                labelElement.SetOriginPivot(SCardinalDirection.Center);
+                labelElement.PositionRelativeToElement(panelBackground);
+
+                baseMargin.Y += 96;
             }
             #endregion
 
@@ -101,8 +114,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                this.layout.AddElement(this.menuButtons[i].background);
-                this.layout.AddElement(this.menuButtons[i].label);
+                this.layout.AddElement(this.menuButtons[i]);
             }
             #endregion
         }

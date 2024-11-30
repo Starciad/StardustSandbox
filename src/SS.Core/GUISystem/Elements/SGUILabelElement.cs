@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Text;
 
@@ -57,6 +58,14 @@ namespace StardustSandbox.Core.GUISystem.Elements
         {
             Vector2 offset = new(xOffset, yOffset);
             spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.RotationAngle, this.textFont.GetSpriteFontOriginPoint(this.textContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
+        }
+
+        // ========================================= //
+
+        public SSize2 GetMeasureStringSize()
+        {
+            Vector2 result = this.textFont.MeasureString(this.textContentStringBuilder) * this.Scale / 2f;
+            return new((int)result.X, (int)result.Y);
         }
 
         // ========================================= //
