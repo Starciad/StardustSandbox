@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.Components.Entities.AI;
 using StardustSandbox.Core.Components.Common.Entities;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces.General;
@@ -26,6 +27,7 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
         private readonly SEntityTransformComponent transformComponent;
         private readonly SEntityGraphicsComponent graphicsComponent;
         private readonly SEntityRenderingComponent renderingComponent;
+        private readonly SMagicCursorEntityAIComponent aiComponent;
 
         private readonly Texture2D texture;
 
@@ -34,15 +36,11 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
             this.transformComponent = this.ComponentContainer.AddComponent(new SEntityTransformComponent(this.SGameInstance, this));
             this.graphicsComponent = this.ComponentContainer.AddComponent(new SEntityGraphicsComponent(this.SGameInstance, this));
             this.renderingComponent = this.ComponentContainer.AddComponent(new SEntityRenderingComponent(this.SGameInstance, this, this.transformComponent, this.graphicsComponent));
+            this.aiComponent = this.ComponentContainer.AddComponent(new SMagicCursorEntityAIComponent(this.SGameInstance, this, this.transformComponent));
 
             // Graphics
-            // this.graphicsComponent.SetTexture(gameInstance.AssetDatabase.GetTexture("entity_1"));
+            this.graphicsComponent.SetTexture(gameInstance.AssetDatabase.GetTexture("cursor_1"));
             this.texture = this.graphicsComponent.Texture;
-        }
-
-        public override void Initialize()
-        {
-
         }
 
         public override void Update(GameTime gameTime)
