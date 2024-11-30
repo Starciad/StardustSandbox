@@ -16,7 +16,6 @@ namespace StardustSandbox.Core.GUISystem.Elements
         private SpriteFont textFont;
         private Color textColor = Color.White;
         private float textRotation = 0f;
-        private Vector2 textScale = Vector2.One;
 
         private bool topLeftBorder, topRightBorder, bottomLeftBorder, bottomRightBorder;
         private Color topLeftBorderColor, topRightBorderColor, bottomLeftBorderColor, bottomRightBorderColor;
@@ -52,13 +51,13 @@ namespace StardustSandbox.Core.GUISystem.Elements
                 }
             }
 
-            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position, this.textColor, this.textRotation, GetOrigin(), this.textScale, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position, this.textColor, this.textRotation, GetOrigin(), this.Scale, SpriteEffects.None, 0f);
         }
 
         private void DrawTextWithBorder(SpriteBatch spriteBatch, Color color, float xOffset, float yOffset)
         {
             Vector2 offset = new(xOffset, yOffset);
-            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.textRotation, GetOrigin(), this.textScale, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.textRotation, GetOrigin(), this.Scale, SpriteEffects.None, 1f);
         }
 
         // ========================================= //
@@ -82,11 +81,6 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public void SetRotation(float rotation)
         {
             this.textRotation = rotation;
-        }
-
-        public void SetScale(Vector2 scale)
-        {
-            this.textScale = scale;
         }
 
         // ========================================= //

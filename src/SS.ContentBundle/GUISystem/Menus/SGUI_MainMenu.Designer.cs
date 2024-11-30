@@ -28,8 +28,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         {
             this.layout = layout;
             this.rootElement = layout.RootElement;
-            
+
+            BuildMainPanel();
+        }
+
+        private void BuildMainPanel()
+        {
+            #region Instantiating
             // [ CREATING ]
+            SGUIImageElement panelBackground = new(this.SGameInstance);
+
             // TITLE
             SGUIImageElement gameTitle = new(this.SGameInstance);
 
@@ -40,11 +48,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 (new(this.SGameInstance), new(this.SGameInstance)),
                 (new(this.SGameInstance), new(this.SGameInstance))
             ];
+            #endregion
 
-            // [ SETTINGS ]
+            #region Configuring
+            // Panel
+            panelBackground.SetTexture(this.particleTexture);
+            panelBackground.SetScale(new Vector2(672, this.rootElement.Size.Height));
+            panelBackground.SetSize(SSize2F.One);
+            panelBackground.SetColor(new(Color.Black, 180));
+
             // Title
             gameTitle.SetTexture(this.gameTitleTexture);
-            gameTitle.SetOriginPivot(SCardinalDirection.Northwest);
             gameTitle.SetScale(new Vector2(2));
             gameTitle.SetPositionAnchor(SCardinalDirection.Northwest);
             gameTitle.SetSize(new SSize2(292, 112));
@@ -84,15 +98,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.menuButtons[i].label.SetBorderOffset(new Vector2(4.4f));
                 this.menuButtons[i].label.PositionRelativeToElement(this.menuButtons[i].background);
             }
+            #endregion
 
-            // ADDING
-            layout.AddElement(gameTitle);
+            #region Adding
+            this.layout.AddElement(panelBackground);
+            this.layout.AddElement(gameTitle);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                layout.AddElement(this.menuButtons[i].background);
-                layout.AddElement(this.menuButtons[i].label);
+                this.layout.AddElement(this.menuButtons[i].background);
+                this.layout.AddElement(this.menuButtons[i].label);
             }
+            #endregion
         }
     }
 }

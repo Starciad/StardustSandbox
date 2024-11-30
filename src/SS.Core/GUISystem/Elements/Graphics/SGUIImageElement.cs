@@ -15,7 +15,6 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         public override SpriteEffects SpriteEffects => this.spriteEffects;
         public override SCardinalDirection OriginPivot => this.originPivot;
         public override float RotationAngle => this.rotationAngle;
-        public override Vector2 Scale => this.scale;
 
         private Texture2D texture = null;
         private Rectangle? textureClipArea = null;
@@ -23,7 +22,6 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         private SpriteEffects spriteEffects = SpriteEffects.None;
         private SCardinalDirection originPivot = SCardinalDirection.Northwest;
         private float rotationAngle = 0f;
-        private Vector2 scale = Vector2.One;
 
         public SGUIImageElement(ISGame gameInstance) : base(gameInstance)
         {
@@ -35,7 +33,7 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         {
             if (this.texture != null)
             {
-                spriteBatch.Draw(this.texture, this.Position, this.textureClipArea, this.color, this.rotationAngle, this.texture.GetOrigin(this.OriginPivot), this.scale, this.spriteEffects, 0f);
+                spriteBatch.Draw(this.texture, this.Position, this.textureClipArea, this.color, this.rotationAngle, this.texture.GetOrigin(this.OriginPivot), this.Scale, this.spriteEffects, 0f);
             }
         }
 
@@ -67,11 +65,6 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         public override void SetRotationAngle(float angle)
         {
             this.rotationAngle = angle;
-        }
-
-        public override void SetScale(Vector2 scale)
-        {
-            this.scale = scale;
         }
     }
 }

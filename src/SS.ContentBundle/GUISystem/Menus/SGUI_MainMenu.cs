@@ -1,15 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.GUI;
-using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.GUISystem.Elements;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
@@ -17,11 +12,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
     {
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D buttonBackgroundTexture;
+        private readonly Texture2D particleTexture;
 
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.buttonBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_2");
+            this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
         }
 
         public override void Update(GameTime gameTime)
@@ -31,7 +28,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             // Individually check all element slots present in the item catalog.
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                (SGUISliceImageElement buttonBackground, SGUILabelElement buttonLabel) = this.menuButtons[i];
+                (SGUISliceImageElement buttonBackground, _) = this.menuButtons[i];
 
                 if (!buttonBackground.IsVisible)
                 {

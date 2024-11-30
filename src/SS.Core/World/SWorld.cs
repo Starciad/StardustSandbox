@@ -38,12 +38,8 @@ namespace StardustSandbox.Core.World
 
         public override void Initialize()
         {
-            Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
-            Reset();
-
             this.componentContainer.Initialize();
-
-            this.States.IsActive = true;
+            this.States.IsActive = false;
         }
 
         public override void Update(GameTime gameTime)

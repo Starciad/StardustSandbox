@@ -18,8 +18,9 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public Vector2 Position => this.position;
         public SPositioningType PositioningType => this.positioningType;
         public SCardinalDirection PositionAnchor => this.positionAnchor;
-        public SSize2 Size => this.size;
+        public SSize2F Size => new(this.size.Width * this.scale.X, this.size.Height * this.scale.Y);
         public Vector2 Margin => this.margin;
+        public Vector2 Scale => this.scale;
 
         private readonly Dictionary<string, object> data = [];
 
@@ -28,6 +29,7 @@ namespace StardustSandbox.Core.GUISystem.Elements
         private SSize2 size = SSize2.One;
         private Vector2 margin = Vector2.Zero;
         private Vector2 position = Vector2.Zero;
+        private Vector2 scale = Vector2.Zero;
 
         private static SSize2 ScreenSize = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT);
 
@@ -86,6 +88,11 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public void SetMargin(Vector2 margin)
         {
             this.margin = margin;
+        }
+
+        public void SetScale(Vector2 scale)
+        {
+            this.scale = scale;
         }
 
         // [ Data ]

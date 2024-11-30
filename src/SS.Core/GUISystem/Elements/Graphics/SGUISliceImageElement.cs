@@ -33,11 +33,9 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
 
         public override Texture2D Texture => this.texture;
         public override Color Color => this.color;
-        public override Vector2 Scale => this.scale;
 
         private Texture2D texture = null;
         private Color color = Color.White;
-        private Vector2 scale;
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
@@ -123,11 +121,6 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         public override void SetColor(Color color)
         {
             this.color = color;
-        }
-
-        public override void SetScale(Vector2 scale)
-        {
-            this.scale = scale;
         }
     }
 }

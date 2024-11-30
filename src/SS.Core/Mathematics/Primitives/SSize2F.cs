@@ -4,77 +4,82 @@ using System;
 
 namespace StardustSandbox.Core.Mathematics.Primitives
 {
-    public struct SSize2 : IEquatable<SSize2>
+    public struct SSize2F : IEquatable<SSize2F>
     {
-        public static readonly SSize2 Empty = new();
+        public static readonly SSize2F Empty = new();
         public readonly bool IsEmpty => this.Width == 0 && this.Height == 0;
 
-        public static SSize2 Zero => new(0, 0);
-        public static SSize2 One => new(1, 1);
+        public static SSize2F Zero => new(0, 0);
+        public static SSize2F One => new(1, 1);
 
-        public int Width;
-        public int Height;
+        public float Width;
+        public float Height;
 
-        public SSize2(int value)
+        public SSize2F()
+        {
+            this.Width = 0f;
+            this.Height = 0f;
+        }
+        public SSize2F(float value)
         {
             this.Width = value;
             this.Height = value;
         }
-        public SSize2(int width, int height)
+        public SSize2F(float width, float height)
         {
             this.Width = width;
             this.Height = height;
         }
 
-        public static implicit operator SSize2(SSize2F size)
+        public static implicit operator SSize2F(SSize2 value)
         {
-            return new SSize2((int)size.Width, (int)size.Height);
+            return new SSize2F(value.Width, value.Height);
         }
-        public static implicit operator SSize2(Point point)
+        public static implicit operator SSize2F(Point point)
         {
-            return new SSize2(point.X, point.Y);
+            return new SSize2F(point.X, point.Y);
         }
-        public static implicit operator Point(SSize2 size)
+        public static implicit operator Point(SSize2F size)
         {
-            return new Point(size.Width, size.Height);
+            return new Point((int)size.Width, (int)size.Height);
         }
 
-        public static SSize2 operator +(SSize2 first, SSize2 second)
+        public static SSize2F operator +(SSize2F first, SSize2F second)
         {
             return Add(first, second);
         }
-        public static SSize2 operator -(SSize2 first, SSize2 second)
+        public static SSize2F operator -(SSize2F first, SSize2F second)
         {
             return Subtract(first, second);
         }
-        public static SSize2 operator *(SSize2 size, int value)
+        public static SSize2F operator *(SSize2F size, float value)
         {
-            return new SSize2(size.Width * value, size.Height * value);
+            return new SSize2F(size.Width * value, size.Height * value);
         }
-        public static SSize2 operator /(SSize2 size, int value)
+        public static SSize2F operator /(SSize2F size, float value)
         {
-            return new SSize2(size.Width / value, size.Height / value);
+            return new SSize2F(size.Width / value, size.Height / value);
         }
 
-        public static bool operator ==(SSize2 first, SSize2 second)
+        public static bool operator ==(SSize2F first, SSize2F second)
         {
             return first.Equals(ref second);
         }
-        public static bool operator !=(SSize2 first, SSize2 second)
+        public static bool operator !=(SSize2F first, SSize2F second)
         {
             return !(first == second);
         }
 
-        public static SSize2 Add(SSize2 first, SSize2 second)
+        public static SSize2F Add(SSize2F first, SSize2F second)
         {
-            SSize2 size;
+            SSize2F size;
             size.Width = first.Width + second.Width;
             size.Height = first.Height + second.Height;
             return size;
         }
-        public static SSize2 Subtract(SSize2 first, SSize2 second)
+        public static SSize2F Subtract(SSize2F first, SSize2F second)
         {
-            SSize2 size;
+            SSize2F size;
             size.Width = first.Width - second.Width;
             size.Height = first.Height - second.Height;
             return size;
@@ -82,7 +87,7 @@ namespace StardustSandbox.Core.Mathematics.Primitives
 
         public readonly Point ToPoint()
         {
-            return new Point(this.Width, this.Height);
+            return new Point((int)this.Width, (int)this.Height);
         }
         public readonly Vector2 ToVector2()
         {
@@ -100,17 +105,17 @@ namespace StardustSandbox.Core.Mathematics.Primitives
             }
         }
 
-        public readonly bool Equals(SSize2 size)
+        public readonly bool Equals(SSize2F size)
         {
             return Equals(ref size);
         }
-        public readonly bool Equals(ref SSize2 size)
+        public readonly bool Equals(ref SSize2F size)
         {
             return this.Width == size.Width && this.Height == size.Height;
         }
         public override readonly bool Equals(object obj)
         {
-            return obj is SSize2 @int && Equals(@int);
+            return obj is SSize2F @float && Equals(@float);
         }
     }
 }
