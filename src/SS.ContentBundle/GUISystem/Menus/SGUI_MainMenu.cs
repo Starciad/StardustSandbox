@@ -5,6 +5,7 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
@@ -21,6 +22,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.buttonBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_2");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+        }
+
+        protected override void OnLoad()
+        {
+            base.OnLoad();
+
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
+
+            this.SGameInstance.World.Resize(new SSize2(40, 23));
+            this.SGameInstance.World.Reset();
         }
 
         public override void Update(GameTime gameTime)
@@ -40,7 +51,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
                 {
-                    ((Action)this.menuButtons[i].GetData("action")).Invoke();
+                    this.menuButtonActions[i].Invoke();
                 }
 
                 // Highlight when mouse is over slot.

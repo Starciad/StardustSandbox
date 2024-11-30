@@ -8,6 +8,7 @@ using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System;
 using System.Windows.Forms;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
@@ -23,6 +24,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private ISGUILayoutBuilder layout;
 
         private SGUILabelElement[] menuButtons;
+        private Action[] menuButtonActions;
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -41,6 +43,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 new(this.SGameInstance),
                 new(this.SGameInstance),
                 new(this.SGameInstance)
+            ];
+
+            this.menuButtonActions = [
+                // Create
+                () =>
+                {
+                    this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
+                    this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+
+                    this.SGameInstance.World.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+                    this.SGameInstance.World.Reset();
+                    this.SGameInstance.World.Resume();
+
+                    this.SGameInstance.CameraManager.Position = new(0f, -(this.SGameInstance.World.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+                },
+
+                // Quit
+                () =>
+                {
+                    Application.Exit();
+                },
             ];
             #endregion
 
@@ -64,24 +87,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             // Labels
             this.menuButtons[(byte)SMainMenuButtonIndex.Create].SetTextContent("Create");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Create].AddData("action", () =>
-            {
-                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
-                this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-
-                this.SGameInstance.World.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
-                this.SGameInstance.World.States.IsActive = true;
-                this.SGameInstance.World.Reset();
-                this.SGameInstance.World.Resume();
-
-                this.SGameInstance.CameraManager.Position = new(0f, -(this.SGameInstance.World.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-            });
-
             this.menuButtons[(byte)SMainMenuButtonIndex.Quit].SetTextContent("Quit");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Quit].AddData("action", () =>
-            {
-                Application.Exit();
-            });
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
