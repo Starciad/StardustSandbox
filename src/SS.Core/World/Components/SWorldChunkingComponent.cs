@@ -22,6 +22,11 @@ namespace StardustSandbox.Core.World.Components
         public override void Initialize()
         {
             this.pixelTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
 
             this._chunks = new SWorldChunk[(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
 

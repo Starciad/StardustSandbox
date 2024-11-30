@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
@@ -16,9 +17,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private enum SMainMenuButtonIndex : byte
         {
             Create = 0,
-            Play = 1,
-            Options = 2,
-            Quit = 3
+            Options = 1,
+            Quit = 2
         }
 
         private ISGUILayoutBuilder layout;
@@ -39,7 +39,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             SGUIImageElement panelBackground = new(this.SGameInstance);
             SGUIImageElement gameTitle = new(this.SGameInstance);
             this.menuButtons = [
-                new(this.SGameInstance),
                 new(this.SGameInstance),
                 new(this.SGameInstance),
                 new(this.SGameInstance)
@@ -68,13 +67,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.menuButtons[(byte)SMainMenuButtonIndex.Create].SetTextContent("Create");
             this.menuButtons[(byte)SMainMenuButtonIndex.Create].AddData("action", () =>
             {
+                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
+                this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
 
-            });
-
-            this.menuButtons[(byte)SMainMenuButtonIndex.Play].SetTextContent("Play");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Play].AddData("action", () =>
-            {
-
+                this.SGameInstance.World.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+                this.SGameInstance.World.States.IsActive = true;
+                this.SGameInstance.World.Reset();
+                this.SGameInstance.World.Resume();
             });
 
             this.menuButtons[(byte)SMainMenuButtonIndex.Options].SetTextContent("Options");

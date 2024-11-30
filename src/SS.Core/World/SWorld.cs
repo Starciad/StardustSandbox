@@ -39,7 +39,6 @@ namespace StardustSandbox.Core.World
         public override void Initialize()
         {
             this.componentContainer.Initialize();
-            this.States.IsActive = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -81,6 +80,7 @@ namespace StardustSandbox.Core.World
 
         public void Reset()
         {
+            this.componentContainer.Reset();
             Clear();
         }
 

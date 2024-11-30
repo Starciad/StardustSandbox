@@ -58,7 +58,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             slotAreaBackground.SetTexture(this.particleTexture);
             slotAreaBackground.SetScale(container.Size.ToVector2());
             slotAreaBackground.SetColor(new Color(Color.White, 32));
-            slotAreaBackground.SetSize(container.Size);
+            slotAreaBackground.SetSize(SSize2F.One);
 
             // Append
             slotAreaBackground.PositionRelativeToElement(container);
