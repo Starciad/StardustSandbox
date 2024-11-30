@@ -19,10 +19,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 
         private int slotSelectedIndex = 0;
 
-        public SGUI_HUD(ISGame gameInstance, SGUIEvents guiEvents) : base(gameInstance, guiEvents)
+        public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
-            this.Name = SGUIConstants.HUD_NAME;
-
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
 
@@ -77,8 +75,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             // Check if the mouse clicked on the search button.
             if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
             {
-                this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_NAME);
-                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
+                this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_IDENTIFIER);
+                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
             }
 
             if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))

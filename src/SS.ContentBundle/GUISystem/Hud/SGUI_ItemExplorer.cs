@@ -27,10 +27,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 
         private readonly SGUI_HUD _guiHUD;
 
-        public SGUI_ItemExplorer(ISGame gameInstance, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, guiEvents)
+        public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, identifier, guiEvents)
         {
-            this.Name = SGUIConstants.ELEMENT_EXPLORER_NAME;
-
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
             this.squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
@@ -87,8 +85,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                 {
                     this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
-                    this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.ELEMENT_EXPLORER_NAME);
-                    this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_NAME);
+                    this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
+                    this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
                 }
 
                 // Highlight when mouse is over slot.

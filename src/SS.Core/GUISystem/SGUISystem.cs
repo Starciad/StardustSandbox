@@ -10,21 +10,26 @@ namespace StardustSandbox.Core.GUISystem
 {
     public abstract class SGUISystem : SGameObject
     {
-        public string Name { get; protected set; }
-        public int ZIndex { get; protected set; }
+        public string Identifier => this.identifier;
+        public int ZIndex => this.zIndex;
         public bool IsActive => this.isActive;
         public bool IsShowing => this.isShowing;
         public bool HasEvents => this.GUIEvents != null;
-        protected SGUIEvents GUIEvents { get; private set; }
+        protected SGUIEvents GUIEvents => this.guiEvents;
 
-        private readonly SGUILayout layout;
+        protected int zIndex;
 
         private bool isActive;
         private bool isShowing;
 
-        public SGUISystem(ISGame gameInstance, SGUIEvents guiEvents) : base(gameInstance)
+        private readonly string identifier;
+        private readonly SGUILayout layout;
+        private readonly SGUIEvents guiEvents;
+
+        public SGUISystem(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance)
         {
-            this.GUIEvents = guiEvents;
+            this.identifier = identifier;
+            this.guiEvents = guiEvents;
             this.layout = new(this.SGameInstance);
         }
 
