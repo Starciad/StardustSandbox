@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
@@ -13,7 +14,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
     public partial class SGUI_HUD
     {
         private ISGUILayoutBuilder layout;
-        private SGUIRootElement rootElement;
 
         private SGUIElement topToolbarContainer;
         private SGUIElement leftToolbarContainer;
@@ -25,23 +25,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
-            this.rootElement = layout.RootElement;
 
             // Containers
             this.topToolbarContainer = new SGUIContainerElement(this.SGameInstance);
             this.leftToolbarContainer = new SGUIContainerElement(this.SGameInstance);
             this.rightToolbarContainer = new SGUIContainerElement(this.SGameInstance);
 
-            this.topToolbarContainer.PositionRelativeToElement(this.rootElement);
-            this.leftToolbarContainer.PositionRelativeToElement(this.rootElement);
-            this.rightToolbarContainer.PositionRelativeToElement(this.rootElement);
+            this.topToolbarContainer.PositionRelativeToScreen();
+            this.leftToolbarContainer.PositionRelativeToScreen();
+            this.rightToolbarContainer.PositionRelativeToScreen();
 
             layout.AddElement(this.topToolbarContainer);
             layout.AddElement(this.leftToolbarContainer);
             layout.AddElement(this.rightToolbarContainer);
 
             // Styles
-            this.topToolbarContainer.SetSize(new SSize2F(this.rootElement.Size.Width, 96));
+            this.topToolbarContainer.SetSize(new SSize2F(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96));
 
             // Process
             BuildTopToolbar(this.topToolbarContainer);

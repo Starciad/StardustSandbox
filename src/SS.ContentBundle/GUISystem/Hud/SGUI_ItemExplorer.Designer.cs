@@ -14,7 +14,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
     public sealed partial class SGUI_ItemExplorer
     {
         private ISGUILayoutBuilder layout;
-        private SGUIRootElement rootElement;
 
         private SGUILabelElement explorerTitleLabel;
 
@@ -24,7 +23,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
-            this.rootElement = layout.RootElement;
 
             BuildGUIBackground();
             BuildExplorer();
@@ -36,8 +34,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
         {
             SGUIImageElement guiBackground = new(this.SGameInstance);
             guiBackground.SetTexture(this.particleTexture);
-            guiBackground.SetScale(this.rootElement.Size.ToVector2());
-            guiBackground.SetSize(this.rootElement.Size);
+            guiBackground.SetScale(new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
+            guiBackground.SetSize(SScreenConstants.DEFAULT_SCREEN_SIZE);
             guiBackground.SetColor(new Color(Color.Black, 160));
 
             this.layout.AddElement(guiBackground);
@@ -53,7 +51,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             explorerBackground.SetScale(new Vector2(32, 15));
             explorerBackground.SetMargin(new Vector2(128, 128));
             explorerBackground.SetColor(new Color(104, 111, 121, 255));
-            explorerBackground.PositionRelativeToElement(this.rootElement);
+            explorerBackground.PositionRelativeToScreen();
 
             this.explorerTitleLabel = new(this.SGameInstance);
             this.explorerTitleLabel.SetTextContent("TITLE");

@@ -20,14 +20,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         }
 
         private ISGUILayoutBuilder layout;
-        private SGUIRootElement rootElement;
 
         private (SGUISliceImageElement background, SGUILabelElement label)[] menuButtons;
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
-            this.rootElement = layout.RootElement;
 
             BuildMainPanel();
             BuildInfos();
@@ -48,16 +46,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             #region Configuring
             panelBackground.SetTexture(this.particleTexture);
-            panelBackground.SetScale(new Vector2(672, this.rootElement.Size.Height));
+            panelBackground.SetScale(new Vector2(672, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
             panelBackground.SetSize(SSize2F.One);
             panelBackground.SetColor(new(Color.Black, 180));
+            panelBackground.PositionRelativeToScreen();
 
             gameTitle.SetTexture(this.gameTitleTexture);
             gameTitle.SetScale(new Vector2(1.5f));
-            gameTitle.SetPositionAnchor(SCardinalDirection.Northwest);
             gameTitle.SetSize(new SSize2(292, 112));
             gameTitle.SetMargin(new Vector2(32, 16));
-            gameTitle.PositionRelativeToElement(this.rootElement);
+            gameTitle.PositionRelativeToScreen();
 
             // BUTTONS
             // Backgrounds
@@ -71,7 +69,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.menuButtons[i].background.SetPositionAnchor(SCardinalDirection.West);
                 this.menuButtons[i].background.SetMargin(baseMargin);
                 this.menuButtons[i].background.SetColor(Color.White);
-                this.menuButtons[i].background.PositionRelativeToElement(this.rootElement);
+                this.menuButtons[i].background.PositionRelativeToScreen();
                 baseMargin.Y += spacing;
             }
 
@@ -117,7 +115,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             gameVersionLabel.SetColor(Color.White);
             gameVersionLabel.SetPositionAnchor(SCardinalDirection.Southeast);
             gameVersionLabel.SetOriginPivot(SCardinalDirection.Southeast);
-            gameVersionLabel.PositionRelativeToElement(this.rootElement);
+            gameVersionLabel.PositionRelativeToScreen();
 
             this.layout.AddElement(gameVersionLabel);
         }

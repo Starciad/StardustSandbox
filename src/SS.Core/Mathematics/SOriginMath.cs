@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using SharpDX.Direct3D9;
-
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 
@@ -23,20 +21,39 @@ namespace StardustSandbox.Core.Mathematics
             return GetOriginPoint(new(texture.Width, texture.Height), direction);
         }
 
-        private static Vector2 GetOriginPoint(SSize2F size, SCardinalDirection direction)
+        public static Vector2 GetOriginPoint(SSize2F size, SCardinalDirection direction)
         {
             return direction switch
             {
-                SCardinalDirection.Center => new Vector2(size.Width, size.Height) / 2f,
-                SCardinalDirection.North => new Vector2(size.Width / 2f, 0),
-                SCardinalDirection.Northeast => new Vector2(size.Width, 0),
-                SCardinalDirection.East => new Vector2(size.Width, size.Height / 2f),
-                SCardinalDirection.Southeast => new Vector2(size.Width, size.Height),
-                SCardinalDirection.South => new Vector2(size.Width / 2f, size.Height),
-                SCardinalDirection.Southwest => new Vector2(0, size.Height),
-                SCardinalDirection.West => new Vector2(0, size.Height / 2f),
-                SCardinalDirection.Northwest => Vector2.Zero,
-                _ => Vector2.Zero,
+                // (.)
+                SCardinalDirection.Center => (size / 2f).ToVector2(),
+
+                // (↑)
+                SCardinalDirection.North => new Vector2(size.Width / 2f, size.Height),
+
+                // (↗)
+                SCardinalDirection.Northeast => new Vector2(0f, size.Height),
+                
+                // (→)
+                SCardinalDirection.East => new Vector2(0f, size.Height / 2f),
+
+                // (↘)
+                SCardinalDirection.Southeast => new Vector2(0f, 0f),
+
+                // (↓)
+                SCardinalDirection.South => new Vector2(size.Width / 2f, 0f),
+
+                // (↙)
+                SCardinalDirection.Southwest => new Vector2(size.Width, 0f),
+
+                // (←)
+                SCardinalDirection.West => new Vector2(size.Width, size.Height / 2f),
+
+                // (↖)
+                SCardinalDirection.Northwest => new Vector2(size.Width, size.Height),
+
+                // (.)
+                _ => new Vector2(size.Width, size.Height),
             };
         }
     }

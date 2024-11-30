@@ -4,6 +4,7 @@ namespace StardustSandbox.Core.Constants
 {
     public static class SScreenConstants
     {
+        public static SSize2 DEFAULT_SCREEN_SIZE => new(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
         public static int DEFAULT_SCREEN_WIDTH => RESOLUTIONS[3].Width;
         public static int DEFAULT_SCREEN_HEIGHT => RESOLUTIONS[3].Height;
 
@@ -13,7 +14,7 @@ namespace StardustSandbox.Core.Constants
             new SSize2(640, 360), // nHD
             new SSize2(854, 480), // FWVGA
             new SSize2(960, 540), // qHD
-            new SSize2(1280, 720), // SD / HD ready (720p)
+            new SSize2(1280, 720), // SD / HD ready (720p) [DEFAULT]
             new SSize2(1366, 768), // WXGA
             new SSize2(1600, 900), // HD+
             new SSize2(1920, 1080), // FHD / Full HD (1080p)

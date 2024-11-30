@@ -61,6 +61,10 @@ namespace StardustSandbox.Core.GUISystem.Elements
 
         // ========================================= //
 
+        public void AppendTextContent(string value)
+        {
+            _ = this.textContentStringBuilder.Append(value);
+        }
         public void SetTextContent(string value)
         {
             _ = this.textContentStringBuilder.Clear();

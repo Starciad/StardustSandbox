@@ -20,32 +20,5 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.buttonBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_2");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
-            // Individually check all element slots present in the item catalog.
-            for (int i = 0; i < this.menuButtons.Length; i++)
-            {
-                (SGUISliceImageElement buttonBackground, _) = this.menuButtons[i];
-
-                if (!buttonBackground.IsVisible)
-                {
-                    continue;
-                }
-
-                // Highlight when mouse is over slot.
-                if (this.GUIEvents.OnMouseOver(buttonBackground.Position, buttonBackground.Size))
-                {
-                    buttonBackground.SetColor(Color.DarkGray);
-                }
-                // If none of the above events occur, the slot continues with its normal color.
-                else
-                {
-                    buttonBackground.SetColor(Color.White);
-                }
-            }
-        }
     }
 }
