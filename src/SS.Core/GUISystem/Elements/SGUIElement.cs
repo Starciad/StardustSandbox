@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.GUISystem.Elements
 
         public void PositionRelativeToElement(SGUIElement reference)
         {
-            PositionRelativeToElement(reference.position, reference.size);
+            PositionRelativeToElement(reference.position, reference.Size);
         }
 
         public void PositionRelativeToElement(Vector2 otherElementPosition, SSize2 otherElementSize)

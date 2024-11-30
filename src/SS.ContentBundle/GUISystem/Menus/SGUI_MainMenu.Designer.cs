@@ -46,7 +46,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             #region Configuring
             panelBackground.SetTexture(this.particleTexture);
-            panelBackground.SetScale(new Vector2(615f, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
+            panelBackground.SetScale(new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
             panelBackground.SetSize(SSize2F.One);
             panelBackground.SetColor(new(Color.Black, 180));
             panelBackground.PositionRelativeToScreen();
@@ -54,21 +54,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             gameTitle.SetTexture(this.gameTitleTexture);
             gameTitle.SetScale(new Vector2(1.5f));
             gameTitle.SetSize(new SSize2(292, 112));
-            gameTitle.SetMargin(new Vector2(32, 16));
-            gameTitle.PositionRelativeToScreen();
+            gameTitle.SetMargin(new Vector2(0, 96));
+            gameTitle.SetPositionAnchor(SCardinalDirection.North);
+            gameTitle.SetOriginPivot(SCardinalDirection.Center);
+            gameTitle.PositionRelativeToElement(panelBackground);
 
             // BUTTONS
             // Backgrounds
-            Vector2 baseMargin = new(96, -64);
+            Vector2 baseMargin = new(0, 0);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 this.menuButtons[i].background.SetTexture(this.buttonBackgroundTexture);
                 this.menuButtons[i].background.SetScale(new Vector2(8, 1f));
-                this.menuButtons[i].background.SetPositionAnchor(SCardinalDirection.West);
+                this.menuButtons[i].background.SetSize(new SSize2(96, 96));
                 this.menuButtons[i].background.SetMargin(baseMargin);
                 this.menuButtons[i].background.SetColor(Color.White);
-                this.menuButtons[i].background.PositionRelativeToScreen();
+                this.menuButtons[i].background.SetPositionAnchor(SCardinalDirection.Center);
+                this.menuButtons[i].background.PositionRelativeToElement(panelBackground);
                 baseMargin.Y += 110;
             }
 
@@ -107,17 +110,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private void BuildInfos()
         {
             SGUILabelElement gameVersionLabel = new(this.SGameInstance);
+            SGUILabelElement copyrightLabel = new(this.SGameInstance);
 
             gameVersionLabel.SetTextContent($"Ver. {SGameConstants.VERSION}");
-            gameVersionLabel.SetMargin(new Vector2(-128f, -64f));
-            gameVersionLabel.SetScale(new Vector2(0.1f));
+            gameVersionLabel.SetMargin(new Vector2(-32f, -32f));
+            gameVersionLabel.SetScale(new Vector2(0.08f));
             gameVersionLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
             gameVersionLabel.SetColor(Color.White);
             gameVersionLabel.SetPositionAnchor(SCardinalDirection.Southeast);
-            gameVersionLabel.SetOriginPivot(SCardinalDirection.Southeast);
+            gameVersionLabel.SetOriginPivot(SCardinalDirection.West);
             gameVersionLabel.PositionRelativeToScreen();
 
+            copyrightLabel.SetTextContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
+            copyrightLabel.SetMargin(new Vector2(0f, -32));
+            copyrightLabel.SetScale(new Vector2(0.08f));
+            copyrightLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            copyrightLabel.SetColor(Color.White);
+            copyrightLabel.SetPositionAnchor(SCardinalDirection.South);
+            copyrightLabel.SetOriginPivot(SCardinalDirection.Center);
+            copyrightLabel.PositionRelativeToScreen();
+
             this.layout.AddElement(gameVersionLabel);
+            this.layout.AddElement(copyrightLabel);
         }
     }
 }
