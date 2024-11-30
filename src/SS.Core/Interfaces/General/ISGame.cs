@@ -12,6 +12,7 @@ namespace StardustSandbox.Core.Interfaces.General
         SGUIDatabase GUIDatabase { get; }
         SItemDatabase ItemDatabase { get; }
         SBackgroundDatabase BackgroundDatabase { get; }
+        SEntityDatabase EntityDatabase { get; }
 
         // Managers
         SInputManager InputManager { get; }
@@ -19,6 +20,7 @@ namespace StardustSandbox.Core.Interfaces.General
         SCameraManager CameraManager { get; }
         SGraphicsManager GraphicsManager { get; }
         SGUIManager GUIManager { get; }
+        SEntityManager EntityManager { get; }
 
         // Core
         SWorld World { get; }

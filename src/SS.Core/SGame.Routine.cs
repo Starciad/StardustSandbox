@@ -20,6 +20,7 @@ namespace StardustSandbox.Core
             this._itemDatabase.Initialize();
             this._guiDatabase.Initialize();
             this._backgroundDatabase.Initialize();
+            this._entityDatabase.Initialize();
 
             // Managers
             this._graphicsManager.Initialize();
@@ -29,6 +30,7 @@ namespace StardustSandbox.Core
             this._guiManager.Initialize();
             this._cursorManager.Initialize();
             this._backgroundManager.Initialize();
+            this._entityManager.Initialize();
 
             // Core
             this._world.Initialize();
@@ -61,6 +63,7 @@ namespace StardustSandbox.Core
             this._guiManager.Update(gameTime);
             this._cursorManager.Update(gameTime);
             this._backgroundManager.Update(gameTime);
+            this._entityManager.Update(gameTime);
 
             // Core
             this._world.Update(gameTime);

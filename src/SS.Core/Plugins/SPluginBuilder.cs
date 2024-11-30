@@ -14,6 +14,7 @@ namespace StardustSandbox.Core.Plugins
             OnRegisterItems(game, game.ItemDatabase);
             OnRegisterGUIs(game, game.GUIDatabase);
             OnRegisterBackgrounds(game, game.BackgroundDatabase);
+            OnRegisterEntities(game, game.EntityDatabase);
         }
 
         protected virtual void OnRegisterAssets(ISGame game, ContentManager contentManager, SAssetDatabase assetDatabase) { return; }
@@ -21,5 +22,6 @@ namespace StardustSandbox.Core.Plugins
         protected virtual void OnRegisterGUIs(ISGame game, SGUIDatabase guiDatabase) { return; }
         protected virtual void OnRegisterItems(ISGame game, SItemDatabase itemDatabase) { return; }
         protected virtual void OnRegisterBackgrounds(ISGame game, SBackgroundDatabase backgroundDatabase) { return; }
+        protected virtual void OnRegisterEntities(ISGame game, SEntityDatabase entityDatabase) { return; }
     }
 }

@@ -22,12 +22,14 @@ namespace StardustSandbox.Core
         public SGUIDatabase GUIDatabase => this._guiDatabase;
         public SItemDatabase ItemDatabase => this._itemDatabase;
         public SBackgroundDatabase BackgroundDatabase => this._backgroundDatabase;
+        public SEntityDatabase EntityDatabase => this._entityDatabase;
 
         public SInputManager InputManager => this._inputManager;
         public SGameInputManager GameInputManager => this._gameInputManager;
         public SCameraManager CameraManager => this._cameraManager;
         public SGraphicsManager GraphicsManager => this._graphicsManager;
         public SGUIManager GUIManager => this._guiManager;
+        public SEntityManager EntityManager => this._entityManager;
 
         public SWorld World => this._world;
 
@@ -41,6 +43,7 @@ namespace StardustSandbox.Core
         private readonly SGUIDatabase _guiDatabase;
         private readonly SItemDatabase _itemDatabase;
         private readonly SBackgroundDatabase _backgroundDatabase;
+        private readonly SEntityDatabase _entityDatabase;
 
         // Managers
         private readonly SCameraManager _cameraManager;
@@ -51,6 +54,7 @@ namespace StardustSandbox.Core
         private readonly SGUIManager _guiManager;
         private readonly SCursorManager _cursorManager;
         private readonly SBackgroundManager _backgroundManager;
+        private readonly SEntityManager _entityManager;
 
         // Core
         private readonly SWorld _world;
@@ -84,6 +88,7 @@ namespace StardustSandbox.Core
             this._guiDatabase = new(this);
             this._itemDatabase = new(this);
             this._backgroundDatabase = new(this);
+            this._entityDatabase = new(this);
 
             // Core
             this._cameraManager = new(this._graphicsManager);
@@ -96,6 +101,7 @@ namespace StardustSandbox.Core
             this._guiManager = new(this);
             this._cursorManager = new(this);
             this._backgroundManager = new(this);
+            this._entityManager = new(this);
         }
 
         public void RegisterPlugin(SPluginBuilder pluginBuilder)

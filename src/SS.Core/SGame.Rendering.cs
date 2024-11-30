@@ -20,6 +20,7 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.Clear(Color.Transparent);
             this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._cameraManager.GetViewMatrix());
             this._world.Draw(gameTime, this._sb);
+            this._entityManager.Draw(gameTime, this._sb);
             this._sb.End();
 
             // LIGHTING
