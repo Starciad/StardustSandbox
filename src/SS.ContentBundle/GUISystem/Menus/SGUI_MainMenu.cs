@@ -1,26 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
+using System.Windows.Forms;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
     public sealed partial class SGUI_MainMenu : SGUISystem
     {
         private readonly Texture2D gameTitleTexture;
-        private readonly Texture2D buttonBackgroundTexture;
         private readonly Texture2D particleTexture;
 
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
-            this.buttonBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_2");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
         }
 
@@ -65,6 +65,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                     labelElement.SetColor(Color.White);
                 }
             }
+        }
+
+        // ================================= //
+        // Actions
+
+        private void CreateMenuButton()
+        {
+            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
+            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+
+            this.SGameInstance.World.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+            this.SGameInstance.World.Reset();
+
+            this.SGameInstance.CameraManager.Position = new(0f, -(this.SGameInstance.World.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
+        }
+
+        private static void QuitMenuButton()
+        {
+            Application.Exit();
         }
     }
 }

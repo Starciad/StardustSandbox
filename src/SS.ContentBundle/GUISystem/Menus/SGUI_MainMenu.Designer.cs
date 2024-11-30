@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
@@ -9,7 +8,6 @@ using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
-using System.Windows.Forms;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
@@ -39,31 +37,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             #region Instantiating
             SGUIImageElement panelBackground = new(this.SGameInstance);
             SGUIImageElement gameTitle = new(this.SGameInstance);
+
             this.menuButtons = [
-                new(this.SGameInstance),
                 new(this.SGameInstance),
                 new(this.SGameInstance)
             ];
 
             this.menuButtonActions = [
-                // Create
-                () =>
-                {
-                    this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
-                    this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-
-                    this.SGameInstance.World.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
-                    this.SGameInstance.World.Reset();
-                    this.SGameInstance.World.Resume();
-
-                    this.SGameInstance.CameraManager.Position = new(0f, -(this.SGameInstance.World.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-                },
-
-                // Quit
-                () =>
-                {
-                    Application.Exit();
-                },
+                CreateMenuButton,
+                QuitMenuButton
             ];
             #endregion
 
