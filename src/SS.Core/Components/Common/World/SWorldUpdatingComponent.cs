@@ -8,11 +8,12 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.World.Components
+namespace StardustSandbox.Core.Components.Common.World
 {
     public sealed class SWorldUpdatingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
@@ -38,7 +39,7 @@ namespace StardustSandbox.Core.World.Components
                 {
                     for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point pos = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
+                        Point pos = new(worldChunk.Position.X / SWorldConstants.GRID_SCALE + x, worldChunk.Position.Y / SWorldConstants.GRID_SCALE + y);
 
                         if (this.SWorldInstance.IsEmptyElementSlot(pos))
                         {

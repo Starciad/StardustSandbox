@@ -3,11 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
-using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World.Components;
 using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.World

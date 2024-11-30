@@ -4,11 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.World;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.World.Components
+namespace StardustSandbox.Core.Components.Common.World
 {
     public sealed class SWorldChunkingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
@@ -28,7 +29,7 @@ namespace StardustSandbox.Core.World.Components
         {
             base.Reset();
 
-            this._chunks = new SWorldChunk[(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
+            this._chunks = new SWorldChunk[this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE + 1, this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE + 1];
 
             this.worldChunkWidth = this._chunks.GetLength(0);
             this.worldChunkHeight = this._chunks.GetLength(1);

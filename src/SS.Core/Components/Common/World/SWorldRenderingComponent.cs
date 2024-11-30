@@ -9,10 +9,11 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.World;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.World.Components
+namespace StardustSandbox.Core.Components.Common.World
 {
     public sealed class SWorldRenderingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
