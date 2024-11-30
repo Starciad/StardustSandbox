@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 
@@ -26,7 +27,7 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public float RotationAngle => this.rotationAngle;
 
         private SCardinalDirection positionAnchor = SCardinalDirection.Northwest;
-        private SCardinalDirection originPivot = SCardinalDirection.Northwest;
+        private SCardinalDirection originPivot = SCardinalDirection.Southeast;
         private SpriteEffects spriteEffects = SpriteEffects.None;
 
         private SSize2 size = SSize2.Zero;
@@ -59,16 +60,16 @@ namespace StardustSandbox.Core.GUISystem.Elements
         {
             return this.positionAnchor switch
             {
-                SCardinalDirection.Center => targetPosition + this.Margin + (targetSize / 2).ToVector2(),
-                SCardinalDirection.North => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, 0),
-                SCardinalDirection.Northeast => targetPosition + this.Margin + new Vector2(targetSize.Width, 0),
-                SCardinalDirection.East => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height / 2),
-                SCardinalDirection.Southeast => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height),
-                SCardinalDirection.South => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, targetSize.Height),
-                SCardinalDirection.Southwest => targetPosition + this.Margin + new Vector2(0, targetSize.Height),
-                SCardinalDirection.West => targetPosition + this.Margin + new Vector2(0, targetSize.Height / 2),
-                SCardinalDirection.Northwest => targetPosition + this.Margin,
-                _ => targetPosition + this.Margin,
+                SCardinalDirection.Center => targetPosition + this.margin + (targetSize / 2).ToVector2(),
+                SCardinalDirection.North => targetPosition + this.margin + new Vector2(targetSize.Width / 2, 0),
+                SCardinalDirection.Northeast => targetPosition + this.margin + new Vector2(targetSize.Width, 0),
+                SCardinalDirection.East => targetPosition + this.margin + new Vector2(targetSize.Width, targetSize.Height / 2),
+                SCardinalDirection.Southeast => targetPosition + this.margin + new Vector2(targetSize.Width, targetSize.Height),
+                SCardinalDirection.South => targetPosition + this.margin + new Vector2(targetSize.Width / 2, targetSize.Height),
+                SCardinalDirection.Southwest => targetPosition + this.margin + new Vector2(0, targetSize.Height),
+                SCardinalDirection.West => targetPosition + this.margin + new Vector2(0, targetSize.Height / 2),
+                SCardinalDirection.Northwest => targetPosition + this.margin,
+                _ => targetPosition + this.margin,
             };
         }
 

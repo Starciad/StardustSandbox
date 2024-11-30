@@ -46,7 +46,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             #region Configuring
             panelBackground.SetTexture(this.particleTexture);
-            panelBackground.SetScale(new Vector2(672, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
+            panelBackground.SetScale(new Vector2(615f, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
             panelBackground.SetSize(SSize2F.One);
             panelBackground.SetColor(new(Color.Black, 180));
             panelBackground.PositionRelativeToScreen();
@@ -60,7 +60,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             // BUTTONS
             // Backgrounds
             Vector2 baseMargin = new(96, -64);
-            int spacing = 110;
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
@@ -70,7 +69,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.menuButtons[i].background.SetMargin(baseMargin);
                 this.menuButtons[i].background.SetColor(Color.White);
                 this.menuButtons[i].background.PositionRelativeToScreen();
-                baseMargin.Y += spacing;
+                baseMargin.Y += 110;
             }
 
             // Labels
@@ -88,6 +87,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.menuButtons[i].label.SetBorders(true);
                 this.menuButtons[i].label.SetBordersColor(new Color(45, 53, 74, 255));
                 this.menuButtons[i].label.SetBorderOffset(new Vector2(4.4f));
+                this.menuButtons[i].label.SetPositionAnchor(SCardinalDirection.West);
                 this.menuButtons[i].label.PositionRelativeToElement(this.menuButtons[i].background);
             }
             #endregion
