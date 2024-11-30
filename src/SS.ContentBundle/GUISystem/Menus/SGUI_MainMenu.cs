@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.GUISystem.Elements.Graphics;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.GUISystem.Elements;
+
 using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
@@ -29,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+
             UpdateButtons();
         }
 

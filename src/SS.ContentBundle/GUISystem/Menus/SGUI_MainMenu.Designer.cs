@@ -17,8 +17,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private enum SMainMenuButtonIndex : byte
         {
             Create = 0,
-            Options = 1,
-            Quit = 2
+            Quit = 1
         }
 
         private ISGUILayoutBuilder layout;
@@ -74,12 +73,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.SGameInstance.World.States.IsActive = true;
                 this.SGameInstance.World.Reset();
                 this.SGameInstance.World.Resume();
-            });
 
-            this.menuButtons[(byte)SMainMenuButtonIndex.Options].SetTextContent("Options");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Options].AddData("action", () =>
-            {
-
+                this.SGameInstance.CameraManager.Position = new(0f, -(this.SGameInstance.World.Infos.Size.Height * SWorldConstants.GRID_SCALE));
             });
 
             this.menuButtons[(byte)SMainMenuButtonIndex.Quit].SetTextContent("Quit");
