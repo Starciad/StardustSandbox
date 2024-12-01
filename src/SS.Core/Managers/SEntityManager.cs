@@ -44,9 +44,7 @@ namespace StardustSandbox.Core.Managers
 
         public SEntity Instantiate(SEntityDescriptor entityDescriptor, Action<SEntity> entityConfigurationAction)
         {
-            Type entityType = entityDescriptor.GetType();
-
-            SEntity entity = this.entityPools[entityType].TryGet(out ISPoolableObject pooledObject) ? (SEntity)pooledObject : this.SGameInstance.EntityDatabase.GetEntityDescriptor(entityType).CreateEntity(this.SGameInstance);
+            SEntity entity = this.entityPools[entityDescriptor.AssociatedEntityType].TryGet(out ISPoolableObject pooledObject) ? (SEntity)pooledObject : this.SGameInstance.EntityDatabase.GetEntityDescriptor(entityDescriptor.AssociatedEntityType).CreateEntity(this.SGameInstance);
 
             this.instantiatedEntities.Add(entity);
 
@@ -55,11 +53,33 @@ namespace StardustSandbox.Core.Managers
             return entity;
         }
 
+        public void Remove(SEntity entity)
+        {
+            this.entityPools[entity.GetType()].Add(entity);
+            this.instantiatedEntities.Remove(entity);
+        }
+
+        public void RemoveAll()
+        {
+            foreach (SEntity entity in this.InstantiatedEntities)
+            {
+                Remove(entity);
+            }
+        }
+
         public void Destroy(SEntity entity)
         {
             this.entityPools[entity.GetType()].Add(entity);
             this.instantiatedEntities.Remove(entity);
             entity.Destroy();
+        }
+
+        public void DestroyAll()
+        {
+            foreach (SEntity entity in this.InstantiatedEntities)
+            {
+                Destroy(entity);
+            }
         }
     }
 }

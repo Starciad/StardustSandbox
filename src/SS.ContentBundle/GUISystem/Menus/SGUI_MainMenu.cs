@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
@@ -38,6 +39,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private readonly SWorld world;
 
+        private SEntity magicCursorEntity;
+
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
@@ -54,6 +57,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             LoadAnimationValues();
             LoadMainMenuWorld();
             LoadMagicCursor();
+        }
+
+        protected override void OnUnload()
+        {
+            base.OnUnload();
+
+            this.SGameInstance.EntityManager.RemoveAll();
+            this.world.Clear();
         }
 
         public override void Update(GameTime gameTime)
@@ -90,15 +101,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void LoadMainMenuWorld()
         {
-
             this.world.Resize(new SSize2(40, 23));
             this.world.Reset();
         }
 
         private void LoadMagicCursor()
         {
-            SMagicCursorEntityDescriptor entityDescriptor = (SMagicCursorEntityDescriptor)this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor));
-            _ = this.SGameInstance.EntityManager.Instantiate(entityDescriptor, null);
+            this.magicCursorEntity = this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntity)), null);
         }
 
         // =========================================== //
@@ -167,8 +176,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void CreateMenuButton()
         {
-            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
 
             this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
             this.world.Reset();

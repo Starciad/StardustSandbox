@@ -15,7 +15,7 @@ namespace StardustSandbox.Core.Databases
 
         public void RegisterEntity(SEntityDescriptor descriptor)
         {
-            this._registeredEntities.Add(descriptor.GetType(), descriptor);
+            this._registeredEntities.Add(descriptor.AssociatedEntityType, descriptor);
         }
 
         public SEntityDescriptor GetEntityDescriptor(Type entityType)

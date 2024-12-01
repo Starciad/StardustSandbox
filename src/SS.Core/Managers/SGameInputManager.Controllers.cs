@@ -70,11 +70,11 @@ namespace StardustSandbox.Core.Managers
         {
             if (this._world.States.IsPaused)
             {
-                this._world.Resume();
+                this._world.States.IsPaused = false;
             }
             else
             {
-                this._world.Pause();
+                this._world.States.IsPaused = true;
             }
         }
         private void ResetWorld()

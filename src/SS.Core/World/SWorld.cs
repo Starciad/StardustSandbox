@@ -86,23 +86,18 @@ namespace StardustSandbox.Core.World
             Clear();
         }
 
-        public void Pause()
-        {
-            this.States.IsPaused = true;
-        }
-
-        public void Resume()
-        {
-            this.States.IsPaused = false;
-        }
-
         public void Resize(SSize2 size)
         {
-            this.Infos.SetSize(size);
+            this.States.IsActive = false;
 
             DestroyWorldSlots();
+
+            this.Infos.SetSize(size);
             this.slots = new SWorldSlot[size.Width, size.Height];
+
             InstantiateWorldSlots();
+
+            this.States.IsActive = true;
         }
 
         public void Clear()
@@ -141,6 +136,7 @@ namespace StardustSandbox.Core.World
                 }
             }
         }
+
         private void DestroyWorldSlots()
         {
             if (this.slots == null || this.slots.Length == 0)

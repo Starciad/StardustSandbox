@@ -145,10 +145,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 labelElement.SetOriginPivot(SCardinalDirection.Center);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                baseMargin.Y += 64;
+                baseMargin.Y += 75;
             }
 
-            this.layout.AddElement(gameTitleElement);
+            this.layout.AddElement(this.gameTitleElement);
 
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
