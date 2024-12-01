@@ -16,14 +16,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private enum SMainMenuButtonIndex : byte
         {
             Create = 0,
-            Quit = 1
+            Play = 1,
+            Options = 2,
+            Credits = 3,
+            Quit = 4
         }
 
         private ISGUILayoutBuilder layout;
 
-        private SGUIImageElement panelBackground;
+        private SGUIImageElement panelBackgroundElement;
+        private SGUIImageElement gameTitleElement;
 
-        private SGUILabelElement[] menuButtons;
+        private SGUILabelElement[] menuButtonElements;
         private Action[] menuButtonActions;
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
@@ -32,20 +36,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             BuildMainPanel();
             BuildDecorations();
-            BuildMainMenu();
+            BuildGameTitle();
+            BuildButtons();
             BuildInfos();
         }
 
         private void BuildMainPanel()
         {
-            this.panelBackground = new(this.SGameInstance);
-            this.panelBackground.SetTexture(this.particleTexture);
-            this.panelBackground.SetScale(new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
-            this.panelBackground.SetSize(SSize2F.One);
-            this.panelBackground.SetColor(new(Color.Black, 180));
-            this.panelBackground.PositionRelativeToScreen();
+            this.panelBackgroundElement = new(this.SGameInstance);
+            this.panelBackgroundElement.SetTexture(this.particleTexture);
+            this.panelBackgroundElement.SetScale(new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
+            this.panelBackgroundElement.SetSize(SSize2F.One);
+            this.panelBackgroundElement.SetColor(new(Color.Black, 180));
+            this.panelBackgroundElement.PositionRelativeToScreen();
 
-            this.layout.AddElement(this.panelBackground);
+            this.layout.AddElement(this.panelBackgroundElement);
         }
 
         private void BuildDecorations()
@@ -85,25 +90,33 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.layout.AddElement(copyrightLabel);
         }
 
-        private void BuildMainMenu()
+        private void BuildGameTitle()
         {
-            SGUIImageElement gameTitle = new(this.SGameInstance);
+            this.gameTitleElement = new(this.SGameInstance);
+            this.gameTitleElement.SetTexture(this.gameTitleTexture);
+            this.gameTitleElement.SetScale(new Vector2(1.5f));
+            this.gameTitleElement.SetSize(new SSize2(292, 112));
+            this.gameTitleElement.SetMargin(new Vector2(0, 96));
+            this.gameTitleElement.SetPositionAnchor(SCardinalDirection.North);
+            this.gameTitleElement.SetOriginPivot(SCardinalDirection.Center);
+            this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+        }
 
-            gameTitle.SetTexture(this.gameTitleTexture);
-            gameTitle.SetScale(new Vector2(1.5f));
-            gameTitle.SetSize(new SSize2(292, 112));
-            gameTitle.SetMargin(new Vector2(0, 96));
-            gameTitle.SetPositionAnchor(SCardinalDirection.North);
-            gameTitle.SetOriginPivot(SCardinalDirection.Center);
-            gameTitle.PositionRelativeToElement(this.panelBackground);
-
-            this.menuButtons = [
+        private void BuildButtons()
+        {
+            this.menuButtonElements = [
+                new(this.SGameInstance),
+                new(this.SGameInstance),
+                new(this.SGameInstance),
                 new(this.SGameInstance),
                 new(this.SGameInstance)
             ];
 
             this.menuButtonActions = [
                 CreateMenuButton,
+                null,
+                null,
+                null,
                 QuitMenuButton
             ];
 
@@ -111,12 +124,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             Vector2 baseMargin = new(0, 0);
 
             // Labels
-            this.menuButtons[(byte)SMainMenuButtonIndex.Create].SetTextContent("Create");
-            this.menuButtons[(byte)SMainMenuButtonIndex.Quit].SetTextContent("Quit");
+            this.menuButtonElements[(byte)SMainMenuButtonIndex.Create].SetTextContent("Create");
+            this.menuButtonElements[(byte)SMainMenuButtonIndex.Play].SetTextContent("Play");
+            this.menuButtonElements[(byte)SMainMenuButtonIndex.Options].SetTextContent("Options");
+            this.menuButtonElements[(byte)SMainMenuButtonIndex.Credits].SetTextContent("Credits");
+            this.menuButtonElements[(byte)SMainMenuButtonIndex.Quit].SetTextContent("Quit");
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                SGUILabelElement labelElement = this.menuButtons[i];
+                SGUILabelElement labelElement = this.menuButtonElements[i];
 
                 labelElement.SetScale(new Vector2(0.15f));
                 labelElement.SetMargin(baseMargin);
@@ -127,16 +143,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 labelElement.SetBorderOffset(new Vector2(4f));
                 labelElement.SetPositionAnchor(SCardinalDirection.Center);
                 labelElement.SetOriginPivot(SCardinalDirection.Center);
-                labelElement.PositionRelativeToElement(this.panelBackground);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                baseMargin.Y += 96;
+                baseMargin.Y += 64;
             }
 
-            this.layout.AddElement(gameTitle);
+            this.layout.AddElement(gameTitleElement);
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                this.layout.AddElement(this.menuButtons[i]);
+                this.layout.AddElement(this.menuButtonElements[i]);
             }
         }
     }

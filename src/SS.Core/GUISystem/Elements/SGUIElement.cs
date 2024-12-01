@@ -53,10 +53,10 @@ namespace StardustSandbox.Core.GUISystem.Elements
 
         public void PositionRelativeToElement(Vector2 otherElementPosition, SSize2 otherElementSize)
         {
-            this.position = GetPosition(otherElementPosition, otherElementSize);
+            SetPosition(GetAnchorPosition(otherElementPosition, otherElementSize));
         }
 
-        private Vector2 GetPosition(Vector2 targetPosition, SSize2 targetSize)
+        private Vector2 GetAnchorPosition(Vector2 targetPosition, SSize2 targetSize)
         {
             return this.positionAnchor switch
             {
@@ -71,6 +71,11 @@ namespace StardustSandbox.Core.GUISystem.Elements
                 SCardinalDirection.Northwest => targetPosition + this.margin,
                 _ => targetPosition + this.margin,
             };
+        }
+
+        public void SetPosition(Vector2 value)
+        {
+            this.position = value;
         }
 
         public void SetPositionAnchor(SCardinalDirection direction)

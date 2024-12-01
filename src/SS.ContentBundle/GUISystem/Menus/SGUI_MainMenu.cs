@@ -1,22 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
-
-using System.Windows.Forms;
-using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.World;
+
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
     public sealed partial class SGUI_MainMenu : SGUISystem
     {
+        private Vector2 originalGameTitleElementPosition;
+
+        private const float animationSpeed = 2f;
+        private const float animationAmplitude = 10f;
+
+        private const float ButtonAnimationSpeed = 1.5f;
+        private const float ButtonAnimationAmplitude = 5f;
+
+        private float animationTime = 0f;
+
+        private Dictionary<SGUILabelElement, Vector2> buttonOriginalPositions;
+        private float[] buttonAnimationOffsets;
+
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D particleTexture;
         private readonly Texture2D prosceniumCurtainTexture;
@@ -28,7 +43,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.prosceniumCurtainTexture = this.SGameInstance.AssetDatabase.GetTexture("miscellany_1");
-
             this.world = gameInstance.World;
         }
 
@@ -36,28 +50,98 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         {
             base.OnLoad();
 
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
-
-            this.world.Resize(new SSize2(40, 23));
-            this.world.Reset();
-
-            SMagicCursorEntityDescriptor entityDescriptor = (SMagicCursorEntityDescriptor)this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor));
-            this.SGameInstance.EntityManager.Instantiate(entityDescriptor, null);
+            DisableControls();
+            LoadAnimationValues();
+            LoadMainMenuWorld();
+            LoadMagicCursor();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
+            UpdateAnimations(gameTime);
             UpdateButtons();
+        }
+
+        // =========================================== //
+        // Load
+
+        private void DisableControls()
+        {
+            this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
+        }
+
+        private void LoadAnimationValues()
+        {
+            // GameTitle
+            this.originalGameTitleElementPosition = this.gameTitleElement.Position;
+
+            // Buttons
+            this.buttonOriginalPositions = [];
+            this.buttonAnimationOffsets = new float[this.menuButtonElements.Length];
+
+            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            {
+                this.buttonOriginalPositions[this.menuButtonElements[i]] = this.menuButtonElements[i].Position;
+                this.buttonAnimationOffsets[i] = (float)(new Random().NextDouble() * Math.PI * 2);
+            }
+        }
+
+        private void LoadMainMenuWorld()
+        {
+
+            this.world.Resize(new SSize2(40, 23));
+            this.world.Reset();
+        }
+
+        private void LoadMagicCursor()
+        {
+            SMagicCursorEntityDescriptor entityDescriptor = (SMagicCursorEntityDescriptor)this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor));
+            _ = this.SGameInstance.EntityManager.Instantiate(entityDescriptor, null);
+        }
+
+        // =========================================== //
+        // Update
+
+        private void UpdateAnimations(GameTime gameTime)
+        {
+            UpdateGameTitleElementAnimation(gameTime);
+            UpdateButtonElementsAnimation(gameTime);
+        }
+
+        private void UpdateGameTitleElementAnimation(GameTime gameTime)
+        {
+            this.animationTime += (float)gameTime.ElapsedGameTime.TotalSeconds * animationSpeed;
+
+            float offsetY = (float)Math.Sin(this.animationTime) * animationAmplitude;
+            Vector2 newPosition = new(this.originalGameTitleElementPosition.X, this.originalGameTitleElementPosition.Y + offsetY);
+
+            this.gameTitleElement.SetPosition(newPosition);
+        }
+
+        private void UpdateButtonElementsAnimation(GameTime gameTime)
+        {
+            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            {
+                SGUILabelElement button = this.menuButtonElements[i];
+                Vector2 originalPosition = this.buttonOriginalPositions[button];
+
+                this.buttonAnimationOffsets[i] += elapsedTime * ButtonAnimationSpeed;
+                float offsetY = (float)Math.Sin(this.buttonAnimationOffsets[i]) * ButtonAnimationAmplitude;
+
+                button.SetPosition(new Vector2(originalPosition.X, originalPosition.Y + offsetY));
+            }
         }
 
         private void UpdateButtons()
         {
             // Individually check all element slots present in the item catalog.
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                SGUILabelElement labelElement = this.menuButtons[i];
+                SGUILabelElement labelElement = this.menuButtonElements[i];
 
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
@@ -90,7 +174,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.world.Reset();
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-            
+
             this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
         }
 
