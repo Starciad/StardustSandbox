@@ -39,17 +39,12 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
         private static readonly SElementId[] AllowedElements =
         {
             SElementId.Dirt, SElementId.Mud, SElementId.Water, SElementId.Stone,
-            SElementId.Grass, SElementId.Ice, SElementId.Sand, SElementId.Snow,
-            SElementId.Lava, SElementId.Acid, SElementId.Glass, SElementId.Metal,
-            SElementId.Wall, SElementId.Wood, SElementId.Steam, SElementId.Smoke,
-            SElementId.RedBrick, SElementId.TreeLeaf, SElementId.MountingBlock,
-            SElementId.Fire
+            SElementId.Grass, SElementId.Sand, SElementId.Lava, SElementId.Acid,
+            SElementId.Wood, SElementId.TreeLeaf
         };
 
         private int moveStateTimer = 0;
         private int buildingStateTimer = 0;
-
-        private int actionTimer = 0;
         private int elementChangeTimer = 0;
 
         public SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
@@ -92,7 +87,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                 }
             }
 
-            if (this.buildingStateTimer > 128)
+            if (this.buildingStateTimer > 96)
             {
                 this.buildingStateTimer = 0;
                 this.currentBuildingState = (BuildingState)SRandomMath.Range(0, 3);
@@ -102,7 +97,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
         private void UpdateElementSelection()
         {
             this.elementChangeTimer++;
-            if (this.elementChangeTimer > 250)
+            if (this.elementChangeTimer > 350)
             {
                 this.elementChangeTimer = 0;
                 this.selectedElement = AllowedElements.GetRandomItem();
@@ -111,7 +106,6 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private void ExecuteStateActions()
         {
-            this.actionTimer++;
             Point gridPosition = (this.transformComponent.Position / SWorldConstants.GRID_SCALE).ToPoint();
 
             switch (this.currentMoveState)
@@ -120,11 +114,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                     break;
 
                 case MoveState.Moving:
-                    if (this.actionTimer > 50)
-                    {
-                        this.targetPosition = new Vector2(SRandomMath.Range(0, this.worldSize.Width), SRandomMath.Range(0, this.worldSize.Height));
-                        this.actionTimer = 0;
-                    }
+                    SelectRandomPosition();
                     break;
 
                 default:
@@ -134,18 +124,16 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
             switch (this.currentBuildingState)
             {
                 case BuildingState.Constructing:
-                    if (this.world.IsEmptyElementSlot(gridPosition) && this.actionTimer > 20)
+                    if (this.world.IsEmptyElementSlot(gridPosition))
                     {
                         this.world.InstantiateElement(gridPosition, (uint)this.selectedElement);
-                        this.actionTimer = 0;
                     }
                     break;
 
                 case BuildingState.Removing:
-                    if (!this.world.IsEmptyElementSlot(gridPosition) && this.actionTimer > 20)
+                    if (!this.world.IsEmptyElementSlot(gridPosition))
                     {
                         this.world.DestroyElement(gridPosition);
-                        this.actionTimer = 0;
                     }
                     break;
 

@@ -12,7 +12,6 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
     {
         internal SMagicCursorEntityDescriptor()
         {
-            this.id = 0;
             this.associatedEntityType = typeof(SMagicCursorEntity);
         }
 

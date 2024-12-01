@@ -11,6 +11,8 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Windows.Forms;
 using StardustSandbox.ContentBundle.Entities.Specials;
+using StardustSandbox.Core.World;
+using StardustSandbox.ContentBundle.Enums.Elements;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
@@ -19,10 +21,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D particleTexture;
 
+        private readonly SWorld world;
+
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+
+            this.world = gameInstance.World;
         }
 
         protected override void OnLoad()
@@ -31,13 +37,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
 
-            this.SGameInstance.World.Resize(new SSize2(40, 23));
-            this.SGameInstance.World.Reset();
+            this.world.Resize(new SSize2(40, 23));
+            this.world.Reset();
 
-            for (int i = 0; i < 4; i++)
-            {
-                this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor)), null);
-            }
+            SMagicCursorEntityDescriptor entityDescriptor = (SMagicCursorEntityDescriptor)this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor));
+            this.SGameInstance.EntityManager.Instantiate(entityDescriptor, null);
         }
 
         public override void Update(GameTime gameTime)
@@ -81,10 +85,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
 
-            this.SGameInstance.World.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
-            this.SGameInstance.World.Reset();
+            this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+            this.world.Reset();
 
-            this.SGameInstance.CameraManager.Position = new(0f, -(this.SGameInstance.World.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
             
             this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
         }
