@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.Constants;
@@ -10,6 +11,7 @@ using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.Songs;
 using StardustSandbox.Core.World;
 
 using System;
@@ -39,6 +41,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private readonly SWorld world;
 
+        private readonly Song mainMenuSong;
+
         private SEntity magicCursorEntity;
 
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
@@ -47,6 +51,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.prosceniumCurtainTexture = this.SGameInstance.AssetDatabase.GetTexture("miscellany_1");
             this.world = gameInstance.World;
+            this.mainMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_1");
         }
 
         protected override void OnLoad()
@@ -57,6 +62,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             LoadAnimationValues();
             LoadMainMenuWorld();
             LoadMagicCursor();
+
+            SSongEngine.Play(this.mainMenuSong);
         }
 
         protected override void OnUnload()
@@ -101,7 +108,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void LoadMainMenuWorld()
         {
-            this.world.Resize(new SSize2(40, 23));
+            this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
             this.world.Reset();
         }
 
@@ -176,14 +183,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void CreateMenuButton()
         {
+            SSongEngine.Stop();
+
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
 
-            this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
             this.world.Reset();
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-
             this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
         }
 
