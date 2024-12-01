@@ -19,6 +19,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
     {
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D particleTexture;
+        private readonly Texture2D prosceniumCurtainTexture;
 
         private readonly SWorld world;
 
@@ -26,6 +27,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+            this.prosceniumCurtainTexture = this.SGameInstance.AssetDatabase.GetTexture("miscellany_1");
 
             this.world = gameInstance.World;
         }
