@@ -35,6 +35,9 @@
         public const byte GRAPHICS_ICONS_GUI_LENGTH = 14;
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 2;
 
+        // Miscellaneous
+        public const byte GRAPHICS_MISCELLANEOUS = 1;
+
         // Game
         public const byte GRAPHICS_GAME_ICONS_LENGTH = 1;
         public const byte GRAPHICS_GAME_TITLES_LENGTH = 1;

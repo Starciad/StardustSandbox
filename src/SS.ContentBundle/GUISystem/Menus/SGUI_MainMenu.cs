@@ -12,7 +12,6 @@ using StardustSandbox.Core.Mathematics.Primitives;
 using System.Windows.Forms;
 using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.World;
-using StardustSandbox.ContentBundle.Enums.Elements;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
