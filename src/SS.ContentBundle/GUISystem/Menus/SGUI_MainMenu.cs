@@ -34,7 +34,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.SGameInstance.World.Resize(new SSize2(40, 23));
             this.SGameInstance.World.Reset();
 
-            this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor)), null);
+            for (int i = 0; i < 4; i++)
+            {
+                this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor)), null);
+            }
         }
 
         public override void Update(GameTime gameTime)

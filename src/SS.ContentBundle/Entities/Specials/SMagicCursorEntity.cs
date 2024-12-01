@@ -27,7 +27,6 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
         private readonly SEntityTransformComponent transformComponent;
         private readonly SEntityGraphicsComponent graphicsComponent;
         private readonly SEntityRenderingComponent renderingComponent;
-        private readonly SMagicCursorEntityAIComponent aiComponent;
 
         private readonly Texture2D texture;
 
@@ -36,7 +35,7 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
             this.transformComponent = this.ComponentContainer.AddComponent(new SEntityTransformComponent(this.SGameInstance, this));
             this.graphicsComponent = this.ComponentContainer.AddComponent(new SEntityGraphicsComponent(this.SGameInstance, this));
             this.renderingComponent = this.ComponentContainer.AddComponent(new SEntityRenderingComponent(this.SGameInstance, this, this.transformComponent, this.graphicsComponent));
-            this.aiComponent = this.ComponentContainer.AddComponent(new SMagicCursorEntityAIComponent(this.SGameInstance, this, this.transformComponent));
+            _ = this.ComponentContainer.AddComponent(new SMagicCursorEntityAIComponent(this.SGameInstance, this, this.transformComponent));
 
             // Graphics
             this.texture = gameInstance.AssetDatabase.GetTexture("cursor_1");
