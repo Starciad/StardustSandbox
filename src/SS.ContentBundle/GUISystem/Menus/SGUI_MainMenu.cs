@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.ContentBundle.Entities.Specials;
+using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Entities;
@@ -11,7 +13,6 @@ using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.Songs;
 using StardustSandbox.Core.World;
 
 using System;
@@ -26,12 +27,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private const float animationSpeed = 2f;
         private const float animationAmplitude = 10f;
-
         private const float ButtonAnimationSpeed = 1.5f;
         private const float ButtonAnimationAmplitude = 5f;
 
         private float animationTime = 0f;
-
+        
         private Dictionary<SGUILabelElement, Vector2> buttonOriginalPositions;
         private float[] buttonAnimationOffsets;
 
@@ -43,15 +43,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private readonly Song mainMenuSong;
 
-        private SEntity magicCursorEntity;
-
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.prosceniumCurtainTexture = this.SGameInstance.AssetDatabase.GetTexture("miscellany_1");
-            this.world = gameInstance.World;
+
             this.mainMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_1");
+
+            this.world = gameInstance.World;
         }
 
         protected override void OnLoad()
@@ -114,7 +114,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void LoadMagicCursor()
         {
-            this.magicCursorEntity = this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntity)), null);
+            _ = this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntity)), null);
         }
 
         // =========================================== //

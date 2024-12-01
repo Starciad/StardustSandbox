@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Media;
 
-namespace StardustSandbox.Core.Songs
+namespace StardustSandbox.Core.Audio
 {
     public static class SSongEngine
     {
