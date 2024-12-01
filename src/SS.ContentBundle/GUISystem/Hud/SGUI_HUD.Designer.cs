@@ -15,9 +15,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
     {
         private ISGUILayoutBuilder layout;
 
-        private SGUIElement topToolbarContainer;
-        private SGUIElement leftToolbarContainer;
-        private SGUIElement rightToolbarContainer;
+        private SGUIImageElement topToolbarContainer;
+        private SGUIImageElement leftToolbarContainer;
+        private SGUIImageElement rightToolbarContainer;
 
         private SGUIImageElement toolbarElementSearchButton;
         private readonly (SGUIImageElement background, SGUIImageElement icon)[] toolbarElementSlots = new (SGUIImageElement, SGUIImageElement)[SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH];
@@ -26,42 +26,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
         {
             this.layout = layout;
 
-            // Containers
-            this.topToolbarContainer = new SGUIContainerElement(this.SGameInstance);
-            this.leftToolbarContainer = new SGUIContainerElement(this.SGameInstance);
-            this.rightToolbarContainer = new SGUIContainerElement(this.SGameInstance);
-
-            this.topToolbarContainer.PositionRelativeToScreen();
-            this.leftToolbarContainer.PositionRelativeToScreen();
-            this.rightToolbarContainer.PositionRelativeToScreen();
-
-            layout.AddElement(this.topToolbarContainer);
-            layout.AddElement(this.leftToolbarContainer);
-            layout.AddElement(this.rightToolbarContainer);
-
-            // Styles
-            this.topToolbarContainer.SetSize(new SSize2F(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96));
-
-            // Process
-            BuildTopToolbar(this.topToolbarContainer);
-            BuildLeftToolbar(this.leftToolbarContainer);
-            BuildRightToolbar(this.rightToolbarContainer);
+            BuildTopToolbar();
+            BuildLeftToolbar();
+            BuildRightToolbar();
         }
 
-        private void BuildTopToolbar(SGUIElement container)
+        private void BuildTopToolbar()
         {
-            SGUIImageElement slotAreaBackground = new(this.SGameInstance);
+            this.topToolbarContainer = new(this.SGameInstance);
+            this.topToolbarContainer.SetTexture(this.particleTexture);
+            this.topToolbarContainer.SetScale(new Vector2(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96));
+            this.topToolbarContainer.SetColor(new Color(Color.White, 32));
+            this.topToolbarContainer.SetSize(SSize2F.One);
+            this.topToolbarContainer.PositionRelativeToScreen();
 
-            this.layout.AddElement(slotAreaBackground);
-
-            // Background
-            slotAreaBackground.SetTexture(this.particleTexture);
-            slotAreaBackground.SetScale(container.Size.ToVector2());
-            slotAreaBackground.SetColor(new Color(Color.White, 32));
-            slotAreaBackground.SetSize(SSize2F.One);
-
-            // Append
-            slotAreaBackground.PositionRelativeToElement(container);
+            this.layout.AddElement(this.topToolbarContainer);
 
             // ================================= //
 
@@ -105,7 +84,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                     slotIcon.SetSize(new SSize2(slotSize));
 
                     // Update
-                    slotBackground.PositionRelativeToElement(slotAreaBackground);
+                    slotBackground.PositionRelativeToElement(this.topToolbarContainer);
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Save
@@ -131,7 +110,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                 slotSearchBackground.SetPositionAnchor(SCardinalDirection.East);
                 slotSearchBackground.SetSize(new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE));
                 slotSearchBackground.SetMargin(new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0));
-                slotSearchBackground.PositionRelativeToElement(slotAreaBackground);
+                slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
 
                 // Icon
                 slotIcon.SetTexture(this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1"));
@@ -146,7 +125,31 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                 this.toolbarElementSearchButton = slotSearchBackground;
             }
         }
-        private void BuildLeftToolbar(SGUIElement container) { return; }
-        private void BuildRightToolbar(SGUIElement container) { return; }
+        private void BuildLeftToolbar()
+        {
+            this.leftToolbarContainer = new(this.SGameInstance);
+            this.leftToolbarContainer.SetTexture(this.particleTexture);
+            this.leftToolbarContainer.SetScale(new Vector2(96, 608));
+            this.leftToolbarContainer.SetColor(new Color(Color.White, 32));
+            this.leftToolbarContainer.SetSize(SSize2F.One);
+            this.leftToolbarContainer.SetOriginPivot(SCardinalDirection.Northeast);
+            this.leftToolbarContainer.SetPositionAnchor(SCardinalDirection.Southwest);
+            this.leftToolbarContainer.PositionRelativeToScreen();
+
+            this.layout.AddElement(this.leftToolbarContainer);
+        }
+        private void BuildRightToolbar()
+        {
+            this.rightToolbarContainer = new(this.SGameInstance);
+            this.rightToolbarContainer.SetTexture(this.particleTexture);
+            this.rightToolbarContainer.SetScale(new Vector2(96, 608));
+            this.rightToolbarContainer.SetColor(new Color(Color.White, 32));
+            this.rightToolbarContainer.SetSize(SSize2F.One);
+            this.rightToolbarContainer.SetOriginPivot(SCardinalDirection.Northwest);
+            this.rightToolbarContainer.SetPositionAnchor(SCardinalDirection.Southeast);
+            this.rightToolbarContainer.PositionRelativeToScreen();
+
+            this.layout.AddElement(this.rightToolbarContainer);
+        }
     }
 }
