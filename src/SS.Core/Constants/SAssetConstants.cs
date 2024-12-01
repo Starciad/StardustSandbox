@@ -2,7 +2,7 @@
 {
     public static class SAssetConstants
     {
-        public const byte SONGS_LENGTH = 0;
+        public const byte SONGS_LENGTH = 1;
         public const byte SOUNDS_LENGTH = 0;
         public const byte FONTS_LENGTH = 9;
         public const byte SHADERS_LENGTH = 1;
