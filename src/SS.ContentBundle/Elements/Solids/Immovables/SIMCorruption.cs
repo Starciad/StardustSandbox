@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.Elements.Utilities;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
@@ -17,7 +18,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         public SIMCorruption(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 017;
+            this.id = (uint)SElementId.IMCorruption;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_18");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;

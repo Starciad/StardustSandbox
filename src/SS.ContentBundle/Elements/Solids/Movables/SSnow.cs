@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Liquids;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces.General;
@@ -9,7 +10,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
     {
         public SSnow(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 007;
+            this.id = (uint)SElementId.Snow;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_8");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = -15;

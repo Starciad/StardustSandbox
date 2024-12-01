@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
@@ -14,7 +15,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
     {
         public SAcid(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 010;
+            this.id = (uint)SElementId.Acid;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_11");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 10;

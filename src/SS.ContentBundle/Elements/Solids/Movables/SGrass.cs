@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Energies;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces.General;
@@ -9,7 +10,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
     {
         public SGrass(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 004;
+            this.id = (uint)SElementId.Grass;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_5");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 22;

@@ -10,6 +10,7 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Windows.Forms;
+using StardustSandbox.ContentBundle.Entities.Specials;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Menus
 {
@@ -32,6 +33,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
             this.SGameInstance.World.Resize(new SSize2(40, 23));
             this.SGameInstance.World.Reset();
+
+            this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntityDescriptor)), null);
         }
 
         public override void Update(GameTime gameTime)

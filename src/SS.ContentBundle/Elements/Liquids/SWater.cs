@@ -3,6 +3,7 @@
 using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
@@ -17,7 +18,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
     {
         public SWater(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 002;
+            this.id = (uint)SElementId.Water;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultDispersionRate = 3;

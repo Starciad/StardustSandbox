@@ -39,8 +39,11 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
             this.aiComponent = this.ComponentContainer.AddComponent(new SMagicCursorEntityAIComponent(this.SGameInstance, this, this.transformComponent));
 
             // Graphics
-            this.graphicsComponent.SetTexture(gameInstance.AssetDatabase.GetTexture("cursor_1"));
-            this.texture = this.graphicsComponent.Texture;
+            this.texture = gameInstance.AssetDatabase.GetTexture("cursor_1");
+
+            this.graphicsComponent.SetTexture(this.texture);
+
+            this.renderingComponent.ClipArea = new Rectangle(new(0), new(36));
         }
 
         public override void Update(GameTime gameTime)

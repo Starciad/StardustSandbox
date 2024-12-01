@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
@@ -9,7 +10,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
     {
         public SLava(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 009;
+            this.id = (uint)SElementId.Lava;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 1000;
