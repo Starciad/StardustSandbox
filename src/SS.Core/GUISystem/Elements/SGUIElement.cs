@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 
@@ -12,33 +11,48 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.GUISystem.Elements
 {
-    public abstract class SGUIElement(ISGame gameInstance) : SGameObject(gameInstance)
+    public abstract class SGUIElement : SGameObject
     {
         public bool ShouldUpdate { get; set; }
         public bool IsVisible { get; set; }
-        public SCardinalDirection PositionAnchor => this.positionAnchor;
-        public SCardinalDirection OriginPivot => this.originPivot;
-        public SpriteEffects SpriteEffects => this.spriteEffects;
-        public Vector2 Position => this.position;
-        public SSize2F Size => new(this.size.Width * this.scale.X, this.size.Height * this.scale.Y);
-        public Vector2 Margin => this.margin;
-        public Vector2 Scale => this.scale;
-        public Color Color => this.color;
-        public float RotationAngle => this.rotationAngle;
+        public SCardinalDirection PositionAnchor { get; set; }
+        public SCardinalDirection OriginPivot { get; set; }
+        public SpriteEffects SpriteEffects { get; set; }
+        public Vector2 Position { get; set; }
+        public SSize2F Size
+        {
+            get
+            {
+                return new(this.size.Width * this.Scale.X, this.size.Height * this.Scale.Y);
+            }
 
-        private SCardinalDirection positionAnchor = SCardinalDirection.Northwest;
-        private SCardinalDirection originPivot = SCardinalDirection.Southeast;
-        private SpriteEffects spriteEffects = SpriteEffects.None;
+            set
+            {
+                this.size = value;
+            }
+        }
+        public Vector2 Margin { get; set; }
+        public Vector2 Scale { get; set; }
+        public Color Color { get; set; } 
+        public float RotationAngle { get; set; } = 0f;
 
         private SSize2 size = SSize2.Zero;
-        private Vector2 margin = Vector2.Zero;
-        private Vector2 position = Vector2.Zero;
-        private Vector2 scale = Vector2.One;
-        private Color color = Color.White;
-
-        private float rotationAngle = 0f;
-
+        
         private readonly Dictionary<string, object> data = [];
+
+        public SGUIElement(ISGame gameInstance) : base(gameInstance)
+        {
+            this.OriginPivot = SCardinalDirection.Southeast;
+            this.SpriteEffects = SpriteEffects.None;
+
+            this.Size = SSize2.One;
+            this.Margin = Vector2.Zero;
+            this.Position = Vector2.Zero;
+            this.Scale = Vector2.One;
+            this.Color = Color.White;
+            
+            this.RotationAngle = 0f;
+        }
 
         // [ Settings ]
         public void PositionRelativeToScreen()
@@ -48,74 +62,29 @@ namespace StardustSandbox.Core.GUISystem.Elements
 
         public void PositionRelativeToElement(SGUIElement reference)
         {
-            PositionRelativeToElement(reference.position, reference.Size);
+            PositionRelativeToElement(reference.Position, reference.Size);
         }
 
         public void PositionRelativeToElement(Vector2 otherElementPosition, SSize2 otherElementSize)
         {
-            SetPosition(GetAnchorPosition(otherElementPosition, otherElementSize));
+            this.Position = GetAnchorPosition(otherElementPosition, otherElementSize);
         }
 
         private Vector2 GetAnchorPosition(Vector2 targetPosition, SSize2 targetSize)
         {
-            return this.positionAnchor switch
+            return this.PositionAnchor switch
             {
-                SCardinalDirection.Center => targetPosition + this.margin + (targetSize / 2).ToVector2(),
-                SCardinalDirection.North => targetPosition + this.margin + new Vector2(targetSize.Width / 2, 0),
-                SCardinalDirection.Northeast => targetPosition + this.margin + new Vector2(targetSize.Width, 0),
-                SCardinalDirection.East => targetPosition + this.margin + new Vector2(targetSize.Width, targetSize.Height / 2),
-                SCardinalDirection.Southeast => targetPosition + this.margin + new Vector2(targetSize.Width, targetSize.Height),
-                SCardinalDirection.South => targetPosition + this.margin + new Vector2(targetSize.Width / 2, targetSize.Height),
-                SCardinalDirection.Southwest => targetPosition + this.margin + new Vector2(0, targetSize.Height),
-                SCardinalDirection.West => targetPosition + this.margin + new Vector2(0, targetSize.Height / 2),
-                SCardinalDirection.Northwest => targetPosition + this.margin,
-                _ => targetPosition + this.margin,
+                SCardinalDirection.Center => targetPosition + this.Margin + (targetSize / 2).ToVector2(),
+                SCardinalDirection.North => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, 0),
+                SCardinalDirection.Northeast => targetPosition + this.Margin + new Vector2(targetSize.Width, 0),
+                SCardinalDirection.East => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height / 2),
+                SCardinalDirection.Southeast => targetPosition + this.Margin + new Vector2(targetSize.Width, targetSize.Height),
+                SCardinalDirection.South => targetPosition + this.Margin + new Vector2(targetSize.Width / 2, targetSize.Height),
+                SCardinalDirection.Southwest => targetPosition + this.Margin + new Vector2(0, targetSize.Height),
+                SCardinalDirection.West => targetPosition + this.Margin + new Vector2(0, targetSize.Height / 2),
+                SCardinalDirection.Northwest => targetPosition + this.Margin,
+                _ => targetPosition + this.Margin,
             };
-        }
-
-        public void SetPosition(Vector2 value)
-        {
-            this.position = value;
-        }
-
-        public void SetPositionAnchor(SCardinalDirection direction)
-        {
-            this.positionAnchor = direction;
-        }
-
-        public void SetSize(SSize2F value)
-        {
-            this.size = value;
-        }
-
-        public void SetMargin(Vector2 value)
-        {
-            this.margin = value;
-        }
-
-        public void SetScale(Vector2 value)
-        {
-            this.scale = value;
-        }
-
-        public void SetColor(Color value)
-        {
-            this.color = value;
-        }
-
-        public void SetOriginPivot(SCardinalDirection direction)
-        {
-            this.originPivot = direction;
-        }
-
-        public void SetSpriteEffects(SpriteEffects value)
-        {
-            this.spriteEffects = value;
-        }
-
-        public void SetRotationAngle(float value)
-        {
-            this.rotationAngle = value;
         }
 
         // [ Data ]

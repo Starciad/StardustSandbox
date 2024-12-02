@@ -43,11 +43,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void BuildMainPanel()
         {
-            this.panelBackgroundElement = new(this.SGameInstance);
-            this.panelBackgroundElement.SetTexture(this.particleTexture);
-            this.panelBackgroundElement.SetScale(new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
-            this.panelBackgroundElement.SetSize(SSize2F.One);
-            this.panelBackgroundElement.SetColor(new(Color.Black, 180));
+            this.panelBackgroundElement = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Scale = new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Size = SSize2F.One,
+                Color = new(Color.Black, 180)
+            };
+
             this.panelBackgroundElement.PositionRelativeToScreen();
 
             this.layout.AddElement(this.panelBackgroundElement);
@@ -55,35 +58,41 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void BuildDecorations()
         {
-            SGUIImageElement prosceniumCurtainElement = new(this.SGameInstance);
-
-            prosceniumCurtainElement.SetTexture(this.prosceniumCurtainTexture);
-            prosceniumCurtainElement.SetScale(new Vector2(2));
+            SGUIImageElement prosceniumCurtainElement = new(this.SGameInstance)
+            {
+                Texture = this.prosceniumCurtainTexture,
+                Scale = new Vector2(2)
+            };
 
             this.layout.AddElement(prosceniumCurtainElement);
         }
 
         private void BuildInfos()
         {
-            SGUILabelElement gameVersionLabel = new(this.SGameInstance);
-            SGUILabelElement copyrightLabel = new(this.SGameInstance);
+            SGUILabelElement gameVersionLabel = new(this.SGameInstance)
+            {
+                Margin = new Vector2(-32f, -32f),
+                Scale = new Vector2(0.08f),
+                Color = Color.White,
+                PositionAnchor = SCardinalDirection.Southeast,
+                OriginPivot = SCardinalDirection.West
+            };
 
-            gameVersionLabel.SetTextContent($"Ver. {SGameConstants.VERSION}");
-            gameVersionLabel.SetMargin(new Vector2(-32f, -32f));
-            gameVersionLabel.SetScale(new Vector2(0.08f));
+            SGUILabelElement copyrightLabel = new(this.SGameInstance)
+            {
+                Margin = new Vector2(0f, -32),
+                Scale = new Vector2(0.08f),
+                Color = Color.White,
+                PositionAnchor = SCardinalDirection.South,
+                OriginPivot = SCardinalDirection.Center
+            };
+
             gameVersionLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
-            gameVersionLabel.SetColor(Color.White);
-            gameVersionLabel.SetPositionAnchor(SCardinalDirection.Southeast);
-            gameVersionLabel.SetOriginPivot(SCardinalDirection.West);
+            gameVersionLabel.SetTextContent($"Ver. {SGameConstants.VERSION}");
             gameVersionLabel.PositionRelativeToScreen();
 
-            copyrightLabel.SetTextContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
-            copyrightLabel.SetMargin(new Vector2(0f, -32));
-            copyrightLabel.SetScale(new Vector2(0.08f));
             copyrightLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
-            copyrightLabel.SetColor(Color.White);
-            copyrightLabel.SetPositionAnchor(SCardinalDirection.South);
-            copyrightLabel.SetOriginPivot(SCardinalDirection.Center);
+            copyrightLabel.SetTextContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
             copyrightLabel.PositionRelativeToScreen();
 
             this.layout.AddElement(gameVersionLabel);
@@ -92,13 +101,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void BuildGameTitle()
         {
-            this.gameTitleElement = new(this.SGameInstance);
-            this.gameTitleElement.SetTexture(this.gameTitleTexture);
-            this.gameTitleElement.SetScale(new Vector2(1.5f));
-            this.gameTitleElement.SetSize(new SSize2(292, 112));
-            this.gameTitleElement.SetMargin(new Vector2(0, 96));
-            this.gameTitleElement.SetPositionAnchor(SCardinalDirection.North);
-            this.gameTitleElement.SetOriginPivot(SCardinalDirection.Center);
+            this.gameTitleElement = new(this.SGameInstance)
+            {
+                Texture = this.gameTitleTexture,
+                Scale = new Vector2(1.5f),
+                Size = new SSize2(292, 112),
+                Margin = new Vector2(0, 96),
+                PositionAnchor = SCardinalDirection.North,
+                OriginPivot = SCardinalDirection.Center
+            };
+
             this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
         }
 
@@ -133,16 +145,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
                 SGUILabelElement labelElement = this.menuButtonElements[i];
+                labelElement.Scale = new Vector2(0.15f);
+                labelElement.Margin = baseMargin;
+                labelElement.Color = new Color(206, 214, 237, 255);
+                labelElement.BorderOffset = new Vector2(4f);
+                labelElement.PositionAnchor = SCardinalDirection.Center;
+                labelElement.OriginPivot = SCardinalDirection.Center;
 
-                labelElement.SetScale(new Vector2(0.15f));
-                labelElement.SetMargin(baseMargin);
-                labelElement.SetColor(new Color(206, 214, 237, 255));
-                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(Color.Black);
-                labelElement.SetBorderOffset(new Vector2(4f));
-                labelElement.SetPositionAnchor(SCardinalDirection.Center);
-                labelElement.SetOriginPivot(SCardinalDirection.Center);
+
+                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 baseMargin.Y += 75;

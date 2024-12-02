@@ -128,6 +128,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                     {
                         this.world.InstantiateElement(gridPosition, (uint)this.selectedElement);
                     }
+
                     break;
 
                 case BuildingState.Removing:
@@ -135,6 +136,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                     {
                         this.world.DestroyElement(gridPosition);
                     }
+
                     break;
 
                 default:

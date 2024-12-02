@@ -13,7 +13,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 using System;
 using System.Linq;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Hud
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     public sealed partial class SGUI_ItemExplorer : SGUISystem
     {
@@ -90,15 +90,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                 }
 
                 // Highlight when mouse is over slot.
-                if (this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
-                {
-                    itemSlotBackground.SetColor(Color.DarkGray);
-                }
-                // If none of the above events occur, the slot continues with its normal color.
-                else
-                {
-                    itemSlotBackground.SetColor(Color.White);
-                }
+                itemSlotBackground.Color = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE))
+                    ? Color.DarkGray
+                    : Color.White;
             }
         }
 
@@ -140,7 +134,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
                     itemSlotIcon.IsVisible = true;
 
                     SItem item = this.selectedItems[i];
-                    itemSlotIcon.SetTexture(item.IconTexture);
+                    itemSlotIcon.Texture = item.IconTexture;
 
                     // Add or Update Data
                     if (!itemSlotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))

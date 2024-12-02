@@ -9,7 +9,7 @@ using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Hud
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     public sealed partial class SGUI_ItemExplorer
     {
@@ -32,11 +32,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 
         private void BuildGUIBackground()
         {
-            SGUIImageElement guiBackground = new(this.SGameInstance);
-            guiBackground.SetTexture(this.particleTexture);
-            guiBackground.SetScale(new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
-            guiBackground.SetSize(SScreenConstants.DEFAULT_SCREEN_SIZE);
-            guiBackground.SetColor(new Color(Color.Black, 160));
+            SGUIImageElement guiBackground = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Size = SScreenConstants.DEFAULT_SCREEN_SIZE,
+                Color = new Color(Color.Black, 160)
+            };
 
             this.layout.AddElement(guiBackground);
         }
@@ -46,22 +48,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
         private void BuildExplorer()
         {
             #region BACKGROUND & TITLE
-            SGUISliceImageElement explorerBackground = new(this.SGameInstance);
-            explorerBackground.SetTexture(this.guiBackgroundTexture);
-            explorerBackground.SetScale(new Vector2(32, 15));
-            explorerBackground.SetMargin(new Vector2(128, 128));
-            explorerBackground.SetColor(new Color(104, 111, 121, 255));
+            SGUISliceImageElement explorerBackground = new(this.SGameInstance)
+            {
+                Texture = this.guiBackgroundTexture,
+                Scale = new Vector2(32, 15),
+                Margin = new Vector2(128, 128),
+                Color = new Color(104, 111, 121, 255)
+            };
+
             explorerBackground.PositionRelativeToScreen();
 
-            this.explorerTitleLabel = new(this.SGameInstance);
+            this.explorerTitleLabel = new(this.SGameInstance)
+            {
+                Scale = new Vector2(0.15f),
+                Margin = new Vector2(18, -16),
+                Color = new Color(206, 214, 237, 255),
+                BorderOffset = new Vector2(4.4f)
+            };
+
             this.explorerTitleLabel.SetTextContent("TITLE");
-            this.explorerTitleLabel.SetScale(new Vector2(0.15f));
-            this.explorerTitleLabel.SetMargin(new Vector2(18, -16));
-            this.explorerTitleLabel.SetColor(new Color(206, 214, 237, 255));
             this.explorerTitleLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
             this.explorerTitleLabel.SetBorders(true);
             this.explorerTitleLabel.SetBordersColor(new Color(45, 53, 74, 255));
-            this.explorerTitleLabel.SetBorderOffset(new Vector2(4.4f));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 
             this.layout.AddElement(explorerBackground);
@@ -70,11 +78,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 
             #region ITEM DISPLAY
             // Background
-            SGUISliceImageElement itemGridBackground = new(this.SGameInstance);
-            itemGridBackground.SetTexture(this.guiBackgroundTexture);
-            itemGridBackground.SetScale(new Vector2(30, 10));
-            itemGridBackground.SetMargin(new Vector2(32, 88));
-            itemGridBackground.SetColor(new Color(94, 101, 110, 255));
+            SGUISliceImageElement itemGridBackground = new(this.SGameInstance)
+            {
+                Texture = this.guiBackgroundTexture,
+                Scale = new Vector2(30, 10),
+                Margin = new Vector2(32, 88),
+                Color = new Color(94, 101, 110, 255)
+            };
+
             itemGridBackground.PositionRelativeToElement(explorerBackground);
 
             this.layout.AddElement(itemGridBackground);
@@ -108,21 +119,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
             {
                 for (int row = 0; row < rows; row++)
                 {
-                    SGUIImageElement slotBackground = new(this.SGameInstance);
-                    SGUIImageElement slotIcon = new(this.SGameInstance);
+                    SGUIImageElement slotBackground = new(this.SGameInstance)
+                    {
+                        Texture = this.squareShapeTexture,
+                        OriginPivot = SCardinalDirection.Center,
+                        Scale = new Vector2(slotScale),
+                        PositionAnchor = SCardinalDirection.West,
+                        Size = new SSize2(slotSize),
+                        Margin = slotMargin
+                    };
 
-                    // Background
-                    slotBackground.SetTexture(this.squareShapeTexture);
-                    slotBackground.SetOriginPivot(SCardinalDirection.Center);
-                    slotBackground.SetScale(new Vector2(slotScale));
-                    slotBackground.SetPositionAnchor(SCardinalDirection.West);
-                    slotBackground.SetSize(new SSize2(slotSize));
-                    slotBackground.SetMargin(slotMargin);
-
-                    // Icon
-                    slotIcon.SetOriginPivot(SCardinalDirection.Center);
-                    slotIcon.SetScale(new Vector2(1.5f));
-                    slotIcon.SetSize(new SSize2(slotSize));
+                    SGUIImageElement slotIcon = new(this.SGameInstance)
+                    {
+                        OriginPivot = SCardinalDirection.Center,
+                        Scale = new Vector2(1.5f),
+                        Size = new SSize2(slotSize)
+                    };
 
                     // Position
                     slotBackground.PositionRelativeToElement(parent);
@@ -157,22 +169,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.Hud
 
             foreach (SItemCategory category in this.SGameInstance.ItemDatabase.Categories)
             {
-                SGUIImageElement slotBackground = new(this.SGameInstance);
-                SGUIImageElement slotIcon = new(this.SGameInstance);
+                SGUIImageElement slotBackground = new(this.SGameInstance)
+                {
+                    Texture = this.squareShapeTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new Vector2(slotScale),
+                    PositionAnchor = SCardinalDirection.Northwest,
+                    Size = new SSize2(slotSize),
+                    Margin = slotMargin
+                };
 
-                // Background
-                slotBackground.SetTexture(this.squareShapeTexture);
-                slotBackground.SetOriginPivot(SCardinalDirection.Center);
-                slotBackground.SetScale(new Vector2(slotScale));
-                slotBackground.SetPositionAnchor(SCardinalDirection.Northwest);
-                slotBackground.SetSize(new SSize2(slotSize));
-                slotBackground.SetMargin(slotMargin);
-
-                // Icon
-                slotIcon.SetOriginPivot(SCardinalDirection.Center);
-                slotIcon.SetScale(new Vector2(1.5f));
-                slotIcon.SetSize(new SSize2(slotSize));
-                slotIcon.SetTexture(category.IconTexture);
+                SGUIImageElement slotIcon = new(this.SGameInstance)
+                {
+                    Texture = category.IconTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new Vector2(1.5f),
+                    Size = new SSize2(slotSize)
+                };
 
                 // Data
                 if (!slotBackground.ContainsData("category_id"))

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
@@ -7,12 +6,10 @@ using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
 
 using System;
@@ -31,7 +28,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private const float ButtonAnimationAmplitude = 5f;
 
         private float animationTime = 0f;
-        
+
         private Dictionary<SGUILabelElement, Vector2> buttonOriginalPositions;
         private float[] buttonAnimationOffsets;
 
@@ -133,7 +130,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             float offsetY = (float)Math.Sin(this.animationTime) * animationAmplitude;
             Vector2 newPosition = new(this.originalGameTitleElementPosition.X, this.originalGameTitleElementPosition.Y + offsetY);
 
-            this.gameTitleElement.SetPosition(newPosition);
+            this.gameTitleElement.Position = newPosition;
         }
 
         private void UpdateButtonElementsAnimation(GameTime gameTime)
@@ -148,7 +145,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 this.buttonAnimationOffsets[i] += elapsedTime * ButtonAnimationSpeed;
                 float offsetY = (float)Math.Sin(this.buttonAnimationOffsets[i]) * ButtonAnimationAmplitude;
 
-                button.SetPosition(new Vector2(originalPosition.X, originalPosition.Y + offsetY));
+                button.Position = new Vector2(originalPosition.X, originalPosition.Y + offsetY);
             }
         }
 
@@ -168,12 +165,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 // Highlight when mouse is over slot.
                 if (this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()))
                 {
-                    labelElement.SetColor(Color.Yellow);
+                    labelElement.Color = Color.Yellow;
                 }
                 // If none of the above events occur, the slot continues with its normal color.
                 else
                 {
-                    labelElement.SetColor(Color.White);
+                    labelElement.Color = Color.White;
                 }
             }
         }
