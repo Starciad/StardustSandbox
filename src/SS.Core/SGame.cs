@@ -17,59 +17,58 @@ namespace StardustSandbox.Core
 {
     public sealed partial class SGame : Game, ISGame
     {
-        public SAssetDatabase AssetDatabase => this._assetDatabase;
-        public SElementDatabase ElementDatabase => this._elementDatabase;
-        public SGUIDatabase GUIDatabase => this._guiDatabase;
-        public SItemDatabase ItemDatabase => this._itemDatabase;
-        public SBackgroundDatabase BackgroundDatabase => this._backgroundDatabase;
-        public SEntityDatabase EntityDatabase => this._entityDatabase;
+        public SAssetDatabase AssetDatabase => this.assetDatabase;
+        public SElementDatabase ElementDatabase => this.elementDatabase;
+        public SGUIDatabase GUIDatabase => this.guiDatabase;
+        public SItemDatabase ItemDatabase => this.itemDatabase;
+        public SBackgroundDatabase BackgroundDatabase => this.backgroundDatabase;
+        public SEntityDatabase EntityDatabase => this.entityDatabase;
 
-        public SInputManager InputManager => this._inputManager;
-        public SGameInputManager GameInputManager => this._gameInputManager;
-        public SCameraManager CameraManager => this._cameraManager;
-        public SGraphicsManager GraphicsManager => this._graphicsManager;
-        public SGUIManager GUIManager => this._guiManager;
-        public SEntityManager EntityManager => this._entityManager;
+        public SInputManager InputManager => this.inputManager;
+        public SGameInputManager GameInputManager => this.gameInputManager;
+        public SCameraManager CameraManager => this.cameraManager;
+        public SGraphicsManager GraphicsManager => this.graphicsManager;
+        public SGUIManager GUIManager => this.guiManager;
+        public SEntityManager EntityManager => this.entityManager;
 
-        public SWorld World => this._world;
+        public SWorld World => this.world;
+        public SGameState GameState => this.gameState;
 
         // ================================= //
 
-        private SpriteBatch _sb;
+        private SpriteBatch spriteBatch;
 
         // Databases
-        private readonly SAssetDatabase _assetDatabase;
-        private readonly SElementDatabase _elementDatabase;
-        private readonly SGUIDatabase _guiDatabase;
-        private readonly SItemDatabase _itemDatabase;
-        private readonly SBackgroundDatabase _backgroundDatabase;
-        private readonly SEntityDatabase _entityDatabase;
+        private readonly SAssetDatabase assetDatabase;
+        private readonly SElementDatabase elementDatabase;
+        private readonly SGUIDatabase guiDatabase;
+        private readonly SItemDatabase itemDatabase;
+        private readonly SBackgroundDatabase backgroundDatabase;
+        private readonly SEntityDatabase entityDatabase;
 
         // Managers
-        private readonly SCameraManager _cameraManager;
-        private readonly SGraphicsManager _graphicsManager;
-        private readonly SGameInputManager _gameInputManager;
-        private readonly SShaderManager _shaderManager;
-        private readonly SInputManager _inputManager;
-        private readonly SGUIManager _guiManager;
-        private readonly SCursorManager _cursorManager;
-        private readonly SBackgroundManager _backgroundManager;
-        private readonly SEntityManager _entityManager;
+        private readonly SCameraManager cameraManager;
+        private readonly SGraphicsManager graphicsManager;
+        private readonly SGameInputManager gameInputManager;
+        private readonly SShaderManager shaderManager;
+        private readonly SInputManager inputManager;
+        private readonly SGUIManager guiManager;
+        private readonly SCursorManager cursorManager;
+        private readonly SBackgroundManager backgroundManager;
+        private readonly SEntityManager entityManager;
 
         // Core
-        private readonly SWorld _world;
+        private readonly SWorld world;
+        private readonly SGameState gameState;
 
         // Plugin System
         private readonly List<SPluginBuilder> pluginBuilders = [];
-
-        // Status
-        private bool isFocused;
 
         // ================================= //
 
         public SGame()
         {
-            this._graphicsManager = new(this, new GraphicsDeviceManager(this));
+            this.graphicsManager = new(this, new GraphicsDeviceManager(this));
 
             // Initialize Content
             this.Content.RootDirectory = SDirectoryConstants.ASSETS;
@@ -83,25 +82,26 @@ namespace StardustSandbox.Core
             this.IsFixedTimeStep = true;
 
             // Database
-            this._assetDatabase = new(this);
-            this._elementDatabase = new(this);
-            this._guiDatabase = new(this);
-            this._itemDatabase = new(this);
-            this._backgroundDatabase = new(this);
-            this._entityDatabase = new(this);
+            this.assetDatabase = new(this);
+            this.elementDatabase = new(this);
+            this.guiDatabase = new(this);
+            this.itemDatabase = new(this);
+            this.backgroundDatabase = new(this);
+            this.entityDatabase = new(this);
 
             // Core
-            this._cameraManager = new(this._graphicsManager);
-            this._world = new(this);
+            this.cameraManager = new(this.graphicsManager);
+            this.world = new(this);
+            this.gameState = new();
 
             // Managers
-            this._inputManager = new(this);
-            this._shaderManager = new(this);
-            this._gameInputManager = new(this);
-            this._guiManager = new(this);
-            this._cursorManager = new(this);
-            this._backgroundManager = new(this);
-            this._entityManager = new(this);
+            this.inputManager = new(this);
+            this.shaderManager = new(this);
+            this.gameInputManager = new(this);
+            this.guiManager = new(this);
+            this.cursorManager = new(this);
+            this.backgroundManager = new(this);
+            this.entityManager = new(this);
         }
 
         public void RegisterPlugin(SPluginBuilder pluginBuilder)

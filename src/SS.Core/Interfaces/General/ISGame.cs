@@ -24,6 +24,7 @@ namespace StardustSandbox.Core.Interfaces.General
 
         // Core
         SWorld World { get; }
+        SGameState GameState { get; }
 
         void Quit();
     }

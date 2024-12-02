@@ -49,7 +49,7 @@
 
         private void ClearWorld()
         {
-
+            this.world.Clear();
         }
     }
 }

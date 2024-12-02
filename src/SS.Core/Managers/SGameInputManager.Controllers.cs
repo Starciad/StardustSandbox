@@ -68,13 +68,13 @@ namespace StardustSandbox.Core.Managers
         // World
         private void PauseWorld()
         {
-            if (this._world.States.IsPaused)
+            if (this.SGameInstance.GameState.IsSimulationPaused)
             {
-                this._world.States.IsPaused = false;
+                this.SGameInstance.GameState.IsSimulationPaused = false;
             }
             else
             {
-                this._world.States.IsPaused = true;
+                this.SGameInstance.GameState.IsSimulationPaused = true;
             }
         }
         private void ResetWorld()

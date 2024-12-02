@@ -9,52 +9,52 @@ namespace StardustSandbox.Core
         {
             #region RENDERING (ELEMENTS)
             // BACKGROUND
-            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.BackgroundRenderTarget);
-            this.GraphicsDevice.Clear(this._backgroundManager.SolidColor);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this._backgroundManager.Draw(gameTime, this._sb);
-            this._sb.End();
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.BackgroundRenderTarget);
+            this.GraphicsDevice.Clear(this.backgroundManager.SolidColor);
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this.backgroundManager.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
 
             // WORLD
-            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.WorldRenderTarget);
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._cameraManager.GetViewMatrix());
-            this._world.Draw(gameTime, this._sb);
-            this._entityManager.Draw(gameTime, this._sb);
-            this._sb.End();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
+            this.world.Draw(gameTime, this.spriteBatch);
+            this.entityManager.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
 
             // LIGHTING
-            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.LightingRenderTarget);
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.LightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this._cameraManager.GetViewMatrix());
-            this._sb.End();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
+            this.spriteBatch.End();
 
             // GUI
-            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.GuiRenderTarget);
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.GuiRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this._guiManager.Draw(gameTime, this._sb);
-            this._sb.End();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this.guiManager.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
             #endregion
 
             #region RENDERING (SCREEN)
-            this.GraphicsDevice.SetRenderTarget(this._graphicsManager.ScreenRenderTarget);
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.ScreenRenderTarget);
             this.GraphicsDevice.Clear(Color.Black);
-            this._sb.Begin();
-            this._sb.Draw(this._graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this._sb.Draw(this._graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this._sb.Draw(this._graphicsManager.LightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this._sb.Draw(this._graphicsManager.GuiRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this._sb.End();
+            this.spriteBatch.Begin();
+            this.spriteBatch.Draw(this.graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.Draw(this.graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.Draw(this.graphicsManager.LightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.Draw(this.graphicsManager.GuiRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.End();
             #endregion
 
             #region RENDERING (FINAL)
             this.GraphicsDevice.SetRenderTarget(null);
             this.GraphicsDevice.Clear(Color.Black);
-            this._sb.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this._sb.Draw(this._graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, this._graphicsManager.GetScreenScaleFactor(), SpriteEffects.None, 0f);
-            this._cursorManager.Draw(gameTime, this._sb);
-            this._sb.End();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this.spriteBatch.Draw(this.graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, this.graphicsManager.GetScreenScaleFactor(), SpriteEffects.None, 0f);
+            this.cursorManager.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
             #endregion
 
             base.Draw(gameTime);

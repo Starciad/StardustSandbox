@@ -13,7 +13,6 @@ namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld : SGameObject, ISReset
     {
-        public SWorldState States { get; private set; } = new();
         public SWorldInfo Infos { get; private set; } = new();
 
         private readonly SObjectPool worldSlotsPool = new();
@@ -38,20 +37,11 @@ namespace StardustSandbox.Core.World
         public override void Initialize()
         {
             this.componentContainer.Initialize();
-
-            this.States.IsActive = true;
-            this.States.IsPaused = false;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            // Check current game status
-            if (!this.States.IsActive || this.States.IsPaused)
-            {
-                return;
-            }
 
             // Delay
             if (this.currentFramesUpdateDelay == 0)
@@ -71,12 +61,6 @@ namespace StardustSandbox.Core.World
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-
-            if (!this.States.IsActive)
-            {
-                return;
-            }
-
             this.componentContainer.Draw(gameTime, spriteBatch);
         }
 
@@ -88,16 +72,12 @@ namespace StardustSandbox.Core.World
 
         public void Resize(SSize2 size)
         {
-            this.States.IsActive = false;
-
             DestroyWorldSlots();
 
             this.Infos.SetSize(size);
             this.slots = new SWorldSlot[size.Width, size.Height];
 
             InstantiateWorldSlots();
-
-            this.States.IsActive = true;
         }
 
         public void Clear()

@@ -15,58 +15,65 @@ namespace StardustSandbox.Core
             }
 
             // Databases
-            this._assetDatabase.Initialize();
-            this._elementDatabase.Initialize();
-            this._itemDatabase.Initialize();
-            this._guiDatabase.Initialize();
-            this._backgroundDatabase.Initialize();
-            this._entityDatabase.Initialize();
+            this.assetDatabase.Initialize();
+            this.elementDatabase.Initialize();
+            this.itemDatabase.Initialize();
+            this.guiDatabase.Initialize();
+            this.backgroundDatabase.Initialize();
+            this.entityDatabase.Initialize();
 
             // Managers
-            this._graphicsManager.Initialize();
-            this._gameInputManager.Initialize();
-            this._shaderManager.Initialize();
-            this._inputManager.Initialize();
-            this._guiManager.Initialize();
-            this._cursorManager.Initialize();
-            this._backgroundManager.Initialize();
-            this._entityManager.Initialize();
+            this.graphicsManager.Initialize();
+            this.gameInputManager.Initialize();
+            this.shaderManager.Initialize();
+            this.inputManager.Initialize();
+            this.guiManager.Initialize();
+            this.cursorManager.Initialize();
+            this.backgroundManager.Initialize();
+            this.entityManager.Initialize();
 
             // Core
-            this._world.Initialize();
+            this.world.Initialize();
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            this._sb = new(this.GraphicsDevice);
+            this.spriteBatch = new(this.GraphicsDevice);
         }
 
         protected override void BeginRun()
         {
-            this._guiManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            this.guiManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            this.gameState.IsPaused = false;
+            this.gameState.IsSimulationPaused = false;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (!this.isFocused)
+            if (!this.gameState.IsFocused || this.gameState.IsPaused)
             {
                 return;
             }
 
             // Managers
-            this._graphicsManager.Update(gameTime);
-            this._gameInputManager.Update(gameTime);
-            this._shaderManager.Update(gameTime);
-            this._inputManager.Update(gameTime);
-            this._guiManager.Update(gameTime);
-            this._cursorManager.Update(gameTime);
-            this._backgroundManager.Update(gameTime);
-            this._entityManager.Update(gameTime);
+            this.graphicsManager.Update(gameTime);
+            this.gameInputManager.Update(gameTime);
+            this.shaderManager.Update(gameTime);
+            this.inputManager.Update(gameTime);
+            this.guiManager.Update(gameTime);
+            this.cursorManager.Update(gameTime);
+            this.backgroundManager.Update(gameTime);
 
-            // Core
-            this._world.Update(gameTime);
+            if (!this.gameState.IsSimulationPaused)
+            {
+                // Managers
+                this.entityManager.Update(gameTime);
+
+                // Core
+                this.world.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
