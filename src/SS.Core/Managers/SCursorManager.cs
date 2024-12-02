@@ -5,11 +5,10 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Models.Settings;
-using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SCursorManager(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SCursorManager(ISGame gameInstance) : SManager(gameInstance)
     {
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [

@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SCameraManager
+    public sealed class SCameraManager : SManager
     {
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
@@ -68,9 +69,9 @@ namespace StardustSandbox.Core.Managers
 
         private readonly SGraphicsManager _graphicsManager;
 
-        public SCameraManager(SGraphicsManager graphicsManager)
+        public SCameraManager(ISGame gameInstance) : base(gameInstance)
         {
-            this._graphicsManager = graphicsManager;
+            this._graphicsManager = gameInstance.GraphicsManager;
 
             this.Rotation = 0;
             this.Zoom = 1;

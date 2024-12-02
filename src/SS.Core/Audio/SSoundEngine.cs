@@ -6,12 +6,12 @@ namespace StardustSandbox.Core.Audio
     {
         public static void Play(SoundEffect soundEffect)
         {
-            soundEffect.Play();
+            _ = soundEffect.Play();
         }
 
         public static void Play(SoundEffect soundEffect, float volume, float pitch, float pan)
         {
-            soundEffect.Play(volume, pitch, pan);
+            _ = soundEffect.Play(volume, pitch, pan);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace StardustSandbox.Core.Mathematics
 
                 // (↗)
                 SCardinalDirection.Northeast => new Vector2(0f, size.Height),
-                
+
                 // (→)
                 SCardinalDirection.East => new Vector2(0f, size.Height / 2f),
 

@@ -21,23 +21,17 @@ namespace StardustSandbox.Core.GUISystem.Elements
         public Vector2 Position { get; set; }
         public SSize2F Size
         {
-            get
-            {
-                return new(this.size.Width * this.Scale.X, this.size.Height * this.Scale.Y);
-            }
+            get => new(this.size.Width * this.Scale.X, this.size.Height * this.Scale.Y);
 
-            set
-            {
-                this.size = value;
-            }
+            set => this.size = value;
         }
         public Vector2 Margin { get; set; }
         public Vector2 Scale { get; set; }
-        public Color Color { get; set; } 
+        public Color Color { get; set; }
         public float RotationAngle { get; set; } = 0f;
 
         private SSize2 size = SSize2.Zero;
-        
+
         private readonly Dictionary<string, object> data = [];
 
         public SGUIElement(ISGame gameInstance) : base(gameInstance)
@@ -51,7 +45,7 @@ namespace StardustSandbox.Core.GUISystem.Elements
             this.Position = Vector2.Zero;
             this.Scale = Vector2.One;
             this.Color = Color.White;
-            
+
             this.RotationAngle = 0f;
         }
 

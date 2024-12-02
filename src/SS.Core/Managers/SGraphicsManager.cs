@@ -5,11 +5,10 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Models.Settings;
-using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGraphicsManager : SGameObject
+    public sealed class SGraphicsManager : SManager
     {
         public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
         public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;

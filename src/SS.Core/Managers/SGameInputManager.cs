@@ -4,14 +4,13 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
-using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World;
 
 using System;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed partial class SGameInputManager(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed partial class SGameInputManager(ISGame gameInstance) : SManager(gameInstance)
     {
         public SItem ItemSelected => this.itemSelected;
 

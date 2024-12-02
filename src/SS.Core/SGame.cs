@@ -90,7 +90,7 @@ namespace StardustSandbox.Core
             this.entityDatabase = new(this);
 
             // Core
-            this.cameraManager = new(this.graphicsManager);
+            this.cameraManager = new(this);
             this.world = new(this);
             this.gameState = new();
 

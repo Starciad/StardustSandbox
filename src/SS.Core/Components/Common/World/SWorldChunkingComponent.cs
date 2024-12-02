@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             base.Reset();
 
-            this._chunks = new SWorldChunk[this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE + 1, this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE + 1];
+            this._chunks = new SWorldChunk[(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
 
             this.worldChunkWidth = this._chunks.GetLength(0);
             this.worldChunkHeight = this._chunks.GetLength(1);

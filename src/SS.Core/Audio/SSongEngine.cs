@@ -6,54 +6,30 @@ namespace StardustSandbox.Core.Audio
     {
         public static float Volume
         {
-            get
-            {
-                return MediaPlayer.Volume;
-            }
+            get => MediaPlayer.Volume;
 
-            set
-            {
-                MediaPlayer.Volume = value;
-            }
+            set => MediaPlayer.Volume = value;
         }
 
         public static bool IsMuted
         {
-            get
-            {
-                return MediaPlayer.IsMuted;
-            }
+            get => MediaPlayer.IsMuted;
 
-            set
-            {
-                MediaPlayer.IsMuted = value;
-            }
+            set => MediaPlayer.IsMuted = value;
         }
 
         public static bool IsRepeating
         {
-            get
-            {
-                return MediaPlayer.IsRepeating;
-            }
+            get => MediaPlayer.IsRepeating;
 
-            set
-            {
-                MediaPlayer.IsRepeating = value;
-            }
+            set => MediaPlayer.IsRepeating = value;
         }
 
         public static bool IsShuffled
         {
-            get
-            {
-                return MediaPlayer.IsShuffled;
-            }
+            get => MediaPlayer.IsShuffled;
 
-            set
-            {
-                MediaPlayer.IsShuffled = value;
-            }
+            set => MediaPlayer.IsShuffled = value;
         }
 
         public static void Play(Song song)

@@ -4,14 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Objects;
 
 using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SEntityManager(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SEntityManager(ISGame gameInstance) : SManager(gameInstance)
     {
         public SEntity[] InstantiatedEntities => [.. this.instantiatedEntities];
 
@@ -56,7 +55,7 @@ namespace StardustSandbox.Core.Managers
         public void Remove(SEntity entity)
         {
             this.entityPools[entity.GetType()].Add(entity);
-            this.instantiatedEntities.Remove(entity);
+            _ = this.instantiatedEntities.Remove(entity);
         }
 
         public void RemoveAll()
@@ -70,7 +69,7 @@ namespace StardustSandbox.Core.Managers
         public void Destroy(SEntity entity)
         {
             this.entityPools[entity.GetType()].Add(entity);
-            this.instantiatedEntities.Remove(entity);
+            _ = this.instantiatedEntities.Remove(entity);
             entity.Destroy();
         }
 
