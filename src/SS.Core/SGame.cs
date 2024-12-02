@@ -116,5 +116,10 @@ namespace StardustSandbox.Core
             this.Window.IsBorderless = graphicsSettings.Borderless;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
+
+        public void Quit()
+        {
+            Exit();
+        }
     }
 }

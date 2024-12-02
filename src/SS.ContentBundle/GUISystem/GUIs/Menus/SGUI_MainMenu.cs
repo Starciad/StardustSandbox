@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Media;
 using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
@@ -14,9 +13,8 @@ using StardustSandbox.Core.World;
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_MainMenu : SGUISystem
     {
@@ -40,6 +38,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private readonly Song mainMenuSong;
 
+        private readonly Action[] menuButtonActions;
+        private readonly string[] menuButtonNames;
+
         public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
@@ -49,6 +50,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
             this.mainMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_1");
 
             this.world = gameInstance.World;
+
+            this.menuButtonNames = [
+                "Create",
+                "Play",
+                "Options",
+                "Credits",
+                "Quit"
+            ];
+
+            this.menuButtonActions = [
+                CreateMenuButton,
+                PlayMenuButton,
+                OptionsMenuButton,
+                CreditsMenuButton,
+                QuitMenuButton
+            ];
         }
 
         protected override void OnLoad()
@@ -151,49 +168,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void UpdateButtons()
         {
-            // Individually check all element slots present in the item catalog.
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
                 SGUILabelElement labelElement = this.menuButtonElements[i];
 
-                // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
                 {
                     this.menuButtonActions[i].Invoke();
                 }
 
-                // Highlight when mouse is over slot.
-                if (this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()))
-                {
-                    labelElement.Color = Color.Yellow;
-                }
-                // If none of the above events occur, the slot continues with its normal color.
-                else
-                {
-                    labelElement.Color = Color.White;
-                }
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()) ? Color.Yellow : Color.White;
             }
-        }
-
-        // ================================= //
-        // Actions
-
-        private void CreateMenuButton()
-        {
-            SSongEngine.Stop();
-
-            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
-
-            this.world.Reset();
-
-            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
-        }
-
-        private static void QuitMenuButton()
-        {
-            Application.Exit();
         }
     }
 }

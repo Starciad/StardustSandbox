@@ -7,9 +7,7 @@ using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
-
-namespace StardustSandbox.ContentBundle.GUISystem.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_MainMenu
     {
@@ -27,8 +25,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
         private SGUIImageElement panelBackgroundElement;
         private SGUIImageElement gameTitleElement;
 
-        private SGUILabelElement[] menuButtonElements;
-        private Action[] menuButtonActions;
+        private readonly SGUILabelElement[] menuButtonElements = new SGUILabelElement[5];
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -48,10 +45,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
                 Texture = this.particleTexture,
                 Scale = new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = SSize2F.One,
-                Color = new(Color.Black, 180)
+                Color = new(Color.Black, 180),
             };
-
-            this.panelBackgroundElement.PositionRelativeToScreen();
 
             this.layout.AddElement(this.panelBackgroundElement);
         }
@@ -116,48 +111,29 @@ namespace StardustSandbox.ContentBundle.GUISystem.Menus
 
         private void BuildButtons()
         {
-            this.menuButtonElements = [
-                new(this.SGameInstance),
-                new(this.SGameInstance),
-                new(this.SGameInstance),
-                new(this.SGameInstance),
-                new(this.SGameInstance)
-            ];
-
-            this.menuButtonActions = [
-                CreateMenuButton,
-                null,
-                null,
-                null,
-                QuitMenuButton
-            ];
-
             // BUTTONS
             Vector2 baseMargin = new(0, 0);
 
             // Labels
-            this.menuButtonElements[(byte)SMainMenuButtonIndex.Create].SetTextContent("Create");
-            this.menuButtonElements[(byte)SMainMenuButtonIndex.Play].SetTextContent("Play");
-            this.menuButtonElements[(byte)SMainMenuButtonIndex.Options].SetTextContent("Options");
-            this.menuButtonElements[(byte)SMainMenuButtonIndex.Credits].SetTextContent("Credits");
-            this.menuButtonElements[(byte)SMainMenuButtonIndex.Quit].SetTextContent("Quit");
-
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                SGUILabelElement labelElement = this.menuButtonElements[i];
-                labelElement.Scale = new Vector2(0.15f);
-                labelElement.Margin = baseMargin;
-                labelElement.Color = new Color(206, 214, 237, 255);
-                labelElement.BorderOffset = new Vector2(4f);
-                labelElement.PositionAnchor = SCardinalDirection.Center;
-                labelElement.OriginPivot = SCardinalDirection.Center;
+                SGUILabelElement labelElement = new(this.SGameInstance)
+                {
+                    Scale = new Vector2(0.15f),
+                    Margin = baseMargin,
+                    Color = new Color(206, 214, 237, 255),
+                    BorderOffset = new Vector2(4f),
+                    PositionAnchor = SCardinalDirection.Center,
+                    OriginPivot = SCardinalDirection.Center
+                };
 
+                labelElement.SetTextContent(this.menuButtonNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(Color.Black);
-
                 labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
+                this.menuButtonElements[i] = labelElement;
                 baseMargin.Y += 75;
             }
 

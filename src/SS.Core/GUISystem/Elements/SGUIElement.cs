@@ -42,6 +42,7 @@ namespace StardustSandbox.Core.GUISystem.Elements
 
         public SGUIElement(ISGame gameInstance) : base(gameInstance)
         {
+            this.PositionAnchor = SCardinalDirection.Northwest;
             this.OriginPivot = SCardinalDirection.Southeast;
             this.SpriteEffects = SpriteEffects.None;
 
