@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
@@ -25,14 +26,15 @@ namespace StardustSandbox.Core
         public SEntityDatabase EntityDatabase => this.entityDatabase;
 
         public SInputManager InputManager => this.inputManager;
-        public SGameInputManager GameInputManager => this.gameInputManager;
         public SCameraManager CameraManager => this.cameraManager;
         public SGraphicsManager GraphicsManager => this.graphicsManager;
         public SGUIManager GUIManager => this.guiManager;
         public SEntityManager EntityManager => this.entityManager;
+        public SGameManager GameManager => this.gameManager;
 
         public SWorld World => this.world;
-        public SGameState GameState => this.gameState;
+        public SGameInputController GameInputController => this.gameInputController;
+        
 
         // ================================= //
 
@@ -49,17 +51,17 @@ namespace StardustSandbox.Core
         // Managers
         private readonly SCameraManager cameraManager;
         private readonly SGraphicsManager graphicsManager;
-        private readonly SGameInputManager gameInputManager;
         private readonly SShaderManager shaderManager;
         private readonly SInputManager inputManager;
         private readonly SGUIManager guiManager;
         private readonly SCursorManager cursorManager;
         private readonly SBackgroundManager backgroundManager;
         private readonly SEntityManager entityManager;
+        private readonly SGameManager gameManager;
 
         // Core
         private readonly SWorld world;
-        private readonly SGameState gameState;
+        private readonly SGameInputController gameInputController;
 
         // Plugin System
         private readonly List<SPluginBuilder> pluginBuilders = [];
@@ -92,12 +94,12 @@ namespace StardustSandbox.Core
             // Core
             this.cameraManager = new(this);
             this.world = new(this);
-            this.gameState = new();
 
             // Managers
+            this.gameManager = new(this);
             this.inputManager = new(this);
+            this.gameInputController = new(this);
             this.shaderManager = new(this);
-            this.gameInputManager = new(this);
             this.guiManager = new(this);
             this.cursorManager = new(this);
             this.backgroundManager = new(this);

@@ -10,14 +10,14 @@ namespace StardustSandbox.Core
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
-            this.gameState.IsFocused = true;
+            this.gameManager.GameState.IsFocused = true;
         }
 
         // Event occurs when the game window stops having focus.
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
-            this.gameState.IsFocused = false;
+            this.gameManager.GameState.IsFocused = false;
         }
 
         // Event occurs when the game process is finished.

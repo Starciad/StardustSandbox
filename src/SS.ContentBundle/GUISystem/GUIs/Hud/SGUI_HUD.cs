@@ -43,7 +43,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void UpdateTopToolbar()
         {
             // If the mouse is over the header, the player will not be able to interact with the environment. Otherwise, this permission is conceived.
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size);
+            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size);
 
             #region ELEMENT SLOTS
             // Individually check all element slots present in the HEADER.
@@ -144,7 +144,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
-            this.SGameInstance.GameInputManager.SelectItem(GetGameItemById(itemId));
+            this.SGameInstance.GameInputController.Player.SelectItem(GetGameItemById(itemId));
         }
 
         private SItem GetGameItemById(string id)

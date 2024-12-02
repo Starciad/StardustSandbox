@@ -38,12 +38,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         protected override void OnLoad()
         {
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
         }
 
         protected override void OnUnload()
         {
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
         }
 
         public override void Update(GameTime gameTime)

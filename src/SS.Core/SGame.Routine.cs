@@ -23,14 +23,17 @@ namespace StardustSandbox.Core
             this.entityDatabase.Initialize();
 
             // Managers
+            this.gameManager.Initialize();
             this.graphicsManager.Initialize();
-            this.gameInputManager.Initialize();
             this.shaderManager.Initialize();
             this.inputManager.Initialize();
             this.guiManager.Initialize();
             this.cursorManager.Initialize();
             this.backgroundManager.Initialize();
             this.entityManager.Initialize();
+
+            // Controllers
+            this.gameInputController.Initialize();
 
             // Core
             this.world.Initialize();
@@ -46,27 +49,30 @@ namespace StardustSandbox.Core
         protected override void BeginRun()
         {
             this.guiManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
-            this.gameState.IsPaused = false;
-            this.gameState.IsSimulationPaused = false;
+            this.gameManager.GameState.IsPaused = false;
+            this.gameManager.GameState.IsSimulationPaused = false;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (!this.gameState.IsFocused || this.gameState.IsPaused)
+            if (!this.gameManager.GameState.IsFocused || this.gameManager.GameState.IsPaused)
             {
                 return;
             }
 
+            // Controllers
+            this.gameInputController.Update(gameTime);
+
             // Managers
+            this.gameManager.Update(gameTime);
             this.graphicsManager.Update(gameTime);
-            this.gameInputManager.Update(gameTime);
             this.shaderManager.Update(gameTime);
             this.inputManager.Update(gameTime);
             this.guiManager.Update(gameTime);
             this.cursorManager.Update(gameTime);
             this.backgroundManager.Update(gameTime);
 
-            if (!this.gameState.IsSimulationPaused)
+            if (!this.gameManager.GameState.IsSimulationPaused)
             {
                 // Managers
                 this.entityManager.Update(gameTime);

@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Core.Databases;
+﻿using StardustSandbox.Core.Controllers.GameInput;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.World;
 
@@ -15,8 +16,8 @@ namespace StardustSandbox.Core.Interfaces.General
         SEntityDatabase EntityDatabase { get; }
 
         // Managers
+        SGameManager GameManager { get; }
         SInputManager InputManager { get; }
-        SGameInputManager GameInputManager { get; }
         SCameraManager CameraManager { get; }
         SGraphicsManager GraphicsManager { get; }
         SGUIManager GUIManager { get; }
@@ -24,7 +25,7 @@ namespace StardustSandbox.Core.Interfaces.General
 
         // Core
         SWorld World { get; }
-        SGameState GameState { get; }
+        SGameInputController GameInputController { get; }
 
         void Quit();
     }

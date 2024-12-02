@@ -16,7 +16,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world.Reset();
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = true;
+            this.SGameInstance.GameInputController.Activate();
         }
 
         private static void PlayMenuButton()

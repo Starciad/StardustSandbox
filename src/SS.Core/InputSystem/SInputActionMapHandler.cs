@@ -28,5 +28,10 @@ namespace StardustSandbox.Core.InputSystem
 
             return this._maps.TryAdd(name, map) ? map : default;
         }
+
+        public SInputActionMap GetActionMap(string name)
+        {
+            return this._maps[name];
+        }
     }
 }

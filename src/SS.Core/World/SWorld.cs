@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
@@ -137,6 +138,22 @@ namespace StardustSandbox.Core.World
                     this.slots[x, y] = null;
                 }
             }
+        }
+
+        public static Vector2 ToWorldPosition(Vector2 globalPosition)
+        {
+            return new Vector2(
+                (int)(globalPosition.X / SWorldConstants.GRID_SCALE),
+                (int)(globalPosition.Y / SWorldConstants.GRID_SCALE)
+            );
+        }
+
+        public static Vector2 ToGlobalPosition(Vector2 worldPosition)
+        {
+            return new Vector2(
+                (int)(worldPosition.X * SWorldConstants.GRID_SCALE),
+                (int)(worldPosition.Y * SWorldConstants.GRID_SCALE)
+            );
         }
     }
 }

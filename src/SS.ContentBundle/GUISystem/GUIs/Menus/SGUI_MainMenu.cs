@@ -101,7 +101,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void DisableControls()
         {
-            this.SGameInstance.GameInputManager.CanModifyEnvironment = false;
+            this.SGameInstance.GameInputController.Deactivate();
         }
 
         private void LoadAnimationValues()
