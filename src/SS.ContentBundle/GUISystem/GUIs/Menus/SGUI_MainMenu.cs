@@ -9,6 +9,7 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World;
 
 using System;
@@ -101,7 +102,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void DisableControls()
         {
-            this.SGameInstance.GameInputController.Deactivate();
+            this.SGameInstance.GameInputController.Disable();
         }
 
         private void LoadAnimationValues()
@@ -116,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
                 this.buttonOriginalPositions[this.menuButtonElements[i]] = this.menuButtonElements[i].Position;
-                this.buttonAnimationOffsets[i] = (float)(new Random().NextDouble() * Math.PI * 2);
+                this.buttonAnimationOffsets[i] = (float)(SRandomMath.GetDouble() * Math.PI * 2);
             }
         }
 

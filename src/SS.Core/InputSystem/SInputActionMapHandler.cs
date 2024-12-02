@@ -3,6 +3,7 @@
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.InputSystem
@@ -32,6 +33,22 @@ namespace StardustSandbox.Core.InputSystem
         public SInputActionMap GetActionMap(string name)
         {
             return this._maps[name];
+        }
+
+        public void ActivateAll()
+        {
+            foreach (SInputActionMap actionMap in this._maps.Values)
+            {
+                actionMap.SetActive(true);
+            }
+        }
+
+        public void DisableAll()
+        {
+            foreach (SInputActionMap actionMap in this._maps.Values)
+            {
+                actionMap.SetActive(false);
+            }
         }
     }
 }

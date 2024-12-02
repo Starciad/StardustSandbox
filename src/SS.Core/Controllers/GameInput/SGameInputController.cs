@@ -25,7 +25,6 @@ namespace StardustSandbox.Core.Controllers.GameInput
         private readonly SInputManager inputManager;
 
         private readonly SInputActionMapHandler actionHandler;
-        private readonly SWorld world;
 
         public SGameInputController(ISGame gameInstance) : base(gameInstance)
         {
@@ -38,8 +37,6 @@ namespace StardustSandbox.Core.Controllers.GameInput
 
             this.inputManager = gameInstance.InputManager;
             this.actionHandler = new(gameInstance);
-
-            this.world = gameInstance.World;
         }
 
         public override void Initialize()
@@ -69,18 +66,12 @@ namespace StardustSandbox.Core.Controllers.GameInput
 
         public void Activate()
         {
-            this.cameraKeyboardActionMap.SetActive(true);
-            this.simulationKeyboardActionMap.SetActive(true);
-            this.worldKeyboardActionMap.SetActive(true);
-            this.worldMouseActionMap.SetActive(true);
+            this.actionHandler.ActivateAll();
         }
 
-        public void Deactivate()
+        public void Disable()
         {
-            this.cameraKeyboardActionMap.SetActive(false);
-            this.simulationKeyboardActionMap.SetActive(false);
-            this.worldKeyboardActionMap.SetActive(false);
-            this.worldMouseActionMap.SetActive(false);
+            this.actionHandler.DisableAll();
         }
     }
 }
