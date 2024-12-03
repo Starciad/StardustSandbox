@@ -15,6 +15,7 @@ namespace StardustSandbox.Core.GUISystem.Elements
     {
         public bool ShouldUpdate { get; set; }
         public bool IsVisible { get; set; }
+
         public SCardinalDirection PositionAnchor { get; set; }
         public SCardinalDirection OriginPivot { get; set; }
         public SpriteEffects SpriteEffects { get; set; }

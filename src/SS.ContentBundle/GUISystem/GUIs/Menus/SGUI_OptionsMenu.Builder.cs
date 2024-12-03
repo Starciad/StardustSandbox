@@ -3,7 +3,6 @@
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
@@ -13,6 +12,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_OptionsMenu
     {
+        private enum SMenuOption : byte
+        {
+            General = 0,
+            UI = 1,
+            Video = 2,
+            Volume = 3,
+            Cursor = 4,
+            Controls = 5,
+            Language = 6
+        }
+
         private ISGUILayoutBuilder layout;
 
         private SGUILabelElement titleLabel;
@@ -179,7 +189,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void BuildSections()
         {
             BuildGeneralSection();
-            BuildInterfaceSection();
+            BuildUISection();
             BuildVideoSection();
             BuildVolumeSection();
             BuildCursorSection();
@@ -189,37 +199,77 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildGeneralSection()
         {
-            this.sectionContainers[0] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            SGUILabelElement labelElement = new(this.SGameInstance)
+            {
+                Scale = defaultButtonScale,
+                Margin = new Vector2(0f, -4f),
+                Color = SColorPalette.White,
+                BorderOffset = defaultButtonBorderOffset,
+                PositionAnchor = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.Center
+            };
+
+            labelElement.SetTextContent("Test");
+            labelElement.SetBorders(true);
+            labelElement.SetBordersColor(SColorPalette.DarkGray);
+            labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            // labelElement.PositionRelativeToElement(this.rightPanelBackground);
+            labelElement.PositionRelativeToScreen();
+
+            container.AddElement(labelElement);
+
+            this.sectionContainers[(byte)SMenuOption.General] = container;
+            this.layout.AddElement(container);
         }
 
-        private void BuildInterfaceSection()
+        private void BuildUISection()
         {
-            this.sectionContainers[1] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            this.sectionContainers[(byte)SMenuOption.UI] = container;
+            this.layout.AddElement(container);
         }
 
         private void BuildVideoSection()
         {
-            this.sectionContainers[2] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            this.sectionContainers[(byte)SMenuOption.Video] = container;
+            this.layout.AddElement(container);
         }
 
         private void BuildVolumeSection()
         {
-            this.sectionContainers[3] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            this.sectionContainers[(byte)SMenuOption.Volume] = container;
+            this.layout.AddElement(container);
         }
 
         private void BuildCursorSection()
         {
-            this.sectionContainers[4] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            this.sectionContainers[(byte)SMenuOption.Cursor] = container;
+            this.layout.AddElement(container);
         }
 
         private void BuildCuntrolsSection()
         {
-            this.sectionContainers[5] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            this.sectionContainers[(byte)SMenuOption.Controls] = container;
+            this.layout.AddElement(container);
         }
 
         private void BuildLanguageSection()
         {
-            this.sectionContainers[6] = null;
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            this.sectionContainers[(byte)SMenuOption.Language] = container;
+            this.layout.AddElement(container);
         }
     }
 }

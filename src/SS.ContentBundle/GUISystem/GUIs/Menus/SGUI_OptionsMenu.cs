@@ -27,7 +27,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.titleName = "OPTIONS";
             this.sectionNames = [
                 "General",
-                "Interface",
+                "UI",
                 "Video",
                 "Volume",
                 "Cursor",
@@ -78,10 +78,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 if (this.selectedSectionIndex.Equals(i))
                 {
-                    this.sectionContainers[i].IsVisible = true;
+                    this.sectionContainers[i].Active();
+                    continue;
                 }
 
-                this.sectionContainers[i].IsVisible = false;
+                this.sectionContainers[i].Disable();
             }
         }
     }

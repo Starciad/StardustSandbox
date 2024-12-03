@@ -3,58 +3,48 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.Core.GUISystem.Elements
 {
     public class SGUIContainerElement : SGUIElement
     {
-        private readonly List<SGUIElement> elements = [];
+        private readonly SGUILayout containerLayout;
 
         public SGUIContainerElement(ISGame gameInstance) : base(gameInstance)
         {
+            this.containerLayout = new(gameInstance);
+
             this.IsVisible = true;
             this.ShouldUpdate = true;
         }
 
         public override void Initialize()
         {
-            base.Initialize();
+            this.containerLayout.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
-            foreach (SGUIElement element in this.elements)
-            {
-                if (!element.ShouldUpdate)
-                {
-                    continue;
-                }
-
-                element.Update(gameTime);
-            }
+            this.containerLayout.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            base.Draw(gameTime, spriteBatch);
-
-            foreach (SGUIElement element in this.elements)
-            {
-                if (!element.IsVisible)
-                {
-                    continue;
-                }
-
-                element.Draw(gameTime, spriteBatch);
-            }
+            this.containerLayout.Draw(gameTime, spriteBatch);
         }
 
-        public void AddElement(SGUIElement value)
+        public void Active()
         {
-            this.elements.Add(value);
+            this.containerLayout.IsActive = true;
+        }
+
+        public void Disable()
+        {
+            this.containerLayout.IsActive = false;
+        }
+
+        public void AddElement<T>(T value) where T : SGUIElement
+        {
+            this.containerLayout.AddElement(value);
         }
     }
 }

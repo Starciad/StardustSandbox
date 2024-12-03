@@ -35,8 +35,8 @@ namespace StardustSandbox.Core.GUISystem
 
         public override void Initialize()
         {
-            this.layout.Initialize();
             OnBuild(this.layout);
+            this.layout.Initialize();
         }
 
         public override void Update(GameTime gameTime)
