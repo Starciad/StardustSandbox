@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Colors;
+
 namespace StardustSandbox.Core
 {
     public sealed partial class SGame
@@ -39,7 +41,7 @@ namespace StardustSandbox.Core
 
             #region RENDERING (SCREEN)
             this.GraphicsDevice.SetRenderTarget(this.graphicsManager.ScreenRenderTarget);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(SColorPalette.DarkGray);
             this.spriteBatch.Begin();
             this.spriteBatch.Draw(this.graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.Draw(this.graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
@@ -50,7 +52,7 @@ namespace StardustSandbox.Core
 
             #region RENDERING (FINAL)
             this.GraphicsDevice.SetRenderTarget(null);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(SColorPalette.DarkGray);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, this.graphicsManager.GetScreenScaleFactor(), SpriteEffects.None, 0f);
             this.cursorManager.Draw(gameTime, this.spriteBatch);

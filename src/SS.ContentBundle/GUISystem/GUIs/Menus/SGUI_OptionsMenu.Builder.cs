@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -12,6 +14,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     public sealed partial class SGUI_OptionsMenu
     {
         private ISGUILayoutBuilder layout;
+
+        private SGUILabelElement titleLabel;
 
         private SGUISliceImageElement panelBackground;
         private SGUISliceImageElement leftPanelBackground;
@@ -84,7 +88,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildTitle()
         {
+            this.titleLabel = new(this.SGameInstance)
+            {
+                Scale = new Vector2(0.15f),
+                Margin = new Vector2(0f, 52.5f),
+                Color = new Color(206, 214, 237, 255),
+                BorderOffset = new Vector2(4.4f),
+                PositionAnchor = SCardinalDirection.North,
+                OriginPivot = SCardinalDirection.Center
+            };
 
+            this.titleLabel.SetTextContent("OPTIONS");
+            this.titleLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.titleLabel.SetBorders(true);
+            this.titleLabel.SetBordersColor(SColorPalette.DarkGray);
+            this.titleLabel.PositionRelativeToScreen();
+
+            this.layout.AddElement(this.titleLabel);
         }
 
         private void BuildSectionButtons()

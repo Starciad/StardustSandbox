@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
@@ -45,7 +46,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Texture = this.particleTexture,
                 Scale = new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = SSize2F.One,
-                Color = new(Color.Black, 180),
+                Color = new(SColorPalette.DarkGray, 180),
             };
 
             this.layout.AddElement(this.panelBackgroundElement);
@@ -129,7 +130,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 labelElement.SetTextContent(this.menuButtonNames[i]);
                 labelElement.SetBorders(true);
-                labelElement.SetBordersColor(Color.Black);
+                labelElement.SetBordersColor(SColorPalette.DarkGray);
                 labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 

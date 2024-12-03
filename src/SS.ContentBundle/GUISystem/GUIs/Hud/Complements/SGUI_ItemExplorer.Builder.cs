@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
@@ -37,7 +38,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = SScreenConstants.DEFAULT_SCREEN_SIZE,
-                Color = new Color(Color.Black, 160)
+                Color = new Color(SColorPalette.DarkGray, 160)
             };
 
             this.layout.AddElement(guiBackground);
