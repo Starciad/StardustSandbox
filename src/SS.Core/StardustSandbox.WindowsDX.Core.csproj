@@ -42,9 +42,6 @@
 	<ItemGroup>
 		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Colors\" />
-	</ItemGroup>
 	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
