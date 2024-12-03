@@ -3,7 +3,6 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
@@ -15,17 +14,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     public partial class SGUI_HUD
     {
-        // WeatherSettings
-        // PenSettings
-        // Screenshot
-        // WorldSettings
-        // PauseSimulation
-        // GameMenu
-        // Save
-        // Eraser
-        // Undo
-        // ClearWorld
-
         private ISGUILayoutBuilder layout;
 
         private SGUIImageElement topToolbarContainer;
@@ -34,54 +22,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private SGUIImageElement toolbarElementSearchButton;
         private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
-        private readonly SToolbarSlot[] toolbarToolButtons = new SToolbarSlot[SHUDConstants.TOOL_BUTTONS_LENGTH];
 
         private readonly Color toolbarContainerColor = new(Color.White, 32);
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
-
-            BuildGeneralButtons();
+            
             BuildToolbars();
         }
 
-        private void BuildGeneralButtons()
-        {
-            for (int i = 0; i < SHUDConstants.TOOL_BUTTONS_LENGTH; i++)
-            {
-                SGUIImageElement slotBackground = new(this.SGameInstance)
-                {
-                    Texture = this.squareShapeTexture,
-                    OriginPivot = SCardinalDirection.Center,
-                    Scale = new Vector2(SHUDConstants.SLOT_SCALE),
-                    PositionAnchor = SCardinalDirection.West,
-                    Size = new SSize2(SHUDConstants.SLOT_SIZE),
-                };
-
-                SGUIImageElement slotIcon = new(this.SGameInstance)
-                {
-                    OriginPivot = SCardinalDirection.Center,
-                    Scale = new Vector2(1.5f),
-                    Size = new SSize2(SHUDConstants.SLOT_SIZE)
-                };
-
-                // Update
-                slotBackground.PositionRelativeToScreen();
-                slotIcon.PositionRelativeToElement(slotBackground);
-
-                // Save
-                this.toolbarElementSlots[i] = new(slotBackground, slotIcon);
-
-                this.layout.AddElement(slotBackground);
-                this.layout.AddElement(slotIcon);
-            }
-        }
         private void BuildToolbars()
         {
             BuildTopToolbar();
-            BuildLeftToolbar();
-            BuildRightToolbar();
         }
 
         private void BuildTopToolbar()
