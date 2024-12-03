@@ -71,14 +71,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.rightPanelBackground = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
-                Scale = new Vector2(16f, 7.5f),
-                Margin = new Vector2(-32f, 32f),
+                Scale = new Vector2(18.2f, 13f),
+                Margin = new Vector2(90f, 0f),
                 Size = new SSize2(32),
                 PositionAnchor = SCardinalDirection.Northeast,
                 Color = SColorPalette.RoyalBlue
             };
 
-            this.rightPanelBackground.PositionRelativeToElement(this.panelBackground);
+            this.rightPanelBackground.PositionRelativeToElement(this.leftPanelBackground);
             this.layout.AddElement(this.rightPanelBackground);
         }
 
