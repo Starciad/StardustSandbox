@@ -81,14 +81,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SSongEngine.Play(this.mainMenuSong);
         }
 
-        protected override void OnUnload()
-        {
-            base.OnUnload();
-
-            this.SGameInstance.EntityManager.RemoveAll();
-            this.world.Clear();
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

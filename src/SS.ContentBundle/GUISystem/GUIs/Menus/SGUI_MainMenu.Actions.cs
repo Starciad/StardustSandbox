@@ -13,6 +13,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
 
+            this.SGameInstance.EntityManager.RemoveAll();
+
             this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
             this.world.Reset();
 
@@ -25,9 +27,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             return;
         }
 
-        private static void OptionsMenuButton()
+        private void OptionsMenuButton()
         {
-            return;
+            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
         }
 
         private static void CreditsMenuButton()
