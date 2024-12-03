@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
+using SharpDX.Direct2D1.Effects;
+
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -30,9 +30,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SToolbarButton[] rightToolbarTopButtons;
         private SToolbarButton[] rightToolbarBottomButtons;
 
-        internal const int SLOT_SIZE = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
-        internal const int SLOT_SCALE = SHUDConstants.SLOT_SCALE;
-        internal const int SLOT_SPACING = SLOT_SIZE * 2;
+        private const int SLOT_SIZE = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
+        private const int SLOT_SCALE = SHUDConstants.SLOT_SCALE;
+        private const int SLOT_SPACING = SLOT_SIZE * 2;
+
+        private readonly Color toolbarContainerColor = new(Color.White, 32);
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -49,53 +51,36 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void BuildTopToolbar()
         {
-            this.topToolbarContainer = CreateToolbarContainer(
-                new Vector2(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
-                SCardinalDirection.Center,
-                Color.White * 32
-            );
+            this.topToolbarContainer = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Scale = new Vector2(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
+                Size = SSize2.One,
+                Color = this.toolbarContainerColor,
+                PositionAnchor = SCardinalDirection.Northwest
+            };
 
+            this.topToolbarContainer.PositionRelativeToScreen();
             this.layout.AddElement(this.topToolbarContainer);
+
             CreateTopToolbarSlots();
             CreateSearchSlot();
         }
 
-        private void CreateTopToolbarSlots()
-        {
-            Vector2 slotMargin = new(SLOT_SPACING, 0);
-            for (int i = 0; i < this.toolbarElementSlots.Length; i++)
-            {
-                SItem selectedItem = this.SGameInstance.ItemDatabase.Items[i];
-                this.toolbarElementSlots[i] = new SToolbarSlot(
-                    this.SGameInstance,
-                    this.topToolbarContainer,
-                    this.layout,
-                    selectedItem,
-                    slotMargin
-                );
-
-                slotMargin.X += SLOT_SPACING + (SLOT_SIZE / 2);
-            }
-        }
-
-        private void CreateSearchSlot()
-        {
-            this.toolbarElementSearchButton = CreateSlot(this.SGameInstance, this.topToolbarContainer,
-                SCardinalDirection.East, "icon_gui_1", new Vector2(2f),
-                SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * -2);
-
-            this.layout.AddElement(this.toolbarElementSearchButton);
-        }
-
         private void BuildLeftToolbar()
         {
-            this.leftToolbarContainer = CreateToolbarContainer(
-                new Vector2(96, 608),
-                SCardinalDirection.Southwest,
-                Color.White * 32
-            );
+            this.leftToolbarContainer = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Scale = new Vector2(96, 608),
+                Size = SSize2.One,
+                Color = this.toolbarContainerColor,
+                PositionAnchor = SCardinalDirection.Southwest,
+                OriginPivot = SCardinalDirection.Northeast
+            };
 
             this.layout.AddElement(this.leftToolbarContainer);
+
             this.leftToolbarTopButtons = CreateToolbarButtons(new (string, Action)[] {
                 ("WeatherSettings", WeatherSettingsButton),
                 ("PenSettings", PenSettingsButton),
@@ -110,13 +95,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void BuildRightToolbar()
         {
-            this.rightToolbarContainer = CreateToolbarContainer(
-                new Vector2(96, 608),
-                SCardinalDirection.Southeast,
-                Color.White * 32
-            );
+            this.rightToolbarContainer = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Scale = new Vector2(96, 608),
+                Size = SSize2.One,
+                Color = this.toolbarContainerColor,
+                PositionAnchor = SCardinalDirection.Southeast,
+                OriginPivot = SCardinalDirection.Northwest
+            };
 
             this.layout.AddElement(this.rightToolbarContainer);
+
             this.rightToolbarTopButtons = CreateToolbarButtons(new (string, Action)[] {
                 ("GameMenu", GameMenuButton),
                 ("Save", SaveButton)
@@ -129,47 +119,95 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             }, SCardinalDirection.South, this.rightToolbarContainer);
         }
 
-        // Helper method to create toolbar container
-        private SGUIImageElement CreateToolbarContainer(Vector2 scale, SCardinalDirection anchor, Color color)
+
+        private void CreateTopToolbarSlots()
         {
-            SGUIImageElement container = new(this.SGameInstance)
+            int slotSize = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
+            int slotScale = SHUDConstants.SLOT_SCALE;
+            int slotSpacing = slotSize * 2;
+
+            Vector2 slotMargin = new(slotSpacing, 0);
+
+            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
             {
-                Texture = this.particleTexture,
-                Scale = scale,
-                Color = color,
-                PositionAnchor = anchor
+                SItem selectedItem = this.SGameInstance.ItemDatabase.Items[i];
+
+                SGUIImageElement slotBackground = new(this.SGameInstance)
+                {
+                    Texture = this.squareShapeTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new Vector2(slotScale),
+                    PositionAnchor = SCardinalDirection.West,
+                    Size = new SSize2(slotSize),
+                    Margin = slotMargin,
+                };
+
+                SGUIImageElement slotIcon = new(this.SGameInstance)
+                {
+                    Texture = selectedItem.IconTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new Vector2(1.5f),
+                    Size = new SSize2(slotSize)
+                };
+
+                if (!slotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                {
+                    slotBackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, selectedItem.Identifier);
+                }
+
+                // Update
+                slotBackground.PositionRelativeToElement(this.topToolbarContainer);
+                slotIcon.PositionRelativeToElement(slotBackground);
+
+                // Save
+                this.toolbarElementSlots[i] = new(slotBackground, slotIcon);
+
+                // Spacing
+                slotMargin.X += slotSpacing + (slotSize / 2);
+
+                this.layout.AddElement(slotBackground);
+                this.layout.AddElement(slotIcon);
+            }
+        }
+        private void CreateSearchSlot()
+        {
+            SGUIImageElement slotSearchBackground = new(this.SGameInstance)
+            {
+                Texture = this.squareShapeTexture,
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(SHUDConstants.SLOT_SCALE + 0.45f),
+                PositionAnchor = SCardinalDirection.East,
+                Size = new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE),
+                Margin = new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0),
             };
 
-            container.PositionRelativeToScreen();
-            return container;
+            SGUIImageElement slotIcon = new(this.SGameInstance)
+            {
+                Texture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1"),
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(2f),
+                Size = new SSize2(1),
+            };
+
+            slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
+            slotIcon.PositionRelativeToElement(slotSearchBackground);
+
+            this.layout.AddElement(slotSearchBackground);
+            this.layout.AddElement(slotIcon);
+
+            this.toolbarElementSearchButton = slotSearchBackground;
         }
 
         private SToolbarButton[] CreateToolbarButtons((string name, Action action)[] buttons, SCardinalDirection anchor, SGUIImageElement container)
         {
             SToolbarButton[] toolbarButtons = new SToolbarButton[buttons.Length];
+
             for (int i = 0; i < buttons.Length; i++)
             {
                 toolbarButtons[i] = new SToolbarButton(this.SGameInstance, this.layout, buttons[i].name, buttons[i].action, container, anchor, i);
             }
 
             return toolbarButtons;
-        }
-
-        private SGUIImageElement CreateSlot(ISGame gameInstance, SGUIImageElement parentContainer, SCardinalDirection anchor, string iconName, Vector2 iconScale, int marginX)
-        {
-            SGUIImageElement slotBackground = new(gameInstance)
-            {
-                Texture = this.squareShapeTexture,
-                OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE + 0.45f),
-                PositionAnchor = anchor,
-                Size = new SSize2(SLOT_SIZE),
-                Margin = new Vector2(marginX, 0),
-            };
-
-            slotBackground.PositionRelativeToElement(parentContainer);
-
-            return slotBackground;
         }
     }
 }

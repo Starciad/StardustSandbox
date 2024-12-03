@@ -1,20 +1,46 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
+
+using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     public sealed partial class SGUI_HUD : SGUISystem
     {
+        private readonly struct SToolbarSlot(SGUIImageElement background, SGUIImageElement icon)
+        {
+            public SGUIImageElement Background { get; } = background;
+            public SGUIImageElement Icon { get; } = icon;
+        }
+
+        private struct SToolbarButton
+        {
+            public SToolbarButton(ISGame gameInstance, ISGUILayoutBuilder layout, string name, Action action, SGUIImageElement parent, SCardinalDirection anchor, int index)
+            {
+                SGUIImageElement buttonBackground = new(gameInstance)
+                {
+                    Texture = parent.Texture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Size = new SSize2(SGUI_HUD.SLOT_SIZE)
+                };
+
+                buttonBackground.PositionRelativeToElement(parent);
+                layout.AddElement(buttonBackground);
+            }
+        }
+
         private int slotSelectedIndex = 0;
         
         private readonly Texture2D particleTexture;
