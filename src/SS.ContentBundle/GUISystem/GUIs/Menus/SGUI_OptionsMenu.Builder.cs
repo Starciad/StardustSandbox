@@ -1,13 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_OptionsMenu
     {
         private ISGUILayoutBuilder layout;
+
+        private SGUISliceImageElement panelBackground;
+        private SGUISliceImageElement leftPanelBackground;
+        private SGUISliceImageElement rightPanelBackground;
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
@@ -22,34 +30,56 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildPanels()
         {
-            BuildBackgroundPanel();
+            BuildPanelBackground();
             BuildLeftPanel();
             BuildRightPanel();
         }
 
-        private void BuildBackgroundPanel()
+        private void BuildPanelBackground()
         {
-            SGUISliceImageElement explorerBackground = new(this.SGameInstance)
+            this.panelBackground = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
-                Scale = new Vector2(32, 15),
-                Margin = new Vector2(128, 128),
-                Color = new Color(24, 13, 65, 255)
+                Scale = new Vector2(32f, 15f),
+                Size = new SSize2(32),
+                Margin = new Vector2(128f),
+                Color = SColorPalette.NavyBlue
             };
 
-            explorerBackground.PositionRelativeToScreen();
+            this.panelBackground.PositionRelativeToScreen();
 
-            this.layout.AddElement(explorerBackground);
+            this.layout.AddElement(this.panelBackground);
         }
 
         private void BuildLeftPanel()
         {
+            this.leftPanelBackground = new(this.SGameInstance)
+            {
+                Texture = this.guiBackgroundTexture,
+                Scale = new Vector2(9f, 13f),
+                Margin = new Vector2(32f),
+                Size = new SSize2(32),
+                Color = SColorPalette.RoyalBlue
+            };
 
+            this.leftPanelBackground.PositionRelativeToElement(this.panelBackground);
+            this.layout.AddElement(this.leftPanelBackground);
         }
 
         private void BuildRightPanel()
         {
+            this.rightPanelBackground = new(this.SGameInstance)
+            {
+                Texture = this.guiBackgroundTexture,
+                Scale = new Vector2(16f, 7.5f),
+                Margin = new Vector2(-32f, 32f),
+                Size = new SSize2(32),
+                PositionAnchor = SCardinalDirection.Northeast,
+                Color = SColorPalette.RoyalBlue
+            };
 
+            this.rightPanelBackground.PositionRelativeToElement(this.panelBackground);
+            this.layout.AddElement(this.rightPanelBackground);
         }
 
         private void BuildTitle()

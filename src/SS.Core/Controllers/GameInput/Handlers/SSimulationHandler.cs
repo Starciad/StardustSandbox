@@ -9,7 +9,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
         public void TogglePause()
         {
-            this.gameManager.GameState.IsSimulationPaused.Toggle();
+            this.gameManager.GameState.IsSimulationPaused = !this.gameManager.GameState.IsSimulationPaused;
         }
     }
 }

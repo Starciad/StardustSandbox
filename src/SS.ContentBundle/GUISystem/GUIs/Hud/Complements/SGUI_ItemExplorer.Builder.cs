@@ -52,7 +52,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Texture = this.guiBackgroundTexture,
                 Scale = new Vector2(32, 15),
-                Margin = new Vector2(128, 128),
+                Margin = new Vector2(128f),
                 Color = new Color(104, 111, 121, 255)
             };
 
