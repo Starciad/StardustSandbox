@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using SharpDX.Direct2D1.Effects;
-
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
@@ -16,6 +15,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     public partial class SGUI_HUD
     {
+        // WeatherSettings
+        // PenSettings
+        // Screenshot
+        // WorldSettings
+        // PauseSimulation
+        // GameMenu
+        // Save
+        // Eraser
+        // Undo
+        // ClearWorld
+
         private ISGUILayoutBuilder layout;
 
         private SGUIImageElement topToolbarContainer;
@@ -23,25 +33,50 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement rightToolbarContainer;
 
         private SGUIImageElement toolbarElementSearchButton;
-        private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH];
-
-        private SToolbarButton[] leftToolbarTopButtons;
-        private SToolbarButton[] leftToolbarBottomButtons;
-        private SToolbarButton[] rightToolbarTopButtons;
-        private SToolbarButton[] rightToolbarBottomButtons;
-
-        private const int SLOT_SIZE = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
-        private const int SLOT_SCALE = SHUDConstants.SLOT_SCALE;
-        private const int SLOT_SPACING = SLOT_SIZE * 2;
+        private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
+        private readonly SToolbarSlot[] toolbarToolButtons = new SToolbarSlot[SHUDConstants.TOOL_BUTTONS_LENGTH];
 
         private readonly Color toolbarContainerColor = new(Color.White, 32);
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
+
+            BuildGeneralButtons();
             BuildToolbars();
         }
 
+        private void BuildGeneralButtons()
+        {
+            for (int i = 0; i < SHUDConstants.TOOL_BUTTONS_LENGTH; i++)
+            {
+                SGUIImageElement slotBackground = new(this.SGameInstance)
+                {
+                    Texture = this.squareShapeTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new Vector2(SHUDConstants.SLOT_SCALE),
+                    PositionAnchor = SCardinalDirection.West,
+                    Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                };
+
+                SGUIImageElement slotIcon = new(this.SGameInstance)
+                {
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new Vector2(1.5f),
+                    Size = new SSize2(SHUDConstants.SLOT_SIZE)
+                };
+
+                // Update
+                slotBackground.PositionRelativeToScreen();
+                slotIcon.PositionRelativeToElement(slotBackground);
+
+                // Save
+                this.toolbarElementSlots[i] = new(slotBackground, slotIcon);
+
+                this.layout.AddElement(slotBackground);
+                this.layout.AddElement(slotIcon);
+            }
+        }
         private void BuildToolbars()
         {
             BuildTopToolbar();
@@ -80,17 +115,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             };
 
             this.layout.AddElement(this.leftToolbarContainer);
-
-            this.leftToolbarTopButtons = CreateToolbarButtons(new (string, Action)[] {
-                ("WeatherSettings", WeatherSettingsButton),
-                ("PenSettings", PenSettingsButton),
-                ("Screenshot", ScreenshotButton),
-                ("WorldSettings", WorldSettingsButton)
-            }, SCardinalDirection.North, this.leftToolbarContainer);
-
-            this.leftToolbarBottomButtons = CreateToolbarButtons(new (string, Action)[] {
-                ("PauseSimulation", PauseSimulationButton)
-            }, SCardinalDirection.South, this.leftToolbarContainer);
         }
 
         private void BuildRightToolbar()
@@ -107,28 +131,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.layout.AddElement(this.rightToolbarContainer);
 
-            this.rightToolbarTopButtons = CreateToolbarButtons(new (string, Action)[] {
-                ("GameMenu", GameMenuButton),
-                ("Save", SaveButton)
-            }, SCardinalDirection.North, this.rightToolbarContainer);
-
-            this.rightToolbarBottomButtons = CreateToolbarButtons(new (string, Action)[] {
-                ("Eraser", EraserButton),
-                ("Undo", UndoButton),
-                ("ClearWorld", ClearWorld)
-            }, SCardinalDirection.South, this.rightToolbarContainer);
         }
-
 
         private void CreateTopToolbarSlots()
         {
-            int slotSize = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
-            int slotScale = SHUDConstants.SLOT_SCALE;
-            int slotSpacing = slotSize * 2;
+            Vector2 slotMargin = new(SHUDConstants.SLOT_SPACING, 0);
 
-            Vector2 slotMargin = new(slotSpacing, 0);
-
-            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
+            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SItem selectedItem = this.SGameInstance.ItemDatabase.Items[i];
 
@@ -136,9 +145,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 {
                     Texture = this.squareShapeTexture,
                     OriginPivot = SCardinalDirection.Center,
-                    Scale = new Vector2(slotScale),
+                    Scale = new Vector2(SHUDConstants.SLOT_SCALE),
                     PositionAnchor = SCardinalDirection.West,
-                    Size = new SSize2(slotSize),
+                    Size = new SSize2(SHUDConstants.SLOT_SIZE),
                     Margin = slotMargin,
                 };
 
@@ -147,7 +156,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                     Texture = selectedItem.IconTexture,
                     OriginPivot = SCardinalDirection.Center,
                     Scale = new Vector2(1.5f),
-                    Size = new SSize2(slotSize)
+                    Size = new SSize2(SHUDConstants.SLOT_SIZE)
                 };
 
                 if (!slotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
@@ -163,12 +172,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 this.toolbarElementSlots[i] = new(slotBackground, slotIcon);
 
                 // Spacing
-                slotMargin.X += slotSpacing + (slotSize / 2);
+                slotMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
                 this.layout.AddElement(slotBackground);
                 this.layout.AddElement(slotIcon);
             }
         }
+
         private void CreateSearchSlot()
         {
             SGUIImageElement slotSearchBackground = new(this.SGameInstance)
@@ -177,13 +187,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new Vector2(SHUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.East,
-                Size = new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE),
-                Margin = new Vector2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE * 2 * -1, 0),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Margin = new Vector2(SHUDConstants.SLOT_SIZE * 2 * -1, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
             {
-                Texture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1"),
+                Texture = this.magnifyingGlassIconTexture,
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new Vector2(2f),
                 Size = new SSize2(1),
@@ -196,18 +206,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.layout.AddElement(slotIcon);
 
             this.toolbarElementSearchButton = slotSearchBackground;
-        }
-
-        private SToolbarButton[] CreateToolbarButtons((string name, Action action)[] buttons, SCardinalDirection anchor, SGUIImageElement container)
-        {
-            SToolbarButton[] toolbarButtons = new SToolbarButton[buttons.Length];
-
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                toolbarButtons[i] = new SToolbarButton(this.SGameInstance, this.layout, buttons[i].name, buttons[i].action, container, anchor, i);
-            }
-
-            return toolbarButtons;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 (SGUIImageElement categoryButtonBackground, _) = this.categoryButtonSlots[i];
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
                     SelectItemCatalog((string)categoryButtonBackground.GetData("category_id"), 0);
                 }
@@ -81,7 +81,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 }
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(itemSlotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseClick(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
                     this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
@@ -90,7 +90,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 }
 
                 // Highlight when mouse is over slot.
-                itemSlotBackground.Color = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE))
+                itemSlotBackground.Color = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE))
                     ? Color.DarkGray
                     : Color.White;
             }

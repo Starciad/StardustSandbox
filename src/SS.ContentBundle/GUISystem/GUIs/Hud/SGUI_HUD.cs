@@ -3,12 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
@@ -21,30 +19,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
     {
         private readonly struct SToolbarSlot(SGUIImageElement background, SGUIImageElement icon)
         {
-            public SGUIImageElement Background { get; } = background;
-            public SGUIImageElement Icon { get; } = icon;
-        }
-
-        private struct SToolbarButton
-        {
-            public SToolbarButton(ISGame gameInstance, ISGUILayoutBuilder layout, string name, Action action, SGUIImageElement parent, SCardinalDirection anchor, int index)
-            {
-                SGUIImageElement buttonBackground = new(gameInstance)
-                {
-                    Texture = parent.Texture,
-                    OriginPivot = SCardinalDirection.Center,
-                    Size = new SSize2(SGUI_HUD.SLOT_SIZE)
-                };
-
-                buttonBackground.PositionRelativeToElement(parent);
-                layout.AddElement(buttonBackground);
-            }
+            public SGUIImageElement Background => background;
+            public SGUIImageElement Icon => icon;
         }
 
         private int slotSelectedIndex = 0;
         
         private readonly Texture2D particleTexture;
         private readonly Texture2D squareShapeTexture;
+        private readonly Texture2D magnifyingGlassIconTexture;
 
         private readonly SWorld world;
 
@@ -54,6 +37,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
+            this.magnifyingGlassIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1");
+
             this.world = gameInstance.World;
         }
 
@@ -73,12 +58,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             #region ELEMENT SLOTS
             // Individually check all element slots present in the HEADER.
-            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
+            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SToolbarSlot slot = this.toolbarElementSlots[i];
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(slot.Background.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
                     SelectItemSlot(i, (string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
@@ -86,7 +71,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 // Highlight coloring of currently selected slot.
                 slot.Background.Color = i == this.slotSelectedIndex
                     ? Color.Red
-                    : this.GUIEvents.OnMouseOver(slot.Background.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE))
+                    : this.GUIEvents.OnMouseOver(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE))
                         ? Color.DarkGray
                         : Color.White;
             }
@@ -94,13 +79,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             #region SEARCH BUTTON
             // Check if the mouse clicked on the search button.
-            if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE)))
+            if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
             {
                 this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_IDENTIFIER);
                 this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
             }
 
-            this.toolbarElementSearchButton.Color = this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE))
+            this.toolbarElementSearchButton.Color = this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE))
                 ? Color.DarkGray
                 : Color.White;
             #endregion
@@ -121,7 +106,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             // ================================================= //
             // Check if the item is already in the Toolbar. If so, it will be highlighted without changing the other items.
 
-            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH; i++)
+            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SToolbarSlot slot = this.toolbarElementSlots[i];
 
@@ -138,7 +123,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             // ================================================= //
             // If the item is not present in the toolbar, it will be added to the first slot next to the canvas and will push all others in the opposite direction. The last item will be removed from the toolbar until it is added again later.
 
-            for (int i = 0; i < SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_LENGTH - 1; i++)
+            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
             {
                 SToolbarSlot currentSlot = this.toolbarElementSlots[i];
                 SToolbarSlot nextSlot = this.toolbarElementSlots[i + 1];

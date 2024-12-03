@@ -103,10 +103,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildItemCatalogSlots(SGUIElement parent)
         {
-            int slotSize = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
-            int slotScale = SHUDConstants.SLOT_SCALE;
-            int slotSpacing = slotSize * 2;
-
             Vector2 slotMargin = new(32, 40);
 
             int rows = SItemExplorerConstants.ITEMS_PER_ROW;
@@ -123,9 +119,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         Texture = this.squareShapeTexture,
                         OriginPivot = SCardinalDirection.Center,
-                        Scale = new Vector2(slotScale),
+                        Scale = new Vector2(SHUDConstants.SLOT_SCALE),
                         PositionAnchor = SCardinalDirection.West,
-                        Size = new SSize2(slotSize),
+                        Size = new SSize2(SHUDConstants.SLOT_SIZE),
                         Margin = slotMargin
                     };
 
@@ -133,7 +129,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new Vector2(1.5f),
-                        Size = new SSize2(slotSize)
+                        Size = new SSize2(SHUDConstants.SLOT_SIZE)
                     };
 
                     // Position
@@ -141,7 +137,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Spacing
-                    slotMargin.X += slotSpacing + (slotSize / 2);
+                    slotMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
                     this.itemButtonSlots[index] = (slotBackground, slotIcon);
                     index++;
 
@@ -151,16 +147,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 }
 
                 slotMargin.X = 32;
-                slotMargin.Y += slotSpacing + (slotSize / 2);
+                slotMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
             }
         }
 
         private void BuildCategoryButtons(SGUIElement parent)
         {
-            int slotSize = SHUDConstants.HEADER_ELEMENT_SELECTION_SLOTS_SIZE;
-            int slotScale = SHUDConstants.SLOT_SCALE;
-            int slotSpacing = slotSize * 2;
-
             Vector2 slotMargin = new(0, -160);
 
             this.categoryButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[this.SGameInstance.ItemDatabase.TotalCategoryCount];
@@ -173,9 +165,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     Texture = this.squareShapeTexture,
                     OriginPivot = SCardinalDirection.Center,
-                    Scale = new Vector2(slotScale),
+                    Scale = new Vector2(SHUDConstants.SLOT_SCALE),
                     PositionAnchor = SCardinalDirection.Northwest,
-                    Size = new SSize2(slotSize),
+                    Size = new SSize2(SHUDConstants.SLOT_SIZE),
                     Margin = slotMargin
                 };
 
@@ -184,7 +176,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     Texture = category.IconTexture,
                     OriginPivot = SCardinalDirection.Center,
                     Scale = new Vector2(1.5f),
-                    Size = new SSize2(slotSize)
+                    Size = new SSize2(SHUDConstants.SLOT_SIZE)
                 };
 
                 // Data
@@ -198,7 +190,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 slotIcon.PositionRelativeToElement(slotBackground);
 
                 // Spacing
-                slotMargin.X += slotSpacing + (slotSize / 2);
+                slotMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
                 this.categoryButtonSlots[index] = (slotBackground, slotIcon);
                 index++;
 
