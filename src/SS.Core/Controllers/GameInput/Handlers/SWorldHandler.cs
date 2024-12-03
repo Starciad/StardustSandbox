@@ -72,8 +72,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
         private void AddElements(ISElement element, Point position)
         {
-            if (!this.world.InsideTheWorldDimensions(position) ||
-                !this.world.IsEmptyElementSlot(position))
+            if (!this.world.InsideTheWorldDimensions(position))
             {
                 return;
             }
@@ -83,8 +82,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
         private void RemoveElements(Point position)
         {
-            if (!this.world.InsideTheWorldDimensions(position) ||
-                 this.world.IsEmptyElementSlot(position))
+            if (!this.world.InsideTheWorldDimensions(position))
             {
                 return;
             }
