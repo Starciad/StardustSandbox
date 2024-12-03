@@ -12,33 +12,31 @@ namespace StardustSandbox.Core.GUISystem
 {
     public sealed class SGUILayout(ISGame gameInstance) : SGameObject(gameInstance), ISGUILayoutBuilder
     {
-        public int ElementCount => this.elements.Count;
-
         private readonly List<SGUIElement> elements = [];
 
         public override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < this.elements.Count; i++)
+            foreach (SGUIElement element in this.elements)
             {
-                SGUIElement element = this.elements[i];
-
-                if (element.ShouldUpdate)
+                if (!element.ShouldUpdate)
                 {
-                    element.Update(gameTime);
+                    continue;
                 }
+
+                element.Update(gameTime);
             }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.elements.Count; i++)
+            foreach (SGUIElement element in this.elements)
             {
-                SGUIElement element = this.elements[i];
-
-                if (element.IsVisible)
+                if (!element.IsVisible)
                 {
-                    element.Draw(gameTime, spriteBatch);
+                    continue;
                 }
+
+                element.Draw(gameTime, spriteBatch);
             }
         }
 
