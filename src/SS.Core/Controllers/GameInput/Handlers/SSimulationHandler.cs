@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
+﻿using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {

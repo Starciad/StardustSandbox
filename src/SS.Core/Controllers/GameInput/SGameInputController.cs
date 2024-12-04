@@ -6,7 +6,6 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Controllers.GameInput
 {
@@ -33,7 +32,7 @@ namespace StardustSandbox.Core.Controllers.GameInput
 
             this.cameraHandler = new(gameInstance.CameraManager);
             this.simulationHandler = new(gameInstance.GameManager);
-            this.worldHandler = new(gameInstance.World, gameInstance.InputManager, gameInstance.CameraManager, player, pen, gameInstance.ElementDatabase);
+            this.worldHandler = new(gameInstance.World, gameInstance.InputManager, gameInstance.CameraManager, this.player, this.pen, gameInstance.ElementDatabase);
 
             this.inputManager = gameInstance.InputManager;
             this.actionHandler = new(gameInstance);

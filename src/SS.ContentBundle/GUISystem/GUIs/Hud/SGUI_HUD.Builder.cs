@@ -8,8 +8,6 @@ using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
-
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     public partial class SGUI_HUD
@@ -28,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
-            
+
             BuildToolbars();
         }
 

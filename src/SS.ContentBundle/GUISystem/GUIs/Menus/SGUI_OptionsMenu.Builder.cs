@@ -194,7 +194,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // ============================================================================ //
 
-
             // ============================================================================ //
 
             this.sectionContainers[(byte)SMenuSection.General] = container;
@@ -207,19 +206,30 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // [ FIELDS ]
             // 1. Resolution
-            SOptionSelector resolutionOptionSelector = new("Resolution", 03, SScreenConstants.RESOLUTIONS);
+            _ = new
+            // [ FIELDS ]
+            // 1. Resolution
+            SOptionSelector("Resolution", 03, SScreenConstants.RESOLUTIONS);
 
             // 2. Fullscreen
-            SOptionSelector fullscreenOptionSelector = new("Fullscreen", 00, [ false, true ]);
+            _ = new
+            // 2. Fullscreen
+            SOptionSelector("Fullscreen", 00, [false, true]);
 
             // 3. VSync
-            SOptionSelector vSyncOptionSelector = new("VSync", 00, [false, true]);
+            _ = new
+            // 3. VSync
+            SOptionSelector("VSync", 00, [false, true]);
 
             // 4. MaxFrameRate
-            SOptionSelector maxFrameRateOptionSelector = new("FrameRate", 01, SScreenConstants.FRAME_RATES);
-            
+            _ = new
+            // 4. MaxFrameRate
+            SOptionSelector("FrameRate", 01, SScreenConstants.FRAME_RATES);
+
             // 5. Borderless
-            SOptionSelector borderlessOptionSelector = new("Borderless", 00, [false, true]);
+            _ = new
+            // 5. Borderless
+            SOptionSelector("Borderless", 00, [false, true]);
 
             this.sectionContainers[(byte)SMenuSection.Video] = container;
             this.layout.AddElement(container);

@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.Managers
             this.cursorTextures[0] = this._assetDatabase.GetTexture("cursor_1");
             this.cursorTextures[1] = this._assetDatabase.GetTexture("cursor_2");
 
-            UpdateCursorSettings();
+            UpdateSettings();
         }
 
         public override void Update(GameTime gameTime)
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Managers
             spriteBatch.Draw(cursorSelectedTexture, this.cursorPosition, cursorClipAreas[0], this.cursorColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
         }
 
-        public void UpdateCursorSettings()
+        public void UpdateSettings()
         {
             SCursorSettings cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
 
