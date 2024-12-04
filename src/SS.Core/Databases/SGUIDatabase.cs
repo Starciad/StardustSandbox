@@ -8,23 +8,26 @@ namespace StardustSandbox.Core.Databases
 {
     public sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance)
     {
-        public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs];
+        public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs.Values];
 
-        private readonly List<SGUISystem> _registeredGUIs = [];
+        private readonly Dictionary<string, SGUISystem> _registeredGUIs = [];
 
         public override void Initialize()
         {
-            this._registeredGUIs.ForEach(x => x.Initialize());
+            foreach (SGUISystem guiSystem in this._registeredGUIs.Values)
+            {
+                guiSystem.Initialize();
+            }
         }
 
-        public void RegisterGUISystem(SGUISystem guiSystem)
+        public void RegisterGUISystem(string identifier, SGUISystem guiSystem)
         {
-            this._registeredGUIs.Add(guiSystem);
+            this._registeredGUIs.Add(identifier, guiSystem);
         }
 
-        public SGUISystem Find(string name)
+        public SGUISystem Find(string identifier)
         {
-            return this._registeredGUIs.Find(x => x.Name == name);
+            return this._registeredGUIs[identifier];
         }
     }
 }

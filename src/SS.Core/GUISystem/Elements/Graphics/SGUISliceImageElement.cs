@@ -31,14 +31,6 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
             }
         }
 
-        public override Texture2D Texture => this.texture;
-        public override Color Color => this.color;
-        public override Vector2 Scale => this.scale;
-
-        private Texture2D texture = null;
-        private Color color = Color.White;
-        private Vector2 scale;
-
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
         public SGUISliceImageElement(ISGame gameInstance) : base(gameInstance)
@@ -49,7 +41,7 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
 
         public override void Update(GameTime gameTime)
         {
-            if (this.texture == null)
+            if (this.Texture == null)
             {
                 return;
             }
@@ -103,7 +95,7 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (this.texture == null)
+            if (this.Texture == null)
             {
                 return;
             }
@@ -111,23 +103,8 @@ namespace StardustSandbox.Core.GUISystem.Elements.Graphics
             for (int i = 0; i < this.textureSlices.Length; i++)
             {
                 SliceInfo texturePiece = this.textureSlices[i];
-                spriteBatch.Draw(this.texture, texturePiece.Position, texturePiece.TextureClipArea, this.color, 0f, Vector2.Zero, texturePiece.Scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(this.Texture, texturePiece.Position, texturePiece.TextureClipArea, this.Color, 0f, Vector2.Zero, texturePiece.Scale, SpriteEffects.None, 0f);
             }
-        }
-
-        public override void SetTexture(Texture2D texture)
-        {
-            this.texture = texture;
-        }
-
-        public override void SetColor(Color color)
-        {
-            this.color = color;
-        }
-
-        public override void SetScale(Vector2 scale)
-        {
-            this.scale = scale;
         }
     }
 }

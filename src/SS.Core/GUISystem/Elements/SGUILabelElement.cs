@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Text;
 
@@ -9,18 +11,22 @@ namespace StardustSandbox.Core.GUISystem.Elements
 {
     public class SGUILabelElement : SGUIElement
     {
-        public bool HasBorders => this.topLeftBorder | this.topRightBorder | this.bottomLeftBorder | this.bottomRightBorder;
+        public bool HasBorders => this.TopLeftBorder | this.TopRightBorder | this.BottomLeftBorder | this.BottomRightBorder;
+
+        public bool TopLeftBorder { get; set; }
+        public bool TopRightBorder { get; set; }
+        public bool BottomLeftBorder { get; set; }
+        public bool BottomRightBorder { get; set; }
+
+        public Color TopLeftBorderColor { get; set; }
+        public Color TopRightBorderColor { get; set; }
+        public Color BottomLeftBorderColor { get; set; }
+        public Color BottomRightBorderColor { get; set; }
+
+        public Vector2 BorderOffset { get; set; }
 
         private readonly StringBuilder textContentStringBuilder = new();
-
         private SpriteFont textFont;
-        private Color textColor = Color.White;
-        private float textRotation = 0f;
-        private Vector2 textScale = Vector2.One;
-
-        private bool topLeftBorder, topRightBorder, bottomLeftBorder, bottomRightBorder;
-        private Color topLeftBorderColor, topRightBorderColor, bottomLeftBorderColor, bottomRightBorderColor;
-        private Vector2 borderOffset = Vector2.One;
 
         public SGUILabelElement(ISGame gameInstance) : base(gameInstance)
         {
@@ -31,37 +37,46 @@ namespace StardustSandbox.Core.GUISystem.Elements
         {
             if (this.HasBorders)
             {
-                if (this.topLeftBorder)
+                if (this.TopLeftBorder)
                 {
-                    DrawTextWithBorder(spriteBatch, this.topLeftBorderColor, -this.borderOffset.X, -this.borderOffset.Y);
+                    DrawTextWithBorder(spriteBatch, this.TopLeftBorderColor, -this.BorderOffset.X, -this.BorderOffset.Y);
                 }
 
-                if (this.topRightBorder)
+                if (this.TopRightBorder)
                 {
-                    DrawTextWithBorder(spriteBatch, this.topRightBorderColor, this.borderOffset.X, -this.borderOffset.Y);
+                    DrawTextWithBorder(spriteBatch, this.TopRightBorderColor, this.BorderOffset.X, -this.BorderOffset.Y);
                 }
 
-                if (this.bottomLeftBorder)
+                if (this.BottomLeftBorder)
                 {
-                    DrawTextWithBorder(spriteBatch, this.bottomLeftBorderColor, -this.borderOffset.X, this.borderOffset.Y);
+                    DrawTextWithBorder(spriteBatch, this.BottomLeftBorderColor, -this.BorderOffset.X, this.BorderOffset.Y);
                 }
 
-                if (this.bottomRightBorder)
+                if (this.BottomRightBorder)
                 {
-                    DrawTextWithBorder(spriteBatch, this.bottomRightBorderColor, this.borderOffset.X, this.borderOffset.Y);
+                    DrawTextWithBorder(spriteBatch, this.BottomRightBorderColor, this.BorderOffset.X, this.BorderOffset.Y);
                 }
             }
 
-            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position, this.textColor, this.textRotation, GetOrigin(), this.textScale, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position, this.Color, this.RotationAngle, this.textFont.GetSpriteFontOriginPoint(this.textContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
         }
 
         private void DrawTextWithBorder(SpriteBatch spriteBatch, Color color, float xOffset, float yOffset)
         {
             Vector2 offset = new(xOffset, yOffset);
-            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.textRotation, GetOrigin(), this.textScale, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(this.textFont, this.textContentStringBuilder, this.Position + offset, color, this.RotationAngle, this.textFont.GetSpriteFontOriginPoint(this.textContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
         }
 
-        // ========================================= //
+        public SSize2 GetMeasureStringSize()
+        {
+            Vector2 result = this.textFont.MeasureString(this.textContentStringBuilder) * this.Scale / 2f;
+            return new((int)result.X, (int)result.Y);
+        }
+
+        public void AppendTextContent(string value)
+        {
+            _ = this.textContentStringBuilder.Append(value);
+        }
 
         public void SetTextContent(string value)
         {
@@ -74,61 +89,20 @@ namespace StardustSandbox.Core.GUISystem.Elements
             this.textFont = this.SGameInstance.AssetDatabase.GetFont(fontFamilyName);
         }
 
-        public void SetColor(Color color)
-        {
-            this.textColor = color;
-        }
-
-        public void SetRotation(float rotation)
-        {
-            this.textRotation = rotation;
-        }
-
-        public void SetScale(Vector2 scale)
-        {
-            this.textScale = scale;
-        }
-
-        // ========================================= //
-        // Borders
-
         public void SetBorders(bool value)
         {
-            SetBorders(value, value, value, value);
+            this.TopLeftBorder = value;
+            this.TopRightBorder = value;
+            this.BottomLeftBorder = value;
+            this.BottomRightBorder = value;
         }
 
-        public void SetBorders(bool topLeft, bool topRight, bool bottomLeft, bool bottomRight)
+        public void SetBordersColor(Color value)
         {
-            this.topLeftBorder = topLeft;
-            this.topRightBorder = topRight;
-            this.bottomLeftBorder = bottomLeft;
-            this.bottomRightBorder = bottomRight;
-        }
-
-        public void SetBordersColor(Color color)
-        {
-            SetBordersColor(color, color, color, color);
-        }
-
-        public void SetBordersColor(Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
-        {
-            this.topLeftBorderColor = topLeft;
-            this.topRightBorderColor = topRight;
-            this.bottomLeftBorderColor = bottomLeft;
-            this.bottomRightBorderColor = bottomRight;
-        }
-
-        public void SetBorderOffset(Vector2 offset)
-        {
-            this.borderOffset = offset;
-        }
-
-        // ========================================= //
-        // Utilities
-
-        private static Vector2 GetOrigin()
-        {
-            return Vector2.Zero;
+            this.TopLeftBorderColor = value;
+            this.TopRightBorderColor = value;
+            this.BottomLeftBorderColor = value;
+            this.BottomRightBorderColor = value;
         }
     }
 }

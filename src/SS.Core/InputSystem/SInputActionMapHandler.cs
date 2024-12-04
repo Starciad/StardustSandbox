@@ -28,5 +28,26 @@ namespace StardustSandbox.Core.InputSystem
 
             return this._maps.TryAdd(name, map) ? map : default;
         }
+
+        public SInputActionMap GetActionMap(string name)
+        {
+            return this._maps[name];
+        }
+
+        public void ActivateAll()
+        {
+            foreach (SInputActionMap actionMap in this._maps.Values)
+            {
+                actionMap.SetActive(true);
+            }
+        }
+
+        public void DisableAll()
+        {
+            foreach (SInputActionMap actionMap in this._maps.Values)
+            {
+                actionMap.SetActive(false);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Core.Elements.Rendering;
+﻿using StardustSandbox.ContentBundle.Enums.Elements;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces.General;
 
@@ -8,7 +9,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         public SGlass(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 011;
+            this.id = (uint)SElementId.Glass;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_12");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 25;

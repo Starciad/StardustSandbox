@@ -3,18 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
+using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World.Components;
 using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld : SGameObject, ISReset
     {
-        public SWorldState States { get; private set; } = new();
         public SWorldInfo Infos { get; private set; } = new();
 
         private readonly SObjectPool worldSlotsPool = new();
@@ -38,23 +37,12 @@ namespace StardustSandbox.Core.World
 
         public override void Initialize()
         {
-            Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
-            Reset();
-
             this.componentContainer.Initialize();
-
-            this.States.IsActive = true;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            // Check current game status
-            if (!this.States.IsActive || this.States.IsPaused)
-            {
-                return;
-            }
 
             // Delay
             if (this.currentFramesUpdateDelay == 0)
@@ -74,36 +62,22 @@ namespace StardustSandbox.Core.World
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
-
-            if (!this.States.IsActive)
-            {
-                return;
-            }
-
             this.componentContainer.Draw(gameTime, spriteBatch);
         }
 
         public void Reset()
         {
+            this.componentContainer.Reset();
             Clear();
-        }
-
-        public void Pause()
-        {
-            this.States.IsPaused = true;
-        }
-
-        public void Resume()
-        {
-            this.States.IsPaused = false;
         }
 
         public void Resize(SSize2 size)
         {
-            this.Infos.SetSize(size);
-
             DestroyWorldSlots();
+
+            this.Infos.SetSize(size);
             this.slots = new SWorldSlot[size.Width, size.Height];
+
             InstantiateWorldSlots();
         }
 
@@ -143,6 +117,7 @@ namespace StardustSandbox.Core.World
                 }
             }
         }
+
         private void DestroyWorldSlots()
         {
             if (this.slots == null || this.slots.Length == 0)
@@ -163,6 +138,22 @@ namespace StardustSandbox.Core.World
                     this.slots[x, y] = null;
                 }
             }
+        }
+
+        public static Vector2 ToWorldPosition(Vector2 globalPosition)
+        {
+            return new Vector2(
+                (int)(globalPosition.X / SWorldConstants.GRID_SCALE),
+                (int)(globalPosition.Y / SWorldConstants.GRID_SCALE)
+            );
+        }
+
+        public static Vector2 ToGlobalPosition(Vector2 worldPosition)
+        {
+            return new Vector2(
+                (int)(worldPosition.X * SWorldConstants.GRID_SCALE),
+                (int)(worldPosition.Y * SWorldConstants.GRID_SCALE)
+            );
         }
     }
 }

@@ -2,7 +2,10 @@
 {
     public static class SGUIConstants
     {
-        public const string HUD_NAME = "S_HUD";
-        public const string ELEMENT_EXPLORER_NAME = "S_HUD_ELEMENT_EXPLORER";
+        public const string MAIN_MENU_IDENTIFIER = SGameConstants.TITLE + "_MAIN_MENU";
+        public const string OPTIONS_MENU_IDENTIFIER = SGameConstants.TITLE + "_OPTIONS_MENU";
+
+        public const string HUD_IDENTIFIER = SGameConstants.TITLE + "_HUD";
+        public const string HUD_ELEMENT_EXPLORER_IDENTIFIER = SGameConstants.TITLE + "_HUD_ELEMENT_EXPLORER";
     }
 }

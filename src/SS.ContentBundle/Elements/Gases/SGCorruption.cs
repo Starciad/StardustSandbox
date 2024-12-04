@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.Elements.Utilities;
+using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Gases;
@@ -18,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
     {
         public SGCorruption(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = 015;
+            this.id = (uint)SElementId.GCorruption;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_16");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;

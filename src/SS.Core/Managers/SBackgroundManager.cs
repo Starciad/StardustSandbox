@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Controllers.Background;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SBackgroundManager(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SBackgroundManager(ISGame gameInstance) : SManager(gameInstance)
     {
         public Color SolidColor => this.solidColor;
 

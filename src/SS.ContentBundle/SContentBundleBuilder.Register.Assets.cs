@@ -70,6 +70,9 @@ namespace StardustSandbox.ContentBundle
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_GUI_LENGTH, "icon_gui_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_GUI));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_CONTROLLERS_LENGTH, "icon_controller_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_CONTROLLERS));
 
+            // Miscellaneous
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_MISCELLANEOUS, "miscellany_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_MISCELLANEOUS));
+
             // Game
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_ICONS_LENGTH, "game_icon_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_ICONS));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_TITLES_LENGTH, "game_title_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_TITLES));

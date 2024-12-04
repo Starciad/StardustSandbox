@@ -2,8 +2,8 @@
 {
     public static class SAssetConstants
     {
-        public const byte SONGS_LENGTH = 0;
-        public const byte SOUNDS_LENGTH = 0;
+        public const byte SONGS_LENGTH = 1;
+        public const byte SOUNDS_LENGTH = 1;
         public const byte FONTS_LENGTH = 9;
         public const byte SHADERS_LENGTH = 1;
 
@@ -34,6 +34,9 @@
         public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 24;
         public const byte GRAPHICS_ICONS_GUI_LENGTH = 14;
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 2;
+
+        // Miscellaneous
+        public const byte GRAPHICS_MISCELLANEOUS = 1;
 
         // Game
         public const byte GRAPHICS_GAME_ICONS_LENGTH = 1;

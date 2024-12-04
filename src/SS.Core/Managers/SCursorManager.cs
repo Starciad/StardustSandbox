@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Models.Settings;
-using StardustSandbox.Core.Objects;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SCursorManager(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SCursorManager(ISGame gameInstance) : SManager(gameInstance)
     {
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [
@@ -35,7 +34,7 @@ namespace StardustSandbox.Core.Managers
             this.cursorTextures[0] = this._assetDatabase.GetTexture("cursor_1");
             this.cursorTextures[1] = this._assetDatabase.GetTexture("cursor_2");
 
-            UpdateCursorSettings();
+            UpdateSettings();
         }
 
         public override void Update(GameTime gameTime)
@@ -54,9 +53,9 @@ namespace StardustSandbox.Core.Managers
             spriteBatch.Draw(cursorSelectedTexture, this.cursorPosition, cursorClipAreas[0], this.cursorColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
         }
 
-        public void UpdateCursorSettings()
+        public void UpdateSettings()
         {
-            SCursorSettings cursorSettings = SSystemSettingsFile.GetCursorSettings();
+            SCursorSettings cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
 
             this.cursorScale = new(cursorSettings.Scale);
             this.cursorColor = cursorSettings.Color;

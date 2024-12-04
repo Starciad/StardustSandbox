@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Models.Settings;
-using StardustSandbox.Core.Objects;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGraphicsManager : SGameObject
+    public sealed class SGraphicsManager : SManager
     {
         public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
         public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;
@@ -53,7 +52,8 @@ namespace StardustSandbox.Core.Managers
 
         public void UpdateSettings()
         {
-            SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
+            SVideoSettings graphicsSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+
             this._graphicsDeviceManager.IsFullScreen = graphicsSettings.FullScreen;
             this._graphicsDeviceManager.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
             this._graphicsDeviceManager.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;

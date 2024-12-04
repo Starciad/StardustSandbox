@@ -5,11 +5,10 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGUIManager(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SGUIManager(ISGame gameInstance) : SManager(gameInstance)
     {
         public SGUIEvents GUIEvents => this._guiEvents;
 
