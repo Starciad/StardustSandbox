@@ -5,7 +5,6 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Managers.IO;
@@ -35,7 +34,6 @@ namespace StardustSandbox.Core
 
         public SWorld World => this.world;
         public SGameInputController GameInputController => this.gameInputController;
-        
 
         // ================================= //
 

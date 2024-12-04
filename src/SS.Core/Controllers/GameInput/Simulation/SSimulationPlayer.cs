@@ -4,7 +4,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 {
     public sealed class SSimulationPlayer
     {
-        public SItem SelectedItem => selectedItem;
+        public SItem SelectedItem => this.selectedItem;
         public float MovementSpeed => this.movementSpeed;
         public bool CanModifyEnvironment { get; set; }
 

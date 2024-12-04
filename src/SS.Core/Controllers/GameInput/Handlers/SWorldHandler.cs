@@ -5,7 +5,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Gameplay;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.World;
 
@@ -89,7 +88,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
             ApplyPenAction(position, this.world.DestroyElement);
         }
-
 
         // ================================== //
         // Utilities

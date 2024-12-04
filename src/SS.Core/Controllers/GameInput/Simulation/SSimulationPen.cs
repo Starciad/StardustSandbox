@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
                 this.size = SInputConstants.PEN_MIN_SIZE;
                 return;
             }
-            
+
             this.size -= value;
         }
 

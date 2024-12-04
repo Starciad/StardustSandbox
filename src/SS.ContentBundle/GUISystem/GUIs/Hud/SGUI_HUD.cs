@@ -11,8 +11,6 @@ using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
 
-using System;
-
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     public sealed partial class SGUI_HUD : SGUISystem
@@ -24,7 +22,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         }
 
         private int slotSelectedIndex = 0;
-        
+
         private readonly Texture2D particleTexture;
         private readonly Texture2D squareShapeTexture;
         private readonly Texture2D magnifyingGlassIconTexture;
@@ -34,7 +32,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             SelectItemSlot(0, GetGameItemById("element_dirt").Identifier);
-            
+
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
             this.magnifyingGlassIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1");

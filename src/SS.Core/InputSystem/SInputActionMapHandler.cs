@@ -3,7 +3,6 @@
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.InputSystem
