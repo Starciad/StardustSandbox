@@ -8,18 +8,12 @@ using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System.Globalization;
+
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_OptionsMenu
     {
-        private enum SMenuOption : byte
-        {
-            General = 0,
-            Video = 1,
-            Volume = 2,
-            Cursor = 3,
-        }
-
         private ISGUILayoutBuilder layout;
 
         private SGUILabelElement titleLabel;
@@ -30,7 +24,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[4];
         private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[4];
-        private SGUILabelElement returnButtonElement;
+        private readonly SGUILabelElement[] systemButtonElements = new SGUILabelElement[2];
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
@@ -45,7 +39,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // Buttons
             BuildSectionButtons();
-            BuildReturnButton();
+            BuildSystemButtons();
 
             // Sections
             BuildSections();
@@ -152,35 +146,38 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 this.sectionButtonElements[i] = labelElement;
                 baseMargin.Y += 58;
-            }
 
-            for (int i = 0; i < this.sectionButtonElements.Length; i++)
-            {
-                this.layout.AddElement(this.sectionButtonElements[i]);
+                this.layout.AddElement(labelElement);
             }
         }
 
-        private void BuildReturnButton()
+        private void BuildSystemButtons()
         {
-            SGUILabelElement labelElement = new(this.SGameInstance)
+            Vector2 baseMargin = new(0f, -4f);
+
+            for (int i = 0; i < this.systemButtonNames.Length; i++)
             {
-                Scale = defaultButtonScale,
-                Margin = new Vector2(0f, -4f),
-                Color = SColorPalette.White,
-                BorderOffset = defaultButtonBorderOffset,
-                PositionAnchor = SCardinalDirection.South,
-                OriginPivot = SCardinalDirection.Center
-            };
+                SGUILabelElement labelElement = new(this.SGameInstance)
+                {
+                    Scale = defaultButtonScale,
+                    Margin = baseMargin,
+                    Color = SColorPalette.White,
+                    BorderOffset = defaultButtonBorderOffset,
+                    PositionAnchor = SCardinalDirection.South,
+                    OriginPivot = SCardinalDirection.Center
+                };
 
-            labelElement.SetTextContent(this.returnButtonName);
-            labelElement.SetBorders(true);
-            labelElement.SetBordersColor(SColorPalette.DarkGray);
-            labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
-            labelElement.PositionRelativeToElement(this.leftPanelBackground);
+                labelElement.SetTextContent(this.systemButtonNames[i]);
+                labelElement.SetBorders(true);
+                labelElement.SetBordersColor(SColorPalette.DarkGray);
+                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+                labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
-            this.returnButtonElement = labelElement;
+                this.systemButtonElements[i] = labelElement;
+                baseMargin.Y -= 58;
 
-            this.layout.AddElement(this.returnButtonElement);
+                this.layout.AddElement(labelElement);
+            }
         }
 
         private void BuildSections()
@@ -195,8 +192,32 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
-            // [ FIELDS ]
+            // ============================================================================ //
+
+            #region FIELDS
+
             // 1. Language Option
+            SGUILabelElement laguageOptionField = new(this.SGameInstance)
+            {
+                Scale = new Vector2(0.08f),
+                Margin = new Vector2(0f, 4f),
+                Color = SColorPalette.SteelBlue,
+                BorderOffset = new Vector2(1.5f),
+                PositionAnchor = SCardinalDirection.North,
+                OriginPivot = SCardinalDirection.Center
+            };
+
+            laguageOptionField.SetTextContent($"Language: {CultureInfo.GetCultureInfo("en-US").NativeName}");
+            laguageOptionField.SetBorders(true);
+            laguageOptionField.SetBordersColor(SColorPalette.DarkGray);
+            laguageOptionField.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            laguageOptionField.PositionRelativeToElement(this.rightPanelBackground);
+
+            #endregion
+
+            // ============================================================================ //
+
+            container.AddElement(laguageOptionField);
 
             this.sectionContainers[(byte)SMenuOption.General] = container;
             this.layout.AddElement(container);

@@ -10,12 +10,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_OptionsMenu : SGUISystem
     {
+        private enum SMenuOption : byte
+        {
+            General = 0,
+            Video = 1,
+            Volume = 2,
+            Cursor = 3,
+        }
+
+        private enum SSystemButton : byte
+        {
+            Return = 0,
+            Save = 1
+        }
+
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiBackgroundTexture;
 
         private readonly string titleName;
         private readonly string[] sectionNames;
-        private readonly string returnButtonName;
+        private readonly string[] systemButtonNames;
 
         private byte selectedSectionIndex;
 
@@ -31,7 +45,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 "Volume",
                 "Cursor",
             ];
-            this.returnButtonName = "Return";
+            this.systemButtonNames = [
+                "Return",
+                "Save",
+            ];
         }
 
         protected override void OnLoad()
@@ -61,6 +78,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 {
                     labelElement.Color = Color.Yellow;
                     continue;
+                }
+
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()) ? Color.Yellow : Color.White;
+            }
+
+            for (byte i = 0; i < this.systemButtonElements.Length; i++)
+            {
+                SGUILabelElement labelElement = this.systemButtonElements[i];
+
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
+                {
+                    // (Actions will still be added.)
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()) ? Color.Yellow : Color.White;
