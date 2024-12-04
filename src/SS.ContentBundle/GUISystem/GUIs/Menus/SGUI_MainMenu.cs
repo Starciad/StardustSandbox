@@ -9,6 +9,7 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Localization.Resources;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World;
 
@@ -62,11 +63,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
 
             this.menuButtonNames = [
-                "Create",
-                "Play",
-                "Options",
-                "Credits",
-                "Quit"
+                SLocalization.GUI_Menu_MainMenu_Create,
+                SLocalization.GUI_Menu_MainMenu_Play,
+                SLocalization.GUI_Menu_MainMenu_Options,
+                SLocalization.GUI_Menu_MainMenu_Credits,
+                SLocalization.GUI_Menu_MainMenu_Quit
             ];
 
             this.menuButtonActions = [

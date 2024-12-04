@@ -5,6 +5,7 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Localization.Resources;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -39,17 +40,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
 
-            this.titleName = "OPTIONS";
+            this.titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
             this.sectionNames = [
-                "General",
-                "Video",
-                "Volume",
-                "Cursor",
-                "Language"
+                SLocalization.GUI_Menu_OptionsMenu_Section_General,
+                SLocalization.GUI_Menu_OptionsMenu_Section_Video,
+                SLocalization.GUI_Menu_OptionsMenu_Section_Volume,
+                SLocalization.GUI_Menu_OptionsMenu_Section_Cursor,
+                SLocalization.GUI_Menu_OptionsMenu_Section_Language
             ];
             this.systemButtonNames = [
-                "Return",
-                "Save",
+                SLocalization.Statements_Return,
+                SLocalization.Statements_Save,
             ];
         }
 

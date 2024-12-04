@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.Elements.Solids.Movables;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Localization.Resources;
 
 namespace StardustSandbox.ContentBundle
 {
@@ -16,42 +17,42 @@ namespace StardustSandbox.ContentBundle
             // [ CATEGORIES ]
             itemDatabase.RegisterCategory(
                 identifier: "powders",
-                displayName: "Powders",
+                displayName: SLocalization.Item_Category_Powders,
                 description: string.Empty,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "liquids",
-                displayName: "Liquids",
+                displayName: SLocalization.Item_Category_Liquids,
                 description: string.Empty,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_3")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "gases",
-                displayName: "Gases",
+                displayName: SLocalization.Item_Category_Gases,
                 description: string.Empty,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_20")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "solids",
-                displayName: "Solids",
+                displayName: SLocalization.Item_Category_Solids,
                 description: string.Empty,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "walls",
-                displayName: "Walls",
+                displayName: SLocalization.Item_Category_Walls,
                 description: string.Empty,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "energies",
-                displayName: "Energies",
+                displayName: SLocalization.Item_Category_Energies,
                 description: string.Empty,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             );
@@ -59,7 +60,7 @@ namespace StardustSandbox.ContentBundle
             // [ ITEMS ]
             itemDatabase.RegisterItem(
                 identifier: "element_dirt",
-                displayName: "Dirt",
+                displayName: SLocalization.Element_Solid_Movable_Dirt_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -69,7 +70,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_mud",
-                displayName: "Mud",
+                displayName: SLocalization.Element_Solid_Movable_Mud_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -79,7 +80,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_water",
-                displayName: "Water",
+                displayName: SLocalization.Element_Liquid_Water_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
@@ -89,7 +90,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_stone",
-                displayName: "Stone",
+                displayName: SLocalization.Element_Solid_Movable_Stone_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -99,7 +100,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_grass",
-                displayName: "Grass",
+                displayName: SLocalization.Element_Solid_Movable_Grass_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -109,7 +110,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_ice",
-                displayName: "Ice",
+                displayName: SLocalization.Element_Solid_Movable_Ice_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -119,7 +120,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_sand",
-                displayName: "Sand",
+                displayName: SLocalization.Element_Solid_Movable_Sand_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -129,7 +130,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_snow",
-                displayName: "Snow",
+                displayName: SLocalization.Element_Solid_Movable_Snow_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -139,7 +140,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_movable_corruption",
-                displayName: "Corruption (Movable)",
+                displayName: SLocalization.Element_Solid_Movable_Corruption_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
@@ -149,7 +150,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_lava",
-                displayName: "Lava",
+                displayName: SLocalization.Element_Liquid_Lava_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
@@ -159,7 +160,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_acid",
-                displayName: "Acid",
+                displayName: SLocalization.Element_Liquid_Acid_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
@@ -169,7 +170,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_glass",
-                displayName: "Glass",
+                displayName: SLocalization.Element_Solid_Immovable_Glass_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -179,7 +180,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_metal",
-                displayName: "Metal",
+                displayName: SLocalization.Element_Solid_Immovable_Metal_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -189,7 +190,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_wall",
-                displayName: "Wall",
+                displayName: SLocalization.Element_Solid_Immovable_Wall_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "walls",
@@ -199,7 +200,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_wood",
-                displayName: "Wood",
+                displayName: SLocalization.Element_Solid_Immovable_Wood_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -209,7 +210,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_gas_corruption",
-                displayName: "Corruption (Gas)",
+                displayName: SLocalization.Element_Gas_Corruption_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "gases",
@@ -219,7 +220,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_liquid_corruption",
-                displayName: "Corruption (Liquid)",
+                displayName: SLocalization.Element_Liquid_Corruption_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
@@ -229,7 +230,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_immovable_corruption",
-                displayName: "Corruption (Immovable)",
+                displayName: SLocalization.Element_Solid_Immovable_Corruption_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -239,7 +240,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_steam",
-                displayName: "Steam",
+                displayName: SLocalization.Element_Gas_Steam_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "gases",
@@ -249,7 +250,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_smoke",
-                displayName: "Smoke",
+                displayName: SLocalization.Element_Gas_Smoke_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "gases",
@@ -259,7 +260,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_red_brick",
-                displayName: "Red Brick",
+                displayName: SLocalization.Element_Solid_Immovable_RedBrick_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -269,7 +270,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_tree_leaf",
-                displayName: "Tree Leaf",
+                displayName: SLocalization.Element_Solid_Immovable_TreeLeaf_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -279,7 +280,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_mounting_block",
-                displayName: "Mounting Block",
+                displayName: SLocalization.Element_Solid_Immovable_MountingBlock_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
@@ -289,7 +290,7 @@ namespace StardustSandbox.ContentBundle
 
             itemDatabase.RegisterItem(
                 identifier: "element_fire",
-                displayName: "Fire",
+                displayName: SLocalization.Element_Energy_Fire_Name,
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "energies",

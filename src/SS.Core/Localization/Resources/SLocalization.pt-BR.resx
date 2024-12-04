@@ -118,75 +118,156 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Element.Solid.Movable.Dirt.Name" xml:space="preserve">
-    <value>Dirt</value>
+    <value>Terra</value>
   </data>
   <data name="Element.Solid.Movable.Mud.Name" xml:space="preserve">
-    <value>Mud</value>
+    <value>Lama</value>
   </data>
   <data name="Element.Liquid.Water.Name" xml:space="preserve">
-    <value>Water</value>
+    <value>Água</value>
   </data>
   <data name="Element.Solid.Movable.Stone.Name" xml:space="preserve">
-    <value>Stone</value>
+    <value>Pedra</value>
   </data>
   <data name="Element.Solid.Movable.Grass.Name" xml:space="preserve">
-    <value>Grass</value>
+    <value>Grama</value>
   </data>
   <data name="Element.Solid.Movable.Ice.Name" xml:space="preserve">
-    <value>Ice</value>
+    <value>Gelo</value>
   </data>
   <data name="Element.Solid.Movable.Sand.Name" xml:space="preserve">
-    <value>Sand</value>
+    <value>Areia</value>
   </data>
   <data name="Element.Solid.Movable.Snow.Name" xml:space="preserve">
-    <value>Snow</value>
+    <value>Neve</value>
   </data>
   <data name="Element.Solid.Movable.Corruption.Name" xml:space="preserve">
-    <value>Corruption (movable)</value>
+    <value>Corrupção (móvel)</value>
   </data>
   <data name="Element.Liquid.Lava.Name" xml:space="preserve">
     <value>Lava</value>
   </data>
   <data name="Element.Liquid.Acid.Name" xml:space="preserve">
-    <value>Acid</value>
+    <value>Ácido</value>
   </data>
   <data name="Element.Solid.Immovable.Glass.Name" xml:space="preserve">
-    <value>Glass</value>
+    <value>Vidro</value>
   </data>
   <data name="Element.Solid.Immovable.Metal.Name" xml:space="preserve">
     <value>Metal</value>
   </data>
   <data name="Element.Solid.Immovable.Wall.Name" xml:space="preserve">
-    <value>Wall</value>
+    <value>Parede</value>
   </data>
   <data name="Element.Solid.Immovable.Wood.Name" xml:space="preserve">
-    <value>Wood</value>
+    <value>Madeira</value>
   </data>
   <data name="Element.Gas.Corruption.Name" xml:space="preserve">
-    <value>Corruption (gas)</value>
+    <value>Corrupção (gás)</value>
   </data>
   <data name="Element.Liquid.Corruption.Name" xml:space="preserve">
-    <value>Corruption (liquid)</value>
+    <value>Corrupção (líquida)</value>
   </data>
   <data name="Element.Solid.Immovable.Corruption.Name" xml:space="preserve">
-    <value>Corruption (immovable)</value>
+    <value>Corrupção (imóvel)</value>
   </data>
   <data name="Element.Gas.Steam.Name" xml:space="preserve">
-    <value>Steam</value>
+    <value>Vapor</value>
   </data>
   <data name="Element.Gas.Smoke.Name" xml:space="preserve">
-    <value>Smoke</value>
+    <value>Fumaça</value>
   </data>
   <data name="Element.Solid.Immovable.RedBrick.Name" xml:space="preserve">
-    <value>Red Brick</value>
+    <value>Tijolo Vermelho</value>
   </data>
   <data name="Element.Solid.Immovable.TreeLeaf.Name" xml:space="preserve">
-    <value>Tree Leaf</value>
+    <value>Folha de Árvore</value>
   </data>
   <data name="Element.Solid.Immovable.MountingBlock.Name" xml:space="preserve">
-    <value>Mounting Block</value>
+    <value>Bloco de Montar</value>
   </data>
   <data name="Element.Energy.Fire.Name" xml:space="preserve">
-    <value>Fire</value>
+    <value>Fogo</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Play" xml:space="preserve">
+    <value>Jogar</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Create" xml:space="preserve">
+    <value>Criar</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Options" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Credits" xml:space="preserve">
+    <value>Créditos</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Quit" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Item.Category.Powders" xml:space="preserve">
+    <value>Móveis</value>
+  </data>
+  <data name="Item.Category.Liquids" xml:space="preserve">
+    <value>Líquidos</value>
+  </data>
+  <data name="Item.Category.Gases" xml:space="preserve">
+    <value>Gases</value>
+  </data>
+  <data name="Item.Category.Solids" xml:space="preserve">
+    <value>Sólidos</value>
+  </data>
+  <data name="Item.Category.Walls" xml:space="preserve">
+    <value>Paredes</value>
+  </data>
+  <data name="Item.Category.Energies" xml:space="preserve">
+    <value>Energias</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Title" xml:space="preserve">
+    <value>OPÇÕES</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.General" xml:space="preserve">
+    <value>Geral</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Video" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Cursor" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Statements.Return" xml:space="preserve">
+    <value>Retornar</value>
+  </data>
+  <data name="Statements.Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Statements.Yes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="Statements.No" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="Statements.True" xml:space="preserve">
+    <value>Verdadeiro</value>
+  </data>
+  <data name="Statements.False" xml:space="preserve">
+    <value>Falso</value>
+  </data>
+  <data name="Statements.False.Short" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="Statements.No.Short" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="Statements.True.Short" xml:space="preserve">
+    <value>V</value>
+  </data>
+  <data name="Statements.Yes.Short" xml:space="preserve">
+    <value>S</value>
   </data>
 </root>

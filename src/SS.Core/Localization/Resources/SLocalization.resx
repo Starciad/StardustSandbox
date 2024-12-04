@@ -189,4 +189,85 @@
   <data name="Element.Energy.Fire.Name" xml:space="preserve">
     <value>Fire</value>
   </data>
+  <data name="GUI.Menu.MainMenu.Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="GUI.Menu.MainMenu.Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="Item.Category.Powders" xml:space="preserve">
+    <value>Powders</value>
+  </data>
+  <data name="Item.Category.Liquids" xml:space="preserve">
+    <value>Liquids</value>
+  </data>
+  <data name="Item.Category.Gases" xml:space="preserve">
+    <value>Gases</value>
+  </data>
+  <data name="Item.Category.Solids" xml:space="preserve">
+    <value>Solids</value>
+  </data>
+  <data name="Item.Category.Walls" xml:space="preserve">
+    <value>Walls</value>
+  </data>
+  <data name="Item.Category.Energies" xml:space="preserve">
+    <value>Energies</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Title" xml:space="preserve">
+    <value>OPTIONS</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Cursor" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Statements.Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="Statements.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Statements.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Statements.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Statements.True" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Statements.False" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Statements.False.Short" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="Statements.No.Short" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="Statements.True.Short" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Statements.Yes.Short" xml:space="preserve">
+    <value>Y</value>
+  </data>
 </root>
