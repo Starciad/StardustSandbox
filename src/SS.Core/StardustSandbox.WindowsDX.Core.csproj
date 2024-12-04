@@ -42,6 +42,20 @@
 	<ItemGroup>
 		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
 	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="resources\Localization\SLocalization.en-US.resx">
+	    <CustomToolNamespace>ResXFileCodeGenerator</CustomToolNamespace>
+	    <Generator></Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="resources\Localization\SLocalization.pt-BR.resx">
+	    <CustomToolNamespace>ResXFileCodeGenerator</CustomToolNamespace>
+	    <Generator></Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="resources\Localization\SLocalization.resx">
+	    <CustomToolNamespace>ResXFileCodeGenerator</CustomToolNamespace>
+	    <Generator></Generator>
+	  </EmbeddedResource>
+	</ItemGroup>
 	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
