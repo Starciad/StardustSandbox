@@ -6,8 +6,9 @@ using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
+using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Models.Settings;
+using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.Plugins;
 using StardustSandbox.Core.World;
 
@@ -72,14 +73,19 @@ namespace StardustSandbox.Core
         {
             this.graphicsManager = new(this, new GraphicsDeviceManager(this));
 
+            // Load Settings
+            SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+
             // Initialize Content
             this.Content.RootDirectory = SDirectoryConstants.ASSETS;
 
             // Configure the game's window
-            UpdateGameSettings();
+            this.Window.IsBorderless = videoSettings.Borderless;
             this.Window.Title = SGameConstants.GetTitleAndVersionString();
+            this.Window.AllowUserResizing = true;
 
             // Configure game settings
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / videoSettings.FrameRate);
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
@@ -109,14 +115,6 @@ namespace StardustSandbox.Core
         public void RegisterPlugin(SPluginBuilder pluginBuilder)
         {
             this.pluginBuilders.Add(pluginBuilder);
-        }
-
-        public void UpdateGameSettings()
-        {
-            SGraphicsSettings graphicsSettings = SSystemSettingsFile.GetGraphicsSettings();
-            this.Window.AllowUserResizing = graphicsSettings.Resizable;
-            this.Window.IsBorderless = graphicsSettings.Borderless;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / graphicsSettings.Framerate);
         }
 
         public void Quit()

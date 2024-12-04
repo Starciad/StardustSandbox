@@ -5,44 +5,50 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Windows.Forms;
 
-namespace StardustSandbox.Core.Models.Settings
+namespace StardustSandbox.Core.IO.Files.Settings
 {
     [MessagePackObject]
-    public struct SGraphicsSettings
+    public sealed class SVideoSettings : SSettings
     {
+        [IgnoreMember]
+        public SSize2 Resolution => new(this.ScreenWidth, this.ScreenHeight);
+
         [Key(0)]
-        public int ScreenWidth { get; set; }
+        public ushort ScreenWidth { get; set; }
 
         [Key(1)]
-        public int ScreenHeight { get; set; }
+        public ushort ScreenHeight { get; set; }
 
         [Key(2)]
-        public bool Resizable { get; set; }
-
-        [Key(3)]
         public bool FullScreen { get; set; }
 
-        [Key(4)]
-        public float Framerate { get; set; }
+        [Key(3)]
+        public uint FrameRate { get; set; }
 
-        [Key(5)]
+        [Key(4)]
         public bool VSync { get; set; }
 
-        [Key(6)]
+        [Key(5)]
         public bool Borderless { get; set; }
 
-        public SGraphicsSettings()
+        public SVideoSettings()
         {
             SSize2 monitorResolution = GetMonitorResolution();
             SSize2 autoResolution = GetAutoResolution(monitorResolution);
 
-            this.ScreenWidth = autoResolution.Width;
-            this.ScreenHeight = autoResolution.Height;
-            this.Resizable = true;
+            this.ScreenWidth = (ushort)autoResolution.Width;
+            this.ScreenHeight = (ushort)autoResolution.Height;
             this.FullScreen = false;
-            this.Framerate = 60f;
+            this.FrameRate = 60;
             this.VSync = false;
             this.Borderless = false;
+        }
+
+        private static SSize2 GetMonitorResolution()
+        {
+            int width = Screen.PrimaryScreen.Bounds.Width;
+            int height = Screen.PrimaryScreen.Bounds.Height;
+            return new SSize2(width, height);
         }
 
         private static SSize2 GetAutoResolution(SSize2 monitorResolution)
@@ -58,13 +64,6 @@ namespace StardustSandbox.Core.Models.Settings
             }
 
             return SScreenConstants.RESOLUTIONS[0];
-        }
-
-        private static SSize2 GetMonitorResolution()
-        {
-            int width = Screen.PrimaryScreen.Bounds.Width;
-            int height = Screen.PrimaryScreen.Bounds.Height;
-            return new SSize2(width, height);
         }
     }
 }

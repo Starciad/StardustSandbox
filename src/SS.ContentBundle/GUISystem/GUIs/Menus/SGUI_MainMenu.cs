@@ -19,6 +19,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_MainMenu : SGUISystem
     {
+        private enum SMainMenuButtonIndex : byte
+        {
+            Create = 0,
+            Play = 1,
+            Options = 2,
+            Credits = 3,
+            Quit = 4
+        }
+
         private Vector2 originalGameTitleElementPosition;
 
         private const float animationSpeed = 2f;

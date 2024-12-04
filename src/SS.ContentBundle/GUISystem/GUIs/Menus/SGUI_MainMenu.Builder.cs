@@ -12,15 +12,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_MainMenu
     {
-        private enum SMainMenuButtonIndex : byte
-        {
-            Create = 0,
-            Play = 1,
-            Options = 2,
-            Credits = 3,
-            Quit = 4
-        }
-
         private ISGUILayoutBuilder layout;
 
         private SGUIImageElement panelBackgroundElement;

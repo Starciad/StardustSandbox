@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.ContentBundle;
 using StardustSandbox.Core;
 using StardustSandbox.Core.IO;
+using StardustSandbox.Core.Managers.IO;
 
 using System;
 
@@ -25,7 +26,7 @@ namespace StardustSandbox.Game
 #endif
 
             SDirectory.Initialize();
-            SSystemSettingsFile.Initialize();
+            SSettingsManager.Initialize();
 
 #if DEBUG
             EXECUTE_DEBUG_VERSION();

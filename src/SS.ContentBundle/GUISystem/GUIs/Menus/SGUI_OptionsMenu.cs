@@ -10,12 +10,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     public sealed partial class SGUI_OptionsMenu : SGUISystem
     {
-        private enum SMenuOption : byte
+        private enum SMenuSection : byte
         {
             General = 0,
             Video = 1,
             Volume = 2,
             Cursor = 3,
+            Language = 4
         }
 
         private enum SSystemButton : byte
@@ -44,6 +45,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 "Video",
                 "Volume",
                 "Cursor",
+                "Language"
             ];
             this.systemButtonNames = [
                 "Return",

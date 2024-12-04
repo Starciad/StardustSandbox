@@ -2,15 +2,15 @@
 
 using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.Core.Models.Settings
+namespace StardustSandbox.Core.IO.Files.Settings
 {
     [MessagePackObject]
-    public struct SCursorSettings
+    public sealed class SCursorSettings : SSettings
     {
         [IgnoreMember]
         public Color Color
         {
-            readonly get => new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
+            get => new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
 
             set
             {
@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Models.Settings
         [IgnoreMember]
         public Color BackgroundColor
         {
-            readonly get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.BackgroundColorA);
+            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.BackgroundColorA);
 
             set
             {

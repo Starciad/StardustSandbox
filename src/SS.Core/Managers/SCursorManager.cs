@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Models.Settings;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Managers
 
         public void UpdateCursorSettings()
         {
-            SCursorSettings cursorSettings = SSystemSettingsFile.GetCursorSettings();
+            SCursorSettings cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
 
             this.cursorScale = new(cursorSettings.Scale);
             this.cursorColor = cursorSettings.Color;
