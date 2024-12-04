@@ -27,12 +27,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.titleName = "OPTIONS";
             this.sectionNames = [
                 "General",
-                "UI",
                 "Video",
                 "Volume",
                 "Cursor",
-                "Controls",
-                "Language"
             ];
             this.returnButtonName = "Return";
         }

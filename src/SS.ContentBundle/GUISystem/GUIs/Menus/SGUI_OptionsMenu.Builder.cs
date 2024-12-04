@@ -15,12 +15,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private enum SMenuOption : byte
         {
             General = 0,
-            UI = 1,
-            Video = 2,
-            Volume = 3,
-            Cursor = 4,
-            Controls = 5,
-            Language = 6
+            Video = 1,
+            Volume = 2,
+            Cursor = 3,
         }
 
         private ISGUILayoutBuilder layout;
@@ -31,8 +28,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SGUISliceImageElement leftPanelBackground;
         private SGUISliceImageElement rightPanelBackground;
 
-        private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[7];
-        private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[7];
+        private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[4];
+        private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[4];
         private SGUILabelElement returnButtonElement;
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
@@ -189,52 +186,32 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void BuildSections()
         {
             BuildGeneralSection();
-            BuildUISection();
             BuildVideoSection();
             BuildVolumeSection();
             BuildCursorSection();
-            BuildCuntrolsSection();
-            BuildLanguageSection();
         }
 
         private void BuildGeneralSection()
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
-            SGUILabelElement labelElement = new(this.SGameInstance)
-            {
-                Scale = defaultButtonScale,
-                Margin = new Vector2(0f, -4f),
-                Color = SColorPalette.White,
-                BorderOffset = defaultButtonBorderOffset,
-                PositionAnchor = SCardinalDirection.Center,
-                OriginPivot = SCardinalDirection.Center
-            };
-
-            labelElement.SetTextContent("Test");
-            labelElement.SetBorders(true);
-            labelElement.SetBordersColor(SColorPalette.DarkGray);
-            labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
-            // labelElement.PositionRelativeToElement(this.rightPanelBackground);
-            labelElement.PositionRelativeToScreen();
-
-            container.AddElement(labelElement);
+            // [ FIELDS ]
+            // 1. Language Option
 
             this.sectionContainers[(byte)SMenuOption.General] = container;
-            this.layout.AddElement(container);
-        }
-
-        private void BuildUISection()
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            this.sectionContainers[(byte)SMenuOption.UI] = container;
             this.layout.AddElement(container);
         }
 
         private void BuildVideoSection()
         {
             SGUIContainerElement container = new(this.SGameInstance);
+
+            // [ FIELDS ]
+            // 1. Resolution
+            // 2. Fullscreen
+            // 3. VSync
+            // 4. MaxFrameRate
+            // 5. Borderless
 
             this.sectionContainers[(byte)SMenuOption.Video] = container;
             this.layout.AddElement(container);
@@ -244,6 +221,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
+            // [ FIELDS ]
+            // 1. MasterVolume
+            // 2. MusicVolume
+            // 3. SFXVolume
+
             this.sectionContainers[(byte)SMenuOption.Volume] = container;
             this.layout.AddElement(container);
         }
@@ -252,23 +234,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
+            // [ FIELDS ]
+            // 1. CursorColor
+            // 2. CursorBackgroundColor
+            // 3. CursorScale
+
             this.sectionContainers[(byte)SMenuOption.Cursor] = container;
-            this.layout.AddElement(container);
-        }
-
-        private void BuildCuntrolsSection()
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            this.sectionContainers[(byte)SMenuOption.Controls] = container;
-            this.layout.AddElement(container);
-        }
-
-        private void BuildLanguageSection()
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            this.sectionContainers[(byte)SMenuOption.Language] = container;
             this.layout.AddElement(container);
         }
     }
