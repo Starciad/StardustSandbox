@@ -8,6 +8,8 @@ using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
