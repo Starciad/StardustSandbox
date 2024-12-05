@@ -64,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             {
                 if (border.Value.IsEnabled)
                 {
-                    Vector2 offset = (GetBorderOffset(border.Key) * scale) + border.Value.Offset;
+                    Vector2 offset = GetBorderOffset(border.Key) * border.Value.Offset;
                     spriteBatch.DrawString(spriteFont, text, position + offset, border.Value.Color, rotation, origin, scale, effects, 0f);
                 }
             }
