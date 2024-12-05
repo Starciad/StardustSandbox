@@ -13,97 +13,54 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
     public sealed class SGUITextElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {
-        private sealed class TextLine(SpriteFont spriteFont)
+        public SSize2F TextAreaSize { get; set; }
+        public float LineHeight { get; set; } = 1.0f;
+        public float WordSpacing { get; set; } = 0.0f;
+
+        private readonly List<string> wrappedLines = [];
+
+        public override void SetTextualContent(string value)
         {
-            public IEnumerable<TextWord> Words => this.words;
-
-            private readonly List<TextWord> words = [];
-            private readonly SpriteFont spriteFont = spriteFont;
-
-            public void AddWord(string value)
-            {
-                this.words.Add(new(this.spriteFont, value));
-            }
+            base.SetTextualContent(value);
+            WrapText();
         }
 
-        private sealed class TextWord(SpriteFont spriteFont, string content)
+        private void WrapText()
         {
-            public int Length => content.Length;
-            public string Content => content;
+            this.wrappedLines.Clear();
+            string[] words = this.Content.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            StringBuilder lineBuilder = new();
+            float spaceWidth = this.SpriteFont.MeasureString(" ").X * this.Scale.X;
 
-            private readonly SpriteFont spriteFont = spriteFont;
-
-            public SSize2F GetSize()
+            foreach (string word in words)
             {
-                Vector2 measureString = this.spriteFont.MeasureString(this.Content);
+                float measureString = this.SpriteFont.MeasureString(lineBuilder + word).X * this.Scale.X;
 
-                return new(measureString.X, measureString.Y);
-            }
-        }
-
-        private readonly StringBuilder textStringBuilder = new();
-        private readonly Rectangle textRectangle = new();
-
-        private readonly float lineHeight;
-        private readonly float wordSpacing;
-
-        private readonly List<TextLine> textLines = [];
-
-        public void SetTextContent(string value)
-        {
-            this.textLines.Clear();
-
-            float initialXPositioin = this.Position.X;
-            float currentXPosition = this.Position.X;
-
-            float horizontalWrapperPosition = this.textRectangle.Left;
-
-            string[] words = value.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-            TextLine line = new(this.SpriteFont);
-
-            for (int i = 0; i < words.Length; i++)
-            {
-                Vector2 measuredString = this.SpriteFont.MeasureString(words[i]);
-
-                // Break Text
-                if (currentXPosition + measuredString.X > horizontalWrapperPosition)
+                if (measureString + spaceWidth >= this.TextAreaSize.Width)
                 {
-                    currentXPosition = initialXPositioin;
-
-                    this.textLines.Add(line);
-                    continue;
+                    this.wrappedLines.Add(lineBuilder.ToString().TrimEnd());
+                    _ = lineBuilder.Clear();
                 }
 
-                line.AddWord(words[i]);
+                _ = lineBuilder.Append(word + " ");
+            }
+            
+            if (lineBuilder.Length > 0)
+            {
+                this.wrappedLines.Add(lineBuilder.ToString().TrimEnd());
             }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            float initialXPosition = this.Position.X;
+            float yPosition = this.Position.Y;
 
-            Vector2 currentPosition = this.Position;
-
-            foreach (TextLine line in this.textLines)
+            foreach (string line in this.wrappedLines)
             {
-                foreach (TextWord word in line.Words)
-                {
-                    SSize2 size = word.GetSize();
-                    float xPosition = currentPosition.X + size.Width + this.wordSpacing;
+                float xPosition = this.Position.X;
 
-                    if (xPosition > this.textRectangle.Left)
-                    {
-                        currentPosition.X = initialXPosition;
-                        currentPosition.Y += this.lineHeight;
-                    }
-                    else
-                    {
-                        currentPosition.X = xPosition;
-                    }
-
-                    spriteBatch.DrawString(this.SpriteFont, word.Content, currentPosition, this.Color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(word.Content, this.OriginPivot), this.Scale, this.SpriteEffects, 0f, false);
-                }
+                spriteBatch.DrawString(this.SpriteFont, line, new Vector2(xPosition, yPosition), this.Color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(line, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
+                yPosition += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
             }
         }
     }

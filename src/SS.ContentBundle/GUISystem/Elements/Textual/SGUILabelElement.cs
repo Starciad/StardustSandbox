@@ -5,8 +5,6 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System.Text;
-
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
     public class SGUILabelElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
@@ -24,8 +22,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         public Color BottomRightBorderColor { get; set; }
 
         public Vector2 BorderOffset { get; set; }
-
-        private readonly StringBuilder textStringBuilder = new();
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -52,30 +48,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
                 }
             }
 
-            spriteBatch.DrawString(this.SpriteFont, this.textStringBuilder, this.Position, this.Color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(this.textStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
+            spriteBatch.DrawString(this.SpriteFont, this.ContentStringBuilder, this.Position, this.Color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(this.ContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
         }
 
         private void DrawTextWithBorder(SpriteBatch spriteBatch, Color color, float xOffset, float yOffset)
         {
             Vector2 offset = new(xOffset, yOffset);
-            spriteBatch.DrawString(this.SpriteFont, this.textStringBuilder, this.Position + offset, color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(this.textStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
-        }
-
-        public SSize2 GetMeasureStringSize()
-        {
-            Vector2 result = this.SpriteFont.MeasureString(this.textStringBuilder) * this.Scale / 2f;
-            return new((int)result.X, (int)result.Y);
-        }
-
-        public void AppendTextContent(string value)
-        {
-            _ = this.textStringBuilder.Append(value);
-        }
-
-        public void SetTextContent(string value)
-        {
-            _ = this.textStringBuilder.Clear();
-            _ = this.textStringBuilder.Append(value);
+            spriteBatch.DrawString(this.SpriteFont, this.ContentStringBuilder, this.Position + offset, color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(this.ContentStringBuilder, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
         }
 
         public void SetBorders(bool value)

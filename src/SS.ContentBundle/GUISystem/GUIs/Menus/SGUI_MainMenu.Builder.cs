@@ -75,11 +75,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             };
 
             gameVersionLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            gameVersionLabel.SetTextContent($"Ver. {SGameConstants.VERSION}");
+            gameVersionLabel.SetTextualContent($"Ver. {SGameConstants.VERSION}");
             gameVersionLabel.PositionRelativeToScreen();
 
             copyrightLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            copyrightLabel.SetTextContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
+            copyrightLabel.SetTextualContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
             copyrightLabel.PositionRelativeToScreen();
 
             this.layout.AddElement(gameVersionLabel);
@@ -119,7 +119,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     OriginPivot = SCardinalDirection.Center
                 };
 
-                labelElement.SetTextContent(this.menuButtonNames[i]);
+                labelElement.SetTextualContent(this.menuButtonNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(SColorPalette.DarkGray);
                 labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);

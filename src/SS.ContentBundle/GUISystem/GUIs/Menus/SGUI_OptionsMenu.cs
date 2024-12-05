@@ -72,7 +72,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 SGUILabelElement labelElement = this.sectionButtonElements[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize()))
                 {
                     SelectSection(i);
                 }
@@ -83,19 +83,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     continue;
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize()) ? Color.Yellow : Color.White;
             }
 
             for (byte i = 0; i < this.systemButtonElements.Length; i++)
             {
                 SGUILabelElement labelElement = this.systemButtonElements[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize()))
                 {
                     // (Actions will still be added.)
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize()) ? Color.Yellow : Color.White;
             }
         }
 

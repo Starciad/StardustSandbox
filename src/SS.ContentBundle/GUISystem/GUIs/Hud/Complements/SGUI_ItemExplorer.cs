@@ -105,7 +105,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void SelectItemCatalog(SItemCategory category, int pageIndex)
         {
-            this.explorerTitleLabel.SetTextContent(category.DisplayName);
+            this.explorerTitleLabel.SetTextualContent(category.DisplayName);
 
             this.selectedCategoryName = category.Identifier;
             this.selectedPageIndex = pageIndex;

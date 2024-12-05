@@ -111,7 +111,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 OriginPivot = SCardinalDirection.Center
             };
 
-            this.titleLabel.SetTextContent(this.titleName);
+            this.titleLabel.SetTextualContent(this.titleName);
             this.titleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.titleLabel.SetBorders(true);
             this.titleLabel.SetBordersColor(SColorPalette.DarkGray);
@@ -138,7 +138,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     OriginPivot = SCardinalDirection.Center
                 };
 
-                labelElement.SetTextContent(this.sectionNames[i]);
+                labelElement.SetTextualContent(this.sectionNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(SColorPalette.DarkGray);
                 labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
@@ -167,7 +167,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     OriginPivot = SCardinalDirection.Center
                 };
 
-                labelElement.SetTextContent(this.systemButtonNames[i]);
+                labelElement.SetTextualContent(this.systemButtonNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(SColorPalette.DarkGray);
                 labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);

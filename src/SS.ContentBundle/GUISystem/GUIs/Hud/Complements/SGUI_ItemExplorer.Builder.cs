@@ -68,7 +68,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 BorderOffset = new Vector2(4.4f)
             };
 
-            this.explorerTitleLabel.SetTextContent("TITLE");
+            this.explorerTitleLabel.SetTextualContent("TITLE");
             this.explorerTitleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.explorerTitleLabel.SetBorders(true);
             this.explorerTitleLabel.SetBordersColor(new Color(45, 53, 74, 255));
