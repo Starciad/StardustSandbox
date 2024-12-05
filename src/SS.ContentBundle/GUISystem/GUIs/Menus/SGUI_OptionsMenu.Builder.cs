@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Tools.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.GUISystem.Elements;
-using StardustSandbox.Core.GUISystem.Elements.Graphics;
-using StardustSandbox.Core.GUISystem.Tools.Options;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 

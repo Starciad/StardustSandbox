@@ -42,23 +42,6 @@
 	<ItemGroup>
 		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Compile Update="Localization\Resources\SLocalization.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>SLocalization.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<!-- RESOURCES -->
-
-	<!-- RESOURCES (COMPILES) -->
-	<ItemGroup>
-		<EmbeddedResource Update="Localization\Resources\SLocalization.resx">
-			<LastGenOutput>SLocalization.Designer.cs</LastGenOutput>
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-	</ItemGroup>
 
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

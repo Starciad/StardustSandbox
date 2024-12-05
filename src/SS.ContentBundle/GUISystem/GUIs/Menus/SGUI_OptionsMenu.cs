@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements;
+using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Localization.Resources;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {

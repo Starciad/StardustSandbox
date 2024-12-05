@@ -1,11 +1,9 @@
 ﻿using StardustSandbox.ContentBundle;
 using StardustSandbox.Core;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
-using StardustSandbox.Core.Localization;
-using StardustSandbox.Core.Localization.Resources;
 using StardustSandbox.Core.Managers.IO;
+using StardustSandbox.Core.Managers.Localization;
 
 using System;
 using System.Globalization;
@@ -35,8 +33,7 @@ namespace StardustSandbox.Game
 
             SDirectory.Initialize();
             SSettingsManager.Initialize();
-
-            SetGameCulture();
+            SLocalizationManager.SetGameCulture(SSettingsManager.LoadSettings<SLanguageSettings>().GameCulture);
 
 #if DEBUG
             EXECUTE_DEBUG_VERSION();
@@ -90,16 +87,5 @@ namespace StardustSandbox.Game
 #endif
         }
 #endif
-
-        private static void SetGameCulture()
-        {
-            SLanguageSettings languageSettings = SSettingsManager.LoadSettings<SLanguageSettings>();
-
-            CultureInfo cultureInfo = new(languageSettings.GameCulture.Name);
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-
-            SLocalization.Culture = cultureInfo;
-        }
     }
 }

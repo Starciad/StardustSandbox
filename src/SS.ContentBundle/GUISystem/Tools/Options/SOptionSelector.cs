@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.GUISystem.Tools.Options
+namespace StardustSandbox.ContentBundle.GUISystem.Tools.Options
 {
     public sealed class SOptionSelector : ISReset
     {

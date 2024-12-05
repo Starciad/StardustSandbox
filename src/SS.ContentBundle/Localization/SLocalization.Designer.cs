@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StardustSandbox.Core.Localization.Resources {
+namespace StardustSandbox.ContentBundle.Localization {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace StardustSandbox.Core.Localization.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SLocalization {
+    internal class SLocalization {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace StardustSandbox.Core.Localization.Resources {
         ///   Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StardustSandbox.Core.Localization.Resources.SLocalization", typeof(SLocalization).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StardustSandbox.ContentBundle.Localization.SLocalization", typeof(SLocalization).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         ///   pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Fire.
         /// </summary>
-        public static string Element_Energy_Fire_Name {
+        internal static string Element_Energy_Fire_Name {
             get {
                 return ResourceManager.GetString("Element.Energy.Fire.Name", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Corruption (gas).
         /// </summary>
-        public static string Element_Gas_Corruption_Name {
+        internal static string Element_Gas_Corruption_Name {
             get {
                 return ResourceManager.GetString("Element.Gas.Corruption.Name", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Smoke.
         /// </summary>
-        public static string Element_Gas_Smoke_Name {
+        internal static string Element_Gas_Smoke_Name {
             get {
                 return ResourceManager.GetString("Element.Gas.Smoke.Name", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Steam.
         /// </summary>
-        public static string Element_Gas_Steam_Name {
+        internal static string Element_Gas_Steam_Name {
             get {
                 return ResourceManager.GetString("Element.Gas.Steam.Name", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Acid.
         /// </summary>
-        public static string Element_Liquid_Acid_Name {
+        internal static string Element_Liquid_Acid_Name {
             get {
                 return ResourceManager.GetString("Element.Liquid.Acid.Name", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Corruption (liquid).
         /// </summary>
-        public static string Element_Liquid_Corruption_Name {
+        internal static string Element_Liquid_Corruption_Name {
             get {
                 return ResourceManager.GetString("Element.Liquid.Corruption.Name", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Lava.
         /// </summary>
-        public static string Element_Liquid_Lava_Name {
+        internal static string Element_Liquid_Lava_Name {
             get {
                 return ResourceManager.GetString("Element.Liquid.Lava.Name", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Water.
         /// </summary>
-        public static string Element_Liquid_Water_Name {
+        internal static string Element_Liquid_Water_Name {
             get {
                 return ResourceManager.GetString("Element.Liquid.Water.Name", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Corruption (immovable).
         /// </summary>
-        public static string Element_Solid_Immovable_Corruption_Name {
+        internal static string Element_Solid_Immovable_Corruption_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Corruption.Name", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Glass.
         /// </summary>
-        public static string Element_Solid_Immovable_Glass_Name {
+        internal static string Element_Solid_Immovable_Glass_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Glass.Name", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Metal.
         /// </summary>
-        public static string Element_Solid_Immovable_Metal_Name {
+        internal static string Element_Solid_Immovable_Metal_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Metal.Name", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Mounting Block.
         /// </summary>
-        public static string Element_Solid_Immovable_MountingBlock_Name {
+        internal static string Element_Solid_Immovable_MountingBlock_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.MountingBlock.Name", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Red Brick.
         /// </summary>
-        public static string Element_Solid_Immovable_RedBrick_Name {
+        internal static string Element_Solid_Immovable_RedBrick_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.RedBrick.Name", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Tree Leaf.
         /// </summary>
-        public static string Element_Solid_Immovable_TreeLeaf_Name {
+        internal static string Element_Solid_Immovable_TreeLeaf_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.TreeLeaf.Name", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Wall.
         /// </summary>
-        public static string Element_Solid_Immovable_Wall_Name {
+        internal static string Element_Solid_Immovable_Wall_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Wall.Name", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Wood.
         /// </summary>
-        public static string Element_Solid_Immovable_Wood_Name {
+        internal static string Element_Solid_Immovable_Wood_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Wood.Name", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Corruption (movable).
         /// </summary>
-        public static string Element_Solid_Movable_Corruption_Name {
+        internal static string Element_Solid_Movable_Corruption_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Corruption.Name", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Dirt.
         /// </summary>
-        public static string Element_Solid_Movable_Dirt_Name {
+        internal static string Element_Solid_Movable_Dirt_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Dirt.Name", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Grass.
         /// </summary>
-        public static string Element_Solid_Movable_Grass_Name {
+        internal static string Element_Solid_Movable_Grass_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Grass.Name", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Ice.
         /// </summary>
-        public static string Element_Solid_Movable_Ice_Name {
+        internal static string Element_Solid_Movable_Ice_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Ice.Name", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Mud.
         /// </summary>
-        public static string Element_Solid_Movable_Mud_Name {
+        internal static string Element_Solid_Movable_Mud_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Mud.Name", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Sand.
         /// </summary>
-        public static string Element_Solid_Movable_Sand_Name {
+        internal static string Element_Solid_Movable_Sand_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Sand.Name", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Snow.
         /// </summary>
-        public static string Element_Solid_Movable_Snow_Name {
+        internal static string Element_Solid_Movable_Snow_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Snow.Name", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Stone.
         /// </summary>
-        public static string Element_Solid_Movable_Stone_Name {
+        internal static string Element_Solid_Movable_Stone_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Stone.Name", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Create.
         /// </summary>
-        public static string GUI_Menu_MainMenu_Create {
+        internal static string GUI_Menu_MainMenu_Create {
             get {
                 return ResourceManager.GetString("GUI.Menu.MainMenu.Create", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Credits.
         /// </summary>
-        public static string GUI_Menu_MainMenu_Credits {
+        internal static string GUI_Menu_MainMenu_Credits {
             get {
                 return ResourceManager.GetString("GUI.Menu.MainMenu.Credits", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Options.
         /// </summary>
-        public static string GUI_Menu_MainMenu_Options {
+        internal static string GUI_Menu_MainMenu_Options {
             get {
                 return ResourceManager.GetString("GUI.Menu.MainMenu.Options", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Play.
         /// </summary>
-        public static string GUI_Menu_MainMenu_Play {
+        internal static string GUI_Menu_MainMenu_Play {
             get {
                 return ResourceManager.GetString("GUI.Menu.MainMenu.Play", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Quit.
         /// </summary>
-        public static string GUI_Menu_MainMenu_Quit {
+        internal static string GUI_Menu_MainMenu_Quit {
             get {
                 return ResourceManager.GetString("GUI.Menu.MainMenu.Quit", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cursor.
         /// </summary>
-        public static string GUI_Menu_OptionsMenu_Section_Cursor {
+        internal static string GUI_Menu_OptionsMenu_Section_Cursor {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Cursor", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a General.
         /// </summary>
-        public static string GUI_Menu_OptionsMenu_Section_General {
+        internal static string GUI_Menu_OptionsMenu_Section_General {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.General", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
         /// </summary>
-        public static string GUI_Menu_OptionsMenu_Section_Language {
+        internal static string GUI_Menu_OptionsMenu_Section_Language {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Language", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Video.
         /// </summary>
-        public static string GUI_Menu_OptionsMenu_Section_Video {
+        internal static string GUI_Menu_OptionsMenu_Section_Video {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Video", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Volume.
         /// </summary>
-        public static string GUI_Menu_OptionsMenu_Section_Volume {
+        internal static string GUI_Menu_OptionsMenu_Section_Volume {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Volume", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a OPTIONS.
         /// </summary>
-        public static string GUI_Menu_OptionsMenu_Title {
+        internal static string GUI_Menu_OptionsMenu_Title {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Title", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Energies.
         /// </summary>
-        public static string Item_Category_Energies {
+        internal static string Item_Category_Energies {
             get {
                 return ResourceManager.GetString("Item.Category.Energies", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Gases.
         /// </summary>
-        public static string Item_Category_Gases {
+        internal static string Item_Category_Gases {
             get {
                 return ResourceManager.GetString("Item.Category.Gases", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Liquids.
         /// </summary>
-        public static string Item_Category_Liquids {
+        internal static string Item_Category_Liquids {
             get {
                 return ResourceManager.GetString("Item.Category.Liquids", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Powders.
         /// </summary>
-        public static string Item_Category_Powders {
+        internal static string Item_Category_Powders {
             get {
                 return ResourceManager.GetString("Item.Category.Powders", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Solids.
         /// </summary>
-        public static string Item_Category_Solids {
+        internal static string Item_Category_Solids {
             get {
                 return ResourceManager.GetString("Item.Category.Solids", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Walls.
         /// </summary>
-        public static string Item_Category_Walls {
+        internal static string Item_Category_Walls {
             get {
                 return ResourceManager.GetString("Item.Category.Walls", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a False.
         /// </summary>
-        public static string Statements_False {
+        internal static string Statements_False {
             get {
                 return ResourceManager.GetString("Statements.False", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a F.
         /// </summary>
-        public static string Statements_False_Short {
+        internal static string Statements_False_Short {
             get {
                 return ResourceManager.GetString("Statements.False.Short", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a No.
         /// </summary>
-        public static string Statements_No {
+        internal static string Statements_No {
             get {
                 return ResourceManager.GetString("Statements.No", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a N.
         /// </summary>
-        public static string Statements_No_Short {
+        internal static string Statements_No_Short {
             get {
                 return ResourceManager.GetString("Statements.No.Short", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Return.
         /// </summary>
-        public static string Statements_Return {
+        internal static string Statements_Return {
             get {
                 return ResourceManager.GetString("Statements.Return", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Save.
         /// </summary>
-        public static string Statements_Save {
+        internal static string Statements_Save {
             get {
                 return ResourceManager.GetString("Statements.Save", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a True.
         /// </summary>
-        public static string Statements_True {
+        internal static string Statements_True {
             get {
                 return ResourceManager.GetString("Statements.True", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a T.
         /// </summary>
-        public static string Statements_True_Short {
+        internal static string Statements_True_Short {
             get {
                 return ResourceManager.GetString("Statements.True.Short", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Yes.
         /// </summary>
-        public static string Statements_Yes {
+        internal static string Statements_Yes {
             get {
                 return ResourceManager.GetString("Statements.Yes", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace StardustSandbox.Core.Localization.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Y.
         /// </summary>
-        public static string Statements_Yes_Short {
+        internal static string Statements_Yes_Short {
             get {
                 return ResourceManager.GetString("Statements.Yes.Short", resourceCulture);
             }

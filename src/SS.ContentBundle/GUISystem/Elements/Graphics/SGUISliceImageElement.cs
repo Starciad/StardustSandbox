@@ -5,7 +5,7 @@ using StardustSandbox.Core.Constants.GUI.Elements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.General;
 
-namespace StardustSandbox.Core.GUISystem.Elements.Graphics
+namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
 {
     public sealed class SGUISliceImageElement : SGUIGraphicElement
     {
