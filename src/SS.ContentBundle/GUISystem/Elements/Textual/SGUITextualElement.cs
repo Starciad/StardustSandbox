@@ -14,7 +14,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
     public abstract class SGUITextualElement : SGUIElement
     {
-        public SpriteFont SpriteFont { get; private set; }
+        public SpriteFont SpriteFont { get; set; }
         public string Content => this.contentStringBuilder.ToString();
         protected StringBuilder ContentStringBuilder => this.contentStringBuilder;
 
@@ -68,11 +68,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
                     spriteBatch.DrawString(spriteFont, text, position + offset, border.Value.Color, rotation, origin, scale, effects, 0f);
                 }
             }
-        }
-
-        public void SetSpriteFont(string spriteFontName)
-        {
-            this.SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(spriteFontName);
         }
 
         public virtual void SetTextualContent(string value)

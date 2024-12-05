@@ -24,9 +24,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Experimental
                 WordSpacing = 5f,
                 PositionAnchor = SCardinalDirection.Center,
                 OriginPivot = SCardinalDirection.Center,
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.COMIC_SANS_MS)
             };
 
-            textElement.SetSpriteFont(SFontFamilyConstants.COMIC_SANS_MS);
             textElement.SetTextualContent("Welcome to the Stardust Sandbox! This is an example of rendering text with word wrap and alignment.");
             textElement.SetAllBorders(true, Color.Black, new(2f));
             textElement.PositionRelativeToScreen();

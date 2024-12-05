@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
@@ -14,6 +15,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
     {
         private ISGUILayoutBuilder layout;
 
+        private SGUITooltipBoxElement tooltipBox;
+
         private SGUIImageElement topToolbarContainer;
         private SGUIImageElement leftToolbarContainer;
         private SGUIImageElement rightToolbarContainer;
@@ -23,11 +26,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private readonly Color toolbarContainerColor = new(Color.White, 32);
 
+
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;
 
+            BuildTooltipBox();
             BuildToolbars();
+        }
+
+        private void BuildTooltipBox()
+        {
+            this.tooltipBox = new(this.SGameInstance);
+
+            this.tooltipBox.SetTitle("Title");
+            this.tooltipBox.SetDescription("Description");
+
+            this.layout.AddElement(this.tooltipBox);
         }
 
         private void BuildToolbars()

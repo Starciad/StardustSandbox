@@ -107,11 +107,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Margin = new Vector2(0f, 52.5f),
                 Color = SColorPalette.White,
                 PositionAnchor = SCardinalDirection.North,
-                OriginPivot = SCardinalDirection.Center
+                OriginPivot = SCardinalDirection.Center,
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
             };
 
             this.titleLabel.SetTextualContent(this.titleName);
-            this.titleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4.4f));
             this.titleLabel.PositionRelativeToScreen();
 
@@ -132,12 +132,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Margin = baseMargin,
                     Color = SColorPalette.White,
                     PositionAnchor = SCardinalDirection.North,
-                    OriginPivot = SCardinalDirection.Center
+                    OriginPivot = SCardinalDirection.Center,
+                    SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
                 };
 
                 labelElement.SetTextualContent(this.sectionNames[i]);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, defaultButtonBorderOffset);
-                labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
                 this.sectionButtonElements[i] = labelElement;
@@ -159,12 +159,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Margin = baseMargin,
                     Color = SColorPalette.White,
                     PositionAnchor = SCardinalDirection.South,
-                    OriginPivot = SCardinalDirection.Center
+                    OriginPivot = SCardinalDirection.Center,
+                    SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
                 };
 
                 labelElement.SetTextualContent(this.systemButtonNames[i]);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, defaultButtonBorderOffset);
-                labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
                 this.systemButtonElements[i] = labelElement;

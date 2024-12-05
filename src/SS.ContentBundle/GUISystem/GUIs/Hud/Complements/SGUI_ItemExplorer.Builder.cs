@@ -65,10 +65,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Scale = new Vector2(0.15f),
                 Margin = new Vector2(18, -16),
                 Color = new Color(206, 214, 237, 255),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
             };
 
             this.explorerTitleLabel.SetTextualContent("TITLE");
-            this.explorerTitleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.explorerTitleLabel.SetAllBorders(true, new Color(45, 53, 74, 255), new Vector2(4.4f));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 

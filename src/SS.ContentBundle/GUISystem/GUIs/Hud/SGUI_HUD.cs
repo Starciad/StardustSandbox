@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
@@ -29,6 +30,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private readonly SWorld world;
 
+        private string _currentTooltipElementId = null;
+
         public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             SelectItemSlot(0, GetGameItemById("element_dirt").Identifier);
@@ -51,32 +54,54 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateTopToolbar()
         {
-            // If the mouse is over the header, the player will not be able to interact with the environment. Otherwise, this permission is conceived.
             this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size);
 
+            bool tooltipVisible = false;
+            string hoveredElementId = null;
+
             #region ELEMENT SLOTS
-            // Individually check all element slots present in the HEADER.
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SToolbarSlot slot = this.toolbarElementSlots[i];
+                bool isOver = this.GUIEvents.OnMouseOver(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE));
 
-                // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
                     SelectItemSlot(i, (string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
 
-                // Highlight coloring of currently selected slot.
-                slot.Background.Color = i == this.slotSelectedIndex
-                    ? Color.Red
-                    : this.GUIEvents.OnMouseOver(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE))
-                        ? Color.DarkGray
-                        : Color.White;
+                if (isOver)
+                {
+                    tooltipVisible = true;
+                    hoveredElementId = (string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID);
+                }
+
+                slot.Background.Color = this.slotSelectedIndex == i ?
+                                        SColorPalette.OrangeRed :
+                                        (isOver ? SColorPalette.EmeraldGreen : SColorPalette.White);
             }
             #endregion
 
+            if (tooltipVisible)
+            {
+                if (this._currentTooltipElementId != hoveredElementId)
+                {
+                    this._currentTooltipElementId = hoveredElementId;
+                    this.tooltipBox.SetTitle(GetGameItemById(hoveredElementId).DisplayName);
+                }
+
+                if (!this.tooltipBox.IsShowing)
+                {
+                    this.tooltipBox.Show();
+                }
+            }
+            else
+            {
+                this.tooltipBox.Close();
+                this._currentTooltipElementId = null;
+            }
+
             #region SEARCH BUTTON
-            // Check if the mouse clicked on the search button.
             if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
             {
                 this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_IDENTIFIER);
@@ -88,6 +113,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 : Color.White;
             #endregion
         }
+
         private static void UpdateLeftToolbar()
         {
             return;

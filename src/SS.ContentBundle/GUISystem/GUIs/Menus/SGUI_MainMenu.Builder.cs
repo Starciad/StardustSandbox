@@ -62,7 +62,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Scale = new Vector2(0.08f),
                 Color = Color.White,
                 PositionAnchor = SCardinalDirection.Southeast,
-                OriginPivot = SCardinalDirection.West
+                OriginPivot = SCardinalDirection.West,
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
             };
 
             SGUILabelElement copyrightLabel = new(this.SGameInstance)
@@ -71,14 +72,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Scale = new Vector2(0.08f),
                 Color = Color.White,
                 PositionAnchor = SCardinalDirection.South,
-                OriginPivot = SCardinalDirection.Center
+                OriginPivot = SCardinalDirection.Center,
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
             };
 
-            gameVersionLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             gameVersionLabel.SetTextualContent($"Ver. {SGameConstants.VERSION}");
             gameVersionLabel.PositionRelativeToScreen();
 
-            copyrightLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             copyrightLabel.SetTextualContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
             copyrightLabel.PositionRelativeToScreen();
 
@@ -115,12 +115,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Margin = baseMargin,
                     Color = new Color(206, 214, 237, 255),
                     PositionAnchor = SCardinalDirection.Center,
-                    OriginPivot = SCardinalDirection.Center
+                    OriginPivot = SCardinalDirection.Center,
+                    SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
                 };
 
                 labelElement.SetTextualContent(this.menuButtonNames[i]);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4f));
-                labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.menuButtonElements[i] = labelElement;
