@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.ContentBundle.Entities.Specials;
-using StardustSandbox.ContentBundle.GUISystem.Elements;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;

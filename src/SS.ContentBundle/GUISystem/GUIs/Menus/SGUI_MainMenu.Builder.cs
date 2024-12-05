@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
@@ -74,11 +74,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 OriginPivot = SCardinalDirection.Center
             };
 
-            gameVersionLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            gameVersionLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             gameVersionLabel.SetTextContent($"Ver. {SGameConstants.VERSION}");
             gameVersionLabel.PositionRelativeToScreen();
 
-            copyrightLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            copyrightLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             copyrightLabel.SetTextContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
             copyrightLabel.PositionRelativeToScreen();
 
@@ -122,7 +122,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.SetTextContent(this.menuButtonNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(SColorPalette.DarkGray);
-                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+                labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.menuButtonElements[i] = labelElement;

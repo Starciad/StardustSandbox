@@ -2,6 +2,7 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Tools.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -111,7 +112,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             };
 
             this.titleLabel.SetTextContent(this.titleName);
-            this.titleLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.titleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.titleLabel.SetBorders(true);
             this.titleLabel.SetBordersColor(SColorPalette.DarkGray);
             this.titleLabel.PositionRelativeToScreen();
@@ -140,7 +141,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.SetTextContent(this.sectionNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(SColorPalette.DarkGray);
-                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+                labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
                 this.sectionButtonElements[i] = labelElement;
@@ -169,7 +170,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.SetTextContent(this.systemButtonNames[i]);
                 labelElement.SetBorders(true);
                 labelElement.SetBordersColor(SColorPalette.DarkGray);
-                labelElement.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+                labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
                 this.systemButtonElements[i] = labelElement;

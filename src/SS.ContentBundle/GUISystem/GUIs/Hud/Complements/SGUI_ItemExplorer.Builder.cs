@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -69,7 +69,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             };
 
             this.explorerTitleLabel.SetTextContent("TITLE");
-            this.explorerTitleLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.explorerTitleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.explorerTitleLabel.SetBorders(true);
             this.explorerTitleLabel.SetBordersColor(new Color(45, 53, 74, 255));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);

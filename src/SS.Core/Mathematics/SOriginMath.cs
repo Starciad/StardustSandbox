@@ -16,6 +16,12 @@ namespace StardustSandbox.Core.Mathematics
             return GetOriginPoint(new(measuredString.X, measuredString.Y), direction);
         }
 
+        public static Vector2 GetSpriteFontOriginPoint(this SpriteFont spriteFont, string text, SCardinalDirection direction)
+        {
+            Vector2 measuredString = spriteFont.MeasureString(text);
+            return GetOriginPoint(new(measuredString.X, measuredString.Y), direction);
+        }
+
         public static Vector2 GetTextureOriginPoint(this Texture2D texture, SCardinalDirection direction)
         {
             return GetOriginPoint(new(texture.Width, texture.Height), direction);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
