@@ -106,15 +106,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Scale = new Vector2(0.15f),
                 Margin = new Vector2(0f, 52.5f),
                 Color = SColorPalette.White,
-                BorderOffset = new Vector2(4.4f),
                 PositionAnchor = SCardinalDirection.North,
                 OriginPivot = SCardinalDirection.Center
             };
 
             this.titleLabel.SetTextualContent(this.titleName);
             this.titleLabel.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.titleLabel.SetBorders(true);
-            this.titleLabel.SetBordersColor(SColorPalette.DarkGray);
+            this.titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4.4f));
             this.titleLabel.PositionRelativeToScreen();
 
             this.layout.AddElement(this.titleLabel);
@@ -133,14 +131,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Scale = defaultButtonScale,
                     Margin = baseMargin,
                     Color = SColorPalette.White,
-                    BorderOffset = defaultButtonBorderOffset,
                     PositionAnchor = SCardinalDirection.North,
                     OriginPivot = SCardinalDirection.Center
                 };
 
                 labelElement.SetTextualContent(this.sectionNames[i]);
-                labelElement.SetBorders(true);
-                labelElement.SetBordersColor(SColorPalette.DarkGray);
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, defaultButtonBorderOffset);
                 labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
@@ -162,14 +158,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Scale = defaultButtonScale,
                     Margin = baseMargin,
                     Color = SColorPalette.White,
-                    BorderOffset = defaultButtonBorderOffset,
                     PositionAnchor = SCardinalDirection.South,
                     OriginPivot = SCardinalDirection.Center
                 };
 
                 labelElement.SetTextualContent(this.systemButtonNames[i]);
-                labelElement.SetBorders(true);
-                labelElement.SetBordersColor(SColorPalette.DarkGray);
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, defaultButtonBorderOffset);
                 labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 

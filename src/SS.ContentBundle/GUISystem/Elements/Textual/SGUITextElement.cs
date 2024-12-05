@@ -53,14 +53,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            float yPosition = this.Position.Y;
+            Vector2 position = new(0f, this.Position.Y);
 
             foreach (string line in this.wrappedLines)
             {
-                float xPosition = this.Position.X;
+                position.X = this.Position.X;
+                Vector2 origin = this.SpriteFont.GetSpriteFontOriginPoint(line, this.OriginPivot);
 
-                spriteBatch.DrawString(this.SpriteFont, line, new Vector2(xPosition, yPosition), this.Color, this.RotationAngle, this.SpriteFont.GetSpriteFontOriginPoint(line, this.OriginPivot), this.Scale, this.SpriteEffects, 0f);
-                yPosition += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
+                DrawBorders(spriteBatch, line, position, this.SpriteFont, this.RotationAngle, origin, this.Scale, this.SpriteEffects);
+                spriteBatch.DrawString(this.SpriteFont, line, position, this.Color, this.RotationAngle, origin, this.Scale, this.SpriteEffects, 0f);
+                
+                position.Y += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
             }
         }
     }

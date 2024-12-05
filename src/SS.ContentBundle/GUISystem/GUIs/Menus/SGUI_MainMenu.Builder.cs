@@ -114,14 +114,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Scale = new Vector2(0.15f),
                     Margin = baseMargin,
                     Color = new Color(206, 214, 237, 255),
-                    BorderOffset = new Vector2(4f),
                     PositionAnchor = SCardinalDirection.Center,
                     OriginPivot = SCardinalDirection.Center
                 };
 
                 labelElement.SetTextualContent(this.menuButtonNames[i]);
-                labelElement.SetBorders(true);
-                labelElement.SetBordersColor(SColorPalette.DarkGray);
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4f));
                 labelElement.SetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
