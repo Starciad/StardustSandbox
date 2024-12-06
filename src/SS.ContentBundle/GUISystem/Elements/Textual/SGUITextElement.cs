@@ -44,7 +44,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 
                 _ = lineBuilder.Append(word + " ");
             }
-            
+
             if (lineBuilder.Length > 0)
             {
                 this.wrappedLines.Add(lineBuilder.ToString().TrimEnd());
@@ -62,9 +62,32 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 
                 DrawBorders(spriteBatch, line, position, this.SpriteFont, this.RotationAngle, origin, this.Scale, this.SpriteEffects);
                 spriteBatch.DrawString(this.SpriteFont, line, position, this.Color, this.RotationAngle, origin, this.Scale, this.SpriteEffects, 0f);
-                
+
                 position.Y += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
             }
+        }
+
+        public override SSize2F GetStringSize()
+        {
+            if (this.wrappedLines.Count == 0)
+            {
+                return SSize2F.Zero;
+            }
+
+            float maxWidth = 0f;
+            float totalHeight = this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y * this.wrappedLines.Count;
+
+            foreach (string line in this.wrappedLines)
+            {
+                float lineWidth = this.SpriteFont.MeasureString(line).X * this.Scale.X;
+
+                if (lineWidth > maxWidth)
+                {
+                    maxWidth = lineWidth;
+                }
+            }
+
+            return new SSize2F(maxWidth, totalHeight);
         }
     }
 }

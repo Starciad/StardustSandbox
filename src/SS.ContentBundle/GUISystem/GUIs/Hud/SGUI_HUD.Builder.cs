@@ -31,8 +31,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             this.layout = layout;
 
-            BuildTooltipBox();
             BuildToolbars();
+            BuildTooltipBox();
         }
 
         private void BuildTooltipBox()

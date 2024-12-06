@@ -87,7 +87,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 if (this._currentTooltipElementId != hoveredElementId)
                 {
                     this._currentTooltipElementId = hoveredElementId;
-                    this.tooltipBox.SetTitle(GetGameItemById(hoveredElementId).DisplayName);
+                    SItem item = GetGameItemById(hoveredElementId);
+
+                    this.tooltipBox.SetTitle(item.DisplayName);
+                    this.tooltipBox.SetDescription(item.Description);
                 }
 
                 if (!this.tooltipBox.IsShowing)
@@ -97,7 +100,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             }
             else
             {
-                this.tooltipBox.Close();
+                this.tooltipBox.Hide();
                 this._currentTooltipElementId = null;
             }
 
@@ -176,15 +179,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             SelectItemSlot(this.toolbarElementSlots.Length - 1, item.Identifier);
         }
 
+        public SItem GetGameItemById(string id)
+        {
+            return this.SGameInstance.ItemDatabase.GetItemById(id);
+        }
+
         private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
             this.SGameInstance.GameInputController.Player.SelectItem(GetGameItemById(itemId));
-        }
-
-        private SItem GetGameItemById(string id)
-        {
-            return this.SGameInstance.ItemDatabase.GetItemById(id);
         }
     }
 }

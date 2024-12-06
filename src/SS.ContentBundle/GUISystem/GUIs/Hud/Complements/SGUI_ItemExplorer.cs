@@ -27,6 +27,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private readonly SGUI_HUD _guiHUD;
 
+        private string _currentCatalogTooltipElementId = null;
+
         public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
@@ -70,7 +72,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void UpdateItemCatalog()
         {
-            // Individually check all element slots present in the item catalog.
+            bool tooltipVisible = false;
+            string hoveredElementId = null;
+
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
                 (SGUIImageElement itemSlotBackground, _) = this.itemButtonSlots[i];
@@ -80,7 +84,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     continue;
                 }
 
-                // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
                     this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
@@ -89,10 +92,35 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
                 }
 
-                // Highlight when mouse is over slot.
-                itemSlotBackground.Color = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE))
-                    ? Color.DarkGray
-                    : Color.White;
+                bool isOver = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                if (isOver)
+                {
+                    tooltipVisible = true;
+                    hoveredElementId = (string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID);
+                }
+
+                itemSlotBackground.Color = isOver ? Color.DarkGray : Color.White;
+            }
+
+            if (tooltipVisible)
+            {
+                if (_currentCatalogTooltipElementId != hoveredElementId)
+                {
+                    _currentCatalogTooltipElementId = hoveredElementId;
+                    SItem item = this._guiHUD.GetGameItemById(hoveredElementId);
+
+                    this.tooltipBox.SetTitle(item.DisplayName);
+                    this.tooltipBox.SetDescription(item.Description);
+                }
+                if (!this.tooltipBox.IsShowing)
+                {
+                    this.tooltipBox.Show();
+                }
+            }
+            else
+            {
+                this.tooltipBox.Hide();
+                _currentCatalogTooltipElementId = null;
             }
         }
 

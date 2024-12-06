@@ -9,6 +9,9 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Mathematics.Primitives;
+
+using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 {
@@ -21,6 +24,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
         private readonly SGUITextElement descriptionElement;
 
         private readonly SGUILayout tooltipLayout;
+
+        private const float minWidthSize = 500f;
 
         public SGUITooltipBoxElement(ISGame gameInstance) : base(gameInstance)
         {
@@ -40,15 +45,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
             this.titleElement = new(this.SGameInstance)
             {
-                Scale = new(0.1f),
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.ARIAL),
+                Scale = new(0.12f),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.VCR_OSD_MONO),
+                Margin = new(0, -16f),
             };
 
             this.descriptionElement = new(this.SGameInstance)
             {
-                Scale = new(0.05f),
-                Margin = new(0, 16f),
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.ARIAL),
+                Scale = new(0.075f),
+                Margin = new(0, 64f),
+                LineHeight = 1.25f,
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.WINDOWS_COMMAND_PROMPT),
             };
 
             this.tooltipLayout = new(gameInstance);
@@ -67,6 +74,65 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
         {
             this.tooltipLayout.Update(gameTime);
 
+            UpdateSize();
+            UpdatePosition();
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            this.tooltipLayout.Draw(gameTime, spriteBatch);
+        }
+
+        public void Show()
+        {
+            this.IsVisible = true;
+            this.IsShowing = true;
+        }
+
+        public void Hide()
+        {
+            this.IsVisible = false;
+            this.IsShowing = false;
+        }
+
+        public void SetTitle(string value)
+        {
+            this.titleElement.SetTextualContent(value);
+
+            UpdateSize();
+            UpdatePosition();
+        }
+
+        public void SetDescription(string value)
+        {
+            this.descriptionElement.SetTextualContent(value);
+
+            UpdateSize();
+            UpdatePosition();
+        }
+
+        private void UpdateSize()
+        {
+            SSize2F titleSize = this.titleElement.GetStringSize();
+            SSize2F descriptionSize = this.descriptionElement.GetStringSize();
+            SSize2F backgroundBaseSize = new(32f, 32f);
+
+            float finalWidth = Math.Max(minWidthSize, titleSize.Width);
+            float finalHeight = descriptionSize.Height + titleSize.Height + 10f;
+
+            Vector2 finalScale = new(
+                finalWidth / backgroundBaseSize.Width,
+                finalHeight / backgroundBaseSize.Height
+            );
+
+            SSize2F finalTextAreaSize = new(finalWidth, descriptionSize.Height);
+
+            this.descriptionElement.TextAreaSize = finalTextAreaSize;
+            this.backgroundImageElement.Scale = finalScale;
+        }
+
+        private void UpdatePosition()
+        {
             Vector2 mousePosition = this.SGameInstance.InputManager.GetScaledMousePosition();
             Vector2 newPosition = mousePosition + this.Margin;
 
@@ -84,33 +150,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
             this.titleElement.PositionRelativeToElement(this.backgroundImageElement);
             this.descriptionElement.PositionRelativeToElement(this.titleElement);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            this.tooltipLayout.Draw(gameTime, spriteBatch);
-        }
-
-        public void Show()
-        {
-            this.IsVisible = true;
-            this.IsShowing = true;
-        }
-
-        public void Close()
-        {
-            this.IsVisible = false;
-            this.IsShowing = false;
-        }
-
-        public void SetTitle(string value)
-        {
-            this.titleElement.SetTextualContent(value);
-        }
-
-        public void SetDescription(string value)
-        {
-            this.descriptionElement.SetTextualContent(value);
         }
     }
 }

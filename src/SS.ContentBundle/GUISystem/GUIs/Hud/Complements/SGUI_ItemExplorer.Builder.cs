@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -17,6 +18,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private ISGUILayoutBuilder layout;
 
+        private SGUITooltipBoxElement tooltipBox;
+
         private SGUILabelElement explorerTitleLabel;
 
         private (SGUIImageElement background, SGUIImageElement icon)[] itemButtonSlots;
@@ -28,8 +31,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             BuildGUIBackground();
             BuildExplorer();
+            BuildTooltipBox();
 
             SelectItemCatalog("powders", 0);
+        }
+
+        private void BuildTooltipBox()
+        {
+            this.tooltipBox = new(this.SGameInstance);
+
+            this.tooltipBox.SetTitle("Title");
+            this.tooltipBox.SetDescription("Description");
+
+            this.layout.AddElement(this.tooltipBox);
         }
 
         private void BuildGUIBackground()

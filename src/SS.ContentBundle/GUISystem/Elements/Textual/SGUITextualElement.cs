@@ -81,9 +81,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             _ = this.contentStringBuilder.Clear();
         }
 
-        public SSize2F GetStringSize()
+        public virtual SSize2F GetStringSize()
         {
-            Vector2 measureString = this.SpriteFont.MeasureString(this.Content) * this.Scale / 2f;
+            Vector2 measureString = this.SpriteFont.MeasureString(this.Content) * this.Scale;
             return new SSize2F(measureString.X, measureString.Y);
         }
 
