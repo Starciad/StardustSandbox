@@ -18,14 +18,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
     public sealed class SGUITooltipBoxElement : SGUIElement
     {
         public bool IsShowing { get; private set; }
+        public SSize2F MinimumSize { get; set; }
+        public SSize2F MaximumSize { get; set; }
+
+        public SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
+        public SGUILabelElement TitleElement => this.titleElement;
+        public SGUITextElement DescriptionElement => this.descriptionElement;
 
         private readonly SGUISliceImageElement backgroundImageElement;
         private readonly SGUILabelElement titleElement;
         private readonly SGUITextElement descriptionElement;
 
         private readonly SGUILayout tooltipLayout;
-
-        private const float minWidthSize = 500f;
 
         public SGUITooltipBoxElement(ISGame gameInstance) : base(gameInstance)
         {
@@ -37,7 +41,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.backgroundImageElement = new(this.SGameInstance)
             {
                 Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_4"),
-                Color = new(SColorPalette.DarkGray, 200),
+                Color = SColorPalette.DarkPurple,
                 Scale = new(10f, 10f),
                 PositionAnchor = SCardinalDirection.Center,
                 Size = new(32f),
@@ -46,22 +50,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.titleElement = new(this.SGameInstance)
             {
                 Scale = new(0.12f),
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.VCR_OSD_MONO),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO),
                 Margin = new(0, -16f),
             };
 
             this.descriptionElement = new(this.SGameInstance)
             {
-                Scale = new(0.075f),
+                Scale = new(0.078f),
                 Margin = new(0, 64f),
                 LineHeight = 1.25f,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.VCR_OSD_MONO),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR),
             };
 
             this.tooltipLayout = new(gameInstance);
             this.tooltipLayout.AddElement(this.backgroundImageElement);
             this.tooltipLayout.AddElement(this.titleElement);
             this.tooltipLayout.AddElement(this.descriptionElement);
+
+            this.MaximumSize = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT);
         }
 
         public override void Initialize()
@@ -116,8 +122,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             SSize2F descriptionSize = this.descriptionElement.GetStringSize();
             SSize2F backgroundBaseSize = new(32f, 32f);
 
-            float finalWidth = Math.Max(minWidthSize, titleSize.Width);
-            float finalHeight = descriptionSize.Height + titleSize.Height + 10f;
+            float finalWidth = Math.Max(this.MinimumSize.Width, titleSize.Width);
+            float finalHeight = Math.Max(this.MinimumSize.Height, descriptionSize.Height + titleSize.Height + 10f);
+
+            finalWidth = finalWidth > this.MaximumSize.Width ? this.MaximumSize.Width : finalWidth;
+            finalHeight = finalHeight > this.MaximumSize.Height ? this.MaximumSize.Height : finalHeight;
 
             Vector2 finalScale = new(
                 finalWidth / backgroundBaseSize.Width,

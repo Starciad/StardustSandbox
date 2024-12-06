@@ -15,8 +15,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
     {
         private ISGUILayoutBuilder layout;
 
-        private SGUITooltipBoxElement tooltipBox;
-
         private SGUIImageElement topToolbarContainer;
         private SGUIImageElement leftToolbarContainer;
         private SGUIImageElement rightToolbarContainer;
@@ -31,17 +29,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.layout = layout;
 
             BuildToolbars();
-            BuildTooltipBox();
-        }
 
-        private void BuildTooltipBox()
-        {
-            this.tooltipBox = new(this.SGameInstance);
-
-            this.tooltipBox.SetTitle("Title");
-            this.tooltipBox.SetDescription("Description");
-
-            this.layout.AddElement(this.tooltipBox);
+            layout.AddElement(this.tooltipBoxElement);
         }
 
         private void BuildToolbars()

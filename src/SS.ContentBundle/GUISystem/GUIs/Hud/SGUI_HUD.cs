@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -30,9 +31,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private readonly SWorld world;
 
+        private readonly SGUITooltipBoxElement tooltipBoxElement;
+
         private string _currentTooltipElementId = null;
 
-        public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             SelectItemSlot(0, GetGameItemById("element_dirt").Identifier);
 
@@ -41,6 +44,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.magnifyingGlassIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1");
 
             this.world = gameInstance.World;
+            this.tooltipBoxElement = tooltipBoxElement;
         }
 
         public override void Update(GameTime gameTime)
@@ -89,18 +93,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                     this._currentTooltipElementId = hoveredElementId;
                     SItem item = GetGameItemById(hoveredElementId);
 
-                    this.tooltipBox.SetTitle(item.DisplayName);
-                    this.tooltipBox.SetDescription(item.Description);
+                    this.tooltipBoxElement.SetTitle(item.DisplayName);
+                    this.tooltipBoxElement.SetDescription(item.Description);
                 }
 
-                if (!this.tooltipBox.IsShowing)
+                if (!this.tooltipBoxElement.IsShowing)
                 {
-                    this.tooltipBox.Show();
+                    this.tooltipBoxElement.Show();
                 }
             }
             else
             {
-                this.tooltipBox.Hide();
+                this.tooltipBoxElement.Hide();
                 this._currentTooltipElementId = null;
             }
 

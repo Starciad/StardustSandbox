@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
@@ -15,32 +16,25 @@ using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
-    public sealed partial class SGUI_ItemExplorer : SGUISystem
+    public sealed partial class SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : SGUISystem(gameInstance, identifier, guiEvents)
     {
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
-        private readonly Texture2D squareShapeTexture;
+        private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
+        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+        private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
 
         private string selectedCategoryName;
         private int selectedPageIndex;
         private SItem[] selectedItems;
 
-        private readonly SGUI_HUD _guiHUD;
+        private readonly SGUI_HUD _guiHUD = guiHUD;
+        private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
 
         private string _currentCatalogTooltipElementId = null;
-
-        public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, identifier, guiEvents)
-        {
-            this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-            this.squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
-
-            this._guiHUD = guiHUD;
-        }
 
         protected override void OnLoad()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
+            SelectItemCatalog("powders", 0);
         }
 
         protected override void OnUnload()
@@ -109,17 +103,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     _currentCatalogTooltipElementId = hoveredElementId;
                     SItem item = this._guiHUD.GetGameItemById(hoveredElementId);
 
-                    this.tooltipBox.SetTitle(item.DisplayName);
-                    this.tooltipBox.SetDescription(item.Description);
+                    this.tooltipBoxElement.SetTitle(item.DisplayName);
+                    this.tooltipBoxElement.SetDescription(item.Description);
                 }
-                if (!this.tooltipBox.IsShowing)
+                if (!this.tooltipBoxElement.IsShowing)
                 {
-                    this.tooltipBox.Show();
+                    this.tooltipBoxElement.Show();
                 }
             }
             else
             {
-                this.tooltipBox.Hide();
+                this.tooltipBoxElement.Hide();
                 _currentCatalogTooltipElementId = null;
             }
         }
