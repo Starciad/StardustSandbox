@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
@@ -14,7 +15,7 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_OptionsMenu : SGUISystem
+    public sealed partial class SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : SGUISystem(gameInstance, identifier, guiEvents)
     {
         private enum SMenuSection : byte
         {
@@ -39,39 +40,31 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             FrameRate = 3,
             Borderless = 4
         }
-
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
-
-        private readonly string titleName;
-        private readonly string[] sectionNames;
-        private readonly string[] systemButtonNames;
-
+        
         private byte selectedSectionIndex;
+        private byte selectedLanguageIndex;
 
         private SVideoSettings videoSettings;
         private SVolumeSettings volumeSettings;
         private SCursorSettings cursorSettings;
         private SLanguageSettings languageSettings;
 
-        public SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
-        {
-            this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
 
-            this.titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
-            this.sectionNames = [
-                SLocalization.GUI_Menu_OptionsMenu_Section_General,
-                SLocalization.GUI_Menu_OptionsMenu_Section_Video,
-                SLocalization.GUI_Menu_OptionsMenu_Section_Volume,
-                SLocalization.GUI_Menu_OptionsMenu_Section_Cursor,
-                SLocalization.GUI_Menu_OptionsMenu_Section_Language
-            ];
-            this.systemButtonNames = [
-                SLocalization.Statements_Return,
-                SLocalization.Statements_Save,
-            ];
-        }
+        private readonly string titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
+
+        private readonly string[] sectionNames = [
+            SLocalization.GUI_Menu_OptionsMenu_Section_General,
+            SLocalization.GUI_Menu_OptionsMenu_Section_Video,
+            SLocalization.GUI_Menu_OptionsMenu_Section_Volume,
+            SLocalization.GUI_Menu_OptionsMenu_Section_Cursor,
+            SLocalization.GUI_Menu_OptionsMenu_Section_Language
+        ];
+
+        private readonly string[] systemButtonNames = [
+            SLocalization.Statements_Return,
+            SLocalization.Statements_Save,
+        ];
 
         protected override void OnLoad()
         {
@@ -92,7 +85,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             UpdateButtons();
 
             // Sections
-            UpdateVideoSection();
+            switch ((SMenuSection)this.selectedSectionIndex)
+            {
+                case SMenuSection.General:
+                    break;
+
+                case SMenuSection.Video:
+                    UpdateVideoSection();
+                    break;
+
+                case SMenuSection.Volume:
+                    break;
+
+                case SMenuSection.Cursor:
+                    break;
+
+                case SMenuSection.Language:
+                    UpdateLanguageSection();
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void UpdateButtons()
@@ -139,6 +153,29 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     this.videoSectionOptionSelectors[i].Next();
                     labelElement.SetTextualContent(this.videoSectionOptionSelectors[i].ToString());
                 }
+
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+            }
+        }
+
+        private void UpdateLanguageSection()
+        {
+            for (byte i = 0; i < this.languageSectionButtons.Count; i++)
+            {
+                SGUILabelElement labelElement = this.languageSectionButtons[i];
+
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
+                {
+                    this.selectedLanguageIndex = i;
+                }
+
+                if (this.selectedLanguageIndex.Equals(i))
+                {
+                    labelElement.Color = Color.Yellow;
+                    continue;
+                }
+
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
             }
         }
 

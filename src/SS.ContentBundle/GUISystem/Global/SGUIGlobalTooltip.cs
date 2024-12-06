@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Global
+﻿namespace StardustSandbox.ContentBundle.GUISystem.Global
 {
     public static class SGUIGlobalTooltip
     {

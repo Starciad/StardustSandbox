@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Global;
+using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI;
@@ -34,8 +34,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly SWorld world;
 
         private readonly SGUITooltipBoxElement tooltipBoxElement;
-
-        private string _currentTooltipElementId = null;
 
         public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {

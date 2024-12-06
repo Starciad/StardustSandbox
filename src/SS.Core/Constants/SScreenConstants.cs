@@ -18,12 +18,6 @@ namespace StardustSandbox.Core.Constants
             new SSize2(1366, 0768), // [04] - WXGA
             new SSize2(1600, 0900), // [05] - HD+
             new SSize2(1920, 1080), // [06] - FHD / Full HD (1080p)
-            new SSize2(2560, 1440), // [07] - WQHD
-            new SSize2(3200, 1800), // [08] - QHD+
-            new SSize2(3840, 2160), // [09] - 4K UHD
-            new SSize2(5120, 2880), // [10] - 5K
-            new SSize2(7680, 4320), // [11] - 8K UHD
-            new SSize2(15360, 8640) // [12] - 16K UHD
         ];
 
         public static uint[] FRAME_RATES => [
