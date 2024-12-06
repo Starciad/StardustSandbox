@@ -360,4 +360,10 @@
   <data name="Item.Category.Walls.Description" xml:space="preserve">
     <value>Barreiras com propósito, projetadas para separar e proteger. As paredes são guardiãs silenciosas, definindo limites e protegendo contra forças externas.</value>
   </data>
+  <data name="GUI.HUD.Button.ItemExplorer.Title" xml:space="preserve">
+    <value>Explorador de Itens</value>
+  </data>
+  <data name="GUI.HUD.Button.ItemExplorer.Description" xml:space="preserve">
+    <value>Um portal para todo o catálogo de elementos do jogo. Aqui, você pode navegar, descobrir e aprender sobre cada elemento disponível, explorando suas características, comportamentos e interações.</value>
+  </data>
 </root>

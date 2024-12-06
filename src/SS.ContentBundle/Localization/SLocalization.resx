@@ -360,4 +360,10 @@
   <data name="Item.Category.Walls.Description" xml:space="preserve">
     <value>Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces.</value>
   </data>
+  <data name="GUI.HUD.Button.ItemExplorer.Title" xml:space="preserve">
+    <value>Item Explorer</value>
+  </data>
+  <data name="GUI.HUD.Button.ItemExplorer.Description" xml:space="preserve">
+    <value>A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions.</value>
+  </data>
 </root>

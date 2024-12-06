@@ -17,6 +17,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 {
     public sealed class SGUITooltipBoxElement : SGUIElement
     {
+        public bool HasContent => this.hasContent;
+
         public bool IsShowing { get; private set; }
         public SSize2F MinimumSize { get; set; }
         public SSize2F MaximumSize { get; set; }
@@ -24,6 +26,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
         public SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
         public SGUILabelElement TitleElement => this.titleElement;
         public SGUITextElement DescriptionElement => this.descriptionElement;
+
+        private bool hasContent;
 
         private readonly SGUISliceImageElement backgroundImageElement;
         private readonly SGUILabelElement titleElement;
@@ -86,6 +90,40 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             this.tooltipLayout.Draw(gameTime, spriteBatch);
+        }
+
+        public void RefreshDisplay(string title, string description)
+        {
+            if (this.IsVisible)
+            {
+                if (!this.hasContent)
+                {
+                    this.titleElement.SetTextualContent(title);
+                    this.descriptionElement.SetTextualContent(description);
+
+                    UpdateSize();
+                    UpdatePosition();
+
+                    this.hasContent = true;
+                }
+
+                if (!this.IsShowing)
+                {
+                    Show();
+                }
+            }
+            else
+            {
+                Hide();
+
+                if (this.hasContent)
+                {
+                    this.hasContent = false;
+
+                    this.titleElement.ClearTextualContent();
+                    this.descriptionElement.ClearTextualContent();
+                }
+            }
         }
 
         public void Show()

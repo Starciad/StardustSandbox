@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Global;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
@@ -18,18 +19,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     public sealed partial class SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : SGUISystem(gameInstance, identifier, guiEvents)
     {
-        private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-        private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
-
         private string selectedCategoryName;
         private int selectedPageIndex;
         private SItem[] selectedItems;
 
+        private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
+        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+        private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
+
         private readonly SGUI_HUD _guiHUD = guiHUD;
         private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
-
-        private string _currentCatalogTooltipElementId = null;
 
         protected override void OnLoad()
         {
@@ -46,8 +45,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             base.Update(gameTime);
 
+            this.tooltipBoxElement.IsVisible = false;
+
             UpdateCategoryButtons();
             UpdateItemCatalog();
+
+            this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
         private void UpdateCategoryButtons()
@@ -59,16 +62,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    SelectItemCatalog((string)categoryButtonBackground.GetData("category_id"), 0);
+                    SelectItemCatalog((string)categoryButtonBackground.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID), 0);
+                }
+
+                bool isOver = this.GUIEvents.OnMouseOver(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    if (!this.tooltipBoxElement.HasContent)
+                    {
+                        SItemCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)categoryButtonBackground.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
+
+                        SGUIGlobalTooltip.Title = category.DisplayName;
+                        SGUIGlobalTooltip.Description = category.Description;
+                    }
                 }
             }
         }
 
         private void UpdateItemCatalog()
         {
-            bool tooltipVisible = false;
-            string hoveredElementId = null;
-
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
                 (SGUIImageElement itemSlotBackground, _) = this.itemButtonSlots[i];
@@ -87,36 +102,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 }
 
                 bool isOver = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+
                 if (isOver)
                 {
-                    tooltipVisible = true;
-                    hoveredElementId = (string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID);
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    if (!this.tooltipBoxElement.HasContent)
+                    {
+                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+
+                        SGUIGlobalTooltip.Title = item.DisplayName;
+                        SGUIGlobalTooltip.Description = item.Description;
+                    }
                 }
 
                 itemSlotBackground.Color = isOver ? Color.DarkGray : Color.White;
             }
-
-            if (tooltipVisible)
-            {
-                if (_currentCatalogTooltipElementId != hoveredElementId)
-                {
-                    _currentCatalogTooltipElementId = hoveredElementId;
-                    SItem item = this._guiHUD.GetGameItemById(hoveredElementId);
-
-                    this.tooltipBoxElement.SetTitle(item.DisplayName);
-                    this.tooltipBoxElement.SetDescription(item.Description);
-                }
-                if (!this.tooltipBoxElement.IsShowing)
-                {
-                    this.tooltipBoxElement.Show();
-                }
-            }
-            else
-            {
-                this.tooltipBoxElement.Hide();
-                _currentCatalogTooltipElementId = null;
-            }
         }
+
 
         // ============================================== //
 

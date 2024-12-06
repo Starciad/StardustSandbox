@@ -493,6 +493,24 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions..
+        /// </summary>
+        internal static string GUI_HUD_Button_ItemExplorer_Description {
+            get {
+                return ResourceManager.GetString("GUI.HUD.Button.ItemExplorer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item Explorer.
+        /// </summary>
+        internal static string GUI_HUD_Button_ItemExplorer_Title {
+            get {
+                return ResourceManager.GetString("GUI.HUD.Button.ItemExplorer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Create.
         /// </summary>
         internal static string GUI_Menu_MainMenu_Create {
