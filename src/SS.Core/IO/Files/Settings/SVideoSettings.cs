@@ -11,7 +11,19 @@ namespace StardustSandbox.Core.IO.Files.Settings
     public sealed class SVideoSettings : SSettings
     {
         [IgnoreMember]
-        public SSize2 Resolution => new(this.ScreenWidth, this.ScreenHeight);
+        public SSize2 Resolution
+        {
+            get
+            {
+                return new(this.ScreenWidth, this.ScreenHeight);
+            }
+
+            set
+            {
+                this.ScreenWidth = (ushort)value.Width;
+                this.ScreenHeight = (ushort)value.Height;
+            }
+        }
 
         [Key(0)]
         public ushort ScreenWidth { get; set; }
@@ -23,12 +35,9 @@ namespace StardustSandbox.Core.IO.Files.Settings
         public bool FullScreen { get; set; }
 
         [Key(3)]
-        public uint FrameRate { get; set; }
-
-        [Key(4)]
         public bool VSync { get; set; }
 
-        [Key(5)]
+        [Key(4)]
         public bool Borderless { get; set; }
 
         public SVideoSettings()
@@ -39,7 +48,6 @@ namespace StardustSandbox.Core.IO.Files.Settings
             this.ScreenWidth = (ushort)autoResolution.Width;
             this.ScreenHeight = (ushort)autoResolution.Height;
             this.FullScreen = false;
-            this.FrameRate = 60;
             this.VSync = false;
             this.Borderless = false;
         }

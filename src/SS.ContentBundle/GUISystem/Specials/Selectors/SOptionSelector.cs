@@ -1,31 +1,17 @@
-﻿using StardustSandbox.Core.Interfaces.General;
+﻿
+using StardustSandbox.Core.Interfaces.General;
 
-using System;
-using System.Collections.Generic;
-
-namespace StardustSandbox.ContentBundle.GUISystem.Tools.Options
+namespace StardustSandbox.ContentBundle.GUISystem.Specials.Selectors
 {
-    public sealed class SOptionSelector : ISReset
+    public sealed class SOptionSelector(string displayName, uint selectedValueIndex, string[] values) : ISReset
     {
-        public string DisplayName { get; }
-        public string[] Values { get; }
+        public string DisplayName { get; } = displayName;
+        public string[] Values { get; } = values;
         public string SelectedValue => this.Values[(int)this.selectedValueIndex];
         public uint Length => (uint)this.Values.Length;
         public uint SelectedValueIndex => this.selectedValueIndex;
 
-        private uint selectedValueIndex;
-
-        public SOptionSelector(string displayName, uint selectedValueIndex, string[] values)
-        {
-            if (values == null || values.Length == 0)
-            {
-                throw new ArgumentException("The values array cannot be null or empty.", nameof(values));
-            }
-
-            this.DisplayName = displayName ?? throw new ArgumentNullException(nameof(displayName));
-            this.Values = values;
-            this.selectedValueIndex = selectedValueIndex % (uint)values.Length;
-        }
+        private uint selectedValueIndex = selectedValueIndex % (uint)values.Length;
 
         public void Select(uint index)
         {

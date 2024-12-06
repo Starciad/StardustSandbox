@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
@@ -15,7 +14,7 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : SGUISystem(gameInstance, identifier, guiEvents)
+    public sealed partial class SGUI_OptionsMenu : SGUISystem
     {
         private enum SMenuSection : byte
         {
@@ -37,19 +36,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             Resolution = 0,
             Fullscreen = 1,
             VSync = 2,
-            FrameRate = 3,
-            Borderless = 4
+            Borderless = 3
         }
         
-        private byte selectedSectionIndex;
-        private byte selectedLanguageIndex;
+        private byte selectedSectionIndex = 0;
+        private byte selectedLanguageIndex = 0;
 
         private SVideoSettings videoSettings;
         private SVolumeSettings volumeSettings;
         private SCursorSettings cursorSettings;
         private SLanguageSettings languageSettings;
 
-        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+        private readonly Texture2D guiBackgroundTexture;
 
         private readonly string titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
 
@@ -66,14 +64,57 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SLocalization.Statements_Save,
         ];
 
+        private readonly Action[] systemButtonActions;
+
+        public SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        {
+            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+
+            this.systemButtonActions = [
+                ReturnButton,
+                SaveButton
+            ];
+        }
+
         protected override void OnLoad()
         {
             base.OnLoad();
             SelectSection(0);
 
+            // Load Settings
+            LoadVideoSettings();
+            LoadVolumeSettings();
+            LoadCursorSettings();
+            LoadLanguageSettings();
+        }
+
+        private void LoadVideoSettings()
+        {
             this.videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+
+            this.videoSectionOptionSelectors[(byte)SVideoSetting.Resolution].Select((uint)Array.IndexOf(SScreenConstants.RESOLUTIONS, this.videoSettings.Resolution));
+            this.videoSectionOptionSelectors[(byte)SVideoSetting.Fullscreen].Select((uint)(this.videoSettings.FullScreen ? 1 : 0));
+            this.videoSectionOptionSelectors[(byte)SVideoSetting.VSync].Select((uint)(this.videoSettings.VSync ? 1 : 0));
+            this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].Select((uint)(this.videoSettings.Borderless ? 1 : 0));
+
+            this.videoSectionButtons[(byte)SVideoSetting.Resolution].SetTextualContent(this.videoSectionOptionSelectors[(byte)SVideoSetting.Resolution].ToString());
+            this.videoSectionButtons[(byte)SVideoSetting.Fullscreen].SetTextualContent(this.videoSectionOptionSelectors[(byte)SVideoSetting.Fullscreen].ToString());
+            this.videoSectionButtons[(byte)SVideoSetting.VSync].SetTextualContent(this.videoSectionOptionSelectors[(byte)SVideoSetting.VSync].ToString());
+            this.videoSectionButtons[(byte)SVideoSetting.Borderless].SetTextualContent(this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].ToString());
+        }
+
+        private void LoadVolumeSettings()
+        {
             this.volumeSettings = SSettingsManager.LoadSettings<SVolumeSettings>();
+        }
+
+        private void LoadCursorSettings()
+        {
             this.cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
+        }
+
+        private void LoadLanguageSettings()
+        {
             this.languageSettings = SSettingsManager.LoadSettings<SLanguageSettings>();
         }
 
@@ -135,7 +176,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
-                    // (Actions will still be added.)
+                    this.systemButtonActions[i].Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;

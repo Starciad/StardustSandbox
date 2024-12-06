@@ -3,7 +3,7 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Tools.Options;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Selectors;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -15,7 +15,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
+using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -206,20 +206,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SGUIContainerElement container = new(this.SGameInstance);
 
             // [ FIELDS ]
-            // 1. Resolution
-            this.videoSectionOptionSelectors.Add(new("Resolution", 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
+            // 0. Resolution
+            this.videoSectionOptionSelectors.Add(new SOptionSelector("Resolution", 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
 
-            // 2. Fullscreen
-            this.videoSectionOptionSelectors.Add(new("Fullscreen", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            // 1. Fullscreen
+            this.videoSectionOptionSelectors.Add(new SOptionSelector("Fullscreen", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
-            // 3. VSync
-            this.videoSectionOptionSelectors.Add(new("VSync", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            // 2. VSync
+            this.videoSectionOptionSelectors.Add(new SOptionSelector("VSync", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
-            // 4. MaxFrameRate
-            this.videoSectionOptionSelectors.Add(new("FrameRate", 01, Array.ConvertAll(SScreenConstants.FRAME_RATES, x => x.ToString())));
-
-            // 5. Borderless
-            this.videoSectionOptionSelectors.Add(new("Borderless", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            // 3. Borderless
+            this.videoSectionOptionSelectors.Add(new SOptionSelector("Borderless", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
             // [ LABELS ]
             Vector2 margin = new(0f, 4f);

@@ -83,7 +83,7 @@ namespace StardustSandbox.Core
             this.Window.AllowUserResizing = true;
 
             // Configure game settings
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / videoSettings.FrameRate);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / SScreenConstants.DEFAULT_FRAME_RATE);
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
