@@ -342,4 +342,22 @@
   <data name="Element.Solid.Movable.Stone.Description" xml:space="preserve">
     <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
   </data>
+  <data name="Item.Category.Energies.Description" xml:space="preserve">
+    <value>Forces of nature in their purest and most dynamic forms. Unpredictable and powerful, they shape and transform their surroundings with intensity, igniting change wherever they go.</value>
+  </data>
+  <data name="Item.Category.Gases.Description" xml:space="preserve">
+    <value>Elusive and ever-shifting, gases drift through the air, expanding without boundaries. Invisible or visible, they can be harmless, suffocating, or even destructive, always moving, always present.</value>
+  </data>
+  <data name="Item.Category.Liquids.Description" xml:space="preserve">
+    <value>Fluid and adaptable, liquids carve their path through the world. Whether calm or chaotic, they flow, fill, and transform, essential to life but also capable of overwhelming destruction.</value>
+  </data>
+  <data name="Item.Category.Powders.Description" xml:space="preserve">
+    <value>Elements with the power to gather and disperse. They shift, settle, and adapt to their environment, demonstrating that even the smallest elements can have a significant impact.</value>
+  </data>
+  <data name="Item.Category.Solids.Description" xml:space="preserve">
+    <value>The anchors of the world, unyielding and steadfast. Solids provide structure and strength, standing firm against the forces of nature, embodying permanence and resilience.</value>
+  </data>
+  <data name="Item.Category.Walls.Description" xml:space="preserve">
+    <value>Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces.</value>
+  </data>
 </root>

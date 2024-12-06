@@ -342,4 +342,22 @@
   <data name="Element.Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Rocha densa e durável, resistente a impactos. Em calor extremo, derrete em lava; quando exposta à erosão aquática prolongada, desintegra-se em areia.</value>
   </data>
+  <data name="Item.Category.Energies.Description" xml:space="preserve">
+    <value>Forças da natureza em sua forma mais pura e dinâmica. Imprevisíveis e poderosas, moldam e transformam o ambiente com intensidade, trazendo mudanças onde quer que passem.</value>
+  </data>
+  <data name="Item.Category.Gases.Description" xml:space="preserve">
+    <value>Escapam e se movem constantemente, preenchendo o ar sem limites. Visíveis ou invisíveis, podem ser inofensivos, sufocantes ou até mesmo destrutivos, sempre em movimento, sempre presentes.</value>
+  </data>
+  <data name="Item.Category.Liquids.Description" xml:space="preserve">
+    <value>Fluídos e adaptáveis, os líquidos traçam seu caminho pelo mundo. Serenos ou caóticos, eles fluem, preenchem e se transformam, essenciais para a vida, mas também capazes de causar destruição avassaladora.</value>
+  </data>
+  <data name="Item.Category.Powders.Description" xml:space="preserve">
+    <value>Elementos com o poder de se agrupar ou se dispersar. Movem-se, assentam-se e se adaptam ao ambiente, demonstrando que até os menores elementos podem causar grandes impactos.</value>
+  </data>
+  <data name="Item.Category.Solids.Description" xml:space="preserve">
+    <value>As âncoras do mundo, firmes e inabaláveis. Sólidos oferecem estrutura e resistência, permanecendo inertes frente às forças da natureza.</value>
+  </data>
+  <data name="Item.Category.Walls.Description" xml:space="preserve">
+    <value>Barreiras com propósito, projetadas para separar e proteger. As paredes são guardiãs silenciosas, definindo limites e protegendo contra forças externas.</value>
+  </data>
 </root>

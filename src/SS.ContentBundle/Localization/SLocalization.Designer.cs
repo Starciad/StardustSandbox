@@ -601,11 +601,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Forces of nature in their purest and most dynamic forms. Unpredictable and powerful, they shape and transform their surroundings with intensity, igniting change wherever they go..
+        /// </summary>
+        internal static string Item_Category_Energies_Description {
+            get {
+                return ResourceManager.GetString("Item.Category.Energies.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Gases.
         /// </summary>
         internal static string Item_Category_Gases {
             get {
                 return ResourceManager.GetString("Item.Category.Gases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Elusive and ever-shifting, gases drift through the air, expanding without boundaries. Invisible or visible, they can be harmless, suffocating, or even destructive, always moving, always present..
+        /// </summary>
+        internal static string Item_Category_Gases_Description {
+            get {
+                return ResourceManager.GetString("Item.Category.Gases.Description", resourceCulture);
             }
         }
         
@@ -619,11 +637,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fluid and adaptable, liquids carve their path through the world. Whether calm or chaotic, they flow, fill, and transform, essential to life but also capable of overwhelming destruction..
+        /// </summary>
+        internal static string Item_Category_Liquids_Description {
+            get {
+                return ResourceManager.GetString("Item.Category.Liquids.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Powders.
         /// </summary>
         internal static string Item_Category_Powders {
             get {
                 return ResourceManager.GetString("Item.Category.Powders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Elements with the power to gather and disperse. They shift, settle, and adapt to their environment, demonstrating that even the smallest elements can have a significant impact..
+        /// </summary>
+        internal static string Item_Category_Powders_Description {
+            get {
+                return ResourceManager.GetString("Item.Category.Powders.Description", resourceCulture);
             }
         }
         
@@ -637,11 +673,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The anchors of the world, unyielding and steadfast. Solids provide structure and strength, standing firm against the forces of nature, embodying permanence and resilience..
+        /// </summary>
+        internal static string Item_Category_Solids_Description {
+            get {
+                return ResourceManager.GetString("Item.Category.Solids.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Walls.
         /// </summary>
         internal static string Item_Category_Walls {
             get {
                 return ResourceManager.GetString("Item.Category.Walls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces..
+        /// </summary>
+        internal static string Item_Category_Walls_Description {
+            get {
+                return ResourceManager.GetString("Item.Category.Walls.Description", resourceCulture);
             }
         }
         

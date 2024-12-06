@@ -18,42 +18,42 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterCategory(
                 identifier: "powders",
                 displayName: SLocalization.Item_Category_Powders,
-                description: string.Empty,
+                description: SLocalization.Item_Category_Powders_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "liquids",
                 displayName: SLocalization.Item_Category_Liquids,
-                description: string.Empty,
+                description: SLocalization.Item_Category_Liquids_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_3")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "gases",
                 displayName: SLocalization.Item_Category_Gases,
-                description: string.Empty,
+                description: SLocalization.Item_Category_Gases_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_20")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "solids",
                 displayName: SLocalization.Item_Category_Solids,
-                description: string.Empty,
+                description: SLocalization.Item_Category_Solids_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "walls",
                 displayName: SLocalization.Item_Category_Walls,
-                description: string.Empty,
+                description: SLocalization.Item_Category_Walls_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
             );
 
             itemDatabase.RegisterCategory(
                 identifier: "energies",
                 displayName: SLocalization.Item_Category_Energies,
-                description: string.Empty,
+                description: SLocalization.Item_Category_Energies_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             );
 
