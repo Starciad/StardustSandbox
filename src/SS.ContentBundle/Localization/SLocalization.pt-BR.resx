@@ -325,7 +325,7 @@
     <value>Terra seca e instável, servindo como base para vegetação. Quando entra em contato com a água, transforma-se rapidamente em lama, alterando sua densidade e mobilidade.</value>
   </data>
   <data name="Element.Solid.Movable.Grass.Description" xml:space="preserve">
-    <value>Rocha densa e durável, resistente a impactos. Em calor extremo, derrete em lava; quando exposta à erosão aquática prolongada, desintegra-se em areia.</value>
+    <value>Vegetação densa e seca, extremamente inflamável. Queima rapidamente, deixando vestígios de cinzas e solo exposto.</value>
   </data>
   <data name="Element.Solid.Movable.Ice.Description" xml:space="preserve">
     <value>Água cristalizada em estado sólido. Sua superfície escorregadia derrete facilmente em contato com calor, retornando ao estado líquido.</value>

@@ -55,7 +55,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
                 Scale = new(0.075f),
                 Margin = new(0, 64f),
                 LineHeight = 1.25f,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.WINDOWS_COMMAND_PROMPT),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.VCR_OSD_MONO),
             };
 
             this.tooltipLayout = new(gameInstance);

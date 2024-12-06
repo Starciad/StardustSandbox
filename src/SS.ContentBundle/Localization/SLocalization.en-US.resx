@@ -325,7 +325,7 @@
     <value>Dry soil, the foundation for vegetation. Turns into mud when exposed to water.</value>
   </data>
   <data name="Element.Solid.Movable.Grass.Description" xml:space="preserve">
-    <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
+    <value>Compacted vegetation, highly flammable and burns quickly, leaving ash and exposed soil.</value>
   </data>
   <data name="Element.Solid.Movable.Ice.Description" xml:space="preserve">
     <value>Frozen water in solid form. Slippery and melts back into water when exposed to heat.</value>
