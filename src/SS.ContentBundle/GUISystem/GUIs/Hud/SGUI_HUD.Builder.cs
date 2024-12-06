@@ -26,7 +26,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private readonly Color toolbarContainerColor = new(Color.White, 32);
 
-
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {
             this.layout = layout;

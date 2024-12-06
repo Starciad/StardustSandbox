@@ -8,14 +8,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Tools.Options
     public sealed class SOptionSelector : ISReset
     {
         public string DisplayName { get; }
-        public IReadOnlyList<object> Values { get; }
-        public object SelectedValue => this.Values[(int)this.selectedValueIndex];
-        public uint Length => (uint)this.Values.Count;
+        public string[] Values { get; }
+        public string SelectedValue => this.Values[(int)this.selectedValueIndex];
+        public uint Length => (uint)this.Values.Length;
         public uint SelectedValueIndex => this.selectedValueIndex;
 
         private uint selectedValueIndex;
 
-        public SOptionSelector(string displayName, uint selectedValueIndex, params object[] values)
+        public SOptionSelector(string displayName, uint selectedValueIndex, string[] values)
         {
             if (values == null || values.Length == 0)
             {
@@ -25,6 +25,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Tools.Options
             this.DisplayName = displayName ?? throw new ArgumentNullException(nameof(displayName));
             this.Values = values;
             this.selectedValueIndex = selectedValueIndex % (uint)values.Length;
+        }
+
+        public void Select(uint index)
+        {
+            this.selectedValueIndex = uint.Clamp(index, 0, this.Length - 1);
         }
 
         public void Next()
@@ -44,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Tools.Options
 
         public override string ToString()
         {
-            return string.Concat(this.DisplayName, ": ", this.SelectedValue);
+            return string.Concat(this.DisplayName, ": ", this.SelectedValue.ToLower());
         }
     }
 }

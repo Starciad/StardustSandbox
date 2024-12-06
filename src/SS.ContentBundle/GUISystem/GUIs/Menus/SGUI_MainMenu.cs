@@ -175,12 +175,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 SGUILabelElement labelElement = this.menuButtonElements[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize()))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
                     this.menuButtonActions[i].Invoke();
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize()) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
             }
         }
     }

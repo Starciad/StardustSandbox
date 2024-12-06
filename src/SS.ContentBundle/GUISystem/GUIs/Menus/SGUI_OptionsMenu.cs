@@ -3,9 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Managers.IO;
+
+using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -26,6 +31,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             Save = 1
         }
 
+        private enum SVideoSetting : byte
+        {
+            Resolution = 0,
+            Fullscreen = 1,
+            VSync = 2,
+            FrameRate = 3,
+            Borderless = 4
+        }
+
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiBackgroundTexture;
 
@@ -34,6 +48,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly string[] systemButtonNames;
 
         private byte selectedSectionIndex;
+
+        private SVideoSettings videoSettings;
+        private SVolumeSettings volumeSettings;
+        private SCursorSettings cursorSettings;
+        private SLanguageSettings languageSettings;
 
         public SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
@@ -58,12 +77,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             base.OnLoad();
             SelectSection(0);
+
+            this.videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            this.volumeSettings = SSettingsManager.LoadSettings<SVolumeSettings>();
+            this.cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
+            this.languageSettings = SSettingsManager.LoadSettings<SLanguageSettings>();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            // General
             UpdateButtons();
+
+            // Sections
+            UpdateVideoSection();
         }
 
         private void UpdateButtons()
@@ -72,7 +101,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 SGUILabelElement labelElement = this.sectionButtonElements[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize()))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
                     SelectSection(i);
                 }
@@ -83,19 +112,33 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     continue;
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize()) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
             }
 
             for (byte i = 0; i < this.systemButtonElements.Length; i++)
             {
                 SGUILabelElement labelElement = this.systemButtonElements[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize()))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
                     // (Actions will still be added.)
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize()) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+            }
+        }
+
+        private void UpdateVideoSection()
+        {
+            for (int i = 0; i < this.videoSectionButtons.Count; i++)
+            {
+                SGUILabelElement labelElement = this.videoSectionButtons[i];
+
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
+                {
+                    this.videoSectionOptionSelectors[i].Next();
+                    labelElement.SetTextualContent(this.videoSectionOptionSelectors[i].ToString());
+                }
             }
         }
 

@@ -4,11 +4,16 @@ using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Tools.Options;
+using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
+
+using System;
+using System.Collections.Generic;
+using System.Drawing.Printing;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -25,6 +30,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[5];
         private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[5];
         private readonly SGUILabelElement[] systemButtonElements = new SGUILabelElement[2];
+
+        private readonly List<SOptionSelector> generalSectionOptionSelectors = [];
+        private readonly List<SOptionSelector> videoSectionOptionSelectors = [];
+        private readonly List<SOptionSelector> volumeSectionOptionSelectors = [];
+        private readonly List<SOptionSelector> cursorSectionOptionSelectors = [];
+
+        private readonly List<SGUILabelElement> generalSectionButtons = [];
+        private readonly List<SGUILabelElement> videoSectionButtons = [];
+        private readonly List<SGUILabelElement> volumeSectionButtons = [];
+        private readonly List<SGUILabelElement> cursorSectionButtons = [];
+        private readonly List<SGUILabelElement> languageSectionButtons = [];
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
@@ -174,6 +190,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
         }
 
+        // ============================================================================ //
+
         private void BuildSections()
         {
             BuildGeneralSection();
@@ -187,10 +205,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
-            // ============================================================================ //
-
-            // ============================================================================ //
-
             this.sectionContainers[(byte)SMenuSection.General] = container;
             this.layout.AddElement(container);
         }
@@ -201,30 +215,36 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // [ FIELDS ]
             // 1. Resolution
-            _ = new
-            // [ FIELDS ]
-            // 1. Resolution
-            SOptionSelector("Resolution", 03, SScreenConstants.RESOLUTIONS);
+            this.videoSectionOptionSelectors.Add(new("Resolution", 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
 
             // 2. Fullscreen
-            _ = new
-            // 2. Fullscreen
-            SOptionSelector("Fullscreen", 00, [false, true]);
+            this.videoSectionOptionSelectors.Add(new("Fullscreen", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
             // 3. VSync
-            _ = new
-            // 3. VSync
-            SOptionSelector("VSync", 00, [false, true]);
+            this.videoSectionOptionSelectors.Add(new("VSync", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
             // 4. MaxFrameRate
-            _ = new
-            // 4. MaxFrameRate
-            SOptionSelector("FrameRate", 01, SScreenConstants.FRAME_RATES);
+            this.videoSectionOptionSelectors.Add(new("FrameRate", 01, Array.ConvertAll(SScreenConstants.FRAME_RATES, x => x.ToString())));
 
             // 5. Borderless
-            _ = new
-            // 5. Borderless
-            SOptionSelector("Borderless", 00, [false, true]);
+            this.videoSectionOptionSelectors.Add(new("Borderless", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+
+            // [ LABELS ]
+            Vector2 margin = new(0f, 0f);
+
+            foreach (SOptionSelector optionSelector in this.videoSectionOptionSelectors)
+            {
+                SGUILabelElement labelElement = CreateOptionLabel();
+
+                labelElement.Margin = margin;
+                labelElement.SetTextualContent(optionSelector.ToString());
+                labelElement.PositionRelativeToElement(this.rightPanelBackground);
+
+                this.videoSectionButtons.Add(labelElement);
+                container.AddElement(labelElement);
+
+                margin.Y += 32f;
+            }
 
             this.sectionContainers[(byte)SMenuSection.Video] = container;
             this.layout.AddElement(container);
@@ -262,12 +282,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // ============================================================================ //
 
-            // {LANGUAGES LIST}
+            
 
             // ============================================================================ //
 
             this.sectionContainers[(byte)SMenuSection.Language] = container;
             this.layout.AddElement(container);
+        }
+
+        // ============================================================================ //
+
+        private SGUILabelElement CreateOptionLabel()
+        {
+            return new(this.SGameInstance)
+            {
+                Scale = new(0.08f),
+                Color = SColorPalette.White,
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.VCR_OSD_MONO),
+                PositionAnchor = SCardinalDirection.North,
+                OriginPivot = SCardinalDirection.Center,
+            };
         }
     }
 }

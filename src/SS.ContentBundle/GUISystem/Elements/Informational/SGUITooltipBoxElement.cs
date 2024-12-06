@@ -60,7 +60,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
             this.tooltipLayout = new(gameInstance);
             this.tooltipLayout.AddElement(this.backgroundImageElement);
-
             this.tooltipLayout.AddElement(this.titleElement);
             this.tooltipLayout.AddElement(this.descriptionElement);
         }
