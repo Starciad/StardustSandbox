@@ -270,4 +270,76 @@
   <data name="Statements.Yes.Short" xml:space="preserve">
     <value>Y</value>
   </data>
+  <data name="Element.Energy.Fire.Description" xml:space="preserve">
+    <value>A manifestation of heat and energy, consuming flammable materials rapidly and spreading destruction with intense speed.</value>
+  </data>
+  <data name="Element.Gas.Corruption.Description" xml:space="preserve">
+    <value>A gaseous version of corruption, it spreads through the air and contaminates everything within its reach, making the environment inhospitable.</value>
+  </data>
+  <data name="Element.Gas.Smoke.Description" xml:space="preserve">
+    <value>A byproduct of combustion, it rises slowly, obscuring the air and indicating the presence of fire or burning.</value>
+  </data>
+  <data name="Element.Gas.Steam.Description" xml:space="preserve">
+    <value>Hot water vapor that rises rapidly and disperses into the air, signaling latent heat in the environment.</value>
+  </data>
+  <data name="Element.Liquid.Acid.Description" xml:space="preserve">
+    <value>A highly corrosive liquid that dissolves various materials on contact with extreme speed.</value>
+  </data>
+  <data name="Element.Liquid.Corruption.Description" xml:space="preserve">
+    <value>Highly contaminating liquid substance, flowing freely and corrupting all matter with which it interacts.</value>
+  </data>
+  <data name="Element.Liquid.Lava.Description" xml:space="preserve">
+    <value>Molten rock that incinerates almost everything on contact. It cools down into solid stone if exposed to lower temperatures.</value>
+  </data>
+  <data name="Element.Liquid.Water.Description" xml:space="preserve">
+    <value>A dynamic fluid that flows freely. Can freeze into ice or evaporate into steam when overheated, extinguishing fire along the way.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Corruption.Description" xml:space="preserve">
+    <value>Crystallized and dense form of corruption. Immobile and permanent, it creates irreversible contaminated zones.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Glass.Description" xml:space="preserve">
+    <value>A transparent yet fragile material, shattering on impact or disintegrating under high temperatures.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Metal.Description" xml:space="preserve">
+    <value>A strong, iron-based element. It withstands fire but melts into lava under extreme heat.</value>
+  </data>
+  <data name="Element.Solid.Immovable.MountingBlock.Description" xml:space="preserve">
+    <value>Functional and decorative block, available in vibrant colors. Flammable, it adds dynamism and aesthetics to mobile constructions.</value>
+  </data>
+  <data name="Element.Solid.Immovable.RedBrick.Description" xml:space="preserve">
+    <value>Strong and durable block, ideal for fortified constructions, especially due to its fire resistance.</value>
+  </data>
+  <data name="Element.Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
+    <value>Natural and flammable foliage, common in forest areas. It can be used to decorate and enrich the natural scenery.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wall.Description" xml:space="preserve">
+    <value>An impenetrable, solid barrier. Resistant to natural forces and unaffected by other elements.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wood.Description" xml:space="preserve">
+    <value>A natural, flammable material often used in constructions. Burns easily when in contact with fire.</value>
+  </data>
+  <data name="Element.Solid.Movable.Corruption.Description" xml:space="preserve">
+    <value>An unstable substance that spreads and infects corruptible materials, causing unstoppable destruction across the world.</value>
+  </data>
+  <data name="Element.Solid.Movable.Dirt.Description" xml:space="preserve">
+    <value>Dry soil, the foundation for vegetation. Turns into mud when exposed to water.</value>
+  </data>
+  <data name="Element.Solid.Movable.Grass.Description" xml:space="preserve">
+    <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
+  </data>
+  <data name="Element.Solid.Movable.Ice.Description" xml:space="preserve">
+    <value>Frozen water in solid form. Slippery and melts back into water when exposed to heat.</value>
+  </data>
+  <data name="Element.Solid.Movable.Mud.Description" xml:space="preserve">
+    <value>A dense mixture of dirt and water. When heated, it dries up and turns back into dirt.</value>
+  </data>
+  <data name="Element.Solid.Movable.Sand.Description" xml:space="preserve">
+    <value>Fine, loose grains that flow and accumulate easily. Under extreme heat, it fuses into glass.</value>
+  </data>
+  <data name="Element.Solid.Movable.Snow.Description" xml:space="preserve">
+    <value>Accumulated ice crystals in light flakes. Melts into water when exposed to heat.</value>
+  </data>
+  <data name="Element.Solid.Movable.Stone.Description" xml:space="preserve">
+    <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
+  </data>
 </root>

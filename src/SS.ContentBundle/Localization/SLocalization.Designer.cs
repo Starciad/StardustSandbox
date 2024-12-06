@@ -61,11 +61,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A manifestation of heat and energy, consuming flammable materials rapidly and spreading destruction with intense speed..
+        /// </summary>
+        internal static string Element_Energy_Fire_Description {
+            get {
+                return ResourceManager.GetString("Element.Energy.Fire.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Fire.
         /// </summary>
         internal static string Element_Energy_Fire_Name {
             get {
                 return ResourceManager.GetString("Element.Energy.Fire.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A gaseous version of corruption, it spreads through the air and contaminates everything within its reach, making the environment inhospitable..
+        /// </summary>
+        internal static string Element_Gas_Corruption_Description {
+            get {
+                return ResourceManager.GetString("Element.Gas.Corruption.Description", resourceCulture);
             }
         }
         
@@ -79,11 +97,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A byproduct of combustion, it rises slowly, obscuring the air and indicating the presence of fire or burning..
+        /// </summary>
+        internal static string Element_Gas_Smoke_Description {
+            get {
+                return ResourceManager.GetString("Element.Gas.Smoke.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Smoke.
         /// </summary>
         internal static string Element_Gas_Smoke_Name {
             get {
                 return ResourceManager.GetString("Element.Gas.Smoke.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hot water vapor that rises rapidly and disperses into the air, signaling latent heat in the environment..
+        /// </summary>
+        internal static string Element_Gas_Steam_Description {
+            get {
+                return ResourceManager.GetString("Element.Gas.Steam.Description", resourceCulture);
             }
         }
         
@@ -97,11 +133,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A highly corrosive liquid that dissolves various materials on contact with extreme speed..
+        /// </summary>
+        internal static string Element_Liquid_Acid_Description {
+            get {
+                return ResourceManager.GetString("Element.Liquid.Acid.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Acid.
         /// </summary>
         internal static string Element_Liquid_Acid_Name {
             get {
                 return ResourceManager.GetString("Element.Liquid.Acid.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Highly contaminating liquid substance, flowing freely and corrupting all matter with which it interacts..
+        /// </summary>
+        internal static string Element_Liquid_Corruption_Description {
+            get {
+                return ResourceManager.GetString("Element.Liquid.Corruption.Description", resourceCulture);
             }
         }
         
@@ -115,11 +169,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Molten rock that incinerates almost everything on contact. It cools down into solid stone if exposed to lower temperatures..
+        /// </summary>
+        internal static string Element_Liquid_Lava_Description {
+            get {
+                return ResourceManager.GetString("Element.Liquid.Lava.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Lava.
         /// </summary>
         internal static string Element_Liquid_Lava_Name {
             get {
                 return ResourceManager.GetString("Element.Liquid.Lava.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dynamic fluid that flows freely. Can freeze into ice or evaporate into steam when overheated, extinguishing fire along the way..
+        /// </summary>
+        internal static string Element_Liquid_Water_Description {
+            get {
+                return ResourceManager.GetString("Element.Liquid.Water.Description", resourceCulture);
             }
         }
         
@@ -133,11 +205,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Crystallized and dense form of corruption. Immobile and permanent, it creates irreversible contaminated zones..
+        /// </summary>
+        internal static string Element_Solid_Immovable_Corruption_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.Corruption.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Corruption (immovable).
         /// </summary>
         internal static string Element_Solid_Immovable_Corruption_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Corruption.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A transparent yet fragile material, shattering on impact or disintegrating under high temperatures..
+        /// </summary>
+        internal static string Element_Solid_Immovable_Glass_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.Glass.Description", resourceCulture);
             }
         }
         
@@ -151,11 +241,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A strong, iron-based element. It withstands fire but melts into lava under extreme heat..
+        /// </summary>
+        internal static string Element_Solid_Immovable_Metal_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.Metal.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Metal.
         /// </summary>
         internal static string Element_Solid_Immovable_Metal_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Metal.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Functional and decorative block, available in vibrant colors. Flammable, it adds dynamism and aesthetics to mobile constructions..
+        /// </summary>
+        internal static string Element_Solid_Immovable_MountingBlock_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.MountingBlock.Description", resourceCulture);
             }
         }
         
@@ -169,11 +277,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Strong and durable block, ideal for fortified constructions, especially due to its fire resistance..
+        /// </summary>
+        internal static string Element_Solid_Immovable_RedBrick_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.RedBrick.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Red Brick.
         /// </summary>
         internal static string Element_Solid_Immovable_RedBrick_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.RedBrick.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Natural and flammable foliage, common in forest areas. It can be used to decorate and enrich the natural scenery..
+        /// </summary>
+        internal static string Element_Solid_Immovable_TreeLeaf_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.TreeLeaf.Description", resourceCulture);
             }
         }
         
@@ -187,11 +313,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An impenetrable, solid barrier. Resistant to natural forces and unaffected by other elements..
+        /// </summary>
+        internal static string Element_Solid_Immovable_Wall_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.Wall.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Wall.
         /// </summary>
         internal static string Element_Solid_Immovable_Wall_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Immovable.Wall.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A natural, flammable material often used in constructions. Burns easily when in contact with fire..
+        /// </summary>
+        internal static string Element_Solid_Immovable_Wood_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Immovable.Wood.Description", resourceCulture);
             }
         }
         
@@ -205,11 +349,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An unstable substance that spreads and infects corruptible materials, causing unstoppable destruction across the world..
+        /// </summary>
+        internal static string Element_Solid_Movable_Corruption_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Corruption.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Corruption (movable).
         /// </summary>
         internal static string Element_Solid_Movable_Corruption_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Corruption.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry soil, the foundation for vegetation. Turns into mud when exposed to water..
+        /// </summary>
+        internal static string Element_Solid_Movable_Dirt_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Dirt.Description", resourceCulture);
             }
         }
         
@@ -223,11 +385,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure..
+        /// </summary>
+        internal static string Element_Solid_Movable_Grass_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Grass.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Grass.
         /// </summary>
         internal static string Element_Solid_Movable_Grass_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Grass.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Frozen water in solid form. Slippery and melts back into water when exposed to heat..
+        /// </summary>
+        internal static string Element_Solid_Movable_Ice_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Ice.Description", resourceCulture);
             }
         }
         
@@ -241,11 +421,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense mixture of dirt and water. When heated, it dries up and turns back into dirt..
+        /// </summary>
+        internal static string Element_Solid_Movable_Mud_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Mud.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Mud.
         /// </summary>
         internal static string Element_Solid_Movable_Mud_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Mud.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fine, loose grains that flow and accumulate easily. Under extreme heat, it fuses into glass..
+        /// </summary>
+        internal static string Element_Solid_Movable_Sand_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Sand.Description", resourceCulture);
             }
         }
         
@@ -259,11 +457,29 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Accumulated ice crystals in light flakes. Melts into water when exposed to heat..
+        /// </summary>
+        internal static string Element_Solid_Movable_Snow_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Snow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Snow.
         /// </summary>
         internal static string Element_Solid_Movable_Snow_Name {
             get {
                 return ResourceManager.GetString("Element.Solid.Movable.Snow.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure..
+        /// </summary>
+        internal static string Element_Solid_Movable_Stone_Description {
+            get {
+                return ResourceManager.GetString("Element.Solid.Movable.Stone.Description", resourceCulture);
             }
         }
         

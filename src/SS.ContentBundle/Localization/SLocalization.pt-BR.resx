@@ -270,4 +270,76 @@
   <data name="Statements.Yes.Short" xml:space="preserve">
     <value>S</value>
   </data>
+  <data name="Element.Energy.Fire.Description" xml:space="preserve">
+    <value>Manifestação de calor e energia, consome rapidamente materiais inflamáveis e propaga-se em alta velocidade, gerando destruição e fumaça.</value>
+  </data>
+  <data name="Element.Gas.Corruption.Description" xml:space="preserve">
+    <value>Versão gasosa da corrupção, espalha-se pelo ar e contamina tudo ao seu alcance, tornando o ambiente inóspito.</value>
+  </data>
+  <data name="Element.Gas.Smoke.Description" xml:space="preserve">
+    <value>Subproduto da combustão, eleva-se lentamente, obscurecendo o ar e indicando a presença de fogo ou queima.</value>
+  </data>
+  <data name="Element.Gas.Steam.Description" xml:space="preserve">
+    <value>Vapor de água quente que se eleva rapidamente e se dispersa no ar, sinalizando o calor latente no ambiente.</value>
+  </data>
+  <data name="Element.Liquid.Acid.Description" xml:space="preserve">
+    <value>Líquido corrosivo de elevada reatividade, dissolvendo rapidamente uma ampla gama de materiais ao mínimo contato.</value>
+  </data>
+  <data name="Element.Liquid.Corruption.Description" xml:space="preserve">
+    <value>Substância líquida altamente contaminante, fluindo livremente e corrompendo toda matéria com que interage.</value>
+  </data>
+  <data name="Element.Liquid.Lava.Description" xml:space="preserve">
+    <value>Rocha fundida a altíssimas temperaturas, capaz de destruir quase todos os materiais ao contato. Resfria-se em pedra sólida quando exposta a baixas temperaturas.</value>
+  </data>
+  <data name="Element.Liquid.Water.Description" xml:space="preserve">
+    <value>Líquido essencial e fluido, com comportamento dinâmico. Pode ser congelada em gelo ou evaporar em vapor quando exposta a altas temperaturas, apagando incêndios pelo caminho.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Corruption.Description" xml:space="preserve">
+    <value>Forma cristalizada e densa da corrupção. Imóvel e permanente, cria zonas contaminadas irreversíveis.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Glass.Description" xml:space="preserve">
+    <value>Material transparente e frágil. Sua integridade estrutural se desfaz sob altas temperaturas ou impactos diretos.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Metal.Description" xml:space="preserve">
+    <value>Material metálico robusto, imune a fogo, mas suscetível à fusão em lava sob calor extremo.</value>
+  </data>
+  <data name="Element.Solid.Immovable.MountingBlock.Description" xml:space="preserve">
+    <value>Bloco funcional e decorativo, disponível em cores vibrantes. Inflamável, adiciona dinamismo e estética às construções móveis.</value>
+  </data>
+  <data name="Element.Solid.Immovable.RedBrick.Description" xml:space="preserve">
+    <value>Bloco resistente e durável, ideal para construções fortificadas, especialmente por sua resistência ao fogo.</value>
+  </data>
+  <data name="Element.Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
+    <value>Folhagem natural e inflamável, comum em áreas florestais. Pode ser usada para decorar e enriquecer o cenário natural.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wall.Description" xml:space="preserve">
+    <value>Estrutura sólida e impenetrável. Não é afetada por elementos externos nem interfere nas dinâmicas ao redor.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wood.Description" xml:space="preserve">
+    <value>Material orgânico, altamente inflamável, comumente utilizado para construções. Queima de forma intensa ao entrar em contato com fogo.</value>
+  </data>
+  <data name="Element.Solid.Movable.Corruption.Description" xml:space="preserve">
+    <value>Substância anômala que se espalha em qualquer direção, contaminando elementos corrompíveis e causando destruição contínua e irreversível no ambiente.</value>
+  </data>
+  <data name="Element.Solid.Movable.Dirt.Description" xml:space="preserve">
+    <value>Terra seca e instável, servindo como base para vegetação. Quando entra em contato com a água, transforma-se rapidamente em lama, alterando sua densidade e mobilidade.</value>
+  </data>
+  <data name="Element.Solid.Movable.Grass.Description" xml:space="preserve">
+    <value>Rocha densa e durável, resistente a impactos. Em calor extremo, derrete em lava; quando exposta à erosão aquática prolongada, desintegra-se em areia.</value>
+  </data>
+  <data name="Element.Solid.Movable.Ice.Description" xml:space="preserve">
+    <value>Água cristalizada em estado sólido. Sua superfície escorregadia derrete facilmente em contato com calor, retornando ao estado líquido.</value>
+  </data>
+  <data name="Element.Solid.Movable.Mud.Description" xml:space="preserve">
+    <value>Mistura viscosa de terra e água, resultante de umidade excessiva. Ao ser aquecida, a água evapora, restando terra compactada.</value>
+  </data>
+  <data name="Element.Solid.Movable.Sand.Description" xml:space="preserve">
+    <value>Minúsculos grãos minerais que fluem e se acumulam. Quando submetidos a temperaturas extremas, fundem-se em vidro.</value>
+  </data>
+  <data name="Element.Solid.Movable.Snow.Description" xml:space="preserve">
+    <value>Cristais de gelo agregados em flocos leves. Ao ser aquecida, derrete e se transforma em água, retornando ao ciclo natural.</value>
+  </data>
+  <data name="Element.Solid.Movable.Stone.Description" xml:space="preserve">
+    <value>Rocha densa e durável, resistente a impactos. Em calor extremo, derrete em lava; quando exposta à erosão aquática prolongada, desintegra-se em areia.</value>
+  </data>
 </root>

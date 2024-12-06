@@ -61,7 +61,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_dirt",
                 displayName: SLocalization.Element_Solid_Movable_Dirt_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Dirt_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_1"),
@@ -71,7 +71,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_mud",
                 displayName: SLocalization.Element_Solid_Movable_Mud_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Mud_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_2"),
@@ -81,7 +81,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_water",
                 displayName: SLocalization.Element_Liquid_Water_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Liquid_Water_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_3"),
@@ -91,7 +91,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_stone",
                 displayName: SLocalization.Element_Solid_Movable_Stone_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Stone_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_4"),
@@ -101,7 +101,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_grass",
                 displayName: SLocalization.Element_Solid_Movable_Grass_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Grass_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_5"),
@@ -111,7 +111,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_ice",
                 displayName: SLocalization.Element_Solid_Movable_Ice_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Ice_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_6"),
@@ -121,7 +121,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_sand",
                 displayName: SLocalization.Element_Solid_Movable_Sand_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Sand_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_7"),
@@ -131,7 +131,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_snow",
                 displayName: SLocalization.Element_Solid_Movable_Snow_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Snow_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_8"),
@@ -141,7 +141,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_movable_corruption",
                 displayName: SLocalization.Element_Solid_Movable_Corruption_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Movable_Corruption_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "powders",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_9"),
@@ -151,7 +151,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_lava",
                 displayName: SLocalization.Element_Liquid_Lava_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Liquid_Lava_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_10"),
@@ -161,7 +161,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_acid",
                 displayName: SLocalization.Element_Liquid_Acid_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Liquid_Acid_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_11"),
@@ -171,7 +171,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_glass",
                 displayName: SLocalization.Element_Solid_Immovable_Glass_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_Glass_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_12"),
@@ -181,7 +181,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_metal",
                 displayName: SLocalization.Element_Solid_Immovable_Metal_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_Metal_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_13"),
@@ -191,7 +191,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_wall",
                 displayName: SLocalization.Element_Solid_Immovable_Wall_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_Wall_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "walls",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_14"),
@@ -201,7 +201,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_wood",
                 displayName: SLocalization.Element_Solid_Immovable_Wood_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_Wood_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_15"),
@@ -211,7 +211,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_gas_corruption",
                 displayName: SLocalization.Element_Gas_Corruption_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Gas_Corruption_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "gases",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_16"),
@@ -221,7 +221,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_liquid_corruption",
                 displayName: SLocalization.Element_Liquid_Corruption_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Liquid_Corruption_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "liquids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_17"),
@@ -231,7 +231,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_immovable_corruption",
                 displayName: SLocalization.Element_Solid_Immovable_Corruption_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_Corruption_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_18"),
@@ -241,7 +241,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_steam",
                 displayName: SLocalization.Element_Gas_Steam_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Gas_Steam_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "gases",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_19"),
@@ -251,7 +251,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_smoke",
                 displayName: SLocalization.Element_Gas_Smoke_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Gas_Smoke_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "gases",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_20"),
@@ -261,7 +261,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_red_brick",
                 displayName: SLocalization.Element_Solid_Immovable_RedBrick_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_RedBrick_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_21"),
@@ -271,7 +271,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_tree_leaf",
                 displayName: SLocalization.Element_Solid_Immovable_TreeLeaf_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_TreeLeaf_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_22"),
@@ -281,7 +281,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_mounting_block",
                 displayName: SLocalization.Element_Solid_Immovable_MountingBlock_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Solid_Immovable_MountingBlock_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "solids",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_23"),
@@ -291,7 +291,7 @@ namespace StardustSandbox.ContentBundle
             itemDatabase.RegisterItem(
                 identifier: "element_fire",
                 displayName: SLocalization.Element_Energy_Fire_Name,
-                description: string.Empty,
+                description: SLocalization.Element_Energy_Fire_Description,
                 contentType: SItemContentType.Element,
                 categoryIdentifier: "energies",
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24"),
