@@ -9,6 +9,7 @@ namespace StardustSandbox.Core.Backgrounds
     public sealed class SBackgroundLayer(ISGame gameInstance, Texture2D texture, Rectangle textureClippingRectangle, Vector2 parallaxFactor, Vector2 movementSpeed, bool lockX = false, bool lockY = false) : SGameObject(gameInstance)
     {
         private Vector2 layerPosition = Vector2.Zero;
+        private Vector2 movementOffsetPosition = Vector2.Zero;
 
         private Vector2 horizontalLayerPosition = Vector2.Zero;
         private Vector2 verticalLayerPosition = Vector2.Zero;
@@ -31,15 +32,23 @@ namespace StardustSandbox.Core.Backgrounds
 
             if (!this._lockX)
             {
-                this.layerPosition.X += this._movementSpeed.X * elapsedSeconds;
-                this.layerPosition.X += this._parallaxFactor.X * cameraPosition.X * elapsedSeconds * -1;
+                if (this._movementSpeed.X != 0)
+                {
+                    this.movementOffsetPosition.X += this._movementSpeed.X * elapsedSeconds;
+                }
+
+                this.layerPosition.X = this.movementOffsetPosition.X + this._parallaxFactor.X * cameraPosition.X * elapsedSeconds * -1;
                 this.layerPosition.X %= this._textureClippingRectangle.Width;
             }
 
             if (!this._lockY)
             {
-                this.layerPosition.Y += this._movementSpeed.Y * elapsedSeconds;
-                this.layerPosition.Y += this._parallaxFactor.Y * cameraPosition.Y * elapsedSeconds;
+                if (this._movementSpeed.Y != 0)
+                {
+                    this.movementOffsetPosition.Y += this._movementSpeed.Y * elapsedSeconds;
+                }
+
+                this.layerPosition.Y = this.movementOffsetPosition.Y + this._parallaxFactor.Y * cameraPosition.Y * elapsedSeconds;
                 this.layerPosition.Y %= this._textureClippingRectangle.Height;
             }
 

@@ -11,6 +11,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
 
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+
             this.world.IsActive = true;
             this.world.IsVisible = true;
 
