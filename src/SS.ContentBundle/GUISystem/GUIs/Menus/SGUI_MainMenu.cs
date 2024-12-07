@@ -81,7 +81,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             base.OnLoad();
 
             ResetElementPositions();
-            DisableControls();
+
+            this.SGameInstance.GameInputController.Disable();
+
             LoadAnimationValues();
             LoadMainMenuWorld();
             LoadMagicCursor();
@@ -92,6 +94,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         protected override void OnUnload()
         {
             base.OnUnload();
+
+            this.SGameInstance.EntityManager.RemoveAll();
+
+            SSongEngine.Stop();
         }
 
         public override void Update(GameTime gameTime)
@@ -115,11 +121,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
         }
 
-        private void DisableControls()
-        {
-            this.SGameInstance.GameInputController.Disable();
-        }
-
         private void LoadAnimationValues()
         {
             // GameTitle
@@ -138,6 +139,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadMainMenuWorld()
         {
+            this.world.IsActive = true;
+            this.world.IsVisible = true;
+
             this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
             this.world.Reset();
         }

@@ -44,6 +44,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly Texture2D guiBackgroundTexture;
 
+        private readonly SpriteFont bigApple3PMSpriteFont;
+        private readonly SpriteFont digitalDiscoSpriteFont;
+
         private readonly string titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
 
         private readonly string[] sectionNames = [
@@ -66,6 +69,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 ReturnButton,
                 SaveButton
             ];
+
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
         }
 
         protected override void OnLoad()

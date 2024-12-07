@@ -8,12 +8,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         private void CreateMenuButton()
         {
-            SSongEngine.Stop();
-
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
 
-            this.SGameInstance.EntityManager.RemoveAll();
+            this.world.IsActive = true;
+            this.world.IsVisible = true;
 
             this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
             this.world.Reset();

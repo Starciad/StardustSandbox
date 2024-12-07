@@ -129,7 +129,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Color = SColorPalette.White,
                 PositionAnchor = SCardinalDirection.North,
                 OriginPivot = SCardinalDirection.Center,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
+                SpriteFont = this.bigApple3PMSpriteFont,
             };
 
             this.titleLabel.SetTextualContent(this.titleName);
@@ -261,7 +261,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Scale = defaultButtonScale,
                 Color = SColorPalette.White,
                 OriginPivot = SCardinalDirection.Center,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
+                SpriteFont = this.bigApple3PMSpriteFont,
             };
 
             labelElement.SetAllBorders(true, SColorPalette.DarkGray, defaultButtonBorderOffset);
@@ -275,7 +275,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 Scale = new(0.12f),
                 Color = SColorPalette.White,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO),
+                SpriteFont = this.digitalDiscoSpriteFont,
                 PositionAnchor = SCardinalDirection.North,
                 OriginPivot = SCardinalDirection.Center,
             };
