@@ -493,105 +493,6 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a And that&apos;s the end....
-        /// </summary>
-        internal static string GUI_Credits_Message_Finalization {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Message.Finalization", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Thanks for Playing!.
-        /// </summary>
-        internal static string GUI_Credits_Message_ThankPlayer {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Message.ThankPlayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a To my parents..
-        /// </summary>
-        internal static string GUI_Credits_People_Parents {
-            get {
-                return ResourceManager.GetString("GUI.Credits.People.Parents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Artists.
-        /// </summary>
-        internal static string GUI_Credits_Title_Artists {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Artists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Composers.
-        /// </summary>
-        internal static string GUI_Credits_Title_Composers {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Composers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Contributors.
-        /// </summary>
-        internal static string GUI_Credits_Title_Contributors {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Contributors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Creator.
-        /// </summary>
-        internal static string GUI_Credits_Title_Creator {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Creator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Programming.
-        /// </summary>
-        internal static string GUI_Credits_Title_Programming {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Programming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Roles.
-        /// </summary>
-        internal static string GUI_Credits_Title_Roles {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Roles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Special Thanks.
-        /// </summary>
-        internal static string GUI_Credits_Title_SpecialThanks {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.SpecialThanks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools.
-        /// </summary>
-        internal static string GUI_Credits_Title_Tools {
-            get {
-                return ResourceManager.GetString("GUI.Credits.Title.Tools", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions..
         /// </summary>
         internal static string GUI_HUD_Button_ItemExplorer_Description {
@@ -610,65 +511,200 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a And that&apos;s the end....
+        /// </summary>
+        internal static string GUI_Menu_Credits_Message_Finalization {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Message.Finalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Thanks for Playing!.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Message_ThankPlayer {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Message.ThankPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a To my parents..
+        /// </summary>
+        internal static string GUI_Menu_Credits_People_Parents {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.People.Parents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Artists.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Artists {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Artists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Composers.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Composers {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Composers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Contributors.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Contributors {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Contributors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Creator.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Creator {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Programming.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Programming {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Programming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Roles.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Roles {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Special Thanks.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_SpecialThanks {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.SpecialThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools.
+        /// </summary>
+        internal static string GUI_Menu_Credits_Title_Tools {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Credits.Title.Tools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Create.
         /// </summary>
-        internal static string GUI_Menu_MainMenu_Create {
+        internal static string GUI_Menu_Main_Button_Create {
             get {
-                return ResourceManager.GetString("GUI.Menu.MainMenu.Create", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Main.Button.Create", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Credits.
         /// </summary>
-        internal static string GUI_Menu_MainMenu_Credits {
+        internal static string GUI_Menu_Main_Button_Credits {
             get {
-                return ResourceManager.GetString("GUI.Menu.MainMenu.Credits", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Main.Button.Credits", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Options.
         /// </summary>
-        internal static string GUI_Menu_MainMenu_Options {
+        internal static string GUI_Menu_Main_Button_Options {
             get {
-                return ResourceManager.GetString("GUI.Menu.MainMenu.Options", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Main.Button.Options", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Quit.
         /// </summary>
-        internal static string GUI_Menu_MainMenu_Quit {
+        internal static string GUI_Menu_Main_Button_Quit {
             get {
-                return ResourceManager.GetString("GUI.Menu.MainMenu.Quit", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Main.Button.Quit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
         /// </summary>
-        internal static string GUI_Menu_OptionsMenu_Section_Language {
+        internal static string GUI_Menu_Options_Section_Language {
             get {
-                return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Language", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Options.Section.Language", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Video.
         /// </summary>
-        internal static string GUI_Menu_OptionsMenu_Section_Video {
+        internal static string GUI_Menu_Options_Section_Video {
             get {
-                return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Video", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Options.Section.Video", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Borderless.
+        /// </summary>
+        internal static string GUI_Menu_Options_Section_Video_Borderless {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Options.Section.Video.Borderless", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fullscreen.
+        /// </summary>
+        internal static string GUI_Menu_Options_Section_Video_Fullscreen {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Options.Section.Video.Fullscreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resolution.
+        /// </summary>
+        internal static string GUI_Menu_Options_Section_Video_Resolution {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Options.Section.Video.Resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a VSync.
+        /// </summary>
+        internal static string GUI_Menu_Options_Section_Video_VSync {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Options.Section.Video.VSync", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a OPTIONS.
         /// </summary>
-        internal static string GUI_Menu_OptionsMenu_Title {
+        internal static string GUI_Menu_Options_Title {
             get {
-                return ResourceManager.GetString("GUI.Menu.OptionsMenu.Title", resourceCulture);
+                return ResourceManager.GetString("GUI.Menu.Options.Title", resourceCulture);
             }
         }
         

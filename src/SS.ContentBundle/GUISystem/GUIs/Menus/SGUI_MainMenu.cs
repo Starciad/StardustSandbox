@@ -62,10 +62,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
 
             this.menuButtonNames = [
-                SLocalization.GUI_Menu_MainMenu_Create,
-                SLocalization.GUI_Menu_MainMenu_Options,
-                SLocalization.GUI_Menu_MainMenu_Credits,
-                SLocalization.GUI_Menu_MainMenu_Quit
+                SLocalization.GUI_Menu_Main_Button_Create,
+                SLocalization.GUI_Menu_Main_Button_Options,
+                SLocalization.GUI_Menu_Main_Button_Credits,
+                SLocalization.GUI_Menu_Main_Button_Quit
             ];
 
             this.menuButtonActions = [
