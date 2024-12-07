@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
@@ -64,6 +65,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size);
 
+            UpdateReturnInput();
+
             #region ELEMENT SLOTS
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
@@ -118,6 +121,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             }
 
             #endregion
+        }
+
+        private void UpdateReturnInput()
+        {
+            if (this.SGameInstance.InputManager.KeyboardState.IsKeyDown(Keys.Escape))
+            {
+                this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            }
         }
 
         private static void UpdateLeftToolbar()
