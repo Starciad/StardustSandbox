@@ -538,38 +538,11 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Play.
-        /// </summary>
-        internal static string GUI_Menu_MainMenu_Play {
-            get {
-                return ResourceManager.GetString("GUI.Menu.MainMenu.Play", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Quit.
         /// </summary>
         internal static string GUI_Menu_MainMenu_Quit {
             get {
                 return ResourceManager.GetString("GUI.Menu.MainMenu.Quit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Cursor.
-        /// </summary>
-        internal static string GUI_Menu_OptionsMenu_Section_Cursor {
-            get {
-                return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Cursor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a General.
-        /// </summary>
-        internal static string GUI_Menu_OptionsMenu_Section_General {
-            get {
-                return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.General", resourceCulture);
             }
         }
         
@@ -588,15 +561,6 @@ namespace StardustSandbox.ContentBundle.Localization {
         internal static string GUI_Menu_OptionsMenu_Section_Video {
             get {
                 return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Video", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Volume.
-        /// </summary>
-        internal static string GUI_Menu_OptionsMenu_Section_Volume {
-            get {
-                return ResourceManager.GetString("GUI.Menu.OptionsMenu.Section.Volume", resourceCulture);
             }
         }
         

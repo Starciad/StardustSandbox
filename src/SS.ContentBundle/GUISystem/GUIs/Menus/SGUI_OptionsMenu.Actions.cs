@@ -2,9 +2,7 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Managers.IO;
-using StardustSandbox.Core.Mathematics.Primitives;
-
-using System;
+using StardustSandbox.Core.Localization;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -13,8 +11,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         public void SaveButton()
         {
             SaveVideoSettings();
-            SaveVolumeSettings();
-            SaveCursorSettings();
             SaveLanguageSettings();
         }
 
@@ -28,19 +24,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SSettingsManager.SaveSettings(this.videoSettings);
         }
 
-        private void SaveVolumeSettings()
-        {
-            SSettingsManager.SaveSettings(this.volumeSettings);
-        }
-
-        private void SaveCursorSettings()
-        {
-            SSettingsManager.SaveSettings(this.cursorSettings);
-        }
-
         private void SaveLanguageSettings()
         {
-            this.languageSettings.SetGameCulture(SLocalizationConstants.AVAILABLE_GAME_CULTURES[this.selectedLanguageIndex]);
+            SGameCulture gameCulture = SLocalizationConstants.AVAILABLE_GAME_CULTURES[this.selectedLanguageIndex];
+
+            this.languageSettings.Language = gameCulture.Language;
+            this.languageSettings.Region = gameCulture.Region;
 
             SSettingsManager.SaveSettings(this.languageSettings);
         }

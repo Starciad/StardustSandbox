@@ -23,10 +23,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private enum SMainMenuButtonIndex : byte
         {
             Create = 0,
-            Play = 1,
-            Options = 2,
-            Credits = 3,
-            Quit = 4
+            Options = 1,
+            Credits = 2,
+            Quit = 3
         }
 
         private Vector2 originalGameTitleElementPosition;
@@ -64,7 +63,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.menuButtonNames = [
                 SLocalization.GUI_Menu_MainMenu_Create,
-                SLocalization.GUI_Menu_MainMenu_Play,
                 SLocalization.GUI_Menu_MainMenu_Options,
                 SLocalization.GUI_Menu_MainMenu_Credits,
                 SLocalization.GUI_Menu_MainMenu_Quit
@@ -72,7 +70,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.menuButtonActions = [
                 CreateMenuButton,
-                PlayMenuButton,
                 OptionsMenuButton,
                 CreditsMenuButton,
                 QuitMenuButton

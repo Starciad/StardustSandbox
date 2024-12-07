@@ -22,11 +22,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.SGameInstance.GameInputController.Activate();
         }
 
-        private static void PlayMenuButton()
-        {
-            return;
-        }
-
         private void OptionsMenuButton()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);

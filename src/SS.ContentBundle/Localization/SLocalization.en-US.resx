@@ -189,9 +189,6 @@
   <data name="Element.Energy.Fire.Name" xml:space="preserve">
     <value>Fire</value>
   </data>
-  <data name="GUI.Menu.MainMenu.Play" xml:space="preserve">
-    <value>Play</value>
-  </data>
   <data name="GUI.Menu.MainMenu.Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -224,18 +221,6 @@
   </data>
   <data name="GUI.Menu.OptionsMenu.Title" xml:space="preserve">
     <value>OPTIONS</value>
-  </data>
-  <data name="GUI.Menu.OptionsMenu.Section.General" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="GUI.Menu.OptionsMenu.Section.Video" xml:space="preserve">
-    <value>Video</value>
-  </data>
-  <data name="GUI.Menu.OptionsMenu.Section.Volume" xml:space="preserve">
-    <value>Volume</value>
-  </data>
-  <data name="GUI.Menu.OptionsMenu.Section.Cursor" xml:space="preserve">
-    <value>Cursor</value>
   </data>
   <data name="GUI.Menu.OptionsMenu.Section.Language" xml:space="preserve">
     <value>Language</value>
@@ -365,5 +350,8 @@
   </data>
   <data name="GUI.HUD.Button.ItemExplorer.Description" xml:space="preserve">
     <value>A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions.</value>
+  </data>
+  <data name="GUI.Menu.OptionsMenu.Section.Video" xml:space="preserve">
+    <value>Video</value>
   </data>
 </root>

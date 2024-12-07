@@ -18,11 +18,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         private enum SMenuSection : byte
         {
-            General = 0,
-            Video = 1,
-            Volume = 2,
-            Cursor = 3,
-            Language = 4
+            Video = 0,
+            Language = 1
         }
 
         private enum SSystemButton : byte
@@ -43,8 +40,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private byte selectedLanguageIndex = 0;
 
         private SVideoSettings videoSettings;
-        private SVolumeSettings volumeSettings;
-        private SCursorSettings cursorSettings;
         private SLanguageSettings languageSettings;
 
         private readonly Texture2D guiBackgroundTexture;
@@ -52,10 +47,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly string titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
 
         private readonly string[] sectionNames = [
-            SLocalization.GUI_Menu_OptionsMenu_Section_General,
             SLocalization.GUI_Menu_OptionsMenu_Section_Video,
-            SLocalization.GUI_Menu_OptionsMenu_Section_Volume,
-            SLocalization.GUI_Menu_OptionsMenu_Section_Cursor,
             SLocalization.GUI_Menu_OptionsMenu_Section_Language
         ];
 
@@ -83,8 +75,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // Load Settings
             LoadVideoSettings();
-            LoadVolumeSettings();
-            LoadCursorSettings();
             LoadLanguageSettings();
         }
 
@@ -103,19 +93,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.videoSectionButtons[(byte)SVideoSetting.Borderless].SetTextualContent(this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].ToString());
         }
 
-        private void LoadVolumeSettings()
-        {
-            this.volumeSettings = SSettingsManager.LoadSettings<SVolumeSettings>();
-        }
-
-        private void LoadCursorSettings()
-        {
-            this.cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
-        }
-
         private void LoadLanguageSettings()
         {
             this.languageSettings = SSettingsManager.LoadSettings<SLanguageSettings>();
+            this.selectedLanguageIndex = (byte)Array.FindIndex(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Language == this.languageSettings.Language );
         }
 
         public override void Update(GameTime gameTime)
@@ -128,17 +109,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             // Sections
             switch ((SMenuSection)this.selectedSectionIndex)
             {
-                case SMenuSection.General:
-                    break;
-
                 case SMenuSection.Video:
                     UpdateVideoSection();
-                    break;
-
-                case SMenuSection.Volume:
-                    break;
-
-                case SMenuSection.Cursor:
                     break;
 
                 case SMenuSection.Language:

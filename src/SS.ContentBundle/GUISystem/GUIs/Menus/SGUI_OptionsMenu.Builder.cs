@@ -15,7 +15,6 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -29,8 +28,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SGUISliceImageElement leftPanelBackground;
         private SGUISliceImageElement rightPanelBackground;
 
-        private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[5];
-        private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[5];
+        private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[2];
+        private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[2];
         private readonly SGUILabelElement[] systemButtonElements = new SGUILabelElement[2];
 
         private readonly List<SOptionSelector> generalSectionOptionSelectors = [];
@@ -186,19 +185,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildSections()
         {
-            BuildGeneralSection();
             BuildVideoSection();
-            BuildVolumeSection();
-            BuildCursorSection();
             BuildLanguageSection();
-        }
-
-        private void BuildGeneralSection()
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            this.sectionContainers[(byte)SMenuSection.General] = container;
-            this.layout.AddElement(container);
         }
 
         private void BuildVideoSection()
@@ -236,32 +224,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
 
             this.sectionContainers[(byte)SMenuSection.Video] = container;
-            this.layout.AddElement(container);
-        }
-
-        private void BuildVolumeSection()
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            // [ FIELDS ]
-            // 1. MasterVolume
-            // 2. MusicVolume
-            // 3. SFXVolume
-
-            this.sectionContainers[(byte)SMenuSection.Volume] = container;
-            this.layout.AddElement(container);
-        }
-
-        private void BuildCursorSection()
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            // [ FIELDS ]
-            // 1. CursorColor
-            // 2. CursorBackgroundColor
-            // 3. CursorScale
-
-            this.sectionContainers[(byte)SMenuSection.Cursor] = container;
             this.layout.AddElement(container);
         }
 

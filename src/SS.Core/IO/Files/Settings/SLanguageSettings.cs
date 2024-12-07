@@ -11,7 +11,10 @@ namespace StardustSandbox.Core.IO.Files.Settings
     public sealed class SLanguageSettings : SSettings
     {
         [IgnoreMember]
-        public SGameCulture GameCulture { get; private set; }
+        public SGameCulture GameCulture => SLocalizationConstants.GetGameCulture(this.Name);
+
+        [IgnoreMember]
+        public string Name => string.Concat(this.Language, '-', this.Region);
 
         [Key(0)]
         public string Language { get; set; }
@@ -28,7 +31,8 @@ namespace StardustSandbox.Core.IO.Files.Settings
                 gameCulture = value;
             }
 
-            SetGameCulture(gameCulture);
+            this.Language = gameCulture.Language;
+            this.Region = gameCulture.Region;
         }
 
         public static bool TryGetAvailableGameCulture(out SGameCulture value)
@@ -36,13 +40,6 @@ namespace StardustSandbox.Core.IO.Files.Settings
             value = SLocalizationConstants.GetGameCulture(CultureInfo.CurrentCulture.Name);
 
             return value != null;
-        }
-
-        public void SetGameCulture(SGameCulture gameCulture)
-        {
-            this.GameCulture = gameCulture;
-            this.Language = gameCulture.Language;
-            this.Region = gameCulture.Region;
         }
     }
 }
