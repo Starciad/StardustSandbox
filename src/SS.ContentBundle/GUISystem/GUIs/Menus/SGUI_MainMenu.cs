@@ -80,6 +80,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             base.OnLoad();
 
+            ResetElementPositions();
             DisableControls();
             LoadAnimationValues();
             LoadMainMenuWorld();
@@ -98,6 +99,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         // =========================================== //
         // Load
+
+        private void ResetElementPositions()
+        {
+            this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            foreach (SGUILabelElement buttonLabelElement in this.menuButtonElements)
+            {
+                buttonLabelElement.PositionRelativeToElement(this.panelBackgroundElement);
+            }
+        }
 
         private void DisableControls()
         {
@@ -128,6 +139,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadMagicCursor()
         {
+            if (this.SGameInstance.EntityManager.InstantiatedEntities.Length > 0)
+            {
+                return;
+            }
+
             _ = this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntity)), null);
         }
 

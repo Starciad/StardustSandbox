@@ -14,7 +14,7 @@ namespace StardustSandbox.ContentBundle
         {
             backgroundDatabase.RegisterBackground("ocean_1", game.AssetDatabase.GetTexture("background_1"), new Action<SBackground>((background) =>
             {
-                background.AddLayer(new Point(0, 0), new Vector2(2f, 0f), false, true);
+                background.AddLayer(new Point(0, 0), new Vector2(2f, 0f), Vector2.Zero, false, true);
             }));
         }
     }

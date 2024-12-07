@@ -33,9 +33,9 @@ namespace StardustSandbox.Core.Backgrounds
             }
         }
 
-        public void AddLayer(Point index, Vector2 parallaxFactor, bool lockX, bool lockY)
+        public void AddLayer(Point index, Vector2 parallaxFactor, Vector2 movementSpeed, bool lockX, bool lockY)
         {
-            this.layers.Add(new(this.SGameInstance, this._texture, new Rectangle(new Point(index.X * SScreenConstants.DEFAULT_SCREEN_WIDTH, index.Y * SScreenConstants.DEFAULT_SCREEN_HEIGHT), new Point(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT)), parallaxFactor, lockX, lockY));
+            this.layers.Add(new(this.SGameInstance, this._texture, new Rectangle(new Point(index.X * SScreenConstants.DEFAULT_SCREEN_WIDTH, index.Y * SScreenConstants.DEFAULT_SCREEN_HEIGHT), new Point(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT)), parallaxFactor, movementSpeed, lockX, lockY));
         }
     }
 }

@@ -28,9 +28,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
         }
 
-        private static void CreditsMenuButton()
+        private void CreditsMenuButton()
         {
-            return;
+            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.CREDITS_MENU_IDENTIFIER);
         }
 
         private void QuitMenuButton()

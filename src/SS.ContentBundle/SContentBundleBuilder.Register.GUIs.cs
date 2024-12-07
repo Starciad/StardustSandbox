@@ -25,6 +25,7 @@ namespace StardustSandbox.ContentBundle
 
             SGUI_MainMenu mainMenu = new(game, SGUIConstants.MAIN_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_OptionsMenu optionsMenu = new(game, SGUIConstants.OPTIONS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_CreditsMenu creditsMenu = new(game, SGUIConstants.CREDITS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
 
             SGUI_HUD hud = new(game, SGUIConstants.HUD_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElementElement);
             SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElementElement);
@@ -34,6 +35,8 @@ namespace StardustSandbox.ContentBundle
 
             guiDatabase.RegisterGUISystem(mainMenu.Identifier, mainMenu);
             guiDatabase.RegisterGUISystem(optionsMenu.Identifier, optionsMenu);
+            guiDatabase.RegisterGUISystem(creditsMenu.Identifier, optionsMenu);
+
             guiDatabase.RegisterGUISystem(hud.Identifier, hud);
             guiDatabase.RegisterGUISystem(itemExplorer.Identifier, itemExplorer);
         }
