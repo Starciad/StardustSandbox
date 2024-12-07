@@ -47,11 +47,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly SpriteFont bigApple3PMSpriteFont;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
-        private readonly string titleName = SLocalization.GUI_Menu_OptionsMenu_Title;
+        private readonly string titleName = SLocalization.GUI_Menu_Options_Title;
 
         private readonly string[] sectionNames = [
-            SLocalization.GUI_Menu_OptionsMenu_Section_Video,
-            SLocalization.GUI_Menu_OptionsMenu_Section_Language
+            SLocalization.GUI_Menu_Options_Section_Video,
+            SLocalization.GUI_Menu_Options_Section_Language
         ];
 
         private readonly string[] systemButtonNames = [

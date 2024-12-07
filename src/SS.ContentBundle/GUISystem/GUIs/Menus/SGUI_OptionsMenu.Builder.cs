@@ -195,16 +195,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // [ FIELDS ]
             // 0. Resolution
-            this.videoSectionOptionSelectors.Add(new SOptionSelector("Resolution", 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_Resolution, 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
 
             // 1. Fullscreen
-            this.videoSectionOptionSelectors.Add(new SOptionSelector("Fullscreen", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_Fullscreen, 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
             // 2. VSync
-            this.videoSectionOptionSelectors.Add(new SOptionSelector("VSync", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_VSync, 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
             // 3. Borderless
-            this.videoSectionOptionSelectors.Add(new SOptionSelector("Borderless", 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_Borderless, 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
 
             // [ LABELS ]
             Vector2 margin = new(0f, 4f);
