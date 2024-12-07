@@ -9,7 +9,7 @@
 
         #region GRAPHICS
         // Backgrounds
-        public const byte GRAPHICS_BACKGROUNDS_LENGTH = 2;
+        public const byte GRAPHICS_BACKGROUNDS_LENGTH = 3;
 
         // Bgos
         public const byte GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH = 1;

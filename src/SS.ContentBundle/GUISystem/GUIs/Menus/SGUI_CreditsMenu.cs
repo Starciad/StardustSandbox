@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         protected override void OnLoad()
         {
-
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("credits"));
         }
     }
 }
