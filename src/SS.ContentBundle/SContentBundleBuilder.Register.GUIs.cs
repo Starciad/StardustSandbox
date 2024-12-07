@@ -35,7 +35,7 @@ namespace StardustSandbox.ContentBundle
 
             guiDatabase.RegisterGUISystem(mainMenu.Identifier, mainMenu);
             guiDatabase.RegisterGUISystem(optionsMenu.Identifier, optionsMenu);
-            guiDatabase.RegisterGUISystem(creditsMenu.Identifier, optionsMenu);
+            guiDatabase.RegisterGUISystem(creditsMenu.Identifier, creditsMenu);
 
             guiDatabase.RegisterGUISystem(hud.Identifier, hud);
             guiDatabase.RegisterGUISystem(itemExplorer.Identifier, itemExplorer);

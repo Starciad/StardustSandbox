@@ -8,12 +8,6 @@
         public const byte SHADERS_LENGTH = 1;
 
         #region GRAPHICS
-        // Elements
-        public const byte GRAPHICS_ELEMENTS_LENGTH = 24;
-
-        // Particles
-        public const byte GRAPHICS_PARTICLES_LENGTH = 1;
-
         // Backgrounds
         public const byte GRAPHICS_BACKGROUNDS_LENGTH = 2;
 
@@ -21,11 +15,21 @@
         public const byte GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH = 1;
         public const byte GRAPHICS_BGOS_CLOUDS_LENGTH = 5;
 
-        // Effects
-        public const byte GRAPHICS_EFFECTS_LENGTH = 0;
+        // Characters
+        public const byte GRAPHICS_CHARACTERS_LENGTH = 1;
 
         // Cursors
         public const byte GRAPHICS_CURSORS_LENGTH = 2;
+
+        // Effects
+        public const byte GRAPHICS_EFFECTS_LENGTH = 0;
+
+        // Elements
+        public const byte GRAPHICS_ELEMENTS_LENGTH = 24;
+
+        // Game
+        public const byte GRAPHICS_GAME_ICONS_LENGTH = 1;
+        public const byte GRAPHICS_GAME_TITLES_LENGTH = 1;
 
         // Gui
         public const byte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 6;
@@ -38,9 +42,8 @@
         // Miscellaneous
         public const byte GRAPHICS_MISCELLANEOUS = 1;
 
-        // Game
-        public const byte GRAPHICS_GAME_ICONS_LENGTH = 1;
-        public const byte GRAPHICS_GAME_TITLES_LENGTH = 1;
+        // Particles
+        public const byte GRAPHICS_PARTICLES_LENGTH = 1;
 
         // Shapes
         public const byte GRAPHICS_SHAPES_SQUARES_LENGTH = 2;
