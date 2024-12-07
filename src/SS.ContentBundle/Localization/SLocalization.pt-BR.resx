@@ -354,4 +354,37 @@
   <data name="GUI.Menu.OptionsMenu.Section.Video" xml:space="preserve">
     <value>Vídeo</value>
   </data>
+  <data name="GUI.Credits.Title.Creator" xml:space="preserve">
+    <value>Criador</value>
+  </data>
+  <data name="GUI.Credits.Title.Roles" xml:space="preserve">
+    <value>Cargos</value>
+  </data>
+  <data name="GUI.Credits.Title.Programming" xml:space="preserve">
+    <value>Programadores</value>
+  </data>
+  <data name="GUI.Credits.Title.Artists" xml:space="preserve">
+    <value>Artistas</value>
+  </data>
+  <data name="GUI.Credits.Title.Composers" xml:space="preserve">
+    <value>Compositores</value>
+  </data>
+  <data name="GUI.Credits.Title.Tools" xml:space="preserve">
+    <value>Ferramentas</value>
+  </data>
+  <data name="GUI.Credits.Message.Finalization" xml:space="preserve">
+    <value>E esse é o fim...</value>
+  </data>
+  <data name="GUI.Credits.Message.ThankPlayer" xml:space="preserve">
+    <value>Obrigado por Jogar!</value>
+  </data>
+  <data name="GUI.Credits.People.Parents" xml:space="preserve">
+    <value>Aos meus pais.</value>
+  </data>
+  <data name="GUI.Credits.Title.Contributors" xml:space="preserve">
+    <value>Contribuidores</value>
+  </data>
+  <data name="GUI.Credits.Title.SpecialThanks" xml:space="preserve">
+    <value>Agradecimentos Especiais</value>
+  </data>
 </root>

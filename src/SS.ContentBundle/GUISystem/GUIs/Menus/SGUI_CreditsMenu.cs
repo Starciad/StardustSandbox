@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
@@ -43,7 +44,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
         }
 
-        private readonly float speed = 0.6f;
+        private readonly float speed = 0.75f;
 
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D starciadCharacterTexture;
@@ -77,12 +78,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world.Clear();
 
             SSongEngine.Play(this.creditsMenuSong);
+
+            foreach (SGUIElement element in this.creditElements)
+            {
+                element.PositionRelativeToScreen();
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            UpdateUserInput();
             UpdateElementsPosition();
+        }
+
+        private void UpdateUserInput()
+        {
+            if (this.SGameInstance.InputManager.MouseState.LeftButton == ButtonState.Pressed ||
+                this.SGameInstance.InputManager.KeyboardState.GetPressedKeyCount() > 0)
+            {
+                CloseCredits();
+            }
         }
 
         private void UpdateElementsPosition()
@@ -91,6 +108,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 creditElement.Position = new(creditElement.Position.X, creditElement.Position.Y - this.speed);
             }
+        }
+
+        private void CloseCredits()
+        {
+            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
         }
     }
 }

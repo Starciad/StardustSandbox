@@ -2,7 +2,7 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.Core.Colors;
+using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
@@ -42,48 +42,48 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new("Criador e Idealizador", [
+            this.creditSections.Add(new(SLocalization.GUI_Credits_Title_Creator, [
                 new()
                 {
-                    Text = "Starciad",
+                    Text = SGameConstants.AUTHOR,
                 },
             ]));
 
-            this.creditSections.Add(new("Cargos", [
+            this.creditSections.Add(new(SLocalization.GUI_Credits_Title_Roles, [
                 new() {
-                    Text = "Programming and Scripting",
+                    Text = SLocalization.GUI_Credits_Title_Programming,
                     ContentType = SCreditContentType.Title,
                 },
 
                 new()
                 {
-                    Text = "Starciad",
+                    Text = SGameConstants.AUTHOR,
                 },
 
                 new() {
-                    Text = "Pixel Artist",
+                    Text = SLocalization.GUI_Credits_Title_Artists,
                     ContentType = SCreditContentType.Title,
                 },
 
                 new()
                 {
-                    Text = "Starciad",
+                    Text = SGameConstants.AUTHOR,
                 },
 
                 new() {
-                    Text = "Composers",
+                    Text = SLocalization.GUI_Credits_Title_Composers,
                     ContentType = SCreditContentType.Title,
                 },
 
                 new()
                 {
-                    Text = "Starciad",
+                    Text = SGameConstants.AUTHOR,
                 },
             ]));
 
-            this.creditSections.Add(new("Contribuidores Especiais", [
+            this.creditSections.Add(new(SLocalization.GUI_Credits_Title_Contributors, [
                 new() {
-                    Text = "Programming and Scripting",
+                    Text = SLocalization.GUI_Credits_Title_Programming,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -92,7 +92,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
 
                 new() {
-                    Text = "Pixel Artist",
+                    Text = SLocalization.GUI_Credits_Title_Artists,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -101,14 +101,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new("Agradecimentos Especiais", [
+            this.creditSections.Add(new(SLocalization.GUI_Credits_Title_SpecialThanks, [
                 new()
                 {
-                    Text = "Aos meus pais.",
+                    Text = SLocalization.GUI_Credits_People_Parents,
                 },
             ]));
 
-            this.creditSections.Add(new("Recursos e Ferramentas", [
+            this.creditSections.Add(new(SLocalization.GUI_Credits_Title_Tools, [
                 new()
                 {
                     ContentType = SCreditContentType.Image,
@@ -124,18 +124,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new("E esse é o fim!", [
+            this.creditSections.Add(new(SLocalization.GUI_Credits_Message_Finalization, [
                 new()
                 {
-                    Text = "Obrigado por Jogar!",
+                    Text = SLocalization.GUI_Credits_Message_ThankPlayer,
                 },
 
                 new()
                 {
                     ContentType = SCreditContentType.Image,
                     Texture = this.starciadCharacterTexture,
-                    TextureScale = new(1.5f),
-                    Margin = new(0f, 128f),
+                    Margin = new(0f, this.starciadCharacterTexture.Height / 2f),
                 },
             ]));
         }
@@ -173,12 +172,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                         {
                             Scale = new(0.2f),
                             SpriteFont = this.digitalDiscoSpriteFont,
-                            Margin = margin,
+                            Margin = margin + content.Margin,
                             OriginPivot = SCardinalDirection.Center,
                             PositionAnchor = SCardinalDirection.South,
                         };
 
-                        contentTitleElement.Margin = margin + content.Margin;
                         contentTitleElement.SetTextualContent(content.Text);
                         contentTitleElement.PositionRelativeToScreen();
 
@@ -195,7 +193,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                         {
                             Scale = new(0.15f),
                             SpriteFont = this.digitalDiscoSpriteFont,
-                            Margin = margin,
+                            Margin = margin + content.Margin,
                             OriginPivot = SCardinalDirection.Center,
                             PositionAnchor = SCardinalDirection.South,
                         };
@@ -219,10 +217,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                             Size = content.Texture.GetSize(),
                             Texture = content.Texture,
                             OriginPivot = SCardinalDirection.Center,
-                            PositionAnchor = SCardinalDirection.South
+                            PositionAnchor = SCardinalDirection.South,
+                            Margin = margin + content.Margin
                         };
-
-                        contentImage.Margin = margin + content.Margin;
                         contentImage.PositionRelativeToScreen();
                         
                         this.creditElements.Add(contentImage);

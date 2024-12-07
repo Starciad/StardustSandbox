@@ -80,6 +80,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             base.OnLoad();
 
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
+
             ResetElementPositions();
 
             this.SGameInstance.GameInputController.Disable();

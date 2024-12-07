@@ -493,6 +493,105 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a And that&apos;s the end....
+        /// </summary>
+        internal static string GUI_Credits_Message_Finalization {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Message.Finalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Thanks for Playing!.
+        /// </summary>
+        internal static string GUI_Credits_Message_ThankPlayer {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Message.ThankPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a To my parents..
+        /// </summary>
+        internal static string GUI_Credits_People_Parents {
+            get {
+                return ResourceManager.GetString("GUI.Credits.People.Parents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Artists.
+        /// </summary>
+        internal static string GUI_Credits_Title_Artists {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Artists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Composers.
+        /// </summary>
+        internal static string GUI_Credits_Title_Composers {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Composers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Contributors.
+        /// </summary>
+        internal static string GUI_Credits_Title_Contributors {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Contributors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Creator.
+        /// </summary>
+        internal static string GUI_Credits_Title_Creator {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Programming.
+        /// </summary>
+        internal static string GUI_Credits_Title_Programming {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Programming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Roles.
+        /// </summary>
+        internal static string GUI_Credits_Title_Roles {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Special Thanks.
+        /// </summary>
+        internal static string GUI_Credits_Title_SpecialThanks {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.SpecialThanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools.
+        /// </summary>
+        internal static string GUI_Credits_Title_Tools {
+            get {
+                return ResourceManager.GetString("GUI.Credits.Title.Tools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions..
         /// </summary>
         internal static string GUI_HUD_Button_ItemExplorer_Description {
