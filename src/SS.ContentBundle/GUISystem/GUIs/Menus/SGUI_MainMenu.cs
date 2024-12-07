@@ -89,6 +89,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SSongEngine.Play(this.mainMenuSong);
         }
 
+        protected override void OnUnload()
+        {
+            base.OnUnload();
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
