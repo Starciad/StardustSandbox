@@ -82,6 +82,9 @@ namespace StardustSandbox.ContentBundle
 
             // Shapes
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_SHAPES_SQUARES_LENGTH, "shape_square_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_SHAPES, SDirectoryConstants.ASSETS_GRAPHICS_SHAPES_SQUARES));
+
+            // Third Parties
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH, "third_party_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_THIRD_PARTIES));
         }
 
         private static void LoadSounds(ContentManager contentManager, SAssetDatabase assetDatabase)

@@ -61,6 +61,9 @@
         // Shapes
         public const string ASSETS_GRAPHICS_SHAPES = "shapes";
         public const string ASSETS_GRAPHICS_SHAPES_SQUARES = "squares";
+
+        // Third Parties
+        public const string ASSETS_GRAPHICS_THIRD_PARTIES = "third_parties";
         #endregion
         #endregion
     }

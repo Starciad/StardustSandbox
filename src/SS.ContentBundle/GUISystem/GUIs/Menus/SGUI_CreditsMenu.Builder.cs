@@ -2,6 +2,7 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
@@ -48,8 +49,39 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new("Contribuidores", [
+            this.creditSections.Add(new("Cargos", [
+                new() {
+                    Text = "Programming and Scripting",
+                    ContentType = SCreditContentType.Title,
+                },
 
+                new()
+                {
+                    Text = "Starciad",
+                },
+
+                new() {
+                    Text = "Pixel Artist",
+                    ContentType = SCreditContentType.Title,
+                },
+
+                new()
+                {
+                    Text = "Starciad",
+                },
+
+                new() {
+                    Text = "Composers",
+                    ContentType = SCreditContentType.Title,
+                },
+
+                new()
+                {
+                    Text = "Starciad",
+                },
+            ]));
+
+            this.creditSections.Add(new("Contribuidores Especiais", [
                 new() {
                     Text = "Programming and Scripting",
                     ContentType = SCreditContentType.Title,
@@ -60,13 +92,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
 
                 new() {
-                    Text = "Visual Design",
+                    Text = "Pixel Artist",
                     ContentType = SCreditContentType.Title,
                 },
 
                 new() {
                     Text = "Focsi",
-                }
+                },
             ]));
 
             this.creditSections.Add(new("Agradecimentos Especiais", [
@@ -76,15 +108,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new("Recursos", [
+            this.creditSections.Add(new("Recursos e Ferramentas", [
                 new()
                 {
-                    Text = "MonoGame Framework",
+                    ContentType = SCreditContentType.Image,
+                    Texture = this.monogameLogoTexture,
+                    TextureScale = new(0.2f),
                 },
 
                 new()
                 {
-                    Text = "XNA",
+                    ContentType = SCreditContentType.Image,
+                    Texture = this.xnaLogoTexture,
+                    TextureScale = new(0.15f),
                 },
             ]));
 
@@ -92,6 +128,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 new()
                 {
                     Text = "Obrigado por Jogar!",
+                },
+
+                new()
+                {
+                    ContentType = SCreditContentType.Image,
+                    Texture = this.starciadCharacterTexture,
+                    TextureScale = new(1.5f),
+                    Margin = new(0f, 128f),
                 },
             ]));
         }
@@ -106,7 +150,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 {
                     SGUILabelElement sectionTitleElement = new(this.SGameInstance)
                     {
-                        Scale = new(0.2f),
+                        Scale = new(0.25f),
                         SpriteFont = this.digitalDiscoSpriteFont,
                         Margin = margin,
                         OriginPivot = SCardinalDirection.Center,
@@ -127,13 +171,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     {
                         SGUILabelElement contentTitleElement = new(this.SGameInstance)
                         {
-                            Scale = new(0.15f),
+                            Scale = new(0.2f),
                             SpriteFont = this.digitalDiscoSpriteFont,
                             Margin = margin,
                             OriginPivot = SCardinalDirection.Center,
                             PositionAnchor = SCardinalDirection.South,
                         };
 
+                        contentTitleElement.Margin = margin + content.Margin;
                         contentTitleElement.SetTextualContent(content.Text);
                         contentTitleElement.PositionRelativeToScreen();
 
@@ -148,13 +193,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     {
                         SGUILabelElement contentText = new(this.SGameInstance)
                         {
-                            Scale = new(0.1f),
+                            Scale = new(0.15f),
                             SpriteFont = this.digitalDiscoSpriteFont,
                             Margin = margin,
                             OriginPivot = SCardinalDirection.Center,
                             PositionAnchor = SCardinalDirection.South,
                         };
 
+                        contentText.Margin = margin + content.Margin;
                         contentText.SetTextualContent(content.Text);
                         contentText.PositionRelativeToScreen();
 
@@ -172,11 +218,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                             Scale = content.TextureScale,
                             Size = content.Texture.GetSize(),
                             Texture = content.Texture,
-                            Margin = margin,
                             OriginPivot = SCardinalDirection.Center,
                             PositionAnchor = SCardinalDirection.South
                         };
 
+                        contentImage.Margin = margin + content.Margin;
                         contentImage.PositionRelativeToScreen();
                         
                         this.creditElements.Add(contentImage);

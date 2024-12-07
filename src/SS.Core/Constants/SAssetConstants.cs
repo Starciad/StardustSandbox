@@ -47,6 +47,9 @@
 
         // Shapes
         public const byte GRAPHICS_SHAPES_SQUARES_LENGTH = 2;
+
+        // Third Parties
+        public const byte GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH = 2;
         #endregion
     }
 }

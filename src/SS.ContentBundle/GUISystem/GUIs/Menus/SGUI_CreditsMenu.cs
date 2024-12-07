@@ -34,6 +34,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             public string Text { get; set; }
             public Texture2D Texture { get; set; }
             public Vector2 TextureScale { get; set; }
+            public Vector2 Margin { get; set; }
 
             public SCreditContent()
             {
@@ -42,10 +43,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
         }
 
-        private readonly float speed = 0.55f;
+        private readonly float speed = 0.6f;
 
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D starciadCharacterTexture;
+
+        private readonly Texture2D monogameLogoTexture;
+        private readonly Texture2D xnaLogoTexture;
 
         private readonly Song creditsMenuSong;
         private readonly SpriteFont digitalDiscoSpriteFont;
@@ -56,6 +60,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.starciadCharacterTexture = gameInstance.AssetDatabase.GetTexture("character_1");
+            this.monogameLogoTexture = gameInstance.AssetDatabase.GetTexture("third_party_1");
+            this.xnaLogoTexture = gameInstance.AssetDatabase.GetTexture("third_party_2");
             this.creditsMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_2");
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
             this.world = gameInstance.World;
