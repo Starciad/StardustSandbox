@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!-- IMPORTS -->
+	<Import Project="../Targets/DesktopGL/Project_Compilation.targets" />
+	<Import Project="../Targets/DesktopGL/Project_Settings.targets" />
+	<Import Project="../Targets/DesktopGL/Project_Infos.targets" />
+
+	<!-- HEADER -->
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<RollForward>Major</RollForward>
+	</PropertyGroup>
+
+	<!-- SYSTEM -->
+	<PropertyGroup>
+		<AssemblyName>StardustSandbox.ContentBundle</AssemblyName>
+		<RootNamespace>StardustSandbox.ContentBundle</RootNamespace>
+	</PropertyGroup>
+
+	<!-- DEPENDENCIES -->
+	<ItemGroup>
+		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
+		<PackageReference Include="MessagePack" Version="3.0.214-rc.1" />
+	</ItemGroup>
+
+	<!-- PROJECTS -->
+	<ItemGroup>
+		<ProjectReference Include="..\SS.Core\StardustSandbox.DesktopGL.Core.csproj" />
+	</ItemGroup>
+
+	<!-- RESOURCES -->
+	<ItemGroup>
+		<EmbeddedResource Update="Localization\SLocalization.resx">
+			<LastGenOutput>SLocalization.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- RESOURCES (COMPILES) -->
+	<ItemGroup>
+		<Compile Update="Localization\SLocalization.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	
+	<!-- TARGETS -->
+	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
+		<Message Text="[ Restoring Dotnet Tools ]" Importance="high" />
+		<Exec Command="dotnet tool restore" />
+	</Target>
+</Project>

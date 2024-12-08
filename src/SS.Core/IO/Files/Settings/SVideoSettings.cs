@@ -1,9 +1,9 @@
 ﻿using MessagePack;
 
+using Microsoft.Xna.Framework.Graphics;
+
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
-
-using System.Windows.Forms;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
@@ -54,8 +54,8 @@ namespace StardustSandbox.Core.IO.Files.Settings
 
         private static SSize2 GetMonitorResolution()
         {
-            int width = Screen.PrimaryScreen.Bounds.Width;
-            int height = Screen.PrimaryScreen.Bounds.Height;
+            int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             return new SSize2(width, height);
         }
 

@@ -12,8 +12,13 @@
 # Clear the console window
 Clear-Host
 
+# General
+$gameName = "StardustSandbox"
+$gameVersion = "v0.0.0.0"
+
 # Define solutions and publishing directories
 $windowsDX = "..\..\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
+$desktopGL = "..\..\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
 $outputDirectory = "..\..\Publish"
 
 # List of target platforms
@@ -22,7 +27,7 @@ $platforms = @("win-x64", "linux-x64", "osx-x64")
 # Function to publish a project for a given platform
 function Publish-Project($projectName, $projectPath, $platform) {
     Write-Host "Publishing $projectPath for $platform..."
-    dotnet publish $projectPath -c Release -r $platform --output "$outputDirectory\ss-$projectName-$platform-v0.0.0.0"
+    dotnet publish $projectPath -c Release -r $platform --output "$outputDirectory\$gameName $gameVersion ($projectName) [$platform]"
     Write-Host "Publishing to $platform completed."
 }
 
@@ -50,13 +55,20 @@ Clear-Host
 Write-Host "Publishing Stardust Sandbox (WindowsDX) for Win-x64..."
 Publish-Project "windowsdx" $windowsDX $platforms[0]
 
+# Publish DesktopGL for all platforms
+Write-Host "Publishing Stardust Sandbox (DesktopGL) for all platforms..."
+foreach ($platform in $platforms) {
+    Publish-Project "desktopgl" $desktopGL $platform
+    Write-Host "Next..."
+}
+
 Write-Host "All publishing processes have been completed."
 
 # Copy assets directory and delete specific subdirectories
 Write-Host "Copying assets directory..."
 
-$source = "..\..\SS.Game\assets"
-$destination = "$outputDirectory\ss-v0.0.0.0-assets-full\assets"
+$source = "..\..\SS.ContentBundle\assets"
+$destination = "$outputDirectory\$gameName $gameVersion (Assets)\assets"
 $subdirectoriesToDelete = @("bin", "obj")
 
 # Copy the source folder to the destination
