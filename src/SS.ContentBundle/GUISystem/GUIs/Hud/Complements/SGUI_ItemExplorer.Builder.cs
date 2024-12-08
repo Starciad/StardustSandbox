@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
-using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -28,7 +29,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildGUIBackground();
             BuildExplorer();
 
-            SelectItemCatalog("powders", 0);
+            layout.AddElement(this.tooltipBoxElement);
         }
 
         private void BuildGUIBackground()
@@ -64,13 +65,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Scale = new Vector2(0.15f),
                 Margin = new Vector2(18, -16),
                 Color = new Color(206, 214, 237, 255),
-                BorderOffset = new Vector2(4.4f)
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
             };
 
-            this.explorerTitleLabel.SetTextContent("TITLE");
-            this.explorerTitleLabel.SetFontFamily(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.explorerTitleLabel.SetBorders(true);
-            this.explorerTitleLabel.SetBordersColor(new Color(45, 53, 74, 255));
+            this.explorerTitleLabel.SetTextualContent("TITLE");
+            this.explorerTitleLabel.SetAllBorders(true, new Color(45, 53, 74, 255), new Vector2(4.4f));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 
             this.layout.AddElement(explorerBackground);

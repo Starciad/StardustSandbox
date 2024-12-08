@@ -16,6 +16,9 @@ namespace StardustSandbox.Core.World
     {
         public SWorldInfo Infos { get; private set; } = new();
 
+        public bool IsActive { get; set; }
+        public bool IsVisible { get; set; }
+
         private readonly SObjectPool worldSlotsPool = new();
         private readonly SComponentContainer componentContainer;
 
@@ -42,7 +45,10 @@ namespace StardustSandbox.Core.World
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            if (!this.IsActive)
+            {
+                return;
+            }
 
             // Delay
             if (this.currentFramesUpdateDelay == 0)
@@ -61,6 +67,11 @@ namespace StardustSandbox.Core.World
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (!this.IsVisible)
+            {
+                return;
+            }
+
             base.Draw(gameTime, spriteBatch);
             this.componentContainer.Draw(gameTime, spriteBatch);
         }

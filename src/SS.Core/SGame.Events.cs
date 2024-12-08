@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Audio;
+
 using System;
 
 namespace StardustSandbox.Core
@@ -11,6 +13,7 @@ namespace StardustSandbox.Core
         {
             base.OnActivated(sender, args);
             this.gameManager.GameState.IsFocused = true;
+            SSongEngine.Resume();
         }
 
         // Event occurs when the game window stops having focus.
@@ -18,6 +21,7 @@ namespace StardustSandbox.Core
         {
             base.OnDeactivated(sender, args);
             this.gameManager.GameState.IsFocused = false;
+            SSongEngine.Pause();
         }
 
         // Event occurs when the game process is finished.

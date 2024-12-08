@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.ContentBundle.Entities.Specials;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
@@ -22,10 +23,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private enum SMainMenuButtonIndex : byte
         {
             Create = 0,
-            Play = 1,
-            Options = 2,
-            Credits = 3,
-            Quit = 4
+            Options = 1,
+            Credits = 2,
+            Quit = 3
         }
 
         private Vector2 originalGameTitleElementPosition;
@@ -62,16 +62,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
 
             this.menuButtonNames = [
-                "Create",
-                "Play",
-                "Options",
-                "Credits",
-                "Quit"
+                SLocalization.GUI_Menu_Main_Button_Create,
+                SLocalization.GUI_Menu_Main_Button_Options,
+                SLocalization.GUI_Menu_Main_Button_Credits,
+                SLocalization.GUI_Menu_Main_Button_Quit
             ];
 
             this.menuButtonActions = [
                 CreateMenuButton,
-                PlayMenuButton,
                 OptionsMenuButton,
                 CreditsMenuButton,
                 QuitMenuButton
@@ -82,12 +80,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             base.OnLoad();
 
-            DisableControls();
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
+
+            ResetElementPositions();
+
+            this.SGameInstance.GameInputController.Disable();
+
             LoadAnimationValues();
             LoadMainMenuWorld();
             LoadMagicCursor();
 
             SSongEngine.Play(this.mainMenuSong);
+        }
+
+        protected override void OnUnload()
+        {
+            base.OnUnload();
+
+            this.SGameInstance.EntityManager.RemoveAll();
+
+            SSongEngine.Stop();
         }
 
         public override void Update(GameTime gameTime)
@@ -101,9 +113,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         // =========================================== //
         // Load
 
-        private void DisableControls()
+        private void ResetElementPositions()
         {
-            this.SGameInstance.GameInputController.Disable();
+            this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            foreach (SGUILabelElement buttonLabelElement in this.menuButtonElements)
+            {
+                buttonLabelElement.PositionRelativeToElement(this.panelBackgroundElement);
+            }
         }
 
         private void LoadAnimationValues()
@@ -124,12 +141,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadMainMenuWorld()
         {
+            this.world.IsActive = true;
+            this.world.IsVisible = true;
+
             this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
             this.world.Reset();
         }
 
         private void LoadMagicCursor()
         {
+            if (this.SGameInstance.EntityManager.InstantiatedEntities.Length > 0)
+            {
+                return;
+            }
+
             _ = this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntity)), null);
         }
 
@@ -174,12 +199,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 SGUILabelElement labelElement = this.menuButtonElements[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetMeasureStringSize()))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
                     this.menuButtonActions[i].Invoke();
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetMeasureStringSize()) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
             }
         }
     }
