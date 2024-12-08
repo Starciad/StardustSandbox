@@ -5,6 +5,7 @@
         #region APPDATA
         public const string APPDATA_LOGS = "logs";
         public const string APPDATA_SETTINGS = "settings";
+        public const string APPDATA_WORLDS = "worlds";
         #endregion
 
         #region ASSETS
