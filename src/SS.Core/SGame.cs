@@ -31,6 +31,8 @@ namespace StardustSandbox.Core
         public SGUIManager GUIManager => this.guiManager;
         public SEntityManager EntityManager => this.entityManager;
         public SGameManager GameManager => this.gameManager;
+        public SBackgroundManager BackgroundManager => this.backgroundManager;
+        public SCursorManager CursorManager => this.cursorManager;
 
         public SWorld World => this.world;
         public SGameInputController GameInputController => this.gameInputController;
@@ -83,7 +85,7 @@ namespace StardustSandbox.Core
             this.Window.AllowUserResizing = true;
 
             // Configure game settings
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / videoSettings.FrameRate);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / SScreenConstants.DEFAULT_FRAME_RATE);
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 

@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
+using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
@@ -15,30 +17,23 @@ using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
-    public sealed partial class SGUI_ItemExplorer : SGUISystem
+    public sealed partial class SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : SGUISystem(gameInstance, identifier, guiEvents)
     {
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
-        private readonly Texture2D squareShapeTexture;
-
         private string selectedCategoryName;
         private int selectedPageIndex;
         private SItem[] selectedItems;
 
-        private readonly SGUI_HUD _guiHUD;
+        private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
+        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+        private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
 
-        public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD) : base(gameInstance, identifier, guiEvents)
-        {
-            this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-            this.squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
-
-            this._guiHUD = guiHUD;
-        }
+        private readonly SGUI_HUD _guiHUD = guiHUD;
+        private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
 
         protected override void OnLoad()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
+            SelectItemCatalog("powders", 0);
         }
 
         protected override void OnUnload()
@@ -50,8 +45,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             base.Update(gameTime);
 
+            this.tooltipBoxElement.IsVisible = false;
+
             UpdateCategoryButtons();
             UpdateItemCatalog();
+
+            this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
         private void UpdateCategoryButtons()
@@ -63,14 +62,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    SelectItemCatalog((string)categoryButtonBackground.GetData("category_id"), 0);
+                    SelectItemCatalog((string)categoryButtonBackground.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID), 0);
+                }
+
+                bool isOver = this.GUIEvents.OnMouseOver(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    if (!this.tooltipBoxElement.HasContent)
+                    {
+                        SItemCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)categoryButtonBackground.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
+
+                        SGUIGlobalTooltip.Title = category.DisplayName;
+                        SGUIGlobalTooltip.Description = category.Description;
+                    }
                 }
             }
         }
 
         private void UpdateItemCatalog()
         {
-            // Individually check all element slots present in the item catalog.
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
                 (SGUIImageElement itemSlotBackground, _) = this.itemButtonSlots[i];
@@ -80,7 +93,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     continue;
                 }
 
-                // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
                     this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
@@ -89,12 +101,25 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
                 }
 
-                // Highlight when mouse is over slot.
-                itemSlotBackground.Color = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE))
-                    ? Color.DarkGray
-                    : Color.White;
+                bool isOver = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    if (!this.tooltipBoxElement.HasContent)
+                    {
+                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+
+                        SGUIGlobalTooltip.Title = item.DisplayName;
+                        SGUIGlobalTooltip.Description = item.Description;
+                    }
+                }
+
+                itemSlotBackground.Color = isOver ? Color.DarkGray : Color.White;
             }
         }
+
 
         // ============================================== //
 
@@ -105,7 +130,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void SelectItemCatalog(SItemCategory category, int pageIndex)
         {
-            this.explorerTitleLabel.SetTextContent(category.DisplayName);
+            this.explorerTitleLabel.SetTextualContent(category.DisplayName);
 
             this.selectedCategoryName = category.Identifier;
             this.selectedPageIndex = pageIndex;

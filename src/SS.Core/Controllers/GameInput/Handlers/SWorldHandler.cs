@@ -94,15 +94,27 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
         private void ApplyPenAction(Point centerPos, Action<Point> action)
         {
-            for (int x = -this.simulationPen.Size; x < this.simulationPen.Size; x++)
+            int size = this.simulationPen.Size - 1;
+
+            if (size == 0)
             {
-                for (int y = -this.simulationPen.Size; y < this.simulationPen.Size; y++)
+                if (this.world.InsideTheWorldDimensions(centerPos))
+                {
+                    action.Invoke(centerPos);
+                }
+
+                return;
+            }
+
+            for (int x = -size; x <= size; x++)
+            {
+                for (int y = -size; y <= size; y++)
                 {
                     Point localPos = new Point(x, y) + centerPos;
 
                     if (this.world.InsideTheWorldDimensions(localPos))
                     {
-                        action.Invoke(new(localPos.X, localPos.Y));
+                        action.Invoke(localPos);
                     }
                 }
             }

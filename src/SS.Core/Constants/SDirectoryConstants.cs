@@ -17,12 +17,6 @@
         public const string ASSETS_SOUNDS = "sounds";
 
         #region GRAPHICS
-        // Elements
-        public const string ASSETS_GRAPHICS_ELEMENTS = "elements";
-
-        // Particles
-        public const string ASSETS_GRAPHICS_PARTICLES = "particles";
-
         // Backgrounds
         public const string ASSETS_GRAPHICS_BACKGROUNDS = "backgrounds";
 
@@ -30,13 +24,24 @@
         public const string ASSETS_GRAPHICS_BGOS = "bgos";
         public const string ASSETS_GRAPHICS_BGOS_CELESTIAL_BODIES = "celestial_bodies";
         public const string ASSETS_GRAPHICS_BGOS_CLOUDS = "clouds";
-
-        // Effects
-        public const string ASSETS_GRAPHICS_EFFECTS = "effects";
+        
+        // Characters
+        public const string ASSETS_GRAPHICS_CHARACTERS = "characters";
 
         // Cursors
         public const string ASSETS_GRAPHICS_CURSORS = "cursors";
+        
+        // Effects
+        public const string ASSETS_GRAPHICS_EFFECTS = "effects";
 
+        // Elements
+        public const string ASSETS_GRAPHICS_ELEMENTS = "elements";
+
+        // Game
+        public const string ASSETS_GRAPHICS_GAME = "game";
+        public const string ASSETS_GRAPHICS_GAME_ICONS = "icons";
+        public const string ASSETS_GRAPHICS_GAME_TITLES = "titles";
+        
         // Gui
         public const string ASSETS_GRAPHICS_GUI = "gui";
         public const string ASSETS_GRAPHICS_GUI_BACKGROUNDS = "backgrounds";
@@ -50,14 +55,15 @@
         // Miscellaneous
         public const string ASSETS_GRAPHICS_MISCELLANEOUS = "miscellaneous";
 
-        // Game
-        public const string ASSETS_GRAPHICS_GAME = "game";
-        public const string ASSETS_GRAPHICS_GAME_ICONS = "icons";
-        public const string ASSETS_GRAPHICS_GAME_TITLES = "titles";
+        // Particles
+        public const string ASSETS_GRAPHICS_PARTICLES = "particles";
 
         // Shapes
         public const string ASSETS_GRAPHICS_SHAPES = "shapes";
         public const string ASSETS_GRAPHICS_SHAPES_SQUARES = "squares";
+
+        // Third Parties
+        public const string ASSETS_GRAPHICS_THIRD_PARTIES = "third_parties";
         #endregion
         #endregion
     }

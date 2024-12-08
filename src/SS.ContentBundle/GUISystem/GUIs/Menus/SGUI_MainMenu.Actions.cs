@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Core.Audio;
-using StardustSandbox.Core.Constants;
+﻿using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
@@ -8,12 +7,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         private void CreateMenuButton()
         {
-            SSongEngine.Stop();
-
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
 
-            this.SGameInstance.EntityManager.RemoveAll();
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+
+            this.world.IsActive = true;
+            this.world.IsVisible = true;
 
             this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
             this.world.Reset();
@@ -22,20 +22,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.SGameInstance.GameInputController.Activate();
         }
 
-        private static void PlayMenuButton()
-        {
-            return;
-        }
-
         private void OptionsMenuButton()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
             this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
         }
 
-        private static void CreditsMenuButton()
+        private void CreditsMenuButton()
         {
-            return;
+            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
+            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.CREDITS_MENU_IDENTIFIER);
         }
 
         private void QuitMenuButton()

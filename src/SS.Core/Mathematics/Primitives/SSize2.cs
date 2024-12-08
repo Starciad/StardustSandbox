@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         }
         public override readonly string ToString()
         {
-            return $"{{ Width: {this.Width}, Height: {this.Height} }}";
+            return string.Concat(this.Width, 'x', this.Height);
         }
         public override readonly int GetHashCode()
         {

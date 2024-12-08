@@ -1,9 +1,12 @@
 ﻿using StardustSandbox.ContentBundle;
 using StardustSandbox.Core;
 using StardustSandbox.Core.IO;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers.IO;
 
 using System;
+using System.Threading;
 
 #if WINDOWS_DX
 using System.Windows.Forms;
@@ -27,6 +30,11 @@ namespace StardustSandbox.Game
 
             SDirectory.Initialize();
             SSettingsManager.Initialize();
+
+            SGameCulture gameCulture = SSettingsManager.LoadSettings<SLanguageSettings>().GameCulture;
+
+            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
 
 #if DEBUG
             EXECUTE_DEBUG_VERSION();

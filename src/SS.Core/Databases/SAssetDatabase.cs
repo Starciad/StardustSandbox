@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Databases
             return this.textures[name];
         }
 
-        public SpriteFont GetFont(string name)
+        public SpriteFont GetSpriteFont(string name)
         {
             return this.fonts[name];
         }

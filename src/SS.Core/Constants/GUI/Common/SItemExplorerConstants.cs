@@ -7,5 +7,8 @@
         public const byte ITEMS_PER_COLUMN = 4;
 
         public const byte BUTTONS_PER_ROW = 12;
+
+        // Data Fields
+        public const string DATA_FILED_CATEGORY_ID = "category_id";
     }
 }

@@ -42,7 +42,7 @@
 	<ItemGroup>
 		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
 	</ItemGroup>
-	
+
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
 		<Message Text="[ Restoring Dotnet Tools ]" Importance="high" />
