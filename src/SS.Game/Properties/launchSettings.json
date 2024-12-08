@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StardustSandbox (WindowsDX)": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    }
+  }
+}

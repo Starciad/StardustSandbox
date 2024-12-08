@@ -11,3 +11,13 @@ Thank you for dedicating your time to play and experience this game.
 - For coding, the [Visual Studio IDE](https://visualstudio.microsoft.com/) and [Visual Studio Code](https://code.visualstudio.com/) was used.
 - This project utilized the [MonoGame Framework](https://www.monogame.net/).
 - The art was created using the program [Aseprite](https://www.aseprite.org/).
+
+## Contributors
+
+### Programmers
+
+- [@igorunderplayer](https://github.com/igorunderplayer): general code operations helper.
+
+### Artists
+
+- **Focsi**: designed the fire sprite.

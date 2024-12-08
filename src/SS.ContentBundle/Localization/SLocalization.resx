@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Element.Solid.Movable.Dirt.Name" xml:space="preserve">
+    <value>Dirt</value>
+  </data>
+  <data name="Element.Solid.Movable.Mud.Name" xml:space="preserve">
+    <value>Mud</value>
+  </data>
+  <data name="Element.Liquid.Water.Name" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="Element.Solid.Movable.Stone.Name" xml:space="preserve">
+    <value>Stone</value>
+  </data>
+  <data name="Element.Solid.Movable.Grass.Name" xml:space="preserve">
+    <value>Grass</value>
+  </data>
+  <data name="Element.Solid.Movable.Ice.Name" xml:space="preserve">
+    <value>Ice</value>
+  </data>
+  <data name="Element.Solid.Movable.Sand.Name" xml:space="preserve">
+    <value>Sand</value>
+  </data>
+  <data name="Element.Solid.Movable.Snow.Name" xml:space="preserve">
+    <value>Snow</value>
+  </data>
+  <data name="Element.Solid.Movable.Corruption.Name" xml:space="preserve">
+    <value>Corruption (movable)</value>
+  </data>
+  <data name="Element.Liquid.Lava.Name" xml:space="preserve">
+    <value>Lava</value>
+  </data>
+  <data name="Element.Liquid.Acid.Name" xml:space="preserve">
+    <value>Acid</value>
+  </data>
+  <data name="Element.Solid.Immovable.Glass.Name" xml:space="preserve">
+    <value>Glass</value>
+  </data>
+  <data name="Element.Solid.Immovable.Metal.Name" xml:space="preserve">
+    <value>Metal</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wall.Name" xml:space="preserve">
+    <value>Wall</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wood.Name" xml:space="preserve">
+    <value>Wood</value>
+  </data>
+  <data name="Element.Gas.Corruption.Name" xml:space="preserve">
+    <value>Corruption (gas)</value>
+  </data>
+  <data name="Element.Liquid.Corruption.Name" xml:space="preserve">
+    <value>Corruption (liquid)</value>
+  </data>
+  <data name="Element.Solid.Immovable.Corruption.Name" xml:space="preserve">
+    <value>Corruption (immovable)</value>
+  </data>
+  <data name="Element.Gas.Steam.Name" xml:space="preserve">
+    <value>Steam</value>
+  </data>
+  <data name="Element.Gas.Smoke.Name" xml:space="preserve">
+    <value>Smoke</value>
+  </data>
+  <data name="Element.Solid.Immovable.RedBrick.Name" xml:space="preserve">
+    <value>Red Brick</value>
+  </data>
+  <data name="Element.Solid.Immovable.TreeLeaf.Name" xml:space="preserve">
+    <value>Tree Leaf</value>
+  </data>
+  <data name="Element.Solid.Immovable.MountingBlock.Name" xml:space="preserve">
+    <value>Mounting Block</value>
+  </data>
+  <data name="Element.Energy.Fire.Name" xml:space="preserve">
+    <value>Fire</value>
+  </data>
+  <data name="GUI.Menu.Main.Button.Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="GUI.Menu.Main.Button.Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="GUI.Menu.Main.Button.Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="GUI.Menu.Main.Button.Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="Item.Category.Powders" xml:space="preserve">
+    <value>Powders</value>
+  </data>
+  <data name="Item.Category.Liquids" xml:space="preserve">
+    <value>Liquids</value>
+  </data>
+  <data name="Item.Category.Gases" xml:space="preserve">
+    <value>Gases</value>
+  </data>
+  <data name="Item.Category.Solids" xml:space="preserve">
+    <value>Solids</value>
+  </data>
+  <data name="Item.Category.Walls" xml:space="preserve">
+    <value>Walls</value>
+  </data>
+  <data name="Item.Category.Energies" xml:space="preserve">
+    <value>Energies</value>
+  </data>
+  <data name="GUI.Menu.Options.Title" xml:space="preserve">
+    <value>OPTIONS</value>
+  </data>
+  <data name="GUI.Menu.Options.Section.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Statements.Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="Statements.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Statements.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Statements.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Statements.True" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Statements.False" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Statements.False.Short" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="Statements.No.Short" xml:space="preserve">
+    <value>N</value>
+  </data>
+  <data name="Statements.True.Short" xml:space="preserve">
+    <value>T</value>
+  </data>
+  <data name="Statements.Yes.Short" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="Element.Energy.Fire.Description" xml:space="preserve">
+    <value>A manifestation of heat and energy, consuming flammable materials rapidly and spreading destruction with intense speed.</value>
+  </data>
+  <data name="Element.Gas.Corruption.Description" xml:space="preserve">
+    <value>A gaseous version of corruption, it spreads through the air and contaminates everything within its reach, making the environment inhospitable.</value>
+  </data>
+  <data name="Element.Gas.Smoke.Description" xml:space="preserve">
+    <value>A byproduct of combustion, it rises slowly, obscuring the air and indicating the presence of fire or burning.</value>
+  </data>
+  <data name="Element.Gas.Steam.Description" xml:space="preserve">
+    <value>Hot water vapor that rises rapidly and disperses into the air, signaling latent heat in the environment.</value>
+  </data>
+  <data name="Element.Liquid.Acid.Description" xml:space="preserve">
+    <value>A highly corrosive liquid that dissolves various materials on contact with extreme speed.</value>
+  </data>
+  <data name="Element.Liquid.Corruption.Description" xml:space="preserve">
+    <value>Highly contaminating liquid substance, flowing freely and corrupting all matter with which it interacts.</value>
+  </data>
+  <data name="Element.Liquid.Lava.Description" xml:space="preserve">
+    <value>Molten rock that incinerates almost everything on contact. It cools down into solid stone if exposed to lower temperatures.</value>
+  </data>
+  <data name="Element.Liquid.Water.Description" xml:space="preserve">
+    <value>A dynamic fluid that flows freely. Can freeze into ice or evaporate into steam when overheated, extinguishing fire along the way.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Corruption.Description" xml:space="preserve">
+    <value>Crystallized and dense form of corruption. Immobile and permanent, it creates irreversible contaminated zones.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Glass.Description" xml:space="preserve">
+    <value>A transparent yet fragile material, shattering on impact or disintegrating under high temperatures.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Metal.Description" xml:space="preserve">
+    <value>A strong, iron-based element. It withstands fire but melts into lava under extreme heat.</value>
+  </data>
+  <data name="Element.Solid.Immovable.MountingBlock.Description" xml:space="preserve">
+    <value>Functional and decorative block, available in vibrant colors. Flammable, it adds dynamism and aesthetics to mobile constructions.</value>
+  </data>
+  <data name="Element.Solid.Immovable.RedBrick.Description" xml:space="preserve">
+    <value>Strong and durable block, ideal for fortified constructions, especially due to its fire resistance.</value>
+  </data>
+  <data name="Element.Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
+    <value>Natural and flammable foliage, common in forest areas. It can be used to decorate and enrich the natural scenery.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wall.Description" xml:space="preserve">
+    <value>An impenetrable, solid barrier. Resistant to natural forces and unaffected by other elements.</value>
+  </data>
+  <data name="Element.Solid.Immovable.Wood.Description" xml:space="preserve">
+    <value>A natural, flammable material often used in constructions. Burns easily when in contact with fire.</value>
+  </data>
+  <data name="Element.Solid.Movable.Corruption.Description" xml:space="preserve">
+    <value>An unstable substance that spreads and infects corruptible materials, causing unstoppable destruction across the world.</value>
+  </data>
+  <data name="Element.Solid.Movable.Dirt.Description" xml:space="preserve">
+    <value>Dry soil, the foundation for vegetation. Turns into mud when exposed to water.</value>
+  </data>
+  <data name="Element.Solid.Movable.Grass.Description" xml:space="preserve">
+    <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
+  </data>
+  <data name="Element.Solid.Movable.Ice.Description" xml:space="preserve">
+    <value>Frozen water in solid form. Slippery and melts back into water when exposed to heat.</value>
+  </data>
+  <data name="Element.Solid.Movable.Mud.Description" xml:space="preserve">
+    <value>A dense mixture of dirt and water. When heated, it dries up and turns back into dirt.</value>
+  </data>
+  <data name="Element.Solid.Movable.Sand.Description" xml:space="preserve">
+    <value>Fine, loose grains that flow and accumulate easily. Under extreme heat, it fuses into glass.</value>
+  </data>
+  <data name="Element.Solid.Movable.Snow.Description" xml:space="preserve">
+    <value>Accumulated ice crystals in light flakes. Melts into water when exposed to heat.</value>
+  </data>
+  <data name="Element.Solid.Movable.Stone.Description" xml:space="preserve">
+    <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
+  </data>
+  <data name="Item.Category.Energies.Description" xml:space="preserve">
+    <value>Forces of nature in their purest and most dynamic forms. Unpredictable and powerful, they shape and transform their surroundings with intensity, igniting change wherever they go.</value>
+  </data>
+  <data name="Item.Category.Gases.Description" xml:space="preserve">
+    <value>Elusive and ever-shifting, gases drift through the air, expanding without boundaries. Invisible or visible, they can be harmless, suffocating, or even destructive, always moving, always present.</value>
+  </data>
+  <data name="Item.Category.Liquids.Description" xml:space="preserve">
+    <value>Fluid and adaptable, liquids carve their path through the world. Whether calm or chaotic, they flow, fill, and transform, essential to life but also capable of overwhelming destruction.</value>
+  </data>
+  <data name="Item.Category.Powders.Description" xml:space="preserve">
+    <value>Elements with the power to gather and disperse. They shift, settle, and adapt to their environment, demonstrating that even the smallest elements can have a significant impact.</value>
+  </data>
+  <data name="Item.Category.Solids.Description" xml:space="preserve">
+    <value>The anchors of the world, unyielding and steadfast. Solids provide structure and strength, standing firm against the forces of nature, embodying permanence and resilience.</value>
+  </data>
+  <data name="Item.Category.Walls.Description" xml:space="preserve">
+    <value>Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces.</value>
+  </data>
+  <data name="GUI.HUD.Button.ItemExplorer.Title" xml:space="preserve">
+    <value>Item Explorer</value>
+  </data>
+  <data name="GUI.HUD.Button.ItemExplorer.Description" xml:space="preserve">
+    <value>A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions.</value>
+  </data>
+  <data name="GUI.Menu.Options.Section.Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Programming" xml:space="preserve">
+    <value>Programming</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Artists" xml:space="preserve">
+    <value>Artists</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Composers" xml:space="preserve">
+    <value>Composers</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="GUI.Menu.Credits.Message.Finalization" xml:space="preserve">
+    <value>And that's the end...</value>
+  </data>
+  <data name="GUI.Menu.Credits.Message.ThankPlayer" xml:space="preserve">
+    <value>Thanks for Playing!</value>
+  </data>
+  <data name="GUI.Menu.Credits.People.Parents" xml:space="preserve">
+    <value>To my parents.</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.Contributors" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
+  <data name="GUI.Menu.Credits.Title.SpecialThanks" xml:space="preserve">
+    <value>Special Thanks</value>
+  </data>
+  <data name="GUI.Menu.Options.Section.Video.Resolution" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="GUI.Menu.Options.Section.Video.Fullscreen" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="GUI.Menu.Options.Section.Video.VSync" xml:space="preserve">
+    <value>VSync</value>
+  </data>
+  <data name="GUI.Menu.Options.Section.Video.Borderless" xml:space="preserve">
+    <value>Borderless</value>
+  </data>
+</root>

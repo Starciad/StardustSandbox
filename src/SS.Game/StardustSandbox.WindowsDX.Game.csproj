@@ -27,6 +27,12 @@
 		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
 	</ItemGroup>
 
+	<!-- PROJECTS -->
+	<ItemGroup>
+		<ProjectReference Include="..\SS.ContentBundle\StardustSandbox.WindowsDX.ContentBundle.csproj" />
+		<ProjectReference Include="..\SS.Core\StardustSandbox.WindowsDX.Core.csproj" />
+	</ItemGroup>
+
 	<!-- FILES (RESOURCE) -->
 	<ItemGroup>
 		<EmbeddedResource Include="icon.ico">
@@ -52,6 +58,11 @@
 		<BeautyUsePatch>True</BeautyUsePatch>
 		<BeautyLogLevel>Info</BeautyLogLevel>
 	</PropertyGroup>
+
+	<!-- MONOGAME -->
+	<ItemGroup>
+		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
+	</ItemGroup>
 	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

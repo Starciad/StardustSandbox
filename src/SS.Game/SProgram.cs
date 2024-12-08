@@ -1,13 +1,19 @@
-﻿using StardustSandbox.Game.IO;
+﻿using StardustSandbox.ContentBundle;
+using StardustSandbox.Core;
+using StardustSandbox.Core.IO;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Localization;
+using StardustSandbox.Core.Managers.IO;
 
 using System;
+using System.Threading;
 
 #if WINDOWS_DX
 using System.Windows.Forms;
 #endif
 
 #if !DEBUG
-using StardustSandbox.Game.Constants;
+using StardustSandbox.Core.Constants;
 using System.Text;
 #endif
 
@@ -23,7 +29,12 @@ namespace StardustSandbox.Game
 #endif
 
             SDirectory.Initialize();
-            SSystemSettingsFile.Initialize();
+            SSettingsManager.Initialize();
+
+            SGameCulture gameCulture = SSettingsManager.LoadSettings<SLanguageSettings>().GameCulture;
+
+            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
 
 #if DEBUG
             EXECUTE_DEBUG_VERSION();
@@ -35,19 +46,19 @@ namespace StardustSandbox.Game
 #if DEBUG
         private static void EXECUTE_DEBUG_VERSION()
         {
-            using SGame game = new();
-            game.Exiting += OnGameExiting;
-            game.Run();
+            using SStardustSandboxEngine stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
+            stardustSandboxEngine.Start();
         }
 #else
         private static void EXECUTE_PUBLISHED_VERSION()
         {
-            using SGame game = new();
-            game.Exiting += OnGameExiting;
+            using SStardustSandboxEngine stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
 
             try
             {
-                game.Run();
+                stardustSandboxEngine.Start();
             }
             catch (Exception e)
             {
@@ -55,8 +66,8 @@ namespace StardustSandbox.Game
             }
             finally
             {
-                game.Exit();
-                game.Dispose();
+                stardustSandboxEngine.Stop();
+                stardustSandboxEngine.Dispose();
             }
         }
 
@@ -77,10 +88,5 @@ namespace StardustSandbox.Game
 #endif
         }
 #endif
-
-        private static void OnGameExiting(object sender, EventArgs e)
-        {
-            return;
-        }
     }
 }
