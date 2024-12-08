@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Interfaces.General
@@ -24,6 +25,7 @@ namespace StardustSandbox.Core.Interfaces.General
         SEntityManager EntityManager { get; }
         SBackgroundManager BackgroundManager { get; }
         SCursorManager CursorManager { get; }
+        SWorldSaveFileManager WorldSaveFileManager { get; }
 
         // Core
         SWorld World { get; }

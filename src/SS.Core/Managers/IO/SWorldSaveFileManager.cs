@@ -7,7 +7,6 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
-using StardustSandbox.Core.IO.Files.World.General;
 using StardustSandbox.Core.Objects;
 
 using System;
@@ -17,7 +16,7 @@ using System.IO.Compression;
 
 namespace StardustSandbox.Core.Managers.IO
 {
-    public sealed class SWorldSaveFileManager : SGameObject
+    public sealed class SWorldSaveFileManager(ISGame gameInstance) : SGameObject(gameInstance)
     {
         private static readonly Dictionary<string, Action<ISGame, SWorldSaveFile, ZipArchiveEntry>> handlers = new()
         {
@@ -31,32 +30,17 @@ namespace StardustSandbox.Core.Managers.IO
                 file.Metadata = MessagePackSerializer.Deserialize<SWorldSaveFileMetadata>(entry.Open());
             },
 
-            [Path.Combine("general", "author.bin")] = (game, file, entry) =>
-            {
-                file.Author = MessagePackSerializer.Deserialize<SAuthorData>(entry.Open());
-            },
-
-            [Path.Combine("general", "security.bin")] = (game, file, entry) =>
-            {
-                file.Security = MessagePackSerializer.Deserialize<SSecurityData>(entry.Open());
-            },
-
             [Path.Combine("data", "slots.bin")] = (game, file, entry) =>
             {
                 file.World = MessagePackSerializer.Deserialize<SWorldData>(entry.Open());
             },
         };
 
-        public SWorldSaveFileManager(ISGame gameInstance) : base(gameInstance)
-        {
-
-        }
-
         public void SaveFile(SWorldSaveFile saveFile)
         {
             // PATHS
             string directoryPath = Path.Combine(SDirectory.Worlds, saveFile.Metadata.Name);
-            string saveFileFullname = string.Concat(directoryPath, SIOConstants.WORLD);
+            string saveFilePath = string.Concat(directoryPath, SIOConstants.WORLD);
 
             // DIRECTORIES
             if (Directory.Exists(directoryPath))
@@ -64,19 +48,28 @@ namespace StardustSandbox.Core.Managers.IO
                 Directory.Delete(directoryPath, true);
             }
 
-            Directory.CreateDirectory(directoryPath);
+            _ = Directory.CreateDirectory(directoryPath);
 
             // FILES
-            // Texture
+            // ROOT/thumbnail.png
             using FileStream thumbnailFileStream = File.Create(Path.Combine(directoryPath, "thumbnail.png"));
+            saveFile.Texture.SaveAsPng(thumbnailFileStream, saveFile.Texture.Width, saveFile.Texture.Height);
 
+            // ROOT/metadata.bin
+            File.WriteAllBytes(Path.Combine(directoryPath, "metadata.bin"), MessagePackSerializer.Serialize(saveFile.Metadata));
+
+            // ROOT/data/world.bin
+            File.WriteAllBytes(Path.Combine(directoryPath, "data", "world.bin"), MessagePackSerializer.Serialize(saveFile.World));
+
+            // COMPRESS
+            ZipFile.CreateFromDirectory(directoryPath, saveFilePath, CompressionLevel.SmallestSize, false);
         }
 
-        public SWorldSaveFile LoadFile(string path)
+        public SWorldSaveFile LoadFile(string name)
         {
             SWorldSaveFile saveFile = new();
 
-            using ZipArchive archive = ZipFile.OpenRead(path);
+            using ZipArchive archive = ZipFile.OpenRead(Path.Combine(SDirectory.Worlds, name, SIOConstants.WORLD));
 
             foreach (ZipArchiveEntry entry in archive.Entries)
             {

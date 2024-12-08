@@ -33,6 +33,7 @@ namespace StardustSandbox.Core
         public SGameManager GameManager => this.gameManager;
         public SBackgroundManager BackgroundManager => this.backgroundManager;
         public SCursorManager CursorManager => this.cursorManager;
+        public SWorldSaveFileManager WorldSaveFileManager => this.worldSaveFileManager;
 
         public SWorld World => this.world;
         public SGameInputController GameInputController => this.gameInputController;
@@ -59,6 +60,7 @@ namespace StardustSandbox.Core
         private readonly SBackgroundManager backgroundManager;
         private readonly SEntityManager entityManager;
         private readonly SGameManager gameManager;
+        private readonly SWorldSaveFileManager worldSaveFileManager;
 
         // Core
         private readonly SWorld world;
@@ -110,6 +112,7 @@ namespace StardustSandbox.Core
             this.cursorManager = new(this);
             this.backgroundManager = new(this);
             this.entityManager = new(this);
+            this.worldSaveFileManager = new(this);
         }
 
         public void RegisterPlugin(SPluginBuilder pluginBuilder)

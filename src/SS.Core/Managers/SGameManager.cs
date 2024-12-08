@@ -21,6 +21,16 @@ namespace StardustSandbox.Core.Managers
             ClampCameraInTheWorld();
         }
 
+        public void Save()
+        {
+
+        }
+
+        public void Load()
+        {
+
+        }
+
         private void ClampCameraInTheWorld()
         {
             int totalWorldWidth = this.world.Infos.Size.Width * SWorldConstants.GRID_SCALE;

@@ -72,5 +72,15 @@ namespace StardustSandbox.Core.Controllers.GameInput
         {
             this.actionHandler.DisableAll();
         }
+
+        public void DebugSave()
+        {
+
+        }
+
+        public void DebugLoad()
+        {
+            this.SGameInstance.WorldSaveFileManager.LoadFile("DEBUG WORLD");
+        }
     }
 }
