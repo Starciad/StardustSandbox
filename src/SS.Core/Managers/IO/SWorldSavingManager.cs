@@ -3,8 +3,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
@@ -64,9 +66,11 @@ namespace StardustSandbox.Core.Managers.IO
             int width = SWorldConstants.WORLD_THUMBNAIL_SIZE.Width;
             int height = SWorldConstants.WORLD_THUMBNAIL_SIZE.Height;
 
-            Texture2D thumbnailTexture = new(graphicsDevice, width, height, true, SurfaceFormat.Color, 1);
+            int size = width * height;
 
-            Color[] data = new Color[width * height];
+            Texture2D thumbnailTexture = new(graphicsDevice, width, height, false, SurfaceFormat.Color);
+
+            Color[] data = new Color[size];
 
             for (int y = 0; y < height; y++)
             {
@@ -77,11 +81,11 @@ namespace StardustSandbox.Core.Managers.IO
 
                     if (world.IsEmptyElementSlot(position))
                     {
-                        data[index] = Color.Black;
+                        data[index] = SColorPalette.Cerulean.Vary(5);
                     }
                     else
                     {
-                        data[index] = Color.White;
+                        data[index] = world.GetElement(position).ReferenceColor.Vary(5);
                     }
                 }
             }

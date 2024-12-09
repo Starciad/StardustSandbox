@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Elements.Rendering;
 
@@ -8,6 +9,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
     {
         uint Id { get; }
         Texture2D Texture { get; }
+
+        Color ReferenceColor { get; }
 
         int DefaultDispersionRate { get; }
         short DefaultTemperature { get; }

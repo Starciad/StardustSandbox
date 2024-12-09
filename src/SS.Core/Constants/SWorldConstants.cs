@@ -7,7 +7,7 @@ namespace StardustSandbox.Core.Constants
         public const byte GRID_SCALE = 32;
         public const byte CHUNK_SCALE = 6;
 
-        public static SSize2 WORLD_THUMBNAIL_SIZE => new(20, 20);
+        public static SSize2 WORLD_THUMBNAIL_SIZE => new(23);
 
         public static readonly SSize2[] WORLD_SIZES_TEMPLATE =
         [
@@ -19,7 +19,6 @@ namespace StardustSandbox.Core.Constants
 
             // (2) Large
             new SSize2(160, 92),
-            // new SSize2(360, 292),
         ];
     }
 }
