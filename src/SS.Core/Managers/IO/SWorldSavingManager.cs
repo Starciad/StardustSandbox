@@ -28,6 +28,7 @@ namespace StardustSandbox.Core.Managers.IO
             using ZipArchive saveFileZipArchive = CreateZipFile(CreateWorldSaveFile(identifier, description, world, graphicsDevice), saveFileMemoryStream);
 
             // Saving
+            _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
             saveFileMemoryStream.WriteTo(outputSaveFile);
         }
 
@@ -60,7 +61,34 @@ namespace StardustSandbox.Core.Managers.IO
 
         private static Texture2D CreateWorldThumbnail(GraphicsDevice graphicsDevice, SWorld world)
         {
-            return new Texture2D(graphicsDevice, 1, 1, true, SurfaceFormat.Color, 1);
+            int width = SWorldConstants.WORLD_THUMBNAIL_SIZE.Width;
+            int height = SWorldConstants.WORLD_THUMBNAIL_SIZE.Height;
+
+            Texture2D thumbnailTexture = new(graphicsDevice, width, height, true, SurfaceFormat.Color, 1);
+
+            Color[] data = new Color[width * height];
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Point position = new(x, y);
+                    int index = (y * width) + x;
+
+                    if (world.IsEmptyElementSlot(position))
+                    {
+                        data[index] = Color.Black;
+                    }
+                    else
+                    {
+                        data[index] = Color.White;
+                    }
+                }
+            }
+
+            thumbnailTexture.SetData(data);
+
+            return thumbnailTexture;
         }
 
         private static SWorldSlotData[] CreateWorldSlotsData(SWorld world, SSize2 worldSize)
