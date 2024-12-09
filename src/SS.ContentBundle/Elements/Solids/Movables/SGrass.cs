@@ -11,6 +11,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         public SGrass(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.Grass;
+            this.referenceColor = new(69, 110, 55, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_5");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 22;

@@ -18,6 +18,8 @@ namespace StardustSandbox.Core.Elements
         public uint Id => this.id;
         public Texture2D Texture => this.texture;
 
+        public Color ReferenceColor => this.referenceColor;
+
         public int DefaultDispersionRate => this.defaultDispersionRate;
         public short DefaultTemperature => this.defaultTemperature;
         public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
@@ -34,6 +36,8 @@ namespace StardustSandbox.Core.Elements
 
         protected uint id;
         protected Texture2D texture;
+
+        protected Color referenceColor = Color.White;
 
         protected int defaultDispersionRate = 1;
         protected short defaultTemperature;

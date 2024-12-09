@@ -20,6 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
         public SGCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.GCorruption;
+            this.referenceColor = new(169, 76, 192, 181);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_16");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;

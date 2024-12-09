@@ -19,6 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         public SWater(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.Water;
+            this.referenceColor = new(8, 120, 284, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultDispersionRate = 3;

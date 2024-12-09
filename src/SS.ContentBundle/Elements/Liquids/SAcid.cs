@@ -16,6 +16,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         public SAcid(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.Acid;
+            this.referenceColor = new(059, 167, 005, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_11");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 10;

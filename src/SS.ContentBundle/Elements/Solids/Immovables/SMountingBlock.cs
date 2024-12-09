@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Animations;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
@@ -16,6 +17,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         public SMountingBlock(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.MountingBlock;
+            this.referenceColor = SColorPalette.White;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_23");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
             this.defaultTemperature = 20;

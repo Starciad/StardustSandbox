@@ -3,6 +3,7 @@
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Animations;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
@@ -21,6 +22,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
         public SFire(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.Fire;
+            this.referenceColor = SColorPalette.Amber;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [
                 new(new(new(00, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),

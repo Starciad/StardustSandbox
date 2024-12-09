@@ -2,6 +2,7 @@
 
 using StardustSandbox.ContentBundle.Elements.Utilities;
 using StardustSandbox.ContentBundle.Enums.Elements;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
@@ -19,6 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         public SMCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.MCorruption;
+            this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_9");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;

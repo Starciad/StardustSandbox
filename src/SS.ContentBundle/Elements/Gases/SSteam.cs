@@ -11,6 +11,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
         public SSteam(ISGame gameInstance) : base(gameInstance)
         {
             this.id = (uint)SElementId.Steam;
+            this.referenceColor = new(171, 208, 218, 136);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_19");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 100;
