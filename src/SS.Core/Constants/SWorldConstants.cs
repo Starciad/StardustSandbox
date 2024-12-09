@@ -7,6 +7,8 @@ namespace StardustSandbox.Core.Constants
         public const byte GRID_SCALE = 32;
         public const byte CHUNK_SCALE = 6;
 
+        public static SSize2 WORLD_THUMBNAIL_SIZE => new(20, 20);
+
         public static readonly SSize2[] WORLD_SIZES_TEMPLATE =
         [
             // (0) Small

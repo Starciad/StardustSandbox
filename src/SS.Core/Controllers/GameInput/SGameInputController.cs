@@ -5,6 +5,7 @@ using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Controllers.GameInput
@@ -75,12 +76,12 @@ namespace StardustSandbox.Core.Controllers.GameInput
 
         public void DebugSave()
         {
-
+            SWorldSavingManager.Serialize("DEBUG_WORLD", string.Empty, this.SGameInstance.World, this.SGameInstance.GraphicsManager.GraphicsDevice);
         }
 
         public void DebugLoad()
         {
-            this.SGameInstance.WorldSaveFileManager.LoadFile("DEBUG WORLD");
+            
         }
     }
 }

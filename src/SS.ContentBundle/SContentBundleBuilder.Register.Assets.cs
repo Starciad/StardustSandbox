@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
 

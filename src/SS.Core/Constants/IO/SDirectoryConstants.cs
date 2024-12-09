@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Core.Constants
+﻿namespace StardustSandbox.Core.Constants.IO
 {
     public static class SDirectoryConstants
     {
@@ -25,13 +25,13 @@
         public const string ASSETS_GRAPHICS_BGOS = "bgos";
         public const string ASSETS_GRAPHICS_BGOS_CELESTIAL_BODIES = "celestial_bodies";
         public const string ASSETS_GRAPHICS_BGOS_CLOUDS = "clouds";
-        
+
         // Characters
         public const string ASSETS_GRAPHICS_CHARACTERS = "characters";
 
         // Cursors
         public const string ASSETS_GRAPHICS_CURSORS = "cursors";
-        
+
         // Effects
         public const string ASSETS_GRAPHICS_EFFECTS = "effects";
 
@@ -42,7 +42,7 @@
         public const string ASSETS_GRAPHICS_GAME = "game";
         public const string ASSETS_GRAPHICS_GAME_ICONS = "icons";
         public const string ASSETS_GRAPHICS_GAME_TITLES = "titles";
-        
+
         // Gui
         public const string ASSETS_GRAPHICS_GUI = "gui";
         public const string ASSETS_GRAPHICS_GUI_BACKGROUNDS = "backgrounds";

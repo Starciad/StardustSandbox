@@ -42,7 +42,6 @@ namespace StardustSandbox.Game
         {
             SDirectory.Initialize();
             SSettingsManager.Initialize();
-            SWorldSaveFileManager.Initialize();
 
             SGameCulture gameCulture = SSettingsManager.LoadSettings<SLanguageSettings>().GameCulture;
 

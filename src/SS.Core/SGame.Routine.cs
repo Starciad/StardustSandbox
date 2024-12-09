@@ -31,7 +31,6 @@ namespace StardustSandbox.Core
             this.cursorManager.Initialize();
             this.backgroundManager.Initialize();
             this.entityManager.Initialize();
-            this.worldSaveFileManager.Initialize();
 
             // Controllers
             this.gameInputController.Initialize();

@@ -8,18 +8,21 @@ namespace StardustSandbox.Core.IO.Files.World
     public sealed class SWorldSaveFileMetadata
     {
         [Key(0)]
-        public string Name { get; set; }
+        public string Id { get; set; }
 
         [Key(1)]
-        public string Description { get; set; }
+        public string Name { get; set; }
 
         [Key(2)]
-        public Version Version { get; set; }
+        public string Description { get; set; }
 
         [Key(3)]
-        public DateTime CreationTimestamp { get; set; }
+        public byte Version { get; set; }
 
         [Key(4)]
+        public DateTime CreationTimestamp { get; set; }
+
+        [Key(5)]
         public DateTime LastUpdateTimestamp { get; set; }
     }
 }

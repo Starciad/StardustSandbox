@@ -25,7 +25,6 @@ namespace StardustSandbox.Core.Interfaces.General
         SEntityManager EntityManager { get; }
         SBackgroundManager BackgroundManager { get; }
         SCursorManager CursorManager { get; }
-        SWorldSaveFileManager WorldSaveFileManager { get; }
 
         // Core
         SWorld World { get; }
