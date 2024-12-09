@@ -72,10 +72,17 @@ namespace StardustSandbox.Core
 
         public SGame()
         {
+            // Graphics
             this.graphicsManager = new(this, new GraphicsDeviceManager(this));
 
             // Load Settings
             SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+
+            if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
+            {
+                videoSettings.UpdateResolution(this.GraphicsDevice);
+                SSettingsManager.SaveSettings(videoSettings);
+            }
 
             // Initialize Content
             this.Content.RootDirectory = SDirectoryConstants.ASSETS;

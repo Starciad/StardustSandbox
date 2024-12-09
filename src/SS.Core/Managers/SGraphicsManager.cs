@@ -52,12 +52,21 @@ namespace StardustSandbox.Core.Managers
 
         public void UpdateSettings()
         {
-            SVideoSettings graphicsSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
 
-            this._graphicsDeviceManager.IsFullScreen = graphicsSettings.FullScreen;
-            this._graphicsDeviceManager.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
-            this._graphicsDeviceManager.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;
-            this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = graphicsSettings.VSync;
+            if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
+            {
+                this._graphicsDeviceManager.PreferredBackBufferWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;
+            }
+            else
+            {
+                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.ScreenWidth;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.ScreenHeight;
+            }
+
+            this._graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
+            this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
         }

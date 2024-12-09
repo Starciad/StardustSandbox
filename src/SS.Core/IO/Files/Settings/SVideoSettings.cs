@@ -1,5 +1,6 @@
 ﻿using MessagePack;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
@@ -26,10 +27,10 @@ namespace StardustSandbox.Core.IO.Files.Settings
         }
 
         [Key(0)]
-        public ushort ScreenWidth { get; set; }
+        public int ScreenWidth { get; set; }
 
         [Key(1)]
-        public ushort ScreenHeight { get; set; }
+        public int ScreenHeight { get; set; }
 
         [Key(2)]
         public bool FullScreen { get; set; }
@@ -42,21 +43,23 @@ namespace StardustSandbox.Core.IO.Files.Settings
 
         public SVideoSettings()
         {
-            SSize2 monitorResolution = GetMonitorResolution();
-            SSize2 autoResolution = GetAutoResolution(monitorResolution);
-
-            this.ScreenWidth = (ushort)autoResolution.Width;
-            this.ScreenHeight = (ushort)autoResolution.Height;
+            this.ScreenWidth = 0;
+            this.ScreenHeight = 0;
             this.FullScreen = false;
             this.VSync = false;
             this.Borderless = false;
         }
 
-        private static SSize2 GetMonitorResolution()
+        public void UpdateResolution(GraphicsDevice graphicsDevice)
         {
-            int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            return new SSize2(width, height);
+            SSize2 monitorResolution = new(
+                graphicsDevice.Adapter.CurrentDisplayMode.Width,
+                graphicsDevice.Adapter.CurrentDisplayMode.Height
+            );
+            SSize2 autoResolution = GetAutoResolution(monitorResolution);
+
+            this.ScreenWidth = autoResolution.Width;
+            this.ScreenHeight = autoResolution.Height;
         }
 
         private static SSize2 GetAutoResolution(SSize2 monitorResolution)
