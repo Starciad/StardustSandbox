@@ -6,18 +6,20 @@ using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.World.Data;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
 using System;
+using System.Drawing;
 
 namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld : SGameObject, ISReset
     {
-        public byte[] Id { get; private set; }
-
         public SWorldInfo Infos { get; private set; } = new();
 
         public bool IsActive { get; set; }
@@ -86,7 +88,7 @@ namespace StardustSandbox.Core.World
         }
         public void StartNew(SSize2 size)
         {
-            this.Id = Guid.NewGuid().ToByteArray();
+            this.Infos.Id = Guid.NewGuid().ToByteArray();
 
             this.IsActive = true;
             this.IsVisible = true;
@@ -99,16 +101,43 @@ namespace StardustSandbox.Core.World
             Reset();
         }
 
+        public void LoadFromWorldSaveFile(SWorldSaveFile worldSaveFile)
+        {
+            // World
+            StartNew(worldSaveFile.World.Size);
+
+            // Metadata
+            this.Infos.Id = worldSaveFile.Metadata.Id;
+            this.Infos.Name = worldSaveFile.Metadata.Name;
+            this.Infos.Description = worldSaveFile.Metadata.Description;
+
+            // Allocate Elements
+            foreach (SWorldSlotData worldSlotData in worldSaveFile.World.Slots)
+            {
+                InstantiateElement(worldSlotData.Position, worldSlotData.ElementId);
+
+                SWorldSlot worldSlot = (SWorldSlot)GetElementSlot(worldSlotData.Position);
+
+                worldSlot.SetTemperatureValue(worldSlotData.Temperature);
+                worldSlot.SetFreeFalling(worldSlotData.FreeFalling);
+                worldSlot.SetColor(worldSlotData.Color);
+            }
+        }
+
         public void Reset()
         {
+            this.Infos.Name = "DEBUG";
+            this.Infos.Description = string.Empty;
+
             this.componentContainer.Reset();
+            Clear();
         }
 
         public void Resize(SSize2 size)
         {
             DestroyWorldSlots();
 
-            this.Infos.SetSize(size);
+            this.Infos.Size = size;
             this.slots = new SWorldSlot[size.Width, size.Height];
 
             InstantiateWorldSlots();
@@ -116,7 +145,23 @@ namespace StardustSandbox.Core.World
 
         public void Clear()
         {
-            DestroyWorldSlots();
+            if (this.slots == null)
+            {
+                return;
+            }
+
+            for (int x = 0; x < this.Infos.Size.Width; x++)
+            {
+                for (int y = 0; y < this.Infos.Size.Height; y++)
+                {
+                    if (IsEmptyElementSlot(new(x, y)))
+                    {
+                        continue;
+                    }
+
+                    DestroyElement(new(x, y));
+                }
+            }
         }
 
         private void InstantiateWorldSlots()

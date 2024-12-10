@@ -67,5 +67,9 @@
         public const string ASSETS_GRAPHICS_THIRD_PARTIES = "third_parties";
         #endregion
         #endregion
+
+        #region WORLD SAVE FILE
+        public const string WORLD_SAVE_FILE_DATA = "data";
+        #endregion
     }
 }

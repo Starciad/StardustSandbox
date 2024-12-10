@@ -76,12 +76,12 @@ namespace StardustSandbox.Core.Controllers.GameInput
 
         public void DebugSave()
         {
-            SWorldSavingManager.Serialize("DEBUG_WORLD", string.Empty, this.SGameInstance.World, this.SGameInstance.GraphicsManager.GraphicsDevice);
+            SWorldSavingManager.Serialize(this.SGameInstance.World, this.SGameInstance.GraphicsManager.GraphicsDevice);
         }
 
         public void DebugLoad()
         {
-            
+            SWorldSavingManager.Deserialize("DEBUG", this.SGameInstance.World, this.SGameInstance.GraphicsManager.GraphicsDevice);
         }
     }
 }
