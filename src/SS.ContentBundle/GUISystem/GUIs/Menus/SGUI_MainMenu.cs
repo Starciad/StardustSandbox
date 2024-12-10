@@ -141,11 +141,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadMainMenuWorld()
         {
-            this.world.IsActive = true;
-            this.world.IsVisible = true;
-
-            this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
-            this.world.Reset();
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
         }
 
         private void LoadMagicCursor()

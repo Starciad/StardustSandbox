@@ -12,11 +12,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
 
-            this.world.IsActive = true;
-            this.world.IsVisible = true;
-
-            this.world.Resize(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
-            this.world.Reset();
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
             this.SGameInstance.GameInputController.Activate();

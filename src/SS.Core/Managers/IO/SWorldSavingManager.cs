@@ -3,7 +3,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Extensions;
@@ -17,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.Managers.IO
 {
@@ -24,14 +24,20 @@ namespace StardustSandbox.Core.Managers.IO
     {
         public static void Serialize(string identifier, string description, SWorld world, GraphicsDevice graphicsDevice)
         {
-            // Streams
-            using FileStream outputSaveFile = new(Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD)), FileMode.Create, FileAccess.Write, FileShare.Write);
-            using MemoryStream saveFileMemoryStream = new();
-            using ZipArchive saveFileZipArchive = CreateZipFile(CreateWorldSaveFile(identifier, description, world, graphicsDevice), saveFileMemoryStream);
+            Task.Run(() =>
+            {
+                // Paths
+                string filename = Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD));
 
-            // Saving
-            _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
-            saveFileMemoryStream.WriteTo(outputSaveFile);
+                // Streams
+                using MemoryStream saveFileMemoryStream = new();
+                using FileStream outputSaveFile = new(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
+                using ZipArchive saveFileZipArchive = CreateZipFile(CreateWorldSaveFile(identifier, description, world, graphicsDevice), saveFileMemoryStream);
+
+                // Saving
+                _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
+                saveFileMemoryStream.WriteTo(outputSaveFile);
+            }).Wait();
         }
 
         private static SWorldSaveFile CreateWorldSaveFile(string name, string description, SWorld world, GraphicsDevice graphicsDevice)
@@ -40,16 +46,15 @@ namespace StardustSandbox.Core.Managers.IO
 
             return new()
             {
-                ThumbnailTexture = CreateWorldThumbnail(graphicsDevice, world),
+                ThumbnailTexture = world.CreateThumbnail(graphicsDevice),
 
                 Metadata = new()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = world.Id,
                     Name = name,
                     Description = description,
                     Version = SFileConstants.WORLD_SAVE_FILE_VERSION,
                     CreationTimestamp = currentDateTime,
-                    LastUpdateTimestamp = currentDateTime,
                 },
 
                 World = new()
@@ -59,40 +64,6 @@ namespace StardustSandbox.Core.Managers.IO
                     Slots = CreateWorldSlotsData(world, world.Infos.Size),
                 },
             };
-        }
-
-        private static Texture2D CreateWorldThumbnail(GraphicsDevice graphicsDevice, SWorld world)
-        {
-            int width = SWorldConstants.WORLD_THUMBNAIL_SIZE.Width;
-            int height = SWorldConstants.WORLD_THUMBNAIL_SIZE.Height;
-
-            int size = width * height;
-
-            Texture2D thumbnailTexture = new(graphicsDevice, width, height, false, SurfaceFormat.Color);
-
-            Color[] data = new Color[size];
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    Point position = new(x, y);
-                    int index = (y * width) + x;
-
-                    if (world.IsEmptyElementSlot(position))
-                    {
-                        data[index] = SColorPalette.Cerulean.Vary(5);
-                    }
-                    else
-                    {
-                        data[index] = world.GetElement(position).ReferenceColor.Vary(5);
-                    }
-                }
-            }
-
-            thumbnailTexture.SetData(data);
-
-            return thumbnailTexture;
         }
 
         private static SWorldSlotData[] CreateWorldSlotsData(SWorld world, SSize2 worldSize)

@@ -75,8 +75,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world.IsActive = false;
             this.world.IsVisible = false;
 
-            this.world.Clear();
-
             SSongEngine.Play(this.creditsMenuSong);
 
             foreach (SGUIElement element in this.creditElements)

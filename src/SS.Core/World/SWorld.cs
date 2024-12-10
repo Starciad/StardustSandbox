@@ -10,10 +10,14 @@ using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
+using System;
+
 namespace StardustSandbox.Core.World
 {
     public sealed partial class SWorld : SGameObject, ISReset
     {
+        public byte[] Id { get; private set; }
+
         public SWorldInfo Infos { get; private set; } = new();
 
         public bool IsActive { get; set; }
@@ -76,10 +80,28 @@ namespace StardustSandbox.Core.World
             this.componentContainer.Draw(gameTime, spriteBatch);
         }
 
+        public void StartNew()
+        {
+            StartNew(this.Infos.Size);
+        }
+        public void StartNew(SSize2 size)
+        {
+            this.Id = Guid.NewGuid().ToByteArray();
+
+            this.IsActive = true;
+            this.IsVisible = true;
+
+            if (this.Infos.Size != size)
+            {
+                Resize(size);
+            }
+            
+            Reset();
+        }
+
         public void Reset()
         {
             this.componentContainer.Reset();
-            Clear();
         }
 
         public void Resize(SSize2 size)
@@ -94,23 +116,7 @@ namespace StardustSandbox.Core.World
 
         public void Clear()
         {
-            if (this.slots == null)
-            {
-                return;
-            }
-
-            for (int x = 0; x < this.Infos.Size.Width; x++)
-            {
-                for (int y = 0; y < this.Infos.Size.Height; y++)
-                {
-                    if (IsEmptyElementSlot(new(x, y)))
-                    {
-                        continue;
-                    }
-
-                    DestroyElement(new(x, y));
-                }
-            }
+            DestroyWorldSlots();
         }
 
         private void InstantiateWorldSlots()
