@@ -646,6 +646,42 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Create.
+        /// </summary>
+        internal static string GUI_Menu_Main_Create {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Main.Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Credits.
+        /// </summary>
+        internal static string GUI_Menu_Main_Credits {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Main.Credits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Options.
+        /// </summary>
+        internal static string GUI_Menu_Main_Options {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Main.Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quit.
+        /// </summary>
+        internal static string GUI_Menu_Main_Quit {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Main.Quit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
         /// </summary>
         internal static string GUI_Menu_Options_Section_Language {
