@@ -3,12 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SCursorManager(ISGame gameInstance) : SManager(gameInstance)
+    internal sealed class SCursorManager(ISGame gameInstance) : SManager(gameInstance), ISCursorManager
     {
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [
@@ -18,8 +19,8 @@ namespace StardustSandbox.Core.Managers
 
         private Vector2 cursorScale;
 
-        private Color cursorBackgroundColor;
         private Color cursorColor;
+        private Color cursorBackgroundColor;
 
         private Vector2 cursorBackgroundPosition;
         private Vector2 cursorPosition;
@@ -53,7 +54,7 @@ namespace StardustSandbox.Core.Managers
             spriteBatch.Draw(cursorSelectedTexture, this.cursorPosition, cursorClipAreas[0], this.cursorColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
         }
 
-        public void UpdateSettings()
+        internal void UpdateSettings()
         {
             SCursorSettings cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
 

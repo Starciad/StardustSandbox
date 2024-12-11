@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SBackgroundDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SBackgroundDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISBackgroundDatabase
     {
         private readonly Dictionary<string, SBackground> backgrounds = [];
 

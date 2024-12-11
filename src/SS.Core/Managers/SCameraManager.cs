@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SCameraManager : SManager
+    internal sealed class SCameraManager : SManager, ISCameraManager
     {
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }

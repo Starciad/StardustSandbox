@@ -11,7 +11,7 @@ using System;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld : ISElementManager
+    public sealed partial class SWorld
     {
         public void InstantiateElement<T>(Point pos) where T : ISElement
         {

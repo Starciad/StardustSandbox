@@ -18,7 +18,7 @@ using System.Drawing;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld : SGameObject, ISReset
+    public sealed partial class SWorld : SGameObject, ISWorld
     {
         public SWorldInfo Infos { get; private set; } = new();
 

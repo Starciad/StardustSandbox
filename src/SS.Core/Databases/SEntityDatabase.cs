@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.Entities;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SEntityDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SEntityDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISEntityDatabase
     {
         public IReadOnlyDictionary<Type, SEntityDescriptor> RegisteredEntities => this._registeredEntities;
 

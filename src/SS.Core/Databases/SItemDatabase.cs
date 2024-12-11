@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Items;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Objects;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed partial class SItemDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed partial class SItemDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISItemDatabase
     {
         public int TotalCategoryCount => this.categories.Count;
         public int TotalItemCount => this.items.Count;

@@ -3,12 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGraphicsManager : SManager
+    internal sealed class SGraphicsManager : SManager, ISGraphicsManager
     {
         public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
         public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;

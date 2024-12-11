@@ -4,24 +4,20 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Controllers.Background;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SBackgroundManager(ISGame gameInstance) : SManager(gameInstance)
+    internal sealed class SBackgroundManager(ISGame gameInstance) : SManager(gameInstance), ISBackgroundManager
     {
-        public Color SolidColor => this.solidColor;
+        public Color SolidColor { get; set; } = new(64, 116, 155);
 
-        private Color solidColor;
         private SBackground selectedBackground;
-
         private SCloudController cloudController;
 
         public override void Initialize()
         {
             this.cloudController = new(this.SGameInstance);
-
-            SetColor(new Color(64, 116, 155));
-            SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
         }
 
         public override void Update(GameTime gameTime)
@@ -36,14 +32,20 @@ namespace StardustSandbox.Core.Managers
             this.selectedBackground.Draw(gameTime, spriteBatch);
         }
 
-        public void SetColor(Color value)
-        {
-            this.solidColor = value;
-        }
-
         public void SetBackground(SBackground background)
         {
             this.selectedBackground = background;
+        }
+
+        public void EnableClouds()
+        {
+            this.cloudController.Enable();
+        }
+
+        public void DisableClouds()
+        {
+            this.cloudController.Disable();
+            this.cloudController.Clear();
         }
     }
 }

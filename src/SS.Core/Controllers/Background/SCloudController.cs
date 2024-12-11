@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Backgrounds.Details;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -15,11 +16,27 @@ namespace StardustSandbox.Core.Controllers.Background
 {
     internal sealed class SCloudController(ISGame gameInstance) : SGameObject(gameInstance)
     {
+        private bool isActive;
+        
+        private readonly Texture2D[] cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
         private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly SObjectPool cloudPool = new();
 
+        public override void Initialize()
+        {
+            for (int i = 0; i < SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH; i++)
+            {
+                this.cloudTextures[i] = this.SGameInstance.AssetDatabase.GetTexture($"bgo_cloud_{i + 1}");
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
+            if (!this.isActive)
+            {
+                return;
+            }
+
             for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 SCloud cloud = this.activeClouds[i];
@@ -41,10 +58,33 @@ namespace StardustSandbox.Core.Controllers.Background
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            if (!this.isActive)
+            {
+                return;
+            }
+
             for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 this.activeClouds[i].Draw(gameTime, spriteBatch);
             }
+        }
+
+        public void Clear()
+        {
+            foreach (SCloud cloud in this.activeClouds.ToArray())
+            {
+                DestroyCloud(cloud);
+            }
+        }
+
+        public void Enable()
+        {
+            this.isActive = true;
+        }
+
+        public void Disable()
+        {
+            this.isActive = false;
         }
 
         private void CreateCloud()
@@ -83,7 +123,7 @@ namespace StardustSandbox.Core.Controllers.Background
 
         private Texture2D GetRandomBGOCloudTexture()
         {
-            return this.SGameInstance.AssetDatabase.GetTexture($"bgo_cloud_{SRandomMath.Range(1, SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH + 1)}");
+            return this.cloudTextures.GetRandomItem();
         }
     }
 }

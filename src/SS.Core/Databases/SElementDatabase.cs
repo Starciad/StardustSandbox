@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
@@ -8,7 +9,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SElementDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SElementDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISElementDatabase
     {
         private readonly List<ISElement> _registeredElements = [];
 

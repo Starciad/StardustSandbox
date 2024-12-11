@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SAssetDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SAssetDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISAssetDatabase
     {
         public Effect[] Shaders => [.. this.shaders.Values];
 

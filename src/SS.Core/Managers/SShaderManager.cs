@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SShaderManager(ISGame gameInstance) : SManager(gameInstance)
+    internal sealed class SShaderManager(ISGame gameInstance) : SManager(gameInstance), ISShaderManager
     {
         private Effect[] shaders;
         private int shadersLength;

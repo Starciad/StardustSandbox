@@ -2,12 +2,13 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGameManager(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SGameManager(ISGame gameInstance) : SGameObject(gameInstance), ISGameManager
     {
         public SGameState GameState => this.gameState;
 
