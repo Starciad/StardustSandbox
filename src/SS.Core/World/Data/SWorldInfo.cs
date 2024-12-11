@@ -4,7 +4,7 @@ namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldInfo
     {
-        public byte[] Id { get; internal set; }
+        public byte[] Identifier { get; internal set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public SSize2 Size { get; set; }

@@ -19,14 +19,14 @@ namespace StardustSandbox.Core.Databases
             this._registeredElements.Add(element);
         }
 
-        public T GetElementById<T>(uint id) where T : ISElement
+        public T GetElementById<T>(uint identifier) where T : ISElement
         {
-            return (T)GetElementById(id);
+            return (T)GetElementById(identifier);
         }
 
-        public ISElement GetElementById(uint id)
+        public ISElement GetElementById(uint identifier)
         {
-            return this._registeredElements[(int)id];
+            return this._registeredElements[(int)identifier];
         }
 
         public uint GetIdOfElementType<T>() where T : ISElement
@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.Databases
 
         public uint GetIdOfElementType(Type type)
         {
-            return GetElementByType(type).Id;
+            return GetElementByType(type).Identifier;
         }
 
         public T GetElementByType<T>() where T : ISElement

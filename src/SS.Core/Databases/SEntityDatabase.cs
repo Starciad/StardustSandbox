@@ -14,9 +14,14 @@ namespace StardustSandbox.Core.Databases
 
         private readonly Dictionary<Type, SEntityDescriptor> _registeredEntities = [];
 
-        public void RegisterEntity(SEntityDescriptor descriptor)
+        public void RegisterEntityDescriptor(SEntityDescriptor descriptor)
         {
             this._registeredEntities.Add(descriptor.AssociatedEntityType, descriptor);
+        }
+
+        public SEntityDescriptor GetEntityDescriptor<T>() where T : SEntity
+        {
+            return GetEntityDescriptor(typeof(T));
         }
 
         public SEntityDescriptor GetEntityDescriptor(Type entityType)

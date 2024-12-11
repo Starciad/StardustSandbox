@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
     {
         public SFire(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Fire;
+            this.identifier = (uint)SElementId.Fire;
             this.referenceColor = SColorPalette.Amber;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [

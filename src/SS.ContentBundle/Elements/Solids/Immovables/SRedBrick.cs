@@ -11,7 +11,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         public SRedBrick(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.RedBrick;
+            this.identifier = (uint)SElementId.RedBrick;
             this.referenceColor = SColorPalette.Crimson;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_21");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

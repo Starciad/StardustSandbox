@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
         public SWorldSlotData(ISWorldSlot worldSlot, Point position)
         {
             this.Position = position;
-            this.ElementId = worldSlot.Element.Id;
+            this.ElementId = worldSlot.Element.Identifier;
             this.Temperature = worldSlot.Temperature;
             this.FreeFalling = worldSlot.FreeFalling;
             this.Color = worldSlot.Color;

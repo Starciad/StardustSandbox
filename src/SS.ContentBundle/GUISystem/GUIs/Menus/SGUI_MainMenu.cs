@@ -10,6 +10,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World;
 
@@ -44,7 +45,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly Texture2D particleTexture;
         private readonly Texture2D prosceniumCurtainTexture;
 
-        private readonly SWorld world;
+        private readonly ISWorld world;
 
         private readonly Song mainMenuSong;
 

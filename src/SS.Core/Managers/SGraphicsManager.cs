@@ -14,13 +14,13 @@ namespace StardustSandbox.Core.Managers
         public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
         public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;
 
-        public RenderTarget2D ScreenRenderTarget => this.screenRenderTarget;
-        public RenderTarget2D GuiRenderTarget => this.guiRenderTarget;
-        public RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
-        public RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
-        public RenderTarget2D LightingRenderTarget => this.lightingRenderTarget;
-
         public Viewport Viewport => this.GraphicsDevice.Viewport;
+
+        internal RenderTarget2D ScreenRenderTarget => this.screenRenderTarget;
+        internal RenderTarget2D GuiRenderTarget => this.guiRenderTarget;
+        internal RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
+        internal RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
+        internal RenderTarget2D LightingRenderTarget => this.lightingRenderTarget;
 
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Managers
             this.lightingRenderTarget = new(this.GraphicsDevice, width, height);
         }
 
-        public void UpdateSettings()
+        internal void UpdateSettings()
         {
             SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
 

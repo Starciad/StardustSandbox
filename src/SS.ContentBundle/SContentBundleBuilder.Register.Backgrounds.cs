@@ -2,6 +2,7 @@
 
 using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 
 using System;
@@ -10,7 +11,7 @@ namespace StardustSandbox.ContentBundle
 {
     public sealed partial class SContentBundleBuilder
     {
-        protected override void OnRegisterBackgrounds(ISGame game, SBackgroundDatabase backgroundDatabase)
+        protected override void OnRegisterBackgrounds(ISGame game, ISBackgroundDatabase backgroundDatabase)
         {
             backgroundDatabase.RegisterBackground("main_menu", game.AssetDatabase.GetTexture("background_1"), new Action<SBackground>((background) =>
             {

@@ -10,6 +10,7 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
@@ -55,7 +56,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly Song creditsMenuSong;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
-        private readonly SWorld world;
+        private readonly ISWorld world;
 
         public SGUI_CreditsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {

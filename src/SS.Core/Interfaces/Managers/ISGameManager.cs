@@ -2,6 +2,6 @@
 {
     public interface ISGameManager
     {
-
+        SGameState GameState { get; }
     }
 }

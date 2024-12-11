@@ -2,6 +2,7 @@
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.World;
@@ -29,7 +30,7 @@ namespace StardustSandbox.Core.Interfaces.General
         ISCursorManager CursorManager { get; }
 
         // Core
-        SWorld World { get; }
+        ISWorld World { get; }
         SGameInputController GameInputController { get; }
 
         void Quit();

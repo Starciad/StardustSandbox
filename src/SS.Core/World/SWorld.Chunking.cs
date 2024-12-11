@@ -4,7 +4,7 @@ using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld
+    internal sealed partial class SWorld
     {
         public int GetActiveChunksCount()
         {

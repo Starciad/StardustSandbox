@@ -9,7 +9,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
     {
         public SSmoke(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Smoke;
+            this.identifier = (uint)SElementId.Smoke;
             this.referenceColor = new(56, 56, 56, 191);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_20");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

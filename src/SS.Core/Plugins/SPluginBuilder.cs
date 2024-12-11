@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Plugins
@@ -17,11 +18,11 @@ namespace StardustSandbox.Core.Plugins
             OnRegisterEntities(game, game.EntityDatabase);
         }
 
-        protected virtual void OnRegisterAssets(ISGame game, ContentManager contentManager, SAssetDatabase assetDatabase) { return; }
-        protected virtual void OnRegisterElements(ISGame game, SElementDatabase elementDatabase) { return; }
-        protected virtual void OnRegisterGUIs(ISGame game, SGUIDatabase guiDatabase) { return; }
-        protected virtual void OnRegisterItems(ISGame game, SItemDatabase itemDatabase) { return; }
-        protected virtual void OnRegisterBackgrounds(ISGame game, SBackgroundDatabase backgroundDatabase) { return; }
-        protected virtual void OnRegisterEntities(ISGame game, SEntityDatabase entityDatabase) { return; }
+        protected virtual void OnRegisterAssets(ISGame game, ContentManager contentManager, ISAssetDatabase assetDatabase) { return; }
+        protected virtual void OnRegisterElements(ISGame game, ISElementDatabase elementDatabase) { return; }
+        protected virtual void OnRegisterGUIs(ISGame game, ISGUIDatabase guiDatabase) { return; }
+        protected virtual void OnRegisterItems(ISGame game, ISItemDatabase itemDatabase) { return; }
+        protected virtual void OnRegisterBackgrounds(ISGame game, ISBackgroundDatabase backgroundDatabase) { return; }
+        protected virtual void OnRegisterEntities(ISGame game, ISEntityDatabase entityDatabase) { return; }
     }
 }

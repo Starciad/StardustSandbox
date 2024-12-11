@@ -12,6 +12,7 @@ using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
@@ -32,7 +33,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly Texture2D squareShapeTexture;
         private readonly Texture2D magnifyingGlassIconTexture;
 
-        private readonly SWorld world;
+        private readonly ISWorld world;
 
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 

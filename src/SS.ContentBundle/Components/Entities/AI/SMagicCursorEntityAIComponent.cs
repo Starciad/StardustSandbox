@@ -7,6 +7,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
@@ -32,8 +33,14 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private SElementId selectedElement;
         private Vector2 targetPosition;
-        private readonly SWorld world;
+
+        private int moveStateTimer = 0;
+        private int buildingStateTimer = 0;
+        private int elementChangeTimer = 0;
+
+        private readonly ISWorld world;
         private readonly SSize2 worldSize;
+
         private readonly SEntityTransformComponent transformComponent;
 
         private static readonly SElementId[] AllowedElements =
@@ -42,10 +49,6 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
             SElementId.Grass, SElementId.Sand, SElementId.Lava, SElementId.Acid,
             SElementId.Wood, SElementId.TreeLeaf
         };
-
-        private int moveStateTimer = 0;
-        private int buildingStateTimer = 0;
-        private int elementChangeTimer = 0;
 
         public SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
         {

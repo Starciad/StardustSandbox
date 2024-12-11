@@ -3,6 +3,7 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World;
 
@@ -14,8 +15,8 @@ namespace StardustSandbox.Core.Managers
 
         private readonly SGameState gameState = new();
 
-        private readonly SCameraManager cameraManager = gameInstance.CameraManager;
-        private readonly SWorld world = gameInstance.World;
+        private readonly ISCameraManager cameraManager = gameInstance.CameraManager;
+        private readonly ISWorld world = gameInstance.World;
 
         public override void Update(GameTime gameTime)
         {

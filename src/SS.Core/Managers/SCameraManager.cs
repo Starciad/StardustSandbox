@@ -68,7 +68,7 @@ namespace StardustSandbox.Core.Managers
         private float _minimumZoom;
         private float _zoom;
 
-        private readonly SGraphicsManager _graphicsManager;
+        private readonly ISGraphicsManager _graphicsManager;
 
         public SCameraManager(ISGame gameInstance) : base(gameInstance)
         {

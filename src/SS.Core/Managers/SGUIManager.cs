@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 
@@ -14,7 +15,8 @@ namespace StardustSandbox.Core.Managers
         public SGUIEvents GUIEvents => this._guiEvents;
 
         private readonly SGUIEvents _guiEvents = new(gameInstance.InputManager);
-        private readonly SGUIDatabase _guiDatabase = gameInstance.GUIDatabase;
+
+        private readonly ISGUIDatabase _guiDatabase = gameInstance.GUIDatabase;
 
         public override void Update(GameTime gameTime)
         {
@@ -38,31 +40,31 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        public void ShowGUI(string id)
+        public void ShowGUI(string identifier)
         {
-            if (TryGetGUIByName(id, out SGUISystem guiSystem))
+            if (TryGetGUIById(identifier, out SGUISystem guiSystem))
             {
                 guiSystem.Show();
             }
         }
 
-        public void CloseGUI(string id)
+        public void CloseGUI(string identifier)
         {
-            if (TryGetGUIByName(id, out SGUISystem guiSystem))
+            if (TryGetGUIById(identifier, out SGUISystem guiSystem))
             {
                 guiSystem.Close();
             }
         }
 
-        public SGUISystem GetGUIByName(string name)
+        public SGUISystem GetGUIById(string identifier)
         {
-            _ = TryGetGUIByName(name, out SGUISystem guiSystem);
+            _ = TryGetGUIById(identifier, out SGUISystem guiSystem);
             return guiSystem;
         }
 
-        public bool TryGetGUIByName(string name, out SGUISystem guiSystem)
+        public bool TryGetGUIById(string identifier, out SGUISystem guiSystem)
         {
-            SGUISystem target = this._guiDatabase.Find(name);
+            SGUISystem target = this._guiDatabase.GetGUISystemById(identifier);
             guiSystem = target;
 
             return target != null;

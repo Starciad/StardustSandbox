@@ -3,14 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Extensions
 {
-    public static class SWorldExtensions
+    public static class ISWorldExtensions
     {
-        public static Texture2D CreateThumbnail(this SWorld world, GraphicsDevice graphicsDevice)
+        public static Texture2D CreateThumbnail(this ISWorld world, GraphicsDevice graphicsDevice)
         {
             // Thumbnail dimensions
             int thumbnailWidth = SWorldConstants.WORLD_THUMBNAIL_SIZE.Width;

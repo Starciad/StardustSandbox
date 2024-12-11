@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SCameraHandler(SCameraManager cameraManager)
+    internal sealed class SCameraHandler(ISCameraManager cameraManager)
     {
-        private readonly SCameraManager cameraManager = cameraManager;
+        private readonly ISCameraManager cameraManager = cameraManager;
 
         public void MoveCamera(Vector2 direction)
         {

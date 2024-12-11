@@ -4,7 +4,10 @@ using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Gameplay;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.World;
 
@@ -12,17 +15,17 @@ using System;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SWorldHandler(SWorld world, SInputManager inputManager, SCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, SElementDatabase elementDatabase)
+    internal sealed class SWorldHandler(ISWorld world, ISInputManager inputManager, ISCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, ISElementDatabase elementDatabase)
     {
-        private readonly SWorld world = world;
+        private readonly ISWorld world = world;
 
-        private readonly SInputManager inputManager = inputManager;
-        private readonly SCameraManager cameraManager = cameraManager;
+        private readonly ISInputManager inputManager = inputManager;
+        private readonly ISCameraManager cameraManager = cameraManager;
+
+        private readonly ISElementDatabase elementDatabase = elementDatabase;
 
         private readonly SSimulationPlayer simulationPlayer = simulationPlayer;
         private readonly SSimulationPen simulationPen = simulationPen;
-
-        private readonly SElementDatabase elementDatabase = elementDatabase;
 
         public void Clear()
         {
@@ -76,7 +79,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
                 return;
             }
 
-            ApplyPenAction(position, (position) => this.world.InstantiateElement(new Point(position.X, position.Y), element.Id));
+            ApplyPenAction(position, (position) => this.world.InstantiateElement(new Point(position.X, position.Y), element.Identifier));
         }
 
         private void RemoveElements(Point position)

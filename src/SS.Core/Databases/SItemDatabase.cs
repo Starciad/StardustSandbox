@@ -49,14 +49,14 @@ namespace StardustSandbox.Core.Databases
             this.items.Add(identifier, new(identifier, displayName, description, contentType, this.categories[categoryIdentifier], iconTexture, referencedType));
         }
 
-        public SItemCategory GetCategoryById(string id)
+        public SItemCategory GetCategoryById(string identifier)
         {
-            return this.categories[id];
+            return this.categories[identifier];
         }
 
-        public SItem GetItemById(string id)
+        public SItem GetItemById(string identifier)
         {
-            return this.items[id];
+            return this.items[identifier];
         }
     }
 }

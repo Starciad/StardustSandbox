@@ -14,18 +14,18 @@ namespace StardustSandbox.Core.Databases
     {
         private readonly Dictionary<string, SBackground> backgrounds = [];
 
-        public void RegisterBackground(string id, Texture2D texture, Action<SBackground> builderAction)
+        public void RegisterBackground(string identifier, Texture2D texture, Action<SBackground> builderAction)
         {
-            SBackground background = new(this.SGameInstance, id, texture);
+            SBackground background = new(this.SGameInstance, identifier, texture);
 
             builderAction.Invoke(background);
 
-            this.backgrounds.Add(id, background);
+            this.backgrounds.Add(identifier, background);
         }
 
-        public SBackground GetBackgroundById(string id)
+        public SBackground GetBackgroundById(string identifier)
         {
-            return this.backgrounds[id];
+            return this.backgrounds[identifier];
         }
     }
 }

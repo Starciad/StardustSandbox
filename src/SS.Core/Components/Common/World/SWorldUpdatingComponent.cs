@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Components.Common.World
 {
-    public sealed class SWorldUpdatingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldUpdatingComponent(ISGame gameInstance, ISWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private readonly SElementContext elementUpdateContext = new(worldInstance);
         private readonly List<Point> capturedSlots = [];

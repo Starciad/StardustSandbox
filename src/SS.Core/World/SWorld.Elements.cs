@@ -11,15 +11,15 @@ using System;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld
+    internal sealed partial class SWorld
     {
         public void InstantiateElement<T>(Point pos) where T : ISElement
         {
             InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
-        public void InstantiateElement(Point pos, uint id)
+        public void InstantiateElement(Point pos, uint identifier)
         {
-            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
+            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(identifier));
         }
         public void InstantiateElement(Point pos, ISElement value)
         {
@@ -29,9 +29,9 @@ namespace StardustSandbox.Core.World
         {
             return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
-        public bool TryInstantiateElement(Point pos, uint id)
+        public bool TryInstantiateElement(Point pos, uint identifier)
         {
-            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
+            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(identifier));
         }
         public bool TryInstantiateElement(Point pos, ISElement value)
         {
@@ -123,9 +123,9 @@ namespace StardustSandbox.Core.World
         {
             _ = TryReplaceElement<T>(pos);
         }
-        public void ReplaceElement(Point pos, uint id)
+        public void ReplaceElement(Point pos, uint identifier)
         {
-            _ = TryReplaceElement(pos, id);
+            _ = TryReplaceElement(pos, identifier);
         }
         public void ReplaceElement(Point pos, ISElement value)
         {
@@ -135,9 +135,9 @@ namespace StardustSandbox.Core.World
         {
             return TryDestroyElement(pos) && TryInstantiateElement<T>(pos);
         }
-        public bool TryReplaceElement(Point pos, uint id)
+        public bool TryReplaceElement(Point pos, uint identifier)
         {
-            return TryDestroyElement(pos) && TryInstantiateElement(pos, id);
+            return TryDestroyElement(pos) && TryInstantiateElement(pos, identifier);
         }
         public bool TryReplaceElement(Point pos, ISElement value)
         {
@@ -278,12 +278,6 @@ namespace StardustSandbox.Core.World
         public bool IsEmptyElementSlot(Point pos)
         {
             return !InsideTheWorldDimensions(pos) || this.slots[pos.X, pos.Y].IsEmpty;
-        }
-
-        public bool InsideTheWorldDimensions(Point pos)
-        {
-            return pos.X >= 0 && pos.X < this.Infos.Size.Width &&
-                   pos.Y >= 0 && pos.Y < this.Infos.Size.Height;
         }
     }
 }

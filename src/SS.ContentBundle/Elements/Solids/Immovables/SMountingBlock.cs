@@ -16,7 +16,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         public SMountingBlock(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.MountingBlock;
+            this.identifier = (uint)SElementId.MountingBlock;
             this.referenceColor = SColorPalette.White;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_23");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));

@@ -11,7 +11,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         public STreeLeaf(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.TreeLeaf;
+            this.identifier = (uint)SElementId.TreeLeaf;
             this.referenceColor = SColorPalette.MossGreen;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_22");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

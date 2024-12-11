@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
     {
         public SLCorruption(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.LCorruption;
+            this.identifier = (uint)SElementId.LCorruption;
             this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_17");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

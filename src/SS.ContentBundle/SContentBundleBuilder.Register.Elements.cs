@@ -4,13 +4,14 @@ using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle
 {
     public sealed partial class SContentBundleBuilder
     {
-        protected override void OnRegisterElements(ISGame game, SElementDatabase elementDatabase)
+        protected override void OnRegisterElements(ISGame game, ISElementDatabase elementDatabase)
         {
             elementDatabase.RegisterElement(new SDirt(game));
             elementDatabase.RegisterElement(new SMud(game));

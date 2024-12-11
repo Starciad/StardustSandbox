@@ -8,7 +8,7 @@ namespace StardustSandbox.Core.IO.Files.World
     public sealed class SWorldSaveFileMetadata
     {
         [Key(0)]
-        public byte[] Id { get; set; }
+        public byte[] Identifier { get; set; }
 
         [Key(1)]
         public string Name { get; set; }

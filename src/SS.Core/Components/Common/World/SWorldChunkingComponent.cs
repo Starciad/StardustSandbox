@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World;
 using StardustSandbox.Core.World.Data;
 
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Components.Common.World
 {
-    public sealed class SWorldChunkingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldChunkingComponent(ISGame gameInstance, ISWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private int worldChunkWidth;
         private int worldChunkHeight;

@@ -15,7 +15,7 @@ namespace StardustSandbox.Core.Elements
 {
     public abstract class SElement : SGameObject, ISElement
     {
-        public uint Id => this.id;
+        public uint Identifier => this.identifier;
         public Texture2D Texture => this.texture;
 
         public Color ReferenceColor => this.referenceColor;
@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.Elements
 
         // =========================== //
 
-        protected uint id;
+        protected uint identifier;
         protected Texture2D texture;
 
         protected Color referenceColor = Color.White;

@@ -9,7 +9,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         public SGlass(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Glass;
+            this.identifier = (uint)SElementId.Glass;
             this.referenceColor = new(249, 253, 254, 21);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_12");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

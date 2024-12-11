@@ -14,11 +14,10 @@ using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
 using System;
-using System.Drawing;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld : SGameObject, ISWorld
+    internal sealed partial class SWorld : SGameObject, ISWorld
     {
         public SWorldInfo Infos { get; private set; } = new();
 
@@ -88,7 +87,7 @@ namespace StardustSandbox.Core.World
         }
         public void StartNew(SSize2 size)
         {
-            this.Infos.Id = Guid.NewGuid().ToByteArray();
+            this.Infos.Identifier = Guid.NewGuid().ToByteArray();
 
             this.IsActive = true;
             this.IsVisible = true;
@@ -107,7 +106,7 @@ namespace StardustSandbox.Core.World
             StartNew(worldSaveFile.World.Size);
 
             // Metadata
-            this.Infos.Id = worldSaveFile.Metadata.Id;
+            this.Infos.Identifier = worldSaveFile.Metadata.Identifier;
             this.Infos.Name = worldSaveFile.Metadata.Name;
             this.Infos.Description = worldSaveFile.Metadata.Description;
 
@@ -122,15 +121,6 @@ namespace StardustSandbox.Core.World
                 worldSlot.SetFreeFalling(worldSlotData.FreeFalling);
                 worldSlot.SetColor(worldSlotData.Color);
             }
-        }
-
-        public void Reset()
-        {
-            this.Infos.Name = "DEBUG";
-            this.Infos.Description = string.Empty;
-
-            this.componentContainer.Reset();
-            Clear();
         }
 
         public void Resize(SSize2 size)
@@ -162,6 +152,21 @@ namespace StardustSandbox.Core.World
                     DestroyElement(new(x, y));
                 }
             }
+        }
+
+        public void Reset()
+        {
+            this.Infos.Name = "DEBUG";
+            this.Infos.Description = string.Empty;
+
+            this.componentContainer.Reset();
+            Clear();
+        }
+
+        public bool InsideTheWorldDimensions(Point pos)
+        {
+            return pos.X >= 0 && pos.X < this.Infos.Size.Width &&
+                   pos.Y >= 0 && pos.Y < this.Infos.Size.Height;
         }
 
         private void InstantiateWorldSlots()

@@ -16,10 +16,10 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TrySetPosition(Point newPos);
 
         void InstantiateElement<T>() where T : ISElement;
-        void InstantiateElement(uint id);
+        void InstantiateElement(uint identifier);
         void InstantiateElement(ISElement value);
         bool TryInstantiateElement<T>() where T : ISElement;
-        bool TryInstantiateElement(uint id);
+        bool TryInstantiateElement(uint identifier);
         bool TryInstantiateElement(ISElement value);
 
         void UpdateElementPosition(Point newPos);
@@ -32,10 +32,10 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryDestroyElement();
 
         void ReplaceElement<T>() where T : ISElement;
-        void ReplaceElement(uint id);
+        void ReplaceElement(uint identifier);
         void ReplaceElement(ISElement value);
         bool TryReplaceElement<T>() where T : ISElement;
-        bool TryReplaceElement(uint id);
+        bool TryReplaceElement(uint identifier);
         bool TryReplaceElement(ISElement value);
 
         ISElement GetElement();

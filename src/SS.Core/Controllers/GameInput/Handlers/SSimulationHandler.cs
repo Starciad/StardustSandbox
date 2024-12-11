@@ -1,10 +1,11 @@
-﻿using StardustSandbox.Core.Managers;
+﻿using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SSimulationHandler(SGameManager gameManager)
+    internal sealed class SSimulationHandler(ISGameManager gameManager)
     {
-        private readonly SGameManager gameManager = gameManager;
+        private readonly ISGameManager gameManager = gameManager;
 
         public void TogglePause()
         {

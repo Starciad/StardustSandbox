@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
     {
         public SMCorruption(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.MCorruption;
+            this.identifier = (uint)SElementId.MCorruption;
             this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_9");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

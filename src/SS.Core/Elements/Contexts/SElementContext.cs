@@ -8,7 +8,7 @@ using System;
 
 namespace StardustSandbox.Core.Elements.Contexts
 {
-    public sealed class SElementContext(SWorld world) : ISElementContext
+    public sealed class SElementContext(ISWorld world) : ISElementContext
     {
         public ISWorldSlot Slot => this._worldSlot;
         public ISElement Element => this._worldSlot.Element;
@@ -17,7 +17,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         private ISWorldSlot _worldSlot;
         private Point _position;
 
-        private readonly SWorld _world = world;
+        private readonly ISWorld _world = world;
 
         public void UpdateInformation(ISWorldSlot worldSlot, Point position)
         {
@@ -47,9 +47,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             InstantiateElement<T>(this._position);
         }
-        public void InstantiateElement(uint id)
+        public void InstantiateElement(uint identifier)
         {
-            InstantiateElement(this._position, id);
+            InstantiateElement(this._position, identifier);
         }
         public void InstantiateElement(ISElement value)
         {
@@ -59,9 +59,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             this._world.InstantiateElement<T>(pos);
         }
-        public void InstantiateElement(Point pos, uint id)
+        public void InstantiateElement(Point pos, uint identifier)
         {
-            this._world.InstantiateElement(pos, id);
+            this._world.InstantiateElement(pos, identifier);
         }
         public void InstantiateElement(Point pos, ISElement value)
         {
@@ -71,9 +71,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             return TryInstantiateElement<T>(this._position);
         }
-        public bool TryInstantiateElement(uint id)
+        public bool TryInstantiateElement(uint identifier)
         {
-            return TryInstantiateElement(this._position, id);
+            return TryInstantiateElement(this._position, identifier);
         }
         public bool TryInstantiateElement(ISElement value)
         {
@@ -83,9 +83,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             return this._world.TryInstantiateElement<T>(pos);
         }
-        public bool TryInstantiateElement(Point pos, uint id)
+        public bool TryInstantiateElement(Point pos, uint identifier)
         {
-            return this._world.TryInstantiateElement(pos, id);
+            return this._world.TryInstantiateElement(pos, identifier);
         }
         public bool TryInstantiateElement(Point pos, ISElement value)
         {
@@ -153,9 +153,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             ReplaceElement<T>(this._position);
         }
-        public void ReplaceElement(uint id)
+        public void ReplaceElement(uint identifier)
         {
-            ReplaceElement(this._position, id);
+            ReplaceElement(this._position, identifier);
         }
         public void ReplaceElement(ISElement value)
         {
@@ -165,9 +165,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             this._world.ReplaceElement<T>(pos);
         }
-        public void ReplaceElement(Point pos, uint id)
+        public void ReplaceElement(Point pos, uint identifier)
         {
-            this._world.ReplaceElement(pos, id);
+            this._world.ReplaceElement(pos, identifier);
         }
         public void ReplaceElement(Point pos, ISElement value)
         {
@@ -177,9 +177,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             return TryReplaceElement<T>(this._position);
         }
-        public bool TryReplaceElement(uint id)
+        public bool TryReplaceElement(uint identifier)
         {
-            return TryReplaceElement(this._position, id);
+            return TryReplaceElement(this._position, identifier);
         }
         public bool TryReplaceElement(ISElement value)
         {
@@ -189,9 +189,9 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             return this._world.TryReplaceElement<T>(pos);
         }
-        public bool TryReplaceElement(Point pos, uint id)
+        public bool TryReplaceElement(Point pos, uint identifier)
         {
-            return this._world.TryReplaceElement(pos, id);
+            return this._world.TryReplaceElement(pos, identifier);
         }
         public bool TryReplaceElement(Point pos, ISElement value)
         {

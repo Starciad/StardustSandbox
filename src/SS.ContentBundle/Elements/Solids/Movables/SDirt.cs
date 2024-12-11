@@ -10,7 +10,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
     {
         public SDirt(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Dirt;
+            this.identifier = (uint)SElementId.Dirt;
             this.referenceColor = SColorPalette.Burgundy;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_1");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

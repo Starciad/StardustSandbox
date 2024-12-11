@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
@@ -50,7 +51,7 @@ namespace StardustSandbox.Core.Managers.IO
             }
         };
 
-        public static void Serialize(SWorld world, GraphicsDevice graphicsDevice)
+        public static void Serialize(ISWorld world, GraphicsDevice graphicsDevice)
         {
             Task.Run(() =>
             {
@@ -70,7 +71,7 @@ namespace StardustSandbox.Core.Managers.IO
             }).Wait();
         }
 
-        public static void Deserialize(string identifier, SWorld world, GraphicsDevice graphicsDevice)
+        public static void Deserialize(string identifier, ISWorld world, GraphicsDevice graphicsDevice)
         {
             Task.Run(() =>
             {
@@ -89,7 +90,7 @@ namespace StardustSandbox.Core.Managers.IO
             }).Wait();
         }
 
-        private static SWorldSaveFile CreateWorldSaveFile(SWorld world, GraphicsDevice graphicsDevice)
+        private static SWorldSaveFile CreateWorldSaveFile(ISWorld world, GraphicsDevice graphicsDevice)
         {
             DateTime currentDateTime = DateTime.Now;
 
@@ -99,7 +100,7 @@ namespace StardustSandbox.Core.Managers.IO
 
                 Metadata = new()
                 {
-                    Id = world.Infos.Id,
+                    Identifier = world.Infos.Identifier,
                     Name = world.Infos.Name,
                     Description = world.Infos.Description,
                     Version = SFileConstants.WORLD_SAVE_FILE_VERSION,
@@ -115,7 +116,7 @@ namespace StardustSandbox.Core.Managers.IO
             };
         }
 
-        private static SWorldSlotData[] CreateWorldSlotsData(SWorld world, SSize2 worldSize)
+        private static SWorldSlotData[] CreateWorldSlotsData(ISWorld world, SSize2 worldSize)
         {
             List<SWorldSlotData> slotData = [];
 

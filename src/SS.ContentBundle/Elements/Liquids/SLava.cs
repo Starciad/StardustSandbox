@@ -11,7 +11,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
     {
         public SLava(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Lava;
+            this.identifier = (uint)SElementId.Lava;
             this.referenceColor = SColorPalette.Orange;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

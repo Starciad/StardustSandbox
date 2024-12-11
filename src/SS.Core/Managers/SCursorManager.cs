@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
@@ -27,8 +28,8 @@ namespace StardustSandbox.Core.Managers
 
         private readonly int cursorTextureSelected = 0;
 
-        private readonly SAssetDatabase _assetDatabase = gameInstance.AssetDatabase;
-        private readonly SInputManager _inputManager = gameInstance.InputManager;
+        private readonly ISAssetDatabase _assetDatabase = gameInstance.AssetDatabase;
+        private readonly ISInputManager _inputManager = gameInstance.InputManager;
 
         public override void Initialize()
         {

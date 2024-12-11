@@ -10,7 +10,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
     {
         public SStone(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Stone;
+            this.identifier = (uint)SElementId.Stone;
             this.referenceColor = new(66, 65, 65, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_4");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

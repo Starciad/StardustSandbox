@@ -7,7 +7,7 @@ namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElement
     {
-        uint Id { get; }
+        uint Identifier { get; }
         Texture2D Texture { get; }
 
         Color ReferenceColor { get; }

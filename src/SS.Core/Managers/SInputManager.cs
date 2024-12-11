@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.Managers
             return this._previousMouseState.ScrollWheelValue - this._mouseState.ScrollWheelValue;
         }
 
-        private static Vector2 CalculateScaledMousePosition(MouseState mouseState, SGraphicsManager graphicsManager)
+        private static Vector2 CalculateScaledMousePosition(MouseState mouseState, ISGraphicsManager graphicsManager)
         {
             Vector2 mousePosition = new(mouseState.X, mouseState.Y);
 
