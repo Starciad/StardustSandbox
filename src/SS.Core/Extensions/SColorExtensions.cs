@@ -27,7 +27,6 @@ namespace StardustSandbox.Core.Extensions
             {
                 a = VaryChannel(baseColor.A);
             }
-            
 
             return new Color(r, g, b, a);
         }

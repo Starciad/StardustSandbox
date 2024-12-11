@@ -221,7 +221,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                             Margin = margin + content.Margin
                         };
                         contentImage.PositionRelativeToScreen();
-                        
+
                         this.creditElements.Add(contentImage);
 
                         margin.Y += contentImage.Size.Height + verticalSpacing;

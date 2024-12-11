@@ -11,7 +11,6 @@ using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
 
 using System;
 using System.Collections.Generic;
@@ -153,10 +152,8 @@ namespace StardustSandbox.Core.Managers.IO
             }
 
             // ROOT/data/world
-            using (Stream worldDataStreamWriter = saveFileZipArchive.CreateEntry(Path.Combine(SDirectoryConstants.WORLD_SAVE_FILE_DATA, SFileConstants.WORLD_SAVE_FILE_DATA_WORLD)).Open())
-            {
-                worldDataStreamWriter.Write(MessagePackSerializer.Serialize(worldSaveFile.World));
-            }
+            using Stream worldDataStreamWriter = saveFileZipArchive.CreateEntry(Path.Combine(SDirectoryConstants.WORLD_SAVE_FILE_DATA, SFileConstants.WORLD_SAVE_FILE_DATA_WORLD)).Open();
+            worldDataStreamWriter.Write(MessagePackSerializer.Serialize(worldSaveFile.World));
         }
 
         private static SWorldSaveFile ReadZipFile(ZipArchive zipArchive, GraphicsDevice graphicsDevice)

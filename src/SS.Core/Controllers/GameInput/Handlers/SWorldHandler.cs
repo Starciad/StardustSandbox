@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Gameplay;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.World;
 
 using System;

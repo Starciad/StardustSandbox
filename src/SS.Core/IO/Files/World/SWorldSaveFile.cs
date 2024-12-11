@@ -1,6 +1,4 @@
-﻿using MessagePack;
-
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.IO.Files.World.Data;
 

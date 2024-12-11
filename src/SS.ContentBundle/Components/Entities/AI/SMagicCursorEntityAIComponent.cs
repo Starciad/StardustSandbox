@@ -10,7 +10,6 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.ContentBundle.Components.Entities.AI
 {

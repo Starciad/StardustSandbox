@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Interfaces.Managers;
-using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {

@@ -2,7 +2,6 @@
 
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World;
 
 using System;
 

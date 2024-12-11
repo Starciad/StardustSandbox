@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using StardustSandbox.Core.Enums.InputSystem;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.InputSystem
@@ -12,9 +11,9 @@ namespace StardustSandbox.Core.InputSystem
     public sealed class SInputAction : SGameObject
     {
         public SInputActionMap ActionMap => this._actionMap;
-        
+
         private SInputActionMap _actionMap;
-        
+
         private CallbackContext callback;
 
         private bool started = false;

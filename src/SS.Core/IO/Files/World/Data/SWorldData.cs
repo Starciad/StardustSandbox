@@ -22,10 +22,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
         [IgnoreMember]
         public Color Color
         {
-            get
-            {
-                return new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
-            }
+            get => new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
 
             set
             {
@@ -36,13 +33,10 @@ namespace StardustSandbox.Core.IO.Files.World.Data
             }
         }
 
-        [IgnoreMember] 
+        [IgnoreMember]
         public Point Position
         {
-            get
-            {
-                return new(this.PositionX, this.PositionY);
-            }
+            get => new(this.PositionX, this.PositionY);
 
             set
             {

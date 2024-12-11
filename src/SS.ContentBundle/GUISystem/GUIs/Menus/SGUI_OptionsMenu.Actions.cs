@@ -1,8 +1,8 @@
 ﻿using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.Localization;
+using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {

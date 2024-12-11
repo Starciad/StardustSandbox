@@ -5,7 +5,6 @@ using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;

@@ -15,7 +15,6 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {

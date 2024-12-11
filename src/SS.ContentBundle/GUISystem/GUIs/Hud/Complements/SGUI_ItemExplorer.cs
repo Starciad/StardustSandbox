@@ -120,7 +120,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
-
         // ============================================== //
 
         private void SelectItemCatalog(string categoryId, int pageIndex)

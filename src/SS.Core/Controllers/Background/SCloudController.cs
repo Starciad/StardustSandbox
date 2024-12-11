@@ -17,7 +17,7 @@ namespace StardustSandbox.Core.Controllers.Background
     internal sealed class SCloudController(ISGame gameInstance) : SGameObject(gameInstance)
     {
         private bool isActive;
-        
+
         private readonly Texture2D[] cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
         private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly SObjectPool cloudPool = new();

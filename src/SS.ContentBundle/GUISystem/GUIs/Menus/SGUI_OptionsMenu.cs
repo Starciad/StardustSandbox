@@ -35,7 +35,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             VSync = 2,
             Borderless = 3
         }
-        
+
         private byte selectedSectionIndex = 0;
         private byte selectedLanguageIndex = 0;
 
@@ -102,7 +102,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void LoadLanguageSettings()
         {
             this.languageSettings = SSettingsManager.LoadSettings<SLanguageSettings>();
-            this.selectedLanguageIndex = (byte)Array.FindIndex(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Language == this.languageSettings.Language );
+            this.selectedLanguageIndex = (byte)Array.FindIndex(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Language == this.languageSettings.Language);
         }
 
         public override void Update(GameTime gameTime)

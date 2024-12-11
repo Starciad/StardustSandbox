@@ -96,7 +96,7 @@ namespace StardustSandbox.Core.World
             {
                 Resize(size);
             }
-            
+
             Reset();
         }
 

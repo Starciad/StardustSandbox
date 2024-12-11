@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 
@@ -67,7 +66,7 @@ namespace StardustSandbox.ContentBundle
             // Game
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_ICONS_LENGTH, "game_icon_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_ICONS));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_TITLES_LENGTH, "game_title_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_TITLES));
-            
+
             // GUI
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_BACKGROUNDS_LENGTH, "gui_background_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_BACKGROUNDS));
 

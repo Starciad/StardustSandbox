@@ -1,6 +1,5 @@
 ﻿using MessagePack;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
@@ -14,10 +13,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [IgnoreMember]
         public SSize2 Resolution
         {
-            get
-            {
-                return new(this.ScreenWidth, this.ScreenHeight);
-            }
+            get => new(this.ScreenWidth, this.ScreenHeight);
 
             set
             {

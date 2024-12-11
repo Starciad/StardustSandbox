@@ -11,7 +11,6 @@ using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {

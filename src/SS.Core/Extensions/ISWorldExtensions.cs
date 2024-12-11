@@ -5,7 +5,6 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Extensions
 {
