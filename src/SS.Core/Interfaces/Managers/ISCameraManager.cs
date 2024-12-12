@@ -4,7 +4,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISCameraManager
+    public interface ISCameraManager : ISManager
     {
         Vector2 Position { get; set; }
         float Rotation { get; set; }

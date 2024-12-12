@@ -79,5 +79,10 @@ namespace StardustSandbox.Core.Managers
                 this._graphicsDeviceManager.PreferredBackBufferHeight / (float)SScreenConstants.DEFAULT_SCREEN_HEIGHT
             );
         }
+
+        public void Reset()
+        {
+            return;
+        }
     }
 }

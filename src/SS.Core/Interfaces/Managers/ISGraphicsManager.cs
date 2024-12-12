@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISGraphicsManager
+    public interface ISGraphicsManager : ISManager
     {
         GraphicsDeviceManager GraphicsDeviceManager { get; }
         GraphicsDevice GraphicsDevice { get; }

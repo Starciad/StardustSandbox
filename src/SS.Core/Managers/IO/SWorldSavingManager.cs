@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.Managers.IO
 {
@@ -52,41 +51,35 @@ namespace StardustSandbox.Core.Managers.IO
 
         public static void Serialize(ISWorld world, GraphicsDevice graphicsDevice)
         {
-            Task.Run(() =>
-            {
-                // Paths
-                string filename = Path.Combine(SDirectory.Worlds, string.Concat(world.Infos.Name, SFileExtensionConstants.WORLD));
+            // Paths
+            string filename = Path.Combine(SDirectory.Worlds, string.Concat(world.Infos.Name, SFileExtensionConstants.WORLD));
 
-                // Streams
-                using MemoryStream saveFileMemoryStream = new();
-                using FileStream outputSaveFile = new(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
+            // Streams
+            using MemoryStream saveFileMemoryStream = new();
+            using FileStream outputSaveFile = new(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
 
-                // Saving
-                CreateZipFile(CreateWorldSaveFile(world, graphicsDevice), saveFileMemoryStream);
+            // Saving
+            CreateZipFile(CreateWorldSaveFile(world, graphicsDevice), saveFileMemoryStream);
 
-                // Write
-                _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
-                saveFileMemoryStream.WriteTo(outputSaveFile);
-            }).Wait();
+            // Write
+            _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
+            saveFileMemoryStream.WriteTo(outputSaveFile);
         }
 
         public static void Deserialize(string identifier, ISWorld world, GraphicsDevice graphicsDevice)
         {
-            Task.Run(() =>
-            {
-                // Paths
-                string filename = Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD));
+            // Paths
+            string filename = Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD));
 
-                // Streams
-                using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-                using ZipArchive saveFileZipArchive = new(inputSaveFile, ZipArchiveMode.Read);
+            // Streams
+            using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using ZipArchive saveFileZipArchive = new(inputSaveFile, ZipArchiveMode.Read);
 
-                // Read
-                SWorldSaveFile worldSaveFile = ReadZipFile(saveFileZipArchive, graphicsDevice);
+            // Read
+            SWorldSaveFile worldSaveFile = ReadZipFile(saveFileZipArchive, graphicsDevice);
 
-                // Apply
-                world.LoadFromWorldSaveFile(worldSaveFile);
-            }).Wait();
+            // Apply
+            world.LoadFromWorldSaveFile(worldSaveFile);
         }
 
         private static SWorldSaveFile CreateWorldSaveFile(ISWorld world, GraphicsDevice graphicsDevice)

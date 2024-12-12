@@ -7,6 +7,8 @@ using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 
+using System;
+
 namespace StardustSandbox.Core.Managers
 {
     internal sealed class SGUIManager(ISGame gameInstance) : SManager(gameInstance), ISGUIManager
@@ -67,6 +69,11 @@ namespace StardustSandbox.Core.Managers
             guiSystem = target;
 
             return target != null;
+        }
+
+        public void Reset()
+        {
+            return;
         }
     }
 }

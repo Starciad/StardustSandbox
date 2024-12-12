@@ -84,6 +84,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             ResetElementPositions();
 
+            this.SGameInstance.BackgroundManager.EnableClouds();
             this.SGameInstance.GameInputController.Disable();
 
             LoadAnimationValues();
@@ -97,6 +98,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             base.OnUnload();
 
+            this.SGameInstance.BackgroundManager.DisableClouds();
             this.SGameInstance.EntityManager.RemoveAll();
 
             SSongEngine.Stop();

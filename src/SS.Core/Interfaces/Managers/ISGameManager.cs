@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISGameManager
+    public interface ISGameManager : ISManager
     {
         SGameState GameState { get; }
     }

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Controllers.Background
 {
-    internal sealed class SCloudController(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SCloudController(ISGame gameInstance) : SGameObject(gameInstance), ISReset
     {
         private bool isActive;
 
@@ -85,6 +85,14 @@ namespace StardustSandbox.Core.Controllers.Background
         public void Disable()
         {
             this.isActive = false;
+        }
+
+        public void Reset()
+        {
+            foreach (SCloud cloud in this.activeClouds.ToArray())
+            {
+                cloud.Reset();
+            }
         }
 
         private void CreateCloud()

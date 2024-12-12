@@ -81,5 +81,13 @@ namespace StardustSandbox.Core.Managers
                 Destroy(entity);
             }
         }
+
+        public void Reset()
+        {
+            foreach (SEntity entity in this.InstantiatedEntities)
+            {
+                entity.Reset();
+            }
+        }
     }
 }

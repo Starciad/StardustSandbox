@@ -50,5 +50,10 @@ namespace StardustSandbox.Core.Managers
 
             return mousePosition;
         }
+
+        public void Reset()
+        {
+            return;
+        }
     }
 }

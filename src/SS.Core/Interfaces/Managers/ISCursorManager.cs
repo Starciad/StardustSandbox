@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISCursorManager
+    public interface ISCursorManager : ISManager
     {
 
     }

@@ -62,5 +62,10 @@ namespace StardustSandbox.Core.Managers
             this.cursorColor = cursorSettings.Color;
             this.cursorBackgroundColor = cursorSettings.BackgroundColor;
         }
+
+        public void Reset()
+        {
+            return;
+        }
     }
 }

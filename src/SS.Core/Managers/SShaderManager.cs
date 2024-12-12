@@ -25,5 +25,10 @@ namespace StardustSandbox.Core.Managers
                 this.effects[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
             }
         }
+
+        public void Reset()
+        {
+            return;
+        }
     }
 }

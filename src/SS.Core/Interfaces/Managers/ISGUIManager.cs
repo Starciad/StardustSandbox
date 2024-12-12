@@ -3,7 +3,7 @@ using StardustSandbox.Core.GUISystem.Events;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISGUIManager
+    public interface ISGUIManager : ISManager
     {
         SGUIEvents GUIEvents { get; }
 

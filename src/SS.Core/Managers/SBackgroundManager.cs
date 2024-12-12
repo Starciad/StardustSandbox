@@ -18,6 +18,7 @@ namespace StardustSandbox.Core.Managers
         public override void Initialize()
         {
             this.cloudController = new(this.SGameInstance);
+            this.cloudController.Initialize();
         }
 
         public override void Update(GameTime gameTime)
@@ -46,6 +47,11 @@ namespace StardustSandbox.Core.Managers
         {
             this.cloudController.Disable();
             this.cloudController.Clear();
+        }
+
+        public void Reset()
+        {
+            this.cloudController.Reset();
         }
     }
 }

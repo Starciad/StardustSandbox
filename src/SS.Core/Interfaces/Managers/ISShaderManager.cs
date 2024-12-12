@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISShaderManager
+    public interface ISShaderManager : ISManager
     {
 
     }

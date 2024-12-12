@@ -4,7 +4,7 @@ using StardustSandbox.Core.Backgrounds;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISBackgroundManager
+    public interface ISBackgroundManager : ISManager
     {
         Color SolidColor { get; set; }
 

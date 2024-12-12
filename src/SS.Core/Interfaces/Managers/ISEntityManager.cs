@@ -4,7 +4,7 @@ using System;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISEntityManager
+    public interface ISEntityManager : ISManager
     {
         SEntity[] InstantiatedEntities { get; }
 

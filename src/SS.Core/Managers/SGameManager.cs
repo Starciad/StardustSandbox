@@ -43,5 +43,10 @@ namespace StardustSandbox.Core.Managers
 
             this.cameraManager.Position = cameraPosition;
         }
+
+        public void Reset()
+        {
+            return;
+        }
     }
 }

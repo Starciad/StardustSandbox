@@ -73,11 +73,7 @@ namespace StardustSandbox.Core.Managers
         public SCameraManager(ISGame gameInstance) : base(gameInstance)
         {
             this._graphicsManager = gameInstance.GraphicsManager;
-
-            this.Rotation = 0;
-            this.Zoom = 1;
-            this.Origin = new Vector2(this._graphicsManager.Viewport.Width, this._graphicsManager.Viewport.Height) / 2f;
-            this.Position = Vector2.Zero;
+            Reset();
         }
 
         public void Move(Vector2 direction)
@@ -161,6 +157,14 @@ namespace StardustSandbox.Core.Managers
 
             return screenBottomRight.X >= 0 && screenTopLeft.X < viewport.Width &&
                    screenBottomRight.Y >= 0 && screenTopLeft.Y < viewport.Height;
+        }
+
+        public void Reset()
+        {
+            this.Rotation = 0;
+            this.Zoom = 1;
+            this.Origin = new Vector2(this._graphicsManager.Viewport.Width, this._graphicsManager.Viewport.Height) / 2f;
+            this.Position = Vector2.Zero;
         }
     }
 }

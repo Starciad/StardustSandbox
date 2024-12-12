@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {
-    public interface ISInputManager
+    public interface ISInputManager : ISManager
     {
         MouseState MouseState { get; }
         MouseState PreviousMouseState { get; }
