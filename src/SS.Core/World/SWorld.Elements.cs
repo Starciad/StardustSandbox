@@ -165,10 +165,10 @@ namespace StardustSandbox.Core.World
 
         public ReadOnlySpan<ISWorldSlot> GetElementNeighbors(Point position)
         {
-            _ = TryGetElementNeighbors(position, out ReadOnlySpan<ISWorldSlot> neighbors);
+            _ = TryGetElementNeighbors(position, out ISWorldSlot[] neighbors);
             return neighbors;
         }
-        public bool TryGetElementNeighbors(Point position, out ReadOnlySpan<ISWorldSlot> neighbors)
+        public bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors)
         {
             neighbors = [];
 
@@ -189,7 +189,7 @@ namespace StardustSandbox.Core.World
 
             if (slotsFound.Count > 0)
             {
-                neighbors = new([.. slotsFound]);
+                neighbors = [.. slotsFound];
                 return true;
             }
 

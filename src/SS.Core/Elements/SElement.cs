@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Elements
 
         public void Steps()
         {
-            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<ISWorldSlot> neighbors))
+            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ISWorldSlot[] neighbors))
             {
                 if (this.EnableTemperature)
                 {

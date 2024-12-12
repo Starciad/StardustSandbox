@@ -217,11 +217,11 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             return this.world.GetElementNeighbors(position);
         }
-        public bool TryGetElementNeighbors(out ReadOnlySpan<ISWorldSlot> neighbors)
+        public bool TryGetElementNeighbors(out ISWorldSlot[] neighbors)
         {
             return TryGetElementNeighbors(this.Position, out neighbors);
         }
-        public bool TryGetElementNeighbors(Point position, out ReadOnlySpan<ISWorldSlot> neighbors)
+        public bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors)
         {
             return this.world.TryGetElementNeighbors(position, out neighbors);
         }

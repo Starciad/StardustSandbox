@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryGetElement(out ISElement value);
 
         ReadOnlySpan<ISWorldSlot> GetElementNeighbors();
-        bool TryGetElementNeighbors(out ReadOnlySpan<ISWorldSlot> neighbors);
+        bool TryGetElementNeighbors(out ISWorldSlot[] neighbors);
 
         ISWorldSlot GetElementSlot();
         bool TryGetElementSlot(out ISWorldSlot value);
