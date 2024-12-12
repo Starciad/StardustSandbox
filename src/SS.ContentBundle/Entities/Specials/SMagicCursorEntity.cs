@@ -29,7 +29,7 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
 
         private readonly Texture2D texture;
 
-        public SMagicCursorEntity(ISGame gameInstance) : base(gameInstance)
+        internal SMagicCursorEntity(ISGame gameInstance) : base(gameInstance)
         {
             this.transformComponent = this.ComponentContainer.AddComponent(new SEntityTransformComponent(this.SGameInstance, this));
             this.graphicsComponent = this.ComponentContainer.AddComponent(new SEntityGraphicsComponent(this.SGameInstance, this));
@@ -56,7 +56,7 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
 
         public override void Reset()
         {
-
+            return;
         }
     }
 }

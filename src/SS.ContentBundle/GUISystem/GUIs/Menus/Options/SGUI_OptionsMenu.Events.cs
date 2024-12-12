@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_OptionsMenu
+    internal sealed partial class SGUI_OptionsMenu
     {
         protected override void OnOpened()
         {

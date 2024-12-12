@@ -14,7 +14,7 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_OptionsMenu : SGUISystem
+    internal sealed partial class SGUI_OptionsMenu : SGUISystem
     {
         private enum SMenuSection : byte
         {
@@ -43,7 +43,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SLanguageSettings languageSettings;
 
         private readonly Texture2D guiBackgroundTexture;
-
         private readonly SpriteFont bigApple3PMSpriteFont;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
@@ -61,17 +60,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly Action[] systemButtonActions;
 
-        public SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
 
             this.systemButtonActions = [
                 ReturnButton,
                 SaveButton
             ];
-
-            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
         }
 
         private void LoadVideoSettings()

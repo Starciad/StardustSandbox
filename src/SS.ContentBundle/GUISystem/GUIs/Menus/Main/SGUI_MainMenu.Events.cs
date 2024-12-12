@@ -2,15 +2,16 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public partial class SGUI_MainMenu
+    internal partial class SGUI_MainMenu
     {
         protected override void OnOpened()
         {
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
+            this.SGameInstance.BackgroundManager.Reset();
+            this.SGameInstance.BackgroundManager.EnableClouds();
 
             ResetElementPositions();
 
-            this.SGameInstance.BackgroundManager.EnableClouds();
             this.SGameInstance.GameInputController.Disable();
 
             LoadAnimationValues();
@@ -22,8 +23,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         protected override void OnClosed()
         {
+            this.SGameInstance.BackgroundManager.Reset();
             this.SGameInstance.BackgroundManager.DisableClouds();
             this.SGameInstance.EntityManager.RemoveAll();
+
+            this.SGameInstance.World.Clear();
+            this.SGameInstance.World.IsActive = false;
+            this.SGameInstance.World.IsVisible = false;
 
             SSongEngine.Stop();
         }

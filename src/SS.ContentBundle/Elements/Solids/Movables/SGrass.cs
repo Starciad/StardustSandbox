@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SGrass : SMovableSolid
+    internal sealed class SGrass : SMovableSolid
     {
-        public SGrass(ISGame gameInstance) : base(gameInstance)
+        internal SGrass(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Grass;
             this.referenceColor = new(69, 110, 55, 255);

@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
-    public sealed partial class SGUI_ItemExplorer
+    internal sealed partial class SGUI_ItemExplorer
     {
         protected override void OnOpened()
         {

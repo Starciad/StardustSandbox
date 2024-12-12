@@ -5,9 +5,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SWall : SImmovableSolid
+    internal sealed class SWall : SImmovableSolid
     {
-        public SWall(ISGame gameInstance) : base(gameInstance)
+        internal SWall(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Wall;
             this.referenceColor = new(22, 99, 50, 255);

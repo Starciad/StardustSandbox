@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.ContentBundle.Enums.Elements
 {
-    public enum SElementId : byte
+    internal enum SElementId : byte
     {
         Dirt = 000,
         Mud = 001,

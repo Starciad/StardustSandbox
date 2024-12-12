@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_CreditsMenu
+    internal sealed partial class SGUI_CreditsMenu
     {
         private ISGUILayoutBuilder layout;
 

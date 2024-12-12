@@ -17,7 +17,7 @@ using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
-    public sealed partial class SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : SGUISystem(gameInstance, identifier, guiEvents)
+    internal sealed partial class SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : SGUISystem(gameInstance, identifier, guiEvents)
     {
         private string selectedCategoryName;
         private int selectedPageIndex;

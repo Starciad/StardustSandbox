@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases
 {
-    public sealed class SSteam : SGas
+    internal sealed class SSteam : SGas
     {
-        public SSteam(ISGame gameInstance) : base(gameInstance)
+        internal SSteam(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Steam;
             this.referenceColor = new(171, 208, 218, 136);

@@ -11,15 +11,15 @@ using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
-    public sealed class SGUITextElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
+    internal sealed class SGUITextElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {
-        public SSize2F TextAreaSize { get; set; }
-        public float LineHeight { get; set; } = 1.0f;
-        public float WordSpacing { get; set; } = 0.0f;
+        internal SSize2F TextAreaSize { get; set; }
+        internal float LineHeight { get; set; } = 1.0f;
+        internal float WordSpacing { get; set; } = 0.0f;
 
         private readonly List<string> wrappedLines = [];
 
-        public override void SetTextualContent(string value)
+        internal override void SetTextualContent(string value)
         {
             base.SetTextualContent(value);
             WrapText();
@@ -67,7 +67,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             }
         }
 
-        public override SSize2F GetStringSize()
+        internal override SSize2F GetStringSize()
         {
             if (this.wrappedLines.Count == 0)
             {

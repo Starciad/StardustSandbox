@@ -15,9 +15,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SMCorruption : SMovableSolid, ISCorruption
+    internal sealed class SMCorruption : SMovableSolid, ISCorruption
     {
-        public SMCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SMCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.MCorruption;
             this.referenceColor = SColorPalette.PurpleGray;

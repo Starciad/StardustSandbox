@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_MainMenu : SGUISystem
+    internal sealed partial class SGUI_MainMenu : SGUISystem
     {
         private enum SMainMenuButtonIndex : byte
         {
@@ -53,7 +53,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly Action[] menuButtonActions;
         private readonly string[] menuButtonNames;
 
-        public SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");

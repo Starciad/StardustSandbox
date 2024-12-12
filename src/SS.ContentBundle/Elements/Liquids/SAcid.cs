@@ -11,9 +11,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    public class SAcid : SLiquid
+    internal class SAcid : SLiquid
     {
-        public SAcid(ISGame gameInstance) : base(gameInstance)
+        internal SAcid(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Acid;
             this.referenceColor = new(059, 167, 005, 255);

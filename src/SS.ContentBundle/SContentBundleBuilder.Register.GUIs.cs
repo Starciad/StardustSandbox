@@ -24,6 +24,7 @@ namespace StardustSandbox.ContentBundle
             // Build
 
             SGUI_MainMenu mainMenu = new(game, SGUIConstants.MAIN_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_PlayMenu playMenu = new(game, SGUIConstants.PLAY_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_OptionsMenu optionsMenu = new(game, SGUIConstants.OPTIONS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_CreditsMenu creditsMenu = new(game, SGUIConstants.CREDITS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
 
@@ -34,6 +35,7 @@ namespace StardustSandbox.ContentBundle
             // Register
 
             guiDatabase.RegisterGUISystem(mainMenu.Identifier, mainMenu);
+            guiDatabase.RegisterGUISystem(playMenu.Identifier, playMenu);
             guiDatabase.RegisterGUISystem(optionsMenu.Identifier, optionsMenu);
             guiDatabase.RegisterGUISystem(creditsMenu.Identifier, creditsMenu);
 

@@ -7,25 +7,25 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
 {
-    public sealed class SGUISliceImageElement : SGUIGraphicElement
+    internal sealed class SGUISliceImageElement : SGUIGraphicElement
     {
         private struct SliceInfo()
         {
-            public Rectangle TextureClipArea { get; private set; }
-            public Vector2 Position { get; private set; }
-            public Vector2 Scale { get; private set; }
+            internal Rectangle TextureClipArea { get; private set; }
+            internal Vector2 Position { get; private set; }
+            internal Vector2 Scale { get; private set; }
 
-            public void SetTextureClipArea(Rectangle value)
+            internal void SetTextureClipArea(Rectangle value)
             {
                 this.TextureClipArea = value;
             }
 
-            public void SetPosition(Vector2 value)
+            internal void SetPosition(Vector2 value)
             {
                 this.Position = value;
             }
 
-            public void SetScale(Vector2 value)
+            internal void SetScale(Vector2 value)
             {
                 this.Scale = value;
             }
@@ -33,7 +33,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
 
         private readonly SliceInfo[] textureSlices = new SliceInfo[9];
 
-        public SGUISliceImageElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUISliceImageElement(ISGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = true;
             this.IsVisible = true;

@@ -12,13 +12,13 @@ using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
-    public abstract class SGUITextualElement : SGUIElement
+    internal abstract class SGUITextualElement : SGUIElement
     {
-        public SpriteFont SpriteFont { get; set; }
-        public string Content => this.contentStringBuilder.ToString();
+        internal SpriteFont SpriteFont { get; set; }
+        internal string Content => this.contentStringBuilder.ToString();
         protected StringBuilder ContentStringBuilder => this.contentStringBuilder;
 
-        public bool HasBorders
+        internal bool HasBorders
         {
             get
             {
@@ -37,7 +37,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         private readonly StringBuilder contentStringBuilder = new();
         private readonly Dictionary<SCardinalDirection, SBorderSettings> borderSettings = [];
 
-        public SGUITextualElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUITextualElement(ISGame gameInstance) : base(gameInstance)
         {
             this.IsVisible = true;
             this.ShouldUpdate = false;
@@ -70,31 +70,31 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             }
         }
 
-        public virtual void SetTextualContent(string value)
+        internal virtual void SetTextualContent(string value)
         {
             ClearTextualContent();
             _ = this.contentStringBuilder.Append(value);
         }
 
-        public virtual void ClearTextualContent()
+        internal virtual void ClearTextualContent()
         {
             _ = this.contentStringBuilder.Clear();
         }
 
-        public virtual SSize2F GetStringSize()
+        internal virtual SSize2F GetStringSize()
         {
             Vector2 measureString = this.SpriteFont.MeasureString(this.Content) * this.Scale;
             return new SSize2F(measureString.X, measureString.Y);
         }
 
-        public void SetBorder(SCardinalDirection direction, bool isEnabled, Color color, Vector2 offset)
+        internal void SetBorder(SCardinalDirection direction, bool isEnabled, Color color, Vector2 offset)
         {
             this.borderSettings[direction].IsEnabled = isEnabled;
             this.borderSettings[direction].Color = color;
             this.borderSettings[direction].Offset = offset;
         }
 
-        public void SetAllBorders(bool isEnabled, Color color, Vector2 offset)
+        internal void SetAllBorders(bool isEnabled, Color color, Vector2 offset)
         {
             foreach (SCardinalDirection key in this.borderSettings.Keys)
             {

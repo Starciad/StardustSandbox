@@ -15,9 +15,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases
 {
-    public sealed class SGCorruption : SGas, ISCorruption
+    internal sealed class SGCorruption : SGas, ISCorruption
     {
-        public SGCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SGCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.GCorruption;
             this.referenceColor = new(169, 76, 192, 181);

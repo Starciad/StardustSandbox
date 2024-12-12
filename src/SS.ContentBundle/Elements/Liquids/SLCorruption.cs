@@ -15,9 +15,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    public class SLCorruption : SLiquid, ISCorruption
+    internal class SLCorruption : SLiquid, ISCorruption
     {
-        public SLCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SLCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.LCorruption;
             this.referenceColor = SColorPalette.PurpleGray;

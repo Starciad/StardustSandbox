@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SSnow : SMovableSolid
+    internal sealed class SSnow : SMovableSolid
     {
-        public SSnow(ISGame gameInstance) : base(gameInstance)
+        internal SSnow(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Snow;
             this.referenceColor = new(202, 242, 239, 255);

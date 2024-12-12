@@ -6,13 +6,24 @@ using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_OptionsMenu
+    internal sealed partial class SGUI_OptionsMenu
     {
-        public void SaveButton()
+        // ================================== //
+        // Button Methods
+
+        private void SaveButton()
         {
             SaveVideoSettings();
             SaveLanguageSettings();
         }
+
+        private void ReturnButton()
+        {
+            this.SGameInstance.GUIManager.CloseGUI();
+        }
+
+        // ================================== //
+        // Saving Methods
 
         private void SaveVideoSettings()
         {
@@ -32,11 +43,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.languageSettings.Region = gameCulture.Region;
 
             SSettingsManager.SaveSettings(this.languageSettings);
-        }
-
-        public void ReturnButton()
-        {
-            this.SGameInstance.GUIManager.CloseGUI();
         }
     }
 }

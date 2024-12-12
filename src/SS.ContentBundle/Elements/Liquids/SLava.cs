@@ -7,9 +7,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    public class SLava : SLiquid
+    internal class SLava : SLiquid
     {
-        public SLava(ISGame gameInstance) : base(gameInstance)
+        internal SLava(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Lava;
             this.referenceColor = SColorPalette.Orange;

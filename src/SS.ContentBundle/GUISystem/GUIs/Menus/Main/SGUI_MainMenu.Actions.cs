@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_MainMenu
+    internal sealed partial class SGUI_MainMenu
     {
         private void CreateMenuButton()
         {

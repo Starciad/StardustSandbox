@@ -7,9 +7,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class STreeLeaf : SImmovableSolid
+    internal sealed class STreeLeaf : SImmovableSolid
     {
-        public STreeLeaf(ISGame gameInstance) : base(gameInstance)
+        internal STreeLeaf(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.TreeLeaf;
             this.referenceColor = SColorPalette.MossGreen;

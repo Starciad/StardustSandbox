@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SDirt : SMovableSolid
+    internal sealed class SDirt : SMovableSolid
     {
-        public SDirt(ISGame gameInstance) : base(gameInstance)
+        internal SDirt(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Dirt;
             this.referenceColor = SColorPalette.Burgundy;

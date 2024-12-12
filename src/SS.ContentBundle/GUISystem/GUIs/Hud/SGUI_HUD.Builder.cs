@@ -10,7 +10,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
-    public partial class SGUI_HUD
+    internal partial class SGUI_HUD
     {
         private ISGUILayoutBuilder layout;
 

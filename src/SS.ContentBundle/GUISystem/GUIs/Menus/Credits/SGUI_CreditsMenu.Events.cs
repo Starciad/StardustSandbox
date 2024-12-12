@@ -3,7 +3,7 @@ using StardustSandbox.Core.GUISystem.Elements;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_CreditsMenu
+    internal sealed partial class SGUI_CreditsMenu
     {
         protected override void OnOpened()
         {

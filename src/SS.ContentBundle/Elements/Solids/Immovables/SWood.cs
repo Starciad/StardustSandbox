@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SWood : SImmovableSolid
+    internal sealed class SWood : SImmovableSolid
     {
-        public SWood(ISGame gameInstance) : base(gameInstance)
+        internal SWood(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Wood;
             this.referenceColor = new(67, 34, 0, 255);

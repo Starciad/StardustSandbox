@@ -14,7 +14,7 @@ using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_CreditsMenu : SGUISystem
+    internal sealed partial class SGUI_CreditsMenu : SGUISystem
     {
         private enum SCreditContentType
         {
@@ -25,17 +25,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private struct SCreditSection(string title, SCreditContent[] contents)
         {
-            public readonly string Title => title;
-            public readonly SCreditContent[] Contents => contents;
+            internal readonly string Title => title;
+            internal readonly SCreditContent[] Contents => contents;
         }
 
         private struct SCreditContent
         {
-            public SCreditContentType ContentType { get; set; }
-            public string Text { get; set; }
-            public Texture2D Texture { get; set; }
-            public Vector2 TextureScale { get; set; }
-            public Vector2 Margin { get; set; }
+            internal SCreditContentType ContentType { get; set; }
+            internal string Text { get; set; }
+            internal Texture2D Texture { get; set; }
+            internal Vector2 TextureScale { get; set; }
+            internal Vector2 Margin { get; set; }
 
             public SCreditContent()
             {
@@ -57,7 +57,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly ISWorld world;
 
-        public SGUI_CreditsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_CreditsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.gameTitleTexture = gameInstance.AssetDatabase.GetTexture("game_title_1");
             this.starciadCharacterTexture = gameInstance.AssetDatabase.GetTexture("character_1");

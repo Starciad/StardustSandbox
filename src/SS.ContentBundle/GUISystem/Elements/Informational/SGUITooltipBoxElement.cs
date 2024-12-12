@@ -15,17 +15,17 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 {
-    public sealed class SGUITooltipBoxElement : SGUIElement
+    internal sealed class SGUITooltipBoxElement : SGUIElement
     {
-        public bool HasContent => this.hasContent;
+        internal bool HasContent => this.hasContent;
 
-        public bool IsShowing { get; private set; }
-        public SSize2F MinimumSize { get; set; }
-        public SSize2F MaximumSize { get; set; }
+        internal bool IsShowing { get; private set; }
+        internal SSize2F MinimumSize { get; set; }
+        internal SSize2F MaximumSize { get; set; }
 
-        public SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
-        public SGUILabelElement TitleElement => this.titleElement;
-        public SGUITextElement DescriptionElement => this.descriptionElement;
+        internal SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
+        internal SGUILabelElement TitleElement => this.titleElement;
+        internal SGUITextElement DescriptionElement => this.descriptionElement;
 
         private bool hasContent;
 
@@ -35,7 +35,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
         private readonly SGUILayout tooltipLayout;
 
-        public SGUITooltipBoxElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUITooltipBoxElement(ISGame gameInstance) : base(gameInstance)
         {
             this.IsVisible = true;
             this.ShouldUpdate = true;
@@ -92,7 +92,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.tooltipLayout.Draw(gameTime, spriteBatch);
         }
 
-        public void RefreshDisplay(string title, string description)
+        internal void RefreshDisplay(string title, string description)
         {
             if (this.IsVisible)
             {
@@ -126,19 +126,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             }
         }
 
-        public void Show()
+        internal void Show()
         {
             this.IsVisible = true;
             this.IsShowing = true;
         }
 
-        public void Hide()
+        internal void Hide()
         {
             this.IsVisible = false;
             this.IsShowing = false;
         }
 
-        public void SetTitle(string value)
+        internal void SetTitle(string value)
         {
             this.titleElement.SetTextualContent(value);
 
@@ -146,7 +146,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             UpdatePosition();
         }
 
-        public void SetDescription(string value)
+        internal void SetDescription(string value)
         {
             this.descriptionElement.SetTextualContent(value);
 

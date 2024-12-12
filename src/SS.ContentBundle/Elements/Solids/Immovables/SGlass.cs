@@ -5,9 +5,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SGlass : SImmovableSolid
+    internal sealed class SGlass : SImmovableSolid
     {
-        public SGlass(ISGame gameInstance) : base(gameInstance)
+        internal SGlass(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Glass;
             this.referenceColor = new(249, 253, 254, 21);

@@ -8,7 +8,6 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Energies;
-using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
@@ -17,9 +16,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Energies
 {
-    public sealed class SFire : SEnergy
+    internal sealed class SFire : SEnergy
     {
-        public SFire(ISGame gameInstance) : base(gameInstance)
+        internal SFire(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Fire;
             this.referenceColor = SColorPalette.Amber;

@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    public sealed partial class SGUI_OptionsMenu
+    internal sealed partial class SGUI_OptionsMenu
     {
         private ISGUILayoutBuilder layout;
 

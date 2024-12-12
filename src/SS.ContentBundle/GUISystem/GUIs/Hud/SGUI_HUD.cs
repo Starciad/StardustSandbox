@@ -18,12 +18,12 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
-    public sealed partial class SGUI_HUD : SGUISystem
+    internal sealed partial class SGUI_HUD : SGUISystem
     {
         private readonly struct SToolbarSlot(SGUIImageElement background, SGUIImageElement icon)
         {
-            public SGUIImageElement Background => background;
-            public SGUIImageElement Icon => icon;
+            internal SGUIImageElement Background => background;
+            internal SGUIImageElement Icon => icon;
         }
 
         private int slotSelectedIndex = 0;
@@ -36,7 +36,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 
-        public SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             SelectItemSlot(0, this.SGameInstance.ItemDatabase.GetItemById("element_dirt").Identifier);
 
@@ -139,7 +139,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             return;
         }
 
-        public void AddItemToToolbar(string elementId)
+        internal void AddItemToToolbar(string elementId)
         {
             SItem item = this.SGameInstance.ItemDatabase.GetItemById(elementId);
 

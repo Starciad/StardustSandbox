@@ -12,9 +12,9 @@ using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SMountingBlock : SImmovableSolid
+    internal sealed class SMountingBlock : SImmovableSolid
     {
-        public SMountingBlock(ISGame gameInstance) : base(gameInstance)
+        internal SMountingBlock(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.MountingBlock;
             this.referenceColor = SColorPalette.White;

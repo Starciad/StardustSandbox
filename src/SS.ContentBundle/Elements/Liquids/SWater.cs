@@ -14,9 +14,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    public class SWater : SLiquid
+    internal class SWater : SLiquid
     {
-        public SWater(ISGame gameInstance) : base(gameInstance)
+        internal SWater(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Water;
             this.referenceColor = new(8, 120, 284, 255);

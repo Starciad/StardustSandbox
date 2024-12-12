@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SMetal : SImmovableSolid
+    internal sealed class SMetal : SImmovableSolid
     {
-        public SMetal(ISGame gameInstance) : base(gameInstance)
+        internal SMetal(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Metal;
             this.referenceColor = new(66, 66, 66, 255);

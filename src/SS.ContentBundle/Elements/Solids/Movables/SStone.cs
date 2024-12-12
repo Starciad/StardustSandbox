@@ -6,9 +6,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SStone : SMovableSolid
+    internal sealed class SStone : SMovableSolid
     {
-        public SStone(ISGame gameInstance) : base(gameInstance)
+        internal SStone(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Stone;
             this.referenceColor = new(66, 65, 65, 255);

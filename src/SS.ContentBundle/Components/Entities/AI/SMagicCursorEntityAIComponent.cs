@@ -43,13 +43,13 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
         private readonly SEntityTransformComponent transformComponent;
 
         private static readonly SElementId[] AllowedElements =
-        {
+        [
             SElementId.Dirt, SElementId.Mud, SElementId.Water, SElementId.Stone,
             SElementId.Grass, SElementId.Sand, SElementId.Lava, SElementId.Acid,
             SElementId.Wood, SElementId.TreeLeaf
-        };
+        ];
 
-        public SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
+        internal SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
         {
             this.world = gameInstance.World;
             this.transformComponent = transformComponent;

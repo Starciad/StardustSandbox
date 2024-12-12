@@ -15,9 +15,9 @@ using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public class SIMCorruption : SImmovableSolid, ISCorruption
+    internal class SIMCorruption : SImmovableSolid, ISCorruption
     {
-        public SIMCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SIMCorruption(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.IMCorruption;
             this.referenceColor = SColorPalette.PurpleGray;

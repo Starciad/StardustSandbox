@@ -5,9 +5,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases
 {
-    public sealed class SSmoke : SGas
+    internal sealed class SSmoke : SGas
     {
-        public SSmoke(ISGame gameInstance) : base(gameInstance)
+        internal SSmoke(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.Smoke;
             this.referenceColor = new(56, 56, 56, 191);

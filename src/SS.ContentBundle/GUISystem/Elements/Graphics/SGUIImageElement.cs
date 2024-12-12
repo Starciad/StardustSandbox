@@ -6,9 +6,9 @@ using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
 {
-    public sealed class SGUIImageElement : SGUIGraphicElement
+    internal sealed class SGUIImageElement : SGUIGraphicElement
     {
-        public SGUIImageElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUIImageElement(ISGame gameInstance) : base(gameInstance)
         {
             this.ShouldUpdate = false;
             this.IsVisible = true;

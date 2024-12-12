@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
-    public sealed partial class SGUI_HUD
+    internal sealed partial class SGUI_HUD
     {
         private void WeatherSettingsButton()
         {

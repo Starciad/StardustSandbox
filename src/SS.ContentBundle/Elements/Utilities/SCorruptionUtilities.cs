@@ -18,9 +18,9 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Utilities
 {
-    public static class SCorruptionUtilities
+    internal static class SCorruptionUtilities
     {
-        public static bool CheckIfNeighboringElementsAreCorrupted(ReadOnlySpan<ISWorldSlot> neighbors, int length)
+        internal static bool CheckIfNeighboringElementsAreCorrupted(ReadOnlySpan<ISWorldSlot> neighbors, int length)
         {
             if (length == 0)
             {
@@ -40,7 +40,7 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             return corruptNeighboringElements == length;
         }
 
-        public static void InfectNeighboringElements(this ISElementContext context, ReadOnlySpan<ISWorldSlot> neighbors, int length)
+        internal static void InfectNeighboringElements(this ISElementContext context, ReadOnlySpan<ISWorldSlot> neighbors, int length)
         {
             if (length == 0)
             {

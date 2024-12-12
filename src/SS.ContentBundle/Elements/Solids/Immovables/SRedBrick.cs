@@ -7,9 +7,9 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SRedBrick : SImmovableSolid
+    internal sealed class SRedBrick : SImmovableSolid
     {
-        public SRedBrick(ISGame gameInstance) : base(gameInstance)
+        internal SRedBrick(ISGame gameInstance) : base(gameInstance)
         {
             this.identifier = (uint)SElementId.RedBrick;
             this.referenceColor = SColorPalette.Crimson;
