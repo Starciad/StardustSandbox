@@ -60,16 +60,11 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             }
         }
 
-        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
         {
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 ISWorldSlot slot = neighbors[i];
-
-                if (slot == null || slot.Element == null)
-                {
-                    continue;
-                }
 
                 // Increase neighboring temperature by fire's heat value
                 this.Context.SetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));

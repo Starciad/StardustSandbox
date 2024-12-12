@@ -27,9 +27,9 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
         {
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 ISWorldSlot slot = neighbors[i];
 
@@ -45,9 +45,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                         {
                             this.Context.DestroyElement();
                             this.Context.ReplaceElement<SSand>(slot.Position);
-                            return;
                         }
-                        break;
+                        return;
 
                     case SFire:
                         this.Context.DestroyElement(slot.Position);

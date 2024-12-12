@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
         {
             if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(neighbors, neighbors.Length))
             {

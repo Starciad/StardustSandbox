@@ -7,6 +7,7 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Data;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
@@ -35,7 +36,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TryInstantiateElement(Point position, ISElement value)
         {
-            if (!InsideTheWorldDimensions(position) || !IsEmptyElementSlot(position))
+            if (!IsEmptyElementSlot(position))
             {
                 return false;
             }
@@ -56,8 +57,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TryUpdateElementPosition(Point oldPosition, Point newPosition)
         {
-            if (!InsideTheWorldDimensions(oldPosition) ||
-                !InsideTheWorldDimensions(newPosition) ||
+            if (!InsideTheWorldDimensions(newPosition) ||
                  IsEmptyElementSlot(oldPosition) ||
                 !IsEmptyElementSlot(newPosition))
             {
@@ -80,9 +80,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TrySwappingElements(Point element1Position, Point element2Position)
         {
-            if (!InsideTheWorldDimensions(element1Position) ||
-                !InsideTheWorldDimensions(element2Position) ||
-                IsEmptyElementSlot(element1Position) ||
+            if (IsEmptyElementSlot(element1Position) ||
                 IsEmptyElementSlot(element2Position))
             {
                 return false;
@@ -112,8 +110,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TryDestroyElement(Point position)
         {
-            if (!InsideTheWorldDimensions(position) ||
-                 IsEmptyElementSlot(position))
+            if (IsEmptyElementSlot(position))
             {
                 return false;
             }
@@ -156,8 +153,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TryGetElement(Point position, out ISElement value)
         {
-            if (!InsideTheWorldDimensions(position) ||
-                 IsEmptyElementSlot(position))
+            if (IsEmptyElementSlot(position))
             {
                 value = null;
                 return false;
@@ -167,12 +163,12 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public ISWorldSlot[] GetElementNeighbors(Point position)
+        public ReadOnlySpan<ISWorldSlot> GetElementNeighbors(Point position)
         {
-            _ = TryGetElementNeighbors(position, out ISWorldSlot[] neighbors);
+            _ = TryGetElementNeighbors(position, out ReadOnlySpan<ISWorldSlot> neighbors);
             return neighbors;
         }
-        public bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors)
+        public bool TryGetElementNeighbors(Point position, out ReadOnlySpan<ISWorldSlot> neighbors)
         {
             neighbors = [];
 
@@ -181,13 +177,11 @@ namespace StardustSandbox.Core.World
                 return false;
             }
 
-            Point[] neighborsPositions = SPointExtensions.GetNeighboringCardinalPoints(position);
-
             List<ISWorldSlot> slotsFound = [];
 
-            for (int i = 0; i < neighborsPositions.Length; i++)
+            foreach (Point neighborPosition in SPointExtensions.GetNeighboringCardinalPoints(position))
             {
-                if (TryGetElementSlot(position, out ISWorldSlot value))
+                if (TryGetElementSlot(neighborPosition, out ISWorldSlot value))
                 {
                     slotsFound.Add(value);
                 }
@@ -195,7 +189,7 @@ namespace StardustSandbox.Core.World
 
             if (slotsFound.Count > 0)
             {
-                neighbors = [.. slotsFound];
+                neighbors = new([.. slotsFound]);
                 return true;
             }
 
@@ -210,8 +204,7 @@ namespace StardustSandbox.Core.World
         public bool TryGetElementSlot(Point position, out ISWorldSlot value)
         {
             value = default;
-            if (!InsideTheWorldDimensions(position) ||
-                 IsEmptyElementSlot(position))
+            if (IsEmptyElementSlot(position))
             {
                 return false;
             }
@@ -226,8 +219,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TrySetElementTemperature(Point position, short value)
         {
-            if (!InsideTheWorldDimensions(position) ||
-                 IsEmptyElementSlot(position))
+            if (IsEmptyElementSlot(position))
             {
                 return false;
             }
@@ -248,8 +240,7 @@ namespace StardustSandbox.Core.World
 
         public bool TrySetElementFreeFalling(Point position, bool value)
         {
-            if (!InsideTheWorldDimensions(position) ||
-                 IsEmptyElementSlot(position))
+            if (IsEmptyElementSlot(position))
             {
                 return false;
             }
@@ -265,8 +256,7 @@ namespace StardustSandbox.Core.World
         }
         public bool TrySetElementColor(Point position, Color value)
         {
-            if (!InsideTheWorldDimensions(position) ||
-                 IsEmptyElementSlot(position))
+            if (IsEmptyElementSlot(position))
             {
                 return false;
             }

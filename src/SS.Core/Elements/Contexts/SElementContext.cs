@@ -209,19 +209,19 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TryGetElement(position, out value);
         }
 
-        public ISWorldSlot[] GetElementNeighbors()
+        public ReadOnlySpan<ISWorldSlot> GetElementNeighbors()
         {
             return GetElementNeighbors(this.Position);
         }
-        public ISWorldSlot[] GetElementNeighbors(Point position)
+        public ReadOnlySpan<ISWorldSlot> GetElementNeighbors(Point position)
         {
             return this.world.GetElementNeighbors(position);
         }
-        public bool TryGetElementNeighbors(out ISWorldSlot[] neighbors)
+        public bool TryGetElementNeighbors(out ReadOnlySpan<ISWorldSlot> neighbors)
         {
             return TryGetElementNeighbors(this.Position, out neighbors);
         }
-        public bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors)
+        public bool TryGetElementNeighbors(Point position, out ReadOnlySpan<ISWorldSlot> neighbors)
         {
             return this.world.TryGetElementNeighbors(position, out neighbors);
         }

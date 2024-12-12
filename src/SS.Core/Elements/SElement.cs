@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Elements
 
         public void Steps()
         {
-            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ISWorldSlot[] neighbors))
+            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<ISWorldSlot> neighbors))
             {
                 if (this.EnableTemperature)
                 {
@@ -82,7 +82,7 @@ namespace StardustSandbox.Core.Elements
 
                 if (this.EnableNeighborsAction)
                 { 
-                    OnNeighbors(neighbors, neighbors.Length);
+                    OnNeighbors(neighbors);
                 }
             }
 
@@ -95,7 +95,7 @@ namespace StardustSandbox.Core.Elements
             OnAfterStep();
         }
 
-        private void UpdateTemperature(ISWorldSlot[] neighbors)
+        private void UpdateTemperature(ReadOnlySpan<ISWorldSlot> neighbors)
         {
             float totalTemperatureChange = 0;
 
@@ -126,7 +126,7 @@ namespace StardustSandbox.Core.Elements
         protected virtual void OnAfterStep() { return; }
         protected virtual void OnBehaviourStep() { return; }
 
-        protected virtual void OnNeighbors(ISWorldSlot[] neighbors, int length) { return; }
+        protected virtual void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
     }
 }

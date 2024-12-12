@@ -2,6 +2,8 @@
 
 using StardustSandbox.Core.Interfaces.World;
 
+using System;
+
 namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementContext : ISElementManager
@@ -39,8 +41,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
         ISElement GetElement();
         bool TryGetElement(out ISElement value);
 
-        ISWorldSlot[] GetElementNeighbors();
-        bool TryGetElementNeighbors(out ISWorldSlot[] neighbors);
+        ReadOnlySpan<ISWorldSlot> GetElementNeighbors();
+        bool TryGetElementNeighbors(out ReadOnlySpan<ISWorldSlot> neighbors);
 
         ISWorldSlot GetElementSlot();
         bool TryGetElementSlot(out ISWorldSlot value);

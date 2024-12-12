@@ -27,7 +27,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
             this.movementType = SGasMovementType.Spread;
         }
 
-        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
+        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
         {
             if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(neighbors, neighbors.Length))
             {
