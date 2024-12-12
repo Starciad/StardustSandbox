@@ -23,20 +23,21 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
         {
             for (int i = 0; i < length; i++)
             {
-                (Point position, ISWorldSlot slot) = neighbors[i];
+                ISWorldSlot slot = neighbors[i];
 
-                if (slot.Element is SAcid ||
-                    slot.Element is SWall)
+                switch (slot.Element)
                 {
-                    continue;
+                    case SAcid:
+                    case SWall:
+                        continue;
                 }
 
                 this.Context.DestroyElement();
-                this.Context.DestroyElement(position);
+                this.Context.DestroyElement(slot.Position);
             }
         }
     }

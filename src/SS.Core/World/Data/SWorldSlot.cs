@@ -6,15 +6,17 @@ using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.World.Data
 {
-    public sealed class SWorldSlot : ISWorldSlot
+    internal sealed class SWorldSlot : ISWorldSlot
     {
         public ISElement Element => this.element;
+        public Point Position => this.position;
         public bool IsEmpty => this.isEmpty;
         public short Temperature => this.temperature;
         public bool FreeFalling => this.freeFalling;
         public Color Color => this.color;
 
         private bool isEmpty;
+        private Point position;
         private short temperature;
         private bool freeFalling;
         private Color color;
@@ -26,9 +28,10 @@ namespace StardustSandbox.Core.World.Data
             Reset();
         }
 
-        public void Instantiate(ISElement value)
+        public void Instantiate(Point position, ISElement value)
         {
             this.isEmpty = false;
+            this.position = position;
             this.element = value;
             this.temperature = value.DefaultTemperature;
             this.freeFalling = false;
@@ -38,6 +41,7 @@ namespace StardustSandbox.Core.World.Data
         public void Destroy()
         {
             this.isEmpty = true;
+            this.position = Point.Zero;
             this.element = null;
             this.temperature = 0;
             this.freeFalling = false;
@@ -46,12 +50,17 @@ namespace StardustSandbox.Core.World.Data
 
         public void Copy(SWorldSlot value)
         {
+            this.element = value.element;
             this.isEmpty = value.isEmpty;
+            this.position = value.position;
             this.temperature = value.temperature;
             this.freeFalling = value.freeFalling;
             this.color = value.color;
+        }
 
-            this.element = value.element;
+        public void SetPosition(Point value)
+        {
+            this.position = value;
         }
 
         public void SetTemperatureValue(int value)
@@ -64,9 +73,9 @@ namespace StardustSandbox.Core.World.Data
             this.freeFalling = value;
         }
 
-        public void SetColor(Color color)
+        public void SetColor(Color value)
         {
-            this.color = color;
+            this.color = value;
         }
 
         public void Reset()

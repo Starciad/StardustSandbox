@@ -38,15 +38,15 @@ namespace StardustSandbox.Core.Components.Common.World
                 {
                     for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point pos = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
+                        Point position = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
 
-                        if (this.SWorldInstance.IsEmptyElementSlot(pos))
+                        if (this.SWorldInstance.IsEmptyElementSlot(position))
                         {
                             continue;
                         }
 
-                        UpdateElementTarget(gameTime, pos, SWorldThreadUpdateType.Update);
-                        this.capturedSlots.Add(pos);
+                        UpdateElementTarget(gameTime, position, SWorldThreadUpdateType.Update);
+                        this.capturedSlots.Add(position);
                     }
                 }
             }

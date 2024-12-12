@@ -49,38 +49,37 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
 
         protected override void OnStep()
         {
-            Point targetPos = new(this.Context.Position.X + SRandomMath.Range(-1, 2), this.Context.Position.Y - 1);
+            Point targetPosition = new(this.Context.Position.X + SRandomMath.Range(-1, 2), this.Context.Position.Y - 1);
 
-            if (this.Context.IsEmptyElementSlot(targetPos))
+            if (this.Context.IsEmptyElementSlot(targetPosition))
             {
-                if (this.Context.TrySetPosition(targetPos))
+                if (this.Context.TrySetPosition(targetPosition))
                 {
                     return;
                 }
             }
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
         {
             for (int i = 0; i < length; i++)
             {
-                (Point position, ISWorldSlot slot) = neighbors[i];
-                ISElement element = slot.Element;
+                ISWorldSlot slot = neighbors[i];
 
-                if (slot == null || element == null)
+                if (slot == null || slot.Element == null)
                 {
                     continue;
                 }
 
                 // Increase neighboring temperature by fire's heat value
-                _ = this.Context.TrySetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
+                this.Context.SetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
 
                 // Check if the element is flammable
-                if (element.EnableFlammability)
+                if (slot.Element.EnableFlammability)
                 {
                     // Adjust combustion chance based on the element's flammability resistance
                     int combustionChance = SElementConstants.CHANCE_OF_COMBUSTION;
-                    bool isAbove = position.Y < this.Context.Position.Y;
+                    bool isAbove = slot.Position.Y < this.Context.Position.Y;
 
                     // Increase chance of combustion if the element is directly above
                     if (isAbove)
@@ -89,9 +88,9 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                     }
 
                     // Attempt combustion based on flammabilityResistance
-                    if (SRandomMath.Chance(combustionChance, 100 + element.DefaultFlammabilityResistance))
+                    if (SRandomMath.Chance(combustionChance, 100 + slot.Element.DefaultFlammabilityResistance))
                     {
-                        this.Context.ReplaceElement<SFire>(position);
+                        this.Context.ReplaceElement<SFire>(slot.Position);
                     }
                 }
             }

@@ -61,17 +61,17 @@ namespace StardustSandbox.Core.Components.Common.World
 #endif
         }
 
-        public bool TryGetChunkUpdateState(Point pos, out bool result)
+        public bool TryGetChunkUpdateState(Point position, out bool result)
         {
             result = false;
-            Point targetPos = ToChunkCoordinateSystem(pos);
+            Point targetPosition = ToChunkCoordinateSystem(position);
 
-            if (!IsWithinChunkBoundaries(targetPos))
+            if (!IsWithinChunkBoundaries(targetPosition))
             {
                 return false;
             }
 
-            result = this._chunks[targetPos.X, targetPos.Y].ShouldUpdate;
+            result = this._chunks[targetPosition.X, targetPosition.Y].ShouldUpdate;
             return true;
         }
 
@@ -113,14 +113,14 @@ namespace StardustSandbox.Core.Components.Common.World
             return [.. chunks];
         }
 
-        public bool TryNotifyChunk(Point pos)
+        public bool TryNotifyChunk(Point position)
         {
-            Point targetPos = ToChunkCoordinateSystem(pos);
+            Point targetPosition = ToChunkCoordinateSystem(position);
 
-            if (IsWithinChunkBoundaries(targetPos))
+            if (IsWithinChunkBoundaries(targetPosition))
             {
-                this._chunks[targetPos.X, targetPos.Y].Notify();
-                TryNotifyNeighboringChunks(pos, targetPos);
+                this._chunks[targetPosition.X, targetPosition.Y].Notify();
+                TryNotifyNeighboringChunks(position, targetPosition);
 
                 return true;
             }
@@ -150,15 +150,15 @@ namespace StardustSandbox.Core.Components.Common.World
             }
         }
 
-        private bool IsWithinChunkBoundaries(Point pos)
+        private bool IsWithinChunkBoundaries(Point position)
         {
-            return pos.X >= 0 && pos.X < this.worldChunkWidth &&
-                   pos.Y >= 0 && pos.Y < this.worldChunkHeight;
+            return position.X >= 0 && position.X < this.worldChunkWidth &&
+                   position.Y >= 0 && position.Y < this.worldChunkHeight;
         }
 
-        public static Point ToChunkCoordinateSystem(Point pos)
+        public static Point ToChunkCoordinateSystem(Point position)
         {
-            return new(pos.X / SWorldConstants.CHUNK_SCALE, pos.Y / SWorldConstants.CHUNK_SCALE);
+            return new(position.X / SWorldConstants.CHUNK_SCALE, position.Y / SWorldConstants.CHUNK_SCALE);
         }
 
 #if DEBUG

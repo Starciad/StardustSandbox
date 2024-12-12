@@ -20,7 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 {
     public static class SCorruptionUtilities
     {
-        public static bool CheckIfNeighboringElementsAreCorrupted(this ISElementContext context, ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        public static bool CheckIfNeighboringElementsAreCorrupted(ISWorldSlot[] neighbors, int length)
         {
             if (length == 0)
             {
@@ -31,7 +31,7 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 
             for (int i = 0; i < length; i++)
             {
-                if (neighbors[i].Item2.Element is ISCorruption)
+                if (neighbors[i].Element is ISCorruption)
                 {
                     corruptNeighboringElements++;
                 }
@@ -40,17 +40,18 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             return corruptNeighboringElements == length;
         }
 
-        public static void InfectNeighboringElements(this ISElementContext context, ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        public static void InfectNeighboringElements(this ISElementContext context, ISWorldSlot[] neighbors, int length)
         {
             if (length == 0)
             {
                 return;
             }
 
-            List<(Point, ISWorldSlot)> targets = [];
+            List<ISWorldSlot> targets = [];
+
             for (int i = 0; i < length; i++)
             {
-                ISElement element = neighbors[i].Item2.Element;
+                ISElement element = neighbors[i].Element;
 
                 if (element is not ISCorruption &&
                     element is not SWall)
@@ -64,28 +65,29 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
                 return;
             }
 
-            (Point, ISWorldSlot) target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
-            ISElement targetElement = target.Item2.Element;
+            ISWorldSlot target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
 
-            if (targetElement is SMovableSolid)
+            switch (target.Element)
             {
-                context.ReplaceElement<SMCorruption>(target.Item1);
-            }
-            else if (targetElement is SImmovableSolid)
-            {
-                context.ReplaceElement<SIMCorruption>(target.Item1);
-            }
-            else if (targetElement is SLiquid)
-            {
-                context.ReplaceElement<SLCorruption>(target.Item1);
-            }
-            else if (targetElement is SGas)
-            {
-                context.ReplaceElement<SGCorruption>(target.Item1);
-            }
-            else
-            {
-                context.ReplaceElement<SMCorruption>(target.Item1);
+                case SMovableSolid:
+                    context.ReplaceElement<SMCorruption>(target.Position);
+                    break;
+
+                case SImmovableSolid:
+                    context.ReplaceElement<SIMCorruption>(target.Position);
+                    break;
+
+                case SLiquid:
+                    context.ReplaceElement<SLCorruption>(target.Position);
+                    break;
+
+                case SGas:
+                    context.ReplaceElement<SGCorruption>(target.Position);
+                    break;
+
+                default:
+                    context.ReplaceElement<SMCorruption>(target.Position);
+                    break;
             }
         }
     }

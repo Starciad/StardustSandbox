@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors;
+
 namespace StardustSandbox.Core.Constants.Elements
 {
     public static class SElementConstants
@@ -20,11 +22,11 @@ namespace StardustSandbox.Core.Constants.Elements
 
         // Mounting Block
         public static readonly Color[] COLORS_OF_MOUNTING_BLOCKS = [
-            new(032, 120, 248), // Blue
-            new(080, 208, 080), // Green
-            new(248, 096, 080), // Red
-            new(248, 197, 080), // Yellow
-            new(248, 080, 125), // Pink
+            SColorPalette.NavyBlue, // Blue
+            SColorPalette.DarkGreen, // Green
+            SColorPalette.DarkRed, // Red
+            SColorPalette.LemonYellow, // Yellow
+            SColorPalette.Violet, // Pink
         ];
     }
 }

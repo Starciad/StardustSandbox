@@ -8,7 +8,7 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
@@ -25,9 +25,9 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultFlammabilityResistance = 150;
         }
 
-        protected override void OnInstantiateStep(SWorldSlot worldSlot)
+        protected override void OnInstantiateStep(ISWorldSlot worldSlot)
         {
-            worldSlot.SetColor(SElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
+            this.Context.SetElementColor(SElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
 
         protected override void OnTemperatureChanged(short currentValue)

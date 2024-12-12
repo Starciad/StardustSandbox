@@ -7,277 +7,279 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Data;
 
-using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld
     {
-        public void InstantiateElement<T>(Point pos) where T : ISElement
+        public void InstantiateElement<T>(Point position) where T : ISElement
         {
-            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(position, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
-        public void InstantiateElement(Point pos, uint identifier)
+        public void InstantiateElement(Point position, uint identifier)
         {
-            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(identifier));
+            InstantiateElement(position, this.SGameInstance.ElementDatabase.GetElementById(identifier));
         }
-        public void InstantiateElement(Point pos, ISElement value)
+        public void InstantiateElement(Point position, ISElement value)
         {
-            _ = TryInstantiateElement(pos, value);
+            _ = TryInstantiateElement(position, value);
         }
-        public bool TryInstantiateElement<T>(Point pos) where T : ISElement
+        public bool TryInstantiateElement<T>(Point position) where T : ISElement
         {
-            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
+            return TryInstantiateElement(position, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
-        public bool TryInstantiateElement(Point pos, uint identifier)
+        public bool TryInstantiateElement(Point position, uint identifier)
         {
-            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(identifier));
+            return TryInstantiateElement(position, this.SGameInstance.ElementDatabase.GetElementById(identifier));
         }
-        public bool TryInstantiateElement(Point pos, ISElement value)
+        public bool TryInstantiateElement(Point position, ISElement value)
         {
-            if (!InsideTheWorldDimensions(pos) || !IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) || !IsEmptyElementSlot(position))
             {
                 return false;
             }
 
-            NotifyChunk(pos);
+            NotifyChunk(position);
 
-            SWorldSlot worldSlot = this.slots[pos.X, pos.Y];
+            SWorldSlot worldSlot = this.slots[position.X, position.Y];
 
-            worldSlot.Instantiate(value);
+            worldSlot.Instantiate(position, value);
             ((SElement)value).InstantiateStep(worldSlot);
 
             return true;
         }
 
-        public void UpdateElementPosition(Point oldPos, Point newPos)
+        public void UpdateElementPosition(Point oldPosition, Point newPosition)
         {
-            _ = TryUpdateElementPosition(oldPos, newPos);
+            _ = TryUpdateElementPosition(oldPosition, newPosition);
         }
-        public bool TryUpdateElementPosition(Point oldPos, Point newPos)
+        public bool TryUpdateElementPosition(Point oldPosition, Point newPosition)
         {
-            if (!InsideTheWorldDimensions(oldPos) ||
-                !InsideTheWorldDimensions(newPos) ||
-                 IsEmptyElementSlot(oldPos) ||
-                !IsEmptyElementSlot(newPos))
+            if (!InsideTheWorldDimensions(oldPosition) ||
+                !InsideTheWorldDimensions(newPosition) ||
+                 IsEmptyElementSlot(oldPosition) ||
+                !IsEmptyElementSlot(newPosition))
             {
                 return false;
             }
 
-            NotifyChunk(oldPos);
-            NotifyChunk(newPos);
+            NotifyChunk(oldPosition);
+            NotifyChunk(newPosition);
 
-            this.slots[newPos.X, newPos.Y].Copy(this.slots[oldPos.X, oldPos.Y]);
-            this.slots[oldPos.X, oldPos.Y].Destroy();
+            this.slots[newPosition.X, newPosition.Y].Copy(this.slots[oldPosition.X, oldPosition.Y]);
+            this.slots[newPosition.X, newPosition.Y].SetPosition(newPosition);
+            this.slots[oldPosition.X, oldPosition.Y].Destroy();
+
             return true;
         }
 
-        public void SwappingElements(Point element1Pos, Point element2Pos)
+        public void SwappingElements(Point element1Position, Point element2Position)
         {
-            _ = TrySwappingElements(element1Pos, element2Pos);
+            _ = TrySwappingElements(element1Position, element2Position);
         }
-        public bool TrySwappingElements(Point element1Pos, Point element2Pos)
+        public bool TrySwappingElements(Point element1Position, Point element2Position)
         {
-            if (!InsideTheWorldDimensions(element1Pos) ||
-                !InsideTheWorldDimensions(element2Pos) ||
-                IsEmptyElementSlot(element1Pos) ||
-                IsEmptyElementSlot(element2Pos))
+            if (!InsideTheWorldDimensions(element1Position) ||
+                !InsideTheWorldDimensions(element2Position) ||
+                IsEmptyElementSlot(element1Position) ||
+                IsEmptyElementSlot(element2Position))
             {
                 return false;
             }
 
-            NotifyChunk(element1Pos);
-            NotifyChunk(element2Pos);
+            NotifyChunk(element1Position);
+            NotifyChunk(element2Position);
 
             SWorldSlot tempSlot = this.worldSlotsPool.TryGet(out ISPoolableObject value) ? (SWorldSlot)value : new();
 
-            tempSlot.Copy(this.slots[element1Pos.X, element1Pos.Y]);
+            tempSlot.Copy(this.slots[element1Position.X, element1Position.Y]);
 
-            this.slots[element1Pos.X, element1Pos.Y].Copy(this.slots[element2Pos.X, element2Pos.Y]);
-            this.slots[element2Pos.X, element2Pos.Y].Copy(tempSlot);
+            this.slots[element1Position.X, element1Position.Y].Copy(this.slots[element2Position.X, element2Position.Y]);
+            this.slots[element2Position.X, element2Position.Y].Copy(tempSlot);
+
+            this.slots[element1Position.X, element1Position.Y].SetPosition(element1Position);
+            this.slots[element2Position.X, element2Position.Y].SetPosition(element2Position);
 
             this.worldSlotsPool.Add(tempSlot);
 
             return true;
         }
 
-        public void DestroyElement(Point pos)
+        public void DestroyElement(Point position)
         {
-            _ = TryDestroyElement(pos);
+            _ = TryDestroyElement(position);
         }
-        public bool TryDestroyElement(Point pos)
+        public bool TryDestroyElement(Point position)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) ||
+                 IsEmptyElementSlot(position))
             {
                 return false;
             }
 
-            NotifyChunk(pos);
-            this.slots[pos.X, pos.Y].Destroy();
+            NotifyChunk(position);
+            this.slots[position.X, position.Y].Destroy();
 
             return true;
         }
 
-        public void ReplaceElement<T>(Point pos) where T : ISElement
+        public void ReplaceElement<T>(Point position) where T : ISElement
         {
-            _ = TryReplaceElement<T>(pos);
+            _ = TryReplaceElement<T>(position);
         }
-        public void ReplaceElement(Point pos, uint identifier)
+        public void ReplaceElement(Point position, uint identifier)
         {
-            _ = TryReplaceElement(pos, identifier);
+            _ = TryReplaceElement(position, identifier);
         }
-        public void ReplaceElement(Point pos, ISElement value)
+        public void ReplaceElement(Point position, ISElement value)
         {
-            _ = TryReplaceElement(pos, value);
+            _ = TryReplaceElement(position, value);
         }
-        public bool TryReplaceElement<T>(Point pos) where T : ISElement
+        public bool TryReplaceElement<T>(Point position) where T : ISElement
         {
-            return TryDestroyElement(pos) && TryInstantiateElement<T>(pos);
+            return TryDestroyElement(position) && TryInstantiateElement<T>(position);
         }
-        public bool TryReplaceElement(Point pos, uint identifier)
+        public bool TryReplaceElement(Point position, uint identifier)
         {
-            return TryDestroyElement(pos) && TryInstantiateElement(pos, identifier);
+            return TryDestroyElement(position) && TryInstantiateElement(position, identifier);
         }
-        public bool TryReplaceElement(Point pos, ISElement value)
+        public bool TryReplaceElement(Point position, ISElement value)
         {
-            return TryDestroyElement(pos) && TryInstantiateElement(pos, value);
+            return TryDestroyElement(position) && TryInstantiateElement(position, value);
         }
 
-        public ISElement GetElement(Point pos)
+        public ISElement GetElement(Point position)
         {
-            _ = TryGetElement(pos, out ISElement value);
+            _ = TryGetElement(position, out ISElement value);
             return value;
         }
-        public bool TryGetElement(Point pos, out ISElement value)
+        public bool TryGetElement(Point position, out ISElement value)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) ||
+                 IsEmptyElementSlot(position))
             {
                 value = null;
                 return false;
             }
 
-            value = this.slots[pos.X, pos.Y].Element;
+            value = this.slots[position.X, position.Y].Element;
             return true;
         }
 
-        public ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors(Point pos)
+        public ISWorldSlot[] GetElementNeighbors(Point position)
         {
-            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors);
+            _ = TryGetElementNeighbors(position, out ISWorldSlot[] neighbors);
             return neighbors;
         }
-        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
+        public bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors)
         {
-            neighbors = default;
+            neighbors = [];
 
-            if (!InsideTheWorldDimensions(pos))
+            if (!InsideTheWorldDimensions(position))
             {
                 return false;
             }
 
-            Point[] neighborsPositions = SPointExtensions.GetNeighboringCardinalPoints(pos);
+            Point[] neighborsPositions = SPointExtensions.GetNeighboringCardinalPoints(position);
 
-            (Point, ISWorldSlot)[] slotsFound = new (Point, ISWorldSlot)[neighborsPositions.Length];
-            int count = 0;
+            List<ISWorldSlot> slotsFound = [];
 
             for (int i = 0; i < neighborsPositions.Length; i++)
             {
-                Point position = neighborsPositions[i];
                 if (TryGetElementSlot(position, out ISWorldSlot value))
                 {
-                    slotsFound[count] = (position, value);
-                    count++;
+                    slotsFound.Add(value);
                 }
             }
 
-            if (count > 0)
+            if (slotsFound.Count > 0)
             {
-                neighbors = new ReadOnlySpan<(Point, ISWorldSlot)>(slotsFound, 0, count);
+                neighbors = [.. slotsFound];
                 return true;
             }
 
             return false;
         }
 
-        public ISWorldSlot GetElementSlot(Point pos)
+        public ISWorldSlot GetElementSlot(Point position)
         {
-            _ = TryGetElementSlot(pos, out ISWorldSlot value);
+            _ = TryGetElementSlot(position, out ISWorldSlot value);
             return value;
         }
-        public bool TryGetElementSlot(Point pos, out ISWorldSlot value)
+        public bool TryGetElementSlot(Point position, out ISWorldSlot value)
         {
             value = default;
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) ||
+                 IsEmptyElementSlot(position))
             {
                 return false;
             }
 
-            value = this.slots[pos.X, pos.Y];
+            value = this.slots[position.X, position.Y];
             return true;
         }
 
-        public void SetElementTemperature(Point pos, short value)
+        public void SetElementTemperature(Point position, short value)
         {
-            _ = TrySetElementTemperature(pos, value);
+            _ = TrySetElementTemperature(position, value);
         }
-        public bool TrySetElementTemperature(Point pos, short value)
+        public bool TrySetElementTemperature(Point position, short value)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) ||
+                 IsEmptyElementSlot(position))
             {
                 return false;
             }
 
-            if (this.slots[pos.X, pos.Y].Temperature != value)
+            if (this.slots[position.X, position.Y].Temperature != value)
             {
-                NotifyChunk(pos);
-                this.slots[pos.X, pos.Y].SetTemperatureValue(value);
+                NotifyChunk(position);
+                this.slots[position.X, position.Y].SetTemperatureValue(value);
             }
-
-            return true;
-        }
-
-        public void SetElementFreeFalling(Point pos, bool value)
-        {
-            _ = TrySetElementFreeFalling(pos, value);
-        }
-
-        public bool TrySetElementFreeFalling(Point pos, bool value)
-        {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
-            {
-                return false;
-            }
-
-            this.slots[pos.X, pos.Y].SetFreeFalling(value);
 
             return true;
         }
 
-        public void SetElementColor(Point pos, Color value)
+        public void SetElementFreeFalling(Point position, bool value)
         {
-            _ = TrySetElementColor(pos, value);
+            _ = TrySetElementFreeFalling(position, value);
         }
-        public bool TrySetElementColor(Point pos, Color value)
+
+        public bool TrySetElementFreeFalling(Point position, bool value)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) ||
+                 IsEmptyElementSlot(position))
             {
                 return false;
             }
 
-            this.slots[pos.X, pos.Y].SetColor(value);
+            this.slots[position.X, position.Y].SetFreeFalling(value);
+
+            return true;
+        }
+
+        public void SetElementColor(Point position, Color value)
+        {
+            _ = TrySetElementColor(position, value);
+        }
+        public bool TrySetElementColor(Point position, Color value)
+        {
+            if (!InsideTheWorldDimensions(position) ||
+                 IsEmptyElementSlot(position))
+            {
+                return false;
+            }
+
+            this.slots[position.X, position.Y].SetColor(value);
 
             return true;
         }
 
         // Tools
-        public bool IsEmptyElementSlot(Point pos)
+        public bool IsEmptyElementSlot(Point position)
         {
-            return !InsideTheWorldDimensions(pos) || this.slots[pos.X, pos.Y].IsEmpty;
+            return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].IsEmpty;
         }
     }
 }

@@ -11,6 +11,12 @@ namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {
+        private readonly struct BlobInfo(Point position, byte blobValue)
+        {
+            public readonly Point Position => position;
+            public readonly byte BlobValue => blobValue;
+        }
+
         private static readonly float rotation = 0f;
         private static readonly Vector2 origin = Vector2.Zero;
         private static readonly Vector2 scale = Vector2.One;
@@ -58,43 +64,43 @@ namespace StardustSandbox.Core.Elements.Rendering
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position)));
         }
 
-        private static (byte, Point)[] GetTargetPositionsFromIndex(int index, Point position)
+        private static BlobInfo[] GetTargetPositionsFromIndex(int index, Point position)
         {
             return index switch
             {
                 // Sprite Piece 1 (Northwest Pivot)
                 0 => [
-                    ((byte)SBlobCardinalDirection.West, new Point(position.X - 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Northwest, new Point(position.X - 1, position.Y - 1)),
-                    ((byte)SBlobCardinalDirection.North, new Point(position.X, position.Y - 1))
+                    new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West),
+                    new(new Point(position.X - 1, position.Y - 1), (byte)SBlobCardinalDirection.Northwest),
+                    new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North)
                 ],
 
                 // Sprite Piece 2 (Northeast Pivot)
                 1 => [
-                    ((byte)SBlobCardinalDirection.East, new Point(position.X + 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Northeast, new Point(position.X + 1, position.Y - 1)),
-                    ((byte)SBlobCardinalDirection.North, new Point(position.X, position.Y - 1))
+                    new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East),
+                    new(new Point(position.X + 1, position.Y - 1), (byte)SBlobCardinalDirection.Northeast),
+                    new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North)
                 ],
 
                 // Sprite Piece 3 (Southwest Pivot)
                 2 => [
-                    ((byte)SBlobCardinalDirection.West, new Point(position.X - 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Southwest, new Point(position.X - 1, position.Y + 1)),
-                    ((byte)SBlobCardinalDirection.South, new Point(position.X, position.Y + 1))
+                    new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West),
+                    new(new Point(position.X - 1, position.Y + 1), (byte)SBlobCardinalDirection.Southwest),
+                    new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South)
                 ],
 
                 // Sprite Piece 4 (Southeast Pivot)
                 3 => [
-                    ((byte)SBlobCardinalDirection.East, new Point(position.X + 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Southeast, new Point(position.X + 1, position.Y + 1)),
-                    ((byte)SBlobCardinalDirection.South, new Point(position.X, position.Y + 1))
+                    new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East),
+                    new(new Point(position.X + 1, position.Y + 1), (byte)SBlobCardinalDirection.Southeast),
+                    new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South)
                 ],
 
                 _ => [],
             };
         }
 
-        private byte GetBlobValueFromTargetPositions(ISElementContext context, (byte blobValue, Point position)[] targets)
+        private byte GetBlobValueFromTargetPositions(ISElementContext context, BlobInfo[] targets)
         {
             byte result = 0;
 
@@ -102,7 +108,7 @@ namespace StardustSandbox.Core.Elements.Rendering
             for (int i = 0; i < targets.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(targets[i].position, out ISElement value))
+                if (context.TryGetElement(targets[i].Position, out ISElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (value != this.element)
@@ -111,7 +117,7 @@ namespace StardustSandbox.Core.Elements.Rendering
                     }
 
                     // Upon successful completion of the conditions and steps, add to the blob value.
-                    result += targets[i].blobValue;
+                    result += targets[i].BlobValue;
                 }
             }
 

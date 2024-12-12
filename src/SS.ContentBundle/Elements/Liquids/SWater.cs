@@ -27,33 +27,31 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(ISWorldSlot[] neighbors, int length)
         {
             for (int i = 0; i < length; i++)
             {
-                (Point position, ISWorldSlot slot) = neighbors[i];
+                ISWorldSlot slot = neighbors[i];
 
-                if (slot.Element is SDirt)
+                switch (slot.Element)
                 {
-                    this.Context.DestroyElement();
-                    this.Context.ReplaceElement<SMud>(position);
-                    return;
-                }
-
-                if (slot.Element is SStone)
-                {
-                    if (SRandomMath.Range(0, 150) == 0)
-                    {
+                    case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement<SSand>(position);
+                        this.Context.ReplaceElement<SMud>(slot.Position);
                         return;
-                    }
-                }
 
-                if (slot.Element is SFire)
-                {
-                    this.Context.DestroyElement(position);
-                    return;
+                    case SStone:
+                        if (SRandomMath.Range(0, 150) == 0)
+                        {
+                            this.Context.DestroyElement();
+                            this.Context.ReplaceElement<SSand>(slot.Position);
+                            return;
+                        }
+                        break;
+
+                    case SFire:
+                        this.Context.DestroyElement(slot.Position);
+                        return;
                 }
             }
         }

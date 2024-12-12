@@ -8,6 +8,7 @@ namespace StardustSandbox.Core.Interfaces.World
     public interface ISWorldSlot : ISPoolableObject
     {
         ISElement Element { get; }
+        Point Position { get; }
         bool IsEmpty { get; }
         short Temperature { get; }
         bool FreeFalling { get; }

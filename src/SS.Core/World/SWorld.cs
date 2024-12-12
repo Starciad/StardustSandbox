@@ -163,10 +163,10 @@ namespace StardustSandbox.Core.World
             Clear();
         }
 
-        public bool InsideTheWorldDimensions(Point pos)
+        public bool InsideTheWorldDimensions(Point position)
         {
-            return pos.X >= 0 && pos.X < this.Infos.Size.Width &&
-                   pos.Y >= 0 && pos.Y < this.Infos.Size.Height;
+            return position.X >= 0 && position.X < this.Infos.Size.Width &&
+                   position.Y >= 0 && position.Y < this.Infos.Size.Height;
         }
 
         private void InstantiateWorldSlots()

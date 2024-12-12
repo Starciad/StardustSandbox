@@ -8,47 +8,47 @@ namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementManager
     {
-        void InstantiateElement<T>(Point pos) where T : ISElement;
-        void InstantiateElement(Point pos, uint identifier);
-        void InstantiateElement(Point pos, ISElement value);
-        bool TryInstantiateElement<T>(Point pos) where T : ISElement;
-        bool TryInstantiateElement(Point pos, uint identifier);
-        bool TryInstantiateElement(Point pos, ISElement value);
+        void InstantiateElement<T>(Point position) where T : ISElement;
+        void InstantiateElement(Point position, uint identifier);
+        void InstantiateElement(Point position, ISElement value);
+        bool TryInstantiateElement<T>(Point position) where T : ISElement;
+        bool TryInstantiateElement(Point position, uint identifier);
+        bool TryInstantiateElement(Point position, ISElement value);
 
-        void UpdateElementPosition(Point oldPos, Point newPos);
-        bool TryUpdateElementPosition(Point oldPos, Point newPos);
+        void UpdateElementPosition(Point oldPosition, Point newPosition);
+        bool TryUpdateElementPosition(Point oldPosition, Point newPosition);
 
-        void SwappingElements(Point element1Pos, Point element2Pos);
-        bool TrySwappingElements(Point element1Pos, Point element2Pos);
+        void SwappingElements(Point element1Position, Point element2Position);
+        bool TrySwappingElements(Point element1Position, Point element2Position);
 
-        void DestroyElement(Point pos);
-        bool TryDestroyElement(Point pos);
+        void DestroyElement(Point position);
+        bool TryDestroyElement(Point position);
 
-        void ReplaceElement<T>(Point pos) where T : ISElement;
-        void ReplaceElement(Point pos, uint identifier);
-        void ReplaceElement(Point pos, ISElement value);
-        bool TryReplaceElement<T>(Point pos) where T : ISElement;
-        bool TryReplaceElement(Point pos, uint identifier);
-        bool TryReplaceElement(Point pos, ISElement value);
+        void ReplaceElement<T>(Point position) where T : ISElement;
+        void ReplaceElement(Point position, uint identifier);
+        void ReplaceElement(Point position, ISElement value);
+        bool TryReplaceElement<T>(Point position) where T : ISElement;
+        bool TryReplaceElement(Point position, uint identifier);
+        bool TryReplaceElement(Point position, ISElement value);
 
-        ISElement GetElement(Point pos);
-        bool TryGetElement(Point pos, out ISElement value);
+        ISElement GetElement(Point position);
+        bool TryGetElement(Point position, out ISElement value);
 
-        ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors(Point pos);
-        bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors);
+        ISWorldSlot[] GetElementNeighbors(Point position);
+        bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors);
 
-        ISWorldSlot GetElementSlot(Point pos);
-        bool TryGetElementSlot(Point pos, out ISWorldSlot value);
+        ISWorldSlot GetElementSlot(Point position);
+        bool TryGetElementSlot(Point position, out ISWorldSlot value);
 
-        void SetElementTemperature(Point pos, short value);
-        bool TrySetElementTemperature(Point pos, short value);
+        void SetElementTemperature(Point position, short value);
+        bool TrySetElementTemperature(Point position, short value);
 
-        void SetElementFreeFalling(Point pos, bool value);
-        bool TrySetElementFreeFalling(Point pos, bool value);
+        void SetElementFreeFalling(Point position, bool value);
+        bool TrySetElementFreeFalling(Point position, bool value);
 
-        void SetElementColor(Point pos, Color value);
-        bool TrySetElementColor(Point pos, Color value);
+        void SetElementColor(Point position, Color value);
+        bool TrySetElementColor(Point position, Color value);
 
-        bool IsEmptyElementSlot(Point pos);
+        bool IsEmptyElementSlot(Point position);
     }
 }

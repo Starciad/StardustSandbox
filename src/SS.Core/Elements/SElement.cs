@@ -7,7 +7,6 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World.Data;
 
 using System;
 
@@ -67,14 +66,14 @@ namespace StardustSandbox.Core.Elements
             this.Rendering.Draw(gameTime, spriteBatch);
         }
 
-        public void InstantiateStep(SWorldSlot worldSlot)
+        public void InstantiateStep(ISWorldSlot worldSlot)
         {
             OnInstantiateStep(worldSlot);
         }
 
         public void Steps()
         {
-            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors))
+            if (this.Context.TryGetElementNeighbors(this.Context.Position, out ISWorldSlot[] neighbors))
             {
                 if (this.EnableTemperature)
                 {
@@ -82,29 +81,32 @@ namespace StardustSandbox.Core.Elements
                 }
 
                 if (this.EnableNeighborsAction)
-                { OnNeighbors(neighbors, neighbors.Length); }
+                { 
+                    OnNeighbors(neighbors, neighbors.Length);
+                }
             }
 
             OnBeforeStep();
             OnStep();
             if (this.EnableDefaultBehaviour)
-            { OnBehaviourStep(); }
-
+            {
+                OnBehaviourStep();
+            }
             OnAfterStep();
         }
 
-        private void UpdateTemperature(ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
+        private void UpdateTemperature(ISWorldSlot[] neighbors)
         {
             float totalTemperatureChange = 0;
 
-            foreach ((Point, ISWorldSlot) neighbor in neighbors)
+            foreach (ISWorldSlot neighbor in neighbors)
             {
-                if (!neighbor.Item2.Element.EnableTemperature)
+                if (!neighbor.Element.EnableTemperature)
                 {
                     continue;
                 }
 
-                totalTemperatureChange += this.Context.Slot.Temperature - neighbor.Item2.Temperature;
+                totalTemperatureChange += this.Context.Slot.Temperature - neighbor.Temperature;
             }
 
             int averageTemperatureChange = (int)Math.Round(totalTemperatureChange / neighbors.Length);
@@ -118,13 +120,13 @@ namespace StardustSandbox.Core.Elements
             OnTemperatureChanged(this.Context.Slot.Temperature);
         }
 
-        protected virtual void OnInstantiateStep(SWorldSlot worldSlot) { return; }
+        protected virtual void OnInstantiateStep(ISWorldSlot worldSlot) { return; }
         protected virtual void OnBeforeStep() { return; }
         protected virtual void OnStep() { return; }
         protected virtual void OnAfterStep() { return; }
         protected virtual void OnBehaviourStep() { return; }
 
-        protected virtual void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length) { return; }
+        protected virtual void OnNeighbors(ISWorldSlot[] neighbors, int length) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
     }
 }

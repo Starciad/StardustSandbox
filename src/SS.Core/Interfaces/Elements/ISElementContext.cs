@@ -2,8 +2,6 @@
 
 using StardustSandbox.Core.Interfaces.World;
 
-using System;
-
 namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementContext : ISElementManager
@@ -12,8 +10,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
         ISElement Element { get; }
         Point Position { get; }
 
-        void SetPosition(Point newPos);
-        bool TrySetPosition(Point newPos);
+        void SetPosition(Point newPosition);
+        bool TrySetPosition(Point newPosition);
 
         void InstantiateElement<T>() where T : ISElement;
         void InstantiateElement(uint identifier);
@@ -22,11 +20,11 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryInstantiateElement(uint identifier);
         bool TryInstantiateElement(ISElement value);
 
-        void UpdateElementPosition(Point newPos);
-        bool TryUpdateElementPosition(Point newPos);
+        void UpdateElementPosition(Point newPosition);
+        bool TryUpdateElementPosition(Point newPosition);
 
-        void SwappingElements(Point targetPos);
-        bool TrySwappingElements(Point targetPos);
+        void SwappingElements(Point targetPosition);
+        bool TrySwappingElements(Point targetPosition);
 
         void DestroyElement();
         bool TryDestroyElement();
@@ -41,8 +39,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
         ISElement GetElement();
         bool TryGetElement(out ISElement value);
 
-        ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors();
-        bool TryGetElementNeighbors(out ReadOnlySpan<(Point, ISWorldSlot)> neighbors);
+        ISWorldSlot[] GetElementNeighbors();
+        bool TryGetElementNeighbors(out ISWorldSlot[] neighbors);
 
         ISWorldSlot GetElementSlot();
         bool TryGetElementSlot(out ISWorldSlot value);
@@ -57,9 +55,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryElementSetColor(Color value);
 
         void NotifyChunk();
-        void NotifyChunk(Point pos);
+        void NotifyChunk(Point position);
         bool TryNotifyChunk();
-        bool TryNotifyChunk(Point pos);
+        bool TryNotifyChunk(Point position);
 
         bool IsEmptyElementSlot();
     }

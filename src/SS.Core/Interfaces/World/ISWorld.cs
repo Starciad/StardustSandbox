@@ -20,6 +20,6 @@ namespace StardustSandbox.Core.Interfaces.World
         void Clear();
 
         void LoadFromWorldSaveFile(SWorldSaveFile worldSaveFile);
-        bool InsideTheWorldDimensions(Point pos);
+        bool InsideTheWorldDimensions(Point position);
     }
 }
