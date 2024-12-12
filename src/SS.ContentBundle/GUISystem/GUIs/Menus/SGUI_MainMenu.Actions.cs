@@ -20,6 +20,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.SGameInstance.BackgroundManager.EnableClouds();
         }
 
+        private void PlayMenuButton()
+        {
+
+        }
+
         private void OptionsMenuButton()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);

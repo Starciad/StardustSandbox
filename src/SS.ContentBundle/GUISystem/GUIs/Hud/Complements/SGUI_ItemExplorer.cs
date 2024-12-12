@@ -30,13 +30,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SGUI_HUD _guiHUD = guiHUD;
         private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
 
-        protected override void OnOpen()
+        protected override void OnOpened()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
             SelectItemCatalog("powders", 0);
         }
 
-        protected override void OnClose()
+        protected override void OnClosed()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
         }

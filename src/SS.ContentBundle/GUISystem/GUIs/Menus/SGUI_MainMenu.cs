@@ -23,9 +23,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private enum SMainMenuButtonIndex : byte
         {
             Create = 0,
-            Options = 1,
-            Credits = 2,
-            Quit = 3
+            Play = 1,
+            Options = 2,
+            Credits = 3,
+            Quit = 4
         }
 
         private Vector2 originalGameTitleElementPosition;
@@ -63,6 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.menuButtonNames = [
                 SLocalization.GUI_Menu_Main_Button_Create,
+                SLocalization.GUI_Menu_Main_Button_Play,
                 SLocalization.GUI_Menu_Main_Button_Options,
                 SLocalization.GUI_Menu_Main_Button_Credits,
                 SLocalization.GUI_Menu_Main_Button_Quit
@@ -70,13 +72,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.menuButtonActions = [
                 CreateMenuButton,
+                PlayMenuButton,
                 OptionsMenuButton,
                 CreditsMenuButton,
                 QuitMenuButton
             ];
         }
 
-        protected override void OnOpen()
+        protected override void OnOpened()
         {
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
 
@@ -92,7 +95,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SSongEngine.Play(this.mainMenuSong);
         }
 
-        protected override void OnClose()
+        protected override void OnClosed()
         {
             this.SGameInstance.BackgroundManager.DisableClouds();
             this.SGameInstance.EntityManager.RemoveAll();

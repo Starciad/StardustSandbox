@@ -17,7 +17,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SGUIImageElement panelBackgroundElement;
         private SGUIImageElement gameTitleElement;
 
-        private readonly SGUILabelElement[] menuButtonElements = new SGUILabelElement[4];
+        private readonly SGUILabelElement[] menuButtonElements = new SGUILabelElement[5];
 
         protected override void OnBuild(ISGUILayoutBuilder layout)
         {

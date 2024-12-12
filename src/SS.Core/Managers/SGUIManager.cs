@@ -7,37 +7,34 @@ using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 
-using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Managers
 {
     internal sealed class SGUIManager(ISGame gameInstance) : SManager(gameInstance), ISGUIManager
     {
-        public SGUIEvents GUIEvents => this._guiEvents;
+        public SGUIEvents GUIEvents => this.guiEvents;
+        public SGUISystem CurrentGUI => this.currentGUI;
 
-        private readonly SGUIEvents _guiEvents = new(gameInstance.InputManager);
+        private SGUISystem currentGUI;
 
-        private readonly ISGUIDatabase _guiDatabase = gameInstance.GUIDatabase;
+        private readonly Stack<SGUISystem> guiStack = [];
+        private readonly SGUIEvents guiEvents = new(gameInstance.InputManager);
+        private readonly ISGUIDatabase guiDatabase = gameInstance.GUIDatabase;
 
         public override void Update(GameTime gameTime)
         {
-            foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
+            if (this.currentGUI != null && this.currentGUI.IsActive)
             {
-                if (guiSystem.IsActive)
-                {
-                    guiSystem.Update(gameTime);
-                }
+                this.currentGUI.Update(gameTime);
             }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
+            if (this.currentGUI != null && this.currentGUI.IsActive)
             {
-                if (guiSystem.IsActive || guiSystem.IsOpened)
-                {
-                    guiSystem.Draw(gameTime, spriteBatch);
-                }
+                this.currentGUI.Draw(gameTime, spriteBatch);
             }
         }
 
@@ -45,16 +42,28 @@ namespace StardustSandbox.Core.Managers
         {
             if (TryGetGUIById(identifier, out SGUISystem guiSystem))
             {
+                this.currentGUI?.Close();
+
+                this.guiStack.Push(guiSystem);
+                this.currentGUI = guiSystem;
+
                 guiSystem.Open();
             }
         }
 
         public void CloseGUI(string identifier)
         {
-            if (TryGetGUIById(identifier, out SGUISystem guiSystem))
+            if (this.currentGUI == null)
             {
-                guiSystem.Close();
+                return;
             }
+
+            this.currentGUI.Close();
+            _ = this.guiStack.Pop();
+
+            this.currentGUI = this.guiStack.Count > 0 ? this.guiStack.Peek() : null;
+
+            this.currentGUI?.Open();
         }
 
         public SGUISystem GetGUIById(string identifier)
@@ -65,7 +74,7 @@ namespace StardustSandbox.Core.Managers
 
         public bool TryGetGUIById(string identifier, out SGUISystem guiSystem)
         {
-            SGUISystem target = this._guiDatabase.GetGUISystemById(identifier);
+            SGUISystem target = this.guiDatabase.GetGUISystemById(identifier);
             guiSystem = target;
 
             return target != null;
@@ -73,7 +82,13 @@ namespace StardustSandbox.Core.Managers
 
         public void Reset()
         {
-            return;
+            while (this.guiStack.Count > 0)
+            {
+                SGUISystem gui = this.guiStack.Pop();
+                gui.Close();
+            }
+
+            this.currentGUI = null;
         }
     }
 }

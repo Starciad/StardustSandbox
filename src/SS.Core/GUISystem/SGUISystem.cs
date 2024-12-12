@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.GUISystem
             this.isActive = true;
             this.isOpened = true;
 
-            OnOpen();
+            OnOpened();
         }
 
         public void Close()
@@ -62,11 +62,11 @@ namespace StardustSandbox.Core.GUISystem
             this.isActive = false;
             this.isOpened = false;
 
-            OnClose();
+            OnClosed();
         }
 
         protected abstract void OnBuild(ISGUILayoutBuilder layout);
-        protected virtual void OnOpen() { return; }
-        protected virtual void OnClose() { return; }
+        protected virtual void OnOpened() { return; }
+        protected virtual void OnClosed() { return; }
     }
 }
