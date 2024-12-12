@@ -101,7 +101,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
             {
                 this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_IDENTIFIER);
-                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
+                this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
             }
 
             if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
@@ -128,7 +128,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             if (this.SGameInstance.InputManager.KeyboardState.IsKeyDown(Keys.Escape))
             {
                 this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-                this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+                this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
             }
         }
 

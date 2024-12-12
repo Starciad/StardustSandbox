@@ -7,7 +7,7 @@ namespace StardustSandbox.Core.Interfaces.Managers
     {
         SGUIEvents GUIEvents { get; }
 
-        void ShowGUI(string identifier);
+        void OpenGUI(string identifier);
         void CloseGUI(string identifier);
 
         SGUISystem GetGUIById(string identifier);

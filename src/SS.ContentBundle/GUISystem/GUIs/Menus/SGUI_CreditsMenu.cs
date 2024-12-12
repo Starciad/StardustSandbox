@@ -68,7 +68,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
         }
 
-        protected override void OnLoad()
+        protected override void OnOpen()
         {
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("credits"));
 
@@ -111,7 +111,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void CloseCredits()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
         }
     }
 }

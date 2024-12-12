@@ -48,7 +48,7 @@ namespace StardustSandbox.Core
 
         protected override void BeginRun()
         {
-            this.guiManager.ShowGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            this.guiManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
             this.gameManager.GameState.IsPaused = false;
             this.gameManager.GameState.IsSimulationPaused = false;
         }

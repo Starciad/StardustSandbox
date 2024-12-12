@@ -34,18 +34,18 @@ namespace StardustSandbox.Core.Managers
         {
             foreach (SGUISystem guiSystem in this._guiDatabase.RegisteredGUIs)
             {
-                if (guiSystem.IsActive || guiSystem.IsShowing)
+                if (guiSystem.IsActive || guiSystem.IsOpened)
                 {
                     guiSystem.Draw(gameTime, spriteBatch);
                 }
             }
         }
 
-        public void ShowGUI(string identifier)
+        public void OpenGUI(string identifier)
         {
             if (TryGetGUIById(identifier, out SGUISystem guiSystem))
             {
-                guiSystem.Show();
+                guiSystem.Open();
             }
         }
 

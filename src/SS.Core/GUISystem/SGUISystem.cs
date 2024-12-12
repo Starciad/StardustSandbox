@@ -13,14 +13,14 @@ namespace StardustSandbox.Core.GUISystem
         public string Identifier => this.identifier;
         public int ZIndex => this.zIndex;
         public bool IsActive => this.isActive;
-        public bool IsShowing => this.isShowing;
+        public bool IsOpened => this.isOpened;
         public bool HasEvents => this.GUIEvents != null;
         protected SGUIEvents GUIEvents => this.guiEvents;
 
         protected int zIndex;
 
         private bool isActive;
-        private bool isShowing;
+        private bool isOpened;
 
         private readonly string identifier;
         private readonly SGUILayout layout;
@@ -49,24 +49,24 @@ namespace StardustSandbox.Core.GUISystem
             this.layout.Draw(gameTime, spriteBatch);
         }
 
-        public void Show()
+        public void Open()
         {
             this.isActive = true;
-            this.isShowing = true;
+            this.isOpened = true;
 
-            OnLoad();
+            OnOpen();
         }
 
         public void Close()
         {
             this.isActive = false;
-            this.isShowing = false;
+            this.isOpened = false;
 
-            OnUnload();
+            OnClose();
         }
 
         protected abstract void OnBuild(ISGUILayoutBuilder layout);
-        protected virtual void OnLoad() { return; }
-        protected virtual void OnUnload() { return; }
+        protected virtual void OnOpen() { return; }
+        protected virtual void OnClose() { return; }
     }
 }

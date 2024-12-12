@@ -30,13 +30,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SGUI_HUD _guiHUD = guiHUD;
         private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
 
-        protected override void OnLoad()
+        protected override void OnOpen()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
             SelectItemCatalog("powders", 0);
         }
 
-        protected override void OnUnload()
+        protected override void OnClose()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
         }
@@ -98,7 +98,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                     this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
-                    this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
+                    this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
                 }
 
                 bool isOver = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));

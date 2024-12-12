@@ -8,7 +8,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void CreateMenuButton()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.HUD_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
 
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
 
@@ -23,13 +23,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void OptionsMenuButton()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
         }
 
         private void CreditsMenuButton()
         {
             this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.ShowGUI(SGUIConstants.CREDITS_MENU_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.CREDITS_MENU_IDENTIFIER);
         }
 
         private void QuitMenuButton()

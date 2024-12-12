@@ -76,10 +76,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             ];
         }
 
-        protected override void OnLoad()
+        protected override void OnOpen()
         {
-            base.OnLoad();
-
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
 
             ResetElementPositions();
@@ -94,10 +92,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SSongEngine.Play(this.mainMenuSong);
         }
 
-        protected override void OnUnload()
+        protected override void OnClose()
         {
-            base.OnUnload();
-
             this.SGameInstance.BackgroundManager.DisableClouds();
             this.SGameInstance.EntityManager.RemoveAll();
 
