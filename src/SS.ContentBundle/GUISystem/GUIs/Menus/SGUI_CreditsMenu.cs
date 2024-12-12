@@ -68,21 +68,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
         }
 
-        protected override void OnOpened()
-        {
-            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("credits"));
-
-            this.world.IsActive = false;
-            this.world.IsVisible = false;
-
-            SSongEngine.Play(this.creditsMenuSong);
-
-            foreach (SGUIElement element in this.creditElements)
-            {
-                element.PositionRelativeToScreen();
-            }
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -96,7 +81,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             if (this.SGameInstance.InputManager.MouseState.LeftButton == ButtonState.Pressed ||
                 this.SGameInstance.InputManager.KeyboardState.GetPressedKeyCount() > 0)
             {
-                CloseCredits();
+                this.SGameInstance.GUIManager.CloseGUI();
             }
         }
 
@@ -106,12 +91,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 creditElement.Position = new(creditElement.Position.X, creditElement.Position.Y - this.speed);
             }
-        }
-
-        private void CloseCredits()
-        {
-            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
         }
     }
 }

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Media;
 using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -49,6 +48,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly Song mainMenuSong;
 
+        private readonly SpriteFont bigApple3PMSpriteFont;
+
         private readonly Action[] menuButtonActions;
         private readonly string[] menuButtonNames;
 
@@ -59,6 +60,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.prosceniumCurtainTexture = this.SGameInstance.AssetDatabase.GetTexture("miscellany_1");
 
             this.mainMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_1");
+
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
             this.world = gameInstance.World;
 
@@ -77,30 +80,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 CreditsMenuButton,
                 QuitMenuButton
             ];
-        }
-
-        protected override void OnOpened()
-        {
-            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
-
-            ResetElementPositions();
-
-            this.SGameInstance.BackgroundManager.EnableClouds();
-            this.SGameInstance.GameInputController.Disable();
-
-            LoadAnimationValues();
-            LoadMainMenuWorld();
-            LoadMagicCursor();
-
-            SSongEngine.Play(this.mainMenuSong);
-        }
-
-        protected override void OnClosed()
-        {
-            this.SGameInstance.BackgroundManager.DisableClouds();
-            this.SGameInstance.EntityManager.RemoveAll();
-
-            SSongEngine.Stop();
         }
 
         public override void Update(GameTime gameTime)

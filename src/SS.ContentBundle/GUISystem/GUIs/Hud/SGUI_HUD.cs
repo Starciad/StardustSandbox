@@ -100,7 +100,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             #region SEARCH BUTTON
             if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
             {
-                this.SGameInstance.GUIManager.CloseGUI(SGUIConstants.HUD_IDENTIFIER);
                 this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
             }
 
@@ -127,8 +126,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             if (this.SGameInstance.InputManager.KeyboardState.IsKeyDown(Keys.Escape))
             {
-                this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-                this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+                this.SGameInstance.GUIManager.CloseGUI();
             }
         }
 

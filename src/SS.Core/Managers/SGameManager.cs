@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
@@ -20,6 +21,25 @@ namespace StardustSandbox.Core.Managers
         public override void Update(GameTime gameTime)
         {
             ClampCameraInTheWorld();
+        }
+
+        public void StartGame()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
+
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+
+            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            this.SGameInstance.GameInputController.Activate();
+
+            this.SGameInstance.BackgroundManager.EnableClouds();
+        }
+
+        public void Reset()
+        {
+            return;
         }
 
         private void ClampCameraInTheWorld()
@@ -42,11 +62,6 @@ namespace StardustSandbox.Core.Managers
             cameraPosition.Y = MathHelper.Clamp(cameraPosition.Y, worldBottomLimit, worldTopLimit);
 
             this.cameraManager.Position = cameraPosition;
-        }
-
-        public void Reset()
-        {
-            return;
         }
     }
 }

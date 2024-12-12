@@ -36,8 +36,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         public void ReturnButton()
         {
-            this.SGameInstance.GUIManager.CloseGUI(this.Identifier);
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            this.SGameInstance.GUIManager.CloseGUI();
         }
     }
 }

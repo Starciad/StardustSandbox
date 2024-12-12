@@ -74,15 +74,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
         }
 
-        protected override void OnOpened()
-        {
-            SelectSection(0);
-
-            // Load Settings
-            LoadVideoSettings();
-            LoadLanguageSettings();
-        }
-
         private void LoadVideoSettings()
         {
             this.videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();

@@ -63,7 +63,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Color = Color.White,
                 PositionAnchor = SCardinalDirection.Southeast,
                 OriginPivot = SCardinalDirection.West,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
+                SpriteFont = this.bigApple3PMSpriteFont,
             };
 
             SGUILabelElement copyrightLabel = new(this.SGameInstance)
@@ -73,7 +73,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Color = Color.White,
                 PositionAnchor = SCardinalDirection.South,
                 OriginPivot = SCardinalDirection.Center,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
+                SpriteFont = this.bigApple3PMSpriteFont,
             };
 
             gameVersionLabel.SetTextualContent($"Ver. {SGameConstants.VERSION}");
@@ -116,7 +116,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Color = new Color(206, 214, 237, 255),
                     PositionAnchor = SCardinalDirection.Center,
                     OriginPivot = SCardinalDirection.Center,
-                    SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM),
+                    SpriteFont = this.bigApple3PMSpriteFont,
                 };
 
                 labelElement.SetTextualContent(this.menuButtonNames[i]);

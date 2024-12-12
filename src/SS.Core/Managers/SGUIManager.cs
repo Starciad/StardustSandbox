@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        public void CloseGUI(string identifier)
+        public void CloseGUI()
         {
             if (this.currentGUI == null)
             {

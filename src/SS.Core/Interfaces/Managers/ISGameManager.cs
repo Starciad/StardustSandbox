@@ -3,5 +3,7 @@
     public interface ISGameManager : ISManager
     {
         SGameState GameState { get; }
+
+        void StartGame();
     }
 }
