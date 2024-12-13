@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
-            buttonActions = [
+            this.buttonActions = [
                 WorldsButton
             ];
         }

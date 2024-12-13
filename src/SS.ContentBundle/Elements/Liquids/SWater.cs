@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.ContentBundle.Elements.Energies;
+﻿using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
 using StardustSandbox.ContentBundle.Enums.Elements;
@@ -46,6 +44,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                             this.Context.DestroyElement();
                             this.Context.ReplaceElement<SSand>(slot.Position);
                         }
+
                         return;
 
                     case SFire:

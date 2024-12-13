@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.ContentBundle.Elements.Utilities;
+﻿using StardustSandbox.ContentBundle.Elements.Utilities;
 using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;

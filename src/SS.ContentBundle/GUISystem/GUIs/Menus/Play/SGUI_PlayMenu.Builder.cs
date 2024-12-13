@@ -10,7 +10,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.layout = layout;
 
-
         }
     }
 }
