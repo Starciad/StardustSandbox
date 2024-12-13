@@ -18,6 +18,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly List<SCreditSection> creditSections = [];
         private readonly List<SGUIElement> creditElements = [];
 
+        private SGUIElement lastElement;
+        private int elementCount;
+
         private static readonly float verticalSpacing = 64f;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
@@ -25,6 +28,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             BuildContent();
             BuildElements();
             RegisterElements(layoutBuilder);
+
+            this.elementCount = this.creditElements.Count;
+            this.lastElement = this.creditElements[this.elementCount - 1];
         }
 
         private void BuildContent()

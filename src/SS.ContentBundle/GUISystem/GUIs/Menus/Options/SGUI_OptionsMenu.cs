@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Fonts;
@@ -54,12 +56,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SLocalization.GUI_Menu_Options_Section_Language
         ];
 
-        private readonly string[] systemButtonNames = [
-            SLocalization.Statements_Return,
-            SLocalization.Statements_Save,
-        ];
-
-        private readonly Action[] systemButtonActions;
+        private readonly SButton[] systemButtons;
 
         internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
@@ -68,10 +65,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
 
-            this.systemButtonActions = [
-                ReturnButton,
-                SaveButton
+            this.systemButtons = [
+                new(SLocalization.Statements_Return, ReturnButton),
+                new(SLocalization.Statements_Save, SaveButton),
             ];
+
+            this.sectionContainers = new SGUIContainerElement[this.sectionNames.Length];
+            this.sectionButtonElements = new SGUILabelElement[this.sectionNames.Length];
+            this.systemButtonElements = new SGUILabelElement[this.systemButtons.Length];
         }
 
         private void LoadVideoSettings()
@@ -144,7 +145,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
-                    this.systemButtonActions[i].Invoke();
+                    this.systemButtons[i].ClickAction.Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Fonts;
@@ -12,6 +13,7 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Collections.Generic;
@@ -29,13 +31,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             Quit = 4
         }
 
-        private Vector2 originalGameTitleElementPosition;
-
         private const float animationSpeed = 2f;
         private const float animationAmplitude = 10f;
         private const float ButtonAnimationSpeed = 1.5f;
         private const float ButtonAnimationAmplitude = 5f;
 
+        private Vector2 originalGameTitleElementPosition;
         private float animationTime = 0f;
 
         private Dictionary<SGUILabelElement, Vector2> buttonOriginalPositions;
@@ -44,15 +45,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D particleTexture;
         private readonly Texture2D prosceniumCurtainTexture;
-
-        private readonly ISWorld world;
-
         private readonly Song mainMenuSong;
-
         private readonly SpriteFont bigApple3PMSpriteFont;
 
-        private readonly Action[] menuButtonActions;
-        private readonly string[] menuButtonNames;
+        private readonly SButton[] menuButtons;
+        private readonly ISWorld world;
 
         internal SGUI_MainMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
@@ -66,21 +63,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.world = gameInstance.World;
 
-            this.menuButtonNames = [
-                SLocalization.GUI_Menu_Main_Button_Create,
-                SLocalization.GUI_Menu_Main_Button_Play,
-                SLocalization.GUI_Menu_Main_Button_Options,
-                SLocalization.GUI_Menu_Main_Button_Credits,
-                SLocalization.GUI_Menu_Main_Button_Quit
+            this.menuButtons = [
+                new(SLocalization.GUI_Menu_Main_Button_Create, CreateMenuButton),
+                new(SLocalization.GUI_Menu_Main_Button_Play, PlayMenuButton),
+                new(SLocalization.GUI_Menu_Main_Button_Options, OptionsMenuButton),
+                new(SLocalization.GUI_Menu_Main_Button_Credits, CreditsMenuButton),
+                new(SLocalization.GUI_Menu_Main_Button_Quit, QuitMenuButton),
             ];
 
-            this.menuButtonActions = [
-                CreateMenuButton,
-                PlayMenuButton,
-                OptionsMenuButton,
-                CreditsMenuButton,
-                QuitMenuButton
-            ];
+            this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
         }
 
         public override void Update(GameTime gameTime)
@@ -175,13 +166,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
                 SGUILabelElement labelElement = this.menuButtonElements[i];
+                SSize2F labelElementSize = labelElement.GetStringSize() / 2f;
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElementSize))
                 {
-                    this.menuButtonActions[i].Invoke();
+                    this.menuButtons[i].ClickAction.Invoke();
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? Color.Yellow : Color.White;
             }
         }
     }

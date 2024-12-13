@@ -26,9 +26,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SGUISliceImageElement leftPanelBackground;
         private SGUISliceImageElement rightPanelBackground;
 
-        private readonly SGUIContainerElement[] sectionContainers = new SGUIContainerElement[2];
-        private readonly SGUILabelElement[] sectionButtonElements = new SGUILabelElement[2];
-        private readonly SGUILabelElement[] systemButtonElements = new SGUILabelElement[2];
+        private readonly SGUIContainerElement[] sectionContainers;
+        private readonly SGUILabelElement[] sectionButtonElements;
+        private readonly SGUILabelElement[] systemButtonElements;
 
         private readonly List<SOptionSelector> generalSectionOptionSelectors = [];
         private readonly List<SOptionSelector> videoSectionOptionSelectors = [];
@@ -161,13 +161,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             Vector2 margin = baseVerticalMargin;
 
-            for (int i = 0; i < this.systemButtonNames.Length; i++)
+            for (int i = 0; i < this.systemButtons.Length; i++)
             {
                 SGUILabelElement labelElement = CreateButtonLabelElement();
 
                 labelElement.PositionAnchor = SCardinalDirection.South;
                 labelElement.Margin = margin;
-                labelElement.SetTextualContent(this.systemButtonNames[i]);
+                labelElement.SetTextualContent(this.systemButtons[i].DisplayName);
                 labelElement.PositionRelativeToElement(this.leftPanelBackground);
 
                 this.systemButtonElements[i] = labelElement;

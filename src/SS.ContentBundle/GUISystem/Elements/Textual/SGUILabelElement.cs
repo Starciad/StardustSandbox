@@ -6,7 +6,7 @@ using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
-    internal class SGUILabelElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
+    internal sealed class SGUILabelElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

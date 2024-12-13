@@ -15,7 +15,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SGUIImageElement panelBackgroundElement;
         private SGUIImageElement gameTitleElement;
 
-        private readonly SGUILabelElement[] menuButtonElements = new SGUILabelElement[5];
+        private readonly SGUILabelElement[] menuButtonElements;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
@@ -117,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     SpriteFont = this.bigApple3PMSpriteFont,
                 };
 
-                labelElement.SetTextualContent(this.menuButtonNames[i]);
+                labelElement.SetTextualContent(this.menuButtons[i].DisplayName);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4f));
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
@@ -46,10 +47,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly Texture2D gameTitleTexture;
         private readonly Texture2D starciadCharacterTexture;
-
         private readonly Texture2D monogameLogoTexture;
         private readonly Texture2D xnaLogoTexture;
-
         private readonly Song creditsMenuSong;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
@@ -72,6 +71,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             UpdateUserInput();
             UpdateElementsPosition();
+            CheckIfTheCreditsHaveFinished();
         }
 
         private void UpdateUserInput()
@@ -88,6 +88,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             foreach (SGUIElement creditElement in this.creditElements)
             {
                 creditElement.Position = new(creditElement.Position.X, creditElement.Position.Y - this.speed);
+            }
+        }
+
+        private void CheckIfTheCreditsHaveFinished()
+        {
+            if (((this.lastElement.Position.Y + this.lastElement.Size.Height) * this.lastElement.Scale.Y + 16f) < 0f)
+            {
+                this.SGameInstance.GUIManager.CloseGUI();
             }
         }
     }
