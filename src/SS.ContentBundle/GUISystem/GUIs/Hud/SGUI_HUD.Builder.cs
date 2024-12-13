@@ -12,8 +12,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal partial class SGUI_HUD
     {
-        private ISGUILayoutBuilder layout;
-
         private SGUIImageElement topToolbarContainer;
         private SGUIImageElement leftToolbarContainer;
         private SGUIImageElement rightToolbarContainer;
@@ -23,21 +21,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private readonly Color toolbarContainerColor = new(Color.White, 32);
 
-        protected override void OnBuild(ISGUILayoutBuilder layout)
+        protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            this.layout = layout;
+            BuildToolbars(layoutBuilder);
 
-            BuildToolbars();
-
-            layout.AddElement(this.tooltipBoxElement);
+            layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
-        private void BuildToolbars()
+        private void BuildToolbars(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildTopToolbar();
+            BuildTopToolbar(layoutBuilder);
+            BuildLeftToolbar(layoutBuilder);
+            BuildRightToolbar(layoutBuilder);
         }
 
-        private void BuildTopToolbar()
+        private void BuildTopToolbar(ISGUILayoutBuilder layoutBuilder)
         {
             this.topToolbarContainer = new(this.SGameInstance)
             {
@@ -49,13 +47,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             };
 
             this.topToolbarContainer.PositionRelativeToScreen();
-            this.layout.AddElement(this.topToolbarContainer);
+            
+            layoutBuilder.AddElement(this.topToolbarContainer);
 
-            CreateTopToolbarSlots();
-            CreateSearchSlot();
+            CreateTopToolbarSlots(layoutBuilder);
+            CreateSearchSlot(layoutBuilder);
         }
 
-        private void BuildLeftToolbar()
+        private void BuildLeftToolbar(ISGUILayoutBuilder layoutBuilder)
         {
             this.leftToolbarContainer = new(this.SGameInstance)
             {
@@ -67,10 +66,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 OriginPivot = SCardinalDirection.Northeast
             };
 
-            this.layout.AddElement(this.leftToolbarContainer);
+            this.leftToolbarContainer.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.leftToolbarContainer);
         }
 
-        private void BuildRightToolbar()
+        private void BuildRightToolbar(ISGUILayoutBuilder layoutBuilder)
         {
             this.rightToolbarContainer = new(this.SGameInstance)
             {
@@ -82,11 +83,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 OriginPivot = SCardinalDirection.Northwest
             };
 
-            this.layout.AddElement(this.rightToolbarContainer);
+            this.rightToolbarContainer.PositionRelativeToScreen();
 
+            layoutBuilder.AddElement(this.rightToolbarContainer);
         }
 
-        private void CreateTopToolbarSlots()
+        private void CreateTopToolbarSlots(ISGUILayoutBuilder layoutBuilder)
         {
             Vector2 slotMargin = new(SHUDConstants.SLOT_SPACING, 0);
 
@@ -127,12 +129,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 // Spacing
                 slotMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
-                this.layout.AddElement(slotBackground);
-                this.layout.AddElement(slotIcon);
+                layoutBuilder.AddElement(slotBackground);
+                layoutBuilder.AddElement(slotIcon);
             }
         }
 
-        private void CreateSearchSlot()
+        private void CreateSearchSlot(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement slotSearchBackground = new(this.SGameInstance)
             {
@@ -155,8 +157,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
             slotIcon.PositionRelativeToElement(slotSearchBackground);
 
-            this.layout.AddElement(slotSearchBackground);
-            this.layout.AddElement(slotIcon);
+            layoutBuilder.AddElement(slotSearchBackground);
+            layoutBuilder.AddElement(slotIcon);
 
             this.toolbarElementSearchButton = slotSearchBackground;
         }

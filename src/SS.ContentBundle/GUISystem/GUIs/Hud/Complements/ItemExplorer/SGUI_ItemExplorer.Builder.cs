@@ -16,24 +16,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_ItemExplorer
     {
-        private ISGUILayoutBuilder layout;
-
         private SGUILabelElement explorerTitleLabel;
 
         private (SGUIImageElement background, SGUIImageElement icon)[] itemButtonSlots;
         private (SGUIImageElement background, SGUIImageElement icon)[] categoryButtonSlots;
 
-        protected override void OnBuild(ISGUILayoutBuilder layout)
+        protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            this.layout = layout;
+            BuildGUIBackground(layoutBuilder);
+            BuildExplorer(layoutBuilder);
 
-            BuildGUIBackground();
-            BuildExplorer();
-
-            layout.AddElement(this.tooltipBoxElement);
+            layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
-        private void BuildGUIBackground()
+        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement guiBackground = new(this.SGameInstance)
             {
@@ -43,12 +39,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Color = new Color(SColorPalette.DarkGray, 160)
             };
 
-            this.layout.AddElement(guiBackground);
+            layoutBuilder.AddElement(guiBackground);
         }
 
         // ================================== //
 
-        private void BuildExplorer()
+        private void BuildExplorer(ISGUILayoutBuilder layoutBuilder)
         {
             #region BACKGROUND & TITLE
             SGUISliceImageElement explorerBackground = new(this.SGameInstance)
@@ -73,8 +69,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.explorerTitleLabel.SetAllBorders(true, new Color(45, 53, 74, 255), new Vector2(4.4f));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 
-            this.layout.AddElement(explorerBackground);
-            this.layout.AddElement(this.explorerTitleLabel);
+            layoutBuilder.AddElement(explorerBackground);
+            layoutBuilder.AddElement(this.explorerTitleLabel);
             #endregion
 
             #region ITEM DISPLAY
@@ -89,12 +85,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             itemGridBackground.PositionRelativeToElement(explorerBackground);
 
-            this.layout.AddElement(itemGridBackground);
-            BuildItemCatalogSlots(itemGridBackground);
+            layoutBuilder.AddElement(itemGridBackground);
+            BuildItemCatalogSlots(layoutBuilder, itemGridBackground);
             #endregion
 
             #region CATEGORY BUTTONS
-            BuildCategoryButtons(itemGridBackground);
+            BuildCategoryButtons(layoutBuilder, itemGridBackground);
             #endregion
 
             #region PAGINATION
@@ -102,7 +98,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             #endregion
         }
 
-        private void BuildItemCatalogSlots(SGUIElement parent)
+        private void BuildItemCatalogSlots(ISGUILayoutBuilder layoutBuilder, SGUIElement parent)
         {
             Vector2 slotMargin = new(32, 40);
 
@@ -143,8 +139,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     index++;
 
                     // Adding
-                    this.layout.AddElement(slotBackground);
-                    this.layout.AddElement(slotIcon);
+                    layoutBuilder.AddElement(slotBackground);
+                    layoutBuilder.AddElement(slotIcon);
                 }
 
                 slotMargin.X = 32;
@@ -152,7 +148,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
-        private void BuildCategoryButtons(SGUIElement parent)
+        private void BuildCategoryButtons(ISGUILayoutBuilder layoutBuilder, SGUIElement parent)
         {
             Vector2 slotMargin = new(0, -160);
 
@@ -196,8 +192,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 index++;
 
                 // Adding
-                this.layout.AddElement(slotBackground);
-                this.layout.AddElement(slotIcon);
+                layoutBuilder.AddElement(slotBackground);
+                layoutBuilder.AddElement(slotIcon);
             }
         }
     }

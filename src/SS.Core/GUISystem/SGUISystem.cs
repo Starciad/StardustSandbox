@@ -65,7 +65,7 @@ namespace StardustSandbox.Core.GUISystem
             OnClosed();
         }
 
-        protected abstract void OnBuild(ISGUILayoutBuilder layout);
+        protected abstract void OnBuild(ISGUILayoutBuilder layoutBuilder);
         protected virtual void OnOpened() { return; }
         protected virtual void OnClosed() { return; }
     }

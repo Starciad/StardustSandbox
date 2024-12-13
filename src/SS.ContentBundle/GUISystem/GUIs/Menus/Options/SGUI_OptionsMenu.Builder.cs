@@ -20,8 +20,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_OptionsMenu
     {
-        private ISGUILayoutBuilder layout;
-
         private SGUILabelElement titleLabel;
 
         private SGUISliceImageElement panelBackground;
@@ -50,30 +48,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private static readonly float leftPanelMarginVerticalSpacing = 58f;
         private static readonly float rightPanelMarginVerticalSpacing = 55f;
 
-        protected override void OnBuild(ISGUILayoutBuilder layout)
+        protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            this.layout = layout;
-
             // Decorations
-            BuildPanels();
-            BuildTitle();
+            BuildPanels(layoutBuilder);
+            BuildTitle(layoutBuilder);
 
             // Buttons
-            BuildSectionButtons();
-            BuildSystemButtons();
+            BuildSectionButtons(layoutBuilder);
+            BuildSystemButtons(layoutBuilder);
 
             // Sections
-            BuildSections();
+            BuildSections(layoutBuilder);
         }
 
-        private void BuildPanels()
+        private void BuildPanels(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildPanelBackground();
-            BuildLeftPanel();
-            BuildRightPanel();
+            BuildPanelBackground(layoutBuilder);
+            BuildLeftPanel(layoutBuilder);
+            BuildRightPanel(layoutBuilder);
         }
 
-        private void BuildPanelBackground()
+        private void BuildPanelBackground(ISGUILayoutBuilder layoutBuilder)
         {
             this.panelBackground = new(this.SGameInstance)
             {
@@ -86,10 +82,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.panelBackground.PositionRelativeToScreen();
 
-            this.layout.AddElement(this.panelBackground);
+            layoutBuilder.AddElement(this.panelBackground);
         }
 
-        private void BuildLeftPanel()
+        private void BuildLeftPanel(ISGUILayoutBuilder layoutBuilder)
         {
             this.leftPanelBackground = new(this.SGameInstance)
             {
@@ -101,10 +97,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             };
 
             this.leftPanelBackground.PositionRelativeToElement(this.panelBackground);
-            this.layout.AddElement(this.leftPanelBackground);
+            layoutBuilder.AddElement(this.leftPanelBackground);
         }
 
-        private void BuildRightPanel()
+        private void BuildRightPanel(ISGUILayoutBuilder layoutBuilder)
         {
             this.rightPanelBackground = new(this.SGameInstance)
             {
@@ -117,10 +113,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             };
 
             this.rightPanelBackground.PositionRelativeToElement(this.leftPanelBackground);
-            this.layout.AddElement(this.rightPanelBackground);
+            layoutBuilder.AddElement(this.rightPanelBackground);
         }
 
-        private void BuildTitle()
+        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
         {
             this.titleLabel = new(this.SGameInstance)
             {
@@ -136,10 +132,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4.4f));
             this.titleLabel.PositionRelativeToScreen();
 
-            this.layout.AddElement(this.titleLabel);
+            layoutBuilder.AddElement(this.titleLabel);
         }
 
-        private void BuildSectionButtons()
+        private void BuildSectionButtons(ISGUILayoutBuilder layoutBuilder)
         {
             // BUTTONS
             Vector2 margin = baseVerticalMargin;
@@ -157,11 +153,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 this.sectionButtonElements[i] = labelElement;
                 margin.Y += leftPanelMarginVerticalSpacing;
 
-                this.layout.AddElement(labelElement);
+                layoutBuilder.AddElement(labelElement);
             }
         }
 
-        private void BuildSystemButtons()
+        private void BuildSystemButtons(ISGUILayoutBuilder layoutBuilder)
         {
             Vector2 margin = baseVerticalMargin;
 
@@ -177,19 +173,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 this.systemButtonElements[i] = labelElement;
                 margin.Y -= leftPanelMarginVerticalSpacing;
 
-                this.layout.AddElement(labelElement);
+                layoutBuilder.AddElement(labelElement);
             }
         }
 
         // ============================================================================ //
 
-        private void BuildSections()
+        private void BuildSections(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildVideoSection();
-            BuildLanguageSection();
+            BuildVideoSection(layoutBuilder);
+            BuildLanguageSection(layoutBuilder);
         }
 
-        private void BuildVideoSection()
+        private void BuildVideoSection(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
@@ -224,10 +220,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
 
             this.sectionContainers[(byte)SMenuSection.Video] = container;
-            this.layout.AddElement(container);
+            layoutBuilder.AddElement(container);
         }
 
-        private void BuildLanguageSection()
+        private void BuildLanguageSection(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
@@ -249,7 +245,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
 
             this.sectionContainers[(byte)SMenuSection.Language] = container;
-            this.layout.AddElement(container);
+            layoutBuilder.AddElement(container);
         }
 
         // ============================================================================ //

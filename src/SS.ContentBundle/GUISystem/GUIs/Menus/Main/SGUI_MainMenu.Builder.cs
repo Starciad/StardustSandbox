@@ -12,25 +12,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_MainMenu
     {
-        private ISGUILayoutBuilder layout;
-
         private SGUIImageElement panelBackgroundElement;
         private SGUIImageElement gameTitleElement;
 
         private readonly SGUILabelElement[] menuButtonElements = new SGUILabelElement[5];
 
-        protected override void OnBuild(ISGUILayoutBuilder layout)
+        protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            this.layout = layout;
-
-            BuildMainPanel();
-            BuildDecorations();
-            BuildGameTitle();
-            BuildButtons();
-            BuildInfos();
+            BuildMainPanel(layoutBuilder);
+            BuildDecorations(layoutBuilder);
+            BuildGameTitle(layoutBuilder);
+            BuildButtons(layoutBuilder);
+            BuildInfos(layoutBuilder);
         }
 
-        private void BuildMainPanel()
+        private void BuildMainPanel(ISGUILayoutBuilder layoutBuilder)
         {
             this.panelBackgroundElement = new(this.SGameInstance)
             {
@@ -40,10 +36,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Color = new(SColorPalette.DarkGray, 180),
             };
 
-            this.layout.AddElement(this.panelBackgroundElement);
+            layoutBuilder.AddElement(this.panelBackgroundElement);
         }
 
-        private void BuildDecorations()
+        private void BuildDecorations(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement prosceniumCurtainElement = new(this.SGameInstance)
             {
@@ -51,10 +47,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Scale = new Vector2(2)
             };
 
-            this.layout.AddElement(prosceniumCurtainElement);
+            layoutBuilder.AddElement(prosceniumCurtainElement);
         }
 
-        private void BuildInfos()
+        private void BuildInfos(ISGUILayoutBuilder layoutBuilder)
         {
             SGUILabelElement gameVersionLabel = new(this.SGameInstance)
             {
@@ -82,11 +78,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             copyrightLabel.SetTextualContent($"(c) {SGameConstants.YEAR} {SGameConstants.AUTHOR}");
             copyrightLabel.PositionRelativeToScreen();
 
-            this.layout.AddElement(gameVersionLabel);
-            this.layout.AddElement(copyrightLabel);
+            layoutBuilder.AddElement(gameVersionLabel);
+            layoutBuilder.AddElement(copyrightLabel);
         }
 
-        private void BuildGameTitle()
+        private void BuildGameTitle(ISGUILayoutBuilder layoutBuilder)
         {
             this.gameTitleElement = new(this.SGameInstance)
             {
@@ -99,9 +95,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             };
 
             this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            layoutBuilder.AddElement(gameTitleElement);
         }
 
-        private void BuildButtons()
+        private void BuildButtons(ISGUILayoutBuilder layoutBuilder)
         {
             // BUTTONS
             Vector2 baseMargin = new(0, 0);
@@ -127,11 +125,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 baseMargin.Y += 75;
             }
 
-            this.layout.AddElement(this.gameTitleElement);
+            layoutBuilder.AddElement(this.gameTitleElement);
 
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                this.layout.AddElement(this.menuButtonElements[i]);
+                layoutBuilder.AddElement(this.menuButtonElements[i]);
             }
         }
     }

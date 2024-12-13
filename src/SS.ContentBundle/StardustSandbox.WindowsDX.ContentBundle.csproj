@@ -59,6 +59,9 @@
 			<DependentUpon>SLocalization.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="GUISystem\GUIs\Menus\Worlds\" />
+	</ItemGroup>
 	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

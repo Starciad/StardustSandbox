@@ -15,20 +15,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_CreditsMenu
     {
-        private ISGUILayoutBuilder layout;
-
         private readonly List<SCreditSection> creditSections = [];
         private readonly List<SGUIElement> creditElements = [];
 
         private static readonly float verticalSpacing = 64f;
 
-        protected override void OnBuild(ISGUILayoutBuilder layout)
+        protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            this.layout = layout;
-
             BuildContent();
             BuildElements();
-            RegisterElements();
+            RegisterElements(layoutBuilder);
         }
 
         private void BuildContent()
@@ -234,11 +230,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             }
         }
 
-        private void RegisterElements()
+        private void RegisterElements(ISGUILayoutBuilder layoutBuilder)
         {
             foreach (SGUIElement element in this.creditElements)
             {
-                this.layout.AddElement(element);
+                layoutBuilder.AddElement(element);
             }
         }
     }
