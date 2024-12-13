@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;

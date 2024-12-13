@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Core.Constants
+﻿namespace StardustSandbox.Core.Constants.Fonts
 {
     public static class SFontFamilyConstants
     {

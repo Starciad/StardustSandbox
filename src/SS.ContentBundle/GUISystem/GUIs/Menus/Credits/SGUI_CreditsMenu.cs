@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Audio;
-using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;

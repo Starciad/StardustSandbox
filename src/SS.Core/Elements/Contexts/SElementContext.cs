@@ -7,7 +7,7 @@ using System;
 
 namespace StardustSandbox.Core.Elements.Contexts
 {
-    public sealed class SElementContext(ISWorld world) : ISElementContext
+    internal sealed class SElementContext(ISWorld world) : ISElementContext
     {
         public ISWorldSlot Slot => this.worldSlot;
         public ISElement Element => this.worldSlot.Element;
