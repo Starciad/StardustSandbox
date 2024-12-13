@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -14,20 +15,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly Texture2D guiBackgroundTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
-        private readonly string[] menuButtonNames;
-        private readonly Action[] buttonActions;
+        private readonly SButton[] menuButtons;
 
         internal SGUI_PlayMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
-            this.menuButtonNames = [
-                "Worlds"
-            ];
-
-            this.buttonActions = [
-                WorldsButton
+            this.menuButtons = [
+                new("Worlds", WorldsButton),
             ];
         }
     }
