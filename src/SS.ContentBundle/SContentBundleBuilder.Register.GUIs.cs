@@ -29,7 +29,9 @@ namespace StardustSandbox.ContentBundle
             SGUI_CreditsMenu creditsMenu = new(game, SGUIConstants.CREDITS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
 
             SGUI_HUD hud = new(game, SGUIConstants.HUD_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElementElement);
-            SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElementElement);
+            SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElementElement);
+
+            SGUI_WorldsExplorerMenu localWorlds = new(game, SGUIConstants.LOCAL_WORLDS_IDENTIFIER, game.GUIManager.GUIEvents);
 
             // =================================== //
             // Register
@@ -41,6 +43,8 @@ namespace StardustSandbox.ContentBundle
 
             guiDatabase.RegisterGUISystem(hud.Identifier, hud);
             guiDatabase.RegisterGUISystem(itemExplorer.Identifier, itemExplorer);
+
+            guiDatabase.RegisterGUISystem(localWorlds.Identifier, localWorlds);
         }
     }
 }

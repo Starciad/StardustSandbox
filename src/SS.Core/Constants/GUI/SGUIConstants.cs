@@ -8,6 +8,8 @@
         public const string CREDITS_MENU_IDENTIFIER = SGameConstants.TITLE + "_CREDITS_MENU";
 
         public const string HUD_IDENTIFIER = SGameConstants.TITLE + "_HUD";
-        public const string HUD_ELEMENT_EXPLORER_IDENTIFIER = SGameConstants.TITLE + "_HUD_ELEMENT_EXPLORER";
+        public const string HUD_ITEM_EXPLORER_IDENTIFIER = SGameConstants.TITLE + "_HUD_ITEM_EXPLORER";
+
+        public const string LOCAL_WORLDS_IDENTIFIER = SGameConstants.TITLE + "_LOCAL_WORLDS_EXPLORER";
     }
 }

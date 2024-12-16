@@ -6,7 +6,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         private void WorldsButton()
         {
-            // this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.WORLDS_MENU_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.LOCAL_WORLDS_IDENTIFIER);
         }
     }
 }

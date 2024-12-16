@@ -68,21 +68,14 @@ namespace StardustSandbox.Core.Managers.IO
 
         public static void Deserialize(string identifier, ISWorld world, GraphicsDevice graphicsDevice)
         {
-            // Paths
-            string filename = Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD));
-
-            // Streams
-            using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using ZipArchive saveFileZipArchive = new(inputSaveFile, ZipArchiveMode.Read);
-
             // Read
-            SWorldSaveFile worldSaveFile = ReadZipFile(saveFileZipArchive, graphicsDevice);
+            SWorldSaveFile worldSaveFile = LoadWorldSaveData(identifier, graphicsDevice);
 
             // Apply
             world.LoadFromWorldSaveFile(worldSaveFile);
         }
 
-        private static SWorldSaveFile CreateWorldSaveFile(ISWorld world, GraphicsDevice graphicsDevice)
+        public static SWorldSaveFile CreateWorldSaveFile(ISWorld world, GraphicsDevice graphicsDevice)
         {
             DateTime currentDateTime = DateTime.Now;
 
@@ -107,6 +100,35 @@ namespace StardustSandbox.Core.Managers.IO
                 },
             };
         }
+
+        public static SWorldSaveFile LoadWorldSaveData(string identifier, GraphicsDevice graphicsDevice)
+        {
+            // Paths
+            string filename = Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD));
+
+            // Streams
+            using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using ZipArchive saveFileZipArchive = new(inputSaveFile, ZipArchiveMode.Read);
+
+            // Read
+            return ReadZipFile(saveFileZipArchive, graphicsDevice);
+        }
+
+        public static SWorldSaveFile[] LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
+        {
+            string[] files = Directory.GetFiles(SDirectory.Worlds, string.Concat("*.", SFileExtensionConstants.WORLD), SearchOption.TopDirectoryOnly);
+            SWorldSaveFile[] saveFiles = new SWorldSaveFile[files.Length];
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                saveFiles[i] = LoadWorldSaveData(Path.GetFileNameWithoutExtension(files[i]), graphicsDevice);
+            }
+
+            return saveFiles;
+        }
+
+        // ============================================== //
+        // Utilities
 
         private static SWorldSlotData[] CreateWorldSlotsData(ISWorld world, SSize2 worldSize)
         {

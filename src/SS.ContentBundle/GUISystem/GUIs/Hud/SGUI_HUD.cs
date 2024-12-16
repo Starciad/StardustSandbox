@@ -100,7 +100,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             #region SEARCH BUTTON
             if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
             {
-                this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ELEMENT_EXPLORER_IDENTIFIER);
+                this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER);
             }
 
             if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
