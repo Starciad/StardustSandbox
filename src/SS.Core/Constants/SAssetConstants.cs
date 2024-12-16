@@ -33,6 +33,7 @@
 
         // Gui
         public const byte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 6;
+        public const byte GRAPHICS_GUI_BUTTONS_LENGTH = 1;
 
         // Icons
         public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 24;

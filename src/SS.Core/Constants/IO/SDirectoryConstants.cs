@@ -46,6 +46,7 @@
         // Gui
         public const string ASSETS_GRAPHICS_GUI = "gui";
         public const string ASSETS_GRAPHICS_GUI_BACKGROUNDS = "backgrounds";
+        public const string ASSETS_GRAPHICS_GUI_BUTTONS = "buttons";
 
         // Icons
         public const string ASSETS_GRAPHICS_ICONS = "icons";

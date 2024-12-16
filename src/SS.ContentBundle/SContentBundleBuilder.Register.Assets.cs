@@ -69,6 +69,7 @@ namespace StardustSandbox.ContentBundle
 
             // GUI
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_BACKGROUNDS_LENGTH, "gui_background_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_BACKGROUNDS));
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_BUTTONS_LENGTH, "gui_button_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_BUTTONS));
 
             // Icons
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_ELEMENTS_LENGTH, "icon_element_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_ELEMENTS));

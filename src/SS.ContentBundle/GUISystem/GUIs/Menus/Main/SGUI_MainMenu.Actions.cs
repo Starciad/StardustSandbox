@@ -4,27 +4,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_MainMenu
     {
-        private void CreateMenuButton()
+        private void CreateMenuButtonAction()
         {
             this.SGameInstance.GameManager.StartGame();
         }
 
-        private void PlayMenuButton()
+        private void PlayMenuButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.PLAY_MENU_IDENTIFIER);
         }
 
-        private void OptionsMenuButton()
+        private void OptionsMenuButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
         }
 
-        private void CreditsMenuButton()
+        private void CreditsMenuButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.CREDITS_MENU_IDENTIFIER);
         }
 
-        private void QuitMenuButton()
+        private void QuitMenuButtonAction()
         {
             this.SGameInstance.Quit();
         }

@@ -4,6 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -12,15 +13,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_WorldsExplorerMenu
     {
+        private SGUIImageElement headerBackgroundElement;
+
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildHeader(layoutBuilder);
             BuildFooter(layoutBuilder);
+
+            BuildingWorldDisplaySlots(layoutBuilder);
         }
 
         private void BuildHeader(ISGUILayoutBuilder layoutBuilder)
         {
-            SGUIImageElement backgroundImage = new(this.SGameInstance)
+            this.headerBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
                 Color = new(SColorPalette.DarkGray, 196),
@@ -39,9 +44,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             titleLabel.SetTextualContent("Worlds Explorer");
             titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
-            titleLabel.PositionRelativeToElement(backgroundImage);
+            titleLabel.PositionRelativeToElement(this.headerBackgroundElement);
 
-            layoutBuilder.AddElement(backgroundImage);
+            layoutBuilder.AddElement(this.headerBackgroundElement);
             layoutBuilder.AddElement(titleLabel);
         }
 
@@ -115,6 +120,47 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             layoutBuilder.AddElement(indexNumbersLabel);
             layoutBuilder.AddElement(nextButtonLabel);
             layoutBuilder.AddElement(previousButtonLabel);
+        }
+
+        // ========================================================================== //
+
+        private void BuildingWorldDisplaySlots(ISGUILayoutBuilder layoutBuilder)
+        {
+            Vector2 slotMargin = new(32, SWorldsExplorerConstants.SLOT_HEIGHT_SPACING / 2 + 32);
+
+            int rows = SWorldsExplorerConstants.ITEMS_PER_ROW;
+            int columns = SWorldsExplorerConstants.ITEMS_PER_COLUMN;
+
+            SGUIImageElement[] itemButtonSlots = new SGUIImageElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
+
+            int index = 0;
+            for (int col = 0; col < columns; col++)
+            {
+                for (int row = 0; row < rows; row++)
+                {
+                    SGUIImageElement slotBackground = new(this.SGameInstance)
+                    {
+                        Texture = this.particleTexture,
+                        Scale = new(SWorldsExplorerConstants.SLOT_WIDTH, SWorldsExplorerConstants.SLOT_HEIGHT),
+                        Size = new(1),
+                        Margin = slotMargin
+                    };
+
+                    // Position
+                    slotBackground.PositionRelativeToElement(this.headerBackgroundElement);
+
+                    // Spacing
+                    slotMargin.X += SWorldsExplorerConstants.SLOT_WIDTH_SPACING;
+                    itemButtonSlots[index] = slotBackground;
+                    index++;
+
+                    // Adding
+                    layoutBuilder.AddElement(slotBackground);
+                }
+
+                slotMargin.X = 32;
+                slotMargin.Y += SWorldsExplorerConstants.SLOT_HEIGHT_SPACING;
+            }
         }
     }
 }

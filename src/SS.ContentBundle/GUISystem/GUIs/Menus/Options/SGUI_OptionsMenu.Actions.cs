@@ -10,13 +10,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         // ================================== //
         // Button Methods
 
-        private void SaveButton()
+        private void SaveButtonAction()
         {
             SaveVideoSettings();
             SaveLanguageSettings();
         }
 
-        private void ReturnButton()
+        private void ReturnButtonAction()
         {
             this.SGameInstance.GUIManager.CloseGUI();
         }

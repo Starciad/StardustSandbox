@@ -4,12 +4,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_PlayMenu
     {
-        private void WorldsButton()
+        private void WorldsButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.LOCAL_WORLDS_IDENTIFIER);
         }
 
-        private void ReturnButton()
+        private void ReturnButtonAction()
         {
             this.SGameInstance.GUIManager.CloseGUI();
         }

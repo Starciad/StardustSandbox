@@ -2,52 +2,52 @@
 {
     internal sealed partial class SGUI_HUD
     {
-        private void WeatherSettingsButton()
+        private void WeatherSettingsButtonAction()
         {
 
         }
 
-        private void PenSettingsButton()
+        private void PenSettingsButtonAction()
         {
 
         }
 
-        private void ScreenshotButton()
+        private void ScreenshotButtonAction()
         {
 
         }
 
-        private void WorldSettingsButton()
+        private void WorldSettingsButtonAction()
         {
 
         }
 
-        private void PauseSimulationButton()
+        private void PauseSimulationButtonAction()
         {
 
         }
 
-        private void GameMenuButton()
+        private void GameMenuButtonAction()
         {
 
         }
 
-        private void SaveButton()
+        private void SaveButtonAction()
         {
 
         }
 
-        private void EraserButton()
+        private void EraserButtonAction()
         {
 
         }
 
-        private void UndoButton()
+        private void UndoButtonAction()
         {
 
         }
 
-        private void ClearWorld()
+        private void ClearWorldAction()
         {
             this.world.Clear();
         }

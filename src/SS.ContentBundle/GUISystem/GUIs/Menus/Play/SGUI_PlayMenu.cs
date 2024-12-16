@@ -31,8 +31,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
             this.menuButtons = [
-                new(this.worldIconTexture, "Worlds", WorldsButton),
-                new(this.returnIconTexture, "Return", ReturnButton),
+                new(this.worldIconTexture, "Worlds", WorldsButtonAction),
+                new(this.returnIconTexture, "Return", ReturnButtonAction),
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];

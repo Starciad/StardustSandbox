@@ -105,7 +105,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             int rows = SItemExplorerConstants.ITEMS_PER_ROW;
             int columns = SItemExplorerConstants.ITEMS_PER_COLUMN;
 
-            this.itemButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[rows * columns];
+            this.itemButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[SItemExplorerConstants.ITEMS_PER_PAGE];
 
             int index = 0;
             for (int col = 0; col < columns; col++)
