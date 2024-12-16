@@ -8,5 +8,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.LOCAL_WORLDS_IDENTIFIER);
         }
+
+        private void ReturnButton()
+        {
+            this.SGameInstance.GUIManager.CloseGUI();
+        }
     }
 }

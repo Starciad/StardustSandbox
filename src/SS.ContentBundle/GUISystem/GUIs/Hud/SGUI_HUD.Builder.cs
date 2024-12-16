@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
@@ -19,7 +20,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement toolbarElementSearchButton;
         private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
 
-        private readonly Color toolbarContainerColor = new(Color.White, 32);
+        private readonly Color toolbarContainerColor = new(SColorPalette.White, 32);
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {

@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
+using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -25,6 +27,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
         private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
         private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
+        private readonly SpriteFont bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
         private readonly SGUI_HUD _guiHUD = guiHUD;
         private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
@@ -103,7 +106,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     }
                 }
 
-                itemSlotBackground.Color = isOver ? Color.DarkGray : Color.White;
+                itemSlotBackground.Color = isOver ? SColorPalette.LightGrayBlue : SColorPalette.White;
             }
         }
 

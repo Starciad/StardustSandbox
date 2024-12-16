@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.General;
@@ -44,7 +45,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 
             foreach (SCardinalDirection direction in Enum.GetValues(typeof(SCardinalDirection)))
             {
-                this.borderSettings[direction] = new(false, Color.Black, Vector2.Zero);
+                this.borderSettings[direction] = new(false, SColorPalette.DarkGray, Vector2.Zero);
             }
         }
 

@@ -1,28 +1,50 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_PlayMenu
     {
+        private readonly SGUILabelElement[] menuButtonElements;
+
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildButtons(layoutBuilder);
-        }
-
-        private void BuildButtons(ISGUILayoutBuilder layoutBuilder)
-        {
-            BuildReturnButton(layoutBuilder);
+            BuildTitle(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
         }
 
-        private void BuildReturnButton(ISGUILayoutBuilder layoutBuilder)
+        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
         {
-            return;
+            SGUIImageElement backgroundImage = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Color = new(SColorPalette.DarkGray, 196),
+                Size = SSize2.One,
+                Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, 128f),
+            };
+
+            SGUILabelElement titleLabel = new(this.SGameInstance)
+            {
+                Scale = new(0.2f),
+                SpriteFont = this.bigApple3PMSpriteFont,
+                PositionAnchor = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.Center,
+            };
+
+            titleLabel.SetTextualContent("Play Menu");
+            titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
+            titleLabel.PositionRelativeToElement(backgroundImage);
+
+            layoutBuilder.AddElement(backgroundImage);
+            layoutBuilder.AddElement(titleLabel);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
@@ -31,21 +53,38 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                SGUILabelElement labelElement = new(this.SGameInstance)
+                SButton button = this.menuButtons[i];
+
+                SGUILabelElement buttonLabel = new(this.SGameInstance)
                 {
-                    Color = SColorPalette.White,
-                    Margin = margin,
                     Scale = new(0.15f),
+                    Margin = margin,
                     SpriteFont = this.bigApple3PMSpriteFont,
                     PositionAnchor = SCardinalDirection.Center,
                     OriginPivot = SCardinalDirection.Center,
                 };
 
-                labelElement.SetTextualContent(this.menuButtons[i].DisplayName);
-                labelElement.PositionRelativeToScreen();
-                layoutBuilder.AddElement(labelElement);
+                buttonLabel.SetTextualContent(button.DisplayName);
+                buttonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
 
-                margin.Y += labelElement.GetStringSize().Height + 16f;
+                SGUIImageElement buttonIcon = new(this.SGameInstance)
+                {
+                    Texture = button.IconTexture,
+                    PositionAnchor = SCardinalDirection.West,
+                    OriginPivot = SCardinalDirection.Center,
+                    Margin = new((buttonLabel.GetStringSize().Width + button.IconTexture.Width / 2f) * -1, 0f),
+                    Scale = new(2),
+                };
+
+                buttonLabel.PositionRelativeToScreen();
+                buttonIcon.PositionRelativeToElement(buttonLabel);
+
+                layoutBuilder.AddElement(buttonLabel);
+                layoutBuilder.AddElement(buttonIcon);
+
+                margin.Y += buttonLabel.GetStringSize().Height + 32f;
+
+                this.menuButtonElements[i] = buttonLabel;
             }
         }
     }

@@ -5,6 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
@@ -66,8 +67,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
 
             this.systemButtons = [
-                new(SLocalization.Statements_Return, ReturnButton),
-                new(SLocalization.Statements_Save, SaveButton),
+                new(null, SLocalization.Statements_Return, ReturnButton),
+                new(null, SLocalization.Statements_Save, SaveButton),
             ];
 
             this.sectionContainers = new SGUIContainerElement[this.sectionNames.Length];
@@ -132,11 +133,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.selectedSectionIndex.Equals(i))
                 {
-                    labelElement.Color = Color.Yellow;
+                    labelElement.Color = SColorPalette.LemonYellow;
                     continue;
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
 
             for (byte i = 0; i < this.systemButtonElements.Length; i++)
@@ -148,7 +149,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     this.systemButtons[i].ClickAction.Invoke();
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 
@@ -164,7 +165,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     labelElement.SetTextualContent(this.videoSectionOptionSelectors[i].ToString());
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 
@@ -181,11 +182,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.selectedLanguageIndex.Equals(i))
                 {
-                    labelElement.Color = Color.Yellow;
+                    labelElement.Color = SColorPalette.LemonYellow;
                     continue;
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 

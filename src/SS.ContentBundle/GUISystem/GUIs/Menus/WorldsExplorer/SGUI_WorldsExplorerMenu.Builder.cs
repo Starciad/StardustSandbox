@@ -1,4 +1,9 @@
-﻿using StardustSandbox.Core.Interfaces.GUI;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces.GUI;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -6,7 +11,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
+            BuildGUIBackground(layoutBuilder);
+            // BuildExplorer(layoutBuilder);
+        }
 
+        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        {
+            SGUIImageElement guiBackground = new(this.SGameInstance)
+            {
+                Texture = this.particleTexture,
+                Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Size = SScreenConstants.DEFAULT_SCREEN_SIZE,
+                Color = new Color(SColorPalette.DarkGray, 160)
+            };
+
+            layoutBuilder.AddElement(guiBackground);
         }
     }
 }

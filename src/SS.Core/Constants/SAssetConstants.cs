@@ -36,7 +36,7 @@
 
         // Icons
         public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 24;
-        public const byte GRAPHICS_ICONS_GUI_LENGTH = 14;
+        public const byte GRAPHICS_ICONS_GUI_LENGTH = 17;
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 2;
 
         // Miscellaneous

@@ -56,7 +56,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 Margin = new Vector2(-32f, -32f),
                 Scale = new Vector2(0.08f),
-                Color = Color.White,
+                Color = SColorPalette.White,
                 PositionAnchor = SCardinalDirection.Southeast,
                 OriginPivot = SCardinalDirection.West,
                 SpriteFont = this.bigApple3PMSpriteFont,
@@ -66,7 +66,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 Margin = new Vector2(0f, -32),
                 Scale = new Vector2(0.08f),
-                Color = Color.White,
+                Color = SColorPalette.White,
                 PositionAnchor = SCardinalDirection.South,
                 OriginPivot = SCardinalDirection.Center,
                 SpriteFont = this.bigApple3PMSpriteFont,

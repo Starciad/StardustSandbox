@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.Entities.Specials;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
@@ -64,11 +65,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
 
             this.menuButtons = [
-                new(SLocalization.GUI_Menu_Main_Button_Create, CreateMenuButton),
-                new(SLocalization.GUI_Menu_Main_Button_Play, PlayMenuButton),
-                new(SLocalization.GUI_Menu_Main_Button_Options, OptionsMenuButton),
-                new(SLocalization.GUI_Menu_Main_Button_Credits, CreditsMenuButton),
-                new(SLocalization.GUI_Menu_Main_Button_Quit, QuitMenuButton),
+                new(null, SLocalization.GUI_Menu_Main_Button_Create, CreateMenuButton),
+                new(null, SLocalization.GUI_Menu_Main_Button_Play, PlayMenuButton),
+                new(null, SLocalization.GUI_Menu_Main_Button_Options, OptionsMenuButton),
+                new(null, SLocalization.GUI_Menu_Main_Button_Credits, CreditsMenuButton),
+                new(null, SLocalization.GUI_Menu_Main_Button_Quit, QuitMenuButton),
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
@@ -173,7 +174,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     this.menuButtons[i].ClickAction.Invoke();
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? Color.Yellow : Color.White;
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
     }
