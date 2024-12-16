@@ -13,23 +13,5 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
 
         }
-
-        private void LoadWorlds()
-        {
-            switch (this.worldLoadingType)
-            {
-                case SWorldLoadingType.Local:
-                    LoadAllLocalWorlds();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void LoadAllLocalWorlds()
-        {
-            SWorldSavingManager.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice);
-        }
     }
 }

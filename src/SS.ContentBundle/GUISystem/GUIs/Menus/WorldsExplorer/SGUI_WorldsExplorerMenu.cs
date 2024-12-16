@@ -7,18 +7,23 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
-    internal sealed partial class SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : SGUISystem(gameInstance, identifier, guiEvents)
+    internal sealed partial class SGUI_WorldsExplorerMenu : SGUISystem
     {
-        private enum SWorldLoadingType
+        private readonly Texture2D particleTexture;
+        private readonly Texture2D squareShapeTexture;
+
+        private readonly Texture2D reloadIconTexture;
+        private readonly Texture2D exitIconTexture;
+
+        private readonly SpriteFont bigApple3PMSpriteFont;
+
+        public SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
-            Local,
+            this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
+            this.squareShapeTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_1");
+            this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
+            this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
         }
-
-        private SWorldLoadingType worldLoadingType;
-
-        private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-        private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
-        private readonly SpriteFont bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
     }
 }
