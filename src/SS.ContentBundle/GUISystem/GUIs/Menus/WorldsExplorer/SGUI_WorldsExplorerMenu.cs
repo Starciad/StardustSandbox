@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Extensions;
@@ -10,7 +12,9 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.IO.Files.World;
-using StardustSandbox.Core.Items;
+using StardustSandbox.Core.Mathematics.Primitives;
+
+using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -36,6 +40,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 this.TitleElement.IsVisible = false;
             }
         }
+
+        private int currentPage = 0;
+        private int totalPages = 1;
 
         private SWorldSaveFile[] savedWorldFilesLoaded;
 
@@ -67,17 +74,54 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 new(this.reloadIconTexture, "Previous", PreviousButtonAction),
                 new(this.exitIconTexture, "Next", NextButtonAction),
             ];
+
+            this.headerButtonElements = new SGUILabelElement[this.headerButtons.Length];
+            this.footerButtonElements = new SGUILabelElement[this.footerButtons.Length];
+
+            UpdatePagination();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            // Buttons
+            for (int i = 0; i < this.headerButtons.Length; i++)
+            {
+                // {It will still be added.}
+            }
+
+            for (int i = 0; i < this.footerButtonElements.Length; i++)
+            {
+                SGUILabelElement labelElement = this.footerButtonElements[i];
+                SSize2F labelElementSize = labelElement.GetStringSize() / 2f;
+
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElementSize))
+                {
+                    this.footerButtons[i].ClickAction.Invoke();
+                }
+
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? SColorPalette.LemonYellow : SColorPalette.White;
+            }
+        }
+
+        private void UpdatePagination()
+        {
+            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SWorldsExplorerConstants.ITEMS_PER_PAGE));
+            this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
+            this.pageIndexLabel?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
         }
 
         private void ChangeWorldsCatalog()
         {
+            int startIndex = this.currentPage * SWorldsExplorerConstants.ITEMS_PER_PAGE;
+
             for (int i = 0; i < this.slotInfoElements.Length; i++)
             {
                 SSlotInfoElement slotInfoElement = this.slotInfoElements[i];
+                int worldIndex = startIndex + i;
 
-                if (i < this.savedWorldFilesLoaded.Length)
+                if (worldIndex < this.savedWorldFilesLoaded?.Length)
                 {
-                    SWorldSaveFile worldSaveFile = this.savedWorldFilesLoaded[i];
+                    SWorldSaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
 
                     slotInfoElement.EnableVisibility();
                     slotInfoElement.ThumbnailElement.Texture = worldSaveFile.ThumbnailTexture;
@@ -88,6 +132,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     slotInfoElement.DisableVisibility();
                 }
             }
+
+            UpdatePagination();
         }
     }
 }
