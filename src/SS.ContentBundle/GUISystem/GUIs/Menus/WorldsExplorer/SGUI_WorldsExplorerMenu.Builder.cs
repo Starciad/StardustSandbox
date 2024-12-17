@@ -83,14 +83,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 OriginPivot = SCardinalDirection.Center,
             };
 
-            SGUILabelElement nextButtonLabel = new(this.SGameInstance)
-            {
-                Scale = new(0.15f),
-                SpriteFont = this.bigApple3PMSpriteFont,
-                PositionAnchor = SCardinalDirection.East,
-                OriginPivot = SCardinalDirection.Center,
-            };
-
             SGUILabelElement previousButtonLabel = new(this.SGameInstance)
             {
                 Scale = new(0.15f),
@@ -99,35 +91,43 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 OriginPivot = SCardinalDirection.Center,
             };
 
-            this.footerButtonElements[0] = nextButtonLabel;
-            this.footerButtonElements[1] = previousButtonLabel;
+            SGUILabelElement nextButtonLabel = new(this.SGameInstance)
+            {
+                Scale = new(0.15f),
+                SpriteFont = this.bigApple3PMSpriteFont,
+                PositionAnchor = SCardinalDirection.East,
+                OriginPivot = SCardinalDirection.Center,
+            };
+
+            this.footerButtonElements[0] = previousButtonLabel;
+            this.footerButtonElements[1] = nextButtonLabel;
 
             pageIndexTitleLabel.SetTextualContent("Current Page");
             this.pageIndexLabel.SetTextualContent("1 / 1");
-            nextButtonLabel.SetTextualContent("Next");
             previousButtonLabel.SetTextualContent("Previous");
+            nextButtonLabel.SetTextualContent("Next");
 
             pageIndexTitleLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
             this.pageIndexLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
-            nextButtonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
             previousButtonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
+            nextButtonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
 
             pageIndexTitleLabel.Margin = new(0f, -16f);
             this.pageIndexLabel.Margin = new(0f, pageIndexTitleLabel.GetStringSize().Height);
-            nextButtonLabel.Margin = new((nextButtonLabel.GetStringSize().Width + 32f) * -1, 0f);
             previousButtonLabel.Margin = new(previousButtonLabel.GetStringSize().Width + 32f, 0f);
+            nextButtonLabel.Margin = new((nextButtonLabel.GetStringSize().Width + 32f) * -1, 0f);
 
             backgroundImage.PositionRelativeToScreen();
             pageIndexTitleLabel.PositionRelativeToElement(backgroundImage);
             this.pageIndexLabel.PositionRelativeToElement(pageIndexTitleLabel);
-            nextButtonLabel.PositionRelativeToElement(backgroundImage);
             previousButtonLabel.PositionRelativeToElement(backgroundImage);
+            nextButtonLabel.PositionRelativeToElement(backgroundImage);
 
             layoutBuilder.AddElement(backgroundImage);
             layoutBuilder.AddElement(pageIndexTitleLabel);
             layoutBuilder.AddElement(this.pageIndexLabel);
-            layoutBuilder.AddElement(nextButtonLabel);
             layoutBuilder.AddElement(previousButtonLabel);
+            layoutBuilder.AddElement(nextButtonLabel);
         }
 
         // ========================================================================== //

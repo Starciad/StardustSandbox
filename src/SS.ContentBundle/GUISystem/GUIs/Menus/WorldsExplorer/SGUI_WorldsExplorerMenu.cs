@@ -71,8 +71,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             ];
 
             this.footerButtons = [
-                new(this.reloadIconTexture, "Previous", PreviousButtonAction),
-                new(this.exitIconTexture, "Next", NextButtonAction),
+                new(null, "Previous", PreviousButtonAction),
+                new(null, "Next", NextButtonAction),
             ];
 
             this.headerButtonElements = new SGUILabelElement[this.headerButtons.Length];
