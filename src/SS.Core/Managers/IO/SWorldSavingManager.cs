@@ -116,7 +116,7 @@ namespace StardustSandbox.Core.Managers.IO
 
         public static SWorldSaveFile[] LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
         {
-            string[] files = Directory.GetFiles(SDirectory.Worlds, string.Concat("*.", SFileExtensionConstants.WORLD), SearchOption.TopDirectoryOnly);
+            string[] files = Directory.GetFiles(SDirectory.Worlds, string.Concat('*', SFileExtensionConstants.WORLD), SearchOption.TopDirectoryOnly);
             SWorldSaveFile[] saveFiles = new SWorldSaveFile[files.Length];
 
             for (int i = 0; i < files.Length; i++)

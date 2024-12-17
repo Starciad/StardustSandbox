@@ -15,6 +15,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         private SGUIImageElement headerBackgroundElement;
 
+        private readonly SSlotInfoElement[] slotInfoElements;
+
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildHeader(layoutBuilder);
@@ -131,31 +133,63 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             int rows = SWorldsExplorerConstants.ITEMS_PER_ROW;
             int columns = SWorldsExplorerConstants.ITEMS_PER_COLUMN;
 
-            SGUIImageElement[] itemButtonSlots = new SGUIImageElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
-
             int index = 0;
             for (int col = 0; col < columns; col++)
             {
                 for (int row = 0; row < rows; row++)
                 {
-                    SGUIImageElement slotBackground = new(this.SGameInstance)
+                    SGUIImageElement backgroundImageElement = new(this.SGameInstance)
                     {
                         Texture = this.particleTexture,
                         Scale = new(SWorldsExplorerConstants.SLOT_WIDTH, SWorldsExplorerConstants.SLOT_HEIGHT),
                         Size = new(1),
+                        Color = SColorPalette.NavyBlue,
                         Margin = slotMargin
                     };
 
+                    SGUIImageElement thumbnailImageElement = new(this.SGameInstance)
+                    {
+                        Scale = new(5.1f),
+                        Size = SWorldConstants.WORLD_THUMBNAIL_SIZE,
+                        PositionAnchor = SCardinalDirection.West,
+                        OriginPivot = SCardinalDirection.East,
+                        Margin = new(11.5f, 0f),
+                    };
+
+                    SGUILabelElement titleLabelElement = new(this.SGameInstance)
+                    {
+                        Color = SColorPalette.White,
+                        SpriteFont = this.bigApple3PMSpriteFont,
+                        OriginPivot = SCardinalDirection.East,
+                        PositionAnchor = SCardinalDirection.North,
+                        Scale = new(0.1f),
+                        Margin = new(-52.5f, 23f),
+                    };
+
+                    // Setting
+                    titleLabelElement.SetTextualContent("Title");
+
                     // Position
-                    slotBackground.PositionRelativeToElement(this.headerBackgroundElement);
+                    backgroundImageElement.PositionRelativeToElement(this.headerBackgroundElement);
+                    thumbnailImageElement.PositionRelativeToElement(backgroundImageElement);
+                    titleLabelElement.PositionRelativeToElement(backgroundImageElement);
 
                     // Spacing
                     slotMargin.X += SWorldsExplorerConstants.SLOT_WIDTH_SPACING;
-                    itemButtonSlots[index] = slotBackground;
+
+                    this.slotInfoElements[index] = new()
+                    {
+                        BackgroundElement = backgroundImageElement,
+                        ThumbnailElement = thumbnailImageElement,
+                        TitleElement = titleLabelElement
+                    };
+
                     index++;
 
                     // Adding
-                    layoutBuilder.AddElement(slotBackground);
+                    layoutBuilder.AddElement(backgroundImageElement);
+                    layoutBuilder.AddElement(thumbnailImageElement);
+                    layoutBuilder.AddElement(titleLabelElement);
                 }
 
                 slotMargin.X = 32;

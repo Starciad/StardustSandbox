@@ -4,7 +4,7 @@
     {
         private void ReloadButtonAction()
         {
-
+            LoadAllLocalSavedWorlds();
         }
 
         private void ExitButtonAction()
