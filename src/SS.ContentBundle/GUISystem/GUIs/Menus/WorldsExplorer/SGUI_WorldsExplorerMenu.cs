@@ -47,9 +47,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SWorldSaveFile[] savedWorldFilesLoaded;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiButtonTexture;
-        private readonly Texture2D reloadIconTexture;
+        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D guiButton2Texture;
         private readonly Texture2D exitIconTexture;
+        private readonly Texture2D reloadIconTexture;
+        private readonly Texture2D folderIconTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
         private readonly SButton[] headerButtons;
@@ -58,16 +60,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         public SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_2");
-            this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
+            this.guiButton1Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.guiButton2Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_2");
             this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
+            this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
+            this.folderIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_18");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
             this.slotInfoElements = new SSlotInfoElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
 
             this.headerButtons = [
-                new(this.reloadIconTexture, "Reload", ReloadButtonAction),
                 new(this.exitIconTexture, "Exit", ExitButtonAction),
+                new(this.reloadIconTexture, "Reload", ReloadButtonAction),
+                new(this.folderIconTexture, "Open Directory in Explorer", OpenDirectoryInExplorerAction),
             ];
 
             this.footerButtons = [
@@ -75,7 +80,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 new(null, "Next", NextButtonAction),
             ];
 
-            this.headerButtonElements = new SGUILabelElement[this.headerButtons.Length];
+            this.headerButtonElements = new SGUIImageElement[this.headerButtons.Length];
             this.footerButtonElements = new SGUILabelElement[this.footerButtons.Length];
 
             UpdatePagination();
@@ -83,12 +88,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         public override void Update(GameTime gameTime)
         {
-            // Buttons
-            for (int i = 0; i < this.headerButtons.Length; i++)
+            #region BUTTONS
+            // HEADER
+            for (int i = 0; i < this.headerButtonElements.Length; i++)
             {
-                // {It will still be added.}
+                SGUIImageElement buttonBackgroundElement = this.headerButtonElements[i];
+                SSize2 buttonSize = buttonBackgroundElement.Size / 2;
+
+                if (this.GUIEvents.OnMouseClick(buttonBackgroundElement.Position, buttonSize))
+                {
+                    this.headerButtons[i].ClickAction.Invoke();
+                }
+
+                buttonBackgroundElement.Color = this.GUIEvents.OnMouseOver(buttonBackgroundElement.Position, buttonSize) ? SColorPalette.LightGrayBlue : SColorPalette.White;
             }
 
+            // FOOTER
             for (int i = 0; i < this.footerButtonElements.Length; i++)
             {
                 SGUILabelElement labelElement = this.footerButtonElements[i];
@@ -101,6 +116,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
+            #endregion
         }
 
         private void UpdatePagination()

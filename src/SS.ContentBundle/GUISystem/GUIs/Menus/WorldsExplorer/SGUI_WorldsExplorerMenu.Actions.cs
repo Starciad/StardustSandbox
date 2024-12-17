@@ -1,4 +1,6 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+﻿using StardustSandbox.Core.IO;
+
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_WorldsExplorerMenu
     {
@@ -41,6 +43,11 @@
             }
 
             ChangeWorldsCatalog();
+        }
+
+        private void OpenDirectoryInExplorerAction()
+        {
+            SDirectory.OpenDirectoryInFileExplorer(SDirectory.Worlds);
         }
     }
 }

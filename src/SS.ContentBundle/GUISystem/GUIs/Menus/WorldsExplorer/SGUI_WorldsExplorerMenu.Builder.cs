@@ -2,6 +2,7 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -16,7 +17,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SGUIImageElement headerBackgroundElement;
         private SGUILabelElement pageIndexLabel;
 
-        private readonly SGUILabelElement[] headerButtonElements;
+        private readonly SGUIImageElement[] headerButtonElements;
         private readonly SGUILabelElement[] footerButtonElements;
         private readonly SSlotInfoElement[] slotInfoElements;
 
@@ -30,6 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildHeader(ISGUILayoutBuilder layoutBuilder)
         {
+            // Background
             this.headerBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
@@ -38,7 +40,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96f),
             };
 
-            SGUILabelElement titleLabel = new(this.SGameInstance)
+            // Title
+            SGUILabelElement titleLabelElement = new(this.SGameInstance)
             {
                 Scale = new(0.15f),
                 SpriteFont = this.bigApple3PMSpriteFont,
@@ -47,12 +50,48 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Margin = new(32f, 0f),
             };
 
-            titleLabel.SetTextualContent("Worlds Explorer");
-            titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
-            titleLabel.PositionRelativeToElement(this.headerBackgroundElement);
+            titleLabelElement.SetTextualContent("Worlds Explorer");
+            titleLabelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
+            titleLabelElement.PositionRelativeToElement(this.headerBackgroundElement);
 
             layoutBuilder.AddElement(this.headerBackgroundElement);
-            layoutBuilder.AddElement(titleLabel);
+            layoutBuilder.AddElement(titleLabelElement);
+
+            // Buttons
+            Vector2 baseMargin = new(-64f, 0);
+
+            for (int i = 0; i < this.headerButtons.Length; i++)
+            {
+                SButton button = this.headerButtons[i];
+
+                SGUIImageElement buttonBackgroundElement = new(this.SGameInstance)
+                {
+                    Texture = this.guiButton1Texture,
+                    PositionAnchor = SCardinalDirection.East,
+                    OriginPivot = SCardinalDirection.Center,
+                    Margin = baseMargin,
+                    Scale = new(2f),
+                    Size = new(32f),
+                };
+
+                SGUIImageElement buttonIconElement = new(this.SGameInstance)
+                {
+                    Texture = button.IconTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new(1.5f),
+                    Size = new(32f),
+                };
+
+                buttonBackgroundElement.PositionRelativeToElement(this.headerBackgroundElement);
+                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+
+                layoutBuilder.AddElement(buttonBackgroundElement);
+                layoutBuilder.AddElement(buttonIconElement);
+
+                this.headerButtonElements[i] = buttonBackgroundElement;
+
+                baseMargin.X -= buttonBackgroundElement.Size.Width + 16f;
+            }
         }
 
         private void BuildFooter(ISGUILayoutBuilder layoutBuilder)
@@ -146,7 +185,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 {
                     SGUIImageElement backgroundImageElement = new(this.SGameInstance)
                     {
-                        Texture = this.guiButtonTexture,
+                        Texture = this.guiButton2Texture,
                         Size = new(SWorldsExplorerConstants.SLOT_WIDTH, SWorldsExplorerConstants.SLOT_HEIGHT),
                         Margin = slotMargin
                     };
