@@ -2,6 +2,7 @@
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
@@ -31,7 +32,8 @@ namespace StardustSandbox.ContentBundle
             SGUI_HUD hud = new(game, SGUIConstants.HUD_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElementElement);
             SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElementElement);
 
-            SGUI_WorldsExplorerMenu localWorlds = new(game, SGUIConstants.LOCAL_WORLDS_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_WorldDetailsMenu detailsMenu = new(game, SGUIConstants.WORLD_DETAILS_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_WorldsExplorerMenu worldsExplorer = new(game, SGUIConstants.WORLDS_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, detailsMenu);
 
             // =================================== //
             // Register
@@ -44,7 +46,8 @@ namespace StardustSandbox.ContentBundle
             guiDatabase.RegisterGUISystem(hud.Identifier, hud);
             guiDatabase.RegisterGUISystem(itemExplorer.Identifier, itemExplorer);
 
-            guiDatabase.RegisterGUISystem(localWorlds.Identifier, localWorlds);
+            guiDatabase.RegisterGUISystem(worldsExplorer.Identifier, worldsExplorer);
+            guiDatabase.RegisterGUISystem(detailsMenu.Identifier, detailsMenu);
         }
     }
 }
