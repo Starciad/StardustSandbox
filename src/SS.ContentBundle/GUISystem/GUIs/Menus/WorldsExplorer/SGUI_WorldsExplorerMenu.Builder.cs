@@ -146,10 +146,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 {
                     SGUIImageElement backgroundImageElement = new(this.SGameInstance)
                     {
-                        Texture = this.particleTexture,
-                        Scale = new(SWorldsExplorerConstants.SLOT_WIDTH, SWorldsExplorerConstants.SLOT_HEIGHT),
-                        Size = new(1),
-                        Color = SColorPalette.NavyBlue,
+                        Texture = this.guiButtonTexture,
+                        Size = new(SWorldsExplorerConstants.SLOT_WIDTH, SWorldsExplorerConstants.SLOT_HEIGHT),
                         Margin = slotMargin
                     };
 

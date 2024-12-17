@@ -58,7 +58,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         public SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_2");
             this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
             this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
