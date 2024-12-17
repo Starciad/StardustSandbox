@@ -66,10 +66,10 @@ namespace StardustSandbox.Core.Managers.IO
             saveFileMemoryStream.WriteTo(outputSaveFile);
         }
 
-        public static void Deserialize(string identifier, ISWorld world, GraphicsDevice graphicsDevice)
+        public static void Deserialize(string name, ISWorld world, GraphicsDevice graphicsDevice)
         {
             // Read
-            SWorldSaveFile worldSaveFile = LoadWorldSaveData(identifier, graphicsDevice);
+            SWorldSaveFile worldSaveFile = LoadWorldSaveData(name, graphicsDevice);
 
             // Apply
             world.LoadFromWorldSaveFile(worldSaveFile);
@@ -101,10 +101,10 @@ namespace StardustSandbox.Core.Managers.IO
             };
         }
 
-        public static SWorldSaveFile LoadWorldSaveData(string identifier, GraphicsDevice graphicsDevice)
+        public static SWorldSaveFile LoadWorldSaveData(string name, GraphicsDevice graphicsDevice)
         {
             // Paths
-            string filename = Path.Combine(SDirectory.Worlds, string.Concat(identifier, SFileExtensionConstants.WORLD));
+            string filename = Path.Combine(SDirectory.Worlds, string.Concat(name, SFileExtensionConstants.WORLD));
 
             // Streams
             using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -125,6 +125,16 @@ namespace StardustSandbox.Core.Managers.IO
             }
 
             return saveFiles;
+        }
+
+        public static void DeleteSavedFile(string name)
+        {
+            string filename = Path.Combine(SDirectory.Worlds, string.Concat(name, SFileExtensionConstants.WORLD));
+
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
         }
 
         // ============================================== //

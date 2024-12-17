@@ -142,7 +142,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(backgroundPosition, backgroundSize))
                 {
-                    this.detailsMenu.SetWorldSaveFile(this.savedWorldFilesLoaded[i]);
+                    this.detailsMenu.SetWorldSaveFile(this.savedWorldFilesLoaded[this.currentPage + i]);
                     this.SGameInstance.GUIManager.OpenGUI(this.detailsMenu.Identifier);
                 }
 
