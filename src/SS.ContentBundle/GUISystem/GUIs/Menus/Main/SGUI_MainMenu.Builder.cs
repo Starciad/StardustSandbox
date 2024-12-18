@@ -96,7 +96,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-            layoutBuilder.AddElement(gameTitleElement);
+            layoutBuilder.AddElement(this.gameTitleElement);
         }
 
         private void BuildButtons(ISGUILayoutBuilder layoutBuilder)

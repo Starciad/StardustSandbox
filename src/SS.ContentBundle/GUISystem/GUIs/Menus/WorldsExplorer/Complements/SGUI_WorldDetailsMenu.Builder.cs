@@ -5,7 +5,6 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -134,7 +133,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
             {
                 SpriteFont = this.bigApple3PMSpriteFont,
                 Scale = new(0.075f),
-                Margin = new(0f, this.worldCreationTimestampElement.GetStringSize().Height + 64f * -1f),
+                Margin = new(0f, this.worldCreationTimestampElement.GetStringSize().Height + (64f * -1f)),
                 PositionAnchor = SCardinalDirection.Northeast,
                 OriginPivot = SCardinalDirection.Northwest,
             };

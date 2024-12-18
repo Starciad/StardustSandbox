@@ -20,7 +20,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement rightToolbarContainer;
 
         private SGUIImageElement toolbarElementSearchButton;
-        
+
         private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly SToolbarSlot[] leftPanelTopButtonElements;
         private readonly SToolbarSlot[] leftPanelBottomButtonElements;
@@ -55,7 +55,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             };
 
             this.topToolbarContainer.PositionRelativeToScreen();
-            
+
             layoutBuilder.AddElement(this.topToolbarContainer);
 
             CreateTopToolbarSlots(layoutBuilder);

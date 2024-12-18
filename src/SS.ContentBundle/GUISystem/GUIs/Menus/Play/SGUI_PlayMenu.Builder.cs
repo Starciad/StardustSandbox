@@ -72,7 +72,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Texture = button.IconTexture,
                     PositionAnchor = SCardinalDirection.West,
                     OriginPivot = SCardinalDirection.Center,
-                    Margin = new((buttonLabel.GetStringSize().Width + button.IconTexture.Width / 2f) * -1, 0f),
+                    Margin = new((buttonLabel.GetStringSize().Width + (button.IconTexture.Width / 2f)) * -1, 0f),
                     Scale = new(2),
                 };
 

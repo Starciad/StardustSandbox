@@ -118,12 +118,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TrySwappingElements(Point element1Position, Point element2Position)
         {
-            if (this.world.TrySwappingElements(element1Position, element2Position))
-            {
-                return true;
-            }
-
-            return false;
+            return this.world.TrySwappingElements(element1Position, element2Position);
         }
 
         public void DestroyElement()

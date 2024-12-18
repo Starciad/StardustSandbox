@@ -5,7 +5,7 @@ namespace StardustSandbox.Core.Constants
     public static class SScreenConstants
     {
         public static SSize2 DEFAULT_SCREEN_SIZE => new(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-        
+
         public const byte DEFAULT_FRAME_RATE = 60;
         public const int DEFAULT_SCREEN_WIDTH = 1280;
         public const int DEFAULT_SCREEN_HEIGHT = 0720;

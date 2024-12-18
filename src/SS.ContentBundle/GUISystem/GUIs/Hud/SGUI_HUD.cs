@@ -17,8 +17,6 @@ using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
-
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD : SGUISystem
@@ -153,16 +151,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void SetPlayerInteractionWhenToolbarHovered()
         {
-            if (this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
-                this.GUIEvents.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
-                this.GUIEvents.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size))
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
-            }
-            else
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
-            }
+            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) &&
+!this.GUIEvents.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) &&
+!this.GUIEvents.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
         }
 
         private void UpdateTopToolbar()

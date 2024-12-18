@@ -50,7 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
                 SGUILabelElement slotInfoElement = this.worldButtonElements[i];
 
                 SSize2 buttonSize = slotInfoElement.GetStringSize() / 2;
-                Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.Width, slotInfoElement.Position.Y - buttonSize.Height / 4);
+                Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.Width, slotInfoElement.Position.Y - (buttonSize.Height / 4));
 
                 if (this.GUIEvents.OnMouseClick(buttonPosition, buttonSize))
                 {

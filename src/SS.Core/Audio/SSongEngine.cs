@@ -32,10 +32,7 @@ namespace StardustSandbox.Core.Audio
             set => MediaPlayer.IsShuffled = value;
         }
 
-        public static MediaState State
-        {
-            get => MediaPlayer.State;
-        }
+        public static MediaState State => MediaPlayer.State;
 
         public static void Play(Song song)
         {

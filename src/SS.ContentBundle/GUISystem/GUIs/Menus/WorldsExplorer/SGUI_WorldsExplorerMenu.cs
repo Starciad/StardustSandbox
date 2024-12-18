@@ -131,7 +131,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             for (int i = 0; i < this.slotInfoElements.Length; i++)
             {
                 SSlotInfoElement slotInfoElement = this.slotInfoElements[i];
-    
+
                 if (!this.slotInfoElements[i].IsVisible)
                 {
                     break;

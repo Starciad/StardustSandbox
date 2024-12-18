@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.Elements
                 }
 
                 if (this.EnableNeighborsAction)
-                { 
+                {
                     OnNeighbors(neighbors);
                 }
             }
@@ -92,6 +92,7 @@ namespace StardustSandbox.Core.Elements
             {
                 OnBehaviourStep();
             }
+
             OnAfterStep();
         }
 

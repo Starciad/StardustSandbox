@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
@@ -93,7 +92,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void CheckIfTheCreditsHaveFinished()
         {
-            if (((this.lastElement.Position.Y + this.lastElement.Size.Height) * this.lastElement.Scale.Y + 16f) < 0f)
+            if ((((this.lastElement.Position.Y + this.lastElement.Size.Height) * this.lastElement.Scale.Y) + 16f) < 0f)
             {
                 this.SGameInstance.GUIManager.CloseGUI();
             }
