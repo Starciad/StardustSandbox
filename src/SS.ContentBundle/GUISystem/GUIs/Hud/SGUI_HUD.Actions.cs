@@ -28,7 +28,18 @@
         #region Bottom Buttons
         private void PauseSimulationButtonAction()
         {
-            this.SGameInstance.GameManager.GameState.IsSimulationPaused = !this.SGameInstance.GameManager.GameState.IsSimulationPaused;
+            SToolbarSlot toolbarSlot = this.leftPanelBottomButtonElements[0];
+
+            if (this.SGameInstance.GameManager.GameState.IsSimulationPaused)
+            {
+                this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
+                toolbarSlot.Icon.Texture = this.iconTextures[(byte)SIconIndex.Pause];
+            }
+            else
+            {
+                this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
+                toolbarSlot.Icon.Texture = this.iconTextures[(byte)SIconIndex.Resume];
+            }
         }
         #endregion
         #endregion

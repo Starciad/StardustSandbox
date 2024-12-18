@@ -131,10 +131,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 new(this.iconTextures[(byte)SIconIndex.Eraser], "Eraser", string.Empty, EraserButtonAction),
             ];
 
-            this.leftPanelTopButtonElements = new SGUIImageElement[this.leftPanelTopButtons.Length];
-            this.leftPanelBottomButtonElements = new SGUIImageElement[this.leftPanelBottomButtons.Length];
-            this.rightPanelTopButtonElements = new SGUIImageElement[this.rightPanelTopButtons.Length];
-            this.rightPanelBottomButtonElements = new SGUIImageElement[this.rightPanelBottomButtons.Length];
+            this.leftPanelTopButtonElements = new SToolbarSlot[this.leftPanelTopButtons.Length];
+            this.leftPanelBottomButtonElements = new SToolbarSlot[this.leftPanelBottomButtons.Length];
+            this.rightPanelTopButtonElements = new SToolbarSlot[this.rightPanelTopButtons.Length];
+            this.rightPanelBottomButtonElements = new SToolbarSlot[this.rightPanelBottomButtons.Length];
         }
 
         public override void Update(GameTime gameTime)
@@ -225,23 +225,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             #region MENU BUTTONS
 
-            void CycleThroughArrayOfButtons(SGUIImageElement[] buttonElements, SButton[] buttons, int length)
+            void CycleThroughArrayOfButtons(SToolbarSlot[] toolbarSlots, SButton[] buttons, int length)
             {
                 for (int i = 0; i < length; i++)
                 {
-                    SGUIImageElement buttonBackground = buttonElements[i];
+                    SToolbarSlot toolbarSlot = toolbarSlots[i];
                     SButton button = buttons[i];
 
-                    bool isOver = this.GUIEvents.OnMouseOver(buttonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE));
 
-                    if (this.GUIEvents.OnMouseClick(buttonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                    if (this.GUIEvents.OnMouseClick(toolbarSlot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                     {
                         button.ClickAction.Invoke();
                     }
 
                     if (isOver)
                     {
-                        buttonBackground.Color = SColorPalette.EmeraldGreen;
+                        toolbarSlot.Background.Color = SColorPalette.EmeraldGreen;
                         this.tooltipBoxElement.IsVisible = true;
 
                         if (!this.tooltipBoxElement.HasContent)
@@ -252,7 +252,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                     }
                     else
                     {
-                        buttonBackground.Color = SColorPalette.White;
+                        toolbarSlot.Background.Color = SColorPalette.White;
                     }
                 }
             }

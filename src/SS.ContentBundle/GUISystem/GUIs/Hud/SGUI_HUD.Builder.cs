@@ -22,12 +22,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement toolbarElementSearchButton;
         
         private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
-        private readonly Color toolbarContainerColor = new(SColorPalette.White, 32);
+        private readonly SToolbarSlot[] leftPanelTopButtonElements;
+        private readonly SToolbarSlot[] leftPanelBottomButtonElements;
+        private readonly SToolbarSlot[] rightPanelTopButtonElements;
+        private readonly SToolbarSlot[] rightPanelBottomButtonElements;
 
-        private readonly SGUIImageElement[] leftPanelTopButtonElements;
-        private readonly SGUIImageElement[] leftPanelBottomButtonElements;
-        private readonly SGUIImageElement[] rightPanelTopButtonElements;
-        private readonly SGUIImageElement[] rightPanelBottomButtonElements;
+        private readonly Color toolbarContainerColor = new(SColorPalette.White, 32);
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
@@ -94,7 +94,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 buttonBackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
                 buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
 
-                this.leftPanelTopButtonElements[i] = buttonBackgroundElement;
+                this.leftPanelTopButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
 
                 baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -117,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 buttonBackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
                 buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
 
-                this.leftPanelBottomButtonElements[i] = buttonBackgroundElement;
+                this.leftPanelBottomButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
 
                 baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -160,7 +160,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 buttonBackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
                 buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
 
-                this.rightPanelTopButtonElements[i] = buttonBackgroundElement;
+                this.rightPanelTopButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
 
                 baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -183,7 +183,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 buttonBackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
                 buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
 
-                this.rightPanelBottomButtonElements[i] = buttonBackgroundElement;
+                this.rightPanelBottomButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
 
                 baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
