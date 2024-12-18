@@ -23,6 +23,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUILabelElement toolsSectionTitleElement;
         private SGUILabelElement layerSectionTitleElement;
 
+        private SGUIImageElement brushSizeSliderElement;
+
         private readonly SSlot[] toolButtonSlots;
         private readonly SSlot[] layerButtonSlots;
 
@@ -99,7 +101,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            SGUIImageElement brushSizeSliderElement = new(this.SGameInstance)
+            this.brushSizeSliderElement = new(this.SGameInstance)
             {
                 Texture = this.guiSliderTexture,
                 TextureClipArea = new(new(0, 0), new(326, 38)),
@@ -112,10 +114,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.brushSectionTitleElement.SetTextualContent("Brush Size");
 
             this.brushSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
-            brushSizeSliderElement.PositionRelativeToElement(this.brushSectionTitleElement);
+            this.brushSizeSliderElement.PositionRelativeToElement(this.brushSectionTitleElement);
 
             layoutBuilder.AddElement(this.brushSectionTitleElement);
-            layoutBuilder.AddElement(brushSizeSliderElement);
+            layoutBuilder.AddElement(this.brushSizeSliderElement);
         }
 
         private void BuildToolSection(ISGUILayoutBuilder layoutBuilder)
@@ -171,7 +173,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Scale = new Vector2(0.1f),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
-                Margin = new(this.toolsSectionTitleElement.Size.Width + this.toolButtonSlots[^1].BackgroundElement.Size.Width + 176, 0f)
+                Margin = new(this.toolsSectionTitleElement.Size.Width + SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.toolButtonSlots.Length + 96, 0f)
             };
 
             this.brushSectionTitleElement.SetTextualContent("Layer");
