@@ -67,8 +67,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
 
             this.systemButtons = [
-                new(null, SLocalization.Statements_Return, ReturnButtonAction),
-                new(null, SLocalization.Statements_Save, SaveButtonAction),
+                new(null, SLocalization.Statements_Return, string.Empty, ReturnButtonAction),
+                new(null, SLocalization.Statements_Save, string.Empty, SaveButtonAction),
             ];
 
             this.sectionContainers = new SGUIContainerElement[this.sectionNames.Length];

@@ -77,14 +77,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.slotInfoElements = new SSlotInfoElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
 
             this.headerButtons = [
-                new(this.exitIconTexture, "Exit", ExitButtonAction),
-                new(this.reloadIconTexture, "Reload", ReloadButtonAction),
-                new(this.folderIconTexture, "Open Directory in Explorer", OpenDirectoryInExplorerAction),
+                new(this.exitIconTexture, "Exit", string.Empty, ExitButtonAction),
+                new(this.reloadIconTexture, "Reload", string.Empty, ReloadButtonAction),
+                new(this.folderIconTexture, "Open Directory in Explorer", string.Empty, OpenDirectoryInExplorerAction),
             ];
 
             this.footerButtons = [
-                new(null, "Previous", PreviousButtonAction),
-                new(null, "Next", NextButtonAction),
+                new(null, "Previous", string.Empty, PreviousButtonAction),
+                new(null, "Next", string.Empty, NextButtonAction),
             ];
 
             this.headerButtonElements = new SGUIImageElement[this.headerButtons.Length];

@@ -34,9 +34,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
             this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR);
 
             this.worldButtons = [
-                new(null, "Return", ReturnButtonAction),
-                new(null, "Delete", DeleteButtonAction),
-                new(null, "Play", PlayButtonAction),
+                new(null, "Return", string.Empty, ReturnButtonAction),
+                new(null, "Delete", string.Empty, DeleteButtonAction),
+                new(null, "Play", string.Empty, PlayButtonAction),
             ];
 
             this.worldButtonElements = new SGUILabelElement[this.worldButtons.Length];

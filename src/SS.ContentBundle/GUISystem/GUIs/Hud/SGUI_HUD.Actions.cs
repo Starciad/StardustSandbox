@@ -28,7 +28,7 @@
         #region Bottom Buttons
         private void PauseSimulationButtonAction()
         {
-
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = !this.SGameInstance.GameManager.GameState.IsSimulationPaused;
         }
         #endregion
         #endregion
@@ -39,7 +39,7 @@
         #region Top Buttons
         private void GameMenuButtonAction()
         {
-
+            this.SGameInstance.GUIManager.CloseGUI();
         }
 
         private void SaveMenuButtonAction()
@@ -61,6 +61,7 @@
 
         private void EraseEverythingButtonAction()
         {
+            this.SGameInstance.EntityManager.RemoveAll();
             this.world.Clear();
         }
         #endregion

@@ -17,6 +17,8 @@ using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System;
+
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD : SGUISystem
@@ -108,25 +110,25 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.leftPanelTopButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Weather], "Weather Settings", WeatherSettingsButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Pen], "Pen Settings", PenSettingsButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Screenshot], "Screenshot", ScreenshotButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Settings], "World Settings", WorldSettingsButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Weather], "Weather Settings", string.Empty, WeatherSettingsButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Pen], "Pen Settings", string.Empty, PenSettingsButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Screenshot], "Screenshot Settings", string.Empty,ScreenshotButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Settings], "World Settings", string.Empty, WorldSettingsButtonAction),
             ];
 
             this.leftPanelBottomButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Pause], "Pause Simulation", PauseSimulationButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Pause], "Pause Simulation", string.Empty, PauseSimulationButtonAction),
             ];
 
             this.rightPanelTopButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Menu], "Game Menu", GameMenuButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Save], "Save Menu", SaveMenuButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Menu], "Game Menu", string.Empty, GameMenuButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Save], "Save Menu", string.Empty, SaveMenuButtonAction),
             ];
 
             this.rightPanelBottomButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Trash], "Erase Everything", EraseEverythingButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Reload], "Reload Simulation", ReloadSimulationButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Eraser], "Eraser", EraserButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Trash], "Erase Everything", string.Empty, EraseEverythingButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Reload], "Reload Simulation", string.Empty, ReloadSimulationButtonAction),
+                new(this.iconTextures[(byte)SIconIndex.Eraser], "Eraser", string.Empty, EraserButtonAction),
             ];
 
             this.leftPanelTopButtonElements = new SGUIImageElement[this.leftPanelTopButtons.Length];
@@ -141,6 +143,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.tooltipBoxElement.IsVisible = false;
 
+            SetPlayerInteractionWhenToolbarHovered();
             UpdateTopToolbar();
             UpdateLeftToolbar();
             UpdateRightToolbar();
@@ -148,10 +151,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
+        private void SetPlayerInteractionWhenToolbarHovered()
+        {
+            if (this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
+                this.GUIEvents.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
+                this.GUIEvents.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size))
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
+            }
+            else
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
+            }
+        }
+
         private void UpdateTopToolbar()
         {
-            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size);
-
             UpdateReturnInput();
 
             #region ELEMENT SLOTS
@@ -205,6 +220,47 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 this.toolbarElementSearchButton.Color = SColorPalette.White;
             }
+
+            #endregion
+
+            #region MENU BUTTONS
+
+            void CycleThroughArrayOfButtons(SGUIImageElement[] buttonElements, SButton[] buttons, int length)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    SGUIImageElement buttonBackground = buttonElements[i];
+                    SButton button = buttons[i];
+
+                    bool isOver = this.GUIEvents.OnMouseOver(buttonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+
+                    if (this.GUIEvents.OnMouseClick(buttonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                    {
+                        button.ClickAction.Invoke();
+                    }
+
+                    if (isOver)
+                    {
+                        buttonBackground.Color = SColorPalette.EmeraldGreen;
+                        this.tooltipBoxElement.IsVisible = true;
+
+                        if (!this.tooltipBoxElement.HasContent)
+                        {
+                            SGUIGlobalTooltip.Title = button.DisplayName;
+                            SGUIGlobalTooltip.Description = button.Description;
+                        }
+                    }
+                    else
+                    {
+                        buttonBackground.Color = SColorPalette.White;
+                    }
+                }
+            }
+
+            CycleThroughArrayOfButtons(this.leftPanelTopButtonElements, this.leftPanelTopButtons, this.leftPanelTopButtonElements.Length);
+            CycleThroughArrayOfButtons(this.leftPanelBottomButtonElements, this.leftPanelBottomButtons, this.leftPanelBottomButtonElements.Length);
+            CycleThroughArrayOfButtons(this.rightPanelTopButtonElements, this.rightPanelTopButtons, this.rightPanelTopButtonElements.Length);
+            CycleThroughArrayOfButtons(this.rightPanelBottomButtonElements, this.rightPanelBottomButtons, this.rightPanelBottomButtonElements.Length);
 
             #endregion
         }

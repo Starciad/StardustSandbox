@@ -136,7 +136,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Size = SSize2.One,
                 Color = this.toolbarContainerColor,
                 PositionAnchor = SCardinalDirection.Northeast,
-                Margin = new(-96, 112),
+                OriginPivot = SCardinalDirection.Southwest,
+                Margin = new(0, 112),
             };
 
             this.rightToolbarContainer.PositionRelativeToScreen();
@@ -144,7 +145,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             layoutBuilder.AddElement(this.rightToolbarContainer);
 
             #region BUTTONS
-            Vector2 baseMargin = new(0, SHUDConstants.SLOT_SPACING);
+            Vector2 baseMargin = new(-96, SHUDConstants.SLOT_SPACING);
 
             // Top
             for (int i = 0; i < this.rightPanelTopButtons.Length; i++)
@@ -167,7 +168,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 layoutBuilder.AddElement(buttonIconElement);
             }
 
-            baseMargin = new(0, -SHUDConstants.SLOT_SPACING);
+            baseMargin = new(-96, -SHUDConstants.SLOT_SPACING);
 
             // Bottom
             for (int i = 0; i < this.rightPanelBottomButtons.Length; i++)

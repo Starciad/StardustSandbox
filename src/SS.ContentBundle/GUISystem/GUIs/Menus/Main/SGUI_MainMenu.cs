@@ -65,11 +65,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.world = gameInstance.World;
 
             this.menuButtons = [
-                new(null, SLocalization.GUI_Menu_Main_Button_Create, CreateMenuButtonAction),
-                new(null, SLocalization.GUI_Menu_Main_Button_Play, PlayMenuButtonAction),
-                new(null, SLocalization.GUI_Menu_Main_Button_Options, OptionsMenuButtonAction),
-                new(null, SLocalization.GUI_Menu_Main_Button_Credits, CreditsMenuButtonAction),
-                new(null, SLocalization.GUI_Menu_Main_Button_Quit, QuitMenuButtonAction),
+                new(null, SLocalization.GUI_Menu_Main_Button_Create, string.Empty, CreateMenuButtonAction),
+                new(null, SLocalization.GUI_Menu_Main_Button_Play, string.Empty, PlayMenuButtonAction),
+                new(null, SLocalization.GUI_Menu_Main_Button_Options, string.Empty, OptionsMenuButtonAction),
+                new(null, SLocalization.GUI_Menu_Main_Button_Credits, string.Empty, CreditsMenuButtonAction),
+                new(null, SLocalization.GUI_Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
