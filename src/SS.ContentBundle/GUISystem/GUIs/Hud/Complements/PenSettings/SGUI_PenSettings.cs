@@ -82,6 +82,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             UpdateBrushSizeSlider();
             UpdateToolBottons();
             UpdateLayerButtons();
