@@ -95,7 +95,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.leftPanelTopButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
+                this.leftPanelTopButtonElements[i] = slot;
 
                 baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -118,7 +118,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.leftPanelBottomButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
+                this.leftPanelBottomButtonElements[i] = slot;
 
                 baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -161,7 +161,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.rightPanelTopButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
+                this.rightPanelTopButtonElements[i] = slot;
 
                 baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -184,7 +184,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.rightPanelBottomButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
+                this.rightPanelBottomButtonElements[i] = slot;
 
                 baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
@@ -219,7 +219,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
-                this.toolbarElementSlots[i] = new(slot.BackgroundElement, slot.IconElement);
+                this.toolbarElementSlots[i] = slot;
 
                 // Spacing
                 baseMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);

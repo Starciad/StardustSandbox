@@ -1,11 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -13,13 +18,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private SGUISliceImageElement panelBackgroundElement;
 
+        private SGUILabelElement menuTitleElement;
+        private SGUILabelElement brushSectionTitleElement;
+        private SGUILabelElement toolsSectionTitleElement;
+        private SGUILabelElement layerSectionTitleElement;
+
+        private readonly SSlot[] toolButtonSlots;
+        private readonly SSlot[] layerButtonSlots;
+
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
             BuildPanel(layoutBuilder);
-            BuildTools(layoutBuilder);
-            BuildBrushSizes(layoutBuilder);
-            BuildBrushTypes(layoutBuilder);
+            BuildBrushSizeSection(layoutBuilder);
+            BuildToolSection(layoutBuilder);
+            BuildLayerSection(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -76,9 +89,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             layoutBuilder.AddElement(titleLabelElement);
         }
 
-        private void BuildBrushSizes(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBrushSizeSection(ISGUILayoutBuilder layoutBuilder)
         {
-            SGUILabelElement titleLabelElement = new(this.SGameInstance)
+            this.brushSectionTitleElement = new(this.SGameInstance)
             {
                 Scale = new Vector2(0.1f),
                 Margin = new Vector2(18, 64),
@@ -96,24 +109,137 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 PositionAnchor = SCardinalDirection.South,
             };
 
-            titleLabelElement.SetTextualContent("Brush Size");
-            // titleLabelElement.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(3.5f));
-            
-            titleLabelElement.PositionRelativeToElement(this.panelBackgroundElement);
-            brushSizeSliderElement.PositionRelativeToElement(titleLabelElement);
+            this.brushSectionTitleElement.SetTextualContent("Brush Size");
 
-            layoutBuilder.AddElement(titleLabelElement);
+            this.brushSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            brushSizeSliderElement.PositionRelativeToElement(this.brushSectionTitleElement);
+
+            layoutBuilder.AddElement(this.brushSectionTitleElement);
             layoutBuilder.AddElement(brushSizeSliderElement);
         }
 
-        private void BuildTools(ISGUILayoutBuilder layoutBuilder)
+        private void BuildToolSection(ISGUILayoutBuilder layoutBuilder)
         {
+            this.toolsSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new Vector2(0.1f),
+                Margin = new Vector2(0, 128),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+            };
 
+            this.toolsSectionTitleElement.SetTextualContent("Tool");
+            this.toolsSectionTitleElement.PositionRelativeToElement(this.brushSectionTitleElement);
+
+            layoutBuilder.AddElement(this.toolsSectionTitleElement);
+
+            // Buttons
+            Vector2 baseMargin = new(32, 80);
+
+            for (int i = 0; i < this.toolButtons.Length; i++)
+            {
+                SButton button = this.toolButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture, button.DisplayName);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                slot.LabelElement.PositionAnchor = SCardinalDirection.South;
+                slot.LabelElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.toolsSectionTitleElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.LabelElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.toolButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+                layoutBuilder.AddElement(slot.LabelElement);
+            }
         }
 
-        private void BuildBrushTypes(ISGUILayoutBuilder layoutBuilder)
+        private void BuildLayerSection(ISGUILayoutBuilder layoutBuilder)
         {
+            this.brushSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new Vector2(0.1f),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+                Margin = new(this.toolsSectionTitleElement.Size.Width + this.toolButtonSlots[^1].BackgroundElement.Size.Width + 176, 0f)
+            };
 
+            this.brushSectionTitleElement.SetTextualContent("Layer");
+            this.brushSectionTitleElement.PositionRelativeToElement(this.toolsSectionTitleElement);
+
+            layoutBuilder.AddElement(this.brushSectionTitleElement);
+
+            // Buttons
+            Vector2 baseMargin = new(32, 80);
+
+            for (int i = 0; i < this.layerButtons.Length; i++)
+            {
+                SButton button = this.layerButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture, button.DisplayName);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                slot.LabelElement.PositionAnchor = SCardinalDirection.South;
+                slot.LabelElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.brushSectionTitleElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.LabelElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.layerButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+                layoutBuilder.AddElement(slot.LabelElement);
+            }
+        }
+
+        // =============================================================== //
+
+        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture, string labelContent)
+        {
+            SGUIImageElement backgroundElement = new(this.SGameInstance)
+            {
+                Texture = this.guiButton1Texture,
+                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Margin = margin,
+            };
+
+            SGUIImageElement iconElement = new(this.SGameInstance)
+            {
+                Texture = iconTexture,
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(1.5f),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE)
+            };
+
+            SGUILabelElement labelElement = new(this.SGameInstance)
+            {
+                SpriteFont = this.bigApple3PMSpriteFont,
+                Scale = new(0.05f),
+                Margin = new(-32, -16),
+            };
+
+            labelElement.SetTextualContent(labelContent);
+
+            return new(backgroundElement, iconElement, labelElement);
         }
     }
 }
