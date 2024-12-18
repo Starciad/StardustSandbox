@@ -2,6 +2,8 @@
 {
     internal sealed partial class SGUI_HUD
     {
+        #region LEFT PANEL
+        #region Top Buttons
         private void WeatherSettingsButtonAction()
         {
 
@@ -21,35 +23,47 @@
         {
 
         }
+        #endregion
 
+        #region Bottom Buttons
         private void PauseSimulationButtonAction()
         {
 
         }
+        #endregion
+        #endregion
 
+        // ==================================================== //
+
+        #region RIGHT PANEL
+        #region Top Buttons
         private void GameMenuButtonAction()
         {
 
         }
 
-        private void SaveButtonAction()
+        private void SaveMenuButtonAction()
         {
 
         }
+        #endregion
 
+        #region Bottom Buttons
         private void EraserButtonAction()
         {
 
         }
 
-        private void UndoButtonAction()
+        private void ReloadSimulationButtonAction()
         {
 
         }
 
-        private void ClearWorldAction()
+        private void EraseEverythingButtonAction()
         {
             this.world.Clear();
         }
+        #endregion
+        #endregion
     }
 }

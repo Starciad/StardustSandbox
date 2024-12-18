@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
         private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-        private readonly Texture2D squareShapeTexture = gameInstance.AssetDatabase.GetTexture("shape_square_1");
+        private readonly Texture2D guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
         private readonly SpriteFont bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
         private readonly SGUI_HUD _guiHUD = guiHUD;
@@ -106,7 +106,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     }
                 }
 
-                itemSlotBackground.Color = isOver ? SColorPalette.LightGrayBlue : SColorPalette.White;
+                itemSlotBackground.Color = isOver ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 

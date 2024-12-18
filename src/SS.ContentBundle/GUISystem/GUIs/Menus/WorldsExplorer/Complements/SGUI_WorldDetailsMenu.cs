@@ -69,7 +69,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 
         private void UpdateDisplay(SWorldSaveFile worldSaveFile)
         {
+            this.worldTitleElement.SetTextualContent(worldSaveFile.Metadata.Name);
+            this.worldDescriptionElement.SetTextualContent(worldSaveFile.Metadata.Description);
             this.worldThumbnailElement.Texture = worldSaveFile.ThumbnailTexture;
+            this.worldVersionElement.SetTextualContent(string.Concat('v', worldSaveFile.Metadata.Version));
+            this.worldCreationTimestampElement.SetTextualContent(worldSaveFile.Metadata.CreationTimestamp.ToString());
         }
     }
 }

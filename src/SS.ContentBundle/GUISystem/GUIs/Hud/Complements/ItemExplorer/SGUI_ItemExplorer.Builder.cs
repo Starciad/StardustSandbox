@@ -114,7 +114,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     SGUIImageElement slotBackground = new(this.SGameInstance)
                     {
-                        Texture = this.squareShapeTexture,
+                        Texture = this.guiButton1Texture,
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new Vector2(SHUDConstants.SLOT_SCALE),
                         PositionAnchor = SCardinalDirection.West,
@@ -160,7 +160,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 SGUIImageElement slotBackground = new(this.SGameInstance)
                 {
-                    Texture = this.squareShapeTexture,
+                    Texture = this.guiButton1Texture,
                     OriginPivot = SCardinalDirection.Center,
                     Scale = new Vector2(SHUDConstants.SLOT_SCALE),
                     PositionAnchor = SCardinalDirection.Northwest,
