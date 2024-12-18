@@ -2,6 +2,7 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -17,8 +18,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private SGUILabelElement explorerTitleLabel;
 
-        private (SGUIImageElement background, SGUIImageElement icon)[] itemButtonSlots;
-        private (SGUIImageElement background, SGUIImageElement icon)[] categoryButtonSlots;
+        private SSlot[] itemButtonSlots;
+        private SSlot[] categoryButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
@@ -60,7 +61,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Scale = new Vector2(0.15f),
                 Margin = new Vector2(18, -16),
-                Color = new Color(206, 214, 237, 255),
+                Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
@@ -104,7 +105,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             int rows = SItemExplorerConstants.ITEMS_PER_ROW;
             int columns = SItemExplorerConstants.ITEMS_PER_COLUMN;
 
-            this.itemButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[SItemExplorerConstants.ITEMS_PER_PAGE];
+            this.itemButtonSlots = new SSlot[SItemExplorerConstants.ITEMS_PER_PAGE];
 
             int index = 0;
             for (int col = 0; col < columns; col++)
@@ -134,7 +135,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     // Spacing
                     slotMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
-                    this.itemButtonSlots[index] = (slotBackground, slotIcon);
+                    this.itemButtonSlots[index] = new(slotBackground, slotIcon);
                     index++;
 
                     // Adding
@@ -151,7 +152,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             Vector2 slotMargin = new(0, -160);
 
-            this.categoryButtonSlots = new (SGUIImageElement background, SGUIImageElement icon)[this.SGameInstance.ItemDatabase.TotalCategoryCount];
+            this.categoryButtonSlots = new SSlot[this.SGameInstance.ItemDatabase.TotalCategoryCount];
 
             int index = 0;
 
@@ -187,7 +188,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 // Spacing
                 slotMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
-                this.categoryButtonSlots[index] = (slotBackground, slotIcon);
+                this.categoryButtonSlots[index] = new(slotBackground, slotIcon);
                 index++;
 
                 // Adding

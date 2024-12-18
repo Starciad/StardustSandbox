@@ -9,6 +9,7 @@
 
         public const string HUD_IDENTIFIER = SGameConstants.TITLE + "_HUD";
         public const string HUD_ITEM_EXPLORER_IDENTIFIER = SGameConstants.TITLE + "_HUD_ITEM_EXPLORER";
+        public const string HUD_PEN_SETTINGS_IDENTIFIER = SGameConstants.TITLE + "_PEN_SETTINGS";
 
         public const string WORLDS_EXPLORER_IDENTIFIER = SGameConstants.TITLE + "_WORLDS_EXPLORER";
         public const string WORLD_DETAILS_IDENTIFIER = SGameConstants.TITLE + "_WORLD_DETAILS";

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -21,11 +22,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private SGUIImageElement toolbarElementSearchButton;
 
-        private readonly SToolbarSlot[] toolbarElementSlots = new SToolbarSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
-        private readonly SToolbarSlot[] leftPanelTopButtonElements;
-        private readonly SToolbarSlot[] leftPanelBottomButtonElements;
-        private readonly SToolbarSlot[] rightPanelTopButtonElements;
-        private readonly SToolbarSlot[] rightPanelBottomButtonElements;
+        private readonly SSlot[] toolbarElementSlots = new SSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
+        private readonly SSlot[] leftPanelTopButtonElements;
+        private readonly SSlot[] leftPanelBottomButtonElements;
+        private readonly SSlot[] rightPanelTopButtonElements;
+        private readonly SSlot[] rightPanelBottomButtonElements;
 
         private readonly Color toolbarContainerColor = new(SColorPalette.White, 32);
 
@@ -86,20 +87,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SButton button = this.leftPanelTopButtons[i];
 
-                (SGUIImageElement buttonBackgroundElement, SGUIImageElement buttonIconElement) = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
-                buttonBackgroundElement.PositionAnchor = SCardinalDirection.North;
-                buttonBackgroundElement.OriginPivot = SCardinalDirection.Center;
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.North;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                buttonBackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
-                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+                slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.leftPanelTopButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
+                this.leftPanelTopButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
 
                 baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
-                layoutBuilder.AddElement(buttonBackgroundElement);
-                layoutBuilder.AddElement(buttonIconElement);
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
             }
 
             baseMargin = new(0, -SHUDConstants.SLOT_SPACING);
@@ -109,20 +110,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SButton button = this.leftPanelBottomButtons[i];
 
-                (SGUIImageElement buttonBackgroundElement, SGUIImageElement buttonIconElement) = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
-                buttonBackgroundElement.PositionAnchor = SCardinalDirection.South;
-                buttonBackgroundElement.OriginPivot = SCardinalDirection.Center;
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                buttonBackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
-                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+                slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.leftPanelBottomButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
+                this.leftPanelBottomButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
 
                 baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
-                layoutBuilder.AddElement(buttonBackgroundElement);
-                layoutBuilder.AddElement(buttonIconElement);
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
             }
             #endregion
         }
@@ -152,20 +153,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SButton button = this.rightPanelTopButtons[i];
 
-                (SGUIImageElement buttonBackgroundElement, SGUIImageElement buttonIconElement) = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
-                buttonBackgroundElement.PositionAnchor = SCardinalDirection.North;
-                buttonBackgroundElement.OriginPivot = SCardinalDirection.Center;
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.North;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                buttonBackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
-                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+                slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.rightPanelTopButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
+                this.rightPanelTopButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
 
                 baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
-                layoutBuilder.AddElement(buttonBackgroundElement);
-                layoutBuilder.AddElement(buttonIconElement);
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
             }
 
             baseMargin = new(-96, -SHUDConstants.SLOT_SPACING);
@@ -175,20 +176,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SButton button = this.rightPanelBottomButtons[i];
 
-                (SGUIImageElement buttonBackgroundElement, SGUIImageElement buttonIconElement) = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
-                buttonBackgroundElement.PositionAnchor = SCardinalDirection.South;
-                buttonBackgroundElement.OriginPivot = SCardinalDirection.Center;
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                buttonBackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
-                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+                slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
-                this.rightPanelBottomButtonElements[i] = new(buttonBackgroundElement, buttonIconElement);
+                this.rightPanelBottomButtonElements[i] = new(slot.BackgroundElement, slot.IconElement);
 
                 baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
-                layoutBuilder.AddElement(buttonBackgroundElement);
-                layoutBuilder.AddElement(buttonIconElement);
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
             }
             #endregion
         }
@@ -203,32 +204,32 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SItem selectedItem = this.SGameInstance.ItemDatabase.Items[i];
 
-                (SGUIImageElement buttonBackgroundElement, SGUIImageElement buttonIconElement) = CreateButtonSlot(baseMargin, selectedItem.IconTexture);
+                SSlot slot = CreateButtonSlot(baseMargin, selectedItem.IconTexture);
 
-                buttonBackgroundElement.PositionAnchor = SCardinalDirection.West;
-                buttonBackgroundElement.OriginPivot = SCardinalDirection.Center;
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.West;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                if (!buttonBackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                if (!slot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                 {
-                    buttonBackgroundElement.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, selectedItem.Identifier);
+                    slot.BackgroundElement.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, selectedItem.Identifier);
                 }
 
                 // Update
-                buttonBackgroundElement.PositionRelativeToElement(this.topToolbarContainer);
-                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+                slot.BackgroundElement.PositionRelativeToElement(this.topToolbarContainer);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
-                this.toolbarElementSlots[i] = new(buttonBackgroundElement, buttonIconElement);
+                this.toolbarElementSlots[i] = new(slot.BackgroundElement, slot.IconElement);
 
                 // Spacing
                 baseMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
-                layoutBuilder.AddElement(buttonBackgroundElement);
-                layoutBuilder.AddElement(buttonIconElement);
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
             }
         }
 
-        private (SGUIImageElement buttonBackgroundElement, SGUIImageElement buttonIconElement) CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
+        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
         {
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
@@ -246,7 +247,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Size = new SSize2(SHUDConstants.SLOT_SIZE)
             };
 
-            return (backgroundElement, iconElement);
+            return new(backgroundElement, iconElement);
         }
 
         private void CreateSearchSlot(ISGUILayoutBuilder layoutBuilder)

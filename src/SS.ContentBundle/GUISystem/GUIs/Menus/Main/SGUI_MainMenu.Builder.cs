@@ -111,7 +111,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 {
                     Scale = new Vector2(0.15f),
                     Margin = baseMargin,
-                    Color = new Color(206, 214, 237, 255),
+                    Color = SColorPalette.White,
                     PositionAnchor = SCardinalDirection.Center,
                     OriginPivot = SCardinalDirection.Center,
                     SpriteFont = this.bigApple3PMSpriteFont,

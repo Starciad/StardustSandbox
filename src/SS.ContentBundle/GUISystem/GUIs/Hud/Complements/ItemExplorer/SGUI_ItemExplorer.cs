@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -48,15 +49,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             for (int i = 0; i < this.categoryButtonSlots.Length; i++)
             {
-                (SGUIImageElement categoryButtonBackground, _) = this.categoryButtonSlots[i];
+                SSlot slot = this.categoryButtonSlots[i];
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    SelectItemCatalog((string)categoryButtonBackground.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID), 0);
+                    SelectItemCatalog((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID), 0);
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(categoryButtonBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
@@ -64,7 +65,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItemCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)categoryButtonBackground.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
+                        SItemCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
 
                         SGUIGlobalTooltip.Title = category.DisplayName;
                         SGUIGlobalTooltip.Description = category.Description;
@@ -77,21 +78,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotBackground, _) = this.itemButtonSlots[i];
+                SSlot slot = this.itemButtonSlots[i];
 
-                if (!itemSlotBackground.IsVisible)
+                if (!slot.BackgroundElement.IsVisible)
                 {
                     continue;
                 }
 
-                if (this.GUIEvents.OnMouseClick(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    this._guiHUD.AddItemToToolbar((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    this._guiHUD.AddItemToToolbar((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                     this.SGameInstance.GUIManager.CloseGUI();
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(itemSlotBackground.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
@@ -99,14 +100,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)itemSlotBackground.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                         SGUIGlobalTooltip.Title = item.DisplayName;
                         SGUIGlobalTooltip.Description = item.Description;
                     }
                 }
 
-                itemSlotBackground.Color = isOver ? SColorPalette.LemonYellow : SColorPalette.White;
+                slot.BackgroundElement.Color = isOver ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 
@@ -140,30 +141,30 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
-                (SGUIImageElement itemSlotBackground, SGUIImageElement itemSlotIcon) = this.itemButtonSlots[i];
+                SSlot slot = this.itemButtonSlots[i];
 
                 if (i < this.selectedItems.Length)
                 {
-                    itemSlotBackground.IsVisible = true;
-                    itemSlotIcon.IsVisible = true;
+                    slot.BackgroundElement.IsVisible = true;
+                    slot.IconElement.IsVisible = true;
 
                     SItem item = this.selectedItems[i];
-                    itemSlotIcon.Texture = item.IconTexture;
+                    slot.IconElement.Texture = item.IconTexture;
 
                     // Add or Update Data
-                    if (!itemSlotBackground.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                    if (!slot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                     {
-                        itemSlotBackground.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                        slot.BackgroundElement.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
                     }
                     else
                     {
-                        itemSlotBackground.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                        slot.BackgroundElement.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
                     }
                 }
                 else
                 {
-                    itemSlotBackground.IsVisible = false;
-                    itemSlotIcon.IsVisible = false;
+                    slot.BackgroundElement.IsVisible = false;
+                    slot.IconElement.IsVisible = false;
                 }
             }
         }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
@@ -35,12 +36,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             Eraser = 09,
             Reload = 10,
             Trash = 11
-        }
-
-        private readonly struct SToolbarSlot(SGUIImageElement background, SGUIImageElement icon)
-        {
-            internal SGUIImageElement Background => background;
-            internal SGUIImageElement Icon => icon;
         }
 
         private int slotSelectedIndex = 0;
@@ -129,10 +124,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 new(this.iconTextures[(byte)SIconIndex.Eraser], "Eraser", string.Empty, EraserButtonAction),
             ];
 
-            this.leftPanelTopButtonElements = new SToolbarSlot[this.leftPanelTopButtons.Length];
-            this.leftPanelBottomButtonElements = new SToolbarSlot[this.leftPanelBottomButtons.Length];
-            this.rightPanelTopButtonElements = new SToolbarSlot[this.rightPanelTopButtons.Length];
-            this.rightPanelBottomButtonElements = new SToolbarSlot[this.rightPanelBottomButtons.Length];
+            this.leftPanelTopButtonElements = new SSlot[this.leftPanelTopButtons.Length];
+            this.leftPanelBottomButtonElements = new SSlot[this.leftPanelBottomButtons.Length];
+            this.rightPanelTopButtonElements = new SSlot[this.rightPanelTopButtons.Length];
+            this.rightPanelBottomButtonElements = new SSlot[this.rightPanelBottomButtons.Length];
         }
 
         public override void Update(GameTime gameTime)
@@ -141,6 +136,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.tooltipBoxElement.IsVisible = false;
 
+            UpdateSlotIcons();
             SetPlayerInteractionWhenToolbarHovered();
             UpdateTopToolbar();
             UpdateLeftToolbar();
@@ -149,11 +145,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
+        private void UpdateSlotIcons()
+        {
+            if (this.SGameInstance.GameManager.GameState.IsSimulationPaused)
+            {
+                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[(byte)SIconIndex.Resume];
+            }
+            else
+            {
+                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[(byte)SIconIndex.Pause];
+            }
+        }
+
         private void SetPlayerInteractionWhenToolbarHovered()
         {
             this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) &&
-!this.GUIEvents.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) &&
-!this.GUIEvents.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
+                                                                                 !this.GUIEvents.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) &&
+                                                                                 !this.GUIEvents.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
         }
 
         private void UpdateTopToolbar()
@@ -163,12 +171,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             #region ELEMENT SLOTS
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SToolbarSlot slot = this.toolbarElementSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                SSlot slot = this.toolbarElementSlots[i];
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    SelectItemSlot(i, (string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    SelectItemSlot(i, (string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
 
                 if (isOver)
@@ -177,14 +185,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                         SGUIGlobalTooltip.Title = item.DisplayName;
                         SGUIGlobalTooltip.Description = item.Description;
                     }
                 }
 
-                slot.Background.Color = this.slotSelectedIndex == i ?
+                slot.BackgroundElement.Color = this.slotSelectedIndex == i ?
                                         SColorPalette.OrangeRed :
                                         (isOver ? SColorPalette.EmeraldGreen : SColorPalette.White);
             }
@@ -216,23 +224,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             #region MENU BUTTONS
 
-            void CycleThroughArrayOfButtons(SToolbarSlot[] toolbarSlots, SButton[] buttons, int length)
+            void CycleThroughArrayOfButtons(SSlot[] toolbarSlots, SButton[] buttons, int length)
             {
                 for (int i = 0; i < length; i++)
                 {
-                    SToolbarSlot toolbarSlot = toolbarSlots[i];
+                    SSlot toolbarSlot = toolbarSlots[i];
                     SButton button = buttons[i];
 
-                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
 
-                    if (this.GUIEvents.OnMouseClick(toolbarSlot.Background.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                    if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                     {
                         button.ClickAction.Invoke();
                     }
 
                     if (isOver)
                     {
-                        toolbarSlot.Background.Color = SColorPalette.EmeraldGreen;
+                        toolbarSlot.BackgroundElement.Color = SColorPalette.EmeraldGreen;
                         this.tooltipBoxElement.IsVisible = true;
 
                         if (!this.tooltipBoxElement.HasContent)
@@ -243,7 +251,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                     }
                     else
                     {
-                        toolbarSlot.Background.Color = SColorPalette.White;
+                        toolbarSlot.BackgroundElement.Color = SColorPalette.White;
                     }
                 }
             }
@@ -282,13 +290,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SToolbarSlot slot = this.toolbarElementSlots[i];
+                SSlot slot = this.toolbarElementSlots[i];
 
-                if (slot.Background.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                if (slot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                 {
-                    if (item == this.SGameInstance.ItemDatabase.GetItemById((string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID)))
+                    if (item == this.SGameInstance.ItemDatabase.GetItemById((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID)))
                     {
-                        SelectItemSlot(i, (string)slot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                        SelectItemSlot(i, (string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                         return;
                     }
                 }
@@ -299,27 +307,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
             {
-                SToolbarSlot currentSlot = this.toolbarElementSlots[i];
-                SToolbarSlot nextSlot = this.toolbarElementSlots[i + 1];
+                SSlot currentSlot = this.toolbarElementSlots[i];
+                SSlot nextSlot = this.toolbarElementSlots[i + 1];
 
-                if (currentSlot.Background.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID) &&
-                    nextSlot.Background.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                if (currentSlot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID) &&
+                    nextSlot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                 {
-                    currentSlot.Background.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, nextSlot.Background.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
-                    currentSlot.Icon.Texture = nextSlot.Icon.Texture;
+                    currentSlot.BackgroundElement.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, nextSlot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    currentSlot.IconElement.Texture = nextSlot.IconElement.Texture;
                 }
             }
 
             // Update last element slot.
 
-            SToolbarSlot lastSlot = this.toolbarElementSlots[^1];
+            SSlot lastSlot = this.toolbarElementSlots[^1];
 
-            if (lastSlot.Background.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+            if (lastSlot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
             {
-                lastSlot.Background.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                lastSlot.BackgroundElement.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
             }
 
-            lastSlot.Icon.Texture = item.IconTexture;
+            lastSlot.IconElement.Texture = item.IconTexture;
 
             // Select last slot.
 

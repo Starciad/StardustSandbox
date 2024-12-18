@@ -1,4 +1,7 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
+﻿using StardustSandbox.ContentBundle.GUISystem.Specials.General;
+using StardustSandbox.Core.Constants.GUI;
+
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD
     {
@@ -11,7 +14,7 @@
 
         private void PenSettingsButtonAction()
         {
-
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER);
         }
 
         private void ScreenshotButtonAction()
@@ -28,18 +31,7 @@
         #region Bottom Buttons
         private void PauseSimulationButtonAction()
         {
-            SToolbarSlot toolbarSlot = this.leftPanelBottomButtonElements[0];
-
-            if (this.SGameInstance.GameManager.GameState.IsSimulationPaused)
-            {
-                this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
-                toolbarSlot.Icon.Texture = this.iconTextures[(byte)SIconIndex.Pause];
-            }
-            else
-            {
-                this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
-                toolbarSlot.Icon.Texture = this.iconTextures[(byte)SIconIndex.Resume];
-            }
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = !this.SGameInstance.GameManager.GameState.IsSimulationPaused;
         }
         #endregion
         #endregion
