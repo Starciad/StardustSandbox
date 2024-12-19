@@ -22,22 +22,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD : SGUISystem
     {
-        private enum SIconIndex : byte
-        {
-            MagnifyingGlass = 00,
-            Weather = 01,
-            Pen = 02,
-            Screenshot = 03,
-            Settings = 04,
-            Pause = 05,
-            Resume = 06,
-            Menu = 07,
-            Save = 08,
-            Eraser = 09,
-            Reload = 10,
-            Trash = 11
-        }
-
         private int slotSelectedIndex = 0;
 
         private readonly Texture2D particleTexture;
@@ -62,40 +46,40 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
 
             this.iconTextures = [
-                // Magnifying Glass
+                // [00] Magnifying Glass
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1"),
 
-                // Weather
+                // [01] Weather
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_11"),
 
-                // Pen
+                // [02] Pen
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_10"),
 
-                // Screenshot
+                // [03] Screenshot
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_13"),
 
-                // Settings
+                // [04] Settings
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_14"),
 
-                // Pause
+                // [05] Pause
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_8"),
 
-                // Resume
+                // [06] Resume
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_9"),
 
-                // Menu
+                // [07] Menu
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_6"),
 
-                // Save
+                // [08] Save
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_7"),
 
-                // Eraser
+                // [09] Eraser
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_4"),
 
-                // Reload
+                // [10] Reload
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5"),
 
-                // Trash
+                // [11] Trash
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_2"),
             ];
 
@@ -103,25 +87,25 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.leftPanelTopButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Weather], "Weather Settings", string.Empty, WeatherSettingsButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Pen], "Pen Settings", string.Empty, PenSettingsButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Screenshot], "Screenshot Settings", string.Empty,ScreenshotButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Settings], "World Settings", string.Empty, WorldSettingsButtonAction),
+                new(this.iconTextures[01], "Weather Settings", string.Empty, WeatherSettingsButtonAction),
+                new(this.iconTextures[02], "Pen Settings", string.Empty, PenSettingsButtonAction),
+                new(this.iconTextures[03], "Screenshot Settings", string.Empty,ScreenshotButtonAction),
+                new(this.iconTextures[04], "World Settings", string.Empty, WorldSettingsButtonAction),
             ];
 
             this.leftPanelBottomButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Pause], "Pause Simulation", string.Empty, PauseSimulationButtonAction),
+                new(this.iconTextures[05], "Pause Simulation", string.Empty, PauseSimulationButtonAction),
             ];
 
             this.rightPanelTopButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Menu], "Game Menu", string.Empty, GameMenuButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Save], "Save Menu", string.Empty, SaveMenuButtonAction),
+                new(this.iconTextures[07], "Game Menu", string.Empty, GameMenuButtonAction),
+                new(this.iconTextures[08], "Save Menu", string.Empty, SaveMenuButtonAction),
             ];
 
             this.rightPanelBottomButtons = [
-                new(this.iconTextures[(byte)SIconIndex.Trash], "Erase Everything", string.Empty, EraseEverythingButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Reload], "Reload Simulation", string.Empty, ReloadSimulationButtonAction),
-                new(this.iconTextures[(byte)SIconIndex.Eraser], "Eraser", string.Empty, EraserButtonAction),
+                new(this.iconTextures[11], "Erase Everything", string.Empty, EraseEverythingButtonAction),
+                new(this.iconTextures[10], "Reload Simulation", string.Empty, ReloadSimulationButtonAction),
+                new(this.iconTextures[09], "Eraser", string.Empty, EraserButtonAction),
             ];
 
             this.leftPanelTopButtonElements = new SSlot[this.leftPanelTopButtons.Length];
@@ -149,11 +133,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             if (this.SGameInstance.GameManager.GameState.IsSimulationPaused)
             {
-                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[(byte)SIconIndex.Resume];
+                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[06];
             }
             else
             {
-                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[(byte)SIconIndex.Pause];
+                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[05];
             }
         }
 

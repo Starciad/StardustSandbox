@@ -264,7 +264,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
             {
-                Texture = this.iconTextures[(byte)SIconIndex.MagnifyingGlass],
+                Texture = this.iconTextures[00],
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new Vector2(2f),
                 Size = new SSize2(1),
