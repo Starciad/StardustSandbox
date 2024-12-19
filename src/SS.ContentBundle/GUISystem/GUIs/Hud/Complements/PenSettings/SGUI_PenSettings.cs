@@ -6,6 +6,8 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Controllers.GameInput;
+using StardustSandbox.Core.Enums.Gameplay.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
@@ -16,9 +18,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_PenSettings : SGUISystem
     {
-        private int brushSizeSliderValue;
-        private int toolBottomSelectedIndex;
-        private int layerBottomSelectedIndex;
+        private int toolButtonSelectedIndex;
+        private int layerButtonSelectedIndex;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiBackgroundTexture;
@@ -27,16 +28,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly Texture2D[] iconTextures;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
+        private readonly SButton[] menuButtons;
         private readonly SButton[] toolButtons;
         private readonly SButton[] layerButtons;
 
         private readonly Rectangle[] brushSizeSliderClipTextures;
 
+        private readonly SGameInputController gameInputController;
+
         internal SGUI_PenSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
-            this.brushSizeSliderValue = 0;
-            this.toolBottomSelectedIndex = 0;
-            this.layerBottomSelectedIndex = 0;
+            this.toolButtonSelectedIndex = 0;
+            this.layerButtonSelectedIndex = 0;
 
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
@@ -50,19 +53,25 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 gameInstance.AssetDatabase.GetTexture("icon_gui_21"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_22"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_23"),
+                gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
+            ];
+
+            this.menuButtons = [
+                new(this.iconTextures[5], "Exit", string.Empty, ExitButtonAction),
             ];
 
             this.toolButtons = [
-                new(this.iconTextures[0], "Pencil", string.Empty, () => { }),
-                new(this.iconTextures[1], "Fill", string.Empty, () => { }),
-                new(this.iconTextures[2], "Replace", string.Empty, () => { }),
+                new(this.iconTextures[0], "Pencil", string.Empty, SelectPencilToolButtonAction),
+                new(this.iconTextures[1], "Fill", string.Empty, SelectFillToolButtonAction),
+                new(this.iconTextures[2], "Replace", string.Empty, SelectReplaceToolButtonAction),
             ];
 
             this.layerButtons = [
-                new(this.iconTextures[3], "Front", string.Empty, () => { }),
-                new(this.iconTextures[4], "Back", string.Empty, () => { }),
+                new(this.iconTextures[3], "Front", string.Empty, SelectFrontLayerButtonAction),
+                new(this.iconTextures[4], "Back", string.Empty, SelectBackLayerButtonAction),
             ];
 
+            this.menuButtonSlots = new SSlot[this.menuButtons.Length];
             this.toolButtonSlots = new SSlot[this.toolButtons.Length];
             this.layerButtonSlots = new SSlot[this.layerButtons.Length];
 
@@ -78,6 +87,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 new(new(000, 304), new(326, 38)),
                 new(new(000, 342), new(326, 38)),
             ];
+
+            this.gameInputController = gameInstance.GameInputController;
         }
 
         public override void Update(GameTime gameTime)
@@ -85,8 +96,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             base.Update(gameTime);
 
             UpdateBrushSizeSlider();
+            UpdateMenuButtons();
             UpdateToolBottons();
             UpdateLayerButtons();
+            SyncGUIElements();
+        }
+
+        private void SyncGUIElements()
+        {
+            // Brush Size Slider
+            this.brushSizeSliderElement.TextureClipArea = this.brushSizeSliderClipTextures[this.gameInputController.Pen.Size - 1];
+
+            // Tool
+            this.toolButtonSelectedIndex = (byte)this.gameInputController.Pen.Tool;
+
+            // Layer
+            this.layerButtonSelectedIndex = (byte)this.gameInputController.Pen.Layer;
         }
 
         private void UpdateBrushSizeSlider()
@@ -98,12 +123,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 if (this.GUIEvents.OnMouseDown(position + offset, new(SHUDConstants.SLOT_SIZE)))
                 {
-                    this.brushSizeSliderValue = i;
-                    this.brushSizeSliderElement.TextureClipArea = this.brushSizeSliderClipTextures[i];
+                    this.SGameInstance.GameInputController.Pen.SetSize((byte)(i + 1));
                     break;
                 }
 
                 offset.X += SHUDConstants.SLOT_SPACING;
+            }
+        }
+
+        private void UpdateMenuButtons()
+        {
+            for (int i = 0; i < this.menuButtonSlots.Length; i++)
+            {
+                SSlot slot = this.menuButtonSlots[i];
+
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                {
+                    this.menuButtons[i].ClickAction.Invoke();
+                }
+
+                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)) ? SColorPalette.HoverColor : SColorPalette.White;
             }
         }
 
@@ -116,12 +155,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    this.toolBottomSelectedIndex = (byte)i;
+                    this.toolButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.toolBottomSelectedIndex == i ?
-                                        SColorPalette.SelectedColor :
-                                        (isOver ? SColorPalette.HoverColor : SColorPalette.White);
+                slot.BackgroundElement.Color = this.toolButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
             }
         }
 
@@ -134,12 +171,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
                 {
-                    this.layerBottomSelectedIndex = (byte)i;
+                    this.layerButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.layerBottomSelectedIndex == i ?
-                                        SColorPalette.SelectedColor :
-                                        (isOver ? SColorPalette.HoverColor : SColorPalette.White);
+                slot.BackgroundElement.Color = this.layerButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
             }
         }
     }

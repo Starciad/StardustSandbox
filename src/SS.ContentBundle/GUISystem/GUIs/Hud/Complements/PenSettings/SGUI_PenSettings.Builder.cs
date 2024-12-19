@@ -26,6 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private SGUIImageElement brushSizeSliderElement;
 
+        private readonly SSlot[] menuButtonSlots;
         private readonly SSlot[] toolButtonSlots;
         private readonly SSlot[] layerButtonSlots;
 
@@ -36,6 +37,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildBrushSizeSection(layoutBuilder);
             BuildToolSection(layoutBuilder);
             BuildLayerSection(layoutBuilder);
+            BuildMenuButtons(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -213,7 +215,55 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
+        private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
+        {
+            Vector2 baseMargin = new(-2, -72);
+
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                SButton button = this.menuButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.menuButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+            }
+        }
+
         // =============================================================== //
+
+        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
+        {
+            SGUIImageElement backgroundElement = new(this.SGameInstance)
+            {
+                Texture = this.guiButton1Texture,
+                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Margin = margin,
+            };
+
+            SGUIImageElement iconElement = new(this.SGameInstance)
+            {
+                Texture = iconTexture,
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(1.5f),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE)
+            };
+
+            return new(backgroundElement, iconElement);
+        }
 
         private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture, string labelContent)
         {

@@ -1,10 +1,13 @@
 ﻿using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.Gameplay.Pen;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 {
     public sealed class SSimulationPen
     {
         public byte Size => this.size;
+        public SPenTool Tool { get; set; }
+        public SPenLayer Layer { get; set; }
 
         private byte size = 1;
 
