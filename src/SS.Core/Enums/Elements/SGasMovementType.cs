@@ -1,8 +1,8 @@
 ﻿namespace StardustSandbox.Core.Enums.Elements
 {
-    public enum SGasMovementType
+    public enum SGasMovementType : byte
     {
-        Up,
-        Spread
+        Up = 0,
+        Spread = 1
     }
 }

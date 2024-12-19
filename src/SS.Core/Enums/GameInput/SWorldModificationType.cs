@@ -1,8 +1,8 @@
 ﻿namespace StardustSandbox.Core.Enums.GameInput
 {
-    public enum SWorldModificationType
+    public enum SWorldModificationType : byte
     {
-        Adding,
-        Removing
+        Adding = 0,
+        Removing = 1
     }
 }

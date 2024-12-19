@@ -1,8 +1,8 @@
 ﻿namespace StardustSandbox.Core.Enums.World
 {
-    public enum SWorldThreadUpdateType
+    public enum SWorldThreadUpdateType : byte
     {
-        Update,
-        Step
+        Update = 0,
+        Step = 1
     }
 }

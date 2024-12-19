@@ -1,9 +1,9 @@
 ﻿namespace StardustSandbox.Core.Enums.InputSystem
 {
-    public enum SMouseButton
+    public enum SMouseButton : short
     {
-        Left,
-        Middle,
-        Right
+        Left = -1,
+        Middle = 0,
+        Right = 1
     }
 }
