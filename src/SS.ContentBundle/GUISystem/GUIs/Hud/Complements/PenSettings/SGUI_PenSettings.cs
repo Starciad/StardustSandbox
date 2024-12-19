@@ -56,8 +56,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 gameInstance.AssetDatabase.GetTexture("icon_gui_21"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_22"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_23"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_24"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_25"),
+                gameInstance.AssetDatabase.GetTexture("icon_gui_24"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_26"),
             ];
 
