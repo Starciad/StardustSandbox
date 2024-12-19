@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Core.Enums.Gameplay.Pen
+﻿namespace StardustSandbox.Core.Enums.GameInput.Pen
 {
     public enum SPenTool : byte
     {

@@ -1,5 +1,5 @@
 ﻿using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Enums.Gameplay.Pen;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 {
@@ -8,6 +8,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
         public byte Size => this.size;
         public SPenTool Tool { get; set; }
         public SPenLayer Layer { get; set; }
+        public SPenShape Shape { get; set; }
 
         private byte size = 1;
 

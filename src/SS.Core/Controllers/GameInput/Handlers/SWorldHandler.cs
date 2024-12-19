@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Controllers.GameInput.Handlers.Tools;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Enums.Gameplay;
+using StardustSandbox.Core.Enums.GameInput;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Managers;
@@ -25,6 +27,8 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
         private readonly SSimulationPlayer simulationPlayer = simulationPlayer;
         private readonly SSimulationPen simulationPen = simulationPen;
 
+        private readonly SPencilTool pencilTool = new(simulationPen);
+
         public void Clear()
         {
             this.world.Clear();
@@ -38,22 +42,71 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             }
 
             Type itemType = this.simulationPlayer.SelectedItem.ReferencedType;
-            Point mouseWorldPosition = GetWorldGridPositionFromMouse();
+            Point mousePosition = GetWorldGridPositionFromMouse();
 
-            switch (worldModificationType)
+            switch (this.simulationPen.Tool)
             {
-                case SWorldModificationType.Adding:
-                    AddItems(itemType, mouseWorldPosition);
+                case SPenTool.Pencil:
+                    ExecutePencilTool(worldModificationType, itemType, mousePosition);
                     break;
 
-                case SWorldModificationType.Removing:
-                    RemoveItems(mouseWorldPosition);
+                case SPenTool.Fill:
+                    ExecuteFillTool(worldModificationType, itemType, mousePosition);
+                    break;
+
+                case SPenTool.Replace:
+                    ExecuteReplaceTool(worldModificationType, itemType, mousePosition);
                     break;
 
                 default:
                     break;
             }
         }
+
+        // ========================= //
+        // TOOLS
+
+        private void ExecutePencilTool(SWorldModificationType worldModificationType, Type itemType, Point mousePosition)
+        {
+            switch (worldModificationType)
+            {
+                case SWorldModificationType.Adding:
+                    AddItems(itemType, mousePosition);
+                    break;
+
+                case SWorldModificationType.Removing:
+                    RemoveItems(mousePosition);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void ExecuteFillTool(SWorldModificationType worldModificationType, Type itemType, Point mousePosition)
+        {
+            if (!this.world.InsideTheWorldDimensions(mousePosition))
+            {
+                return;
+            }
+
+            if (worldModificationType == SWorldModificationType.Adding)
+            {
+
+            }
+            else if (worldModificationType == SWorldModificationType.Removing)
+            {
+
+            }
+        }
+
+        private void ExecuteReplaceTool(SWorldModificationType worldModificationType, Type itemType, Point mousePosition)
+        {
+
+        }
+
+        // ========================= //
+        // INTERACTIONS
 
         private void AddItems(Type itemType, Point position)
         {
@@ -69,6 +122,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
         }
 
         // ========================= //
+        // SYSTEM
 
         private void AddElements(ISElement element, Point position)
         {
@@ -91,7 +145,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
         }
 
         // ================================== //
-        // Utilities
+        // UTILITIES
 
         private void ApplyPenAction(Point centerPos, Action<Point> action)
         {

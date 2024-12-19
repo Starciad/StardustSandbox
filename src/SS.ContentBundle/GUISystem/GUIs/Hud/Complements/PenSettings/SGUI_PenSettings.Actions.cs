@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Enums.Gameplay.Pen;
+﻿using StardustSandbox.Core.Enums.GameInput.Pen;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -35,6 +35,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void SelectBackLayerButtonAction()
         {
             this.gameInputController.Pen.Layer = SPenLayer.Back;
+        }
+
+        // Shapes
+        private void SelectCircleShapeButtonAction()
+        {
+            this.gameInputController.Pen.Shape = SPenShape.Circle;
+        }
+
+        private void SelectSquareShapeButtonAction()
+        {
+            this.gameInputController.Pen.Shape = SPenShape.Square;
+        }
+
+        private void SelectTriangleShapeButtonAction()
+        {
+            this.gameInputController.Pen.Shape = SPenShape.Triangle;
         }
     }
 }

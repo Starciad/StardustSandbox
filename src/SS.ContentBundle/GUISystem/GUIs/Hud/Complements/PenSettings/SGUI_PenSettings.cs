@@ -7,7 +7,7 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Controllers.GameInput;
-using StardustSandbox.Core.Enums.Gameplay.Pen;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
@@ -20,6 +20,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private int toolButtonSelectedIndex;
         private int layerButtonSelectedIndex;
+        private int shapeButtonSelectedIndex;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiBackgroundTexture;
@@ -31,6 +32,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SButton[] menuButtons;
         private readonly SButton[] toolButtons;
         private readonly SButton[] layerButtons;
+        private readonly SButton[] shapeButtons;
 
         private readonly Rectangle[] brushSizeSliderClipTextures;
 
@@ -48,32 +50,42 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
 
             this.iconTextures = [
+                gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_19"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_20"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_21"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_22"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_23"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
+                gameInstance.AssetDatabase.GetTexture("icon_gui_24"),
+                gameInstance.AssetDatabase.GetTexture("icon_gui_25"),
+                gameInstance.AssetDatabase.GetTexture("icon_gui_26"),
             ];
 
             this.menuButtons = [
-                new(this.iconTextures[5], "Exit", string.Empty, ExitButtonAction),
+                new(this.iconTextures[0], "Exit", string.Empty, ExitButtonAction),
             ];
 
             this.toolButtons = [
-                new(this.iconTextures[0], "Pencil", string.Empty, SelectPencilToolButtonAction),
-                new(this.iconTextures[1], "Fill", string.Empty, SelectFillToolButtonAction),
-                new(this.iconTextures[2], "Replace", string.Empty, SelectReplaceToolButtonAction),
+                new(this.iconTextures[1], "Pencil", string.Empty, SelectPencilToolButtonAction),
+                new(this.iconTextures[2], "Fill", string.Empty, SelectFillToolButtonAction),
+                new(this.iconTextures[3], "Replace", string.Empty, SelectReplaceToolButtonAction),
             ];
 
             this.layerButtons = [
-                new(this.iconTextures[3], "Front", string.Empty, SelectFrontLayerButtonAction),
-                new(this.iconTextures[4], "Back", string.Empty, SelectBackLayerButtonAction),
+                new(this.iconTextures[4], "Front", string.Empty, SelectFrontLayerButtonAction),
+                new(this.iconTextures[5], "Back", string.Empty, SelectBackLayerButtonAction),
+            ];
+
+            this.shapeButtons = [
+                new(this.iconTextures[6], "Circle", string.Empty, SelectCircleShapeButtonAction),
+                new(this.iconTextures[7], "Square", string.Empty, SelectSquareShapeButtonAction),
+                new(this.iconTextures[8], "Triangle", string.Empty, SelectTriangleShapeButtonAction),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
             this.toolButtonSlots = new SSlot[this.toolButtons.Length];
             this.layerButtonSlots = new SSlot[this.layerButtons.Length];
+            this.shapeButtonSlots = new SSlot[this.shapeButtons.Length];
 
             this.brushSizeSliderClipTextures = [
                 new(new(000, 000), new(326, 38)),
@@ -99,19 +111,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             UpdateMenuButtons();
             UpdateToolBottons();
             UpdateLayerButtons();
+            UpdateShapeButtons();
             SyncGUIElements();
-        }
-
-        private void SyncGUIElements()
-        {
-            // Brush Size Slider
-            this.brushSizeSliderElement.TextureClipArea = this.brushSizeSliderClipTextures[this.gameInputController.Pen.Size - 1];
-
-            // Tool
-            this.toolButtonSelectedIndex = (byte)this.gameInputController.Pen.Tool;
-
-            // Layer
-            this.layerButtonSelectedIndex = (byte)this.gameInputController.Pen.Layer;
         }
 
         private void UpdateBrushSizeSlider()
@@ -176,6 +177,37 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 slot.BackgroundElement.Color = this.layerButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
             }
+        }
+
+        private void UpdateShapeButtons()
+        {
+            for (int i = 0; i < this.shapeButtons.Length; i++)
+            {
+                SSlot slot = this.shapeButtonSlots[i];
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                {
+                    this.shapeButtons[i].ClickAction.Invoke();
+                }
+
+                slot.BackgroundElement.Color = this.shapeButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
+            }
+        }
+        
+        private void SyncGUIElements()
+        {
+            // Brush Size Slider
+            this.brushSizeSliderElement.TextureClipArea = this.brushSizeSliderClipTextures[this.gameInputController.Pen.Size - 1];
+
+            // Tool
+            this.toolButtonSelectedIndex = (byte)this.gameInputController.Pen.Tool;
+
+            // Layer
+            this.layerButtonSelectedIndex = (byte)this.gameInputController.Pen.Layer;
+
+            // Shape
+            this.shapeButtonSelectedIndex = (byte)this.gameInputController.Pen.Shape;
         }
     }
 }

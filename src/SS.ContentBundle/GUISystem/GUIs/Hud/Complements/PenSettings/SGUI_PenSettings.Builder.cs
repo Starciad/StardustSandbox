@@ -23,21 +23,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUILabelElement brushSectionTitleElement;
         private SGUILabelElement toolsSectionTitleElement;
         private SGUILabelElement layerSectionTitleElement;
+        private SGUILabelElement shapeSectionTitleElement;
 
         private SGUIImageElement brushSizeSliderElement;
 
         private readonly SSlot[] menuButtonSlots;
         private readonly SSlot[] toolButtonSlots;
         private readonly SSlot[] layerButtonSlots;
+        private readonly SSlot[] shapeButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
+            BuildMenuButtons(layoutBuilder);
             BuildTitle(layoutBuilder);
             BuildBrushSizeSection(layoutBuilder);
             BuildToolSection(layoutBuilder);
             BuildLayerSection(layoutBuilder);
-            BuildMenuButtons(layoutBuilder);
+            BuildShapeSection(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -73,6 +76,33 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             layoutBuilder.AddElement(guiBackground);
             layoutBuilder.AddElement(this.panelBackgroundElement);
             layoutBuilder.AddElement(this.titleBackgroundElement);
+        }
+
+        private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
+        {
+            Vector2 baseMargin = new(-2, -72);
+
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                SButton button = this.menuButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.menuButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+            }
         }
 
         private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
@@ -215,30 +245,49 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
-        private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
+        private void BuildShapeSection(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 baseMargin = new(-2, -72);
-
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            this.shapeSectionTitleElement = new(this.SGameInstance)
             {
-                SButton button = this.menuButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                Scale = new Vector2(0.1f),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+                Margin = new(this.layerSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 80, 0f)
+            };
 
-                slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
+            this.shapeSectionTitleElement.SetTextualContent("Shape");
+            this.shapeSectionTitleElement.PositionRelativeToElement(this.layerSectionTitleElement);
+
+            layoutBuilder.AddElement(this.shapeSectionTitleElement);
+
+            // Buttons
+            Vector2 baseMargin = new(32, 80);
+
+            for (int i = 0; i < this.shapeButtons.Length; i++)
+            {
+                SButton button = this.shapeButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture, button.DisplayName);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
+                slot.LabelElement.PositionAnchor = SCardinalDirection.South;
+                slot.LabelElement.OriginPivot = SCardinalDirection.Center;
+
                 // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
+                slot.BackgroundElement.PositionRelativeToElement(this.shapeSectionTitleElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.LabelElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
-                this.menuButtonSlots[i] = slot;
+                this.shapeButtonSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
+                layoutBuilder.AddElement(slot.LabelElement);
             }
         }
 

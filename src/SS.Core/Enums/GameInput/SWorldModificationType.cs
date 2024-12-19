@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Core.Enums.Gameplay
+﻿namespace StardustSandbox.Core.Enums.GameInput
 {
     public enum SWorldModificationType
     {
