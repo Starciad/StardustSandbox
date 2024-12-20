@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.World;
 
 using System;
@@ -9,52 +10,50 @@ namespace StardustSandbox.Core.Interfaces.Elements
     public interface ISElementContext : ISElementManager
     {
         ISWorldSlot Slot { get; }
-        ISElement Element { get; }
-        Point Position { get; }
 
-        void SetPosition(Point newPosition);
-        bool TrySetPosition(Point newPosition);
+        void SetPosition(SWorldLayer worldLayer, Point newPosition);
+        bool TrySetPosition(SWorldLayer worldLayer, Point newPosition);
 
-        void InstantiateElement<T>() where T : ISElement;
-        void InstantiateElement(uint identifier);
-        void InstantiateElement(ISElement value);
-        bool TryInstantiateElement<T>() where T : ISElement;
-        bool TryInstantiateElement(uint identifier);
-        bool TryInstantiateElement(ISElement value);
+        void InstantiateElement<T>(SWorldLayer worldLayer) where T : ISElement;
+        void InstantiateElement(SWorldLayer worldLayer, uint identifier);
+        void InstantiateElement(SWorldLayer worldLayer, ISElement value);
+        bool TryInstantiateElement<T>(SWorldLayer worldLayer) where T : ISElement;
+        bool TryInstantiateElement(SWorldLayer worldLayer, uint identifier);
+        bool TryInstantiateElement(SWorldLayer worldLayer, ISElement value);
 
-        void UpdateElementPosition(Point newPosition);
-        bool TryUpdateElementPosition(Point newPosition);
+        void UpdateElementPosition(SWorldLayer worldLayer, Point newPosition);
+        bool TryUpdateElementPosition(SWorldLayer worldLayer, Point newPosition);
 
-        void SwappingElements(Point targetPosition);
-        bool TrySwappingElements(Point targetPosition);
+        void SwappingElements(SWorldLayer worldLayer, Point targetPosition);
+        bool TrySwappingElements(SWorldLayer worldLayer, Point targetPosition);
 
-        void DestroyElement();
-        bool TryDestroyElement();
+        void DestroyElement(SWorldLayer worldLayer);
+        bool TryDestroyElement(SWorldLayer worldLayer);
 
-        void ReplaceElement<T>() where T : ISElement;
-        void ReplaceElement(uint identifier);
-        void ReplaceElement(ISElement value);
-        bool TryReplaceElement<T>() where T : ISElement;
-        bool TryReplaceElement(uint identifier);
-        bool TryReplaceElement(ISElement value);
+        void ReplaceElement<T>(SWorldLayer worldLayer) where T : ISElement;
+        void ReplaceElement(SWorldLayer worldLayer, uint identifier);
+        void ReplaceElement(SWorldLayer worldLayer, ISElement value);
+        bool TryReplaceElement<T>(SWorldLayer worldLayer) where T : ISElement;
+        bool TryReplaceElement(SWorldLayer worldLayer, uint identifier);
+        bool TryReplaceElement(SWorldLayer worldLayer, ISElement value);
 
-        ISElement GetElement();
-        bool TryGetElement(out ISElement value);
+        ISElement GetElement(SWorldLayer worldLayer);
+        bool TryGetElement(SWorldLayer worldLayer, out ISElement value);
 
-        ReadOnlySpan<ISWorldSlot> GetElementNeighbors();
-        bool TryGetElementNeighbors(out ISWorldSlot[] neighbors);
+        ReadOnlySpan<ISWorldSlot> GetNeighboringSlots();
+        bool TryGetNeighboringSlots(out ISWorldSlot[] neighbors);
 
-        ISWorldSlot GetElementSlot();
-        bool TryGetElementSlot(out ISWorldSlot value);
+        ISWorldSlot GetElementSlot(SWorldLayer worldLayer);
+        bool TryGetElementSlot(SWorldLayer worldLayer, out ISWorldSlot value);
 
-        void SetElementTemperature(short value);
-        bool TrySetElementTemperature(short value);
+        void SetElementTemperature(SWorldLayer worldLayer, short value);
+        bool TrySetElementTemperature(SWorldLayer worldLayer, short value);
 
-        void SetElementFreeFalling(bool value);
-        bool TrySetElementFreeFalling(bool value);
+        void SetElementFreeFalling(SWorldLayer worldLayer, bool value);
+        bool TrySetElementFreeFalling(SWorldLayer worldLayer, bool value);
 
-        void SetElementColor(Color value);
-        bool TryElementSetColor(Color value);
+        void SetElementColorModifier(SWorldLayer worldLayer, Color value);
+        bool TrySetElementColorModifier(SWorldLayer worldLayer, Color value);
 
         void NotifyChunk();
         void NotifyChunk(Point position);

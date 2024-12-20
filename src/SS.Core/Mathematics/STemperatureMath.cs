@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StardustSandbox.Core.Mathematics
+﻿namespace StardustSandbox.Core.Mathematics
 {
     public static class STemperatureMath
     {
@@ -9,9 +7,9 @@ namespace StardustSandbox.Core.Mathematics
 
         public const short EquilibriumThreshold = 1;
 
-        public static short Clamp(int value)
+        public static short Clamp(short value)
         {
-            return (short)Math.Clamp(value, MinCelsiusValue, MaxCelsiusValue);
+            return short.Clamp(value, MinCelsiusValue, MaxCelsiusValue);
         }
     }
 }

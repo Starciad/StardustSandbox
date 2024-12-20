@@ -3,7 +3,7 @@
 namespace StardustSandbox.Core.Enums.World
 {
     [Flags]
-    internal enum SWorldLayer
+    public enum SWorldLayer
     {
         None = 0,
         Foreground = 1 << 0,

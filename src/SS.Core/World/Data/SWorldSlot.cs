@@ -1,86 +1,87 @@
 ﻿using Microsoft.Xna.Framework;
 
+using SharpDX.Direct3D9;
+
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.World.Data
 {
     internal sealed class SWorldSlot : ISWorldSlot
     {
-        public ISElement Element => this.element;
+        public bool IsEmpty => this.ForegroundLayer.IsEmpty && this.BackgroundLayer.IsEmpty;
         public Point Position => this.position;
-        public bool IsEmpty => this.isEmpty;
-        public short Temperature => this.temperature;
-        public bool FreeFalling => this.freeFalling;
-        public Color Color => this.color;
 
-        private bool isEmpty;
+        public ISWorldSlotLayer ForegroundLayer => this.foregroundLayer;
+        public ISWorldSlotLayer BackgroundLayer => this.backgroundLayer;
+
         private Point position;
-        private short temperature;
-        private bool freeFalling;
-        private Color color;
 
-        private ISElement element;
+        private readonly SWorldSlotLayer foregroundLayer = new();
+        private readonly SWorldSlotLayer backgroundLayer = new();
 
-        public SWorldSlot()
+        internal SWorldSlot()
         {
-            Reset();
+
         }
 
-        public void Instantiate(Point position, ISElement value)
+        internal void SetPosition(Point position)
         {
-            this.isEmpty = false;
             this.position = position;
-            this.element = value;
-            this.temperature = value.DefaultTemperature;
-            this.freeFalling = false;
-            this.color = Color.White;
         }
 
-        public void Destroy()
+        internal SWorldSlotLayer GetLayer(SWorldLayer worldLayer)
         {
-            this.isEmpty = true;
-            this.position = Point.Zero;
-            this.element = null;
-            this.temperature = 0;
-            this.freeFalling = false;
-            this.color = Color.Transparent;
+            return worldLayer switch
+            {
+                SWorldLayer.None => null,
+                SWorldLayer.Foreground => this.foregroundLayer,
+                SWorldLayer.Background => this.backgroundLayer,
+                _ => null,
+            };
         }
 
-        public void Copy(SWorldSlot value)
+        internal void Instantiate(SWorldLayer worldLayer, Point position, ISElement value)
         {
-            this.element = value.element;
-            this.isEmpty = value.isEmpty;
-            this.position = value.position;
-            this.temperature = value.temperature;
-            this.freeFalling = value.freeFalling;
-            this.color = value.color;
+            this.position = position;
+            GetLayer(worldLayer).Instantiate(value);
         }
 
-        public void SetPosition(Point value)
+        internal void Destroy(SWorldLayer worldLayer)
         {
-            this.position = value;
+            GetLayer(worldLayer).Destroy();
         }
 
-        public void SetTemperatureValue(int value)
+        internal void Copy(SWorldLayer worldLayer, ISWorldSlotLayer valueToCopy)
         {
-            this.temperature = STemperatureMath.Clamp(value);
+            GetLayer(worldLayer).Copy(valueToCopy);
         }
 
-        public void SetFreeFalling(bool value)
+        internal void SetTemperatureValue(SWorldLayer worldLayer, short value)
         {
-            this.freeFalling = value;
+            GetLayer(worldLayer).SetTemperatureValue(value);
         }
 
-        public void SetColor(Color value)
+        internal void SetFreeFalling(SWorldLayer worldLayer, bool value)
         {
-            this.color = value;
+            GetLayer(worldLayer).SetFreeFalling(value);
+        }
+
+        internal void SetColorModifier(SWorldLayer worldLayer, Color value)
+        {
+            GetLayer(worldLayer).SetColorModifier(value);
+        }
+
+        internal void Reset(SWorldLayer worldLayer)
+        {
+            GetLayer(worldLayer).Reset();
         }
 
         public void Reset()
         {
-            Destroy();
+            this.foregroundLayer.Reset();
+            this.backgroundLayer.Reset();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 
@@ -10,285 +11,284 @@ namespace StardustSandbox.Core.Elements.Contexts
     internal sealed class SElementContext(ISWorld world) : ISElementContext
     {
         public ISWorldSlot Slot => this.worldSlot;
-        public ISElement Element => this.worldSlot.Element;
         public Point Position => this.worldSlot.Position;
 
         private ISWorldSlot worldSlot;
 
         private readonly ISWorld world = world;
 
-        public void UpdateInformation(ISWorldSlot worldSlot, Point position)
+        public void UpdateInformation(SWorldLayer worldLayer, ISWorldSlot worldSlot, Point position)
         {
             this.worldSlot = worldSlot;
         }
 
         #region World
-        public void SetPosition(Point newPosition)
+        public void SetPosition(SWorldLayer worldLayer, Point newPosition)
         {
-            _ = TrySetPosition(newPosition);
+            _ = TrySetPosition(worldLayer, newPosition);
         }
-        public bool TrySetPosition(Point newPosition)
+        public bool TrySetPosition(SWorldLayer worldLayer, Point newPosition)
         {
-            if (this.world.TryUpdateElementPosition(this.Position, newPosition))
+            if (this.world.TryUpdateElementPosition(worldLayer, this.Position, newPosition))
             {
-                this.worldSlot = GetElementSlot(newPosition);
+                this.worldSlot = GetElementSlot(worldLayer, newPosition);
                 return true;
             }
 
             return false;
         }
 
-        public void InstantiateElement<T>() where T : ISElement
+        public void InstantiateElement<T>(SWorldLayer worldLayer) where T : ISElement
         {
-            InstantiateElement<T>(this.Position);
+            InstantiateElement<T>(worldLayer, this.Position);
         }
-        public void InstantiateElement(uint identifier)
+        public void InstantiateElement(SWorldLayer worldLayer, uint identifier)
         {
-            InstantiateElement(this.Position, identifier);
+            InstantiateElement(worldLayer, this.Position, identifier);
         }
-        public void InstantiateElement(ISElement value)
+        public void InstantiateElement(SWorldLayer worldLayer, ISElement value)
         {
-            InstantiateElement(this.Position, value);
+            InstantiateElement(worldLayer, this.Position, value);
         }
-        public void InstantiateElement<T>(Point position) where T : ISElement
+        public void InstantiateElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
         {
-            this.world.InstantiateElement<T>(position);
+            this.world.InstantiateElement<T>(worldLayer, position);
         }
-        public void InstantiateElement(Point position, uint identifier)
+        public void InstantiateElement(SWorldLayer worldLayer, Point position, uint identifier)
         {
-            this.world.InstantiateElement(position, identifier);
+            this.world.InstantiateElement(worldLayer, position, identifier);
         }
-        public void InstantiateElement(Point position, ISElement value)
+        public void InstantiateElement(SWorldLayer worldLayer, Point position, ISElement value)
         {
-            this.world.InstantiateElement(position, value);
+            this.world.InstantiateElement(worldLayer, position, value);
         }
-        public bool TryInstantiateElement<T>() where T : ISElement
+        public bool TryInstantiateElement<T>(SWorldLayer worldLayer) where T : ISElement
         {
-            return TryInstantiateElement<T>(this.Position);
+            return TryInstantiateElement<T>(worldLayer, this.Position);
         }
-        public bool TryInstantiateElement(uint identifier)
+        public bool TryInstantiateElement(SWorldLayer worldLayer, uint identifier)
         {
-            return TryInstantiateElement(this.Position, identifier);
+            return TryInstantiateElement(worldLayer, this.Position, identifier);
         }
-        public bool TryInstantiateElement(ISElement value)
+        public bool TryInstantiateElement(SWorldLayer worldLayer, ISElement value)
         {
-            return TryInstantiateElement(this.Position, value);
+            return TryInstantiateElement(worldLayer, this.Position, value);
         }
-        public bool TryInstantiateElement<T>(Point position) where T : ISElement
+        public bool TryInstantiateElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
         {
-            return this.world.TryInstantiateElement<T>(position);
+            return this.world.TryInstantiateElement<T>(worldLayer, position);
         }
-        public bool TryInstantiateElement(Point position, uint identifier)
+        public bool TryInstantiateElement(SWorldLayer worldLayer, Point position, uint identifier)
         {
-            return this.world.TryInstantiateElement(position, identifier);
+            return this.world.TryInstantiateElement(worldLayer, position, identifier);
         }
-        public bool TryInstantiateElement(Point position, ISElement value)
+        public bool TryInstantiateElement(SWorldLayer worldLayer, Point position, ISElement value)
         {
-            return this.world.TryInstantiateElement(position, value);
-        }
-
-        public void UpdateElementPosition(Point newPosition)
-        {
-            UpdateElementPosition(this.Position, newPosition);
-        }
-        public void UpdateElementPosition(Point oldPosition, Point newPosition)
-        {
-            this.world.UpdateElementPosition(oldPosition, newPosition);
-        }
-        public bool TryUpdateElementPosition(Point newPosition)
-        {
-            return TryUpdateElementPosition(this.Position, newPosition);
-        }
-        public bool TryUpdateElementPosition(Point oldPosition, Point newPosition)
-        {
-            return this.world.TryUpdateElementPosition(oldPosition, newPosition);
+            return this.world.TryInstantiateElement(worldLayer, position, value);
         }
 
-        public void SwappingElements(Point targetPosition)
+        public void UpdateElementPosition(SWorldLayer worldLayer, Point newPosition)
         {
-            SwappingElements(this.Position, targetPosition);
+            UpdateElementPosition(worldLayer, this.Position, newPosition);
         }
-        public void SwappingElements(Point element1Position, Point element2Position)
+        public void UpdateElementPosition(SWorldLayer worldLayer, Point oldPosition, Point newPosition)
         {
-            _ = TrySwappingElements(element1Position, element2Position);
+            this.world.UpdateElementPosition(worldLayer, oldPosition, newPosition);
         }
-        public bool TrySwappingElements(Point targetPosition)
+        public bool TryUpdateElementPosition(SWorldLayer worldLayer, Point newPosition)
         {
-            return TrySwappingElements(this.Position, targetPosition);
+            return TryUpdateElementPosition(worldLayer, this.Position, newPosition);
         }
-        public bool TrySwappingElements(Point element1Position, Point element2Position)
+        public bool TryUpdateElementPosition(SWorldLayer worldLayer, Point oldPosition, Point newPosition)
         {
-            return this.world.TrySwappingElements(element1Position, element2Position);
-        }
-
-        public void DestroyElement()
-        {
-            this.world.DestroyElement(this.Position);
-        }
-        public void DestroyElement(Point position)
-        {
-            this.world.DestroyElement(position);
-        }
-        public bool TryDestroyElement()
-        {
-            return TryDestroyElement(this.Position);
-        }
-        public bool TryDestroyElement(Point position)
-        {
-            return this.world.TryDestroyElement(position);
+            return this.world.TryUpdateElementPosition(worldLayer, oldPosition, newPosition);
         }
 
-        public void ReplaceElement<T>() where T : ISElement
+        public void SwappingElements(SWorldLayer worldLayer, Point targetPosition)
         {
-            ReplaceElement<T>(this.Position);
+            SwappingElements(worldLayer, this.Position, targetPosition);
         }
-        public void ReplaceElement(uint identifier)
+        public void SwappingElements(SWorldLayer worldLayer, Point element1Position, Point element2Position)
         {
-            ReplaceElement(this.Position, identifier);
+            _ = TrySwappingElements(worldLayer, element1Position, element2Position);
         }
-        public void ReplaceElement(ISElement value)
+        public bool TrySwappingElements(SWorldLayer worldLayer, Point targetPosition)
         {
-            ReplaceElement(this.Position, value);
+            return TrySwappingElements(worldLayer, this.Position, targetPosition);
         }
-        public void ReplaceElement<T>(Point position) where T : ISElement
+        public bool TrySwappingElements(SWorldLayer worldLayer, Point element1Position, Point element2Position)
         {
-            this.world.ReplaceElement<T>(position);
-        }
-        public void ReplaceElement(Point position, uint identifier)
-        {
-            this.world.ReplaceElement(position, identifier);
-        }
-        public void ReplaceElement(Point position, ISElement value)
-        {
-            this.world.ReplaceElement(position, value);
-        }
-        public bool TryReplaceElement<T>() where T : ISElement
-        {
-            return TryReplaceElement<T>(this.Position);
-        }
-        public bool TryReplaceElement(uint identifier)
-        {
-            return TryReplaceElement(this.Position, identifier);
-        }
-        public bool TryReplaceElement(ISElement value)
-        {
-            return TryReplaceElement(this.Position, value);
-        }
-        public bool TryReplaceElement<T>(Point position) where T : ISElement
-        {
-            return this.world.TryReplaceElement<T>(position);
-        }
-        public bool TryReplaceElement(Point position, uint identifier)
-        {
-            return this.world.TryReplaceElement(position, identifier);
-        }
-        public bool TryReplaceElement(Point position, ISElement value)
-        {
-            return this.world.TryReplaceElement(position, value);
+            return this.world.TrySwappingElements(worldLayer, element1Position, element2Position);
         }
 
-        public ISElement GetElement()
+        public void DestroyElement(SWorldLayer worldLayer)
         {
-            return GetElement(this.Position);
+            this.world.DestroyElement(worldLayer, this.Position);
         }
-        public ISElement GetElement(Point position)
+        public void DestroyElement(SWorldLayer worldLayer, Point position)
         {
-            return this.world.GetElement(position);
+            this.world.DestroyElement(worldLayer, position);
         }
-        public bool TryGetElement(out ISElement value)
+        public bool TryDestroyElement(SWorldLayer worldLayer)
         {
-            return TryGetElement(this.Position, out value);
+            return TryDestroyElement(worldLayer, this.Position);
         }
-        public bool TryGetElement(Point position, out ISElement value)
+        public bool TryDestroyElement(SWorldLayer worldLayer, Point position)
         {
-            return this.world.TryGetElement(position, out value);
-        }
-
-        public ReadOnlySpan<ISWorldSlot> GetElementNeighbors()
-        {
-            return GetElementNeighbors(this.Position);
-        }
-        public ReadOnlySpan<ISWorldSlot> GetElementNeighbors(Point position)
-        {
-            return this.world.GetElementNeighbors(position);
-        }
-        public bool TryGetElementNeighbors(out ISWorldSlot[] neighbors)
-        {
-            return TryGetElementNeighbors(this.Position, out neighbors);
-        }
-        public bool TryGetElementNeighbors(Point position, out ISWorldSlot[] neighbors)
-        {
-            return this.world.TryGetElementNeighbors(position, out neighbors);
+            return this.world.TryDestroyElement(worldLayer, position);
         }
 
-        public ISWorldSlot GetElementSlot()
+        public void ReplaceElement<T>(SWorldLayer worldLayer) where T : ISElement
         {
-            return GetElementSlot(this.Position);
+            ReplaceElement<T>(worldLayer, this.Position);
         }
-        public ISWorldSlot GetElementSlot(Point position)
+        public void ReplaceElement(SWorldLayer worldLayer, uint identifier)
         {
-            return this.world.GetElementSlot(position);
+            ReplaceElement(worldLayer, this.Position, identifier);
         }
-        public bool TryGetElementSlot(out ISWorldSlot value)
+        public void ReplaceElement(SWorldLayer worldLayer, ISElement value)
         {
-            return TryGetElementSlot(this.Position, out value);
+            ReplaceElement(worldLayer, this.Position, value);
         }
-        public bool TryGetElementSlot(Point position, out ISWorldSlot value)
+        public void ReplaceElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
         {
-            return this.world.TryGetElementSlot(position, out value);
+            this.world.ReplaceElement<T>(worldLayer, position);
         }
-
-        public void SetElementTemperature(short value)
+        public void ReplaceElement(SWorldLayer worldLayer, Point position, uint identifier)
         {
-            SetElementTemperature(this.Position, value);
+            this.world.ReplaceElement(worldLayer, position, identifier);
         }
-        public void SetElementTemperature(Point position, short value)
+        public void ReplaceElement(SWorldLayer worldLayer, Point position, ISElement value)
         {
-            this.world.SetElementTemperature(position, value);
+            this.world.ReplaceElement(worldLayer, position, value);
         }
-        public bool TrySetElementTemperature(short value)
+        public bool TryReplaceElement<T>(SWorldLayer worldLayer) where T : ISElement
         {
-            return TrySetElementTemperature(this.Position, value);
+            return TryReplaceElement<T>(worldLayer, this.Position);
         }
-        public bool TrySetElementTemperature(Point position, short value)
+        public bool TryReplaceElement(SWorldLayer worldLayer, uint identifier)
         {
-            return this.world.TrySetElementTemperature(position, value);
+            return TryReplaceElement(worldLayer, this.Position, identifier);
         }
-
-        public void SetElementFreeFalling(bool value)
+        public bool TryReplaceElement(SWorldLayer worldLayer, ISElement value)
         {
-            SetElementFreeFalling(this.Position, value);
+            return TryReplaceElement(worldLayer, this.Position, value);
         }
-        public void SetElementFreeFalling(Point position, bool value)
+        public bool TryReplaceElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
         {
-            this.world.SetElementFreeFalling(position, value);
+            return this.world.TryReplaceElement<T>(worldLayer, position);
         }
-
-        public bool TrySetElementFreeFalling(bool value)
+        public bool TryReplaceElement(SWorldLayer worldLayer, Point position, uint identifier)
         {
-            return TrySetElementFreeFalling(this.Position, value);
+            return this.world.TryReplaceElement(worldLayer, position, identifier);
         }
-        public bool TrySetElementFreeFalling(Point position, bool value)
+        public bool TryReplaceElement(SWorldLayer worldLayer, Point position, ISElement value)
         {
-            return this.world.TrySetElementFreeFalling(position, value);
+            return this.world.TryReplaceElement(worldLayer, position, value);
         }
 
-        public void SetElementColor(Color value)
+        public ISElement GetElement(SWorldLayer worldLayer)
         {
-            SetElementColor(this.Position, value);
+            return GetElement(worldLayer, this.Position);
         }
-        public void SetElementColor(Point position, Color value)
+        public ISElement GetElement(SWorldLayer worldLayer, Point position)
         {
-            this.world.SetElementColor(position, value);
+            return this.world.GetElement(worldLayer, position);
+        }
+        public bool TryGetElement(SWorldLayer worldLayer, out ISElement value)
+        {
+            return TryGetElement(worldLayer, this.Position, out value);
+        }
+        public bool TryGetElement(SWorldLayer worldLayer, Point position, out ISElement value)
+        {
+            return this.world.TryGetElement(worldLayer, position, out value);
         }
 
-        public bool TryElementSetColor(Color value)
+        public ReadOnlySpan<ISWorldSlot> GetNeighboringSlots()
         {
-            return TrySetElementColor(this.Position, value);
+            return GetNeighboringSlots(this.Position);
         }
-        public bool TrySetElementColor(Point position, Color value)
+        public ReadOnlySpan<ISWorldSlot> GetNeighboringSlots(Point position)
         {
-            return this.world.TrySetElementColor(position, value);
+            return this.world.GetNeighboringSlots(position);
+        }
+        public bool TryGetNeighboringSlots(out ISWorldSlot[] neighbors)
+        {
+            return TryGetNeighboringSlots(this.Position, out neighbors);
+        }
+        public bool TryGetNeighboringSlots(Point position, out ISWorldSlot[] neighbors)
+        {
+            return this.world.TryGetNeighboringSlots(position, out neighbors);
+        }
+
+        public ISWorldSlot GetElementSlot(SWorldLayer worldLayer)
+        {
+            return GetElementSlot(worldLayer, this.Position);
+        }
+        public ISWorldSlot GetElementSlot(SWorldLayer worldLayer, Point position)
+        {
+            return this.world.GetElementSlot(worldLayer, position);
+        }
+        public bool TryGetElementSlot(SWorldLayer worldLayer, out ISWorldSlot value)
+        {
+            return TryGetElementSlot(worldLayer, this.Position, out value);
+        }
+        public bool TryGetElementSlot(SWorldLayer worldLayer, Point position, out ISWorldSlot value)
+        {
+            return this.world.TryGetElementSlot(worldLayer, position, out value);
+        }
+
+        public void SetElementTemperature(SWorldLayer worldLayer, short value)
+        {
+            SetElementTemperature(worldLayer, this.Position, value);
+        }
+        public void SetElementTemperature(SWorldLayer worldLayer, Point position, short value)
+        {
+            this.world.SetElementTemperature(worldLayer, position, value);
+        }
+        public bool TrySetElementTemperature(SWorldLayer worldLayer, short value)
+        {
+            return TrySetElementTemperature(worldLayer, this.Position, value);
+        }
+        public bool TrySetElementTemperature(SWorldLayer worldLayer, Point position, short value)
+        {
+            return this.world.TrySetElementTemperature(worldLayer, position, value);
+        }
+
+        public void SetElementFreeFalling(SWorldLayer worldLayer, bool value)
+        {
+            SetElementFreeFalling(worldLayer, this.Position, value);
+        }
+        public void SetElementFreeFalling(SWorldLayer worldLayer, Point position, bool value)
+        {
+            this.world.SetElementFreeFalling(worldLayer, position, value);
+        }
+
+        public bool TrySetElementFreeFalling(SWorldLayer worldLayer, bool value)
+        {
+            return TrySetElementFreeFalling(worldLayer, this.Position, value);
+        }
+        public bool TrySetElementFreeFalling(SWorldLayer worldLayer, Point position, bool value)
+        {
+            return this.world.TrySetElementFreeFalling(worldLayer, position, value);
+        }
+
+        public void SetElementColorModifier(SWorldLayer worldLayer, Color value)
+        {
+            SetElementColorModifier(worldLayer, this.Position, value);
+        }
+        public void SetElementColorModifier(SWorldLayer worldLayer, Point position, Color value)
+        {
+            this.world.SetElementColorModifier(worldLayer, position, value);
+        }
+
+        public bool TrySetElementColorModifier(SWorldLayer worldLayer, Color value)
+        {
+            return TrySetElementColorModifier(worldLayer, this.Position, value);
+        }
+        public bool TrySetElementColorModifier(SWorldLayer worldLayer, Point position, Color value)
+        {
+            return this.world.TrySetElementColorModifier(worldLayer, position, value);
         }
 
         // Tools
