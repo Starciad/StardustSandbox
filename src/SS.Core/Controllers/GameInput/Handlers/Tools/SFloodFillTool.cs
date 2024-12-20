@@ -49,6 +49,11 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         private void FloodFillElements(ISElement element, Point position, bool isErasing)
         {
+            if (!IsValidStart(position, element, isErasing))
+            {
+                return;
+            }
+
             this.floodFillQueue.Clear();
             this.floodFillVisited.Clear();
 
@@ -112,6 +117,16 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             {
                 this.world.ReplaceElement(position, element); // Replace the element
             }
+        }
+
+        private bool IsValidStart(Point position, ISElement element, bool isErasing)
+        {
+            if (isErasing)
+            {
+                return !this.world.IsEmptyElementSlot(position);
+            }
+
+            return this.world.IsEmptyElementSlot(position) || this.world.GetElement(position) != element;
         }
 
         private bool IsValidNeighbor(Point neighbor, ISElement targetElement, bool isErasing)
