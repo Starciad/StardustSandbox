@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Specials.General;
-using StardustSandbox.Core.Constants.GUI;
+﻿using StardustSandbox.Core.Constants.GUI;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {

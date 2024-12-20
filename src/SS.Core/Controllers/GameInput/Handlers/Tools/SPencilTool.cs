@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                 switch (worldModificationType)
                 {
                     case SWorldModificationType.Adding:
-                        DrawElements(targetPoints, this.elementDatabase.GetElementByType(itemType));
+                        DrawElements(this.elementDatabase.GetElementByType(itemType), targetPoints);
                         break;
 
                     case SWorldModificationType.Removing:
@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         // ============================================ //
         // Elements
 
-        private void DrawElements(Point[] points, ISElement element)
+        private void DrawElements(ISElement element, Point[] points)
         {
             foreach (Point point in points)
             {

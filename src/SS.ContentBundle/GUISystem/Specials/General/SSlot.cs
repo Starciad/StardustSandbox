@@ -5,9 +5,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.Specials.General
 {
     internal sealed class SSlot
     {
-        internal SGUIImageElement BackgroundElement => backgroundElement;
-        internal SGUIImageElement IconElement => iconElement;
-        internal SGUILabelElement LabelElement => labelElement;
+        internal SGUIImageElement BackgroundElement => this.backgroundElement;
+        internal SGUIImageElement IconElement => this.iconElement;
+        internal SGUILabelElement LabelElement => this.labelElement;
 
         private readonly SGUIImageElement backgroundElement;
         private readonly SGUIImageElement iconElement;

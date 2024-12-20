@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
@@ -131,14 +130,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateSlotIcons()
         {
-            if (this.SGameInstance.GameManager.GameState.IsSimulationPaused)
-            {
-                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[06];
-            }
-            else
-            {
-                this.leftPanelBottomButtonElements[0].IconElement.Texture = this.iconTextures[05];
-            }
+            this.leftPanelBottomButtonElements[0].IconElement.Texture = this.SGameInstance.GameManager.GameState.IsSimulationPaused ? this.iconTextures[06] : this.iconTextures[05];
         }
 
         private void SetPlayerInteractionWhenToolbarHovered()

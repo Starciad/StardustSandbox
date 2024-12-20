@@ -7,11 +7,9 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Controllers.GameInput;
-using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
@@ -124,7 +122,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 if (this.GUIEvents.OnMouseDown(position + offset, new(SHUDConstants.SLOT_SIZE)))
                 {
-                    this.SGameInstance.GameInputController.Pen.Size = (sbyte)(i + 1);
+                    this.SGameInstance.GameInputController.Pen.Size = (sbyte)i;
                     break;
                 }
 
@@ -194,7 +192,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 slot.BackgroundElement.Color = this.shapeButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
             }
         }
-        
+
         private void SyncGUIElements()
         {
             // Brush Size Slider
