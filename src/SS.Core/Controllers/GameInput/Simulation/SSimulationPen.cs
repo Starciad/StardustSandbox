@@ -1,42 +1,84 @@
-﻿using StardustSandbox.Core.Constants;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.GameInput.Pen;
+
+using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 {
     public sealed class SSimulationPen
     {
-        public byte Size => this.size;
+        public sbyte Size
+        {
+            get => this.size;
+            set => this.size = sbyte.Clamp(value, SInputConstants.PEN_MIN_SIZE, SInputConstants.PEN_MAX_SIZE);
+        }
         public SPenTool Tool { get; set; }
         public SPenLayer Layer { get; set; }
         public SPenShape Shape { get; set; }
 
-        private byte size = 1;
+        private sbyte size = SInputConstants.PEN_MIN_SIZE;
 
-        public void AddSize(byte value)
+        public Point[] GetPenShapePoints(Point position)
         {
-            if (this.size + value > SInputConstants.PEN_MAX_SIZE)
+            return this.Shape switch
             {
-                this.size = SInputConstants.PEN_MAX_SIZE;
-                return;
-            }
-
-            this.size += value;
+                SPenShape.Circle => GetCirclePositions(position, this.Size),
+                SPenShape.Square => GetSquarePositions(position, this.Size),
+                SPenShape.Triangle => GetTrianglePositions(position, this.Size),
+                _ => throw new NotSupportedException($"Shape {this.Shape} is not supported.")
+            };
         }
 
-        public void RemoveSize(byte value)
+        private static Point[] GetCirclePositions(Point position, int radius)
         {
-            if (this.size - value < SInputConstants.PEN_MIN_SIZE)
+            List<Point> points = [];
+
+            for (int x = -radius; x <= radius; x++)
             {
-                this.size = SInputConstants.PEN_MIN_SIZE;
-                return;
+                for (int y = -radius; y <= radius; y++)
+                {
+                    if ((x * x) + (y * y) <= radius * radius)
+                    {
+                        points.Add(new(position.X + x, position.Y + y));
+                    }
+                }
             }
 
-            this.size -= value;
+            return [.. points];
         }
 
-        public void SetSize(byte value)
+        private static Point[] GetSquarePositions(Point position, int radius)
         {
-            this.size = byte.Clamp(value, SInputConstants.PEN_MIN_SIZE, SInputConstants.PEN_MAX_SIZE);
+            List<Point> points = [];
+
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    points.Add(new(position.X + x, position.Y + y));
+                }
+            }
+
+            return [.. points];
+        }
+
+        private static Point[] GetTrianglePositions(Point position, int radius)
+        {
+            List<Point> points = [];
+
+            for (int y = 0; y <= radius; y++)
+            {
+                int rowWidth = radius - y;
+                for (int x = -rowWidth; x <= rowWidth; x++)
+                {
+                    points.Add(new(position.X + x, position.Y - y + radius / 2));
+                }
+            }
+
+            return [.. points];
         }
     }
 }

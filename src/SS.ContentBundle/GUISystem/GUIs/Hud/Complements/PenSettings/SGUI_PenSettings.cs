@@ -124,7 +124,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 if (this.GUIEvents.OnMouseDown(position + offset, new(SHUDConstants.SLOT_SIZE)))
                 {
-                    this.SGameInstance.GameInputController.Pen.SetSize((byte)(i + 1));
+                    this.SGameInstance.GameInputController.Pen.Size = (sbyte)(i + 1);
                     break;
                 }
 
@@ -198,7 +198,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void SyncGUIElements()
         {
             // Brush Size Slider
-            this.brushSizeSliderElement.TextureClipArea = this.brushSizeSliderClipTextures[this.gameInputController.Pen.Size - 1];
+            this.brushSizeSliderElement.TextureClipArea = this.brushSizeSliderClipTextures[this.gameInputController.Pen.Size];
 
             // Tool
             this.toolButtonSelectedIndex = (byte)this.gameInputController.Pen.Tool;

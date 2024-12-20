@@ -56,11 +56,11 @@ namespace StardustSandbox.Core.Controllers.GameInput
         {
             if (this.inputManager.GetDeltaScrollWheel() > 0)
             {
-                this.pen.RemoveSize(1);
+                this.pen.Size--;
             }
             else if (this.inputManager.GetDeltaScrollWheel() < 0)
             {
-                this.pen.AddSize(1);
+                this.pen.Size++;
             }
         }
 

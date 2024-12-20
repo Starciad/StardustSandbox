@@ -15,19 +15,33 @@ using System;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SWorldHandler(ISWorld world, ISInputManager inputManager, ISCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, ISElementDatabase elementDatabase)
+    internal sealed class SWorldHandler
     {
-        private readonly ISWorld world = world;
+        private readonly ISWorld world;
 
-        private readonly ISInputManager inputManager = inputManager;
-        private readonly ISCameraManager cameraManager = cameraManager;
+        private readonly ISInputManager inputManager;
+        private readonly ISCameraManager cameraManager;
 
-        private readonly ISElementDatabase elementDatabase = elementDatabase;
+        private readonly ISElementDatabase elementDatabase;
 
-        private readonly SSimulationPlayer simulationPlayer = simulationPlayer;
-        private readonly SSimulationPen simulationPen = simulationPen;
+        private readonly SSimulationPlayer simulationPlayer;
+        private readonly SSimulationPen simulationPen;
 
-        private readonly SPencilTool pencilTool = new(simulationPen);
+        private readonly SPencilTool pencilTool;
+
+        public SWorldHandler(ISWorld world, ISInputManager inputManager, ISCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, ISElementDatabase elementDatabase)
+        {
+            this.world = world;
+
+            this.inputManager = inputManager;
+            this.cameraManager = cameraManager;
+            this.elementDatabase = elementDatabase;
+
+            this.simulationPlayer = simulationPlayer;
+            this.simulationPen = simulationPen;
+
+            this.pencilTool = new(this.world, this.elementDatabase, simulationPen);
+        }
 
         public void Clear()
         {
@@ -47,15 +61,13 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             switch (this.simulationPen.Tool)
             {
                 case SPenTool.Pencil:
-                    ExecutePencilTool(worldModificationType, itemType, mousePosition);
+                    this.pencilTool.Execute(itemType, mousePosition, worldModificationType);
                     break;
 
                 case SPenTool.Fill:
-                    ExecuteFillTool(worldModificationType, itemType, mousePosition);
                     break;
 
                 case SPenTool.Replace:
-                    ExecuteReplaceTool(worldModificationType, itemType, mousePosition);
                     break;
 
                 default:
@@ -85,19 +97,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
         private void ExecuteFillTool(SWorldModificationType worldModificationType, Type itemType, Point mousePosition)
         {
-            if (!this.world.InsideTheWorldDimensions(mousePosition))
-            {
-                return;
-            }
 
-            if (worldModificationType == SWorldModificationType.Adding)
-            {
-
-            }
-            else if (worldModificationType == SWorldModificationType.Removing)
-            {
-
-            }
         }
 
         private void ExecuteReplaceTool(SWorldModificationType worldModificationType, Type itemType, Point mousePosition)

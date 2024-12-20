@@ -1,14 +1,73 @@
-﻿using StardustSandbox.Core.Controllers.GameInput.Simulation;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Controllers.GameInput.Simulation;
+using StardustSandbox.Core.Enums.GameInput;
+using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.World;
+
+using System;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 {
     internal sealed class SPencilTool
     {
+        private readonly ISWorld world;
+        private readonly ISElementDatabase elementDatabase;
+
         private readonly SSimulationPen simulationPen;
 
-        internal SPencilTool(SSimulationPen simulationPen)
+        internal SPencilTool(ISWorld world, ISElementDatabase elementDatabase, SSimulationPen simulationPen)
         {
+            this.world = world;
+            this.elementDatabase = elementDatabase;
             this.simulationPen = simulationPen;
         }
+
+        internal void Execute(Type itemType, Point position, SWorldModificationType worldModificationType)
+        {
+            Point[] targetPoints = this.simulationPen.GetPenShapePoints(position);
+
+            // The selected item corresponds to an element.
+            if (typeof(ISElement).IsAssignableFrom(itemType))
+            {
+                switch (worldModificationType)
+                {
+                    case SWorldModificationType.Adding:
+                        DrawElements(targetPoints, this.elementDatabase.GetElementByType(itemType));
+                        break;
+
+                    case SWorldModificationType.Removing:
+                        EraseElements(targetPoints);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return;
+            }
+        }
+
+        // ============================================ //
+        // Elements
+
+        private void DrawElements(Point[] points, ISElement element)
+        {
+            foreach (Point point in points)
+            {
+                this.world.InstantiateElement(point, element);
+            }
+        }
+
+        private void EraseElements(Point[] points)
+        {
+            foreach (Point point in points)
+            {
+                this.world.DestroyElement(point);
+            }
+        }
+
+        // ============================================ //
     }
 }
