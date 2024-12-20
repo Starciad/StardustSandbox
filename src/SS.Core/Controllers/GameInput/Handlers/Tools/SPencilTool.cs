@@ -60,7 +60,5 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                 this.world.DestroyElement(point);
             }
         }
-
-        // ============================================ //
     }
 }

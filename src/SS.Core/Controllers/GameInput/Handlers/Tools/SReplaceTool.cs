@@ -3,6 +3,7 @@
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 
 using System;
@@ -13,11 +14,51 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
     {
         internal SReplaceTool(ISWorld world, ISElementDatabase elementDatabase, SSimulationPen simulationPen) : base(world, elementDatabase, simulationPen)
         {
+
         }
 
         internal override void Execute(SWorldModificationType worldModificationType, Type itemType, Point position)
         {
+            Point[] targetPoints = this.simulationPen.GetPenShapePoints(position);
 
+            // The selected item corresponds to an element.
+            if (typeof(ISElement).IsAssignableFrom(itemType))
+            {
+                switch (worldModificationType)
+                {
+                    case SWorldModificationType.Adding:
+                        ReplaceElements(targetPoints, this.elementDatabase.GetElementByType(itemType));
+                        break;
+
+                    case SWorldModificationType.Removing:
+                        EraseElements(targetPoints);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                return;
+            }
+        }
+
+        // ============================================ //
+        // Elements
+
+        private void ReplaceElements(Point[] points, ISElement element)
+        {
+            foreach (Point point in points)
+            {
+                this.world.ReplaceElement(point, element);
+            }
+        }
+
+        private void EraseElements(Point[] points)
+        {
+            foreach (Point point in points)
+            {
+                this.world.DestroyElement(point);
+            }
         }
     }
 }
