@@ -10,21 +10,14 @@ using System;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 {
-    internal sealed class SPencilTool
+    internal sealed class SPencilTool : STool
     {
-        private readonly ISWorld world;
-        private readonly ISElementDatabase elementDatabase;
-
-        private readonly SSimulationPen simulationPen;
-
-        internal SPencilTool(ISWorld world, ISElementDatabase elementDatabase, SSimulationPen simulationPen)
+        internal SPencilTool(ISWorld world, ISElementDatabase elementDatabase, SSimulationPen simulationPen) : base(world, elementDatabase, simulationPen)
         {
-            this.world = world;
-            this.elementDatabase = elementDatabase;
-            this.simulationPen = simulationPen;
+
         }
 
-        internal void Execute(Type itemType, Point position, SWorldModificationType worldModificationType)
+        internal override void Execute(SWorldModificationType worldModificationType, Type itemType, Point position)
         {
             Point[] targetPoints = this.simulationPen.GetPenShapePoints(position);
 
