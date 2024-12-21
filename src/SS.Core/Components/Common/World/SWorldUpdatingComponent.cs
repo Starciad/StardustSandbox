@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Components.Common.World
                     {
                         Point position = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
 
-                        if (this.SWorldInstance.IsEmptyElementSlot(position))
+                        if (this.SWorldInstance.IsEmptyWorldSlot(position))
                         {
                             continue;
                         }
@@ -67,9 +67,9 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             ISWorldSlot slot = this.SWorldInstance.GetWorldSlot(position);
 
-            if (this.SWorldInstance.TryGetElement(worldLayer, position, out ISElement value))
+            if (this.SWorldInstance.TryGetElement(position, worldLayer, out ISElement value))
             {
-                this.elementUpdateContext.UpdateInformation(worldLayer, slot, position);
+                this.elementUpdateContext.UpdateInformation(position, worldLayer, slot);
                 value.Context = this.elementUpdateContext;
 
                 switch (updateType)

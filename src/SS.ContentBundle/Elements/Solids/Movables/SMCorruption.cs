@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 
         protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
         {
-            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(neighbors, neighbors.Length))
+            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(this.Context.Layer, neighbors, neighbors.Length))
             {
                 return;
             }

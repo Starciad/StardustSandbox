@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements
 
         protected Color referenceColor = Color.White;
 
-        protected SWorldLayer allowedLayers = SWorldLayer.Foreground | SWorldLayer.Background;
+        protected SWorldLayer allowedLayers = SWorldLayer.Foreground;
 
         protected int defaultDispersionRate = 1;
         protected short defaultTemperature;

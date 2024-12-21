@@ -28,7 +28,6 @@ namespace StardustSandbox.Core.World.Data
         {
             return worldLayer switch
             {
-                SWorldLayer.None => null,
                 SWorldLayer.Foreground => this.foregroundLayer,
                 SWorldLayer.Background => this.backgroundLayer,
                 _ => null,

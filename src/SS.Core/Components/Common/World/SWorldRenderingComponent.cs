@@ -50,6 +50,12 @@ namespace StardustSandbox.Core.Components.Common.World
                     if (this._cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
                         spriteBatch.Draw(this._gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+
+                        if (this.SWorldInstance.IsEmptyWorldSlot(targetPosition.ToPoint()))
+                        {
+                            continue;
+                        }
+
                         this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
                     }
                 }
@@ -60,35 +66,20 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             foreach (Point position in this._slotsCapturedForRendering)
             {
-                if (this.SWorldInstance.IsEmptyElementSlot(position))
-                {
-                    continue;
-                }
-
                 ISWorldSlot worldSlot = this.SWorldInstance.GetWorldSlot(position);
-                SWorldLayer worldLayer;
-                SElement element;
+                SWorldLayer worldLayer = SWorldLayer.Background;
+                SElement element = (SElement)worldSlot.GetLayer(SWorldLayer.Background).Element;
 
                 if (!worldSlot.ForegroundLayer.IsEmpty)
                 {
                     worldLayer = SWorldLayer.Foreground;
-                    element = (SElement)worldSlot.GetLayer(worldLayer).Element;
-                    
-                }
-                else if (!worldSlot.BackgroundLayer.IsEmpty)
-                {
-                    worldLayer = SWorldLayer.Background;
-                    element = (SElement)worldSlot.GetLayer(worldLayer).Element;
-                }
-                else
-                {
-                    continue;
+                    element = (SElement)worldSlot.GetLayer(SWorldLayer.Foreground).Element;
                 }
 
-                this.elementRenderingContext.UpdateInformation(worldLayer, worldSlot, position);
+                this.elementRenderingContext.UpdateInformation(position, worldLayer, worldSlot);
 
-                element.Context ??= this.elementRenderingContext;
-                element?.Draw(gameTime, spriteBatch);
+                element.Context = this.elementRenderingContext;
+                element.Draw(gameTime, spriteBatch);
 
                 // [ DEBUG ]
                 //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);

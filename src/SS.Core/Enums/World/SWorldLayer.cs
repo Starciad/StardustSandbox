@@ -3,10 +3,10 @@
 namespace StardustSandbox.Core.Enums.World
 {
     [Flags]
-    public enum SWorldLayer
+    public enum SWorldLayer : byte
     {
         None = 0,
-        Foreground = 1 << 0,
-        Background = 1 << 1
+        Foreground = 1,
+        Background = 2,
     }
 }

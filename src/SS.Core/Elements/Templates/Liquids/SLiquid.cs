@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
                     if (TrySetPosition(position))
                     {
                         SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, position);
-                        this.Context.SetElementFreeFalling(this.Context.Layer, position, true);
+                        this.Context.SetElementFreeFalling(position, this.Context.Layer, true);
                         return;
                     }
                 }
@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
                 if (TrySetPosition(new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1)))
                 {
                     SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
-                    this.Context.SetElementFreeFalling(this.Context.Layer, belowPositions[0], true);
+                    this.Context.SetElementFreeFalling(belowPositions[0], this.Context.Layer, true);
                     return;
                 }
                 else
@@ -52,14 +52,14 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
 
         private bool TrySetPosition(Point position)
         {
-            if (this.Context.TrySetPosition(this.Context.Layer, position))
+            if (this.Context.TrySetPosition(position))
             {
                 return true;
             }
 
-            if (this.Context.TryGetElement(this.Context.Layer, position, out ISElement value))
+            if (this.Context.TryGetElement(position, this.Context.Layer, out ISElement value))
             {
-                if (value is SGas && this.Context.TrySwappingElements(this.Context.Layer, position))
+                if (value is SGas && this.Context.TrySwappingElements(position))
                 {
                     return true;
                 }

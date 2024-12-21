@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Extensions
                     int index = (y * thumbnailWidth) + x;
 
                     // Determines color based on world element
-                    if (world.IsEmptyElementSlot(worldPosition))
+                    if (world.IsEmptyWorldSlot(worldPosition))
                     {
                         // This color represents the thumbnail's background
                         data[index] = SColorPalette.Cerulean.Vary(5);
@@ -55,11 +55,11 @@ namespace StardustSandbox.Core.Extensions
 
                         if (!worldSlot.ForegroundLayer.IsEmpty)
                         {
-                            data[index] = world.GetElement(SWorldLayer.Foreground, worldPosition).ReferenceColor.Vary(5);
+                            data[index] = world.GetElement(worldPosition, SWorldLayer.Foreground).ReferenceColor.Vary(5);
                         }
                         else if (!worldSlot.BackgroundLayer.IsEmpty)
                         {
-                            data[index] = world.GetElement(SWorldLayer.Background, worldPosition).ReferenceColor.Vary(5).Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                            data[index] = world.GetElement(worldPosition, SWorldLayer.Background).ReferenceColor.Vary(5).Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
                         }
                     }
                 }

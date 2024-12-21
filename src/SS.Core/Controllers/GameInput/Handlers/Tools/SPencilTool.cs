@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         {
             foreach (Point point in points)
             {
-                this.world.InstantiateElement(this.simulationPen.Layer, point, element);
+                this.world.InstantiateElement(point, this.simulationPen.Layer, element);
             }
         }
 
@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         {
             foreach (Point point in points)
             {
-                this.world.DestroyElement(this.simulationPen.Layer, point);
+                this.world.DestroyElement(point, this.simulationPen.Layer);
             }
         }
     }

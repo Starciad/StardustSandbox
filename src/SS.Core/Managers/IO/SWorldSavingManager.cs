@@ -150,7 +150,7 @@ namespace StardustSandbox.Core.Managers.IO
                 {
                     Point position = new(x, y);
 
-                    if (!world.IsEmptyElementSlot(position))
+                    if (!world.IsEmptyWorldSlot(position))
                     {
                         slotData.Add(new(world.GetWorldSlot(position)));
                     }

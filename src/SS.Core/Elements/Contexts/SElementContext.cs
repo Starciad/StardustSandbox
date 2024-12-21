@@ -23,7 +23,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void UpdateInformation(Point position, SWorldLayer worldLayer, ISWorldSlot worldSlot)
         {
-            ((SWorldSlot)this.worldSlot).SetPosition(position);
+            ((SWorldSlot)worldSlot).SetPosition(position);
 
             this.worldLayer = worldLayer;
             this.worldSlot = worldSlot;
@@ -409,13 +409,25 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
 
         // Tools
-        public bool IsEmptyElementSlot()
+        public bool IsEmptyWorldSlot()
         {
-            return IsEmptyElementSlot(this.Position);
+            return IsEmptyWorldSlot(this.Position);
         }
-        public bool IsEmptyElementSlot(Point position)
+        public bool IsEmptyWorldSlot(Point position)
         {
-            return this.world.IsEmptyElementSlot(position);
+            return this.world.IsEmptyWorldSlot(position);
+        }
+        public bool IsEmptyWorldSlotLayer()
+        {
+            return IsEmptyWorldSlotLayer(this.Position, this.Layer);
+        }
+        public bool IsEmptyWorldSlotLayer(SWorldLayer worldLayer)
+        {
+            return IsEmptyWorldSlotLayer(this.Position, worldLayer);
+        }
+        public bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer)
+        {
+            return this.world.IsEmptyWorldSlotLayer(position, worldLayer);
         }
         #endregion
 

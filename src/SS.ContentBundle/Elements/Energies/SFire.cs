@@ -50,9 +50,9 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
         {
             Point targetPosition = new(this.Context.Slot.Position.X + SRandomMath.Range(-1, 2), this.Context.Slot.Position.Y - 1);
 
-            if (this.Context.IsEmptyElementSlot(targetPosition))
+            if (this.Context.IsEmptyWorldSlot(targetPosition))
             {
-                if (this.Context.TrySetPosition(this.Context.Layer, targetPosition))
+                if (this.Context.TrySetPosition(targetPosition, this.Context.Layer))
                 {
                     return;
                 }
@@ -64,12 +64,13 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             for (int i = 0; i < neighbors.Length; i++)
             {
                 ISWorldSlot slot = neighbors[i];
+                ISWorldSlotLayer slotLayer = slot.GetLayer(this.Context.Layer);
 
                 // Increase neighboring temperature by fire's heat value
-                this.Context.SetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
+                this.Context.SetElementTemperature((short)(slotLayer.Temperature + SElementConstants.FIRE_HEAT_VALUE));
 
                 // Check if the element is flammable
-                if (slot.Element.EnableFlammability)
+                if (slotLayer.Element.EnableFlammability)
                 {
                     // Adjust combustion chance based on the element's flammability resistance
                     int combustionChance = SElementConstants.CHANCE_OF_COMBUSTION;
@@ -82,9 +83,9 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                     }
 
                     // Attempt combustion based on flammabilityResistance
-                    if (SRandomMath.Chance(combustionChance, 100 + slot.Element.DefaultFlammabilityResistance))
+                    if (SRandomMath.Chance(combustionChance, 100 + slotLayer.Element.DefaultFlammabilityResistance))
                     {
-                        this.Context.ReplaceElement<SFire>(slot.Position);
+                        this.Context.ReplaceElement<SFire>(slot.Position, this.Context.Layer);
                     }
                 }
             }

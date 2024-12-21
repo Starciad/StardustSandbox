@@ -25,11 +25,6 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
-            if (!context.Slot.ForegroundLayer.IsEmpty)
-            {
-                return;
-            }
-
             Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
 
             if (context.Layer == SWorldLayer.Background)

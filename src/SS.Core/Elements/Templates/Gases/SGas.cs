@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
             {
                 Point position = abovePositions[i];
 
-                if (this.Context.TrySetPosition(this.Context.Layer, position))
+                if (this.Context.TrySetPosition(position))
                 {
                     return;
                 }
@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
 
             foreach (Point point in SPointExtensions.GetNeighboringCardinalPoints(this.Context.Slot.Position))
             {
-                if (this.Context.IsEmptyElementSlot(point))
+                if (this.Context.IsEmptyWorldSlot(point))
                 {
                     this.emptyPositionsCache.Add(point);
                 }
@@ -70,11 +70,11 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
             }
             else if (this.emptyPositionsCache.Count == 1)
             {
-                this.Context.SetPosition(this.Context.Layer, this.emptyPositionsCache[0]);
+                this.Context.SetPosition(this.emptyPositionsCache[0]);
             }
             else
             {
-                this.Context.SetPosition(this.Context.Layer, this.emptyPositionsCache.GetRandomItem());
+                this.Context.SetPosition(this.emptyPositionsCache.GetRandomItem());
             }
         }
     }

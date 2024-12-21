@@ -39,11 +39,6 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
-            if (!context.Slot.ForegroundLayer.IsEmpty)
-            {
-                return;
-            }
-
             Point position = context.Slot.Position;
             Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
 
@@ -121,7 +116,7 @@ namespace StardustSandbox.Core.Elements.Rendering
             for (int i = 0; i < targets.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(context.Layer, targets[i].Position, out ISElement value))
+                if (context.TryGetElement(targets[i].Position, context.Layer, out ISElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (value != this.element)

@@ -7,6 +7,7 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Controllers.GameInput;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
@@ -70,8 +71,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.layerButtons = [
-                new(this.iconTextures[4], "Front", string.Empty, SelectFrontLayerButtonAction),
-                new(this.iconTextures[5], "Back", string.Empty, SelectBackLayerButtonAction),
+                new(this.iconTextures[4], "Foreground", string.Empty, SelectForegroundLayerButtonAction),
+                new(this.iconTextures[5], "Background", string.Empty, SelectBackgroundLayerButtonAction),
             ];
 
             this.shapeButtons = [
@@ -202,7 +203,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.toolButtonSelectedIndex = (byte)this.gameInputController.Pen.Tool;
 
             // Layer
-            this.layerButtonSelectedIndex = (byte)this.gameInputController.Pen.Layer;
+            this.layerButtonSelectedIndex = this.gameInputController.Pen.Layer switch
+            {
+                SWorldLayer.None => 0,
+                SWorldLayer.Foreground => 0,
+                SWorldLayer.Background => 1,
+                _ => 0,
+            };
 
             // Shape
             this.shapeButtonSelectedIndex = (byte)this.gameInputController.Pen.Shape;

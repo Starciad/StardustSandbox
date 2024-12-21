@@ -27,7 +27,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             {
                 ISWorldSlot slot = neighbors[i];
 
-                switch (slot.Element)
+                switch (slot.GetLayer(this.Context.Layer).Element)
                 {
                     case SAcid:
                     case SWall:
@@ -35,7 +35,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 }
 
                 this.Context.DestroyElement();
-                this.Context.DestroyElement(slot.Position);
+                this.Context.DestroyElement(slot.Position, this.Context.Layer);
             }
         }
     }

@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             _ = this.floodFillVisited.Add(position);
 
             // Determines the initial target
-            ISElement targetElement = this.world.IsEmptyElementSlot(position) ? null : this.world.GetElement(this.simulationPen.Layer, position);
+            ISElement targetElement = this.world.IsEmptyWorldSlot(position) ? null : this.world.GetElement(position, this.simulationPen.Layer);
 
             while (this.floodFillQueue.Count > 0)
             {
@@ -74,12 +74,12 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                 }
 
                 // Add neighbors to the floodFillQueue
-                foreach (Point neighbor in GetNeighbors(current))
+                foreach (Point neighborPosition in GetNeighbors(current))
                 {
-                    if (!this.floodFillVisited.Contains(neighbor) && IsValidNeighbor(neighbor, targetElement, isErasing))
+                    if (!this.floodFillVisited.Contains(neighborPosition) && IsValidNeighbor(neighborPosition, targetElement, isErasing))
                     {
-                        _ = this.floodFillVisited.Add(neighbor);
-                        this.floodFillQueue.Enqueue(neighbor);
+                        _ = this.floodFillVisited.Add(neighborPosition);
+                        this.floodFillQueue.Enqueue(neighborPosition);
                     }
                 }
             }
@@ -90,32 +90,32 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             if (isErasing)
             {
                 // Erase: The slot must contain the same target element
-                return !this.world.IsEmptyElementSlot(position) && this.world.GetElement(this.simulationPen.Layer, position) == targetElement;
+                return !this.world.IsEmptyWorldSlot(position) && this.world.GetElement(position, this.simulationPen.Layer) == targetElement;
             }
 
             if (targetElement == null)
             {
                 // Fill empty areas
-                return this.world.IsEmptyElementSlot(position);
+                return this.world.IsEmptyWorldSlot(position);
             }
 
             // Replace elements that match the target
-            return !this.world.IsEmptyElementSlot(position) && this.world.GetElement(this.simulationPen.Layer, position) == targetElement;
+            return !this.world.IsEmptyWorldSlot(position) && this.world.GetElement(position, this.simulationPen.Layer) == targetElement;
         }
 
         private void ProcessPosition(Point position, ISElement element, bool isErasing)
         {
             if (isErasing)
             {
-                this.world.DestroyElement(this.simulationPen.Layer, position); // Remove the element
+                this.world.DestroyElement(position, this.simulationPen.Layer); // Remove the element
             }
-            else if (this.world.IsEmptyElementSlot(position))
+            else if (this.world.IsEmptyWorldSlot(position))
             {
-                this.world.InstantiateElement(this.simulationPen.Layer, position, element); // Insert new element
+                this.world.InstantiateElement(position, this.simulationPen.Layer, element); // Insert new element
             }
             else
             {
-                this.world.ReplaceElement(this.simulationPen.Layer, position, element); // Replace the element
+                this.world.ReplaceElement(position, this.simulationPen.Layer, element); // Replace the element
             }
         }
 
@@ -123,46 +123,46 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         {
             if (isErasing)
             {
-                return !this.world.IsEmptyElementSlot(position);
+                return !this.world.IsEmptyWorldSlot(position);
             }
 
-            return this.world.IsEmptyElementSlot(position) || this.world.GetElement(this.simulationPen.Layer, position) != element;
+            return this.world.IsEmptyWorldSlot(position) || this.world.GetElement(position, this.simulationPen.Layer) != element;
         }
 
-        private bool IsValidNeighbor(Point neighbor, ISElement targetElement, bool isErasing)
+        private bool IsValidNeighbor(Point neighborPosition, ISElement targetElement, bool isErasing)
         {
             if (isErasing)
             {
-                // Valid neighbor to delete: must contain the same target element
-                return !this.world.IsEmptyElementSlot(neighbor) && this.world.GetElement(this.simulationPen.Layer, neighbor) == targetElement;
+                // Valid neighborPosition to delete: must contain the same target element
+                return !this.world.IsEmptyWorldSlot(neighborPosition) && this.world.GetElement(neighborPosition, this.simulationPen.Layer) == targetElement;
             }
 
             if (targetElement == null)
             {
-                // Valid neighbor to fill empty area
-                return this.world.IsEmptyElementSlot(neighbor);
+                // Valid neighborPosition to fill empty area
+                return this.world.IsEmptyWorldSlot(neighborPosition);
             }
 
-            // Valid neighbor to replace: must contain the same target element
-            return !this.world.IsEmptyElementSlot(neighbor) && this.world.GetElement(this.simulationPen.Layer, neighbor) == targetElement;
+            // Valid neighborPosition to replace: must contain the same target element
+            return !this.world.IsEmptyWorldSlot(neighborPosition) && this.world.GetElement(neighborPosition, this.simulationPen.Layer) == targetElement;
         }
 
         private IEnumerable<Point> GetNeighbors(Point position)
         {
             Point[] offsets =
             [
-                new Point(0, -1),
-                new Point(0, 1),
-                new Point(-1, 0),
-                new Point(1, 0)
+                new(0, -1),
+                new(0, 1),
+                new(-1, 0),
+                new(1, 0)
             ];
 
             foreach (Point offset in offsets)
             {
-                Point neighbor = new(position.X + offset.X, position.Y + offset.Y);
-                if (this.world.InsideTheWorldDimensions(neighbor))
+                Point neighborPosition = new(position.X + offset.X, position.Y + offset.Y);
+                if (this.world.InsideTheWorldDimensions(neighborPosition))
                 {
-                    yield return neighbor;
+                    yield return neighborPosition;
                 }
             }
         }

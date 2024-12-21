@@ -22,6 +22,13 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 
         private sbyte size = SInputConstants.PEN_MIN_SIZE;
 
+        public SSimulationPen()
+        {
+            this.Tool = SPenTool.Pencil;
+            this.Layer = SWorldLayer.Foreground;
+            this.Shape = SPenShape.Circle;
+        }
+
         public Point[] GetPenShapePoints(Point position)
         {
             return this.Shape switch

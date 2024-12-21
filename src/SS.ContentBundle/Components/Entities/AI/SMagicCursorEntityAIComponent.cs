@@ -127,19 +127,17 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
             switch (this.currentBuildingState)
             {
                 case BuildingState.Constructing:
-                    if (this.world.IsEmptyElementSlot(gridPosition))
+                    if (this.world.IsEmptyWorldSlot(gridPosition))
                     {
-                        this.world.InstantiateElement(SWorldLayer.Foreground, gridPosition, (uint)this.selectedElement);
+                        this.world.InstantiateElement(gridPosition, SWorldLayer.Foreground, (uint)this.selectedElement);
                     }
-
                     break;
 
                 case BuildingState.Removing:
-                    if (!this.world.IsEmptyElementSlot(gridPosition))
+                    if (!this.world.IsEmptyWorldSlot(gridPosition))
                     {
-                        this.world.DestroyElement(SWorldLayer.Foreground, gridPosition);
+                        this.world.DestroyElement(gridPosition, SWorldLayer.Foreground);
                     }
-
                     break;
 
                 default:

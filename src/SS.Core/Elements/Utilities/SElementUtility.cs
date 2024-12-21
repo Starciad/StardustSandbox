@@ -49,8 +49,8 @@ namespace StardustSandbox.Core.Elements.Utilities
 
         public static void NotifyFreeFallingFromAdjacentNeighbors(ISElementContext context, Point position)
         {
-            context.SetElementFreeFalling(context.Layer, new(position.X - 1, position.Y), true);
-            context.SetElementFreeFalling(context.Layer, new(position.X + 1, position.Y), true);
+            context.SetElementFreeFalling(new(position.X - 1, position.Y), context.Layer, true);
+            context.SetElementFreeFalling(new(position.X + 1, position.Y), context.Layer, true);
         }
 
         public static void UpdateHorizontalPosition(ISElementContext context, int dispersionRate)
@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                 ? (SRandomMath.Chance(50, 101) ? leftPos : rightPos)
                 : (leftDistance > rightDistance ? leftPos : rightPos);
 
-            _ = context.TrySetPosition(context.Layer, targetPosition);
+            _ = context.TrySetPosition(targetPosition, context.Layer);
         }
 
         public static (Point left, Point right) GetSidewaysSpreadPositions(ISElementContext context, Point position, int rate)
@@ -85,7 +85,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
-                if (context.IsEmptyElementSlot(nextPosition))
+                if (context.IsEmptyWorldSlot(nextPosition))
                 {
                     dispersionPosition = nextPosition;
                 }

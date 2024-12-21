@@ -5,6 +5,7 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
@@ -25,23 +26,26 @@ namespace StardustSandbox.Core.World
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
 
-        private readonly SObjectPool worldSlotsPool = new();
-        private readonly SComponentContainer componentContainer;
-
-        private readonly SWorldChunkingComponent worldChunkingComponent;
-
         private SWorldSlot[,] slots;
+        private uint currentFramesUpdateDelay;
 
         private readonly uint totalFramesUpdateDelay = 5;
-        private uint currentFramesUpdateDelay;
+
+        private readonly SObjectPool worldSlotsPool;
+        private readonly SComponentContainer componentContainer;
+        private readonly SWorldChunkingComponent worldChunkingComponent;
+        private readonly SElementContext worldElementContext;
 
         public SWorld(ISGame gameInstance) : base(gameInstance)
         {
+            this.worldSlotsPool = new();
             this.componentContainer = new(gameInstance);
 
             this.worldChunkingComponent = this.componentContainer.AddComponent(new SWorldChunkingComponent(gameInstance, this));
             _ = this.componentContainer.AddComponent(new SWorldUpdatingComponent(gameInstance, this));
             _ = this.componentContainer.AddComponent(new SWorldRenderingComponent(gameInstance, this));
+
+            this.worldElementContext = new(this);
         }
 
         public override void Initialize()
@@ -120,7 +124,7 @@ namespace StardustSandbox.Core.World
         }
         private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)
         {
-            InstantiateElement(worldLayer, position, worldSlotLayerData.ElementId);
+            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementId);
 
             SWorldSlot worldSlot = (SWorldSlot)GetWorldSlot(position);
 
@@ -150,13 +154,13 @@ namespace StardustSandbox.Core.World
             {
                 for (int y = 0; y < this.Infos.Size.Height; y++)
                 {
-                    if (IsEmptyElementSlot(new(x, y)))
+                    if (IsEmptyWorldSlot(new(x, y)))
                     {
                         continue;
                     }
 
-                    DestroyElement(SWorldLayer.Foreground, new(x, y));
-                    DestroyElement(SWorldLayer.Background, new(x, y));
+                    DestroyElement(new(x, y), SWorldLayer.Foreground);
+                    DestroyElement(new(x, y), SWorldLayer.Background);
                 }
             }
         }

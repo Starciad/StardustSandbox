@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
@@ -38,17 +39,28 @@ namespace StardustSandbox.Core.World
         public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
             if (!InsideTheWorldDimensions(position) ||
-                !IsEmptyElementSlot(position))
+                !IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
 
             NotifyChunk(position);
 
-            SWorldSlot worldSlot = this.slots[position.X, position.Y];
+            SWorldLayer targetWorldLayer = worldLayer;
 
-            worldSlot.Instantiate(position, worldLayer, value);
-            ((SElement)value).InstantiateStep(worldSlot, worldLayer);
+            SWorldSlot worldSlot = this.slots[position.X, position.Y];
+            SElement element = (SElement)value;
+
+            if (!element.AllowedLayers.HasFlag(worldLayer))
+            {
+                targetWorldLayer = SWorldLayer.Foreground;
+            }
+
+            worldSlot.Instantiate(position, targetWorldLayer, value);
+
+            this.worldElementContext.UpdateInformation(position, targetWorldLayer, worldSlot);
+            element.Context = this.worldElementContext;
+            element.InstantiateStep(worldSlot, targetWorldLayer);
 
             return true;
         }
@@ -61,8 +73,8 @@ namespace StardustSandbox.Core.World
         {
             if (!InsideTheWorldDimensions(oldPosition) ||
                 !InsideTheWorldDimensions(newPosition) ||
-                 IsEmptyElementSlot(oldPosition) ||
-                !IsEmptyElementSlot(newPosition))
+                 IsEmptyWorldSlotLayer(oldPosition, worldLayer) ||
+                !IsEmptyWorldSlotLayer(newPosition, worldLayer))
             {
                 return false;
             }
@@ -85,8 +97,8 @@ namespace StardustSandbox.Core.World
         {
             if (!InsideTheWorldDimensions(element1Position) ||
                 !InsideTheWorldDimensions(element2Position) ||
-                IsEmptyElementSlot(element1Position) ||
-                IsEmptyElementSlot(element2Position))
+                IsEmptyWorldSlotLayer(element1Position, worldLayer) ||
+                IsEmptyWorldSlotLayer(element2Position, worldLayer))
             {
                 return false;
             }
@@ -116,7 +128,7 @@ namespace StardustSandbox.Core.World
         public bool TryDestroyElement(Point position, SWorldLayer worldLayer)
         {
             if (!InsideTheWorldDimensions(position) ||
-                IsEmptyElementSlot(position))
+                IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
@@ -160,13 +172,21 @@ namespace StardustSandbox.Core.World
         public bool TryGetElement(Point position, SWorldLayer worldLayer, out ISElement value)
         {
             if (!InsideTheWorldDimensions(position) ||
-                IsEmptyElementSlot(position))
+                IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 value = null;
                 return false;
             }
 
-            value = this.slots[position.X, position.Y].GetLayer(worldLayer).Element;
+            ISWorldSlotLayer worldSlotLayer = this.slots[position.X, position.Y].GetLayer(worldLayer);
+
+            if (worldSlotLayer.IsEmpty)
+            {
+                value = null;
+                return false;
+            }
+
+            value = worldSlotLayer.Element;
             return true;
         }
 
@@ -212,7 +232,7 @@ namespace StardustSandbox.Core.World
         {
             value = default;
             if (!InsideTheWorldDimensions(position) ||
-                IsEmptyElementSlot(position))
+                IsEmptyWorldSlot(position))
             {
                 return false;
             }
@@ -228,7 +248,7 @@ namespace StardustSandbox.Core.World
         public bool TrySetElementTemperature(Point position, SWorldLayer worldLayer, short value)
         {
             if (!InsideTheWorldDimensions(position) ||
-                IsEmptyElementSlot(position))
+                IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
@@ -252,7 +272,7 @@ namespace StardustSandbox.Core.World
         public bool TrySetElementFreeFalling(Point position, SWorldLayer worldLayer, bool value)
         {
             if (!InsideTheWorldDimensions(position) ||
-                IsEmptyElementSlot(position))
+                IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
@@ -269,7 +289,7 @@ namespace StardustSandbox.Core.World
         public bool TrySetElementColorModifier(Point position, SWorldLayer worldLayer, Color value)
         {
             if (!InsideTheWorldDimensions(position) ||
-                IsEmptyElementSlot(position))
+                IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
@@ -280,9 +300,14 @@ namespace StardustSandbox.Core.World
         }
 
         // Tools
-        public bool IsEmptyElementSlot(Point position)
+        public bool IsEmptyWorldSlot(Point position)
         {
             return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].IsEmpty;
+        }
+
+        public bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer)
+        {
+            return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].GetLayer(worldLayer).IsEmpty;
         }
     }
 }

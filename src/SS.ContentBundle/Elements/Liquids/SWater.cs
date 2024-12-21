@@ -31,24 +31,23 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             {
                 ISWorldSlot slot = neighbors[i];
 
-                switch (slot.Element)
+                switch (slot.GetLayer(this.Context.Layer).Element)
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement<SMud>(slot.Position);
+                        this.Context.ReplaceElement<SMud>(slot.Position, this.Context.Layer);
                         return;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement<SSand>(slot.Position);
+                            this.Context.ReplaceElement<SSand>(slot.Position, this.Context.Layer);
                         }
-
                         return;
 
                     case SFire:
-                        this.Context.DestroyElement(slot.Position);
+                        this.Context.DestroyElement(slot.Position, this.Context.Layer);
                         return;
                 }
             }

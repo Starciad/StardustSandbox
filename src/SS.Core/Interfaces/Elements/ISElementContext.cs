@@ -90,6 +90,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryNotifyChunk();
         bool TryNotifyChunk(Point position);
 
-        bool IsEmptyElementSlot();
+        bool IsEmptyWorldSlot();
+        bool IsEmptyWorldSlotLayer();
+        bool IsEmptyWorldSlotLayer(SWorldLayer worldLayer);
     }
 }
