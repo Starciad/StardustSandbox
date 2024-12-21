@@ -2,6 +2,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Enums.World;
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
             set => this.size = sbyte.Clamp(value, SInputConstants.PEN_MIN_SIZE, SInputConstants.PEN_MAX_SIZE);
         }
         public SPenTool Tool { get; set; }
-        public SPenLayer Layer { get; set; }
+        public SWorldLayer Layer { get; set; }
         public SPenShape Shape { get; set; }
 
         private sbyte size = SInputConstants.PEN_MIN_SIZE;

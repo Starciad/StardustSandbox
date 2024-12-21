@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.IO.Files.World.Data
 {
@@ -20,20 +21,6 @@ namespace StardustSandbox.Core.IO.Files.World.Data
     public sealed class SWorldSlotData
     {
         [IgnoreMember]
-        public Color Color
-        {
-            get => new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
-
-            set
-            {
-                this.ColorR = value.R;
-                this.ColorG = value.G;
-                this.ColorB = value.B;
-                this.ColorA = value.A;
-            }
-        }
-
-        [IgnoreMember]
         public Point Position
         {
             get => new(this.PositionX, this.PositionY);
@@ -47,26 +34,58 @@ namespace StardustSandbox.Core.IO.Files.World.Data
 
         [Key(0)] public int PositionX { get; set; }
         [Key(1)] public int PositionY { get; set; }
-        [Key(2)] public uint ElementId { get; set; }
-        [Key(3)] public short Temperature { get; set; }
-        [Key(4)] public bool FreeFalling { get; set; }
-        [Key(5)] public byte ColorR { get; set; }
-        [Key(6)] public byte ColorG { get; set; }
-        [Key(7)] public byte ColorB { get; set; }
-        [Key(8)] public byte ColorA { get; set; }
+        [Key(2)] public SWorldSlotLayerData ForegroundLayer { get; set; }
+        [Key(3)] public SWorldSlotLayerData BackgroundLayer { get; set; }
 
         public SWorldSlotData()
         {
 
         }
 
-        public SWorldSlotData(ISWorldSlot worldSlot, Point position)
+        public SWorldSlotData(ISWorldSlot worldSlot)
         {
-            this.Position = position;
-            this.ElementId = worldSlot.Element.Identifier;
-            this.Temperature = worldSlot.Temperature;
-            this.FreeFalling = worldSlot.FreeFalling;
-            this.Color = worldSlot.Color;
+            this.Position = worldSlot.Position;
+            this.ForegroundLayer = new(worldSlot.ForegroundLayer);
+            this.ForegroundLayer = new(worldSlot.BackgroundLayer);
+        }
+    }
+
+    [MessagePackObject]
+    public sealed class SWorldSlotLayerData
+    {
+        [IgnoreMember]
+        public Color ColorModifier
+        {
+            get => new(this.ColorModifierR, this.ColorModifierG, this.ColorModifierB, this.ColorModifierA);
+
+            set
+            {
+                this.ColorModifierR = value.R;
+                this.ColorModifierG = value.G;
+                this.ColorModifierB = value.B;
+                this.ColorModifierA = value.A;
+            }
+        }
+
+        [Key(0)] public uint ElementId { get; set; }
+        [Key(1)] public short Temperature { get; set; }
+        [Key(2)] public bool FreeFalling { get; set; }
+        [Key(3)] public byte ColorModifierR { get; set; }
+        [Key(4)] public byte ColorModifierG { get; set; }
+        [Key(5)] public byte ColorModifierB { get; set; }
+        [Key(6)] public byte ColorModifierA { get; set; }
+
+        public SWorldSlotLayerData()
+        {
+
+        }
+
+        public SWorldSlotLayerData(ISWorldSlotLayer worldSlotLayer)
+        {
+            this.ElementId = worldSlotLayer.Element.Identifier;
+            this.Temperature = worldSlotLayer.Temperature;
+            this.FreeFalling = worldSlotLayer.FreeFalling;
+            this.ColorModifier = worldSlotLayer.ColorModifier;
         }
     }
 }

@@ -5,6 +5,7 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.World;
@@ -113,14 +114,19 @@ namespace StardustSandbox.Core.World
             // Allocate Elements
             foreach (SWorldSlotData worldSlotData in worldSaveFile.World.Slots)
             {
-                InstantiateElement(worldSlotData.Position, worldSlotData.ElementId);
-
-                SWorldSlot worldSlot = (SWorldSlot)GetElementSlot(worldSlotData.Position);
-
-                worldSlot.SetTemperatureValue(worldSlotData.Temperature);
-                worldSlot.SetFreeFalling(worldSlotData.FreeFalling);
-                worldSlot.SetColor(worldSlotData.Color);
+                LoadWorldSlotLayerData(SWorldLayer.Foreground, worldSlotData.Position, worldSlotData.ForegroundLayer);
+                LoadWorldSlotLayerData(SWorldLayer.Background, worldSlotData.Position, worldSlotData.BackgroundLayer);
             }
+        }
+        private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)
+        {
+            InstantiateElement(worldLayer, position, worldSlotLayerData.ElementId);
+
+            SWorldSlot worldSlot = (SWorldSlot)GetWorldSlot(position);
+
+            worldSlot.SetTemperatureValue(worldLayer, worldSlotLayerData.Temperature);
+            worldSlot.SetFreeFalling(worldLayer, worldSlotLayerData.FreeFalling);
+            worldSlot.SetColorModifier(worldLayer, worldSlotLayerData.ColorModifier);
         }
 
         public void Resize(SSize2 size)
@@ -149,15 +155,16 @@ namespace StardustSandbox.Core.World
                         continue;
                     }
 
-                    DestroyElement(new(x, y));
+                    DestroyElement(SWorldLayer.Foreground, new(x, y));
+                    DestroyElement(SWorldLayer.Background, new(x, y));
                 }
             }
         }
 
         public void Reset()
         {
-            this.Infos.Name = "DEBUG";
-            this.Infos.Description = string.Empty;
+            this.Infos.Name = "Untitled";
+            this.Infos.Description = "No description was provided.";
 
             this.componentContainer.Reset();
             Clear();

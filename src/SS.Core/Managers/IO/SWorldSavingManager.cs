@@ -152,7 +152,7 @@ namespace StardustSandbox.Core.Managers.IO
 
                     if (!world.IsEmptyElementSlot(position))
                     {
-                        slotData.Add(new(world.GetElementSlot(position), position));
+                        slotData.Add(new(world.GetWorldSlot(position)));
                     }
                 }
             }

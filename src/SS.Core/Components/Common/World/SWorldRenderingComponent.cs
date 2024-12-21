@@ -5,6 +5,7 @@ using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
@@ -31,11 +32,11 @@ namespace StardustSandbox.Core.Components.Common.World
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            GetAllElementsForRendering(spriteBatch);
+            GetAllSlotsForRendering(spriteBatch);
             DrawAllCapturedElements(gameTime, spriteBatch);
         }
 
-        private void GetAllElementsForRendering(SpriteBatch spriteBatch)
+        private void GetAllSlotsForRendering(SpriteBatch spriteBatch)
         {
             this._slotsCapturedForRendering.Clear();
 
@@ -59,18 +60,38 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             foreach (Point position in this._slotsCapturedForRendering)
             {
-                if (!this.SWorldInstance.IsEmptyElementSlot(position))
+                if (this.SWorldInstance.IsEmptyElementSlot(position))
                 {
-                    ISElement element = this.SWorldInstance.GetElementSlot(position).Element;
-
-                    this.elementRenderingContext.UpdateInformation(this.SWorldInstance.GetElementSlot(position), position);
-
-                    element.Context = this.elementRenderingContext;
-                    ((SElement)element).Draw(gameTime, spriteBatch);
-
-                    // [ DEBUG ]
-                    //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);
+                    continue;
                 }
+
+                ISWorldSlot worldSlot = this.SWorldInstance.GetWorldSlot(position);
+                SWorldLayer worldLayer;
+                SElement element;
+
+                if (!worldSlot.ForegroundLayer.IsEmpty)
+                {
+                    worldLayer = SWorldLayer.Foreground;
+                    element = (SElement)worldSlot.GetLayer(worldLayer).Element;
+                    
+                }
+                else if (!worldSlot.BackgroundLayer.IsEmpty)
+                {
+                    worldLayer = SWorldLayer.Background;
+                    element = (SElement)worldSlot.GetLayer(worldLayer).Element;
+                }
+                else
+                {
+                    continue;
+                }
+
+                this.elementRenderingContext.UpdateInformation(worldLayer, worldSlot, position);
+
+                element.Context ??= this.elementRenderingContext;
+                element?.Draw(gameTime, spriteBatch);
+
+                // [ DEBUG ]
+                //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);
             }
         }
     }

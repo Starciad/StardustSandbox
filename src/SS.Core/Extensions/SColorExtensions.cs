@@ -28,7 +28,18 @@ namespace StardustSandbox.Core.Extensions
                 a = VaryChannel(baseColor.A);
             }
 
-            return new Color(r, g, b, a);
+            return new(r, g, b, a);
+        }
+
+        public static Color Darken(this Color baseColor, float darkenFactor)
+        {
+            darkenFactor = Math.Clamp(darkenFactor, 0f, 1f);
+
+            int r = (int)(baseColor.R * (1 - darkenFactor));
+            int g = (int)(baseColor.G * (1 - darkenFactor));
+            int b = (int)(baseColor.B * (1 - darkenFactor));
+
+            return new Color(r, g, b, baseColor.A);
         }
     }
 }

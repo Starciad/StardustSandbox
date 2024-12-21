@@ -22,11 +22,11 @@ namespace StardustSandbox.Core.Components.Common.World
         public override void Update(GameTime gameTime)
         {
             this.capturedSlots.Clear();
-            GetAllElementsForUpdating(gameTime);
-            UpdateAllCapturedElements(gameTime);
+            GetAllSlotsForUpdating(gameTime);
+            UpdateAllCapturedSlots(gameTime);
         }
 
-        private void GetAllElementsForUpdating(GameTime gameTime)
+        private void GetAllSlotsForUpdating(GameTime gameTime)
         {
             SWorldChunk[] worldChunks = this.SWorldInstance.GetActiveChunks();
 
@@ -45,25 +45,31 @@ namespace StardustSandbox.Core.Components.Common.World
                             continue;
                         }
 
-                        UpdateElementTarget(gameTime, position, SWorldThreadUpdateType.Update);
+                        UpdateSlotTarget(gameTime, SWorldLayer.Foreground, position, SWorldThreadUpdateType.Update);
+                        UpdateSlotTarget(gameTime, SWorldLayer.Background, position, SWorldThreadUpdateType.Update);
+
                         this.capturedSlots.Add(position);
                     }
                 }
             }
         }
 
-        private void UpdateAllCapturedElements(GameTime gameTime)
+        private void UpdateAllCapturedSlots(GameTime gameTime)
         {
-            this.capturedSlots.ForEach(x => UpdateElementTarget(gameTime, x, SWorldThreadUpdateType.Step));
+            this.capturedSlots.ForEach((position) =>
+            {
+                UpdateSlotTarget(gameTime, SWorldLayer.Foreground, position, SWorldThreadUpdateType.Step);
+                UpdateSlotTarget(gameTime, SWorldLayer.Background, position, SWorldThreadUpdateType.Step);
+            });
         }
 
-        private void UpdateElementTarget(GameTime gameTime, Point position, SWorldThreadUpdateType updateType)
+        private void UpdateSlotTarget(GameTime gameTime, SWorldLayer worldLayer, Point position, SWorldThreadUpdateType updateType)
         {
-            ISWorldSlot slot = this.SWorldInstance.GetElementSlot(position);
+            ISWorldSlot slot = this.SWorldInstance.GetWorldSlot(position);
 
-            if (this.SWorldInstance.TryGetElement(position, out ISElement value))
+            if (this.SWorldInstance.TryGetElement(worldLayer, position, out ISElement value))
             {
-                this.elementUpdateContext.UpdateInformation(slot, position);
+                this.elementUpdateContext.UpdateInformation(worldLayer, slot, position);
                 value.Context = this.elementUpdateContext;
 
                 switch (updateType)

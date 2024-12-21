@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 
@@ -11,6 +12,8 @@ namespace StardustSandbox.Core.Interfaces.World
         Point Position { get; }
         ISWorldSlotLayer ForegroundLayer { get; }
         ISWorldSlotLayer BackgroundLayer { get; }
+
+        ISWorldSlotLayer GetLayer(SWorldLayer worldLayer);
     }
 
     public interface ISWorldSlotLayer

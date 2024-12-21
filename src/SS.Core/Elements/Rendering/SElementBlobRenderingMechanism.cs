@@ -5,6 +5,8 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 
 namespace StardustSandbox.Core.Elements.Rendering
@@ -37,14 +39,25 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
-            Point position = context.Position;
+            if (!context.Slot.ForegroundLayer.IsEmpty)
+            {
+                return;
+            }
+
+            Point position = context.Slot.Position;
+            Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
+
+            if (context.Layer == SWorldLayer.Background)
+            {
+                colorModifier = colorModifier.Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+            }
 
             UpdateSpritePositions(position);
 
             for (int i = 0; i < SElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, i, position);
-                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], context.Slot.Color, rotation, origin, scale, spriteEffects, layerDepth);
+                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], colorModifier, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
 
@@ -108,7 +121,7 @@ namespace StardustSandbox.Core.Elements.Rendering
             for (int i = 0; i < targets.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(targets[i].Position, out ISElement value))
+                if (context.TryGetElement(context.Layer, targets[i].Position, out ISElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (value != this.element)

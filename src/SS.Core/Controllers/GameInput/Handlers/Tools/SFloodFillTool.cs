@@ -61,14 +61,14 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             _ = this.floodFillVisited.Add(position);
 
             // Determines the initial target
-            ISElement targetElement = this.world.IsEmptyElementSlot(position) ? null : this.world.GetElement(position);
+            ISElement targetElement = this.world.IsEmptyElementSlot(position) ? null : this.world.GetElement(this.simulationPen.Layer, position);
 
             while (this.floodFillQueue.Count > 0)
             {
                 Point current = this.floodFillQueue.Dequeue();
 
                 // Determines action based on context
-                if (ShouldProcessPosition(current, targetElement, element, isErasing))
+                if (ShouldProcessPosition(current, targetElement, isErasing))
                 {
                     ProcessPosition(current, element, isErasing);
                 }
@@ -85,12 +85,12 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             }
         }
 
-        private bool ShouldProcessPosition(Point position, ISElement targetElement, ISElement element, bool isErasing)
+        private bool ShouldProcessPosition(Point position, ISElement targetElement, bool isErasing)
         {
             if (isErasing)
             {
                 // Erase: The slot must contain the same target element
-                return !this.world.IsEmptyElementSlot(position) && this.world.GetElement(position) == targetElement;
+                return !this.world.IsEmptyElementSlot(position) && this.world.GetElement(this.simulationPen.Layer, position) == targetElement;
             }
 
             if (targetElement == null)
@@ -100,22 +100,22 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             }
 
             // Replace elements that match the target
-            return !this.world.IsEmptyElementSlot(position) && this.world.GetElement(position) == targetElement;
+            return !this.world.IsEmptyElementSlot(position) && this.world.GetElement(this.simulationPen.Layer, position) == targetElement;
         }
 
         private void ProcessPosition(Point position, ISElement element, bool isErasing)
         {
             if (isErasing)
             {
-                this.world.DestroyElement(position); // Remove the element
+                this.world.DestroyElement(this.simulationPen.Layer, position); // Remove the element
             }
             else if (this.world.IsEmptyElementSlot(position))
             {
-                this.world.InstantiateElement(position, element); // Insert new element
+                this.world.InstantiateElement(this.simulationPen.Layer, position, element); // Insert new element
             }
             else
             {
-                this.world.ReplaceElement(position, element); // Replace the element
+                this.world.ReplaceElement(this.simulationPen.Layer, position, element); // Replace the element
             }
         }
 
@@ -126,7 +126,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                 return !this.world.IsEmptyElementSlot(position);
             }
 
-            return this.world.IsEmptyElementSlot(position) || this.world.GetElement(position) != element;
+            return this.world.IsEmptyElementSlot(position) || this.world.GetElement(this.simulationPen.Layer, position) != element;
         }
 
         private bool IsValidNeighbor(Point neighbor, ISElement targetElement, bool isErasing)
@@ -134,7 +134,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             if (isErasing)
             {
                 // Valid neighbor to delete: must contain the same target element
-                return !this.world.IsEmptyElementSlot(neighbor) && this.world.GetElement(neighbor) == targetElement;
+                return !this.world.IsEmptyElementSlot(neighbor) && this.world.GetElement(this.simulationPen.Layer, neighbor) == targetElement;
             }
 
             if (targetElement == null)
@@ -144,7 +144,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             }
 
             // Valid neighbor to replace: must contain the same target element
-            return !this.world.IsEmptyElementSlot(neighbor) && this.world.GetElement(neighbor) == targetElement;
+            return !this.world.IsEmptyElementSlot(neighbor) && this.world.GetElement(this.simulationPen.Layer, neighbor) == targetElement;
         }
 
         private IEnumerable<Point> GetNeighbors(Point position)

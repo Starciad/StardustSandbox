@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
@@ -50,7 +51,16 @@ namespace StardustSandbox.Core.Extensions
                     else
                     {
                         // This color represents the currently selected element
-                        data[index] = world.GetElement(worldPosition).ReferenceColor.Vary(5);
+                        ISWorldSlot worldSlot = world.GetWorldSlot(worldPosition);
+
+                        if (!worldSlot.ForegroundLayer.IsEmpty)
+                        {
+                            data[index] = world.GetElement(SWorldLayer.Foreground, worldPosition).ReferenceColor.Vary(5);
+                        }
+                        else if (!worldSlot.BackgroundLayer.IsEmpty)
+                        {
+                            data[index] = world.GetElement(SWorldLayer.Background, worldPosition).ReferenceColor.Vary(5).Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                        }
                     }
                 }
             }

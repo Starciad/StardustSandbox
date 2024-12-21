@@ -15,27 +15,27 @@ namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld
     {
-        public void InstantiateElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
+        public void InstantiateElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
         {
-            InstantiateElement(worldLayer, position, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
-        public void InstantiateElement(SWorldLayer worldLayer, Point position, uint identifier)
+        public void InstantiateElement(Point position, SWorldLayer worldLayer, uint identifier)
         {
-            InstantiateElement(worldLayer, position, this.SGameInstance.ElementDatabase.GetElementById(identifier));
+            InstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementById(identifier));
         }
-        public void InstantiateElement(SWorldLayer worldLayer, Point position, ISElement value)
+        public void InstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            _ = TryInstantiateElement(worldLayer, position, value);
+            _ = TryInstantiateElement(position, worldLayer, value);
         }
-        public bool TryInstantiateElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
+        public bool TryInstantiateElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
         {
-            return TryInstantiateElement(worldLayer, position, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
+            return TryInstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
         }
-        public bool TryInstantiateElement(SWorldLayer worldLayer, Point position, uint identifier)
+        public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, uint identifier)
         {
-            return TryInstantiateElement(worldLayer, position, this.SGameInstance.ElementDatabase.GetElementById(identifier));
+            return TryInstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementById(identifier));
         }
-        public bool TryInstantiateElement(SWorldLayer worldLayer, Point position, ISElement value)
+        public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
             if (!InsideTheWorldDimensions(position) ||
                 !IsEmptyElementSlot(position))
@@ -47,17 +47,17 @@ namespace StardustSandbox.Core.World
 
             SWorldSlot worldSlot = this.slots[position.X, position.Y];
 
-            worldSlot.Instantiate(worldLayer, position, value);
-            ((SElement)value).InstantiateStep(worldSlot);
+            worldSlot.Instantiate(position, worldLayer, value);
+            ((SElement)value).InstantiateStep(worldSlot, worldLayer);
 
             return true;
         }
 
-        public void UpdateElementPosition(SWorldLayer worldLayer, Point oldPosition, Point newPosition)
+        public void UpdateElementPosition(Point oldPosition, Point newPosition, SWorldLayer worldLayer)
         {
-            _ = TryUpdateElementPosition(worldLayer, oldPosition, newPosition);
+            _ = TryUpdateElementPosition(oldPosition, newPosition, worldLayer);
         }
-        public bool TryUpdateElementPosition(SWorldLayer worldLayer, Point oldPosition, Point newPosition)
+        public bool TryUpdateElementPosition(Point oldPosition, Point newPosition, SWorldLayer worldLayer)
         {
             if (!InsideTheWorldDimensions(oldPosition) ||
                 !InsideTheWorldDimensions(newPosition) ||
@@ -77,11 +77,11 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void SwappingElements(SWorldLayer worldLayer, Point element1Position, Point element2Position)
+        public void SwappingElements(Point element1Position, Point element2Position, SWorldLayer worldLayer)
         {
-            _ = TrySwappingElements(worldLayer, element1Position, element2Position);
+            _ = TrySwappingElements(element1Position, element2Position, worldLayer);
         }
-        public bool TrySwappingElements(SWorldLayer worldLayer, Point element1Position, Point element2Position)
+        public bool TrySwappingElements(Point element1Position, Point element2Position, SWorldLayer worldLayer)
         {
             if (!InsideTheWorldDimensions(element1Position) ||
                 !InsideTheWorldDimensions(element2Position) ||
@@ -109,11 +109,11 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void DestroyElement(SWorldLayer worldLayer, Point position)
+        public void DestroyElement(Point position, SWorldLayer worldLayer)
         {
-            _ = TryDestroyElement(worldLayer, position);
+            _ = TryDestroyElement(position, worldLayer);
         }
-        public bool TryDestroyElement(SWorldLayer worldLayer, Point position)
+        public bool TryDestroyElement(Point position, SWorldLayer worldLayer)
         {
             if (!InsideTheWorldDimensions(position) ||
                 IsEmptyElementSlot(position))
@@ -127,37 +127,37 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void ReplaceElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
+        public void ReplaceElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
         {
-            _ = TryReplaceElement<T>(worldLayer, position);
+            _ = TryReplaceElement<T>(position, worldLayer);
         }
-        public void ReplaceElement(SWorldLayer worldLayer, Point position, uint identifier)
+        public void ReplaceElement(Point position, SWorldLayer worldLayer, uint identifier)
         {
-            _ = TryReplaceElement(worldLayer, position, identifier);
+            _ = TryReplaceElement(position, worldLayer, identifier);
         }
-        public void ReplaceElement(SWorldLayer worldLayer, Point position, ISElement value)
+        public void ReplaceElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            _ = TryReplaceElement(worldLayer, position, value);
+            _ = TryReplaceElement(position, worldLayer, value);
         }
-        public bool TryReplaceElement<T>(SWorldLayer worldLayer, Point position) where T : ISElement
+        public bool TryReplaceElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
         {
-            return TryDestroyElement(worldLayer, position) && TryInstantiateElement<T>(worldLayer, position);
+            return TryDestroyElement(position, worldLayer) && TryInstantiateElement<T>(position, worldLayer);
         }
-        public bool TryReplaceElement(SWorldLayer worldLayer, Point position, uint identifier)
+        public bool TryReplaceElement(Point position, SWorldLayer worldLayer, uint identifier)
         {
-            return TryDestroyElement(worldLayer, position) && TryInstantiateElement(worldLayer, position, identifier);
+            return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, identifier);
         }
-        public bool TryReplaceElement(SWorldLayer worldLayer, Point position, ISElement value)
+        public bool TryReplaceElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            return TryDestroyElement(worldLayer, position) && TryInstantiateElement(worldLayer, position, value);
+            return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, value);
         }
 
-        public ISElement GetElement(SWorldLayer worldLayer, Point position)
+        public ISElement GetElement(Point position, SWorldLayer worldLayer)
         {
-            _ = TryGetElement(worldLayer, position, out ISElement value);
+            _ = TryGetElement(position, worldLayer, out ISElement value);
             return value;
         }
-        public bool TryGetElement(SWorldLayer worldLayer, Point position, out ISElement value)
+        public bool TryGetElement(Point position, SWorldLayer worldLayer, out ISElement value)
         {
             if (!InsideTheWorldDimensions(position) ||
                 IsEmptyElementSlot(position))
@@ -188,7 +188,7 @@ namespace StardustSandbox.Core.World
 
             foreach (Point neighborPosition in SPointExtensions.GetNeighboringCardinalPoints(position))
             {
-                if (TryGetElementSlot(neighborPosition, out ISWorldSlot value))
+                if (TryGetWorldSlot(neighborPosition, out ISWorldSlot value))
                 {
                     slotsFound.Add(value);
                 }
@@ -203,12 +203,12 @@ namespace StardustSandbox.Core.World
             return false;
         }
 
-        public ISWorldSlot GetElementSlot(Point position)
+        public ISWorldSlot GetWorldSlot(Point position)
         {
-            _ = TryGetElementSlot(position, out ISWorldSlot value);
+            _ = TryGetWorldSlot(position, out ISWorldSlot value);
             return value;
         }
-        public bool TryGetElementSlot(Point position, out ISWorldSlot value)
+        public bool TryGetWorldSlot(Point position, out ISWorldSlot value)
         {
             value = default;
             if (!InsideTheWorldDimensions(position) ||
@@ -221,11 +221,11 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void SetElementTemperature(SWorldLayer worldLayer, Point position, short value)
+        public void SetElementTemperature(Point position, SWorldLayer worldLayer, short value)
         {
-            _ = TrySetElementTemperature(worldLayer, position, value);
+            _ = TrySetElementTemperature(position, worldLayer, value);
         }
-        public bool TrySetElementTemperature(SWorldLayer worldLayer, Point position, short value)
+        public bool TrySetElementTemperature(Point position, SWorldLayer worldLayer, short value)
         {
             if (!InsideTheWorldDimensions(position) ||
                 IsEmptyElementSlot(position))
@@ -233,7 +233,7 @@ namespace StardustSandbox.Core.World
                 return false;
             }
 
-            SWorldSlotLayer layer = this.slots[position.X, position.Y].GetLayer(worldLayer);
+            SWorldSlotLayer layer = (SWorldSlotLayer)this.slots[position.X, position.Y].GetLayer(worldLayer);
 
             if (layer.Temperature != value)
             {
@@ -244,12 +244,12 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void SetElementFreeFalling(SWorldLayer worldLayer, Point position, bool value)
+        public void SetElementFreeFalling(Point position, SWorldLayer worldLayer, bool value)
         {
-            _ = TrySetElementFreeFalling(worldLayer, position, value);
+            _ = TrySetElementFreeFalling(position, worldLayer, value);
         }
 
-        public bool TrySetElementFreeFalling(SWorldLayer worldLayer, Point position, bool value)
+        public bool TrySetElementFreeFalling(Point position, SWorldLayer worldLayer, bool value)
         {
             if (!InsideTheWorldDimensions(position) ||
                 IsEmptyElementSlot(position))
@@ -257,16 +257,16 @@ namespace StardustSandbox.Core.World
                 return false;
             }
 
-            this.slots[position.X, position.Y].GetLayer(worldLayer).SetFreeFalling(value);
+            ((SWorldSlotLayer)this.slots[position.X, position.Y].GetLayer(worldLayer)).SetFreeFalling(value);
 
             return true;
         }
 
-        public void SetElementColorModifier(SWorldLayer worldLayer, Point position, Color value)
+        public void SetElementColorModifier(Point position, SWorldLayer worldLayer, Color value)
         {
-            _ = TrySetElementColorModifier(worldLayer, position, value);
+            _ = TrySetElementColorModifier(position, worldLayer, value);
         }
-        public bool TrySetElementColorModifier(SWorldLayer worldLayer, Point position, Color value)
+        public bool TrySetElementColorModifier(Point position, SWorldLayer worldLayer, Color value)
         {
             if (!InsideTheWorldDimensions(position) ||
                 IsEmptyElementSlot(position))
@@ -274,7 +274,7 @@ namespace StardustSandbox.Core.World
                 return false;
             }
 
-            this.slots[position.X, position.Y].GetLayer(worldLayer).SetColorModifier(value);
+            ((SWorldSlotLayer)this.slots[position.X, position.Y].GetLayer(worldLayer)).SetColorModifier(value);
 
             return true;
         }

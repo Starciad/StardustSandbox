@@ -5,6 +5,7 @@ using StardustSandbox.Core.Components.Common.Entities;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Entities;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
@@ -128,7 +129,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                 case BuildingState.Constructing:
                     if (this.world.IsEmptyElementSlot(gridPosition))
                     {
-                        this.world.InstantiateElement(gridPosition, (uint)this.selectedElement);
+                        this.world.InstantiateElement(SWorldLayer.Foreground, gridPosition, (uint)this.selectedElement);
                     }
 
                     break;
@@ -136,7 +137,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                 case BuildingState.Removing:
                     if (!this.world.IsEmptyElementSlot(gridPosition))
                     {
-                        this.world.DestroyElement(gridPosition);
+                        this.world.DestroyElement(SWorldLayer.Foreground, gridPosition);
                     }
 
                     break;
