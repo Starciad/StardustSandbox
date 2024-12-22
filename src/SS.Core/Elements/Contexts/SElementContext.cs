@@ -273,7 +273,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             return this.world.TryReplaceElement(position, worldLayer, value);
         }
-        
+
         public ISElement GetElement()
         {
             return GetElement(this.Layer);

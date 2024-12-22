@@ -5,7 +5,6 @@ using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.Core.Elements.Templates.Liquids
 {

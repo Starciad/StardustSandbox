@@ -6,6 +6,7 @@ namespace StardustSandbox.Core.Constants
     {
         public const byte GRID_SCALE = 32;
         public const byte CHUNK_SCALE = 6;
+        public const byte CHUNK_DEFAULT_COOLDOWN = 3;
         public const float BACKGROUND_COLOR_DARKENING_FACTOR = 0.5f;
 
         public static SSize2 WORLD_THUMBNAIL_SIZE => new(23);

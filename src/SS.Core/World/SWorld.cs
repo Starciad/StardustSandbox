@@ -118,8 +118,15 @@ namespace StardustSandbox.Core.World
             // Allocate Elements
             foreach (SWorldSlotData worldSlotData in worldSaveFile.World.Slots)
             {
-                LoadWorldSlotLayerData(SWorldLayer.Foreground, worldSlotData.Position, worldSlotData.ForegroundLayer);
-                LoadWorldSlotLayerData(SWorldLayer.Background, worldSlotData.Position, worldSlotData.BackgroundLayer);
+                if (worldSlotData.ForegroundLayer != null)
+                {
+                    LoadWorldSlotLayerData(SWorldLayer.Foreground, worldSlotData.Position, worldSlotData.ForegroundLayer);
+                }
+
+                if (worldSlotData.BackgroundLayer != null)
+                {
+                    LoadWorldSlotLayerData(SWorldLayer.Background, worldSlotData.Position, worldSlotData.BackgroundLayer);
+                }
             }
         }
         private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)

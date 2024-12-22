@@ -82,7 +82,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
                 int rowWidth = radius - y;
                 for (int x = -rowWidth; x <= rowWidth; x++)
                 {
-                    points.Add(new(position.X + x, position.Y - y + radius / 2));
+                    points.Add(new(position.X + x, position.Y - y + (radius / 2)));
                 }
             }
 

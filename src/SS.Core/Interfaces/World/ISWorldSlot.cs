@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
@@ -23,5 +24,7 @@ namespace StardustSandbox.Core.Interfaces.World
         short Temperature { get; }
         bool FreeFalling { get; }
         Color ColorModifier { get; }
+        SUpdateCycleFlag UpdateCycleFlag { get; }
+        SUpdateCycleFlag StepCycleFlag { get; }
     }
 }

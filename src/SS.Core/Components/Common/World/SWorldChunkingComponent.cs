@@ -53,6 +53,7 @@ namespace StardustSandbox.Core.Components.Common.World
                 }
             }
         }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 #if DEBUG
