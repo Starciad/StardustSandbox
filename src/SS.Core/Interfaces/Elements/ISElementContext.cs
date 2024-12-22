@@ -1,16 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.Interfaces.World;
-
-using System;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementContext : ISElementManager
     {
-        ISWorldSlot Slot { get; }
-        ISWorldSlotLayer SlotLayer { get; }
+        SWorldSlot Slot { get; }
+        SWorldSlotLayer SlotLayer { get; }
         SWorldLayer Layer { get; }
 
         void SetPosition(Point newPosition);
@@ -64,11 +62,11 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryGetElement(out ISElement value);
         bool TryGetElement(SWorldLayer worldLayer, out ISElement value);
 
-        ReadOnlySpan<ISWorldSlot> GetNeighboringSlots();
-        bool TryGetNeighboringSlots(out ISWorldSlot[] neighbors);
+        SWorldSlot[] GetNeighboringSlots();
+        bool TryGetNeighboringSlots(out SWorldSlot[] neighbors);
 
-        ISWorldSlot GetWorldSlot();
-        bool TryGetWorldSlot(out ISWorldSlot value);
+        SWorldSlot GetWorldSlot();
+        bool TryGetWorldSlot(out SWorldSlot value);
 
         void SetElementTemperature(short value);
         void SetElementTemperature(SWorldLayer worldLayer, short value);

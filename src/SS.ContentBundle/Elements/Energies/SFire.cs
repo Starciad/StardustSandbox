@@ -13,6 +13,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
@@ -61,11 +62,11 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             }
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
+        protected override void OnNeighbors(SWorldSlot[] neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                ISWorldSlot slot = neighbors[i];
+                SWorldSlot slot = neighbors[i];
 
                 if (!slot.ForegroundLayer.IsEmpty)
                 {
@@ -79,7 +80,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             }
         }
 
-        private void IgniteElement(ISWorldSlot slot, ISWorldSlotLayer worldSlotLayer, SWorldLayer worldLayer)
+        private void IgniteElement(SWorldSlot slot, SWorldSlotLayer worldSlotLayer, SWorldLayer worldLayer)
         {
             // Increase neighboring temperature by fire's heat value
             this.Context.SetElementTemperature((short)(worldSlotLayer.Temperature + SElementConstants.FIRE_HEAT_VALUE));

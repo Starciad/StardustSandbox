@@ -7,6 +7,8 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 {
@@ -19,7 +21,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         internal override void Execute(SWorldModificationType worldModificationType, Type itemType, Point position)
         {
-            Point[] targetPoints = this.simulationPen.GetPenShapePoints(position);
+            IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
 
             // The selected item corresponds to an element.
             if (typeof(ISElement).IsAssignableFrom(itemType))
@@ -45,19 +47,19 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         // ============================================ //
         // Elements
 
-        private void ReplaceElements(ISElement element, Point[] points)
+        private void ReplaceElements(ISElement element, IEnumerable<Point> positions)
         {
-            foreach (Point point in points)
+            foreach (Point position in positions)
             {
-                this.world.ReplaceElement(point, this.simulationPen.Layer, element);
+                this.world.ReplaceElement(position, this.simulationPen.Layer, element);
             }
         }
 
-        private void EraseElements(Point[] points)
+        private void EraseElements(IEnumerable<Point> positions)
         {
-            foreach (Point point in points)
+            foreach (Point position in positions)
             {
-                this.world.DestroyElement(point, this.simulationPen.Layer);
+                this.world.DestroyElement(position, this.simulationPen.Layer);
             }
         }
     }

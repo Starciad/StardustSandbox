@@ -6,6 +6,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Extensions
 {
@@ -51,7 +52,7 @@ namespace StardustSandbox.Core.Extensions
                     else
                     {
                         // This color represents the currently selected element
-                        ISWorldSlot worldSlot = world.GetWorldSlot(worldPosition);
+                        SWorldSlot worldSlot = world.GetWorldSlot(worldPosition);
 
                         if (!worldSlot.ForegroundLayer.IsEmpty)
                         {

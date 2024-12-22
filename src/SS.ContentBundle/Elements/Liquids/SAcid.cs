@@ -4,12 +4,13 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    internal class SAcid : SLiquid
+    internal sealed class SAcid : SLiquid
     {
         internal SAcid(ISGame gameInstance) : base(gameInstance)
         {
@@ -21,12 +22,12 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
+        protected override void OnNeighbors(SWorldSlot[] neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                ISWorldSlot slot = neighbors[i];
-                ISWorldSlotLayer slotLayer = slot.GetLayer(this.Context.Layer);
+                SWorldSlot slot = neighbors[i];
+                SWorldSlotLayer slotLayer = slot.GetLayer(this.Context.Layer);
 
                 if (slotLayer.IsEmpty)
                 {

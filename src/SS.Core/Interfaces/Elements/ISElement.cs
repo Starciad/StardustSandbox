@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Elements.Rendering;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {
@@ -23,5 +25,11 @@ namespace StardustSandbox.Core.Interfaces.Elements
 
         SElementRendering Rendering { get; }
         ISElementContext Context { get; set; }
+
+        void Update(GameTime gameTime);
+        void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+        void InstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer);
+        void Steps();
     }
 }

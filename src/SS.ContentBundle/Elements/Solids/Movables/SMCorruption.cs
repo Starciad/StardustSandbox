@@ -9,6 +9,7 @@ using StardustSandbox.Core.Interfaces.Elements.Templates;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
@@ -25,7 +26,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
+        protected override void OnNeighbors(SWorldSlot[] neighbors)
         {
             if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Foreground, neighbors, neighbors.Length) &&
                 SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Background, neighbors, neighbors.Length))

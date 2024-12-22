@@ -2,6 +2,7 @@
 
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
@@ -35,11 +36,11 @@ namespace StardustSandbox.Core.Interfaces.Elements
         ISElement GetElement(Point position, SWorldLayer worldLayer);
         bool TryGetElement(Point position, SWorldLayer worldLayer, out ISElement value);
 
-        ReadOnlySpan<ISWorldSlot> GetNeighboringSlots(Point position);
-        bool TryGetNeighboringSlots(Point position, out ISWorldSlot[] neighbors);
+        SWorldSlot[] GetNeighboringSlots(Point position);
+        bool TryGetNeighboringSlots(Point position, out SWorldSlot[] neighbors);
 
-        ISWorldSlot GetWorldSlot(Point position);
-        bool TryGetWorldSlot(Point position, out ISWorldSlot value);
+        SWorldSlot GetWorldSlot(Point position);
+        bool TryGetWorldSlot(Point position, out SWorldSlot value);
 
         void SetElementTemperature(Point position, SWorldLayer worldLayer, short value);
         bool TrySetElementTemperature(Point position, SWorldLayer worldLayer, short value);

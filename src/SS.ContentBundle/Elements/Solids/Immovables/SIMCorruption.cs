@@ -9,12 +9,13 @@ using StardustSandbox.Core.Interfaces.Elements.Templates;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    internal class SIMCorruption : SImmovableSolid, ISCorruption
+    internal sealed class SIMCorruption : SImmovableSolid, ISCorruption
     {
         internal SIMCorruption(ISGame gameInstance) : base(gameInstance)
         {
@@ -25,7 +26,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
+        protected override void OnNeighbors(SWorldSlot[] neighbors)
         {
             if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Foreground, neighbors, neighbors.Length) &&
                 SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Background, neighbors, neighbors.Length))

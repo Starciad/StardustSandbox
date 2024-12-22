@@ -7,12 +7,13 @@ using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Data;
 
 using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    internal class SWater : SLiquid
+    internal sealed class SWater : SLiquid
     {
         internal SWater(ISGame gameInstance) : base(gameInstance)
         {
@@ -25,11 +26,11 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.enableNeighborsAction = true;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
+        protected override void OnNeighbors(SWorldSlot[] neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                ISWorldSlot slot = neighbors[i];
+                SWorldSlot slot = neighbors[i];
 
                 switch (slot.GetLayer(this.Context.Layer).Element)
                 {

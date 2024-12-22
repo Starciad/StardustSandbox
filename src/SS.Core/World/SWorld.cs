@@ -82,7 +82,6 @@ namespace StardustSandbox.Core.World
                 return;
             }
 
-            base.Draw(gameTime, spriteBatch);
             this.componentContainer.Draw(gameTime, spriteBatch);
         }
 
@@ -133,7 +132,7 @@ namespace StardustSandbox.Core.World
         {
             InstantiateElement(position, worldLayer, worldSlotLayerData.ElementId);
 
-            SWorldSlot worldSlot = (SWorldSlot)GetWorldSlot(position);
+            SWorldSlot worldSlot = GetWorldSlot(position);
 
             worldSlot.SetTemperatureValue(worldLayer, worldSlotLayerData.Temperature);
             worldSlot.SetFreeFalling(worldLayer, worldSlotLayerData.FreeFalling);

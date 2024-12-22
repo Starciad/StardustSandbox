@@ -10,6 +10,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
@@ -26,7 +27,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultFlammabilityResistance = 150;
         }
 
-        protected override void OnInstantiateStep(ISWorldSlot worldSlot, SWorldLayer worldLayer)
+        protected override void OnInstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer)
         {
             this.Context.SetElementColorModifier(worldLayer, SElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }

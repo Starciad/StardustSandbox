@@ -6,6 +6,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
@@ -33,14 +34,14 @@ namespace StardustSandbox.Core.Components.Common.World
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            this.slotsCapturedForRendering.Clear();
+
             GetAllSlotsForRendering(spriteBatch);
             DrawAllCapturedElements(gameTime, spriteBatch);
         }
 
         private void GetAllSlotsForRendering(SpriteBatch spriteBatch)
         {
-            this.slotsCapturedForRendering.Clear();
-
             for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
             {
                 for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
@@ -67,16 +68,16 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             foreach (Point position in this.slotsCapturedForRendering)
             {
-                ISWorldSlot worldSlot = this.SWorldInstance.GetWorldSlot(position);
+                SWorldSlot worldSlot = this.SWorldInstance.GetWorldSlot(position);
 
                 if (!worldSlot.BackgroundLayer.IsEmpty)
                 {
-                    DrawWorldSlotLayer(gameTime, spriteBatch, position, SWorldLayer.Background, worldSlot, (SElement)worldSlot.GetLayer(SWorldLayer.Background).Element);
+                    DrawWorldSlotLayer(gameTime, spriteBatch, position, SWorldLayer.Background, worldSlot, worldSlot.GetLayer(SWorldLayer.Background).Element);
                 }
 
                 if (!worldSlot.ForegroundLayer.IsEmpty)
                 {
-                    DrawWorldSlotLayer(gameTime, spriteBatch, position, SWorldLayer.Foreground, worldSlot, (SElement)worldSlot.GetLayer(SWorldLayer.Foreground).Element);
+                    DrawWorldSlotLayer(gameTime, spriteBatch, position, SWorldLayer.Foreground, worldSlot, worldSlot.GetLayer(SWorldLayer.Foreground).Element);
                 }
 
                 // [ DEBUG ]
@@ -84,7 +85,7 @@ namespace StardustSandbox.Core.Components.Common.World
             }
         }
 
-        private void DrawWorldSlotLayer(GameTime gameTime, SpriteBatch spriteBatch, Point position, SWorldLayer worldLayer, ISWorldSlot worldSlot, SElement element)
+        private void DrawWorldSlotLayer(GameTime gameTime, SpriteBatch spriteBatch, Point position, SWorldLayer worldLayer, SWorldSlot worldSlot, ISElement element)
         {
             this.elementRenderingContext.UpdateInformation(position, worldLayer, worldSlot);
 

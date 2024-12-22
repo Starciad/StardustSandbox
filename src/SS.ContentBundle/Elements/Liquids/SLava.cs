@@ -7,7 +7,7 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    internal class SLava : SLiquid
+    internal sealed class SLava : SLiquid
     {
         internal SLava(ISGame gameInstance) : base(gameInstance)
         {

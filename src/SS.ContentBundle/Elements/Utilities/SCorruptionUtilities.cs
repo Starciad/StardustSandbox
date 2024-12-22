@@ -10,18 +10,23 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
-using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Utilities
 {
     internal static class SCorruptionUtilities
     {
-        private static readonly List<(ISWorldSlot slot, SWorldLayer layer)> targets = [];
+        private readonly struct SSlotTarget(SWorldSlot slot, SWorldLayer layer)
+        {
+            public SWorldSlot Slot => slot;
+            public SWorldLayer Layer => layer;
+        }
 
-        internal static bool CheckIfNeighboringElementsAreCorrupted(SWorldLayer worldLayer, ReadOnlySpan<ISWorldSlot> neighbors, int length)
+        private static readonly List<SSlotTarget> targets = [];
+
+        internal static bool CheckIfNeighboringElementsAreCorrupted(SWorldLayer worldLayer, SWorldSlot[] neighbors, int length)
         {
             if (length == 0)
             {
@@ -32,7 +37,7 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 
             for (int i = 0; i < length; i++)
             {
-                ISWorldSlot worldSlot = neighbors[i];
+                SWorldSlot worldSlot = neighbors[i];
 
                 if (worldSlot.GetLayer(worldLayer).Element is ISCorruption)
                 {
@@ -43,7 +48,7 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             return corruptNeighboringElements == length;
         }
 
-        internal static void InfectNeighboringElements(this ISElementContext context, ReadOnlySpan<ISWorldSlot> neighbors, int length)
+        internal static void InfectNeighboringElements(this ISElementContext context, SWorldSlot[] neighbors, int length)
         {
             if (length == 0)
             {
@@ -54,18 +59,18 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 
             for (int i = 0; i < length; i++)
             {
-                ISWorldSlot slot = neighbors[i];
+                SWorldSlot slot = neighbors[i];
 
                 ISElement foregroundElement = slot.ForegroundLayer.Element;
                 if (foregroundElement is not ISCorruption && foregroundElement is not SWall)
                 {
-                    targets.Add((slot, SWorldLayer.Foreground));
+                    targets.Add(new(slot, SWorldLayer.Foreground));
                 }
 
                 ISElement backgroundElement = slot.BackgroundLayer.Element;
                 if (backgroundElement is not ISCorruption && backgroundElement is not SWall)
                 {
-                    targets.Add((slot, SWorldLayer.Background));
+                    targets.Add(new(slot, SWorldLayer.Background));
                 }
             }
 
@@ -74,37 +79,35 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
                 return;
             }
 
-            (ISWorldSlot targetSlot, SWorldLayer targetLayer) = targets.GetRandomItem();
-
-            InfectWorldSlotLayer(context, targetSlot, targetLayer);
+            InfectWorldSlotLayer(context, targets.GetRandomItem());
         }
 
-        private static void InfectWorldSlotLayer(ISElementContext context, ISWorldSlot worldSlot, SWorldLayer targetLayer)
+        private static void InfectWorldSlotLayer(ISElementContext context, SSlotTarget slotTarget)
         {
-            ISElement targetElement = targetLayer == SWorldLayer.Foreground
-                ? worldSlot.ForegroundLayer.Element
-                : worldSlot.BackgroundLayer.Element;
+            ISElement targetElement = slotTarget.Layer == SWorldLayer.Foreground
+                ? slotTarget.Slot.ForegroundLayer.Element
+                : slotTarget.Slot.BackgroundLayer.Element;
 
             switch (targetElement)
             {
                 case SMovableSolid:
-                    context.ReplaceElement<SMCorruption>(worldSlot.Position, targetLayer);
+                    context.ReplaceElement<SMCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
                     break;
 
                 case SImmovableSolid:
-                    context.ReplaceElement<SIMCorruption>(worldSlot.Position, targetLayer);
+                    context.ReplaceElement<SIMCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
                     break;
 
                 case SLiquid:
-                    context.ReplaceElement<SLCorruption>(worldSlot.Position, targetLayer);
+                    context.ReplaceElement<SLCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
                     break;
 
                 case SGas:
-                    context.ReplaceElement<SGCorruption>(worldSlot.Position, targetLayer);
+                    context.ReplaceElement<SGCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
                     break;
 
                 default:
-                    context.ReplaceElement<SMCorruption>(worldSlot.Position, targetLayer);
+                    context.ReplaceElement<SMCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
                     break;
             }
         }

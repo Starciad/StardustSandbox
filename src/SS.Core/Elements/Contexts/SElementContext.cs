@@ -5,25 +5,23 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Data;
 
-using System;
-
 namespace StardustSandbox.Core.Elements.Contexts
 {
     internal sealed class SElementContext(ISWorld world) : ISElementContext
     {
-        public ISWorldSlot Slot => this.worldSlot;
-        public ISWorldSlotLayer SlotLayer => this.worldSlot.GetLayer(this.worldLayer);
+        public SWorldSlot Slot => this.worldSlot;
+        public SWorldSlotLayer SlotLayer => this.worldSlot.GetLayer(this.worldLayer);
         public Point Position => this.worldSlot.Position;
         public SWorldLayer Layer => this.worldLayer;
 
         private SWorldLayer worldLayer;
-        private ISWorldSlot worldSlot;
+        private SWorldSlot worldSlot;
 
         private readonly ISWorld world = world;
 
-        public void UpdateInformation(Point position, SWorldLayer worldLayer, ISWorldSlot worldSlot)
+        public void UpdateInformation(Point position, SWorldLayer worldLayer, SWorldSlot worldSlot)
         {
-            ((SWorldSlot)worldSlot).SetPosition(position);
+            worldSlot.SetPosition(position);
 
             this.worldLayer = worldLayer;
             this.worldSlot = worldSlot;
@@ -299,36 +297,36 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TryGetElement(position, worldLayer, out value);
         }
 
-        public ReadOnlySpan<ISWorldSlot> GetNeighboringSlots()
+        public SWorldSlot[] GetNeighboringSlots()
         {
             return GetNeighboringSlots(this.Position);
         }
-        public ReadOnlySpan<ISWorldSlot> GetNeighboringSlots(Point position)
+        public SWorldSlot[] GetNeighboringSlots(Point position)
         {
             return this.world.GetNeighboringSlots(position);
         }
-        public bool TryGetNeighboringSlots(out ISWorldSlot[] neighbors)
+        public bool TryGetNeighboringSlots(out SWorldSlot[] neighbors)
         {
             return TryGetNeighboringSlots(this.Position, out neighbors);
         }
-        public bool TryGetNeighboringSlots(Point position, out ISWorldSlot[] neighbors)
+        public bool TryGetNeighboringSlots(Point position, out SWorldSlot[] neighbors)
         {
             return this.world.TryGetNeighboringSlots(position, out neighbors);
         }
 
-        public ISWorldSlot GetWorldSlot()
+        public SWorldSlot GetWorldSlot()
         {
             return GetWorldSlot(this.Position);
         }
-        public ISWorldSlot GetWorldSlot(Point position)
+        public SWorldSlot GetWorldSlot(Point position)
         {
             return this.world.GetWorldSlot(position);
         }
-        public bool TryGetWorldSlot(out ISWorldSlot value)
+        public bool TryGetWorldSlot(out SWorldSlot value)
         {
             return TryGetWorldSlot(this.Position, out value);
         }
-        public bool TryGetWorldSlot(Point position, out ISWorldSlot value)
+        public bool TryGetWorldSlot(Point position, out SWorldSlot value)
         {
             return this.world.TryGetWorldSlot(position, out value);
         }

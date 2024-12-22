@@ -2,17 +2,17 @@
 
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.World.Data
 {
-    internal sealed class SWorldSlot : ISWorldSlot
+    public sealed class SWorldSlot : ISPoolableObject
     {
         public bool IsEmpty => this.ForegroundLayer.IsEmpty && this.BackgroundLayer.IsEmpty;
         public Point Position => this.position;
 
-        public ISWorldSlotLayer ForegroundLayer => this.foregroundLayer;
-        public ISWorldSlotLayer BackgroundLayer => this.backgroundLayer;
+        public SWorldSlotLayer ForegroundLayer => this.foregroundLayer;
+        public SWorldSlotLayer BackgroundLayer => this.backgroundLayer;
 
         private Point position;
 
@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.World.Data
 
         }
 
-        public ISWorldSlotLayer GetLayer(SWorldLayer worldLayer)
+        public SWorldSlotLayer GetLayer(SWorldLayer worldLayer)
         {
             return worldLayer switch
             {
@@ -34,45 +34,45 @@ namespace StardustSandbox.Core.World.Data
             };
         }
 
-        internal void SetPosition(Point position)
+        public void SetPosition(Point position)
         {
             this.position = position;
         }
 
-        internal void Instantiate(Point position, SWorldLayer worldLayer, ISElement value)
+        public void Instantiate(Point position, SWorldLayer worldLayer, ISElement value)
         {
             this.position = position;
-            ((SWorldSlotLayer)GetLayer(worldLayer)).Instantiate(value);
+            GetLayer(worldLayer).Instantiate(value);
         }
 
-        internal void Destroy(SWorldLayer worldLayer)
+        public void Destroy(SWorldLayer worldLayer)
         {
-            ((SWorldSlotLayer)GetLayer(worldLayer)).Destroy();
+            GetLayer(worldLayer).Destroy();
         }
 
-        internal void Copy(SWorldLayer worldLayer, ISWorldSlotLayer valueToCopy)
+        public void Copy(SWorldLayer worldLayer, SWorldSlotLayer valueToCopy)
         {
-            ((SWorldSlotLayer)GetLayer(worldLayer)).Copy(valueToCopy);
+            GetLayer(worldLayer).Copy(valueToCopy);
         }
 
-        internal void SetTemperatureValue(SWorldLayer worldLayer, short value)
+        public void SetTemperatureValue(SWorldLayer worldLayer, short value)
         {
-            ((SWorldSlotLayer)GetLayer(worldLayer)).SetTemperatureValue(value);
+            GetLayer(worldLayer).SetTemperatureValue(value);
         }
 
-        internal void SetFreeFalling(SWorldLayer worldLayer, bool value)
+        public void SetFreeFalling(SWorldLayer worldLayer, bool value)
         {
-            ((SWorldSlotLayer)GetLayer(worldLayer)).SetFreeFalling(value);
+            GetLayer(worldLayer).SetFreeFalling(value);
         }
 
-        internal void SetColorModifier(SWorldLayer worldLayer, Color value)
+        public void SetColorModifier(SWorldLayer worldLayer, Color value)
         {
-            ((SWorldSlotLayer)GetLayer(worldLayer)).SetColorModifier(value);
+            GetLayer(worldLayer).SetColorModifier(value);
         }
 
-        internal void Reset(SWorldLayer worldLayer)
+        public void Reset(SWorldLayer worldLayer)
         {
-            ((SWorldSlotLayer)GetLayer(worldLayer)).Reset();
+            GetLayer(worldLayer).Reset();
         }
 
         public void Reset()

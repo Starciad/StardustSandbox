@@ -9,6 +9,12 @@ namespace StardustSandbox.Core.Elements.Utilities
 {
     public static class SElementUtility
     {
+        private readonly struct LateralSpreadDirection(Point left, Point right)
+        {
+            public readonly Point Left => left;
+            public readonly Point Right => right;
+        }
+
         public static Point[] GetRandomSidePositions(Point targetPosition, SDirection direction)
         {
             int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
@@ -57,21 +63,21 @@ namespace StardustSandbox.Core.Elements.Utilities
         {
             Point currentPosition = context.Slot.Position;
 
-            (Point leftPos, Point rightPos) = GetSidewaysSpreadPositions(context, currentPosition, dispersionRate);
+            LateralSpreadDirection lateralSpreadDirection = GetSidewaysSpreadPositions(context, currentPosition, dispersionRate);
 
-            float leftDistance = SPointExtensions.Distance(currentPosition, leftPos);
-            float rightDistance = SPointExtensions.Distance(currentPosition, rightPos);
+            float leftDistance = SPointExtensions.Distance(currentPosition, lateralSpreadDirection.Left);
+            float rightDistance = SPointExtensions.Distance(currentPosition, lateralSpreadDirection.Right);
 
             Point targetPosition = leftDistance == rightDistance
-                ? (SRandomMath.Chance(50, 101) ? leftPos : rightPos)
-                : (leftDistance > rightDistance ? leftPos : rightPos);
+                ? (SRandomMath.Chance(50, 101) ? lateralSpreadDirection.Left : lateralSpreadDirection.Right)
+                : (leftDistance > rightDistance ? lateralSpreadDirection.Left : lateralSpreadDirection.Right);
 
             _ = context.TrySetPosition(targetPosition, context.Layer);
         }
 
-        public static (Point left, Point right) GetSidewaysSpreadPositions(ISElementContext context, Point position, int rate)
+        private static LateralSpreadDirection GetSidewaysSpreadPositions(ISElementContext context, Point position, int rate)
         {
-            return (
+            return new(
                 GetDispersionPosition(context, position, rate, -1),
                 GetDispersionPosition(context, position, rate, 1)
             );

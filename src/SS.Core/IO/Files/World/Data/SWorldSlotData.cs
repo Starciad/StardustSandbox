@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.IO.Files.World.Data
 {
@@ -31,7 +32,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
 
         }
 
-        public SWorldSlotData(ISWorldSlot worldSlot)
+        public SWorldSlotData(SWorldSlot worldSlot)
         {
             this.Position = worldSlot.Position;
 

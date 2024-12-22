@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.IO.Files.World.Data
 {
@@ -39,7 +40,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
 
         }
 
-        public SWorldSlotLayerData(ISWorldSlotLayer worldSlotLayer)
+        public SWorldSlotLayerData(SWorldSlotLayer worldSlotLayer)
         {
             this.ElementId = worldSlotLayer.Element.Identifier;
             this.Temperature = worldSlotLayer.Temperature;

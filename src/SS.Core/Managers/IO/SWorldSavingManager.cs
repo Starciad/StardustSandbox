@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.Managers.IO
 
         public static SWorldSaveFile CreateWorldSaveFile(ISWorld world, GraphicsDevice graphicsDevice)
         {
-            DateTime currentDateTime = DateTime.Now;
+            DateTime currentDateTime = DateTime.UtcNow;
 
             return new()
             {

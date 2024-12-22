@@ -3,12 +3,11 @@
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Helpers;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.World.Data
 {
-    internal sealed class SWorldSlotLayer : ISWorldSlotLayer
+    public sealed class SWorldSlotLayer
     {
         public ISElement Element => this.element;
         public bool IsEmpty => this.isEmpty;
@@ -31,7 +30,7 @@ namespace StardustSandbox.Core.World.Data
             Reset();
         }
 
-        internal void Instantiate(ISElement value)
+        public void Instantiate(ISElement value)
         {
             this.isEmpty = false;
             this.element = value;
@@ -42,7 +41,7 @@ namespace StardustSandbox.Core.World.Data
             this.stepCycleFlag = SUpdateCycleFlag.None;
         }
 
-        internal void Destroy()
+        public void Destroy()
         {
             this.isEmpty = true;
             this.element = null;
@@ -53,7 +52,7 @@ namespace StardustSandbox.Core.World.Data
             this.stepCycleFlag = SUpdateCycleFlag.None;
         }
 
-        internal void Copy(ISWorldSlotLayer valueToCopy)
+        public void Copy(SWorldSlotLayer valueToCopy)
         {
             this.element = valueToCopy.Element;
             this.isEmpty = valueToCopy.IsEmpty;
@@ -64,27 +63,27 @@ namespace StardustSandbox.Core.World.Data
             this.stepCycleFlag = valueToCopy.StepCycleFlag;
         }
 
-        internal void SetTemperatureValue(short value)
+        public void SetTemperatureValue(short value)
         {
             this.temperature = STemperatureMath.Clamp(value);
         }
 
-        internal void SetFreeFalling(bool value)
+        public void SetFreeFalling(bool value)
         {
             this.freeFalling = value;
         }
 
-        internal void SetColorModifier(Color value)
+        public void SetColorModifier(Color value)
         {
             this.colorModifier = value;
         }
 
-        internal void NextUpdateCycle()
+        public void NextUpdateCycle()
         {
             this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
         }
 
-        internal void NextStepCycle()
+        public void NextStepCycle()
         {
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
