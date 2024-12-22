@@ -4,6 +4,7 @@ using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
@@ -27,7 +28,8 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
 
         protected override void OnNeighbors(ReadOnlySpan<ISWorldSlot> neighbors)
         {
-            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(this.Context.Layer, neighbors, neighbors.Length))
+            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Foreground, neighbors, neighbors.Length) &&
+                SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Background, neighbors, neighbors.Length))
             {
                 return;
             }

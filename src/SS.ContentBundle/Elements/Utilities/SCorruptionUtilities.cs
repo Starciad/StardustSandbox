@@ -7,10 +7,10 @@ using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.Mathematics;
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +19,8 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 {
     internal static class SCorruptionUtilities
     {
+        private static readonly List<(ISWorldSlot slot, SWorldLayer layer)> targets = [];
+
         internal static bool CheckIfNeighboringElementsAreCorrupted(SWorldLayer worldLayer, ReadOnlySpan<ISWorldSlot> neighbors, int length)
         {
             if (length == 0)
@@ -30,7 +32,9 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 
             for (int i = 0; i < length; i++)
             {
-                if (neighbors[i].GetLayer(worldLayer).Element is ISCorruption)
+                ISWorldSlot worldSlot = neighbors[i];
+
+                if (worldSlot.GetLayer(worldLayer).Element is ISCorruption)
                 {
                     corruptNeighboringElements++;
                 }
@@ -46,16 +50,22 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
                 return;
             }
 
-            List<ISWorldSlot> targets = [];
+            targets.Clear();
 
             for (int i = 0; i < length; i++)
             {
-                ISElement element = neighbors[i].GetLayer(context.Layer).Element;
+                ISWorldSlot slot = neighbors[i];
 
-                if (element is not ISCorruption &&
-                    element is not SWall)
+                ISElement foregroundElement = slot.ForegroundLayer.Element;
+                if (foregroundElement is not ISCorruption && foregroundElement is not SWall)
                 {
-                    targets.Add(neighbors[i]);
+                    targets.Add((slot, SWorldLayer.Foreground));
+                }
+
+                ISElement backgroundElement = slot.BackgroundLayer.Element;
+                if (backgroundElement is not ISCorruption && backgroundElement is not SWall)
+                {
+                    targets.Add((slot, SWorldLayer.Background));
                 }
             }
 
@@ -64,28 +74,37 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
                 return;
             }
 
-            ISWorldSlot target = targets.Count == 0 ? targets[0] : targets[SRandomMath.Range(0, targets.Count)];
+            (ISWorldSlot targetSlot, SWorldLayer targetLayer) = targets.GetRandomItem();
 
-            switch (target.GetLayer(context.Layer))
+            InfectWorldSlotLayer(context, targetSlot, targetLayer);
+        }
+
+        private static void InfectWorldSlotLayer(ISElementContext context, ISWorldSlot worldSlot, SWorldLayer targetLayer)
+        {
+            ISElement targetElement = targetLayer == SWorldLayer.Foreground
+                ? worldSlot.ForegroundLayer.Element
+                : worldSlot.BackgroundLayer.Element;
+
+            switch (targetElement)
             {
                 case SMovableSolid:
-                    context.ReplaceElement<SMCorruption>(target.Position, context.Layer);
+                    context.ReplaceElement<SMCorruption>(worldSlot.Position, targetLayer);
                     break;
 
                 case SImmovableSolid:
-                    context.ReplaceElement<SIMCorruption>(target.Position, context.Layer);
+                    context.ReplaceElement<SIMCorruption>(worldSlot.Position, targetLayer);
                     break;
 
                 case SLiquid:
-                    context.ReplaceElement<SLCorruption>(target.Position, context.Layer);
+                    context.ReplaceElement<SLCorruption>(worldSlot.Position, targetLayer);
                     break;
 
                 case SGas:
-                    context.ReplaceElement<SGCorruption>(target.Position, context.Layer);
+                    context.ReplaceElement<SGCorruption>(worldSlot.Position, targetLayer);
                     break;
 
                 default:
-                    context.ReplaceElement<SMCorruption>(target.Position, context.Layer);
+                    context.ReplaceElement<SMCorruption>(worldSlot.Position, targetLayer);
                     break;
             }
         }

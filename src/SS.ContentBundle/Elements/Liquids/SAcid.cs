@@ -26,8 +26,14 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             for (int i = 0; i < neighbors.Length; i++)
             {
                 ISWorldSlot slot = neighbors[i];
+                ISWorldSlotLayer slotLayer = slot.GetLayer(this.Context.Layer);
 
-                switch (slot.GetLayer(this.Context.Layer).Element)
+                if (slotLayer.IsEmpty)
+                {
+                    continue;
+                }
+
+                switch (slotLayer.Element)
                 {
                     case SAcid:
                     case SWall:
