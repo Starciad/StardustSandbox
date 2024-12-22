@@ -4,13 +4,13 @@
     {
         protected override void OnOpened()
         {
-            this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
             SelectItemCatalog("powders", 0);
         }
 
         protected override void OnClosed()
         {
-            this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = false;
         }
     }
 }
