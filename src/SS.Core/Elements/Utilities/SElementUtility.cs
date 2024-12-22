@@ -85,7 +85,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
-                if (context.IsEmptyWorldSlot(nextPosition))
+                if (context.IsEmptyWorldSlotLayer(nextPosition, context.Layer))
                 {
                     dispersionPosition = nextPosition;
                 }

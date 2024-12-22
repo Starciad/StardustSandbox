@@ -56,11 +56,11 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
         {
             this.emptyPositionsCache.Clear();
 
-            foreach (Point point in SPointExtensions.GetNeighboringCardinalPoints(this.Context.Slot.Position))
+            foreach (Point position in SPointExtensions.GetNeighboringCardinalPoints(this.Context.Slot.Position))
             {
-                if (this.Context.IsEmptyWorldSlot(point))
+                if (this.Context.IsEmptyWorldSlotLayer(position, this.Context.Layer))
                 {
-                    this.emptyPositionsCache.Add(point);
+                    this.emptyPositionsCache.Add(position);
                 }
             }
 
