@@ -8,6 +8,7 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Elements.Rendering
 {
@@ -40,7 +41,9 @@ namespace StardustSandbox.Core.Elements.Rendering
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
             Point position = context.Slot.Position;
-            Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
+            SWorldSlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
+
+            Color colorModifier = STemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
 
             if (context.Layer == SWorldLayer.Background)
             {

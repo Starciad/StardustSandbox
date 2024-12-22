@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
@@ -130,7 +131,7 @@ namespace StardustSandbox.Core.Elements
             short averageTemperatureChange = (short)Math.Round(totalTemperatureChange / (short)(neighborsCurrentLayerLength + neighborsOppositeLayerLength));
             this.context.SetElementTemperature(this.context.Layer, STemperatureMath.Clamp((short)(currentLayerData.Temperature - averageTemperatureChange)));
 
-            if (MathF.Abs(averageTemperatureChange) < STemperatureMath.EquilibriumThreshold)
+            if (MathF.Abs(averageTemperatureChange) < STemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
                 this.context.SetElementTemperature(this.context.Layer, STemperatureMath.Clamp((short)(currentLayerData.Temperature + averageTemperatureChange)));
             }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics;
 
 using System;
@@ -39,7 +40,19 @@ namespace StardustSandbox.Core.Extensions
             int g = (int)(baseColor.G * (1 - darkenFactor));
             int b = (int)(baseColor.B * (1 - darkenFactor));
 
-            return new Color(r, g, b, baseColor.A);
+            return new(r, g, b, baseColor.A);
+        }
+
+        public static Color OverlayBlend(this Color baseColor, Color overlayColor, float blendFactor)
+        {
+            blendFactor = Math.Clamp(blendFactor, 0f, 1f);
+
+            int r = (int)(baseColor.R + (overlayColor.R - baseColor.R) * blendFactor);
+            int g = (int)(baseColor.G + (overlayColor.G - baseColor.G) * blendFactor);
+            int b = (int)(baseColor.B + (overlayColor.B - baseColor.B) * blendFactor);
+            int a = (int)(baseColor.A + (overlayColor.A - baseColor.A) * blendFactor);
+
+            return new(r, g, b, a);
         }
     }
 }
