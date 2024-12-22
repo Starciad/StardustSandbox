@@ -20,7 +20,6 @@ namespace StardustSandbox.Core.Elements
         public Texture2D Texture => this.texture;
 
         public Color ReferenceColor => this.referenceColor;
-        public SWorldLayer AllowedLayers => this.allowedLayers;
 
         public int DefaultDispersionRate => this.defaultDispersionRate;
         public short DefaultTemperature => this.defaultTemperature;
@@ -40,8 +39,6 @@ namespace StardustSandbox.Core.Elements
         protected Texture2D texture;
 
         protected Color referenceColor = Color.White;
-
-        protected SWorldLayer allowedLayers = SWorldLayer.Foreground;
 
         protected int defaultDispersionRate = 1;
         protected short defaultTemperature;

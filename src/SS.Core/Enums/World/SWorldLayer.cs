@@ -1,12 +1,8 @@
-﻿using System;
-
-namespace StardustSandbox.Core.Enums.World
+﻿namespace StardustSandbox.Core.Enums.World
 {
-    [Flags]
     public enum SWorldLayer : byte
     {
-        None = 0,
-        Foreground = 1,
-        Background = 2,
+        Foreground = 0,
+        Background = 1,
     }
 }

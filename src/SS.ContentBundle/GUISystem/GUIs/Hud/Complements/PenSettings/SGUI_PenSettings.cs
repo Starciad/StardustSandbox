@@ -203,13 +203,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.toolButtonSelectedIndex = (byte)this.gameInputController.Pen.Tool;
 
             // Layer
-            this.layerButtonSelectedIndex = this.gameInputController.Pen.Layer switch
-            {
-                SWorldLayer.None => 0,
-                SWorldLayer.Foreground => 0,
-                SWorldLayer.Background => 1,
-                _ => 0,
-            };
+            this.layerButtonSelectedIndex = (byte)this.gameInputController.Pen.Layer;
 
             // Shape
             this.shapeButtonSelectedIndex = (byte)this.gameInputController.Pen.Shape;

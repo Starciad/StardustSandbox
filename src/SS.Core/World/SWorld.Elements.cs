@@ -51,11 +51,6 @@ namespace StardustSandbox.Core.World
             SWorldSlot worldSlot = this.slots[position.X, position.Y];
             SElement element = (SElement)value;
 
-            if (!element.AllowedLayers.HasFlag(worldLayer))
-            {
-                targetWorldLayer = SWorldLayer.Foreground;
-            }
-
             worldSlot.Instantiate(position, targetWorldLayer, value);
 
             this.worldElementContext.UpdateInformation(position, targetWorldLayer, worldSlot);

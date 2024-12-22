@@ -16,7 +16,7 @@ namespace StardustSandbox.Core.Components.Common.World
         private int worldChunkWidth;
         private int worldChunkHeight;
 
-        private SWorldChunk[,] _chunks;
+        private SWorldChunk[,] chunks;
 
         private Texture2D pixelTexture;
 
@@ -29,16 +29,16 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             base.Reset();
 
-            this._chunks = new SWorldChunk[(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
+            this.chunks = new SWorldChunk[(this.SWorldInstance.Infos.Size.Width / SWorldConstants.CHUNK_SCALE) + 1, (this.SWorldInstance.Infos.Size.Height / SWorldConstants.CHUNK_SCALE) + 1];
 
-            this.worldChunkWidth = this._chunks.GetLength(0);
-            this.worldChunkHeight = this._chunks.GetLength(1);
+            this.worldChunkWidth = this.chunks.GetLength(0);
+            this.worldChunkHeight = this.chunks.GetLength(1);
 
             for (int x = 0; x < this.worldChunkWidth; x++)
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    this._chunks[x, y] = new SWorldChunk(new Point(x * SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE, y * SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE));
+                    this.chunks[x, y] = new SWorldChunk(new Point(x * SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE, y * SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE));
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Components.Common.World
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    this._chunks[x, y].Update();
+                    this.chunks[x, y].Update();
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace StardustSandbox.Core.Components.Common.World
                 return false;
             }
 
-            result = this._chunks[targetPosition.X, targetPosition.Y].ShouldUpdate;
+            result = this.chunks[targetPosition.X, targetPosition.Y].ShouldUpdate;
             return true;
         }
 
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.Components.Common.World
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    if (this._chunks[x, y].ShouldUpdate)
+                    if (this.chunks[x, y].ShouldUpdate)
                     {
                         result++;
                     }
@@ -101,7 +101,7 @@ namespace StardustSandbox.Core.Components.Common.World
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    SWorldChunk worldChunk = this._chunks[x, y];
+                    SWorldChunk worldChunk = this.chunks[x, y];
 
                     if (worldChunk.ShouldUpdate)
                     {
@@ -119,7 +119,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
             if (IsWithinChunkBoundaries(targetPosition))
             {
-                this._chunks[targetPosition.X, targetPosition.Y].Notify();
+                this.chunks[targetPosition.X, targetPosition.Y].Notify();
                 TryNotifyNeighboringChunks(position, targetPosition);
 
                 return true;
@@ -131,22 +131,22 @@ namespace StardustSandbox.Core.Components.Common.World
         {
             if (ePos.X % SWorldConstants.CHUNK_SCALE == 0 && IsWithinChunkBoundaries(new(cPos.X - 1, cPos.Y)))
             {
-                this._chunks[cPos.X - 1, cPos.Y].Notify();
+                this.chunks[cPos.X - 1, cPos.Y].Notify();
             }
 
             if (ePos.X % SWorldConstants.CHUNK_SCALE == SWorldConstants.CHUNK_SCALE - 1 && IsWithinChunkBoundaries(new(cPos.X + 1, cPos.Y)))
             {
-                this._chunks[cPos.X + 1, cPos.Y].Notify();
+                this.chunks[cPos.X + 1, cPos.Y].Notify();
             }
 
             if (ePos.Y % SWorldConstants.CHUNK_SCALE == 0 && IsWithinChunkBoundaries(new(cPos.X, cPos.Y - 1)))
             {
-                this._chunks[cPos.X, cPos.Y - 1].Notify();
+                this.chunks[cPos.X, cPos.Y - 1].Notify();
             }
 
             if (ePos.Y % SWorldConstants.CHUNK_SCALE == SWorldConstants.CHUNK_SCALE - 1 && IsWithinChunkBoundaries(new(cPos.X, cPos.Y + 1)))
             {
-                this._chunks[cPos.X, cPos.Y + 1].Notify();
+                this.chunks[cPos.X, cPos.Y + 1].Notify();
             }
         }
 
@@ -168,9 +168,9 @@ namespace StardustSandbox.Core.Components.Common.World
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    if (this._chunks[x, y].ShouldUpdate)
+                    if (this.chunks[x, y].ShouldUpdate)
                     {
-                        spriteBatch.Draw(this.pixelTexture, new Vector2(this._chunks[x, y].Position.X, this._chunks[x, y].Position.Y), null, new Color(255, 0, 0, 35), 0f, Vector2.Zero, SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(this.pixelTexture, new Vector2(this.chunks[x, y].Position.X, this.chunks[x, y].Position.Y), null, new Color(255, 0, 0, 35), 0f, Vector2.Zero, SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
                     }
                 }
             }

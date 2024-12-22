@@ -20,14 +20,14 @@ namespace StardustSandbox.Core.Components.Common.World
     {
         private readonly SElementContext elementRenderingContext = new(worldInstance);
 
-        private Texture2D _gridTexture;
+        private Texture2D gridTexture;
 
-        private readonly List<Point> _slotsCapturedForRendering = [];
-        private readonly ISCameraManager _cameraManager = gameInstance.CameraManager;
+        private readonly List<Point> slotsCapturedForRendering = [];
+        private readonly ISCameraManager cameraManager = gameInstance.CameraManager;
 
         public override void Initialize()
         {
-            this._gridTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_2");
+            this.gridTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_2");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
         private void GetAllSlotsForRendering(SpriteBatch spriteBatch)
         {
-            this._slotsCapturedForRendering.Clear();
+            this.slotsCapturedForRendering.Clear();
 
             for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
             {
@@ -47,16 +47,16 @@ namespace StardustSandbox.Core.Components.Common.World
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (this._cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
-                        spriteBatch.Draw(this._gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
 
                         if (this.SWorldInstance.IsEmptyWorldSlot(targetPosition.ToPoint()))
                         {
                             continue;
                         }
 
-                        this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
+                        this.slotsCapturedForRendering.Add(targetPosition.ToPoint());
                     }
                 }
             }
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
         private void DrawAllCapturedElements(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (Point position in this._slotsCapturedForRendering)
+            foreach (Point position in this.slotsCapturedForRendering)
             {
                 ISWorldSlot worldSlot = this.SWorldInstance.GetWorldSlot(position);
                 SWorldLayer worldLayer = SWorldLayer.Background;

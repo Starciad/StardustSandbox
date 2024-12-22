@@ -14,7 +14,6 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
         protected override void OnBehaviourStep()
         {
             Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down);
-            ISWorldSlotLayer worldSlotLayer = this.Context.Slot.GetLayer(this.Context.Layer);
 
             if (this.Context.SlotLayer.FreeFalling)
             {
