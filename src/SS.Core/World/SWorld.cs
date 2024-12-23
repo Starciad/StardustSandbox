@@ -107,6 +107,8 @@ namespace StardustSandbox.Core.World
 
         public void LoadFromWorldSaveFile(SWorldSaveFile worldSaveFile)
         {
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
+
             // World
             StartNew(worldSaveFile.World.Size);
 

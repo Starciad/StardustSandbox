@@ -2,8 +2,9 @@
 {
     public enum SPenTool : byte
     {
-        Pencil = 0,
-        Fill = 1,
-        Replace = 2
+        Visualization = 0,
+        Pencil = 1,
+        Fill = 2,
+        Replace = 3
     }
 }

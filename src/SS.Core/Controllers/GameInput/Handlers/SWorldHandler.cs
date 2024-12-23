@@ -25,6 +25,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
         private readonly SSimulationPlayer simulationPlayer;
         private readonly SSimulationPen simulationPen;
 
+        private readonly SVisualizationTool visualizationTool;
         private readonly SPencilTool pencilTool;
         private readonly SFloodFillTool floodFillTool;
         private readonly SReplaceTool replaceTool;
@@ -40,6 +41,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             this.simulationPlayer = simulationPlayer;
             this.simulationPen = simulationPen;
 
+            this.visualizationTool = new(this.world, this.elementDatabase, simulationPen);
             this.pencilTool = new(this.world, this.elementDatabase, simulationPen);
             this.floodFillTool = new(this.world, this.elementDatabase, simulationPen);
             this.replaceTool = new(this.world, this.elementDatabase, simulationPen);
@@ -62,6 +64,10 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
             switch (this.simulationPen.Tool)
             {
+                case SPenTool.Visualization:
+                    this.visualizationTool.Execute(worldModificationType, itemType, mousePosition);
+                    break;
+
                 case SPenTool.Pencil:
                     this.pencilTool.Execute(worldModificationType, itemType, mousePosition);
                     break;

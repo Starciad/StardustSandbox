@@ -10,6 +10,7 @@ using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
@@ -80,6 +81,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 // [11] Trash
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_2"),
+
+                // [12] Eye
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_27"),
+
+                // [13] Pen
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_19"),
+
+                // [14] Paint Bucket
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_20"),
+
+                // [14] Replacement
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_21"),
             ];
 
             this.world = gameInstance.World;
@@ -130,7 +143,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateSlotIcons()
         {
+            // Pause
             this.leftPanelBottomButtonElements[0].IconElement.Texture = this.SGameInstance.GameManager.GameState.IsSimulationPaused ? this.iconTextures[06] : this.iconTextures[05];
+
+            // Current Tool
+            this.toolbarCurrentlySelectedToolIcon.Texture = this.SGameInstance.GameInputController.Pen.Tool switch
+            {
+                SPenTool.Visualization => this.iconTextures[12],
+                SPenTool.Pencil => this.iconTextures[13],
+                SPenTool.Fill => this.iconTextures[14],
+                SPenTool.Replace => this.iconTextures[15],
+                _ => this.iconTextures[12],
+            };
         }
 
         private void SetPlayerInteractionWhenToolbarHovered()

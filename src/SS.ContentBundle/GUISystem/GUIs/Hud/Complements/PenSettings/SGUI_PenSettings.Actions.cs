@@ -12,6 +12,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         }
 
         // Tools
+        private void SelectVisualizationToolButtonAction()
+        {
+            this.gameInputController.Pen.Tool = SPenTool.Visualization;
+        }
+
         private void SelectPencilToolButtonAction()
         {
             this.gameInputController.Pen.Tool = SPenTool.Pencil;

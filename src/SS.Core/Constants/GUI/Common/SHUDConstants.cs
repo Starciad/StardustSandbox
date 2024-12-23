@@ -8,8 +8,7 @@
         public const byte SLOT_SPACING = SLOT_SIZE * SLOT_SCALE;
 
         // Buttons
-        public const byte ELEMENT_BUTTONS_LENGTH = 14;
-        public const byte TOOL_BUTTONS_LENGTH = 11;
+        public const byte ELEMENT_BUTTONS_LENGTH = 13;
 
         // Data Fields
         public const string DATA_FILED_ELEMENT_ID = "element_id";

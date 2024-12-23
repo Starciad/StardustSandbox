@@ -57,6 +57,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 gameInstance.AssetDatabase.GetTexture("icon_gui_25"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_24"),
                 gameInstance.AssetDatabase.GetTexture("icon_gui_26"),
+                gameInstance.AssetDatabase.GetTexture("icon_gui_27"),
             ];
 
             this.menuButtons = [
@@ -64,14 +65,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.toolButtons = [
+                new(this.iconTextures[9], "View", string.Empty, SelectVisualizationToolButtonAction),
                 new(this.iconTextures[1], "Pencil", string.Empty, SelectPencilToolButtonAction),
                 new(this.iconTextures[2], "Fill", string.Empty, SelectFillToolButtonAction),
                 new(this.iconTextures[3], "Replace", string.Empty, SelectReplaceToolButtonAction),
             ];
 
             this.layerButtons = [
-                new(this.iconTextures[4], "Foreground", string.Empty, SelectForegroundLayerButtonAction),
-                new(this.iconTextures[5], "Background", string.Empty, SelectBackgroundLayerButtonAction),
+                new(this.iconTextures[4], "Front", string.Empty, SelectForegroundLayerButtonAction),
+                new(this.iconTextures[5], "Back", string.Empty, SelectBackgroundLayerButtonAction),
             ];
 
             this.shapeButtons = [

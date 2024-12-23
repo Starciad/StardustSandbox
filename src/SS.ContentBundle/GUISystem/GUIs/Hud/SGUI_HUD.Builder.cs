@@ -21,6 +21,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement rightToolbarContainer;
 
         private SGUIImageElement toolbarElementSearchButton;
+        private SGUIImageElement toolbarCurrentlySelectedToolIcon;
 
         private readonly SSlot[] toolbarElementSlots = new SSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly SSlot[] leftPanelTopButtonElements;
@@ -59,8 +60,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             layoutBuilder.AddElement(this.topToolbarContainer);
 
+            CreateTopToolbatCurrentlySelectedToolSlot(layoutBuilder);
             CreateTopToolbarSlots(layoutBuilder);
-            CreateSearchSlot(layoutBuilder);
+            CreateTopToolbarSearchSlot(layoutBuilder);
         }
 
         private void BuildLeftToolbar(ISGUILayoutBuilder layoutBuilder)
@@ -196,9 +198,38 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         // ======================================================================= //
 
+        private void CreateTopToolbatCurrentlySelectedToolSlot(ISGUILayoutBuilder layoutBuilder)
+        {
+            SGUIImageElement slotSearchBackground = new(this.SGameInstance)
+            {
+                Texture = this.guiButtonTexture,
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(SHUDConstants.SLOT_SCALE + 0.45f),
+                PositionAnchor = SCardinalDirection.West,
+                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Margin = new Vector2(SHUDConstants.SLOT_SIZE * 2, 0),
+            };
+
+            SGUIImageElement slotIcon = new(this.SGameInstance)
+            {
+                Texture = this.iconTextures[00],
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(2f),
+                Size = new SSize2(1),
+            };
+
+            slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
+            slotIcon.PositionRelativeToElement(slotSearchBackground);
+
+            layoutBuilder.AddElement(slotSearchBackground);
+            layoutBuilder.AddElement(slotIcon);
+
+            this.toolbarCurrentlySelectedToolIcon = slotIcon;
+        }
+
         private void CreateTopToolbarSlots(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 baseMargin = new(SHUDConstants.SLOT_SPACING, 0);
+            Vector2 baseMargin = new(SHUDConstants.SLOT_SPACING * 2.5f, 0);
 
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
@@ -229,28 +260,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             }
         }
 
-        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
-        {
-            SGUIImageElement backgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.guiButtonTexture,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE),
-                Margin = margin,
-            };
-
-            SGUIImageElement iconElement = new(this.SGameInstance)
-            {
-                Texture = iconTexture,
-                OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(1.5f),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE)
-            };
-
-            return new(backgroundElement, iconElement);
-        }
-
-        private void CreateSearchSlot(ISGUILayoutBuilder layoutBuilder)
+        private void CreateTopToolbarSearchSlot(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement slotSearchBackground = new(this.SGameInstance)
             {
@@ -277,6 +287,29 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             layoutBuilder.AddElement(slotIcon);
 
             this.toolbarElementSearchButton = slotSearchBackground;
+        }
+
+        // ============================================================= //
+
+        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
+        {
+            SGUIImageElement backgroundElement = new(this.SGameInstance)
+            {
+                Texture = this.guiButtonTexture,
+                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Margin = margin,
+            };
+
+            SGUIImageElement iconElement = new(this.SGameInstance)
+            {
+                Texture = iconTexture,
+                OriginPivot = SCardinalDirection.Center,
+                Scale = new Vector2(1.5f),
+                Size = new SSize2(SHUDConstants.SLOT_SIZE)
+            };
+
+            return new(backgroundElement, iconElement);
         }
     }
 }
