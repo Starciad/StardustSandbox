@@ -3,8 +3,6 @@
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Extensions;
 
-using System;
-
 namespace StardustSandbox.Core.Constants
 {
     public static class STemperatureConstants

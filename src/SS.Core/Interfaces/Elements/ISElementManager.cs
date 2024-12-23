@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Data;
-
-using System;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {

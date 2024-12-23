@@ -7,7 +7,6 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools

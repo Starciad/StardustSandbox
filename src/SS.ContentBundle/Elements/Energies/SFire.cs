@@ -2,7 +2,6 @@
 
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Enums.Elements;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -11,11 +10,8 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Energies;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
-
-using System;
 
 namespace StardustSandbox.ContentBundle.Elements.Energies
 {

@@ -6,13 +6,11 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Elements
 {
@@ -157,7 +155,7 @@ namespace StardustSandbox.Core.Elements
 
             return totalChange;
         }
-        
+
         protected virtual void OnInstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
         protected virtual void OnBeforeStep() { return; }
         protected virtual void OnStep() { return; }

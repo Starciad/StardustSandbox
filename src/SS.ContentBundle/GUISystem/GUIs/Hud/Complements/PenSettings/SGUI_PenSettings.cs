@@ -7,7 +7,6 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Controllers.GameInput;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;

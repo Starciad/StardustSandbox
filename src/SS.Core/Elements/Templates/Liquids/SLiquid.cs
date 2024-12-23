@@ -15,7 +15,7 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
         {
             this.defaultDensity = 1000;
         }
-        
+
         protected override void OnBehaviourStep()
         {
             Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down);

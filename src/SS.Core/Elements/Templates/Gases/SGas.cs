@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
             else if (this.validPositionsCache.Count > 0)
             {
                 Point targetPosition = this.validPositionsCache.GetRandomItem();
-                this.Context.TrySwappingElements(targetPosition);
+                _ = this.Context.TrySwappingElements(targetPosition);
             }
         }
 

@@ -2,7 +2,6 @@
 
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Enums.World;
@@ -71,7 +70,7 @@ namespace StardustSandbox.Core.Components.Common.World
                 {
                     UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Step);
                 }
-                
+
                 if (!worldSlot.BackgroundLayer.IsEmpty)
                 {
                     UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Step);
