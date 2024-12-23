@@ -9,6 +9,7 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
@@ -22,9 +23,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUILabelElement menuTitleElement;
         private SGUILabelElement nameSectionTitleElement;
         private SGUILabelElement descriptionSectionTitleElement;
+        private SGUILabelElement thumbnailSectionTitleElement;
 
         private SGUIImageElement titleInputFieldElement;
         private SGUIImageElement descriptionInputFieldElement;
+
+        private SGUILabelElement titleTextualContentElement;
+        private SGUILabelElement descriptionTextualContentElement;
+
+        private SGUIImageElement thumbnailPreviewElement;
 
         private readonly SSlot[] menuButtonSlots;
 
@@ -133,17 +140,30 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.titleInputFieldElement = new(this.SGameInstance)
             {
                 Texture = this.guiField1Texture,
-                TextureClipArea = new(new(0, 0), new(326, 38)),
                 Scale = new(2f),
+                Size = new(163f, 38f),
                 Margin = new(0f, 48f),
             };
 
+            this.titleTextualContentElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(16f, 0f),
+                Color = SColorPalette.White,
+                SpriteFont = this.pixelOperatorSpriteFont,
+                OriginPivot = SCardinalDirection.East,
+                PositionAnchor = SCardinalDirection.West
+            };
+
             this.nameSectionTitleElement.SetTextualContent("Name");
+
             this.nameSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
             this.titleInputFieldElement.PositionRelativeToElement(this.nameSectionTitleElement);
+            this.titleTextualContentElement.PositionRelativeToElement(this.titleInputFieldElement);
 
             layoutBuilder.AddElement(this.nameSectionTitleElement);
             layoutBuilder.AddElement(this.titleInputFieldElement);
+            layoutBuilder.AddElement(this.titleTextualContentElement);
         }
 
         private void BuildDescriptionSection(ISGUILayoutBuilder layoutBuilder)
@@ -159,22 +179,57 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.descriptionInputFieldElement = new(this.SGameInstance)
             {
                 Texture = this.guiField1Texture,
-                TextureClipArea = new(new(0, 38), new(326, 76)),
                 Scale = new(2f),
+                Size = new(163f, 38f),
                 Margin = new(0f, 48f),
             };
 
+            this.descriptionTextualContentElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(16f, 0f),
+                Color = SColorPalette.White,
+                SpriteFont = this.pixelOperatorSpriteFont,
+                OriginPivot = SCardinalDirection.East,
+                PositionAnchor = SCardinalDirection.West
+            };
+
             this.descriptionSectionTitleElement.SetTextualContent("Description");
+
             this.descriptionSectionTitleElement.PositionRelativeToElement(this.titleInputFieldElement);
             this.descriptionInputFieldElement.PositionRelativeToElement(this.descriptionSectionTitleElement);
+            this.descriptionTextualContentElement.PositionRelativeToElement(this.descriptionInputFieldElement);
 
             layoutBuilder.AddElement(this.descriptionSectionTitleElement);
             layoutBuilder.AddElement(this.descriptionInputFieldElement);
+            layoutBuilder.AddElement(this.descriptionTextualContentElement);
         }
 
         private void BuildThumbnailSection(ISGUILayoutBuilder layoutBuilder)
         {
+            this.thumbnailSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(0f, 64f),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+                PositionAnchor = SCardinalDirection.Northeast,
+                OriginPivot = SCardinalDirection.Southwest
+            };
 
+            this.thumbnailPreviewElement = new(this.SGameInstance)
+            {
+                Scale = new(12.5f),
+                Margin = new(0f, 48f),
+                OriginPivot = SCardinalDirection.Southwest,
+            };
+
+            this.thumbnailSectionTitleElement.SetTextualContent("Thumbnail");
+            this.thumbnailSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.thumbnailPreviewElement.PositionRelativeToElement(this.thumbnailSectionTitleElement);
+
+            layoutBuilder.AddElement(this.thumbnailSectionTitleElement);
+            layoutBuilder.AddElement(this.thumbnailPreviewElement);
         }
 
         private void BuildSaveButtons(ISGUILayoutBuilder layoutBuilder)
