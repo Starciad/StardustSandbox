@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
                     return true;
                 }
 
-                if (value is SLiquid || value is SMovableSolid)
+                if (value is SLiquid)
                 {
                     if (value.DefaultDensity < this.DefaultDensity && this.Context.TrySwappingElements(position))
                     {
