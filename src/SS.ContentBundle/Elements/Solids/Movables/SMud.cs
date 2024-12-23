@@ -14,6 +14,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.texture = gameInstance.AssetDatabase.GetTexture("element_2");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 18;
+            this.defaultDensity = 1500;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

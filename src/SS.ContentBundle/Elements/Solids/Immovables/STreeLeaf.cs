@@ -18,11 +18,12 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultTemperature = 22;
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 5;
+            this.defaultDensity = 400;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue >= 250)
+            if (currentValue >= 220)
             {
                 this.Context.ReplaceElement<SFire>();
             }

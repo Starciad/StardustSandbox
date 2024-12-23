@@ -33,10 +33,11 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
             }
             else
             {
-                if (TrySetPosition(new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1)))
+                Point below = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
+                if (TrySetPosition(below))
                 {
-                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
-                    this.Context.SetElementFreeFalling(belowPositions[0], this.Context.Layer, true);
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, below);
+                    this.Context.SetElementFreeFalling(below, this.Context.Layer, true);
                     return;
                 }
                 else
@@ -56,7 +57,15 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
 
             if (this.Context.TryGetElement(position, this.Context.Layer, out ISElement value))
             {
-                if ((value is SLiquid || value is SGas) && this.Context.TrySwappingElements(position, this.Context.Layer))
+                if (value is SLiquid liquid)
+                {
+                    if (this.DefaultDensity > liquid.DefaultDensity && this.Context.TrySwappingElements(position))
+                    {
+                        return true;
+                    }
+                }
+
+                if (value is SGas && this.Context.TrySwappingElements(position))
                 {
                     return true;
                 }

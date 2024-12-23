@@ -16,6 +16,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 100;
             this.movementType = SGasMovementType.Spread;
+            this.defaultDensity = 1;
         }
     }
 }

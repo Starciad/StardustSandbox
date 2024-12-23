@@ -26,6 +26,7 @@ namespace StardustSandbox.Core.Elements
         public int DefaultDispersionRate => this.defaultDispersionRate;
         public short DefaultTemperature => this.defaultTemperature;
         public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
+        public short DefaultDensity => this.defaultDensity;
 
         public bool EnableDefaultBehaviour => this.enableDefaultBehaviour;
         public bool EnableNeighborsAction => this.enableNeighborsAction;
@@ -45,6 +46,7 @@ namespace StardustSandbox.Core.Elements
         protected int defaultDispersionRate = 1;
         protected short defaultTemperature;
         protected short defaultFlammabilityResistance;
+        protected short defaultDensity;
 
         protected bool enableDefaultBehaviour = true;
         protected bool enableNeighborsAction;

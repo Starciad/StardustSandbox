@@ -24,6 +24,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.defaultDispersionRate = 3;
             this.defaultTemperature = 25;
             this.enableNeighborsAction = true;
+            this.defaultDensity = 1000;
         }
 
         protected override void OnNeighbors(SWorldSlot[] neighbors)

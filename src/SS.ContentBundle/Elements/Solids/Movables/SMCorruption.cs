@@ -24,6 +24,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.texture = gameInstance.AssetDatabase.GetTexture("element_9");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
+            this.defaultDensity = 1400;
         }
 
         protected override void OnNeighbors(SWorldSlot[] neighbors)

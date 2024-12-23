@@ -25,6 +25,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultTemperature = 20;
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 150;
+            this.defaultDensity = 1800;
         }
 
         protected override void OnInstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer)

@@ -20,6 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 10;
             this.enableNeighborsAction = true;
+            this.defaultDensity = 1100;
         }
 
         protected override void OnNeighbors(SWorldSlot[] neighbors)

@@ -17,6 +17,7 @@ namespace StardustSandbox.Core.Interfaces.Elements
         int DefaultDispersionRate { get; }
         short DefaultTemperature { get; }
         short DefaultFlammabilityResistance { get; }
+        short DefaultDensity { get; }
 
         bool EnableDefaultBehaviour { get; }
         bool EnableNeighborsAction { get; }

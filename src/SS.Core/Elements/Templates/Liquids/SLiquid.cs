@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Elements.Templates.Gases;
+using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.Elements;
@@ -8,8 +9,13 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Elements.Templates.Liquids
 {
-    public abstract class SLiquid(ISGame gameInstance) : SElement(gameInstance)
+    public abstract class SLiquid : SElement
     {
+        public SLiquid(ISGame gameInstance) : base(gameInstance)
+        {
+            this.defaultDensity = 1000;
+        }
+        
         protected override void OnBehaviourStep()
         {
             Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down);
@@ -33,10 +39,11 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
             }
             else
             {
-                if (TrySetPosition(new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1)))
+                Point below = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
+                if (TrySetPosition(below))
                 {
-                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
-                    this.Context.SetElementFreeFalling(belowPositions[0], this.Context.Layer, true);
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, below);
+                    this.Context.SetElementFreeFalling(below, this.Context.Layer, true);
                     return;
                 }
                 else
@@ -60,6 +67,14 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
                 if (value is SGas && this.Context.TrySwappingElements(position))
                 {
                     return true;
+                }
+
+                if (value is SLiquid || value is SMovableSolid)
+                {
+                    if (value.DefaultDensity < this.DefaultDensity && this.Context.TrySwappingElements(position))
+                    {
+                        return true;
+                    }
                 }
             }
 
