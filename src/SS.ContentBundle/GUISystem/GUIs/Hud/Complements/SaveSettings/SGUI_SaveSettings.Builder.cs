@@ -20,6 +20,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUISliceImageElement titleBackgroundElement;
 
         private SGUILabelElement menuTitleElement;
+        private SGUILabelElement nameSectionTitleElement;
+        private SGUILabelElement descriptionSectionTitleElement;
+
+        private SGUIImageElement titleInputFieldElement;
+        private SGUIImageElement descriptionInputFieldElement;
 
         private readonly SSlot[] menuButtonSlots;
 
@@ -28,6 +33,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildGUIBackground(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
             BuildTitle(layoutBuilder);
+            BuildNameSection(layoutBuilder);
+            BuildDescriptionSection(layoutBuilder);
+            BuildThumbnailSection(layoutBuilder);
+            BuildSaveButtons(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -54,7 +63,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = this.guiBackgroundTexture,
                 Scale = new Vector2(32, 0.5f),
                 Size = new(32),
-                Color = SColorPalette.Rust,
+                Color = SColorPalette.PurpleGray,
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
@@ -109,6 +118,68 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
             layoutBuilder.AddElement(this.menuTitleElement);
+        }
+
+        private void BuildNameSection(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.nameSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(0, 64),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+            };
+
+            this.titleInputFieldElement = new(this.SGameInstance)
+            {
+                Texture = this.guiField1Texture,
+                TextureClipArea = new(new(0, 0), new(326, 38)),
+                Scale = new(2f),
+                Margin = new(0f, 48f),
+            };
+
+            this.nameSectionTitleElement.SetTextualContent("Name");
+            this.nameSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.titleInputFieldElement.PositionRelativeToElement(this.nameSectionTitleElement);
+
+            layoutBuilder.AddElement(this.nameSectionTitleElement);
+            layoutBuilder.AddElement(this.titleInputFieldElement);
+        }
+
+        private void BuildDescriptionSection(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.descriptionSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(0, 96f),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+            };
+
+            this.descriptionInputFieldElement = new(this.SGameInstance)
+            {
+                Texture = this.guiField1Texture,
+                TextureClipArea = new(new(0, 38), new(326, 76)),
+                Scale = new(2f),
+                Margin = new(0f, 48f),
+            };
+
+            this.descriptionSectionTitleElement.SetTextualContent("Description");
+            this.descriptionSectionTitleElement.PositionRelativeToElement(this.titleInputFieldElement);
+            this.descriptionInputFieldElement.PositionRelativeToElement(this.descriptionSectionTitleElement);
+
+            layoutBuilder.AddElement(this.descriptionSectionTitleElement);
+            layoutBuilder.AddElement(this.descriptionInputFieldElement);
+        }
+
+        private void BuildThumbnailSection(ISGUILayoutBuilder layoutBuilder)
+        {
+
+        }
+
+        private void BuildSaveButtons(ISGUILayoutBuilder layoutBuilder)
+        {
+
         }
 
         // =============================================================== //

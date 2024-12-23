@@ -47,6 +47,8 @@ namespace StardustSandbox.Game
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
+
+            gameCulture.CultureInfo.ClearCachedData();
         }
         private static void EXECUTE_DEBUG_VERSION()
         {

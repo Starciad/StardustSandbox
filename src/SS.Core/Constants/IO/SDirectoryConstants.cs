@@ -48,6 +48,7 @@
         public const string ASSETS_GRAPHICS_GUI_BACKGROUNDS = "backgrounds";
         public const string ASSETS_GRAPHICS_GUI_BUTTONS = "buttons";
         public const string ASSETS_GRAPHICS_GUI_SLIDERS = "sliders";
+        public const string ASSETS_GRAPHICS_GUI_FIELDS = "fields";
 
         // Icons
         public const string ASSETS_GRAPHICS_ICONS = "icons";
