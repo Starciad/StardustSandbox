@@ -86,7 +86,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.leftPanelTopButtons = [
-                new(this.iconTextures[01], "Weather Settings", string.Empty, WeatherSettingsButtonAction),
+                new(this.iconTextures[01], "Environment Settings", string.Empty, EnvironmentSettingsButtonAction),
                 new(this.iconTextures[02], "Pen Settings", string.Empty, PenSettingsButtonAction),
                 new(this.iconTextures[03], "Screenshot Settings", string.Empty,ScreenshotButtonAction),
                 new(this.iconTextures[04], "World Settings", string.Empty, WorldSettingsButtonAction),

@@ -17,6 +17,7 @@ namespace StardustSandbox.Core.Interfaces.World
 
         void StartNew(SSize2 size);
         void Resize(SSize2 size);
+        void Reload();
         void Clear();
 
         void LoadFromWorldSaveFile(SWorldSaveFile worldSaveFile);

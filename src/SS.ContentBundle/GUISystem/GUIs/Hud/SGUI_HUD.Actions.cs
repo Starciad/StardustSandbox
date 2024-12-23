@@ -6,9 +6,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
     {
         #region LEFT PANEL
         #region Top Buttons
-        private void WeatherSettingsButtonAction()
+        private void EnvironmentSettingsButtonAction()
         {
-
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ENVIRONMENT_SETTINGS_IDENTIFIER);
         }
 
         private void PenSettingsButtonAction()
@@ -18,12 +18,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void ScreenshotButtonAction()
         {
-
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER);
         }
 
         private void WorldSettingsButtonAction()
         {
-
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER);
         }
         #endregion
 
@@ -46,7 +46,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void SaveMenuButtonAction()
         {
-
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER);
         }
         #endregion
 
@@ -58,13 +58,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void ReloadSimulationButtonAction()
         {
-
+            this.world.Reload();
         }
 
         private void EraseEverythingButtonAction()
         {
             this.SGameInstance.EntityManager.RemoveAll();
-            this.world.Clear();
+            this.world.Reset();
         }
         #endregion
         #endregion

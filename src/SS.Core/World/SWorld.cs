@@ -29,8 +29,9 @@ namespace StardustSandbox.Core.World
         private SWorldSlot[,] slots;
         private uint currentFramesUpdateDelay;
 
-        private readonly uint totalFramesUpdateDelay = 5;
+        private SWorldSaveFile currentlySelectedWorldSaveFile;
 
+        private readonly uint totalFramesUpdateDelay = 5;
         private readonly SObjectPool worldSlotsPool;
         private readonly SComponentContainer componentContainer;
         private readonly SWorldChunkingComponent worldChunkingComponent;
@@ -109,6 +110,9 @@ namespace StardustSandbox.Core.World
             // World
             StartNew(worldSaveFile.World.Size);
 
+            // Cache
+            this.currentlySelectedWorldSaveFile = worldSaveFile;
+
             // Metadata
             this.Infos.Identifier = worldSaveFile.Metadata.Identifier;
             this.Infos.Name = worldSaveFile.Metadata.Name;
@@ -149,6 +153,18 @@ namespace StardustSandbox.Core.World
             InstantiateWorldSlots();
         }
 
+        public void Reload()
+        {
+            if (this.currentlySelectedWorldSaveFile != null)
+            {
+                LoadFromWorldSaveFile(this.currentlySelectedWorldSaveFile);
+            }
+            else
+            {
+                Clear();
+            }
+        }
+
         public void Clear()
         {
             if (this.slots == null)
@@ -175,6 +191,7 @@ namespace StardustSandbox.Core.World
         {
             this.Infos.Name = "Untitled";
             this.Infos.Description = "No description was provided.";
+            this.currentlySelectedWorldSaveFile = null;
 
             this.componentContainer.Reset();
             Clear();
