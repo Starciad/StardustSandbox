@@ -21,27 +21,32 @@ namespace StardustSandbox.Core.Components.Common.World
         private SUpdateCycleFlag stepCycleFlag;
 
         private readonly SElementContext elementUpdateContext = new(worldInstance);
-        private readonly List<SWorldSlot> capturedSlots = [];
 
         public override void Update(GameTime gameTime)
         {
-            this.capturedSlots.Clear();
+            foreach (SWorldSlot worldSlot in GetAllSlotsForUpdating(gameTime))
+            {
+                if (!worldSlot.ForegroundLayer.IsEmpty)
+                {
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Update);
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Step);
+                }
 
-            GetAllSlotsForUpdating(gameTime);
-            UpdateAllCapturedSlots(gameTime);
+                if (!worldSlot.BackgroundLayer.IsEmpty)
+                {
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Update);
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Step);
+                }
+            }
 
             this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void GetAllSlotsForUpdating(GameTime gameTime)
+        private IEnumerable<SWorldSlot> GetAllSlotsForUpdating(GameTime gameTime)
         {
-            SWorldChunk[] worldChunks = this.SWorldInstance.GetActiveChunks();
-
-            for (int i = 0; i < worldChunks.Length; i++)
+            foreach (SWorldChunk worldChunk in this.SWorldInstance.GetActiveChunks())
             {
-                SWorldChunk worldChunk = worldChunks[i];
-
                 for (int y = 0; y < SWorldConstants.CHUNK_SCALE; y++)
                 {
                     for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
@@ -53,29 +58,10 @@ namespace StardustSandbox.Core.Components.Common.World
                             continue;
                         }
 
-                        UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Update);
-                        UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Update);
-
-                        this.capturedSlots.Add(worldSlot);
+                        yield return worldSlot;
                     }
                 }
             }
-        }
-
-        private void UpdateAllCapturedSlots(GameTime gameTime)
-        {
-            this.capturedSlots.ForEach((worldSlot) =>
-            {
-                if (!worldSlot.ForegroundLayer.IsEmpty)
-                {
-                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Step);
-                }
-
-                if (!worldSlot.BackgroundLayer.IsEmpty)
-                {
-                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Step);
-                }
-            });
         }
 
         private void UpdateWorldSlotLayerTarget(GameTime gameTime, Point position, SWorldLayer worldLayer, SWorldSlot worldSlot, SWorldThreadUpdateType updateType)

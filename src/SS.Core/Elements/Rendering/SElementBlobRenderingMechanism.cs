@@ -10,6 +10,8 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
@@ -40,7 +42,6 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
-            Point position = context.Slot.Position;
             SWorldSlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
 
             Color colorModifier = STemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
@@ -50,11 +51,11 @@ namespace StardustSandbox.Core.Elements.Rendering
                 colorModifier = colorModifier.Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            UpdateSpritePositions(position);
+            UpdateSpritePositions(context.Slot.Position);
 
             for (int i = 0; i < SElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
-                UpdateSpriteSlice(context, i, position);
+                UpdateSpriteSlice(context, i, context.Slot.Position);
                 spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], colorModifier, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
@@ -75,51 +76,15 @@ namespace StardustSandbox.Core.Elements.Rendering
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position)));
         }
 
-        private static BlobInfo[] GetTargetPositionsFromIndex(int index, Point position)
-        {
-            return index switch
-            {
-                // Sprite Piece 1 (Northwest Pivot)
-                0 => [
-                    new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West),
-                    new(new Point(position.X - 1, position.Y - 1), (byte)SBlobCardinalDirection.Northwest),
-                    new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North)
-                ],
-
-                // Sprite Piece 2 (Northeast Pivot)
-                1 => [
-                    new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East),
-                    new(new Point(position.X + 1, position.Y - 1), (byte)SBlobCardinalDirection.Northeast),
-                    new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North)
-                ],
-
-                // Sprite Piece 3 (Southwest Pivot)
-                2 => [
-                    new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West),
-                    new(new Point(position.X - 1, position.Y + 1), (byte)SBlobCardinalDirection.Southwest),
-                    new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South)
-                ],
-
-                // Sprite Piece 4 (Southeast Pivot)
-                3 => [
-                    new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East),
-                    new(new Point(position.X + 1, position.Y + 1), (byte)SBlobCardinalDirection.Southeast),
-                    new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South)
-                ],
-
-                _ => [],
-            };
-        }
-
-        private byte GetBlobValueFromTargetPositions(ISElementContext context, BlobInfo[] targets)
+        private byte GetBlobValueFromTargetPositions(ISElementContext context, IEnumerable<BlobInfo> targets)
         {
             byte result = 0;
 
             // Check each of the target positions.
-            for (int i = 0; i < targets.Length; i++)
+            foreach (BlobInfo blobInfo in targets)
             {
                 // Get element from target position.
-                if (context.TryGetElement(targets[i].Position, context.Layer, out ISElement value))
+                if (context.TryGetElement(blobInfo.Position, context.Layer, out ISElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (value != this.element)
@@ -128,11 +93,45 @@ namespace StardustSandbox.Core.Elements.Rendering
                     }
 
                     // Upon successful completion of the conditions and steps, add to the blob value.
-                    result += targets[i].BlobValue;
+                    result += blobInfo.BlobValue;
                 }
             }
 
             return result;
+        }
+
+        private static IEnumerable<BlobInfo> GetTargetPositionsFromIndex(int index, Point position)
+        {
+            switch (index)
+            {
+                case 0:
+                    yield return new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West);
+                    yield return new(new Point(position.X - 1, position.Y - 1), (byte)SBlobCardinalDirection.Northwest);
+                    yield return new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North);
+                    break;
+
+                case 1:
+                    yield return new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East);
+                    yield return new(new Point(position.X + 1, position.Y - 1), (byte)SBlobCardinalDirection.Northeast);
+                    yield return new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North);
+                    break;
+
+                case 2:
+                    yield return new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West);
+                    yield return new(new Point(position.X - 1, position.Y + 1), (byte)SBlobCardinalDirection.Southwest);
+                    yield return new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South);
+                    break;
+
+                case 3:
+                    yield return new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East);
+                    yield return new(new Point(position.X + 1, position.Y + 1), (byte)SBlobCardinalDirection.Southeast);
+                    yield return new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South);
+                    break;
+
+                default:
+                    yield return default;
+                    break;
+            }
         }
 
         private void SetChunkSpriteFromIndexAndBlobValue(int index, byte blobValue)

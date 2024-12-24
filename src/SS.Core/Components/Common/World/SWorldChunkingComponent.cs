@@ -94,10 +94,8 @@ namespace StardustSandbox.Core.Components.Common.World
             return result;
         }
 
-        public SWorldChunk[] GetActiveChunks()
+        public IEnumerable<SWorldChunk> GetActiveChunks()
         {
-            List<SWorldChunk> chunks = [];
-
             for (int x = 0; x < this.worldChunkWidth; x++)
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
@@ -106,12 +104,10 @@ namespace StardustSandbox.Core.Components.Common.World
 
                     if (worldChunk.ShouldUpdate)
                     {
-                        chunks.Add(worldChunk);
+                        yield return worldChunk;
                     }
                 }
             }
-
-            return [.. chunks];
         }
 
         public bool TryNotifyChunk(Point position)

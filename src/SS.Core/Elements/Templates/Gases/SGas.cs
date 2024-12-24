@@ -45,13 +45,9 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
 
         private void UpMovementTypeUpdate()
         {
-            Point[] abovePositions = SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Up);
-
-            for (int i = 0; i < abovePositions.Length; i++)
+            foreach (Point abovePosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Up))
             {
-                Point position = abovePositions[i];
-
-                if (TrySetPosition(position))
+                if (TrySetPosition(abovePosition))
                 {
                     return;
                 }

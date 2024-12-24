@@ -5,6 +5,8 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Mathematics;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.Elements.Utilities
 {
     public static class SElementUtility
@@ -15,42 +17,42 @@ namespace StardustSandbox.Core.Elements.Utilities
             public readonly Point Right => right;
         }
 
-        public static Point[] GetRandomSidePositions(Point targetPosition, SDirection direction)
+        public static IEnumerable<Point> GetRandomSidePositions(Point targetPosition, SDirection direction)
         {
             int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
 
-            return direction switch
+            switch (direction)
             {
-                SDirection.Up => [
-                    new(targetPosition.X, targetPosition.Y - 1),
-                    new(targetPosition.X + rDirection, targetPosition.Y - 1),
-                    new(targetPosition.X + (rDirection * -1), targetPosition.Y - 1),
-                ],
+                case SDirection.Up:
+                    yield return new(targetPosition.X, targetPosition.Y - 1);
+                    yield return new(targetPosition.X + rDirection, targetPosition.Y - 1);
+                    yield return new(targetPosition.X + (rDirection * -1), targetPosition.Y - 1);
+                    break;
 
-                SDirection.Left => [
-                    new(targetPosition.X + 1, targetPosition.Y),
-                    new(targetPosition.X + 1, targetPosition.Y + rDirection),
-                    new(targetPosition.X + 1, targetPosition.Y + (rDirection * -1)),
-                ],
+                case SDirection.Left:
+                    yield return new(targetPosition.X + 1, targetPosition.Y);
+                    yield return new(targetPosition.X + 1, targetPosition.Y + rDirection);
+                    yield return new(targetPosition.X + 1, targetPosition.Y + (rDirection * -1));
+                    break;
 
-                SDirection.Down => [
-                    new(targetPosition.X, targetPosition.Y + 1),
-                    new(targetPosition.X + rDirection, targetPosition.Y + 1),
-                    new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1),
-                ],
+                case SDirection.Down:
+                    yield return new(targetPosition.X, targetPosition.Y + 1);
+                    yield return new(targetPosition.X + rDirection, targetPosition.Y + 1);
+                    yield return new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1);
+                    break;
 
-                SDirection.Right => [
-                    new(targetPosition.X - 1, targetPosition.Y),
-                    new(targetPosition.X - 1, targetPosition.Y + rDirection),
-                    new(targetPosition.X - 1, targetPosition.Y + (rDirection * -1)),
-                ],
+                case SDirection.Right:
+                    yield return new(targetPosition.X - 1, targetPosition.Y);
+                    yield return new(targetPosition.X - 1, targetPosition.Y + rDirection);
+                    yield return new(targetPosition.X - 1, targetPosition.Y + (rDirection * -1));
+                    break;
 
-                _ => [
-                    new(targetPosition.X, targetPosition.Y + 1),
-                    new(targetPosition.X + rDirection, targetPosition.Y + 1),
-                    new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1),
-                ],
-            };
+                default:
+                    yield return new(targetPosition.X, targetPosition.Y + 1);
+                    yield return new(targetPosition.X + rDirection, targetPosition.Y + 1);
+                    yield return new(targetPosition.X + (rDirection * -1), targetPosition.Y + 1);
+                    break;
+            }
         }
 
         public static void NotifyFreeFallingFromAdjacentNeighbors(ISElementContext context, Point position)

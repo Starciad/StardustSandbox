@@ -2,6 +2,7 @@
 using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
@@ -26,51 +27,40 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 
         private static readonly List<SSlotTarget> targets = [];
 
-        internal static bool CheckIfNeighboringElementsAreCorrupted(SWorldLayer worldLayer, SWorldSlot[] neighbors, int length)
+        internal static bool CheckIfNeighboringElementsAreCorrupted(SWorldLayer worldLayer, IEnumerable<SWorldSlot> neighbors)
         {
-            if (length == 0)
-            {
-                return true;
-            }
-
+            int count = 0;
             int corruptNeighboringElements = 0;
 
-            for (int i = 0; i < length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                SWorldSlot worldSlot = neighbors[i];
-
-                if (worldSlot.GetLayer(worldLayer).Element is ISCorruption)
+                if (neighbor.GetLayer(worldLayer).Element is ISCorruption)
                 {
                     corruptNeighboringElements++;
                 }
+
+                count++;
             }
 
-            return corruptNeighboringElements == length;
+            return corruptNeighboringElements == count;
         }
 
-        internal static void InfectNeighboringElements(this ISElementContext context, SWorldSlot[] neighbors, int length)
+        internal static void InfectNeighboringElements(this ISElementContext context, IEnumerable<SWorldSlot> neighbors)
         {
-            if (length == 0)
-            {
-                return;
-            }
-
             targets.Clear();
 
-            for (int i = 0; i < length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                SWorldSlot slot = neighbors[i];
-
-                ISElement foregroundElement = slot.ForegroundLayer.Element;
+                ISElement foregroundElement = neighbor.ForegroundLayer.Element;
                 if (foregroundElement is not ISCorruption && foregroundElement is not SWall)
                 {
-                    targets.Add(new(slot, SWorldLayer.Foreground));
+                    targets.Add(new(neighbor, SWorldLayer.Foreground));
                 }
 
-                ISElement backgroundElement = slot.BackgroundLayer.Element;
+                ISElement backgroundElement = neighbor.BackgroundLayer.Element;
                 if (backgroundElement is not ISCorruption && backgroundElement is not SWall)
                 {
-                    targets.Add(new(slot, SWorldLayer.Background));
+                    targets.Add(new(neighbor, SWorldLayer.Background));
                 }
             }
 

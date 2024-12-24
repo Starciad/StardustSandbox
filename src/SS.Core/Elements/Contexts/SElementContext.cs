@@ -5,6 +5,8 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.Elements.Contexts
 {
     internal sealed class SElementContext(ISWorld world) : ISElementContext
@@ -297,21 +299,13 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TryGetElement(position, worldLayer, out value);
         }
 
-        public SWorldSlot[] GetNeighboringSlots()
+        public IEnumerable<SWorldSlot> GetNeighboringSlots()
         {
             return GetNeighboringSlots(this.Position);
         }
-        public SWorldSlot[] GetNeighboringSlots(Point position)
+        public IEnumerable<SWorldSlot> GetNeighboringSlots(Point position)
         {
             return this.world.GetNeighboringSlots(position);
-        }
-        public bool TryGetNeighboringSlots(out SWorldSlot[] neighbors)
-        {
-            return TryGetNeighboringSlots(this.Position, out neighbors);
-        }
-        public bool TryGetNeighboringSlots(Point position, out SWorldSlot[] neighbors)
-        {
-            return this.world.TryGetNeighboringSlots(position, out neighbors);
         }
 
         public SWorldSlot GetWorldSlot()

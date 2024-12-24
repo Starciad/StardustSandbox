@@ -11,6 +11,7 @@ using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Elements
 {
@@ -51,8 +52,9 @@ namespace StardustSandbox.Core.Elements
         protected bool enableTemperature = true;
         protected bool enableFlammability;
 
-        private readonly SElementRendering rendering;
         private ISElementContext context;
+
+        private readonly SElementRendering rendering;
 
         public SElement(ISGame gameInstance) : base(gameInstance)
         {
@@ -77,8 +79,10 @@ namespace StardustSandbox.Core.Elements
 
         public void Steps()
         {
-            if (this.context.TryGetNeighboringSlots(this.context.Slot.Position, out SWorldSlot[] neighbors))
+            if (this.EnableTemperature || this.EnableNeighborsAction)
             {
+                IEnumerable<SWorldSlot> neighbors = this.context.GetNeighboringSlots();
+
                 if (this.EnableTemperature)
                 {
                     UpdateTemperature(neighbors);
@@ -96,64 +100,51 @@ namespace StardustSandbox.Core.Elements
             {
                 OnBehaviourStep();
             }
-
             OnAfterStep();
         }
 
-        private void UpdateTemperature(SWorldSlot[] neighbors)
+        private void UpdateTemperature(IEnumerable<SWorldSlot> neighbors)
         {
-            SWorldSlot slot = this.context.GetWorldSlot();
-            SWorldSlotLayer currentLayerData = slot.GetLayer(this.context.Layer);
+            float totalTemperatureChange = 0;
 
-            SWorldLayer currentLayer = this.context.Layer;
-            SWorldLayer oppositeLayer = this.context.Layer == SWorldLayer.Foreground ? SWorldLayer.Background : SWorldLayer.Foreground;
+            short neighborsForegroundLayerLength = 0;
+            short neighborsBackgroundLayerLength = 0;
 
-            float totalTemperatureChange = 0f;
-            totalTemperatureChange += GetTemperatureChange(currentLayerData.Temperature, neighbors, currentLayer);
-            totalTemperatureChange += GetTemperatureChange(currentLayerData.Temperature, neighbors, oppositeLayer);
-
-            short neighborsCurrentLayerLength = 0;
-            short neighborsOppositeLayerLength = 0;
-
-            for (int i = 0; i < neighbors.Length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                if (!neighbors[i].GetLayer(currentLayer).IsEmpty)
+                SWorldSlotLayer neighborForeground = neighbor.GetLayer(SWorldLayer.Foreground);
+                SWorldSlotLayer neighborBackground = neighbor.GetLayer(SWorldLayer.Background);
+
+                if (!neighborForeground.IsEmpty)
                 {
-                    neighborsCurrentLayerLength++;
+                    if (neighborForeground.Element.EnableTemperature)
+                    {
+                        totalTemperatureChange += this.context.SlotLayer.Temperature - neighborForeground.Temperature;
+                    }
+
+                    neighborsForegroundLayerLength++;
                 }
 
-                if (!neighbors[i].GetLayer(oppositeLayer).IsEmpty)
+                if (!neighborBackground.IsEmpty)
                 {
-                    neighborsOppositeLayerLength++;
+                    if (neighborBackground.Element.EnableTemperature)
+                    {
+                        totalTemperatureChange += this.context.SlotLayer.Temperature - neighborBackground.Temperature;
+                    }
+
+                    neighborsBackgroundLayerLength++;
                 }
             }
 
-            short averageTemperatureChange = (short)Math.Round(totalTemperatureChange / (short)(neighborsCurrentLayerLength + neighborsOppositeLayerLength));
-            this.context.SetElementTemperature(this.context.Layer, STemperatureMath.Clamp((short)(currentLayerData.Temperature - averageTemperatureChange)));
+            short averageTemperatureChange = (short)Math.Round(totalTemperatureChange / (short)(neighborsForegroundLayerLength + neighborsBackgroundLayerLength));
+            this.context.SetElementTemperature(this.context.Layer, STemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature - averageTemperatureChange)));
 
             if (MathF.Abs(averageTemperatureChange) < STemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
-                this.context.SetElementTemperature(this.context.Layer, STemperatureMath.Clamp((short)(currentLayerData.Temperature + averageTemperatureChange)));
+                this.context.SetElementTemperature(this.context.Layer, STemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature + averageTemperatureChange)));
             }
 
-            OnTemperatureChanged(currentLayerData.Temperature);
-        }
-        private static float GetTemperatureChange(short currentTemperature, SWorldSlot[] neighbors, SWorldLayer layer)
-        {
-            float totalChange = 0f;
-
-            foreach (SWorldSlot neighborSlot in neighbors)
-            {
-                SWorldSlotLayer neighborLayerData = neighborSlot.GetLayer(layer);
-
-                if (!neighborLayerData.IsEmpty && neighborLayerData.Element.EnableTemperature)
-                {
-                    short neighborTemp = neighborLayerData.Temperature;
-                    totalChange += currentTemperature - neighborTemp;
-                }
-            }
-
-            return totalChange;
+            OnTemperatureChanged(this.context.SlotLayer.Temperature);
         }
 
         protected virtual void OnInstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
@@ -162,7 +153,7 @@ namespace StardustSandbox.Core.Elements
         protected virtual void OnAfterStep() { return; }
         protected virtual void OnBehaviourStep() { return; }
 
-        protected virtual void OnNeighbors(SWorldSlot[] neighbors) { return; }
+        protected virtual void OnNeighbors(IEnumerable<SWorldSlot> neighbors) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
     }
 }

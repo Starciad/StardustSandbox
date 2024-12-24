@@ -2,6 +2,8 @@
 
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld
@@ -11,7 +13,7 @@ namespace StardustSandbox.Core.World
             return this.worldChunkingComponent.GetActiveChunksCount();
         }
 
-        public SWorldChunk[] GetActiveChunks()
+        public IEnumerable<SWorldChunk> GetActiveChunks()
         {
             return this.worldChunkingComponent.GetActiveChunks();
         }

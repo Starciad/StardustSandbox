@@ -5,6 +5,8 @@ using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SAcid : SLiquid
@@ -20,12 +22,11 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.defaultDensity = 1100;
         }
 
-        protected override void OnNeighbors(SWorldSlot[] neighbors)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            for (int i = 0; i < neighbors.Length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                SWorldSlot slot = neighbors[i];
-                SWorldSlotLayer slotLayer = slot.GetLayer(this.Context.Layer);
+                SWorldSlotLayer slotLayer = neighbor.GetLayer(this.Context.Layer);
 
                 if (slotLayer.IsEmpty)
                 {
@@ -40,7 +41,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 }
 
                 this.Context.DestroyElement();
-                this.Context.DestroyElement(slot.Position, this.Context.Layer);
+                this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
             }
         }
     }

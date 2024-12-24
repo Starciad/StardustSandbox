@@ -176,37 +176,15 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public SWorldSlot[] GetNeighboringSlots(Point position)
+        public IEnumerable<SWorldSlot> GetNeighboringSlots(Point position)
         {
-            _ = TryGetNeighboringSlots(position, out SWorldSlot[] neighbors);
-            return neighbors;
-        }
-        public bool TryGetNeighboringSlots(Point position, out SWorldSlot[] neighbors)
-        {
-            neighbors = [];
-
-            if (!InsideTheWorldDimensions(position))
-            {
-                return false;
-            }
-
-            List<SWorldSlot> slotsFound = [];
-
             foreach (Point neighborPosition in SPointExtensions.GetNeighboringCardinalPoints(position))
             {
                 if (TryGetWorldSlot(neighborPosition, out SWorldSlot value))
                 {
-                    slotsFound.Add(value);
+                    yield return value;
                 }
             }
-
-            if (slotsFound.Count > 0)
-            {
-                neighbors = [.. slotsFound];
-                return true;
-            }
-
-            return false;
         }
 
         public SWorldSlot GetWorldSlot(Point position)

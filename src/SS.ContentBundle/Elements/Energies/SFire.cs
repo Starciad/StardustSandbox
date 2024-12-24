@@ -2,6 +2,7 @@
 
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Enums.Elements;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -12,6 +13,8 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Energies
 {
@@ -58,20 +61,18 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             }
         }
 
-        protected override void OnNeighbors(SWorldSlot[] neighbors)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            for (int i = 0; i < neighbors.Length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                SWorldSlot slot = neighbors[i];
-
-                if (!slot.ForegroundLayer.IsEmpty)
+                if (!neighbor.ForegroundLayer.IsEmpty)
                 {
-                    IgniteElement(slot, slot.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground);
+                    IgniteElement(neighbor, neighbor.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground);
                 }
 
-                if (!slot.BackgroundLayer.IsEmpty)
+                if (!neighbor.BackgroundLayer.IsEmpty)
                 {
-                    IgniteElement(slot, slot.GetLayer(SWorldLayer.Background), SWorldLayer.Background);
+                    IgniteElement(neighbor, neighbor.GetLayer(SWorldLayer.Background), SWorldLayer.Background);
                 }
             }
         }

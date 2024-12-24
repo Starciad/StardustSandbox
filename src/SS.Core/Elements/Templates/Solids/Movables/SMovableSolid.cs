@@ -13,18 +13,14 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
     {
         protected override void OnBehaviourStep()
         {
-            Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down);
-
             if (this.Context.SlotLayer.FreeFalling)
             {
-                for (int i = 0; i < belowPositions.Length; i++)
+                foreach (Point belowPosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down))
                 {
-                    Point position = belowPositions[i];
-
-                    if (TrySetPosition(position))
+                    if (TrySetPosition(belowPosition))
                     {
-                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, position);
-                        this.Context.SetElementFreeFalling(position, this.Context.Layer, true);
+                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
+                        this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
                         return;
                     }
                 }

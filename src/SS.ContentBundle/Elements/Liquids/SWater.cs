@@ -8,6 +8,8 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SWater : SLiquid
@@ -24,30 +26,27 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.defaultDensity = 1000;
         }
 
-        protected override void OnNeighbors(SWorldSlot[] neighbors)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            for (int i = 0; i < neighbors.Length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                SWorldSlot slot = neighbors[i];
-
-                switch (slot.GetLayer(this.Context.Layer).Element)
+                switch (neighbor.GetLayer(this.Context.Layer).Element)
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement<SMud>(slot.Position, this.Context.Layer);
+                        this.Context.ReplaceElement<SMud>(neighbor.Position, this.Context.Layer);
                         return;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement<SSand>(slot.Position, this.Context.Layer);
+                            this.Context.ReplaceElement<SSand>(neighbor.Position, this.Context.Layer);
                         }
-
                         return;
 
                     case SFire:
-                        this.Context.DestroyElement(slot.Position, this.Context.Layer);
+                        this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
                         return;
                 }
             }

@@ -3,6 +3,8 @@
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementManager
@@ -33,8 +35,7 @@ namespace StardustSandbox.Core.Interfaces.Elements
         ISElement GetElement(Point position, SWorldLayer worldLayer);
         bool TryGetElement(Point position, SWorldLayer worldLayer, out ISElement value);
 
-        SWorldSlot[] GetNeighboringSlots(Point position);
-        bool TryGetNeighboringSlots(Point position, out SWorldSlot[] neighbors);
+        IEnumerable<SWorldSlot> GetNeighboringSlots(Point position);
 
         SWorldSlot GetWorldSlot(Point position);
         bool TryGetWorldSlot(Point position, out SWorldSlot value);

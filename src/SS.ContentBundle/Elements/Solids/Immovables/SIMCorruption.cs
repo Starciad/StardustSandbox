@@ -10,6 +10,8 @@ using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class SIMCorruption : SImmovableSolid, ISCorruption
@@ -24,10 +26,10 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultDensity = 1600;
         }
 
-        protected override void OnNeighbors(SWorldSlot[] neighbors)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Foreground, neighbors, neighbors.Length) &&
-                SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Background, neighbors, neighbors.Length))
+            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Foreground, neighbors) &&
+                SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Background, neighbors))
             {
                 return;
             }
@@ -36,7 +38,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 
             if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD, SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL))
             {
-                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
+                this.Context.InfectNeighboringElements(neighbors);
             }
         }
     }

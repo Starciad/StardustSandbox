@@ -6,11 +6,10 @@ namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldChunk(Point position)
     {
-        public Point Position => this._position;
+        public Point Position => position;
         public bool ShouldUpdate => this.activeCooldown > 0;
 
         private byte activeCooldown = SWorldConstants.CHUNK_DEFAULT_COOLDOWN;
-        private readonly Point _position = position;
 
         public void Update()
         {
