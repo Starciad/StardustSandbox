@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
@@ -31,7 +32,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SButton[] fieldButtons;
         private readonly SButton[] footerButtons;
 
-        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        private readonly SGUI_Input guiInput;
+
+        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
@@ -61,6 +64,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
             this.fieldButtonSlots = new SSlot[this.fieldButtons.Length];
             this.footerButtonSlots = new SSlot[this.footerButtons.Length];
+
+            this.guiInput = guiInput;
         }
 
         public override void Update(GameTime gameTime)
@@ -89,7 +94,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void UpdateFieldButtons()
         {
+            for (int i = 0; i < this.fieldButtonSlots.Length; i++)
+            {
+                SSlot slot = this.fieldButtonSlots[i];
 
+                SSize2 size = slot.BackgroundElement.Size / 2;
+                Vector2 position = slot.BackgroundElement.Position + size.ToVector2();
+
+                if (this.GUIEvents.OnMouseClick(position, size))
+                {
+                    this.fieldButtons[i].ClickAction.Invoke();
+                }
+
+                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
+            }
         }
 
         private void UpdateFooterButtons()

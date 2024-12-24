@@ -13,12 +13,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         // Fields
         private void NameFieldButtonAction()
         {
-
+            // this.guiInput.Configure();
+            this.SGameInstance.GUIManager.OpenGUI(this.guiInput.Identifier);
         }
 
         private void DescriptionFieldButtonAction()
         {
-
+            // this.guiInput.Configure();
+            this.SGameInstance.GUIManager.OpenGUI(this.guiInput.Identifier);
         }
 
         // Footer

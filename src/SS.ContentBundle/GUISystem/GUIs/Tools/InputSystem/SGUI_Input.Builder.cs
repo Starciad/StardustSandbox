@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
@@ -10,6 +11,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
+            BuildInputTypingField(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -23,6 +25,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             };
 
             layoutBuilder.AddElement(guiBackground);
+        }
+
+        private void BuildInputTypingField(ISGUILayoutBuilder layoutBuilder)
+        {
+            SGUIImageElement typingFieldElement = new(this.SGameInstance)
+            {
+                Texture = this.typingFieldTexture,
+                Scale = new(1.5f),
+                Size = new(632, 50),
+                PositionAnchor = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.Center,
+            };
+
+            typingFieldElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(typingFieldElement);
         }
     }
 }
