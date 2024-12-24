@@ -50,7 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.topToolbarContainer = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
-                Scale = new Vector2(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
+                Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
                 Size = SSize2.One,
                 Color = this.toolbarContainerColor,
                 PositionAnchor = SCardinalDirection.Northwest
@@ -70,7 +70,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.leftToolbarContainer = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
-                Scale = new Vector2(96, 608),
+                Scale = new(96, 608),
                 Size = SSize2.One,
                 Color = this.toolbarContainerColor,
                 PositionAnchor = SCardinalDirection.Northwest,
@@ -135,7 +135,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.rightToolbarContainer = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
-                Scale = new Vector2(96, 608),
+                Scale = new(96, 608),
                 Size = SSize2.One,
                 Color = this.toolbarContainerColor,
                 PositionAnchor = SCardinalDirection.Northeast,
@@ -204,18 +204,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 Texture = this.guiButtonTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE + 0.45f),
+                Scale = new(SHUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.West,
-                Size = new SSize2(SHUDConstants.SLOT_SIZE),
-                Margin = new Vector2(SHUDConstants.SLOT_SIZE * 2, 0),
+                Size = new(SHUDConstants.SLOT_SIZE),
+                Margin = new(SHUDConstants.SLOT_SIZE * 2, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
             {
                 Texture = this.iconTextures[00],
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(2f),
-                Size = new SSize2(1),
+                Scale = new(2f),
+                Size = new(1),
             };
 
             slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
@@ -266,18 +266,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 Texture = this.guiButtonTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE + 0.45f),
+                Scale = new(SHUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.East,
-                Size = new SSize2(SHUDConstants.SLOT_SIZE),
-                Margin = new Vector2(SHUDConstants.SLOT_SIZE * 2 * -1, 0),
+                Size = new(SHUDConstants.SLOT_SIZE),
+                Margin = new(SHUDConstants.SLOT_SIZE * 2 * -1, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
             {
                 Texture = this.iconTextures[00],
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(2f),
-                Size = new SSize2(1),
+                Scale = new(2f),
+                Size = new(1),
             };
 
             slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
@@ -296,8 +296,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiButtonTexture,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Scale = new(SHUDConstants.SLOT_SCALE),
+                Size = new(SHUDConstants.SLOT_SIZE),
                 Margin = margin,
             };
 
@@ -305,8 +305,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(1.5f),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE)
+                Scale = new(1.5f),
+                Size = new(SHUDConstants.SLOT_SIZE)
             };
 
             return new(backgroundElement, iconElement);

@@ -87,7 +87,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
                 }
             }
 
-            return new SSize2F(maxWidth, totalHeight);
+            return new(maxWidth, totalHeight);
         }
     }
 }

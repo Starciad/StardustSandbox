@@ -11,7 +11,6 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Linq;
@@ -22,6 +21,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private string selectedCategoryName;
         private int selectedPageIndex;
+
         private SItem[] selectedItems;
 
         private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
@@ -51,12 +51,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.categoryButtonSlots[i];
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
                 {
                     SelectItemCatalog((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID), 0);
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
@@ -84,14 +84,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     continue;
                 }
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
                 {
                     this._guiHUD.AddItemToToolbar((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                     this.SGameInstance.GUIManager.CloseGUI();
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
 
                 if (isOver)
                 {

@@ -62,35 +62,35 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
             this.textureSlices[(int)SCardinalDirection.Center].SetScale(this.Scale);
 
             // North
-            this.textureSlices[(int)SCardinalDirection.North].SetPosition(new Vector2(this.Position.X, this.Position.Y - SSliceImageConstants.SPRITE_SLICE_SIZE));
-            this.textureSlices[(int)SCardinalDirection.North].SetScale(new Vector2(this.Scale.X, 1));
+            this.textureSlices[(int)SCardinalDirection.North].SetPosition(new(this.Position.X, this.Position.Y - SSliceImageConstants.SPRITE_SLICE_SIZE));
+            this.textureSlices[(int)SCardinalDirection.North].SetScale(new(this.Scale.X, 1));
 
             // Northeast
-            this.textureSlices[(int)SCardinalDirection.Northeast].SetPosition(new Vector2(this.Position.X + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y - SSliceImageConstants.SPRITE_SLICE_SIZE));
+            this.textureSlices[(int)SCardinalDirection.Northeast].SetPosition(new(this.Position.X + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y - SSliceImageConstants.SPRITE_SLICE_SIZE));
             this.textureSlices[(int)SCardinalDirection.Northeast].SetScale(Vector2.One);
 
             // East
-            this.textureSlices[(int)SCardinalDirection.East].SetPosition(new Vector2(this.Position.X + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y));
-            this.textureSlices[(int)SCardinalDirection.East].SetScale(new Vector2(1, this.Scale.Y));
+            this.textureSlices[(int)SCardinalDirection.East].SetPosition(new(this.Position.X + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y));
+            this.textureSlices[(int)SCardinalDirection.East].SetScale(new(1, this.Scale.Y));
 
             // Southeast
-            this.textureSlices[(int)SCardinalDirection.Southeast].SetPosition(new Vector2(this.Position.X + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
+            this.textureSlices[(int)SCardinalDirection.Southeast].SetPosition(new(this.Position.X + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.X), this.Position.Y + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
             this.textureSlices[(int)SCardinalDirection.Southeast].SetScale(Vector2.One);
 
             // South
-            this.textureSlices[(int)SCardinalDirection.South].SetPosition(new Vector2(this.Position.X, this.Position.Y + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
-            this.textureSlices[(int)SCardinalDirection.South].SetScale(new Vector2(this.Scale.X, 1));
+            this.textureSlices[(int)SCardinalDirection.South].SetPosition(new(this.Position.X, this.Position.Y + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
+            this.textureSlices[(int)SCardinalDirection.South].SetScale(new(this.Scale.X, 1));
 
             // Southwest
-            this.textureSlices[(int)SCardinalDirection.Southwest].SetPosition(new Vector2(this.Position.X - SSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
+            this.textureSlices[(int)SCardinalDirection.Southwest].SetPosition(new(this.Position.X - SSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y + (SSliceImageConstants.SPRITE_SLICE_SIZE * this.Scale.Y)));
             this.textureSlices[(int)SCardinalDirection.Southwest].SetScale(Vector2.One);
 
             // West
-            this.textureSlices[(int)SCardinalDirection.West].SetPosition(new Vector2(this.Position.X - SSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y));
-            this.textureSlices[(int)SCardinalDirection.West].SetScale(new Vector2(1, this.Scale.Y));
+            this.textureSlices[(int)SCardinalDirection.West].SetPosition(new(this.Position.X - SSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y));
+            this.textureSlices[(int)SCardinalDirection.West].SetScale(new(1, this.Scale.Y));
 
             // Northwest
-            this.textureSlices[(int)SCardinalDirection.Northwest].SetPosition(new Vector2(this.Position.X - SSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y - SSliceImageConstants.SPRITE_SLICE_SIZE));
+            this.textureSlices[(int)SCardinalDirection.Northwest].SetPosition(new(this.Position.X - SSliceImageConstants.SPRITE_SLICE_SIZE, this.Position.Y - SSliceImageConstants.SPRITE_SLICE_SIZE));
             this.textureSlices[(int)SCardinalDirection.Northwest].SetScale(Vector2.One);
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

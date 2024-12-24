@@ -10,7 +10,6 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -50,22 +49,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = new(1),
-                Color = new Color(SColorPalette.DarkGray, 160)
+                Color = new(SColorPalette.DarkGray, 160)
             };
 
             this.panelBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
-                Scale = new Vector2(32, 15),
+                Scale = new(32, 15),
                 Size = new(32),
-                Margin = new Vector2(128f),
-                Color = new Color(104, 111, 121, 255),
+                Margin = new(128f),
+                Color = new(104, 111, 121, 255),
             };
 
             this.titleBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
-                Scale = new Vector2(32, 0.5f),
+                Scale = new(32, 0.5f),
                 Size = new(32),
                 Color = SColorPalette.Rust,
             };
@@ -110,15 +109,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.menuTitleElement = new(this.SGameInstance)
             {
                 SpriteFont = this.bigApple3PMSpriteFont,
-                Scale = new Vector2(0.12f),
+                Scale = new(0.12f),
                 PositionAnchor = SCardinalDirection.West,
                 OriginPivot = SCardinalDirection.East,
-                Margin = new Vector2(16, 0),
+                Margin = new(16, 0),
                 Color = SColorPalette.White,
             };
 
             this.menuTitleElement.SetTextualContent("Pen Settings");
-            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(3f));
+            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
             layoutBuilder.AddElement(this.menuTitleElement);
@@ -128,8 +127,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             this.brushSectionTitleElement = new(this.SGameInstance)
             {
-                Scale = new Vector2(0.1f),
-                Margin = new Vector2(18, 64),
+                Scale = new(0.1f),
+                Margin = new(18, 64),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
@@ -157,8 +156,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             this.toolsSectionTitleElement = new(this.SGameInstance)
             {
-                Scale = new Vector2(0.1f),
-                Margin = new Vector2(0, 128),
+                Scale = new(0.1f),
+                Margin = new(0, 128),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
@@ -203,7 +202,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             this.layerSectionTitleElement = new(this.SGameInstance)
             {
-                Scale = new Vector2(0.1f),
+                Scale = new(0.1f),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
                 Margin = new(this.toolsSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.toolButtonSlots.Length) + 96, 0f)
@@ -249,7 +248,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             this.shapeSectionTitleElement = new(this.SGameInstance)
             {
-                Scale = new Vector2(0.1f),
+                Scale = new(0.1f),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
                 Margin = new(this.layerSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 80, 0f)
@@ -298,8 +297,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiButton1Texture,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Scale = new(SHUDConstants.SLOT_SCALE),
+                Size = new(SHUDConstants.SLOT_SIZE),
                 Margin = margin,
             };
 
@@ -307,8 +306,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(1.5f),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE)
+                Scale = new(1.5f),
+                Size = new(SHUDConstants.SLOT_SIZE)
             };
 
             return new(backgroundElement, iconElement);
@@ -319,8 +318,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiButton1Texture,
-                Scale = new Vector2(SHUDConstants.SLOT_SCALE),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                Scale = new(SHUDConstants.SLOT_SCALE),
+                Size = new(SHUDConstants.SLOT_SIZE),
                 Margin = margin,
             };
 
@@ -328,8 +327,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new Vector2(1.5f),
-                Size = new SSize2(SHUDConstants.SLOT_SIZE)
+                Scale = new(1.5f),
+                Size = new(SHUDConstants.SLOT_SIZE)
             };
 
             SGUILabelElement labelElement = new(this.SGameInstance)

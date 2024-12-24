@@ -85,7 +85,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         internal virtual SSize2F GetStringSize()
         {
             Vector2 measureString = this.SpriteFont.MeasureString(this.Content) * this.Scale;
-            return new SSize2F(measureString.X, measureString.Y);
+            return new(measureString.X, measureString.Y);
         }
 
         internal void SetBorder(SCardinalDirection direction, bool isEnabled, Color color, Vector2 offset)
@@ -107,14 +107,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         {
             return direction switch
             {
-                SCardinalDirection.North => new Vector2(0, -1),
-                SCardinalDirection.Northeast => new Vector2(1, -1),
-                SCardinalDirection.East => new Vector2(1, 0),
-                SCardinalDirection.Southeast => new Vector2(1, 1),
-                SCardinalDirection.South => new Vector2(0, 1),
-                SCardinalDirection.Southwest => new Vector2(-1, 1),
-                SCardinalDirection.West => new Vector2(-1, 0),
-                SCardinalDirection.Northwest => new Vector2(-1, -1),
+                SCardinalDirection.North => new(0, -1),
+                SCardinalDirection.Northeast => new(1, -1),
+                SCardinalDirection.East => new(1, 0),
+                SCardinalDirection.Southeast => new(1, 1),
+                SCardinalDirection.South => new(0, 1),
+                SCardinalDirection.Southwest => new(-1, 1),
+                SCardinalDirection.West => new(-1, 0),
+                SCardinalDirection.Northwest => new(-1, -1),
                 _ => Vector2.Zero,
             };
         }

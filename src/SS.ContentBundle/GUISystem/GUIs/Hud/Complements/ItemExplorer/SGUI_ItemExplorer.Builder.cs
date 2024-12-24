@@ -10,7 +10,6 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -36,7 +35,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = SScreenConstants.DEFAULT_SCREEN_SIZE,
-                Color = new Color(SColorPalette.DarkGray, 160)
+                Color = new(SColorPalette.DarkGray, 160)
             };
 
             layoutBuilder.AddElement(guiBackground);
@@ -50,23 +49,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             SGUISliceImageElement explorerBackground = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
-                Scale = new Vector2(32, 15),
-                Margin = new Vector2(128f),
-                Color = new Color(104, 111, 121, 255)
+                Scale = new(32, 15),
+                Margin = new(128f),
+                Color = new(104, 111, 121, 255)
             };
 
             explorerBackground.PositionRelativeToScreen();
 
             this.explorerTitleLabel = new(this.SGameInstance)
             {
-                Scale = new Vector2(0.15f),
-                Margin = new Vector2(18, -16),
+                Scale = new(0.15f),
+                Margin = new(18, -16),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
             this.explorerTitleLabel.SetTextualContent("TITLE");
-            this.explorerTitleLabel.SetAllBorders(true, new Color(45, 53, 74, 255), new Vector2(4.4f));
+            this.explorerTitleLabel.SetAllBorders(true, new(45, 53, 74, 255), new(4.4f));
             this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
 
             layoutBuilder.AddElement(explorerBackground);
@@ -78,8 +77,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             SGUISliceImageElement itemGridBackground = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
-                Scale = new Vector2(30, 10),
-                Margin = new Vector2(32, 88),
+                Scale = new(30, 10),
+                Margin = new(32, 88),
                 Color = new Color(94, 101, 110, 255)
             };
 
@@ -116,17 +115,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         Texture = this.guiButton1Texture,
                         OriginPivot = SCardinalDirection.Center,
-                        Scale = new Vector2(SHUDConstants.SLOT_SCALE),
+                        Scale = new(SHUDConstants.SLOT_SCALE),
                         PositionAnchor = SCardinalDirection.West,
-                        Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                        Size = new(SHUDConstants.SLOT_SIZE),
                         Margin = slotMargin
                     };
 
                     SGUIImageElement slotIcon = new(this.SGameInstance)
                     {
                         OriginPivot = SCardinalDirection.Center,
-                        Scale = new Vector2(1.5f),
-                        Size = new SSize2(SHUDConstants.SLOT_SIZE)
+                        Scale = new(1.5f),
+                        Size = new(SHUDConstants.SLOT_SIZE)
                     };
 
                     // Position
@@ -162,9 +161,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     Texture = this.guiButton1Texture,
                     OriginPivot = SCardinalDirection.Center,
-                    Scale = new Vector2(SHUDConstants.SLOT_SCALE),
                     PositionAnchor = SCardinalDirection.Northwest,
-                    Size = new SSize2(SHUDConstants.SLOT_SIZE),
+                    Scale = new(SHUDConstants.SLOT_SCALE),
+                    Size = new(SHUDConstants.SLOT_SIZE),
                     Margin = slotMargin
                 };
 
@@ -172,8 +171,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     Texture = category.IconTexture,
                     OriginPivot = SCardinalDirection.Center,
-                    Scale = new Vector2(1.5f),
-                    Size = new SSize2(SHUDConstants.SLOT_SIZE)
+                    Scale = new(1.5f),
+                    Size = new(SHUDConstants.SLOT_SIZE)
                 };
 
                 // Data

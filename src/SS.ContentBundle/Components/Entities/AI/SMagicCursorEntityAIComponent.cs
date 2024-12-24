@@ -154,7 +154,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private void SelectRandomPosition()
         {
-            this.targetPosition = new Vector2(SRandomMath.Range(0, this.worldSize.Width), SRandomMath.Range(0, this.worldSize.Height));
+            this.targetPosition = new(SRandomMath.Range(0, this.worldSize.Width), SRandomMath.Range(0, this.worldSize.Height));
         }
     }
 }

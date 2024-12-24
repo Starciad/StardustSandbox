@@ -31,7 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.panelBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
-                Scale = new Vector2(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Scale = new(487f, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = SSize2F.One,
                 Color = new(SColorPalette.DarkGray, 180),
             };
@@ -44,7 +44,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             SGUIImageElement prosceniumCurtainElement = new(this.SGameInstance)
             {
                 Texture = this.prosceniumCurtainTexture,
-                Scale = new Vector2(2)
+                Scale = new(2)
             };
 
             layoutBuilder.AddElement(prosceniumCurtainElement);
@@ -54,8 +54,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SGUILabelElement gameVersionLabel = new(this.SGameInstance)
             {
-                Margin = new Vector2(-32f, -32f),
-                Scale = new Vector2(0.08f),
+                Margin = new(-32f, -32f),
+                Scale = new(0.08f),
                 Color = SColorPalette.White,
                 PositionAnchor = SCardinalDirection.Southeast,
                 OriginPivot = SCardinalDirection.West,
@@ -64,8 +64,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             SGUILabelElement copyrightLabel = new(this.SGameInstance)
             {
-                Margin = new Vector2(0f, -32),
-                Scale = new Vector2(0.08f),
+                Margin = new(0f, -32),
+                Scale = new(0.08f),
                 Color = SColorPalette.White,
                 PositionAnchor = SCardinalDirection.South,
                 OriginPivot = SCardinalDirection.Center,
@@ -87,9 +87,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.gameTitleElement = new(this.SGameInstance)
             {
                 Texture = this.gameTitleTexture,
-                Scale = new Vector2(1.5f),
-                Size = new SSize2(292, 112),
-                Margin = new Vector2(0, 96),
+                Scale = new(1.5f),
+                Size = new(292, 112),
+                Margin = new(0, 96),
                 PositionAnchor = SCardinalDirection.North,
                 OriginPivot = SCardinalDirection.Center
             };
@@ -109,7 +109,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             {
                 SGUILabelElement labelElement = new(this.SGameInstance)
                 {
-                    Scale = new Vector2(0.15f),
+                    Scale = new(0.15f),
                     Margin = baseMargin,
                     Color = SColorPalette.White,
                     PositionAnchor = SCardinalDirection.Center,
@@ -118,7 +118,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 };
 
                 labelElement.SetTextualContent(this.menuButtons[i].DisplayName);
-                labelElement.SetAllBorders(true, SColorPalette.DarkGray, new Vector2(4f));
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(4f));
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.menuButtonElements[i] = labelElement;

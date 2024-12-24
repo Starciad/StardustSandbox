@@ -158,7 +158,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 this.buttonAnimationOffsets[i] += elapsedTime * ButtonAnimationSpeed;
                 float offsetY = (float)Math.Sin(this.buttonAnimationOffsets[i]) * ButtonAnimationAmplitude;
 
-                button.Position = new Vector2(originalPosition.X, originalPosition.Y + offsetY);
+                button.Position = new(originalPosition.X, originalPosition.Y + offsetY);
             }
         }
 

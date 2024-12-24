@@ -2,7 +2,6 @@
 
 using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Enums.Elements;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;

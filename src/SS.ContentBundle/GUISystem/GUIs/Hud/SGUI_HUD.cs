@@ -16,7 +16,6 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Items;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -172,9 +171,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SSlot slot = this.toolbarElementSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
                 {
                     SelectItemSlot(i, (string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                 }
@@ -199,12 +198,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             #endregion
 
             #region SEARCH BUTTON
-            if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+            if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new(SHUDConstants.SLOT_SIZE)))
             {
                 this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER);
             }
 
-            if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+            if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new(SHUDConstants.SLOT_SIZE)))
             {
                 this.toolbarElementSearchButton.Color = SColorPalette.Graphite;
                 this.tooltipBoxElement.IsVisible = true;
@@ -231,9 +230,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                     SSlot toolbarSlot = toolbarSlots[i];
                     SButton button = buttons[i];
 
-                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE));
+                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
 
-                    if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new SSize2(SHUDConstants.SLOT_SIZE)))
+                    if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
                     {
                         button.ClickAction.Invoke();
                     }
