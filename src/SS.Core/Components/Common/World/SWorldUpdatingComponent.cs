@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
         public override void Update(GameTime gameTime)
         {
-            foreach (SWorldSlot worldSlot in GetAllSlotsForUpdating(gameTime))
+            foreach (SWorldSlot worldSlot in GetAllSlotsForUpdating())
             {
                 if (!worldSlot.ForegroundLayer.IsEmpty)
                 {
@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Components.Common.World
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private IEnumerable<SWorldSlot> GetAllSlotsForUpdating(GameTime gameTime)
+        private IEnumerable<SWorldSlot> GetAllSlotsForUpdating()
         {
             foreach (SWorldChunk worldChunk in this.SWorldInstance.GetActiveChunks())
             {
