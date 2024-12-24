@@ -73,15 +73,5 @@ namespace StardustSandbox.Core.Controllers.GameInput
         {
             this.actionHandler.DisableAll();
         }
-
-        public void DebugSave()
-        {
-            SWorldSavingManager.Serialize(this.SGameInstance.World, this.SGameInstance.GraphicsManager.GraphicsDevice);
-        }
-
-        public void DebugLoad()
-        {
-            SWorldSavingManager.Deserialize("DEBUG", this.SGameInstance.World, this.SGameInstance.GraphicsManager.GraphicsDevice);
-        }
     }
 }

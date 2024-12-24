@@ -23,8 +23,6 @@ namespace StardustSandbox.Core.Controllers.GameInput
             simulationKeyboardActionMap.AddAction("Toggle_Pause", new(this.SGameInstance, this.inputManager, Keys.Space)).OnStarted += _ => this.simulationHandler.TogglePause();
 
             worldKeyboardActionMap.AddAction("Clear_World", new(this.SGameInstance, this.inputManager, Keys.R)).OnStarted += _ => this.worldHandler.Clear();
-            worldKeyboardActionMap.AddAction("Save_World", new(this.SGameInstance, this.inputManager, Keys.O)).OnStarted += _ => DebugSave();
-            worldKeyboardActionMap.AddAction("Load_World", new(this.SGameInstance, this.inputManager, Keys.P)).OnStarted += _ => DebugLoad();
         }
 
         private void BuildMouseInputs()

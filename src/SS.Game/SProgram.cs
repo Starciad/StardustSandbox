@@ -28,18 +28,6 @@ namespace StardustSandbox.Game
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 #endif
 
-#if DEBUG
-            INITIALIZE_DEBUG_VERSION();
-            EXECUTE_DEBUG_VERSION();
-#else
-            INITIALIZE_PUBLISHED_VERSION();
-            EXECUTE_PUBLISHED_VERSION();
-#endif
-        }
-
-#if DEBUG
-        private static void INITIALIZE_DEBUG_VERSION()
-        {
             SDirectory.Initialize();
             SSettingsManager.Initialize();
 
@@ -49,7 +37,15 @@ namespace StardustSandbox.Game
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
 
             gameCulture.CultureInfo.ClearCachedData();
+
+#if DEBUG
+            EXECUTE_DEBUG_VERSION();
+#else
+            EXECUTE_PUBLISHED_VERSION();
+#endif
         }
+
+#if DEBUG
         private static void EXECUTE_DEBUG_VERSION()
         {
             using SStardustSandboxEngine stardustSandboxEngine = new();
@@ -57,11 +53,6 @@ namespace StardustSandbox.Game
             stardustSandboxEngine.Start();
         }
 #else
-        private static void INITIALIZE_PUBLISHED_VERSION()
-        {
-
-        }
-
         private static void EXECUTE_PUBLISHED_VERSION()
         {
             using SStardustSandboxEngine stardustSandboxEngine = new();

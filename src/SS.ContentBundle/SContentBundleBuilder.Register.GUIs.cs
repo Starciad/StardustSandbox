@@ -3,6 +3,7 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
@@ -20,6 +21,11 @@ namespace StardustSandbox.ContentBundle
             {
                 MinimumSize = new(500f, 0f),
             };
+
+            // =================================== //
+            // Tools
+
+            SGUI_Input input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
 
             // =================================== //
             // Build
@@ -42,6 +48,8 @@ namespace StardustSandbox.ContentBundle
 
             // =================================== //
             // Register
+
+            guiDatabase.RegisterGUISystem(input.Identifier, input);
 
             guiDatabase.RegisterGUISystem(mainMenu.Identifier, mainMenu);
             guiDatabase.RegisterGUISystem(playMenu.Identifier, playMenu);
