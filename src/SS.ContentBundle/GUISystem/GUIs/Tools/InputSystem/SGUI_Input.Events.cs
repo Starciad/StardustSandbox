@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
@@ -137,6 +138,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private void UpdateDisplayedText()
         {
             this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+            UpdateCursorPosition();
+        }
+
+        private void UpdateCursorPosition()
+        {
+            this.userInputStringBuilder.Insert(this.cursorPosition, '|');
+            this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+            this.userInputStringBuilder.Remove(this.cursorPosition, 1);
         }
     }
 }

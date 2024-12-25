@@ -16,6 +16,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         internal SSize2F TextAreaSize { get; set; }
         internal float LineHeight { get; set; } = 1.0f;
         internal float WordSpacing { get; set; } = 0.0f;
+        internal int LineCount => this.wrappedLines.Count;
 
         private readonly List<string> wrappedLines = [];
 
