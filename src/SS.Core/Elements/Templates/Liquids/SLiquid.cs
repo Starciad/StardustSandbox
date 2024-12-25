@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Elements.Templates.Gases;
-using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.Elements;

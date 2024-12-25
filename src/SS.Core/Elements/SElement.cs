@@ -100,6 +100,7 @@ namespace StardustSandbox.Core.Elements
             {
                 OnBehaviourStep();
             }
+
             OnAfterStep();
         }
 

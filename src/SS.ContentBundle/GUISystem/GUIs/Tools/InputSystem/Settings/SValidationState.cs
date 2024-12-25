@@ -4,7 +4,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Setting
 {
     internal sealed class SValidationState
     {
-        internal SValidationStatus Status { get; set;  }
+        internal SValidationStatus Status { get; set; }
         internal string Message { get; set; }
 
         internal SValidationState()

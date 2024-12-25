@@ -11,8 +11,6 @@ using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
-using System.Drawing.Printing;
-
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_SaveSettings

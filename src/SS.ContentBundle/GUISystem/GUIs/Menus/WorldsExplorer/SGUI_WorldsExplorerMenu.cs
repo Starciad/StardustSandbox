@@ -172,7 +172,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                     slotInfoElement.EnableVisibility();
                     slotInfoElement.ThumbnailElement.Texture = worldSaveFile.ThumbnailTexture;
-                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Metadata.Name.Truncate(12));
+                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Metadata.Name.Truncate(10));
                 }
                 else
                 {

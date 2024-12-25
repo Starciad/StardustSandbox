@@ -5,7 +5,6 @@ using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
-using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Controllers.GameInput

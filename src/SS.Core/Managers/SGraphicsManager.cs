@@ -7,8 +7,6 @@ using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers.IO;
 
-using System;
-
 namespace StardustSandbox.Core.Managers
 {
     internal sealed class SGraphicsManager : SManager, ISGraphicsManager

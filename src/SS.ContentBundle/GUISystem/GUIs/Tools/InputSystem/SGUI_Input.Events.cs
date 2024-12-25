@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
@@ -12,7 +11,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
     {
         protected override void OnOpened()
         {
-            this.userInputStringBuilder.Clear();
+            _ = this.userInputStringBuilder.Clear();
             this.cursorPosition = 0;
 
             UpdateDisplayedText();
@@ -135,7 +134,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         {
             if (!char.IsControl(character))
             {
-                this.userInputStringBuilder.Insert(this.cursorPosition, character);
+                _ = this.userInputStringBuilder.Insert(this.cursorPosition, character);
                 this.cursorPosition++;
             }
         }
@@ -148,9 +147,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private void UpdateCursorPosition()
         {
-            this.userInputStringBuilder.Insert(this.cursorPosition, '|');
+            _ = this.userInputStringBuilder.Insert(this.cursorPosition, '|');
             this.userInputElement.SetTextualContent(this.userInputStringBuilder);
-            this.userInputStringBuilder.Remove(this.cursorPosition, 1);
+            _ = this.userInputStringBuilder.Remove(this.cursorPosition, 1);
         }
     }
 }

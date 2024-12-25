@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Enums.GUISystem;
-using StardustSandbox.Core.Managers.IO;
+﻿using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {

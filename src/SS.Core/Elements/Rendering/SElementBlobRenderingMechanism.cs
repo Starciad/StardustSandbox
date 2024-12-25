@@ -10,9 +10,6 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.World.Data;
 
-using System;
-using System.Collections.Generic;
-
 namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
