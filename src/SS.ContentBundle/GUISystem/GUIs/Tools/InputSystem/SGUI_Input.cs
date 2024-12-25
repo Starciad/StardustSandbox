@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.Enums.GUISystem;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -84,7 +82,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private void UpdateInputBackgroundPosition()
         {
             this.userInputBackgroundElementPosition.X = this.userInputBackgroundElement.Position.X;
-            this.userInputBackgroundElementPosition.Y = SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + this.userInputElement.GetStringSize().Height - 8;
+            this.userInputBackgroundElementPosition.Y = (SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2) + this.userInputElement.GetStringSize().Height - 8;
             this.userInputBackgroundElement.Position = this.userInputBackgroundElementPosition;
         }
 
