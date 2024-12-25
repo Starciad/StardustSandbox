@@ -7,12 +7,15 @@ using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers.IO;
 
+using System;
+
 namespace StardustSandbox.Core.Managers
 {
     internal sealed class SGraphicsManager : SManager, ISGraphicsManager
     {
         public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
         public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;
+        public GameWindow GameWindow { get; private set; }
 
         public Viewport Viewport => this.GraphicsDevice.Viewport;
 
@@ -70,6 +73,11 @@ namespace StardustSandbox.Core.Managers
             this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
+        }
+
+        internal void SetGameWindow(GameWindow gameWindow)
+        {
+            this.GameWindow = gameWindow;
         }
 
         public Vector2 GetScreenScaleFactor()

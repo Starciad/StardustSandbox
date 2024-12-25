@@ -2,7 +2,6 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
@@ -11,12 +10,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
     internal sealed partial class SGUI_Input
     {
         private SGUITextElement synopsisElement;
+        private SGUITextElement userInputElement;
+
+        private SGUIImageElement userInputBackgroundElement;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
             BuildSynopsis(layoutBuilder);
-            BuildInputTypingField(layoutBuilder);
+            BuildUserInput(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -51,9 +53,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             layoutBuilder.AddElement(this.synopsisElement);
         }
 
-        private void BuildInputTypingField(ISGUILayoutBuilder layoutBuilder)
+        private void BuildUserInput(ISGUILayoutBuilder layoutBuilder)
         {
-            SGUIImageElement typingFieldElement = new(this.SGameInstance)
+            this.userInputBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.typingFieldTexture,
                 Scale = new(1.5f),
@@ -63,9 +65,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 OriginPivot = SCardinalDirection.Center,
             };
 
-            typingFieldElement.PositionRelativeToScreen();
+            this.userInputElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                LineHeight = 1.25f,
+                TextAreaSize = new(700, 1000),
+                SpriteFont = this.pixelOperatorSpriteFont,
+                PositionAnchor = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.Center,
+            };
 
-            layoutBuilder.AddElement(typingFieldElement);
+            this.userInputBackgroundElement.PositionRelativeToScreen();
+            this.userInputElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.userInputBackgroundElement);
+            layoutBuilder.AddElement(this.userInputElement);
         }
     }
 }

@@ -25,6 +25,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             WrapText();
         }
 
+        internal override void SetTextualContent(StringBuilder value)
+        {
+            base.SetTextualContent(value);
+            WrapText();
+        }
+
         private void WrapText()
         {
             this.wrappedLines.Clear();

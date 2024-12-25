@@ -94,6 +94,7 @@ namespace StardustSandbox.Core
             this.Window.IsBorderless = videoSettings.Borderless;
             this.Window.Title = SGameConstants.GetTitleAndVersionString();
             this.Window.AllowUserResizing = true;
+            this.graphicsManager.SetGameWindow(this.Window);
 
             // Configure game settings
             this.TargetElapsedTime = TimeSpan.FromSeconds(1f / SScreenConstants.DEFAULT_FRAME_RATE);

@@ -7,6 +7,7 @@ namespace StardustSandbox.Core.Interfaces.Managers
     {
         GraphicsDeviceManager GraphicsDeviceManager { get; }
         GraphicsDevice GraphicsDevice { get; }
+        GameWindow GameWindow { get; }
 
         public Viewport Viewport { get; }
 

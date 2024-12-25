@@ -35,7 +35,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             }
         }
 
-        private readonly StringBuilder contentStringBuilder = new();
+        private StringBuilder contentStringBuilder = new();
+
         private readonly Dictionary<SCardinalDirection, SBorderSettings> borderSettings = [];
 
         internal SGUITextualElement(ISGame gameInstance) : base(gameInstance)
@@ -75,6 +76,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         {
             ClearTextualContent();
             _ = this.contentStringBuilder.Append(value);
+        }
+
+        internal virtual void SetTextualContent(StringBuilder value)
+        {
+            this.contentStringBuilder = value;
         }
 
         internal virtual void ClearTextualContent()
