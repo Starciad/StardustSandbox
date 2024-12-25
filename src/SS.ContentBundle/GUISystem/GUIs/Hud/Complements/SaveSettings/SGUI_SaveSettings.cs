@@ -9,12 +9,17 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Mathematics.Primitives;
+
+using System;
+using System.IO;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -80,7 +85,34 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 InputType = SInputType.Text,
                 MaxCharacters = 30,
 
-                OnSendCallback = (result) =>
+                OnValidationCallback = (SValidationState state, SArgumentResult result) =>
+                {
+                    // Validation for empty world name
+                    if (string.IsNullOrWhiteSpace(result.Content))
+                    {
+                        state.Status = SValidationStatus.Failure;
+                        state.Message = "The name of the world cannot be empty.";
+                        return;
+                    }
+
+                    // Validation for repeated world name
+                    string[] files = Directory.GetFiles(SDirectory.Worlds, "*" + SFileExtensionConstants.WORLD, SearchOption.TopDirectoryOnly);
+
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        files[i] = Path.GetFileNameWithoutExtension(files[i]);
+                    }
+
+                    Array.Sort(files, StringComparer.OrdinalIgnoreCase);
+
+                    if (Array.BinarySearch(files, result.Content, StringComparer.OrdinalIgnoreCase) >= 0)
+                    {
+                        state.Status = SValidationStatus.Failure;
+                        state.Message = "The world name is already being used by another saved world.";
+                    }
+                },
+
+                OnSendCallback = (SArgumentResult result) =>
                 {
                     this.world.Infos.Name = result.Content;
                 },
