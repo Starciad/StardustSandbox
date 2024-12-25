@@ -1,5 +1,9 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Specials.General;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
@@ -14,11 +18,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private SGUIImageElement userInputBackgroundElement;
 
+        private readonly SGUILabelElement[] menuButtonElements;
+
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
             BuildSynopsis(layoutBuilder);
             BuildUserInput(layoutBuilder);
+            BuildMenuButtons(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -39,7 +46,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.synopsisElement = new(this.SGameInstance)
             {
                 Scale = new(0.1f),
-                Margin = new(0, -160),
+                Margin = new(0, -128),
                 LineHeight = 1.25f,
                 TextAreaSize = new(600, 1000),
                 SpriteFont = this.pixelOperatorSpriteFont,
@@ -67,9 +74,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
             this.userInputElement = new(this.SGameInstance)
             {
-                Scale = new(0.1f),
-                LineHeight = 1.25f,
-                TextAreaSize = new(700, 1000),
+                Scale = new(0.085f),
+                TextAreaSize = new(1000, 1000),
+                Margin = new(0, -32),
                 SpriteFont = this.pixelOperatorSpriteFont,
                 PositionAnchor = SCardinalDirection.Center,
                 OriginPivot = SCardinalDirection.Center,
@@ -80,6 +87,35 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
             layoutBuilder.AddElement(this.userInputBackgroundElement);
             layoutBuilder.AddElement(this.userInputElement);
+        }
+
+        private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
+        {
+            Vector2 margin = new(0, -48);
+
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                SButton button = this.menuButtons[i];
+
+                SGUILabelElement labelElement = new(this.SGameInstance)
+                {
+                    SpriteFont = this.bigApple3PMSpriteFont,
+                    Scale = new(0.125f),
+                    Margin = margin,
+                    PositionAnchor = SCardinalDirection.South,
+                    OriginPivot = SCardinalDirection.Center,
+                };
+
+                labelElement.SetTextualContent(button.DisplayName);
+                labelElement.PositionRelativeToScreen();
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2));
+
+                margin.Y -= 72;
+
+                layoutBuilder.AddElement(labelElement);
+
+                this.menuButtonElements[i] = labelElement;
+            }
         }
     }
 }

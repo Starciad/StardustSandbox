@@ -12,6 +12,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
     {
         protected override void OnOpened()
         {
+            this.userInputStringBuilder.Clear();
+            this.cursorPosition = 0;
+
+            UpdateDisplayedText();
+
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
             this.SGameInstance.GameInputController.Disable();
 
