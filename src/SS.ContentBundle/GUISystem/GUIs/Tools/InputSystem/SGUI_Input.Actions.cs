@@ -4,11 +4,13 @@
     {
         private void CancelButtonAction()
         {
+            this.inputSettings?.OnCancelCallback?.Invoke();
             this.SGameInstance.GUIManager.CloseGUI();
         }
 
         private void SendButtonAction()
         {
+            this.inputSettings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
             this.SGameInstance.GUIManager.CloseGUI();
         }
     }

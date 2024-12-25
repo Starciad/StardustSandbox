@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.Enums.GUISystem;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
@@ -11,6 +13,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
@@ -32,7 +35,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SButton[] fieldButtons;
         private readonly SButton[] footerButtons;
 
+        private readonly ISWorld world;
         private readonly SGUI_Input guiInput;
+
+        private readonly SInputSettings nameInputBuilder;
+        private readonly SInputSettings descriptionInputBuilder;
 
         internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput) : base(gameInstance, identifier, guiEvents)
         {
@@ -65,7 +72,30 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.fieldButtonSlots = new SSlot[this.fieldButtons.Length];
             this.footerButtonSlots = new SSlot[this.footerButtons.Length];
 
+            this.world = this.SGameInstance.World;
             this.guiInput = guiInput;
+
+            this.nameInputBuilder = new()
+            {
+                InputType = SInputType.Text,
+                MaxCharacters = 30,
+
+                OnSendCallback = (result) =>
+                {
+                    this.world.Infos.Name = result.Content;
+                },
+            };
+
+            this.descriptionInputBuilder = new()
+            {
+                InputType = SInputType.Text,
+                MaxCharacters = 300,
+
+                OnSendCallback = (result) =>
+                {
+                    this.world.Infos.Description = result.Content;
+                },
+            };
         }
 
         public override void Update(GameTime gameTime)

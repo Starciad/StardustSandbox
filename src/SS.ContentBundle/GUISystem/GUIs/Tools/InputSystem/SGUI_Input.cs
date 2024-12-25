@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.Enums.GUISystem;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
@@ -21,6 +23,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private int cursorPosition = 0;
 
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
+
+        private SInputSettings inputSettings;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D typingFieldTexture;
@@ -46,9 +50,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
         }
 
-        internal void Setup()
+        internal void Configure(SInputSettings settings)
         {
-
+            this.inputSettings = settings;
         }
 
         public override void Update(GameTime gameTime)
@@ -82,6 +86,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.userInputBackgroundElementPosition.X = this.userInputBackgroundElement.Position.X;
             this.userInputBackgroundElementPosition.Y = SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + this.userInputElement.GetStringSize().Height - 8;
             this.userInputBackgroundElement.Position = this.userInputBackgroundElementPosition;
+        }
+
+        // ====================================== //
+
+        private void ApplySettings()
+        {
+
         }
     }
 }
