@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.General;
@@ -12,13 +13,13 @@ using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
-    public abstract class SGUITextualElement : SGUIElement
+    internal abstract class SGUITextualElement : SGUIElement
     {
-        public SpriteFont SpriteFont { get; set; }
-        public string Content => this.contentStringBuilder.ToString();
+        internal SpriteFont SpriteFont { get; set; }
+        internal string Content => this.contentStringBuilder.ToString();
         protected StringBuilder ContentStringBuilder => this.contentStringBuilder;
 
-        public bool HasBorders
+        internal bool HasBorders
         {
             get
             {
@@ -34,17 +35,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             }
         }
 
-        private readonly StringBuilder contentStringBuilder = new();
+        private StringBuilder contentStringBuilder = new();
+
         private readonly Dictionary<SCardinalDirection, SBorderSettings> borderSettings = [];
 
-        public SGUITextualElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUITextualElement(ISGame gameInstance) : base(gameInstance)
         {
             this.IsVisible = true;
             this.ShouldUpdate = false;
 
             foreach (SCardinalDirection direction in Enum.GetValues(typeof(SCardinalDirection)))
             {
-                this.borderSettings[direction] = new(false, Color.Black, Vector2.Zero);
+                this.borderSettings[direction] = new(false, SColorPalette.DarkGray, Vector2.Zero);
             }
         }
 
@@ -70,31 +72,36 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             }
         }
 
-        public virtual void SetTextualContent(string value)
+        internal virtual void SetTextualContent(string value)
         {
             ClearTextualContent();
             _ = this.contentStringBuilder.Append(value);
         }
 
-        public virtual void ClearTextualContent()
+        internal virtual void SetTextualContent(StringBuilder value)
+        {
+            this.contentStringBuilder = value;
+        }
+
+        internal virtual void ClearTextualContent()
         {
             _ = this.contentStringBuilder.Clear();
         }
 
-        public virtual SSize2F GetStringSize()
+        internal virtual SSize2F GetStringSize()
         {
             Vector2 measureString = this.SpriteFont.MeasureString(this.Content) * this.Scale;
-            return new SSize2F(measureString.X, measureString.Y);
+            return new(measureString.X, measureString.Y);
         }
 
-        public void SetBorder(SCardinalDirection direction, bool isEnabled, Color color, Vector2 offset)
+        internal void SetBorder(SCardinalDirection direction, bool isEnabled, Color color, Vector2 offset)
         {
             this.borderSettings[direction].IsEnabled = isEnabled;
             this.borderSettings[direction].Color = color;
             this.borderSettings[direction].Offset = offset;
         }
 
-        public void SetAllBorders(bool isEnabled, Color color, Vector2 offset)
+        internal void SetAllBorders(bool isEnabled, Color color, Vector2 offset)
         {
             foreach (SCardinalDirection key in this.borderSettings.Keys)
             {
@@ -106,14 +113,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
         {
             return direction switch
             {
-                SCardinalDirection.North => new Vector2(0, -1),
-                SCardinalDirection.Northeast => new Vector2(1, -1),
-                SCardinalDirection.East => new Vector2(1, 0),
-                SCardinalDirection.Southeast => new Vector2(1, 1),
-                SCardinalDirection.South => new Vector2(0, 1),
-                SCardinalDirection.Southwest => new Vector2(-1, 1),
-                SCardinalDirection.West => new Vector2(-1, 0),
-                SCardinalDirection.Northwest => new Vector2(-1, -1),
+                SCardinalDirection.North => new(0, -1),
+                SCardinalDirection.Northeast => new(1, -1),
+                SCardinalDirection.East => new(1, 0),
+                SCardinalDirection.Southeast => new(1, 1),
+                SCardinalDirection.South => new(0, 1),
+                SCardinalDirection.Southwest => new(-1, 1),
+                SCardinalDirection.West => new(-1, 0),
+                SCardinalDirection.Northwest => new(-1, -1),
                 _ => Vector2.Zero,
             };
         }

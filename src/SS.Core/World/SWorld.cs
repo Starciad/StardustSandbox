@@ -5,37 +5,48 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.World.Data;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
+using System;
+
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld : SGameObject, ISReset
+    internal sealed partial class SWorld : SGameObject, ISWorld
     {
         public SWorldInfo Infos { get; private set; } = new();
 
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
 
-        private readonly SObjectPool worldSlotsPool = new();
-        private readonly SComponentContainer componentContainer;
-
-        private readonly SWorldChunkingComponent worldChunkingComponent;
-
         private SWorldSlot[,] slots;
+        private uint currentFramesUpdateDelay;
+
+        private SWorldSaveFile currentlySelectedWorldSaveFile;
 
         private readonly uint totalFramesUpdateDelay = 5;
-        private uint currentFramesUpdateDelay;
+        private readonly SObjectPool worldSlotsPool;
+        private readonly SComponentContainer componentContainer;
+        private readonly SWorldChunkingComponent worldChunkingComponent;
+        private readonly SElementContext worldElementContext;
 
         public SWorld(ISGame gameInstance) : base(gameInstance)
         {
+            this.worldSlotsPool = new();
             this.componentContainer = new(gameInstance);
 
             this.worldChunkingComponent = this.componentContainer.AddComponent(new SWorldChunkingComponent(gameInstance, this));
             _ = this.componentContainer.AddComponent(new SWorldUpdatingComponent(gameInstance, this));
             _ = this.componentContainer.AddComponent(new SWorldRenderingComponent(gameInstance, this));
+
+            this.worldElementContext = new(this);
         }
 
         public override void Initialize()
@@ -72,24 +83,88 @@ namespace StardustSandbox.Core.World
                 return;
             }
 
-            base.Draw(gameTime, spriteBatch);
             this.componentContainer.Draw(gameTime, spriteBatch);
         }
 
-        public void Reset()
+        public void StartNew()
         {
-            this.componentContainer.Reset();
-            Clear();
+            StartNew(this.Infos.Size);
+        }
+        public void StartNew(SSize2 size)
+        {
+            this.Infos.Identifier = Guid.NewGuid().ToByteArray();
+
+            this.IsActive = true;
+            this.IsVisible = true;
+
+            if (this.Infos.Size != size)
+            {
+                Resize(size);
+            }
+
+            Reset();
+        }
+
+        public void LoadFromWorldSaveFile(SWorldSaveFile worldSaveFile)
+        {
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
+
+            // World
+            StartNew(worldSaveFile.World.Size);
+
+            // Cache
+            this.currentlySelectedWorldSaveFile = worldSaveFile;
+
+            // Metadata
+            this.Infos.Identifier = worldSaveFile.Metadata.Identifier;
+            this.Infos.Name = worldSaveFile.Metadata.Name;
+            this.Infos.Description = worldSaveFile.Metadata.Description;
+
+            // Allocate Elements
+            foreach (SWorldSlotData worldSlotData in worldSaveFile.World.Slots)
+            {
+                if (worldSlotData.ForegroundLayer != null)
+                {
+                    LoadWorldSlotLayerData(SWorldLayer.Foreground, worldSlotData.Position, worldSlotData.ForegroundLayer);
+                }
+
+                if (worldSlotData.BackgroundLayer != null)
+                {
+                    LoadWorldSlotLayerData(SWorldLayer.Background, worldSlotData.Position, worldSlotData.BackgroundLayer);
+                }
+            }
+        }
+        private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)
+        {
+            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementId);
+
+            SWorldSlot worldSlot = GetWorldSlot(position);
+
+            worldSlot.SetTemperatureValue(worldLayer, worldSlotLayerData.Temperature);
+            worldSlot.SetFreeFalling(worldLayer, worldSlotLayerData.FreeFalling);
+            worldSlot.SetColorModifier(worldLayer, worldSlotLayerData.ColorModifier);
         }
 
         public void Resize(SSize2 size)
         {
             DestroyWorldSlots();
 
-            this.Infos.SetSize(size);
+            this.Infos.Size = size;
             this.slots = new SWorldSlot[size.Width, size.Height];
 
             InstantiateWorldSlots();
+        }
+
+        public void Reload()
+        {
+            if (this.currentlySelectedWorldSaveFile != null)
+            {
+                LoadFromWorldSaveFile(this.currentlySelectedWorldSaveFile);
+            }
+            else
+            {
+                Clear();
+            }
         }
 
         public void Clear()
@@ -103,14 +178,31 @@ namespace StardustSandbox.Core.World
             {
                 for (int y = 0; y < this.Infos.Size.Height; y++)
                 {
-                    if (IsEmptyElementSlot(new(x, y)))
+                    if (IsEmptyWorldSlot(new(x, y)))
                     {
                         continue;
                     }
 
-                    DestroyElement(new(x, y));
+                    DestroyElement(new(x, y), SWorldLayer.Foreground);
+                    DestroyElement(new(x, y), SWorldLayer.Background);
                 }
             }
+        }
+
+        public void Reset()
+        {
+            this.Infos.Name = "Untitled";
+            this.Infos.Description = "No description was provided.";
+            this.currentlySelectedWorldSaveFile = null;
+
+            this.componentContainer.Reset();
+            Clear();
+        }
+
+        public bool InsideTheWorldDimensions(Point position)
+        {
+            return position.X >= 0 && position.X < this.Infos.Size.Width &&
+                   position.Y >= 0 && position.Y < this.Infos.Size.Height;
         }
 
         private void InstantiateWorldSlots()

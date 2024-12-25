@@ -5,11 +5,12 @@ using StardustSandbox.Core.Components.Common.Entities;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Entities;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.ContentBundle.Components.Entities.AI
 {
@@ -32,22 +33,24 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private SElementId selectedElement;
         private Vector2 targetPosition;
-        private readonly SWorld world;
-        private readonly SSize2 worldSize;
-        private readonly SEntityTransformComponent transformComponent;
-
-        private static readonly SElementId[] AllowedElements =
-        {
-            SElementId.Dirt, SElementId.Mud, SElementId.Water, SElementId.Stone,
-            SElementId.Grass, SElementId.Sand, SElementId.Lava, SElementId.Acid,
-            SElementId.Wood, SElementId.TreeLeaf
-        };
 
         private int moveStateTimer = 0;
         private int buildingStateTimer = 0;
         private int elementChangeTimer = 0;
 
-        public SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
+        private readonly ISWorld world;
+        private readonly SSize2 worldSize;
+
+        private readonly SEntityTransformComponent transformComponent;
+
+        private static readonly SElementId[] AllowedElements =
+        [
+            SElementId.Dirt, SElementId.Mud, SElementId.Water, SElementId.Stone,
+            SElementId.Grass, SElementId.Sand, SElementId.Lava, SElementId.Acid,
+            SElementId.Wood, SElementId.TreeLeaf
+        ];
+
+        internal SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
         {
             this.world = gameInstance.World;
             this.transformComponent = transformComponent;
@@ -124,17 +127,17 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
             switch (this.currentBuildingState)
             {
                 case BuildingState.Constructing:
-                    if (this.world.IsEmptyElementSlot(gridPosition))
+                    if (this.world.IsEmptyWorldSlot(gridPosition))
                     {
-                        this.world.InstantiateElement(gridPosition, (uint)this.selectedElement);
+                        this.world.InstantiateElement(gridPosition, SWorldLayer.Foreground, (uint)this.selectedElement);
                     }
 
                     break;
 
                 case BuildingState.Removing:
-                    if (!this.world.IsEmptyElementSlot(gridPosition))
+                    if (!this.world.IsEmptyWorldSlot(gridPosition))
                     {
-                        this.world.DestroyElement(gridPosition);
+                        this.world.DestroyElement(gridPosition, SWorldLayer.Foreground);
                     }
 
                     break;
@@ -151,7 +154,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private void SelectRandomPosition()
         {
-            this.targetPosition = new Vector2(SRandomMath.Range(0, this.worldSize.Width), SRandomMath.Range(0, this.worldSize.Height));
+            this.targetPosition = new(SRandomMath.Range(0, this.worldSize.Width), SRandomMath.Range(0, this.worldSize.Height));
         }
     }
 }

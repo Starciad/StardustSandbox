@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 
 namespace StardustSandbox.Core.Elements.Rendering
@@ -23,7 +25,14 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
-            spriteBatch.Draw(this.animation.Texture, new Vector2(context.Position.X, context.Position.Y) * SWorldConstants.GRID_SCALE, this.animation.CurrentFrame.TextureClipArea, context.Slot.Color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
+
+            if (context.Layer == SWorldLayer.Background)
+            {
+                colorModifier = colorModifier.Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+            }
+
+            spriteBatch.Draw(this.animation.Texture, new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * SWorldConstants.GRID_SCALE, this.animation.CurrentFrame.TextureClipArea, colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
     }
 }

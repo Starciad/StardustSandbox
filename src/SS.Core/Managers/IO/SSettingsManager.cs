@@ -1,6 +1,6 @@
 ﻿using MessagePack;
 
-using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
 

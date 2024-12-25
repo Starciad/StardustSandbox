@@ -6,14 +6,16 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SMetal : SImmovableSolid
+    internal sealed class SMetal : SImmovableSolid
     {
-        public SMetal(ISGame gameInstance) : base(gameInstance)
+        internal SMetal(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Metal;
+            this.identifier = (uint)SElementId.Metal;
+            this.referenceColor = new(66, 66, 66, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_13");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 30;
+            this.defaultDensity = 7800;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

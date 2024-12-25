@@ -5,6 +5,6 @@ namespace StardustSandbox.Core.Components.Templates
 {
     public abstract class SEntityComponent(ISGame gameInstance, SEntity entityInstance) : SComponent(gameInstance)
     {
-        public SEntity SEntityInstance => entityInstance;
+        protected SEntity SEntityInstance => entityInstance;
     }
 }

@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Constants.IO;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 
 using System.IO;
@@ -22,7 +23,7 @@ namespace StardustSandbox.ContentBundle
             Shader
         }
 
-        protected override void OnRegisterAssets(ISGame game, ContentManager contentManager, SAssetDatabase assetDatabase)
+        protected override void OnRegisterAssets(ISGame game, ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
             LoadShaders(contentManager, assetDatabase);
             LoadFonts(contentManager, assetDatabase);
@@ -31,17 +32,17 @@ namespace StardustSandbox.ContentBundle
             LoadSongs(contentManager, assetDatabase);
         }
 
-        private static void LoadShaders(ContentManager contentManager, SAssetDatabase assetDatabase)
+        private static void LoadShaders(ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
             AssetLoader(contentManager, assetDatabase, AssetType.Shader, SAssetConstants.SHADERS_LENGTH, "shader_", SDirectoryConstants.ASSETS_SHADERS);
         }
 
-        private static void LoadFonts(ContentManager contentManager, SAssetDatabase assetDatabase)
+        private static void LoadFonts(ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
             AssetLoader(contentManager, assetDatabase, AssetType.Font, SAssetConstants.FONTS_LENGTH, "font_", SDirectoryConstants.ASSETS_FONTS);
         }
 
-        private static void LoadGraphics(ContentManager contentManager, SAssetDatabase assetDatabase)
+        private static void LoadGraphics(ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
             // Backgrounds
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_BACKGROUNDS_LENGTH, "background_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_BACKGROUNDS));
@@ -65,9 +66,12 @@ namespace StardustSandbox.ContentBundle
             // Game
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_ICONS_LENGTH, "game_icon_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_ICONS));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_TITLES_LENGTH, "game_title_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_TITLES));
-            
+
             // GUI
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_BACKGROUNDS_LENGTH, "gui_background_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_BACKGROUNDS));
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_BUTTONS_LENGTH, "gui_button_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_BUTTONS));
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_SLIDERS_LENGTH, "gui_slider_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_SLIDERS));
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_FIELDS_LENGTH, "gui_field_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_FIELDS));
 
             // Icons
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_ELEMENTS_LENGTH, "icon_element_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_ELEMENTS));
@@ -87,17 +91,17 @@ namespace StardustSandbox.ContentBundle
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH, "third_party_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_THIRD_PARTIES));
         }
 
-        private static void LoadSounds(ContentManager contentManager, SAssetDatabase assetDatabase)
+        private static void LoadSounds(ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
             AssetLoader(contentManager, assetDatabase, AssetType.Sound, SAssetConstants.SOUNDS_LENGTH, "sound_", SDirectoryConstants.ASSETS_SOUNDS);
         }
 
-        private static void LoadSongs(ContentManager contentManager, SAssetDatabase assetDatabase)
+        private static void LoadSongs(ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
             AssetLoader(contentManager, assetDatabase, AssetType.Song, SAssetConstants.SONGS_LENGTH, "song_", SDirectoryConstants.ASSETS_SONGS);
         }
 
-        private static void AssetLoader(ContentManager contentManager, SAssetDatabase assetDatabase, AssetType assetType, int length, string prefix, string path)
+        private static void AssetLoader(ContentManager contentManager, ISAssetDatabase assetDatabase, AssetType assetType, int length, string prefix, string path)
         {
             int targetId;
             string targetName;

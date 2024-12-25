@@ -1,28 +1,51 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Controllers.GameInput.Handlers.Tools;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Enums.Gameplay;
-using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Enums.GameInput;
+using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World;
 
 using System;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SWorldHandler(SWorld world, SInputManager inputManager, SCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, SElementDatabase elementDatabase)
+    internal sealed class SWorldHandler
     {
-        private readonly SWorld world = world;
+        private readonly ISWorld world;
 
-        private readonly SInputManager inputManager = inputManager;
-        private readonly SCameraManager cameraManager = cameraManager;
+        private readonly ISInputManager inputManager;
+        private readonly ISCameraManager cameraManager;
 
-        private readonly SSimulationPlayer simulationPlayer = simulationPlayer;
-        private readonly SSimulationPen simulationPen = simulationPen;
+        private readonly ISElementDatabase elementDatabase;
 
-        private readonly SElementDatabase elementDatabase = elementDatabase;
+        private readonly SSimulationPlayer simulationPlayer;
+        private readonly SSimulationPen simulationPen;
+
+        private readonly SVisualizationTool visualizationTool;
+        private readonly SPencilTool pencilTool;
+        private readonly SFloodFillTool floodFillTool;
+        private readonly SReplaceTool replaceTool;
+
+        public SWorldHandler(ISWorld world, ISInputManager inputManager, ISCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, ISElementDatabase elementDatabase)
+        {
+            this.world = world;
+
+            this.inputManager = inputManager;
+            this.cameraManager = cameraManager;
+            this.elementDatabase = elementDatabase;
+
+            this.simulationPlayer = simulationPlayer;
+            this.simulationPen = simulationPen;
+
+            this.visualizationTool = new(this.world, this.elementDatabase, simulationPen);
+            this.pencilTool = new(this.world, this.elementDatabase, simulationPen);
+            this.floodFillTool = new(this.world, this.elementDatabase, simulationPen);
+            this.replaceTool = new(this.world, this.elementDatabase, simulationPen);
+        }
 
         public void Clear()
         {
@@ -37,16 +60,24 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             }
 
             Type itemType = this.simulationPlayer.SelectedItem.ReferencedType;
-            Point mouseWorldPosition = GetWorldGridPositionFromMouse();
+            Point mousePosition = GetWorldGridPositionFromMouse();
 
-            switch (worldModificationType)
+            switch (this.simulationPen.Tool)
             {
-                case SWorldModificationType.Adding:
-                    AddItems(itemType, mouseWorldPosition);
+                case SPenTool.Visualization:
+                    this.visualizationTool.Execute(worldModificationType, itemType, mousePosition);
                     break;
 
-                case SWorldModificationType.Removing:
-                    RemoveItems(mouseWorldPosition);
+                case SPenTool.Pencil:
+                    this.pencilTool.Execute(worldModificationType, itemType, mousePosition);
+                    break;
+
+                case SPenTool.Fill:
+                    this.floodFillTool.Execute(worldModificationType, itemType, mousePosition);
+                    break;
+
+                case SPenTool.Replace:
+                    this.replaceTool.Execute(worldModificationType, itemType, mousePosition);
                     break;
 
                 default:
@@ -54,71 +85,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             }
         }
 
-        private void AddItems(Type itemType, Point position)
-        {
-            if (typeof(SElement).IsAssignableFrom(itemType))
-            {
-                AddElements(this.elementDatabase.GetElementByType(itemType), position);
-            }
-        }
-
-        private void RemoveItems(Point position)
-        {
-            RemoveElements(position);
-        }
-
-        // ========================= //
-
-        private void AddElements(ISElement element, Point position)
-        {
-            if (!this.world.InsideTheWorldDimensions(position))
-            {
-                return;
-            }
-
-            ApplyPenAction(position, (position) => this.world.InstantiateElement(new Point(position.X, position.Y), element.Id));
-        }
-
-        private void RemoveElements(Point position)
-        {
-            if (!this.world.InsideTheWorldDimensions(position))
-            {
-                return;
-            }
-
-            ApplyPenAction(position, this.world.DestroyElement);
-        }
-
         // ================================== //
-        // Utilities
-
-        private void ApplyPenAction(Point centerPos, Action<Point> action)
-        {
-            int size = this.simulationPen.Size - 1;
-
-            if (size == 0)
-            {
-                if (this.world.InsideTheWorldDimensions(centerPos))
-                {
-                    action.Invoke(centerPos);
-                }
-
-                return;
-            }
-
-            for (int x = -size; x <= size; x++)
-            {
-                for (int y = -size; y <= size; y++)
-                {
-                    Point localPos = new Point(x, y) + centerPos;
-
-                    if (this.world.InsideTheWorldDimensions(localPos))
-                    {
-                        action.Invoke(localPos);
-                    }
-                }
-            }
-        }
 
         private bool CanModifyWorld()
         {

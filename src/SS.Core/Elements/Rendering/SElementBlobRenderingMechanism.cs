@@ -5,12 +5,21 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Elements.Rendering
 {
     public sealed partial class SElementBlobRenderingMechanism : SElementRenderingMechanism
     {
+        private readonly struct BlobInfo(Point position, byte blobValue)
+        {
+            public readonly Point Position => position;
+            public readonly byte BlobValue => blobValue;
+        }
+
         private static readonly float rotation = 0f;
         private static readonly Vector2 origin = Vector2.Zero;
         private static readonly Vector2 scale = Vector2.One;
@@ -31,14 +40,21 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, ISElementContext context)
         {
-            Point position = context.Position;
+            SWorldSlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
 
-            UpdateSpritePositions(position);
+            Color colorModifier = STemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
+
+            if (context.Layer == SWorldLayer.Background)
+            {
+                colorModifier = colorModifier.Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+            }
+
+            UpdateSpritePositions(context.Slot.Position);
 
             for (int i = 0; i < SElementRenderingConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
-                UpdateSpriteSlice(context, i, position);
-                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], context.Slot.Color, rotation, origin, scale, spriteEffects, layerDepth);
+                UpdateSpriteSlice(context, i, context.Slot.Position);
+                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], colorModifier, rotation, origin, scale, spriteEffects, layerDepth);
             }
         }
 
@@ -55,54 +71,18 @@ namespace StardustSandbox.Core.Elements.Rendering
 
         private void UpdateSpriteSlice(ISElementContext context, int index, Point position)
         {
-            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, GetTargetPositionsFromIndex(index, position)));
+            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, index, position));
         }
 
-        private static (byte, Point)[] GetTargetPositionsFromIndex(int index, Point position)
-        {
-            return index switch
-            {
-                // Sprite Piece 1 (Northwest Pivot)
-                0 => [
-                    ((byte)SBlobCardinalDirection.West, new Point(position.X - 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Northwest, new Point(position.X - 1, position.Y - 1)),
-                    ((byte)SBlobCardinalDirection.North, new Point(position.X, position.Y - 1))
-                ],
-
-                // Sprite Piece 2 (Northeast Pivot)
-                1 => [
-                    ((byte)SBlobCardinalDirection.East, new Point(position.X + 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Northeast, new Point(position.X + 1, position.Y - 1)),
-                    ((byte)SBlobCardinalDirection.North, new Point(position.X, position.Y - 1))
-                ],
-
-                // Sprite Piece 3 (Southwest Pivot)
-                2 => [
-                    ((byte)SBlobCardinalDirection.West, new Point(position.X - 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Southwest, new Point(position.X - 1, position.Y + 1)),
-                    ((byte)SBlobCardinalDirection.South, new Point(position.X, position.Y + 1))
-                ],
-
-                // Sprite Piece 4 (Southeast Pivot)
-                3 => [
-                    ((byte)SBlobCardinalDirection.East, new Point(position.X + 1, position.Y)),
-                    ((byte)SBlobCardinalDirection.Southeast, new Point(position.X + 1, position.Y + 1)),
-                    ((byte)SBlobCardinalDirection.South, new Point(position.X, position.Y + 1))
-                ],
-
-                _ => [],
-            };
-        }
-
-        private byte GetBlobValueFromTargetPositions(ISElementContext context, (byte blobValue, Point position)[] targets)
+        private byte GetBlobValueFromTargetPositions(ISElementContext context, int index, Point position)
         {
             byte result = 0;
 
             // Check each of the target positions.
-            for (int i = 0; i < targets.Length; i++)
+            foreach (BlobInfo blobInfo in GetTargetPositionsFromIndex(index, position))
             {
                 // Get element from target position.
-                if (context.TryGetElement(targets[i].position, out ISElement value))
+                if (context.TryGetElement(blobInfo.Position, context.Layer, out ISElement value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (value != this.element)
@@ -111,11 +91,47 @@ namespace StardustSandbox.Core.Elements.Rendering
                     }
 
                     // Upon successful completion of the conditions and steps, add to the blob value.
-                    result += targets[i].blobValue;
+                    result += blobInfo.BlobValue;
                 }
             }
 
             return result;
+        }
+
+        private static BlobInfo[] GetTargetPositionsFromIndex(int index, Point position)
+        {
+            return index switch
+            {
+                // Sprite Piece 1 (Northwest Pivot)
+                0 => [
+                    new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West),
+                    new(new Point(position.X - 1, position.Y - 1), (byte)SBlobCardinalDirection.Northwest),
+                    new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North)
+                ],
+
+                // Sprite Piece 2 (Northeast Pivot)
+                1 => [
+                    new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East),
+                    new(new Point(position.X + 1, position.Y - 1), (byte)SBlobCardinalDirection.Northeast),
+                    new(new Point(position.X, position.Y - 1), (byte)SBlobCardinalDirection.North)
+                ],
+
+                // Sprite Piece 3 (Southwest Pivot)
+                2 => [
+                    new(new Point(position.X - 1, position.Y), (byte)SBlobCardinalDirection.West),
+                    new(new Point(position.X - 1, position.Y + 1), (byte)SBlobCardinalDirection.Southwest),
+                    new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South)
+                ],
+
+                // Sprite Piece 4 (Southeast Pivot)
+                3 => [
+                    new(new Point(position.X + 1, position.Y), (byte)SBlobCardinalDirection.East),
+                    new(new Point(position.X + 1, position.Y + 1), (byte)SBlobCardinalDirection.Southeast),
+                    new(new Point(position.X, position.Y + 1), (byte)SBlobCardinalDirection.South)
+                ],
+
+                _ => [],
+            };
         }
 
         private void SetChunkSpriteFromIndexAndBlobValue(int index, byte blobValue)

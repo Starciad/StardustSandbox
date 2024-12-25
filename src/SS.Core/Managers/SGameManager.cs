@@ -1,24 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGameManager(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SGameManager(ISGame gameInstance) : SGameObject(gameInstance), ISGameManager
     {
         public SGameState GameState => this.gameState;
 
         private readonly SGameState gameState = new();
 
-        private readonly SCameraManager cameraManager = gameInstance.CameraManager;
-        private readonly SWorld world = gameInstance.World;
+        private readonly ISCameraManager cameraManager = gameInstance.CameraManager;
+        private readonly ISWorld world = gameInstance.World;
 
         public override void Update(GameTime gameTime)
         {
             ClampCameraInTheWorld();
+        }
+
+        public void StartGame()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
+
+            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+
+            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            this.SGameInstance.GameInputController.Activate();
+
+            this.SGameInstance.BackgroundManager.EnableClouds();
+        }
+
+        public void Reset()
+        {
+            return;
         }
 
         private void ClampCameraInTheWorld()

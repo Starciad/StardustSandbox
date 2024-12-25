@@ -399,4 +399,7 @@
   <data name="GUI.Menu.Options.Section.Video.Borderless" xml:space="preserve">
     <value>Borderless</value>
   </data>
+  <data name="GUI.Menu.Main.Button.Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
 </root>

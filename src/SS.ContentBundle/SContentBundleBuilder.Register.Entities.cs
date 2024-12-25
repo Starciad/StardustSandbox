@@ -1,14 +1,14 @@
 ﻿using StardustSandbox.ContentBundle.Entities.Specials;
-using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle
 {
     public sealed partial class SContentBundleBuilder
     {
-        protected override void OnRegisterEntities(ISGame game, SEntityDatabase entityDatabase)
+        protected override void OnRegisterEntities(ISGame game, ISEntityDatabase entityDatabase)
         {
-            entityDatabase.RegisterEntity(new SMagicCursorEntityDescriptor());
+            entityDatabase.RegisterEntityDescriptor(new SMagicCursorEntityDescriptor());
         }
     }
 }

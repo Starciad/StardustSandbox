@@ -3,92 +3,97 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World;
+using StardustSandbox.Core.World.Data;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Components.Common.World
 {
-    public sealed class SWorldRenderingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldRenderingComponent(ISGame gameInstance, ISWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
         private readonly SElementContext elementRenderingContext = new(worldInstance);
 
-        private Texture2D _gridTexture;
+        private Texture2D gridTexture;
 
-        private readonly List<Point> _slotsCapturedForRendering = [];
-        private readonly SCameraManager _cameraManager = gameInstance.CameraManager;
+        private readonly ISCameraManager cameraManager = gameInstance.CameraManager;
 
         public override void Initialize()
         {
-            this._gridTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_2");
+            this.gridTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_2");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Draw2DWorldGrid(spriteBatch);
-            GetAllElementsForRendering();
-            DrawAllCapturedElements(gameTime, spriteBatch);
+            foreach (SWorldSlot worldSlot in GetAllSlotsForRendering(spriteBatch))
+            {
+                if (!worldSlot.BackgroundLayer.IsEmpty)
+                {
+                    DrawWorldSlotLayer(gameTime, spriteBatch, worldSlot.Position, SWorldLayer.Background, worldSlot, worldSlot.GetLayer(SWorldLayer.Background).Element);
+                }
+
+                if (!worldSlot.ForegroundLayer.IsEmpty)
+                {
+                    DrawWorldSlotLayer(gameTime, spriteBatch, worldSlot.Position, SWorldLayer.Foreground, worldSlot, worldSlot.GetLayer(SWorldLayer.Foreground).Element);
+                }
+            }
         }
 
-        private void Draw2DWorldGrid(SpriteBatch spriteBatch)
+        private IEnumerable<SWorldSlot> GetAllSlotsForRendering(SpriteBatch spriteBatch)
         {
-            for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
+            float gridScale = SWorldConstants.GRID_SCALE * this.cameraManager.Zoom;
+
+            Vector2 cameraTopLeft = this.cameraManager.ScreenToWorld(Vector2.Zero);
+            Vector2 cameraBottomRight = this.cameraManager.ScreenToWorld(new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
+
+            Point minSlot = new(
+                (int)Math.Floor(cameraTopLeft.X / gridScale),
+                (int)Math.Floor(cameraTopLeft.Y / gridScale)
+            );
+
+            Point maxSlot = new(
+                (int)Math.Ceiling(cameraBottomRight.X / gridScale),
+                (int)Math.Ceiling(cameraBottomRight.Y / gridScale)
+            );
+
+            minSlot.X = Math.Max(minSlot.X, 0);
+            minSlot.Y = Math.Max(minSlot.Y, 0);
+            maxSlot.X = Math.Min(maxSlot.X, this.SWorldInstance.Infos.Size.Width - 1);
+            maxSlot.Y = Math.Min(maxSlot.Y, this.SWorldInstance.Infos.Size.Height - 1);
+
+            for (int y = minSlot.Y; y <= maxSlot.Y; y++)
             {
-                for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
+                for (int x = minSlot.X; x <= maxSlot.X; x++)
                 {
                     Vector2 targetPosition = new(x, y);
                     SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
 
-                    if (this._cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
-                        spriteBatch.Draw(this._gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new Color(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+
+                        if (this.SWorldInstance.TryGetWorldSlot(targetPosition.ToPoint(), out SWorldSlot value))
+                        {
+                            yield return value;
+                        }
                     }
                 }
             }
         }
 
-        private void GetAllElementsForRendering()
+        private void DrawWorldSlotLayer(GameTime gameTime, SpriteBatch spriteBatch, Point position, SWorldLayer worldLayer, SWorldSlot worldSlot, ISElement element)
         {
-            this._slotsCapturedForRendering.Clear();
+            this.elementRenderingContext.UpdateInformation(position, worldLayer, worldSlot);
 
-            for (int y = 0; y < this.SWorldInstance.Infos.Size.Height; y++)
-            {
-                for (int x = 0; x < this.SWorldInstance.Infos.Size.Width; x++)
-                {
-                    Vector2 targetPosition = new(x, y);
-                    SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
-
-                    if (this._cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
-                    {
-                        this._slotsCapturedForRendering.Add(targetPosition.ToPoint());
-                    }
-                }
-            }
-        }
-
-        private void DrawAllCapturedElements(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            foreach (Point position in this._slotsCapturedForRendering)
-            {
-                if (!this.SWorldInstance.IsEmptyElementSlot(position))
-                {
-                    ISElement element = this.SWorldInstance.GetElementSlot(position).Element;
-
-                    this.elementRenderingContext.UpdateInformation(this.SWorldInstance.GetElementSlot(position), position);
-
-                    element.Context = this.elementRenderingContext;
-                    ((SElement)element).Draw(gameTime, spriteBatch);
-
-                    // [ DEBUG ]
-                    //spriteBatch.DrawString(this.SGameInstance.AssetDatabase.Fonts[0], this.SWorldInstance.GetElementSlot(position).Temperature.ToString(), new(position.X * 32, position.Y * 32), Color.Red, 0f, Vector2.Zero, new(0.05f), SpriteEffects.None, 0f, false);
-                }
-            }
+            element.Context = this.elementRenderingContext;
+            element.Draw(gameTime, spriteBatch);
         }
     }
 }

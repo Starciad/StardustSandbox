@@ -1,17 +1,23 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Elements.Rendering;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElement
     {
-        uint Id { get; }
+        uint Identifier { get; }
         Texture2D Texture { get; }
+
+        Color ReferenceColor { get; }
 
         int DefaultDispersionRate { get; }
         short DefaultTemperature { get; }
         short DefaultFlammabilityResistance { get; }
+        short DefaultDensity { get; }
 
         bool EnableDefaultBehaviour { get; }
         bool EnableNeighborsAction { get; }
@@ -20,5 +26,11 @@ namespace StardustSandbox.Core.Interfaces.Elements
 
         SElementRendering Rendering { get; }
         ISElementContext Context { get; set; }
+
+        void Update(GameTime gameTime);
+        void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+        void InstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer);
+        void Steps();
     }
 }

@@ -1,55 +1,72 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
+﻿using StardustSandbox.Core.Constants.GUI;
+
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
-    public sealed partial class SGUI_HUD
+    internal sealed partial class SGUI_HUD
     {
-        private void WeatherSettingsButton()
+        #region LEFT PANEL
+        #region Top Buttons
+        private void EnvironmentSettingsButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ENVIRONMENT_SETTINGS_IDENTIFIER);
+        }
+
+        private void PenSettingsButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER);
+        }
+
+        private void ScreenshotButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER);
+        }
+
+        private void WorldSettingsButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER);
+        }
+        #endregion
+
+        #region Bottom Buttons
+        private void PauseSimulationButtonAction()
+        {
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = !this.SGameInstance.GameManager.GameState.IsSimulationPaused;
+        }
+        #endregion
+        #endregion
+
+        // ==================================================== //
+
+        #region RIGHT PANEL
+        #region Top Buttons
+        private void GameMenuButtonAction()
+        {
+            this.SGameInstance.GUIManager.CloseGUI();
+        }
+
+        private void SaveMenuButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER);
+        }
+        #endregion
+
+        #region Bottom Buttons
+        private void EraserButtonAction()
         {
 
         }
 
-        private void PenSettingsButton()
+        private void ReloadSimulationButtonAction()
         {
-
+            this.world.Reload();
         }
 
-        private void ScreenshotButton()
+        private void EraseEverythingButtonAction()
         {
-
+            this.SGameInstance.EntityManager.RemoveAll();
+            this.world.Reset();
         }
-
-        private void WorldSettingsButton()
-        {
-
-        }
-
-        private void PauseSimulationButton()
-        {
-
-        }
-
-        private void GameMenuButton()
-        {
-
-        }
-
-        private void SaveButton()
-        {
-
-        }
-
-        private void EraserButton()
-        {
-
-        }
-
-        private void UndoButton()
-        {
-
-        }
-
-        private void ClearWorld()
-        {
-            this.world.Clear();
-        }
+        #endregion
+        #endregion
     }
 }

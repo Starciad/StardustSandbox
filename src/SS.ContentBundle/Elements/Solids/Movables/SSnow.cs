@@ -6,14 +6,16 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SSnow : SMovableSolid
+    internal sealed class SSnow : SMovableSolid
     {
-        public SSnow(ISGame gameInstance) : base(gameInstance)
+        internal SSnow(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Snow;
+            this.identifier = (uint)SElementId.Snow;
+            this.referenceColor = new(202, 242, 239, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_8");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = -15;
+            this.defaultDensity = 600;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

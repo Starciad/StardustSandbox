@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISGUIDatabase
     {
         public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs.Values];
 
@@ -25,7 +26,7 @@ namespace StardustSandbox.Core.Databases
             this._registeredGUIs.Add(identifier, guiSystem);
         }
 
-        public SGUISystem Find(string identifier)
+        public SGUISystem GetGUISystemById(string identifier)
         {
             return this._registeredGUIs[identifier];
         }

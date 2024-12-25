@@ -1,38 +1,93 @@
-﻿using StardustSandbox.Core.Constants;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Enums.World;
+
+using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 {
     public sealed class SSimulationPen
     {
-        public byte Size => this.size;
-
-        private byte size = 1;
-
-        public void AddSize(byte value)
+        public sbyte Size
         {
-            if (this.size + value > SInputConstants.PEN_MAX_SIZE)
-            {
-                this.size = SInputConstants.PEN_MAX_SIZE;
-                return;
-            }
+            get => this.size;
+            set => this.size = sbyte.Clamp(value, SInputConstants.PEN_MIN_SIZE, SInputConstants.PEN_MAX_SIZE);
+        }
+        public SPenTool Tool { get; set; }
+        public SWorldLayer Layer { get; set; }
+        public SPenShape Shape { get; set; }
 
-            this.size += value;
+        private sbyte size = SInputConstants.PEN_MIN_SIZE;
+
+        private readonly List<Point> _buffer = [];
+
+        public SSimulationPen()
+        {
+            this.Tool = SPenTool.Pencil;
+            this.Layer = SWorldLayer.Foreground;
+            this.Shape = SPenShape.Circle;
         }
 
-        public void RemoveSize(byte value)
+        public IEnumerable<Point> GetPenShapePoints(Point position)
         {
-            if (this.size - value < SInputConstants.PEN_MIN_SIZE)
+            this._buffer.Clear();
+
+            switch (this.Shape)
             {
-                this.size = SInputConstants.PEN_MIN_SIZE;
-                return;
+                case SPenShape.Circle:
+                    FillCirclePositions(position, this.Size);
+                    break;
+                case SPenShape.Square:
+                    FillSquarePositions(position, this.Size);
+                    break;
+                case SPenShape.Triangle:
+                    FillTrianglePositions(position, this.Size);
+                    break;
+                default:
+                    throw new NotSupportedException($"Shape {this.Shape} is not supported.");
             }
 
-            this.size -= value;
+            return this._buffer;
         }
 
-        public void SetSize(byte value)
+        private void FillCirclePositions(Point position, int radius)
         {
-            this.size = byte.Clamp(value, SInputConstants.PEN_MIN_SIZE, SInputConstants.PEN_MAX_SIZE);
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    if ((x * x) + (y * y) <= radius * radius)
+                    {
+                        this._buffer.Add(new Point(position.X + x, position.Y + y));
+                    }
+                }
+            }
+        }
+
+        private void FillSquarePositions(Point position, int radius)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                for (int y = -radius; y <= radius; y++)
+                {
+                    this._buffer.Add(new Point(position.X + x, position.Y + y));
+                }
+            }
+        }
+
+        private void FillTrianglePositions(Point position, int radius)
+        {
+            for (int y = 0; y <= radius; y++)
+            {
+                int rowWidth = radius - y;
+                for (int x = -rowWidth; x <= rowWidth; x++)
+                {
+                    this._buffer.Add(new Point(position.X + x, position.Y - y + (radius / 2)));
+                }
+            }
         }
     }
 }

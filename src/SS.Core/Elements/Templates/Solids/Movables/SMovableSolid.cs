@@ -13,35 +13,32 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
     {
         protected override void OnBehaviourStep()
         {
-            Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Down);
-
-            if (this.Context.Slot.FreeFalling)
+            if (this.Context.SlotLayer.FreeFalling)
             {
-                for (int i = 0; i < belowPositions.Length; i++)
+                foreach (Point belowPosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down))
                 {
-                    Point position = belowPositions[i];
-
-                    if (TrySetPosition(position))
+                    if (TrySetPosition(belowPosition))
                     {
-                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, position);
-                        this.Context.SetElementFreeFalling(position, true);
+                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
+                        this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
                         return;
                     }
                 }
 
-                this.Context.SetElementFreeFalling(false);
+                this.Context.SetElementFreeFalling(this.Context.Layer, false);
             }
             else
             {
-                if (TrySetPosition(new(this.Context.Position.X, this.Context.Position.Y + 1)))
+                Point below = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
+                if (TrySetPosition(below))
                 {
-                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
-                    this.Context.SetElementFreeFalling(belowPositions[0], true);
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, below);
+                    this.Context.SetElementFreeFalling(below, this.Context.Layer, true);
                     return;
                 }
                 else
                 {
-                    this.Context.SetElementFreeFalling(false);
+                    this.Context.SetElementFreeFalling(this.Context.Layer, false);
                     return;
                 }
             }
@@ -54,9 +51,17 @@ namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
                 return true;
             }
 
-            if (this.Context.TryGetElement(position, out ISElement value))
+            if (this.Context.TryGetElement(position, this.Context.Layer, out ISElement value))
             {
-                if ((value is SLiquid || value is SGas) && this.Context.TrySwappingElements(position))
+                if (value is SLiquid liquid)
+                {
+                    if (this.DefaultDensity > liquid.DefaultDensity && this.Context.TrySwappingElements(position))
+                    {
+                        return true;
+                    }
+                }
+
+                if (value is SGas && this.Context.TrySwappingElements(position))
                 {
                     return true;
                 }

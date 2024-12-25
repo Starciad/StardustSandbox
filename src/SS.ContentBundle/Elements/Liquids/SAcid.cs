@@ -1,41 +1,47 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
+﻿using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.World.Data;
 
-using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    public class SAcid : SLiquid
+    internal sealed class SAcid : SLiquid
     {
-        public SAcid(ISGame gameInstance) : base(gameInstance)
+        internal SAcid(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Acid;
+            this.identifier = (uint)SElementId.Acid;
+            this.referenceColor = new(059, 167, 005, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_11");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 10;
             this.enableNeighborsAction = true;
+            this.defaultDensity = 1100;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            for (int i = 0; i < length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                (Point position, ISWorldSlot slot) = neighbors[i];
+                SWorldSlotLayer slotLayer = neighbor.GetLayer(this.Context.Layer);
 
-                if (slot.Element is SAcid ||
-                    slot.Element is SWall)
+                if (slotLayer.IsEmpty)
                 {
                     continue;
                 }
 
+                switch (slotLayer.Element)
+                {
+                    case SAcid:
+                    case SWall:
+                        continue;
+                }
+
                 this.Context.DestroyElement();
-                this.Context.DestroyElement(position);
+                this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
             }
         }
     }

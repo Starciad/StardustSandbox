@@ -637,6 +637,15 @@ namespace StardustSandbox.ContentBundle.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Play.
+        /// </summary>
+        internal static string GUI_Menu_Main_Button_Play {
+            get {
+                return ResourceManager.GetString("GUI.Menu.Main.Button.Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Quit.
         /// </summary>
         internal static string GUI_Menu_Main_Button_Quit {

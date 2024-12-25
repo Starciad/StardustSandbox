@@ -4,7 +4,7 @@ using StardustSandbox.Core.Controllers.GameInput.Handlers;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Controllers.GameInput
@@ -21,9 +21,9 @@ namespace StardustSandbox.Core.Controllers.GameInput
         private readonly SSimulationHandler simulationHandler;
         private readonly SWorldHandler worldHandler;
 
-        private readonly SInputManager inputManager;
-
         private readonly SInputActionMapHandler actionHandler;
+
+        private readonly ISInputManager inputManager;
 
         public SGameInputController(ISGame gameInstance) : base(gameInstance)
         {
@@ -55,11 +55,11 @@ namespace StardustSandbox.Core.Controllers.GameInput
         {
             if (this.inputManager.GetDeltaScrollWheel() > 0)
             {
-                this.pen.RemoveSize(1);
+                this.pen.Size--;
             }
             else if (this.inputManager.GetDeltaScrollWheel() < 0)
             {
-                this.pen.AddSize(1);
+                this.pen.Size++;
             }
         }
 

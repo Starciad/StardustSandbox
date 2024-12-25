@@ -6,16 +6,18 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SWood : SImmovableSolid
+    internal sealed class SWood : SImmovableSolid
     {
-        public SWood(ISGame gameInstance) : base(gameInstance)
+        internal SWood(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Wood;
+            this.identifier = (uint)SElementId.Wood;
+            this.referenceColor = new(67, 34, 0, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_15");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 20;
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 35;
+            this.defaultDensity = 700;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

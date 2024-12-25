@@ -189,16 +189,16 @@
   <data name="Element.Energy.Fire.Name" xml:space="preserve">
     <value>Fogo</value>
   </data>
-  <data name="GUI.Menu.Main.Create" xml:space="preserve">
+  <data name="GUI.Menu.Main.Button.Create" xml:space="preserve">
     <value>Criar</value>
   </data>
-  <data name="GUI.Menu.Main.Options" xml:space="preserve">
+  <data name="GUI.Menu.Main.Button.Options" xml:space="preserve">
     <value>Opções</value>
   </data>
-  <data name="GUI.Menu.Main.Credits" xml:space="preserve">
+  <data name="GUI.Menu.Main.Button.Credits" xml:space="preserve">
     <value>Créditos</value>
   </data>
-  <data name="GUI.Menu.Main.Quit" xml:space="preserve">
+  <data name="GUI.Menu.Main.Button.Quit" xml:space="preserve">
     <value>Sair</value>
   </data>
   <data name="Item.Category.Powders" xml:space="preserve">
@@ -398,5 +398,8 @@
   </data>
   <data name="GUI.Menu.Options.Section.Video.Borderless" xml:space="preserve">
     <value>Janela sem Borda</value>
+  </data>
+  <data name="GUI.Menu.Main.Button.Play" xml:space="preserve">
+    <value>Jogar</value>
   </data>
 </root>

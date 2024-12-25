@@ -2,84 +2,105 @@
 
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Helpers;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Components.Common.World
 {
-    public sealed class SWorldUpdatingComponent(ISGame gameInstance, SWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
+    public sealed class SWorldUpdatingComponent(ISGame gameInstance, ISWorld worldInstance) : SWorldComponent(gameInstance, worldInstance)
     {
+        private SUpdateCycleFlag updateCycleFlag;
+        private SUpdateCycleFlag stepCycleFlag;
+
         private readonly SElementContext elementUpdateContext = new(worldInstance);
-        private readonly List<Point> capturedSlots = [];
 
         public override void Update(GameTime gameTime)
         {
-            this.capturedSlots.Clear();
-            GetAllElementsForUpdating(gameTime);
-            UpdateAllCapturedElements(gameTime);
+            foreach (SWorldSlot worldSlot in GetAllSlotsForUpdating())
+            {
+                if (!worldSlot.ForegroundLayer.IsEmpty)
+                {
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Update);
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Foreground, worldSlot, SWorldThreadUpdateType.Step);
+                }
+
+                if (!worldSlot.BackgroundLayer.IsEmpty)
+                {
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Update);
+                    UpdateWorldSlotLayerTarget(gameTime, worldSlot.Position, SWorldLayer.Background, worldSlot, SWorldThreadUpdateType.Step);
+                }
+            }
+
+            this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
+            this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void GetAllElementsForUpdating(GameTime gameTime)
+        private IEnumerable<SWorldSlot> GetAllSlotsForUpdating()
         {
-            SWorldChunk[] worldChunks = this.SWorldInstance.GetActiveChunks();
-
-            for (int i = 0; i < worldChunks.Length; i++)
+            foreach (SWorldChunk worldChunk in this.SWorldInstance.GetActiveChunks())
             {
-                SWorldChunk worldChunk = worldChunks[i];
-
                 for (int y = 0; y < SWorldConstants.CHUNK_SCALE; y++)
                 {
                     for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point pos = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
+                        Point position = new((worldChunk.Position.X / SWorldConstants.GRID_SCALE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SCALE) + y);
 
-                        if (this.SWorldInstance.IsEmptyElementSlot(pos))
+                        if (!this.SWorldInstance.TryGetWorldSlot(position, out SWorldSlot worldSlot))
                         {
                             continue;
                         }
 
-                        UpdateElementTarget(gameTime, pos, SWorldThreadUpdateType.Update);
-                        this.capturedSlots.Add(pos);
+                        yield return worldSlot;
                     }
                 }
             }
         }
 
-        private void UpdateAllCapturedElements(GameTime gameTime)
+        private void UpdateWorldSlotLayerTarget(GameTime gameTime, Point position, SWorldLayer worldLayer, SWorldSlot worldSlot, SWorldThreadUpdateType updateType)
         {
-            this.capturedSlots.ForEach(x => UpdateElementTarget(gameTime, x, SWorldThreadUpdateType.Step));
-        }
+            SWorldSlotLayer worldSlotLayer = worldSlot.GetLayer(worldLayer);
+            ISElement element = worldSlotLayer.Element;
 
-        private void UpdateElementTarget(GameTime gameTime, Point position, SWorldThreadUpdateType updateType)
-        {
-            ISWorldSlot slot = this.SWorldInstance.GetElementSlot(position);
-
-            if (this.SWorldInstance.TryGetElement(position, out ISElement value))
+            if (worldSlotLayer == null || element == null)
             {
-                this.elementUpdateContext.UpdateInformation(slot, position);
-                value.Context = this.elementUpdateContext;
+                return;
+            }
 
-                switch (updateType)
-                {
-                    case SWorldThreadUpdateType.Update:
-                        ((SElement)value).Update(gameTime);
+            this.elementUpdateContext.UpdateInformation(position, worldLayer, worldSlot);
+            element.Context = this.elementUpdateContext;
+
+            switch (updateType)
+            {
+                case SWorldThreadUpdateType.Update:
+                    if (worldSlotLayer.UpdateCycleFlag == this.updateCycleFlag)
+                    {
                         break;
+                    }
 
-                    case SWorldThreadUpdateType.Step:
-                        ((SElement)value).Steps();
+                    worldSlotLayer.NextUpdateCycle();
+                    element.Update(gameTime);
+                    break;
+
+                case SWorldThreadUpdateType.Step:
+                    if (worldSlotLayer.StepCycleFlag == this.stepCycleFlag)
+                    {
                         break;
+                    }
 
-                    default:
-                        return;
-                }
+                    worldSlotLayer.NextStepCycle();
+                    element.Steps();
+                    break;
+
+                default:
+                    return;
             }
         }
     }

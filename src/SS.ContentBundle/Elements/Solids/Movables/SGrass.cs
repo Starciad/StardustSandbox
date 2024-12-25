@@ -6,16 +6,18 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SGrass : SMovableSolid
+    internal sealed class SGrass : SMovableSolid
     {
-        public SGrass(ISGame gameInstance) : base(gameInstance)
+        internal SGrass(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Grass;
+            this.identifier = (uint)SElementId.Grass;
+            this.referenceColor = new(69, 110, 55, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_5");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 22;
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 10;
+            this.defaultDensity = 1100;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

@@ -2,9 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Managers.IO;
@@ -18,23 +22,23 @@ namespace StardustSandbox.Core
 {
     public sealed partial class SGame : Game, ISGame
     {
-        public SAssetDatabase AssetDatabase => this.assetDatabase;
-        public SElementDatabase ElementDatabase => this.elementDatabase;
-        public SGUIDatabase GUIDatabase => this.guiDatabase;
-        public SItemDatabase ItemDatabase => this.itemDatabase;
-        public SBackgroundDatabase BackgroundDatabase => this.backgroundDatabase;
-        public SEntityDatabase EntityDatabase => this.entityDatabase;
+        public ISAssetDatabase AssetDatabase => this.assetDatabase;
+        public ISElementDatabase ElementDatabase => this.elementDatabase;
+        public ISGUIDatabase GUIDatabase => this.guiDatabase;
+        public ISItemDatabase ItemDatabase => this.itemDatabase;
+        public ISBackgroundDatabase BackgroundDatabase => this.backgroundDatabase;
+        public ISEntityDatabase EntityDatabase => this.entityDatabase;
 
-        public SInputManager InputManager => this.inputManager;
-        public SCameraManager CameraManager => this.cameraManager;
-        public SGraphicsManager GraphicsManager => this.graphicsManager;
-        public SGUIManager GUIManager => this.guiManager;
-        public SEntityManager EntityManager => this.entityManager;
-        public SGameManager GameManager => this.gameManager;
-        public SBackgroundManager BackgroundManager => this.backgroundManager;
-        public SCursorManager CursorManager => this.cursorManager;
+        public ISInputManager InputManager => this.inputManager;
+        public ISCameraManager CameraManager => this.cameraManager;
+        public ISGraphicsManager GraphicsManager => this.graphicsManager;
+        public ISGUIManager GUIManager => this.guiManager;
+        public ISEntityManager EntityManager => this.entityManager;
+        public ISGameManager GameManager => this.gameManager;
+        public ISBackgroundManager BackgroundManager => this.backgroundManager;
+        public ISCursorManager CursorManager => this.cursorManager;
 
-        public SWorld World => this.world;
+        public ISWorld World => this.world;
         public SGameInputController GameInputController => this.gameInputController;
 
         // ================================= //
@@ -71,10 +75,17 @@ namespace StardustSandbox.Core
 
         public SGame()
         {
+            // Graphics
             this.graphicsManager = new(this, new GraphicsDeviceManager(this));
 
             // Load Settings
             SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+
+            if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
+            {
+                videoSettings.UpdateResolution(this.GraphicsDevice);
+                SSettingsManager.SaveSettings(videoSettings);
+            }
 
             // Initialize Content
             this.Content.RootDirectory = SDirectoryConstants.ASSETS;
@@ -83,6 +94,7 @@ namespace StardustSandbox.Core
             this.Window.IsBorderless = videoSettings.Borderless;
             this.Window.Title = SGameConstants.GetTitleAndVersionString();
             this.Window.AllowUserResizing = true;
+            this.graphicsManager.SetGameWindow(this.Window);
 
             // Configure game settings
             this.TargetElapsedTime = TimeSpan.FromSeconds(1f / SScreenConstants.DEFAULT_FRAME_RATE);

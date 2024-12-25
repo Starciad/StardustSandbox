@@ -1,32 +1,32 @@
 ﻿using StardustSandbox.Core.Controllers.GameInput;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.World;
+using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.Core.Interfaces.General
 {
     public interface ISGame
     {
         // Databases
-        SAssetDatabase AssetDatabase { get; }
-        SElementDatabase ElementDatabase { get; }
-        SGUIDatabase GUIDatabase { get; }
-        SItemDatabase ItemDatabase { get; }
-        SBackgroundDatabase BackgroundDatabase { get; }
-        SEntityDatabase EntityDatabase { get; }
+        ISAssetDatabase AssetDatabase { get; }
+        ISElementDatabase ElementDatabase { get; }
+        ISGUIDatabase GUIDatabase { get; }
+        ISItemDatabase ItemDatabase { get; }
+        ISBackgroundDatabase BackgroundDatabase { get; }
+        ISEntityDatabase EntityDatabase { get; }
 
         // Managers
-        SGameManager GameManager { get; }
-        SInputManager InputManager { get; }
-        SCameraManager CameraManager { get; }
-        SGraphicsManager GraphicsManager { get; }
-        SGUIManager GUIManager { get; }
-        SEntityManager EntityManager { get; }
-        SBackgroundManager BackgroundManager { get; }
-        SCursorManager CursorManager { get; }
+        ISGameManager GameManager { get; }
+        ISInputManager InputManager { get; }
+        ISCameraManager CameraManager { get; }
+        ISGraphicsManager GraphicsManager { get; }
+        ISGUIManager GUIManager { get; }
+        ISEntityManager EntityManager { get; }
+        ISBackgroundManager BackgroundManager { get; }
+        ISCursorManager CursorManager { get; }
 
         // Core
-        SWorld World { get; }
+        ISWorld World { get; }
         SGameInputController GameInputController { get; }
 
         void Quit();

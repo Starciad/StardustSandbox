@@ -1,10 +1,10 @@
 ﻿namespace StardustSandbox.Core.Enums.General
 {
-    public enum SDirection
+    public enum SDirection : byte
     {
-        Up,
-        Left,
-        Down,
-        Right
+        Up = 0,
+        Left = 1,
+        Down = 2,
+        Right = 3
     }
 }

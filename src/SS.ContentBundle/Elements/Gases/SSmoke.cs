@@ -5,14 +5,16 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases
 {
-    public sealed class SSmoke : SGas
+    internal sealed class SSmoke : SGas
     {
-        public SSmoke(ISGame gameInstance) : base(gameInstance)
+        internal SSmoke(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Smoke;
+            this.identifier = (uint)SElementId.Smoke;
+            this.referenceColor = new(56, 56, 56, 191);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_20");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.defaultTemperature = 100;
+            this.defaultTemperature = 350;
+            this.defaultDensity = 2;
         }
     }
 }

@@ -6,14 +6,16 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    public sealed class SStone : SMovableSolid
+    internal sealed class SStone : SMovableSolid
     {
-        public SStone(ISGame gameInstance) : base(gameInstance)
+        internal SStone(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Stone;
+            this.identifier = (uint)SElementId.Stone;
+            this.referenceColor = new(66, 65, 65, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_4");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 20;
+            this.defaultDensity = 2500;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

@@ -4,13 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 
 using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SEntityManager(ISGame gameInstance) : SManager(gameInstance)
+    internal sealed class SEntityManager(ISGame gameInstance) : SManager(gameInstance), ISEntityManager
     {
         public SEntity[] InstantiatedEntities => [.. this.instantiatedEntities];
 
@@ -78,6 +79,14 @@ namespace StardustSandbox.Core.Managers
             foreach (SEntity entity in this.InstantiatedEntities)
             {
                 Destroy(entity);
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (SEntity entity in this.InstantiatedEntities)
+            {
+                entity.Reset();
             }
         }
     }

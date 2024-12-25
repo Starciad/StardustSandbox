@@ -1,77 +1,84 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.World.Data
 {
-    public sealed class SWorldSlot : ISWorldSlot
+    public sealed class SWorldSlot : ISPoolableObject
     {
-        public ISElement Element => this.element;
-        public bool IsEmpty => this.isEmpty;
-        public short Temperature => this.temperature;
-        public bool FreeFalling => this.freeFalling;
-        public Color Color => this.color;
+        public bool IsEmpty => this.ForegroundLayer.IsEmpty && this.BackgroundLayer.IsEmpty;
+        public Point Position => this.position;
 
-        private bool isEmpty;
-        private short temperature;
-        private bool freeFalling;
-        private Color color;
+        public SWorldSlotLayer ForegroundLayer => this.foregroundLayer;
+        public SWorldSlotLayer BackgroundLayer => this.backgroundLayer;
 
-        private ISElement element;
+        private Point position;
 
-        public SWorldSlot()
+        private readonly SWorldSlotLayer foregroundLayer = new();
+        private readonly SWorldSlotLayer backgroundLayer = new();
+
+        internal SWorldSlot()
         {
-            Reset();
+
         }
 
-        public void Instantiate(ISElement value)
+        public SWorldSlotLayer GetLayer(SWorldLayer worldLayer)
         {
-            this.isEmpty = false;
-            this.element = value;
-            this.temperature = value.DefaultTemperature;
-            this.freeFalling = false;
-            this.color = Color.White;
+            return worldLayer switch
+            {
+                SWorldLayer.Foreground => this.foregroundLayer,
+                SWorldLayer.Background => this.backgroundLayer,
+                _ => null,
+            };
         }
 
-        public void Destroy()
+        public void SetPosition(Point position)
         {
-            this.isEmpty = true;
-            this.element = null;
-            this.temperature = 0;
-            this.freeFalling = false;
-            this.color = Color.Transparent;
+            this.position = position;
         }
 
-        public void Copy(SWorldSlot value)
+        public void Instantiate(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            this.isEmpty = value.isEmpty;
-            this.temperature = value.temperature;
-            this.freeFalling = value.freeFalling;
-            this.color = value.color;
-
-            this.element = value.element;
+            this.position = position;
+            GetLayer(worldLayer).Instantiate(value);
         }
 
-        public void SetTemperatureValue(int value)
+        public void Destroy(SWorldLayer worldLayer)
         {
-            this.temperature = STemperatureMath.Clamp(value);
+            GetLayer(worldLayer).Destroy();
         }
 
-        public void SetFreeFalling(bool value)
+        public void Copy(SWorldLayer worldLayer, SWorldSlotLayer valueToCopy)
         {
-            this.freeFalling = value;
+            GetLayer(worldLayer).Copy(valueToCopy);
         }
 
-        public void SetColor(Color color)
+        public void SetTemperatureValue(SWorldLayer worldLayer, short value)
         {
-            this.color = color;
+            GetLayer(worldLayer).SetTemperatureValue(value);
+        }
+
+        public void SetFreeFalling(SWorldLayer worldLayer, bool value)
+        {
+            GetLayer(worldLayer).SetFreeFalling(value);
+        }
+
+        public void SetColorModifier(SWorldLayer worldLayer, Color value)
+        {
+            GetLayer(worldLayer).SetColorModifier(value);
+        }
+
+        public void Reset(SWorldLayer worldLayer)
+        {
+            GetLayer(worldLayer).Reset();
         }
 
         public void Reset()
         {
-            Destroy();
+            this.foregroundLayer.Reset();
+            this.backgroundLayer.Reset();
         }
     }
 }

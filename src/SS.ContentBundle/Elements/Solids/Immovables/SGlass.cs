@@ -5,14 +5,16 @@ using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public sealed class SGlass : SImmovableSolid
+    internal sealed class SGlass : SImmovableSolid
     {
-        public SGlass(ISGame gameInstance) : base(gameInstance)
+        internal SGlass(ISGame gameInstance) : base(gameInstance)
         {
-            this.id = (uint)SElementId.Glass;
+            this.identifier = (uint)SElementId.Glass;
+            this.referenceColor = new(249, 253, 254, 21);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_12");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 25;
+            this.defaultDensity = 2500;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

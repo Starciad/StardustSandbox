@@ -1,9 +1,9 @@
 ﻿namespace StardustSandbox.Core.Enums.InputSystem
 {
-    public enum SInputCallbackState
+    public enum SInputCallbackState : byte
     {
-        Started,
-        Performed,
-        Canceled
+        Started = 0,
+        Performed = 1,
+        Canceled = 2
     }
 }

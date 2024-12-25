@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SCameraManager : SManager
+    internal sealed class SCameraManager : SManager, ISCameraManager
     {
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
@@ -67,16 +68,12 @@ namespace StardustSandbox.Core.Managers
         private float _minimumZoom;
         private float _zoom;
 
-        private readonly SGraphicsManager _graphicsManager;
+        private readonly ISGraphicsManager _graphicsManager;
 
         public SCameraManager(ISGame gameInstance) : base(gameInstance)
         {
             this._graphicsManager = gameInstance.GraphicsManager;
-
-            this.Rotation = 0;
-            this.Zoom = 1;
-            this.Origin = new Vector2(this._graphicsManager.Viewport.Width, this._graphicsManager.Viewport.Height) / 2f;
-            this.Position = Vector2.Zero;
+            Reset();
         }
 
         public void Move(Vector2 direction)
@@ -160,6 +157,14 @@ namespace StardustSandbox.Core.Managers
 
             return screenBottomRight.X >= 0 && screenTopLeft.X < viewport.Width &&
                    screenBottomRight.Y >= 0 && screenTopLeft.Y < viewport.Height;
+        }
+
+        public void Reset()
+        {
+            this.Rotation = 0;
+            this.Zoom = 1;
+            this.Origin = new Vector2(this._graphicsManager.Viewport.Width, this._graphicsManager.Viewport.Height) / 2f;
+            this.Position = Vector2.Zero;
         }
     }
 }

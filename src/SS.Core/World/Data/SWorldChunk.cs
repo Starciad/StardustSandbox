@@ -1,26 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Constants;
+
 namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldChunk(Point position)
     {
-        public Point Position => this._position;
-        public bool ShouldUpdate => this._shouldUpdate;
+        public Point Position => position;
+        public bool ShouldUpdate => this.activeCooldown > 0;
 
-        private readonly Point _position = position;
-
-        private bool _shouldUpdate = true;
-        private bool _shouldUpdateNextFrame = true;
+        private byte activeCooldown = SWorldConstants.CHUNK_DEFAULT_COOLDOWN;
 
         public void Update()
         {
-            this._shouldUpdate = this._shouldUpdateNextFrame;
-            this._shouldUpdateNextFrame = false;
+            if (this.activeCooldown > 0)
+            {
+                this.activeCooldown--;
+            }
         }
 
         public void Notify()
         {
-            this._shouldUpdateNextFrame = true;
+            SetCooldown(SWorldConstants.CHUNK_DEFAULT_COOLDOWN);
+        }
+
+        internal void SetCooldown(byte value)
+        {
+            this.activeCooldown = value;
         }
     }
 }

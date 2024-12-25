@@ -4,13 +4,9 @@ namespace StardustSandbox.Core.World.Data
 {
     public sealed class SWorldInfo
     {
-        public SSize2 Size => this.size;
-
-        private SSize2 size;
-
-        public void SetSize(SSize2 size)
-        {
-            this.size = size;
-        }
+        public byte[] Identifier { get; internal set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public SSize2 Size { get; set; }
     }
 }
