@@ -55,7 +55,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.titleElement = new(this.SGameInstance)
             {
                 Scale = new(0.12f),
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8"),
                 Margin = new(0, -16f),
             };
 
@@ -64,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
                 Scale = new(0.078f),
                 Margin = new(0, 64f),
                 LineHeight = 1.25f,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_9"),
             };
 
             this.tooltipLayout = new(gameInstance);

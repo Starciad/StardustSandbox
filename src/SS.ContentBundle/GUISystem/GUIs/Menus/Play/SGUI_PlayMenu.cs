@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.returnIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_16");
             this.worldIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_17");
-            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.menuButtons = [
                 new(this.worldIconTexture, "Worlds", string.Empty, WorldsButtonAction),

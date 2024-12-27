@@ -30,8 +30,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiButton3Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.returnIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_16");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
+            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
 
             this.worldButtons = [
                 new(null, "Return", string.Empty, ReturnButtonAction),

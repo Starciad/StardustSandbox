@@ -53,8 +53,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.guiLargeButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_3");
             this.guiFieldTexture = gameInstance.AssetDatabase.GetTexture("gui_field_1");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
+            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
 
             this.iconTextures = [
                 gameInstance.AssetDatabase.GetTexture("icon_gui_16"),

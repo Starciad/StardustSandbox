@@ -60,7 +60,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.monogameLogoTexture = gameInstance.AssetDatabase.GetTexture("third_party_1");
             this.xnaLogoTexture = gameInstance.AssetDatabase.GetTexture("third_party_2");
             this.creditsMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_2");
-            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
+            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
             this.world = gameInstance.World;
         }
 

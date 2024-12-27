@@ -60,7 +60,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.mainMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_1");
 
-            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.world = gameInstance.World;
 

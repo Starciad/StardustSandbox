@@ -63,8 +63,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
 
-            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
+            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
 
             this.systemButtons = [
                 new(null, SLocalization.Statements_Return, string.Empty, ReturnButtonAction),

@@ -72,7 +72,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
             this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
             this.folderIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_18");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.slotInfoElements = new SSlotInfoElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
 
