@@ -5,8 +5,8 @@ using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
 
 using System.Collections.Generic;
 
@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
         private readonly List<Point> emptyPositionsCache = [];
         private readonly List<Point> validPositionsCache = [];
 
-        public SGas(ISGame gameInstance) : base(gameInstance)
+        public SGas(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.defaultDensity = 1;
         }

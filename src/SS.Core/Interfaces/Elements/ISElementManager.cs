@@ -9,11 +9,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElementManager
     {
-        void InstantiateElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement;
-        void InstantiateElement(Point position, SWorldLayer worldLayer, uint identifier);
+        void InstantiateElement(Point position, SWorldLayer worldLayer, string identifier);
         void InstantiateElement(Point position, SWorldLayer worldLayer, ISElement value);
-        bool TryInstantiateElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement;
-        bool TryInstantiateElement(Point position, SWorldLayer worldLayer, uint identifier);
+        bool TryInstantiateElement(Point position, SWorldLayer worldLayer, string identifier);
         bool TryInstantiateElement(Point position, SWorldLayer worldLayer, ISElement value);
 
         void UpdateElementPosition(Point oldPosition, Point newPosition, SWorldLayer worldLayer);
@@ -25,11 +23,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         void DestroyElement(Point position, SWorldLayer worldLayer);
         bool TryDestroyElement(Point position, SWorldLayer worldLayer);
 
-        void ReplaceElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement;
-        void ReplaceElement(Point position, SWorldLayer worldLayer, uint identifier);
+        void ReplaceElement(Point position, SWorldLayer worldLayer, string identifier);
         void ReplaceElement(Point position, SWorldLayer worldLayer, ISElement value);
-        bool TryReplaceElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement;
-        bool TryReplaceElement(Point position, SWorldLayer worldLayer, uint identifier);
+        bool TryReplaceElement(Point position, SWorldLayer worldLayer, string identifier);
         bool TryReplaceElement(Point position, SWorldLayer worldLayer, ISElement value);
 
         ISElement GetElement(Point position, SWorldLayer worldLayer);

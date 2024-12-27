@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Items;
+﻿using StardustSandbox.Core.Catalog;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 {

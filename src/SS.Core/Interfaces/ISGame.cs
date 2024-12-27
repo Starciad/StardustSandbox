@@ -3,7 +3,7 @@ using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
 
-namespace StardustSandbox.Core.Interfaces.General
+namespace StardustSandbox.Core.Interfaces
 {
     public interface ISGame
     {
@@ -11,7 +11,7 @@ namespace StardustSandbox.Core.Interfaces.General
         ISAssetDatabase AssetDatabase { get; }
         ISElementDatabase ElementDatabase { get; }
         ISGUIDatabase GUIDatabase { get; }
-        ISItemDatabase ItemDatabase { get; }
+        ISCatalogDatabase CatalogDatabase { get; }
         ISBackgroundDatabase BackgroundDatabase { get; }
         ISEntityDatabase EntityDatabase { get; }
 

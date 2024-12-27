@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Core.Interfaces.General;
+﻿using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Components

@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Interfaces.General;
+﻿using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.Core.Components.Templates

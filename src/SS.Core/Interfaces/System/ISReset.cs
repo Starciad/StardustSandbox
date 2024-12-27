@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Core.Interfaces.General
+﻿namespace StardustSandbox.Core.Interfaces.System
 {
     public interface ISReset
     {

@@ -3,11 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
@@ -60,7 +59,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.monogameLogoTexture = gameInstance.AssetDatabase.GetTexture("third_party_1");
             this.xnaLogoTexture = gameInstance.AssetDatabase.GetTexture("third_party_2");
             this.creditsMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_2");
-            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO);
+            this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
             this.world = gameInstance.World;
         }
 

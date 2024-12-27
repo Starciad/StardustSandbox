@@ -6,10 +6,9 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Text;
@@ -37,8 +36,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.typingFieldTexture = gameInstance.AssetDatabase.GetTexture("gui_field_2");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
+            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
 
             this.menuButtons = [
                 new(null, "Cancel", string.Empty, CancelButtonAction),

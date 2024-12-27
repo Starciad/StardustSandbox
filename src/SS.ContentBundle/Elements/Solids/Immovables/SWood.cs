@@ -1,16 +1,14 @@
-﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.ContentBundle.Enums.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class SWood : SImmovableSolid
     {
-        internal SWood(ISGame gameInstance) : base(gameInstance)
+        internal SWood(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Wood;
             this.referenceColor = new(67, 34, 0, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_15");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -24,7 +22,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue >= 300)
             {
-                this.Context.ReplaceElement<SFire>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.FIRE);
             }
         }
     }

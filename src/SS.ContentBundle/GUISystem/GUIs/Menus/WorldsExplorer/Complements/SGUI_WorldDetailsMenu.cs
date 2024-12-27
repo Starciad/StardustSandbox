@@ -4,10 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
@@ -30,8 +29,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiButton3Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.returnIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_16");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
-            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
+            this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
 
             this.worldButtons = [
                 new(null, "Return", string.Empty, ReturnButtonAction),

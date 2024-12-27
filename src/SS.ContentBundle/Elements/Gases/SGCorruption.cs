@@ -1,12 +1,11 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Utilities;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
 
@@ -16,9 +15,8 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
 {
     internal sealed class SGCorruption : SGas, ISCorruption
     {
-        internal SGCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SGCorruption(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.GCorruption;
             this.referenceColor = new(169, 76, 192, 181);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_16");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

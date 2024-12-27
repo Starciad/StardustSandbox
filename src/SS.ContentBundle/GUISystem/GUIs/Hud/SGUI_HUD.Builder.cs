@@ -4,13 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
-using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
+
+using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -233,7 +235,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SItem selectedItem = this.SGameInstance.ItemDatabase.Items[i];
+                SItem selectedItem = this.SGameInstance.CatalogDatabase.Items.ElementAt(i);
 
                 SSlot slot = CreateButtonSlot(baseMargin, selectedItem.IconTexture);
 

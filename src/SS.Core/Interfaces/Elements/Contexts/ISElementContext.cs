@@ -5,7 +5,7 @@ using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Interfaces.Elements
+namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 {
     public interface ISElementContext : ISElementManager
     {
@@ -18,17 +18,13 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TrySetPosition(Point newPosition);
         bool TrySetPosition(Point newPosition, SWorldLayer worldLayer);
 
-        void InstantiateElement<T>() where T : ISElement;
-        void InstantiateElement(uint identifier);
+        void InstantiateElement(string identifier);
         void InstantiateElement(ISElement value);
-        void InstantiateElement<T>(SWorldLayer worldLayer) where T : ISElement;
-        void InstantiateElement(SWorldLayer worldLayer, uint identifier);
+        void InstantiateElement(SWorldLayer worldLayer, string identifier);
         void InstantiateElement(SWorldLayer worldLayer, ISElement value);
-        bool TryInstantiateElement<T>() where T : ISElement;
-        bool TryInstantiateElement(uint identifier);
+        bool TryInstantiateElement(string identifier);
         bool TryInstantiateElement(ISElement value);
-        bool TryInstantiateElement<T>(SWorldLayer worldLayer) where T : ISElement;
-        bool TryInstantiateElement(SWorldLayer worldLayer, uint identifier);
+        bool TryInstantiateElement(SWorldLayer worldLayer, string identifier);
         bool TryInstantiateElement(SWorldLayer worldLayer, ISElement value);
 
         void UpdateElementPosition(Point newPosition);
@@ -46,17 +42,13 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TryDestroyElement();
         bool TryDestroyElement(SWorldLayer worldLayer);
 
-        void ReplaceElement<T>() where T : ISElement;
-        void ReplaceElement<T>(SWorldLayer worldLayer) where T : ISElement;
-        void ReplaceElement(uint identifier);
-        void ReplaceElement(SWorldLayer worldLayer, uint identifier);
+        void ReplaceElement(string identifier);
+        void ReplaceElement(SWorldLayer worldLayer, string identifier);
         void ReplaceElement(ISElement value);
         void ReplaceElement(SWorldLayer worldLayer, ISElement value);
-        bool TryReplaceElement<T>() where T : ISElement;
-        bool TryReplaceElement(uint identifier);
+        bool TryReplaceElement(string identifier);
         bool TryReplaceElement(ISElement value);
-        bool TryReplaceElement<T>(SWorldLayer worldLayer) where T : ISElement;
-        bool TryReplaceElement(SWorldLayer worldLayer, uint identifier);
+        bool TryReplaceElement(SWorldLayer worldLayer, string identifier);
         bool TryReplaceElement(SWorldLayer worldLayer, ISElement value);
 
         ISElement GetElement();

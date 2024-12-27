@@ -1,10 +1,9 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
-using StardustSandbox.ContentBundle.Enums.Elements;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
 
@@ -14,9 +13,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SWater : SLiquid
     {
-        internal SWater(ISGame gameInstance) : base(gameInstance)
+        internal SWater(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Water;
             this.referenceColor = new(8, 120, 284, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -34,14 +32,14 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement<SMud>(neighbor.Position, this.Context.Layer);
+                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementIdentifierConstants.MUD);
                         return;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement<SSand>(neighbor.Position, this.Context.Layer);
+                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementIdentifierConstants.SAND);
                         }
 
                         return;
@@ -57,12 +55,12 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement<SSteam>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.STEAM);
             }
 
             if (currentValue <= 0)
             {
-                this.Context.ReplaceElement<SIce>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.ICE);
             }
         }
     }

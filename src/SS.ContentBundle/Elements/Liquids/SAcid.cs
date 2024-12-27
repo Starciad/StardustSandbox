@@ -1,8 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
@@ -11,9 +10,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SAcid : SLiquid
     {
-        internal SAcid(ISGame gameInstance) : base(gameInstance)
+        internal SAcid(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Acid;
             this.referenceColor = new(059, 167, 005, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_11");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

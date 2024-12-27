@@ -1,17 +1,15 @@
-﻿using StardustSandbox.ContentBundle.Elements.Solids.Movables;
-using StardustSandbox.ContentBundle.Enums.Elements;
-using StardustSandbox.Core.Colors;
+﻿using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SLava : SLiquid
     {
-        internal SLava(ISGame gameInstance) : base(gameInstance)
+        internal SLava(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Lava;
             this.referenceColor = SColorPalette.Orange;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -23,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue <= 500)
             {
-                this.Context.ReplaceElement<SStone>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.STONE);
                 this.Context.SetElementTemperature(500);
             }
         }

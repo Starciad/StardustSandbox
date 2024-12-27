@@ -7,7 +7,8 @@ using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
@@ -136,7 +137,7 @@ namespace StardustSandbox.Core.World
         }
         private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)
         {
-            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementId);
+            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementIdentifier);
 
             SWorldSlot worldSlot = GetWorldSlot(position);
 

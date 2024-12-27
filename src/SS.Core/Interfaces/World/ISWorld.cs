@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World.Data;

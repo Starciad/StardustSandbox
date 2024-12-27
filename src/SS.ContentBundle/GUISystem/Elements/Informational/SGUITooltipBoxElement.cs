@@ -5,11 +5,10 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
@@ -55,7 +54,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.titleElement = new(this.SGameInstance)
             {
                 Scale = new(0.12f),
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8"),
                 Margin = new(0, -16f),
             };
 
@@ -64,7 +63,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
                 Scale = new(0.078f),
                 Margin = new(0, 64f),
                 LineHeight = 1.25f,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_9"),
             };
 
             this.tooltipLayout = new(gameInstance);

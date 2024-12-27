@@ -3,13 +3,13 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
+using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
-using StardustSandbox.Core.Items;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -151,11 +151,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             Vector2 slotMargin = new(0, -160);
 
-            this.categoryButtonSlots = new SSlot[this.SGameInstance.ItemDatabase.TotalCategoryCount];
+            this.categoryButtonSlots = new SSlot[this.SGameInstance.CatalogDatabase.TotalCategoryCount];
 
             int index = 0;
 
-            foreach (SItemCategory category in this.SGameInstance.ItemDatabase.Categories)
+            foreach (SCategory category in this.SGameInstance.CatalogDatabase.Categories)
             {
                 SGUIImageElement slotBackground = new(this.SGameInstance)
                 {

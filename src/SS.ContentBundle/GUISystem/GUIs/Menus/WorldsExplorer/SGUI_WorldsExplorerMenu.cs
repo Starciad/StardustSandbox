@@ -6,12 +6,11 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
@@ -72,7 +71,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
             this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
             this.folderIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_18");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.slotInfoElements = new SSlotInfoElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
 

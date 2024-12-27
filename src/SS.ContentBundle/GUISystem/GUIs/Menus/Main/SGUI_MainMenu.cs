@@ -8,10 +8,9 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -60,7 +59,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             this.mainMenuSong = this.SGameInstance.AssetDatabase.GetSong("song_1");
 
-            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.world = gameInstance.World;
 

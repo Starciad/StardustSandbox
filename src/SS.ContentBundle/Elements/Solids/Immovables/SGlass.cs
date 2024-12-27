@@ -1,15 +1,13 @@
-﻿using StardustSandbox.ContentBundle.Enums.Elements;
-using StardustSandbox.Core.Elements.Rendering;
+﻿using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class SGlass : SImmovableSolid
     {
-        internal SGlass(ISGame gameInstance) : base(gameInstance)
+        internal SGlass(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Glass;
             this.referenceColor = new(249, 253, 254, 21);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_12");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

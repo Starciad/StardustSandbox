@@ -3,14 +3,14 @@
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Elements.Templates.Liquids
 {
     public abstract class SLiquid : SElement
     {
-        public SLiquid(ISGame gameInstance) : base(gameInstance)
+        public SLiquid(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.defaultDensity = 1000;
         }

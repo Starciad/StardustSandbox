@@ -2,8 +2,8 @@
 
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
@@ -12,25 +12,17 @@ namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld
     {
-        public void InstantiateElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
+        public void InstantiateElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            InstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
-        }
-        public void InstantiateElement(Point position, SWorldLayer worldLayer, uint identifier)
-        {
-            InstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementById(identifier));
+            InstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(identifier));
         }
         public void InstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
             _ = TryInstantiateElement(position, worldLayer, value);
         }
-        public bool TryInstantiateElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
+        public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            return TryInstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
-        }
-        public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, uint identifier)
-        {
-            return TryInstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementById(identifier));
+            return TryInstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(identifier));
         }
         public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
@@ -126,11 +118,7 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void ReplaceElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
-        {
-            _ = TryReplaceElement<T>(position, worldLayer);
-        }
-        public void ReplaceElement(Point position, SWorldLayer worldLayer, uint identifier)
+        public void ReplaceElement(Point position, SWorldLayer worldLayer, string identifier)
         {
             _ = TryReplaceElement(position, worldLayer, identifier);
         }
@@ -138,11 +126,7 @@ namespace StardustSandbox.Core.World
         {
             _ = TryReplaceElement(position, worldLayer, value);
         }
-        public bool TryReplaceElement<T>(Point position, SWorldLayer worldLayer) where T : ISElement
-        {
-            return TryDestroyElement(position, worldLayer) && TryInstantiateElement<T>(position, worldLayer);
-        }
-        public bool TryReplaceElement(Point position, SWorldLayer worldLayer, uint identifier)
+        public bool TryReplaceElement(Point position, SWorldLayer worldLayer, string identifier)
         {
             return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, identifier);
         }

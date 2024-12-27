@@ -3,13 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.World.Data;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {
     public interface ISElement
     {
-        uint Identifier { get; }
+        string Identifier { get; }
         Texture2D Texture { get; }
 
         Color ReferenceColor { get; }

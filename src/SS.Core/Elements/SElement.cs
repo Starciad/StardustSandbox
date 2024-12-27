@@ -4,8 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
@@ -17,7 +18,7 @@ namespace StardustSandbox.Core.Elements
 {
     public abstract class SElement : SGameObject, ISElement
     {
-        public uint Identifier => this.identifier;
+        public string Identifier => this.identifier;
         public Texture2D Texture => this.texture;
 
         public Color ReferenceColor => this.referenceColor;
@@ -37,7 +38,7 @@ namespace StardustSandbox.Core.Elements
 
         // =========================== //
 
-        protected uint identifier;
+        private readonly string identifier;
         protected Texture2D texture;
 
         protected Color referenceColor = Color.White;
@@ -56,8 +57,9 @@ namespace StardustSandbox.Core.Elements
 
         private readonly SElementRendering rendering;
 
-        public SElement(ISGame gameInstance) : base(gameInstance)
+        public SElement(ISGame gameInstance, string identifier) : base(gameInstance)
         {
+            this.identifier = identifier;
             this.rendering = new(gameInstance, this);
         }
 

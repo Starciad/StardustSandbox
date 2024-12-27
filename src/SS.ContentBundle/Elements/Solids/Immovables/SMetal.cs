@@ -1,16 +1,14 @@
-﻿using StardustSandbox.ContentBundle.Elements.Liquids;
-using StardustSandbox.ContentBundle.Enums.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class SMetal : SImmovableSolid
     {
-        internal SMetal(ISGame gameInstance) : base(gameInstance)
+        internal SMetal(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Metal;
             this.referenceColor = new(66, 66, 66, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_13");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -22,7 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue > 1200)
             {
-                this.Context.ReplaceElement<SLava>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.LAVA);
             }
         }
     }

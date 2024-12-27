@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -27,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
             this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
-            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.BIG_APPLE_3PM);
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.iconTextures = [
                 gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
