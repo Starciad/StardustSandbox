@@ -25,7 +25,7 @@ namespace StardustSandbox.Core
         public ISAssetDatabase AssetDatabase => this.assetDatabase;
         public ISElementDatabase ElementDatabase => this.elementDatabase;
         public ISGUIDatabase GUIDatabase => this.guiDatabase;
-        public ISItemDatabase ItemDatabase => this.itemDatabase;
+        public ISCatalogDatabase CatalogDatabase => this.catalogDatabase;
         public ISBackgroundDatabase BackgroundDatabase => this.backgroundDatabase;
         public ISEntityDatabase EntityDatabase => this.entityDatabase;
 
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core
         private readonly SAssetDatabase assetDatabase;
         private readonly SElementDatabase elementDatabase;
         private readonly SGUIDatabase guiDatabase;
-        private readonly SItemDatabase itemDatabase;
+        private readonly SCatalogDatabase catalogDatabase;
         private readonly SBackgroundDatabase backgroundDatabase;
         private readonly SEntityDatabase entityDatabase;
 
@@ -105,7 +105,7 @@ namespace StardustSandbox.Core
             this.assetDatabase = new(this);
             this.elementDatabase = new(this);
             this.guiDatabase = new(this);
-            this.itemDatabase = new(this);
+            this.catalogDatabase = new(this);
             this.backgroundDatabase = new(this);
             this.entityDatabase = new(this);
 

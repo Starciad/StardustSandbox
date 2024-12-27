@@ -4,17 +4,17 @@ using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
 using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
-using StardustSandbox.Core.Items;
 
 namespace StardustSandbox.ContentBundle
 {
     public sealed partial class SContentBundleBuilder
     {
-        protected override void OnRegisterItems(ISGame game, ISItemDatabase itemDatabase)
+        protected override void OnRegisterCatalog(ISGame game, ISCatalogDatabase itemDatabase)
         {
             #region Categories
             SCategory[] categories = [

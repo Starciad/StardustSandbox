@@ -2,7 +2,7 @@
 
 using StardustSandbox.Core.Enums.Items;
 
-namespace StardustSandbox.Core.Items
+namespace StardustSandbox.Core.Catalog
 {
     public sealed class SItem(string identifier, string displayName, string description, SItemContentType contentType, SCategory category, Texture2D iconTexture)
     {

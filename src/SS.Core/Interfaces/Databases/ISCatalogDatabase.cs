@@ -1,10 +1,10 @@
-﻿using StardustSandbox.Core.Items;
+﻿using StardustSandbox.Core.Catalog;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Databases
 {
-    public interface ISItemDatabase
+    public interface ISCatalogDatabase
     {
         int TotalCategoryCount { get; }
         int TotalItemCount { get; }

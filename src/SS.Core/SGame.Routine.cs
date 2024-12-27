@@ -17,7 +17,7 @@ namespace StardustSandbox.Core
             // Databases
             this.assetDatabase.Initialize();
             this.elementDatabase.Initialize();
-            this.itemDatabase.Initialize();
+            this.catalogDatabase.Initialize();
             this.guiDatabase.Initialize();
             this.backgroundDatabase.Initialize();
             this.entityDatabase.Initialize();
