@@ -2,7 +2,7 @@
 using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;

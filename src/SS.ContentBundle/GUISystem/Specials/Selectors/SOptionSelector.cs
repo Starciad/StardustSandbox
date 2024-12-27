@@ -1,5 +1,4 @@
-﻿
-using StardustSandbox.Core.Interfaces.General;
+﻿using StardustSandbox.Core.Interfaces.System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Specials.Selectors
 {

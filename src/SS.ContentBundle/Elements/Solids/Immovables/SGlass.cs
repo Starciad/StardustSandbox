@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {

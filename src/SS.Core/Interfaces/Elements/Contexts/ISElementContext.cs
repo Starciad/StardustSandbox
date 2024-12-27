@@ -5,7 +5,7 @@ using StardustSandbox.Core.World.Data;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Interfaces.Elements
+namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 {
     public interface ISElementContext : ISElementManager
     {

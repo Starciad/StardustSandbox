@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;

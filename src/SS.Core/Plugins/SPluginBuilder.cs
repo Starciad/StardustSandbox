@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
-using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Plugins
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Items;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Objects;
 

@@ -5,8 +5,8 @@ using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Data;
 

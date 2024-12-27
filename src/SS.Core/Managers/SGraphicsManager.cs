@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.Managers.IO;

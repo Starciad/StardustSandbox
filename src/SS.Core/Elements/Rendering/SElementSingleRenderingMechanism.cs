@@ -5,7 +5,7 @@ using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.Elements.Contexts;
 
 namespace StardustSandbox.Core.Elements.Rendering
 {

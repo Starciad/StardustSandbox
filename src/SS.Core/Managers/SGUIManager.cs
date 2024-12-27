@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
-using StardustSandbox.Core.Interfaces.General;
 using StardustSandbox.Core.Interfaces.Managers;
 
 using System.Collections.Generic;

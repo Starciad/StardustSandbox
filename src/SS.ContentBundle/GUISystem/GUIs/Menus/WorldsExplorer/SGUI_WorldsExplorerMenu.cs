@@ -11,7 +11,7 @@ using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 

@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Interfaces.General;
+﻿using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.Core.Elements.Templates.Solids
 {

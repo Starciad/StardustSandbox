@@ -1,5 +1,5 @@
 ﻿using StardustSandbox.Core.Entities;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.Core.Components.Templates
 {

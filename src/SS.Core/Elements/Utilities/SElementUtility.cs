@@ -2,7 +2,7 @@
 
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.Mathematics;
 
 using System.Collections.Generic;

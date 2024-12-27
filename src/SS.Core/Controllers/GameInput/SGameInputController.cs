@@ -3,7 +3,7 @@
 using StardustSandbox.Core.Controllers.GameInput.Handlers;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Objects;
 

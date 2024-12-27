@@ -9,7 +9,7 @@ using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {

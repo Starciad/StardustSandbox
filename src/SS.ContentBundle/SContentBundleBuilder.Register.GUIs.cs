@@ -5,8 +5,8 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
 using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
-using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.ContentBundle
 {

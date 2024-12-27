@@ -13,7 +13,7 @@ using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Items;
 

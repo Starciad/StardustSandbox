@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Components;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Entities

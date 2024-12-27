@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants.GUI.Elements;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
 {

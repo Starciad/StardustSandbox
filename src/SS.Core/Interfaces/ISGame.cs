@@ -3,7 +3,7 @@ using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
 
-namespace StardustSandbox.Core.Interfaces.General
+namespace StardustSandbox.Core.Interfaces
 {
     public interface ISGame
     {

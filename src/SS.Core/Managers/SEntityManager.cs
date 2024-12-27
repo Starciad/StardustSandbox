@@ -3,7 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Entities;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Managers;
 
 using System;
