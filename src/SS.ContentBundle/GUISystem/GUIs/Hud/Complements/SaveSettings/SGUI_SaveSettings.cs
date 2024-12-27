@@ -7,7 +7,6 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Extensions;

@@ -1,6 +1,5 @@
-﻿using StardustSandbox.ContentBundle.Elements.Liquids;
-using StardustSandbox.ContentBundle.Enums.Elements;
-using StardustSandbox.Core.Colors;
+﻿using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
@@ -9,9 +8,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class SRedBrick : SImmovableSolid
     {
-        internal SRedBrick(ISGame gameInstance) : base(gameInstance)
+        internal SRedBrick(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.RedBrick;
             this.referenceColor = SColorPalette.Crimson;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_21");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -23,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue >= 1727)
             {
-                this.Context.ReplaceElement<SLava>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.LAVA);
             }
         }
     }

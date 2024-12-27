@@ -16,15 +16,15 @@ namespace StardustSandbox.Core.Databases
         public int TotalCategoryCount => this.categories.Count;
         public int TotalItemCount => this.items.Count;
 
-        public SItemCategory[] Categories { get; private set; }
-        public SItem[] Items { get; private set; }
+        public IEnumerable<SCategory> Categories { get; private set; }
+        public IEnumerable<SItem> Items { get; private set; }
 
-        private readonly Dictionary<string, SItemCategory> categories = [];
+        private readonly Dictionary<string, SCategory> categories = [];
         private readonly Dictionary<string, SItem> items = [];
 
         public override void Initialize()
         {
-            foreach (SItemCategory category in this.categories.Values)
+            foreach (SCategory category in this.categories.Values)
             {
                 foreach (SItem item in this.items.Values)
                 {
@@ -35,21 +35,21 @@ namespace StardustSandbox.Core.Databases
                 }
             }
 
-            this.Categories = [.. this.categories.Values];
-            this.Items = [.. this.items.Values];
+            this.Categories = this.categories.Values;
+            this.Items = this.items.Values;
         }
 
-        public void RegisterCategory(string identifier, string displayName, string description, Texture2D iconTexture)
+        public void RegisterCategory(SCategory value)
         {
-            this.categories.Add(identifier, new(identifier, displayName, description, iconTexture));
+            this.categories.Add(value.Identifier, value);
         }
 
-        public void RegisterItem(string identifier, string displayName, string description, SItemContentType contentType, string categoryIdentifier, Texture2D iconTexture, Type referencedType)
+        public void RegisterItem(SItem item)
         {
-            this.items.Add(identifier, new(identifier, displayName, description, contentType, this.categories[categoryIdentifier], iconTexture, referencedType));
+            this.items.Add(item.Identifier, item);
         }
 
-        public SItemCategory GetCategoryById(string identifier)
+        public SCategory GetCategoryById(string identifier)
         {
             return this.categories[identifier];
         }

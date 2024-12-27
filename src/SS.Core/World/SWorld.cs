@@ -137,7 +137,7 @@ namespace StardustSandbox.Core.World
         }
         private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)
         {
-            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementId);
+            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementIdentifier);
 
             SWorldSlot worldSlot = GetWorldSlot(position);
 

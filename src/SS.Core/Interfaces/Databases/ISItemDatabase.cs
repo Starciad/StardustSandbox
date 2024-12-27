@@ -1,9 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using StardustSandbox.Core.Items;
 
-using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.Items;
-
-using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Databases
 {
@@ -12,13 +9,13 @@ namespace StardustSandbox.Core.Interfaces.Databases
         int TotalCategoryCount { get; }
         int TotalItemCount { get; }
 
-        SItemCategory[] Categories { get; }
-        SItem[] Items { get; }
+        IEnumerable<SCategory> Categories { get; }
+        IEnumerable<SItem> Items { get; }
 
-        void RegisterCategory(string identifier, string displayName, string description, Texture2D iconTexture);
-        void RegisterItem(string identifier, string displayName, string description, SItemContentType contentType, string categoryIdentifier, Texture2D iconTexture, Type referencedType);
+        void RegisterCategory(SCategory category);
+        void RegisterItem(SItem item);
 
-        SItemCategory GetCategoryById(string identifier);
+        SCategory GetCategoryById(string identifier);
         SItem GetItemById(string identifier);
     }
 }

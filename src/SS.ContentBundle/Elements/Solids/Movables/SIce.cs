@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Liquids;
-using StardustSandbox.ContentBundle.Enums.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces;
@@ -8,9 +7,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
     internal sealed class SIce : SMovableSolid
     {
-        internal SIce(ISGame gameInstance) : base(gameInstance)
+        internal SIce(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Ice;
             this.referenceColor = new(117, 215, 246, 255);
             this.texture = this.SGameInstance.AssetDatabase.GetTexture("element_6");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -22,7 +20,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue >= 0)
             {
-                this.Context.ReplaceElement<SWater>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.WATER);
+                this.Context.SetElementTemperature(8);
             }
         }
     }

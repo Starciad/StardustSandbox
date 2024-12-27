@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.Core.Elements.Templates.Energies
 {
-    public abstract class SEnergy(ISGame gameInstance) : SElement(gameInstance)
+    public abstract class SEnergy(ISGame gameInstance, string identifier) : SElement(gameInstance, identifier)
     {
 
     }

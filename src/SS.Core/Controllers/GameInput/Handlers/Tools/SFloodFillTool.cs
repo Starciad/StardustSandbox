@@ -2,6 +2,8 @@
 
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
+using StardustSandbox.Core.Enums.Items;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
@@ -16,31 +18,37 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
-        internal SFloodFillTool(ISWorld world, ISElementDatabase elementDatabase, SSimulationPen simulationPen) : base(world, elementDatabase, simulationPen)
+        internal SFloodFillTool(ISGame game, SSimulationPen simulationPen) : base(game, simulationPen)
         {
 
         }
 
-        internal override void Execute(SWorldModificationType worldModificationType, Type itemType, Point position)
+        internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
             // The selected item corresponds to an element.
-            if (typeof(ISElement).IsAssignableFrom(itemType))
+            switch (contentType)
             {
-                switch (worldModificationType)
-                {
-                    case SWorldModificationType.Adding:
-                        FloodFillElements(this.elementDatabase.GetElementByType(itemType), position, false);
-                        break;
+                case SItemContentType.Element:
+                    switch (worldModificationType)
+                    {
+                        case SWorldModificationType.Adding:
+                            FloodFillElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), position, false);
+                            break;
 
-                    case SWorldModificationType.Removing:
-                        FloodFillElements(this.elementDatabase.GetElementByType(itemType), position, true);
-                        break;
+                        case SWorldModificationType.Removing:
+                            FloodFillElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), position, true);
+                            break;
 
-                    default:
-                        break;
-                }
+                        default:
+                            break;
+                    }
+                    break;
 
-                return;
+                case SItemContentType.Entity:
+                    break;
+
+                default:
+                    break;
             }
         }
 

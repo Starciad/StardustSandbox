@@ -155,7 +155,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             int index = 0;
 
-            foreach (SItemCategory category in this.SGameInstance.ItemDatabase.Categories)
+            foreach (SCategory category in this.SGameInstance.ItemDatabase.Categories)
             {
                 SGUIImageElement slotBackground = new(this.SGameInstance)
                 {

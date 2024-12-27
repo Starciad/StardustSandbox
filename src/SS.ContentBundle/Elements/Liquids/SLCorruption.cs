@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Utilities;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
@@ -16,9 +15,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SLCorruption : SLiquid, ISCorruption
     {
-        internal SLCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SLCorruption(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.LCorruption;
             this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_17");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

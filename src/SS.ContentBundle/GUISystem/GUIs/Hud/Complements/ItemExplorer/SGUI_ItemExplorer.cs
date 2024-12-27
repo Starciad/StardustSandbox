@@ -5,7 +5,6 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.Fonts;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -64,7 +63,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItemCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
+                        SCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
 
                         SGUIGlobalTooltip.Title = category.DisplayName;
                         SGUIGlobalTooltip.Description = category.Description;
@@ -117,7 +116,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             SelectItemCatalog(this.SGameInstance.ItemDatabase.GetCategoryById(categoryId), pageIndex);
         }
 
-        private void SelectItemCatalog(SItemCategory category, int pageIndex)
+        private void SelectItemCatalog(SCategory category, int pageIndex)
         {
             this.explorerTitleLabel.SetTextualContent(category.DisplayName);
 

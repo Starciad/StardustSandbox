@@ -9,7 +9,7 @@ using StardustSandbox.Core.Interfaces.Elements;
 
 namespace StardustSandbox.Core.Elements.Templates.Solids.Movables
 {
-    public abstract class SMovableSolid(ISGame gameInstance) : SSolid(gameInstance)
+    public abstract class SMovableSolid(ISGame gameInstance, string identifier) : SSolid(gameInstance, identifier)
     {
         protected override void OnBehaviourStep()
         {

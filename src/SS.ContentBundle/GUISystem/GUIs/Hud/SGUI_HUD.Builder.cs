@@ -12,6 +12,8 @@ using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Items;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System.Linq;
+
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal partial class SGUI_HUD
@@ -233,7 +235,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SItem selectedItem = this.SGameInstance.ItemDatabase.Items[i];
+                SItem selectedItem = this.SGameInstance.ItemDatabase.Items.ElementAt(i);
 
                 SSlot slot = CreateButtonSlot(baseMargin, selectedItem.IconTexture);
 

@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
@@ -9,9 +9,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class STreeLeaf : SImmovableSolid
     {
-        internal STreeLeaf(ISGame gameInstance) : base(gameInstance)
+        internal STreeLeaf(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.TreeLeaf;
             this.referenceColor = SColorPalette.MossGreen;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_22");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
@@ -25,7 +24,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue >= 220)
             {
-                this.Context.ReplaceElement<SFire>();
+                this.Context.ReplaceElement(SElementIdentifierConstants.FIRE);
             }
         }
     }

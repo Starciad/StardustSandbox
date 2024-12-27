@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Components.Common.Entities;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
@@ -31,7 +31,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
         private MoveState currentMoveState;
         private BuildingState currentBuildingState;
 
-        private SElementId selectedElement;
+        private string selectedElement;
         private Vector2 targetPosition;
 
         private int moveStateTimer = 0;
@@ -43,11 +43,18 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private readonly SEntityTransformComponent transformComponent;
 
-        private static readonly SElementId[] AllowedElements =
+        private static readonly string[] AllowedElements =
         [
-            SElementId.Dirt, SElementId.Mud, SElementId.Water, SElementId.Stone,
-            SElementId.Grass, SElementId.Sand, SElementId.Lava, SElementId.Acid,
-            SElementId.Wood, SElementId.TreeLeaf
+            SElementIdentifierConstants.DIRT,
+            SElementIdentifierConstants.MUD,
+            SElementIdentifierConstants.WATER,
+            SElementIdentifierConstants.STONE,
+            SElementIdentifierConstants.GRASS,
+            SElementIdentifierConstants.SAND,
+            SElementIdentifierConstants.LAVA,
+            SElementIdentifierConstants.ACID,
+            SElementIdentifierConstants.WOOD,
+            SElementIdentifierConstants.TREE_LEAF
         ];
 
         internal SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
@@ -129,7 +136,7 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
                 case BuildingState.Constructing:
                     if (this.world.IsEmptyWorldSlot(gridPosition))
                     {
-                        this.world.InstantiateElement(gridPosition, SWorldLayer.Foreground, (uint)this.selectedElement);
+                        this.world.InstantiateElement(gridPosition, SWorldLayer.Foreground, this.selectedElement);
                     }
 
                     break;

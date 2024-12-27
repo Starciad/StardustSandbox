@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.Elements.Gases;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -19,9 +17,8 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
 {
     internal sealed class SFire : SEnergy
     {
-        internal SFire(ISGame gameInstance) : base(gameInstance)
+        internal SFire(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.Fire;
             this.referenceColor = SColorPalette.Amber;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [
@@ -42,7 +39,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
 
                 if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE, SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL))
                 {
-                    this.Context.InstantiateElement<SSmoke>(this.Context.Layer);
+                    this.Context.InstantiateElement(this.Context.Layer, SElementIdentifierConstants.SMOKE);
                 }
             }
         }
@@ -97,7 +94,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (SRandomMath.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    this.Context.ReplaceElement<SFire>(slot.Position, worldLayer);
+                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementIdentifierConstants.FIRE);
                 }
             }
         }

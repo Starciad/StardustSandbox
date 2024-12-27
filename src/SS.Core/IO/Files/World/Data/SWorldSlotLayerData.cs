@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
             }
         }
 
-        [Key(0)] public uint ElementId { get; set; }
+        [Key(0)] public string ElementIdentifier { get; set; }
         [Key(1)] public short Temperature { get; set; }
         [Key(2)] public bool FreeFalling { get; set; }
         [Key(3)] public byte ColorModifierR { get; set; }
@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
 
         public SWorldSlotLayerData(SWorldSlotLayer worldSlotLayer)
         {
-            this.ElementId = worldSlotLayer.Element.Identifier;
+            this.ElementIdentifier = worldSlotLayer.Element.Identifier;
             this.Temperature = worldSlotLayer.Temperature;
             this.FreeFalling = worldSlotLayer.FreeFalling;
             this.ColorModifier = worldSlotLayer.ColorModifier;

@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.ContentBundle.Elements.Utilities;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
@@ -16,9 +15,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
     internal sealed class SIMCorruption : SImmovableSolid, ISCorruption
     {
-        internal SIMCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SIMCorruption(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.identifier = (uint)SElementId.IMCorruption;
             this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_18");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());

@@ -2,6 +2,7 @@
 using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
@@ -81,23 +82,23 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             switch (targetElement)
             {
                 case SMovableSolid:
-                    context.ReplaceElement<SMCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.MOVABLE_CORRUPTION);
                     break;
 
                 case SImmovableSolid:
-                    context.ReplaceElement<SIMCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.IMMOVABLE_CORRUPTION);
                     break;
 
                 case SLiquid:
-                    context.ReplaceElement<SLCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.LIQUID_CORRUPTION);
                     break;
 
                 case SGas:
-                    context.ReplaceElement<SGCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.GAS_CORRUPTION);
                     break;
 
                 default:
-                    context.ReplaceElement<SMCorruption>(slotTarget.Slot.Position, slotTarget.Layer);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.MOVABLE_CORRUPTION);
                     break;
             }
         }

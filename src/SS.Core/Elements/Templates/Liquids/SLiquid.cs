@@ -10,7 +10,7 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
 {
     public abstract class SLiquid : SElement
     {
-        public SLiquid(ISGame gameInstance) : base(gameInstance)
+        public SLiquid(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.defaultDensity = 1000;
         }

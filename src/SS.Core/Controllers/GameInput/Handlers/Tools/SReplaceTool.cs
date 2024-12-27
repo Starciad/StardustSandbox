@@ -2,6 +2,8 @@
 
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
+using StardustSandbox.Core.Enums.Items;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
@@ -13,33 +15,39 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 {
     internal sealed class SReplaceTool : STool
     {
-        internal SReplaceTool(ISWorld world, ISElementDatabase elementDatabase, SSimulationPen simulationPen) : base(world, elementDatabase, simulationPen)
+        internal SReplaceTool(ISGame game, SSimulationPen simulationPen) : base(game, simulationPen)
         {
 
         }
 
-        internal override void Execute(SWorldModificationType worldModificationType, Type itemType, Point position)
+        internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
             IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
 
             // The selected item corresponds to an element.
-            if (typeof(ISElement).IsAssignableFrom(itemType))
+            switch (contentType)
             {
-                switch (worldModificationType)
-                {
-                    case SWorldModificationType.Adding:
-                        ReplaceElements(this.elementDatabase.GetElementByType(itemType), targetPoints);
-                        break;
+                case SItemContentType.Element:
+                    switch (worldModificationType)
+                    {
+                        case SWorldModificationType.Adding:
+                            ReplaceElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), targetPoints);
+                            break;
 
-                    case SWorldModificationType.Removing:
-                        EraseElements(targetPoints);
-                        break;
+                        case SWorldModificationType.Removing:
+                            EraseElements(targetPoints);
+                            break;
 
-                    default:
-                        break;
-                }
+                        default:
+                            break;
+                    }
+                    break;
 
-                return;
+                case SItemContentType.Entity:
+                    break;
+
+                default:
+                    break;
             }
         }
 
