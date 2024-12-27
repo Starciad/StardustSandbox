@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
-using StardustSandbox.Core.Constants.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces;

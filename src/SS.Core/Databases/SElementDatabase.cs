@@ -4,7 +4,6 @@ using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Objects;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases

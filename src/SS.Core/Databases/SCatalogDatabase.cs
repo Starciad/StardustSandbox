@@ -1,12 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Core.Catalog;
-using StardustSandbox.Core.Enums.Items;
+﻿using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Objects;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases

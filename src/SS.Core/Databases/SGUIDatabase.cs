@@ -9,8 +9,6 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISGUIDatabase
     {
-        public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs.Values];
-
         private readonly Dictionary<string, SGUISystem> _registeredGUIs = [];
 
         public override void Initialize()

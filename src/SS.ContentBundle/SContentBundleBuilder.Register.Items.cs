@@ -1,9 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.ContentBundle.Elements.Gases;
-using StardustSandbox.ContentBundle.Elements.Liquids;
-using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
-using StardustSandbox.ContentBundle.Elements.Solids.Movables;
-using StardustSandbox.ContentBundle.Localization;
+﻿using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Items;

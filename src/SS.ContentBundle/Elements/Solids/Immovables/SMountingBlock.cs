@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.Core.Animations;
+﻿using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
