@@ -235,7 +235,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SItem selectedItem = this.SGameInstance.ItemDatabase.Items.ElementAt(i);
+                SItem selectedItem = this.SGameInstance.CatalogDatabase.Items.ElementAt(i);
 
                 SSlot slot = CreateButtonSlot(baseMargin, selectedItem.IconTexture);
 
