@@ -63,7 +63,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SCategory category = this.SGameInstance.ItemDatabase.GetCategoryById((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
+                        SCategory category = this.SGameInstance.CatalogDatabase.GetCategoryByIdentifier((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
 
                         SGUIGlobalTooltip.Title = category.DisplayName;
                         SGUIGlobalTooltip.Description = category.Description;
@@ -98,7 +98,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                        SItem item = this.SGameInstance.CatalogDatabase.GetItemByIdentifier((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                         SGUIGlobalTooltip.Title = item.DisplayName;
                         SGUIGlobalTooltip.Description = item.Description;
@@ -113,7 +113,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void SelectItemCatalog(string categoryId, int pageIndex)
         {
-            SelectItemCatalog(this.SGameInstance.ItemDatabase.GetCategoryById(categoryId), pageIndex);
+            SelectItemCatalog(this.SGameInstance.CatalogDatabase.GetCategoryByIdentifier(categoryId), pageIndex);
         }
 
         private void SelectItemCatalog(SCategory category, int pageIndex)
@@ -128,7 +128,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             int startIndex = pageIndex * itemsPerPage;
             int endIndex = startIndex + itemsPerPage;
 
-            endIndex = Math.Min(endIndex, this.SGameInstance.ItemDatabase.TotalItemCount);
+            endIndex = Math.Min(endIndex, this.SGameInstance.CatalogDatabase.TotalItemCount);
 
             this.selectedItems = [.. category.Items.Take(new Range(startIndex, endIndex - startIndex))];
 

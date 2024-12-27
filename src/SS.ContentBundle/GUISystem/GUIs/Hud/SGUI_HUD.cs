@@ -39,7 +39,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         internal SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
-            SelectItemSlot(0, this.SGameInstance.ItemDatabase.GetItemById("element_dirt").Identifier);
+            SelectItemSlot(0, this.SGameInstance.CatalogDatabase.GetItemByIdentifier("element_dirt").Identifier);
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
@@ -184,7 +184,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItem item = this.SGameInstance.ItemDatabase.GetItemById((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                        SItem item = this.SGameInstance.CatalogDatabase.GetItemByIdentifier((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
 
                         SGUIGlobalTooltip.Title = item.DisplayName;
                         SGUIGlobalTooltip.Description = item.Description;
@@ -282,7 +282,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         internal void AddItemToToolbar(string elementId)
         {
-            SItem item = this.SGameInstance.ItemDatabase.GetItemById(elementId);
+            SItem item = this.SGameInstance.CatalogDatabase.GetItemByIdentifier(elementId);
 
             // ================================================= //
             // Check if the item is already in the Toolbar. If so, it will be highlighted without changing the other items.
@@ -293,7 +293,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 if (slot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
                 {
-                    if (item == this.SGameInstance.ItemDatabase.GetItemById((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID)))
+                    if (item == this.SGameInstance.CatalogDatabase.GetItemByIdentifier((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID)))
                     {
                         SelectItemSlot(i, (string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
                         return;
@@ -336,7 +336,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void SelectItemSlot(int slotIndex, string itemId)
         {
             this.slotSelectedIndex = slotIndex;
-            this.SGameInstance.GameInputController.Player.SelectItem(this.SGameInstance.ItemDatabase.GetItemById(itemId));
+            this.SGameInstance.GameInputController.Player.SelectItem(this.SGameInstance.CatalogDatabase.GetItemByIdentifier(itemId));
         }
     }
 }

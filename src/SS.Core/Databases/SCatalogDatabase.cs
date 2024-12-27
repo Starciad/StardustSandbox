@@ -45,12 +45,12 @@ namespace StardustSandbox.Core.Databases
             this.items.Add(item.Identifier, item);
         }
 
-        public SCategory GetCategoryById(string identifier)
+        public SCategory GetCategoryByIdentifier(string identifier)
         {
             return this.categories[identifier];
         }
 
-        public SItem GetItemById(string identifier)
+        public SItem GetItemByIdentifier(string identifier)
         {
             return this.items[identifier];
         }
