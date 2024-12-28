@@ -235,7 +235,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.Margin = margin;
                 labelElement.PositionRelativeToElement(this.rightPanelBackground);
                 labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName);
-                labelElement.AddData(SOptionsMenuConstants.DATA_FILED_LANGUAGE_CODE, gameCulture.Language);
+                labelElement.AddData(SOptionsMenuConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
 
                 this.languageSectionButtons.Add(labelElement);
                 container.AddElement(labelElement);

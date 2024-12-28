@@ -12,60 +12,71 @@ namespace StardustSandbox.ContentBundle
         protected override void OnRegisterCatalog(ISGame game, ISCatalogDatabase catalogDatabase)
         {
             #region Categories
-            SCategory[] categories = [
-                // [0]
-                new(
-                    identifier: "powders",
-                    displayName: SLocalization.Item_Category_Powders,
-                    description: SLocalization.Item_Category_Powders_Description,
-                    iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
-                ),
+            SCategory elementCategory = new(
+                "elements",
+                "Elements",
+                string.Empty,
+                game.AssetDatabase.GetTexture("icon_element_1")
+            );
 
-                // [1]
-                new(
-                    identifier: "liquids",
-                    displayName: SLocalization.Item_Category_Liquids,
-                    description: SLocalization.Item_Category_Liquids_Description,
-                    iconTexture: game.AssetDatabase.GetTexture("icon_element_3")
-                ),
+            catalogDatabase.RegisterCategory(elementCategory);
+            #endregion
 
-                // [2]
-                new(
-                    identifier: "gases",
-                    displayName: SLocalization.Item_Category_Gases,
-                    description: SLocalization.Item_Category_Gases_Description,
-                    iconTexture: game.AssetDatabase.GetTexture("icon_element_20")
-                ),
+            #region Subcategories
+            SSubcategory elementPowderSubcategory = new(
+                parent: elementCategory,
+                identifier: "powders",
+                displayName: SLocalization.Item_Category_Powders,
+                description: SLocalization.Item_Category_Powders_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+            );
 
-                // [3]
-                new(
-                    identifier: "solids",
-                    displayName: SLocalization.Item_Category_Solids,
-                    description: SLocalization.Item_Category_Solids_Description,
-                    iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
-                ),
+            SSubcategory elementLiquidSubcategory = new(
+                parent: elementCategory,
+                identifier: "liquids",
+                displayName: SLocalization.Item_Category_Liquids,
+                description: SLocalization.Item_Category_Liquids_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_3")
+            );
 
-                // [4]
-                new(
-                    identifier: "walls",
-                    displayName: SLocalization.Item_Category_Walls,
-                    description: SLocalization.Item_Category_Walls_Description,
-                    iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
-                ),
+            SSubcategory elementGasSubcategory = new(
+                parent: elementCategory,
+                identifier: "gases",
+                displayName: SLocalization.Item_Category_Gases,
+                description: SLocalization.Item_Category_Gases_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_20")
+            );
 
-                // [5]
-                new(
-                    identifier: "energies",
-                    displayName: SLocalization.Item_Category_Energies,
-                    description: SLocalization.Item_Category_Energies_Description,
-                    iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
-                ),
-            ];
+            SSubcategory elementSolidSubcategory = new(
+                parent: elementCategory,
+                identifier: "solids",
+                displayName: SLocalization.Item_Category_Solids,
+                description: SLocalization.Item_Category_Solids_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
+            );
 
-            for (int i = 0; i < categories.Length; i++)
-            {
-                catalogDatabase.RegisterCategory(categories[i]);
-            }
+            SSubcategory elementWallSubcategory = new(
+                parent: elementCategory,
+                identifier: "walls",
+                displayName: SLocalization.Item_Category_Walls,
+                description: SLocalization.Item_Category_Walls_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
+            );
+
+            SSubcategory elementEnergySubcategory = new(
+                parent: elementCategory,
+                identifier: "energies",
+                displayName: SLocalization.Item_Category_Energies,
+                description: SLocalization.Item_Category_Energies_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
+            );
+
+            elementCategory.AddSubcategory(elementPowderSubcategory);
+            elementCategory.AddSubcategory(elementLiquidSubcategory);
+            elementCategory.AddSubcategory(elementGasSubcategory);
+            elementCategory.AddSubcategory(elementSolidSubcategory);
+            elementCategory.AddSubcategory(elementWallSubcategory);
+            elementCategory.AddSubcategory(elementEnergySubcategory);
             #endregion
 
             #region Items
@@ -76,7 +87,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Dirt_Name,
                 description: SLocalization.Element_Solid_Movable_Dirt_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
             ));
 
@@ -85,7 +96,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Mud_Name,
                 description: SLocalization.Element_Solid_Movable_Mud_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_2")
             ));
 
@@ -94,7 +105,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Liquid_Water_Name,
                 description: SLocalization.Element_Liquid_Water_Description,
                 contentType: SItemContentType.Element,
-                category: categories[1],
+                subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_3")
             ));
 
@@ -103,7 +114,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Stone_Name,
                 description: SLocalization.Element_Solid_Movable_Stone_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_4")
             ));
 
@@ -112,7 +123,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Grass_Name,
                 description: SLocalization.Element_Solid_Movable_Grass_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_5")
             ));
 
@@ -121,7 +132,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Ice_Name,
                 description: SLocalization.Element_Solid_Movable_Ice_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_6")
             ));
 
@@ -130,7 +141,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Sand_Name,
                 description: SLocalization.Element_Solid_Movable_Sand_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_7")
             ));
 
@@ -139,7 +150,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Snow_Name,
                 description: SLocalization.Element_Solid_Movable_Snow_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_8")
             ));
 
@@ -148,7 +159,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Movable_Corruption_Name,
                 description: SLocalization.Element_Solid_Movable_Corruption_Description,
                 contentType: SItemContentType.Element,
-                category: categories[0],
+                subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_9")
             ));
 
@@ -157,7 +168,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Liquid_Lava_Name,
                 description: SLocalization.Element_Liquid_Lava_Description,
                 contentType: SItemContentType.Element,
-                category: categories[1],
+                subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_10")
             ));
 
@@ -166,7 +177,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Liquid_Acid_Name,
                 description: SLocalization.Element_Liquid_Acid_Description,
                 contentType: SItemContentType.Element,
-                category: categories[1],
+                subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_11")
             ));
 
@@ -175,7 +186,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_Glass_Name,
                 description: SLocalization.Element_Solid_Immovable_Glass_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_12")
             ));
 
@@ -184,7 +195,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_Metal_Name,
                 description: SLocalization.Element_Solid_Immovable_Metal_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
             ));
 
@@ -193,7 +204,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_Wall_Name,
                 description: SLocalization.Element_Solid_Immovable_Wall_Description,
                 contentType: SItemContentType.Element,
-                category: categories[4],
+                subcategory: elementWallSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
             ));
 
@@ -202,7 +213,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_Wood_Name,
                 description: SLocalization.Element_Solid_Immovable_Wood_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_15")
             ));
 
@@ -211,7 +222,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Gas_Corruption_Name,
                 description: SLocalization.Element_Gas_Corruption_Description,
                 contentType: SItemContentType.Element,
-                category: categories[2],
+                subcategory: elementGasSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_16")
             ));
 
@@ -220,7 +231,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Liquid_Corruption_Name,
                 description: SLocalization.Element_Liquid_Corruption_Description,
                 contentType: SItemContentType.Element,
-                category: categories[1],
+                subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_17")
             ));
 
@@ -229,7 +240,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_Corruption_Name,
                 description: SLocalization.Element_Solid_Immovable_Corruption_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_18")
             ));
 
@@ -238,7 +249,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Gas_Steam_Name,
                 description: SLocalization.Element_Gas_Steam_Description,
                 contentType: SItemContentType.Element,
-                category: categories[2],
+                subcategory: elementGasSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_19")
             ));
 
@@ -247,7 +258,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Gas_Smoke_Name,
                 description: SLocalization.Element_Gas_Smoke_Description,
                 contentType: SItemContentType.Element,
-                category: categories[2],
+                subcategory: elementGasSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_20")
             ));
 
@@ -256,7 +267,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_RedBrick_Name,
                 description: SLocalization.Element_Solid_Immovable_RedBrick_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_21")
             ));
 
@@ -265,7 +276,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_TreeLeaf_Name,
                 description: SLocalization.Element_Solid_Immovable_TreeLeaf_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_22")
             ));
 
@@ -274,7 +285,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Solid_Immovable_MountingBlock_Name,
                 description: SLocalization.Element_Solid_Immovable_MountingBlock_Description,
                 contentType: SItemContentType.Element,
-                category: categories[3],
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_23")
             ));
 
@@ -283,7 +294,7 @@ namespace StardustSandbox.ContentBundle
                 displayName: SLocalization.Element_Energy_Fire_Name,
                 description: SLocalization.Element_Energy_Fire_Description,
                 contentType: SItemContentType.Element,
-                category: categories[5],
+                subcategory: elementEnergySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             ));
             #endregion

@@ -242,9 +242,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.West;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                if (!slot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                if (!slot.BackgroundElement.ContainsData(SHUDConstants.DATA_ELEMENT_ID))
                 {
-                    slot.BackgroundElement.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, selectedItem.Identifier);
+                    slot.BackgroundElement.AddData(SHUDConstants.DATA_ELEMENT_ID, selectedItem.Identifier);
                 }
 
                 // Update

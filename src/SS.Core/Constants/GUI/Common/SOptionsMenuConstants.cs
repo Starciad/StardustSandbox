@@ -3,6 +3,6 @@
     public static class SOptionsMenuConstants
     {
         // Data Fields
-        public const string DATA_FILED_LANGUAGE_CODE = "language_code";
+        public const string DATA_LANGUAGE_CODE = "language_code";
     }
 }

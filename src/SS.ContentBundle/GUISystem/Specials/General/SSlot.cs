@@ -13,18 +13,54 @@ namespace StardustSandbox.ContentBundle.GUISystem.Specials.General
         private readonly SGUIImageElement iconElement;
         private readonly SGUILabelElement labelElement;
 
-        public SSlot(SGUIImageElement backgroundElement, SGUIImageElement iconElement)
+        internal SSlot(SGUIImageElement backgroundElement, SGUIImageElement iconElement)
         {
             this.backgroundElement = backgroundElement;
             this.iconElement = iconElement;
             this.labelElement = null;
         }
 
-        public SSlot(SGUIImageElement backgroundElement, SGUIImageElement iconElement, SGUILabelElement labelElement)
+        internal SSlot(SGUIImageElement backgroundElement, SGUIImageElement iconElement, SGUILabelElement labelElement)
         {
             this.backgroundElement = backgroundElement;
             this.iconElement = iconElement;
             this.labelElement = labelElement;
+        }
+
+        internal void Show()
+        {
+            if (this.backgroundElement != null)
+            {
+                this.backgroundElement.IsVisible = true;
+            }
+
+            if (this.iconElement != null)
+            {
+                this.iconElement.IsVisible = true;
+            }
+
+            if (this.labelElement != null)
+            {
+                this.labelElement.IsVisible = true;
+            }
+        }
+
+        internal void Hide()
+        {
+            if (this.backgroundElement != null)
+            {
+                this.backgroundElement.IsVisible = false;
+            }
+
+            if (this.iconElement != null)
+            {
+                this.iconElement.IsVisible = false;
+            }
+
+            if (this.labelElement != null)
+            {
+                this.labelElement.IsVisible = false;
+            }
         }
     }
 }

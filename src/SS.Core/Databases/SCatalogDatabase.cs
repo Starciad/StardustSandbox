@@ -22,11 +22,14 @@ namespace StardustSandbox.Core.Databases
         {
             foreach (SCategory category in this.categories.Values)
             {
-                foreach (SItem item in this.items.Values)
+                foreach (SSubcategory subcategory in category.Subcategories)
                 {
-                    if (item.Category == category)
+                    foreach (SItem item in this.items.Values)
                     {
-                        category.AddItem(item);
+                        if (item.Subcategory == subcategory)
+                        {
+                            subcategory.AddItem(item);
+                        }
                     }
                 }
             }
@@ -45,12 +48,12 @@ namespace StardustSandbox.Core.Databases
             this.items.Add(item.Identifier, item);
         }
 
-        public SCategory GetCategoryByIdentifier(string identifier)
+        public SCategory GetCategory(string identifier)
         {
             return this.categories[identifier];
         }
 
-        public SItem GetItemByIdentifier(string identifier)
+        public SItem GetItem(string identifier)
         {
             return this.items[identifier];
         }
