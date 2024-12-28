@@ -11,10 +11,7 @@ namespace StardustSandbox.Core.Interfaces.Entities
         bool TryInstantiateEntity(string entityIdentifier, Action<SEntity> entityConfigurationAction, out SEntity entity);
 
         void RemoveEntity(SEntity entity);
-        bool TryRemoveEntity(SEntity entity);
-
         void DestroyEntity(SEntity entity);
-        bool TryDestroyEntity(SEntity entity);
 
         void RemoveAllEntity();
         void DestroyAllEntity();

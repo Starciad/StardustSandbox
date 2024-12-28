@@ -322,6 +322,15 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementEnergySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_ANT_COLONY,
+                displayName: "Ant Colony",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_25")
+            ));
             #endregion
 
             #region Entities

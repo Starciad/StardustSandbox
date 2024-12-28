@@ -209,7 +209,24 @@ namespace StardustSandbox.Core.World
             }
         }
 
+
+        public void Reset()
+        {
+            this.Infos.Name = "Untitled";
+            this.Infos.Description = "No description was provided.";
+            this.currentlySelectedWorldSaveFile = null;
+
+            this.componentContainer.Reset();
+            Clear();
+        }
+
         public void Clear()
+        {
+            ClearSlots();
+            ClearEntities();
+        }
+
+        private void ClearSlots()
         {
             if (this.slots == null)
             {
@@ -229,18 +246,11 @@ namespace StardustSandbox.Core.World
                     DestroyElement(new(x, y), SWorldLayer.Background);
                 }
             }
-
-            RemoveAllEntity();
         }
 
-        public void Reset()
+        private void ClearEntities()
         {
-            this.Infos.Name = "Untitled";
-            this.Infos.Description = "No description was provided.";
-            this.currentlySelectedWorldSaveFile = null;
-
-            this.componentContainer.Reset();
-            Clear();
+            RemoveAllEntity();
         }
 
         public bool InsideTheWorldDimensions(Point position)

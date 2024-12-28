@@ -53,35 +53,14 @@ namespace StardustSandbox.Core.World
 
         public void RemoveEntity(SEntity entity)
         {
-            _ = TryRemoveEntity(entity);
-        }
-
-        public bool TryRemoveEntity(SEntity entity)
-        {
-            if (this.instantiatedEntities.Contains(entity) && this.entityPools.TryGetValue(entity.Identifier, out SObjectPool objectPool))
-            {
-                objectPool.Add(entity);
-                return this.instantiatedEntities.Remove(entity);
-            }
-
-            return false;
+            _ = this.instantiatedEntities.Remove(entity);
+            this.entityPools[entity.Identifier].Add(entity);
         }
 
         public void DestroyEntity(SEntity entity)
         {
             RemoveEntity(entity);
             entity.Destroy();
-        }
-
-        public bool TryDestroyEntity(SEntity entity)
-        {
-            if (TryRemoveEntity(entity))
-            {
-                entity.Destroy();
-                return true;
-            }
-
-            return false;
         }
 
         public void RemoveAllEntity()

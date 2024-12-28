@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.Components.Entities.AI;
+using StardustSandbox.ContentBundle.Components.AI.Entities.Specials;
 using StardustSandbox.Core.Components.Common.Entities;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces;
