@@ -2,6 +2,7 @@
 {
     public static class SGUIConstants
     {
+        #region Identifiers
         public const string INPUT_TOOL_IDENTIFIER = SGameConstants.TITLE + "_INPUT_TOOL";
 
         public const string MAIN_MENU_IDENTIFIER = SGameConstants.TITLE + "_MAIN_MENU";
@@ -19,5 +20,13 @@
 
         public const string WORLDS_EXPLORER_IDENTIFIER = SGameConstants.TITLE + "_WORLDS_EXPLORER";
         public const string WORLD_DETAILS_IDENTIFIER = SGameConstants.TITLE + "_WORLD_DETAILS";
+        #endregion
+
+        #region Data
+        public const string DATA_ITEM = "item";
+        public const string DATA_CATEGORY = "category";
+        public const string DATA_SUBCATEGORY = "subcategory";
+        public const string DATA_LANGUAGE_CODE = "language_code";
+        #endregion
     }
 }

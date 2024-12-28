@@ -11,10 +11,5 @@
         public const byte SLOT_SCALE = 2;
         public const byte SLOT_SIZE = 32;
         public const byte SLOT_SPACING = SLOT_SIZE * SLOT_SCALE;
-
-        // Data Fields
-        public const string DATA_ITEM = "item";
-        public const string DATA_CATEGORY = "category";
-        public const string DATA_SUBCATEGORY = "subcategory";
     }
 }

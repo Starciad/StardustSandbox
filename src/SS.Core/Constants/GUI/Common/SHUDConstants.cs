@@ -9,8 +9,5 @@
 
         // Buttons
         public const byte ELEMENT_BUTTONS_LENGTH = 13;
-
-        // Data Fields
-        public const string DATA_ELEMENT_ID = "element_identifier";
     }
 }

@@ -7,6 +7,7 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Selectors;
 using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
@@ -235,7 +236,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.Margin = margin;
                 labelElement.PositionRelativeToElement(this.rightPanelBackground);
                 labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName);
-                labelElement.AddData(SOptionsMenuConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
+                labelElement.AddData(SGUIConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
 
                 this.languageSectionButtons.Add(labelElement);
                 container.AddElement(labelElement);

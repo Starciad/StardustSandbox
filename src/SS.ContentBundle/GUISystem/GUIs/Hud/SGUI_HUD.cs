@@ -12,6 +12,7 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -176,7 +177,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
                 {
-                    SelectItemSlot(i, (string)slot.BackgroundElement.GetData(SHUDConstants.DATA_ELEMENT_ID));
+                    SelectItemSlot(i, (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM));
                 }
 
                 if (isOver)
@@ -185,7 +186,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        SItem item = this.SGameInstance.CatalogDatabase.GetItem((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_ELEMENT_ID));
+                        SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
                         SGUIGlobalTooltip.Title = item.DisplayName;
                         SGUIGlobalTooltip.Description = item.Description;
@@ -290,11 +291,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SSlot slot = this.toolbarElementSlots[i];
 
-                if (slot.BackgroundElement.ContainsData(SHUDConstants.DATA_ELEMENT_ID))
+                if (slot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
                 {
-                    if (item == this.SGameInstance.CatalogDatabase.GetItem((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_ELEMENT_ID)))
+                    SItem otherItem = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
+
+                    if (item == otherItem)
                     {
-                        SelectItemSlot(i, (string)slot.BackgroundElement.GetData(SHUDConstants.DATA_ELEMENT_ID));
+                        SelectItemSlot(i, otherItem);
                         return;
                     }
                 }
@@ -308,10 +311,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 SSlot currentSlot = this.toolbarElementSlots[i];
                 SSlot nextSlot = this.toolbarElementSlots[i + 1];
 
-                if (currentSlot.BackgroundElement.ContainsData(SHUDConstants.DATA_ELEMENT_ID) &&
-                    nextSlot.BackgroundElement.ContainsData(SHUDConstants.DATA_ELEMENT_ID))
+                if (currentSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM) &&
+                    nextSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
                 {
-                    currentSlot.BackgroundElement.UpdateData(SHUDConstants.DATA_ELEMENT_ID, nextSlot.BackgroundElement.GetData(SHUDConstants.DATA_ELEMENT_ID));
+                    currentSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, nextSlot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM));
                     currentSlot.IconElement.Texture = nextSlot.IconElement.Texture;
                 }
             }
@@ -320,22 +323,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             SSlot lastSlot = this.toolbarElementSlots[^1];
 
-            if (lastSlot.BackgroundElement.ContainsData(SHUDConstants.DATA_ELEMENT_ID))
+            if (lastSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
             {
-                lastSlot.BackgroundElement.UpdateData(SHUDConstants.DATA_ELEMENT_ID, item.Identifier);
+                lastSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, item);
             }
 
             lastSlot.IconElement.Texture = item.IconTexture;
 
             // Select last slot.
 
-            SelectItemSlot(this.toolbarElementSlots.Length - 1, item.Identifier);
+            SelectItemSlot(this.toolbarElementSlots.Length - 1, item);
         }
 
         private void SelectItemSlot(int slotIndex, string itemIdentifier)
         {
+            SelectItemSlot(slotIndex, this.SGameInstance.CatalogDatabase.GetItem(itemIdentifier));
+        }
+
+        private void SelectItemSlot(int slotIndex, SItem item)
+        {
             this.slotSelectedIndex = slotIndex;
-            this.SGameInstance.GameInputController.Player.SelectItem(this.SGameInstance.CatalogDatabase.GetItem(itemIdentifier));
+            this.SGameInstance.GameInputController.Player.SelectItem(item);
         }
     }
 }

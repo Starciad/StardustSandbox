@@ -20,7 +20,7 @@ namespace StardustSandbox.Core.Constants
             new SSize2(80, 46),
 
             // (2) Large
-            new SSize2(160, 92),
+            new SSize2(120, 69),
         ];
     }
 }

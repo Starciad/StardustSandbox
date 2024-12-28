@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
@@ -176,9 +177,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 };
 
                 // Data
-                if (!slotBackground.ContainsData(SItemExplorerConstants.DATA_CATEGORY))
+                if (!slotBackground.ContainsData(SGUIConstants.DATA_CATEGORY))
                 {
-                    slotBackground.AddData(SItemExplorerConstants.DATA_CATEGORY, category);
+                    slotBackground.AddData(SGUIConstants.DATA_CATEGORY, category);
                 }
 
                 // Position

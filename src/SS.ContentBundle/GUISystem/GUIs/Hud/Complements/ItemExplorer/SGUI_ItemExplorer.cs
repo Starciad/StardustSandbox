@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.GUISystem;
@@ -77,7 +78,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(categorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
                 {
-                    category = (SCategory)categorySlot.BackgroundElement.GetData(SItemExplorerConstants.DATA_CATEGORY);
+                    category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
                     SelectItemCatalog(category, category.Subcategories.First(), 0);
                 }
@@ -90,7 +91,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        category = (SCategory)categorySlot.BackgroundElement.GetData(SItemExplorerConstants.DATA_CATEGORY);
+                        category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
                         SGUIGlobalTooltip.Title = category.DisplayName;
                         SGUIGlobalTooltip.Description = category.Description;
@@ -109,7 +110,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(subcategorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
                 {
-                    subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SItemExplorerConstants.DATA_SUBCATEGORY);
+                    subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
                     SelectItemCatalog(subcategory.Parent, subcategory, 0);
                 }
@@ -122,7 +123,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SItemExplorerConstants.DATA_SUBCATEGORY);
+                        subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
                         SGUIGlobalTooltip.Title = subcategory.DisplayName;
                         SGUIGlobalTooltip.Description = subcategory.Description;
@@ -145,7 +146,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
                 {
-                    item = (SItem)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_ITEM);
+                    item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
                     this.guiHUD.AddItemToToolbar(item);
                     this.SGameInstance.GUIManager.CloseGUI();
@@ -159,7 +160,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                     if (!this.tooltipBoxElement.HasContent)
                     {
-                        item = (SItem)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_ITEM);
+                        item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
                         SGUIGlobalTooltip.Title = item.DisplayName;
                         SGUIGlobalTooltip.Description = item.Description;
@@ -206,13 +207,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     subcategorySlot.IconElement.Texture = subcategory.IconTexture;
 
                     // Add or Update Data
-                    if (!subcategorySlot.BackgroundElement.ContainsData(SItemExplorerConstants.DATA_SUBCATEGORY))
+                    if (!subcategorySlot.BackgroundElement.ContainsData(SGUIConstants.DATA_SUBCATEGORY))
                     {
-                        subcategorySlot.BackgroundElement.AddData(SItemExplorerConstants.DATA_SUBCATEGORY, subcategory);
+                        subcategorySlot.BackgroundElement.AddData(SGUIConstants.DATA_SUBCATEGORY, subcategory);
                     }
                     else
                     {
-                        subcategorySlot.BackgroundElement.UpdateData(SItemExplorerConstants.DATA_SUBCATEGORY, subcategory);
+                        subcategorySlot.BackgroundElement.UpdateData(SGUIConstants.DATA_SUBCATEGORY, subcategory);
                     }
                 }
                 else
@@ -236,13 +237,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     itemSlot.IconElement.Texture = item.IconTexture;
 
                     // Add or Update Data
-                    if (!itemSlot.BackgroundElement.ContainsData(SItemExplorerConstants.DATA_ITEM))
+                    if (!itemSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
                     {
-                        itemSlot.BackgroundElement.AddData(SItemExplorerConstants.DATA_ITEM, item);
+                        itemSlot.BackgroundElement.AddData(SGUIConstants.DATA_ITEM, item);
                     }
                     else
                     {
-                        itemSlot.BackgroundElement.UpdateData(SItemExplorerConstants.DATA_ITEM, item);
+                        itemSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, item);
                     }
                 }
                 else

@@ -7,6 +7,7 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
@@ -242,9 +243,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.West;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                if (!slot.BackgroundElement.ContainsData(SHUDConstants.DATA_ELEMENT_ID))
+                if (!slot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
                 {
-                    slot.BackgroundElement.AddData(SHUDConstants.DATA_ELEMENT_ID, selectedItem.Identifier);
+                    slot.BackgroundElement.AddData(SGUIConstants.DATA_ITEM, selectedItem);
                 }
 
                 // Update
