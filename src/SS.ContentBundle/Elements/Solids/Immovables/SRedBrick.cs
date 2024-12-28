@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue >= 1727)
             {
-                this.Context.ReplaceElement(SElementIdentifierConstants.LAVA);
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_LAVA);
             }
         }
     }

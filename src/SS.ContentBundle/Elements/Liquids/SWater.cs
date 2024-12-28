@@ -32,14 +32,14 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementIdentifierConstants.MUD);
+                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_MUD);
                         return;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementIdentifierConstants.SAND);
+                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SAND);
                         }
 
                         return;
@@ -55,12 +55,12 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement(SElementIdentifierConstants.STEAM);
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STEAM);
             }
 
             if (currentValue <= 0)
             {
-                this.Context.ReplaceElement(SElementIdentifierConstants.ICE);
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_ICE);
             }
         }
     }

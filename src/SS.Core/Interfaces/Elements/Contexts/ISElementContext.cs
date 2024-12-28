@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 {
-    public interface ISElementContext : ISElementManager
+    public interface ISElementContext : ISElementHandler
     {
         SWorldSlot Slot { get; }
         SWorldSlotLayer SlotLayer { get; }

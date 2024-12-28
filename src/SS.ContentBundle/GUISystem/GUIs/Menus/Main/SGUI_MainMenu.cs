@@ -118,12 +118,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadMagicCursor()
         {
-            if (this.SGameInstance.EntityManager.InstantiatedEntities.Length > 0)
+            if (this.world.ActiveEntitiesCount > 0)
             {
                 return;
             }
 
-            _ = this.SGameInstance.EntityManager.Instantiate(this.SGameInstance.EntityDatabase.GetEntityDescriptor(typeof(SMagicCursorEntity)), null);
+            _ = this.world.InstantiateEntity(SEntityConstants.IDENTIFIER_MAGIC_CURSOR, null);
         }
 
         // =========================================== //

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {
-    public interface ISElementManager
+    public interface ISElementHandler
     {
         void InstantiateElement(Point position, SWorldLayer worldLayer, string identifier);
         void InstantiateElement(Point position, SWorldLayer worldLayer, ISElement value);

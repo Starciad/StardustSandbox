@@ -45,16 +45,16 @@ namespace StardustSandbox.ContentBundle.Components.Entities.AI
 
         private static readonly string[] AllowedElements =
         [
-            SElementIdentifierConstants.DIRT,
-            SElementIdentifierConstants.MUD,
-            SElementIdentifierConstants.WATER,
-            SElementIdentifierConstants.STONE,
-            SElementIdentifierConstants.GRASS,
-            SElementIdentifierConstants.SAND,
-            SElementIdentifierConstants.LAVA,
-            SElementIdentifierConstants.ACID,
-            SElementIdentifierConstants.WOOD,
-            SElementIdentifierConstants.TREE_LEAF
+            SElementConstants.IDENTIFIER_DIRT,
+            SElementConstants.IDENTIFIER_MUD,
+            SElementConstants.IDENTIFIER_WATER,
+            SElementConstants.IDENTIFIER_STONE,
+            SElementConstants.IDENTIFIER_GRASS,
+            SElementConstants.IDENTIFIER_SAND,
+            SElementConstants.IDENTIFIER_LAVA,
+            SElementConstants.IDENTIFIER_ACID,
+            SElementConstants.IDENTIFIER_WOOD,
+            SElementConstants.IDENTIFIER_TREE_LEAF
         ];
 
         internal SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)

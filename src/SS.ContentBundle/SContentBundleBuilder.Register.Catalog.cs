@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.Core.Catalog;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces;
@@ -19,10 +20,20 @@ namespace StardustSandbox.ContentBundle
                 game.AssetDatabase.GetTexture("icon_element_1")
             );
 
+            SCategory entityCategory = new(
+                "entities",
+                "Entities",
+                string.Empty,
+                game.AssetDatabase.GetTexture("icon_entity_1")
+            );
+
             catalogDatabase.RegisterCategory(elementCategory);
+            catalogDatabase.RegisterCategory(entityCategory);
             #endregion
 
             #region Subcategories
+
+            #region Elements
             SSubcategory elementPowderSubcategory = new(
                 parent: elementCategory,
                 identifier: "powders",
@@ -79,11 +90,25 @@ namespace StardustSandbox.ContentBundle
             elementCategory.AddSubcategory(elementEnergySubcategory);
             #endregion
 
+            #region Entities
+            SSubcategory entityAnimalSubcategory = new(
+                parent: entityCategory,
+                identifier: "animals",
+                displayName: "Animals",
+                description: string.Empty,
+                iconTexture: game.AssetDatabase.GetTexture("icon_entity_1")
+            );
+
+            entityCategory.AddSubcategory(entityAnimalSubcategory);
+            #endregion
+
+            #endregion
+
             #region Items
 
             #region Elements
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.DIRT,
+                identifier: SElementConstants.IDENTIFIER_DIRT,
                 displayName: SLocalization.Element_Solid_Movable_Dirt_Name,
                 description: SLocalization.Element_Solid_Movable_Dirt_Description,
                 contentType: SItemContentType.Element,
@@ -92,7 +117,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.MUD,
+                identifier: SElementConstants.IDENTIFIER_MUD,
                 displayName: SLocalization.Element_Solid_Movable_Mud_Name,
                 description: SLocalization.Element_Solid_Movable_Mud_Description,
                 contentType: SItemContentType.Element,
@@ -101,7 +126,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.WATER,
+                identifier: SElementConstants.IDENTIFIER_WATER,
                 displayName: SLocalization.Element_Liquid_Water_Name,
                 description: SLocalization.Element_Liquid_Water_Description,
                 contentType: SItemContentType.Element,
@@ -110,7 +135,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.STONE,
+                identifier: SElementConstants.IDENTIFIER_STONE,
                 displayName: SLocalization.Element_Solid_Movable_Stone_Name,
                 description: SLocalization.Element_Solid_Movable_Stone_Description,
                 contentType: SItemContentType.Element,
@@ -119,7 +144,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.GRASS,
+                identifier: SElementConstants.IDENTIFIER_GRASS,
                 displayName: SLocalization.Element_Solid_Movable_Grass_Name,
                 description: SLocalization.Element_Solid_Movable_Grass_Description,
                 contentType: SItemContentType.Element,
@@ -128,7 +153,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.ICE,
+                identifier: SElementConstants.IDENTIFIER_ICE,
                 displayName: SLocalization.Element_Solid_Movable_Ice_Name,
                 description: SLocalization.Element_Solid_Movable_Ice_Description,
                 contentType: SItemContentType.Element,
@@ -137,7 +162,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.SAND,
+                identifier: SElementConstants.IDENTIFIER_SAND,
                 displayName: SLocalization.Element_Solid_Movable_Sand_Name,
                 description: SLocalization.Element_Solid_Movable_Sand_Description,
                 contentType: SItemContentType.Element,
@@ -146,7 +171,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.SNOW,
+                identifier: SElementConstants.IDENTIFIER_SNOW,
                 displayName: SLocalization.Element_Solid_Movable_Snow_Name,
                 description: SLocalization.Element_Solid_Movable_Snow_Description,
                 contentType: SItemContentType.Element,
@@ -155,7 +180,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.MOVABLE_CORRUPTION,
+                identifier: SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION,
                 displayName: SLocalization.Element_Solid_Movable_Corruption_Name,
                 description: SLocalization.Element_Solid_Movable_Corruption_Description,
                 contentType: SItemContentType.Element,
@@ -164,7 +189,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.LAVA,
+                identifier: SElementConstants.IDENTIFIER_LAVA,
                 displayName: SLocalization.Element_Liquid_Lava_Name,
                 description: SLocalization.Element_Liquid_Lava_Description,
                 contentType: SItemContentType.Element,
@@ -173,7 +198,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.ACID,
+                identifier: SElementConstants.IDENTIFIER_ACID,
                 displayName: SLocalization.Element_Liquid_Acid_Name,
                 description: SLocalization.Element_Liquid_Acid_Description,
                 contentType: SItemContentType.Element,
@@ -182,7 +207,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.GLASS,
+                identifier: SElementConstants.IDENTIFIER_GLASS,
                 displayName: SLocalization.Element_Solid_Immovable_Glass_Name,
                 description: SLocalization.Element_Solid_Immovable_Glass_Description,
                 contentType: SItemContentType.Element,
@@ -191,7 +216,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.METAL,
+                identifier: SElementConstants.IDENTIFIER_METAL,
                 displayName: SLocalization.Element_Solid_Immovable_Metal_Name,
                 description: SLocalization.Element_Solid_Immovable_Metal_Description,
                 contentType: SItemContentType.Element,
@@ -200,7 +225,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.WALL,
+                identifier: SElementConstants.IDENTIFIER_WALL,
                 displayName: SLocalization.Element_Solid_Immovable_Wall_Name,
                 description: SLocalization.Element_Solid_Immovable_Wall_Description,
                 contentType: SItemContentType.Element,
@@ -209,7 +234,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.WOOD,
+                identifier: SElementConstants.IDENTIFIER_WOOD,
                 displayName: SLocalization.Element_Solid_Immovable_Wood_Name,
                 description: SLocalization.Element_Solid_Immovable_Wood_Description,
                 contentType: SItemContentType.Element,
@@ -218,7 +243,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.GAS_CORRUPTION,
+                identifier: SElementConstants.IDENTIFIER_GAS_CORRUPTION,
                 displayName: SLocalization.Element_Gas_Corruption_Name,
                 description: SLocalization.Element_Gas_Corruption_Description,
                 contentType: SItemContentType.Element,
@@ -227,7 +252,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.LIQUID_CORRUPTION,
+                identifier: SElementConstants.IDENTIFIER_LIQUID_CORRUPTION,
                 displayName: SLocalization.Element_Liquid_Corruption_Name,
                 description: SLocalization.Element_Liquid_Corruption_Description,
                 contentType: SItemContentType.Element,
@@ -236,7 +261,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.IMMOVABLE_CORRUPTION,
+                identifier: SElementConstants.IDENTIFIER_IMMOVABLE_CORRUPTION,
                 displayName: SLocalization.Element_Solid_Immovable_Corruption_Name,
                 description: SLocalization.Element_Solid_Immovable_Corruption_Description,
                 contentType: SItemContentType.Element,
@@ -245,7 +270,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.STEAM,
+                identifier: SElementConstants.IDENTIFIER_STEAM,
                 displayName: SLocalization.Element_Gas_Steam_Name,
                 description: SLocalization.Element_Gas_Steam_Description,
                 contentType: SItemContentType.Element,
@@ -254,7 +279,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.SMOKE,
+                identifier: SElementConstants.IDENTIFIER_SMOKE,
                 displayName: SLocalization.Element_Gas_Smoke_Name,
                 description: SLocalization.Element_Gas_Smoke_Description,
                 contentType: SItemContentType.Element,
@@ -263,7 +288,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.RED_BRICK,
+                identifier: SElementConstants.IDENTIFIER_RED_BRICK,
                 displayName: SLocalization.Element_Solid_Immovable_RedBrick_Name,
                 description: SLocalization.Element_Solid_Immovable_RedBrick_Description,
                 contentType: SItemContentType.Element,
@@ -272,7 +297,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.TREE_LEAF,
+                identifier: SElementConstants.IDENTIFIER_TREE_LEAF,
                 displayName: SLocalization.Element_Solid_Immovable_TreeLeaf_Name,
                 description: SLocalization.Element_Solid_Immovable_TreeLeaf_Description,
                 contentType: SItemContentType.Element,
@@ -281,7 +306,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.MOUNTING_BLOCK,
+                identifier: SElementConstants.IDENTIFIER_MOUNTING_BLOCK,
                 displayName: SLocalization.Element_Solid_Immovable_MountingBlock_Name,
                 description: SLocalization.Element_Solid_Immovable_MountingBlock_Description,
                 contentType: SItemContentType.Element,
@@ -290,13 +315,26 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: SElementIdentifierConstants.FIRE,
+                identifier: SElementConstants.IDENTIFIER_FIRE,
                 displayName: SLocalization.Element_Energy_Fire_Name,
                 description: SLocalization.Element_Energy_Fire_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementEnergySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             ));
+            #endregion
+
+            #region Entities
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SEntityConstants.IDENTIFIER_ANT,
+                displayName: "Ant",
+                description: "Ant",
+                contentType: SItemContentType.Entity,
+                subcategory: entityAnimalSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_entity_1")
+            ));
+
             #endregion
 
             #endregion

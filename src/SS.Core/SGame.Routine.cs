@@ -30,7 +30,6 @@ namespace StardustSandbox.Core
             this.guiManager.Initialize();
             this.cursorManager.Initialize();
             this.backgroundManager.Initialize();
-            this.entityManager.Initialize();
 
             // Controllers
             this.gameInputController.Initialize();
@@ -74,10 +73,6 @@ namespace StardustSandbox.Core
 
             if (!this.gameManager.GameState.IsSimulationPaused && !this.gameManager.GameState.IsCriticalMenuOpen)
             {
-                // Managers
-                this.entityManager.Update(gameTime);
-
-                // Core
                 this.world.Update(gameTime);
             }
 

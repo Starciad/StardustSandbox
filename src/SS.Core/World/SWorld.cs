@@ -6,6 +6,7 @@ using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -17,26 +18,33 @@ using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.Data;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld : SGameObject, ISWorld
     {
-        public SWorldInfo Infos { get; private set; } = new();
-
+        public SWorldInfo Infos { get; } = new();
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
+        public int ActiveEntitiesCount => this.instantiatedEntities.Count;
 
         private SWorldSlot[,] slots;
         private uint currentFramesUpdateDelay;
-
         private SWorldSaveFile currentlySelectedWorldSaveFile;
 
+        // World
         private readonly uint totalFramesUpdateDelay = 5;
-        private readonly SObjectPool worldSlotsPool;
         private readonly SComponentContainer componentContainer;
         private readonly SWorldChunkingComponent worldChunkingComponent;
         private readonly SElementContext worldElementContext;
+
+        // Entities
+        private readonly List<SEntity> instantiatedEntities = new(SEntityConstants.ACTIVE_ENTITIES_LIMIT);
+
+        // Pools
+        private readonly SObjectPool worldSlotsPool;
+        private readonly Dictionary<string, SObjectPool> entityPools = [];
 
         public SWorld(ISGame gameInstance) : base(gameInstance)
         {
@@ -62,19 +70,8 @@ namespace StardustSandbox.Core.World
                 return;
             }
 
-            // Delay
-            if (this.currentFramesUpdateDelay == 0)
-            {
-                this.currentFramesUpdateDelay = this.totalFramesUpdateDelay;
-            }
-            else
-            {
-                this.currentFramesUpdateDelay--;
-                return;
-            }
-
-            // Update world
-            this.componentContainer.Update(gameTime);
+            UpdateWorld(gameTime);
+            UpdateEntities(gameTime);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -84,7 +81,51 @@ namespace StardustSandbox.Core.World
                 return;
             }
 
+            DrawWorld(gameTime, spriteBatch);
+            DrawEntities(gameTime, spriteBatch);
+        }
+
+        private void UpdateWorld(GameTime gameTime)
+        {
+            if (this.currentFramesUpdateDelay > 0)
+            {
+                this.currentFramesUpdateDelay--;
+                return;
+            }
+
+            this.currentFramesUpdateDelay = this.totalFramesUpdateDelay;
+            this.componentContainer.Update(gameTime);
+        }
+
+        private void UpdateEntities(GameTime gameTime)
+        {
+            this.instantiatedEntities.ForEach(entity =>
+            {
+                if (entity == null)
+                {
+                    return;
+                }
+
+                entity.Update(gameTime);
+            });
+        }
+
+        private void DrawWorld(GameTime gameTime, SpriteBatch spriteBatch)
+        {
             this.componentContainer.Draw(gameTime, spriteBatch);
+        }
+
+        private void DrawEntities(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            this.instantiatedEntities.ForEach(entity =>
+            {
+                if (entity == null)
+                {
+                    return;
+                }
+
+                entity.Draw(gameTime, spriteBatch);
+            });
         }
 
         public void StartNew()
@@ -188,6 +229,8 @@ namespace StardustSandbox.Core.World
                     DestroyElement(new(x, y), SWorldLayer.Background);
                 }
             }
+
+            RemoveAllEntity();
         }
 
         public void Reset()

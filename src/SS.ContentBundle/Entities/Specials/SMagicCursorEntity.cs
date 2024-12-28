@@ -10,9 +10,9 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
 {
     internal sealed class SMagicCursorEntityDescriptor : SEntityDescriptor
     {
-        internal SMagicCursorEntityDescriptor()
+        internal SMagicCursorEntityDescriptor(string identifier) : base(identifier)
         {
-            this.associatedEntityType = typeof(SMagicCursorEntity);
+
         }
 
         public override SEntity CreateEntity(ISGame gameInstance)

@@ -63,6 +63,9 @@ namespace StardustSandbox.ContentBundle
             // Elements
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ELEMENTS_LENGTH, "element_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ELEMENTS));
 
+            // Entities
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ENTITIES_LENGTH, "entity_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ENTITIES));
+
             // Game
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_ICONS_LENGTH, "game_icon_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_ICONS));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GAME_TITLES_LENGTH, "game_title_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GAME, SDirectoryConstants.ASSETS_GRAPHICS_GAME_TITLES));
@@ -74,6 +77,7 @@ namespace StardustSandbox.ContentBundle
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_GUI_FIELDS_LENGTH, "gui_field_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_GUI, SDirectoryConstants.ASSETS_GRAPHICS_GUI_FIELDS));
 
             // Icons
+            AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_ENTITIES_LENGTH, "icon_entity_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_ENTITIES));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_ELEMENTS_LENGTH, "icon_element_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_ELEMENTS));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_GUI_LENGTH, "icon_gui_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_GUI));
             AssetLoader(contentManager, assetDatabase, AssetType.Texture, SAssetConstants.GRAPHICS_ICONS_CONTROLLERS_LENGTH, "icon_controller_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_CONTROLLERS));

@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue <= 500)
             {
-                this.Context.ReplaceElement(SElementIdentifierConstants.STONE);
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STONE);
                 this.Context.SetElementTemperature(500);
             }
         }

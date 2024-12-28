@@ -63,7 +63,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void EraseEverythingButtonAction()
         {
-            this.SGameInstance.EntityManager.RemoveAll();
             this.world.Reset();
         }
         #endregion

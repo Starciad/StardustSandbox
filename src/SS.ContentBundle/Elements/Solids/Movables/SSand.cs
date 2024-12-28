@@ -20,7 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue >= 1500)
             {
-                this.Context.ReplaceElement(SElementIdentifierConstants.GLASS);
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_GLASS);
             }
         }
     }

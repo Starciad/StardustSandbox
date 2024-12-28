@@ -39,7 +39,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
 
                 if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE, SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL))
                 {
-                    this.Context.InstantiateElement(this.Context.Layer, SElementIdentifierConstants.SMOKE);
+                    this.Context.InstantiateElement(this.Context.Layer, SElementConstants.IDENTIFIER_SMOKE);
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (SRandomMath.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementIdentifierConstants.FIRE);
+                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementConstants.IDENTIFIER_FIRE);
                 }
             }
         }

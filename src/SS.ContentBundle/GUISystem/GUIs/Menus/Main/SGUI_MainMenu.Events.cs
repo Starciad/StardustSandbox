@@ -25,7 +25,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.SGameInstance.BackgroundManager.Reset();
             this.SGameInstance.BackgroundManager.DisableClouds();
-            this.SGameInstance.EntityManager.RemoveAll();
 
             this.SGameInstance.World.Clear();
             this.SGameInstance.World.IsActive = false;

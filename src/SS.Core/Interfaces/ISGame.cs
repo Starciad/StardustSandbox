@@ -21,7 +21,6 @@ namespace StardustSandbox.Core.Interfaces
         ISCameraManager CameraManager { get; }
         ISGraphicsManager GraphicsManager { get; }
         ISGUIManager GUIManager { get; }
-        ISEntityManager EntityManager { get; }
         ISBackgroundManager BackgroundManager { get; }
         ISCursorManager CursorManager { get; }
 

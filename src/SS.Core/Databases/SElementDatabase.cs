@@ -10,17 +10,17 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class SElementDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISElementDatabase
     {
-        private readonly Dictionary<string, ISElement> _registeredElements = [];
+        private readonly Dictionary<string, ISElement> registeredElements = [];
 
         public void RegisterElement(ISElement element)
         {
             ((SElement)element).Initialize();
-            this._registeredElements.Add(element.Identifier, element);
+            this.registeredElements.Add(element.Identifier, element);
         }
 
         public ISElement GetElementByIdentifier(string identifier)
         {
-            return this._registeredElements[identifier];
+            return this.registeredElements[identifier];
         }
     }
 }

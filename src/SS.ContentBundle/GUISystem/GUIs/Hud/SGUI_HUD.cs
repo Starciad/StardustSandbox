@@ -41,7 +41,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         internal SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
-            SelectItemSlot(0, SElementIdentifierConstants.DIRT);
+            SelectItemSlot(0, SElementConstants.IDENTIFIER_DIRT);
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
