@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Components.Common.Entities;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.Items;
@@ -19,12 +21,12 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
-            IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
-
             // The selected item corresponds to an element.
             switch (contentType)
             {
                 case SItemContentType.Element:
+                    IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
+
                     switch (worldModificationType)
                     {
                         case SWorldModificationType.Adding:
@@ -42,6 +44,19 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                     break;
 
                 case SItemContentType.Entity:
+                    switch (worldModificationType)
+                    {
+                        case SWorldModificationType.Adding:
+                            DrawEntities(referencedItemIdentifier, new Vector2(position.X, position.Y) * SWorldConstants.GRID_SCALE);
+                            break;
+
+                        case SWorldModificationType.Removing:
+                            EraseEntities();
+                            break;
+
+                        default:
+                            break;
+                    }
                     break;
 
                 default:
@@ -66,6 +81,24 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             {
                 this.world.DestroyElement(position, this.simulationPen.Layer);
             }
+        }
+
+        // ============================================ //
+        // Entities
+
+        private void DrawEntities(string entityIdentifier, Vector2 position)
+        {
+            _ = this.world.InstantiateEntity(entityIdentifier, (entity) =>
+            {
+                SEntityTransformComponent transformComponent = entity.ComponentContainer.GetComponent<SEntityTransformComponent>();
+
+                transformComponent.Position = position;
+            });
+        }
+
+        private void EraseEntities()
+        {
+
         }
     }
 }

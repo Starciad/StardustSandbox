@@ -8,8 +8,9 @@ using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Entities
 {
-    public abstract class SEntity(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
+    public abstract class SEntity(ISGame gameInstance, string identifier) : SGameObject(gameInstance), ISPoolableObject
     {
+        public string Identifier => identifier;
         public SComponentContainer ComponentContainer => this.componentContainer;
 
         private readonly SComponentContainer componentContainer = new(gameInstance);

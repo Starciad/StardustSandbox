@@ -1,9 +1,9 @@
 ﻿using StardustSandbox.Core.Collections;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces.Collections;
 
 using System;
-using System.Linq;
 
 namespace StardustSandbox.Core.World
 {
@@ -18,6 +18,12 @@ namespace StardustSandbox.Core.World
 
         public bool TryInstantiateEntity(string entityIdentifier, Action<SEntity> entityConfigurationAction, out SEntity entity)
         {
+            if (this.instantiatedEntities.Count >= SEntityConstants.ACTIVE_ENTITIES_LIMIT)
+            {
+                entity = null;
+                return false;
+            }
+
             if (!this.entityPools.TryGetValue(entityIdentifier, out SObjectPool objectPool))
             {
                 objectPool = new();
@@ -27,9 +33,7 @@ namespace StardustSandbox.Core.World
             if (!objectPool.TryGet(out ISPoolableObject value))
             {
                 SEntityDescriptor entityDescriptor = this.SGameInstance.EntityDatabase.GetEntityDescriptor(entityIdentifier);
-
                 value = entityDescriptor.CreateEntity(this.SGameInstance);
-                objectPool.Add(value);
             }
 
             entity = value as SEntity;
@@ -49,20 +53,17 @@ namespace StardustSandbox.Core.World
 
         public void RemoveEntity(SEntity entity)
         {
-            if (this.entityPools.TryGetValue(entity.GetType().ToString(), out SObjectPool objectPool))
-            {
-                objectPool.Add(entity);
-            }
-            _ = this.instantiatedEntities.Remove(entity);
+            _ = TryRemoveEntity(entity);
         }
 
         public bool TryRemoveEntity(SEntity entity)
         {
-            if (this.instantiatedEntities.Contains(entity) && this.entityPools.TryGetValue(entity.GetType().ToString(), out SObjectPool objectPool))
+            if (this.instantiatedEntities.Contains(entity) && this.entityPools.TryGetValue(entity.Identifier, out SObjectPool objectPool))
             {
                 objectPool.Add(entity);
                 return this.instantiatedEntities.Remove(entity);
             }
+
             return false;
         }
 
