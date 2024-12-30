@@ -41,6 +41,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildToolSection(layoutBuilder);
             BuildLayerSection(layoutBuilder);
             BuildShapeSection(layoutBuilder);
+
+            layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)

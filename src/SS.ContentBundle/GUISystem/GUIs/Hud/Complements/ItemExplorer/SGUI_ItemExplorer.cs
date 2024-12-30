@@ -89,13 +89,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    if (!this.tooltipBoxElement.HasContent)
-                    {
-                        category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
+                    category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
-                        SGUIGlobalTooltip.Title = category.DisplayName;
-                        SGUIGlobalTooltip.Description = category.Description;
-                    }
+                    SGUIGlobalTooltip.Title = category.DisplayName;
+                    SGUIGlobalTooltip.Description = category.Description;
                 }
             }
         }
@@ -121,13 +118,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    if (!this.tooltipBoxElement.HasContent)
-                    {
-                        subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
+                    subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
-                        SGUIGlobalTooltip.Title = subcategory.DisplayName;
-                        SGUIGlobalTooltip.Description = subcategory.Description;
-                    }
+                    SGUIGlobalTooltip.Title = subcategory.DisplayName;
+                    SGUIGlobalTooltip.Description = subcategory.Description;
                 }
             }
         }
@@ -158,13 +152,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    if (!this.tooltipBoxElement.HasContent)
-                    {
-                        item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
+                    item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
-                        SGUIGlobalTooltip.Title = item.DisplayName;
-                        SGUIGlobalTooltip.Description = item.Description;
-                    }
+                    SGUIGlobalTooltip.Title = item.DisplayName;
+                    SGUIGlobalTooltip.Description = item.Description;
                 }
 
                 slot.BackgroundElement.Color = isOver ? SColorPalette.LemonYellow : SColorPalette.White;

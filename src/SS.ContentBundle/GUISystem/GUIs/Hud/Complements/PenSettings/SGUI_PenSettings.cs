@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
+using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
@@ -11,6 +13,7 @@ using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -36,7 +39,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private readonly SGameInputController gameInputController;
 
-        internal SGUI_PenSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        private readonly SGUITooltipBoxElement tooltipBoxElement;
+
+        internal SGUI_PenSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.toolButtonSelectedIndex = 0;
             this.layerButtonSelectedIndex = 0;
@@ -103,11 +108,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.gameInputController = gameInstance.GameInputController;
+            this.tooltipBoxElement = tooltipBoxElement;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            this.tooltipBoxElement.IsVisible = false;
 
             UpdateBrushSizeSlider();
             UpdateMenuButtons();
@@ -115,16 +123,29 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             UpdateLayerButtons();
             UpdateShapeButtons();
             SyncGUIElements();
+
+            this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
         private void UpdateBrushSizeSlider()
         {
-            Vector2 position = this.brushSizeSliderElement.Position;
+            Vector2 basePosition = this.brushSizeSliderElement.Position;
             Vector2 offset = new(SHUDConstants.SLOT_SIZE);
+            SSize2 size = new(SHUDConstants.SLOT_SIZE);
 
             for (int i = 0; i < this.brushSizeSliderClipTextures.Length; i++)
             {
-                if (this.GUIEvents.OnMouseDown(position + offset, new(SHUDConstants.SLOT_SIZE)))
+                Vector2 position = basePosition + offset;
+
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
+                    SGUIGlobalTooltip.Description = string.Format(SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
+                }
+
+                if (this.GUIEvents.OnMouseDown(position, size))
                 {
                     this.SGameInstance.GameInputController.Pen.Size = (sbyte)i;
                     break;

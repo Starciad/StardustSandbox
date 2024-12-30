@@ -175,40 +175,37 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 this.tooltipBoxElement.IsVisible = true;
 
-                if (!this.tooltipBoxElement.HasContent)
+                switch (this.SGameInstance.GameInputController.Pen.Tool)
                 {
-                    switch (this.SGameInstance.GameInputController.Pen.Tool)
-                    {
-                        case SPenTool.Visualization:
-                            SGUIGlobalTooltip.Title = SLocalization_Tools.Visualization_Name;
-                            SGUIGlobalTooltip.Description = SLocalization_Tools.Visualization_Description;
-                            break;
+                    case SPenTool.Visualization:
+                        SGUIGlobalTooltip.Title = SLocalization_Tools.Visualization_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_Tools.Visualization_Description;
+                        break;
 
-                        case SPenTool.Pencil:
-                            SGUIGlobalTooltip.Title = SLocalization_Tools.Pencil_Name;
-                            SGUIGlobalTooltip.Description = SLocalization_Tools.Pencil_Description;
-                            break;
+                    case SPenTool.Pencil:
+                        SGUIGlobalTooltip.Title = SLocalization_Tools.Pencil_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_Tools.Pencil_Description;
+                        break;
 
-                        case SPenTool.Eraser:
-                            SGUIGlobalTooltip.Title = SLocalization_Tools.Eraser_Name;
-                            SGUIGlobalTooltip.Description = SLocalization_Tools.Eraser_Description;
-                            break;
+                    case SPenTool.Eraser:
+                        SGUIGlobalTooltip.Title = SLocalization_Tools.Eraser_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_Tools.Eraser_Description;
+                        break;
 
-                        case SPenTool.Fill:
-                            SGUIGlobalTooltip.Title = SLocalization_Tools.Fill_Name;
-                            SGUIGlobalTooltip.Description = SLocalization_Tools.Fill_Description;
-                            break;
+                    case SPenTool.Fill:
+                        SGUIGlobalTooltip.Title = SLocalization_Tools.Fill_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_Tools.Fill_Description;
+                        break;
 
-                        case SPenTool.Replace:
-                            SGUIGlobalTooltip.Title = SLocalization_Tools.Replace_Name;
-                            SGUIGlobalTooltip.Description = SLocalization_Tools.Replace_Description;
-                            break;
+                    case SPenTool.Replace:
+                        SGUIGlobalTooltip.Title = SLocalization_Tools.Replace_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_Tools.Replace_Description;
+                        break;
 
-                        default:
-                            SGUIGlobalTooltip.Title = SLocalization_Statements.Unknown;
-                            SGUIGlobalTooltip.Description = string.Empty;
-                            break;
-                    }
+                    default:
+                        SGUIGlobalTooltip.Title = SLocalization_Statements.Unknown;
+                        SGUIGlobalTooltip.Description = string.Empty;
+                        break;
                 }
             }
             #endregion
@@ -228,13 +225,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    if (!this.tooltipBoxElement.HasContent)
-                    {
-                        SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
+                    SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
-                        SGUIGlobalTooltip.Title = item.DisplayName;
-                        SGUIGlobalTooltip.Description = item.Description;
-                    }
+                    SGUIGlobalTooltip.Title = item.DisplayName;
+                    SGUIGlobalTooltip.Description = item.Description;
                 }
 
                 slot.BackgroundElement.Color = this.slotSelectedIndex == i ?
@@ -254,11 +248,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 this.toolbarElementSearchButton.Color = SColorPalette.Graphite;
                 this.tooltipBoxElement.IsVisible = true;
 
-                if (!this.tooltipBoxElement.HasContent)
-                {
-                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Button_ItemExplorer_Name;
-                    SGUIGlobalTooltip.Description = SLocalization_GUIs.HUD_Button_ItemExplorer_Description;
-                }
+                SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Button_ItemExplorer_Name;
+                SGUIGlobalTooltip.Description = SLocalization_GUIs.HUD_Button_ItemExplorer_Description;
             }
             else
             {
@@ -287,11 +278,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                         toolbarSlot.BackgroundElement.Color = SColorPalette.EmeraldGreen;
                         this.tooltipBoxElement.IsVisible = true;
 
-                        if (!this.tooltipBoxElement.HasContent)
-                        {
-                            SGUIGlobalTooltip.Title = button.DisplayName;
-                            SGUIGlobalTooltip.Description = button.Description;
-                        }
+                        SGUIGlobalTooltip.Title = button.DisplayName;
+                        SGUIGlobalTooltip.Description = button.Description;
                     }
                     else
                     {
