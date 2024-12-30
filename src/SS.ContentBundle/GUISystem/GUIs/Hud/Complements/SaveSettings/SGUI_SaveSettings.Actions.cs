@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Managers.IO;
+﻿using StardustSandbox.Core.IO.Handlers;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         // Footer
         private void SaveButtonAction()
         {
-            SWorldSavingManager.Serialize(this.world, this.SGameInstance.GraphicsManager.GraphicsDevice);
+            SWorldSavingHandler.Serialize(this.world, this.SGameInstance.GraphicsManager.GraphicsDevice);
         }
     }
 }

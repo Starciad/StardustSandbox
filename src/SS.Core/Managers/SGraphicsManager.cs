@@ -5,7 +5,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
-using StardustSandbox.Core.Managers.IO;
+using StardustSandbox.Core.IO.Handlers;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void UpdateSettings()
         {
-            SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 
             if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
             {

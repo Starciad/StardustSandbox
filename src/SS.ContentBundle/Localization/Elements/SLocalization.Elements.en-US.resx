@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Solid.Movable.Dirt.Name" xml:space="preserve">
+    <value>Dirt</value>
+  </data>
+  <data name="Solid.Movable.Mud.Name" xml:space="preserve">
+    <value>Mud</value>
+  </data>
+  <data name="Liquid.Water.Name" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="Solid.Movable.Stone.Name" xml:space="preserve">
+    <value>Stone</value>
+  </data>
+  <data name="Solid.Movable.Grass.Name" xml:space="preserve">
+    <value>Grass</value>
+  </data>
+  <data name="Solid.Movable.Ice.Name" xml:space="preserve">
+    <value>Ice</value>
+  </data>
+  <data name="Solid.Movable.Sand.Name" xml:space="preserve">
+    <value>Sand</value>
+  </data>
+  <data name="Solid.Movable.Snow.Name" xml:space="preserve">
+    <value>Snow</value>
+  </data>
+  <data name="Solid.Movable.Corruption.Name" xml:space="preserve">
+    <value>Corruption (movable)</value>
+  </data>
+  <data name="Liquid.Lava.Name" xml:space="preserve">
+    <value>Lava</value>
+  </data>
+  <data name="Liquid.Acid.Name" xml:space="preserve">
+    <value>Acid</value>
+  </data>
+  <data name="Solid.Immovable.Glass.Name" xml:space="preserve">
+    <value>Glass</value>
+  </data>
+  <data name="Solid.Immovable.Iron.Name" xml:space="preserve">
+    <value>Iron</value>
+  </data>
+  <data name="Solid.Immovable.Wall.Name" xml:space="preserve">
+    <value>Wall</value>
+  </data>
+  <data name="Solid.Immovable.Wood.Name" xml:space="preserve">
+    <value>Wood</value>
+  </data>
+  <data name="Gas.Corruption.Name" xml:space="preserve">
+    <value>Corruption (gas)</value>
+  </data>
+  <data name="Liquid.Corruption.Name" xml:space="preserve">
+    <value>Corruption (liquid)</value>
+  </data>
+  <data name="Solid.Immovable.Corruption.Name" xml:space="preserve">
+    <value>Corruption (immovable)</value>
+  </data>
+  <data name="Gas.Steam.Name" xml:space="preserve">
+    <value>Steam</value>
+  </data>
+  <data name="Gas.Smoke.Name" xml:space="preserve">
+    <value>Smoke</value>
+  </data>
+  <data name="Solid.Immovable.RedBrick.Name" xml:space="preserve">
+    <value>Red Brick</value>
+  </data>
+  <data name="Solid.Immovable.TreeLeaf.Name" xml:space="preserve">
+    <value>Tree Leaf</value>
+  </data>
+  <data name="Solid.Immovable.MountingBlock.Name" xml:space="preserve">
+    <value>Mounting Block</value>
+  </data>
+  <data name="Energy.Fire.Name" xml:space="preserve">
+    <value>Fire</value>
+  </data>
+  <data name="Energy.Fire.Description" xml:space="preserve">
+    <value>A manifestation of heat and energy, consuming flammable materials rapidly and spreading destruction with intense speed.</value>
+  </data>
+  <data name="Gas.Corruption.Description" xml:space="preserve">
+    <value>A gaseous version of corruption, it spreads through the air and contaminates everything within its reach, making the environment inhospitable.</value>
+  </data>
+  <data name="Gas.Smoke.Description" xml:space="preserve">
+    <value>A byproduct of combustion, it rises slowly, obscuring the air and indicating the presence of fire or burning.</value>
+  </data>
+  <data name="Gas.Steam.Description" xml:space="preserve">
+    <value>Hot water vapor that rises rapidly and disperses into the air.</value>
+  </data>
+  <data name="Liquid.Acid.Description" xml:space="preserve">
+    <value>A highly corrosive liquid that dissolves various materials on contact with extreme speed.</value>
+  </data>
+  <data name="Liquid.Corruption.Description" xml:space="preserve">
+    <value>Highly contaminating liquid substance, flowing freely and corrupting all matter with which it interacts.</value>
+  </data>
+  <data name="Liquid.Lava.Description" xml:space="preserve">
+    <value>Molten rock that incinerates almost everything on contact. It cools down into solid stone if exposed to lower temperatures.</value>
+  </data>
+  <data name="Liquid.Water.Description" xml:space="preserve">
+    <value>Essential and fluid liquid, with dynamic behavior. It can be frozen or evaporated. It can put out fires along the way.</value>
+  </data>
+  <data name="Solid.Immovable.Corruption.Description" xml:space="preserve">
+    <value>Crystallized and dense form of corruption. Immobile and permanent, it creates irreversible contaminated zones.</value>
+  </data>
+  <data name="Solid.Immovable.Glass.Description" xml:space="preserve">
+    <value>A transparent yet fragile material, shattering on impact or disintegrating under high temperatures.</value>
+  </data>
+  <data name="Solid.Immovable.Iron.Description" xml:space="preserve">
+    <value>A strong, iron-based element. It withstands fire but melts into lava under extreme heat.</value>
+  </data>
+  <data name="Solid.Immovable.MountingBlock.Description" xml:space="preserve">
+    <value>Functional and decorative block, available in vibrant colors. Flammable, it adds dynamism and aesthetics to mobile constructions.</value>
+  </data>
+  <data name="Solid.Immovable.RedBrick.Description" xml:space="preserve">
+    <value>Strong and durable block, ideal for fortified constructions, especially due to its fire resistance.</value>
+  </data>
+  <data name="Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
+    <value>Natural and flammable foliage, common in forest areas. It can be used to decorate and enrich the natural scenery.</value>
+  </data>
+  <data name="Solid.Immovable.Wall.Description" xml:space="preserve">
+    <value>An impenetrable, solid barrier. Resistant to natural forces and unaffected by other elements.</value>
+  </data>
+  <data name="Solid.Immovable.Wood.Description" xml:space="preserve">
+    <value>A natural, flammable material often used in constructions. Burns easily when in contact with fire.</value>
+  </data>
+  <data name="Solid.Movable.Corruption.Description" xml:space="preserve">
+    <value>An unstable substance that spreads and infects corruptible materials, causing unstoppable destruction across the world.</value>
+  </data>
+  <data name="Solid.Movable.Dirt.Description" xml:space="preserve">
+    <value>Dry soil, the foundation for vegetation. Turns into mud when exposed to water.</value>
+  </data>
+  <data name="Solid.Movable.Grass.Description" xml:space="preserve">
+    <value>Compacted vegetation, highly flammable and burns quickly, leaving ash and exposed soil.</value>
+  </data>
+  <data name="Solid.Movable.Ice.Description" xml:space="preserve">
+    <value>Frozen water in solid form. Slippery and melts back into water when exposed to heat.</value>
+  </data>
+  <data name="Solid.Movable.Mud.Description" xml:space="preserve">
+    <value>A dense mixture of dirt and water. When heated, it dries up and turns back into dirt.</value>
+  </data>
+  <data name="Solid.Movable.Sand.Description" xml:space="preserve">
+    <value>Fine, loose grains that flow and accumulate easily. Under extreme heat, it fuses into glass.</value>
+  </data>
+  <data name="Solid.Movable.Snow.Description" xml:space="preserve">
+    <value>Accumulated ice crystals in light flakes. Melts into water when exposed to heat.</value>
+  </data>
+  <data name="Solid.Movable.Stone.Description" xml:space="preserve">
+    <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
+  </data>
+</root>

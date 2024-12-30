@@ -14,7 +14,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.Components.AI.Entities.Specials
 {
-    internal sealed class SMagicCursorEntityAIComponent : SEntityComponent
+    internal sealed class SMagicCursorAIComponent : SEntityComponent
     {
         private enum MoveState
         {
@@ -57,7 +57,7 @@ namespace StardustSandbox.ContentBundle.Components.AI.Entities.Specials
             SElementConstants.IDENTIFIER_TREE_LEAF
         ];
 
-        internal SMagicCursorEntityAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
+        internal SMagicCursorAIComponent(ISGame gameInstance, SEntity entityInstance, SEntityTransformComponent transformComponent) : base(gameInstance, entityInstance)
         {
             this.world = gameInstance.World;
             this.transformComponent = transformComponent;

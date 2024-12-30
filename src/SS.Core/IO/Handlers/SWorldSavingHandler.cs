@@ -7,7 +7,6 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -17,9 +16,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
-namespace StardustSandbox.Core.Managers.IO
+namespace StardustSandbox.Core.IO.Handlers
 {
-    public static class SWorldSavingManager
+    public static class SWorldSavingHandler
     {
         private static readonly Dictionary<string, Action<ZipArchiveEntry, SWorldSaveFile, GraphicsDevice>> fileHandlers = new(StringComparer.InvariantCulture)
         {

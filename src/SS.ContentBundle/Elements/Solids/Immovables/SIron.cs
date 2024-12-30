@@ -5,9 +5,9 @@ using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    internal sealed class SMetal : SImmovableSolid
+    internal sealed class SIron : SImmovableSolid
     {
-        internal SMetal(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        internal SIron(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.referenceColor = new(66, 66, 66, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_13");

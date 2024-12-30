@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Managers.IO;
+﻿using StardustSandbox.Core.IO.Handlers;
 
 using System;
 
@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadAllLocalSavedWorlds()
         {
-            this.savedWorldFilesLoaded = SWorldSavingManager.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice);
+            this.savedWorldFilesLoaded = SWorldSavingHandler.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice);
         }
     }
 }

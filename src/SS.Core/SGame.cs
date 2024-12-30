@@ -10,8 +10,8 @@ using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.Plugins;
 using StardustSandbox.Core.World;
 
@@ -77,12 +77,12 @@ namespace StardustSandbox.Core
             this.graphicsManager = new(this, new GraphicsDeviceManager(this));
 
             // Load Settings
-            SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 
             if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
             {
                 videoSettings.UpdateResolution(this.GraphicsDevice);
-                SSettingsManager.SaveSettings(videoSettings);
+                SSettingsHandler.SaveSettings(videoSettings);
             }
 
             // Initialize Content

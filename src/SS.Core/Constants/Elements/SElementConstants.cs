@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string IDENTIFIER_LAVA = IDENTIFIER_PREFIX + "lava";
         public const string IDENTIFIER_ACID = IDENTIFIER_PREFIX + "acid";
         public const string IDENTIFIER_GLASS = IDENTIFIER_PREFIX + "glass";
-        public const string IDENTIFIER_METAL = IDENTIFIER_PREFIX + "metal";
+        public const string IDENTIFIER_IRON = IDENTIFIER_PREFIX + "iron";
         public const string IDENTIFIER_WALL = IDENTIFIER_PREFIX + "wall";
         public const string IDENTIFIER_WOOD = IDENTIFIER_PREFIX + "wood";
         public const string IDENTIFIER_GAS_CORRUPTION = IDENTIFIER_PREFIX + "gas_corruption";
@@ -33,7 +33,6 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string IDENTIFIER_TREE_LEAF = IDENTIFIER_PREFIX + "tree_leaf";
         public const string IDENTIFIER_MOUNTING_BLOCK = IDENTIFIER_PREFIX + "mounting_block";
         public const string IDENTIFIER_FIRE = IDENTIFIER_PREFIX + "fire";
-        public const string IDENTIFIER_ANT_COLONY = IDENTIFIER_PREFIX + "ant_colony";
 
         // Corruption
         public const byte CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL = 100;

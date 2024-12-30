@@ -25,7 +25,7 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new SLava(game, SElementConstants.IDENTIFIER_LAVA));
             elementDatabase.RegisterElement(new SAcid(game, SElementConstants.IDENTIFIER_ACID));
             elementDatabase.RegisterElement(new SGlass(game, SElementConstants.IDENTIFIER_GLASS));
-            elementDatabase.RegisterElement(new SMetal(game, SElementConstants.IDENTIFIER_METAL));
+            elementDatabase.RegisterElement(new SIron(game, SElementConstants.IDENTIFIER_IRON));
             elementDatabase.RegisterElement(new SWall(game, SElementConstants.IDENTIFIER_WALL));
             elementDatabase.RegisterElement(new SWood(game, SElementConstants.IDENTIFIER_WOOD));
             elementDatabase.RegisterElement(new SGCorruption(game, SElementConstants.IDENTIFIER_GAS_CORRUPTION));
@@ -37,7 +37,6 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new STreeLeaf(game, SElementConstants.IDENTIFIER_TREE_LEAF));
             elementDatabase.RegisterElement(new SMountingBlock(game, SElementConstants.IDENTIFIER_MOUNTING_BLOCK));
             elementDatabase.RegisterElement(new SFire(game, SElementConstants.IDENTIFIER_FIRE));
-            elementDatabase.RegisterElement(new SAntColony(game, SElementConstants.IDENTIFIER_ANT_COLONY));
         }
     }
 }

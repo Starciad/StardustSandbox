@@ -34,7 +34,7 @@ namespace StardustSandbox.ContentBundle.Entities.Specials
             this.transformComponent = this.ComponentContainer.AddComponent(new SEntityTransformComponent(this.SGameInstance, this));
             this.graphicsComponent = this.ComponentContainer.AddComponent(new SEntityGraphicsComponent(this.SGameInstance, this));
             this.renderingComponent = this.ComponentContainer.AddComponent(new SEntityRenderingComponent(this.SGameInstance, this, this.transformComponent, this.graphicsComponent));
-            _ = this.ComponentContainer.AddComponent(new SMagicCursorEntityAIComponent(this.SGameInstance, this, this.transformComponent));
+            _ = this.ComponentContainer.AddComponent(new SMagicCursorAIComponent(this.SGameInstance, this, this.transformComponent));
 
             // Graphics
             this.texture = gameInstance.AssetDatabase.GetTexture("cursor_1");

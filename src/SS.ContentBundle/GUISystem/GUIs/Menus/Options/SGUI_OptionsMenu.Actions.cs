@@ -1,7 +1,7 @@
-﻿using StardustSandbox.ContentBundle.Localization;
+﻿using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
-using StardustSandbox.Core.Managers.IO;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -27,11 +27,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void SaveVideoSettings()
         {
             this.videoSettings.Resolution = SScreenConstants.RESOLUTIONS[this.videoSectionOptionSelectors[(byte)SVideoSetting.Resolution].SelectedValueIndex];
-            this.videoSettings.FullScreen = this.videoSectionOptionSelectors[(byte)SVideoSetting.Fullscreen].SelectedValue.Equals(SLocalization.Statements_True);
-            this.videoSettings.VSync = this.videoSectionOptionSelectors[(byte)SVideoSetting.VSync].SelectedValue.Equals(SLocalization.Statements_True);
-            this.videoSettings.Borderless = this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].SelectedValue.Equals(SLocalization.Statements_True);
+            this.videoSettings.FullScreen = this.videoSectionOptionSelectors[(byte)SVideoSetting.Fullscreen].SelectedValue.Equals(SLocalization_Statements.True);
+            this.videoSettings.VSync = this.videoSectionOptionSelectors[(byte)SVideoSetting.VSync].SelectedValue.Equals(SLocalization_Statements.True);
+            this.videoSettings.Borderless = this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].SelectedValue.Equals(SLocalization_Statements.True);
 
-            SSettingsManager.SaveSettings(this.videoSettings);
+            SSettingsHandler.SaveSettings(this.videoSettings);
         }
 
         private void SaveLanguageSettings()
@@ -41,7 +41,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.languageSettings.Language = gameCulture.Language;
             this.languageSettings.Region = gameCulture.Region;
 
-            SSettingsManager.SaveSettings(this.languageSettings);
+            SSettingsHandler.SaveSettings(this.languageSettings);
         }
     }
 }

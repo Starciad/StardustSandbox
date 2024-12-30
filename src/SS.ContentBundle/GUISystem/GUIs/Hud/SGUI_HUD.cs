@@ -7,6 +7,7 @@ using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
@@ -212,8 +213,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 if (!this.tooltipBoxElement.HasContent)
                 {
-                    SGUIGlobalTooltip.Title = SLocalization.GUI_HUD_Button_ItemExplorer_Title;
-                    SGUIGlobalTooltip.Description = SLocalization.GUI_HUD_Button_ItemExplorer_Description;
+                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Button_ItemExplorer_Title;
+                    SGUIGlobalTooltip.Description = SLocalization_GUIs.HUD_Button_ItemExplorer_Description;
                 }
             }
             else

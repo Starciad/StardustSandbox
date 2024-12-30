@@ -1,7 +1,6 @@
 ﻿using MessagePack;
 
 using StardustSandbox.Core.Constants.IO;
-using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
 
 using System;
@@ -10,9 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace StardustSandbox.Core.Managers.IO
+namespace StardustSandbox.Core.IO.Handlers
 {
-    public static class SSettingsManager
+    public static class SSettingsHandler
     {
         private static readonly MessagePackSerializerOptions serializerOptions =
             MessagePackSerializerOptions.Standard

@@ -2,8 +2,8 @@
 using StardustSandbox.Core;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
-using StardustSandbox.Core.Managers.IO;
 
 using System;
 using System.Threading;
@@ -29,9 +29,9 @@ namespace StardustSandbox.Game
 #endif
 
             SDirectory.Initialize();
-            SSettingsManager.Initialize();
+            SSettingsHandler.Initialize();
 
-            SGameCulture gameCulture = SSettingsManager.LoadSettings<SLanguageSettings>().GameCulture;
+            SGameCulture gameCulture = SSettingsHandler.LoadSettings<SLanguageSettings>().GameCulture;
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;

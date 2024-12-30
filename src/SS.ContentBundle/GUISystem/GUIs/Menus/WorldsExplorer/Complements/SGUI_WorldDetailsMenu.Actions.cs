@@ -1,5 +1,5 @@
 ﻿using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Managers.IO;
+using StardustSandbox.Core.IO.Handlers;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 {
@@ -12,7 +12,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 
         private void DeleteButtonAction()
         {
-            SWorldSavingManager.DeleteSavedFile(this.worldSaveFile.Metadata.Name);
+            SWorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Metadata.Name);
             this.SGameInstance.GUIManager.CloseGUI();
         }
 

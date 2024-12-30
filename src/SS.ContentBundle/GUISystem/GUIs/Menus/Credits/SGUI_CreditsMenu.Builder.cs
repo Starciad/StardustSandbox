@@ -3,6 +3,7 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
@@ -44,16 +45,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new(SLocalization.GUI_Menu_Credits_Title_Creator, [
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_Creator, [
                 new()
                 {
                     Text = SGameConstants.AUTHOR,
                 },
             ]));
 
-            this.creditSections.Add(new(SLocalization.GUI_Menu_Credits_Title_Roles, [
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_Roles, [
                 new() {
-                    Text = SLocalization.GUI_Menu_Credits_Title_Programming,
+                    Text = SLocalization_GUIs.Menu_Credits_Title_Programming,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -63,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
 
                 new() {
-                    Text = SLocalization.GUI_Menu_Credits_Title_Artists,
+                    Text = SLocalization_GUIs.Menu_Credits_Title_Artists,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -73,7 +74,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
 
                 new() {
-                    Text = SLocalization.GUI_Menu_Credits_Title_Composers,
+                    Text = SLocalization_GUIs.Menu_Credits_Title_Composers,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -83,9 +84,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new(SLocalization.GUI_Menu_Credits_Title_Contributors, [
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_Contributors, [
                 new() {
-                    Text = SLocalization.GUI_Menu_Credits_Title_Programming,
+                    Text = SLocalization_GUIs.Menu_Credits_Title_Programming,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -94,7 +95,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
 
                 new() {
-                    Text = SLocalization.GUI_Menu_Credits_Title_Artists,
+                    Text = SLocalization_GUIs.Menu_Credits_Title_Artists,
                     ContentType = SCreditContentType.Title,
                 },
 
@@ -103,14 +104,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new(SLocalization.GUI_Menu_Credits_Title_SpecialThanks, [
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_SpecialThanks, [
                 new()
                 {
-                    Text = SLocalization.GUI_Menu_Credits_People_Parents,
+                    Text = SLocalization_GUIs.Menu_Credits_People_Parents,
                 },
             ]));
 
-            this.creditSections.Add(new(SLocalization.GUI_Menu_Credits_Title_Tools, [
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_Tools, [
                 new()
                 {
                     ContentType = SCreditContentType.Image,
@@ -126,10 +127,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 },
             ]));
 
-            this.creditSections.Add(new(SLocalization.GUI_Menu_Credits_Message_Finalization, [
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Message_Finalization, [
                 new()
                 {
-                    Text = SLocalization.GUI_Menu_Credits_Message_ThankPlayer,
+                    Text = SLocalization_GUIs.Menu_Credits_Message_ThankPlayer,
                 },
 
                 new()
