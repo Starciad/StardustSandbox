@@ -14,5 +14,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Setting
         internal uint MaxCharacters { get; set; }
         internal Action<SArgumentResult> OnSendCallback { get; set; }
         internal Action OnCancelCallback { get; set; }
+
+        internal SInputSettings()
+        {
+            this.AllowSpaces = true;
+        }
     }
 }

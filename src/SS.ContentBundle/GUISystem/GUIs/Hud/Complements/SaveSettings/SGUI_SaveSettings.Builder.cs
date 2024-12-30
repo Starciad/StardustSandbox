@@ -5,6 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -44,6 +45,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildDescriptionSection(layoutBuilder);
             BuildThumbnailSection(layoutBuilder);
             BuildFooterButtons(layoutBuilder);
+
+            layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -119,7 +122,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Margin = new(16, 0),
             };
 
-            this.menuTitleElement.SetTextualContent("Save Settings");
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_SaveSettings_Title);
             this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
@@ -152,7 +155,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 PositionAnchor = SCardinalDirection.West
             };
 
-            this.nameSectionTitleElement.SetTextualContent("Name");
+            this.nameSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_SaveSettings_Section_Name_Title);
 
             this.nameSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
             this.titleInputFieldElement.PositionRelativeToElement(this.nameSectionTitleElement);
@@ -191,7 +194,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 PositionAnchor = SCardinalDirection.West
             };
 
-            this.descriptionSectionTitleElement.SetTextualContent("Description");
+            this.descriptionSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_SaveSettings_Section_Description_Title);
 
             this.descriptionSectionTitleElement.PositionRelativeToElement(this.titleInputFieldElement);
             this.descriptionInputFieldElement.PositionRelativeToElement(this.descriptionSectionTitleElement);
@@ -222,7 +225,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 OriginPivot = SCardinalDirection.Southwest,
             };
 
-            this.thumbnailSectionTitleElement.SetTextualContent("Thumbnail");
+            this.thumbnailSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_SaveSettings_Section_Thumbnail_Title);
             this.thumbnailSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
             this.thumbnailPreviewElement.PositionRelativeToElement(this.thumbnailSectionTitleElement);
 

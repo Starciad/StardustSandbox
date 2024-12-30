@@ -309,4 +309,19 @@
   <data name="Button.Exit.Description" xml:space="preserve">
     <value>Fecha o menu atual.</value>
   </data>
+  <data name="HUD.Complements.SaveSettings.Title" xml:space="preserve">
+    <value>Configurações de Salvamento</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Section.Name.Title" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Section.Description.Title" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Section.Thumbnail.Title" xml:space="preserve">
+    <value>Miniatura</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Button.Save.Description" xml:space="preserve">
+    <value>Salva o estado atual do mundo em um arquivo no computador, permitindo acesso posterior. Se o nome especificado já existir, o arquivo correspondente será sobrescrito com as informações do mundo atual.</value>
+  </data>
 </root>

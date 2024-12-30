@@ -412,6 +412,51 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Saves the current state of the world to a file on the computer for later access. If a file with the specified name already exists, it will be overwritten with the current world&apos;s data..
+        /// </summary>
+        internal static string HUD_Complements_SaveSettings_Button_Save_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.SaveSettings.Button.Save.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Description.
+        /// </summary>
+        internal static string HUD_Complements_SaveSettings_Section_Description_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.SaveSettings.Section.Description.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Name.
+        /// </summary>
+        internal static string HUD_Complements_SaveSettings_Section_Name_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.SaveSettings.Section.Name.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Thumbnail.
+        /// </summary>
+        internal static string HUD_Complements_SaveSettings_Section_Thumbnail_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.SaveSettings.Section.Thumbnail.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Save Settings.
+        /// </summary>
+        internal static string HUD_Complements_SaveSettings_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.SaveSettings.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Modifies the world&apos;s environmental properties, including weather, temperature, and other factors..
         /// </summary>
         internal static string HUD_EnvironmentSettings_Description {

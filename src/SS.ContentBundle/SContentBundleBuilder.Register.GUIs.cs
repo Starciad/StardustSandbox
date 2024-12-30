@@ -39,7 +39,7 @@ namespace StardustSandbox.ContentBundle
             SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElementElement);
             SGUI_PenSettings penSettings = new(game, SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElementElement);
             SGUI_EnvironmentSettings environmentSettings = new(game, SGUIConstants.HUD_ENVIRONMENT_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_SaveSettings saveSettings = new(game, SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, input);
+            SGUI_SaveSettings saveSettings = new(game, SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, input, tooltipBoxElementElement);
             SGUI_ScreenshotSettings screenshotSettings = new(game, SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_WorldSettings worldSettings = new(game, SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
 
