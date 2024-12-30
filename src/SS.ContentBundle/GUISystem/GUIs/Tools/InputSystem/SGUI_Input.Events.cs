@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.Core.GUISystem;
 
 using System;
+using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 {
@@ -129,16 +131,48 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private void AddCharacter(char character)
         {
-            if (this.userInputStringBuilder.Length > this.inputSettings.MaxCharacters)
+            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
             {
                 return;
             }
 
-            if (!char.IsControl(character))
+            if (char.IsControl(character))
             {
-                _ = this.userInputStringBuilder.Insert(this.cursorPosition, character);
-                this.cursorPosition++;
+                return;
             }
+
+            switch (this.inputSettings.InputRestriction)
+            {
+                case SInputRestriction.None:
+                    break;
+
+                case SInputRestriction.LettersOnly:
+                    if (!char.IsLetter(character))
+                    {
+                        return;
+                    }
+                    break;
+
+                case SInputRestriction.NumbersOnly:
+                    if (!char.IsDigit(character))
+                    {
+                        return;
+                    }
+                    break;
+
+                case SInputRestriction.Alphanumeric:
+                    if (!char.IsLetterOrDigit(character))
+                    {
+                        return;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+            this.userInputStringBuilder.Insert(this.cursorPosition, character);
+            this.cursorPosition++;
         }
 
         private void UpdateDisplayedText()
@@ -150,8 +184,39 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private void UpdateCursorPosition()
         {
             _ = this.userInputStringBuilder.Insert(this.cursorPosition, '|');
-            this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+
+            switch (this.inputSettings.InputMode)
+            {
+                case SInputMode.Normal:
+                    this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+                    break;
+
+                case SInputMode.Password:
+                    UpdatePasswordMask(cursorPosition);
+                    this.userInputElement.SetTextualContent(this.userInputPasswordMaskedStringBuilder);
+                    break;
+
+                default:
+                    this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+                    break;
+            }
+            
             _ = this.userInputStringBuilder.Remove(this.cursorPosition, 1);
+        }
+
+        private void UpdatePasswordMask(int cursorPosition)
+        {
+            if (this.userInputPasswordMaskedStringBuilder.Capacity < this.userInputStringBuilder.Length)
+            {
+                this.userInputPasswordMaskedStringBuilder.Capacity = this.userInputStringBuilder.Length;
+            }
+
+            this.userInputPasswordMaskedStringBuilder.Clear();
+
+            for (int i = 0; i < this.userInputStringBuilder.Length; i++)
+            {
+                this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
+            }
         }
     }
 }

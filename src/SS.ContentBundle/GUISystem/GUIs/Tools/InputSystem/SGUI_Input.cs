@@ -29,6 +29,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private readonly SpriteFont pixelOperatorSpriteFont;
 
         private readonly StringBuilder userInputStringBuilder = new();
+        private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
         private readonly SButton[] menuButtons;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.Enums.GUISystem;
+using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
@@ -82,7 +82,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.nameInputBuilder = new()
             {
                 Synopsis = "Enter the name the world will have.",
-                InputType = SInputType.Text,
+                InputMode = SInputMode.Normal,
+                InputRestriction = SInputRestriction.Alphanumeric,
                 MaxCharacters = 30,
 
                 OnSendCallback = (SArgumentResult result) =>
@@ -94,7 +95,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.descriptionInputBuilder = new()
             {
                 Synopsis = "Enter the description that the world will have.",
-                InputType = SInputType.Text,
+                InputMode = SInputMode.Normal,
+                InputRestriction = SInputRestriction.None,
                 MaxCharacters = 300,
 
                 OnSendCallback = (result) =>
