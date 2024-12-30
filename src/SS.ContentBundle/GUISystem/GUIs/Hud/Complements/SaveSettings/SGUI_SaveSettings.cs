@@ -84,7 +84,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Synopsis = "Enter the name the world will have.",
                 InputMode = SInputMode.Normal,
                 InputRestriction = SInputRestriction.Alphanumeric,
-                MaxCharacters = 30,
+                MaxCharacters = 50,
 
                 OnSendCallback = (SArgumentResult result) =>
                 {
@@ -97,7 +97,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Synopsis = "Enter the description that the world will have.",
                 InputMode = SInputMode.Normal,
                 InputRestriction = SInputRestriction.None,
-                MaxCharacters = 300,
+                MaxCharacters = 1000,
 
                 OnSendCallback = (result) =>
                 {

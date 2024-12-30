@@ -6,7 +6,7 @@
 
         internal SArgumentResult(string content)
         {
-            this.Content = content;
+            this.Content = content.Trim();
         }
     }
 }

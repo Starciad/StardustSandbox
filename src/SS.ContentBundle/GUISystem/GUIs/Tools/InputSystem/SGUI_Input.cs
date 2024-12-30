@@ -20,6 +20,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private int cursorPosition = 0;
 
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
+        private Vector2 characterCountElementPosition = Vector2.Zero;
 
         private SInputSettings inputSettings;
 
@@ -59,7 +60,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             base.Update(gameTime);
 
             UpdateMenuButtons();
-            UpdateInputBackgroundPosition();
+            UpdateElementPositionAccordingToUserInput();
         }
 
         private void UpdateMenuButtons()
@@ -80,11 +81,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             }
         }
 
-        private void UpdateInputBackgroundPosition()
+        private void UpdateElementPositionAccordingToUserInput()
         {
+            float screenCenterYPosition = SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + this.userInputElement.GetStringSize().Height;
+
+            // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackgroundElement.Position.X;
-            this.userInputBackgroundElementPosition.Y = (SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2) + this.userInputElement.GetStringSize().Height - 8;
+            this.userInputBackgroundElementPosition.Y = screenCenterYPosition;
+
+            // Count
+            this.characterCountElementPosition.X = this.characterCountElement.Position.X;
+            this.characterCountElementPosition.Y = screenCenterYPosition - 32;
+
+            // Apply
             this.userInputBackgroundElement.Position = this.userInputBackgroundElementPosition;
+            this.characterCountElement.Position = this.characterCountElementPosition;
         }
 
         // ====================================== //
@@ -105,6 +116,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             {
                 this.userInputStringBuilder.Append(settings.Content);
                 this.cursorPosition = settings.Content.Length;
+            }
+
+            // Count
+            if (settings.MaxCharacters == 0)
+            {
+                this.characterCountElement.IsVisible = false;
+            }
+            else
+            {
+                this.characterCountElement.IsVisible = true;
             }
         }
     }

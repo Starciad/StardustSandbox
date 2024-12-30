@@ -66,6 +66,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 Keys.Right => MoveCursorRight,
                 Keys.Home => HandleHomeKey,
                 Keys.End => HandleEndKey,
+                Keys.Space => HandleSpaceKey,
+                Keys.Enter => HandleEnterKey,
                 _ => null,
             };
 
@@ -129,6 +131,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.cursorPosition = this.userInputStringBuilder.Length;
         }
 
+        private void HandleSpaceKey()
+        {
+            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
+            {
+                return;
+            }
+
+            this.userInputStringBuilder.Insert(this.cursorPosition, ' ');
+            this.cursorPosition++;
+        }
+
+        private void HandleEnterKey()
+        {
+            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
+            {
+                return;
+            }
+
+            this.userInputStringBuilder.Insert(this.cursorPosition, Environment.NewLine);
+            this.cursorPosition++;
+        }
+
         private void AddCharacter(char character)
         {
             if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
@@ -178,6 +202,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private void UpdateDisplayedText()
         {
             this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+
+            if (this.characterCountElement.IsVisible)
+            {
+                this.characterCountElement.SetTextualContent(string.Concat(this.userInputStringBuilder.Length, '/', this.inputSettings.MaxCharacters));
+            }
+
             UpdateCursorPosition();
         }
 

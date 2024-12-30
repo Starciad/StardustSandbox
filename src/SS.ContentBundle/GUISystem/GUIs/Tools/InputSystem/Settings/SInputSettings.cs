@@ -11,7 +11,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Setting
         internal SInputMode InputMode { get; set; }
         internal SInputRestriction InputRestriction { get; set; }
         internal uint MaxCharacters { get; set; }
-        internal Range NumericRange { get; set; }
         internal Action<SArgumentResult> OnSendCallback { get; set; }
         internal Action OnCancelCallback { get; set; }
     }
