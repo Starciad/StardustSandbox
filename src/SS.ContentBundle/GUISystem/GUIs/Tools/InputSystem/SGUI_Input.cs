@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
@@ -42,8 +43,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
 
             this.menuButtons = [
-                new(null, "Cancel", string.Empty, CancelButtonAction),
-                new(null, "Send", string.Empty, SendButtonAction),
+                new(null, SLocalization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(null, SLocalization_Statements.Send, string.Empty, SendButtonAction),
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];

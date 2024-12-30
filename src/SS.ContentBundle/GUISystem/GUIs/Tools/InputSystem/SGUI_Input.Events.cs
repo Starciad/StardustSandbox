@@ -67,7 +67,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 Keys.Home => HandleHomeKey,
                 Keys.End => HandleEndKey,
                 Keys.Space => HandleSpaceKey,
-                Keys.Enter => HandleEnterKey,
                 _ => null,
             };
 
@@ -133,23 +132,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private void HandleSpaceKey()
         {
-            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
+            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters || !this.inputSettings.AllowSpaces)
             {
                 return;
             }
 
             this.userInputStringBuilder.Insert(this.cursorPosition, ' ');
-            this.cursorPosition++;
-        }
-
-        private void HandleEnterKey()
-        {
-            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
-            {
-                return;
-            }
-
-            this.userInputStringBuilder.Insert(this.cursorPosition, Environment.NewLine);
             this.cursorPosition++;
         }
 

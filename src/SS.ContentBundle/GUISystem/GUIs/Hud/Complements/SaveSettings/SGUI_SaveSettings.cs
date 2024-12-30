@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Constants.IO;
@@ -81,7 +82,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.nameInputBuilder = new()
             {
-                Synopsis = "Enter the name the world will have.",
+                Synopsis = SLocalization_Messages.Input_World_Name,
                 InputMode = SInputMode.Normal,
                 InputRestriction = SInputRestriction.Alphanumeric,
                 MaxCharacters = 50,
@@ -94,10 +95,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.descriptionInputBuilder = new()
             {
-                Synopsis = "Enter the description that the world will have.",
+                Synopsis = SLocalization_Messages.Input_World_Description,
                 InputMode = SInputMode.Normal,
-                InputRestriction = SInputRestriction.None,
-                MaxCharacters = 1000,
+                MaxCharacters = 500,
 
                 OnSendCallback = (result) =>
                 {

@@ -8,6 +8,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Setting
     {
         internal string Synopsis { get; set; }
         internal string Content { get; set; }
+        internal bool AllowSpaces { get; set; }
         internal SInputMode InputMode { get; set; }
         internal SInputRestriction InputRestriction { get; set; }
         internal uint MaxCharacters { get; set; }

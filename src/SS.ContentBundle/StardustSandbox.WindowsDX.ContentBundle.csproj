@@ -57,6 +57,10 @@
 			<LastGenOutput>SLocalization.GUIs.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Messages\SLocalization.Messages.resx">
+			<LastGenOutput>SLocalization.Messages.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Statements\SLocalization.Statements.resx">
 			<LastGenOutput>SLocalization.Statements.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
@@ -81,6 +85,11 @@
 		</Compile>
 		<Compile Update="Localization\GUIs\SLocalization.GUIs.Designer.cs">
 			<DependentUpon>SLocalization.GUIs.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Localization\Messages\SLocalization.Messages.Designer.cs">
+			<DependentUpon>SLocalization.Messages.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>

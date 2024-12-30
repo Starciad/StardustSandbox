@@ -117,46 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Return" xml:space="preserve">
-    <value>Retornar</value>
+  <data name="Input.World.Description" xml:space="preserve">
+    <value>Insira a descrição que o mundo terá.</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>Salvar</value>
+  <data name="Input.World.Name" xml:space="preserve">
+    <value>Insira o nome que o mundo terá.</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Sim</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>Não</value>
-  </data>
-  <data name="True" xml:space="preserve">
-    <value>Verdadeiro</value>
-  </data>
-  <data name="False" xml:space="preserve">
-    <value>Falso</value>
-  </data>
-  <data name="False.Short" xml:space="preserve">
-    <value>F</value>
-  </data>
-  <data name="No.Short" xml:space="preserve">
-    <value>N</value>
-  </data>
-  <data name="True.Short" xml:space="preserve">
-    <value>V</value>
-  </data>
-  <data name="Yes.Short" xml:space="preserve">
-    <value>S</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Desconhecido</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancelar</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Enviar</value>
-  </data>
-  <data name="Untitled" xml:space="preserve">
-    <value>Sem Título</value>
+  <data name="NoDescription" xml:space="preserve">
+    <value>Nenhuma descrição foi fornecida.</value>
   </data>
 </root>

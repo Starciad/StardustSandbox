@@ -212,10 +212,9 @@ namespace StardustSandbox.Core.World
 
         public void Reset()
         {
-            this.Infos.Name = "Untitled";
-            this.Infos.Description = "No description was provided.";
+            this.Infos.Name = string.Empty;
+            this.Infos.Description = string.Empty;
             this.currentlySelectedWorldSaveFile = null;
-
             this.componentContainer.Reset();
             Clear();
         }
