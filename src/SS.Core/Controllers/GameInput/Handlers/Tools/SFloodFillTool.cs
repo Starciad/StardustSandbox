@@ -22,7 +22,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
-            // The selected item corresponds to an element.
             switch (contentType)
             {
                 case SItemContentType.Element:

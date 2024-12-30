@@ -153,6 +153,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 SPenTool.Visualization => this.iconTextures[12],
                 SPenTool.Pencil => this.iconTextures[13],
+                SPenTool.Eraser => this.iconTextures[09],
                 SPenTool.Fill => this.iconTextures[14],
                 SPenTool.Replace => this.iconTextures[15],
                 _ => this.iconTextures[12],

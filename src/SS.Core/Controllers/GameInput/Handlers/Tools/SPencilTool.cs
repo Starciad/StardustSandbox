@@ -21,7 +21,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
-            // The selected item corresponds to an element.
             switch (contentType)
             {
                 case SItemContentType.Element:
@@ -41,22 +40,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                             break;
                     }
 
-                    break;
-
-                case SItemContentType.Entity:
-                    switch (worldModificationType)
-                    {
-                        case SWorldModificationType.Adding:
-                            DrawEntities(referencedItemIdentifier, new Vector2(position.X, position.Y) * SWorldConstants.GRID_SCALE);
-                            break;
-
-                        case SWorldModificationType.Removing:
-                            EraseEntities();
-                            break;
-
-                        default:
-                            break;
-                    }
                     break;
 
                 default:
@@ -86,19 +69,19 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         // ============================================ //
         // Entities
 
-        private void DrawEntities(string entityIdentifier, Vector2 position)
-        {
-            _ = this.world.InstantiateEntity(entityIdentifier, (entity) =>
-            {
-                SEntityTransformComponent transformComponent = entity.ComponentContainer.GetComponent<SEntityTransformComponent>();
+        //private void DrawEntities(string entityIdentifier, Vector2 position)
+        //{
+        //    _ = this.world.InstantiateEntity(entityIdentifier, (entity) =>
+        //    {
+        //        SEntityTransformComponent transformComponent = entity.ComponentContainer.GetComponent<SEntityTransformComponent>();
 
-                transformComponent.Position = position;
-            });
-        }
+        //        transformComponent.Position = position;
+        //    });
+        //}
 
-        private void EraseEntities()
-        {
+        //private void EraseEntities()
+        //{
 
-        }
+        //}
     }
 }

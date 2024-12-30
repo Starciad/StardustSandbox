@@ -22,6 +22,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.gameInputController.Pen.Tool = SPenTool.Pencil;
         }
 
+        private void SelectEraserToolButtonAction()
+        {
+            this.gameInputController.Pen.Tool = SPenTool.Eraser;
+        }
+
         private void SelectFillToolButtonAction()
         {
             this.gameInputController.Pen.Tool = SPenTool.Fill;

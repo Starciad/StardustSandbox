@@ -3,6 +3,8 @@
     public enum SItemContentType : byte
     {
         Element = 0,
-        Entity = 1
+        BGO = 1,
+        Entity = 2,
+        Tools = 3,
     }
 }

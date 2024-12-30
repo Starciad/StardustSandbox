@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -53,7 +54,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #region Bottom Buttons
         private void EraserButtonAction()
         {
-
+            this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Eraser;
         }
 
         private void ReloadSimulationButtonAction()

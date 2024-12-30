@@ -21,7 +21,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         {
             IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
 
-            // The selected item corresponds to an element.
             switch (contentType)
             {
                 case SItemContentType.Element:

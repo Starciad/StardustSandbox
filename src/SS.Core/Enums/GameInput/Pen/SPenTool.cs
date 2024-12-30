@@ -4,7 +4,8 @@
     {
         Visualization = 0,
         Pencil = 1,
-        Fill = 2,
-        Replace = 3
+        Eraser = 2,
+        Fill = 3,
+        Replace = 4
     }
 }
