@@ -31,6 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void SaveButtonAction()
         {
             SWorldSavingHandler.Serialize(this.world, this.SGameInstance.GraphicsManager.GraphicsDevice);
+            this.SGameInstance.GUIManager.CloseGUI();
         }
     }
 }
