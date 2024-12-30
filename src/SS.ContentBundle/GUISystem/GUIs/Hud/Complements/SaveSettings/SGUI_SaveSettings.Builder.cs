@@ -267,6 +267,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 layoutBuilder.AddElement(labelElement);
 
                 this.footerButtonSlots[i] = new(backgroundElement, null, labelElement);
+
+                margin.X += backgroundElement.Size.Width + 32;
             }
         }
 

@@ -47,7 +47,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 Scale = new(0.1f),
                 Margin = new(0, -128),
                 LineHeight = 1.25f,
-                TextAreaSize = new(600, 1000),
+                TextAreaSize = new(850, 1000),
                 SpriteFont = this.pixelOperatorSpriteFont,
                 PositionAnchor = SCardinalDirection.Center,
                 OriginPivot = SCardinalDirection.Center,

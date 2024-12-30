@@ -50,6 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         internal void Configure(SInputSettings settings)
         {
             this.inputSettings = settings;
+            ApplySettings(settings);
         }
 
         public override void Update(GameTime gameTime)
@@ -87,9 +88,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         // ====================================== //
 
-        private void ApplySettings()
+        private void ApplySettings(SInputSettings settings)
         {
+            // Setting Synopsis
+            this.synopsisElement.SetTextualContent(settings.Synopsis);
 
+            // Setting Content
+            _ = this.userInputStringBuilder.Clear();
+
+            if (string.IsNullOrWhiteSpace(settings.Content))
+            {
+                this.cursorPosition = 0;
+            }
+            else
+            {
+                this.userInputStringBuilder.Append(settings.Content);
+                this.cursorPosition = settings.Content.Length;
+            }
         }
     }
 }

@@ -81,35 +81,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.nameInputBuilder = new()
             {
+                Synopsis = "Enter the name the world will have.",
                 InputType = SInputType.Text,
                 MaxCharacters = 30,
-
-                OnValidationCallback = (SValidationState state, SArgumentResult result) =>
-                {
-                    // Validation for empty world name
-                    if (string.IsNullOrWhiteSpace(result.Content))
-                    {
-                        state.Status = SValidationStatus.Failure;
-                        state.Message = "The name of the world cannot be empty.";
-                        return;
-                    }
-
-                    // Validation for repeated world name
-                    string[] files = Directory.GetFiles(SDirectory.Worlds, "*" + SFileExtensionConstants.WORLD, SearchOption.TopDirectoryOnly);
-
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        files[i] = Path.GetFileNameWithoutExtension(files[i]);
-                    }
-
-                    Array.Sort(files, StringComparer.OrdinalIgnoreCase);
-
-                    if (Array.BinarySearch(files, result.Content, StringComparer.OrdinalIgnoreCase) >= 0)
-                    {
-                        state.Status = SValidationStatus.Failure;
-                        state.Message = "The world name is already being used by another saved world.";
-                    }
-                },
 
                 OnSendCallback = (SArgumentResult result) =>
                 {
@@ -119,6 +93,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.descriptionInputBuilder = new()
             {
+                Synopsis = "Enter the description that the world will have.",
                 InputType = SInputType.Text,
                 MaxCharacters = 300,
 

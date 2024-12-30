@@ -11,9 +11,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
     {
         protected override void OnOpened()
         {
-            _ = this.userInputStringBuilder.Clear();
-            this.cursorPosition = 0;
-
             UpdateDisplayedText();
 
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
@@ -132,6 +129,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private void AddCharacter(char character)
         {
+            if (this.userInputStringBuilder.Length > this.inputSettings.MaxCharacters)
+            {
+                return;
+            }
+
             if (!char.IsControl(character))
             {
                 _ = this.userInputStringBuilder.Insert(this.cursorPosition, character);
