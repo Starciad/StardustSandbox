@@ -86,6 +86,9 @@
 			<DependentUpon>SLocalization.Statements.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Localization\Tools\" />
+	</ItemGroup>
 
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

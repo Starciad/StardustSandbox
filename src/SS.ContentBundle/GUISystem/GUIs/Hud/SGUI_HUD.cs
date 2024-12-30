@@ -101,25 +101,25 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.leftPanelTopButtons = [
-                new(this.iconTextures[01], "Environment Settings", string.Empty, EnvironmentSettingsButtonAction),
-                new(this.iconTextures[02], "Pen Settings", string.Empty, PenSettingsButtonAction),
-                new(this.iconTextures[03], "Screenshot Settings", string.Empty,ScreenshotButtonAction),
-                new(this.iconTextures[04], "World Settings", string.Empty, WorldSettingsButtonAction),
+                new(this.iconTextures[01], SLocalization_GUIs.HUD_EnvironmentSettings_Name, SLocalization_GUIs.HUD_EnvironmentSettings_Description, EnvironmentSettingsButtonAction),
+                new(this.iconTextures[02], SLocalization_GUIs.HUD_Button_PenSettings_Name, SLocalization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
+                new(this.iconTextures[03], SLocalization_GUIs.HUD_Button_ScreenshotSettings_Name, SLocalization_GUIs.HUD_Button_ScreenshotSettings_Description, ScreenshotButtonAction),
+                new(this.iconTextures[04], SLocalization_GUIs.HUD_Button_WorldSettings_Name, SLocalization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
             ];
 
             this.leftPanelBottomButtons = [
-                new(this.iconTextures[05], "Pause Simulation", string.Empty, PauseSimulationButtonAction),
+                new(this.iconTextures[05], SLocalization_GUIs.HUD_Button_PauseSimulation_Name, SLocalization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
             ];
 
             this.rightPanelTopButtons = [
-                new(this.iconTextures[07], "Game Menu", string.Empty, GameMenuButtonAction),
-                new(this.iconTextures[08], "Save Menu", string.Empty, SaveMenuButtonAction),
+                new(this.iconTextures[07], SLocalization_GUIs.HUD_Button_GameMenu_Name, SLocalization_GUIs.HUD_Button_GameMenu_Description, GameMenuButtonAction),
+                new(this.iconTextures[08], SLocalization_GUIs.HUD_Button_SaveMenu_Name, SLocalization_GUIs.HUD_Button_SaveMenu_Description, SaveMenuButtonAction),
             ];
 
             this.rightPanelBottomButtons = [
-                new(this.iconTextures[11], "Erase Everything", string.Empty, EraseEverythingButtonAction),
-                new(this.iconTextures[10], "Reload Simulation", string.Empty, ReloadSimulationButtonAction),
-                new(this.iconTextures[09], "Eraser", string.Empty, EraserButtonAction),
+                new(this.iconTextures[11], SLocalization_GUIs.HUD_Button_EraseEverything_Name, SLocalization_GUIs.HUD_Button_EraseEverything_Description, EraseEverythingButtonAction),
+                new(this.iconTextures[10], SLocalization_GUIs.HUD_Button_ReloadSimulation_Name, SLocalization_GUIs.HUD_Button_ReloadSimulation_Description, ReloadSimulationButtonAction),
+                new(this.iconTextures[09], SLocalization_GUIs.HUD_Button_Eraser_Name, SLocalization_GUIs.HUD_Button_Eraser_Description, EraserButtonAction),
             ];
 
             this.leftPanelTopButtonElements = new SSlot[this.leftPanelTopButtons.Length];
@@ -213,7 +213,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 if (!this.tooltipBoxElement.HasContent)
                 {
-                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Button_ItemExplorer_Title;
+                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Button_ItemExplorer_Name;
                     SGUIGlobalTooltip.Description = SLocalization_GUIs.HUD_Button_ItemExplorer_Description;
                 }
             }

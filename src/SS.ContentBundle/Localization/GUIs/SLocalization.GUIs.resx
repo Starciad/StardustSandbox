@@ -135,7 +135,7 @@
   <data name="Menu.Options.Section.Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="HUD.Button.ItemExplorer.Title" xml:space="preserve">
+  <data name="HUD.Button.ItemExplorer.Name" xml:space="preserve">
     <value>Item Explorer</value>
   </data>
   <data name="HUD.Button.ItemExplorer.Description" xml:space="preserve">
@@ -191,5 +191,65 @@
   </data>
   <data name="Menu.Main.Button.Play" xml:space="preserve">
     <value>Play</value>
+  </data>
+  <data name="HUD.EnvironmentSettings.Name" xml:space="preserve">
+    <value>Environment Settings</value>
+  </data>
+  <data name="HUD.Button.PenSettings.Name" xml:space="preserve">
+    <value>Pen Settings</value>
+  </data>
+  <data name="HUD.Button.ScreenshotSettings.Name" xml:space="preserve">
+    <value>Screenshot Settings</value>
+  </data>
+  <data name="HUD.Button.WorldSettings.Name" xml:space="preserve">
+    <value>World Settings</value>
+  </data>
+  <data name="HUD.Button.PauseSimulation.Name" xml:space="preserve">
+    <value>Pause Simulation</value>
+  </data>
+  <data name="HUD.Button.GameMenu.Name" xml:space="preserve">
+    <value>Game Menu</value>
+  </data>
+  <data name="HUD.Button.SaveMenu.Name" xml:space="preserve">
+    <value>Save Menu</value>
+  </data>
+  <data name="HUD.Button.EraseEverything.Name" xml:space="preserve">
+    <value>Erase Everything</value>
+  </data>
+  <data name="HUD.Button.ReloadSimulation.Name" xml:space="preserve">
+    <value>Reload Simulation</value>
+  </data>
+  <data name="HUD.Button.Eraser.Name" xml:space="preserve">
+    <value>Eraser</value>
+  </data>
+  <data name="HUD.Button.EraseEverything.Description" xml:space="preserve">
+    <value>Clears all content from the map, including elements, entities, and decorations, restoring it to an empty initial state.</value>
+  </data>
+  <data name="HUD.Button.GameMenu.Description" xml:space="preserve">
+    <value>Opens the game's main menu to access settings and other options.</value>
+  </data>
+  <data name="HUD.Button.PauseSimulation.Description" xml:space="preserve">
+    <value>Pauses or resumes the ongoing simulation.</value>
+  </data>
+  <data name="HUD.Button.PenSettings.Description" xml:space="preserve">
+    <value>Adjusts the pen settings, modifying how it interacts with the world's canvas.</value>
+  </data>
+  <data name="HUD.Button.ReloadSimulation.Description" xml:space="preserve">
+    <value>Reloads a previously loaded simulation, reverting any changes made. If no simulation is loaded, clears the map, leaving the canvas empty.</value>
+  </data>
+  <data name="HUD.Button.SaveMenu.Description" xml:space="preserve">
+    <value>Opens the menu to manage simulation and world saving.</value>
+  </data>
+  <data name="HUD.Button.ScreenshotSettings.Description" xml:space="preserve">
+    <value>Allows configuring and taking screenshots of the current world.</value>
+  </data>
+  <data name="HUD.Button.WorldSettings.Description" xml:space="preserve">
+    <value>Adjusts general and systematic settings for the world.</value>
+  </data>
+  <data name="HUD.EnvironmentSettings.Description" xml:space="preserve">
+    <value>Modifies the world's environmental properties, including weather, temperature, and other factors.</value>
+  </data>
+  <data name="HUD.Button.Eraser.Description" xml:space="preserve">
+    <value>Turns the current pen into an eraser, allowing you to directly remove content from the canvas.</value>
   </data>
 </root>

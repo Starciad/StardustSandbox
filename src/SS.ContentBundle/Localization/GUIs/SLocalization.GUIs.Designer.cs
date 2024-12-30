@@ -61,6 +61,60 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Clears all content from the map, including elements, entities, and decorations, restoring it to an empty initial state..
+        /// </summary>
+        internal static string HUD_Button_EraseEverything_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.EraseEverything.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erase Everything.
+        /// </summary>
+        internal static string HUD_Button_EraseEverything_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.EraseEverything.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Turns the current pen into an eraser, allowing you to directly remove content from the canvas..
+        /// </summary>
+        internal static string HUD_Button_Eraser_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.Eraser.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Eraser.
+        /// </summary>
+        internal static string HUD_Button_Eraser_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.Eraser.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Opens the game&apos;s main menu to access settings and other options..
+        /// </summary>
+        internal static string HUD_Button_GameMenu_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.GameMenu.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Game Menu.
+        /// </summary>
+        internal static string HUD_Button_GameMenu_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.GameMenu.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions..
         /// </summary>
         internal static string HUD_Button_ItemExplorer_Description {
@@ -72,9 +126,135 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Item Explorer.
         /// </summary>
-        internal static string HUD_Button_ItemExplorer_Title {
+        internal static string HUD_Button_ItemExplorer_Name {
             get {
-                return ResourceManager.GetString("HUD.Button.ItemExplorer.Title", resourceCulture);
+                return ResourceManager.GetString("HUD.Button.ItemExplorer.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pauses or resumes the ongoing simulation..
+        /// </summary>
+        internal static string HUD_Button_PauseSimulation_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.PauseSimulation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause Simulation.
+        /// </summary>
+        internal static string HUD_Button_PauseSimulation_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.PauseSimulation.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts the pen settings, modifying how it interacts with the world&apos;s canvas..
+        /// </summary>
+        internal static string HUD_Button_PenSettings_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.PenSettings.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pen Settings.
+        /// </summary>
+        internal static string HUD_Button_PenSettings_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.PenSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Reloads a previously loaded simulation, reverting any changes made. If no simulation is loaded, clears the map, leaving the canvas empty..
+        /// </summary>
+        internal static string HUD_Button_ReloadSimulation_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.ReloadSimulation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Reload Simulation.
+        /// </summary>
+        internal static string HUD_Button_ReloadSimulation_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.ReloadSimulation.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Opens the menu to manage simulation and world saving..
+        /// </summary>
+        internal static string HUD_Button_SaveMenu_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.SaveMenu.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Save Menu.
+        /// </summary>
+        internal static string HUD_Button_SaveMenu_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.SaveMenu.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Allows configuring and taking screenshots of the current world..
+        /// </summary>
+        internal static string HUD_Button_ScreenshotSettings_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.ScreenshotSettings.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Screenshot Settings.
+        /// </summary>
+        internal static string HUD_Button_ScreenshotSettings_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.ScreenshotSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts general and systematic settings for the world..
+        /// </summary>
+        internal static string HUD_Button_WorldSettings_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.WorldSettings.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a World Settings.
+        /// </summary>
+        internal static string HUD_Button_WorldSettings_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.WorldSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Modifies the world&apos;s environmental properties, including weather, temperature, and other factors..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment Settings.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Name {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Name", resourceCulture);
             }
         }
         
