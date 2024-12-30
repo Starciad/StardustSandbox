@@ -157,32 +157,69 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtonSlots.Length; i++)
+            for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 SSlot slot = this.menuButtonSlots[i];
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                Vector2 position = slot.BackgroundElement.Position;
+                SSize2 size = new(SHUDConstants.SLOT_SIZE);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)) ? SColorPalette.HoverColor : SColorPalette.White;
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
+
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
             }
         }
 
         private void UpdateToolBottons()
         {
-            for (int i = 0; i < this.toolButtonSlots.Length; i++)
+            for (int i = 0; i < this.toolButtons.Length; i++)
             {
                 SSlot slot = this.toolButtonSlots[i];
                 bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                Vector2 position = slot.BackgroundElement.Position;
+                SSize2 size = new(SHUDConstants.SLOT_SIZE);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     this.toolButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.toolButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.toolButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.toolButtons[i].Description;
+                }
+
+                if (this.toolButtonSelectedIndex == i)
+                {
+                    slot.BackgroundElement.Color = SColorPalette.SelectedColor;
+                }
+                else if (isOver)
+                {
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
             }
         }
 
@@ -198,7 +235,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this.layerButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.layerButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.layerButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.layerButtons[i].Description;
+                }
+
+                if (this.layerButtonSelectedIndex == i)
+                {
+                    slot.BackgroundElement.Color = SColorPalette.SelectedColor;
+                }
+                else if (isOver)
+                {
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
             }
         }
 
@@ -214,7 +270,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this.shapeButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.shapeButtonSelectedIndex == i ? SColorPalette.SelectedColor : (isOver ? SColorPalette.HoverColor : SColorPalette.White);
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.shapeButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.shapeButtons[i].Description;
+                }
+
+                if (this.shapeButtonSelectedIndex == i)
+                {
+                    slot.BackgroundElement.Color = SColorPalette.SelectedColor;
+                }
+                else if (isOver)
+                {
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
             }
         }
 

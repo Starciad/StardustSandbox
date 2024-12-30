@@ -176,18 +176,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
                 SButton button = this.toolButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture, button.DisplayName);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.LabelElement.PositionAnchor = SCardinalDirection.South;
-                slot.LabelElement.OriginPivot = SCardinalDirection.Center;
-
                 // Update
                 slot.BackgroundElement.PositionRelativeToElement(this.toolsSectionTitleElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
-                slot.LabelElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.toolButtonSlots[i] = slot;
@@ -197,7 +193,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
-                layoutBuilder.AddElement(slot.LabelElement);
             }
         }
 
@@ -222,18 +217,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
                 SButton button = this.layerButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture, button.DisplayName);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.LabelElement.PositionAnchor = SCardinalDirection.South;
-                slot.LabelElement.OriginPivot = SCardinalDirection.Center;
-
                 // Update
                 slot.BackgroundElement.PositionRelativeToElement(this.layerSectionTitleElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
-                slot.LabelElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.layerButtonSlots[i] = slot;
@@ -243,7 +234,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
-                layoutBuilder.AddElement(slot.LabelElement);
             }
         }
 
@@ -254,7 +244,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Scale = new(0.1f),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
-                Margin = new(this.layerSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 80, 0f)
+                Margin = new(this.layerSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 48, 0f)
             };
 
             this.shapeSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Title);
@@ -268,18 +258,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
                 SButton button = this.shapeButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture, button.DisplayName);
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.LabelElement.PositionAnchor = SCardinalDirection.South;
-                slot.LabelElement.OriginPivot = SCardinalDirection.Center;
-
                 // Update
                 slot.BackgroundElement.PositionRelativeToElement(this.shapeSectionTitleElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
-                slot.LabelElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.shapeButtonSlots[i] = slot;
@@ -289,7 +275,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
-                layoutBuilder.AddElement(slot.LabelElement);
             }
         }
 
@@ -314,36 +299,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             };
 
             return new(backgroundElement, iconElement);
-        }
-
-        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture, string labelContent)
-        {
-            SGUIImageElement backgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.guiButton1Texture,
-                Scale = new(SHUDConstants.SLOT_SCALE),
-                Size = new(SHUDConstants.SLOT_SIZE),
-                Margin = margin,
-            };
-
-            SGUIImageElement iconElement = new(this.SGameInstance)
-            {
-                Texture = iconTexture,
-                OriginPivot = SCardinalDirection.Center,
-                Scale = new(1.5f),
-                Size = new(SHUDConstants.SLOT_SIZE)
-            };
-
-            SGUILabelElement labelElement = new(this.SGameInstance)
-            {
-                SpriteFont = this.bigApple3PMSpriteFont,
-                Scale = new(0.05f),
-                Margin = new(-32, -16),
-            };
-
-            labelElement.SetTextualContent(labelContent);
-
-            return new(backgroundElement, iconElement, labelElement);
         }
     }
 }

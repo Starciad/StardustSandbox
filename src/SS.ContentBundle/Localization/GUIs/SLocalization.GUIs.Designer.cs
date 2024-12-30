@@ -259,7 +259,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Size {0}..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Brush size is set to {0}..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description {
             get {
@@ -268,7 +268,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Size.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Brush Size.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name {
             get {
@@ -295,7 +295,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Back.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Layer.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Layer_Button_Back_Name {
             get {
@@ -313,7 +313,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Front.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground Layer.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Layer_Button_Front_Name {
             get {
@@ -340,7 +340,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Circle.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Circle Shape.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name {
             get {
@@ -358,7 +358,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Square.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Square Shape.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Shape_Button_Square_Name {
             get {
@@ -376,7 +376,7 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Triangle.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Triangle Shape.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name {
             get {

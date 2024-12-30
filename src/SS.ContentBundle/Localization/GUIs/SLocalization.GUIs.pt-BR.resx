@@ -253,19 +253,19 @@
     <value>Transforma a caneta atual em um apagador, permitindo remover conteúdos diretamente do canvas.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Name" xml:space="preserve">
-    <value>Frontal</value>
+    <value>Camada Frontal</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Name" xml:space="preserve">
-    <value>Traseira</value>
+    <value>Camda Traseira</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Name" xml:space="preserve">
-    <value>Círculo</value>
+    <value>Formato Círcular</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Name" xml:space="preserve">
-    <value>Quadrado</value>
+    <value>Formato de Quadrado</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name" xml:space="preserve">
-    <value>Triângulo</value>
+    <value>Formato Triângular</value>
   </data>
   <data name="Button.Exit.Name" xml:space="preserve">
     <value>Sair</value>
@@ -277,10 +277,10 @@
     <value>Tamanho do Pincel</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Name" xml:space="preserve">
-    <value>Tamanho</value>
+    <value>Tamanho do Pincel</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Description" xml:space="preserve">
-    <value>Tamanho {0}.</value>
+    <value>O tamanho do pincel é definido como {0}.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Tool.Title" xml:space="preserve">
     <value>Ferramenta</value>
