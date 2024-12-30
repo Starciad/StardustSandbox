@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI.Common;
 using StardustSandbox.Core.Controllers.GameInput;
@@ -60,26 +62,26 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.menuButtons = [
-                new(this.iconTextures[0], "Exit", string.Empty, ExitButtonAction),
+                new(this.iconTextures[0], SLocalization_GUIs.Button_Exit_Name, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.toolButtons = [
-                new(this.iconTextures[9], "View", string.Empty, SelectVisualizationToolButtonAction),
-                new(this.iconTextures[1], "Pencil", string.Empty, SelectPencilToolButtonAction),
-                new(this.iconTextures[10], "Eraser", string.Empty, SelectEraserToolButtonAction),
-                new(this.iconTextures[2], "Fill", string.Empty, SelectFillToolButtonAction),
-                new(this.iconTextures[3], "Replace", string.Empty, SelectReplaceToolButtonAction),
+                new(this.iconTextures[9], SLocalization_Tools.Visualization_Name, SLocalization_Tools.Visualization_Description, SelectVisualizationToolButtonAction),
+                new(this.iconTextures[1], SLocalization_Tools.Pencil_Name, SLocalization_Tools.Pencil_Description, SelectPencilToolButtonAction),
+                new(this.iconTextures[10], SLocalization_Tools.Eraser_Name, SLocalization_Tools.Eraser_Description, SelectEraserToolButtonAction),
+                new(this.iconTextures[2], SLocalization_Tools.Fill_Name, SLocalization_Tools.Fill_Description, SelectFillToolButtonAction),
+                new(this.iconTextures[3], SLocalization_Tools.Replace_Name, SLocalization_Tools.Replace_Description, SelectReplaceToolButtonAction),
             ];
 
             this.layerButtons = [
-                new(this.iconTextures[4], "Front", string.Empty, SelectForegroundLayerButtonAction),
-                new(this.iconTextures[5], "Back", string.Empty, SelectBackgroundLayerButtonAction),
+                new(this.iconTextures[4], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, SelectForegroundLayerButtonAction),
+                new(this.iconTextures[5], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, SelectBackgroundLayerButtonAction),
             ];
 
             this.shapeButtons = [
-                new(this.iconTextures[6], "Circle", string.Empty, SelectCircleShapeButtonAction),
-                new(this.iconTextures[7], "Square", string.Empty, SelectSquareShapeButtonAction),
-                new(this.iconTextures[8], "Triangle", string.Empty, SelectTriangleShapeButtonAction),
+                new(this.iconTextures[6], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, SelectCircleShapeButtonAction),
+                new(this.iconTextures[7], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, SelectSquareShapeButtonAction),
+                new(this.iconTextures[8], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, SelectTriangleShapeButtonAction),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];

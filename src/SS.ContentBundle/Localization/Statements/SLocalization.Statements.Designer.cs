@@ -133,6 +133,15 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Unknown.
+        /// </summary>
+        internal static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Yes.
         /// </summary>
         internal static string Yes {

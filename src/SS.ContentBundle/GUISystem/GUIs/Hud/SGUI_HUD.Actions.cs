@@ -52,11 +52,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #endregion
 
         #region Bottom Buttons
-        private void EraserButtonAction()
-        {
-            this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Eraser;
-        }
-
         private void ReloadSimulationButtonAction()
         {
             this.world.Reload();

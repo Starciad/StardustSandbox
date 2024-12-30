@@ -5,6 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUI.Common;
@@ -116,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Color = SColorPalette.White,
             };
 
-            this.menuTitleElement.SetTextualContent("Pen Settings");
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Title);
             this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
@@ -143,7 +144,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 PositionAnchor = SCardinalDirection.South,
             };
 
-            this.brushSectionTitleElement.SetTextualContent("Brush Size");
+            this.brushSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Title);
 
             this.brushSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
             this.brushSizeSliderElement.PositionRelativeToElement(this.brushSectionTitleElement);
@@ -162,7 +163,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            this.toolsSectionTitleElement.SetTextualContent("Tool");
+            this.toolsSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_Tool_Title);
             this.toolsSectionTitleElement.PositionRelativeToElement(this.brushSectionTitleElement);
 
             layoutBuilder.AddElement(this.toolsSectionTitleElement);
@@ -208,7 +209,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Margin = new(this.toolsSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.toolButtonSlots.Length) + 96, 0f)
             };
 
-            this.layerSectionTitleElement.SetTextualContent("Layer");
+            this.layerSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Title);
             this.layerSectionTitleElement.PositionRelativeToElement(this.toolsSectionTitleElement);
 
             layoutBuilder.AddElement(this.layerSectionTitleElement);
@@ -254,7 +255,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Margin = new(this.layerSectionTitleElement.Size.Width + (SHUDConstants.SLOT_SIZE * SHUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 80, 0f)
             };
 
-            this.shapeSectionTitleElement.SetTextualContent("Shape");
+            this.shapeSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Title);
             this.shapeSectionTitleElement.PositionRelativeToElement(this.layerSectionTitleElement);
 
             layoutBuilder.AddElement(this.shapeSectionTitleElement);

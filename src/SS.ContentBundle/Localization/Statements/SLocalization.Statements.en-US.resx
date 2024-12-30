@@ -147,4 +147,7 @@
   <data name="Yes.Short" xml:space="preserve">
     <value>Y</value>
   </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>

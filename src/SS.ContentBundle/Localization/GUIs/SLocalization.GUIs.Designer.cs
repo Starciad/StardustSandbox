@@ -61,6 +61,24 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Closes the current menu..
+        /// </summary>
+        internal static string Button_Exit_Description {
+            get {
+                return ResourceManager.GetString("Button.Exit.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Exit.
+        /// </summary>
+        internal static string Button_Exit_Name {
+            get {
+                return ResourceManager.GetString("Button.Exit.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Clears all content from the map, including elements, entities, and decorations, restoring it to an empty initial state..
         /// </summary>
         internal static string HUD_Button_EraseEverything_Description {
@@ -237,6 +255,159 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         internal static string HUD_Button_WorldSettings_Name {
             get {
                 return ResourceManager.GetString("HUD.Button.WorldSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Size {0}..
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Size.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Brush Size.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_BrushSize_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.BrushSize.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The back layer of the world is used for item placement..
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Layer_Button_Back_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Layer.Button.Back.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Back.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Layer_Button_Back_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Layer.Button.Back.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The front layer of the world is used for item placement..
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Layer_Button_Front_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Layer.Button.Front.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Front.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Layer_Button_Front_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Layer.Button.Front.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Layer.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Layer_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Layer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The pen shape becomes a circle..
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Button.Circle.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Circle.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Button.Circle.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The pen shape becomes a square..
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Button_Square_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Button.Square.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Square.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Button_Square_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Button.Square.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The pen shape becomes a triangle..
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Triangle.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Shape.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Shape_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Shape.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tool.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Section_Tool_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Section.Tool.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pen Settings.
+        /// </summary>
+        internal static string HUD_Complements_PenSettings_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.PenSettings.Title", resourceCulture);
             }
         }
         

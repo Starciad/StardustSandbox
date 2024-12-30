@@ -252,4 +252,61 @@
   <data name="HUD.Button.Eraser.Description" xml:space="preserve">
     <value>Turns the current pen into an eraser, allowing you to directly remove content from the canvas.</value>
   </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Name" xml:space="preserve">
+    <value>Front</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Name" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Name" xml:space="preserve">
+    <value>Circle</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Name" xml:space="preserve">
+    <value>Square</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name" xml:space="preserve">
+    <value>Triangle</value>
+  </data>
+  <data name="Button.Exit.Name" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Title" xml:space="preserve">
+    <value>Pen Settings</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Title" xml:space="preserve">
+    <value>Brush Size</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Name" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Description" xml:space="preserve">
+    <value>Size {0}.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Tool.Title" xml:space="preserve">
+    <value>Tool</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Title" xml:space="preserve">
+    <value>Layer</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Title" xml:space="preserve">
+    <value>Shape</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Description" xml:space="preserve">
+    <value>The back layer of the world is used for item placement.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Description" xml:space="preserve">
+    <value>The front layer of the world is used for item placement.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Description" xml:space="preserve">
+    <value>The pen shape becomes a circle.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Description" xml:space="preserve">
+    <value>The pen shape becomes a square.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Description" xml:space="preserve">
+    <value>The pen shape becomes a triangle.</value>
+  </data>
+  <data name="Button.Exit.Description" xml:space="preserve">
+    <value>Closes the current menu.</value>
+  </data>
 </root>

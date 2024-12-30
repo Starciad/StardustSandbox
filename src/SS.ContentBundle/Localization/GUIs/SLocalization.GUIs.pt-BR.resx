@@ -252,4 +252,61 @@
   <data name="HUD.Button.Eraser.Description" xml:space="preserve">
     <value>Transforma a caneta atual em um apagador, permitindo remover conteúdos diretamente do canvas.</value>
   </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Name" xml:space="preserve">
+    <value>Frontal</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Name" xml:space="preserve">
+    <value>Traseira</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Name" xml:space="preserve">
+    <value>Círculo</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Name" xml:space="preserve">
+    <value>Quadrado</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name" xml:space="preserve">
+    <value>Triângulo</value>
+  </data>
+  <data name="Button.Exit.Name" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Title" xml:space="preserve">
+    <value>Configurações da Caneta</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Title" xml:space="preserve">
+    <value>Tamanho do Pincel</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Name" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Description" xml:space="preserve">
+    <value>Tamanho {0}.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Tool.Title" xml:space="preserve">
+    <value>Ferramenta</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Title" xml:space="preserve">
+    <value>Camada</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Title" xml:space="preserve">
+    <value>Formato</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Description" xml:space="preserve">
+    <value>A camada traseira do mundo é usada para posicionamento de itens.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Description" xml:space="preserve">
+    <value>A camada frontal do mundo é usada para posicionamento de itens.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Description" xml:space="preserve">
+    <value>O formato da caneta se torna um círculo.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Description" xml:space="preserve">
+    <value>O formato da caneta se torna um quadrado.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Description" xml:space="preserve">
+    <value>O formato da caneta se torna um triângulo.</value>
+  </data>
+  <data name="Button.Exit.Description" xml:space="preserve">
+    <value>Fecha o menu atual.</value>
+  </data>
 </root>

@@ -6,14 +6,14 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
-using StardustSandbox.ContentBundle.Localization;
 using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Statements;
+using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -119,7 +119,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.rightPanelBottomButtons = [
                 new(this.iconTextures[11], SLocalization_GUIs.HUD_Button_EraseEverything_Name, SLocalization_GUIs.HUD_Button_EraseEverything_Description, EraseEverythingButtonAction),
                 new(this.iconTextures[10], SLocalization_GUIs.HUD_Button_ReloadSimulation_Name, SLocalization_GUIs.HUD_Button_ReloadSimulation_Description, ReloadSimulationButtonAction),
-                new(this.iconTextures[09], SLocalization_GUIs.HUD_Button_Eraser_Name, SLocalization_GUIs.HUD_Button_Eraser_Description, EraserButtonAction),
             ];
 
             this.leftPanelTopButtonElements = new SSlot[this.leftPanelTopButtons.Length];
@@ -170,6 +169,49 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void UpdateTopToolbar()
         {
             UpdateReturnInput();
+
+            #region TOOL SLOT
+            if (this.GUIEvents.OnMouseOver(this.toolbarCurrentlySelectedToolIcon.Position, new(SHUDConstants.SLOT_SIZE)))
+            {
+                this.tooltipBoxElement.IsVisible = true;
+
+                if (!this.tooltipBoxElement.HasContent)
+                {
+                    switch (this.SGameInstance.GameInputController.Pen.Tool)
+                    {
+                        case SPenTool.Visualization:
+                            SGUIGlobalTooltip.Title = SLocalization_Tools.Visualization_Name;
+                            SGUIGlobalTooltip.Description = SLocalization_Tools.Visualization_Description;
+                            break;
+
+                        case SPenTool.Pencil:
+                            SGUIGlobalTooltip.Title = SLocalization_Tools.Pencil_Name;
+                            SGUIGlobalTooltip.Description = SLocalization_Tools.Pencil_Description;
+                            break;
+
+                        case SPenTool.Eraser:
+                            SGUIGlobalTooltip.Title = SLocalization_Tools.Eraser_Name;
+                            SGUIGlobalTooltip.Description = SLocalization_Tools.Eraser_Description;
+                            break;
+
+                        case SPenTool.Fill:
+                            SGUIGlobalTooltip.Title = SLocalization_Tools.Fill_Name;
+                            SGUIGlobalTooltip.Description = SLocalization_Tools.Fill_Description;
+                            break;
+
+                        case SPenTool.Replace:
+                            SGUIGlobalTooltip.Title = SLocalization_Tools.Replace_Name;
+                            SGUIGlobalTooltip.Description = SLocalization_Tools.Replace_Description;
+                            break;
+
+                        default:
+                            SGUIGlobalTooltip.Title = SLocalization_Statements.Unknown;
+                            SGUIGlobalTooltip.Description = string.Empty;
+                            break;
+                    }
+                }
+            }
+            #endregion
 
             #region ELEMENT SLOTS
             for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
@@ -222,7 +264,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 this.toolbarElementSearchButton.Color = SColorPalette.White;
             }
-
             #endregion
 
             #region MENU BUTTONS
