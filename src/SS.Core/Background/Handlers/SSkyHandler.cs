@@ -22,32 +22,32 @@ namespace StardustSandbox.Core.Background.Handlers
             {
                 StartTime = new(0, 0, 0), // Midnight
                 EndTime = new(6, 0, 0),  // Dawn
-                InitialColor = SColorPalette.DarkGray,
-                FinalColor = SColorPalette.NavyBlue
+                InitialColor = SColorPalette.NavyBlue,
+                FinalColor = SColorPalette.OrangeRed,
             },
 
             new()
             {
                 StartTime = new(6, 0, 0), // Dawn
                 EndTime = new(12, 0, 0), // Noon
-                InitialColor = SColorPalette.NavyBlue,
-                FinalColor = SColorPalette.Gold
+                InitialColor = SColorPalette.SkyBlue,
+                FinalColor = SColorPalette.NavyBlue
             },
 
             new()
             {
                 StartTime = new(12, 0, 0), // Noon
                 EndTime = new(18, 0, 0),  // Dusk
-                InitialColor = SColorPalette.Gold,
-                FinalColor = SColorPalette.Orange
+                InitialColor = SColorPalette.NavyBlue,
+                FinalColor = SColorPalette.OrangeRed,
             },
 
             new()
             {
                 StartTime = new(18, 0, 0), // Dusk
                 EndTime = new(0, 0, 0),    // Midnight
-                InitialColor = Color.Orange,
-                FinalColor = Color.DarkGray
+                InitialColor = new(8, 20, 38, 255),
+                FinalColor = SColorPalette.DarkGray
             },
         ];
 
