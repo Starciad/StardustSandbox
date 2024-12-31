@@ -11,7 +11,7 @@
         #region ASSETS
         public const string ASSETS = "assets";
 
-        public const string ASSETS_SHADERS = "shaders";
+        public const string ASSETS_EFFECTS = "effects";
         public const string ASSETS_FONTS = "fonts";
         public const string ASSETS_GRAPHICS = "graphics";
         public const string ASSETS_SONGS = "songs";

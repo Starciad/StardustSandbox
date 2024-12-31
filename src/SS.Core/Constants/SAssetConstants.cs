@@ -2,11 +2,12 @@
 {
     public static class SAssetConstants
     {
+        public const byte EFFECTS_LENGTH = 002;
         public const byte FONTS_LENGTH = 009;
 
         #region GRAPHICS
         // Backgrounds
-        public const byte GRAPHICS_BACKGROUNDS_LENGTH = 003;
+        public const byte GRAPHICS_BACKGROUNDS_LENGTH = 004;
 
         // Bgos
         public const byte GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH = 001;
@@ -55,8 +56,7 @@
         // Third Parties
         public const byte GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH = 002;
         #endregion
-
-        public const byte SHADERS_LENGTH = 001;
+        
         public const byte SONGS_LENGTH = 002;
         public const byte SOUNDS_LENGTH = 001;
     }

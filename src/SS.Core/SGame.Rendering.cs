@@ -2,6 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.General;
+
+using System;
 
 namespace StardustSandbox.Core
 {
@@ -10,32 +14,10 @@ namespace StardustSandbox.Core
         protected override void Draw(GameTime gameTime)
         {
             #region RENDERING (ELEMENTS)
-            // BACKGROUND
-            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.BackgroundRenderTarget);
-            this.GraphicsDevice.Clear(this.backgroundManager.SolidColor);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.backgroundManager.Draw(gameTime, this.spriteBatch);
-            this.spriteBatch.End();
-
-            // WORLD
-            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
-            this.world.Draw(gameTime, this.spriteBatch);
-            this.spriteBatch.End();
-
-            // LIGHTING
-            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.LightingRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
-            this.spriteBatch.End();
-
-            // GUI
-            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.GuiRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.guiManager.Draw(gameTime, this.spriteBatch);
-            this.spriteBatch.End();
+            DrawBackground(gameTime);
+            DrawWorld(gameTime);
+            DrawLighting(gameTime);
+            DrawGUI(gameTime);
             #endregion
 
             #region RENDERING (SCREEN)
@@ -59,6 +41,57 @@ namespace StardustSandbox.Core
             #endregion
 
             base.Draw(gameTime);
+        }
+
+        private void DrawBackground(GameTime gameTime)
+        {
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.BackgroundRenderTarget);
+            this.GraphicsDevice.Clear(Color.Transparent);
+
+            // Sky
+            SDayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();
+            SGradientColorMap skyGradientColorMap = this.backgroundManager.SkyGradientColorMap[(byte)dayPeriod];
+
+            float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
+
+            this.backgroundManager.SkyEffect.Parameters["InitialColor"].SetValue(skyGradientColorMap.InitialColor.ToVector4());
+            this.backgroundManager.SkyEffect.Parameters["FinalColor"].SetValue(skyGradientColorMap.FinalColor.ToVector4());
+            this.backgroundManager.SkyEffect.Parameters["TimeNormalized"].SetValue(interpolation);
+
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, this.backgroundManager.SkyEffect, null);
+            this.spriteBatch.Draw(this.backgroundManager.SkyTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.End();
+
+            // Background
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this.backgroundManager.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
+        }
+
+        private void DrawWorld(GameTime gameTime)
+        {
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldRenderTarget);
+            this.GraphicsDevice.Clear(Color.Transparent);
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
+            this.world.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
+        }
+
+        private void DrawLighting(GameTime gameTime)
+        {
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.LightingRenderTarget);
+            this.GraphicsDevice.Clear(Color.Transparent);
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
+            this.spriteBatch.End();
+        }
+
+        private void DrawGUI(GameTime gameTime)
+        {
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.GuiRenderTarget);
+            this.GraphicsDevice.Clear(Color.Transparent);
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this.guiManager.Draw(gameTime, this.spriteBatch);
+            this.spriteBatch.End();
         }
     }
 }
