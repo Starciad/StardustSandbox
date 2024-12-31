@@ -5,7 +5,7 @@ using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.World;
+using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
@@ -89,7 +89,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             Vector2 mousePosition = this.game.InputManager.GetScaledMousePosition();
 
             Vector2 worldPosition = ConvertScreenToWorld(mousePosition);
-            Vector2 gridPosition = SWorld.ToWorldPosition(worldPosition);
+            Vector2 gridPosition = SWorldMath.ToWorldPosition(worldPosition);
 
             return gridPosition.ToPoint();
         }
