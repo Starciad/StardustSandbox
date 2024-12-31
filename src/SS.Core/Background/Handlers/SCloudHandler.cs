@@ -6,8 +6,8 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Background.Handlers;
 using StardustSandbox.Core.Interfaces.Collections;
-using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
@@ -16,23 +16,13 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Background.Handlers
 {
-    internal sealed class SCloudHandler : SGameObject, ISReset
+    internal sealed class SCloudHandler(ISGame gameInstance) : SGameObject(gameInstance), ISCloudHandler
     {
-        private bool isActive;
+        public bool IsActive { get; set; } = true;
 
-        // Textures
         private readonly Texture2D[] cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
-
-        // Clouds
         private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly SObjectPool cloudPool = new();
-
-        internal SCloudHandler(ISGame gameInstance) : base(gameInstance)
-        {
-            this.cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
-            this.activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
-            this.cloudPool = new();
-        }
 
         public override void Initialize()
         {
@@ -44,7 +34,7 @@ namespace StardustSandbox.Core.Background.Handlers
 
         public override void Update(GameTime gameTime)
         {
-            if (!this.isActive)
+            if (!this.IsActive)
             {
                 return;
             }
@@ -52,6 +42,11 @@ namespace StardustSandbox.Core.Background.Handlers
             for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 SCloud cloud = this.activeClouds[i];
+
+                if (cloud == null)
+                {
+                    continue;
+                }
 
                 if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + SWorldConstants.GRID_SCALE * 2))
                 {
@@ -70,42 +65,45 @@ namespace StardustSandbox.Core.Background.Handlers
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (!this.isActive)
+            if (!this.IsActive)
             {
                 return;
             }
 
             for (int i = 0; i < this.activeClouds.Count; i++)
             {
-                this.activeClouds[i].Draw(gameTime, spriteBatch);
+                SCloud cloud = this.activeClouds[i];
+
+                if (cloud == null)
+                {
+                    continue;
+                }
+
+                cloud.Draw(gameTime, spriteBatch);
             }
         }
 
         public void Clear()
         {
-            foreach (SCloud cloud in this.activeClouds.ToArray())
+            for (int i = 0; i < this.activeClouds.Count; i++)
             {
+                SCloud cloud = this.activeClouds[i];
+
+                if (cloud == null)
+                {
+                    continue;
+                }
+
                 DestroyCloud(cloud);
             }
         }
 
-        public void Enable()
-        {
-            this.isActive = true;
-        }
-
-        public void Disable()
-        {
-            this.isActive = false;
-        }
-
         public void Reset()
         {
-            foreach (SCloud cloud in this.activeClouds.ToArray())
-            {
-                cloud.Reset();
-            }
+            Clear();
         }
+
+        // ============================================ //
 
         private void CreateCloud()
         {

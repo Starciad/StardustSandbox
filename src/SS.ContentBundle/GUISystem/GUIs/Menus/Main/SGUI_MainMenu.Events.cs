@@ -8,7 +8,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
             this.SGameInstance.BackgroundManager.Reset();
-            this.SGameInstance.BackgroundManager.EnableClouds();
+            this.SGameInstance.BackgroundManager.CloudHandler.IsActive = true;
 
             ResetElementPositions();
 
@@ -24,7 +24,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         protected override void OnClosed()
         {
             this.SGameInstance.BackgroundManager.Reset();
-            this.SGameInstance.BackgroundManager.DisableClouds();
+            this.SGameInstance.BackgroundManager.CloudHandler.IsActive = false;
 
             this.SGameInstance.World.Clear();
             this.SGameInstance.World.IsActive = false;

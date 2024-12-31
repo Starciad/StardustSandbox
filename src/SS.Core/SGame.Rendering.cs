@@ -45,22 +45,26 @@ namespace StardustSandbox.Core
 
         private void DrawBackground(GameTime gameTime)
         {
+            // Define
             this.GraphicsDevice.SetRenderTarget(this.graphicsManager.BackgroundRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
+            this.GraphicsDevice.Clear(this.backgroundManager.SolidColor);
 
             // Sky
-            SDayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();
-            SGradientColorMap skyGradientColorMap = this.backgroundManager.SkyGradientColorMap[(byte)dayPeriod];
+            if (this.backgroundManager.SkyHandler.IsActive)
+            {
+                SDayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();
 
-            float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
+                SGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GradientColorMap[(byte)dayPeriod];
+                float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
 
-            this.backgroundManager.SkyEffect.Parameters["InitialColor"].SetValue(skyGradientColorMap.InitialColor.ToVector4());
-            this.backgroundManager.SkyEffect.Parameters["FinalColor"].SetValue(skyGradientColorMap.FinalColor.ToVector4());
-            this.backgroundManager.SkyEffect.Parameters["TimeNormalized"].SetValue(interpolation);
+                this.backgroundManager.SkyHandler.Effect.Parameters["InitialColor"].SetValue(skyGradientColorMap.InitialColor.ToVector4());
+                this.backgroundManager.SkyHandler.Effect.Parameters["FinalColor"].SetValue(skyGradientColorMap.FinalColor.ToVector4());
+                this.backgroundManager.SkyHandler.Effect.Parameters["TimeNormalized"].SetValue(interpolation);
 
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, this.backgroundManager.SkyEffect, null);
-            this.spriteBatch.Draw(this.backgroundManager.SkyTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this.spriteBatch.End();
+                this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, this.backgroundManager.SkyHandler.Effect, null);
+                this.spriteBatch.Draw(this.backgroundManager.SkyHandler.Texture, Vector2.Zero, null, SColorPalette.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                this.spriteBatch.End();
+            }
 
             // Background
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
