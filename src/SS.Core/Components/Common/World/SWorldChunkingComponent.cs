@@ -5,7 +5,7 @@ using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Chunking;
 
 using System.Collections.Generic;
 

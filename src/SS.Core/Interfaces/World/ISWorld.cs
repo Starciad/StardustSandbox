@@ -5,7 +5,7 @@ using StardustSandbox.Core.Interfaces.Entities;
 using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.General;
 
 namespace StardustSandbox.Core.Interfaces.World
 {

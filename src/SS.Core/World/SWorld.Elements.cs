@@ -4,7 +4,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 

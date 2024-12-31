@@ -4,7 +4,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
 
-namespace StardustSandbox.Core.World.Data
+namespace StardustSandbox.Core.World.Slots
 {
     public sealed class SWorldSlot : ISPoolableObject
     {

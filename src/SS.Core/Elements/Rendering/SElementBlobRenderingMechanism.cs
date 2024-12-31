@@ -9,7 +9,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 namespace StardustSandbox.Core.Elements.Rendering
 {

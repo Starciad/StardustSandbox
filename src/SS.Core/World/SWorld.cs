@@ -15,7 +15,8 @@ using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.IO.Files.World.Data;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.General;
+using StardustSandbox.Core.World.Slots;
 
 using System;
 using System.Collections.Generic;

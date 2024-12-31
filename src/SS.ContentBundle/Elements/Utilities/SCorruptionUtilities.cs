@@ -9,7 +9,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 

@@ -5,7 +5,7 @@ using StardustSandbox.Core.Helpers;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.Core.World.Data
+namespace StardustSandbox.Core.World.Slots
 {
     public sealed class SWorldSlotLayer
     {

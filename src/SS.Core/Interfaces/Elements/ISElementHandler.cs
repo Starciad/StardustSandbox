@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 

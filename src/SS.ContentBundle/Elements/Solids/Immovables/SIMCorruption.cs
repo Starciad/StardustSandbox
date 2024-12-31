@@ -7,7 +7,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
 using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 

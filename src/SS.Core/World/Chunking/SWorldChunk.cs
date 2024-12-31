@@ -2,7 +2,7 @@
 
 using StardustSandbox.Core.Constants;
 
-namespace StardustSandbox.Core.World.Data
+namespace StardustSandbox.Core.World.Chunking
 {
     public sealed class SWorldChunk(Point position)
     {

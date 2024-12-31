@@ -7,7 +7,7 @@ using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
