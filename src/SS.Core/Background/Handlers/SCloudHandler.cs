@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Backgrounds.Details;
+using StardustSandbox.Core.Background.Details;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
@@ -14,15 +14,25 @@ using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Controllers.Background
+namespace StardustSandbox.Core.Background.Handlers
 {
-    internal sealed class SCloudController(ISGame gameInstance) : SGameObject(gameInstance), ISReset
+    internal sealed class SCloudHandler : SGameObject, ISReset
     {
         private bool isActive;
 
+        // Textures
         private readonly Texture2D[] cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
+
+        // Clouds
         private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly SObjectPool cloudPool = new();
+
+        internal SCloudHandler(ISGame gameInstance) : base(gameInstance)
+        {
+            this.cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
+            this.activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
+            this.cloudPool = new();
+        }
 
         public override void Initialize()
         {
@@ -43,7 +53,7 @@ namespace StardustSandbox.Core.Controllers.Background
             {
                 SCloud cloud = this.activeClouds[i];
 
-                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + (SWorldConstants.GRID_SCALE * 2)))
+                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + SWorldConstants.GRID_SCALE * 2))
                 {
                     DestroyCloud(cloud);
                     continue;

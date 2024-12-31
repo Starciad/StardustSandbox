@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Background;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Background;
+using StardustSandbox.Core.Background.Handlers;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Controllers.Background;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 
@@ -19,7 +19,7 @@ namespace StardustSandbox.Core.Managers
         public SGradientColorMap[] SkyGradientColorMap => this.skyGradientColorMap;
 
         private SBackground selectedBackground;
-        private SCloudController cloudController;
+        private SCloudHandler cloudController;
 
         private Texture2D skyTexture;
         private Effect skyEffect;

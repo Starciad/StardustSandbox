@@ -7,7 +7,7 @@ using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Backgrounds
+namespace StardustSandbox.Core.Background
 {
     public sealed class SBackground(ISGame gameInstance, string identifier, Texture2D texture) : SGameObject(gameInstance)
     {

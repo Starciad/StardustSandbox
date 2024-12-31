@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Background;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Objects;

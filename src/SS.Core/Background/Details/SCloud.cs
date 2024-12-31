@@ -7,7 +7,7 @@ using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Core.Backgrounds.Details
+namespace StardustSandbox.Core.Background.Details
 {
     public sealed class SCloud(ISGame gameInstance) : SGameObject(gameInstance), ISPoolableObject
     {
@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Backgrounds.Details
         {
             this.position = new Vector2(-this.texture.Width - SWorldConstants.GRID_SCALE, SRandomMath.Range(0, SWorldConstants.GRID_SCALE * 10));
             this.speed = SRandomMath.Range(10, 50);
-            this.opacity = ((float)SRandomMath.GetDouble() * 0.5f) + 0.5f;
+            this.opacity = (float)SRandomMath.GetDouble() * 0.5f + 0.5f;
         }
     }
 }
