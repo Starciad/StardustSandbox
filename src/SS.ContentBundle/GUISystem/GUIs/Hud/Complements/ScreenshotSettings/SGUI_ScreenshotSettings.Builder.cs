@@ -53,7 +53,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = this.guiBackgroundTexture,
                 Scale = new(32, 0.5f),
                 Size = new(32),
-                Color = SColorPalette.Rust,
+                Color = SColorPalette.Violet,
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
