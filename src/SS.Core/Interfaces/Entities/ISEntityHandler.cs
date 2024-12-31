@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.Entities;
+
 using System;
 
 namespace StardustSandbox.Core.Interfaces.Entities

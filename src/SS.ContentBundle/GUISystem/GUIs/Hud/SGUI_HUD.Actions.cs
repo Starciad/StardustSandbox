@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Enums.GameInput.Pen;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {

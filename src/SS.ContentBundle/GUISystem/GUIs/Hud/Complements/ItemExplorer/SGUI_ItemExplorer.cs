@@ -10,7 +10,6 @@ using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI;
 using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
@@ -45,7 +44,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : base(gameInstance, identifier, guiEvents)
         {
             this.selectedCategory = gameInstance.CatalogDatabase.GetCategory("elements");
-            this.selectedSubcategory = selectedCategory.GetSubcategory("powders");
+            this.selectedSubcategory = this.selectedCategory.GetSubcategory("powders");
             this.selectedPageIndex = 0;
 
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");

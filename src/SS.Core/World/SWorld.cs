@@ -209,7 +209,6 @@ namespace StardustSandbox.Core.World
             }
         }
 
-
         public void Reset()
         {
             this.Infos.Name = string.Empty;

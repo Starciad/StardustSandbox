@@ -15,7 +15,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private SGUITextElement synopsisElement;
         private SGUITextElement userInputElement;
         private SGUILabelElement characterCountElement;
-        
+
         private SGUIImageElement userInputBackgroundElement;
 
         private readonly SGUILabelElement[] menuButtonElements;

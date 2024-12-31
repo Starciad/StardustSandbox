@@ -208,18 +208,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     SGUIGlobalTooltip.Description = this.toolButtons[i].Description;
                 }
 
-                if (this.toolButtonSelectedIndex == i)
-                {
-                    slot.BackgroundElement.Color = SColorPalette.SelectedColor;
-                }
-                else if (isOver)
-                {
-                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
-                }
-                else
-                {
-                    slot.BackgroundElement.Color = SColorPalette.White;
-                }
+                slot.BackgroundElement.Color = this.toolButtonSelectedIndex == i ? SColorPalette.SelectedColor : isOver ? SColorPalette.HoverColor : SColorPalette.White;
             }
         }
 
@@ -243,18 +232,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     SGUIGlobalTooltip.Description = this.layerButtons[i].Description;
                 }
 
-                if (this.layerButtonSelectedIndex == i)
-                {
-                    slot.BackgroundElement.Color = SColorPalette.SelectedColor;
-                }
-                else if (isOver)
-                {
-                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
-                }
-                else
-                {
-                    slot.BackgroundElement.Color = SColorPalette.White;
-                }
+                slot.BackgroundElement.Color = this.layerButtonSelectedIndex == i ? SColorPalette.SelectedColor : isOver ? SColorPalette.HoverColor : SColorPalette.White;
             }
         }
 
@@ -278,18 +256,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     SGUIGlobalTooltip.Description = this.shapeButtons[i].Description;
                 }
 
-                if (this.shapeButtonSelectedIndex == i)
-                {
-                    slot.BackgroundElement.Color = SColorPalette.SelectedColor;
-                }
-                else if (isOver)
-                {
-                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
-                }
-                else
-                {
-                    slot.BackgroundElement.Color = SColorPalette.White;
-                }
+                slot.BackgroundElement.Color = this.shapeButtonSelectedIndex == i ? SColorPalette.SelectedColor : isOver ? SColorPalette.HoverColor : SColorPalette.White;
             }
         }
 

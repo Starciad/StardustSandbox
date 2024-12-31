@@ -84,7 +84,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2 + this.userInputElement.GetStringSize().Height;
+            float screenCenterYPosition = (SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2) + this.userInputElement.GetStringSize().Height;
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackgroundElement.Position.X;
@@ -115,19 +115,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             }
             else
             {
-                this.userInputStringBuilder.Append(settings.Content);
+                _ = this.userInputStringBuilder.Append(settings.Content);
                 this.cursorPosition = settings.Content.Length;
             }
 
             // Count
-            if (settings.MaxCharacters == 0)
-            {
-                this.characterCountElement.IsVisible = false;
-            }
-            else
-            {
-                this.characterCountElement.IsVisible = true;
-            }
+            this.characterCountElement.IsVisible = settings.MaxCharacters != 0;
         }
     }
 }

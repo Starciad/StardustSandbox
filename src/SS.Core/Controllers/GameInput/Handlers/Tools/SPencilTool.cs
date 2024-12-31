@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Components.Common.Entities;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.Items;

@@ -5,7 +5,6 @@ using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.Core.GUISystem;
 
 using System;
-using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 {
@@ -137,7 +136,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 return;
             }
 
-            this.userInputStringBuilder.Insert(this.cursorPosition, ' ');
+            _ = this.userInputStringBuilder.Insert(this.cursorPosition, ' ');
             this.cursorPosition++;
         }
 
@@ -163,6 +162,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                     {
                         return;
                     }
+
                     break;
 
                 case SInputRestriction.NumbersOnly:
@@ -170,6 +170,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                     {
                         return;
                     }
+
                     break;
 
                 case SInputRestriction.Alphanumeric:
@@ -177,13 +178,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                     {
                         return;
                     }
+
                     break;
 
                 default:
                     break;
             }
 
-            this.userInputStringBuilder.Insert(this.cursorPosition, character);
+            _ = this.userInputStringBuilder.Insert(this.cursorPosition, character);
             this.cursorPosition++;
         }
 
@@ -210,7 +212,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                     break;
 
                 case SInputMode.Password:
-                    UpdatePasswordMask(cursorPosition);
+                    UpdatePasswordMask(this.cursorPosition);
                     this.userInputElement.SetTextualContent(this.userInputPasswordMaskedStringBuilder);
                     break;
 
@@ -218,7 +220,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                     this.userInputElement.SetTextualContent(this.userInputStringBuilder);
                     break;
             }
-            
+
             _ = this.userInputStringBuilder.Remove(this.cursorPosition, 1);
         }
 
@@ -229,11 +231,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 this.userInputPasswordMaskedStringBuilder.Capacity = this.userInputStringBuilder.Length;
             }
 
-            this.userInputPasswordMaskedStringBuilder.Clear();
+            _ = this.userInputPasswordMaskedStringBuilder.Clear();
 
             for (int i = 0; i < this.userInputStringBuilder.Length; i++)
             {
-                this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
+                _ = this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
             }
         }
     }

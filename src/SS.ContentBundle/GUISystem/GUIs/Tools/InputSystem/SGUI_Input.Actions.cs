@@ -24,7 +24,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 this.inputSettings.OnSendCallback?.Invoke(argumentResult);
             }
 
-        FINALIZATION:;
+        FINALIZATION:
+            ;
             this.SGameInstance.GUIManager.CloseGUI();
         }
     }
