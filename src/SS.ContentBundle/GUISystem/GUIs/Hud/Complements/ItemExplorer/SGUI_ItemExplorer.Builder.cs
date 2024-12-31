@@ -3,6 +3,7 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -18,8 +19,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private SGUILabelElement explorerTitleLabel;
 
+        private SGUISliceImageElement panelBackgroundElement;
         private SGUISliceImageElement itemGridBackground;
 
+        private readonly SSlot[] menuButtonSlots;
         private readonly SSlot[] itemButtonSlots;
         private readonly SSlot[] categoryButtonSlots;
         private readonly SSlot[] subcategoryButtonSlots;
@@ -27,7 +30,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
+            BuildMenuButtons(layoutBuilder);
             BuildExplorer(layoutBuilder);
+            BuildItemCatalogSlots(layoutBuilder, this.itemGridBackground);
+            BuildCategoryButtons(layoutBuilder);
+            BuildSubcategoryButtons(layoutBuilder);
 
             layoutBuilder.AddElement(this.tooltipBoxElement);
         }
@@ -38,27 +45,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
-                Size = SScreenConstants.DEFAULT_SCREEN_SIZE,
+                Size = new(32),
                 Color = new(SColorPalette.DarkGray, 160)
             };
 
             layoutBuilder.AddElement(guiBackground);
-        }
 
-        // ================================== //
+            // ============================================== //
 
-        private void BuildExplorer(ISGUILayoutBuilder layoutBuilder)
-        {
-            #region BACKGROUND & TITLE
-            SGUISliceImageElement explorerBackground = new(this.SGameInstance)
+            this.panelBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiBackgroundTexture,
                 Scale = new(32, 15),
+                Size = new(32),
                 Margin = new(128f),
                 Color = new(104, 111, 121, 255)
             };
 
-            explorerBackground.PositionRelativeToScreen();
+            this.panelBackgroundElement.PositionRelativeToScreen();
 
             this.explorerTitleLabel = new(this.SGameInstance)
             {
@@ -70,13 +74,58 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.explorerTitleLabel.SetTextualContent("TITLE");
             this.explorerTitleLabel.SetAllBorders(true, new(45, 53, 74, 255), new(4.4f));
-            this.explorerTitleLabel.PositionRelativeToElement(explorerBackground);
+            this.explorerTitleLabel.PositionRelativeToElement(this.panelBackgroundElement);
 
-            layoutBuilder.AddElement(explorerBackground);
+            layoutBuilder.AddElement(this.panelBackgroundElement);
             layoutBuilder.AddElement(this.explorerTitleLabel);
-            #endregion
+        }
 
-            #region ITEM DISPLAY
+        private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
+        {
+            Vector2 margin = new(-2, -72);
+
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                SButton button = this.menuButtons[i];
+
+                SGUIImageElement backgroundElement = new(this.SGameInstance)
+                {
+                    Texture = this.guiButton1Texture,
+                    Scale = new(SHUDConstants.SLOT_SCALE),
+                    Size = new(SHUDConstants.SLOT_SIZE),
+                    Margin = margin,
+                };
+
+                SGUIImageElement iconElement = new(this.SGameInstance)
+                {
+                    Texture = button.IconTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new(1.5f),
+                    Size = new(SHUDConstants.SLOT_SIZE)
+                };
+
+                SSlot slot = new(backgroundElement, iconElement);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.menuButtonSlots[i] = slot;
+
+                // Spacing
+                margin.X -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(backgroundElement);
+                layoutBuilder.AddElement(iconElement);
+            }
+        }
+
+        private void BuildExplorer(ISGUILayoutBuilder layoutBuilder)
+        {
             // Background
             this.itemGridBackground = new(this.SGameInstance)
             {
@@ -86,20 +135,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Color = new Color(94, 101, 110, 255)
             };
 
-            this.itemGridBackground.PositionRelativeToElement(explorerBackground);
+            this.itemGridBackground.PositionRelativeToElement(this.panelBackgroundElement);
 
             layoutBuilder.AddElement(this.itemGridBackground);
-            BuildItemCatalogSlots(layoutBuilder, this.itemGridBackground);
-            #endregion
-
-            #region CATEGORY BUTTONS
-            BuildCategoryButtons(layoutBuilder);
-            BuildSubcategoryButtons(layoutBuilder);
-            #endregion
-
-            #region PAGINATION
-            // [...]
-            #endregion
         }
 
         private void BuildItemCatalogSlots(ISGUILayoutBuilder layoutBuilder, SGUIElement parent)
@@ -152,7 +190,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildCategoryButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 slotMargin = new(0, -160);
+            Vector2 slotMargin = new(-30, -160);
 
             int index = 0;
 

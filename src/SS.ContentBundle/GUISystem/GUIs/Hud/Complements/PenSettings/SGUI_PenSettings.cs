@@ -117,42 +117,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.tooltipBoxElement.IsVisible = false;
 
-            UpdateBrushSizeSlider();
             UpdateMenuButtons();
+            UpdateBrushSizeSlider();
             UpdateToolBottons();
             UpdateLayerButtons();
             UpdateShapeButtons();
             SyncGUIElements();
 
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
-        }
-
-        private void UpdateBrushSizeSlider()
-        {
-            Vector2 basePosition = this.brushSizeSliderElement.Position;
-            Vector2 offset = new(SHUDConstants.SLOT_SIZE);
-            SSize2 size = new(SHUDConstants.SLOT_SIZE);
-
-            for (int i = 0; i < this.brushSizeSliderClipTextures.Length; i++)
-            {
-                Vector2 position = basePosition + offset;
-
-                if (this.GUIEvents.OnMouseOver(position, size))
-                {
-                    this.tooltipBoxElement.IsVisible = true;
-
-                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
-                    SGUIGlobalTooltip.Description = string.Format(SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
-                }
-
-                if (this.GUIEvents.OnMouseDown(position, size))
-                {
-                    this.SGameInstance.GameInputController.Pen.Size = (sbyte)i;
-                    break;
-                }
-
-                offset.X += SHUDConstants.SLOT_SPACING;
-            }
         }
 
         private void UpdateMenuButtons()
@@ -182,6 +154,34 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     slot.BackgroundElement.Color = SColorPalette.White;
                 }
+            }
+        }
+
+        private void UpdateBrushSizeSlider()
+        {
+            Vector2 basePosition = this.brushSizeSliderElement.Position;
+            Vector2 offset = new(SHUDConstants.SLOT_SIZE);
+            SSize2 size = new(SHUDConstants.SLOT_SIZE);
+
+            for (int i = 0; i < this.brushSizeSliderClipTextures.Length; i++)
+            {
+                Vector2 position = basePosition + offset;
+
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
+                    SGUIGlobalTooltip.Description = string.Format(SLocalization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
+                }
+
+                if (this.GUIEvents.OnMouseDown(position, size))
+                {
+                    this.SGameInstance.GameInputController.Pen.Size = (sbyte)i;
+                    break;
+                }
+
+                offset.X += SHUDConstants.SLOT_SPACING;
             }
         }
 
