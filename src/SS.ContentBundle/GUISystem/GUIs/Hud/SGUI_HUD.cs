@@ -366,6 +366,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             SelectItemSlot(this.toolbarElementSlots.Length - 1, item);
         }
 
+        internal bool ItemIsEquipped(SItem item)
+        {
+            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
+            {
+                SItem hudItem = (SItem)this.toolbarElementSlots[i].BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
+
+                if (item == hudItem)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void SelectItemSlot(int slotIndex, string itemIdentifier)
         {
             SelectItemSlot(slotIndex, this.SGameInstance.CatalogDatabase.GetItem(itemIdentifier));

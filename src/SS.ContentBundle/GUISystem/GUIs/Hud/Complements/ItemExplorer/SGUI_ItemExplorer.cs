@@ -119,13 +119,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.categoryButtonSlots.Length; i++)
             {
                 SSlot categorySlot = this.categoryButtonSlots[i];
-                SCategory category;
+
+                if (!categorySlot.BackgroundElement.IsVisible)
+                {
+                    continue;
+                }
+
+                SCategory category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(categorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
                 {
-                    category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
-
                     SelectItemCatalog(category, category.Subcategories.First(), 0);
                 }
 
@@ -134,8 +138,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
-
-                    category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
                     SGUIGlobalTooltip.Title = category.DisplayName;
                     SGUIGlobalTooltip.Description = category.Description;
@@ -148,13 +150,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.subcategoryButtonSlots.Length; i++)
             {
                 SSlot subcategorySlot = this.subcategoryButtonSlots[i];
-                SSubcategory subcategory;
+
+                if (!subcategorySlot.BackgroundElement.IsVisible)
+                {
+                    continue;
+                }
+
+                SSubcategory subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(subcategorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
                 {
-                    subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
-
                     SelectItemCatalog(subcategory.Parent, subcategory, 0);
                 }
 
@@ -163,8 +169,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
-
-                    subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
                     SGUIGlobalTooltip.Title = subcategory.DisplayName;
                     SGUIGlobalTooltip.Description = subcategory.Description;
@@ -177,17 +181,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
                 SSlot slot = this.itemButtonSlots[i];
-                SItem item;
 
                 if (!slot.BackgroundElement.IsVisible)
                 {
                     continue;
                 }
 
+                SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
+
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
                 {
-                    item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
-
                     this.guiHUD.AddItemToToolbar(item);
                     this.SGameInstance.GUIManager.CloseGUI();
                 }
@@ -198,13 +201,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
-
                     SGUIGlobalTooltip.Title = item.DisplayName;
                     SGUIGlobalTooltip.Description = item.Description;
+
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
                 }
 
-                slot.BackgroundElement.Color = isOver ? SColorPalette.LemonYellow : SColorPalette.White;
+                if (this.guiHUD.ItemIsEquipped(item))
+                {
+                    slot.BackgroundElement.Color = SColorPalette.TealGray;
+                }
             }
         }
 
