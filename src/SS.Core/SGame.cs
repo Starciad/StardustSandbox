@@ -34,7 +34,7 @@ namespace StardustSandbox.Core
         public ISGraphicsManager GraphicsManager => this.graphicsManager;
         public ISGUIManager GUIManager => this.guiManager;
         public ISGameManager GameManager => this.gameManager;
-        public ISBackgroundManager BackgroundManager => this.backgroundManager;
+        public ISAmbientManager AmbientManager => this.ambientManager;
         public ISCursorManager CursorManager => this.cursorManager;
 
         public ISWorld World => this.world;
@@ -59,7 +59,7 @@ namespace StardustSandbox.Core
         private readonly SInputManager inputManager;
         private readonly SGUIManager guiManager;
         private readonly SCursorManager cursorManager;
-        private readonly SBackgroundManager backgroundManager;
+        private readonly SAmbientManager ambientManager;
         private readonly SGameManager gameManager;
 
         // Core
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core
             this.shaderManager = new(this);
             this.guiManager = new(this);
             this.cursorManager = new(this);
-            this.backgroundManager = new(this);
+            this.ambientManager = new(this);
         }
 
         public void RegisterPlugin(SPluginBuilder pluginBuilder)

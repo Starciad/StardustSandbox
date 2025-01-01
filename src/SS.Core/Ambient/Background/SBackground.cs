@@ -7,11 +7,12 @@ using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Background
+namespace StardustSandbox.Core.Ambient.Background
 {
     public sealed class SBackground(ISGame gameInstance, string identifier, Texture2D texture) : SGameObject(gameInstance)
     {
         public string Identifier => identifier;
+        public bool IsAffectedByLighting { get; set; }
 
         private readonly Texture2D _texture = texture;
 

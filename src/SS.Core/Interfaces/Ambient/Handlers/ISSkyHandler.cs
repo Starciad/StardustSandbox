@@ -4,7 +4,7 @@ using StardustSandbox.Core.Colors;
 
 using System;
 
-namespace StardustSandbox.Core.Interfaces.Background.Handlers
+namespace StardustSandbox.Core.Interfaces.Ambient.Handlers
 {
     public interface ISSkyHandler
     {

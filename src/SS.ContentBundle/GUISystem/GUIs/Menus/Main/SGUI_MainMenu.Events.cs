@@ -6,9 +6,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         protected override void OnOpened()
         {
-            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
-            this.SGameInstance.BackgroundManager.Reset();
-            this.SGameInstance.BackgroundManager.CloudHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("main_menu"));
+            this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CelestialBodyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.SkyHandler.IsActive = true;
 
             ResetElementPositions();
 
@@ -23,9 +24,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         protected override void OnClosed()
         {
-            this.SGameInstance.BackgroundManager.Reset();
-            this.SGameInstance.BackgroundManager.CloudHandler.IsActive = false;
-
             this.SGameInstance.World.Clear();
             this.SGameInstance.World.IsActive = false;
             this.SGameInstance.World.IsVisible = false;

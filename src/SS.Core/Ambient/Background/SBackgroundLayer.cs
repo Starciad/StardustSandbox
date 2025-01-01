@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Objects;
 
-namespace StardustSandbox.Core.Background
+namespace StardustSandbox.Core.Ambient.Background
 {
     public sealed class SBackgroundLayer(ISGame gameInstance, Texture2D texture, Rectangle textureClippingRectangle, Vector2 parallaxFactor, Vector2 movementSpeed, bool lockX = false, bool lockY = false) : SGameObject(gameInstance)
     {

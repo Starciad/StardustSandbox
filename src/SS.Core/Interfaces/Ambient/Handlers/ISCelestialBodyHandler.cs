@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Interfaces.System;
 
-namespace StardustSandbox.Core.Interfaces.Background.Handlers
+namespace StardustSandbox.Core.Interfaces.Ambient.Handlers
 {
     public interface ISCelestialBodyHandler
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Background.Details;
+using StardustSandbox.Core.Ambient.Clouds;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Interfaces.Background.Handlers;
+using StardustSandbox.Core.Interfaces.Ambient.Handlers;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -14,7 +14,7 @@ using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Background.Handlers
+namespace StardustSandbox.Core.Ambient.Handlers
 {
     internal sealed class SCloudHandler(ISGame gameInstance) : SGameObject(gameInstance), ISCloudHandler
     {

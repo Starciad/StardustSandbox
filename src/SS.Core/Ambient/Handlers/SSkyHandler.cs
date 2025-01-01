@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Interfaces.Background.Handlers;
+using StardustSandbox.Core.Interfaces.Ambient.Handlers;
 using StardustSandbox.Core.Objects;
 
 using System;
 
-namespace StardustSandbox.Core.Background.Handlers
+namespace StardustSandbox.Core.Ambient.Handlers
 {
     internal sealed class SSkyHandler(ISGame gameInstance) : SGameObject(gameInstance), ISSkyHandler
     {
@@ -92,7 +92,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(60, 40, 90, 255), new Color(30, 30, 60, 255)),
                 Color2 = (new Color(30, 30, 60, 255), new Color(20, 25, 50, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(3, 0, 0), // Late Night
@@ -100,7 +100,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(30, 30, 60, 255), new Color(20, 25, 50, 255)),
                 Color2 = (new Color(70, 80, 100, 255), new Color(100, 70, 50, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(6, 0, 0), // Dawn
@@ -108,7 +108,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(70, 80, 100, 255), new Color(100, 70, 50, 255)),
                 Color2 = (new Color(110, 130, 170, 255), new Color(190, 160, 120, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(8, 0, 0), // Early Morning
@@ -116,7 +116,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(110, 130, 170, 255), new Color(190, 160, 120, 255)),
                 Color2 = (new Color(160, 200, 250, 255), new Color(220, 180, 130, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(12, 0, 0), // Noon
@@ -124,7 +124,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(160, 200, 250, 255), new Color(220, 180, 130, 255)),
                 Color2 = (new Color(200, 220, 250, 255), new Color(250, 200, 130, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(15, 0, 0), // Early Afternoon
@@ -132,7 +132,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(200, 220, 250, 255), new Color(250, 200, 130, 255)),
                 Color2 = (new Color(220, 130, 100, 255), new Color(120, 70, 50, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(18, 0, 0), // Dusk
@@ -140,7 +140,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 Color1 = (new Color(220, 130, 100, 255), new Color(120, 70, 50, 255)),
                 Color2 = (new Color(80, 40, 50, 255), new Color(40, 30, 60, 255)),
             },
-        
+
             new()
             {
                 StartTime = new(20, 0, 0), // Evening

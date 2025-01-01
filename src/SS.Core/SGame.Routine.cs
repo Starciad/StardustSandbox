@@ -29,7 +29,7 @@ namespace StardustSandbox.Core
             this.inputManager.Initialize();
             this.guiManager.Initialize();
             this.cursorManager.Initialize();
-            this.backgroundManager.Initialize();
+            this.ambientManager.Initialize();
 
             // Controllers
             this.gameInputController.Initialize();
@@ -69,7 +69,7 @@ namespace StardustSandbox.Core
             this.inputManager.Update(gameTime);
             this.guiManager.Update(gameTime);
             this.cursorManager.Update(gameTime);
-            this.backgroundManager.Update(gameTime);
+            this.ambientManager.Update(gameTime);
 
             if (!this.gameManager.GameState.IsSimulationPaused && !this.gameManager.GameState.IsCriticalMenuOpen)
             {

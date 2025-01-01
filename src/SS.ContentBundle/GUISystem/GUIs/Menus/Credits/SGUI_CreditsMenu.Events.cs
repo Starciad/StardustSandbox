@@ -7,7 +7,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
     {
         protected override void OnOpened()
         {
-            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("credits"));
+            this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("credits"));
+            this.SGameInstance.AmbientManager.CloudHandler.IsActive = false;
+            this.SGameInstance.AmbientManager.CelestialBodyHandler.IsActive = false;
+            this.SGameInstance.AmbientManager.SkyHandler.IsActive = false;
 
             this.world.IsActive = false;
             this.world.IsVisible = false;

@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Interfaces.Background.Handlers;
+using StardustSandbox.Core.Interfaces.Ambient.Handlers;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Objects;
 
 using System;
 
-namespace StardustSandbox.Core.Background.Handlers
+namespace StardustSandbox.Core.Ambient.Handlers
 {
     internal sealed class SCelestialBodyHandler(ISGame gameInstance) : SGameObject(gameInstance), ISCelestialBodyHandler
     {
@@ -50,16 +50,16 @@ namespace StardustSandbox.Core.Background.Handlers
 
             // Calculate the angle of the celestial body
             float maxArcAngle = SBackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE;
-            float angle = (maxArcAngle * (float)intervalProgress) + SBackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
+            float angle = maxArcAngle * (float)intervalProgress + SBackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
 
             // Update position based on angle
             this.position = new(
-                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - (SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Cos(angle)),
-                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - (SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Sin(angle))
+                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Cos(angle),
+                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Sin(angle)
             );
 
             // Update rotation for alignment
-            this.rotation = angle - (MathF.PI / 2);
+            this.rotation = angle - MathF.PI / 2;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
