@@ -49,25 +49,39 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.SetRenderTarget(this.graphicsManager.BackgroundRenderTarget);
             this.GraphicsDevice.Clear(this.backgroundManager.SolidColor);
 
+            Effect skyEffect = null;
+            Effect backgroundEffect = null;
+
             // Sky
             if (this.backgroundManager.SkyHandler.IsActive)
             {
-                SSkyGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GetGradientByTime(this.world.Time.CurrentTime);
+                SGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GetSkyGradientByTime(this.world.Time.CurrentTime);
+                SGradientColorMap backgroundGradientColorMap = this.backgroundManager.SkyHandler.GetBackgroundGradientByTime(this.world.Time.CurrentTime);
+
                 float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
 
-                this.backgroundManager.SkyHandler.Effect.Parameters["StartColor1"].SetValue(skyGradientColorMap.Color1.Start.ToVector4());
-                this.backgroundManager.SkyHandler.Effect.Parameters["StartColor2"].SetValue(skyGradientColorMap.Color2.Start.ToVector4());
-                this.backgroundManager.SkyHandler.Effect.Parameters["EndColor1"].SetValue(skyGradientColorMap.Color1.End.ToVector4());
-                this.backgroundManager.SkyHandler.Effect.Parameters["EndColor2"].SetValue(skyGradientColorMap.Color2.End.ToVector4());
-                this.backgroundManager.SkyHandler.Effect.Parameters["TimeNormalized"].SetValue(interpolation);
+                skyEffect = this.backgroundManager.SkyHandler.Effect;
+                backgroundEffect = this.backgroundManager.SkyHandler.Effect;
 
-                this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, this.backgroundManager.SkyHandler.Effect, null);
+                void UpdateEffectParameters(Effect effect, SGradientColorMap gradientColorMap)
+                {
+                    effect.Parameters["StartColor1"].SetValue(gradientColorMap.Color1.Start.ToVector4());
+                    effect.Parameters["StartColor2"].SetValue(gradientColorMap.Color2.Start.ToVector4());
+                    effect.Parameters["EndColor1"].SetValue(gradientColorMap.Color1.End.ToVector4());
+                    effect.Parameters["EndColor2"].SetValue(gradientColorMap.Color2.End.ToVector4());
+                    effect.Parameters["TimeNormalized"].SetValue(interpolation);
+                }
+
+                UpdateEffectParameters(skyEffect, skyGradientColorMap);
+                UpdateEffectParameters(backgroundEffect, backgroundGradientColorMap);
+
+                this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, skyEffect, null);
                 this.spriteBatch.Draw(this.backgroundManager.SkyHandler.Texture, Vector2.Zero, null, SColorPalette.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                 this.spriteBatch.End();
             }
 
             // Background
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, backgroundEffect, null);
             this.backgroundManager.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
         }

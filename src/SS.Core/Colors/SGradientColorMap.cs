@@ -4,7 +4,7 @@ using System;
 
 namespace StardustSandbox.Core.Colors
 {
-    public sealed class SSkyGradientColorMap
+    public sealed class SGradientColorMap
     {
         public (Color Start, Color End) Color1 { get; set; }
         public (Color Start, Color End) Color2 { get; set; }
