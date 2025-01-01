@@ -54,11 +54,13 @@ namespace StardustSandbox.Core
             {
                 SDayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();
 
-                SGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GradientColorMap[(byte)dayPeriod];
+                SSkyGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GradientColorMap[(byte)dayPeriod];
                 float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
 
-                this.backgroundManager.SkyHandler.Effect.Parameters["InitialColor"].SetValue(skyGradientColorMap.InitialColor.ToVector4());
-                this.backgroundManager.SkyHandler.Effect.Parameters["FinalColor"].SetValue(skyGradientColorMap.FinalColor.ToVector4());
+                this.backgroundManager.SkyHandler.Effect.Parameters["StartColor1"].SetValue(skyGradientColorMap.Color1.Start.ToVector4());
+                this.backgroundManager.SkyHandler.Effect.Parameters["StartColor2"].SetValue(skyGradientColorMap.Color2.Start.ToVector4());
+                this.backgroundManager.SkyHandler.Effect.Parameters["EndColor1"].SetValue(skyGradientColorMap.Color1.End.ToVector4());
+                this.backgroundManager.SkyHandler.Effect.Parameters["EndColor2"].SetValue(skyGradientColorMap.Color2.End.ToVector4());
                 this.backgroundManager.SkyHandler.Effect.Parameters["TimeNormalized"].SetValue(interpolation);
 
                 this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, this.backgroundManager.SkyHandler.Effect, null);

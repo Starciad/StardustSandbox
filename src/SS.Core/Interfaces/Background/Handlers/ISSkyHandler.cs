@@ -10,6 +10,6 @@ namespace StardustSandbox.Core.Interfaces.Background.Handlers
         bool IsActive { get; set; }
         Texture2D Texture { get; }
         Effect Effect { get; }
-        SGradientColorMap[] GradientColorMap { get; }
+        SSkyGradientColorMap[] GradientColorMap { get; }
     }
 }

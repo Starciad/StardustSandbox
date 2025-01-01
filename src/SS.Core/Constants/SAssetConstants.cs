@@ -2,7 +2,7 @@
 {
     public static class SAssetConstants
     {
-        public const byte EFFECTS_LENGTH = 002;
+        public const byte EFFECTS_LENGTH = 001;
         public const byte FONTS_LENGTH = 009;
 
         #region GRAPHICS

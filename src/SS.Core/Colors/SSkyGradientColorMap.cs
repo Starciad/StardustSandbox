@@ -4,10 +4,10 @@ using System;
 
 namespace StardustSandbox.Core.Colors
 {
-    public sealed class SGradientColorMap
+    public sealed class SSkyGradientColorMap
     {
-        public Color InitialColor { get; set; }
-        public Color FinalColor { get; set; }
+        public (Color Start, Color End) Color1 { get; set; }
+        public (Color Start, Color End) Color2 { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
 

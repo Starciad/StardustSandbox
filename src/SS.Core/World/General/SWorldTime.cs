@@ -12,13 +12,12 @@ namespace StardustSandbox.Core.World.General
     public sealed class SWorldTime(ISGame gameInstance) : SGameObject(gameInstance)
     {
         public TimeSpan CurrentTime => this.currentTime;
-        public int TicksPerSecond { get; } = 1000;
 
         private TimeSpan currentTime = TimeSpan.Zero;
 
         public override void Update(GameTime gameTime)
         {
-            this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(30));
+            this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(15));
 
             // Normalizes time to 24 hours.
             this.currentTime = TimeSpan.FromSeconds(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY);
