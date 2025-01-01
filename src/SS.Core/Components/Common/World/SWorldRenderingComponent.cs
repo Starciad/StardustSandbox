@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
@@ -77,7 +78,10 @@ namespace StardustSandbox.Core.Components.Common.World
 
                     if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
                     {
-                        spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new Color(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        if (this.SGameInstance.GameInputController.Pen.Tool != SPenTool.Visualization)
+                        {
+                            spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new Color(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        }
 
                         if (this.SWorldInstance.TryGetWorldSlot(targetPosition.ToPoint(), out SWorldSlot value))
                         {
