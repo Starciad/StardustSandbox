@@ -52,9 +52,7 @@ namespace StardustSandbox.Core
             // Sky
             if (this.backgroundManager.SkyHandler.IsActive)
             {
-                SDayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();
-
-                SSkyGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GradientColorMap[(byte)dayPeriod];
+                SSkyGradientColorMap skyGradientColorMap = this.backgroundManager.SkyHandler.GetGradientByTime(this.world.Time.CurrentTime);
                 float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
 
                 this.backgroundManager.SkyHandler.Effect.Parameters["StartColor1"].SetValue(skyGradientColorMap.Color1.Start.ToVector4());

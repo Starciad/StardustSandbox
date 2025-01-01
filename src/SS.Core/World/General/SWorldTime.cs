@@ -3,35 +3,27 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.Objects;
 
 using System;
 
 namespace StardustSandbox.Core.World.General
 {
-    public sealed class SWorldTime(ISGame gameInstance) : SGameObject(gameInstance)
+    public sealed class SWorldTime(ISGame gameInstance) : SGameObject(gameInstance), ISReset
     {
         public TimeSpan CurrentTime => this.currentTime;
+        public float SecondsPerFrames { get; set; } = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
 
-        private TimeSpan currentTime = TimeSpan.Zero;
+        private TimeSpan currentTime = STimeConstants.DEFAULT_START_TIME_OF_DAY;
 
         public override void Update(GameTime gameTime)
         {
-            this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(15));
+            this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(this.SecondsPerFrames));
 
             // Normalizes time to 24 hours.
             this.currentTime = TimeSpan.FromSeconds(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY);
             Console.WriteLine(this.currentTime);
-        }
-
-        public void Define(int hours, int minutes, int seconds)
-        {
-            this.currentTime = new(hours, minutes, seconds);
-        }
-
-        public float GetNormalizedTime()
-        {
-            return (float)(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY) / STimeConstants.SECONDS_IN_A_DAY;
         }
 
         public SDayPeriod GetCurrentDayPeriod()
@@ -45,6 +37,12 @@ namespace StardustSandbox.Core.World.General
                 : this.currentTime >= TimeSpan.FromHours(18) && this.currentTime < TimeSpan.FromHours(24)
                 ? SDayPeriod.Night
                 : throw new InvalidOperationException($"Invalid time state in {nameof(GetCurrentDayPeriod)}.");
+        }
+
+        public void Reset()
+        {
+            this.SecondsPerFrames = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
+            this.currentTime = STimeConstants.DEFAULT_START_TIME_OF_DAY;
         }
     }
 }

@@ -7,8 +7,6 @@ using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World.Slots;
 using StardustSandbox.Core.Interfaces.Collections;
 
-using System;
-
 namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld
@@ -21,8 +19,6 @@ namespace StardustSandbox.Core.World
 
         public void StartNew(SSize2 size)
         {
-            this.Infos.Identifier = Guid.NewGuid().ToString();
-
             this.IsActive = true;
             this.IsVisible = true;
 

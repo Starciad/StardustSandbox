@@ -61,9 +61,11 @@ namespace StardustSandbox.Core.World
 
         public void Reset()
         {
-            this.Infos.Name = string.Empty;
-            this.Infos.Description = string.Empty;
             this.currentlySelectedWorldSaveFile = null;
+
+            this.Infos.Reset();
+            this.Time.Reset();
+
             this.componentContainer.Reset();
             Clear();
         }

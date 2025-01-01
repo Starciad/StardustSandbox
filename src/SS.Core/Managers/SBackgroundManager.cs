@@ -44,7 +44,6 @@ namespace StardustSandbox.Core.Managers
 
         public void Reset()
         {
-            this.skyHandler.Reset();
             this.cloudHandler.Reset();
         }
 
