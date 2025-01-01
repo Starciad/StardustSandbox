@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(0, 0, 0), // Midnight
                 EndTime = new(3, 0, 0),  // Late Night
                 Color1 = (new Color(60, 40, 90, 200), new Color(30, 30, 60, 180)),
-                Color2 = (new Color(30, 30, 60, 180), new Color(15, 20, 40, 160)),
+                Color2 = (new Color(30, 30, 60, 180), new Color(20, 25, 50, 170)),
             },
         
             new()
@@ -98,7 +98,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(3, 0, 0), // Late Night
                 EndTime = new(6, 0, 0),  // Dawn
                 Color1 = (new Color(30, 30, 60, 180), new Color(20, 25, 50, 170)),
-                Color2 = (new Color(25, 40, 70, 170), new Color(60, 30, 50, 150)),
+                Color2 = (new Color(70, 80, 100, 220), new Color(100, 70, 50, 200)),
             },
         
             new()
@@ -106,7 +106,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(6, 0, 0), // Dawn
                 EndTime = new(8, 0, 0),  // Early Morning
                 Color1 = (new Color(70, 80, 100, 220), new Color(100, 70, 50, 200)),
-                Color2 = (new Color(110, 130, 170, 240), new Color(180, 100, 70, 220)),
+                Color2 = (new Color(110, 130, 170, 240), new Color(190, 160, 120, 230)),
             },
         
             new()
@@ -114,7 +114,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(8, 0, 0), // Early Morning
                 EndTime = new(12, 0, 0), // Noon
                 Color1 = (new Color(110, 130, 170, 240), new Color(190, 160, 120, 230)),
-                Color2 = (new Color(160, 200, 250, 255), new Color(230, 210, 150, 250)),
+                Color2 = (new Color(160, 200, 250, 255), new Color(220, 180, 130, 245)),
             },
         
             new()
@@ -122,7 +122,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(12, 0, 0), // Noon
                 EndTime = new(15, 0, 0),  // Early Afternoon
                 Color1 = (new Color(160, 200, 250, 255), new Color(220, 180, 130, 245)),
-                Color2 = (new Color(200, 220, 250, 255), new Color(250, 220, 160, 255)),
+                Color2 = (new Color(200, 220, 250, 255), new Color(250, 200, 130, 235)),
             },
         
             new()
@@ -130,7 +130,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(15, 0, 0), // Early Afternoon
                 EndTime = new(18, 0, 0),  // Dusk
                 Color1 = (new Color(200, 220, 250, 255), new Color(250, 200, 130, 235)),
-                Color2 = (new Color(220, 130, 100, 220), new Color(130, 80, 60, 200)),
+                Color2 = (new Color(220, 130, 100, 220), new Color(120, 70, 50, 200)),
             },
         
             new()
@@ -138,7 +138,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(18, 0, 0), // Dusk
                 EndTime = new(20, 0, 0), // Evening
                 Color1 = (new Color(220, 130, 100, 220), new Color(120, 70, 50, 200)),
-                Color2 = (new Color(80, 40, 50, 180), new Color(30, 30, 60, 170)),
+                Color2 = (new Color(80, 40, 50, 180), new Color(40, 30, 60, 160)),
             },
         
             new()
@@ -146,7 +146,7 @@ namespace StardustSandbox.Core.Background.Handlers
                 StartTime = new(20, 0, 0), // Evening
                 EndTime = new(23, 59, 59), // Midnight
                 Color1 = (new Color(80, 40, 50, 180), new Color(40, 30, 60, 160)),
-                Color2 = (new Color(30, 20, 50, 150), new Color(15, 15, 30, 140)),
+                Color2 = (new Color(60, 40, 90, 200), new Color(30, 30, 60, 180)),
             },
         ];
 

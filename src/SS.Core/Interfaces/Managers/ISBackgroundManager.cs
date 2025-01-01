@@ -10,6 +10,7 @@ namespace StardustSandbox.Core.Interfaces.Managers
         Color SolidColor { get; set; }
 
         ISSkyHandler SkyHandler { get; }
+        ISCelestialBodyHandler CelestialBodyHandler { get; }
         ISCloudHandler CloudHandler { get; }
 
         void SetBackground(SBackground background);

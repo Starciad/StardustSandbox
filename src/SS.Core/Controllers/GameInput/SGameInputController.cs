@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Controllers.GameInput
             this.player = new();
 
             this.cameraHandler = new(gameInstance.CameraManager);
-            this.simulationHandler = new(gameInstance.GameManager);
+            this.simulationHandler = new(gameInstance);
             this.worldHandler = new(gameInstance, this.player, this.pen);
 
             this.inputManager = gameInstance.InputManager;

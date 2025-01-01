@@ -10,7 +10,7 @@
         public const byte GRAPHICS_BACKGROUNDS_LENGTH = 004;
 
         // Bgos
-        public const byte GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH = 001;
+        public const byte GRAPHICS_BGOS_CELESTIAL_BODIES_LENGTH = 002;
         public const byte GRAPHICS_BGOS_CLOUDS_LENGTH = 005;
 
         // Characters

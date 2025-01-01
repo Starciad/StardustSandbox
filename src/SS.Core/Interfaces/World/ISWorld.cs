@@ -12,6 +12,7 @@ namespace StardustSandbox.Core.Interfaces.World
     public interface ISWorld : ISReset, ISElementHandler, ISEntityHandler, ISWorldChunking
     {
         SWorldInfo Infos { get; }
+        SWorldTime Time { get; }
 
         bool IsActive { get; set; }
         bool IsVisible { get; set; }

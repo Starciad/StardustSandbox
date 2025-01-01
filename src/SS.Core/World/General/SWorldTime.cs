@@ -26,6 +26,11 @@ namespace StardustSandbox.Core.World.General
             Console.WriteLine(this.currentTime);
         }
 
+        public float GetNormalizedTime()
+        {
+            return (float)(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY) / STimeConstants.SECONDS_IN_A_DAY;
+        }
+
         public SDayPeriod GetCurrentDayPeriod()
         {
             return this.currentTime >= TimeSpan.FromHours(0) && this.currentTime < TimeSpan.FromHours(6)
