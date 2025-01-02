@@ -302,6 +302,15 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementEnergySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_LAMP,
+                displayName: SLocalization_Elements.Solid_Immovable_Lamp_Name,
+                description: SLocalization_Elements.Solid_Immovable_Lamp_Description,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_25")
+            ));
             #endregion
 
             #endregion

@@ -37,6 +37,7 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new STreeLeaf(game, SElementConstants.IDENTIFIER_TREE_LEAF));
             elementDatabase.RegisterElement(new SMountingBlock(game, SElementConstants.IDENTIFIER_MOUNTING_BLOCK));
             elementDatabase.RegisterElement(new SFire(game, SElementConstants.IDENTIFIER_FIRE));
+            elementDatabase.RegisterElement(new SLamp(game, SElementConstants.IDENTIFIER_LAMP));
         }
     }
 }

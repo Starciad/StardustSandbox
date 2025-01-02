@@ -261,4 +261,10 @@
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure.</value>
   </data>
+  <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
+    <value>Lamp</value>
+  </data>
+  <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
+    <value>A light source capable of illuminating surroundings and highlighting details. Durable and fixed, it is perfect for environments that require constant clarity.</value>
+  </data>
 </root>

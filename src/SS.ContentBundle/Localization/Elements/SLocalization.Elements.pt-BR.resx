@@ -261,4 +261,10 @@
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Rocha densa e durável, resistente a impactos. Em calor extremo, derrete em lava; quando exposta à erosão aquática prolongada, desintegra-se em areia.</value>
   </data>
+  <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
+    <value>Lâmpada</value>
+  </data>
+  <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
+    <value>Uma fonte de luz capaz de iluminar os arredores e destacar detalhes. Resistente e fixa, é perfeita para ambientes que necessitam de clareza constante.</value>
+  </data>
 </root>

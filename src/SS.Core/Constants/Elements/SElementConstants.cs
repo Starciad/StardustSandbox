@@ -33,6 +33,7 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string IDENTIFIER_TREE_LEAF = IDENTIFIER_PREFIX + "tree_leaf";
         public const string IDENTIFIER_MOUNTING_BLOCK = IDENTIFIER_PREFIX + "mounting_block";
         public const string IDENTIFIER_FIRE = IDENTIFIER_PREFIX + "fire";
+        public const string IDENTIFIER_LAMP = IDENTIFIER_PREFIX + "lamp";
 
         // Corruption
         public const byte CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL = 100;

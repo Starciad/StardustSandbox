@@ -259,6 +259,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A light source capable of illuminating surroundings and highlighting details. Durable and fixed, it is perfect for environments that require constant clarity..
+        /// </summary>
+        internal static string Solid_Immovable_Lamp_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Lamp.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lamp.
+        /// </summary>
+        internal static string Solid_Immovable_Lamp_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Lamp.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Functional and decorative block, available in vibrant colors. Flammable, it adds dynamism and aesthetics to mobile constructions..
         /// </summary>
         internal static string Solid_Immovable_MountingBlock_Description {
