@@ -45,8 +45,11 @@ namespace StardustSandbox.Game
             }
             finally
             {
-                stardustSandboxEngine.Stop();
-                stardustSandboxEngine.Dispose();
+                if (stardustSandboxEngine != null)
+                {
+                    stardustSandboxEngine.Stop();
+                    stardustSandboxEngine.Dispose();
+                }
             }
 #endif
         }
@@ -76,8 +79,12 @@ namespace StardustSandbox.Game
         {
 #if WINDOWS_DX
             string logFilename = SFile.WriteException(value);
+
             StringBuilder logString = new();
             logString.AppendLine(string.Concat("An unexpected error caused ", SGameConstants.TITLE, " to crash!"));
+            logString.AppendLine();
+            logString.AppendLine(string.Concat("For more details, see the log file at: ", logFilename));
+            logString.AppendLine();
             logString.AppendLine($"Exception: {value.Message}");
 
             MessageBox.Show(logString.ToString(),
