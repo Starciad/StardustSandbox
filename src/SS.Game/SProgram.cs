@@ -21,6 +21,8 @@ namespace StardustSandbox.Game
 {
     internal static class SProgram
     {
+        private static SStardustSandboxEngine stardustSandboxEngine;
+
         [STAThread]
         private static void Main()
         {
@@ -28,39 +30,14 @@ namespace StardustSandbox.Game
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 #endif
 
-            SDirectory.Initialize();
-            SSettingsHandler.Initialize();
-
-            SGameCulture gameCulture = SSettingsHandler.LoadSettings<SLanguageSettings>().GameCulture;
-
-            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
-            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
-
-            gameCulture.CultureInfo.ClearCachedData();
-
 #if DEBUG
-            EXECUTE_DEBUG_VERSION();
+            InitializeEnvironment();
+            InitializeGame();
 #else
-            EXECUTE_PUBLISHED_VERSION();
-#endif
-        }
-
-#if DEBUG
-        private static void EXECUTE_DEBUG_VERSION()
-        {
-            using SStardustSandboxEngine stardustSandboxEngine = new();
-            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
-            stardustSandboxEngine.Start();
-        }
-#else
-        private static void EXECUTE_PUBLISHED_VERSION()
-        {
-            using SStardustSandboxEngine stardustSandboxEngine = new();
-            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
-
             try
             {
-                stardustSandboxEngine.Start();
+                InitializeEnvironment();
+                InitializeGame();
             }
             catch (Exception e)
             {
@@ -71,8 +48,30 @@ namespace StardustSandbox.Game
                 stardustSandboxEngine.Stop();
                 stardustSandboxEngine.Dispose();
             }
+#endif
         }
 
+        private static void InitializeEnvironment()
+        {
+            SDirectory.Initialize();
+            SSettingsHandler.Initialize();
+
+            SGameCulture gameCulture = SSettingsHandler.LoadSettings<SLanguageSettings>().GameCulture;
+
+            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
+
+            gameCulture.CultureInfo.ClearCachedData();
+        }
+
+        private static void InitializeGame()
+        {
+            stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
+            stardustSandboxEngine.Start();
+        }
+
+#if !DEBUG
         private static void HandleException(Exception value)
         {
 #if WINDOWS_DX
