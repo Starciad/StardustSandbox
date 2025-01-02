@@ -8,8 +8,9 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
@@ -64,9 +65,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
-            this.itemButtonSlots = new SSlot[SItemExplorerConstants.ITEMS_PER_PAGE];
+            this.itemButtonSlots = new SSlot[SGUI_ItemExplorerConstants.ITEMS_PER_PAGE];
             this.categoryButtonSlots = new SSlot[this.SGameInstance.CatalogDatabase.TotalCategoryCount];
-            this.subcategoryButtonSlots = new SSlot[SItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH];
+            this.subcategoryButtonSlots = new SSlot[SGUI_ItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH];
         }
 
         public override void Update(GameTime gameTime)
@@ -90,7 +91,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SHUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -127,12 +128,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SCategory category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(categorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(categorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
                 {
                     SelectItemCatalog(category, category.Subcategories.First(), 0);
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(categorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(categorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
@@ -158,12 +159,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSubcategory subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(subcategorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(subcategorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
                 {
                     SelectItemCatalog(subcategory.Parent, subcategory, 0);
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(subcategorySlot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(subcategorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
@@ -188,13 +189,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
                 {
                     this.guiHUD.AddItemToToolbar(item);
                     this.SGameInstance.GUIManager.CloseGUI();
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SItemExplorerConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
@@ -227,8 +228,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.selectedSubcategory = subcategory;
             this.selectedPageIndex = pageIndex;
 
-            int startIndex = pageIndex * SItemExplorerConstants.ITEMS_PER_PAGE;
-            int endIndex = startIndex + SItemExplorerConstants.ITEMS_PER_PAGE;
+            int startIndex = pageIndex * SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
+            int endIndex = startIndex + SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
 
             endIndex = Math.Min(endIndex, this.SGameInstance.CatalogDatabase.TotalItemCount);
 

@@ -5,7 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -173,10 +173,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildingWorldDisplaySlots(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 slotMargin = new(32, (SWorldsExplorerConstants.SLOT_HEIGHT_SPACING / 2) + 32);
+            Vector2 slotMargin = new(32, (SGUI_WorldsExplorerConstants.SLOT_HEIGHT_SPACING / 2) + 32);
 
-            int rows = SWorldsExplorerConstants.ITEMS_PER_ROW;
-            int columns = SWorldsExplorerConstants.ITEMS_PER_COLUMN;
+            int rows = SGUI_WorldsExplorerConstants.ITEMS_PER_ROW;
+            int columns = SGUI_WorldsExplorerConstants.ITEMS_PER_COLUMN;
 
             int index = 0;
             for (int col = 0; col < columns; col++)
@@ -186,7 +186,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     SGUIImageElement backgroundImageElement = new(this.SGameInstance)
                     {
                         Texture = this.guiButton2Texture,
-                        Size = new(SWorldsExplorerConstants.SLOT_WIDTH, SWorldsExplorerConstants.SLOT_HEIGHT),
+                        Size = new(SGUI_WorldsExplorerConstants.SLOT_WIDTH, SGUI_WorldsExplorerConstants.SLOT_HEIGHT),
                         Margin = slotMargin
                     };
 
@@ -218,7 +218,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     titleLabelElement.PositionRelativeToElement(backgroundImageElement);
 
                     // Spacing
-                    slotMargin.X += SWorldsExplorerConstants.SLOT_WIDTH_SPACING;
+                    slotMargin.X += SGUI_WorldsExplorerConstants.SLOT_WIDTH_SPACING;
 
                     this.slotInfoElements[index] = new()
                     {
@@ -236,7 +236,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 }
 
                 slotMargin.X = 32;
-                slotMargin.Y += SWorldsExplorerConstants.SLOT_HEIGHT_SPACING;
+                slotMargin.Y += SGUI_WorldsExplorerConstants.SLOT_HEIGHT_SPACING;
             }
         }
     }

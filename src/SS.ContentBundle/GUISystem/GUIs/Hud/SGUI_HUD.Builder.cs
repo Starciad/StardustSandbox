@@ -7,8 +7,8 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement toolbarElementSearchButton;
         private SGUIImageElement toolbarCurrentlySelectedToolIcon;
 
-        private readonly SSlot[] toolbarElementSlots = new SSlot[SHUDConstants.ELEMENT_BUTTONS_LENGTH];
+        private readonly SSlot[] toolbarElementSlots = new SSlot[SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly SSlot[] leftPanelTopButtonElements;
         private readonly SSlot[] leftPanelBottomButtonElements;
         private readonly SSlot[] rightPanelTopButtonElements;
@@ -85,7 +85,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             layoutBuilder.AddElement(this.leftToolbarContainer);
 
             #region BUTTONS
-            Vector2 baseMargin = new(0, SHUDConstants.SLOT_SPACING);
+            Vector2 baseMargin = new(0, SGUI_HUDConstants.SLOT_SPACING);
 
             // Top
             for (int i = 0; i < this.leftPanelTopButtons.Length; i++)
@@ -102,13 +102,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.leftPanelTopButtonElements[i] = slot;
 
-                baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
             }
 
-            baseMargin = new(0, -SHUDConstants.SLOT_SPACING);
+            baseMargin = new(0, -SGUI_HUDConstants.SLOT_SPACING);
 
             // Bottom
             for (int i = 0; i < this.leftPanelBottomButtons.Length; i++)
@@ -125,7 +125,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.leftPanelBottomButtonElements[i] = slot;
 
-                baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -151,7 +151,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             layoutBuilder.AddElement(this.rightToolbarContainer);
 
             #region BUTTONS
-            Vector2 baseMargin = new(-96, SHUDConstants.SLOT_SPACING);
+            Vector2 baseMargin = new(-96, SGUI_HUDConstants.SLOT_SPACING);
 
             // Top
             for (int i = 0; i < this.rightPanelTopButtons.Length; i++)
@@ -168,13 +168,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.rightPanelTopButtonElements[i] = slot;
 
-                baseMargin.Y += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
             }
 
-            baseMargin = new(-96, -SHUDConstants.SLOT_SPACING);
+            baseMargin = new(-96, -SGUI_HUDConstants.SLOT_SPACING);
 
             // Bottom
             for (int i = 0; i < this.rightPanelBottomButtons.Length; i++)
@@ -191,7 +191,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.rightPanelBottomButtonElements[i] = slot;
 
-                baseMargin.Y -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -207,10 +207,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 Texture = this.guiButtonTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new(SHUDConstants.SLOT_SCALE + 0.45f),
+                Scale = new(SGUI_HUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.West,
-                Size = new(SHUDConstants.SLOT_SIZE),
-                Margin = new(SHUDConstants.SLOT_SIZE * 2, 0),
+                Size = new(SGUI_HUDConstants.SLOT_SIZE),
+                Margin = new(SGUI_HUDConstants.SLOT_SIZE * 2, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
@@ -232,9 +232,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void CreateTopToolbarSlots(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 baseMargin = new(SHUDConstants.SLOT_SPACING * 2.5f, 0);
+            Vector2 baseMargin = new(SGUI_HUDConstants.SLOT_SPACING * 2.5f, 0);
 
-            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
+            for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SItem selectedItem = this.SGameInstance.CatalogDatabase.Items.ElementAt(i);
 
@@ -256,7 +256,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 this.toolbarElementSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X += SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -269,10 +269,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 Texture = this.guiButtonTexture,
                 OriginPivot = SCardinalDirection.Center,
-                Scale = new(SHUDConstants.SLOT_SCALE + 0.45f),
+                Scale = new(SGUI_HUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.East,
-                Size = new(SHUDConstants.SLOT_SIZE),
-                Margin = new(SHUDConstants.SLOT_SIZE * 2 * -1, 0),
+                Size = new(SGUI_HUDConstants.SLOT_SIZE),
+                Margin = new(SGUI_HUDConstants.SLOT_SIZE * 2 * -1, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
@@ -299,8 +299,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiButtonTexture,
-                Scale = new(SHUDConstants.SLOT_SCALE),
-                Size = new(SHUDConstants.SLOT_SIZE),
+                Scale = new(SGUI_HUDConstants.SLOT_SCALE),
+                Size = new(SGUI_HUDConstants.SLOT_SIZE),
                 Margin = margin,
             };
 
@@ -309,7 +309,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(1.5f),
-                Size = new(SHUDConstants.SLOT_SIZE)
+                Size = new(SGUI_HUDConstants.SLOT_SIZE)
             };
 
             return new(backgroundElement, iconElement);

@@ -159,4 +159,13 @@
   <data name="Untitled" xml:space="preserve">
     <value>Sem Título</value>
   </data>
+  <data name="Size" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Horário</value>
+  </data>
+  <data name="Elements" xml:space="preserve">
+    <value>Elementos</value>
+  </data>
 </root>

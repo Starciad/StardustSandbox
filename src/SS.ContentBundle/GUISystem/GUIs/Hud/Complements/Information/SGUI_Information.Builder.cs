@@ -5,9 +5,10 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
@@ -20,6 +21,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private SGUILabelElement menuTitleElement;
 
+        private readonly SGUILabelElement[] infoElements;
         private readonly SSlot[] menuButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
@@ -27,6 +29,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildGUIBackground(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
             BuildTitle(layoutBuilder);
+            BuildInfoFields(layoutBuilder);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -53,7 +56,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = this.guiBackgroundTexture,
                 Scale = new(32, 0.5f),
                 Size = new(32),
-                Color = SColorPalette.DarkGreen,
+                Color = SColorPalette.Charcoal,
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
@@ -84,7 +87,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                baseMargin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -103,11 +106,41 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Color = SColorPalette.White,
             };
 
-            this.menuTitleElement.SetTextualContent("Information");
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_Information_Title);
             this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
             layoutBuilder.AddElement(this.menuTitleElement);
+        }
+
+        private void BuildInfoFields(ISGUILayoutBuilder layoutBuilder)
+        {
+            Vector2 margin = new(0, 80);
+
+            for (int i = 0; i < this.infoElements.Length; i++)
+            {
+                SGUILabelElement labelElement = new(this.SGameInstance)
+                {
+                    SpriteFont = this.bigApple3PMSpriteFont,
+                    Scale = new(0.1f),
+                    PositionAnchor = SCardinalDirection.North,
+                    OriginPivot = SCardinalDirection.Center,
+                    Margin = margin,
+                    Color = SColorPalette.White,
+                };
+
+                labelElement.SetTextualContent(string.Concat("Info ", i));
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+                // Save
+                this.infoElements[i] = labelElement;
+
+                // Spacing
+                margin.Y += labelElement.GetStringSize().Height + 8;
+
+                layoutBuilder.AddElement(labelElement);
+            }
         }
 
         // =============================================================== //
@@ -117,8 +150,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiButton1Texture,
-                Scale = new(SHUDConstants.SLOT_SCALE),
-                Size = new(SHUDConstants.SLOT_SIZE),
+                Scale = new(SGUI_HUDConstants.SLOT_SCALE),
+                Size = new(SGUI_HUDConstants.SLOT_SIZE),
                 Margin = margin,
             };
 
@@ -127,7 +160,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(1.5f),
-                Size = new(SHUDConstants.SLOT_SIZE)
+                Size = new(SGUI_HUDConstants.SLOT_SIZE)
             };
 
             return new(backgroundElement, iconElement);

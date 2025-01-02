@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Constants.GUI;
+﻿using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.IO.Handlers;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements

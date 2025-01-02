@@ -133,6 +133,24 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a View general information and statistics related to your world..
+        /// </summary>
+        internal static string HUD_Button_Information_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.Information.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Information.
+        /// </summary>
+        internal static string HUD_Button_Information_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.Information.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions..
         /// </summary>
         internal static string HUD_Button_ItemExplorer_Description {
@@ -255,6 +273,33 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         internal static string HUD_Button_WorldSettings_Name {
             get {
                 return ResourceManager.GetString("HUD.Button.WorldSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Elements.
+        /// </summary>
+        internal static string HUD_Complements_Information_Field_BackgroundElements {
+            get {
+                return ResourceManager.GetString("HUD.Complements.Information.Field.BackgroundElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground Elements.
+        /// </summary>
+        internal static string HUD_Complements_Information_Field_ForegroundElements {
+            get {
+                return ResourceManager.GetString("HUD.Complements.Information.Field.ForegroundElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Information.
+        /// </summary>
+        internal static string HUD_Complements_Information_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.Information.Title", resourceCulture);
             }
         }
         

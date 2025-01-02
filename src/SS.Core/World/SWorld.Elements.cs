@@ -6,7 +6,9 @@ using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.World.Slots;
 
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.World
 {
@@ -244,7 +246,6 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        // Tools
         public bool IsEmptyWorldSlot(Point position)
         {
             return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].IsEmpty;
@@ -253,6 +254,47 @@ namespace StardustSandbox.Core.World
         public bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer)
         {
             return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].GetLayer(worldLayer).IsEmpty;
+        }
+
+        public int GetTotalElementCount()
+        {
+            return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.IsEmpty || !slot.BackgroundLayer.IsEmpty);
+        }
+
+        public int GetTotalForegroundElementCount()
+        {
+            return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.IsEmpty);
+        }
+
+        public int GetTotalBackgroundElementCount()
+        {
+            return GetTotalElementCountForLayer(slot => !slot.BackgroundLayer.IsEmpty);
+        }
+
+        private int GetTotalElementCountForLayer(Func<SWorldSlot, bool> predicate)
+        {
+            int count = 0;
+            object lockObj = new();
+
+            Parallel.For(0, this.Infos.Size.Height, y =>
+            {
+                int localCount = 0;
+
+                for (int x = 0; x < this.Infos.Size.Width; x++)
+                {
+                    if (TryGetWorldSlot(new(x, y), out SWorldSlot value) && predicate(value))
+                    {
+                        localCount++;
+                    }
+                }
+
+                lock (lockObj)
+                {
+                    count += localCount;
+                }
+            });
+
+            return count;
         }
     }
 }

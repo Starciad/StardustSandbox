@@ -8,7 +8,7 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
@@ -134,7 +134,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SHUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -160,8 +160,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void UpdateBrushSizeSlider()
         {
             Vector2 basePosition = this.brushSizeSliderElement.Position;
-            Vector2 offset = new(SHUDConstants.SLOT_SIZE);
-            SSize2 size = new(SHUDConstants.SLOT_SIZE);
+            Vector2 offset = new(SGUI_HUDConstants.SLOT_SIZE);
+            SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
 
             for (int i = 0; i < this.brushSizeSliderClipTextures.Length; i++)
             {
@@ -181,7 +181,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     break;
                 }
 
-                offset.X += SHUDConstants.SLOT_SPACING;
+                offset.X += SGUI_HUDConstants.SLOT_SPACING;
             }
         }
 
@@ -190,10 +190,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
                 SSlot slot = this.toolButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SHUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -217,9 +217,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
                 SSlot slot = this.layerButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                 {
                     this.layerButtons[i].ClickAction.Invoke();
                 }
@@ -241,9 +241,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
                 SSlot slot = this.shapeButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                 {
                     this.shapeButtons[i].ClickAction.Invoke();
                 }

@@ -324,4 +324,19 @@
   <data name="HUD.Complements.SaveSettings.Button.Save.Description" xml:space="preserve">
     <value>Saves the current state of the world to a file on the computer for later access. If a file with the specified name already exists, it will be overwritten with the current world's data.</value>
   </data>
+  <data name="HUD.Button.Information.Name" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="HUD.Button.Information.Description" xml:space="preserve">
+    <value>View general information and statistics related to your world.</value>
+  </data>
+  <data name="HUD.Complements.Information.Title" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="HUD.Complements.Information.Field.ForegroundElements" xml:space="preserve">
+    <value>Foreground Elements</value>
+  </data>
+  <data name="HUD.Complements.Information.Field.BackgroundElements" xml:space="preserve">
+    <value>Background Elements</value>
+  </data>
 </root>

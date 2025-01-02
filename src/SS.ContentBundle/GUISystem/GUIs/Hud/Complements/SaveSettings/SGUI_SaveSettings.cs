@@ -12,7 +12,7 @@ using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -129,7 +129,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SHUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {

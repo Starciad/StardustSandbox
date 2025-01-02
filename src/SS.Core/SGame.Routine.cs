@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Plugins;
 
 namespace StardustSandbox.Core

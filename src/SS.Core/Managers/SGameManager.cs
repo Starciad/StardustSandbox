@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;

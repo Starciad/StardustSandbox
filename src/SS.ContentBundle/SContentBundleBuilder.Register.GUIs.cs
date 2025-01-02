@@ -4,7 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 

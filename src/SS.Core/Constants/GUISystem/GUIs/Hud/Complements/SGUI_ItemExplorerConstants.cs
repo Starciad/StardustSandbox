@@ -1,6 +1,6 @@
-﻿namespace StardustSandbox.Core.Constants.GUI.Common
+﻿namespace StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements
 {
-    public static class SItemExplorerConstants
+    public static class SGUI_ItemExplorerConstants
     {
         public const byte ITEMS_PER_PAGE = ITEMS_PER_ROW * ITEMS_PER_COLUMN;
         public const byte ITEMS_PER_ROW = 12;

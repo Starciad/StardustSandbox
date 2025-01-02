@@ -1,6 +1,6 @@
-﻿namespace StardustSandbox.Core.Constants.GUI.Common
+﻿namespace StardustSandbox.Core.Constants.GUISystem.GUIs.Hud
 {
-    public static class SHUDConstants
+    public static class SGUI_HUDConstants
     {
         // Slots
         public const byte SLOT_SCALE = 2;

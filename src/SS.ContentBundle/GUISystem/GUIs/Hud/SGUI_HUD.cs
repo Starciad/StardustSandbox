@@ -12,8 +12,8 @@ using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
-using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -108,7 +108,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 new(this.iconTextures[02], SLocalization_GUIs.HUD_Button_PenSettings_Name, SLocalization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
                 new(this.iconTextures[03], SLocalization_GUIs.HUD_Button_ScreenshotSettings_Name, SLocalization_GUIs.HUD_Button_ScreenshotSettings_Description, ScreenshotButtonAction),
                 new(this.iconTextures[04], SLocalization_GUIs.HUD_Button_WorldSettings_Name, SLocalization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
-                new(this.iconTextures[16], "Info", string.Empty, InfoButtonAction),
+                new(this.iconTextures[16], SLocalization_GUIs.HUD_Button_Information_Name, SLocalization_GUIs.HUD_Button_Information_Description, InfoButtonAction),
             ];
 
             this.leftPanelBottomButtons = [
@@ -175,7 +175,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             UpdateReturnInput();
 
             #region TOOL SLOT
-            if (this.GUIEvents.OnMouseOver(this.toolbarCurrentlySelectedToolIcon.Position, new(SHUDConstants.SLOT_SIZE)))
+            if (this.GUIEvents.OnMouseOver(this.toolbarCurrentlySelectedToolIcon.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
             {
                 this.tooltipBoxElement.IsVisible = true;
 
@@ -215,12 +215,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             #endregion
 
             #region ELEMENT SLOTS
-            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
+            for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SSlot slot = this.toolbarElementSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                 {
                     SelectItemSlot(i, (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM));
                 }
@@ -242,12 +242,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             #endregion
 
             #region SEARCH BUTTON
-            if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new(SHUDConstants.SLOT_SIZE)))
+            if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButton.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
             {
                 this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER);
             }
 
-            if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new(SHUDConstants.SLOT_SIZE)))
+            if (this.GUIEvents.OnMouseOver(this.toolbarElementSearchButton.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
             {
                 this.toolbarElementSearchButton.Color = SColorPalette.Graphite;
                 this.tooltipBoxElement.IsVisible = true;
@@ -270,9 +270,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                     SSlot toolbarSlot = toolbarSlots[i];
                     SButton button = buttons[i];
 
-                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
 
-                    if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                    if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                     {
                         button.ClickAction.Invoke();
                     }
@@ -322,7 +322,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             // ================================================= //
             // Check if the item is already in the Toolbar. If so, it will be highlighted without changing the other items.
 
-            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
+            for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SSlot slot = this.toolbarElementSlots[i];
 
@@ -341,7 +341,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             // ================================================= //
             // If the item is not present in the toolbar, it will be added to the first slot next to the canvas and will push all others in the opposite direction. The last item will be removed from the toolbar until it is added again later.
 
-            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
+            for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
             {
                 SSlot currentSlot = this.toolbarElementSlots[i];
                 SSlot nextSlot = this.toolbarElementSlots[i + 1];
@@ -372,7 +372,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         internal bool ItemIsEquipped(SItem item)
         {
-            for (int i = 0; i < SHUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
+            for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SItem hudItem = (SItem)this.toolbarElementSlots[i].BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 

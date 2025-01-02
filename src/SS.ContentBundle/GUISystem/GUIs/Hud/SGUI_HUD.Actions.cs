@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Constants.GUI;
+﻿using StardustSandbox.Core.Constants.GUISystem;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {

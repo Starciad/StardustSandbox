@@ -7,8 +7,9 @@ using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
@@ -91,8 +92,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SGUIImageElement backgroundElement = new(this.SGameInstance)
                 {
                     Texture = this.guiButton1Texture,
-                    Scale = new(SHUDConstants.SLOT_SCALE),
-                    Size = new(SHUDConstants.SLOT_SIZE),
+                    Scale = new(SGUI_HUDConstants.SLOT_SCALE),
+                    Size = new(SGUI_HUDConstants.SLOT_SIZE),
                     Margin = margin,
                 };
 
@@ -101,7 +102,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     Texture = button.IconTexture,
                     OriginPivot = SCardinalDirection.Center,
                     Scale = new(1.5f),
-                    Size = new(SHUDConstants.SLOT_SIZE)
+                    Size = new(SGUI_HUDConstants.SLOT_SIZE)
                 };
 
                 SSlot slot = new(backgroundElement, iconElement);
@@ -117,7 +118,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
-                margin.X -= SHUDConstants.SLOT_SPACING + (SHUDConstants.SLOT_SIZE / 2);
+                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(backgroundElement);
                 layoutBuilder.AddElement(iconElement);
@@ -144,8 +145,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             Vector2 slotMargin = new(32, 40);
 
-            int rows = SItemExplorerConstants.ITEMS_PER_ROW;
-            int columns = SItemExplorerConstants.ITEMS_PER_COLUMN;
+            int rows = SGUI_ItemExplorerConstants.ITEMS_PER_ROW;
+            int columns = SGUI_ItemExplorerConstants.ITEMS_PER_COLUMN;
 
             int index = 0;
             for (int col = 0; col < columns; col++)
@@ -156,9 +157,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         Texture = this.guiButton1Texture,
                         OriginPivot = SCardinalDirection.Center,
-                        Scale = new(SItemExplorerConstants.SLOT_SCALE),
+                        Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
                         PositionAnchor = SCardinalDirection.West,
-                        Size = new(SItemExplorerConstants.SLOT_SIZE),
+                        Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),
                         Margin = slotMargin
                     };
 
@@ -166,7 +167,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new(1.5f),
-                        Size = new(SItemExplorerConstants.SLOT_SIZE)
+                        Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE)
                     };
 
                     // Position
@@ -174,7 +175,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Spacing
-                    slotMargin.X += SItemExplorerConstants.SLOT_SPACING + (SItemExplorerConstants.SLOT_SIZE / 2);
+                    slotMargin.X += SGUI_ItemExplorerConstants.SLOT_SPACING + (SGUI_ItemExplorerConstants.SLOT_SIZE / 2);
                     this.itemButtonSlots[index] = new(slotBackground, slotIcon);
                     index++;
 
@@ -184,7 +185,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 }
 
                 slotMargin.X = 32;
-                slotMargin.Y += SItemExplorerConstants.SLOT_SPACING + (SItemExplorerConstants.SLOT_SIZE / 2);
+                slotMargin.Y += SGUI_ItemExplorerConstants.SLOT_SPACING + (SGUI_ItemExplorerConstants.SLOT_SIZE / 2);
             }
         }
 
@@ -201,8 +202,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     Texture = this.guiButton1Texture,
                     OriginPivot = SCardinalDirection.Center,
                     PositionAnchor = SCardinalDirection.Northwest,
-                    Scale = new(SItemExplorerConstants.SLOT_SCALE),
-                    Size = new(SItemExplorerConstants.SLOT_SIZE),
+                    Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
+                    Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),
                     Margin = slotMargin
                 };
 
@@ -211,7 +212,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     Texture = category.IconTexture,
                     OriginPivot = SCardinalDirection.Center,
                     Scale = new(1.5f),
-                    Size = new(SItemExplorerConstants.SLOT_SIZE)
+                    Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE)
                 };
 
                 // Data
@@ -225,7 +226,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 slotIcon.PositionRelativeToElement(slotBackground);
 
                 // Spacing
-                slotMargin.X += SItemExplorerConstants.SLOT_SPACING + (SItemExplorerConstants.SLOT_SIZE / 2);
+                slotMargin.X += SGUI_ItemExplorerConstants.SLOT_SPACING + (SGUI_ItemExplorerConstants.SLOT_SIZE / 2);
                 this.categoryButtonSlots[index] = new(slotBackground, slotIcon);
                 index++;
 
@@ -238,7 +239,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void BuildSubcategoryButtons(ISGUILayoutBuilder layoutBuilder)
         {
             int index = 0;
-            int sideCounts = SItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH / 2;
+            int sideCounts = SGUI_ItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH / 2;
 
             Vector2 margin = new(-111, -88);
             BuildSlots();
@@ -255,8 +256,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         Texture = this.guiButton1Texture,
                         OriginPivot = SCardinalDirection.Center,
-                        Scale = new(SItemExplorerConstants.SLOT_SCALE),
-                        Size = new(SItemExplorerConstants.SLOT_SIZE),
+                        Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
+                        Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),
                         Margin = margin
                     };
 
@@ -264,7 +265,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     {
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new(1.5f),
-                        Size = new(SItemExplorerConstants.SLOT_SIZE)
+                        Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE)
                     };
 
                     // Position
@@ -272,7 +273,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Spacing
-                    margin.Y += SItemExplorerConstants.SLOT_SPACING + (SItemExplorerConstants.SLOT_SIZE / 2);
+                    margin.Y += SGUI_ItemExplorerConstants.SLOT_SPACING + (SGUI_ItemExplorerConstants.SLOT_SIZE / 2);
                     this.subcategoryButtonSlots[index] = new(slotBackground, slotIcon);
                     index++;
 
