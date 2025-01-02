@@ -14,6 +14,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.referenceColor = SColorPalette.Rust;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_25");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
+            this.enableLightEmission = true;
+            this.defaultLuminousIntensity = 10;
             this.defaultTemperature = 26;
             this.defaultDensity = 2800;
         }

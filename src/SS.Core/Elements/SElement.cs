@@ -23,35 +23,39 @@ namespace StardustSandbox.Core.Elements
 
         public Color ReferenceColor => this.referenceColor;
 
-        public int DefaultDispersionRate => this.defaultDispersionRate;
-        public short DefaultTemperature => this.defaultTemperature;
-        public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
-        public short DefaultDensity => this.defaultDensity;
-
         public bool EnableDefaultBehaviour => this.enableDefaultBehaviour;
         public bool EnableNeighborsAction => this.enableNeighborsAction;
         public bool EnableTemperature => this.enableTemperature;
         public bool EnableFlammability => this.enableFlammability;
+        public bool EnableLightEmission => this.enableLightEmission;
+
+        public int DefaultDispersionRate => this.defaultDispersionRate;
+        public short DefaultTemperature => this.defaultTemperature;
+        public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
+        public short DefaultDensity => this.defaultDensity;
+        public byte DefaultLuminousIntensity => this.defaultLuminousIntensity;
 
         public SElementRendering Rendering => this.rendering;
         public ISElementContext Context { get => this.context; set => this.context = value; }
 
         // =========================== //
 
-        private readonly string identifier;
-        protected Texture2D texture;
-
+        private readonly string identifier = string.Empty;
+        
+        protected Texture2D texture = null;
         protected Color referenceColor = Color.White;
 
-        protected int defaultDispersionRate = 1;
-        protected short defaultTemperature;
-        protected short defaultFlammabilityResistance;
-        protected short defaultDensity;
-
         protected bool enableDefaultBehaviour = true;
-        protected bool enableNeighborsAction;
+        protected bool enableNeighborsAction = false;
         protected bool enableTemperature = true;
         protected bool enableFlammability;
+        protected bool enableLightEmission;
+
+        protected int defaultDispersionRate = 1;
+        protected short defaultTemperature = 25;
+        protected short defaultFlammabilityResistance = 25;
+        protected short defaultDensity = 0;
+        protected byte defaultLuminousIntensity = 0;
 
         private ISElementContext context;
 

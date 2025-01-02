@@ -28,6 +28,8 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 new(new(new(96, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
             ])));
             this.enableNeighborsAction = true;
+            this.enableLightEmission = true;
+            this.defaultLuminousIntensity = 7;
             this.defaultTemperature = 500;
         }
 

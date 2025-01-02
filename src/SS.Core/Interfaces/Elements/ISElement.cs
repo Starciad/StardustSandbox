@@ -11,19 +11,21 @@ namespace StardustSandbox.Core.Interfaces.Elements
     public interface ISElement
     {
         string Identifier { get; }
+
         Texture2D Texture { get; }
-
         Color ReferenceColor { get; }
-
-        int DefaultDispersionRate { get; }
-        short DefaultTemperature { get; }
-        short DefaultFlammabilityResistance { get; }
-        short DefaultDensity { get; }
 
         bool EnableDefaultBehaviour { get; }
         bool EnableNeighborsAction { get; }
         bool EnableTemperature { get; }
         bool EnableFlammability { get; }
+        bool EnableLightEmission { get; }
+
+        int DefaultDispersionRate { get; }
+        short DefaultTemperature { get; }
+        short DefaultFlammabilityResistance { get; }
+        short DefaultDensity { get; }
+        byte DefaultLuminousIntensity { get; }
 
         SElementRendering Rendering { get; }
         ISElementContext Context { get; set; }
