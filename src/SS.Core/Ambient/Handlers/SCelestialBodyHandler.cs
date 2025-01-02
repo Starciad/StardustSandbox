@@ -12,17 +12,19 @@ using System;
 
 namespace StardustSandbox.Core.Ambient.Handlers
 {
-    internal sealed class SCelestialBodyHandler(ISGame gameInstance) : SGameObject(gameInstance), ISCelestialBodyHandler
+    internal sealed class SCelestialBodyHandler(ISGame gameInstance, ISTimeHandler timeHandler) : SGameObject(gameInstance), ISCelestialBodyHandler
     {
         public bool IsActive { get; set; }
 
         private Vector2 position;
         private float rotation;
+        private double angle;
 
         private Texture2D sunTexture;
         private Texture2D moonTexture;
 
         private readonly ISWorld world = gameInstance.World;
+        private readonly ISTimeHandler timeHandler = timeHandler;
 
         public override void Initialize()
         {
@@ -32,34 +34,17 @@ namespace StardustSandbox.Core.Ambient.Handlers
 
         public override void Update(GameTime gameTime)
         {
-            float currentSeconds = (float)this.world.Time.CurrentTime.TotalSeconds;
-
-            // Determine if it's day or night
-            bool isDay = currentSeconds >= STimeConstants.DAY_START_IN_SECONDS && currentSeconds < STimeConstants.NIGHT_START_IN_SECONDS;
-
-            // Calculate normalized time for the active interval
-            float intervalDuration = isDay
-                ? STimeConstants.NIGHT_START_IN_SECONDS - STimeConstants.DAY_START_IN_SECONDS // Day duration
-                : STimeConstants.SECONDS_IN_A_DAY - (STimeConstants.NIGHT_START_IN_SECONDS - STimeConstants.DAY_START_IN_SECONDS); // Night duration
-
-            float intervalProgress = isDay
-                ? (currentSeconds - STimeConstants.DAY_START_IN_SECONDS) / intervalDuration
-                : currentSeconds >= STimeConstants.NIGHT_START_IN_SECONDS
-                    ? (currentSeconds - STimeConstants.NIGHT_START_IN_SECONDS) / intervalDuration
-                    : (currentSeconds + STimeConstants.SECONDS_IN_A_DAY - STimeConstants.NIGHT_START_IN_SECONDS) / intervalDuration;
-
             // Calculate the angle of the celestial body
-            float maxArcAngle = SBackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE;
-            float angle = maxArcAngle * (float)intervalProgress + SBackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
+            this.angle = (SBackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE * this.timeHandler.IntervalProgress) + SBackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
 
             // Update position based on angle
             this.position = new(
-                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Cos(angle),
-                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Sin(angle)
+                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - (SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Cos((float)this.angle)),
+                SBackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - (SBackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * MathF.Sin((float)this.angle))
             );
 
             // Update rotation for alignment
-            this.rotation = angle - MathF.PI / 2;
+            this.rotation = (float)this.angle - (MathF.PI / 2);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

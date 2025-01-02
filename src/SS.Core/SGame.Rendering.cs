@@ -17,17 +17,27 @@ namespace StardustSandbox.Core
             #region RENDERING (ELEMENTS)
             DrawAmbient(gameTime);
             DrawWorld(gameTime);
-            DrawLighting(gameTime);
+            DrawWorldLighting(gameTime);
             DrawGUI(gameTime);
             #endregion
 
             #region RENDERING (SCREEN)
             this.GraphicsDevice.SetRenderTarget(this.graphicsManager.ScreenRenderTarget);
             this.GraphicsDevice.Clear(SColorPalette.DarkGray);
+
+            // BACKGROUND
             this.spriteBatch.Begin();
             this.spriteBatch.Draw(this.graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.End();
+
+            // SCENE & LIGHTING
+            this.spriteBatch.Begin();
             this.spriteBatch.Draw(this.graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this.spriteBatch.Draw(this.graphicsManager.LightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.Draw(this.graphicsManager.WorldLightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.End();
+
+            // GUI
+            this.spriteBatch.Begin();
             this.spriteBatch.Draw(this.graphicsManager.GuiRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
             #endregion
@@ -115,11 +125,12 @@ namespace StardustSandbox.Core
             this.spriteBatch.End();
         }
 
-        private void DrawLighting(GameTime gameTime)
+        private void DrawWorldLighting(GameTime gameTime)
         {
-            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.LightingRenderTarget);
+            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldLightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
+
             this.spriteBatch.End();
         }
 

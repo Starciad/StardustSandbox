@@ -6,6 +6,7 @@ using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
@@ -38,7 +39,7 @@ namespace StardustSandbox.Core
         public ISCursorManager CursorManager => this.cursorManager;
 
         public ISWorld World => this.world;
-        public SGameInputController GameInputController => this.gameInputController;
+        public ISGameInputController GameInputController => this.gameInputController;
 
         // ================================= //
 

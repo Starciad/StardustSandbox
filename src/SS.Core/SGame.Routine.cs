@@ -69,12 +69,13 @@ namespace StardustSandbox.Core
             this.inputManager.Update(gameTime);
             this.guiManager.Update(gameTime);
             this.cursorManager.Update(gameTime);
-            this.ambientManager.Update(gameTime);
 
             if (!this.gameManager.GameState.IsSimulationPaused && !this.gameManager.GameState.IsCriticalMenuOpen)
             {
                 this.world.Update(gameTime);
             }
+
+            this.ambientManager.Update(gameTime);
 
             base.Update(gameTime);
         }

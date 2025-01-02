@@ -4,6 +4,7 @@ namespace StardustSandbox.Core.Interfaces.Managers
 {
     public interface ISAmbientManager : ISManager
     {
+        ISTimeHandler TimeHandler { get; }
         ISBackgroundHandler BackgroundHandler { get; }
         ISSkyHandler SkyHandler { get; }
         ISCelestialBodyHandler CelestialBodyHandler { get; }

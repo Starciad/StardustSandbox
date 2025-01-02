@@ -4,12 +4,13 @@ using StardustSandbox.Core.Controllers.GameInput.Handlers;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Controllers.GameInput
 {
-    public sealed partial class SGameInputController : SGameObject
+    public sealed partial class SGameInputController : SGameObject, ISGameInputController
     {
         public SSimulationPen Pen => this.pen;
         public SSimulationPlayer Player => this.player;

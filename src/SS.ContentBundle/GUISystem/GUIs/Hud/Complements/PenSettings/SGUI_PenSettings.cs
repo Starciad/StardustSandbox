@@ -9,10 +9,10 @@ using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
@@ -37,7 +37,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private readonly Rectangle[] brushSizeSliderClipTextures;
 
-        private readonly SGameInputController gameInputController;
+        private readonly ISGameInputController gameInputController;
 
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 

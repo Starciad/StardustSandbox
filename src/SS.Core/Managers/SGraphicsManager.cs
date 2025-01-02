@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Managers
         internal RenderTarget2D GuiRenderTarget => this.guiRenderTarget;
         internal RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
         internal RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
-        internal RenderTarget2D LightingRenderTarget => this.lightingRenderTarget;
+        internal RenderTarget2D WorldLightingRenderTarget => this.worldLightingRenderTarget;
 
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Managers
         private RenderTarget2D guiRenderTarget;
         private RenderTarget2D backgroundRenderTarget;
         private RenderTarget2D worldRenderTarget;
-        private RenderTarget2D lightingRenderTarget;
+        private RenderTarget2D worldLightingRenderTarget;
 
         public SGraphicsManager(ISGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
         {
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Managers
             this.guiRenderTarget = new(this.GraphicsDevice, width, height);
             this.backgroundRenderTarget = new(this.GraphicsDevice, width, height);
             this.worldRenderTarget = new(this.GraphicsDevice, width, height);
-            this.lightingRenderTarget = new(this.GraphicsDevice, width, height);
+            this.worldLightingRenderTarget = new(this.GraphicsDevice, width, height);
         }
 
         internal void UpdateSettings()
