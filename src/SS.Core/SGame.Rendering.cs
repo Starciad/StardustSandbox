@@ -3,10 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Ambient.Handlers;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Enums.General;
-
-using System;
 
 namespace StardustSandbox.Core
 {

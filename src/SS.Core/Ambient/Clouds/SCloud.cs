@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Ambient.Clouds
         {
             this.position = new Vector2(-this.texture.Width - SWorldConstants.GRID_SCALE, SRandomMath.Range(0, SWorldConstants.GRID_SCALE * 10));
             this.speed = SRandomMath.Range(10, 50);
-            this.opacity = (float)SRandomMath.GetDouble() * 0.5f + 0.5f;
+            this.opacity = ((float)SRandomMath.GetDouble() * 0.5f) + 0.5f;
         }
     }
 }

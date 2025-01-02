@@ -56,7 +56,7 @@
         // Third Parties
         public const byte GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH = 002;
         #endregion
-        
+
         public const byte SONGS_LENGTH = 002;
         public const byte SOUNDS_LENGTH = 001;
     }

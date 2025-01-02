@@ -12,7 +12,6 @@ namespace StardustSandbox.Core.World
         }
         #endregion
 
-
         #region Update
         public override void Update(GameTime gameTime)
         {

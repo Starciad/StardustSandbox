@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.IO.Files.World.Data;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.World.Data;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World.Slots;
-using StardustSandbox.Core.Interfaces.Collections;
 
 namespace StardustSandbox.Core.World
 {
@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.World
                 Clear();
             }
         }
-        
+
         public bool InsideTheWorldDimensions(Point position)
         {
             return position.X >= 0 && position.X < this.Infos.Size.Width &&
