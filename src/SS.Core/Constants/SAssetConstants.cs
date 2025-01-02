@@ -42,7 +42,7 @@
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 002;
         public const byte GRAPHICS_ICONS_ENTITIES_LENGTH = 000;
         public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 025;
-        public const byte GRAPHICS_ICONS_GUI_LENGTH = 027;
+        public const byte GRAPHICS_ICONS_GUI_LENGTH = 028;
 
         // Miscellaneous
         public const byte GRAPHICS_MISCELLANEOUS = 001;

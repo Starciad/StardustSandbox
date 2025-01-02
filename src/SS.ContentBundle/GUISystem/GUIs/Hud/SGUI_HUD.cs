@@ -93,8 +93,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 // [14] Paint Bucket
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_20"),
 
-                // [14] Replacement
+                // [15] Replacement
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_21"),
+                
+                // [16] Info
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_28"),
             ];
 
             this.world = gameInstance.World;
@@ -105,6 +108,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 new(this.iconTextures[02], SLocalization_GUIs.HUD_Button_PenSettings_Name, SLocalization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
                 new(this.iconTextures[03], SLocalization_GUIs.HUD_Button_ScreenshotSettings_Name, SLocalization_GUIs.HUD_Button_ScreenshotSettings_Description, ScreenshotButtonAction),
                 new(this.iconTextures[04], SLocalization_GUIs.HUD_Button_WorldSettings_Name, SLocalization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
+                new(this.iconTextures[16], "Info", string.Empty, InfoButtonAction),
             ];
 
             this.leftPanelBottomButtons = [

@@ -42,6 +42,7 @@ namespace StardustSandbox.ContentBundle
             SGUI_SaveSettings saveSettings = new(game, SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, input, tooltipBoxElementElement);
             SGUI_ScreenshotSettings screenshotSettings = new(game, SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_WorldSettings worldSettings = new(game, SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_Information information = new(game, SGUIConstants.HUD_INFORMATION_IDENTIFIER, game.GUIManager.GUIEvents);
 
             SGUI_WorldDetailsMenu detailsMenu = new(game, SGUIConstants.WORLD_DETAILS_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_WorldsExplorerMenu worldsExplorer = new(game, SGUIConstants.WORLDS_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, detailsMenu);
@@ -63,6 +64,7 @@ namespace StardustSandbox.ContentBundle
             guiDatabase.RegisterGUISystem(saveSettings.Identifier, saveSettings);
             guiDatabase.RegisterGUISystem(screenshotSettings.Identifier, screenshotSettings);
             guiDatabase.RegisterGUISystem(worldSettings.Identifier, worldSettings);
+            guiDatabase.RegisterGUISystem(information.Identifier, information);
 
             guiDatabase.RegisterGUISystem(worldsExplorer.Identifier, worldsExplorer);
             guiDatabase.RegisterGUISystem(detailsMenu.Identifier, detailsMenu);

@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Managers
 
             this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
 
-            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[5]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
             this.SGameInstance.GameInputController.Activate();

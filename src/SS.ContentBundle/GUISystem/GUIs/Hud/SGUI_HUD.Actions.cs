@@ -25,6 +25,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER);
         }
+
+        private void InfoButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_INFORMATION_IDENTIFIER);
+        }
         #endregion
 
         #region Bottom Buttons
