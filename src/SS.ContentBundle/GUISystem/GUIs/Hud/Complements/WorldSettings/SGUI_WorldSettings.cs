@@ -21,6 +21,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SpriteFont bigApple3PMSpriteFont;
 
         private readonly SButton[] menuButtons;
+        private readonly SButton[] lightingButtons;
 
         internal SGUI_WorldSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {

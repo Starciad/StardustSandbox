@@ -44,6 +44,11 @@ namespace StardustSandbox.Core.World.General
                 : throw new InvalidOperationException($"Invalid time state in {nameof(GetCurrentDayPeriod)}.");
         }
 
+        public void SetTime(TimeSpan value)
+        {
+            this.currentTime = value;
+        }
+
         public void Reset()
         {
             this.SecondsPerFrames = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
