@@ -21,7 +21,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly Texture2D guiBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
         private readonly Texture2D exitIconTexture;
-        private readonly Texture2D iconTexture;
+        private readonly Texture2D smallIconTexture;
+        private readonly Texture2D mediumSmallIconTexture;
+        private readonly Texture2D mediumIconTexture;
+        private readonly Texture2D mediumLargeIconTexture;
+        private readonly Texture2D largeIconTexture;
+        private readonly Texture2D veryLargeIconTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
         private readonly SButton[] menuButtons;
@@ -37,6 +42,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.exitIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_16");
+            this.smallIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_38");
+            this.mediumSmallIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_39");
+            this.mediumIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_40");
+            this.mediumLargeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_41");
+            this.largeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_42");
+            this.veryLargeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_43");
 
             this.tooltipBoxElement = tooltipBoxElement;
 
@@ -45,12 +56,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.sizeButtons = [
-                new(this.iconTexture, "Small", "40x23 - Fits entirely within the player's camera", () => { SetWorldSizeButtonAction(new SSize2(40, 23)); }),
-                new(this.iconTexture, "Medium-Small", "80x46 - Allows limited free movement", () => { SetWorldSizeButtonAction(new SSize2(80, 46)); }),
-                new(this.iconTexture, "Medium", "120x69 - Balanced for most gameplay scenarios", () => { SetWorldSizeButtonAction(new SSize2(120, 69)); }),
-                new(this.iconTexture, "Medium-Large", "160x92 - Provides ample space for exploration", () => { SetWorldSizeButtonAction(new SSize2(160, 92)); }),
-                new(this.iconTexture, "Large", "240x138 - Designed for expansive gameplay areas. May impact performance on lower-end systems.", () => { SetWorldSizeButtonAction(new SSize2(240, 138)); }),
-                new(this.iconTexture, "Very Large", "320x184 - Best for epic-scale worlds. May impact performance on lower-end systems.", () => { SetWorldSizeButtonAction(new SSize2(320, 184)); }),
+                new(this.smallIconTexture, "Small", "40x23 - Fits entirely within the player's camera", () => { SetWorldSizeButtonAction(new SSize2(40, 23)); }),
+                new(this.mediumSmallIconTexture, "Medium-Small", "80x46 - Allows limited free movement", () => { SetWorldSizeButtonAction(new SSize2(80, 46)); }),
+                new(this.mediumIconTexture, "Medium", "120x69 - Balanced for most gameplay scenarios", () => { SetWorldSizeButtonAction(new SSize2(120, 69)); }),
+                new(this.mediumLargeIconTexture, "Medium-Large", "160x92 - Provides ample space for exploration", () => { SetWorldSizeButtonAction(new SSize2(160, 92)); }),
+                new(this.largeIconTexture, "Large", "240x138 - Designed for expansive gameplay areas. May impact performance on lower-end systems.", () => { SetWorldSizeButtonAction(new SSize2(240, 138)); }),
+                new(this.veryLargeIconTexture, "Very Large", "320x184 - Best for epic-scale worlds. May impact performance on lower-end systems.", () => { SetWorldSizeButtonAction(new SSize2(320, 184)); }),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
