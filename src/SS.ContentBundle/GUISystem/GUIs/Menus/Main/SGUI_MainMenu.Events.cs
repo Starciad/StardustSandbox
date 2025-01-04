@@ -21,6 +21,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             LoadMainMenuWorld();
             LoadMagicCursor();
 
+            this.SGameInstance.GameManager.GameState.IsPaused = false;
+            this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = false;
+
+            this.SGameInstance.World.Time.IsFrozen = false;
+
             SSongEngine.Play(this.mainMenuSong);
         }
 

@@ -34,13 +34,12 @@ namespace StardustSandbox.Core.Managers
             this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
 
             this.world.Time.Reset();
-            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[5]);
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[^1]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
             
             this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
-
         }
 
         public void Reset()
