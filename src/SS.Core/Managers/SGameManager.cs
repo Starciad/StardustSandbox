@@ -29,7 +29,11 @@ namespace StardustSandbox.Core.Managers
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
 
             this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+            this.SGameInstance.AmbientManager.SkyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CelestialBodyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
 
+            this.world.Time.Reset();
             this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[5]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
@@ -37,7 +41,6 @@ namespace StardustSandbox.Core.Managers
             this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
 
-            this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
         }
 
         public void Reset()

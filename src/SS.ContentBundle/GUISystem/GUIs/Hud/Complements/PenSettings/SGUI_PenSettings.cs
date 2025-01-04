@@ -29,7 +29,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly Texture2D guiBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
         private readonly Texture2D guiSliderTexture;
-        private readonly Texture2D[] iconTextures;
+
+        private readonly Texture2D eraserIconTexture;
+        private readonly Texture2D exitIconTexture;
+        private readonly Texture2D penIconTexture;
+        private readonly Texture2D bucketIconTexture;
+        private readonly Texture2D replacementIconTexture;
+        private readonly Texture2D frontLayerIconTexture;
+        private readonly Texture2D backLayerIconTexture;
+        private readonly Texture2D squareShapeIconTexture;
+        private readonly Texture2D circleShapeIconTexture;
+        private readonly Texture2D triangleShapeIconTexture;
+        private readonly Texture2D eyeIconTexture;
+
         private readonly SpriteFont bigApple3PMSpriteFont;
 
         private readonly SButton[] menuButtons;
@@ -41,9 +53,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private readonly ISGameInputController gameInputController;
 
+        private readonly SGUI_HUD guiHUD;
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 
-        internal SGUI_PenSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_PenSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.toolButtonSelectedIndex = 0;
             this.layerButtonSelectedIndex = 0;
@@ -54,41 +67,62 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.guiSliderTexture = gameInstance.AssetDatabase.GetTexture("gui_slider_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
-            this.iconTextures = [
-                gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_19"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_20"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_21"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_22"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_23"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_25"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_24"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_26"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_27"),
-                gameInstance.AssetDatabase.GetTexture("icon_gui_4"),
-            ];
+            this.guiHUD = guiHUD;
+
+            this.eraserIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_4");
+            this.exitIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_16");
+            this.penIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_19");
+            this.bucketIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_20");
+            this.replacementIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_21");
+            this.frontLayerIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_22");
+            this.backLayerIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_23");
+            this.squareShapeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_24");
+            this.circleShapeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_25");
+            this.triangleShapeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_26");
+            this.eyeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_27");
 
             this.menuButtons = [
-                new(this.iconTextures[0], SLocalization_GUIs.Button_Exit_Name, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(this.exitIconTexture, SLocalization_GUIs.Button_Exit_Name, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.toolButtons = [
-                new(this.iconTextures[9], SLocalization_Tools.Visualization_Name, SLocalization_Tools.Visualization_Description, () => SelectToolButtonAction(SPenTool.Visualization)),
-                new(this.iconTextures[1], SLocalization_Tools.Pencil_Name, SLocalization_Tools.Pencil_Description, () => SelectToolButtonAction(SPenTool.Pencil)),
-                new(this.iconTextures[10], SLocalization_Tools.Eraser_Name, SLocalization_Tools.Eraser_Description, () => SelectToolButtonAction(SPenTool.Eraser)),
-                new(this.iconTextures[2], SLocalization_Tools.Fill_Name, SLocalization_Tools.Fill_Description, () => SelectToolButtonAction(SPenTool.Fill)),
-                new(this.iconTextures[3], SLocalization_Tools.Replace_Name, SLocalization_Tools.Replace_Description, () => SelectToolButtonAction(SPenTool.Replace)),
+                new(this.eyeIconTexture, SLocalization_Tools.Visualization_Name, SLocalization_Tools.Visualization_Description, () =>
+                {
+                    SelectToolButtonAction(SPenTool.Visualization);
+                    this.guiHUD.SetToolIcon(this.eyeIconTexture);
+                }),
+
+                new(this.penIconTexture, SLocalization_Tools.Pencil_Name, SLocalization_Tools.Pencil_Description, () =>
+                {
+                    SelectToolButtonAction(SPenTool.Pencil);
+                    this.guiHUD.SetToolIcon(this.penIconTexture);
+                }),
+                new(this.eraserIconTexture, SLocalization_Tools.Eraser_Name, SLocalization_Tools.Eraser_Description, () =>
+                {
+                    SelectToolButtonAction(SPenTool.Eraser);
+                    this.guiHUD.SetToolIcon(this.eraserIconTexture);
+                }),
+                new(this.bucketIconTexture, SLocalization_Tools.Fill_Name, SLocalization_Tools.Fill_Description, () =>
+                {
+                    SelectToolButtonAction(SPenTool.Fill);
+                    this.guiHUD.SetToolIcon(this.bucketIconTexture);
+                }),
+                new(this.replacementIconTexture, SLocalization_Tools.Replace_Name, SLocalization_Tools.Replace_Description, () =>
+                {
+                    SelectToolButtonAction(SPenTool.Replace);
+                    this.guiHUD.SetToolIcon(this.replacementIconTexture);
+                }),
             ];
 
             this.layerButtons = [
-                new(this.iconTextures[4], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => SelectLayerButtonAction(SWorldLayer.Foreground)),
-                new(this.iconTextures[5], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => SelectLayerButtonAction(SWorldLayer.Background)),
+                new(this.frontLayerIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => SelectLayerButtonAction(SWorldLayer.Foreground)),
+                new(this.backLayerIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => SelectLayerButtonAction(SWorldLayer.Background)),
             ];
 
             this.shapeButtons = [
-                new(this.iconTextures[6], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => SelectShapeButtonAction(SPenShape.Circle)),
-                new(this.iconTextures[7], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => SelectShapeButtonAction(SPenShape.Square)),
-                new(this.iconTextures[8], SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => SelectShapeButtonAction(SPenShape.Triangle)),
+                new(this.squareShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => SelectShapeButtonAction(SPenShape.Circle)),
+                new(this.circleShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => SelectShapeButtonAction(SPenShape.Square)),
+                new(this.triangleShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => SelectShapeButtonAction(SPenShape.Triangle)),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];

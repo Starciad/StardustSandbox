@@ -198,9 +198,6 @@
   <data name="HUD.Button.PenSettings.Name" xml:space="preserve">
     <value>Configurações da Caneta</value>
   </data>
-  <data name="HUD.Button.ScreenshotSettings.Name" xml:space="preserve">
-    <value>Configurações de Captura de Tela</value>
-  </data>
   <data name="HUD.Button.WorldSettings.Name" xml:space="preserve">
     <value>Configurações do Mundo</value>
   </data>
@@ -239,9 +236,6 @@
   </data>
   <data name="HUD.Button.SaveMenu.Description" xml:space="preserve">
     <value>Abre o menu para gerenciar o salvamento de simulações e mundos.</value>
-  </data>
-  <data name="HUD.Button.ScreenshotSettings.Description" xml:space="preserve">
-    <value>Permite configurar e realizar capturas de tela do mundo atual.</value>
   </data>
   <data name="HUD.Button.WorldSettings.Description" xml:space="preserve">
     <value>Ajusta configurações gerais e sistemáticas do mundo.</value>

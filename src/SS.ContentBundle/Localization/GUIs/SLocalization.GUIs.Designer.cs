@@ -241,24 +241,6 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Allows configuring and taking screenshots of the current world..
-        /// </summary>
-        internal static string HUD_Button_ScreenshotSettings_Description {
-            get {
-                return ResourceManager.GetString("HUD.Button.ScreenshotSettings.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Screenshot Settings.
-        /// </summary>
-        internal static string HUD_Button_ScreenshotSettings_Name {
-            get {
-                return ResourceManager.GetString("HUD.Button.ScreenshotSettings.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts general and systematic settings for the world..
         /// </summary>
         internal static string HUD_Button_WorldSettings_Description {

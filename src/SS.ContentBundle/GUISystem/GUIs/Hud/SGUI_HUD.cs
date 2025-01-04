@@ -29,7 +29,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiButtonTexture;
 
-        private readonly Texture2D[] iconTextures;
+        private readonly Texture2D magnifyingGlassIconTexture;
+        private readonly Texture2D weatherIconTexture;
+        private readonly Texture2D pencilIconTexture;
+        private readonly Texture2D penIconTexture;
+        private readonly Texture2D settingsIconTexture;
+        private readonly Texture2D pauseIconTexture;
+        private readonly Texture2D resumeIconTexture;
+        private readonly Texture2D menuIconTexture;
+        private readonly Texture2D saveIconTexture;
+        private readonly Texture2D realoadIconTexture;
+        private readonly Texture2D trashIconTexture;
+        private readonly Texture2D reloadIconTexture;
+        private readonly Texture2D infoIconTexture;
 
         private readonly ISWorld world;
 
@@ -47,82 +59,41 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
 
-            this.iconTextures = [
-                // [00] Magnifying Glass
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1"),
-
-                // [01] Weather
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_11"),
-
-                // [02] Pen
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_10"),
-
-                // [03] Screenshot
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_13"),
-
-                // [04] Settings
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_14"),
-
-                // [05] Pause
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_8"),
-
-                // [06] Resume
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_9"),
-
-                // [07] Menu
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_6"),
-
-                // [08] Save
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_7"),
-
-                // [09] Eraser
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_4"),
-
-                // [10] Reload
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5"),
-
-                // [11] Trash
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_2"),
-
-                // [12] Eye
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_27"),
-
-                // [13] Pen
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_19"),
-
-                // [14] Paint Bucket
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_20"),
-
-                // [15] Replacement
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_21"),
-                
-                // [16] Info
-                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_28"),
-            ];
+            this.magnifyingGlassIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1");
+            this.trashIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_2");
+            this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
+            this.menuIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_6");
+            this.saveIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_7");
+            this.pauseIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_8");
+            this.resumeIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_9");
+            this.pencilIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_10");
+            this.weatherIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_11");
+            this.settingsIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_14");
+            this.penIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_19");
+            this.infoIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_28");
 
             this.world = gameInstance.World;
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.leftPanelTopButtons = [
-                new(this.iconTextures[01], SLocalization_GUIs.HUD_EnvironmentSettings_Name, SLocalization_GUIs.HUD_EnvironmentSettings_Description, EnvironmentSettingsButtonAction),
-                new(this.iconTextures[02], SLocalization_GUIs.HUD_Button_PenSettings_Name, SLocalization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
-                new(this.iconTextures[03], SLocalization_GUIs.HUD_Button_ScreenshotSettings_Name, SLocalization_GUIs.HUD_Button_ScreenshotSettings_Description, ScreenshotButtonAction),
-                new(this.iconTextures[04], SLocalization_GUIs.HUD_Button_WorldSettings_Name, SLocalization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
-                new(this.iconTextures[16], SLocalization_GUIs.HUD_Button_Information_Name, SLocalization_GUIs.HUD_Button_Information_Description, InfoButtonAction),
+                new(this.weatherIconTexture, SLocalization_GUIs.HUD_EnvironmentSettings_Name, SLocalization_GUIs.HUD_EnvironmentSettings_Description, EnvironmentSettingsButtonAction),
+                new(this.pencilIconTexture, SLocalization_GUIs.HUD_Button_PenSettings_Name, SLocalization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
+                new(this.settingsIconTexture, SLocalization_GUIs.HUD_Button_WorldSettings_Name, SLocalization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
+                new(this.infoIconTexture, SLocalization_GUIs.HUD_Button_Information_Name, SLocalization_GUIs.HUD_Button_Information_Description, InfoButtonAction),
             ];
 
             this.leftPanelBottomButtons = [
-                new(this.iconTextures[05], SLocalization_GUIs.HUD_Button_PauseSimulation_Name, SLocalization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
+                new(this.pauseIconTexture, SLocalization_GUIs.HUD_Button_PauseSimulation_Name, SLocalization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
             ];
 
             this.rightPanelTopButtons = [
-                new(this.iconTextures[07], SLocalization_GUIs.HUD_Button_GameMenu_Name, SLocalization_GUIs.HUD_Button_GameMenu_Description, GameMenuButtonAction),
-                new(this.iconTextures[08], SLocalization_GUIs.HUD_Button_SaveMenu_Name, SLocalization_GUIs.HUD_Button_SaveMenu_Description, SaveMenuButtonAction),
+                new(this.menuIconTexture, SLocalization_GUIs.HUD_Button_GameMenu_Name, SLocalization_GUIs.HUD_Button_GameMenu_Description, GameMenuButtonAction),
+                new(this.saveIconTexture, SLocalization_GUIs.HUD_Button_SaveMenu_Name, SLocalization_GUIs.HUD_Button_SaveMenu_Description, SaveMenuButtonAction),
             ];
 
             this.rightPanelBottomButtons = [
-                new(this.iconTextures[11], SLocalization_GUIs.HUD_Button_EraseEverything_Name, SLocalization_GUIs.HUD_Button_EraseEverything_Description, EraseEverythingButtonAction),
-                new(this.iconTextures[10], SLocalization_GUIs.HUD_Button_ReloadSimulation_Name, SLocalization_GUIs.HUD_Button_ReloadSimulation_Description, ReloadSimulationButtonAction),
+                new(this.trashIconTexture, SLocalization_GUIs.HUD_Button_EraseEverything_Name, SLocalization_GUIs.HUD_Button_EraseEverything_Description, EraseEverythingButtonAction),
+                new(this.reloadIconTexture, SLocalization_GUIs.HUD_Button_ReloadSimulation_Name, SLocalization_GUIs.HUD_Button_ReloadSimulation_Description, ReloadSimulationButtonAction),
             ];
 
             this.leftPanelTopButtonElements = new SSlot[this.leftPanelTopButtons.Length];
@@ -149,18 +120,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void UpdateSlotIcons()
         {
             // Pause
-            this.leftPanelBottomButtonElements[0].IconElement.Texture = this.SGameInstance.GameManager.GameState.IsSimulationPaused ? this.iconTextures[06] : this.iconTextures[05];
-
-            // Current Tool
-            this.toolbarCurrentlySelectedToolIcon.Texture = this.SGameInstance.GameInputController.Pen.Tool switch
-            {
-                SPenTool.Visualization => this.iconTextures[12],
-                SPenTool.Pencil => this.iconTextures[13],
-                SPenTool.Eraser => this.iconTextures[09],
-                SPenTool.Fill => this.iconTextures[14],
-                SPenTool.Replace => this.iconTextures[15],
-                _ => this.iconTextures[12],
-            };
+            this.leftPanelBottomButtonElements[0].IconElement.Texture = this.SGameInstance.GameManager.GameState.IsSimulationPaused ? this.resumeIconTexture : this.pauseIconTexture;
         }
 
         private void SetPlayerInteractionWhenToolbarHovered()
@@ -383,6 +343,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             }
 
             return false;
+        }
+
+        internal void SetToolIcon(Texture2D iconTexture)
+        {
+            this.toolbarCurrentlySelectedToolIcon.Texture = iconTexture;
         }
 
         private void SelectItemSlot(int slotIndex, string itemIdentifier)
