@@ -38,7 +38,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly Texture2D resumeIconTexture;
         private readonly Texture2D menuIconTexture;
         private readonly Texture2D saveIconTexture;
-        private readonly Texture2D realoadIconTexture;
         private readonly Texture2D trashIconTexture;
         private readonly Texture2D reloadIconTexture;
         private readonly Texture2D infoIconTexture;

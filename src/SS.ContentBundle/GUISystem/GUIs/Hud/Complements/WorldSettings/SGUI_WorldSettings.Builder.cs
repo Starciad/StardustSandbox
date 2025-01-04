@@ -5,6 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
@@ -19,14 +20,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUISliceImageElement titleBackgroundElement;
 
         private SGUILabelElement menuTitleElement;
+        private SGUILabelElement sizeSectionTitleElement;
 
         private readonly SSlot[] menuButtonSlots;
+        private readonly SSlot[] sizeButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
             BuildTitle(layoutBuilder);
+            BuildSizeSection(layoutBuilder);
+
+            layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -108,6 +114,48 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
             layoutBuilder.AddElement(this.menuTitleElement);
+        }
+
+
+        private void BuildSizeSection(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.sizeSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(18, 64),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+            };
+
+            this.sizeSectionTitleElement.SetTextualContent("Sizes");
+            this.sizeSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            layoutBuilder.AddElement(this.sizeSectionTitleElement);
+
+            // Buttons
+            Vector2 baseMargin = new(32, 80);
+
+            for (int i = 0; i < this.sizeButtons.Length; i++)
+            {
+                SButton button = this.sizeButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.sizeSectionTitleElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.sizeButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+            }
         }
 
         // =============================================================== //

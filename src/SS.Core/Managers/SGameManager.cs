@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.Managers
             this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
 
             this.world.Time.Reset();
-            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[^1]);
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
             
