@@ -14,21 +14,22 @@ namespace StardustSandbox.Core.World.General
     {
         public TimeSpan CurrentTime => this.currentTime;
         public float SecondsPerFrames { get; set; } = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
+        public bool IsFrozen { get; set; } = false;
 
         private TimeSpan currentTime = STimeConstants.DEFAULT_START_TIME_OF_DAY;
 
         public override void Update(GameTime gameTime)
         {
+            if (this.IsFrozen)
+            {
+                return;
+            }
+
             this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(this.SecondsPerFrames));
 
             // Normalizes time to 24 hours.
             this.currentTime = TimeSpan.FromSeconds(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY);
             Console.WriteLine(this.currentTime);
-        }
-
-        public float GetNormalizedTime()
-        {
-            return (float)(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY) / STimeConstants.SECONDS_IN_A_DAY;
         }
 
         public SDayPeriod GetCurrentDayPeriod()
@@ -51,6 +52,7 @@ namespace StardustSandbox.Core.World.General
 
         public void Reset()
         {
+            this.IsFrozen = false;
             this.SecondsPerFrames = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
             this.currentTime = STimeConstants.DEFAULT_START_TIME_OF_DAY;
         }

@@ -11,6 +11,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         }
 
         // Time
+        private void SetTimeFreezeState(bool value)
+        {
+            this.world.Time.IsFrozen = value;
+        }
+
         private void SetTimeButtonAction(TimeSpan value)
         {
             this.world.Time.SetTime(value);

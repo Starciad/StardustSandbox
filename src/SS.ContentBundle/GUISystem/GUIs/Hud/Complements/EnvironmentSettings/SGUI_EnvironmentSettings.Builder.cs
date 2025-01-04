@@ -5,6 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
@@ -19,14 +20,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUISliceImageElement titleBackgroundElement;
 
         private SGUILabelElement menuTitleElement;
+        private SGUILabelElement timeStateSectionTitleElement;
+        private SGUILabelElement timeSectionTitleElement;
 
         private readonly SSlot[] menuButtonSlots;
+        private readonly SSlot[] timeStateButtonSlots;
+        private readonly SSlot[] timeButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildGUIBackground(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
             BuildTitle(layoutBuilder);
+            BuildTimeStateSection(layoutBuilder);
+            BuildTimeSection(layoutBuilder);
+
+            layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
         private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
@@ -108,6 +117,88 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
             layoutBuilder.AddElement(this.menuTitleElement);
+        }
+
+        private void BuildTimeStateSection(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.timeStateSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(18, 64),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+            };
+
+            this.timeStateSectionTitleElement.SetTextualContent("Time State");
+            this.timeStateSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            layoutBuilder.AddElement(this.timeStateSectionTitleElement);
+
+            // Buttons
+            Vector2 baseMargin = new(32, 80);
+
+            for (int i = 0; i < this.timeStateButtonSlots.Length; i++)
+            {
+                SButton button = this.timeStateButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.timeStateSectionTitleElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.timeStateButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+            }
+        }
+
+        private void BuildTimeSection(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.timeSectionTitleElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                Margin = new(this.timeStateSectionTitleElement.Size.Width + (SGUI_HUDConstants.SLOT_SIZE * SGUI_HUDConstants.SLOT_SCALE * this.timeStateButtonSlots.Length) + 64, 0f),
+                Color = SColorPalette.White,
+                SpriteFont = this.bigApple3PMSpriteFont,
+            };
+
+            this.timeSectionTitleElement.SetTextualContent("Time");
+            this.timeSectionTitleElement.PositionRelativeToElement(this.timeStateSectionTitleElement);
+
+            layoutBuilder.AddElement(this.timeSectionTitleElement);
+
+            // Buttons
+            Vector2 baseMargin = new(32, 80);
+
+            for (int i = 0; i < this.timeButtonSlots.Length; i++)
+            {
+                SButton button = this.timeButtons[i];
+                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+
+                slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
+                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+
+                // Update
+                slot.BackgroundElement.PositionRelativeToElement(this.timeSectionTitleElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+
+                // Save
+                this.timeButtonSlots[i] = slot;
+
+                // Spacing
+                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+
+                layoutBuilder.AddElement(slot.BackgroundElement);
+                layoutBuilder.AddElement(slot.IconElement);
+            }
         }
 
         // =============================================================== //
