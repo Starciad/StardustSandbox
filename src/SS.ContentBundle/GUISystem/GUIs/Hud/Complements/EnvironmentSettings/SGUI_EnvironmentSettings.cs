@@ -24,6 +24,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly Texture2D guiBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
         private readonly Texture2D exitIconTexture;
+        private readonly Texture2D frozenTimeIconTexture;
+        private readonly Texture2D timeProgressIconTexture;
+        private readonly Texture2D midnightIconTexture;
+        private readonly Texture2D dawnIconTexture;
+        private readonly Texture2D morningIconTexture;
+        private readonly Texture2D noonIconTexture;
+        private readonly Texture2D afternoonIconTexture;
+        private readonly Texture2D duskIconTexture;
+        private readonly Texture2D eveningIconTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
         private readonly SButton[] menuButtons;
@@ -47,24 +56,33 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.exitIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_16");
+            this.frozenTimeIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_29");
+            this.timeProgressIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_30");
+            this.midnightIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_31");
+            this.dawnIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_32");
+            this.morningIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_33");
+            this.noonIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_34");
+            this.afternoonIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_35");
+            this.duskIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_36");
+            this.eveningIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_37");
 
             this.menuButtons = [
                 new(this.exitIconTexture, SLocalization_GUIs.Button_Exit_Name, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.timeStateButtons = [
-                new SButton(null, "Disable", "Disable the time progression, freezing the current time.", () => SetTimeFreezeState(true)),
-                new SButton(null, "Enable", "Enable the time progression, resuming the natural time flow.", () => SetTimeFreezeState(false)),
+                new SButton(this.frozenTimeIconTexture, "Disable", "Disable the time progression, freezing the current time.", () => SetTimeFreezeState(true)),
+                new SButton(this.timeProgressIconTexture, "Enable", "Enable the time progression, resuming the natural time flow.", () => SetTimeFreezeState(false)),
             ];
 
             this.timeButtons = [
-                new SButton(null, "Midnight", "Jump to midnight (00:00).", () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
-                new SButton(null, "Dawn", "Jump to dawn (6:00 AM).", () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
-                new SButton(null, "Morning", "Jump to morning (9:00 AM).", () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
-                new SButton(null, "Noon", "Jump to noon (12:00 PM).", () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
-                new SButton(null, "Afternoon", "Jump to afternoon (3:00 PM).", () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
-                new SButton(null, "Dusk", "Jump to dusk (6:00 PM).", () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
-                new SButton(null, "Evening", "Jump to evening (9:00 PM).", () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
+                new SButton(this.midnightIconTexture, "Midnight", "Jump to midnight (00:00).", () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
+                new SButton(this.dawnIconTexture, "Dawn", "Jump to dawn (6:00 AM).", () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
+                new SButton(this.morningIconTexture, "Morning", "Jump to morning (9:00 AM).", () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
+                new SButton(this.noonIconTexture, "Noon", "Jump to noon (12:00 PM).", () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
+                new SButton(this.afternoonIconTexture, "Afternoon", "Jump to afternoon (3:00 PM).", () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
+                new SButton(this.duskIconTexture, "Dusk", "Jump to dusk (6:00 PM).", () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
+                new SButton(this.eveningIconTexture, "Evening", "Jump to evening (9:00 PM).", () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
