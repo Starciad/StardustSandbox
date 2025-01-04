@@ -2,6 +2,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
@@ -32,6 +33,8 @@ namespace StardustSandbox.Core.Managers
             this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[5]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            
+            this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
 
             this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;

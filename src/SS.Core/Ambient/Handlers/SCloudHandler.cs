@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.Ambient.Handlers
 
         public override void Update(GameTime gameTime)
         {
-            if (!this.IsActive)
+            if (!this.IsActive || this.SGameInstance.GameManager.GameState.IsSimulationPaused || this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen)
             {
                 return;
             }

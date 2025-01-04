@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -13,6 +14,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             ResetElementPositions();
 
+            this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Visualization;
             this.SGameInstance.GameInputController.Disable();
 
             LoadAnimationValues();
