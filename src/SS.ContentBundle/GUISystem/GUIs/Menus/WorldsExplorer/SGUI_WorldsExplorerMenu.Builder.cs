@@ -58,7 +58,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             layoutBuilder.AddElement(titleLabelElement);
 
             // Buttons
-            Vector2 baseMargin = new(-64f, 0);
+            Vector2 margin = new(-64f, 0);
 
             for (int i = 0; i < this.headerButtons.Length; i++)
             {
@@ -69,7 +69,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     Texture = this.guiButton1Texture,
                     PositionAnchor = SCardinalDirection.East,
                     OriginPivot = SCardinalDirection.Center,
-                    Margin = baseMargin,
+                    Margin = margin,
                     Scale = new(2f),
                     Size = new(32f),
                 };
@@ -90,7 +90,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 this.headerButtonElements[i] = buttonBackgroundElement;
 
-                baseMargin.X -= buttonBackgroundElement.Size.Width + 16f;
+                margin.X -= buttonBackgroundElement.Size.Width + 16f;
             }
         }
 

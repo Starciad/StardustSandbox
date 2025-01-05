@@ -85,14 +85,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             layoutBuilder.AddElement(this.leftToolbarContainer);
 
             #region BUTTONS
-            Vector2 baseMargin = new(0, SGUI_HUDConstants.SLOT_SPACING);
+            Vector2 margin = new(0, SGUI_HUDConstants.SLOT_SPACING);
 
             // Top
             for (int i = 0; i < this.leftPanelTopButtons.Length; i++)
             {
                 SButton button = this.leftPanelTopButtons[i];
 
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.North;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -102,20 +102,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.leftPanelTopButtonElements[i] = slot;
 
-                baseMargin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
             }
 
-            baseMargin = new(0, -SGUI_HUDConstants.SLOT_SPACING);
+            margin = new(0, -SGUI_HUDConstants.SLOT_SPACING);
 
             // Bottom
             for (int i = 0; i < this.leftPanelBottomButtons.Length; i++)
             {
                 SButton button = this.leftPanelBottomButtons[i];
 
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -125,7 +125,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.leftPanelBottomButtonElements[i] = slot;
 
-                baseMargin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -151,14 +151,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             layoutBuilder.AddElement(this.rightToolbarContainer);
 
             #region BUTTONS
-            Vector2 baseMargin = new(-96, SGUI_HUDConstants.SLOT_SPACING);
+            Vector2 margin = new(-96, SGUI_HUDConstants.SLOT_SPACING);
 
             // Top
             for (int i = 0; i < this.rightPanelTopButtons.Length; i++)
             {
                 SButton button = this.rightPanelTopButtons[i];
 
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.North;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -168,20 +168,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.rightPanelTopButtonElements[i] = slot;
 
-                baseMargin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
             }
 
-            baseMargin = new(-96, -SGUI_HUDConstants.SLOT_SPACING);
+            margin = new(-96, -SGUI_HUDConstants.SLOT_SPACING);
 
             // Bottom
             for (int i = 0; i < this.rightPanelBottomButtons.Length; i++)
             {
                 SButton button = this.rightPanelBottomButtons[i];
 
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -191,7 +191,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.rightPanelBottomButtonElements[i] = slot;
 
-                baseMargin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -232,13 +232,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void CreateTopToolbarSlots(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 baseMargin = new(SGUI_HUDConstants.SLOT_SPACING * 2.5f, 0);
+            Vector2 margin = new(SGUI_HUDConstants.SLOT_SPACING * 2.5f, 0);
 
             for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SItem selectedItem = this.SGameInstance.CatalogDatabase.Items.ElementAt(i);
 
-                SSlot slot = CreateButtonSlot(baseMargin, selectedItem.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, selectedItem.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.West;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -256,7 +256,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 this.toolbarElementSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);

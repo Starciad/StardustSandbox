@@ -22,7 +22,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     internal sealed partial class SGUI_EnvironmentSettings : SGUISystem
     {
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
         private readonly Texture2D exitIconTexture;
         private readonly Texture2D frozenTimeIconTexture;
@@ -48,7 +48,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         internal SGUI_EnvironmentSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_7");
             this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 

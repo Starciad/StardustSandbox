@@ -16,8 +16,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_EnvironmentSettings
     {
-        private SGUISliceImageElement panelBackgroundElement;
-        private SGUISliceImageElement titleBackgroundElement;
+        private SGUIImageElement panelBackgroundElement;
 
         private SGUILabelElement menuTitleElement;
         private SGUILabelElement timeStateSectionTitleElement;
@@ -29,18 +28,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildGUIBackground(layoutBuilder);
-            BuildMenuButtons(layoutBuilder);
+            BuildBackground(layoutBuilder);
             BuildTitle(layoutBuilder);
+            BuildMenuButtons(layoutBuilder);
             BuildTimeStateSection(layoutBuilder);
             BuildTimeSection(layoutBuilder);
 
             layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
-        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBackground(ISGUILayoutBuilder layoutBuilder)
         {
-            SGUIImageElement guiBackground = new(this.SGameInstance)
+            SGUIImageElement backgroundShadowElement = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
@@ -50,37 +49,44 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.panelBackgroundElement = new(this.SGameInstance)
             {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32, 15),
-                Size = new(32),
-                Margin = new(128),
-                Color = new(104, 111, 121, 255),
-            };
-
-            this.titleBackgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32, 0.5f),
-                Size = new(32),
-                Color = SColorPalette.DarkGreen,
+                Texture = this.panelBackgroundTexture,
+                Size = new(1084, 540),
+                Margin = new(98, 90),
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
-            this.titleBackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-            layoutBuilder.AddElement(guiBackground);
+            layoutBuilder.AddElement(backgroundShadowElement);
             layoutBuilder.AddElement(this.panelBackgroundElement);
-            layoutBuilder.AddElement(this.titleBackgroundElement);
+        }
+
+        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.menuTitleElement = new(this.SGameInstance)
+            {
+                SpriteFont = this.bigApple3PMSpriteFont,
+                Scale = new(0.12f),
+                PositionAnchor = SCardinalDirection.Northwest,
+                OriginPivot = SCardinalDirection.East,
+                Margin = new(32, 40),
+                Color = SColorPalette.White,
+            };
+
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Title);
+            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
+            this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            layoutBuilder.AddElement(this.menuTitleElement);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 baseMargin = new(-2, -72);
+            Vector2 margin = new(-32f, -40f);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 SButton button = this.menuButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -93,30 +99,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
             }
-        }
-
-        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.menuTitleElement = new(this.SGameInstance)
-            {
-                SpriteFont = this.bigApple3PMSpriteFont,
-                Scale = new(0.12f),
-                PositionAnchor = SCardinalDirection.West,
-                OriginPivot = SCardinalDirection.East,
-                Margin = new(16, 0),
-                Color = SColorPalette.White,
-            };
-
-            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Title);
-            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
-
-            layoutBuilder.AddElement(this.menuTitleElement);
         }
 
         private void BuildTimeStateSection(ISGUILayoutBuilder layoutBuilder)
@@ -124,7 +111,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.timeStateSectionTitleElement = new(this.SGameInstance)
             {
                 Scale = new(0.1f),
-                Margin = new(18, 64),
+                Margin = new(32, 112),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
@@ -135,12 +122,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             layoutBuilder.AddElement(this.timeStateSectionTitleElement);
 
             // Buttons
-            Vector2 baseMargin = new(32, 80);
+            Vector2 margin = new(32, 80);
 
             for (int i = 0; i < this.timeStateButtonSlots.Length; i++)
             {
                 SButton button = this.timeStateButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -153,7 +140,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.timeStateButtonSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -176,12 +163,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             layoutBuilder.AddElement(this.timeSectionTitleElement);
 
             // Buttons
-            Vector2 baseMargin = new(32, 80);
+            Vector2 margin = new(32, 80);
 
             for (int i = 0; i < this.timeButtonSlots.Length; i++)
             {
                 SButton button = this.timeButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -194,7 +181,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.timeButtonSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);

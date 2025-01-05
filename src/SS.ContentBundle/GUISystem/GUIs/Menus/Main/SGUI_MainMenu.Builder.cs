@@ -102,7 +102,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void BuildButtons(ISGUILayoutBuilder layoutBuilder)
         {
             // BUTTONS
-            Vector2 baseMargin = new(0, 0);
+            Vector2 margin = new(0, 0);
 
             // Labels
             for (int i = 0; i < this.menuButtonElements.Length; i++)
@@ -110,7 +110,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 SGUILabelElement labelElement = new(this.SGameInstance)
                 {
                     Scale = new(0.15f),
-                    Margin = baseMargin,
+                    Margin = margin,
                     Color = SColorPalette.White,
                     PositionAnchor = SCardinalDirection.Center,
                     OriginPivot = SCardinalDirection.Center,
@@ -122,7 +122,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.menuButtonElements[i] = labelElement;
-                baseMargin.Y += 75;
+                margin.Y += 75;
             }
 
             layoutBuilder.AddElement(this.gameTitleElement);

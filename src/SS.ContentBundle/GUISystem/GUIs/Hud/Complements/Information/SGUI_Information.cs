@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     internal sealed partial class SGUI_Information : SGUISystem
     {
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
         private readonly Texture2D[] iconTextures;
         private readonly SpriteFont bigApple3PMSpriteFont;
@@ -31,7 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         internal SGUI_Information(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_10");
             this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 

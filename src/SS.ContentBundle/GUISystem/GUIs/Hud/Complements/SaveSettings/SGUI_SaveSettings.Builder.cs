@@ -86,12 +86,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 baseMargin = new(-2, -72);
+            Vector2 margin = new(-2, -72);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 SButton button = this.menuButtons[i];
-                SSlot slot = CreateButtonSlot(baseMargin, button.IconTexture);
+                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
@@ -104,7 +104,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
-                baseMargin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
