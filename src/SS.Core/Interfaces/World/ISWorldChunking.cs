@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Chunking;
 
 using System.Collections.Generic;
 

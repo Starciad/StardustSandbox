@@ -4,10 +4,11 @@ using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Selectors;
-using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Localization;
@@ -190,16 +191,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // [ FIELDS ]
             // 0. Resolution
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_Resolution, 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Resolution, 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
 
             // 1. Fullscreen
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_Fullscreen, 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Fullscreen, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
 
             // 2. VSync
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_VSync, 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_VSync, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
 
             // 3. Borderless
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization.GUI_Menu_Options_Section_Video_Borderless, 00, [SLocalization.Statements_False, SLocalization.Statements_True]));
+            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Borderless, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
 
             // [ LABELS ]
             Vector2 margin = new(0f, 4f);
@@ -235,7 +236,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.Margin = margin;
                 labelElement.PositionRelativeToElement(this.rightPanelBackground);
                 labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName);
-                labelElement.AddData(SOptionsMenuConstants.DATA_FILED_LANGUAGE_CODE, gameCulture.Language);
+                labelElement.AddData(SGUIConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
 
                 this.languageSectionButtons.Add(labelElement);
                 container.AddElement(labelElement);

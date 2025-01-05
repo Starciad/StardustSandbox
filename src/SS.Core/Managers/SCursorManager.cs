@@ -5,7 +5,7 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
-using StardustSandbox.Core.Managers.IO;
+using StardustSandbox.Core.IO.Handlers;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -56,7 +56,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void UpdateSettings()
         {
-            SCursorSettings cursorSettings = SSettingsManager.LoadSettings<SCursorSettings>();
+            SCursorSettings cursorSettings = SSettingsHandler.LoadSettings<SCursorSettings>();
 
             this.cursorScale = new(cursorSettings.Scale);
             this.cursorColor = cursorSettings.Color;

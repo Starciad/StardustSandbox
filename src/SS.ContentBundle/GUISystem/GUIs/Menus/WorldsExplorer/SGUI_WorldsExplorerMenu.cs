@@ -6,7 +6,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -73,7 +73,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.folderIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_18");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
-            this.slotInfoElements = new SSlotInfoElement[SWorldsExplorerConstants.ITEMS_PER_PAGE];
+            this.slotInfoElements = new SSlotInfoElement[SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE];
 
             this.headerButtons = [
                 new(this.exitIconTexture, "Exit", string.Empty, ExitButtonAction),
@@ -151,14 +151,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void UpdatePagination()
         {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SWorldsExplorerConstants.ITEMS_PER_PAGE));
+            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
             this.pageIndexLabel?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
         }
 
         private void ChangeWorldsCatalog()
         {
-            int startIndex = this.currentPage * SWorldsExplorerConstants.ITEMS_PER_PAGE;
+            int startIndex = this.currentPage * SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE;
 
             for (int i = 0; i < this.slotInfoElements.Length; i++)
             {

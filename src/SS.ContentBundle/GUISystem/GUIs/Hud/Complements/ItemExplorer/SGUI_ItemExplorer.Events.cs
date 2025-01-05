@@ -5,7 +5,7 @@
         protected override void OnOpened()
         {
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
-            SelectItemCatalog("powders", 0);
+            SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.selectedPageIndex);
         }
 
         protected override void OnClosed()

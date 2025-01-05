@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
@@ -27,14 +28,18 @@ namespace StardustSandbox.Core.Managers
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
 
-            this.SGameInstance.BackgroundManager.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+            this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+            this.SGameInstance.AmbientManager.SkyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CelestialBodyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
 
-            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[2]);
+            this.world.Time.Reset();
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            
+            this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
-
-            this.SGameInstance.BackgroundManager.EnableClouds();
         }
 
         public void Reset()

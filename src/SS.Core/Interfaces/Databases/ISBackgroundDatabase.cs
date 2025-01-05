@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Ambient.Background;
 
 using System;
 

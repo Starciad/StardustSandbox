@@ -10,13 +10,19 @@ namespace StardustSandbox.Core.Catalog
         public string DisplayName => displayName;
         public string Description => description;
         public Texture2D IconTexture => iconTexture;
-        public SItem[] Items => [.. this.items];
+        public IEnumerable<SSubcategory> Subcategories => this.subcategories.Values;
+        public int SubcategoriesCount => this.subcategories.Count;
 
-        private readonly List<SItem> items = [];
+        private readonly Dictionary<string, SSubcategory> subcategories = [];
 
-        internal void AddItem(SItem item)
+        public void AddSubcategory(SSubcategory subcategory)
         {
-            this.items.Add(item);
+            this.subcategories.Add(subcategory.Identifier, subcategory);
+        }
+
+        public SSubcategory GetSubcategory(string identifier)
+        {
+            return this.subcategories[identifier];
         }
     }
 }

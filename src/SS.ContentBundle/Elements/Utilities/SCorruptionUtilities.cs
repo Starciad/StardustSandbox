@@ -9,7 +9,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
@@ -79,23 +79,23 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             switch (targetElement)
             {
                 case SMovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.MOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION);
                     break;
 
                 case SImmovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.IMMOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_IMMOVABLE_CORRUPTION);
                     break;
 
                 case SLiquid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.LIQUID_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_LIQUID_CORRUPTION);
                     break;
 
                 case SGas:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.GAS_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_GAS_CORRUPTION);
                     break;
 
                 default:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementIdentifierConstants.MOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION);
                     break;
             }
         }

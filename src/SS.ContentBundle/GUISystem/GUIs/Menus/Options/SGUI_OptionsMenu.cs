@@ -4,14 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
-using StardustSandbox.ContentBundle.Localization;
+using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.Settings;
-using StardustSandbox.Core.Managers.IO;
+using StardustSandbox.Core.IO.Handlers;
 
 using System;
 
@@ -49,11 +50,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly SpriteFont bigApple3PMSpriteFont;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
-        private readonly string titleName = SLocalization.GUI_Menu_Options_Title;
+        private readonly string titleName = SLocalization_GUIs.Menu_Options_Title;
 
         private readonly string[] sectionNames = [
-            SLocalization.GUI_Menu_Options_Section_Video,
-            SLocalization.GUI_Menu_Options_Section_Language
+            SLocalization_GUIs.Menu_Options_Section_Video,
+            SLocalization_GUIs.Menu_Options_Section_Language
         ];
 
         private readonly SButton[] systemButtons;
@@ -66,8 +67,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
 
             this.systemButtons = [
-                new(null, SLocalization.Statements_Return, string.Empty, ReturnButtonAction),
-                new(null, SLocalization.Statements_Save, string.Empty, SaveButtonAction),
+                new(null, SLocalization_Statements.Return, string.Empty, ReturnButtonAction),
+                new(null, SLocalization_Statements.Save, string.Empty, SaveButtonAction),
             ];
 
             this.sectionContainers = new SGUIContainerElement[this.sectionNames.Length];
@@ -77,7 +78,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadVideoSettings()
         {
-            this.videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            this.videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 
             this.videoSectionOptionSelectors[(byte)SVideoSetting.Resolution].Select((uint)Array.IndexOf(SScreenConstants.RESOLUTIONS, this.videoSettings.Resolution));
             this.videoSectionOptionSelectors[(byte)SVideoSetting.Fullscreen].Select((uint)(this.videoSettings.FullScreen ? 1 : 0));
@@ -92,7 +93,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void LoadLanguageSettings()
         {
-            this.languageSettings = SSettingsManager.LoadSettings<SLanguageSettings>();
+            this.languageSettings = SSettingsHandler.LoadSettings<SLanguageSettings>();
             this.selectedLanguageIndex = (byte)Array.FindIndex(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Language == this.languageSettings.Language);
         }
 

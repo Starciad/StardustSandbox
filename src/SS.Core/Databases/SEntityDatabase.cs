@@ -3,30 +3,24 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Objects;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class SEntityDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISEntityDatabase
     {
-        public IReadOnlyDictionary<Type, SEntityDescriptor> RegisteredEntities => this._registeredEntities;
+        public IReadOnlyDictionary<string, SEntityDescriptor> RegisteredDescriptors => this.registeredDescriptors;
 
-        private readonly Dictionary<Type, SEntityDescriptor> _registeredEntities = [];
+        private readonly Dictionary<string, SEntityDescriptor> registeredDescriptors = [];
 
         public void RegisterEntityDescriptor(SEntityDescriptor descriptor)
         {
-            this._registeredEntities.Add(descriptor.AssociatedEntityType, descriptor);
+            this.registeredDescriptors.Add(descriptor.Identifier, descriptor);
         }
 
-        public SEntityDescriptor GetEntityDescriptor<T>() where T : SEntity
+        public SEntityDescriptor GetEntityDescriptor(string entityIdentifier)
         {
-            return GetEntityDescriptor(typeof(T));
-        }
-
-        public SEntityDescriptor GetEntityDescriptor(Type entityType)
-        {
-            return this._registeredEntities[entityType];
+            return this.registeredDescriptors[entityIdentifier];
         }
     }
 }

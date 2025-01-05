@@ -4,32 +4,72 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
+using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.GUI.Common;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
-    internal sealed partial class SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : SGUISystem(gameInstance, identifier, guiEvents)
+    internal sealed partial class SGUI_ItemExplorer : SGUISystem
     {
-        private string selectedCategoryName;
+        private SCategory selectedCategory;
+        private SSubcategory selectedSubcategory;
         private int selectedPageIndex;
 
-        private SItem[] selectedItems;
+        private IEnumerable<SItem> selectedItems;
+        private int selectedItemsLength;
 
-        private readonly Texture2D particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-        private readonly Texture2D guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-        private readonly Texture2D guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
-        private readonly SpriteFont bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
+        private readonly Texture2D particleTexture;
+        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D[] iconTextures;
+        private readonly SpriteFont bigApple3PMSpriteFont;
 
-        private readonly SGUI_HUD _guiHUD = guiHUD;
-        private readonly SGUITooltipBoxElement tooltipBoxElement = tooltipBoxElementElement;
+        private readonly SGUI_HUD guiHUD;
+        private readonly SGUITooltipBoxElement tooltipBoxElement;
+
+        private readonly SButton[] menuButtons;
+
+        public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : base(gameInstance, identifier, guiEvents)
+        {
+            this.selectedCategory = gameInstance.CatalogDatabase.GetCategory("elements");
+            this.selectedSubcategory = this.selectedCategory.GetSubcategory("powders");
+            this.selectedPageIndex = 0;
+
+            this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
+            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
+
+            this.iconTextures = [
+                gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
+            ];
+
+            this.guiHUD = guiHUD;
+            this.tooltipBoxElement = tooltipBoxElementElement;
+
+            this.menuButtons = [
+                new(this.iconTextures[0], SLocalization_Statements.Exit, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
+            ];
+
+            this.menuButtonSlots = new SSlot[this.menuButtons.Length];
+            this.itemButtonSlots = new SSlot[SGUI_ItemExplorerConstants.ITEMS_PER_PAGE];
+            this.categoryButtonSlots = new SSlot[this.SGameInstance.CatalogDatabase.TotalCategoryCount];
+            this.subcategoryButtonSlots = new SSlot[SGUI_ItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH];
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -37,37 +77,102 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.tooltipBoxElement.IsVisible = false;
 
+            UpdateMenuButtons();
             UpdateCategoryButtons();
+            UpdateSubcategoryButtons();
             UpdateItemCatalog();
 
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
+        }
+
+        private void UpdateMenuButtons()
+        {
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                SSlot slot = this.menuButtonSlots[i];
+
+                Vector2 position = slot.BackgroundElement.Position;
+                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
+                {
+                    this.menuButtons[i].ClickAction.Invoke();
+                }
+
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
+
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
+            }
         }
 
         private void UpdateCategoryButtons()
         {
             for (int i = 0; i < this.categoryButtonSlots.Length; i++)
             {
-                SSlot slot = this.categoryButtonSlots[i];
+                SSlot categorySlot = this.categoryButtonSlots[i];
 
-                // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                if (!categorySlot.BackgroundElement.IsVisible)
                 {
-                    SelectItemCatalog((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID), 0);
+                    continue;
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                SCategory category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
+
+                // Check if the mouse clicked on the current slot.
+                if (this.GUIEvents.OnMouseClick(categorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
+                {
+                    SelectItemCatalog(category, category.Subcategories.First(), 0);
+                }
+
+                bool isOver = this.GUIEvents.OnMouseOver(categorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    if (!this.tooltipBoxElement.HasContent)
-                    {
-                        SCategory category = this.SGameInstance.CatalogDatabase.GetCategoryByIdentifier((string)slot.BackgroundElement.GetData(SItemExplorerConstants.DATA_FILED_CATEGORY_ID));
+                    SGUIGlobalTooltip.Title = category.DisplayName;
+                    SGUIGlobalTooltip.Description = category.Description;
+                }
+            }
+        }
 
-                        SGUIGlobalTooltip.Title = category.DisplayName;
-                        SGUIGlobalTooltip.Description = category.Description;
-                    }
+        private void UpdateSubcategoryButtons()
+        {
+            for (int i = 0; i < this.subcategoryButtonSlots.Length; i++)
+            {
+                SSlot subcategorySlot = this.subcategoryButtonSlots[i];
+
+                if (!subcategorySlot.BackgroundElement.IsVisible)
+                {
+                    continue;
+                }
+
+                SSubcategory subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
+
+                // Check if the mouse clicked on the current slot.
+                if (this.GUIEvents.OnMouseClick(subcategorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
+                {
+                    SelectItemCatalog(subcategory.Parent, subcategory, 0);
+                }
+
+                bool isOver = this.GUIEvents.OnMouseOver(subcategorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
+
+                if (isOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = subcategory.DisplayName;
+                    SGUIGlobalTooltip.Description = subcategory.Description;
                 }
             }
         }
@@ -83,86 +188,115 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     continue;
                 }
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
-                {
-                    this._guiHUD.AddItemToToolbar((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
+                {
+                    this.guiHUD.AddItemToToolbar(item);
                     this.SGameInstance.GUIManager.CloseGUI();
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
 
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    if (!this.tooltipBoxElement.HasContent)
-                    {
-                        SItem item = this.SGameInstance.CatalogDatabase.GetItemByIdentifier((string)slot.BackgroundElement.GetData(SHUDConstants.DATA_FILED_ELEMENT_ID));
+                    SGUIGlobalTooltip.Title = item.DisplayName;
+                    SGUIGlobalTooltip.Description = item.Description;
 
-                        SGUIGlobalTooltip.Title = item.DisplayName;
-                        SGUIGlobalTooltip.Description = item.Description;
-                    }
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
                 }
 
-                slot.BackgroundElement.Color = isOver ? SColorPalette.LemonYellow : SColorPalette.White;
+                if (this.guiHUD.ItemIsEquipped(item))
+                {
+                    slot.BackgroundElement.Color = SColorPalette.TealGray;
+                }
             }
         }
 
         // ============================================== //
 
-        private void SelectItemCatalog(string categoryId, int pageIndex)
+        private void SelectItemCatalog(SCategory category, SSubcategory subcategory, int pageIndex)
         {
-            SelectItemCatalog(this.SGameInstance.CatalogDatabase.GetCategoryByIdentifier(categoryId), pageIndex);
-        }
+            this.explorerTitleLabel.SetTextualContent(subcategory.DisplayName);
 
-        private void SelectItemCatalog(SCategory category, int pageIndex)
-        {
-            this.explorerTitleLabel.SetTextualContent(category.DisplayName);
-
-            this.selectedCategoryName = category.Identifier;
+            this.selectedCategory = category;
+            this.selectedSubcategory = subcategory;
             this.selectedPageIndex = pageIndex;
 
-            int itemsPerPage = SItemExplorerConstants.ITEMS_PER_PAGE;
-
-            int startIndex = pageIndex * itemsPerPage;
-            int endIndex = startIndex + itemsPerPage;
+            int startIndex = pageIndex * SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
+            int endIndex = startIndex + SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
 
             endIndex = Math.Min(endIndex, this.SGameInstance.CatalogDatabase.TotalItemCount);
 
-            this.selectedItems = [.. category.Items.Take(new Range(startIndex, endIndex - startIndex))];
+            this.selectedItems = subcategory.Items.Take(new Range(startIndex, endIndex - startIndex));
+            this.selectedItemsLength = this.selectedItems.Count();
 
+            ChangeSubcategorCatalog();
             ChangeItemCatalog();
+        }
+
+        private void ChangeSubcategorCatalog()
+        {
+            for (int i = 0; i < this.subcategoryButtonSlots.Length; i++)
+            {
+                SSlot subcategorySlot = this.subcategoryButtonSlots[i];
+
+                if (i < this.selectedCategory.SubcategoriesCount)
+                {
+                    subcategorySlot.Show();
+
+                    SSubcategory subcategory = this.selectedCategory.Subcategories.ElementAt(i);
+                    subcategorySlot.IconElement.Texture = subcategory.IconTexture;
+
+                    // Add or Update Data
+                    if (!subcategorySlot.BackgroundElement.ContainsData(SGUIConstants.DATA_SUBCATEGORY))
+                    {
+                        subcategorySlot.BackgroundElement.AddData(SGUIConstants.DATA_SUBCATEGORY, subcategory);
+                    }
+                    else
+                    {
+                        subcategorySlot.BackgroundElement.UpdateData(SGUIConstants.DATA_SUBCATEGORY, subcategory);
+                    }
+                }
+                else
+                {
+                    subcategorySlot.Hide();
+                }
+            }
         }
 
         private void ChangeItemCatalog()
         {
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
-                SSlot slot = this.itemButtonSlots[i];
+                SSlot itemSlot = this.itemButtonSlots[i];
 
-                if (i < this.selectedItems.Length)
+                if (i < this.selectedItemsLength)
                 {
-                    slot.BackgroundElement.IsVisible = true;
-                    slot.IconElement.IsVisible = true;
+                    itemSlot.Show();
 
-                    SItem item = this.selectedItems[i];
-                    slot.IconElement.Texture = item.IconTexture;
+                    SItem item = this.selectedItems.ElementAt(i);
+                    itemSlot.IconElement.Texture = item.IconTexture;
 
                     // Add or Update Data
-                    if (!slot.BackgroundElement.ContainsData(SHUDConstants.DATA_FILED_ELEMENT_ID))
+                    if (!itemSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
                     {
-                        slot.BackgroundElement.AddData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                        itemSlot.BackgroundElement.AddData(SGUIConstants.DATA_ITEM, item);
                     }
                     else
                     {
-                        slot.BackgroundElement.UpdateData(SHUDConstants.DATA_FILED_ELEMENT_ID, item.Identifier);
+                        itemSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, item);
                     }
                 }
                 else
                 {
-                    slot.BackgroundElement.IsVisible = false;
-                    slot.IconElement.IsVisible = false;
+                    itemSlot.Hide();
                 }
             }
         }

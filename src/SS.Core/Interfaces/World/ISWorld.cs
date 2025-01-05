@@ -1,16 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Interfaces.Entities;
 using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.General;
 
 namespace StardustSandbox.Core.Interfaces.World
 {
-    public interface ISWorld : ISReset, ISElementManager, ISWorldChunking
+    public interface ISWorld : ISReset, ISElementHandler, ISEntityHandler, ISWorldChunking
     {
         SWorldInfo Infos { get; }
+        SWorldTime Time { get; }
 
         bool IsActive { get; set; }
         bool IsVisible { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+﻿using System;
+
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_EnvironmentSettings
     {
@@ -6,6 +8,17 @@
         private void ExitButtonAction()
         {
             this.SGameInstance.GUIManager.CloseGUI();
+        }
+
+        // Time
+        private void SetTimeFreezeState(bool value)
+        {
+            this.world.Time.IsFrozen = value;
+        }
+
+        private void SetTimeButtonAction(TimeSpan value)
+        {
+            this.world.Time.SetTime(value);
         }
     }
 }

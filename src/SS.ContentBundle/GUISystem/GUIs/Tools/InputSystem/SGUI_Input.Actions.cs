@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Enums.GUISystem;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
+﻿using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 {
@@ -15,20 +14,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         {
             if (this.inputSettings != null)
             {
-                SValidationState validationState = new();
                 SArgumentResult argumentResult = new(this.userInputStringBuilder.ToString());
 
-                this.inputSettings.OnValidationCallback?.Invoke(validationState, argumentResult);
-
-                if (validationState.Status == SValidationStatus.Failure)
+                if (string.IsNullOrWhiteSpace(argumentResult.Content))
                 {
-                    goto FINALIZATION_LABEL;
+                    goto FINALIZATION;
                 }
 
                 this.inputSettings.OnSendCallback?.Invoke(argumentResult);
             }
 
-        FINALIZATION_LABEL:
+        FINALIZATION:
             ;
             this.SGameInstance.GUIManager.CloseGUI();
         }

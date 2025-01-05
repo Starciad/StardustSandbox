@@ -13,6 +13,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.referenceColor = SColorPalette.Orange;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.enableLightEmission = true;
+            this.defaultLuminousIntensity = 5;
             this.defaultTemperature = 1000;
             this.defaultDensity = 3000;
         }
@@ -21,7 +23,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue <= 500)
             {
-                this.Context.ReplaceElement(SElementIdentifierConstants.STONE);
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STONE);
                 this.Context.SetElementTemperature(500);
             }
         }

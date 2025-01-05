@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 namespace StardustSandbox.Core.IO.Files.World.Data
 {

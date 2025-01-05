@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
@@ -20,6 +21,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private int cursorPosition = 0;
 
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
+        private Vector2 characterCountElementPosition = Vector2.Zero;
 
         private SInputSettings inputSettings;
 
@@ -29,6 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         private readonly SpriteFont pixelOperatorSpriteFont;
 
         private readonly StringBuilder userInputStringBuilder = new();
+        private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
         private readonly SButton[] menuButtons;
 
@@ -40,8 +43,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
 
             this.menuButtons = [
-                new(null, "Cancel", string.Empty, CancelButtonAction),
-                new(null, "Send", string.Empty, SendButtonAction),
+                new(null, SLocalization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(null, SLocalization_Statements.Send, string.Empty, SendButtonAction),
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
@@ -50,6 +53,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         internal void Configure(SInputSettings settings)
         {
             this.inputSettings = settings;
+            ApplySettings(settings);
         }
 
         public override void Update(GameTime gameTime)
@@ -57,7 +61,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             base.Update(gameTime);
 
             UpdateMenuButtons();
-            UpdateInputBackgroundPosition();
+            UpdateElementPositionAccordingToUserInput();
         }
 
         private void UpdateMenuButtons()
@@ -78,18 +82,45 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             }
         }
 
-        private void UpdateInputBackgroundPosition()
+        private void UpdateElementPositionAccordingToUserInput()
         {
+            float screenCenterYPosition = (SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2) + this.userInputElement.GetStringSize().Height;
+
+            // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackgroundElement.Position.X;
-            this.userInputBackgroundElementPosition.Y = (SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2) + this.userInputElement.GetStringSize().Height - 8;
+            this.userInputBackgroundElementPosition.Y = screenCenterYPosition;
+
+            // Count
+            this.characterCountElementPosition.X = this.characterCountElement.Position.X;
+            this.characterCountElementPosition.Y = screenCenterYPosition - 32;
+
+            // Apply
             this.userInputBackgroundElement.Position = this.userInputBackgroundElementPosition;
+            this.characterCountElement.Position = this.characterCountElementPosition;
         }
 
         // ====================================== //
 
-        private void ApplySettings()
+        private void ApplySettings(SInputSettings settings)
         {
+            // Setting Synopsis
+            this.synopsisElement.SetTextualContent(settings.Synopsis);
 
+            // Setting Content
+            _ = this.userInputStringBuilder.Clear();
+
+            if (string.IsNullOrWhiteSpace(settings.Content))
+            {
+                this.cursorPosition = 0;
+            }
+            else
+            {
+                _ = this.userInputStringBuilder.Append(settings.Content);
+                this.cursorPosition = settings.Content.Length;
+            }
+
+            // Count
+            this.characterCountElement.IsVisible = settings.MaxCharacters != 0;
         }
     }
 }

@@ -11,7 +11,7 @@
         #region ASSETS
         public const string ASSETS = "assets";
 
-        public const string ASSETS_SHADERS = "shaders";
+        public const string ASSETS_EFFECTS = "effects";
         public const string ASSETS_FONTS = "fonts";
         public const string ASSETS_GRAPHICS = "graphics";
         public const string ASSETS_SONGS = "songs";
@@ -38,6 +38,9 @@
         // Elements
         public const string ASSETS_GRAPHICS_ELEMENTS = "elements";
 
+        // Entities
+        public const string ASSETS_GRAPHICS_ENTITIES = "entities";
+
         // Game
         public const string ASSETS_GRAPHICS_GAME = "game";
         public const string ASSETS_GRAPHICS_GAME_ICONS = "icons";
@@ -53,6 +56,7 @@
         // Icons
         public const string ASSETS_GRAPHICS_ICONS = "icons";
         public const string ASSETS_GRAPHICS_ICONS_ELEMENTS = "elements";
+        public const string ASSETS_GRAPHICS_ICONS_ENTITIES = "entities";
         public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
         public const string ASSETS_GRAPHICS_ICONS_CONTROLLERS = "controllers";
 

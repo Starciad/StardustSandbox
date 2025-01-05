@@ -12,51 +12,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         }
 
         // Tools
-        private void SelectVisualizationToolButtonAction()
+        private void SelectToolButtonAction(SPenTool tool)
         {
-            this.gameInputController.Pen.Tool = SPenTool.Visualization;
-        }
-
-        private void SelectPencilToolButtonAction()
-        {
-            this.gameInputController.Pen.Tool = SPenTool.Pencil;
-        }
-
-        private void SelectFillToolButtonAction()
-        {
-            this.gameInputController.Pen.Tool = SPenTool.Fill;
-        }
-
-        private void SelectReplaceToolButtonAction()
-        {
-            this.gameInputController.Pen.Tool = SPenTool.Replace;
+            this.gameInputController.Pen.Tool = tool;
         }
 
         // Layers
-        private void SelectForegroundLayerButtonAction()
+        private void SelectLayerButtonAction(SWorldLayer layer)
         {
-            this.gameInputController.Pen.Layer = SWorldLayer.Foreground;
-        }
-
-        private void SelectBackgroundLayerButtonAction()
-        {
-            this.gameInputController.Pen.Layer = SWorldLayer.Background;
+            this.gameInputController.Pen.Layer = layer;
         }
 
         // Shapes
-        private void SelectCircleShapeButtonAction()
+        private void SelectShapeButtonAction(SPenShape shape)
         {
-            this.gameInputController.Pen.Shape = SPenShape.Circle;
-        }
-
-        private void SelectSquareShapeButtonAction()
-        {
-            this.gameInputController.Pen.Shape = SPenShape.Square;
-        }
-
-        private void SelectTriangleShapeButtonAction()
-        {
-            this.gameInputController.Pen.Shape = SPenShape.Triangle;
+            this.gameInputController.Pen.Shape = shape;
         }
     }
 }

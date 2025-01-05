@@ -14,6 +14,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
     {
         private SGUITextElement synopsisElement;
         private SGUITextElement userInputElement;
+        private SGUILabelElement characterCountElement;
 
         private SGUIImageElement userInputBackgroundElement;
 
@@ -24,6 +25,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             BuildGUIBackground(layoutBuilder);
             BuildSynopsis(layoutBuilder);
             BuildUserInput(layoutBuilder);
+            BuildCharacterCount(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
         }
 
@@ -47,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 Scale = new(0.1f),
                 Margin = new(0, -128),
                 LineHeight = 1.25f,
-                TextAreaSize = new(600, 1000),
+                TextAreaSize = new(850, 1000),
                 SpriteFont = this.pixelOperatorSpriteFont,
                 PositionAnchor = SCardinalDirection.Center,
                 OriginPivot = SCardinalDirection.Center,
@@ -73,10 +75,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
             this.userInputElement = new(this.SGameInstance)
             {
+                SpriteFont = this.pixelOperatorSpriteFont,
                 Scale = new(0.085f),
                 TextAreaSize = new(1000, 1000),
                 Margin = new(0, -32),
-                SpriteFont = this.pixelOperatorSpriteFont,
                 PositionAnchor = SCardinalDirection.Center,
                 OriginPivot = SCardinalDirection.Center,
             };
@@ -86,6 +88,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
             layoutBuilder.AddElement(this.userInputBackgroundElement);
             layoutBuilder.AddElement(this.userInputElement);
+        }
+
+        private void BuildCharacterCount(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.characterCountElement = new(this.SGameInstance)
+            {
+                SpriteFont = this.pixelOperatorSpriteFont,
+                Scale = new(0.08f),
+                Margin = new(-212, -16),
+                PositionAnchor = SCardinalDirection.East,
+                OriginPivot = SCardinalDirection.West,
+            };
+
+            this.characterCountElement.SetTextualContent("000/000");
+            this.characterCountElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.characterCountElement);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)

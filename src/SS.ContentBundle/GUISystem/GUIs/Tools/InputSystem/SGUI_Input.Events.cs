@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.Core.GUISystem;
 
 using System;
@@ -11,9 +12,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
     {
         protected override void OnOpened()
         {
-            _ = this.userInputStringBuilder.Clear();
-            this.cursorPosition = 0;
-
             UpdateDisplayedText();
 
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
@@ -67,6 +65,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 Keys.Right => MoveCursorRight,
                 Keys.Home => HandleHomeKey,
                 Keys.End => HandleEndKey,
+                Keys.Space => HandleSpaceKey,
                 _ => null,
             };
 
@@ -130,26 +129,114 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.cursorPosition = this.userInputStringBuilder.Length;
         }
 
+        private void HandleSpaceKey()
+        {
+            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters || !this.inputSettings.AllowSpaces)
+            {
+                return;
+            }
+
+            _ = this.userInputStringBuilder.Insert(this.cursorPosition, ' ');
+            this.cursorPosition++;
+        }
+
         private void AddCharacter(char character)
         {
-            if (!char.IsControl(character))
+            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
             {
-                _ = this.userInputStringBuilder.Insert(this.cursorPosition, character);
-                this.cursorPosition++;
+                return;
             }
+
+            if (char.IsControl(character))
+            {
+                return;
+            }
+
+            switch (this.inputSettings.InputRestriction)
+            {
+                case SInputRestriction.None:
+                    break;
+
+                case SInputRestriction.LettersOnly:
+                    if (!char.IsLetter(character))
+                    {
+                        return;
+                    }
+
+                    break;
+
+                case SInputRestriction.NumbersOnly:
+                    if (!char.IsDigit(character))
+                    {
+                        return;
+                    }
+
+                    break;
+
+                case SInputRestriction.Alphanumeric:
+                    if (!char.IsLetterOrDigit(character))
+                    {
+                        return;
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            _ = this.userInputStringBuilder.Insert(this.cursorPosition, character);
+            this.cursorPosition++;
         }
 
         private void UpdateDisplayedText()
         {
             this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+
+            if (this.characterCountElement.IsVisible)
+            {
+                this.characterCountElement.SetTextualContent(string.Concat(this.userInputStringBuilder.Length, '/', this.inputSettings.MaxCharacters));
+            }
+
             UpdateCursorPosition();
         }
 
         private void UpdateCursorPosition()
         {
             _ = this.userInputStringBuilder.Insert(this.cursorPosition, '|');
-            this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+
+            switch (this.inputSettings.InputMode)
+            {
+                case SInputMode.Normal:
+                    this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+                    break;
+
+                case SInputMode.Password:
+                    UpdatePasswordMask(this.cursorPosition);
+                    this.userInputElement.SetTextualContent(this.userInputPasswordMaskedStringBuilder);
+                    break;
+
+                default:
+                    this.userInputElement.SetTextualContent(this.userInputStringBuilder);
+                    break;
+            }
+
             _ = this.userInputStringBuilder.Remove(this.cursorPosition, 1);
+        }
+
+        private void UpdatePasswordMask(int cursorPosition)
+        {
+            if (this.userInputPasswordMaskedStringBuilder.Capacity < this.userInputStringBuilder.Length)
+            {
+                this.userInputPasswordMaskedStringBuilder.Capacity = this.userInputStringBuilder.Length;
+            }
+
+            _ = this.userInputPasswordMaskedStringBuilder.Clear();
+
+            for (int i = 0; i < this.userInputStringBuilder.Length; i++)
+            {
+                _ = this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
+            }
         }
     }
 }

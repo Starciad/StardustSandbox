@@ -17,8 +17,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 {
     internal sealed class SGUITooltipBoxElement : SGUIElement
     {
-        internal bool HasContent => this.hasContent;
-
         internal bool IsShowing { get; private set; }
         internal SSize2F MinimumSize { get; set; }
         internal SSize2F MaximumSize { get; set; }
@@ -26,8 +24,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
         internal SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
         internal SGUILabelElement TitleElement => this.titleElement;
         internal SGUITextElement DescriptionElement => this.descriptionElement;
-
-        private bool hasContent;
 
         private readonly SGUISliceImageElement backgroundImageElement;
         private readonly SGUILabelElement titleElement;
@@ -96,16 +92,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
         {
             if (this.IsVisible)
             {
-                if (!this.hasContent)
-                {
-                    this.titleElement.SetTextualContent(title);
-                    this.descriptionElement.SetTextualContent(description);
+                this.titleElement.SetTextualContent(title);
+                this.descriptionElement.SetTextualContent(description);
 
-                    UpdateSize();
-                    UpdatePosition();
-
-                    this.hasContent = true;
-                }
+                UpdateSize();
+                UpdatePosition();
 
                 if (!this.IsShowing)
                 {
@@ -116,13 +107,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             {
                 Hide();
 
-                if (this.hasContent)
-                {
-                    this.hasContent = false;
-
-                    this.titleElement.ClearTextualContent();
-                    this.descriptionElement.ClearTextualContent();
-                }
+                this.titleElement.ClearTextualContent();
+                this.descriptionElement.ClearTextualContent();
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Enums.GUISystem;
+﻿using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 
 using System;
 
@@ -6,11 +6,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Setting
 {
     internal sealed class SInputSettings
     {
-        internal SInputType InputType { get; set; }
+        internal string Synopsis { get; set; }
+        internal string Content { get; set; }
+        internal bool AllowSpaces { get; set; }
+        internal SInputMode InputMode { get; set; }
+        internal SInputRestriction InputRestriction { get; set; }
         internal uint MaxCharacters { get; set; }
-        internal Range NumericRange { get; set; }
-        internal Action<SValidationState, SArgumentResult> OnValidationCallback { get; set; }
         internal Action<SArgumentResult> OnSendCallback { get; set; }
         internal Action OnCancelCallback { get; set; }
+
+        internal SInputSettings()
+        {
+            this.AllowSpaces = true;
+        }
     }
 }

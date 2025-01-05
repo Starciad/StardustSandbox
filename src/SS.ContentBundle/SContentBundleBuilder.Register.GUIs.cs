@@ -4,7 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 
@@ -17,7 +17,7 @@ namespace StardustSandbox.ContentBundle
             // =================================== //
             // Elements
 
-            SGUITooltipBoxElement tooltipBoxElementElement = new(game)
+            SGUITooltipBoxElement tooltipBoxElement = new(game)
             {
                 MinimumSize = new(500f, 0f),
             };
@@ -35,13 +35,13 @@ namespace StardustSandbox.ContentBundle
             SGUI_OptionsMenu optionsMenu = new(game, SGUIConstants.OPTIONS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_CreditsMenu creditsMenu = new(game, SGUIConstants.CREDITS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
 
-            SGUI_HUD hud = new(game, SGUIConstants.HUD_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElementElement);
-            SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElementElement);
-            SGUI_PenSettings penSettings = new(game, SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_EnvironmentSettings environmentSettings = new(game, SGUIConstants.HUD_ENVIRONMENT_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_SaveSettings saveSettings = new(game, SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, input);
-            SGUI_ScreenshotSettings screenshotSettings = new(game, SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_WorldSettings worldSettings = new(game, SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_HUD hud = new(game, SGUIConstants.HUD_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElement);
+            SGUI_ItemExplorer itemExplorer = new(game, SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElement);
+            SGUI_PenSettings penSettings = new(game, SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, hud, tooltipBoxElement);
+            SGUI_EnvironmentSettings environmentSettings = new(game, SGUIConstants.HUD_ENVIRONMENT_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElement);
+            SGUI_SaveSettings saveSettings = new(game, SGUIConstants.HUD_SAVE_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, input, tooltipBoxElement);
+            SGUI_WorldSettings worldSettings = new(game, SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElement);
+            SGUI_Information information = new(game, SGUIConstants.HUD_INFORMATION_IDENTIFIER, game.GUIManager.GUIEvents);
 
             SGUI_WorldDetailsMenu detailsMenu = new(game, SGUIConstants.WORLD_DETAILS_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_WorldsExplorerMenu worldsExplorer = new(game, SGUIConstants.WORLDS_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, detailsMenu);
@@ -61,8 +61,8 @@ namespace StardustSandbox.ContentBundle
             guiDatabase.RegisterGUISystem(penSettings.Identifier, penSettings);
             guiDatabase.RegisterGUISystem(environmentSettings.Identifier, environmentSettings);
             guiDatabase.RegisterGUISystem(saveSettings.Identifier, saveSettings);
-            guiDatabase.RegisterGUISystem(screenshotSettings.Identifier, screenshotSettings);
             guiDatabase.RegisterGUISystem(worldSettings.Identifier, worldSettings);
+            guiDatabase.RegisterGUISystem(information.Identifier, information);
 
             guiDatabase.RegisterGUISystem(worldsExplorer.Identifier, worldsExplorer);
             guiDatabase.RegisterGUISystem(detailsMenu.Identifier, detailsMenu);

@@ -17,38 +17,18 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
 
         protected override void OnBehaviourStep()
         {
-
-            if (this.Context.SlotLayer.FreeFalling)
+            foreach (Point belowPosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down))
             {
-                foreach (Point belowPosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down))
+                if (TrySetPosition(belowPosition))
                 {
-                    if (TrySetPosition(belowPosition))
-                    {
-                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
-                        this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
-                        return;
-                    }
-                }
-
-                SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
-                this.Context.SetElementFreeFalling(this.Context.Layer, false);
-            }
-            else
-            {
-                Point below = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
-                if (TrySetPosition(below))
-                {
-                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, below);
-                    this.Context.SetElementFreeFalling(below, this.Context.Layer, true);
-                    return;
-                }
-                else
-                {
-                    SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
-                    this.Context.SetElementFreeFalling(this.Context.Layer, false);
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
+                    this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
                     return;
                 }
             }
+
+            SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
+            this.Context.SetElementFreeFalling(this.Context.Layer, false);
         }
 
         private bool TrySetPosition(Point position)

@@ -2,8 +2,8 @@
 using StardustSandbox.Core;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
-using StardustSandbox.Core.Managers.IO;
 
 using System;
 using System.Threading;
@@ -21,6 +21,8 @@ namespace StardustSandbox.Game
 {
     internal static class SProgram
     {
+        private static SStardustSandboxEngine stardustSandboxEngine;
+
         [STAThread]
         private static void Main()
         {
@@ -28,39 +30,14 @@ namespace StardustSandbox.Game
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 #endif
 
-            SDirectory.Initialize();
-            SSettingsManager.Initialize();
-
-            SGameCulture gameCulture = SSettingsManager.LoadSettings<SLanguageSettings>().GameCulture;
-
-            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
-            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
-
-            gameCulture.CultureInfo.ClearCachedData();
-
 #if DEBUG
-            EXECUTE_DEBUG_VERSION();
+            InitializeEnvironment();
+            InitializeGame();
 #else
-            EXECUTE_PUBLISHED_VERSION();
-#endif
-        }
-
-#if DEBUG
-        private static void EXECUTE_DEBUG_VERSION()
-        {
-            using SStardustSandboxEngine stardustSandboxEngine = new();
-            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
-            stardustSandboxEngine.Start();
-        }
-#else
-        private static void EXECUTE_PUBLISHED_VERSION()
-        {
-            using SStardustSandboxEngine stardustSandboxEngine = new();
-            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
-
             try
             {
-                stardustSandboxEngine.Start();
+                InitializeEnvironment();
+                InitializeGame();
             }
             catch (Exception e)
             {
@@ -68,17 +45,46 @@ namespace StardustSandbox.Game
             }
             finally
             {
-                stardustSandboxEngine.Stop();
-                stardustSandboxEngine.Dispose();
+                if (stardustSandboxEngine != null)
+                {
+                    stardustSandboxEngine.Stop();
+                    stardustSandboxEngine.Dispose();
+                }
             }
+#endif
         }
 
+        private static void InitializeEnvironment()
+        {
+            SDirectory.Initialize();
+            SSettingsHandler.Initialize();
+
+            SGameCulture gameCulture = SSettingsHandler.LoadSettings<SLanguageSettings>().GameCulture;
+
+            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
+
+            gameCulture.CultureInfo.ClearCachedData();
+        }
+
+        private static void InitializeGame()
+        {
+            stardustSandboxEngine = new();
+            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
+            stardustSandboxEngine.Start();
+        }
+
+#if !DEBUG
         private static void HandleException(Exception value)
         {
 #if WINDOWS_DX
             string logFilename = SFile.WriteException(value);
+
             StringBuilder logString = new();
             logString.AppendLine(string.Concat("An unexpected error caused ", SGameConstants.TITLE, " to crash!"));
+            logString.AppendLine();
+            logString.AppendLine(string.Concat("For more details, see the log file at: ", logFilename));
+            logString.AppendLine();
             logString.AppendLine($"Exception: {value.Message}");
 
             MessageBox.Show(logString.ToString(),

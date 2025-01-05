@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Constants.GUI;
+﻿using StardustSandbox.Core.Constants.GUISystem;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -24,6 +24,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void WorldSettingsButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER);
+        }
+
+        private void InfoButtonAction()
+        {
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_INFORMATION_IDENTIFIER);
         }
         #endregion
 
@@ -51,11 +56,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #endregion
 
         #region Bottom Buttons
-        private void EraserButtonAction()
-        {
-
-        }
-
         private void ReloadSimulationButtonAction()
         {
             this.world.Reload();
@@ -63,7 +63,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void EraseEverythingButtonAction()
         {
-            this.SGameInstance.EntityManager.RemoveAll();
             this.world.Reset();
         }
         #endregion

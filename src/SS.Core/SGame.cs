@@ -6,12 +6,13 @@ using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Managers.IO;
 using StardustSandbox.Core.Plugins;
 using StardustSandbox.Core.World;
 
@@ -33,13 +34,12 @@ namespace StardustSandbox.Core
         public ISCameraManager CameraManager => this.cameraManager;
         public ISGraphicsManager GraphicsManager => this.graphicsManager;
         public ISGUIManager GUIManager => this.guiManager;
-        public ISEntityManager EntityManager => this.entityManager;
         public ISGameManager GameManager => this.gameManager;
-        public ISBackgroundManager BackgroundManager => this.backgroundManager;
+        public ISAmbientManager AmbientManager => this.ambientManager;
         public ISCursorManager CursorManager => this.cursorManager;
 
         public ISWorld World => this.world;
-        public SGameInputController GameInputController => this.gameInputController;
+        public ISGameInputController GameInputController => this.gameInputController;
 
         // ================================= //
 
@@ -60,8 +60,7 @@ namespace StardustSandbox.Core
         private readonly SInputManager inputManager;
         private readonly SGUIManager guiManager;
         private readonly SCursorManager cursorManager;
-        private readonly SBackgroundManager backgroundManager;
-        private readonly SEntityManager entityManager;
+        private readonly SAmbientManager ambientManager;
         private readonly SGameManager gameManager;
 
         // Core
@@ -79,12 +78,12 @@ namespace StardustSandbox.Core
             this.graphicsManager = new(this, new GraphicsDeviceManager(this));
 
             // Load Settings
-            SVideoSettings videoSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 
             if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
             {
                 videoSettings.UpdateResolution(this.GraphicsDevice);
-                SSettingsManager.SaveSettings(videoSettings);
+                SSettingsHandler.SaveSettings(videoSettings);
             }
 
             // Initialize Content
@@ -120,8 +119,7 @@ namespace StardustSandbox.Core
             this.shaderManager = new(this);
             this.guiManager = new(this);
             this.cursorManager = new(this);
-            this.backgroundManager = new(this);
-            this.entityManager = new(this);
+            this.ambientManager = new(this);
         }
 
         public void RegisterPlugin(SPluginBuilder pluginBuilder)

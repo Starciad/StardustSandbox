@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants.GUI;
+using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Plugins;
 
 namespace StardustSandbox.Core
@@ -29,8 +29,7 @@ namespace StardustSandbox.Core
             this.inputManager.Initialize();
             this.guiManager.Initialize();
             this.cursorManager.Initialize();
-            this.backgroundManager.Initialize();
-            this.entityManager.Initialize();
+            this.ambientManager.Initialize();
 
             // Controllers
             this.gameInputController.Initialize();
@@ -70,16 +69,13 @@ namespace StardustSandbox.Core
             this.inputManager.Update(gameTime);
             this.guiManager.Update(gameTime);
             this.cursorManager.Update(gameTime);
-            this.backgroundManager.Update(gameTime);
 
             if (!this.gameManager.GameState.IsSimulationPaused && !this.gameManager.GameState.IsCriticalMenuOpen)
             {
-                // Managers
-                this.entityManager.Update(gameTime);
-
-                // Core
                 this.world.Update(gameTime);
             }
+
+            this.ambientManager.Update(gameTime);
 
             base.Update(gameTime);
         }

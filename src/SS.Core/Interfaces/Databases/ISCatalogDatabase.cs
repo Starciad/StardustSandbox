@@ -15,7 +15,7 @@ namespace StardustSandbox.Core.Interfaces.Databases
         void RegisterCategory(SCategory category);
         void RegisterItem(SItem item);
 
-        SCategory GetCategoryByIdentifier(string identifier);
-        SItem GetItemByIdentifier(string identifier);
+        SCategory GetCategory(string identifier);
+        SItem GetItem(string identifier);
     }
 }

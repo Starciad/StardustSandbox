@@ -9,7 +9,8 @@ using StardustSandbox.Core.Helpers;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Chunking;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 

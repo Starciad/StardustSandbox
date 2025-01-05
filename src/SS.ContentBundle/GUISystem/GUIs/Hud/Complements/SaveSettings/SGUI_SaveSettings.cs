@@ -1,24 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.Enums.GUISystem;
+using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
+using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Messages;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants.GUI.Common;
-using StardustSandbox.Core.Constants.IO;
+using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Mathematics.Primitives;
-
-using System;
-using System.IO;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
@@ -45,7 +45,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SInputSettings nameInputBuilder;
         private readonly SInputSettings descriptionInputBuilder;
 
-        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput) : base(gameInstance, identifier, guiEvents)
+        private readonly SGUITooltipBoxElement tooltipBoxElement;
+
+        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
@@ -60,7 +62,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.menuButtons = [
-                new(this.iconTextures[0], "Exit", string.Empty, ExitButtonAction),
+                new(this.iconTextures[0], SLocalization_Statements.Exit, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.fieldButtons = [
@@ -69,7 +71,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.footerButtons = [
-                new(null, "Save", string.Empty, SaveButtonAction),
+                new(null, SLocalization_Statements.Save, SLocalization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, SaveButtonAction),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
@@ -81,35 +83,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.nameInputBuilder = new()
             {
-                InputType = SInputType.Text,
-                MaxCharacters = 30,
-
-                OnValidationCallback = (SValidationState state, SArgumentResult result) =>
-                {
-                    // Validation for empty world name
-                    if (string.IsNullOrWhiteSpace(result.Content))
-                    {
-                        state.Status = SValidationStatus.Failure;
-                        state.Message = "The name of the world cannot be empty.";
-                        return;
-                    }
-
-                    // Validation for repeated world name
-                    string[] files = Directory.GetFiles(SDirectory.Worlds, "*" + SFileExtensionConstants.WORLD, SearchOption.TopDirectoryOnly);
-
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        files[i] = Path.GetFileNameWithoutExtension(files[i]);
-                    }
-
-                    Array.Sort(files, StringComparer.OrdinalIgnoreCase);
-
-                    if (Array.BinarySearch(files, result.Content, StringComparer.OrdinalIgnoreCase) >= 0)
-                    {
-                        state.Status = SValidationStatus.Failure;
-                        state.Message = "The world name is already being used by another saved world.";
-                    }
-                },
+                Synopsis = SLocalization_Messages.Input_World_Name,
+                InputMode = SInputMode.Normal,
+                InputRestriction = SInputRestriction.Alphanumeric,
+                MaxCharacters = 50,
 
                 OnSendCallback = (SArgumentResult result) =>
                 {
@@ -119,43 +96,65 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.descriptionInputBuilder = new()
             {
-                InputType = SInputType.Text,
-                MaxCharacters = 300,
+                Synopsis = SLocalization_Messages.Input_World_Description,
+                InputMode = SInputMode.Normal,
+                MaxCharacters = 500,
 
                 OnSendCallback = (result) =>
                 {
                     this.world.Infos.Description = result.Content;
                 },
             };
+
+            this.tooltipBoxElement = tooltipBoxElement;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
+            this.tooltipBoxElement.IsVisible = false;
+
             UpdateMenuButtons();
             UpdateFieldButtons();
             UpdateFooterButtons();
+
+            this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtonSlots.Length; i++)
+            for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 SSlot slot = this.menuButtonSlots[i];
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)))
+                Vector2 position = slot.BackgroundElement.Position;
+                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SHUDConstants.SLOT_SIZE)) ? SColorPalette.HoverColor : SColorPalette.White;
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
+
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
             }
         }
 
         private void UpdateFieldButtons()
         {
-            for (int i = 0; i < this.fieldButtonSlots.Length; i++)
+            for (int i = 0; i < this.fieldButtons.Length; i++)
             {
                 SSlot slot = this.fieldButtonSlots[i];
 
@@ -173,7 +172,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void UpdateFooterButtons()
         {
-            for (int i = 0; i < this.footerButtonSlots.Length; i++)
+            for (int i = 0; i < this.footerButtons.Length; i++)
             {
                 SSlot slot = this.footerButtonSlots[i];
 
@@ -185,7 +184,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this.footerButtons[i].ClickAction.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = this.footerButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Description = this.footerButtons[i].Description;
+
+                    slot.BackgroundElement.Color = SColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.BackgroundElement.Color = SColorPalette.White;
+                }
             }
         }
 

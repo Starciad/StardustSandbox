@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants.GUI.Elements;
+using StardustSandbox.Core.Constants.GUISystem.Elements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces;
 

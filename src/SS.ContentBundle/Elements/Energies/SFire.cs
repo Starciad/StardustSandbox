@@ -9,7 +9,7 @@ using StardustSandbox.Core.Elements.Templates.Energies;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
@@ -28,6 +28,8 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 new(new(new(96, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
             ])));
             this.enableNeighborsAction = true;
+            this.enableLightEmission = true;
+            this.defaultLuminousIntensity = 7;
             this.defaultTemperature = 500;
         }
 
@@ -39,7 +41,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
 
                 if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE, SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL))
                 {
-                    this.Context.InstantiateElement(this.Context.Layer, SElementIdentifierConstants.SMOKE);
+                    this.Context.InstantiateElement(this.Context.Layer, SElementConstants.IDENTIFIER_SMOKE);
                 }
             }
         }
@@ -94,7 +96,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (SRandomMath.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementIdentifierConstants.FIRE);
+                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementConstants.IDENTIFIER_FIRE);
                 }
             }
         }

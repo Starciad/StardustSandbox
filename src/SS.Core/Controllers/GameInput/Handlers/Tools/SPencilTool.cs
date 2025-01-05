@@ -19,12 +19,11 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
-            IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
-
-            // The selected item corresponds to an element.
             switch (contentType)
             {
                 case SItemContentType.Element:
+                    IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
+
                     switch (worldModificationType)
                     {
                         case SWorldModificationType.Adding:
@@ -39,9 +38,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                             break;
                     }
 
-                    break;
-
-                case SItemContentType.Entity:
                     break;
 
                 default:
@@ -67,5 +63,23 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                 this.world.DestroyElement(position, this.simulationPen.Layer);
             }
         }
+
+        // ============================================ //
+        // Entities
+
+        //private void DrawEntities(string entityIdentifier, Vector2 position)
+        //{
+        //    _ = this.world.InstantiateEntity(entityIdentifier, (entity) =>
+        //    {
+        //        SEntityTransformComponent transformComponent = entity.ComponentContainer.GetComponent<SEntityTransformComponent>();
+
+        //        transformComponent.Position = position;
+        //    });
+        //}
+
+        //private void EraseEntities()
+        //{
+
+        //}
     }
 }

@@ -1,9 +1,22 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+﻿using StardustSandbox.ContentBundle.Localization.Messages;
+using StardustSandbox.ContentBundle.Localization.Statements;
+
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_SaveSettings
     {
         protected override void OnOpened()
         {
+            if (string.IsNullOrWhiteSpace(this.world.Infos.Name))
+            {
+                this.world.Infos.Name = SLocalization_Statements.Untitled;
+            }
+
+            if (string.IsNullOrWhiteSpace(this.world.Infos.Description))
+            {
+                this.world.Infos.Description = SLocalization_Messages.NoDescription;
+            }
+
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
             UpdateInfos();
         }
