@@ -57,12 +57,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.sizeButtons = [
-                new(this.smallIconTexture, "Small", "40x23 - Fits entirely within the player's camera", () => { SetWorldSizeButtonAction(new SSize2(40, 23)); }),
-                new(this.mediumSmallIconTexture, "Medium-Small", "80x46 - Allows limited free movement", () => { SetWorldSizeButtonAction(new SSize2(80, 46)); }),
-                new(this.mediumIconTexture, "Medium", "120x69 - Balanced for most gameplay scenarios", () => { SetWorldSizeButtonAction(new SSize2(120, 69)); }),
-                new(this.mediumLargeIconTexture, "Medium-Large", "160x92 - Provides ample space for exploration", () => { SetWorldSizeButtonAction(new SSize2(160, 92)); }),
-                new(this.largeIconTexture, "Large", "240x138 - Designed for expansive gameplay areas. May impact performance on lower-end systems.", () => { SetWorldSizeButtonAction(new SSize2(240, 138)); }),
-                new(this.veryLargeIconTexture, "Very Large", "320x184 - Best for epic-scale worlds. May impact performance on lower-end systems.", () => { SetWorldSizeButtonAction(new SSize2(320, 184)); }),
+                new(this.smallIconTexture, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Name, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Description, () => { SetWorldSizeButtonAction(new SSize2(40, 23)); }),
+                new(this.mediumSmallIconTexture, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description, () => { SetWorldSizeButtonAction(new SSize2(80, 46)); }),
+                new(this.mediumIconTexture, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description, () => { SetWorldSizeButtonAction(new SSize2(120, 69)); }),
+                new(this.mediumLargeIconTexture, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Name, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Description, () => { SetWorldSizeButtonAction(new SSize2(160, 92)); }),
+                new(this.largeIconTexture, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Name, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Description, () => { SetWorldSizeButtonAction(new SSize2(240, 138)); }),
+                new(this.veryLargeIconTexture, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name, SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description, () => { SetWorldSizeButtonAction(new SSize2(320, 184)); }),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];

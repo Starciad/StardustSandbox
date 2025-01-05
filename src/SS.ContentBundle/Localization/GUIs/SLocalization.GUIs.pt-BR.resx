@@ -387,4 +387,46 @@
   <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Enable.Description" xml:space="preserve">
     <value>Habilite a progressão do tempo, retomando o fluxo natural do tempo.</value>
   </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Small.Name" xml:space="preserve">
+    <value>Pequeno</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumSmall.Name" xml:space="preserve">
+    <value>Médio-Pequeno</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Medium.Name" xml:space="preserve">
+    <value>Médio</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumLarge.Name" xml:space="preserve">
+    <value>Médio-Grande</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Large.Name" xml:space="preserve">
+    <value>Grande</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.VeryLarge.Name" xml:space="preserve">
+    <value>Muito Grande</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Large.Description" xml:space="preserve">
+    <value>O tamanho do mundo terá as dimensões 240x138 - Projetado para áreas de jogo expansivas. Pode impactar o desempenho em sistemas de menor desempenho.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumLarge.Description" xml:space="preserve">
+    <value>O tamanho do mundo terá as dimensões 160x92 - Oferece bastante espaço para exploração.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Small.Description" xml:space="preserve">
+    <value>O tamanho do mundo terá as dimensões 40x23 - Cabe inteiramente dentro da câmera do jogador.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.VeryLarge.Description" xml:space="preserve">
+    <value>O tamanho do mundo terá as dimensões 320x184 - Melhor para mundos de escala épica. Pode impactar o desempenho em sistemas de menor desempenho.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Title" xml:space="preserve">
+    <value>Tamanhos</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Title" xml:space="preserve">
+    <value>Configurações do Mundo</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumSmall.Description" xml:space="preserve">
+    <value>O tamanho do mundo terá as dimensões 80x46 - Permite movimentação limitada.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Medium.Description" xml:space="preserve">
+    <value>O tamanho do mundo terá as dimensões 120x69 - Balanceado para a maioria dos cenários de jogo.</value>
+  </data>
 </root>
