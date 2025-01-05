@@ -664,6 +664,132 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The size of the world will have the dimensions 240x138 - Designed for expansive gameplay areas. May impact performance on lower-end systems..
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_Large_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.Large.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Large.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_Large_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.Large.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The size of the world will have the dimensions 120x69 - Balanced for most gameplay scenarios..
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.Medium.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Medium.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.Medium.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The size of the world will have the dimensions 160x92 - Provides ample space for exploration..
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.MediumLarge.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Medium Large.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.MediumLarge.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The size of the world will have the dimensions 80x46 - Allows limited free movement..
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.MediumSmall.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Medium Small.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.MediumSmall.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The size of the world will have the dimensions 40x23 - Fits entirely within the player&apos;s camera..
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_Small_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.Small.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Small.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_Small_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.Small.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The size of the world will have the dimensions 320x184 - Best for epic-scale worlds. May impact performance on lower-end systems..
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.VeryLarge.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Very Large.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Button.VeryLarge.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sizes.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Section_Size_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Section.Size.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a World Settings.
+        /// </summary>
+        internal static string HUD_Complements_WorldSettings_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.WorldSettings.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a And that&apos;s the end....
         /// </summary>
         internal static string Menu_Credits_Message_Finalization {

@@ -16,6 +16,9 @@
 		<AssemblyName>StardustSandbox.ContentBundle</AssemblyName>
 		<RootNamespace>StardustSandbox.ContentBundle</RootNamespace>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Localization\GUIs\SLocalization.GUIs.pt-BR.resx~RF274e272.TMP" />
+	</ItemGroup>
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>

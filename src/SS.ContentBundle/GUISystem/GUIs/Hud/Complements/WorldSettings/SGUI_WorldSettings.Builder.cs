@@ -109,7 +109,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Color = SColorPalette.White,
             };
 
-            this.menuTitleElement.SetTextualContent("World Settings");
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_WorldSettings_Title);
             this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
@@ -127,7 +127,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            this.sizeSectionTitleElement.SetTextualContent("Sizes");
+            this.sizeSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_WorldSettings_Section_Size_Title);
             this.sizeSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
 
             layoutBuilder.AddElement(this.sizeSectionTitleElement);
