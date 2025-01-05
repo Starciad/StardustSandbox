@@ -128,22 +128,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildItemCatalogSlots(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 slotMargin = new(32, 40);
-
-            int rows = SGUI_ItemExplorerConstants.ITEMS_PER_ROW;
-            int columns = SGUI_ItemExplorerConstants.ITEMS_PER_COLUMN;
+            Vector2 slotMargin = new(96, 192);
 
             int index = 0;
-            for (int col = 0; col < columns; col++)
+            for (int col = 0; col < SGUI_ItemExplorerConstants.ITEMS_PER_COLUMN; col++)
             {
-                for (int row = 0; row < rows; row++)
+                for (int row = 0; row < SGUI_ItemExplorerConstants.ITEMS_PER_ROW; row++)
                 {
                     SGUIImageElement slotBackground = new(this.SGameInstance)
                     {
                         Texture = this.guiButton1Texture,
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
-                        PositionAnchor = SCardinalDirection.West,
+                        PositionAnchor = SCardinalDirection.Northwest,
                         Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),
                         Margin = slotMargin
                     };
@@ -176,7 +173,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildCategoryButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 slotMargin = new(-30, -160);
+            Vector2 slotMargin = new(32f, -40f);
 
             int index = 0;
 
@@ -226,20 +223,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             int index = 0;
             int sideCounts = SGUI_ItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH / 2;
 
-            Vector2 margin = new(-111, -88);
-            BuildSlots();
-            margin = new(1071, -88);
-            BuildSlots();
+            Vector2 margin = new(-48, 48);
+            BuildSlots(SCardinalDirection.Northwest);
+            margin = new(48, 48);
+            BuildSlots(SCardinalDirection.Northeast);
 
             // =============================== //
 
-            void BuildSlots()
+            void BuildSlots(SCardinalDirection positionAnchor)
             {
                 for (int i = 0; i < sideCounts; i++)
                 {
                     SGUIImageElement slotBackground = new(this.SGameInstance)
                     {
                         Texture = this.guiButton1Texture,
+                        PositionAnchor = positionAnchor,
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
                         Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),
