@@ -146,7 +146,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
-                    this.systemButtons[i].ClickAction.Invoke();
+                    this.systemButtons[i].ClickAction?.Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;

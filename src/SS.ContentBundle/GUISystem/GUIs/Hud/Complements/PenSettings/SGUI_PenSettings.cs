@@ -174,7 +174,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
@@ -233,7 +233,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.toolButtons[i].ClickAction.Invoke();
+                    this.toolButtons[i].ClickAction?.Invoke();
                 }
 
                 if (isOver)
@@ -257,7 +257,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                 {
-                    this.layerButtons[i].ClickAction.Invoke();
+                    this.layerButtons[i].ClickAction?.Invoke();
                 }
 
                 if (isOver)
@@ -281,7 +281,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                 {
-                    this.shapeButtons[i].ClickAction.Invoke();
+                    this.shapeButtons[i].ClickAction?.Invoke();
                 }
 
                 if (isOver)

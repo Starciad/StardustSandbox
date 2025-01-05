@@ -89,7 +89,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)) ? SColorPalette.HoverColor : SColorPalette.White;
@@ -107,7 +107,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.sizeButtons[i].ClickAction.Invoke();
+                    this.sizeButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))

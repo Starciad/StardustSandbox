@@ -75,7 +75,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;

@@ -105,7 +105,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(buttonBackgroundElement.Position, buttonSize))
                 {
-                    this.headerButtons[i].ClickAction.Invoke();
+                    this.headerButtons[i].ClickAction?.Invoke();
                 }
 
                 buttonBackgroundElement.Color = this.GUIEvents.OnMouseOver(buttonBackgroundElement.Position, buttonSize) ? SColorPalette.LightGrayBlue : SColorPalette.White;
@@ -119,7 +119,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElementSize))
                 {
-                    this.footerButtons[i].ClickAction.Invoke();
+                    this.footerButtons[i].ClickAction?.Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? SColorPalette.LemonYellow : SColorPalette.White;
@@ -153,7 +153,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
-            this.pageIndexLabel?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
+            this.pageIndexLabelElement?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
         }
 
         private void ChangeWorldsCatalog()

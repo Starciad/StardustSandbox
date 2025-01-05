@@ -250,7 +250,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                     if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
                     {
-                        button.ClickAction.Invoke();
+                        button.ClickAction?.Invoke();
                     }
 
                     if (isOver)

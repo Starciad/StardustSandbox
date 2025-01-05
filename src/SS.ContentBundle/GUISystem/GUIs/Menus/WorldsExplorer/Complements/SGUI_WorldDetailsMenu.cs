@@ -53,7 +53,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 
                 if (this.GUIEvents.OnMouseClick(buttonPosition, buttonSize))
                 {
-                    this.worldButtons[i].ClickAction.Invoke();
+                    this.worldButtons[i].ClickAction?.Invoke();
                 }
 
                 slotInfoElement.Color = this.GUIEvents.OnMouseOver(buttonPosition, buttonSize) ? SColorPalette.LemonYellow : SColorPalette.White;

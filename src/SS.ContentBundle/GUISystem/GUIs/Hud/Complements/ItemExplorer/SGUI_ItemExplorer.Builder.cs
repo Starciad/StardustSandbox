@@ -12,7 +12,6 @@ using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
@@ -22,11 +21,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private SGUIImageElement panelBackgroundElement;
 
         private SGUILabelElement menuTitleElement;
+        private SGUILabelElement pageIndexLabelElement;
 
         private readonly SSlot[] menuButtonSlots;
         private readonly SSlot[] itemButtonSlots;
         private readonly SSlot[] categoryButtonSlots;
         private readonly SSlot[] subcategoryButtonSlots;
+        private readonly SSlot[] paginationButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
@@ -36,6 +37,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             BuildItemCatalogSlots(layoutBuilder);
             BuildCategoryButtons(layoutBuilder);
             BuildSubcategoryButtons(layoutBuilder);
+            BuildPagination(layoutBuilder);
 
             layoutBuilder.AddElement(this.tooltipBoxElement);
         }
@@ -53,7 +55,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.panelBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.panelBackgroundTexture,
-                Size = new(1084, 540),
+                Size = new(1084, 607),
                 Margin = new(98, 90),
             };
 
@@ -166,7 +168,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     layoutBuilder.AddElement(slotIcon);
                 }
 
-                slotMargin.X = 32;
+                slotMargin.X = 96;
                 slotMargin.Y += SGUI_ItemExplorerConstants.SLOT_SPACING + (SGUI_ItemExplorerConstants.SLOT_SIZE / 2);
             }
         }
@@ -264,6 +266,66 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     layoutBuilder.AddElement(slotBackground);
                     layoutBuilder.AddElement(slotIcon);
                 }
+            }
+        }
+
+        private void BuildPagination(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.pageIndexLabelElement = new(this.SGameInstance)
+            {
+                Scale = new(0.1f),
+                SpriteFont = this.bigApple3PMSpriteFont,
+                PositionAnchor = SCardinalDirection.South,
+                OriginPivot = SCardinalDirection.Center,
+                Margin = new(0f, -35f),
+            };
+
+            this.pageIndexLabelElement.SetTextualContent("1 / 1");
+            this.pageIndexLabelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
+            this.pageIndexLabelElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            layoutBuilder.AddElement(this.pageIndexLabelElement);
+
+            for (int i = 0; i < this.paginationButtons.Length; i++)
+            {
+                SGUIImageElement slotBackground = new(this.SGameInstance)
+                {
+                    Texture = this.guiButton1Texture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new(1.5f),
+                    Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),
+                };
+
+                SGUIImageElement slotIcon = new(this.SGameInstance)
+                {
+                    Texture = this.paginationButtons[i].IconTexture,
+                    OriginPivot = SCardinalDirection.Center,
+                    Scale = new(1f),
+                    Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE)
+                };
+
+                // Spacing
+                this.paginationButtonSlots[i] = new(slotBackground, slotIcon);
+                
+                // Adding
+                layoutBuilder.AddElement(slotBackground);
+                layoutBuilder.AddElement(slotIcon);
+            }
+
+            // Left
+            SSlot leftSlot = this.paginationButtonSlots[0];
+            leftSlot.BackgroundElement.PositionAnchor = SCardinalDirection.Southwest;
+            leftSlot.BackgroundElement.Margin = new(34f, -34f);
+
+            // Right
+            SSlot rightSlot = this.paginationButtonSlots[1];
+            rightSlot.BackgroundElement.PositionAnchor = SCardinalDirection.Southeast;
+            rightSlot.BackgroundElement.Margin = new(-34f);
+
+            foreach (SSlot slot in this.paginationButtonSlots)
+            {
+                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
             }
         }
     }

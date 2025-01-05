@@ -27,7 +27,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private SCategory selectedCategory;
         private SSubcategory selectedSubcategory;
-        private int selectedPageIndex;
+
+        private int currentPage;
+        private int totalPages;
 
         private IEnumerable<SItem> selectedItems;
         private int selectedItemsLength;
@@ -35,40 +37,51 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly Texture2D particleTexture;
         private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
-        private readonly Texture2D[] iconTextures;
+        private readonly Texture2D exitIconTexture;
+        private readonly Texture2D rightIconTexture;
+        private readonly Texture2D leftIconTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
         private readonly SGUI_HUD guiHUD;
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 
         private readonly SButton[] menuButtons;
+        private readonly SButton[] paginationButtons;
 
         public SGUI_ItemExplorer(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_HUD guiHUD, SGUITooltipBoxElement tooltipBoxElementElement) : base(gameInstance, identifier, guiEvents)
         {
             this.selectedCategory = gameInstance.CatalogDatabase.GetCategory("elements");
             this.selectedSubcategory = this.selectedCategory.GetSubcategory("powders");
-            this.selectedPageIndex = 0;
+
+            this.currentPage = 0;
+            this.totalPages = 0;
 
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_12");
             this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
-            this.iconTextures = [
-                gameInstance.AssetDatabase.GetTexture("icon_gui_16"),
-            ];
+            this.exitIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_16");
+            this.rightIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_48");
+            this.leftIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_50");
 
             this.guiHUD = guiHUD;
             this.tooltipBoxElement = tooltipBoxElementElement;
 
             this.menuButtons = [
-                new(this.iconTextures[0], SLocalization_Statements.Exit, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(this.exitIconTexture, SLocalization_Statements.Exit, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
+            ];
+
+            this.paginationButtons = [
+                new(this.leftIconTexture, "Left", string.Empty, PreviousButtonAction),
+                new(this.rightIconTexture, "Right", string.Empty, NextButtonAction),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];
             this.itemButtonSlots = new SSlot[SGUI_ItemExplorerConstants.ITEMS_PER_PAGE];
             this.categoryButtonSlots = new SSlot[this.SGameInstance.CatalogDatabase.TotalCategoryCount];
             this.subcategoryButtonSlots = new SSlot[SGUI_ItemExplorerConstants.SUB_CATEGORY_BUTTONS_LENGTH];
+            this.paginationButtonSlots = new SSlot[this.paginationButtons.Length];
         }
 
         public override void Update(GameTime gameTime)
@@ -81,6 +94,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             UpdateCategoryButtons();
             UpdateSubcategoryButtons();
             UpdateItemCatalog();
+            UpdatePagination();
 
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
@@ -96,7 +110,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
@@ -128,13 +142,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 SCategory category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
+                Vector2 position = categorySlot.BackgroundElement.Position;
+                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(categorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     SelectItemCatalog(category, category.Subcategories.First(), 0);
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(categorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(position, size);
 
                 if (isOver)
                 {
@@ -159,13 +176,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 SSubcategory subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
+                Vector2 position = subcategorySlot.BackgroundElement.Position;
+                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+
                 // Check if the mouse clicked on the current slot.
-                if (this.GUIEvents.OnMouseClick(subcategorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     SelectItemCatalog(subcategory.Parent, subcategory, 0);
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(subcategorySlot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(position, size);
 
                 if (isOver)
                 {
@@ -190,13 +210,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE)))
+                Vector2 position = slot.BackgroundElement.Position;
+                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     this.guiHUD.AddItemToToolbar(item);
                     this.SGameInstance.GUIManager.CloseGUI();
                 }
 
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_ItemExplorerConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(position, size);
 
                 if (isOver)
                 {
@@ -219,6 +242,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
+        private void UpdatePagination()
+        {
+            for (int i = 0; i < this.paginationButtons.Length; i++)
+            {
+                SSlot slot = this.paginationButtonSlots[i];
+
+                Vector2 position = slot.BackgroundElement.Position;
+                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
+                {
+                    this.paginationButtons[i].ClickAction?.Invoke();
+                }
+
+                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
+            }
+        }
+
         // ============================================== //
 
         private void SelectItemCatalog(SCategory category, SSubcategory subcategory, int pageIndex)
@@ -227,15 +268,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             this.selectedCategory = category;
             this.selectedSubcategory = subcategory;
-            this.selectedPageIndex = pageIndex;
-
-            int startIndex = pageIndex * SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
-            int endIndex = startIndex + SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
-
-            endIndex = Math.Min(endIndex, this.SGameInstance.CatalogDatabase.TotalItemCount);
-
-            this.selectedItems = subcategory.Items.Take(new Range(startIndex, endIndex - startIndex));
-            this.selectedItemsLength = this.selectedItems.Count();
+            this.currentPage = pageIndex;
+            this.totalPages = subcategory.Items.Count() / SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
 
             ChangeSubcategorCatalog();
             ChangeItemCatalog();
@@ -273,6 +307,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void ChangeItemCatalog()
         {
+            this.pageIndexLabelElement.SetTextualContent(string.Concat(this.currentPage + 1, " / ", this.totalPages + 1));
+
+            int startIndex = this.currentPage * SGUI_ItemExplorerConstants.ITEMS_PER_PAGE;
+            int endIndex = Math.Min(startIndex + SGUI_ItemExplorerConstants.ITEMS_PER_PAGE, this.SGameInstance.CatalogDatabase.TotalItemCount);
+
+            this.selectedItems = this.selectedSubcategory.Items.Take(new Range(startIndex, endIndex));
+            this.selectedItemsLength = this.selectedItems.Count();
+
             for (int i = 0; i < this.itemButtonSlots.Length; i++)
             {
                 SSlot itemSlot = this.itemButtonSlots[i];

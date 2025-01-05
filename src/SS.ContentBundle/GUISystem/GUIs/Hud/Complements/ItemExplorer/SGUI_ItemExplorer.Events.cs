@@ -5,7 +5,7 @@
         protected override void OnOpened()
         {
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
-            SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.selectedPageIndex);
+            SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.currentPage);
         }
 
         protected override void OnClosed()
