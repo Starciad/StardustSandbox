@@ -117,9 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             UpdateSlotIcons();
             SetPlayerInteractionWhenToolbarHovered();
-            UpdateTopToolbar();
-            UpdateLeftToolbar();
-            UpdateRightToolbar();
+            UpdateToolbars();
 
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
@@ -146,10 +144,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                                                                                  !this.GUIEvents.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
         }
 
-        private void UpdateTopToolbar()
+        private void UpdateToolbars()
         {
-            UpdateReturnInput();
-
             #region TOOL SLOT
             if (this.GUIEvents.OnMouseOver(this.toolbarCurrentlySelectedToolIcon.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
             {
@@ -274,23 +270,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             CycleThroughArrayOfButtons(this.rightPanelBottomButtonElements, this.rightPanelBottomButtons, this.rightPanelBottomButtonElements.Length);
 
             #endregion
-        }
-
-        private void UpdateReturnInput()
-        {
-            if (this.SGameInstance.InputManager.KeyboardState.IsKeyDown(Keys.Escape))
-            {
-                this.SGameInstance.GUIManager.CloseGUI();
-            }
-        }
-
-        private static void UpdateLeftToolbar()
-        {
-            return;
-        }
-        private static void UpdateRightToolbar()
-        {
-            return;
         }
 
         internal void AddItemToToolbar(SItem item)
