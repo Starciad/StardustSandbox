@@ -120,8 +120,14 @@
   <data name="Input.World.Description" xml:space="preserve">
     <value>Enter the description that the world will have.</value>
   </data>
+  <data name="Input.World.Description.Validation.Empty" xml:space="preserve">
+    <value>The world description cannot be empty. Please provide a description for your world.</value>
+  </data>
   <data name="Input.World.Name" xml:space="preserve">
     <value>Enter the name the world will have.</value>
+  </data>
+  <data name="Input.World.Name.Validation.Empty" xml:space="preserve">
+    <value>The world name cannot be empty. Please enter a name with at least one character.</value>
   </data>
   <data name="NoDescription" xml:space="preserve">
     <value>No description provided.</value>

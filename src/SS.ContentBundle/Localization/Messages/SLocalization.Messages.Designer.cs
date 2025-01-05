@@ -70,11 +70,29 @@ namespace StardustSandbox.ContentBundle.Localization.Messages {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The world description cannot be empty. Please provide a description for your world..
+        /// </summary>
+        internal static string Input_World_Description_Validation_Empty {
+            get {
+                return ResourceManager.GetString("Input.World.Description.Validation.Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Enter the name the world will have..
         /// </summary>
         internal static string Input_World_Name {
             get {
                 return ResourceManager.GetString("Input.World.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The world name cannot be empty. Please enter a name with at least one character..
+        /// </summary>
+        internal static string Input_World_Name_Validation_Empty {
+            get {
+                return ResourceManager.GetString("Input.World.Name.Validation.Empty", resourceCulture);
             }
         }
         

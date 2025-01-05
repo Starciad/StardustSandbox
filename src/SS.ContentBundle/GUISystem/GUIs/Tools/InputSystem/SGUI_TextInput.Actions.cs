@@ -20,13 +20,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 STextArgumentResult argumentResult = new(this.userInputStringBuilder.ToString());
 
                 this.inputSettings.OnValidationCallback?.Invoke(validationState, argumentResult);
+                
                 if (validationState.Status == SValidationStatus.Failure)
                 {
-                    goto FINALIZATION_LABEL;
+                    this.guiMessage.SetMessage(validationState.Message);
+                    this.SGameInstance.GUIManager.OpenGUI(this.guiMessage.Identifier);
+                    return;
                 }
+
                 this.inputSettings.OnSendCallback?.Invoke(argumentResult);
             }
-        FINALIZATION_LABEL:;
+
             this.SGameInstance.GUIManager.CloseGUI();
         }
     }

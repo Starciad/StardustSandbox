@@ -177,4 +177,7 @@
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
 </root>

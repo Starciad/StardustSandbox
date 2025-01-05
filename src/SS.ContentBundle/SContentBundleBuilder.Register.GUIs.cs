@@ -4,6 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
@@ -25,7 +26,8 @@ namespace StardustSandbox.ContentBundle
             // =================================== //
             // Tools
 
-            SGUI_TextInput input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_Message message = new(game, SGUIConstants.MESSAGE_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_TextInput input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents, message);
 
             // =================================== //
             // Build
@@ -49,23 +51,24 @@ namespace StardustSandbox.ContentBundle
             // =================================== //
             // Register
 
-            guiDatabase.RegisterGUISystem(input.Identifier, input);
+            guiDatabase.RegisterGUISystem(message);
+            guiDatabase.RegisterGUISystem(input);
 
-            guiDatabase.RegisterGUISystem(mainMenu.Identifier, mainMenu);
-            guiDatabase.RegisterGUISystem(playMenu.Identifier, playMenu);
-            guiDatabase.RegisterGUISystem(optionsMenu.Identifier, optionsMenu);
-            guiDatabase.RegisterGUISystem(creditsMenu.Identifier, creditsMenu);
+            guiDatabase.RegisterGUISystem(mainMenu);
+            guiDatabase.RegisterGUISystem(playMenu);
+            guiDatabase.RegisterGUISystem(optionsMenu);
+            guiDatabase.RegisterGUISystem(creditsMenu);
 
-            guiDatabase.RegisterGUISystem(hud.Identifier, hud);
-            guiDatabase.RegisterGUISystem(itemExplorer.Identifier, itemExplorer);
-            guiDatabase.RegisterGUISystem(penSettings.Identifier, penSettings);
-            guiDatabase.RegisterGUISystem(environmentSettings.Identifier, environmentSettings);
-            guiDatabase.RegisterGUISystem(saveSettings.Identifier, saveSettings);
-            guiDatabase.RegisterGUISystem(worldSettings.Identifier, worldSettings);
-            guiDatabase.RegisterGUISystem(information.Identifier, information);
+            guiDatabase.RegisterGUISystem(hud);
+            guiDatabase.RegisterGUISystem(itemExplorer);
+            guiDatabase.RegisterGUISystem(penSettings);
+            guiDatabase.RegisterGUISystem(environmentSettings);
+            guiDatabase.RegisterGUISystem(saveSettings);
+            guiDatabase.RegisterGUISystem(worldSettings);
+            guiDatabase.RegisterGUISystem(information);
 
-            guiDatabase.RegisterGUISystem(worldsExplorer.Identifier, worldsExplorer);
-            guiDatabase.RegisterGUISystem(detailsMenu.Identifier, detailsMenu);
+            guiDatabase.RegisterGUISystem(worldsExplorer);
+            guiDatabase.RegisterGUISystem(detailsMenu);
         }
     }
 }

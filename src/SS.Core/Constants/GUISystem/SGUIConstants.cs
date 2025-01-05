@@ -6,6 +6,7 @@
         public const string PREFIX = "GUI_";
 
         public const string INPUT_TOOL_IDENTIFIER = PREFIX + "INPUT_TOOL";
+        public const string MESSAGE_TOOL_IDENTIFIER = PREFIX + "MESSAGE_TOOL";
 
         public const string MAIN_MENU_IDENTIFIER = PREFIX + "MAIN_MENU";
         public const string PLAY_MENU_IDENTIFIER = PREFIX + "PLAY_MENU";

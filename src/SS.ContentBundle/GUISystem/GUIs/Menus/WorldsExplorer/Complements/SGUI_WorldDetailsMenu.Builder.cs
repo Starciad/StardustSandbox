@@ -27,7 +27,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildGUIBackground(layoutBuilder);
+            BuildBackground(layoutBuilder);
             BuildHeader(layoutBuilder);
             BuildThumbnail(layoutBuilder);
             BuildDescription(layoutBuilder);
@@ -36,7 +36,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
             BuildWorldButtons(layoutBuilder);
         }
 
-        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBackground(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement guiBackground = new(this.SGameInstance)
             {

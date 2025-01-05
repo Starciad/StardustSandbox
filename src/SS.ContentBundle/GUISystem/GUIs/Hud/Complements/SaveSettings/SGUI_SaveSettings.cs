@@ -93,6 +93,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     if (string.IsNullOrWhiteSpace(result.Content))
                     {
                         validationState.Status = SValidationStatus.Failure;
+                        validationState.Message = SLocalization_Messages.Input_World_Name_Validation_Empty;
                     }
                 },
 
@@ -113,6 +114,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     if (string.IsNullOrWhiteSpace(result.Content))
                     {
                         validationState.Status = SValidationStatus.Failure;
+                        validationState.Message = SLocalization_Messages.Input_World_Description_Validation_Empty;
                     }
                 },
 
@@ -121,6 +123,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     this.world.Infos.Description = result.Content;
                 },
             };
+
 
             this.tooltipBoxElement = tooltipBoxElement;
         }

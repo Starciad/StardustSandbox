@@ -22,14 +22,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildGUIBackground(layoutBuilder);
+            BuildBackground(layoutBuilder);
             BuildSynopsis(layoutBuilder);
             BuildUserInput(layoutBuilder);
             BuildCharacterCount(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
         }
 
-        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBackground(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement guiBackground = new(this.SGameInstance)
             {

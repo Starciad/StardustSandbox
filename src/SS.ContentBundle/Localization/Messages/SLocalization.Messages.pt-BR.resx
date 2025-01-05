@@ -120,8 +120,14 @@
   <data name="Input.World.Description" xml:space="preserve">
     <value>Insira a descrição que o mundo terá.</value>
   </data>
+  <data name="Input.World.Description.Validation.Empty" xml:space="preserve">
+    <value>A descrição do mundo não pode estar vazia. Por favor, insira uma descrição para o seu mundo.</value>
+  </data>
   <data name="Input.World.Name" xml:space="preserve">
     <value>Insira o nome que o mundo terá.</value>
+  </data>
+  <data name="Input.World.Name.Validation.Empty" xml:space="preserve">
+    <value>O nome do mundo não pode estar vazio. Por favor, insira um nome com pelo menos um caractere.</value>
   </data>
   <data name="NoDescription" xml:space="preserve">
     <value>Nenhuma descrição foi fornecida.</value>

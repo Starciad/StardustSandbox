@@ -70,6 +70,15 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Continue.
+        /// </summary>
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Disable.
         /// </summary>
         internal static string Disable {

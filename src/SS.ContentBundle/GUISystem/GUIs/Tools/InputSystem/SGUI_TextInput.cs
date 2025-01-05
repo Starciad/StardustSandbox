@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
@@ -35,12 +36,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private readonly SButton[] menuButtons;
 
-        internal SGUI_TextInput(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        private readonly SGUI_Message guiMessage;
+
+        internal SGUI_TextInput(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.typingFieldTexture = gameInstance.AssetDatabase.GetTexture("gui_field_2");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
             this.pixelOperatorSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_9");
+
+            this.guiMessage = guiMessage;
 
             this.menuButtons = [
                 new(null, SLocalization_Statements.Cancel, string.Empty, CancelButtonAction),
@@ -48,12 +53,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
-        }
-
-        internal void Configure(STextInputSettings settings)
-        {
-            this.inputSettings = settings;
-            ApplySettings(settings);
         }
 
         public override void Update(GameTime gameTime)
@@ -100,6 +99,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
         }
 
         // ====================================== //
+
+        internal void Configure(STextInputSettings settings)
+        {
+            this.inputSettings = settings;
+            ApplySettings(settings);
+        }
 
         private void ApplySettings(STextInputSettings settings)
         {
