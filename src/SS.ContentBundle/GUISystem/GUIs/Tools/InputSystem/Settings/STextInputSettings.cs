@@ -4,7 +4,7 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings
 {
-    internal sealed class SInputSettings
+    internal sealed class STextInputSettings
     {
         internal string Synopsis { get; set; }
         internal string Content { get; set; }
@@ -12,10 +12,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Setting
         internal SInputMode InputMode { get; set; }
         internal SInputRestriction InputRestriction { get; set; }
         internal uint MaxCharacters { get; set; }
-        internal Action<SArgumentResult> OnSendCallback { get; set; }
+        internal Action<STextValidationState, STextArgumentResult> OnValidationCallback { get; set; }
+        internal Action<STextArgumentResult> OnSendCallback { get; set; }
         internal Action OnCancelCallback { get; set; }
 
-        internal SInputSettings()
+        internal STextInputSettings()
         {
             this.AllowSpaces = true;
         }

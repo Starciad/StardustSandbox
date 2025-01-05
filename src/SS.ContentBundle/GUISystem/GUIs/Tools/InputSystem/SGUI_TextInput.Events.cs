@@ -8,7 +8,7 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 {
-    internal sealed partial class SGUI_Input : SGUISystem
+    internal sealed partial class SGUI_TextInput : SGUISystem
     {
         protected override void OnOpened()
         {

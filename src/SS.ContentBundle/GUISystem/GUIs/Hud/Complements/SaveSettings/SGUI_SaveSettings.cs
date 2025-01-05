@@ -40,14 +40,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SButton[] footerButtons;
 
         private readonly ISWorld world;
-        private readonly SGUI_Input guiInput;
+        private readonly SGUI_TextInput guiInput;
 
-        private readonly SInputSettings nameInputBuilder;
-        private readonly SInputSettings descriptionInputBuilder;
+        private readonly STextInputSettings nameInputBuilder;
+        private readonly STextInputSettings descriptionInputBuilder;
 
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 
-        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_TextInput guiInput, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_11");
@@ -88,7 +88,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 InputRestriction = SInputRestriction.Alphanumeric,
                 MaxCharacters = 50,
 
-                OnSendCallback = (SArgumentResult result) =>
+                OnValidationCallback = (STextValidationState validationState, STextArgumentResult result) =>
+                {
+                    if (string.IsNullOrWhiteSpace(result.Content))
+                    {
+                        validationState.Status = SValidationStatus.Failure;
+                    }
+                },
+
+                OnSendCallback = (STextArgumentResult result) =>
                 {
                     this.world.Infos.Name = result.Content;
                 },
@@ -99,6 +107,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Synopsis = SLocalization_Messages.Input_World_Description,
                 InputMode = SInputMode.Normal,
                 MaxCharacters = 500,
+
+                OnValidationCallback = (STextValidationState validationState, STextArgumentResult result) =>
+                {
+                    if (string.IsNullOrWhiteSpace(result.Content))
+                    {
+                        validationState.Status = SValidationStatus.Failure;
+                    }
+                },
 
                 OnSendCallback = (result) =>
                 {

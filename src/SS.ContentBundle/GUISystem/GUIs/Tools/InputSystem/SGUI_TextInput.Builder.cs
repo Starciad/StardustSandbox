@@ -10,7 +10,7 @@ using StardustSandbox.Core.Interfaces.GUI;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 {
-    internal sealed partial class SGUI_Input
+    internal sealed partial class SGUI_TextInput
     {
         private SGUITextElement synopsisElement;
         private SGUITextElement userInputElement;

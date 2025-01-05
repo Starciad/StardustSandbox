@@ -16,14 +16,14 @@ using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 {
-    internal sealed partial class SGUI_Input : SGUISystem
+    internal sealed partial class SGUI_TextInput : SGUISystem
     {
         private int cursorPosition = 0;
 
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
         private Vector2 characterCountElementPosition = Vector2.Zero;
 
-        private SInputSettings inputSettings;
+        private STextInputSettings inputSettings;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D typingFieldTexture;
@@ -35,7 +35,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         private readonly SButton[] menuButtons;
 
-        internal SGUI_Input(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_TextInput(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.typingFieldTexture = gameInstance.AssetDatabase.GetTexture("gui_field_2");
@@ -50,7 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
         }
 
-        internal void Configure(SInputSettings settings)
+        internal void Configure(STextInputSettings settings)
         {
             this.inputSettings = settings;
             ApplySettings(settings);
@@ -101,7 +101,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
         // ====================================== //
 
-        private void ApplySettings(SInputSettings settings)
+        private void ApplySettings(STextInputSettings settings)
         {
             // Setting Synopsis
             this.synopsisElement.SetTextualContent(settings.Synopsis);

@@ -25,7 +25,7 @@ namespace StardustSandbox.ContentBundle
             // =================================== //
             // Tools
 
-            SGUI_Input input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_TextInput input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
 
             // =================================== //
             // Build

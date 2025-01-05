@@ -1,10 +1,10 @@
 ﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings
 {
-    internal sealed class SArgumentResult
+    internal sealed class STextArgumentResult
     {
         internal string Content { get; }
 
-        internal SArgumentResult(string content)
+        internal STextArgumentResult(string content)
         {
             this.Content = content.Trim();
         }
