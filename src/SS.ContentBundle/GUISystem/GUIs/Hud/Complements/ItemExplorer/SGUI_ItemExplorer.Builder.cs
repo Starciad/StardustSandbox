@@ -4,6 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -18,10 +19,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_ItemExplorer
     {
-        private SGUILabelElement explorerTitleLabel;
+        private SGUIImageElement panelBackgroundElement;
 
-        private SGUISliceImageElement panelBackgroundElement;
-        private SGUISliceImageElement itemGridBackground;
+        private SGUILabelElement menuTitleElement;
 
         private readonly SSlot[] menuButtonSlots;
         private readonly SSlot[] itemButtonSlots;
@@ -30,60 +30,61 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildGUIBackground(layoutBuilder);
+            BuildBackground(layoutBuilder);
+            BuildTitle(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
-            BuildExplorer(layoutBuilder);
-            BuildItemCatalogSlots(layoutBuilder, this.itemGridBackground);
+            BuildItemCatalogSlots(layoutBuilder);
             BuildCategoryButtons(layoutBuilder);
             BuildSubcategoryButtons(layoutBuilder);
 
             layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
-        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBackground(ISGUILayoutBuilder layoutBuilder)
         {
-            SGUIImageElement guiBackground = new(this.SGameInstance)
+            SGUIImageElement backgroundShadowElement = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
-                Size = new(32),
+                Size = new(1),
                 Color = new(SColorPalette.DarkGray, 160)
             };
 
-            layoutBuilder.AddElement(guiBackground);
-
-            // ============================================== //
-
             this.panelBackgroundElement = new(this.SGameInstance)
             {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32, 15),
-                Size = new(32),
-                Margin = new(128f),
-                Color = new(104, 111, 121, 255)
+                Texture = this.panelBackgroundTexture,
+                Size = new(1084, 540),
+                Margin = new(98, 90),
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
 
-            this.explorerTitleLabel = new(this.SGameInstance)
+            layoutBuilder.AddElement(backgroundShadowElement);
+            layoutBuilder.AddElement(this.panelBackgroundElement);
+        }
+
+        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.menuTitleElement = new(this.SGameInstance)
             {
-                Scale = new(0.15f),
-                Margin = new(18, -16),
-                Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
+                Scale = new(0.12f),
+                PositionAnchor = SCardinalDirection.Northwest,
+                OriginPivot = SCardinalDirection.East,
+                Margin = new(32, 40),
+                Color = SColorPalette.White,
             };
 
-            this.explorerTitleLabel.SetTextualContent("TITLE");
-            this.explorerTitleLabel.SetAllBorders(true, new(45, 53, 74, 255), new(4.4f));
-            this.explorerTitleLabel.PositionRelativeToElement(this.panelBackgroundElement);
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_ItemExplorer_Title);
+            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
+            this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-            layoutBuilder.AddElement(this.panelBackgroundElement);
-            layoutBuilder.AddElement(this.explorerTitleLabel);
+            layoutBuilder.AddElement(this.menuTitleElement);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = new(-2, -72);
+            Vector2 margin = new(-32f, -40f);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
@@ -125,23 +126,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
-        private void BuildExplorer(ISGUILayoutBuilder layoutBuilder)
-        {
-            // Background
-            this.itemGridBackground = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(30, 10),
-                Margin = new(32, 88),
-                Color = new Color(94, 101, 110, 255)
-            };
-
-            this.itemGridBackground.PositionRelativeToElement(this.panelBackgroundElement);
-
-            layoutBuilder.AddElement(this.itemGridBackground);
-        }
-
-        private void BuildItemCatalogSlots(ISGUILayoutBuilder layoutBuilder, SGUIElement parent)
+        private void BuildItemCatalogSlots(ISGUILayoutBuilder layoutBuilder)
         {
             Vector2 slotMargin = new(32, 40);
 
@@ -171,7 +156,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     };
 
                     // Position
-                    slotBackground.PositionRelativeToElement(parent);
+                    slotBackground.PositionRelativeToElement(this.panelBackgroundElement);
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Spacing
@@ -222,7 +207,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 }
 
                 // Position
-                slotBackground.PositionRelativeToElement(this.itemGridBackground);
+                slotBackground.PositionRelativeToElement(this.panelBackgroundElement);
                 slotIcon.PositionRelativeToElement(slotBackground);
 
                 // Spacing
@@ -269,7 +254,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                     };
 
                     // Position
-                    slotBackground.PositionRelativeToElement(this.itemGridBackground);
+                    slotBackground.PositionRelativeToElement(this.panelBackgroundElement);
                     slotIcon.PositionRelativeToElement(slotBackground);
 
                     // Spacing

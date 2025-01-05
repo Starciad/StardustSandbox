@@ -27,7 +27,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private Texture2D worldThumbnailTexture;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D guiLargeButtonTexture;
         private readonly Texture2D guiFieldTexture;
@@ -50,7 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_11");
             this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.guiLargeButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_3");
             this.guiFieldTexture = gameInstance.AssetDatabase.GetTexture("gui_field_1");

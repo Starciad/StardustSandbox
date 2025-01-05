@@ -429,4 +429,7 @@
   <data name="HUD.Complements.WorldSettings.Section.Size.Button.Medium.Description" xml:space="preserve">
     <value>O tamanho do mundo terá as dimensões 120x69 - Balanceado para a maioria dos cenários de jogo.</value>
   </data>
+  <data name="HUD.Complements.ItemExplorer.Title" xml:space="preserve">
+    <value>Explorador de Itens</value>
+  </data>
 </root>

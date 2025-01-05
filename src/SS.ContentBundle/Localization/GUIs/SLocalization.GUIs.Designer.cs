@@ -466,6 +466,15 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item Explorer.
+        /// </summary>
+        internal static string HUD_Complements_ItemExplorer_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.ItemExplorer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Brush size is set to {0}..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description {

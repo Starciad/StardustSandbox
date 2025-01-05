@@ -33,7 +33,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private int selectedItemsLength;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D guiButton1Texture;
         private readonly Texture2D[] iconTextures;
         private readonly SpriteFont bigApple3PMSpriteFont;
@@ -50,7 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.selectedPageIndex = 0;
 
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_12");
             this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
@@ -223,7 +223,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void SelectItemCatalog(SCategory category, SSubcategory subcategory, int pageIndex)
         {
-            this.explorerTitleLabel.SetTextualContent(subcategory.DisplayName);
+            this.menuTitleElement.SetTextualContent(subcategory.DisplayName);
 
             this.selectedCategory = category;
             this.selectedSubcategory = subcategory;

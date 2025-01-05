@@ -16,8 +16,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_SaveSettings
     {
-        private SGUISliceImageElement panelBackgroundElement;
-        private SGUISliceImageElement titleBackgroundElement;
+        private SGUIImageElement panelBackgroundElement;
 
         private SGUILabelElement menuTitleElement;
         private SGUILabelElement nameSectionTitleElement;
@@ -38,9 +37,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildGUIBackground(layoutBuilder);
-            BuildMenuButtons(layoutBuilder);
+            BuildBackground(layoutBuilder);
             BuildTitle(layoutBuilder);
+            BuildMenuButtons(layoutBuilder);
             BuildNameSection(layoutBuilder);
             BuildDescriptionSection(layoutBuilder);
             BuildThumbnailSection(layoutBuilder);
@@ -49,44 +48,51 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             layoutBuilder.AddElement(this.tooltipBoxElement);
         }
 
-        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBackground(ISGUILayoutBuilder layoutBuilder)
         {
-            SGUIImageElement guiBackground = new(this.SGameInstance)
+            SGUIImageElement backgroundShadowElement = new(this.SGameInstance)
             {
                 Texture = this.particleTexture,
                 Scale = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT),
                 Size = new(1),
-                Color = new Color(SColorPalette.DarkGray, 160)
+                Color = new(SColorPalette.DarkGray, 160)
             };
 
             this.panelBackgroundElement = new(this.SGameInstance)
             {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32, 15),
-                Size = new(32),
-                Margin = new(128f),
-                Color = new Color(104, 111, 121, 255),
-            };
-
-            this.titleBackgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32, 0.5f),
-                Size = new(32),
-                Color = SColorPalette.PurpleGray,
+                Texture = this.panelBackgroundTexture,
+                Size = new(1084, 540),
+                Margin = new(98, 90),
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
-            this.titleBackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-            layoutBuilder.AddElement(guiBackground);
+            layoutBuilder.AddElement(backgroundShadowElement);
             layoutBuilder.AddElement(this.panelBackgroundElement);
-            layoutBuilder.AddElement(this.titleBackgroundElement);
+        }
+
+        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.menuTitleElement = new(this.SGameInstance)
+            {
+                SpriteFont = this.bigApple3PMSpriteFont,
+                Scale = new(0.12f),
+                PositionAnchor = SCardinalDirection.Northwest,
+                OriginPivot = SCardinalDirection.East,
+                Margin = new(32, 40),
+                Color = SColorPalette.White,
+            };
+
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_SaveSettings_Title);
+            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
+            this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+            layoutBuilder.AddElement(this.menuTitleElement);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = new(-2, -72);
+            Vector2 margin = new(-32f, -40f);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
@@ -111,30 +117,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             }
         }
 
-        private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.menuTitleElement = new(this.SGameInstance)
-            {
-                SpriteFont = this.bigApple3PMSpriteFont,
-                Scale = new(0.12f),
-                PositionAnchor = SCardinalDirection.West,
-                OriginPivot = SCardinalDirection.East,
-                Margin = new(16, 0),
-            };
-
-            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_SaveSettings_Title);
-            this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
-
-            layoutBuilder.AddElement(this.menuTitleElement);
-        }
-
         private void BuildNameSection(ISGUILayoutBuilder layoutBuilder)
         {
             this.nameSectionTitleElement = new(this.SGameInstance)
             {
                 Scale = new(0.1f),
-                Margin = new(0, 64),
+                Margin = new(32, 112),
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
@@ -212,7 +200,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.thumbnailSectionTitleElement = new(this.SGameInstance)
             {
                 Scale = new(0.1f),
-                Margin = new(0f, 64f),
+                Margin = new(-32f, 112f),
                 SpriteFont = this.bigApple3PMSpriteFont,
                 PositionAnchor = SCardinalDirection.Northeast,
                 OriginPivot = SCardinalDirection.Southwest
@@ -235,7 +223,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildFooterButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = new(0, -80);
+            Vector2 margin = new(32f, -96f);
 
             for (int i = 0; i < this.footerButtons.Length; i++)
             {
