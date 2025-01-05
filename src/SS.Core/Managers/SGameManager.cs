@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.GameInput.Pen;
@@ -27,6 +28,8 @@ namespace StardustSandbox.Core.Managers
 
         public void StartGame()
         {
+            SSongEngine.Stop();
+
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
 
             this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
