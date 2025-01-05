@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Enums.Simulation;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
@@ -21,10 +22,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             LoadMainMenuWorld();
             LoadMagicCursor();
 
+            this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Normal);
             this.SGameInstance.GameManager.GameState.IsPaused = false;
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = false;
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = false;
 
+            this.SGameInstance.World.Time.Reset();
+            this.SGameInstance.World.Time.SecondsPerFrames = 60f;
             this.SGameInstance.World.Time.IsFrozen = false;
 
             SSongEngine.Play(this.mainMenuSong);
@@ -33,7 +37,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         protected override void OnClosed()
         {
             this.SGameInstance.World.Clear();
-            this.SGameInstance.World.IsActive = false;
             this.SGameInstance.World.IsVisible = false;
 
             SSongEngine.Stop();

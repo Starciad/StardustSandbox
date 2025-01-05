@@ -15,6 +15,7 @@ using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
@@ -41,6 +42,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly Texture2D trashIconTexture;
         private readonly Texture2D reloadIconTexture;
         private readonly Texture2D infoIconTexture;
+        private readonly Texture2D[] speedIconTextures;
 
         private readonly ISWorld world;
 
@@ -70,6 +72,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.settingsIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_14");
             this.penIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_19");
             this.infoIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_28");
+            this.speedIconTextures = [
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_44"),
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_45"),
+                this.SGameInstance.AssetDatabase.GetTexture("icon_gui_46"),
+            ];
 
             this.world = gameInstance.World;
             this.tooltipBoxElement = tooltipBoxElement;
@@ -83,6 +90,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.leftPanelBottomButtons = [
                 new(this.pauseIconTexture, SLocalization_GUIs.HUD_Button_PauseSimulation_Name, SLocalization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
+                new(this.speedIconTextures[0], "Speed", string.Empty, ChangeSimulationSpeedButtonAction),
             ];
 
             this.rightPanelTopButtons = [
@@ -120,6 +128,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             // Pause
             this.leftPanelBottomButtonElements[0].IconElement.Texture = this.SGameInstance.GameManager.GameState.IsSimulationPaused ? this.resumeIconTexture : this.pauseIconTexture;
+
+            // Speed
+            this.leftPanelBottomButtonElements[1].IconElement.Texture = this.SGameInstance.World.Simulation.CurrentSpeed switch
+            {
+                SSimulationSpeed.Normal => this.speedIconTextures[(byte)SSimulationSpeed.Normal],
+                SSimulationSpeed.Fast => this.speedIconTextures[(byte)SSimulationSpeed.Fast],
+                SSimulationSpeed.VeryFast => this.speedIconTextures[(byte)SSimulationSpeed.VeryFast],
+                _ => this.speedIconTextures[(byte)SSimulationSpeed.Normal],
+            };
         }
 
         private void SetPlayerInteractionWhenToolbarHovered()

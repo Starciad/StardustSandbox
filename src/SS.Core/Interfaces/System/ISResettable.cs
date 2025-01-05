@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Core.Interfaces.System
 {
-    public interface ISReset
+    public interface ISResettable
     {
         void Reset();
     }

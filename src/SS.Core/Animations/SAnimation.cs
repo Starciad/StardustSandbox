@@ -7,7 +7,7 @@ using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Animations
 {
-    public sealed class SAnimation(ISGame gameInstance, SAnimationFrame[] frames) : SGameObject(gameInstance), ISReset
+    public sealed class SAnimation(ISGame gameInstance, SAnimationFrame[] frames) : SGameObject(gameInstance), ISResettable
     {
         public Texture2D Texture { get; set; }
         public SAnimationFrame CurrentFrame => this.frames[this.currentFrameIndex];

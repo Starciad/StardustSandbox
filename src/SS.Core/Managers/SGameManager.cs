@@ -3,6 +3,7 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Interfaces.World;
@@ -40,6 +41,30 @@ namespace StardustSandbox.Core.Managers
             
             this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
+        }
+
+        public void SetSimulationSpeed(SSimulationSpeed speed)
+        {
+            ISWorld world = this.SGameInstance.World;
+
+            switch (speed)
+            {
+                case SSimulationSpeed.Normal:
+                    world.SetSpeed(SSimulationSpeed.Normal);
+                    break;
+
+                case SSimulationSpeed.Fast:
+                    world.SetSpeed(SSimulationSpeed.Fast);
+                    break;
+
+                case SSimulationSpeed.VeryFast:
+                    world.SetSpeed(SSimulationSpeed.VeryFast);
+                    break;
+
+                default:
+                    world.SetSpeed(SSimulationSpeed.Normal);
+                    break;
+            }
         }
 
         public void Reset()

@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Core.Constants.GUISystem;
+﻿using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Enums.Simulation;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -36,6 +38,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void PauseSimulationButtonAction()
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = !this.SGameInstance.GameManager.GameState.IsSimulationPaused;
+        }
+
+        private void ChangeSimulationSpeedButtonAction()
+        {
+            switch (this.SGameInstance.World.Simulation.CurrentSpeed)
+            {
+                case SSimulationSpeed.Normal:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Fast);
+                    break;
+
+                case SSimulationSpeed.Fast:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.VeryFast);
+                    break;
+
+                case SSimulationSpeed.VeryFast:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Normal);
+                    break;
+
+                default:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Normal);
+                    break;
+            }
         }
         #endregion
         #endregion

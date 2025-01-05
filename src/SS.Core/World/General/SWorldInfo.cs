@@ -5,7 +5,7 @@ using System;
 
 namespace StardustSandbox.Core.World.General
 {
-    public sealed class SWorldInfo : ISReset
+    public sealed class SWorldInfo : ISResettable
     {
         public string Identifier { get; internal set; }
         public string Name { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Ambient.Handlers;
+using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Ambient.Handlers;
 using StardustSandbox.Core.Interfaces.Managers;
@@ -43,6 +44,11 @@ namespace StardustSandbox.Core.Managers
             this.skyHandler.Update(gameTime);
             this.celestialBodyHandler.Update(gameTime);
             this.cloudHandler.Update(gameTime);
+        }
+
+        public void SetSpeed(SSimulationSpeed speed)
+        {
+
         }
 
         public void Reset()

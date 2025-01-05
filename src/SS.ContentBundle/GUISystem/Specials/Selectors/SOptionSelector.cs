@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Specials.Selectors
 {
-    internal sealed class SOptionSelector(string displayName, uint selectedValueIndex, string[] values) : ISReset
+    internal sealed class SOptionSelector(string displayName, uint selectedValueIndex, string[] values) : ISResettable
     {
         internal string DisplayName { get; } = displayName;
         internal string[] Values { get; } = values;
