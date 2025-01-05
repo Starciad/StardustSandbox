@@ -168,4 +168,13 @@
   <data name="Elements" xml:space="preserve">
     <value>Elementos</value>
   </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Desabilitar</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Habilitar</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Sair</value>
+  </data>
 </root>

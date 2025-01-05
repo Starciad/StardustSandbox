@@ -6,6 +6,7 @@ using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.Specials.General;
 using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.GUISystem;
@@ -67,22 +68,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.eveningIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_37");
 
             this.menuButtons = [
-                new(this.exitIconTexture, SLocalization_GUIs.Button_Exit_Name, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(this.exitIconTexture, SLocalization_Statements.Exit, SLocalization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.timeStateButtons = [
-                new SButton(this.frozenTimeIconTexture, "Disable", "Disable the time progression, freezing the current time.", () => SetTimeFreezeState(true)),
-                new SButton(this.timeProgressIconTexture, "Enable", "Enable the time progression, resuming the natural time flow.", () => SetTimeFreezeState(false)),
+                new SButton(this.frozenTimeIconTexture, SLocalization_Statements.Disable, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description, () => SetTimeFreezeState(true)),
+                new SButton(this.timeProgressIconTexture, SLocalization_Statements.Enable, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description, () => SetTimeFreezeState(false)),
             ];
 
             this.timeButtons = [
-                new SButton(this.midnightIconTexture, "Midnight", "Jump to midnight (00:00).", () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
-                new SButton(this.dawnIconTexture, "Dawn", "Jump to dawn (6:00 AM).", () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
-                new SButton(this.morningIconTexture, "Morning", "Jump to morning (9:00 AM).", () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
-                new SButton(this.noonIconTexture, "Noon", "Jump to noon (12:00 PM).", () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
-                new SButton(this.afternoonIconTexture, "Afternoon", "Jump to afternoon (3:00 PM).", () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
-                new SButton(this.duskIconTexture, "Dusk", "Jump to dusk (6:00 PM).", () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
-                new SButton(this.eveningIconTexture, "Evening", "Jump to evening (9:00 PM).", () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
+                new SButton(this.midnightIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description, () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
+                new SButton(this.dawnIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description, () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
+                new SButton(this.morningIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description, () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
+                new SButton(this.noonIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description, () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
+                new SButton(this.afternoonIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description, () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
+                new SButton(this.duskIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description, () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
+                new SButton(this.eveningIconTexture, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title, SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description, () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
             ];
 
             this.menuButtonSlots = new SSlot[this.menuButtons.Length];

@@ -192,7 +192,7 @@
   <data name="Menu.Main.Button.Play" xml:space="preserve">
     <value>Jogar</value>
   </data>
-  <data name="HUD.EnvironmentSettings.Name" xml:space="preserve">
+  <data name="HUD.Button.EnvironmentSettings.Name" xml:space="preserve">
     <value>Configurações do Ambiente</value>
   </data>
   <data name="HUD.Button.PenSettings.Name" xml:space="preserve">
@@ -240,7 +240,7 @@
   <data name="HUD.Button.WorldSettings.Description" xml:space="preserve">
     <value>Ajusta configurações gerais e sistemáticas do mundo.</value>
   </data>
-  <data name="HUD.EnvironmentSettings.Description" xml:space="preserve">
+  <data name="HUD.Button.EnvironmentSettings.Description" xml:space="preserve">
     <value>Altera características ambientais do mundo, como clima, temperatura e outros fatores.</value>
   </data>
   <data name="HUD.Button.Eraser.Description" xml:space="preserve">
@@ -260,9 +260,6 @@
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name" xml:space="preserve">
     <value>Formato Triângular</value>
-  </data>
-  <data name="Button.Exit.Name" xml:space="preserve">
-    <value>Sair</value>
   </data>
   <data name="HUD.Complements.PenSettings.Title" xml:space="preserve">
     <value>Configurações da Caneta</value>
@@ -332,5 +329,62 @@
   </data>
   <data name="HUD.Complements.Information.Field.BackgroundElements" xml:space="preserve">
     <value>Elementos no Plano de Fundo</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Title" xml:space="preserve">
+    <value>Configurações do Ambiente</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Title" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Title" xml:space="preserve">
+    <value>Horário</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Title" xml:space="preserve">
+    <value>Meia-noite</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Title" xml:space="preserve">
+    <value>Amanhecer</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Title" xml:space="preserve">
+    <value>Manhã</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Title" xml:space="preserve">
+    <value>Meio-dia</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Title" xml:space="preserve">
+    <value>Tarde</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Title" xml:space="preserve">
+    <value>Anoitecer</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Title" xml:space="preserve">
+    <value>Noite</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Description" xml:space="preserve">
+    <value>Ir para a tarde (15:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Description" xml:space="preserve">
+    <value>Ir para o amanhecer (06:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Description" xml:space="preserve">
+    <value>Ir para o anoitecer (18:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Description" xml:space="preserve">
+    <value>Ir para a noite (21:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Description" xml:space="preserve">
+    <value>Ir para meia-noite (00:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Description" xml:space="preserve">
+    <value>Ir para a manhã (09:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Description" xml:space="preserve">
+    <value>Ir para o meio-dia (12:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Disable.Description" xml:space="preserve">
+    <value>Desabilita a progressão do tempo, congelando o tempo atual.</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Enable.Description" xml:space="preserve">
+    <value>Habilite a progressão do tempo, retomando o fluxo natural do tempo.</value>
   </data>
 </root>

@@ -112,7 +112,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Color = SColorPalette.White,
             };
 
-            this.menuTitleElement.SetTextualContent("Environment Settings");
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Title);
             this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.titleBackgroundElement);
 
@@ -129,7 +129,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            this.timeStateSectionTitleElement.SetTextualContent("Time State");
+            this.timeStateSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title);
             this.timeStateSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
 
             layoutBuilder.AddElement(this.timeStateSectionTitleElement);
@@ -170,7 +170,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            this.timeSectionTitleElement.SetTextualContent("Time");
+            this.timeSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Title);
             this.timeSectionTitleElement.PositionRelativeToElement(this.timeStateSectionTitleElement);
 
             layoutBuilder.AddElement(this.timeSectionTitleElement);

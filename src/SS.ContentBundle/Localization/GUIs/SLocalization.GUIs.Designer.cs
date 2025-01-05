@@ -70,11 +70,20 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Exit.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Modifies the world&apos;s environmental properties, including weather, temperature, and other factors..
         /// </summary>
-        internal static string Button_Exit_Name {
+        internal static string HUD_Button_EnvironmentSettings_Description {
             get {
-                return ResourceManager.GetString("Button.Exit.Name", resourceCulture);
+                return ResourceManager.GetString("HUD.Button.EnvironmentSettings.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment Settings.
+        /// </summary>
+        internal static string HUD_Button_EnvironmentSettings_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.EnvironmentSettings.Name", resourceCulture);
             }
         }
         
@@ -255,6 +264,177 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         internal static string HUD_Button_WorldSettings_Name {
             get {
                 return ResourceManager.GetString("HUD.Button.WorldSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to afternoon (03:00 PM)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Afternoon.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dawn (06:00 AM)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dawn.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dusk (06:00 PM)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dusk.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to evening (09:00 PM)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Evening.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to midnight (00:00)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Midnight.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to morning (09:00 AM)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Morning.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to noon (12:00 PM)..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Noon.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Time.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Disable the time progression, freezing the current time..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Disable.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable the time progression, resuming the natural time flow..
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Enable.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a State.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Section_TimeState_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.TimeState.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment Settings.
+        /// </summary>
+        internal static string HUD_Complements_EnvironmentSettings_Title {
+            get {
+                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Title", resourceCulture);
             }
         }
         
@@ -480,24 +660,6 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         internal static string HUD_Complements_SaveSettings_Title {
             get {
                 return ResourceManager.GetString("HUD.Complements.SaveSettings.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Modifies the world&apos;s environmental properties, including weather, temperature, and other factors..
-        /// </summary>
-        internal static string HUD_EnvironmentSettings_Description {
-            get {
-                return ResourceManager.GetString("HUD.EnvironmentSettings.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment Settings.
-        /// </summary>
-        internal static string HUD_EnvironmentSettings_Name {
-            get {
-                return ResourceManager.GetString("HUD.EnvironmentSettings.Name", resourceCulture);
             }
         }
         
