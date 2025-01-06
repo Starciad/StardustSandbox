@@ -432,4 +432,10 @@
   <data name="HUD.Complements.ItemExplorer.Title" xml:space="preserve">
     <value>Item Explorer</value>
   </data>
+  <data name="HUD.Button.Speed.Name" xml:space="preserve">
+    <value>Simulation Speed</value>
+  </data>
+  <data name="HUD.Button.Speed.Description" xml:space="preserve">
+    <value>Adjusts the temporal flow speed of various simulation components, including element interactions, time progression, and related aspects. Higher speeds may cause minor performance slowdowns due to increased processing demand.</value>
+  </data>
 </root>

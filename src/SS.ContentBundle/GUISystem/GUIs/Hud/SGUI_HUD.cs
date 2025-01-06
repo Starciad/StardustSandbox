@@ -89,7 +89,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.leftPanelBottomButtons = [
                 new(this.pauseIconTexture, SLocalization_GUIs.HUD_Button_PauseSimulation_Name, SLocalization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
-                new(this.speedIconTextures[0], "Speed", string.Empty, ChangeSimulationSpeedButtonAction),
+                new(this.speedIconTextures[0], SLocalization_GUIs.HUD_Button_Speed_Name, SLocalization_GUIs.HUD_Button_Speed_Description, ChangeSimulationSpeedButtonAction),
             ];
 
             this.rightPanelTopButtons = [

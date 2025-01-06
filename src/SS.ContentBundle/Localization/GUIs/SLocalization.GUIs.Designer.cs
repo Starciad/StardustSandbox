@@ -250,6 +250,24 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts the temporal flow speed of various simulation components, including element interactions, time progression, and related aspects. Higher speeds may cause minor performance slowdowns due to increased processing demand..
+        /// </summary>
+        internal static string HUD_Button_Speed_Description {
+            get {
+                return ResourceManager.GetString("HUD.Button.Speed.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Simulation Speed.
+        /// </summary>
+        internal static string HUD_Button_Speed_Name {
+            get {
+                return ResourceManager.GetString("HUD.Button.Speed.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts general and systematic settings for the world..
         /// </summary>
         internal static string HUD_Button_WorldSettings_Description {

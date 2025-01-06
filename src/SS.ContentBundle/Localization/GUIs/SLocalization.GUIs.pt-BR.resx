@@ -432,4 +432,10 @@
   <data name="HUD.Complements.ItemExplorer.Title" xml:space="preserve">
     <value>Explorador de Itens</value>
   </data>
+  <data name="HUD.Button.Speed.Name" xml:space="preserve">
+    <value>Velocidade da Simulação</value>
+  </data>
+  <data name="HUD.Button.Speed.Description" xml:space="preserve">
+    <value>Ajusta a velocidade do fluxo temporal de vários componentes da simulação, incluindo a interação entre elementos, o avanço do tempo e outros aspectos relacionados. Velocidades mais altas podem ocasionar pequenos gargalos no desempenho do jogo devido ao aumento na carga de processamento.</value>
+  </data>
 </root>
