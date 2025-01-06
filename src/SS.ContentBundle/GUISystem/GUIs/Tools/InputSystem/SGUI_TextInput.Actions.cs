@@ -20,7 +20,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
                 STextArgumentResult argumentResult = new(this.userInputStringBuilder.ToString());
 
                 this.inputSettings.OnValidationCallback?.Invoke(validationState, argumentResult);
-                
+
                 if (validationState.Status == SValidationStatus.Failure)
                 {
                     this.guiMessage.SetMessage(validationState.Message);

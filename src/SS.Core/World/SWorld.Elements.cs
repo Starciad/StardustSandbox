@@ -276,7 +276,7 @@ namespace StardustSandbox.Core.World
             int count = 0;
             object lockObj = new();
 
-            Parallel.For(0, this.Infos.Size.Height, y =>
+            _ = Parallel.For(0, this.Infos.Size.Height, y =>
             {
                 int localCount = 0;
 

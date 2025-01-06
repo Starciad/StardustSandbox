@@ -31,14 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals
                 this.SGameInstance.GUIManager.CloseGUI();
             }
 
-            if (this.GUIEvents.OnMouseOver(position, size))
-            {
-                this.continueButtonElement.Color = SColorPalette.HoverColor;
-            }
-            else
-            {
-                this.continueButtonElement.Color = SColorPalette.White;
-            }
+            this.continueButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
         }
 
         internal void SetMessage(string text)

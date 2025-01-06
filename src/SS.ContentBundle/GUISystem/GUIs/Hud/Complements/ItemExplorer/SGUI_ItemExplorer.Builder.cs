@@ -306,7 +306,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 // Spacing
                 this.paginationButtonSlots[i] = new(slotBackground, slotIcon);
-                
+
                 // Adding
                 layoutBuilder.AddElement(slotBackground);
                 layoutBuilder.AddElement(slotIcon);

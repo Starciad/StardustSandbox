@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements
         // =========================== //
 
         private readonly string identifier = string.Empty;
-        
+
         protected Texture2D texture = null;
         protected Color referenceColor = Color.White;
 

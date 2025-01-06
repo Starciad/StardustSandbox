@@ -46,7 +46,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SVideoSettings videoSettings;
         private SLanguageSettings languageSettings;
 
-        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D panelBackgroundTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
@@ -61,7 +61,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
 
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");

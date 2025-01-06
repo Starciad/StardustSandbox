@@ -10,6 +10,7 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Localization;
 
@@ -20,11 +21,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 {
     internal sealed partial class SGUI_OptionsMenu
     {
-        private SGUILabelElement titleLabel;
+        private SGUILabelElement titleLabelElement;
 
-        private SGUISliceImageElement panelBackground;
-        private SGUISliceImageElement leftPanelBackground;
-        private SGUISliceImageElement rightPanelBackground;
+        private SGUIImageElement panelBackgroundElement;
 
         private readonly SGUIContainerElement[] sectionContainers;
         private readonly SGUILabelElement[] sectionButtonElements;
@@ -43,15 +42,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
-        private static readonly Vector2 baseVerticalMargin = new(0, 4f);
 
-        private static readonly float leftPanelMarginVerticalSpacing = 58f;
-        private static readonly float rightPanelMarginVerticalSpacing = 55f;
+        private static readonly float leftPanelMarginVerticalSpacing = 48f;
+        private static readonly float rightPanelMarginVerticalSpacing = 48f;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             // Decorations
-            BuildPanels(layoutBuilder);
+            BuildPanelBackground(layoutBuilder);
             BuildTitle(layoutBuilder);
 
             // Buttons
@@ -62,63 +60,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             BuildSections(layoutBuilder);
         }
 
-        private void BuildPanels(ISGUILayoutBuilder layoutBuilder)
-        {
-            BuildPanelBackground(layoutBuilder);
-            BuildLeftPanel(layoutBuilder);
-            BuildRightPanel(layoutBuilder);
-        }
-
         private void BuildPanelBackground(ISGUILayoutBuilder layoutBuilder)
         {
-            this.panelBackground = new(this.SGameInstance)
+            this.panelBackgroundElement = new(this.SGameInstance)
             {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32f, 15f),
-                Size = new(32),
-                Margin = new(128f),
-                Color = SColorPalette.NavyBlue
+                Texture = this.panelBackgroundTexture,
+                Size = new(1084, 540),
+                Margin = new(98, 90),
             };
 
-            this.panelBackground.PositionRelativeToScreen();
+            this.panelBackgroundElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.panelBackground);
-        }
-
-        private void BuildLeftPanel(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.leftPanelBackground = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(9f, 13f),
-                Margin = new(32f),
-                Size = new(32),
-                Color = SColorPalette.RoyalBlue
-            };
-
-            this.leftPanelBackground.PositionRelativeToElement(this.panelBackground);
-            layoutBuilder.AddElement(this.leftPanelBackground);
-        }
-
-        private void BuildRightPanel(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.rightPanelBackground = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(18.2f, 13f),
-                Margin = new(90f, 0f),
-                Size = new(32),
-                PositionAnchor = SCardinalDirection.Northeast,
-                Color = SColorPalette.RoyalBlue
-            };
-
-            this.rightPanelBackground.PositionRelativeToElement(this.leftPanelBackground);
-            layoutBuilder.AddElement(this.rightPanelBackground);
+            layoutBuilder.AddElement(this.panelBackgroundElement);
         }
 
         private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
         {
-            this.titleLabel = new(this.SGameInstance)
+            this.titleLabelElement = new(this.SGameInstance)
             {
                 Scale = new(0.15f),
                 Margin = new(0f, 52.5f),
@@ -128,17 +86,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            this.titleLabel.SetTextualContent(this.titleName);
-            this.titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new(4.4f));
-            this.titleLabel.PositionRelativeToScreen();
+            this.titleLabelElement.SetTextualContent(this.titleName);
+            this.titleLabelElement.SetAllBorders(true, SColorPalette.DarkGray, new(4.4f));
+            this.titleLabelElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.titleLabel);
+            layoutBuilder.AddElement(this.titleLabelElement);
         }
 
         private void BuildSectionButtons(ISGUILayoutBuilder layoutBuilder)
         {
             // BUTTONS
-            Vector2 margin = baseVerticalMargin;
+            Vector2 margin = new(-335f, 64f);
 
             // Labels
             for (int i = 0; i < this.sectionNames.Length; i++)
@@ -148,7 +106,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.PositionAnchor = SCardinalDirection.North;
                 labelElement.Margin = margin;
                 labelElement.SetTextualContent(this.sectionNames[i]);
-                labelElement.PositionRelativeToElement(this.leftPanelBackground);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.sectionButtonElements[i] = labelElement;
                 margin.Y += leftPanelMarginVerticalSpacing;
@@ -159,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildSystemButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = baseVerticalMargin;
+            Vector2 margin = new(-335f, -64f);
 
             for (int i = 0; i < this.systemButtons.Length; i++)
             {
@@ -168,7 +126,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 labelElement.PositionAnchor = SCardinalDirection.South;
                 labelElement.Margin = margin;
                 labelElement.SetTextualContent(this.systemButtons[i].DisplayName);
-                labelElement.PositionRelativeToElement(this.leftPanelBackground);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.systemButtonElements[i] = labelElement;
                 margin.Y -= leftPanelMarginVerticalSpacing;
@@ -203,14 +161,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Borderless, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
 
             // [ LABELS ]
-            Vector2 margin = new(0f, 4f);
+            Vector2 margin = new(200f, 64f);
 
             foreach (SOptionSelector optionSelector in this.videoSectionOptionSelectors)
             {
                 SGUILabelElement labelElement = CreateOptionButtonLabelElement();
 
                 labelElement.Margin = margin;
-                labelElement.PositionRelativeToElement(this.rightPanelBackground);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
                 labelElement.SetTextualContent(optionSelector.ToString());
 
                 this.videoSectionButtons.Add(labelElement);
@@ -227,15 +185,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
-            Vector2 margin = new(0f, 4f);
+            Vector2 margin = new(200f, 64f);
 
             foreach (SGameCulture gameCulture in SLocalizationConstants.AVAILABLE_GAME_CULTURES)
             {
                 SGUILabelElement labelElement = CreateOptionButtonLabelElement();
 
                 labelElement.Margin = margin;
-                labelElement.PositionRelativeToElement(this.rightPanelBackground);
-                labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+                labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName.FirstCharToUpper());
                 labelElement.AddData(SGUIConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
 
                 this.languageSectionButtons.Add(labelElement);

@@ -7,7 +7,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.IO.Handlers
@@ -124,7 +123,7 @@ namespace StardustSandbox.Core.IO.Handlers
         {
             try
             {
-                Deserialize(type, filePath);
+                _ = Deserialize(type, filePath);
             }
             catch (Exception)
             {
@@ -154,28 +153,28 @@ namespace StardustSandbox.Core.IO.Handlers
 
             StringBuilder builder = new();
 
-            builder.AppendLine(new string('=', 64));
-            builder.AppendLine();
-            builder.AppendLine(string.Concat(new string(' ', 12), "(c) ", SGameConstants.YEAR, ' ', SGameConstants.AUTHOR));
-            builder.AppendLine();
-            builder.AppendLine(new string('=', 64));
-            builder.AppendLine();
-            builder.AppendLine("WARNING: MODIFYING SETTINGS OUTSIDE THE GAME");
-            builder.AppendLine(string.Concat(new string('_', 64)));
-            builder.AppendLine();
-            builder.AppendLine("Modifying configuration files outside the official game environment");
-            builder.AppendLine("can lead to unexpected behavior, including crashes, corrupted data,");
-            builder.AppendLine("or other failures.");
-            builder.AppendLine();
-            builder.AppendLine("These settings are designed to work seamlessly within the game's");
-            builder.AppendLine("framework. Any manual changes may bypass validation, causing");
-            builder.AppendLine("incompatibilities or errors that could severely impact gameplay.");
-            builder.AppendLine();
-            builder.AppendLine("We strongly recommend making adjustments only through the in-game");
-            builder.AppendLine("settings menu.");
-            builder.AppendLine();
-            builder.AppendLine("If you proceed to modify these files, you do so at your own risk.");
-            builder.AppendLine("Backup your settings regularly to avoid losing important data.");
+            _ = builder.AppendLine(new string('=', 64));
+            _ = builder.AppendLine();
+            _ = builder.AppendLine(string.Concat(new string(' ', 12), "(c) ", SGameConstants.YEAR, ' ', SGameConstants.AUTHOR));
+            _ = builder.AppendLine();
+            _ = builder.AppendLine(new string('=', 64));
+            _ = builder.AppendLine();
+            _ = builder.AppendLine("WARNING: MODIFYING SETTINGS OUTSIDE THE GAME");
+            _ = builder.AppendLine(string.Concat(new string('_', 64)));
+            _ = builder.AppendLine();
+            _ = builder.AppendLine("Modifying configuration files outside the official game environment");
+            _ = builder.AppendLine("can lead to unexpected behavior, including crashes, corrupted data,");
+            _ = builder.AppendLine("or other failures.");
+            _ = builder.AppendLine();
+            _ = builder.AppendLine("These settings are designed to work seamlessly within the game's");
+            _ = builder.AppendLine("framework. Any manual changes may bypass validation, causing");
+            _ = builder.AppendLine("incompatibilities or errors that could severely impact gameplay.");
+            _ = builder.AppendLine();
+            _ = builder.AppendLine("We strongly recommend making adjustments only through the in-game");
+            _ = builder.AppendLine("settings menu.");
+            _ = builder.AppendLine();
+            _ = builder.AppendLine("If you proceed to modify these files, you do so at your own risk.");
+            _ = builder.AppendLine("Backup your settings regularly to avoid losing important data.");
 
             File.WriteAllText(filePath, builder.ToString());
         }

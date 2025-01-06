@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Managers
             this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
             this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
-            
+
             this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
         }

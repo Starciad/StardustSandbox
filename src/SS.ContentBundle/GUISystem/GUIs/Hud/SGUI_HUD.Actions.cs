@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUISystem;
+﻿using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.Simulation;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud

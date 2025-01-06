@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Core.Enums.Simulation;
-using StardustSandbox.Core.Interfaces.Ambient.Handlers;
+﻿using StardustSandbox.Core.Interfaces.Ambient.Handlers;
 
 namespace StardustSandbox.Core.Interfaces.Managers
 {

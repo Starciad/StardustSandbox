@@ -124,7 +124,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 },
             };
 
-
             this.tooltipBoxElement = tooltipBoxElement;
         }
 
