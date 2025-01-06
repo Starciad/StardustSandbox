@@ -132,4 +132,7 @@
   <data name="NoDescription" xml:space="preserve">
     <value>No description provided.</value>
   </data>
+  <data name="Settings.RestartRequired" xml:space="preserve">
+    <value>Some settings, such as the game language, will only be applied after restarting the game.</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings
+namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem
 {
     internal sealed class STextValidationState
     {

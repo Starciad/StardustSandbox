@@ -2,7 +2,7 @@
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings
+namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem.Settings
 {
     internal sealed class STextInputSettings
     {

@@ -6,7 +6,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
 {
     internal sealed partial class SGUI_Message
     {
@@ -38,11 +38,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals
             this.messageElement = new(this.SGameInstance)
             {
                 Scale = new(0.1f),
-                Margin = new(0, -192),
+                Margin = new(0f, 96f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
                 SpriteFont = this.pixelOperatorSpriteFont,
-                PositionAnchor = SCardinalDirection.Center,
+                PositionAnchor = SCardinalDirection.North,
                 OriginPivot = SCardinalDirection.Center,
             };
 

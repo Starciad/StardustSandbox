@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
 {
     internal sealed partial class SGUI_TextInput
     {
@@ -23,7 +23,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
 
                 if (validationState.Status == SValidationStatus.Failure)
                 {
-                    this.guiMessage.SetMessage(validationState.Message);
+                    this.guiMessage.SetContent(validationState.Message);
                     this.SGameInstance.GUIManager.OpenGUI(this.guiMessage.Identifier);
                     return;
                 }

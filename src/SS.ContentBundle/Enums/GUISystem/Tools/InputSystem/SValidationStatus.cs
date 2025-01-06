@@ -1,8 +1,8 @@
 ﻿namespace StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem
 {
-    internal enum SValidationStatus
+    internal enum SValidationStatus : byte
     {
-        Success,
-        Failure,
+        Success = 0,
+        Failure = 1,
     }
 }

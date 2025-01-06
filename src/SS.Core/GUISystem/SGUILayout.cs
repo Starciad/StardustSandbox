@@ -65,5 +65,10 @@ namespace StardustSandbox.Core.GUISystem
         {
             this.elements.Add(value);
         }
+
+        public void RemoveElement<T>(T value) where T : SGUIElement
+        {
+            _ = this.elements.Remove(value);
+        }
     }
 }

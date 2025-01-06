@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm;
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Confirm.Settings;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
@@ -40,6 +43,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             Borderless = 3
         }
 
+        private bool restartMessageAppeared;
+
         private byte selectedSectionIndex = 0;
         private byte selectedLanguageIndex = 0;
 
@@ -59,10 +64,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly SButton[] systemButtons;
 
-        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
-        {
-            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
+        private readonly SGUI_Message guiMessage;
 
+        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
+        {
+            this.guiMessage = guiMessage;
+
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
 

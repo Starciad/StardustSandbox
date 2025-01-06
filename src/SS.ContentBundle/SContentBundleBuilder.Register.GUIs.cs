@@ -3,8 +3,7 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
@@ -27,6 +26,7 @@ namespace StardustSandbox.ContentBundle
             // Tools
 
             SGUI_Message message = new(game, SGUIConstants.MESSAGE_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_Confirm confirm = new(game, SGUIConstants.CONFIRM_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_TextInput input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents, message);
 
             // =================================== //
@@ -34,7 +34,7 @@ namespace StardustSandbox.ContentBundle
 
             SGUI_MainMenu mainMenu = new(game, SGUIConstants.MAIN_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_PlayMenu playMenu = new(game, SGUIConstants.PLAY_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_OptionsMenu optionsMenu = new(game, SGUIConstants.OPTIONS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_OptionsMenu optionsMenu = new(game, SGUIConstants.OPTIONS_MENU_IDENTIFIER, game.GUIManager.GUIEvents, message);
             SGUI_CreditsMenu creditsMenu = new(game, SGUIConstants.CREDITS_MENU_IDENTIFIER, game.GUIManager.GUIEvents);
 
             SGUI_HUD hud = new(game, SGUIConstants.HUD_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElement);
@@ -52,6 +52,7 @@ namespace StardustSandbox.ContentBundle
             // Register
 
             guiDatabase.RegisterGUISystem(message);
+            guiDatabase.RegisterGUISystem(confirm);
             guiDatabase.RegisterGUISystem(input);
 
             guiDatabase.RegisterGUISystem(mainMenu);

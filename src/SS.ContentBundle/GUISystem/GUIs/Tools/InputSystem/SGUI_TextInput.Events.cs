@@ -6,7 +6,7 @@ using StardustSandbox.Core.GUISystem;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Specials
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
 {
     internal sealed partial class SGUI_TextInput : SGUISystem
     {

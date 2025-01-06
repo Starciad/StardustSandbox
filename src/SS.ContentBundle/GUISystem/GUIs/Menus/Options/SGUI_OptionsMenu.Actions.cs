@@ -1,4 +1,5 @@
-﻿using StardustSandbox.ContentBundle.Localization.Statements;
+﻿using StardustSandbox.ContentBundle.Localization.Messages;
+using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
@@ -14,6 +15,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             SaveVideoSettings();
             SaveLanguageSettings();
+
+            if (!this.restartMessageAppeared)
+            {
+                this.guiMessage.SetContent(SLocalization_Messages.Settings_RestartRequired);
+                this.SGameInstance.GUIManager.OpenGUI(this.guiMessage.Identifier);
+
+                this.restartMessageAppeared = true;
+            }
         }
 
         private void ReturnButtonAction()

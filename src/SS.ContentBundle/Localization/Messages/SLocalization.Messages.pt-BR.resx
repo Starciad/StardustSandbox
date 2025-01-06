@@ -132,4 +132,7 @@
   <data name="NoDescription" xml:space="preserve">
     <value>Nenhuma descrição foi fornecida.</value>
   </data>
+  <data name="Settings.RestartRequired" xml:space="preserve">
+    <value>Algumas configurações, como a linguagem do jogo, só serão aplicadas após reiniciar o jogo.</value>
+  </data>
 </root>

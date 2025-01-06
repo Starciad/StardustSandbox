@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Interfaces.System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Specials.Selectors
+namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Selectors
 {
     internal sealed class SOptionSelector(string displayName, uint selectedValueIndex, string[] values) : ISResettable
     {

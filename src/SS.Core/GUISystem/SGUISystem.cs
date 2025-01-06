@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.GUISystem
             this.layout.Draw(gameTime, spriteBatch);
         }
 
-        public void Open()
+        internal void Open()
         {
             this.isActive = true;
             this.isOpened = true;
@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.GUISystem
             OnOpened();
         }
 
-        public void Close()
+        internal void Close()
         {
             this.isActive = false;
             this.isOpened = false;

@@ -104,5 +104,14 @@ namespace StardustSandbox.ContentBundle.Localization.Messages {
                 return ResourceManager.GetString("NoDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Some settings, such as the game language, will only be applied after restarting the game..
+        /// </summary>
+        internal static string Settings_RestartRequired {
+            get {
+                return ResourceManager.GetString("Settings.RestartRequired", resourceCulture);
+            }
+        }
     }
 }

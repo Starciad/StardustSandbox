@@ -2,7 +2,7 @@
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Specials.Interactive
+namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive
 {
     internal sealed class SButton(Texture2D iconTexture, string displayName, string description, Action clickAction)
     {

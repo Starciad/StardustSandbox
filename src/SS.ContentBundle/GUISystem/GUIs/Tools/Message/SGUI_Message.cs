@@ -7,7 +7,7 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
 {
     internal sealed partial class SGUI_Message(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : SGUISystem(gameInstance, identifier, guiEvents)
     {
@@ -34,7 +34,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Modals
             this.continueButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
         }
 
-        internal void SetMessage(string text)
+        internal void SetContent(string text)
         {
             this.messageElement.SetTextualContent(text);
         }
