@@ -32,6 +32,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.videoSettings.Borderless = this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].SelectedValue.Equals(SLocalization_Statements.True);
 
             SSettingsHandler.SaveSettings(this.videoSettings);
+
+            this.SGameInstance.GraphicsManager.UpdateSettings();
         }
 
         private void SaveLanguageSettings()

@@ -52,9 +52,19 @@ namespace StardustSandbox.Core.Managers
             this.worldLightingRenderTarget = new(this.GraphicsDevice, width, height);
         }
 
-        internal void UpdateSettings()
+        internal void SetGameWindow(GameWindow gameWindow)
+        {
+            this.GameWindow = gameWindow;
+        }
+
+        public void UpdateSettings()
         {
             SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
+
+            if (this.GameWindow != null)
+            {
+                this.GameWindow.IsBorderless = videoSettings.Borderless;
+            }
 
             if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
             {
@@ -71,11 +81,6 @@ namespace StardustSandbox.Core.Managers
             this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
-        }
-
-        internal void SetGameWindow(GameWindow gameWindow)
-        {
-            this.GameWindow = gameWindow;
         }
 
         public Vector2 GetScreenScaleFactor()
