@@ -16,16 +16,12 @@
 		<AssemblyName>StardustSandbox.ContentBundle</AssemblyName>
 		<RootNamespace>StardustSandbox.ContentBundle</RootNamespace>
 	</PropertyGroup>
-	<ItemGroup>
-	  <None Remove="Localization\GUIs\SLocalization.GUIs.pt-BR.resx~RF274e272.TMP" />
-	</ItemGroup>
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
 		<PackageReference Include="MessagePack" Version="3.1.1" />
-		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
 	</ItemGroup>
 
 	<!-- PROJECTS -->
