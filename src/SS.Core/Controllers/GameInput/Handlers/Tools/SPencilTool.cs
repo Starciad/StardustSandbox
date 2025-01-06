@@ -22,7 +22,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
             switch (contentType)
             {
                 case SItemContentType.Element:
-                    IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
+                    IEnumerable<Point> targetPoints = this.simulationPen.GetShapePoints(position);
 
                     switch (worldModificationType)
                     {

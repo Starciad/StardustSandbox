@@ -43,6 +43,7 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.Clear(SColorPalette.DarkGray);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, this.graphicsManager.GetScreenScaleFactor(), SpriteEffects.None, 0f);
+            DrawCursorActionArea();
             this.cursorManager.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
             #endregion
@@ -136,6 +137,11 @@ namespace StardustSandbox.Core
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.guiManager.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
+        }
+
+        private void DrawCursorActionArea()
+        {
+
         }
     }
 }

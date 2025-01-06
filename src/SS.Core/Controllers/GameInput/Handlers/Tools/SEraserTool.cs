@@ -18,7 +18,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
 
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
-            IEnumerable<Point> targetPoints = this.simulationPen.GetPenShapePoints(position);
+            IEnumerable<Point> targetPoints = this.simulationPen.GetShapePoints(position);
 
             switch (contentType)
             {

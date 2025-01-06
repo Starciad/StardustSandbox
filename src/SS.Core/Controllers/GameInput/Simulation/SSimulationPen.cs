@@ -22,8 +22,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
 
         private sbyte size = SInputConstants.PEN_MIN_SIZE;
 
-        private readonly List<Point> _buffer = [];
-
         public SSimulationPen()
         {
             this.Tool = SPenTool.Pencil;
@@ -31,29 +29,18 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
             this.Shape = SPenShape.Circle;
         }
 
-        public IEnumerable<Point> GetPenShapePoints(Point position)
+        public IEnumerable<Point> GetShapePoints(Point position)
         {
-            this._buffer.Clear();
-
-            switch (this.Shape)
+            return this.Shape switch
             {
-                case SPenShape.Circle:
-                    FillCirclePositions(position, this.Size);
-                    break;
-                case SPenShape.Square:
-                    FillSquarePositions(position, this.Size);
-                    break;
-                case SPenShape.Triangle:
-                    FillTrianglePositions(position, this.Size);
-                    break;
-                default:
-                    throw new NotSupportedException($"Shape {this.Shape} is not supported.");
-            }
-
-            return this._buffer;
+                SPenShape.Circle => FillCirclePositions(position, this.Size),
+                SPenShape.Square => FillSquarePositions(position, this.Size),
+                SPenShape.Triangle => FillTrianglePositions(position, this.Size),
+                _ => throw new NotSupportedException($"Shape {this.Shape} is not supported."),
+            };
         }
 
-        private void FillCirclePositions(Point position, int radius)
+        private static IEnumerable<Point> FillCirclePositions(Point position, int radius)
         {
             for (int x = -radius; x <= radius; x++)
             {
@@ -61,31 +48,31 @@ namespace StardustSandbox.Core.Controllers.GameInput.Simulation
                 {
                     if ((x * x) + (y * y) <= radius * radius)
                     {
-                        this._buffer.Add(new Point(position.X + x, position.Y + y));
+                        yield return new(position.X + x, position.Y + y);
                     }
                 }
             }
         }
 
-        private void FillSquarePositions(Point position, int radius)
+        private static IEnumerable<Point> FillSquarePositions(Point position, int radius)
         {
             for (int x = -radius; x <= radius; x++)
             {
                 for (int y = -radius; y <= radius; y++)
                 {
-                    this._buffer.Add(new Point(position.X + x, position.Y + y));
+                    yield return new(position.X + x, position.Y + y);
                 }
             }
         }
 
-        private void FillTrianglePositions(Point position, int radius)
+        private static IEnumerable<Point> FillTrianglePositions(Point position, int radius)
         {
             for (int y = 0; y <= radius; y++)
             {
                 int rowWidth = radius - y;
                 for (int x = -rowWidth; x <= rowWidth; x++)
                 {
-                    this._buffer.Add(new Point(position.X + x, position.Y - y + (radius / 2)));
+                    yield return new(position.X + x, position.Y - y + (radius / 2));
                 }
             }
         }
