@@ -1,8 +1,8 @@
-﻿using MessagePack;
+﻿using System;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [MessagePackObject]
+    [Serializable]
     public abstract class SSettings
     {
 

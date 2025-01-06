@@ -13,11 +13,22 @@
 
     <PropertyGroup>
         <NoWarn>WFAC010</NoWarn>
-		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
     </PropertyGroup>
 
     <PropertyGroup>
         <DebugType>embedded</DebugType>
         <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     </PropertyGroup>
+
+    <PropertyGroup>
+		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../data</BeautyLibsDir>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./data</BeautyLibsDir>
+		<DisableBeauty>False</DisableBeauty>
+		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
+		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
+		<BeautyEnableDebugging>False</BeautyEnableDebugging>
+		<BeautyUsePatch>True</BeautyUsePatch>
+		<BeautyLogLevel>Info</BeautyLogLevel>
+	</PropertyGroup>
 </Project>

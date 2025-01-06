@@ -1,21 +1,21 @@
-﻿using MessagePack;
+﻿using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [MessagePackObject]
+    [XmlRoot("VolumeSettings")]
     public sealed class SVolumeSettings : SSettings
     {
-        [Key(0)]
+        [XmlElement("MasterVolume", typeof(float))]
         public float MasterVolume { get; set; }
 
-        [Key(1)]
+        [XmlElement("MusicVolume", typeof(float))]
         public float MusicVolume
         {
             get => this.musicVolume * this.MasterVolume;
             set => this.musicVolume = value;
         }
 
-        [Key(2)]
+        [XmlElement("SFXVolume", typeof(float))]
         public float SFXVolume
         {
             get => this.sfxVolume * this.MasterVolume;

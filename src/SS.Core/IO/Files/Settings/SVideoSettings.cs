@@ -1,16 +1,16 @@
-﻿using MessagePack;
-
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System.Xml.Serialization;
+
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [MessagePackObject]
+    [XmlRoot("VideoSettings")]
     public sealed class SVideoSettings : SSettings
     {
-        [IgnoreMember]
+        [XmlIgnore]
         public SSize2 Resolution
         {
             get => new(this.ScreenWidth, this.ScreenHeight);
@@ -22,19 +22,19 @@ namespace StardustSandbox.Core.IO.Files.Settings
             }
         }
 
-        [Key(0)]
+        [XmlElement("ScreenWidth", typeof(int))]
         public int ScreenWidth { get; set; }
 
-        [Key(1)]
+        [XmlElement("ScreenHeight", typeof(int))]
         public int ScreenHeight { get; set; }
 
-        [Key(2)]
+        [XmlElement("FullScreen", typeof(bool))]
         public bool FullScreen { get; set; }
 
-        [Key(3)]
+        [XmlElement("VSync", typeof(bool))]
         public bool VSync { get; set; }
 
-        [Key(4)]
+        [XmlElement("Borderless", typeof(bool))]
         public bool Borderless { get; set; }
 
         public SVideoSettings()

@@ -1,25 +1,24 @@
-﻿using MessagePack;
-
-using StardustSandbox.Core.Constants;
+﻿using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Localization;
 
 using System.Globalization;
+using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [MessagePackObject]
+    [XmlRoot("LanguageSettings")]
     public sealed class SLanguageSettings : SSettings
     {
-        [IgnoreMember]
+        [XmlIgnore]
         public SGameCulture GameCulture => SLocalizationConstants.GetGameCulture(this.Name);
 
-        [IgnoreMember]
+        [XmlIgnore]
         public string Name => string.Concat(this.Language, '-', this.Region);
 
-        [Key(0)]
+        [XmlElement("Language", typeof(string))]
         public string Language { get; set; }
 
-        [Key(1)]
+        [XmlElement("Region", typeof(string))]
         public string Region { get; set; }
 
         public SLanguageSettings()
