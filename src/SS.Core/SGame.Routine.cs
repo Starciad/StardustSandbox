@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Plugins;
@@ -7,6 +8,8 @@ namespace StardustSandbox.Core
 {
     public sealed partial class SGame
     {
+        private Texture2D mouseActionSquareTexture;
+
         protected override void Initialize()
         {
             foreach (SPluginBuilder pluginBuilder in this.pluginBuilders)
@@ -43,6 +46,7 @@ namespace StardustSandbox.Core
         protected override void LoadContent()
         {
             this.spriteBatch = new(this.GraphicsDevice);
+            this.mouseActionSquareTexture = this.assetDatabase.GetTexture("shape_square_3");
         }
 
         protected override void BeginRun()

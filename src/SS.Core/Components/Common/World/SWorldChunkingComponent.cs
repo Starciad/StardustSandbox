@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Components.Common.World
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    this.chunks[x, y] = new SWorldChunk(new Point(x * SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE, y * SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE));
+                    this.chunks[x, y] = new SWorldChunk(new Point(x * SWorldConstants.CHUNK_SCALE * SWorldConstants.SLOT_SIZE, y * SWorldConstants.CHUNK_SCALE * SWorldConstants.SLOT_SIZE));
                 }
             }
         }
@@ -167,7 +167,7 @@ namespace StardustSandbox.Core.Components.Common.World
                 {
                     if (this.chunks[x, y].ShouldUpdate)
                     {
-                        spriteBatch.Draw(this.pixelTexture, new Vector2(this.chunks[x, y].Position.X, this.chunks[x, y].Position.Y), null, new Color(255, 0, 0, 35), 0f, Vector2.Zero, SWorldConstants.CHUNK_SCALE * SWorldConstants.GRID_SCALE, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(this.pixelTexture, new Vector2(this.chunks[x, y].Position.X, this.chunks[x, y].Position.Y), null, new Color(255, 0, 0, 35), 0f, Vector2.Zero, SWorldConstants.CHUNK_SCALE * SWorldConstants.SLOT_SIZE, SpriteEffects.None, 0f);
                     }
                 }
             }

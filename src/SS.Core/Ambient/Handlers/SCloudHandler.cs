@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Ambient.Handlers
                     continue;
                 }
 
-                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + (SWorldConstants.GRID_SCALE * 2)))
+                if (!this.SGameInstance.CameraManager.InsideCameraBounds(cloud.Position, new SSize2(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + (SWorldConstants.SLOT_SIZE * 2)))
                 {
                     DestroyCloud(cloud);
                     continue;

@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Managers
             this.world.Time.Reset();
             this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
-            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE));
+            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.SLOT_SIZE));
 
             this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
             this.SGameInstance.GameInputController.Activate();
@@ -77,8 +77,8 @@ namespace StardustSandbox.Core.Managers
 
         private void ClampCameraInTheWorld()
         {
-            int totalWorldWidth = this.world.Infos.Size.Width * SWorldConstants.GRID_SCALE;
-            int totalWorldHeight = this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE;
+            int totalWorldWidth = this.world.Infos.Size.Width * SWorldConstants.SLOT_SIZE;
+            int totalWorldHeight = this.world.Infos.Size.Height * SWorldConstants.SLOT_SIZE;
 
             float visibleWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
             float visibleHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;

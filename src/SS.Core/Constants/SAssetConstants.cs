@@ -51,7 +51,7 @@
         public const byte GRAPHICS_PARTICLES_LENGTH = 001;
 
         // Shapes
-        public const byte GRAPHICS_SHAPES_SQUARES_LENGTH = 002;
+        public const byte GRAPHICS_SHAPES_SQUARES_LENGTH = 003;
 
         // Third Parties
         public const byte GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH = 002;
