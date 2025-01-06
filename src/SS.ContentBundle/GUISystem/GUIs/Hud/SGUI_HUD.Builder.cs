@@ -32,7 +32,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly SSlot[] rightPanelTopButtonElements;
         private readonly SSlot[] rightPanelBottomButtonElements;
 
-        private readonly Color toolbarContainerColor = new(SColorPalette.White, 32);
+        private readonly Color toolbarContainerColor = new(SColorPalette.White, 128);
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {

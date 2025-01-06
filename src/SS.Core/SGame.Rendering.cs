@@ -22,18 +22,18 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.Clear(SColorPalette.DarkGray);
 
             // BACKGROUND
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
 
             // SCENE & LIGHTING
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.Draw(this.graphicsManager.WorldLightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
 
             // GUI
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.GuiRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
             #endregion
@@ -126,7 +126,6 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldLightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
-
             this.spriteBatch.End();
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Contexts;
@@ -80,7 +81,7 @@ namespace StardustSandbox.Core.Components.Common.World
                     {
                         if (this.SGameInstance.GameInputController.Pen.Tool != SPenTool.Visualization)
                         {
-                            spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new Color(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                            spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new Color(SColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                         }
 
                         if (this.SWorldInstance.TryGetWorldSlot(targetPosition.ToPoint(), out SWorldSlot value))
