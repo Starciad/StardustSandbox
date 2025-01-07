@@ -61,6 +61,42 @@ namespace StardustSandbox.ContentBundle.Localization.Messages {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a You are about to erase all content from the world. This includes elements, items, and any other data. The world will be restored to an empty state. This action is irreversible. Are you sure you want to continue?.
+        /// </summary>
+        internal static string Confirm_Simulation_EraseEverything_Description {
+            get {
+                return ResourceManager.GetString("Confirm.Simulation.EraseEverything.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Do you really want to erase all content in the world?.
+        /// </summary>
+        internal static string Confirm_Simulation_EraseEverything_Title {
+            get {
+                return ResourceManager.GetString("Confirm.Simulation.EraseEverything.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a You are about to reload a simulation. This will restore the world to the initial state of the loaded file. If no file was loaded, the world will be completely reset. This action is irreversible. Do you wish to continue?.
+        /// </summary>
+        internal static string Confirm_Simulation_Reload_Description {
+            get {
+                return ResourceManager.GetString("Confirm.Simulation.Reload.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Do you really want to restart the world?.
+        /// </summary>
+        internal static string Confirm_Simulation_Reload_Title {
+            get {
+                return ResourceManager.GetString("Confirm.Simulation.Reload.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Enter the description that the world will have..
         /// </summary>
         internal static string Input_World_Description {

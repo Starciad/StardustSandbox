@@ -183,4 +183,7 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirmar</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
 </root>

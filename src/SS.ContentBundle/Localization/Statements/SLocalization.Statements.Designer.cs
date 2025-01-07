@@ -241,6 +241,15 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Yes.
         /// </summary>
         internal static string Yes {

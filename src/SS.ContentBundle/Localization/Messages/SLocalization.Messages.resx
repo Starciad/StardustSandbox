@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Confirm.Simulation.EraseEverything.Description" xml:space="preserve">
+    <value>You are about to erase all content from the world. This includes elements, items, and any other data. The world will be restored to an empty state. This action is irreversible. Are you sure you want to continue?</value>
+  </data>
+  <data name="Confirm.Simulation.EraseEverything.Title" xml:space="preserve">
+    <value>Do you really want to erase all content in the world?</value>
+  </data>
+  <data name="Confirm.Simulation.Reload.Description" xml:space="preserve">
+    <value>You are about to reload a simulation. This will restore the world to the initial state of the loaded file. If no file was loaded, the world will be completely reset. This action is irreversible. Do you wish to continue?</value>
+  </data>
+  <data name="Confirm.Simulation.Reload.Title" xml:space="preserve">
+    <value>Do you really want to restart the world?</value>
+  </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Enter the description that the world will have.</value>
   </data>

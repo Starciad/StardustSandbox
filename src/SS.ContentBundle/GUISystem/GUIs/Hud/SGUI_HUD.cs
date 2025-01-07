@@ -1,11 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Confirm.Settings;
 using StardustSandbox.ContentBundle.Localization.GUIs;
+using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Catalog;
@@ -50,10 +54,50 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly SButton[] rightPanelTopButtons;
         private readonly SButton[] rightPanelBottomButtons;
 
+        private readonly SGUI_Confirm guiConfirm;
+
+        private readonly SConfirmSettings reloadSimulationConfirmSettings;
+        private readonly SConfirmSettings eraseEverythingConfirmSettings;
+
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 
-        internal SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_HUD(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Confirm guiConfirm, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
+            this.guiConfirm = guiConfirm;
+
+            this.world = gameInstance.World;
+            this.tooltipBoxElement = tooltipBoxElement;
+
+            this.reloadSimulationConfirmSettings = new()
+            {
+                Caption = SLocalization_Messages.Confirm_Simulation_Reload_Title,
+                Message = SLocalization_Messages.Confirm_Simulation_Reload_Description,
+                OnConfirmCallback = (SConfirmStatus status) =>
+                {
+                    if (status == SConfirmStatus.Confirmed)
+                    {
+                        this.world.Reload();
+                    }
+
+                    this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = false;
+                },
+            };
+
+            this.eraseEverythingConfirmSettings = new()
+            {
+                Caption = SLocalization_Messages.Confirm_Simulation_EraseEverything_Title,
+                Message = SLocalization_Messages.Confirm_Simulation_EraseEverything_Description,
+                OnConfirmCallback = (SConfirmStatus status) =>
+                {
+                    if (status == SConfirmStatus.Confirmed)
+                    {
+                        this.world.Reset();
+                    }
+
+                    this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = false;
+                },
+            };
+
             SelectItemSlot(0, SElementConstants.IDENTIFIER_DIRT);
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
@@ -76,9 +120,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_45"),
                 this.SGameInstance.AssetDatabase.GetTexture("icon_gui_46"),
             ];
-
-            this.world = gameInstance.World;
-            this.tooltipBoxElement = tooltipBoxElement;
 
             this.leftPanelTopButtons = [
                 new(this.weatherIconTexture, SLocalization_GUIs.HUD_Button_EnvironmentSettings_Name, SLocalization_GUIs.HUD_Button_EnvironmentSettings_Description, EnvironmentSettingsButtonAction),

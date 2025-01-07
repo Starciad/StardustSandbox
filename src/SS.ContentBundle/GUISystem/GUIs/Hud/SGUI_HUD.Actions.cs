@@ -81,12 +81,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #region Bottom Buttons
         private void ReloadSimulationButtonAction()
         {
-            this.world.Reload();
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
+            this.guiConfirm.Configure(this.reloadSimulationConfirmSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
         }
 
         private void EraseEverythingButtonAction()
         {
-            this.world.Reset();
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
+            this.guiConfirm.Configure(this.eraseEverythingConfirmSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
         }
         #endregion
         #endregion
