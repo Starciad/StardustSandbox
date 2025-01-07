@@ -23,7 +23,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     {
         private readonly Texture2D particleTexture;
         private readonly Texture2D panelBackgroundTexture;
-        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D exitIconTexture;
         private readonly Texture2D frozenTimeIconTexture;
         private readonly Texture2D timeProgressIconTexture;
@@ -49,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_7");
-            this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.world = gameInstance.World;

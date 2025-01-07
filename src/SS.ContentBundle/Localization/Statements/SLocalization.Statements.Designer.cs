@@ -160,6 +160,24 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Options.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resume.
+        /// </summary>
+        internal static string Resume {
+            get {
+                return ResourceManager.GetString("Resume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Return.
         /// </summary>
         internal static string Return {

@@ -1,8 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Localization.GUIs;
-using StardustSandbox.ContentBundle.Localization.Statements;
-using StardustSandbox.Core.Mathematics.Primitives;
-
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 {
     internal sealed partial class SGUI_Pause
     {

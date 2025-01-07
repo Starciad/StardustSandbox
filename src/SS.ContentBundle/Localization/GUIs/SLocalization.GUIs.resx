@@ -438,4 +438,7 @@
   <data name="HUD.Button.Speed.Description" xml:space="preserve">
     <value>Adjusts the temporal flow speed of various simulation components, including element interactions, time progression, and related aspects. Higher speeds may cause minor performance slowdowns due to increased processing demand.</value>
   </data>
+  <data name="HUD.Complements.Pause.Title" xml:space="preserve">
+    <value>Pause</value>
+  </data>
 </root>

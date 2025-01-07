@@ -194,7 +194,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             SGUIImageElement backgroundElement = new(this.SGameInstance)
             {
-                Texture = this.guiButton1Texture,
+                Texture = this.guiSmallButtonTexture,
                 Scale = new(SGUI_HUDConstants.SLOT_SCALE),
                 Size = new(SGUI_HUDConstants.SLOT_SIZE),
                 Margin = margin,

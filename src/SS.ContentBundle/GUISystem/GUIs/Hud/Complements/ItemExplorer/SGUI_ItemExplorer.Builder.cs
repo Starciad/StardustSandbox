@@ -94,7 +94,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 SGUIImageElement backgroundElement = new(this.SGameInstance)
                 {
-                    Texture = this.guiButton1Texture,
+                    Texture = this.guiSmallButtonTexture,
                     Scale = new(SGUI_HUDConstants.SLOT_SCALE),
                     Size = new(SGUI_HUDConstants.SLOT_SIZE),
                     Margin = margin,
@@ -139,7 +139,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     SGUIImageElement slotBackground = new(this.SGameInstance)
                     {
-                        Texture = this.guiButton1Texture,
+                        Texture = this.guiSmallButtonTexture,
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
                         PositionAnchor = SCardinalDirection.Northwest,
@@ -183,7 +183,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 SGUIImageElement slotBackground = new(this.SGameInstance)
                 {
-                    Texture = this.guiButton1Texture,
+                    Texture = this.guiSmallButtonTexture,
                     OriginPivot = SCardinalDirection.Center,
                     PositionAnchor = SCardinalDirection.Northwest,
                     Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
@@ -238,7 +238,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 {
                     SGUIImageElement slotBackground = new(this.SGameInstance)
                     {
-                        Texture = this.guiButton1Texture,
+                        Texture = this.guiSmallButtonTexture,
                         PositionAnchor = positionAnchor,
                         OriginPivot = SCardinalDirection.Center,
                         Scale = new(SGUI_ItemExplorerConstants.SLOT_SCALE),
@@ -290,7 +290,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 SGUIImageElement slotBackground = new(this.SGameInstance)
                 {
-                    Texture = this.guiButton1Texture,
+                    Texture = this.guiSmallButtonTexture,
                     OriginPivot = SCardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(SGUI_ItemExplorerConstants.SLOT_SIZE),

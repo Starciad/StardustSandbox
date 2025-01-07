@@ -51,7 +51,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SWorldSaveFile[] savedWorldFilesLoaded;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D guiButton2Texture;
         private readonly Texture2D exitIconTexture;
         private readonly Texture2D reloadIconTexture;
@@ -66,7 +66,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         internal SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_WorldDetailsMenu detailsMenu) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiButton1Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.guiSmallButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.guiButton2Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_2");
             this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
             this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");

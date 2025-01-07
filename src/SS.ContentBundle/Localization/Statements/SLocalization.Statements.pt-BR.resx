@@ -186,4 +186,10 @@
   <data name="Warning" xml:space="preserve">
     <value>Aviso</value>
   </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Retomar</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opções</value>
+  </data>
 </root>

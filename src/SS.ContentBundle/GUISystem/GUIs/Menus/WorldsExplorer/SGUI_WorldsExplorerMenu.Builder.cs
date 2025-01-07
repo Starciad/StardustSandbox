@@ -66,7 +66,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 SGUIImageElement buttonBackgroundElement = new(this.SGameInstance)
                 {
-                    Texture = this.guiButton1Texture,
+                    Texture = this.guiSmallButtonTexture,
                     PositionAnchor = SCardinalDirection.East,
                     OriginPivot = SCardinalDirection.Center,
                     Margin = margin,

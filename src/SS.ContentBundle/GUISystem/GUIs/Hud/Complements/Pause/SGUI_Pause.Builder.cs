@@ -17,9 +17,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
     internal sealed partial class SGUI_Pause
     {
         private SGUIImageElement panelBackgroundElement;
-
         private SGUILabelElement menuTitleElement;
-
+        
         private readonly SSlot[] menuButtonSlots;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
@@ -42,8 +41,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.panelBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.panelBackgroundTexture,
-                Size = new(1084, 540),
-                Margin = new(98, 90),
+                Size = new(542, 540),
+                Margin = new(this.panelBackgroundTexture.Width / 2 * -1, 90),
+                PositionAnchor = SCardinalDirection.North,
             };
 
             this.panelBackgroundElement.PositionRelativeToScreen();
@@ -58,13 +58,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 SpriteFont = this.bigApple3PMSpriteFont,
                 Scale = new(0.12f),
-                PositionAnchor = SCardinalDirection.Northwest,
-                OriginPivot = SCardinalDirection.East,
-                Margin = new(32, 40),
+                PositionAnchor = SCardinalDirection.North,
+                OriginPivot = SCardinalDirection.Center,
+                Margin = new(0f, 40f),
                 Color = SColorPalette.White,
             };
 
-            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_Information_Title);
+            this.menuTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_Pause_Title);
             this.menuTitleElement.SetAllBorders(true, SColorPalette.DarkGray, new(3f));
             this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
 
@@ -73,52 +73,43 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = new(-32f, -40f);
+            float marginY = 118f;
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 SButton button = this.menuButtons[i];
-                SSlot slot = CreateButtonSlot(margin, button.IconTexture);
 
-                slot.BackgroundElement.PositionAnchor = SCardinalDirection.Northeast;
-                slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
+                SGUIImageElement backgroundElement = new(this.SGameInstance)
+                {
+                    Texture = this.guiLargeButtonTexture,
+                    Color = SColorPalette.PurpleGray,
+                    Size = new(320, 80),
+                    Margin = new(this.guiLargeButtonTexture.Width / 2 * -1, marginY),
+                    PositionAnchor = SCardinalDirection.North,
+                };
 
-                // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
-                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                SGUILabelElement labelElement = new(this.SGameInstance)
+                {
+                    Scale = new(0.1f),
+                    Color = SColorPalette.White,
+                    SpriteFont = this.bigApple3PMSpriteFont,
+                    PositionAnchor = SCardinalDirection.Center,
+                    OriginPivot = SCardinalDirection.Center
+                };
 
-                // Save
-                this.menuButtonSlots[i] = slot;
+                labelElement.SetTextualContent(button.DisplayName);
+                labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2));
 
-                // Spacing
-                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                backgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
+                labelElement.PositionRelativeToElement(backgroundElement);
 
-                layoutBuilder.AddElement(slot.BackgroundElement);
-                layoutBuilder.AddElement(slot.IconElement);
+                layoutBuilder.AddElement(backgroundElement);
+                layoutBuilder.AddElement(labelElement);
+
+                this.menuButtonSlots[i] = new(backgroundElement, null, labelElement);
+
+                marginY += backgroundElement.Size.Height + 32;
             }
-        }
-        
-        // =============================================================== //
-
-        private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
-        {
-            SGUIImageElement backgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.guiButton1Texture,
-                Scale = new(SGUI_HUDConstants.SLOT_SCALE),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE),
-                Margin = margin,
-            };
-
-            SGUIImageElement iconElement = new(this.SGameInstance)
-            {
-                Texture = iconTexture,
-                OriginPivot = SCardinalDirection.Center,
-                Scale = new(1.5f),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE)
-            };
-
-            return new(backgroundElement, iconElement);
         }
     }
 }
