@@ -135,6 +135,12 @@
   <data name="Confirm.Simulation.Reload.Title" xml:space="preserve">
     <value>Você realmente deseja reiniciar o mundo?</value>
   </data>
+  <data name="Confirm.World.Resize.Description" xml:space="preserve">
+    <value>Para alterar o tamanho do mundo, todo o conteúdo atual precisará ser apagado. Isso resultará na perda de todo o progresso caso as informações não tenham sido salvas. Certifique-se de salvar antes de continuar. Deseja realmente alterar o tamanho do mundo?</value>
+  </data>
+  <data name="Confirm.World.Resize.Title" xml:space="preserve">
+    <value>Alteração de Tamanho do Mundo - Progresso Será Perdido</value>
+  </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Insira a descrição que o mundo terá.</value>
   </data>

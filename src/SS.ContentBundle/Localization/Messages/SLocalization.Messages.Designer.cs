@@ -115,6 +115,24 @@ namespace StardustSandbox.ContentBundle.Localization.Messages {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a To change the size of the world, all current content will need to be deleted. This will result in the loss of all progress unless the information has been saved. Make sure to save before proceeding. Do you really want to change the size of the world?.
+        /// </summary>
+        internal static string Confirm_World_Resize_Description {
+            get {
+                return ResourceManager.GetString("Confirm.World.Resize.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a World Size Change - Progress Will Be Lost.
+        /// </summary>
+        internal static string Confirm_World_Resize_Title {
+            get {
+                return ResourceManager.GetString("Confirm.World.Resize.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Enter the description that the world will have..
         /// </summary>
         internal static string Input_World_Description {
