@@ -7,13 +7,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
     {
         private void CancelButtonAction()
         {
-            this.inputSettings?.OnCancelCallback?.Invoke();
             this.SGameInstance.GUIManager.CloseGUI();
+            this.inputSettings?.OnCancelCallback?.Invoke();
         }
 
         private void SendButtonAction()
         {
+            this.SGameInstance.GUIManager.CloseGUI();
             this.inputSettings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
+
             if (this.inputSettings != null)
             {
                 STextValidationState validationState = new();
@@ -30,8 +32,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
 
                 this.inputSettings.OnSendCallback?.Invoke(argumentResult);
             }
-
-            this.SGameInstance.GUIManager.CloseGUI();
         }
     }
 }

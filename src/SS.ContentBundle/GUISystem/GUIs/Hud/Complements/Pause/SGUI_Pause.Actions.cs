@@ -17,8 +17,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void ExitButtonAction()
         {
-            this.SGameInstance.GUIManager.Reset();
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.MAIN_MENU_IDENTIFIER);
+            this.guiConfirm.Configure(this.exitConfirmSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
         }
     }
 }

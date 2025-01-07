@@ -79,6 +79,24 @@ namespace StardustSandbox.ContentBundle.Localization.Messages {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a If you exit now, all progress will be lost unless your creation has been saved. Make sure to save before exiting to avoid losing your work. Do you want to continue?.
+        /// </summary>
+        internal static string Confirm_Simulation_Exit_Description {
+            get {
+                return ResourceManager.GetString("Confirm.Simulation.Exit.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Are you sure you want to exit?.
+        /// </summary>
+        internal static string Confirm_Simulation_Exit_Title {
+            get {
+                return ResourceManager.GetString("Confirm.Simulation.Exit.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a You are about to reload a simulation. This will restore the world to the initial state of the loaded file. If no file was loaded, the world will be completely reset. This action is irreversible. Do you wish to continue?.
         /// </summary>
         internal static string Confirm_Simulation_Reload_Description {

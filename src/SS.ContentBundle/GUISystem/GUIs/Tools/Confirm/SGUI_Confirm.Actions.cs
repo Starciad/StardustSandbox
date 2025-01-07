@@ -6,14 +6,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
     {
         private void CancelButtonAction()
         {
-            this.confirmSettings?.OnConfirmCallback?.Invoke(SConfirmStatus.Cancelled);
             this.SGameInstance.GUIManager.CloseGUI();
+            this.confirmSettings?.OnConfirmCallback?.Invoke(SConfirmStatus.Cancelled);
         }
 
         private void ConfirmButtonAction()
         {
-            this.confirmSettings?.OnConfirmCallback?.Invoke(SConfirmStatus.Confirmed);
             this.SGameInstance.GUIManager.CloseGUI();
+            this.confirmSettings?.OnConfirmCallback?.Invoke(SConfirmStatus.Confirmed);
         }
     }
 }
