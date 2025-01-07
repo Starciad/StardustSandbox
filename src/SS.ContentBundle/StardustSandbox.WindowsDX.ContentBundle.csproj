@@ -90,9 +90,6 @@
 			<AutoGen>True</AutoGen>
 		</Compile>
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="GUISystem\GUIs\Hud\Complements\Pause\" />
-	</ItemGroup>
 
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

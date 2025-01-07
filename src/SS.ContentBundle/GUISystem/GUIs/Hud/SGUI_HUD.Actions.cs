@@ -69,7 +69,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #region Top Buttons
         private void GameMenuButtonAction()
         {
-            this.SGameInstance.GUIManager.CloseGUI();
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_PAUSE_IDENTIFIER);
         }
 
         private void SaveMenuButtonAction()
