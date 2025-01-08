@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Components.Common.World
                 {
                     for (int x = 0; x < SWorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point position = new((worldChunk.Position.X / SWorldConstants.SLOT_SIZE) + x, (worldChunk.Position.Y / SWorldConstants.SLOT_SIZE) + y);
+                        Point position = new((worldChunk.Position.X / SWorldConstants.GRID_SIZE) + x, (worldChunk.Position.Y / SWorldConstants.GRID_SIZE) + y);
 
                         if (!this.SWorldInstance.TryGetWorldSlot(position, out SWorldSlot worldSlot))
                         {

@@ -64,10 +64,10 @@ namespace StardustSandbox.Core.Elements.Rendering
         {
             float xOffset = SElementRenderingConstants.SPRITE_X_OFFSET, yOffset = SElementRenderingConstants.SPRITE_Y_OFFSET;
 
-            this.spritePositions[0] = new Vector2(position.X, position.Y) * SWorldConstants.SLOT_SIZE;
-            this.spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * SWorldConstants.SLOT_SIZE;
-            this.spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * SWorldConstants.SLOT_SIZE;
-            this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * SWorldConstants.SLOT_SIZE;
+            this.spritePositions[0] = new Vector2(position.X, position.Y) * SWorldConstants.GRID_SIZE;
+            this.spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * SWorldConstants.GRID_SIZE;
+            this.spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * SWorldConstants.GRID_SIZE;
+            this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * SWorldConstants.GRID_SIZE;
         }
 
         private void UpdateSpriteSlice(ISElementContext context, int index, Point position)

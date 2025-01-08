@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Elements.Rendering
                 colorModifier = colorModifier.Darken(SWorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            spriteBatch.Draw(this.animation.Texture, new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * SWorldConstants.SLOT_SIZE, this.animation.CurrentFrame.TextureClipArea, colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.animation.Texture, new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * SWorldConstants.GRID_SIZE, this.animation.CurrentFrame.TextureClipArea, colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
     }
 }

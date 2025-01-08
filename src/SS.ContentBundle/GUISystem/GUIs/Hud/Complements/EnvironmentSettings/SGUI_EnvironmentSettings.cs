@@ -111,7 +111,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -141,7 +141,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.timeStateButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -180,7 +180,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.timeButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {

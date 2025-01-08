@@ -93,7 +93,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
-                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -137,7 +137,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Texture = this.guiSmallButtonTexture,
                 Scale = new(SGUI_HUDConstants.SLOT_SCALE),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE),
+                Size = new(SGUI_HUDConstants.GRID_SIZE),
                 Margin = margin,
             };
 
@@ -146,7 +146,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(1.5f),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE)
+                Size = new(SGUI_HUDConstants.GRID_SIZE)
             };
 
             return new(backgroundElement, iconElement);

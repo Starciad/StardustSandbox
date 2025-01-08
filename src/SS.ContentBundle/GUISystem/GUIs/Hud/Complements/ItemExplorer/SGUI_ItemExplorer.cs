@@ -106,7 +106,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -143,7 +143,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SCategory category = (SCategory)categorySlot.BackgroundElement.GetData(SGUIConstants.DATA_CATEGORY);
 
                 Vector2 position = categorySlot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_ItemExplorerConstants.GRID_SIZE);
 
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(position, size))
@@ -177,7 +177,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSubcategory subcategory = (SSubcategory)subcategorySlot.BackgroundElement.GetData(SGUIConstants.DATA_SUBCATEGORY);
 
                 Vector2 position = subcategorySlot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_ItemExplorerConstants.GRID_SIZE);
 
                 // Check if the mouse clicked on the current slot.
                 if (this.GUIEvents.OnMouseClick(position, size))
@@ -211,7 +211,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_ItemExplorerConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -249,7 +249,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.paginationButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_ItemExplorerConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_ItemExplorerConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {

@@ -170,7 +170,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -196,8 +196,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void UpdateBrushSizeSlider()
         {
             Vector2 basePosition = this.brushSizeSliderElement.Position;
-            Vector2 offset = new(SGUI_HUDConstants.SLOT_SIZE);
-            SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+            Vector2 offset = new(SGUI_HUDConstants.GRID_SIZE);
+            SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
             for (int i = 0; i < this.brushSizeSliderClipTextures.Length; i++)
             {
@@ -226,10 +226,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
                 SSlot slot = this.toolButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
@@ -253,9 +253,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
                 SSlot slot = this.layerButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
                 {
                     this.layerButtons[i].ClickAction?.Invoke();
                 }
@@ -277,9 +277,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
                 SSlot slot = this.shapeButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
                 {
                     this.shapeButtons[i].ClickAction?.Invoke();
                 }

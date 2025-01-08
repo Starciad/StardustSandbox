@@ -157,13 +157,16 @@ namespace StardustSandbox.Core
                     return;
             }
 
-            Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
+            Vector2 mousePosition = Vector2.Round(this.inputManager.GetScaledMousePosition() / SWorldConstants.GRID_SIZE);
 
             foreach (Point offset in this.gameInputController.Pen.GetShapePoints(mousePosition.ToPoint()))
             {
-                Vector2 position = new Vector2(offset.X, offset.Y) / SWorldConstants.SLOT_SIZE * SWorldConstants.SLOT_SIZE;
+                Vector2 position = new(
+                    offset.X * SWorldConstants.GRID_SIZE,
+                    offset.Y * SWorldConstants.GRID_SIZE
+                );
 
-                this.spriteBatch.Draw(this.mouseActionSquareTexture, position, null, new(SColorPalette.White, 32), 0f, new(SWorldConstants.SLOT_SIZE / 2), Vector2.One, SpriteEffects.None, 0f);
+                this.spriteBatch.Draw(this.mouseActionSquareTexture, position, null, new(SColorPalette.White, 32), 0f, new(SWorldConstants.GRID_SIZE / 2), Vector2.One, SpriteEffects.None, 0f);
             }
         }
     }

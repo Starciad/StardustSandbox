@@ -102,7 +102,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.leftPanelTopButtonElements[i] = slot;
 
-                margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -125,7 +125,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.leftPanelBottomButtonElements[i] = slot;
 
-                margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -168,7 +168,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.rightPanelTopButtonElements[i] = slot;
 
-                margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -191,7 +191,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                 this.rightPanelBottomButtonElements[i] = slot;
 
-                margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -209,8 +209,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(SGUI_HUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.West,
-                Size = new(SGUI_HUDConstants.SLOT_SIZE),
-                Margin = new(SGUI_HUDConstants.SLOT_SIZE * 2, 0),
+                Size = new(SGUI_HUDConstants.GRID_SIZE),
+                Margin = new(SGUI_HUDConstants.GRID_SIZE * 2, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
@@ -256,7 +256,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 this.toolbarElementSlots[i] = slot;
 
                 // Spacing
-                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -271,8 +271,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(SGUI_HUDConstants.SLOT_SCALE + 0.45f),
                 PositionAnchor = SCardinalDirection.East,
-                Size = new(SGUI_HUDConstants.SLOT_SIZE),
-                Margin = new(SGUI_HUDConstants.SLOT_SIZE * 2 * -1, 0),
+                Size = new(SGUI_HUDConstants.GRID_SIZE),
+                Margin = new(SGUI_HUDConstants.GRID_SIZE * 2 * -1, 0),
             };
 
             SGUIImageElement slotIcon = new(this.SGameInstance)
@@ -300,7 +300,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 Texture = this.guiButtonTexture,
                 Scale = new(SGUI_HUDConstants.SLOT_SCALE),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE),
+                Size = new(SGUI_HUDConstants.GRID_SIZE),
                 Margin = margin,
             };
 
@@ -309,7 +309,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(1.5f),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE)
+                Size = new(SGUI_HUDConstants.GRID_SIZE)
             };
 
             return new(backgroundElement, iconElement);

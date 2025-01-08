@@ -106,7 +106,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
-                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -176,7 +176,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.toolButtonSlots[i] = slot;
 
                 // Spacing
-                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -190,7 +190,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Scale = new(0.1f),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
-                Margin = new(this.toolsSectionTitleElement.Size.Width + (SGUI_HUDConstants.SLOT_SIZE * SGUI_HUDConstants.SLOT_SCALE * this.toolButtonSlots.Length) + 96, 0f)
+                Margin = new(this.toolsSectionTitleElement.Size.Width + (SGUI_HUDConstants.GRID_SIZE * SGUI_HUDConstants.SLOT_SCALE * this.toolButtonSlots.Length) + 96, 0f)
             };
 
             this.layerSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_Layer_Title);
@@ -217,7 +217,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.layerButtonSlots[i] = slot;
 
                 // Spacing
-                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -231,7 +231,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Scale = new(0.1f),
                 Color = SColorPalette.White,
                 SpriteFont = this.bigApple3PMSpriteFont,
-                Margin = new(this.layerSectionTitleElement.Size.Width + (SGUI_HUDConstants.SLOT_SIZE * SGUI_HUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 48, 0f)
+                Margin = new(this.layerSectionTitleElement.Size.Width + (SGUI_HUDConstants.GRID_SIZE * SGUI_HUDConstants.SLOT_SCALE * this.layerButtonSlots.Length) + 48, 0f)
             };
 
             this.shapeSectionTitleElement.SetTextualContent(SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Title);
@@ -258,7 +258,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 this.shapeButtonSlots[i] = slot;
 
                 // Spacing
-                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.SLOT_SIZE / 2);
+                margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
                 layoutBuilder.AddElement(slot.BackgroundElement);
                 layoutBuilder.AddElement(slot.IconElement);
@@ -273,7 +273,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 Texture = this.guiSmallButtonTexture,
                 Scale = new(SGUI_HUDConstants.SLOT_SCALE),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE),
+                Size = new(SGUI_HUDConstants.GRID_SIZE),
                 Margin = margin,
             };
 
@@ -282,7 +282,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Texture = iconTexture,
                 OriginPivot = SCardinalDirection.Center,
                 Scale = new(1.5f),
-                Size = new(SGUI_HUDConstants.SLOT_SIZE)
+                Size = new(SGUI_HUDConstants.GRID_SIZE)
             };
 
             return new(backgroundElement, iconElement);
