@@ -7,6 +7,8 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Helpers;
 
+using System;
+
 namespace StardustSandbox.Core
 {
     public sealed partial class SGame
@@ -150,23 +152,27 @@ namespace StardustSandbox.Core
         {
             SPenTool penTool = this.gameInputController.Pen.Tool;
 
-            switch (penTool)
-            {
-                case SPenTool.Visualization:
-                case SPenTool.Fill:
-                    return;
-            }
+            if (penTool == SPenTool.Visualization || penTool == SPenTool.Fill)
+                return;
 
-            Vector2 mousePosition = Vector2.Round(this.inputManager.GetScaledMousePosition() / SWorldConstants.GRID_SIZE);
+            Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
+            Vector2 worldMousePosition = this.cameraManager.ScreenToWorld(mousePosition);
+            
+            Vector2 alignedPosition = new(
+                (float)Math.Floor(worldMousePosition.X / SWorldConstants.GRID_SIZE),
+                (float)Math.Floor(worldMousePosition.Y / SWorldConstants.GRID_SIZE)
+            );
 
-            foreach (Point offset in this.gameInputController.Pen.GetShapePoints(mousePosition.ToPoint()))
+            foreach (Point point in this.gameInputController.Pen.GetShapePoints(alignedPosition.ToPoint()))
             {
-                Vector2 position = new(
-                    offset.X * SWorldConstants.GRID_SIZE,
-                    offset.Y * SWorldConstants.GRID_SIZE
+                Vector2 worldPosition = new(
+                    point.X * SWorldConstants.GRID_SIZE,
+                    point.Y * SWorldConstants.GRID_SIZE
                 );
 
-                this.spriteBatch.Draw(this.mouseActionSquareTexture, position, null, new(SColorPalette.White, 32), 0f, new(SWorldConstants.GRID_SIZE / 2), Vector2.One, SpriteEffects.None, 0f);
+                Vector2 screenPosition = this.cameraManager.WorldToScreen(worldPosition);
+
+                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, new(SColorPalette.White, 50), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             }
         }
     }
