@@ -158,12 +158,12 @@ namespace StardustSandbox.Core
             Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
             Vector2 worldMousePosition = this.cameraManager.ScreenToWorld(mousePosition);
             
-            Vector2 alignedPosition = new(
-                (float)Math.Floor(worldMousePosition.X / SWorldConstants.GRID_SIZE),
-                (float)Math.Floor(worldMousePosition.Y / SWorldConstants.GRID_SIZE)
+            Point alignedPosition = new(
+                (int)Math.Floor(worldMousePosition.X / SWorldConstants.GRID_SIZE),
+                (int)Math.Floor(worldMousePosition.Y / SWorldConstants.GRID_SIZE)
             );
 
-            foreach (Point point in this.gameInputController.Pen.GetShapePoints(alignedPosition.ToPoint()))
+            foreach (Point point in this.gameInputController.Pen.GetShapePoints(alignedPosition))
             {
                 Vector2 worldPosition = new(
                     point.X * SWorldConstants.GRID_SIZE,
@@ -172,7 +172,7 @@ namespace StardustSandbox.Core
 
                 Vector2 screenPosition = this.cameraManager.WorldToScreen(worldPosition);
 
-                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, new(SColorPalette.White, 50), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, new(SColorPalette.White, 25), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             }
         }
     }
