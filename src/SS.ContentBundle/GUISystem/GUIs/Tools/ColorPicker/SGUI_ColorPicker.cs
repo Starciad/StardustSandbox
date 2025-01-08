@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Global;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;
 using StardustSandbox.ContentBundle.Localization.Colors;
@@ -27,7 +30,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
         private readonly SButton[] menuButtons;
         private readonly SColorButton[] colorButtons;
 
-        internal SGUI_ColorPicker(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        private readonly SGUITooltipBoxElement tooltipBoxElement;
+
+        internal SGUI_ColorPicker(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.colorButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_4");
@@ -106,13 +111,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
+            this.colorButtonElements = new SColorSlot[this.colorButtons.Length];
+
+            this.tooltipBoxElement = tooltipBoxElement;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
+            this.tooltipBoxElement.IsVisible = false;
+
             UpdateMenuButtons();
+            UpdateColorButtons();
+
+            this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
         private void UpdateMenuButtons()
@@ -130,6 +143,31 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
+            }
+        }
+
+        private void UpdateColorButtons()
+        {
+            for (int i = 0; i < this.colorButtons.Length; i++)
+            {
+                SColorSlot colorSlot = this.colorButtonElements[i];
+                SColorButton colorButton = this.colorButtons[i];
+
+                SSize2 size = colorSlot.BorderElement.Size / 2;
+                Vector2 position = new(colorSlot.BorderElement.Position.X + size.Width, colorSlot.BorderElement.Position.Y + size.Height);
+
+                if (this.GUIEvents.OnMouseClick(position, size))
+                {
+                    SelectColorButtonAction(colorButton.Color);
+                }
+
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = colorButton.DisplayName;
+                    SGUIGlobalTooltip.Description = string.Empty;
+                }
             }
         }
 

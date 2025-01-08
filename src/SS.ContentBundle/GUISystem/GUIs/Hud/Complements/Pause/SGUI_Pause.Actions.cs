@@ -11,7 +11,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void OptionsButtonAction()
         {
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.COLOR_PICKER_TOOL_IDENTIFIER);
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
         }
 
@@ -19,6 +19,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         {
             this.guiConfirm.Configure(this.exitConfirmSettings);
             this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
         }
     }
 }
