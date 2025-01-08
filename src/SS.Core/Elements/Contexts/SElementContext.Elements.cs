@@ -353,15 +353,15 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.IsEmptyWorldSlotLayer(position, worldLayer);
         }
 
-        public int GetTotalElementCount()
+        public uint GetTotalElementCount()
         {
             return this.world.GetTotalElementCount();
         }
-        public int GetTotalForegroundElementCount()
+        public uint GetTotalForegroundElementCount()
         {
             return this.world.GetTotalForegroundElementCount();
         }
-        public int GetTotalBackgroundElementCount()
+        public uint GetTotalBackgroundElementCount()
         {
             return this.world.GetTotalBackgroundElementCount();
         }

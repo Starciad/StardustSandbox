@@ -48,8 +48,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool IsEmptyWorldSlot(Point position);
         bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer);
 
-        int GetTotalElementCount();
-        int GetTotalForegroundElementCount();
-        int GetTotalBackgroundElementCount();
+        uint GetTotalElementCount();
+        uint GetTotalForegroundElementCount();
+        uint GetTotalBackgroundElementCount();
     }
 }
