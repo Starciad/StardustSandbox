@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Pause
 {
     internal sealed partial class SGUI_Pause
     {
@@ -11,7 +11,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
         private void OptionsButtonAction()
         {
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.COLOR_PICKER_TOOL_IDENTIFIER);
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.OPTIONS_MENU_IDENTIFIER);
             this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
         }
 

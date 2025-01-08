@@ -5,7 +5,6 @@ using StardustSandbox.Core.Ambient.Handlers;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.GameInput.Pen;
-using StardustSandbox.Core.Helpers;
 
 using System;
 
@@ -153,11 +152,13 @@ namespace StardustSandbox.Core
             SPenTool penTool = this.gameInputController.Pen.Tool;
 
             if (penTool == SPenTool.Visualization || penTool == SPenTool.Fill)
+            {
                 return;
+            }
 
             Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
             Vector2 worldMousePosition = this.cameraManager.ScreenToWorld(mousePosition);
-            
+
             Point alignedPosition = new(
                 (int)Math.Floor(worldMousePosition.X / SWorldConstants.GRID_SIZE),
                 (int)Math.Floor(worldMousePosition.Y / SWorldConstants.GRID_SIZE)

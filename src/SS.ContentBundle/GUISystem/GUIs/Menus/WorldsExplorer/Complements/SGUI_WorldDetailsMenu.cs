@@ -10,7 +10,7 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu : SGUISystem
     {

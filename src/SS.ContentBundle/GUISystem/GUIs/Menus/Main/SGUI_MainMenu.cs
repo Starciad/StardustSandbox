@@ -17,7 +17,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
 {
     internal sealed partial class SGUI_MainMenu : SGUISystem
     {

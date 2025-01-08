@@ -4,7 +4,6 @@ using StardustSandbox.Core.Controllers.GameInput.Handlers.Tools;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.GameInput.Pen;
-using StardustSandbox.Core.Helpers;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Mathematics;

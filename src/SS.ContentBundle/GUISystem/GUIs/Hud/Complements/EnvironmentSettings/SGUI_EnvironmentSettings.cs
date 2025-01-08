@@ -17,7 +17,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.EnvironmentSettings
 {
     internal sealed partial class SGUI_EnvironmentSettings : SGUISystem
     {

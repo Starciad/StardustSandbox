@@ -2,7 +2,7 @@
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information
 {
     internal sealed partial class SGUI_Information
     {

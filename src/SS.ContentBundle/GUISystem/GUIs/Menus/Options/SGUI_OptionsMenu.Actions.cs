@@ -4,7 +4,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu
     {

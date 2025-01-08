@@ -17,14 +17,15 @@ using StardustSandbox.Core.IO.Handlers;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu : SGUISystem
     {
         private enum SMenuSection : byte
         {
             Video = 0,
-            Language = 1
+            Cursor = 1,
+            Language = 2
         }
 
         private enum SSystemButton : byte
@@ -47,6 +48,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private byte selectedLanguageIndex = 0;
 
         private SVideoSettings videoSettings;
+        private readonly SCursorSettings cursorSettings;
         private SLanguageSettings languageSettings;
 
         private readonly Texture2D panelBackgroundTexture;
@@ -57,7 +59,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private readonly string[] sectionNames = [
             SLocalization_GUIs.Menu_Options_Section_Video,
-            SLocalization_GUIs.Menu_Options_Section_Language
+            "Cursor",
+            SLocalization_GUIs.Menu_Options_Section_Language,
         ];
 
         private readonly SButton[] systemButtons;
@@ -117,6 +120,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     UpdateVideoSection();
                     break;
 
+                case SMenuSection.Cursor:
+                    UpdateCursorSection();
+                    break;
+
                 case SMenuSection.Language:
                     UpdateLanguageSection();
                     break;
@@ -160,6 +167,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         }
 
         private void UpdateVideoSection()
+        {
+            for (int i = 0; i < this.videoSectionButtons.Count; i++)
+            {
+                SGUILabelElement labelElement = this.videoSectionButtons[i];
+
+                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
+                {
+                    this.videoSectionOptionSelectors[i].Next();
+                    labelElement.SetTextualContent(this.videoSectionOptionSelectors[i].ToString());
+                }
+
+                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
+            }
+        }
+
+        private void UpdateCursorSection()
         {
             for (int i = 0; i < this.videoSectionButtons.Count; i++)
             {

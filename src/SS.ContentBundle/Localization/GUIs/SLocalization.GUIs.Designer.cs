@@ -916,6 +916,15 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Testers.
+        /// </summary>
+        internal static string Menu_Credits_Title_Testers {
+            get {
+                return ResourceManager.GetString("Menu.Credits.Title.Testers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Tools.
         /// </summary>
         internal static string Menu_Credits_Title_Tools {

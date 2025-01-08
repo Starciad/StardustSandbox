@@ -8,9 +8,6 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
-
-using System.Linq;
-using System;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
@@ -68,7 +65,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
         {
             Vector2 baseMargin = new(74, 192);
             Vector2 margin = baseMargin;
-            
+
             SSize2 textureSize = new(40, 22);
 
             int buttonsPerRow = 12;
@@ -88,7 +85,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
                     }
 
                     SColorButton colorButton = this.colorButtons[index];
-                    
+
                     SGUIImageElement backgroundElement = new(this.SGameInstance)
                     {
                         Texture = this.colorButtonTexture,
@@ -120,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
                 }
 
                 margin.X = baseMargin.X;
-                margin.Y += textureSize.Height * 2 + 16f;
+                margin.Y += (textureSize.Height * 2) + 16f;
             }
         }
 

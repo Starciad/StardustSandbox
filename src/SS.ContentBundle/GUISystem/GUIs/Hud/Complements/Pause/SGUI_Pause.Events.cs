@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Pause
 {
     internal sealed partial class SGUI_Pause
     {

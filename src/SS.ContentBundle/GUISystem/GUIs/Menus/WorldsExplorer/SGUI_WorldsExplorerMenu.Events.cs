@@ -2,7 +2,7 @@
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
 {
     internal sealed partial class SGUI_WorldsExplorerMenu
     {

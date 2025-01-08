@@ -18,7 +18,7 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettings
 {
     internal sealed partial class SGUI_PenSettings : SGUISystem
     {

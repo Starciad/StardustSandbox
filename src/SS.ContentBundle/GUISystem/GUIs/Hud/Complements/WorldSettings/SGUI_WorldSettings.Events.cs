@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.WorldSettings
 {
     internal sealed partial class SGUI_WorldSettings
     {

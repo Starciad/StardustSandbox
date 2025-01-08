@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.ContentBundle.Localization.Statements;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSettings
 {
     internal sealed partial class SGUI_SaveSettings
     {

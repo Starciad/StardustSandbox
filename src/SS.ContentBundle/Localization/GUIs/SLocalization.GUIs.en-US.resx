@@ -441,4 +441,7 @@
   <data name="HUD.Complements.Pause.Title" xml:space="preserve">
     <value>Pause</value>
   </data>
+  <data name="Menu.Credits.Title.Testers" xml:space="preserve">
+    <value>Testers</value>
+  </data>
 </root>

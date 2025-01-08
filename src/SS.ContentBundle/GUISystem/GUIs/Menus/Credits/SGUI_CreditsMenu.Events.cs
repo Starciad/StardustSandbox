@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.GUISystem.Elements;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits
 {
     internal sealed partial class SGUI_CreditsMenu
     {

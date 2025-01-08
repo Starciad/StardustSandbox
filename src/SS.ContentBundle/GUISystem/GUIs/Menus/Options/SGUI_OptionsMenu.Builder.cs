@@ -17,7 +17,7 @@ using StardustSandbox.Core.Localization;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu
     {
@@ -29,16 +29,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private readonly SGUILabelElement[] sectionButtonElements;
         private readonly SGUILabelElement[] systemButtonElements;
 
-        private readonly List<SOptionSelector> generalSectionOptionSelectors = [];
         private readonly List<SOptionSelector> videoSectionOptionSelectors = [];
-        private readonly List<SOptionSelector> volumeSectionOptionSelectors = [];
-        private readonly List<SOptionSelector> cursorSectionOptionSelectors = [];
+        // private readonly List<SOptionSelector> volumeSectionOptionSelectors = [];
 
-        private readonly List<SGUILabelElement> generalSectionButtons = [];
         private readonly List<SGUILabelElement> videoSectionButtons = [];
-        private readonly List<SGUILabelElement> volumeSectionButtons = [];
+        // private readonly List<SGUILabelElement> volumeSectionButtons = [];
         private readonly List<SGUILabelElement> cursorSectionButtons = [];
         private readonly List<SGUILabelElement> languageSectionButtons = [];
+
+        private static readonly Vector2 defaultRightPanelMargin = new(200f, 64f);
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
@@ -140,6 +139,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void BuildSections(ISGUILayoutBuilder layoutBuilder)
         {
             BuildVideoSection(layoutBuilder);
+            BuildCursorSection(layoutBuilder);
             BuildLanguageSection(layoutBuilder);
         }
 
@@ -161,7 +161,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Borderless, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
 
             // [ LABELS ]
-            Vector2 margin = new(200f, 64f);
+            Vector2 margin = defaultRightPanelMargin;
 
             foreach (SOptionSelector optionSelector in this.videoSectionOptionSelectors)
             {
@@ -181,11 +181,41 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
             layoutBuilder.AddElement(container);
         }
 
+        private void BuildCursorSection(ISGUILayoutBuilder layoutBuilder)
+        {
+            SGUIContainerElement container = new(this.SGameInstance);
+
+            Vector2 margin = defaultRightPanelMargin;
+
+            // [ FIELDS ]
+            SGUILabelElement[] fields = [
+                // 0. Border Color
+                CreateOptionButtonLabelElement(),
+
+                // 1. Background Color
+                CreateOptionButtonLabelElement(),
+            ];
+
+            fields[0].SetTextualContent("Border Color");
+            fields[1].SetTextualContent("Background Color");
+
+            foreach (SGUILabelElement field in fields)
+            {
+                field.Margin = margin;
+                field.PositionRelativeToElement(this.panelBackgroundElement);
+
+                this.cursorSectionButtons.Add(field);
+                container.AddElement(field);
+
+                margin.Y += rightPanelMarginVerticalSpacing;
+            }
+        }
+
         private void BuildLanguageSection(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIContainerElement container = new(this.SGameInstance);
 
-            Vector2 margin = new(200f, 64f);
+            Vector2 margin = defaultRightPanelMargin;
 
             foreach (SGameCulture gameCulture in SLocalizationConstants.AVAILABLE_GAME_CULTURES)
             {
