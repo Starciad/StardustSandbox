@@ -1,8 +1,9 @@
 ﻿using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem.Settings
+namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings
 {
     internal sealed class STextInputSettings
     {

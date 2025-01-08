@@ -82,7 +82,7 @@ namespace StardustSandbox.Core.Colors
 
         // ================================= //
         // Utilities
-
+        
         public static Color HoverColor => LimeGreen;
         public static Color SelectedColor => Orange;
     }

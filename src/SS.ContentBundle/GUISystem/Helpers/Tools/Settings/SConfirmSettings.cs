@@ -2,7 +2,7 @@
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Confirm.Settings
+namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings
 {
     internal sealed class SConfirmSettings
     {
