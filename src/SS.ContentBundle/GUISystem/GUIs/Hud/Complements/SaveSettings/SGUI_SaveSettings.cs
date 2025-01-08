@@ -159,7 +159,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSetti
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -207,7 +207,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSetti
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.footerButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.footerButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.footerButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;

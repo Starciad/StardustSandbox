@@ -164,7 +164,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = colorButton.DisplayName;
+                    SGUIGlobalTooltip.Title = colorButton.Name;
                     SGUIGlobalTooltip.Description = string.Empty;
                 }
             }

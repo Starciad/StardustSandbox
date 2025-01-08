@@ -111,6 +111,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits
                 new() {
                     Text = "Focsi",
                 },
+
+                new() {
+                    Text = "Gabriel \"Insanya\" Cordeiro",
+                },
             ]));
 
             this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_SpecialThanks, [

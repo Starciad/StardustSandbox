@@ -141,7 +141,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.WorldSett
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.sizeButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.sizeButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.sizeButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;

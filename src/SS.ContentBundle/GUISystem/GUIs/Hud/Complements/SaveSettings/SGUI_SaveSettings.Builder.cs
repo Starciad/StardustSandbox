@@ -248,7 +248,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSetti
                     OriginPivot = SCardinalDirection.Center
                 };
 
-                labelElement.SetTextualContent(button.DisplayName);
+                labelElement.SetTextualContent(button.Name);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2));
 
                 backgroundElement.PositionRelativeToElement(this.panelBackgroundElement);

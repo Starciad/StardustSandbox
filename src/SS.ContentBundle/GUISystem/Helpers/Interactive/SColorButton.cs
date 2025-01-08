@@ -2,9 +2,9 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive
 {
-    internal sealed class SColorButton(string displayName, Color color)
+    internal sealed class SColorButton(string name, Color color)
     {
-        internal string DisplayName => displayName;
+        internal string Name => name;
         internal Color Color => color;
     }
 }

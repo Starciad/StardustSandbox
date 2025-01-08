@@ -2,9 +2,9 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Selectors
 {
-    internal sealed class SOptionSelector(string displayName, uint selectedValueIndex, string[] values) : ISResettable
+    internal sealed class SOptionSelector(string name, uint selectedValueIndex, string[] values) : ISResettable
     {
-        internal string DisplayName { get; } = displayName;
+        internal string Name { get; } = name;
         internal string[] Values { get; } = values;
         internal string SelectedValue => this.Values[(int)this.selectedValueIndex];
         internal uint Length => (uint)this.Values.Length;
@@ -34,7 +34,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Selectors
 
         public override string ToString()
         {
-            return string.Concat(this.DisplayName, ": ", this.SelectedValue.ToLower());
+            return string.Concat(this.Name, ": ", this.SelectedValue.ToLower());
         }
     }
 }

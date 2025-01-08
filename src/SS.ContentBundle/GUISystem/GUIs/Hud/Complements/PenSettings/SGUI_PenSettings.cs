@@ -181,7 +181,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettin
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -240,7 +240,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettin
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.toolButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.toolButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.toolButtons[i].Description;
                 }
 
@@ -264,7 +264,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettin
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.layerButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.layerButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.layerButtons[i].Description;
                 }
 
@@ -288,7 +288,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettin
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.shapeButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.shapeButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.shapeButtons[i].Description;
                 }
 

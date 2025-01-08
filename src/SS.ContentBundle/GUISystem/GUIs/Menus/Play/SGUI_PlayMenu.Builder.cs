@@ -64,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play
                     OriginPivot = SCardinalDirection.Center,
                 };
 
-                buttonLabel.SetTextualContent(button.DisplayName);
+                buttonLabel.SetTextualContent(button.Name);
                 buttonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
 
                 SGUIImageElement buttonIcon = new(this.SGameInstance)

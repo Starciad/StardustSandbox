@@ -117,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplo
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -157,7 +157,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplo
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = category.DisplayName;
+                    SGUIGlobalTooltip.Title = category.Name;
                     SGUIGlobalTooltip.Description = category.Description;
                 }
             }
@@ -191,7 +191,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplo
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = subcategory.DisplayName;
+                    SGUIGlobalTooltip.Title = subcategory.Name;
                     SGUIGlobalTooltip.Description = subcategory.Description;
                 }
             }
@@ -225,7 +225,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplo
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = item.DisplayName;
+                    SGUIGlobalTooltip.Title = item.Name;
                     SGUIGlobalTooltip.Description = item.Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -264,7 +264,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplo
 
         private void SelectItemCatalog(SCategory category, SSubcategory subcategory, int pageIndex)
         {
-            this.menuTitleElement.SetTextualContent(subcategory.DisplayName);
+            this.menuTitleElement.SetTextualContent(subcategory.Name);
 
             this.selectedCategory = category;
             this.selectedSubcategory = subcategory;

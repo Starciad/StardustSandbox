@@ -117,7 +117,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
                     SpriteFont = this.bigApple3PMSpriteFont,
                 };
 
-                labelElement.SetTextualContent(this.menuButtons[i].DisplayName);
+                labelElement.SetTextualContent(this.menuButtons[i].Name);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(4f));
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 

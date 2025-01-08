@@ -93,7 +93,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
                     OriginPivot = SCardinalDirection.Center,
                 };
 
-                labelElement.SetTextualContent(button.DisplayName);
+                labelElement.SetTextualContent(button.Name);
                 labelElement.PositionRelativeToScreen();
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2));
 

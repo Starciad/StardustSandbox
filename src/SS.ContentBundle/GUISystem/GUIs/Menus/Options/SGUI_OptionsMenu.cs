@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
@@ -48,7 +49,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private byte selectedLanguageIndex = 0;
 
         private SVideoSettings videoSettings;
-        private readonly SCursorSettings cursorSettings;
         private SLanguageSettings languageSettings;
 
         private readonly Texture2D panelBackgroundTexture;
@@ -67,6 +67,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private readonly SGUI_Message guiMessage;
 
+        private readonly SRoot root;
+
         internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
         {
             this.guiMessage = guiMessage;
@@ -80,9 +82,34 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 new(null, SLocalization_Statements.Save, string.Empty, SaveButtonAction),
             ];
 
-            this.sectionContainers = new SGUIContainerElement[this.sectionNames.Length];
-            this.sectionButtonElements = new SGUILabelElement[this.sectionNames.Length];
-            this.systemButtonElements = new SGUILabelElement[this.systemButtons.Length];
+            this.root = new()
+            {
+                Sections = [
+                    new("general", "General", string.Empty, [
+                        new("language", "Language", string.Empty, SOptionType.Selector),
+                    ]),
+                    
+                    new("volume", "Volume", string.Empty, [
+                        new("master_volume", "Master Volume", string.Empty, SOptionType.Slider),
+                        new("music_volume", "Music Volume", string.Empty, SOptionType.Slider),
+                        new("sfx_volume", "SFX Volume", string.Empty, SOptionType.Slider),
+                    ]),
+
+                    new("video", "Video", string.Empty,
+                    [
+                        new("resolution", "Resolution", string.Empty, SOptionType.Selector),
+                        new("fullscreen", "Fullscreen", string.Empty, SOptionType.Toggle),
+                        new("vsync", "VSync", string.Empty, SOptionType.Toggle),
+                        new("borderless", "Borderless", string.Empty, SOptionType.Toggle),
+                    ]),
+
+                    new("cursor", "Cursor", string.Empty, [
+                        new("border_color", "Border Color", string.Empty, SOptionType.Color),
+                        new("background_color", "Background Color", string.Empty, SOptionType.Color),
+                        new("scale", "Scale", string.Empty, SOptionType.Selector),
+                    ]),
+                ],
+            };
         }
 
         private void LoadVideoSettings()

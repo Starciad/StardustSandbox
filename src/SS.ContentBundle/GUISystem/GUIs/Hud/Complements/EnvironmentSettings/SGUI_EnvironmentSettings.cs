@@ -122,7 +122,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Environme
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -152,7 +152,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Environme
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.timeStateButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.timeStateButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.timeStateButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -191,7 +191,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Environme
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.timeButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.timeButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.timeButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;

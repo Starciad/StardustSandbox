@@ -124,7 +124,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
                 labelElement.PositionAnchor = SCardinalDirection.South;
                 labelElement.Margin = margin;
-                labelElement.SetTextualContent(this.systemButtons[i].DisplayName);
+                labelElement.SetTextualContent(this.systemButtons[i].Name);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.systemButtonElements[i] = labelElement;

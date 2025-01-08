@@ -161,7 +161,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Comp
                     OriginPivot = SCardinalDirection.East,
                 };
 
-                buttonLabel.SetTextualContent(button.DisplayName);
+                buttonLabel.SetTextualContent(button.Name);
                 buttonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
                 buttonLabel.PositionRelativeToScreen();
 

@@ -4,10 +4,10 @@ using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive
 {
-    internal sealed class SButton(Texture2D iconTexture, string displayName, string description, Action clickAction)
+    internal sealed class SButton(Texture2D iconTexture, string name, string description, Action clickAction)
     {
         internal Texture2D IconTexture => iconTexture;
-        internal string DisplayName => displayName;
+        internal string Name => name;
         internal string Description => description;
         internal Action ClickAction => clickAction;
     }

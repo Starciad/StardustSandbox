@@ -243,7 +243,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
                     SItem item = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
 
-                    SGUIGlobalTooltip.Title = item.DisplayName;
+                    SGUIGlobalTooltip.Title = item.Name;
                     SGUIGlobalTooltip.Description = item.Description;
                 }
 
@@ -294,7 +294,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                         toolbarSlot.BackgroundElement.Color = SColorPalette.EmeraldGreen;
                         this.tooltipBoxElement.IsVisible = true;
 
-                        SGUIGlobalTooltip.Title = button.DisplayName;
+                        SGUIGlobalTooltip.Title = button.Name;
                         SGUIGlobalTooltip.Description = button.Description;
                     }
                     else
