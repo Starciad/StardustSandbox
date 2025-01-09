@@ -103,7 +103,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         Options = new Dictionary<string, SOption>()
                         {
                             ["preview_area_color"] = new SColorOption("Preview Area Color", string.Empty),
-                            ["preview_area_opacity"] = new SSliderOption("Preview Area Opacity", string.Empty, new(0, 100)),
+                            ["preview_area_opacity"] = new SSliderOption("Preview Area Opacity", string.Empty),
                         },
                     },
 
@@ -111,9 +111,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["master_volume"] = new SSliderOption("Master Volume", string.Empty, new(000, 100)),
-                            ["music_volume"] = new SSliderOption("Music Volume", string.Empty, new(000, 100)),
-                            ["sfx_volume"] = new SSliderOption("SFX Volume", string.Empty, new(000, 100))
+                            ["master_volume"] = new SSliderOption("Master Volume", string.Empty),
+                            ["music_volume"] = new SSliderOption("Music Volume", string.Empty),
+                            ["sfx_volume"] = new SSliderOption("SFX Volume", string.Empty)
                         }
                     },
 
@@ -142,8 +142,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         {
                             ["color"] = new SColorOption("Color", string.Empty),
                             ["background_color"] = new SColorOption("Background Color", string.Empty),
-                            ["opacity"] = new SSliderOption("Opacity", string.Empty, new(0, 100)),
-                            ["scale"] = new SSelectorOption("Scale", string.Empty, [0.5f, 1f, 1.5f, 2f]),
+                            ["opacity"] = new SSliderOption("Opacity", string.Empty),
+                            ["scale"] = new SSelectorOption("Scale", string.Empty, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
                         }
                     },
                 },
@@ -218,7 +218,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         }
 
         #region Sync
-        private void UpdateOptionSync(SOption option, SGUIElement element)
+        private static void UpdateOptionSync(SOption option, SGUIElement element)
         {
             switch (option)
             {
@@ -228,6 +228,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
                 case SSelectorOption selectorOption:
                     UpdateSelectorOption(selectorOption, element as SGUILabelElement);
+                    break;
+
+                case SSliderOption sliderOption:
+                    UpdateSliderOption(sliderOption, element as SGUILabelElement);
                     break;
 
                 default:
@@ -243,6 +247,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private static void UpdateSelectorOption(SSelectorOption selectorOption, SGUILabelElement labelElement)
         {
             labelElement.SetTextualContent(string.Concat(selectorOption.Name, ": ", selectorOption.GetValue()));
+        }
+
+        private static void UpdateSliderOption(SSliderOption sliderOption, SGUILabelElement labelElement)
+        {
+            labelElement.SetTextualContent(string.Concat(sliderOption.Name, ": ", sliderOption.GetValue()));
         }
         #endregion
 

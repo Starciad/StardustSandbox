@@ -2,11 +2,13 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 {
-    internal sealed class SSliderOption(string name, string description, Range sliderRange) : SOption(name, description)
+    internal sealed class SSliderOption(string name, string description, float minimumValue = 0, float maximumValue = 1) : SOption(name, description)
     {
-        internal Range SliderRange => sliderRange;
+        public float MinimumValue => minimumValue;
+        public float MaximumValue => maximumValue;
+        public float CurrentValue => this.currentValue;
 
-        private int currentValue;
+        private float currentValue;
 
         internal override object GetValue()
         {
@@ -14,10 +16,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
         }
         internal override void SetValue(object value)
         {
-            if (value is int intValue && intValue >= this.SliderRange.Start.Value && intValue <= this.SliderRange.End.Value)
-            {
-                this.currentValue = intValue;
-            }
+            this.currentValue =  float.Clamp((float)value, this.MinimumValue, this.MaximumValue);
         }
     }
 }

@@ -34,9 +34,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SSection volumeSection = this.root.Sections["volume"];
 
-            volumeSection.Options["master_volume"].SetValue(this.volumeSettings.MasterVolume * 100);
-            volumeSection.Options["music_volume"].SetValue(this.volumeSettings.MusicVolume * 100);
-            volumeSection.Options["sfx_volume"].SetValue(this.volumeSettings.SFXVolume * 100);
+            volumeSection.Options["master_volume"].SetValue(this.volumeSettings.MasterVolume);
+            volumeSection.Options["music_volume"].SetValue(this.volumeSettings.MusicVolume);
+            volumeSection.Options["sfx_volume"].SetValue(this.volumeSettings.SFXVolume);
         }
 
         private void SyncVideoSettings()
