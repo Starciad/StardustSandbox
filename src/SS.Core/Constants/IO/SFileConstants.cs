@@ -6,10 +6,12 @@
         public const byte WORLD_SAVE_FILE_VERSION = 1;
 
         // Settings
-        public const string SETTINGS_VIDEO = "video_settings" + SFileExtensionConstants.SETTINGS;
-        public const string SETTINGS_VOLUME = "volume_settings" + SFileExtensionConstants.SETTINGS;
-        public const string SETTINGS_CURSOR = "cursor_settings" + SFileExtensionConstants.SETTINGS;
-        public const string SETTINGS_LANGUAGE = "language_settings" + SFileExtensionConstants.SETTINGS;
+        public const string VIDEO_SETTINGS = "video_settings" + SFileExtensionConstants.SETTINGS;
+        public const string VOLUME_SETTINGS = "volume_settings" + SFileExtensionConstants.SETTINGS;
+        public const string CURSOR_SETTINGS = "cursor_settings" + SFileExtensionConstants.SETTINGS;
+        public const string GENERAL_SETTINGS = "general_settings" + SFileExtensionConstants.SETTINGS;
+        public const string GAMEPLAY_SETTINGS = "gameplay_settings" + SFileExtensionConstants.SETTINGS;
+        public const string GRAPHICS_SETTINGS = "graphics_settings" + SFileExtensionConstants.SETTINGS;
 
         // World
         public const string WORLD_SAVE_FILE_THUMBNAIL = "thumbnail" + SFileExtensionConstants.PNG;

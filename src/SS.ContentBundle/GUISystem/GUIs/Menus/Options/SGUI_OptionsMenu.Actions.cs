@@ -49,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             //this.languageSettings.Language = gameCulture.Language;
             //this.languageSettings.Region = gameCulture.Region;
 
-            SSettingsHandler.SaveSettings(this.languageSettings);
+            SSettingsHandler.SaveSettings(this.generalSettings);
         }
     }
 }

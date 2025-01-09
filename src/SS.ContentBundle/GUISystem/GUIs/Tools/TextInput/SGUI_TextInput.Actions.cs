@@ -8,7 +8,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
         private void CancelButtonAction()
         {
             this.SGameInstance.GUIManager.CloseGUI();
-            this.inputSettings?.OnCancelCallback?.Invoke();
         }
 
         private void SendButtonAction()

@@ -66,15 +66,15 @@ namespace StardustSandbox.Core.Managers
                 this.GameWindow.IsBorderless = videoSettings.Borderless;
             }
 
-            if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
+            if (videoSettings.Resolution.Width == 0 || videoSettings.Resolution.Height == 0)
             {
                 this._graphicsDeviceManager.PreferredBackBufferWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
                 this._graphicsDeviceManager.PreferredBackBufferHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;
             }
             else
             {
-                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.ScreenWidth;
-                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.ScreenHeight;
+                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Resolution.Width;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Resolution.Height;
             }
 
             this._graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;

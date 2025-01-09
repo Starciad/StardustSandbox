@@ -20,10 +20,12 @@ using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
@@ -38,8 +40,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private byte selectedSectionIndex;
         private bool restartMessageAppeared;
 
+        private readonly SGeneralSettings generalSettings;
+        private readonly SGameplaySettings gameplaySettings;
+        private readonly SVolumeSettings volumeSettings;
         private readonly SVideoSettings videoSettings;
-        private readonly SLanguageSettings languageSettings;
+        private readonly SGraphicsSettings graphicsSettings;
+        private readonly SCursorSettings cursorSettings;
 
         private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D colorButtonTexture;
@@ -58,6 +64,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_ColorPicker guiColorPicker, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
         {
+            this.generalSettings = SSettingsHandler.LoadSettings<SGeneralSettings>();
+            this.gameplaySettings = SSettingsHandler.LoadSettings<SGameplaySettings>();
+            this.volumeSettings = SSettingsHandler.LoadSettings<SVolumeSettings>();
+            this.videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
+            this.graphicsSettings = SSettingsHandler.LoadSettings<SGraphicsSettings>();
+            this.cursorSettings = SSettingsHandler.LoadSettings<SCursorSettings>();
+
             this.guiColorPicker = guiColorPicker;
             this.guiMessage = guiMessage;
 
@@ -75,40 +88,64 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             this.root = new()
             {
-                Sections = [
-                    new("general", "General", string.Empty, [
-                        new SSelectorOption("language", "Language", string.Empty, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.CultureInfo.NativeName.FirstCharToUpper()), 0),
-                    ]),
+                Sections = new() {
+                    ["general"] = new("General", string.Empty)
+                    {
+                        Options = new Dictionary<string, SOption>()
+                        {
+                            ["language"] = new SSelectorOption("Language", string.Empty, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.CultureInfo.NativeName.FirstCharToUpper())),
+                        },
+                    },
 
-                    new("gameplay", "Gameplay", string.Empty, [
-                        new SColorOption("preview_area_color", "Preview Area Color", string.Empty, SColorPalette.White),
-                        new SSliderOption("preview_area_opacity", "Preview Area Opacity", string.Empty, new(0, 100), 50),
-                    ]),
+                    ["gameplay"] = new("Gameplay", string.Empty)
+                    {
+                        Options = new Dictionary<string, SOption>()
+                        {
+                            ["preview_area_color"] = new SColorOption("Preview Area Color", string.Empty),
+                            ["preview_area_opacity"] = new SSliderOption("Preview Area Opacity", string.Empty, new(0, 100)),
+                        },
+                    },
 
-                    new("volume", "Volume", string.Empty, [
-                        new SSliderOption("master_volume", "Master Volume", string.Empty, new(000, 100), 100),
-                        new SSliderOption("music_volume", "Music Volume", string.Empty, new(000, 100), 50),
-                        new SSliderOption("sfx_volume", "SFX Volume", string.Empty, new(000, 100), 50)
-                    ]),
+                    ["volume"] = new("Volume", string.Empty)
+                    {
+                        Options = new Dictionary<string, SOption>()
+                        {
+                            ["master_volume"] = new SSliderOption("Master Volume", string.Empty, new(000, 100)),
+                            ["music_volume"] = new SSliderOption("Music Volume", string.Empty, new(000, 100)),
+                            ["sfx_volume"] = new SSliderOption("SFX Volume", string.Empty, new(000, 100))
+                        }
+                    },
 
-                    new("video", "Video", string.Empty, [
-                        new SSelectorOption("resolution", "Resolution", string.Empty, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
-                        new SSelectorOption("fullscreen", "Fullscreen", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
-                        new SSelectorOption("vsync", "VSync", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
-                        new SSelectorOption("borderless", "Borderless", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
-                    ]),
+                    ["video"] = new("Video", string.Empty)
+                    {
+                        Options = new Dictionary<string, SOption>()
+                        {
+                            ["resolution"] = new SSelectorOption("Resolution", string.Empty, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
+                            ["fullscreen"] = new SSelectorOption("Fullscreen", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                            ["vsync"] = new SSelectorOption("VSync", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                            ["borderless"] = new SSelectorOption("Borderless", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                        },
+                    },
 
-                    new("graphics", "Graphics", string.Empty, [
-                        new SSelectorOption("lighting", "Lighting", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True], 1),
-                    ]),
+                    ["graphics"] = new("Graphics", string.Empty)
+                    {
+                        Options = new Dictionary<string, SOption>()
+                        {
+                            ["lighting"] = new SSelectorOption("Lighting", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                        }
+                    },
 
-                    new("cursor", "Cursor", string.Empty, [
-                        new SColorOption("border_color", "Border Color", string.Empty, SColorPalette.OrangeRed),
-                        new SColorOption("background_color", "Background Color", string.Empty, SColorPalette.White),
-                        new SSliderOption("opacity", "Opacity", string.Empty, new(0, 100), 0),
-                        new SSelectorOption("scale", "Scale", string.Empty, ["Very Small", "Small", "Medium", "Large", "Very Large"], 3),
-                    ]),
-                ],
+                    ["cursor"] = new("Cursor", string.Empty)
+                    {
+                        Options = new Dictionary<string, SOption>()
+                        {
+                            ["color"] = new SColorOption("Color", string.Empty),
+                            ["background_color"] = new SColorOption("Background Color", string.Empty),
+                            ["opacity"] = new SSliderOption("Opacity", string.Empty, new(0, 100)),
+                            ["scale"] = new SSelectorOption("Scale", string.Empty, ["Very Small", "Small", "Medium", "Large", "Very Large"]),
+                        }
+                    },
+                },
             };
 
             this.systemButtonElements = new SGUILabelElement[this.systemButtons.Length];

@@ -2,11 +2,11 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 {
-    internal sealed class SSelectorOption(string identifier, string name, string description, object[] possibleValues, uint defaultIndex = 0) : SOption(identifier, name, description)
+    internal sealed class SSelectorOption(string name, string description, object[] possibleValues) : SOption(name, description)
     {
         internal object[] PossibleValues => possibleValues;
 
-        private uint selectedValueIndex = defaultIndex;
+        private uint selectedValueIndex;
 
         internal override object GetValue()
         {

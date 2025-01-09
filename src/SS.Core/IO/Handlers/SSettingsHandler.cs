@@ -20,15 +20,19 @@ namespace StardustSandbox.Core.IO.Handlers
             { typeof(SVideoSettings), () => new SVideoSettings() },
             { typeof(SVolumeSettings), () => new SVolumeSettings() },
             { typeof(SCursorSettings), () => new SCursorSettings() },
-            { typeof(SLanguageSettings), () => new SLanguageSettings() }
+            { typeof(SGeneralSettings), () => new SGeneralSettings() },
+            { typeof(SGameplaySettings), () => new SGameplaySettings() },
+            { typeof(SGraphicsSettings), () => new SGraphicsSettings() },
         };
 
         private static readonly Dictionary<Type, string> settingsFileMap = new()
         {
-            { typeof(SVideoSettings), SFileConstants.SETTINGS_VIDEO },
-            { typeof(SVolumeSettings), SFileConstants.SETTINGS_VOLUME },
-            { typeof(SCursorSettings), SFileConstants.SETTINGS_CURSOR },
-            { typeof(SLanguageSettings), SFileConstants.SETTINGS_LANGUAGE }
+            { typeof(SVideoSettings), SFileConstants.VIDEO_SETTINGS },
+            { typeof(SVolumeSettings), SFileConstants.VOLUME_SETTINGS },
+            { typeof(SCursorSettings), SFileConstants.CURSOR_SETTINGS },
+            { typeof(SGeneralSettings), SFileConstants.GENERAL_SETTINGS },
+            { typeof(SGameplaySettings), SFileConstants.GAMEPLAY_SETTINGS },
+            { typeof(SGraphicsSettings), SFileConstants.GRAPHICS_SETTINGS },
         };
 
         private static readonly Dictionary<Type, XmlSerializer> serializers = new()
@@ -36,7 +40,9 @@ namespace StardustSandbox.Core.IO.Handlers
             { typeof(SVideoSettings), new(typeof(SVideoSettings))},
             { typeof(SVolumeSettings), new(typeof(SVolumeSettings))},
             { typeof(SCursorSettings), new(typeof(SCursorSettings))},
-            { typeof(SLanguageSettings), new(typeof(SLanguageSettings))}
+            { typeof(SGeneralSettings), new(typeof(SGeneralSettings))},
+            { typeof(SGameplaySettings), new(typeof(SGameplaySettings))},
+            { typeof(SGraphicsSettings), new(typeof(SGraphicsSettings))},
         };
 
         public static void Initialize()

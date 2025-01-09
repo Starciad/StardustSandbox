@@ -2,9 +2,9 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 {
-    internal sealed class SColorOption(string identifier, string name, string description, Color defaultColor) : SOption(identifier, name, description)
+    internal sealed class SColorOption(string name, string description) : SOption(name, description)
     {
-        private Color currentColor = defaultColor;
+        private Color currentColor;
 
         internal override object GetValue()
         {

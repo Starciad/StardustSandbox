@@ -6,8 +6,8 @@ using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [XmlRoot("LanguageSettings")]
-    public sealed class SLanguageSettings : SSettings
+    [XmlRoot("GeneralSettings")]
+    public sealed class SGeneralSettings : SSettings
     {
         [XmlIgnore]
         public SGameCulture GameCulture => SLocalizationConstants.GetGameCulture(this.Name);
@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlElement("Region", typeof(string))]
         public string Region { get; set; }
 
-        public SLanguageSettings()
+        public SGeneralSettings()
         {
             SGameCulture gameCulture = SLocalizationConstants.DEFAULT_GAME_CULTURE;
 

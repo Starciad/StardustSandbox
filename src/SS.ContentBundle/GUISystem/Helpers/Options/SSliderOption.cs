@@ -2,11 +2,11 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 {
-    internal sealed class SSliderOption(string identifier, string name, string description, Range sliderRange, int defaultValue) : SOption(identifier, name, description)
+    internal sealed class SSliderOption(string name, string description, Range sliderRange) : SOption(name, description)
     {
         internal Range SliderRange => sliderRange;
 
-        private int currentValue = defaultValue;
+        private int currentValue;
 
         internal override object GetValue()
         {

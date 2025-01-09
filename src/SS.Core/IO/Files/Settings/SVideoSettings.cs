@@ -10,23 +10,8 @@ namespace StardustSandbox.Core.IO.Files.Settings
     [XmlRoot("VideoSettings")]
     public sealed class SVideoSettings : SSettings
     {
-        [XmlIgnore]
-        public SSize2 Resolution
-        {
-            get => new(this.ScreenWidth, this.ScreenHeight);
-
-            set
-            {
-                this.ScreenWidth = (ushort)value.Width;
-                this.ScreenHeight = (ushort)value.Height;
-            }
-        }
-
-        [XmlElement("ScreenWidth", typeof(int))]
-        public int ScreenWidth { get; set; }
-
-        [XmlElement("ScreenHeight", typeof(int))]
-        public int ScreenHeight { get; set; }
+        [XmlElement("Resolution", typeof(SSize2))]
+        public SSize2 Resolution { get; set; }
 
         [XmlElement("FullScreen", typeof(bool))]
         public bool FullScreen { get; set; }
@@ -39,8 +24,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
 
         public SVideoSettings()
         {
-            this.ScreenWidth = 0;
-            this.ScreenHeight = 0;
+            this.Resolution = SSize2.Zero;
             this.FullScreen = false;
             this.VSync = false;
             this.Borderless = false;
@@ -54,8 +38,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
             );
             SSize2 autoResolution = GetAutoResolution(monitorResolution);
 
-            this.ScreenWidth = autoResolution.Width;
-            this.ScreenHeight = autoResolution.Height;
+            this.Resolution = autoResolution;
         }
 
         private static SSize2 GetAutoResolution(SSize2 monitorResolution)
