@@ -6,6 +6,9 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.ColorPicker;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
@@ -46,13 +49,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private readonly string titleName = SLocalization_GUIs.Menu_Options_Title;
 
         private readonly SButton[] systemButtons;
-        
+
+        private readonly SGUI_ColorPicker guiColorPicker;
         private readonly SGUI_Message guiMessage;
         private readonly SRoot root;
 
-        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
+        private readonly SColorPickerSettings colorPickerSettings;
+
+        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_ColorPicker guiColorPicker, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
         {
+            this.guiColorPicker = guiColorPicker;
             this.guiMessage = guiMessage;
+
+            this.colorPickerSettings = new();
 
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
@@ -67,57 +76,36 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             {
                 Sections = [
                     new("general", "General", string.Empty, [
-                        new("language", "Language", string.Empty, SOptionType.Selector)
-                        {
-                            Values = Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.CultureInfo.NativeName.FirstCharToUpper()),
-                        },
+                        new SSelectorOption("language", "Language", string.Empty, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.CultureInfo.NativeName.FirstCharToUpper()), 0),
                     ]),
-                    
+
+                    new("gameplay", "Gameplay", string.Empty, [
+                        new SColorOption("preview_area_color", "Preview Area Color", string.Empty, SColorPalette.White),
+                        new SSliderOption("preview_area_opacity", "Preview Area Opacity", string.Empty, new(0, 100), 50),
+                    ]),
+
                     new("volume", "Volume", string.Empty, [
-                        new("master_volume", "Master Volume", string.Empty, SOptionType.Slider)
-                        {
-                            Range = new(000, 100),
-                        },
-                        new("music_volume", "Music Volume", string.Empty, SOptionType.Slider)
-                        {
-                            Range = new(000, 100),
-                        },
-                        new("sfx_volume", "SFX Volume", string.Empty, SOptionType.Slider)
-                        {
-                            Range = new(000, 100),
-                        },
+                        new SSliderOption("master_volume", "Master Volume", string.Empty, new(000, 100), 100),
+                        new SSliderOption("music_volume", "Music Volume", string.Empty, new(000, 100), 50),
+                        new SSliderOption("sfx_volume", "SFX Volume", string.Empty, new(000, 100), 50)
                     ]),
 
                     new("video", "Video", string.Empty, [
-                        new("resolution", "Resolution", string.Empty, SOptionType.Selector)
-                        {
-                            Values = Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x),
-                        },
-                        new("fullscreen", "Fullscreen", string.Empty, SOptionType.Selector)
-                        {
-                            Values = [SLocalization_Statements.False, SLocalization_Statements.True],
-                        },
-                        new("vsync", "VSync", string.Empty, SOptionType.Selector)
-                        {
-                            Values = [SLocalization_Statements.False, SLocalization_Statements.True],
-                        },
-                        new("borderless", "Borderless", string.Empty, SOptionType.Selector)
-                        {
-                            Values = [SLocalization_Statements.False, SLocalization_Statements.True],
-                        },
+                        new SSelectorOption("resolution", "Resolution", string.Empty, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
+                        new SSelectorOption("fullscreen", "Fullscreen", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                        new SSelectorOption("vsync", "VSync", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                        new SSelectorOption("borderless", "Borderless", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
                     ]),
 
                     new("graphics", "Graphics", string.Empty, [
-
+                        new SSelectorOption("lighting", "Lighting", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True], 1),
                     ]),
 
                     new("cursor", "Cursor", string.Empty, [
-                        new("border_color", "Border Color", string.Empty, SOptionType.Color),
-                        new("background_color", "Background Color", string.Empty, SOptionType.Color),
-                        new("scale", "Scale", string.Empty, SOptionType.Selector)
-                        {
-                            Values = ["Very Small", "Small", "Medium", "Large", "Very Large"],
-                        },
+                        new SColorOption("border_color", "Border Color", string.Empty, SColorPalette.OrangeRed),
+                        new SColorOption("background_color", "Background Color", string.Empty, SColorPalette.White),
+                        new SSliderOption("opacity", "Opacity", string.Empty, new(0, 100), 0),
+                        new SSelectorOption("scale", "Scale", string.Empty, ["Very Small", "Small", "Medium", "Large", "Very Large"], 3),
                     ]),
                 ],
             };
@@ -177,15 +165,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 return;
             }
 
+            SSize2 size = new(295, 18);
+
             foreach (SGUIElement element in this.currentlySelectedSession.Elements)
             {
-                SSize2 size = new(295, 18);
                 Vector2 position = new(element.Position.X + size.Width, element.Position.Y - 6);
 
-                // SOption option = (SOption)element.GetData("option");
+                if (this.GUIEvents.OnMouseClick(position, size))
+                {
+                    HandleOptionInteractivity((SOption)element.GetData("option"));
+                }
 
                 element.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
+        }
+
+        private void HandleOptionInteractivity(SOption option)
+        {
+            
         }
 
         private void SelectSection(byte index)

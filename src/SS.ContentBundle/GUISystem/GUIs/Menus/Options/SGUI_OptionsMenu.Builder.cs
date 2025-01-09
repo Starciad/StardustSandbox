@@ -4,6 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
@@ -42,6 +43,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             // Sections
             BuildSections(layoutBuilder);
+
+            // Final
+            SelectSection(0);
         }
 
         private void BuildPanelBackground(ISGUILayoutBuilder layoutBuilder)
@@ -183,12 +187,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private SGUIElement CreateOptionElement(SOption option)
         {
-            return option.OptionType switch
+            return option switch
             {
-                SOptionType.Button => CreateButtonOptionElement(option),
-                SOptionType.Selector => CreateSelectorOptionElement(option),
-                SOptionType.Slider => CreateSliderOptionElement(option),
-                SOptionType.Color => CreateColorOptionElement(option),
+                SButtonOption => CreateButtonOptionElement(option),
+                SSelectorOption => CreateSelectorOptionElement(option),
+                SSliderOption => CreateSliderOptionElement(option),
+                SColorOption => CreateColorOptionElement(option),
                 _ => null,
             };
         }
@@ -207,7 +211,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SGUILabelElement element = CreateOptionButtonLabelElement();
 
-            element.SetTextualContent(string.Concat(option.Name, ": ", option.Values[option.SelectedValueIndex]));
+            element.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
             element.AddData("option", option);
 
             return element;
@@ -217,7 +221,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SGUILabelElement element = CreateOptionButtonLabelElement();
 
-            element.SetTextualContent(option.Name);
+            element.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
             element.AddData("option", option);
 
             return element;
@@ -227,7 +231,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SGUILabelElement element = CreateOptionButtonLabelElement();
 
-            element.SetTextualContent(option.Name);
+            element.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
             element.AddData("option", option);
 
             return element;

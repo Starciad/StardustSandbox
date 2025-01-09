@@ -4,7 +4,7 @@
     {
         protected override void OnOpened()
         {
-            SelectSection(0);
+            
 
             // Load Settings
         }

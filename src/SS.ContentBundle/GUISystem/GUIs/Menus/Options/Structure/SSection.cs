@@ -1,4 +1,6 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure
+﻿using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
+
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure
 {
     internal sealed class SSection(string identifier, string name, string description, SOption[] options)
     {

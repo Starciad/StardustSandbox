@@ -175,7 +175,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
         internal void Configure(SColorPickerSettings settings)
         {
             this.colorPickerSettings = settings;
-            this.captionElement.SetTextualContent(settings.Caption);
         }
     }
 }
