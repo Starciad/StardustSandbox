@@ -5,17 +5,13 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {

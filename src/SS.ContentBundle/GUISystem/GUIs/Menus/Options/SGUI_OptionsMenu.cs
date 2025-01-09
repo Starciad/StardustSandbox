@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
@@ -38,8 +38,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private byte selectedSectionIndex;
         private bool restartMessageAppeared;
 
-        private SVideoSettings videoSettings;
-        private SLanguageSettings languageSettings;
+        private readonly SVideoSettings videoSettings;
+        private readonly SLanguageSettings languageSettings;
 
         private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D colorButtonTexture;

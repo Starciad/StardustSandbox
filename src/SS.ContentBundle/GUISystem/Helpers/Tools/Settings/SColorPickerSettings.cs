@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.ColorPicker;
+﻿using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.ColorPicker;
 
 using System;
 

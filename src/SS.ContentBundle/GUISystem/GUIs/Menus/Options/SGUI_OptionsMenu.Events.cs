@@ -4,7 +4,7 @@
     {
         protected override void OnOpened()
         {
-            
+
 
             // Load Settings
         }

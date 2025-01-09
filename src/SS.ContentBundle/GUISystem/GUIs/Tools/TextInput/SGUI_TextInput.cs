@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;
 using StardustSandbox.ContentBundle.Localization.Statements;
@@ -14,7 +15,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System.Text;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
     internal sealed partial class SGUI_TextInput : SGUISystem
     {

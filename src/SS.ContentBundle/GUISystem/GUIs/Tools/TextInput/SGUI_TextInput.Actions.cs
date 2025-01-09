@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
     internal sealed partial class SGUI_TextInput
     {

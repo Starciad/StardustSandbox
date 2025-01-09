@@ -6,7 +6,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message
 {
     internal sealed partial class SGUI_Message
     {

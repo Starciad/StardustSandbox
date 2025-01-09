@@ -13,7 +13,10 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
@@ -37,6 +40,7 @@ namespace StardustSandbox.ContentBundle
 
             SGUI_Message message = new(game, SGUIConstants.MESSAGE_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_Confirm confirm = new(game, SGUIConstants.CONFIRM_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
+            SGUI_Slider slider = new(game, SGUIConstants.SLIDER_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_ColorPicker colorPicker = new(game, SGUIConstants.COLOR_PICKER_TOOL_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElement);
             SGUI_TextInput input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents, message);
 
@@ -65,6 +69,7 @@ namespace StardustSandbox.ContentBundle
 
             guiDatabase.RegisterGUISystem(message);
             guiDatabase.RegisterGUISystem(confirm);
+            guiDatabase.RegisterGUISystem(slider);
             guiDatabase.RegisterGUISystem(colorPicker);
             guiDatabase.RegisterGUISystem(input);
 

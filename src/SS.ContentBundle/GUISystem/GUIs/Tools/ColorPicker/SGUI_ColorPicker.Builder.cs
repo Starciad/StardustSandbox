@@ -10,7 +10,7 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker
 {
     internal sealed partial class SGUI_ColorPicker
     {

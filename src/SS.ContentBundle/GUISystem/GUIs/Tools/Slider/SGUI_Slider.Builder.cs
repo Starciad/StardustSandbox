@@ -8,15 +8,15 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
-    internal sealed partial class SGUI_TextInput
+    internal sealed partial class SGUI_Slider
     {
         private SGUITextElement synopsisElement;
-        private SGUITextElement userInputElement;
-        private SGUILabelElement characterCountElement;
+        private readonly SGUITextElement userInputElement;
+        private readonly SGUILabelElement characterCountElement;
 
-        private SGUIImageElement userInputBackgroundElement;
+        private readonly SGUIImageElement userInputBackgroundElement;
 
         private readonly SGUILabelElement[] menuButtonElements;
 
@@ -24,8 +24,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
         {
             BuildBackground(layoutBuilder);
             BuildSynopsis(layoutBuilder);
-            BuildUserInput(layoutBuilder);
-            BuildCharacterCount(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
         }
 
@@ -59,52 +57,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
             this.synopsisElement.PositionRelativeToScreen();
 
             layoutBuilder.AddElement(this.synopsisElement);
-        }
-
-        private void BuildUserInput(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.userInputBackgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.typingFieldTexture,
-                Scale = new(1.5f),
-                Size = new(632, 50),
-                Margin = new(0, 64),
-                PositionAnchor = SCardinalDirection.Center,
-                OriginPivot = SCardinalDirection.Center,
-            };
-
-            this.userInputElement = new(this.SGameInstance)
-            {
-                SpriteFont = this.pixelOperatorSpriteFont,
-                Scale = new(0.085f),
-                TextAreaSize = new(1000, 1000),
-                Margin = new(0, -32),
-                PositionAnchor = SCardinalDirection.Center,
-                OriginPivot = SCardinalDirection.Center,
-            };
-
-            this.userInputBackgroundElement.PositionRelativeToScreen();
-            this.userInputElement.PositionRelativeToScreen();
-
-            layoutBuilder.AddElement(this.userInputBackgroundElement);
-            layoutBuilder.AddElement(this.userInputElement);
-        }
-
-        private void BuildCharacterCount(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.characterCountElement = new(this.SGameInstance)
-            {
-                SpriteFont = this.pixelOperatorSpriteFont,
-                Scale = new(0.08f),
-                Margin = new(-212, -16),
-                PositionAnchor = SCardinalDirection.East,
-                OriginPivot = SCardinalDirection.West,
-            };
-
-            this.characterCountElement.SetTextualContent("000/000");
-            this.characterCountElement.PositionRelativeToScreen();
-
-            layoutBuilder.AddElement(this.characterCountElement);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)

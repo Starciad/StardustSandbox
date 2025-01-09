@@ -2,13 +2,12 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
-using StardustSandbox.Core.GUISystem;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
-    internal sealed partial class SGUI_TextInput : SGUISystem
+    internal sealed partial class SGUI_TextInput
     {
         protected override void OnOpened()
         {

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem;

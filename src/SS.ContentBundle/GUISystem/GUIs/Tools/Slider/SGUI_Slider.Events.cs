@@ -1,8 +1,8 @@
 ﻿using StardustSandbox.Core.GUISystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
-    internal sealed partial class SGUI_ColorPicker : SGUISystem
+    internal sealed partial class SGUI_Slider : SGUISystem
     {
         protected override void OnOpened()
         {

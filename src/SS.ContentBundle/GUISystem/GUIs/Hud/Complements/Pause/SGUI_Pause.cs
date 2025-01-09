@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;

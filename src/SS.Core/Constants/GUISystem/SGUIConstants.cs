@@ -7,6 +7,7 @@
 
         public const string MESSAGE_TOOL_IDENTIFIER = PREFIX + "MESSAGE_TOOL";
         public const string CONFIRM_TOOL_IDENTIFIER = PREFIX + "CONFIRM_TOOL";
+        public const string SLIDER_TOOL_IDENTIFIER = PREFIX + "SLIDER_TOOL";
         public const string COLOR_PICKER_TOOL_IDENTIFIER = PREFIX + "COLOR_PICKER_TOOL";
         public const string INPUT_TOOL_IDENTIFIER = PREFIX + "INPUT_TOOL";
 

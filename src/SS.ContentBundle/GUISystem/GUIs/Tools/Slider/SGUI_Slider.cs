@@ -11,11 +11,13 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
-    internal sealed partial class SGUI_Confirm : SGUISystem
+    internal sealed partial class SGUI_Slider : SGUISystem
     {
-        private SConfirmSettings confirmSettings;
+        private readonly float currentValue;
+
+        private SSliderSettings sliderSettings;
 
         private readonly Texture2D particleTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
@@ -23,7 +25,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
 
         private readonly SButton[] menuButtons;
 
-        public SGUI_Confirm(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_Slider(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
@@ -31,7 +33,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
 
             this.menuButtons = [
                 new(null, SLocalization_Statements.Cancel, string.Empty, CancelButtonAction),
-                new(null, SLocalization_Statements.Confirm, string.Empty, ConfirmButtonAction),
+                new(null, SLocalization_Statements.Send, string.Empty, SendButtonAction),
             ];
 
             this.menuButtonElements = new SGUILabelElement[this.menuButtons.Length];
@@ -40,6 +42,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
             UpdateMenuButtons();
         }
 
@@ -61,12 +64,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
             }
         }
 
-        internal void Configure(SConfirmSettings settings)
-        {
-            this.confirmSettings = settings;
+        // ====================================== //
 
-            this.captionElement.SetTextualContent(settings.Caption);
-            this.messageElement.SetTextualContent(settings.Message);
+        internal void Configure(SSliderSettings settings)
+        {
+            this.sliderSettings = settings;
+            this.synopsisElement.SetTextualContent(settings.Synopsis);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings
         internal uint MaxCharacters { get; set; }
         internal Action<STextValidationState, STextArgumentResult> OnValidationCallback { get; set; }
         internal Action<STextArgumentResult> OnSendCallback { get; set; }
-        internal Action OnCancelCallback { get; set; }
 
         internal STextInputSettings()
         {

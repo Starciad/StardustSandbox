@@ -8,20 +8,24 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 {
-    internal sealed partial class SGUI_Confirm
+    internal sealed partial class SGUI_TextInput
     {
-        private SGUITextElement captionElement;
-        private SGUITextElement messageElement;
+        private SGUITextElement synopsisElement;
+        private SGUITextElement userInputElement;
+        private SGUILabelElement characterCountElement;
+
+        private SGUIImageElement userInputBackgroundElement;
 
         private readonly SGUILabelElement[] menuButtonElements;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             BuildBackground(layoutBuilder);
-            BuildCaption(layoutBuilder);
-            BuildMessage(layoutBuilder);
+            BuildSynopsis(layoutBuilder);
+            BuildUserInput(layoutBuilder);
+            BuildCharacterCount(layoutBuilder);
             BuildMenuButtons(layoutBuilder);
         }
 
@@ -38,28 +42,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
             layoutBuilder.AddElement(guiBackground);
         }
 
-        private void BuildCaption(ISGUILayoutBuilder layoutBuilder)
+        private void BuildSynopsis(ISGUILayoutBuilder layoutBuilder)
         {
-            this.captionElement = new(this.SGameInstance)
-            {
-                Scale = new(0.1f),
-                Margin = new(0, 96),
-                LineHeight = 1.25f,
-                TextAreaSize = new(850, 1000),
-                SpriteFont = this.pixelOperatorSpriteFont,
-                PositionAnchor = SCardinalDirection.North,
-                OriginPivot = SCardinalDirection.Center,
-            };
-
-            this.captionElement.SetTextualContent("Caption");
-            this.captionElement.PositionRelativeToScreen();
-
-            layoutBuilder.AddElement(this.captionElement);
-        }
-
-        private void BuildMessage(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.messageElement = new(this.SGameInstance)
+            this.synopsisElement = new(this.SGameInstance)
             {
                 Scale = new(0.1f),
                 Margin = new(0, -128),
@@ -70,15 +55,61 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
                 OriginPivot = SCardinalDirection.Center,
             };
 
-            this.messageElement.SetTextualContent("Message");
-            this.messageElement.PositionRelativeToScreen();
+            this.synopsisElement.SetTextualContent("Synopsis");
+            this.synopsisElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.messageElement);
+            layoutBuilder.AddElement(this.synopsisElement);
+        }
+
+        private void BuildUserInput(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.userInputBackgroundElement = new(this.SGameInstance)
+            {
+                Texture = this.typingFieldTexture,
+                Scale = new(1.5f),
+                Size = new(632, 50),
+                Margin = new(0, 64),
+                PositionAnchor = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.Center,
+            };
+
+            this.userInputElement = new(this.SGameInstance)
+            {
+                SpriteFont = this.pixelOperatorSpriteFont,
+                Scale = new(0.085f),
+                TextAreaSize = new(1000, 1000),
+                Margin = new(0, -32),
+                PositionAnchor = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.Center,
+            };
+
+            this.userInputBackgroundElement.PositionRelativeToScreen();
+            this.userInputElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.userInputBackgroundElement);
+            layoutBuilder.AddElement(this.userInputElement);
+        }
+
+        private void BuildCharacterCount(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.characterCountElement = new(this.SGameInstance)
+            {
+                SpriteFont = this.pixelOperatorSpriteFont,
+                Scale = new(0.08f),
+                Margin = new(-212, -16),
+                PositionAnchor = SCardinalDirection.East,
+                OriginPivot = SCardinalDirection.West,
+            };
+
+            this.characterCountElement.SetTextualContent("000/000");
+            this.characterCountElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.characterCountElement);
         }
 
         private void BuildMenuButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = new(0, -64);
+            Vector2 margin = new(0, -48);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
