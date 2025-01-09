@@ -48,6 +48,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private readonly SGraphicsSettings graphicsSettings;
         private readonly SCursorSettings cursorSettings;
 
+        private readonly Texture2D plusIconTexture;
+        private readonly Texture2D minusIconTexture;
         private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D colorButtonTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
@@ -77,6 +79,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             this.colorPickerSettings = new();
 
+            this.plusIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_51");
+            this.minusIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_52");
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
             this.colorButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_4");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
@@ -103,7 +107,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         Options = new Dictionary<string, SOption>()
                         {
                             ["preview_area_color"] = new SColorOption("Preview Area Color", string.Empty),
-                            ["preview_area_opacity"] = new SSliderOption("Preview Area Opacity", string.Empty),
+                            ["preview_area_opacity"] = new SValueOption("Preview Area Opacity", string.Empty, byte.MinValue, byte.MaxValue),
                         },
                     },
 
@@ -111,9 +115,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["master_volume"] = new SSliderOption("Master Volume", string.Empty),
-                            ["music_volume"] = new SSliderOption("Music Volume", string.Empty),
-                            ["sfx_volume"] = new SSliderOption("SFX Volume", string.Empty)
+                            ["master_volume"] = new SValueOption("Master Volume", string.Empty, 000, 100),
+                            ["music_volume"] = new SValueOption("Music Volume", string.Empty, 000, 100),
+                            ["sfx_volume"] = new SValueOption("SFX Volume", string.Empty, 000, 100),
                         }
                     },
 
@@ -142,8 +146,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         {
                             ["color"] = new SColorOption("Color", string.Empty),
                             ["background_color"] = new SColorOption("Background Color", string.Empty),
-                            ["opacity"] = new SSliderOption("Opacity", string.Empty),
                             ["scale"] = new SSelectorOption("Scale", string.Empty, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
+                            ["opacity"] = new SValueOption("Opacity", string.Empty, byte.MinValue, byte.MaxValue),
                         }
                     },
                 },
@@ -230,8 +234,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     UpdateSelectorOption(selectorOption, element as SGUILabelElement);
                     break;
 
-                case SSliderOption sliderOption:
-                    UpdateSliderOption(sliderOption, element as SGUILabelElement);
+                case SValueOption valueOption:
+                    UpdateValueOption(valueOption, element as SGUILabelElement);
                     break;
 
                 default:
@@ -249,9 +253,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             labelElement.SetTextualContent(string.Concat(selectorOption.Name, ": ", selectorOption.GetValue()));
         }
 
-        private static void UpdateSliderOption(SSliderOption sliderOption, SGUILabelElement labelElement)
+        private static void UpdateValueOption(SValueOption valueOption, SGUILabelElement labelElement)
         {
-            labelElement.SetTextualContent(string.Concat(sliderOption.Name, ": ", sliderOption.GetValue()));
+            labelElement.SetTextualContent(string.Concat(valueOption.Name, ": ", valueOption.CurrentValue));
+            SSize2 labelElementSize = labelElement.GetStringSize();
+
+            SGUIElement plusElement = (SGUIElement)labelElement.GetData("plus_element");
+            SGUIElement minusElement = (SGUIElement)labelElement.GetData("minus_element");
+
+            minusElement.Margin = new(labelElementSize.Width + 8f, labelElementSize.Height / 2 * -1);
+
+            minusElement.PositionRelativeToElement(labelElement);
+            plusElement.PositionRelativeToElement(minusElement);
         }
         #endregion
 

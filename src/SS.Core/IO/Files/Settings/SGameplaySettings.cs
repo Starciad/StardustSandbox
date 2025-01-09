@@ -12,13 +12,13 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlElement("PreviewAreaColor", typeof(Color))]
         public Color PreviewAreaColor { get; set; }
 
-        [XmlElement("PreviewAreaOpacity", typeof(float))]
-        public float PreviewAreaOpacity { get; set; }
+        [XmlElement("PreviewAreaOpacity", typeof(byte))]
+        public byte PreviewAreaOpacity { get; set; }
 
         public SGameplaySettings()
         {
             this.PreviewAreaColor = SColorPalette.White;
-            this.PreviewAreaOpacity = 25f;
+            this.PreviewAreaOpacity = 25;
         }
     }
 }

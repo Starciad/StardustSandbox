@@ -40,7 +40,6 @@ namespace StardustSandbox.ContentBundle
 
             SGUI_Message message = new(game, SGUIConstants.MESSAGE_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_Confirm confirm = new(game, SGUIConstants.CONFIRM_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_Slider slider = new(game, SGUIConstants.SLIDER_TOOL_IDENTIFIER, game.GUIManager.GUIEvents);
             SGUI_ColorPicker colorPicker = new(game, SGUIConstants.COLOR_PICKER_TOOL_IDENTIFIER, game.GUIManager.GUIEvents, tooltipBoxElement);
             SGUI_TextInput input = new(game, SGUIConstants.INPUT_TOOL_IDENTIFIER, game.GUIManager.GUIEvents, message);
 
@@ -69,7 +68,6 @@ namespace StardustSandbox.ContentBundle
 
             guiDatabase.RegisterGUISystem(message);
             guiDatabase.RegisterGUISystem(confirm);
-            guiDatabase.RegisterGUISystem(slider);
             guiDatabase.RegisterGUISystem(colorPicker);
             guiDatabase.RegisterGUISystem(input);
 

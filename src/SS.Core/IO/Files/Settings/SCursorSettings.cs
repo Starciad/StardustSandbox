@@ -18,14 +18,15 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlElement("Scale", typeof(float))]
         public float Scale { get; set; }
 
-        [XmlElement("Opacity", typeof(float))]
-        public float Opacity { get; set; }
+        [XmlElement("Opacity", typeof(byte))]
+        public byte Opacity { get; set; }
 
         public SCursorSettings()
         {
-            this.Scale = 1f;
             this.Color = SColorPalette.White;
             this.BackgroundColor = SColorPalette.DarkRed;
+            this.Scale = 1f;
+            this.Opacity = 255;
         }
     }
 }

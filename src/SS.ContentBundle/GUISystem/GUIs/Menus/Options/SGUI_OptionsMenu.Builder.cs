@@ -11,6 +11,7 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
@@ -143,20 +144,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     labelElement.Margin = margin;
                     labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                    if (option is SColorOption)
+                    switch (option)
                     {
-                        SColorSlot colorSlot = BuildColorPreview();
-                        SSize2 labelElementSize = labelElement.GetStringSize();
+                        case SColorOption:
+                            BuildColorPreview(containerElement, labelElement);
+                            break;
 
-                        colorSlot.BackgroundElement.Margin = new(labelElementSize.Width + 6f, labelElementSize.Height / 2 * -1);
+                        case SValueOption:
+                            BuildValueControls(option, containerElement, labelElement);
+                            break;
 
-                        colorSlot.BackgroundElement.PositionRelativeToElement(labelElement);
-                        colorSlot.BorderElement.PositionRelativeToElement(colorSlot.BackgroundElement);
-
-                        containerElement.AddElement(colorSlot.BackgroundElement);
-                        containerElement.AddElement(colorSlot.BorderElement);
-
-                        labelElement.AddData("color_slot", colorSlot);
+                        default:
+                            break;
                     }
 
                     containerElement.AddElement(labelElement);
@@ -172,27 +171,68 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             }
         }
 
-        private SColorSlot BuildColorPreview()
+        private void BuildValueControls(SOption option, SGUIContainerElement containerElement, SGUILabelElement labelElement)
+        {
+            SSize2 labelElementSize = labelElement.GetStringSize();
+
+            SGUIImageElement minusElement = new(this.SGameInstance)
+            {
+                Texture = this.minusIconTexture,
+                Size = new(32),
+                Margin = new(0, labelElementSize.Height / 2 * -1)
+            };
+
+            SGUIImageElement plusElement = new(this.SGameInstance)
+            {
+                Texture = this.plusIconTexture,
+                Size = new(32),
+                Margin = new(this.minusIconTexture.Width + this.minusIconTexture.Width / 2, 0f),
+            };
+
+            plusElement.AddData("option", option);
+            minusElement.AddData("option", option);
+
+            labelElement.AddData("plus_element", plusElement);
+            labelElement.AddData("minus_element", minusElement);
+
+            minusElement.PositionRelativeToElement(labelElement);
+            plusElement.PositionRelativeToElement(minusElement);
+
+            containerElement.AddElement(plusElement);
+            containerElement.AddElement(minusElement);
+        }
+
+        private void BuildColorPreview(SGUIContainerElement containerElement, SGUILabelElement labelElement)
         {
             SSize2 textureSize = new(40, 22);
+            SSize2 labelElementSize = labelElement.GetStringSize();
 
-            SGUIImageElement backgroundElement = new(this.SGameInstance)
-            {
-                Texture = this.colorButtonTexture,
-                TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
-                Scale = new(1.5f),
-                Size = textureSize,
-            };
+            SColorSlot colorSlot = new(
+                new(this.SGameInstance)
+                {
+                    Texture = this.colorButtonTexture,
+                    TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                    Scale = new(1.5f),
+                    Size = textureSize,
+                    Margin = new(labelElementSize.Width + 6f, labelElementSize.Height / 2 * -1),
+                },
 
-            SGUIImageElement borderElement = new(this.SGameInstance)
-            {
-                Texture = this.colorButtonTexture,
-                TextureClipArea = new(new(00, 22), textureSize.ToPoint()),
-                Scale = new(1.5f),
-                Size = textureSize,
-            };
+                new(this.SGameInstance)
+                {
+                    Texture = this.colorButtonTexture,
+                    TextureClipArea = new(new(00, 22), textureSize.ToPoint()),
+                    Scale = new(1.5f),
+                    Size = textureSize,
+                }
+            );
 
-            return new(backgroundElement, borderElement);
+            colorSlot.BackgroundElement.PositionRelativeToElement(labelElement);
+            colorSlot.BorderElement.PositionRelativeToElement(colorSlot.BackgroundElement);
+
+            containerElement.AddElement(colorSlot.BackgroundElement);
+            containerElement.AddElement(colorSlot.BorderElement);
+
+            labelElement.AddData("color_slot", colorSlot);
         }
 
         // ============================================================================ //
@@ -236,7 +276,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             {
                 SButtonOption => CreateButtonOptionElement(option),
                 SSelectorOption => CreateSelectorOptionElement(option),
-                SSliderOption => CreateSliderOptionElement(option),
+                SValueOption => CreateSliderOptionElement(option),
                 SColorOption => CreateColorOptionElement(option),
                 _ => null,
             };
