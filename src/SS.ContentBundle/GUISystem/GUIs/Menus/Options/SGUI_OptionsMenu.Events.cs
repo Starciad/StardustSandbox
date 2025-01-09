@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
 
@@ -18,12 +19,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void SyncGeneralSettings()
         {
+            SSection generalSection = this.root.Sections["general"];
 
+            generalSection.Options["language"].SetValue(this.generalSettings.GameCulture.CultureInfo.NativeName.FirstCharToUpper());
         }
 
         private void SyncGameplaySettings()
         {
-
+            SSection gameplaySection = this.root.Sections["gameplay"];
         }
 
         private void SyncVolumeSettings()

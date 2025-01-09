@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
@@ -37,7 +38,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             Save = 1
         }
 
-        private byte selectedSectionIndex;
+        private string selectedSectionIdentififer;
         private bool restartMessageAppeared;
 
         private readonly SGeneralSettings generalSettings;
@@ -88,7 +89,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             this.root = new()
             {
-                Sections = new() {
+                Sections = new Dictionary<string, SSection>() {
                     ["general"] = new("General", string.Empty)
                     {
                         Options = new Dictionary<string, SOption>()
@@ -162,16 +163,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void UpdateSectionButtons()
         {
-            for (byte i = 0; i < this.sectionButtonElements.Count; i++)
+            foreach (KeyValuePair<string, SGUILabelElement> item in this.sectionButtonElements)
             {
-                SGUILabelElement labelElement = this.sectionButtonElements[i];
+                SGUILabelElement labelElement = this.sectionButtonElements[item.Key];
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
                 {
-                    SelectSection(i);
+                    SelectSection(item.Key);
                 }
 
-                if (this.selectedSectionIndex.Equals(i))
+                if (this.selectedSectionIdentififer.Equals(item.Key))
                 {
                     labelElement.Color = SColorPalette.LemonYellow;
                     continue;
@@ -200,7 +201,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SSize2 size = new(295, 18);
 
-            foreach (SGUIElement element in this.sectionContents[this.selectedSectionIndex])
+            foreach (SGUIElement element in this.sectionContents[this.selectedSectionIdentififer])
             {
                 Vector2 position = new(element.Position.X + size.Width, element.Position.Y - 6);
 
@@ -261,19 +262,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             }
         }
 
-        private void SelectSection(byte index)
+        private void SelectSection(string identififer)
         {
-            this.selectedSectionIndex = byte.Clamp(index, 0, (byte)(this.sectionButtonElements.Count - 1));
+            this.selectedSectionIdentififer = identififer;
 
-            for (byte i = 0; i < this.sectionContainerElements.Count; i++)
+            foreach (KeyValuePair<string, SGUIContainerElement> item in this.sectionContainerElements)
             {
-                if (this.selectedSectionIndex.Equals(i))
+                if (item.Key.Equals(identififer))
                 {
-                    this.sectionContainerElements[i].Active();
+                    item.Value.Active();
                     continue;
                 }
 
-                this.sectionContainerElements[i].Disable();
+                item.Value.Disable();
             }
         }
     }

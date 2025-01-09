@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 {
-    internal sealed class SButtonOption(string identifier, string name, string description, Action onClickCallback) : SOption(identifier, name, description)
+    internal sealed class SButtonOption(string name, string description, Action onClickCallback) : SOption(name, description)
     {
         public Action OnClickCallback => onClickCallback;
 

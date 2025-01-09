@@ -21,9 +21,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private SGUIImageElement panelBackgroundElement;
 
         private readonly SGUILabelElement[] systemButtonElements;
-        private readonly List<IEnumerable<SGUILabelElement>> sectionContents = [];
-        private readonly List<SGUIContainerElement> sectionContainerElements = [];
-        private readonly List<SGUILabelElement> sectionButtonElements = [];
+        private readonly Dictionary<string, IEnumerable<SGUILabelElement>> sectionContents = [];
+        private readonly Dictionary<string, SGUIContainerElement> sectionContainerElements = [];
+        private readonly Dictionary<string, SGUILabelElement> sectionButtonElements = [];
 
         private static readonly Vector2 defaultRightPanelMargin = new(-112f, 64f);
 
@@ -47,7 +47,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             BuildSections(layoutBuilder);
 
             // Final
-            SelectSection(0);
+            SelectSection("general");
         }
 
         private void BuildPanelBackground(ISGUILayoutBuilder layoutBuilder)
@@ -89,16 +89,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             Vector2 margin = new(-335f, 64f);
 
             // Labels
-            foreach (SSection section in this.root.Sections)
+            foreach (KeyValuePair<string, SSection> item in this.root.Sections)
             {
                 SGUILabelElement labelElement = CreateButtonLabelElement();
 
                 labelElement.PositionAnchor = SCardinalDirection.North;
                 labelElement.Margin = margin;
-                labelElement.SetTextualContent(section.Name);
+                labelElement.SetTextualContent(item.Value.Name);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                this.sectionButtonElements.Add(labelElement);
+                this.sectionButtonElements.Add(item.Key, labelElement);
                 margin.Y += leftPanelMarginVerticalSpacing;
 
                 layoutBuilder.AddElement(labelElement);
@@ -129,14 +129,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void BuildSections(ISGUILayoutBuilder layoutBuilder)
         {
-            foreach (SSection section in this.root.Sections)
+            foreach (KeyValuePair<string, SSection> item in this.root.Sections)
             {
                 List<SGUILabelElement> contentBuffer = [];
                 SGUIContainerElement containerElement = new(this.SGameInstance);
 
                 Vector2 margin = defaultRightPanelMargin;
 
-                foreach (SOption option in section.Options)
+                foreach (SOption option in item.Value.Options.Values)
                 {
                     SGUILabelElement labelElement = CreateOptionElement(option);
 
@@ -165,10 +165,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     contentBuffer.Add(labelElement);
                 }
 
-                this.sectionContainerElements.Add(containerElement);
+                this.sectionContainerElements.Add(item.Key, containerElement);
                 layoutBuilder.AddElement(containerElement);
 
-                this.sectionContents.Add(contentBuffer);
+                this.sectionContents.Add(item.Key, contentBuffer);
             }
         }
 
