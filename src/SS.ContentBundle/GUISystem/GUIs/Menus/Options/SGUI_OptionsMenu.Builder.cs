@@ -3,18 +3,12 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Selectors;
-using StardustSandbox.ContentBundle.Localization.GUIs;
-using StardustSandbox.ContentBundle.Localization.Statements;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
-using StardustSandbox.Core.Localization;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
@@ -22,20 +16,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
     internal sealed partial class SGUI_OptionsMenu
     {
         private SGUILabelElement titleLabelElement;
-
         private SGUIImageElement panelBackgroundElement;
 
-        private readonly SGUIContainerElement[] sectionContainers;
-        private readonly SGUILabelElement[] sectionButtonElements;
         private readonly SGUILabelElement[] systemButtonElements;
-
-        private readonly List<SOptionSelector> videoSectionOptionSelectors = [];
-        // private readonly List<SOptionSelector> volumeSectionOptionSelectors = [];
-
-        private readonly List<SGUILabelElement> videoSectionButtons = [];
-        // private readonly List<SGUILabelElement> volumeSectionButtons = [];
-        private readonly List<SGUILabelElement> cursorSectionButtons = [];
-        private readonly List<SGUILabelElement> languageSectionButtons = [];
+        private readonly List<SGUIContainerElement> sectionContainerElements = [];
+        private readonly List<SGUILabelElement> sectionButtonElements = [];
 
         private static readonly Vector2 defaultRightPanelMargin = new(200f, 64f);
 
@@ -98,16 +83,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             Vector2 margin = new(-335f, 64f);
 
             // Labels
-            for (int i = 0; i < this.sectionNames.Length; i++)
+            foreach (SSection section in this.root.Sections)
             {
                 SGUILabelElement labelElement = CreateButtonLabelElement();
 
                 labelElement.PositionAnchor = SCardinalDirection.North;
                 labelElement.Margin = margin;
-                labelElement.SetTextualContent(this.sectionNames[i]);
+                labelElement.SetTextualContent(section.Name);
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                this.sectionButtonElements[i] = labelElement;
+                this.sectionButtonElements.Add(labelElement);
                 margin.Y += leftPanelMarginVerticalSpacing;
 
                 layoutBuilder.AddElement(labelElement);
@@ -138,102 +123,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void BuildSections(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildVideoSection(layoutBuilder);
-            BuildCursorSection(layoutBuilder);
-            BuildLanguageSection(layoutBuilder);
-        }
-
-        private void BuildVideoSection(ISGUILayoutBuilder layoutBuilder)
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            // [ FIELDS ]
-            // 0. Resolution
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Resolution, 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
-
-            // 1. Fullscreen
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Fullscreen, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
-
-            // 2. VSync
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_VSync, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
-
-            // 3. Borderless
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Borderless, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
-
-            // [ LABELS ]
-            Vector2 margin = defaultRightPanelMargin;
-
-            foreach (SOptionSelector optionSelector in this.videoSectionOptionSelectors)
+            foreach (SSection section in this.root.Sections)
             {
-                SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+                SGUIContainerElement containerElement = new(this.SGameInstance);
 
-                labelElement.Margin = margin;
-                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
-                labelElement.SetTextualContent(optionSelector.ToString());
+                Vector2 margin = defaultRightPanelMargin;
 
-                this.videoSectionButtons.Add(labelElement);
-                container.AddElement(labelElement);
+                foreach (SOption option in section.Options)
+                {
+                    SGUIElement element = CreateOptionElement(option);
 
-                margin.Y += rightPanelMarginVerticalSpacing;
+                    element.Margin = margin;
+                    element.PositionRelativeToElement(this.panelBackgroundElement);
+
+                    containerElement.AddElement(element);
+
+                    margin.Y += rightPanelMarginVerticalSpacing;
+                }
+
+                this.sectionContainerElements.Add(containerElement);
+                layoutBuilder.AddElement(containerElement);
             }
-
-            this.sectionContainers[(byte)SMenuSection.Video] = container;
-            layoutBuilder.AddElement(container);
-        }
-
-        private void BuildCursorSection(ISGUILayoutBuilder layoutBuilder)
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            Vector2 margin = defaultRightPanelMargin;
-
-            // [ FIELDS ]
-            SGUILabelElement[] fields = [
-                // 0. Border Color
-                CreateOptionButtonLabelElement(),
-
-                // 1. Background Color
-                CreateOptionButtonLabelElement(),
-            ];
-
-            fields[0].SetTextualContent("Border Color");
-            fields[1].SetTextualContent("Background Color");
-
-            foreach (SGUILabelElement field in fields)
-            {
-                field.Margin = margin;
-                field.PositionRelativeToElement(this.panelBackgroundElement);
-
-                this.cursorSectionButtons.Add(field);
-                container.AddElement(field);
-
-                margin.Y += rightPanelMarginVerticalSpacing;
-            }
-        }
-
-        private void BuildLanguageSection(ISGUILayoutBuilder layoutBuilder)
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            Vector2 margin = defaultRightPanelMargin;
-
-            foreach (SGameCulture gameCulture in SLocalizationConstants.AVAILABLE_GAME_CULTURES)
-            {
-                SGUILabelElement labelElement = CreateOptionButtonLabelElement();
-
-                labelElement.Margin = margin;
-                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
-                labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName.FirstCharToUpper());
-                labelElement.AddData(SGUIConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
-
-                this.languageSectionButtons.Add(labelElement);
-                container.AddElement(labelElement);
-
-                margin.Y += rightPanelMarginVerticalSpacing;
-            }
-
-            this.sectionContainers[(byte)SMenuSection.Language] = container;
-            layoutBuilder.AddElement(container);
         }
 
         // ============================================================================ //
@@ -267,6 +177,60 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
 
             return labelElement;
+        }
+
+        // ============================================================================ //
+
+        private SGUIElement CreateOptionElement(SOption option)
+        {
+            return option.OptionType switch
+            {
+                SOptionType.Selector => CreateSelectorOptionElement(option),
+                SOptionType.Slider => CreateSliderOptionElement(option),
+                SOptionType.Color => CreateColorOptionElement(option),
+                SOptionType.Toggle => CreateToogleOptionElement(option),
+                _ => null,
+            };
+        }
+
+        private SGUIElement CreateSelectorOptionElement(SOption option)
+        {
+            SGUILabelElement element = CreateOptionButtonLabelElement();
+
+            element.SetTextualContent(option.Name);
+            element.AddData("option", option);
+
+            return element;
+        }
+
+        private SGUIElement CreateSliderOptionElement(SOption option)
+        {
+            SGUILabelElement element = CreateOptionButtonLabelElement();
+
+            element.SetTextualContent(option.Name);
+            element.AddData("option", option);
+
+            return element;
+        }
+
+        private SGUIElement CreateColorOptionElement(SOption option)
+        {
+            SGUILabelElement element = CreateOptionButtonLabelElement();
+
+            element.SetTextualContent(option.Name);
+            element.AddData("option", option);
+
+            return element;
+        }
+
+        private SGUIElement CreateToogleOptionElement(SOption option)
+        {
+            SGUILabelElement element = CreateOptionButtonLabelElement();
+
+            element.SetTextualContent(option.Name);
+            element.AddData("option", option);
+
+            return element;
         }
     }
 }

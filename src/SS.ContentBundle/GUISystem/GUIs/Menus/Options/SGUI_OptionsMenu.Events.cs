@@ -7,8 +7,6 @@
             SelectSection(0);
 
             // Load Settings
-            LoadVideoSettings();
-            LoadLanguageSettings();
         }
     }
 }
