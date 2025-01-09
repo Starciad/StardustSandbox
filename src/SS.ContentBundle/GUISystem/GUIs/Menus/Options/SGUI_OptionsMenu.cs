@@ -5,6 +5,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.ColorPicker;
@@ -34,8 +35,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             Save = 1
         }
 
-        private SGUIContainerElement currentlySelectedSession;
-
         private byte selectedSectionIndex;
         private bool restartMessageAppeared;
 
@@ -43,6 +42,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private SLanguageSettings languageSettings;
 
         private readonly Texture2D panelBackgroundTexture;
+        private readonly Texture2D colorButtonTexture;
         private readonly SpriteFont bigApple3PMSpriteFont;
         private readonly SpriteFont digitalDiscoSpriteFont;
 
@@ -64,6 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             this.colorPickerSettings = new();
 
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
+            this.colorButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_4");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
 
@@ -160,29 +161,67 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void UpdateSectionOptions()
         {
-            if (this.currentlySelectedSession == null)
-            {
-                return;
-            }
-
             SSize2 size = new(295, 18);
 
-            foreach (SGUIElement element in this.currentlySelectedSession.Elements)
+            foreach (SGUIElement element in this.sectionContents[this.selectedSectionIndex])
             {
                 Vector2 position = new(element.Position.X + size.Width, element.Position.Y - 6);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    HandleOptionInteractivity((SOption)element.GetData("option"));
+                    HandleOptionInteractivity((SOption)element.GetData("option"), element);
                 }
 
                 element.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 
-        private void HandleOptionInteractivity(SOption option)
+        private void HandleOptionInteractivity(SOption option, SGUIElement element)
         {
-            
+            switch (option)
+            {
+                case SButtonOption buttonOption:
+                    HandleButtonOption(buttonOption);
+                    break;
+
+                case SColorOption colorOption:
+                    HandleColorOption(colorOption, element);
+                    break;
+
+                case SSelectorOption selectorOption:
+                    HandleSelectorOption(selectorOption, element);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private static void HandleButtonOption(SButtonOption buttonOption)
+        {
+            buttonOption.OnClickCallback?.Invoke();
+        }
+
+        private void HandleColorOption(SColorOption colorOption, SGUIElement element)
+        {
+            this.colorPickerSettings.OnSelectCallback = (SColorPickerResult result) =>
+            {
+                colorOption.SetValue(result.SelectedColor);
+                ((SColorSlot)element.GetData("color_slot")).BackgroundElement.Color = result.SelectedColor;
+            };
+
+            this.guiColorPicker.Configure(this.colorPickerSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiColorPicker.Identifier);
+        }
+
+        private static void HandleSelectorOption(SSelectorOption selectorOption, SGUIElement element)
+        {
+            selectorOption.Next();
+
+            if (element is SGUILabelElement labelElement)
+            {
+                labelElement.SetTextualContent(string.Concat(selectorOption.Name, ": ", selectorOption.GetValue()));
+            }
         }
 
         private void SelectSection(byte index)
@@ -193,8 +232,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             {
                 if (this.selectedSectionIndex.Equals(i))
                 {
-                    this.currentlySelectedSession = this.sectionContainerElements[i];
-                    this.currentlySelectedSession.Active();
+                    this.sectionContainerElements[i].Active();
                     continue;
                 }
 

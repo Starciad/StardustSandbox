@@ -4,13 +4,18 @@ using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.Core.Mathematics.Primitives;
 
+using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
@@ -20,6 +25,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private SGUIImageElement panelBackgroundElement;
 
         private readonly SGUILabelElement[] systemButtonElements;
+        private readonly List<IEnumerable<SGUILabelElement>> sectionContents = [];
         private readonly List<SGUIContainerElement> sectionContainerElements = [];
         private readonly List<SGUILabelElement> sectionButtonElements = [];
 
@@ -129,25 +135,68 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             foreach (SSection section in this.root.Sections)
             {
+                List<SGUILabelElement> contentBuffer = [];
                 SGUIContainerElement containerElement = new(this.SGameInstance);
 
                 Vector2 margin = defaultRightPanelMargin;
 
                 foreach (SOption option in section.Options)
                 {
-                    SGUIElement element = CreateOptionElement(option);
+                    SGUILabelElement labelElement = CreateOptionElement(option);
 
-                    element.Margin = margin;
-                    element.PositionRelativeToElement(this.panelBackgroundElement);
+                    labelElement.Margin = margin;
+                    labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                    containerElement.AddElement(element);
+                    if (option is SColorOption)
+                    {
+                        SColorSlot colorSlot = BuildColorPreview();
+                        SSize2 labelElementSize = labelElement.GetStringSize();
 
+                        colorSlot.BackgroundElement.Margin = new(labelElementSize.Width + 6f, labelElementSize.Height / 2 * -1);
+
+                        colorSlot.BackgroundElement.PositionRelativeToElement(labelElement);
+                        colorSlot.BorderElement.PositionRelativeToElement(colorSlot.BackgroundElement);
+
+                        containerElement.AddElement(colorSlot.BackgroundElement);
+                        containerElement.AddElement(colorSlot.BorderElement);
+
+                        labelElement.AddData("color_slot", colorSlot);
+                    }
+
+                    containerElement.AddElement(labelElement);
                     margin.Y += rightPanelMarginVerticalSpacing;
+
+                    contentBuffer.Add(labelElement);
                 }
 
                 this.sectionContainerElements.Add(containerElement);
                 layoutBuilder.AddElement(containerElement);
+
+                this.sectionContents.Add(contentBuffer);
             }
+        }
+
+        private SColorSlot BuildColorPreview()
+        {
+            SSize2 textureSize = new(40, 22);
+
+            SGUIImageElement backgroundElement = new(this.SGameInstance)
+            {
+                Texture = this.colorButtonTexture,
+                TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                Scale = new(1.5f),
+                Size = textureSize,
+            };
+
+            SGUIImageElement borderElement = new(this.SGameInstance)
+            {
+                Texture = this.colorButtonTexture,
+                TextureClipArea = new(new(00, 22), textureSize.ToPoint()),
+                Scale = new(1.5f),
+                Size = textureSize,
+            };
+
+            return new(backgroundElement, borderElement);
         }
 
         // ============================================================================ //
@@ -185,9 +234,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         // ============================================================================ //
 
-        private SGUIElement CreateOptionElement(SOption option)
+        private SGUILabelElement CreateOptionElement(SOption option)
         {
-            return option switch
+            SGUILabelElement labelElement = option switch
             {
                 SButtonOption => CreateButtonOptionElement(option),
                 SSelectorOption => CreateSelectorOptionElement(option),
@@ -195,46 +244,38 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 SColorOption => CreateColorOptionElement(option),
                 _ => null,
             };
+
+            labelElement.AddData("option", option);
+
+            return labelElement;
         }
 
-        private SGUIElement CreateButtonOptionElement(SOption option)
+        private SGUILabelElement CreateButtonOptionElement(SOption option)
         {
-            SGUILabelElement element = CreateOptionButtonLabelElement();
-
-            element.SetTextualContent(option.Name);
-            element.AddData("option", option);
-
-            return element;
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(option.Name);
+            return labelElement;
         }
 
-        private SGUIElement CreateSelectorOptionElement(SOption option)
+        private SGUILabelElement CreateSelectorOptionElement(SOption option)
         {
-            SGUILabelElement element = CreateOptionButtonLabelElement();
-
-            element.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
-            element.AddData("option", option);
-
-            return element;
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
+            return labelElement;
         }
 
-        private SGUIElement CreateSliderOptionElement(SOption option)
+        private SGUILabelElement CreateSliderOptionElement(SOption option)
         {
-            SGUILabelElement element = CreateOptionButtonLabelElement();
-
-            element.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
-            element.AddData("option", option);
-
-            return element;
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
+            return labelElement;
         }
 
-        private SGUIElement CreateColorOptionElement(SOption option)
+        private SGUILabelElement CreateColorOptionElement(SOption option)
         {
-            SGUILabelElement element = CreateOptionButtonLabelElement();
-
-            element.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
-            element.AddData("option", option);
-
-            return element;
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": "));
+            return labelElement;
         }
     }
 }

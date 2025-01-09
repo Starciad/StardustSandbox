@@ -55,7 +55,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools
                 OriginPivot = SCardinalDirection.Center,
             };
 
-            this.captionElement.SetTextualContent("Caption");
+            this.captionElement.SetTextualContent("Color Picker");
             this.captionElement.PositionRelativeToScreen();
 
             layoutBuilder.AddElement(this.captionElement);
