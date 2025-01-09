@@ -22,7 +22,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private readonly List<SGUIContainerElement> sectionContainerElements = [];
         private readonly List<SGUILabelElement> sectionButtonElements = [];
 
-        private static readonly Vector2 defaultRightPanelMargin = new(-96f, 64f);
+        private static readonly Vector2 defaultRightPanelMargin = new(-112f, 64f);
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
@@ -189,7 +189,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 SOptionType.Selector => CreateSelectorOptionElement(option),
                 SOptionType.Slider => CreateSliderOptionElement(option),
                 SOptionType.Color => CreateColorOptionElement(option),
-                SOptionType.Toggle => CreateToogleOptionElement(option),
                 _ => null,
             };
         }
@@ -208,7 +207,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SGUILabelElement element = CreateOptionButtonLabelElement();
 
-            element.SetTextualContent(option.Name);
+            element.SetTextualContent(string.Concat(option.Name, ": ", option.Values[option.SelectedValueIndex]));
             element.AddData("option", option);
 
             return element;
@@ -225,16 +224,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         }
 
         private SGUIElement CreateColorOptionElement(SOption option)
-        {
-            SGUILabelElement element = CreateOptionButtonLabelElement();
-
-            element.SetTextualContent(option.Name);
-            element.AddData("option", option);
-
-            return element;
-        }
-
-        private SGUIElement CreateToogleOptionElement(SOption option)
         {
             SGUILabelElement element = CreateOptionButtonLabelElement();
 

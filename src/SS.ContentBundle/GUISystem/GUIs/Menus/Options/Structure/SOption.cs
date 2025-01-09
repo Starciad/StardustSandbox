@@ -8,7 +8,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure
         Selector = 1,
         Slider = 2,
         Color = 3,
-        Toggle = 4,
     }
 
     internal sealed class SOption(string identifier, string name, string description, SOptionType optionType)
@@ -17,7 +16,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure
         internal string Name => name;
         internal string Description => description;
         internal SOptionType OptionType => optionType;
-        internal object[] Values { get; init; }
+        internal object[] Values { get; init; } = [];
         internal Range Range { get; init; }
+        internal Action OnClickCallback { get; init; }
+
+        internal uint SelectedValueIndex { get; set; }
     }
 }

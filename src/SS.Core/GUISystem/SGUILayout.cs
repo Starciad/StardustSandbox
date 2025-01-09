@@ -12,7 +12,7 @@ namespace StardustSandbox.Core.GUISystem
 {
     public sealed class SGUILayout(ISGame gameInstance) : SGameObject(gameInstance), ISGUILayoutBuilder
     {
-        public SGUIElement[] Elements => [.. this.elements];
+        public IEnumerable<SGUIElement> Elements => this.elements;
         public bool IsActive { get; set; } = true;
 
         private readonly List<SGUIElement> elements = [];

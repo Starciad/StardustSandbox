@@ -5,10 +5,14 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.ContentBundle.GUISystem.Elements
 {
     internal class SGUIContainerElement : SGUIElement
     {
+        public IEnumerable<SGUIElement> Elements => this.containerLayout.Elements;
+
         private readonly SGUILayout containerLayout;
 
         internal SGUIContainerElement(ISGame gameInstance) : base(gameInstance)

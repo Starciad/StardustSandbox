@@ -10,10 +10,13 @@ using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
@@ -27,6 +30,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             Return = 0,
             Save = 1
         }
+
+        private SGUIContainerElement currentlySelectedSession;
 
         private byte selectedSectionIndex;
         private bool restartMessageAppeared;
@@ -64,7 +69,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     new("general", "General", string.Empty, [
                         new("language", "Language", string.Empty, SOptionType.Selector)
                         {
-                            Values = SLocalizationConstants.AVAILABLE_GAME_CULTURES,
+                            Values = Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.CultureInfo.NativeName.FirstCharToUpper()),
                         },
                     ]),
                     
@@ -88,9 +93,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         {
                             Values = Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x),
                         },
-                        new("fullscreen", "Fullscreen", string.Empty, SOptionType.Toggle),
-                        new("vsync", "VSync", string.Empty, SOptionType.Toggle),
-                        new("borderless", "Borderless", string.Empty, SOptionType.Toggle),
+                        new("fullscreen", "Fullscreen", string.Empty, SOptionType.Selector)
+                        {
+                            Values = [SLocalization_Statements.False, SLocalization_Statements.True],
+                        },
+                        new("vsync", "VSync", string.Empty, SOptionType.Selector)
+                        {
+                            Values = [SLocalization_Statements.False, SLocalization_Statements.True],
+                        },
+                        new("borderless", "Borderless", string.Empty, SOptionType.Selector)
+                        {
+                            Values = [SLocalization_Statements.False, SLocalization_Statements.True],
+                        },
                     ]),
 
                     new("graphics", "Graphics", string.Empty, [
@@ -117,6 +131,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             UpdateSectionButtons();
             UpdateSystemButtons();
+            UpdateSectionOptions();
         }
 
         private void UpdateSectionButtons()
@@ -155,6 +170,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             }
         }
 
+        private void UpdateSectionOptions()
+        {
+            if (this.currentlySelectedSession == null)
+            {
+                return;
+            }
+
+            foreach (SGUIElement element in this.currentlySelectedSession.Elements)
+            {
+                SSize2 size = new(295, 18);
+                Vector2 position = new(element.Position.X + size.Width, element.Position.Y - 6);
+
+                // SOption option = (SOption)element.GetData("option");
+
+                element.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
+            }
+        }
+
         private void SelectSection(byte index)
         {
             this.selectedSectionIndex = byte.Clamp(index, 0, (byte)(this.sectionButtonElements.Count - 1));
@@ -163,7 +196,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             {
                 if (this.selectedSectionIndex.Equals(i))
                 {
-                    this.sectionContainerElements[i].Active();
+                    this.currentlySelectedSession = this.sectionContainerElements[i];
+                    this.currentlySelectedSession.Active();
                     continue;
                 }
 
