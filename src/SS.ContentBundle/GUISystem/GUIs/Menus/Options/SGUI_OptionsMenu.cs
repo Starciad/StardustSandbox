@@ -122,9 +122,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         Options = new Dictionary<string, SOption>()
                         {
                             ["resolution"] = new SSelectorOption("Resolution", string.Empty, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
-                            ["fullscreen"] = new SSelectorOption("Fullscreen", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
-                            ["vsync"] = new SSelectorOption("VSync", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
-                            ["borderless"] = new SSelectorOption("Borderless", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                            ["fullscreen"] = new SSelectorOption("Fullscreen", string.Empty, [false, true]),
+                            ["vsync"] = new SSelectorOption("VSync", string.Empty, [false, true]),
+                            ["borderless"] = new SSelectorOption("Borderless", string.Empty, [false, true]),
                         },
                     },
 
@@ -132,7 +132,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["lighting"] = new SSelectorOption("Lighting", string.Empty, [SLocalization_Statements.False, SLocalization_Statements.True]),
+                            ["lighting"] = new SSelectorOption("Lighting", string.Empty, [false, true]),
                         }
                     },
 
@@ -143,7 +143,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                             ["color"] = new SColorOption("Color", string.Empty),
                             ["background_color"] = new SColorOption("Background Color", string.Empty),
                             ["opacity"] = new SSliderOption("Opacity", string.Empty, new(0, 100)),
-                            ["scale"] = new SSelectorOption("Scale", string.Empty, ["Very Small", "Small", "Medium", "Large", "Very Large"]),
+                            ["scale"] = new SSelectorOption("Scale", string.Empty, [0.5f, 1f, 1.5f, 2f]),
                         }
                     },
                 },
@@ -204,16 +204,49 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             foreach (SGUIElement element in this.sectionContents[this.selectedSectionIdentififer])
             {
                 Vector2 position = new(element.Position.X + size.Width, element.Position.Y - 6);
+                SOption option = (SOption)element.GetData("option");
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    HandleOptionInteractivity((SOption)element.GetData("option"), element);
+                    HandleOptionInteractivity(option, element);
                 }
+
+                UpdateOptionSync(option, element);
 
                 element.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 
+        #region Sync
+        private void UpdateOptionSync(SOption option, SGUIElement element)
+        {
+            switch (option)
+            {
+                case SColorOption colorOption:
+                    UpdateColorOption(colorOption, element.GetData("color_slot") as SColorSlot);
+                    break;
+
+                case SSelectorOption selectorOption:
+                    UpdateSelectorOption(selectorOption, element as SGUILabelElement);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private static void UpdateColorOption(SColorOption colorOption, SColorSlot colorSlot)
+        {
+            colorSlot.BackgroundElement.Color = colorOption.CurrentColor;
+        }
+
+        private static void UpdateSelectorOption(SSelectorOption selectorOption, SGUILabelElement labelElement)
+        {
+            labelElement.SetTextualContent(string.Concat(selectorOption.Name, ": ", selectorOption.GetValue()));
+        }
+        #endregion
+
+        #region Handlers
         private void HandleOptionInteractivity(SOption option, SGUIElement element)
         {
             switch (option)
@@ -245,7 +278,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             this.colorPickerSettings.OnSelectCallback = (SColorPickerResult result) =>
             {
                 colorOption.SetValue(result.SelectedColor);
-                ((SColorSlot)element.GetData("color_slot")).BackgroundElement.Color = result.SelectedColor;
             };
 
             this.guiColorPicker.Configure(this.colorPickerSettings);
@@ -255,12 +287,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private static void HandleSelectorOption(SSelectorOption selectorOption, SGUIElement element)
         {
             selectorOption.Next();
-
-            if (element is SGUILabelElement labelElement)
-            {
-                labelElement.SetTextualContent(string.Concat(selectorOption.Name, ": ", selectorOption.GetValue()));
-            }
         }
+        #endregion
+
+        // ========================================================= //
 
         private void SelectSection(string identififer)
         {

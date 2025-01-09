@@ -4,6 +4,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 {
     internal sealed class SColorOption(string name, string description) : SOption(name, description)
     {
+        public Color CurrentColor => this.currentColor;
+
         private Color currentColor;
 
         internal override object GetValue()
