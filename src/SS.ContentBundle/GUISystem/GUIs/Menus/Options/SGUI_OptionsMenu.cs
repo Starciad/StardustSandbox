@@ -14,7 +14,6 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.Settings;
-using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;

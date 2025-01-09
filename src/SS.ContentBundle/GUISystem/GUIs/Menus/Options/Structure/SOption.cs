@@ -4,10 +4,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure
 {
     internal enum SOptionType : byte
     {
-        Selector = 0,
-        Slider = 1,
-        Color = 2,
-        Toggle = 3,
+        Button = 0,
+        Selector = 1,
+        Slider = 2,
+        Color = 3,
+        Toggle = 4,
     }
 
     internal sealed class SOption(string identifier, string name, string description, SOptionType optionType)

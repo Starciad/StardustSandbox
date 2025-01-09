@@ -22,7 +22,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private readonly List<SGUIContainerElement> sectionContainerElements = [];
         private readonly List<SGUILabelElement> sectionButtonElements = [];
 
-        private static readonly Vector2 defaultRightPanelMargin = new(200f, 64f);
+        private static readonly Vector2 defaultRightPanelMargin = new(-96f, 64f);
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
@@ -171,7 +171,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 Color = SColorPalette.White,
                 SpriteFont = this.digitalDiscoSpriteFont,
                 PositionAnchor = SCardinalDirection.North,
-                OriginPivot = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.East,
             };
 
             labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
@@ -185,12 +185,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             return option.OptionType switch
             {
+                SOptionType.Button => CreateButtonOptionElement(option),
                 SOptionType.Selector => CreateSelectorOptionElement(option),
                 SOptionType.Slider => CreateSliderOptionElement(option),
                 SOptionType.Color => CreateColorOptionElement(option),
                 SOptionType.Toggle => CreateToogleOptionElement(option),
                 _ => null,
             };
+        }
+
+        private SGUIElement CreateButtonOptionElement(SOption option)
+        {
+            SGUILabelElement element = CreateOptionButtonLabelElement();
+
+            element.SetTextualContent(option.Name);
+            element.AddData("option", option);
+
+            return element;
         }
 
         private SGUIElement CreateSelectorOptionElement(SOption option)
