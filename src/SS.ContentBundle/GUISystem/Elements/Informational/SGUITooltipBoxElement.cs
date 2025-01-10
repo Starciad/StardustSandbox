@@ -165,17 +165,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
         private void UpdatePosition()
         {
+            Vector2 spacing = this.SGameInstance.CursorManager.Scale * 16;
+
             Vector2 mousePosition = this.SGameInstance.InputManager.GetScaledMousePosition();
-            Vector2 newPosition = mousePosition + this.Margin;
+            Vector2 newPosition = mousePosition + this.Margin + spacing;
 
             if (newPosition.X + this.backgroundImageElement.Size.Width > SScreenConstants.DEFAULT_SCREEN_WIDTH)
             {
-                newPosition.X = mousePosition.X - this.backgroundImageElement.Size.Width - this.Margin.X;
+                newPosition.X = mousePosition.X - this.backgroundImageElement.Size.Width - this.Margin.X - spacing.X;
             }
 
             if (newPosition.Y + this.backgroundImageElement.Size.Height > SScreenConstants.DEFAULT_SCREEN_HEIGHT)
             {
-                newPosition.Y = mousePosition.Y - this.backgroundImageElement.Size.Height - this.Margin.Y;
+                newPosition.Y = mousePosition.Y - this.backgroundImageElement.Size.Height - this.Margin.Y - spacing.Y;
             }
 
             this.backgroundImageElement.Position = newPosition;

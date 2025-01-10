@@ -50,6 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             BuildSections(layoutBuilder);
 
             // Final
+            layoutBuilder.AddElement(this.tooltipBoxElement);
             SelectSection("general");
         }
 

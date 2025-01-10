@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
+using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
@@ -64,7 +66,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private readonly SColorPickerSettings colorPickerSettings;
 
-        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_ColorPicker guiColorPicker, SGUI_Message guiMessage) : base(gameInstance, identifier, guiEvents)
+        private readonly SGUITooltipBoxElement tooltipBoxElement;
+
+        internal SGUI_OptionsMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_ColorPicker guiColorPicker, SGUI_Message guiMessage, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.generalSettings = SSettingsHandler.LoadSettings<SGeneralSettings>();
             this.gameplaySettings = SSettingsHandler.LoadSettings<SGameplaySettings>();
@@ -84,6 +88,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             this.colorButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_4");
             this.bigApple3PMSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_2");
             this.digitalDiscoSpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8");
+
+            this.tooltipBoxElement = tooltipBoxElement;
 
             this.systemButtons = [
                 new(null, SLocalization_Statements.Return, string.Empty, ReturnButtonAction),
@@ -159,9 +165,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             base.Update(gameTime);
 
+            this.tooltipBoxElement.IsVisible = false;
+
             UpdateSectionButtons();
             UpdateSystemButtons();
             UpdateSectionOptions();
+
+            this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
 
         private void UpdateSectionButtons()
@@ -225,7 +235,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
                 UpdateOptionSync(option, element);
 
-                element.Color = this.GUIEvents.OnMouseOver(position, interactiveAreaSize) ? SColorPalette.LemonYellow : SColorPalette.White;
+                if (this.GUIEvents.OnMouseOver(position, interactiveAreaSize))
+                {
+                    element.Color = SColorPalette.LemonYellow;
+
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = option.Name;
+                    SGUIGlobalTooltip.Description = option.Description;
+                }
+                else
+                {
+                    element.Color = SColorPalette.White;
+                }
             }
 
             foreach ((SGUIElement plusElement, SGUIElement minusElement) in this.plusAndMinusButtons)
