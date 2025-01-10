@@ -92,68 +92,68 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.systemButtons = [
-                new(null, SLocalization_Statements.Return, "Closes the current menu and returns to the previous menu.", ReturnButtonAction),
-                new(null, SLocalization_Statements.Save, "Saves and applies all modified options.", SaveButtonAction),
+                new(null, SLocalization_Statements.Return, SLocalization_GUIs.Button_Exit_Description, ReturnButtonAction),
+                new(null, SLocalization_Statements.Save, SLocalization_GUIs.Menu_Options_Button_Save_Description, SaveButtonAction),
             ];
 
             this.root = new()
             {
                 Sections = new Dictionary<string, SSection>()
                 {
-                    ["general"] = new("General", "Basic game settings, including language and accessibility.")
+                    ["general"] = new(SLocalization_GUIs.Menu_Options_Section_General_Name, SLocalization_GUIs.Menu_Options_Section_General_Description)
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["language"] = new SSelectorOption("Language", "Select the language for the game interface.", Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
+                            ["language"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_General_Option_Language_Name, SLocalization_GUIs.Menu_Options_Section_General_Option_Language_Description, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
                         },
                     },
 
-                    ["gameplay"] = new("Gameplay", "Adjust gameplay-related preferences.")
+                    ["gameplay"] = new(SLocalization_GUIs.Menu_Options_Section_Gameplay_Name, SLocalization_GUIs.Menu_Options_Section_Gameplay_Description)
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["preview_area_color"] = new SColorOption("Preview Area Color", "Choose the color for the preview area displayed during gameplay."),
-                            ["preview_area_opacity"] = new SValueOption("Preview Area Opacity", "Set the transparency level of the preview area.", byte.MinValue, byte.MaxValue),
+                            ["preview_area_color"] = new SColorOption(SLocalization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Name, SLocalization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Description),
+                            ["preview_area_opacity"] = new SValueOption(SLocalization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Name, SLocalization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Description, byte.MinValue, byte.MaxValue),
                         },
                     },
 
-                    ["volume"] = new("Volume", "Control audio levels for different categories.")
+                    ["volume"] = new(SLocalization_GUIs.Menu_Options_Section_Volume_Name, SLocalization_GUIs.Menu_Options_Section_Volume_Description)
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["master_volume"] = new SValueOption("Master Volume", "Adjust the overall game volume.", 0, 100),
-                            ["music_volume"] = new SValueOption("Music Volume", "Set the volume for background music.", 0, 100),
-                            ["sfx_volume"] = new SValueOption("SFX Volume", "Adjust the sound effects volume.", 0, 100),
+                            ["master_volume"] = new SValueOption(SLocalization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Name, SLocalization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Description, 0, 100),
+                            ["music_volume"] = new SValueOption(SLocalization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Name, SLocalization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Description, 0, 100),
+                            ["sfx_volume"] = new SValueOption(SLocalization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Name, SLocalization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Description, 0, 100),
                         }
                     },
 
-                    ["video"] = new("Video", "Modify video-related settings, including resolution and display modes.")
+                    ["video"] = new(SLocalization_GUIs.Menu_Options_Section_Video_Name, SLocalization_GUIs.Menu_Options_Section_Video_Description)
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["resolution"] = new SSelectorOption("Resolution", "Select the screen resolution for the game.", Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
-                            ["fullscreen"] = new SSelectorOption("Fullscreen", "Enable or disable fullscreen mode.", [false, true]),
-                            ["vsync"] = new SSelectorOption("VSync", "Turn vertical synchronization on or off to avoid screen tearing.", [false, true]),
-                            ["borderless"] = new SSelectorOption("Borderless", "Enable borderless windowed mode.", [false, true]),
+                            ["resolution"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
+                            ["fullscreen"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description, [false, true]),
+                            ["vsync"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_VSync_Description, [false, true]),
+                            ["borderless"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description, [false, true]),
                         },
                     },
 
-                    ["graphics"] = new("Graphics", "Configure graphical settings for visual quality.")
+                    ["graphics"] = new(SLocalization_GUIs.Menu_Options_Section_Graphics_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Description)
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["lighting"] = new SSelectorOption("Lighting", "Enable or disable advanced lighting effects.", [false, true]),
+                            ["lighting"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Description, [false, true]),
                         }
                     },
 
-                    ["cursor"] = new("Cursor", "Customize the appearance and behavior of the mouse cursor.")
+                    ["cursor"] = new(SLocalization_GUIs.Menu_Options_Section_Cursor_Name, SLocalization_GUIs.Menu_Options_Section_Cursor_Description)
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["color"] = new SColorOption("Color", "Set the color of the cursor."),
-                            ["background_color"] = new SColorOption("Background Color", "Set the background color of the cursor."),
-                            ["scale"] = new SSelectorOption("Scale", "Adjust the size of the cursor.", [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
-                            ["opacity"] = new SValueOption("Opacity", "Set the transparency level of the cursor.", byte.MinValue, byte.MaxValue),
+                            ["color"] = new SColorOption(SLocalization_GUIs.Menu_Options_Section_Cursor_Option_Color_Name, SLocalization_GUIs.Menu_Options_Section_Cursor_Option_Color_Description),
+                            ["background_color"] = new SColorOption(SLocalization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Name, SLocalization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Description),
+                            ["scale"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Name, SLocalization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Description, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
+                            ["opacity"] = new SValueOption(SLocalization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Name, SLocalization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Description, byte.MinValue, byte.MaxValue),
                         }
                     },
                 },
