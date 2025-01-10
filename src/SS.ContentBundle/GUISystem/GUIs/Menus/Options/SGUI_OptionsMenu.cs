@@ -203,21 +203,34 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void UpdateSectionOptions()
         {
-            SSize2 size = new(295, 18);
+            SSize2 interactiveAreaSize = new(295, 18);
+            SSize2 plusAndMinusButtonAreaSize = new(32);
 
             foreach (SGUIElement element in this.sectionContents[this.selectedSectionIdentififer])
             {
-                Vector2 position = new(element.Position.X + size.Width, element.Position.Y - 6);
+                Vector2 position = new(element.Position.X + interactiveAreaSize.Width, element.Position.Y - 6);
                 SOption option = (SOption)element.GetData("option");
 
-                if (this.GUIEvents.OnMouseClick(position, size))
+                if (this.GUIEvents.OnMouseClick(position, interactiveAreaSize))
                 {
                     HandleOptionInteractivity(option, element);
                 }
 
                 UpdateOptionSync(option, element);
 
-                element.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
+                element.Color = this.GUIEvents.OnMouseOver(position, interactiveAreaSize) ? SColorPalette.LemonYellow : SColorPalette.White;
+            }
+
+            foreach ((SGUIElement plusElement, SGUIElement minusElement) in this.plusAndMinusButtons)
+            {
+                if (this.GUIEvents.OnMouseDown(plusElement.Position, plusAndMinusButtonAreaSize))
+                {
+                    ((SValueOption)plusElement.GetData("option")).Increment();
+                }
+                else if (this.GUIEvents.OnMouseDown(minusElement.Position, plusAndMinusButtonAreaSize))
+                {
+                    ((SValueOption)minusElement.GetData("option")).Decrement();
+                }
             }
         }
 

@@ -8,10 +8,10 @@ using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
@@ -25,6 +25,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private readonly Dictionary<string, IEnumerable<SGUILabelElement>> sectionContents = [];
         private readonly Dictionary<string, SGUIContainerElement> sectionContainerElements = [];
         private readonly Dictionary<string, SGUILabelElement> sectionButtonElements = [];
+
+        private readonly List<(SGUIElement, SGUIElement)> plusAndMinusButtons = [];
 
         private static readonly Vector2 defaultRightPanelMargin = new(-112f, 64f);
 
@@ -200,6 +202,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             containerElement.AddElement(plusElement);
             containerElement.AddElement(minusElement);
+
+            this.plusAndMinusButtons.Add((plusElement, minusElement));
         }
 
         private void BuildColorPreview(SGUIContainerElement containerElement, SGUILabelElement labelElement)
