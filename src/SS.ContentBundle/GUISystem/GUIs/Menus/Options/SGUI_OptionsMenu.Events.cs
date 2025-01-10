@@ -1,11 +1,17 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
-using StardustSandbox.Core.Extensions;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu
     {
         protected override void OnOpened()
+        {
+            SyncSettingElements();
+        }
+
+        private void SyncSettingElements()
         {
             SyncGeneralSettings();
             SyncGameplaySettings();
@@ -19,15 +25,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SSection generalSection = this.root.Sections["general"];
 
-            generalSection.Options["language"].SetValue(this.generalSettings.GameCulture.CultureInfo.NativeName.FirstCharToUpper());
+            generalSection.Options["language"].SetValue(this.generalSettings.GameCulture.Name);
         }
 
         private void SyncGameplaySettings()
         {
             SSection gameplaySection = this.root.Sections["gameplay"];
 
-            gameplaySection.Options["preview_area_color"].SetValue(this.gameplaySettings.PreviewAreaColor);
-            gameplaySection.Options["preview_area_opacity"].SetValue(this.gameplaySettings.PreviewAreaOpacity);
+            gameplaySection.Options["preview_area_color"].SetValue(new Color(this.gameplaySettings.PreviewAreaColor, 255));
+            gameplaySection.Options["preview_area_opacity"].SetValue(this.gameplaySettings.PreviewAreaColorA);
         }
 
         private void SyncVolumeSettings()
@@ -60,9 +66,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             SSection cursorSettings = this.root.Sections["cursor"];
 
-            cursorSettings.Options["color"].SetValue(this.cursorSettings.Color);
-            cursorSettings.Options["background_color"].SetValue(this.cursorSettings.BackgroundColor);
-            cursorSettings.Options["opacity"].SetValue(this.cursorSettings.Opacity);
+            cursorSettings.Options["color"].SetValue(new Color(this.cursorSettings.Color, 255));
+            cursorSettings.Options["background_color"].SetValue(new Color(this.cursorSettings.BackgroundColor, 255));
+            cursorSettings.Options["opacity"].SetValue(this.cursorSettings.Alpha);
             cursorSettings.Options["scale"].SetValue(this.cursorSettings.Scale);
         }
     }

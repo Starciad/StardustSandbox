@@ -2,6 +2,6 @@
 {
     public interface ISCursorManager : ISManager
     {
-
+        void ApplySettings();
     }
 }

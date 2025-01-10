@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Managers
         public SGraphicsManager(ISGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
         {
             this._graphicsDeviceManager = graphicsDeviceManager;
-            UpdateSettings();
+            ApplySettings();
         }
 
         public override void Initialize()
@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.Managers
             this.GameWindow = gameWindow;
         }
 
-        public void UpdateSettings()
+        public void ApplySettings()
         {
             SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 

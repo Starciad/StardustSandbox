@@ -4,6 +4,7 @@ using System;
 
 namespace StardustSandbox.Core.Mathematics.Primitives
 {
+    [Serializable]
     public struct SSize2F : IEquatable<SSize2F>
     {
         public static readonly SSize2F Empty = new();

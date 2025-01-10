@@ -1,5 +1,15 @@
-﻿using StardustSandbox.ContentBundle.Localization.Messages;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.ContentBundle.Localization.Messages;
+using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO.Handlers;
+using StardustSandbox.Core.Localization;
+using StardustSandbox.Core.Mathematics.Primitives;
+
+using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
@@ -10,8 +20,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void SaveButtonAction()
         {
-            SaveVideoSettings();
-            SaveLanguageSettings();
+            SaveSettings();
+            ApplySettings();
 
             if (!this.restartMessageAppeared)
             {
@@ -22,34 +32,130 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             }
         }
 
-        private void ReturnButtonAction()
+        #region SAVE SETTINGS
+        private void SaveSettings()
         {
-            this.SGameInstance.GUIManager.CloseGUI();
+            SaveGeneralSettings();
+            SaveGameplaySettings();
+            SaveVolumeSettings();
+            SaveVideoSettings();
+            SaveGraphicsSettings();
+            SaveCursorSettings();
         }
 
-        // ================================== //
-        // Saving Methods
+        private void SaveGeneralSettings()
+        {
+            SSection generalSection = this.root.Sections["general"];
+            SGameCulture gameCulture = SLocalizationConstants.GetGameCulture(Convert.ToString(generalSection.Options["language"].GetValue()));
+
+            this.generalSettings.Language = gameCulture.Language;
+            this.generalSettings.Region = gameCulture.Region;
+
+            SSettingsHandler.SaveSettings(this.generalSettings);
+        }
+
+        private void SaveGameplaySettings()
+        {
+            SSection gameplaySection = this.root.Sections["gameplay"];
+
+            this.gameplaySettings.PreviewAreaColor = (Color)gameplaySection.Options["preview_area_color"].GetValue();
+            this.gameplaySettings.PreviewAreaColorA = Convert.ToByte(gameplaySection.Options["preview_area_opacity"].GetValue());
+
+            SSettingsHandler.SaveSettings(this.gameplaySettings);
+        }
+
+        private void SaveVolumeSettings()
+        {
+            SSection volumeSection = this.root.Sections["volume"];
+                        
+            this.volumeSettings.MasterVolume = Convert.ToSingle(volumeSection.Options["master_volume"].GetValue()) / 100;
+            this.volumeSettings.MusicVolume = Convert.ToSingle(volumeSection.Options["music_volume"].GetValue()) / 100;
+            this.volumeSettings.SFXVolume = Convert.ToSingle(volumeSection.Options["sfx_volume"].GetValue()) / 100;
+
+            SSettingsHandler.SaveSettings(this.volumeSettings);
+        }
 
         private void SaveVideoSettings()
         {
-            //this.videoSettings.Resolution = SScreenConstants.RESOLUTIONS[this.videoSectionOptionSelectors[(byte)SVideoSetting.Resolution].SelectedValueIndex];
-            //this.videoSettings.FullScreen = this.videoSectionOptionSelectors[(byte)SVideoSetting.Fullscreen].SelectedValue.Equals(SLocalization_Statements.True);
-            //this.videoSettings.VSync = this.videoSectionOptionSelectors[(byte)SVideoSetting.VSync].SelectedValue.Equals(SLocalization_Statements.True);
-            //this.videoSettings.Borderless = this.videoSectionOptionSelectors[(byte)SVideoSetting.Borderless].SelectedValue.Equals(SLocalization_Statements.True);
+            SSection videoSection = this.root.Sections["video"];
+
+            this.videoSettings.Resolution = (SSize2)videoSection.Options["resolution"].GetValue();
+            this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options["fullscreen"].GetValue());
+            this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options["vsync"].GetValue());
+            this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options["borderless"].GetValue());
 
             SSettingsHandler.SaveSettings(this.videoSettings);
-
-            this.SGameInstance.GraphicsManager.UpdateSettings();
         }
 
-        private void SaveLanguageSettings()
+        private void SaveGraphicsSettings()
         {
-            //SGameCulture gameCulture = SLocalizationConstants.AVAILABLE_GAME_CULTURES[this.selectedLanguageIndex];
+            SSection graphicsSettings = this.root.Sections["graphics"];
 
-            //this.languageSettings.Language = gameCulture.Language;
-            //this.languageSettings.Region = gameCulture.Region;
+            this.graphicsSettings.Lighting = Convert.ToBoolean(graphicsSettings.Options["lighting"].GetValue());
 
-            SSettingsHandler.SaveSettings(this.generalSettings);
+            SSettingsHandler.SaveSettings(this.graphicsSettings);
+        }
+
+        private void SaveCursorSettings()
+        {
+            SSection cursorSettings = this.root.Sections["cursor"];
+
+            this.cursorSettings.Color = (Color)cursorSettings.Options["color"].GetValue();
+            this.cursorSettings.BackgroundColor = (Color)cursorSettings.Options["background_color"].GetValue();
+            this.cursorSettings.Alpha = Convert.ToByte(cursorSettings.Options["opacity"].GetValue());
+            this.cursorSettings.Scale = Convert.ToSingle(cursorSettings.Options["scale"].GetValue());
+
+            SSettingsHandler.SaveSettings(this.cursorSettings);
+        }
+        #endregion
+
+        #region Apply Settings
+        private void ApplySettings()
+        {
+            ApplyGeneralSettings();
+            ApplyGameplaySettings();
+            ApplyVolumeSettings();
+            ApplyVideoSettings();
+            ApplyGraphicsSettings();
+            ApplyCursorSettings();
+        }
+
+        private void ApplyGeneralSettings()
+        {
+            
+        }
+
+        private void ApplyGameplaySettings()
+        {
+
+        }
+
+        private void ApplyVolumeSettings()
+        {
+            SSongEngine.Volume = this.volumeSettings.MusicVolume;
+            SSoundEngine.Volume = this.volumeSettings.SFXVolume;
+        }
+
+        private void ApplyVideoSettings()
+        {
+            this.SGameInstance.GraphicsManager.ApplySettings();
+        }
+
+        private void ApplyGraphicsSettings()
+        {
+
+        }
+
+        private void ApplyCursorSettings()
+        {
+            this.SGameInstance.CursorManager.ApplySettings();
+        }
+
+        #endregion
+
+        private void ReturnButtonAction()
+        {
+            this.SGameInstance.GUIManager.CloseGUI();
         }
     }
 }

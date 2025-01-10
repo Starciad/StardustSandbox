@@ -9,16 +9,39 @@ namespace StardustSandbox.Core.IO.Files.Settings
     [XmlRoot("GameplaySettings")]
     public sealed class SGameplaySettings : SSettings
     {
-        [XmlElement("PreviewAreaColor", typeof(Color))]
-        public Color PreviewAreaColor { get; set; }
+        [XmlIgnore]
+        public Color PreviewAreaColor
+        {
+            get
+            {
+                return new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
+            }
 
-        [XmlElement("PreviewAreaOpacity", typeof(byte))]
-        public byte PreviewAreaOpacity { get; set; }
+            set
+            {
+                this.PreviewAreaColorR = value.R;
+                this.PreviewAreaColorG = value.G;
+                this.PreviewAreaColorB = value.B;
+                this.PreviewAreaColorA = value.A;
+            }
+        }
+
+        [XmlElement("PreviewAreaColorR", typeof(byte))]
+        public byte PreviewAreaColorR { get; set; }
+
+        [XmlElement("PreviewAreaColorG", typeof(byte))]
+        public byte PreviewAreaColorG { get; set; }
+
+        [XmlElement("PreviewAreaColorB", typeof(byte))]
+        public byte PreviewAreaColorB { get; set; }
+
+        [XmlElement("PreviewAreaColorA", typeof(byte))]
+        public byte PreviewAreaColorA { get; set; }
 
         public SGameplaySettings()
         {
             this.PreviewAreaColor = SColorPalette.White;
-            this.PreviewAreaOpacity = 25;
+            this.PreviewAreaColorA = 25;
         }
     }
 }

@@ -98,7 +98,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["language"] = new SSelectorOption("Language", string.Empty, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.CultureInfo.NativeName.FirstCharToUpper())),
+                            ["language"] = new SSelectorOption("Language", string.Empty, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
                         },
                     },
 
