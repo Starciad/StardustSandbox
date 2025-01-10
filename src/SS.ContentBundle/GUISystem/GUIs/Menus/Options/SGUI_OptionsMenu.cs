@@ -92,67 +92,74 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.systemButtons = [
-                new(null, SLocalization_Statements.Return, string.Empty, ReturnButtonAction),
-                new(null, SLocalization_Statements.Save, string.Empty, SaveButtonAction),
+                new(null, SLocalization_Statements.Return, "Closes the current menu and returns to the previous menu.", ReturnButtonAction),
+                new(null, SLocalization_Statements.Save, "Saves and applies all modified options.", SaveButtonAction),
             ];
 
             this.root = new()
             {
-                Sections = new Dictionary<string, SSection>() {
-                    ["general"] = new("General", string.Empty)
+                Sections = new Dictionary<string, SSection>()
+                {
+                    ["general"] = new("General", "Basic game settings, including language and accessibility.")
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["language"] = new SSelectorOption("Language", string.Empty, Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
+                            ["language"] = new SSelectorOption("Language", "Select the language for the game interface.",
+                                Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
                         },
                     },
 
-                    ["gameplay"] = new("Gameplay", string.Empty)
+                    ["gameplay"] = new("Gameplay", "Adjust gameplay-related preferences.")
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["preview_area_color"] = new SColorOption("Preview Area Color", string.Empty),
-                            ["preview_area_opacity"] = new SValueOption("Preview Area Opacity", string.Empty, byte.MinValue, byte.MaxValue),
+                            ["preview_area_color"] = new SColorOption("Preview Area Color", "Choose the color for the preview area displayed during gameplay."),
+                            ["preview_area_opacity"] = new SValueOption("Preview Area Opacity", "Set the transparency level of the preview area.",
+                                byte.MinValue, byte.MaxValue),
                         },
                     },
 
-                    ["volume"] = new("Volume", string.Empty)
+                    ["volume"] = new("Volume", "Control audio levels for different categories.")
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["master_volume"] = new SValueOption("Master Volume", string.Empty, 000, 100),
-                            ["music_volume"] = new SValueOption("Music Volume", string.Empty, 000, 100),
-                            ["sfx_volume"] = new SValueOption("SFX Volume", string.Empty, 000, 100),
+                            ["master_volume"] = new SValueOption("Master Volume", "Adjust the overall game volume.", 0, 100),
+                            ["music_volume"] = new SValueOption("Music Volume", "Set the volume for background music.", 0, 100),
+                            ["sfx_volume"] = new SValueOption("SFX Volume", "Adjust the sound effects volume.", 0, 100),
                         }
                     },
 
-                    ["video"] = new("Video", string.Empty)
+                    ["video"] = new("Video", "Modify video-related settings, including resolution and display modes.")
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["resolution"] = new SSelectorOption("Resolution", string.Empty, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
-                            ["fullscreen"] = new SSelectorOption("Fullscreen", string.Empty, [false, true]),
-                            ["vsync"] = new SSelectorOption("VSync", string.Empty, [false, true]),
-                            ["borderless"] = new SSelectorOption("Borderless", string.Empty, [false, true]),
+                            ["resolution"] = new SSelectorOption("Resolution", "Select the screen resolution for the game.",
+                                Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
+                            ["fullscreen"] = new SSelectorOption("Fullscreen", "Enable or disable fullscreen mode.", new object[] { false, true }),
+                            ["vsync"] = new SSelectorOption("VSync", "Turn vertical synchronization on or off to avoid screen tearing.",
+                                new object[] { false, true }),
+                            ["borderless"] = new SSelectorOption("Borderless", "Enable borderless windowed mode.", new object[] { false, true }),
                         },
                     },
 
-                    ["graphics"] = new("Graphics", string.Empty)
+                    ["graphics"] = new("Graphics", "Configure graphical settings for visual quality.")
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["lighting"] = new SSelectorOption("Lighting", string.Empty, [false, true]),
+                            ["lighting"] = new SSelectorOption("Lighting", "Enable or disable advanced lighting effects.",
+                                new object[] { false, true }),
                         }
                     },
 
-                    ["cursor"] = new("Cursor", string.Empty)
+                    ["cursor"] = new("Cursor", "Customize the appearance and behavior of the mouse cursor.")
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["color"] = new SColorOption("Color", string.Empty),
-                            ["background_color"] = new SColorOption("Background Color", string.Empty),
-                            ["scale"] = new SSelectorOption("Scale", string.Empty, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
-                            ["opacity"] = new SValueOption("Opacity", string.Empty, byte.MinValue, byte.MaxValue),
+                            ["color"] = new SColorOption("Color", "Set the color of the cursor."),
+                            ["background_color"] = new SColorOption("Background Color", "Set the background color of the cursor."),
+                            ["scale"] = new SSelectorOption("Scale", "Adjust the size of the cursor.",
+                                new object[] { 0.5f, 1f, 1.5f, 2f, 2.5f, 3f }),
+                            ["opacity"] = new SValueOption("Opacity", "Set the transparency level of the cursor.", byte.MinValue, byte.MaxValue),
                         }
                     },
                 },
@@ -183,16 +190,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 SSize2 size = labelElement.GetStringSize() / 2f;
                 Vector2 position = labelElement.Position;
 
+                bool onMouseOver = this.GUIEvents.OnMouseOver(position, size);
+
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     SelectSection(item.Key);
+                }
+
+                if (onMouseOver)
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SSection section = this.root.Sections[item.Key];
+
+                    SGUIGlobalTooltip.Title = section.Name;
+                    SGUIGlobalTooltip.Description = section.Description;
                 }
 
                 if (this.selectedSectionIdentififer.Equals(item.Key))
                 {
                     labelElement.Color = SColorPalette.LemonYellow;
                 }
-                else if (this.GUIEvents.OnMouseOver(position, size))
+                else if (onMouseOver)
                 {
                     labelElement.Color = SColorPalette.LemonYellow;
                 }
@@ -205,16 +224,32 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void UpdateSystemButtons()
         {
-            for (byte i = 0; i < this.systemButtonElements.Length; i++)
+            for (byte i = 0; i < this.systemButtons.Length; i++)
             {
                 SGUILabelElement labelElement = this.systemButtonElements[i];
+                SButton button =  this.systemButtons[i];
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
+                SSize2 size = labelElement.GetStringSize() / 2f;
+                Vector2 position = labelElement.Position;
+
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.systemButtons[i].ClickAction?.Invoke();
+                    button.ClickAction?.Invoke();
                 }
 
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
+                if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = button.Name;
+                    SGUIGlobalTooltip.Description = button.Description;
+
+                    labelElement.Color = SColorPalette.LemonYellow;
+                }
+                else
+                {
+                    labelElement.Color = SColorPalette.White;
+                }
             }
         }
 
