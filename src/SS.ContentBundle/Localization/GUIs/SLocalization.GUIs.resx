@@ -132,8 +132,8 @@
   <data name="Menu.Options.Title" xml:space="preserve">
     <value>OPTIONS</value>
   </data>
-  <data name="Menu.Options.Section.Language" xml:space="preserve">
-    <value>Language</value>
+  <data name="Menu.Options.Section.General.Title" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="HUD.Button.ItemExplorer.Name" xml:space="preserve">
     <value>Item Explorer</value>
@@ -141,7 +141,7 @@
   <data name="HUD.Button.ItemExplorer.Description" xml:space="preserve">
     <value>A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interactions.</value>
   </data>
-  <data name="Menu.Options.Section.Video" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Title" xml:space="preserve">
     <value>Video</value>
   </data>
   <data name="Menu.Credits.Title.Creator" xml:space="preserve">
@@ -177,16 +177,16 @@
   <data name="Menu.Credits.Title.SpecialThanks" xml:space="preserve">
     <value>Special Thanks</value>
   </data>
-  <data name="Menu.Options.Section.Video.Resolution" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.Resolution" xml:space="preserve">
     <value>Resolution</value>
   </data>
-  <data name="Menu.Options.Section.Video.Fullscreen" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.Fullscreen" xml:space="preserve">
     <value>Fullscreen</value>
   </data>
-  <data name="Menu.Options.Section.Video.VSync" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.VSync" xml:space="preserve">
     <value>VSync</value>
   </data>
-  <data name="Menu.Options.Section.Video.Borderless" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.Borderless" xml:space="preserve">
     <value>Borderless</value>
   </data>
   <data name="Menu.Main.Button.Play" xml:space="preserve">
@@ -443,5 +443,68 @@
   </data>
   <data name="Menu.Credits.Title.Testers" xml:space="preserve">
     <value>Testers</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Title" xml:space="preserve">
+    <value>Gameplay</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Title" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Title" xml:space="preserve">
+    <value>Graphics</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Title" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="Menu.Options.Section.General.Option.Language.Title" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Title" xml:space="preserve">
+    <value>Preview Area Color</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Title" xml:space="preserve">
+    <value>Preview Area Opacity</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MasterVolume.Title" xml:space="preserve">
+    <value>Master Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MusicVolume.Title" xml:space="preserve">
+    <value>Music Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.SFXVolume.Title" xml:space="preserve">
+    <value>SFX Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Option.Lighting.Title" xml:space="preserve">
+    <value>Lighting</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Color.Title" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.BackgroundColor.Title" xml:space="preserve">
+    <value>Background Color</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Scale.Title" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Opacity.Title" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="Menu.Options.Section.General.Description" xml:space="preserve">
+    <value>Basic game settings, including language and accessibility.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Description" xml:space="preserve">
+    <value>Adjust gameplay-related preferences.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Description" xml:space="preserve">
+    <value>Control audio levels for different categories.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Description" xml:space="preserve">
+    <value>Modify video-related settings, including resolution and display modes.</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Description" xml:space="preserve">
+    <value>Configure graphical settings for visual quality.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Description" xml:space="preserve">
+    <value>Customize the appearance and behavior of the mouse cursor.</value>
   </data>
 </root>

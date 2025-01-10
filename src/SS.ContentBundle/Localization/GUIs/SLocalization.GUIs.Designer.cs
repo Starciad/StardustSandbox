@@ -979,56 +979,245 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Customize the appearance and behavior of the mouse cursor..
         /// </summary>
-        internal static string Menu_Options_Section_Language {
+        internal static string Menu_Options_Section_Cursor_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Language", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Video.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Color.
         /// </summary>
-        internal static string Menu_Options_Section_Video {
+        internal static string Menu_Options_Section_Cursor_Option_BackgroundColor_Title {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.BackgroundColor.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Color.
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_Option_Color_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Color.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Opacity.
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_Option_Opacity_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Opacity.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Scale.
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_Option_Scale_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Scale.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cursor.
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust gameplay-related preferences..
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Preview Area Color.
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Preview Area Opacity.
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gameplay.
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Basic game settings, including language and accessibility..
+        /// </summary>
+        internal static string Menu_Options_Section_General_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.General.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
+        /// </summary>
+        internal static string Menu_Options_Section_General_Option_Language_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.General.Option.Language.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a General.
+        /// </summary>
+        internal static string Menu_Options_Section_General_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.General.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Configure graphical settings for visual quality..
+        /// </summary>
+        internal static string Menu_Options_Section_Graphics_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Graphics.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lighting.
+        /// </summary>
+        internal static string Menu_Options_Section_Graphics_Option_Lighting_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Graphics.Option.Lighting.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Graphics.
+        /// </summary>
+        internal static string Menu_Options_Section_Graphics_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Graphics.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Modify video-related settings, including resolution and display modes..
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Borderless.
         /// </summary>
-        internal static string Menu_Options_Section_Video_Borderless {
+        internal static string Menu_Options_Section_Video_Option_Borderless {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Borderless", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Borderless", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Fullscreen.
         /// </summary>
-        internal static string Menu_Options_Section_Video_Fullscreen {
+        internal static string Menu_Options_Section_Video_Option_Fullscreen {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Fullscreen", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Fullscreen", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Resolution.
         /// </summary>
-        internal static string Menu_Options_Section_Video_Resolution {
+        internal static string Menu_Options_Section_Video_Option_Resolution {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Resolution", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Resolution", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a VSync.
         /// </summary>
-        internal static string Menu_Options_Section_Video_VSync {
+        internal static string Menu_Options_Section_Video_Option_VSync {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.VSync", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Option.VSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Video.
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Control audio levels for different categories..
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Master Volume.
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_Option_MasterVolume_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.MasterVolume.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Music Volume.
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_Option_MusicVolume_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.MusicVolume.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SFX Volume.
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_Option_SFXVolume_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.SFXVolume.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Volume.
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_Title {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.Title", resourceCulture);
             }
         }
         

@@ -104,8 +104,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["language"] = new SSelectorOption("Language", "Select the language for the game interface.",
-                                Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
+                            ["language"] = new SSelectorOption("Language", "Select the language for the game interface.", Array.ConvertAll<SGameCulture, object>(SLocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
                         },
                     },
 
@@ -114,8 +113,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         Options = new Dictionary<string, SOption>()
                         {
                             ["preview_area_color"] = new SColorOption("Preview Area Color", "Choose the color for the preview area displayed during gameplay."),
-                            ["preview_area_opacity"] = new SValueOption("Preview Area Opacity", "Set the transparency level of the preview area.",
-                                byte.MinValue, byte.MaxValue),
+                            ["preview_area_opacity"] = new SValueOption("Preview Area Opacity", "Set the transparency level of the preview area.", byte.MinValue, byte.MaxValue),
                         },
                     },
 
@@ -133,12 +131,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["resolution"] = new SSelectorOption("Resolution", "Select the screen resolution for the game.",
-                                Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
-                            ["fullscreen"] = new SSelectorOption("Fullscreen", "Enable or disable fullscreen mode.", new object[] { false, true }),
-                            ["vsync"] = new SSelectorOption("VSync", "Turn vertical synchronization on or off to avoid screen tearing.",
-                                new object[] { false, true }),
-                            ["borderless"] = new SSelectorOption("Borderless", "Enable borderless windowed mode.", new object[] { false, true }),
+                            ["resolution"] = new SSelectorOption("Resolution", "Select the screen resolution for the game.", Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
+                            ["fullscreen"] = new SSelectorOption("Fullscreen", "Enable or disable fullscreen mode.", [false, true]),
+                            ["vsync"] = new SSelectorOption("VSync", "Turn vertical synchronization on or off to avoid screen tearing.", [false, true]),
+                            ["borderless"] = new SSelectorOption("Borderless", "Enable borderless windowed mode.", [false, true]),
                         },
                     },
 
@@ -146,8 +142,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["lighting"] = new SSelectorOption("Lighting", "Enable or disable advanced lighting effects.",
-                                new object[] { false, true }),
+                            ["lighting"] = new SSelectorOption("Lighting", "Enable or disable advanced lighting effects.", [false, true]),
                         }
                     },
 
@@ -157,8 +152,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         {
                             ["color"] = new SColorOption("Color", "Set the color of the cursor."),
                             ["background_color"] = new SColorOption("Background Color", "Set the background color of the cursor."),
-                            ["scale"] = new SSelectorOption("Scale", "Adjust the size of the cursor.",
-                                new object[] { 0.5f, 1f, 1.5f, 2f, 2.5f, 3f }),
+                            ["scale"] = new SSelectorOption("Scale", "Adjust the size of the cursor.", [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
                             ["opacity"] = new SValueOption("Opacity", "Set the transparency level of the cursor.", byte.MinValue, byte.MaxValue),
                         }
                     },
@@ -207,18 +201,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     SGUIGlobalTooltip.Description = section.Description;
                 }
 
-                if (this.selectedSectionIdentififer.Equals(item.Key))
-                {
-                    labelElement.Color = SColorPalette.LemonYellow;
-                }
-                else if (onMouseOver)
-                {
-                    labelElement.Color = SColorPalette.LemonYellow;
-                }
-                else
-                {
-                    labelElement.Color = SColorPalette.White;
-                }
+                labelElement.Color = this.selectedSectionIdentififer.Equals(item.Key)
+                    ? SColorPalette.LemonYellow
+                    : onMouseOver ? SColorPalette.LemonYellow : SColorPalette.White;
             }
         }
 
@@ -227,7 +212,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             for (byte i = 0; i < this.systemButtons.Length; i++)
             {
                 SGUILabelElement labelElement = this.systemButtonElements[i];
-                SButton button =  this.systemButtons[i];
+                SButton button = this.systemButtons[i];
 
                 SSize2 size = labelElement.GetStringSize() / 2f;
                 Vector2 position = labelElement.Position;
