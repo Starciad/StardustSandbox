@@ -460,10 +460,10 @@
     <value>Idioma</value>
   </data>
   <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Name" xml:space="preserve">
-    <value>Cor da Área de Pré-visualização</value>
+    <value>Cor da Área</value>
   </data>
   <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Name" xml:space="preserve">
-    <value>Opacidade da Área de Pré-visualização</value>
+    <value>Opacidade da Área</value>
   </data>
   <data name="Menu.Options.Section.Volume.Option.MasterVolume.Name" xml:space="preserve">
     <value>Volume Geral</value>
