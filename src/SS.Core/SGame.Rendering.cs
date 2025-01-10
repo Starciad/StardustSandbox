@@ -173,7 +173,7 @@ namespace StardustSandbox.Core
 
                 Vector2 screenPosition = this.cameraManager.WorldToScreen(worldPosition);
 
-                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, new(SColorPalette.White, 25), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, this.gameplaySettings.PreviewAreaColor, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             }
         }
     }

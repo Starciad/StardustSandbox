@@ -15,7 +15,6 @@ using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
@@ -169,9 +168,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         {
             foreach (KeyValuePair<string, SGUILabelElement> item in this.sectionButtonElements)
             {
-                SGUILabelElement labelElement = this.sectionButtonElements[item.Key];
+                SGUILabelElement labelElement = item.Value;
 
-                if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElement.GetStringSize() / 2f))
+                SSize2 size = labelElement.GetStringSize() / 2f;
+                Vector2 position = labelElement.Position;
+
+                if (this.GUIEvents.OnMouseClick(position, size))
                 {
                     SelectSection(item.Key);
                 }
@@ -179,10 +181,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                 if (this.selectedSectionIdentififer.Equals(item.Key))
                 {
                     labelElement.Color = SColorPalette.LemonYellow;
-                    continue;
                 }
-
-                labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElement.GetStringSize() / 2f) ? SColorPalette.LemonYellow : SColorPalette.White;
+                else if (this.GUIEvents.OnMouseOver(position, size))
+                {
+                    labelElement.Color = SColorPalette.LemonYellow;
+                }
+                else
+                {
+                    labelElement.Color = SColorPalette.White;
+                }
             }
         }
 
@@ -268,7 +275,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private static void UpdateValueOption(SValueOption valueOption, SGUILabelElement labelElement)
         {
-            labelElement.SetTextualContent(string.Concat(valueOption.Name, ": ", valueOption.CurrentValue));
+            labelElement.SetTextualContent(string.Concat(valueOption.Name, ": ", valueOption.CurrentValue.ToString($"D{valueOption.MaximumValue.ToString().Length}")));
             SSize2 labelElementSize = labelElement.GetStringSize();
 
             SGUIElement plusElement = (SGUIElement)labelElement.GetData("plus_element");

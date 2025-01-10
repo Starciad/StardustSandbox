@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.IO.Files.Settings;
+using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Plugins;
 
 namespace StardustSandbox.Core
@@ -9,6 +11,7 @@ namespace StardustSandbox.Core
     public sealed partial class SGame
     {
         private Texture2D mouseActionSquareTexture;
+        private SGameplaySettings gameplaySettings;
 
         protected override void Initialize()
         {
@@ -47,6 +50,7 @@ namespace StardustSandbox.Core
         {
             this.spriteBatch = new(this.GraphicsDevice);
             this.mouseActionSquareTexture = this.assetDatabase.GetTexture("shape_square_3");
+            this.gameplaySettings = SSettingsHandler.LoadSettings<SGameplaySettings>();
         }
 
         protected override void BeginRun()
