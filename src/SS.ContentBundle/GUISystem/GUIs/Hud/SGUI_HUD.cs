@@ -33,6 +33,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiButtonTexture;
 
+        private readonly Texture2D guiHorizontalBackgroundTexture;
+        private readonly Texture2D guiVerticalBackgroundTexture;
+        private readonly Texture2D guiHudButtonTexture;
+
         private readonly Texture2D magnifyingGlassIconTexture;
         private readonly Texture2D weatherIconTexture;
         private readonly Texture2D pencilIconTexture;
@@ -102,6 +106,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.particleTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
+
+            this.guiVerticalBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_15");
+            this.guiHorizontalBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_16");
+            this.guiHudButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_6");
 
             this.magnifyingGlassIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1");
             this.trashIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_2");
