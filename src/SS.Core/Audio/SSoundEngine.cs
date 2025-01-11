@@ -6,15 +6,9 @@ namespace StardustSandbox.Core.Audio
     {
         public static float Volume
         {
-            get
-            {
-                return SoundEffect.MasterVolume;
-            }
+            get => SoundEffect.MasterVolume;
 
-            set
-            {
-                SoundEffect.MasterVolume = value;
-            }
+            set => SoundEffect.MasterVolume = value;
         }
 
         public static void Play(SoundEffect soundEffect)

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
 using StardustSandbox.ContentBundle.Localization.Messages;
@@ -67,7 +66,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private void SaveVolumeSettings()
         {
             SSection volumeSection = this.root.Sections["volume"];
-                        
+
             this.volumeSettings.MasterVolume = Convert.ToSingle(volumeSection.Options["master_volume"].GetValue()) / 100;
             this.volumeSettings.MusicVolume = Convert.ToSingle(volumeSection.Options["music_volume"].GetValue()) / 100;
             this.volumeSettings.SFXVolume = Convert.ToSingle(volumeSection.Options["sfx_volume"].GetValue()) / 100;
@@ -122,7 +121,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void ApplyGeneralSettings()
         {
-            
+
         }
 
         private void ApplyGameplaySettings()

@@ -12,10 +12,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlIgnore]
         public Color Color
         {
-            get
-            {
-                return new(this.ColorR, this.ColorG, this.ColorB, this.Alpha);
-            }
+            get => new(this.ColorR, this.ColorG, this.ColorB, this.Alpha);
 
             set
             {
@@ -28,10 +25,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlIgnore]
         public Color BackgroundColor
         {
-            get
-            {
-                return new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.Alpha);
-            }
+            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.Alpha);
 
             set
             {

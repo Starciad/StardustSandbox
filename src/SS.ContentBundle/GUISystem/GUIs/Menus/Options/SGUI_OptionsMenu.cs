@@ -338,14 +338,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private static void UpdateToggleOption(SToggleOption toggleOption, SGUIImageElement toggleStateElement)
         {
-            if (toggleOption.State)
-            {
-                toggleStateElement.TextureClipArea = new(new(0, 32), new(32));
-            }
-            else
-            {
-                toggleStateElement.TextureClipArea = new(new(0), new(32));
-            }
+            toggleStateElement.TextureClipArea = toggleOption.State ? new(new(0, 32), new(32)) : new(new(0), new(32));
         }
         #endregion
 

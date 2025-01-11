@@ -12,10 +12,7 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlIgnore]
         public Color PreviewAreaColor
         {
-            get
-            {
-                return new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
-            }
+            get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
 
             set
             {

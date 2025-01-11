@@ -226,7 +226,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             {
                 Texture = this.plusIconTexture,
                 Size = new(32),
-                Margin = new(this.minusIconTexture.Width + this.minusIconTexture.Width / 2, 0f),
+                Margin = new(this.minusIconTexture.Width + (this.minusIconTexture.Width / 2), 0f),
             };
 
             plusElement.AddData("option", option);
