@@ -34,7 +34,7 @@
 
         // Gui
         public const byte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 014;
-        public const byte GRAPHICS_GUI_BUTTONS_LENGTH = 004;
+        public const byte GRAPHICS_GUI_BUTTONS_LENGTH = 005;
         public const byte GRAPHICS_GUI_FIELDS_LENGTH = 002;
         public const byte GRAPHICS_GUI_SLIDERS_LENGTH = 001;
 

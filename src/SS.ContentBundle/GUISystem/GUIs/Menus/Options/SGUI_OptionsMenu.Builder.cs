@@ -157,6 +157,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                             BuildValueControls(option, containerElement, labelElement);
                             break;
 
+                        case SToggleOption:
+                            BuildTogglePreview(containerElement, labelElement);
+                            break;
+
                         default:
                             break;
                     }
@@ -172,39 +176,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
                 this.sectionContents.Add(item.Key, contentBuffer);
             }
-        }
-
-        private void BuildValueControls(SOption option, SGUIContainerElement containerElement, SGUILabelElement labelElement)
-        {
-            SSize2 labelElementSize = labelElement.GetStringSize();
-
-            SGUIImageElement minusElement = new(this.SGameInstance)
-            {
-                Texture = this.minusIconTexture,
-                Size = new(32),
-                Margin = new(0, labelElementSize.Height / 2 * -1)
-            };
-
-            SGUIImageElement plusElement = new(this.SGameInstance)
-            {
-                Texture = this.plusIconTexture,
-                Size = new(32),
-                Margin = new(this.minusIconTexture.Width + this.minusIconTexture.Width / 2, 0f),
-            };
-
-            plusElement.AddData("option", option);
-            minusElement.AddData("option", option);
-
-            labelElement.AddData("plus_element", plusElement);
-            labelElement.AddData("minus_element", minusElement);
-
-            minusElement.PositionRelativeToElement(labelElement);
-            plusElement.PositionRelativeToElement(minusElement);
-
-            containerElement.AddElement(plusElement);
-            containerElement.AddElement(minusElement);
-
-            this.plusAndMinusButtons.Add((plusElement, minusElement));
         }
 
         private void BuildColorPreview(SGUIContainerElement containerElement, SGUILabelElement labelElement)
@@ -240,6 +211,59 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             labelElement.AddData("color_slot", colorSlot);
         }
 
+        private void BuildValueControls(SOption option, SGUIContainerElement containerElement, SGUILabelElement labelElement)
+        {
+            SSize2 labelElementSize = labelElement.GetStringSize();
+
+            SGUIImageElement minusElement = new(this.SGameInstance)
+            {
+                Texture = this.minusIconTexture,
+                Size = new(32),
+                Margin = new(0, labelElementSize.Height / 2 * -1)
+            };
+
+            SGUIImageElement plusElement = new(this.SGameInstance)
+            {
+                Texture = this.plusIconTexture,
+                Size = new(32),
+                Margin = new(this.minusIconTexture.Width + this.minusIconTexture.Width / 2, 0f),
+            };
+
+            plusElement.AddData("option", option);
+            minusElement.AddData("option", option);
+
+            labelElement.AddData("plus_element", plusElement);
+            labelElement.AddData("minus_element", minusElement);
+
+            minusElement.PositionRelativeToElement(labelElement);
+            plusElement.PositionRelativeToElement(minusElement);
+
+            containerElement.AddElement(plusElement);
+            containerElement.AddElement(minusElement);
+
+            this.plusAndMinusButtons.Add((plusElement, minusElement));
+        }
+
+        private void BuildTogglePreview(SGUIContainerElement containerElement, SGUILabelElement labelElement)
+        {
+            SSize2 textureSize = new(32);
+            SSize2 labelElementSize = labelElement.GetStringSize();
+
+            SGUIImageElement togglePreviewImageElement = new(this.SGameInstance)
+            {
+                Texture = this.toggleButtonTexture,
+                TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                Scale = new(1.25f),
+                Size = textureSize,
+                Margin = new(labelElementSize.Width + 6f, labelElementSize.Height / 2 * -1),
+            };
+
+            togglePreviewImageElement.PositionRelativeToElement(labelElement);
+
+            containerElement.AddElement(togglePreviewImageElement);
+
+            labelElement.AddData("toogle_preview", togglePreviewImageElement);
+        }
         // ============================================================================ //
 
         private SGUILabelElement CreateButtonLabelElement()
@@ -281,8 +305,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             {
                 SButtonOption => CreateButtonOptionElement(option),
                 SSelectorOption => CreateSelectorOptionElement(option),
-                SValueOption => CreateSliderOptionElement(option),
+                SValueOption => CreateValueOptionElement(option),
                 SColorOption => CreateColorOptionElement(option),
+                SToggleOption => CreateToggleOptionElement(option),
                 _ => null,
             };
 
@@ -305,7 +330,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             return labelElement;
         }
 
-        private SGUILabelElement CreateSliderOptionElement(SOption option)
+        private SGUILabelElement CreateValueOptionElement(SOption option)
         {
             SGUILabelElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
@@ -313,6 +338,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         }
 
         private SGUILabelElement CreateColorOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": "));
+            return labelElement;
+        }
+
+        private SGUILabelElement CreateToggleOptionElement(SOption option)
         {
             SGUILabelElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(string.Concat(option.Name, ": "));

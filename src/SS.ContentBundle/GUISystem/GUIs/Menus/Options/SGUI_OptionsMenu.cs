@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements;
+using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Global;
@@ -49,6 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
         private readonly SGraphicsSettings graphicsSettings;
         private readonly SCursorSettings cursorSettings;
 
+        private readonly Texture2D toggleButtonTexture;
         private readonly Texture2D plusIconTexture;
         private readonly Texture2D minusIconTexture;
         private readonly Texture2D panelBackgroundTexture;
@@ -82,6 +84,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
             this.colorPickerSettings = new();
 
+            this.toggleButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_5");
             this.plusIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_51");
             this.minusIconTexture = gameInstance.AssetDatabase.GetTexture("icon_gui_52");
             this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_13");
@@ -132,9 +135,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         Options = new Dictionary<string, SOption>()
                         {
                             ["resolution"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<SSize2, object>(SScreenConstants.RESOLUTIONS, x => x)),
-                            ["fullscreen"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description, [false, true]),
-                            ["vsync"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_VSync_Description, [false, true]),
-                            ["borderless"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description, [false, true]),
+                            ["fullscreen"] = new SToggleOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
+                            ["vsync"] = new SToggleOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
+                            ["borderless"] = new SToggleOption(SLocalization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, SLocalization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description),
                         },
                     },
 
@@ -142,7 +145,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     {
                         Options = new Dictionary<string, SOption>()
                         {
-                            ["lighting"] = new SSelectorOption(SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Description, [false, true]),
+                            ["lighting"] = new SToggleOption(SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Description),
                         }
                     },
 
@@ -250,7 +253,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
                 if (this.GUIEvents.OnMouseClick(position, interactiveAreaSize))
                 {
-                    HandleOptionInteractivity(option, element);
+                    HandleOptionInteractivity(option);
                 }
 
                 UpdateOptionSync(option, element);
@@ -300,6 +303,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     UpdateValueOption(valueOption, element as SGUILabelElement);
                     break;
 
+                case SToggleOption toggleOption:
+                    UpdateToggleOption(toggleOption, element.GetData("toogle_preview") as SGUIImageElement);
+                    break;
+
                 default:
                     break;
             }
@@ -328,10 +335,22 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             minusElement.PositionRelativeToElement(labelElement);
             plusElement.PositionRelativeToElement(minusElement);
         }
+
+        private static void UpdateToggleOption(SToggleOption toggleOption, SGUIImageElement toggleStateElement)
+        {
+            if (toggleOption.State)
+            {
+                toggleStateElement.TextureClipArea = new(new(0, 32), new(32));
+            }
+            else
+            {
+                toggleStateElement.TextureClipArea = new(new(0), new(32));
+            }
+        }
         #endregion
 
         #region Handlers
-        private void HandleOptionInteractivity(SOption option, SGUIElement element)
+        private void HandleOptionInteractivity(SOption option)
         {
             switch (option)
             {
@@ -340,11 +359,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                     break;
 
                 case SColorOption colorOption:
-                    HandleColorOption(colorOption, element);
+                    HandleColorOption(colorOption);
                     break;
 
                 case SSelectorOption selectorOption:
-                    HandleSelectorOption(selectorOption, element);
+                    HandleSelectorOption(selectorOption);
+                    break;
+
+                case SToggleOption toggleOption:
+                    HandleToggleOption(toggleOption);
                     break;
 
                 default:
@@ -357,7 +380,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             buttonOption.OnClickCallback?.Invoke();
         }
 
-        private void HandleColorOption(SColorOption colorOption, SGUIElement element)
+        private void HandleColorOption(SColorOption colorOption)
         {
             this.colorPickerSettings.OnSelectCallback = (SColorPickerResult result) =>
             {
@@ -368,9 +391,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
             this.SGameInstance.GUIManager.OpenGUI(this.guiColorPicker.Identifier);
         }
 
-        private static void HandleSelectorOption(SSelectorOption selectorOption, SGUIElement element)
+        private static void HandleSelectorOption(SSelectorOption selectorOption)
         {
             selectorOption.Next();
+        }
+
+        private static void HandleToggleOption(SToggleOption toggleOption)
+        {
+            toggleOption.Toggle();
         }
         #endregion
 
