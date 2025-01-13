@@ -17,11 +17,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER);
         }
 
-        private void ScreenshotButtonAction()
-        {
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER);
-        }
-
         private void WorldSettingsButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_WORLD_SETTINGS_IDENTIFIER);

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Catalog;
-using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
@@ -18,12 +18,20 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal partial class SGUI_HUD
     {
-        private SGUIImageElement topToolbarContainer;
-        private SGUIImageElement leftToolbarContainer;
-        private SGUIImageElement rightToolbarContainer;
+        private SGUIContainerElement topToolbarContainerElement;
+        private SGUIContainerElement leftToolbarContainerElement;
+        private SGUIContainerElement rightToolbarContainerElement;
 
-        private SGUIImageElement toolbarElementSearchButton;
-        private SGUIImageElement toolbarCurrentlySelectedToolIcon;
+        private SGUIImageElement topToolbarBackgroundElement;
+        private SGUIImageElement leftToolbarBackgroundElement;
+        private SGUIImageElement rightToolbarBackgroundElement;
+
+        private SGUIImageElement topDrawerButtonImage;
+        private SGUIImageElement leftDrawerButtonImage;
+        private SGUIImageElement rightDrawerButtonImage;
+
+        private SGUIImageElement toolbarElementSearchButtonElement;
+        private SGUIImageElement toolbarCurrentlySelectedToolIconElement;
 
         private readonly SSlot[] toolbarElementSlots = new SSlot[SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly SSlot[] leftPanelTopButtonElements;
@@ -40,32 +48,58 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void BuildToolbars(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildTopToolbar(layoutBuilder);
-            BuildLeftToolbar(layoutBuilder);
-            BuildRightToolbar(layoutBuilder);
+            this.topToolbarContainerElement = new(this.SGameInstance)
+            {
+                Size = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
+            };
+
+            this.leftToolbarContainerElement = new(this.SGameInstance)
+            {
+                Size = new(96, 608),
+                PositionAnchor = SCardinalDirection.Northwest,
+                Margin = new(0, 112),
+            };
+
+            this.rightToolbarContainerElement = new(this.SGameInstance)
+            {
+                Size = new(96, 608),
+                Margin = new(-16, 112),
+                PositionAnchor = SCardinalDirection.Northeast,
+            };
+
+            this.topToolbarContainerElement.PositionRelativeToScreen();
+            this.leftToolbarContainerElement.PositionRelativeToScreen();
+            this.rightToolbarContainerElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.topToolbarContainerElement);
+            layoutBuilder.AddElement(this.leftToolbarContainerElement);
+            layoutBuilder.AddElement(this.rightToolbarContainerElement);
+
+            BuildTopToolbar(this.topToolbarContainerElement);
+            BuildLeftToolbar(this.leftToolbarContainerElement);
+            BuildRightToolbar(this.rightToolbarContainerElement);
         }
 
         #region Top Toolbar
-        private void BuildTopToolbar(ISGUILayoutBuilder layoutBuilder)
+        private void BuildTopToolbar(SGUIContainerElement containerElement)
         {
-            this.topToolbarContainer = new(this.SGameInstance)
+            this.topToolbarBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiHorizontalBackgroundTexture,
                 TextureClipArea = new(new(0, 0), new(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96)),
                 Size = new(SScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
-                PositionAnchor = SCardinalDirection.Northwest
             };
 
-            this.topToolbarContainer.PositionRelativeToScreen();
+            this.topToolbarBackgroundElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.topToolbarContainer);
+            containerElement.AddElement(this.topToolbarBackgroundElement);
 
-            CreateTopToolbatCurrentlySelectedToolSlot(layoutBuilder);
-            CreateTopToolbarSlots(layoutBuilder);
-            CreateTopToolbarSearchSlot(layoutBuilder);
+            CreateTopToolbatCurrentlySelectedToolSlot(containerElement);
+            CreateTopToolbarSlots(containerElement);
+            CreateTopToolbarSearchSlot(containerElement);
         }
 
-        private void CreateTopToolbatCurrentlySelectedToolSlot(ISGUILayoutBuilder layoutBuilder)
+        private void CreateTopToolbatCurrentlySelectedToolSlot(SGUIContainerElement containerElement)
         {
             SGUIImageElement slotSearchBackground = new(this.SGameInstance)
             {
@@ -85,16 +119,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Size = new(1),
             };
 
-            slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
+            slotSearchBackground.PositionRelativeToElement(this.topToolbarBackgroundElement);
             slotIcon.PositionRelativeToElement(slotSearchBackground);
 
-            layoutBuilder.AddElement(slotSearchBackground);
-            layoutBuilder.AddElement(slotIcon);
+            containerElement.AddElement(slotSearchBackground);
+            containerElement.AddElement(slotIcon);
 
-            this.toolbarCurrentlySelectedToolIcon = slotIcon;
+            this.toolbarCurrentlySelectedToolIconElement = slotIcon;
         }
 
-        private void CreateTopToolbarSlots(ISGUILayoutBuilder layoutBuilder)
+        private void CreateTopToolbarSlots(SGUIContainerElement containerElement)
         {
             Vector2 margin = new(SGUI_HUDConstants.SLOT_SPACING * 2.5f, 0);
 
@@ -113,7 +147,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 }
 
                 // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.topToolbarContainer);
+                slot.BackgroundElement.PositionRelativeToElement(this.topToolbarBackgroundElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
@@ -122,12 +156,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 // Spacing
                 margin.X += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
-                layoutBuilder.AddElement(slot.BackgroundElement);
-                layoutBuilder.AddElement(slot.IconElement);
+                containerElement.AddElement(slot.BackgroundElement);
+                containerElement.AddElement(slot.IconElement);
             }
         }
 
-        private void CreateTopToolbarSearchSlot(ISGUILayoutBuilder layoutBuilder)
+        private void CreateTopToolbarSearchSlot(SGUIContainerElement containerElement)
         {
             SGUIImageElement slotSearchBackground = new(this.SGameInstance)
             {
@@ -147,19 +181,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Size = new(1),
             };
 
-            slotSearchBackground.PositionRelativeToElement(this.topToolbarContainer);
+            slotSearchBackground.PositionRelativeToElement(this.topToolbarBackgroundElement);
             slotIcon.PositionRelativeToElement(slotSearchBackground);
 
-            layoutBuilder.AddElement(slotSearchBackground);
-            layoutBuilder.AddElement(slotIcon);
+            containerElement.AddElement(slotSearchBackground);
+            containerElement.AddElement(slotIcon);
 
-            this.toolbarElementSearchButton = slotSearchBackground;
+            this.toolbarElementSearchButtonElement = slotSearchBackground;
         }
         #endregion
 
-        private void BuildLeftToolbar(ISGUILayoutBuilder layoutBuilder)
+        private void BuildLeftToolbar(SGUIContainerElement containerElement)
         {
-            this.leftToolbarContainer = new(this.SGameInstance)
+            this.leftToolbarBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiVerticalBackgroundTexture,
                 TextureClipArea = new(new(0, 0), new(96, 608)),
@@ -168,9 +202,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Margin = new(0, 112),
             };
 
-            this.leftToolbarContainer.PositionRelativeToScreen();
+            this.leftToolbarBackgroundElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.leftToolbarContainer);
+            containerElement.AddElement(this.leftToolbarBackgroundElement);
 
             #region BUTTONS
             Vector2 margin = new(0, SGUI_HUDConstants.SLOT_SPACING);
@@ -185,15 +219,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.North;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
+                slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarBackgroundElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 this.leftPanelTopButtonElements[i] = slot;
 
                 margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
-                layoutBuilder.AddElement(slot.BackgroundElement);
-                layoutBuilder.AddElement(slot.IconElement);
+                containerElement.AddElement(slot.BackgroundElement);
+                containerElement.AddElement(slot.IconElement);
             }
 
             margin = new(0, -SGUI_HUDConstants.SLOT_SPACING);
@@ -208,34 +242,34 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarContainer);
+                slot.BackgroundElement.PositionRelativeToElement(this.leftToolbarBackgroundElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 this.leftPanelBottomButtonElements[i] = slot;
 
                 margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
-                layoutBuilder.AddElement(slot.BackgroundElement);
-                layoutBuilder.AddElement(slot.IconElement);
+                containerElement.AddElement(slot.BackgroundElement);
+                containerElement.AddElement(slot.IconElement);
             }
             #endregion
         }
 
-        private void BuildRightToolbar(ISGUILayoutBuilder layoutBuilder)
+        private void BuildRightToolbar(SGUIContainerElement containerElement)
         {
-            this.rightToolbarContainer = new(this.SGameInstance)
+            this.rightToolbarBackgroundElement = new(this.SGameInstance)
             {
                 Texture = this.guiVerticalBackgroundTexture,
                 TextureClipArea = new(new(96, 0), new(96, 608)),
                 Size = new(96, 608),
+                Margin = new(96, 112),
                 PositionAnchor = SCardinalDirection.Northeast,
                 OriginPivot = SCardinalDirection.Southwest,
-                Margin = new(96, 112),
             };
 
-            this.rightToolbarContainer.PositionRelativeToScreen();
+            this.rightToolbarBackgroundElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.rightToolbarContainer);
+            containerElement.AddElement(this.rightToolbarBackgroundElement);
 
             #region BUTTONS
             Vector2 margin = new(-192, SGUI_HUDConstants.SLOT_SPACING);
@@ -250,15 +284,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.North;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
+                slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarBackgroundElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 this.rightPanelTopButtonElements[i] = slot;
 
                 margin.Y += SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
-                layoutBuilder.AddElement(slot.BackgroundElement);
-                layoutBuilder.AddElement(slot.IconElement);
+                containerElement.AddElement(slot.BackgroundElement);
+                containerElement.AddElement(slot.IconElement);
             }
 
             margin = new(margin.X, -SGUI_HUDConstants.SLOT_SPACING);
@@ -273,15 +307,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 slot.BackgroundElement.PositionAnchor = SCardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = SCardinalDirection.Center;
 
-                slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarContainer);
+                slot.BackgroundElement.PositionRelativeToElement(this.rightToolbarBackgroundElement);
                 slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
 
                 this.rightPanelBottomButtonElements[i] = slot;
 
                 margin.Y -= SGUI_HUDConstants.SLOT_SPACING + (SGUI_HUDConstants.GRID_SIZE / 2);
 
-                layoutBuilder.AddElement(slot.BackgroundElement);
-                layoutBuilder.AddElement(slot.IconElement);
+                containerElement.AddElement(slot.BackgroundElement);
+                containerElement.AddElement(slot.IconElement);
             }
             #endregion
         }
