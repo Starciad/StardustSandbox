@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
@@ -20,10 +21,13 @@ using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.GUISystem;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
+
+using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -350,140 +354,91 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void SetPlayerInteractionWhenToolbarHovered()
         {
-            if (this.topToolbarContainerElement.IsVisible && this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size))
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
-            }
-            else
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
-            }
-
-            if (this.leftToolbarContainerElement.IsVisible && this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.topToolbarContainerElement.Size))
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
-            }
-            else
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
-            }
-
-            if (this.rightToolbarContainerElement.IsVisible && this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.topToolbarContainerElement.Size))
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
-            }
-            else
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
-            }
+            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.topToolbarContainerElement.IsVisible || !this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size);
+            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.leftToolbarContainerElement.IsVisible || !this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.leftToolbarContainerElement.Size);
+            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.rightToolbarContainerElement.IsVisible || !this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.rightToolbarContainerElement.Size);
         }
 
         private void UpdateDrawerButtons()
         {
-            UpdateTopDrawerButton();
-            UpdateLeftDrawerButton();
-            UpdateRightDrawerButton();
+            UpdateDrawerButton(this.topDrawerButtonElement, this.topToolbarContainerElement, new(0, -24f), isVisible => new(0, isVisible ? 128 : 32));
+            UpdateDrawerButton(this.leftDrawerButtonElement, this.leftToolbarContainerElement, new(-24f, 0), isVisible => new(isVisible ? 128 : 32, 0));
+            UpdateDrawerButton(this.rightDrawerButtonElement, this.rightToolbarContainerElement, new(-32f, 0), isVisible => new(isVisible ? -80 : 16, 0));
         }
 
-        private void UpdateTopDrawerButton()
+        private void UpdateDrawerButton(SGUIElement drawerButtonElement, SGUIElement toolbarContainerElement, Vector2 positionOffset, Func<bool, Vector2> marginCalculator)
         {
-            SSize2 size = this.topDrawerButtonElement.Size / 2;
-            Vector2 position = new(this.topDrawerButtonElement.Position.X, this.topDrawerButtonElement.Position.Y - 24f);
+            SSize2 size = drawerButtonElement.Size / 2;
+            Vector2 position = drawerButtonElement.Position + positionOffset;
 
             if (this.GUIEvents.OnMouseClick(position, size))
             {
-                this.topToolbarContainerElement.IsVisible = !this.topToolbarContainerElement.IsVisible;
+                toolbarContainerElement.IsVisible = !toolbarContainerElement.IsVisible;
             }
 
-            this.topDrawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
-            this.topDrawerButtonElement.Margin = this.topToolbarContainerElement.IsVisible ? new(0, 128) : new(0, 32);
-            
-            this.topDrawerButtonElement.PositionRelativeToScreen();
-        }
-
-        private void UpdateLeftDrawerButton()
-        {
-            SSize2 size = this.leftDrawerButtonElement.Size / 2;
-            Vector2 position = new(this.leftDrawerButtonElement.Position.X -  24f, this.leftDrawerButtonElement.Position.Y);
-
-            if (this.GUIEvents.OnMouseClick(position, size))
-            {
-                this.leftToolbarContainerElement.IsVisible = !this.leftToolbarContainerElement.IsVisible;
-            }
-
-            this.leftDrawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
-            this.leftDrawerButtonElement.Margin = this.leftToolbarContainerElement.IsVisible ? new(128, 0) : new(32, 0);
-
-            this.leftDrawerButtonElement.PositionRelativeToScreen();
-        }
-
-        private void UpdateRightDrawerButton()
-        {
-            SSize2 size = this.rightDrawerButtonElement.Size / 2;
-            Vector2 position = new(this.rightDrawerButtonElement.Position.X - 32f, this.rightDrawerButtonElement.Position.Y);
-
-            if (this.GUIEvents.OnMouseClick(position, size))
-            {
-                this.rightToolbarContainerElement.IsVisible = !this.rightToolbarContainerElement.IsVisible;
-            }
-
-            this.rightDrawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
-            this.rightDrawerButtonElement.Margin = this.rightToolbarContainerElement.IsVisible ? new(-80, 0) : new(16, 0);
-
-            this.rightDrawerButtonElement.PositionRelativeToScreen();
+            drawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
+            drawerButtonElement.Margin = marginCalculator(toolbarContainerElement.IsVisible);
+            drawerButtonElement.PositionRelativeToScreen();
         }
 
         internal void AddItemToToolbar(SItem item)
         {
-            // ================================================= //
-            // Check if the item is already in the Toolbar. If so, it will be highlighted without changing the other items.
+            if (TryHighlightExistingItem(item))
+            {
+                return;
+            }
 
+            ShiftItemsAndAddToLastSlot(item);
+        }
+
+        private bool TryHighlightExistingItem(SItem item)
+        {
             for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SSlot slot = this.toolbarElementSlots[i];
+                SSlot slot = toolbarElementSlots[i];
 
-                if (slot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
+                if (slot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM) &&
+                    slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM) is SItem otherItem &&
+                    item == otherItem)
                 {
-                    SItem otherItem = (SItem)slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM);
-
-                    if (item == otherItem)
-                    {
-                        SelectItemSlot(i, otherItem);
-                        return;
-                    }
+                    SelectItemSlot(i, otherItem);
+                    return true;
                 }
             }
 
-            // ================================================= //
-            // If the item is not present in the toolbar, it will be added to the first slot next to the canvas and will push all others in the opposite direction. The last item will be removed from the toolbar until it is added again later.
+            return false;
+        }
 
+        private void ShiftItemsAndAddToLastSlot(SItem item)
+        {
             for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
             {
-                SSlot currentSlot = this.toolbarElementSlots[i];
-                SSlot nextSlot = this.toolbarElementSlots[i + 1];
+                SSlot currentSlot = toolbarElementSlots[i];
+                SSlot nextSlot = toolbarElementSlots[i + 1];
 
                 if (currentSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM) &&
                     nextSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
                 {
-                    currentSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, nextSlot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM));
+                    currentSlot.BackgroundElement.UpdateData(
+                        SGUIConstants.DATA_ITEM,
+                        nextSlot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM)
+                    );
+
                     currentSlot.IconElement.Texture = nextSlot.IconElement.Texture;
                 }
             }
 
-            // Update last element slot.
+            UpdateLastSlot(item);
+        }
 
-            SSlot lastSlot = this.toolbarElementSlots[^1];
+        private void UpdateLastSlot(SItem item)
+        {
+            SSlot lastSlot = toolbarElementSlots[^1];
 
-            if (lastSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
-            {
-                lastSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, item);
-            }
-
+            lastSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, item);
             lastSlot.IconElement.Texture = item.IconTexture;
 
-            // Select last slot.
-
-            SelectItemSlot(this.toolbarElementSlots.Length - 1, item);
+            SelectItemSlot(toolbarElementSlots.Length - 1, item);
         }
 
         internal bool ItemIsEquipped(SItem item)
