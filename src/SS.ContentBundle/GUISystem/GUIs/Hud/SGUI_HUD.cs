@@ -23,6 +23,7 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -109,9 +110,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.guiVerticalBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_15");
             this.guiHorizontalBackgroundTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_background_16");
-            this.guiVerticalDrawerButtonsTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_6");
-            this.guiHorizontalDrawerButtonsTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_7");
-            
+            this.guiHorizontalDrawerButtonsTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_6");
+            this.guiVerticalDrawerButtonsTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_7");
+
             this.magnifyingGlassIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_1");
             this.trashIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_2");
             this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
@@ -165,8 +166,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             this.tooltipBoxElement.IsVisible = false;
 
             UpdateSlotIcons();
-            SetPlayerInteractionWhenToolbarHovered();
             UpdateToolbars();
+            UpdateDrawerButtons();
+            SetPlayerInteractionWhenToolbarHovered();
 
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
@@ -186,16 +188,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             };
         }
 
-        private void SetPlayerInteractionWhenToolbarHovered()
-        {
-            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size) &&
-                                                                                 !this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.leftToolbarContainerElement.Size) &&
-                                                                                 !this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.rightToolbarContainerElement.Size);
-        }
-
         private void UpdateToolbars()
         {
-            #region TOOL SLOT
+            UpdateTopToolbar();
+            UpdateLeftToolbar();
+            UpdateRightToolbar();
+        }
+
+        private void UpdateTopToolbar()
+        {
+            if (!this.topToolbarContainerElement.IsVisible)
+            {
+                return;
+            }
+
+            UpdateTopToolbarToolPreview();
+            UpdateTopToolbarItemButtons();
+            UpdateTopToolbarSearchButton();
+        }
+
+        private void UpdateTopToolbarToolPreview()
+        {
             if (this.GUIEvents.OnMouseOver(this.toolbarCurrentlySelectedToolIconElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
             {
                 this.tooltipBoxElement.IsVisible = true;
@@ -233,9 +246,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                         break;
                 }
             }
-            #endregion
+        }
 
-            #region ELEMENT SLOTS
+        private void UpdateTopToolbarItemButtons()
+        {
             for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SSlot slot = this.toolbarElementSlots[i];
@@ -260,9 +274,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                                         SColorPalette.OrangeRed :
                                         (isOver ? SColorPalette.EmeraldGreen : SColorPalette.White);
             }
-            #endregion
+        }
 
-            #region SEARCH BUTTON
+        private void UpdateTopToolbarSearchButton()
+        {
             if (this.GUIEvents.OnMouseClick(this.toolbarElementSearchButtonElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
             {
                 this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_ITEM_EXPLORER_IDENTIFIER);
@@ -280,45 +295,142 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             {
                 this.toolbarElementSearchButtonElement.Color = SColorPalette.White;
             }
-            #endregion
+        }
 
-            #region MENU BUTTONS
-
-            void CycleThroughArrayOfButtons(SSlot[] toolbarSlots, SButton[] buttons, int length)
+        private void UpdateLeftToolbar()
+        {
+            if (!this.leftToolbarContainerElement.IsVisible)
             {
-                for (int i = 0; i < length; i++)
-                {
-                    SSlot toolbarSlot = toolbarSlots[i];
-                    SButton button = buttons[i];
-
-                    bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
-
-                    if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
-                    {
-                        button.ClickAction?.Invoke();
-                    }
-
-                    if (isOver)
-                    {
-                        toolbarSlot.BackgroundElement.Color = SColorPalette.EmeraldGreen;
-                        this.tooltipBoxElement.IsVisible = true;
-
-                        SGUIGlobalTooltip.Title = button.Name;
-                        SGUIGlobalTooltip.Description = button.Description;
-                    }
-                    else
-                    {
-                        toolbarSlot.BackgroundElement.Color = SColorPalette.White;
-                    }
-                }
+                return;
             }
 
             CycleThroughArrayOfButtons(this.leftPanelTopButtonElements, this.leftPanelTopButtons, this.leftPanelTopButtonElements.Length);
             CycleThroughArrayOfButtons(this.leftPanelBottomButtonElements, this.leftPanelBottomButtons, this.leftPanelBottomButtonElements.Length);
+        }
+
+        private void UpdateRightToolbar()
+        {
+            if (!this.rightToolbarContainerElement.IsVisible)
+            {
+                return;
+            }
+
             CycleThroughArrayOfButtons(this.rightPanelTopButtonElements, this.rightPanelTopButtons, this.rightPanelTopButtonElements.Length);
             CycleThroughArrayOfButtons(this.rightPanelBottomButtonElements, this.rightPanelBottomButtons, this.rightPanelBottomButtonElements.Length);
+        }
 
-            #endregion
+        private void CycleThroughArrayOfButtons(SSlot[] toolbarSlots, SButton[] buttons, int length)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                SSlot toolbarSlot = toolbarSlots[i];
+                SButton button = buttons[i];
+
+                bool isOver = this.GUIEvents.OnMouseOver(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
+
+                if (this.GUIEvents.OnMouseClick(toolbarSlot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
+                {
+                    button.ClickAction?.Invoke();
+                }
+
+                if (isOver)
+                {
+                    toolbarSlot.BackgroundElement.Color = SColorPalette.EmeraldGreen;
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    SGUIGlobalTooltip.Title = button.Name;
+                    SGUIGlobalTooltip.Description = button.Description;
+                }
+                else
+                {
+                    toolbarSlot.BackgroundElement.Color = SColorPalette.White;
+                }
+            }
+        }
+
+        private void SetPlayerInteractionWhenToolbarHovered()
+        {
+            if (this.topToolbarContainerElement.IsVisible && this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size))
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
+            }
+            else
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
+            }
+
+            if (this.leftToolbarContainerElement.IsVisible && this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.topToolbarContainerElement.Size))
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
+            }
+            else
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
+            }
+
+            if (this.rightToolbarContainerElement.IsVisible && this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.topToolbarContainerElement.Size))
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
+            }
+            else
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
+            }
+        }
+
+        private void UpdateDrawerButtons()
+        {
+            UpdateTopDrawerButton();
+            UpdateLeftDrawerButton();
+            UpdateRightDrawerButton();
+        }
+
+        private void UpdateTopDrawerButton()
+        {
+            SSize2 size = this.topDrawerButtonElement.Size / 2;
+            Vector2 position = new(this.topDrawerButtonElement.Position.X, this.topDrawerButtonElement.Position.Y - 24f);
+
+            if (this.GUIEvents.OnMouseClick(position, size))
+            {
+                this.topToolbarContainerElement.IsVisible = !this.topToolbarContainerElement.IsVisible;
+            }
+
+            this.topDrawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
+            this.topDrawerButtonElement.Margin = this.topToolbarContainerElement.IsVisible ? new(0, 128) : new(0, 32);
+            
+            this.topDrawerButtonElement.PositionRelativeToScreen();
+        }
+
+        private void UpdateLeftDrawerButton()
+        {
+            SSize2 size = this.leftDrawerButtonElement.Size / 2;
+            Vector2 position = new(this.leftDrawerButtonElement.Position.X -  24f, this.leftDrawerButtonElement.Position.Y);
+
+            if (this.GUIEvents.OnMouseClick(position, size))
+            {
+                this.leftToolbarContainerElement.IsVisible = !this.leftToolbarContainerElement.IsVisible;
+            }
+
+            this.leftDrawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
+            this.leftDrawerButtonElement.Margin = this.leftToolbarContainerElement.IsVisible ? new(128, 0) : new(32, 0);
+
+            this.leftDrawerButtonElement.PositionRelativeToScreen();
+        }
+
+        private void UpdateRightDrawerButton()
+        {
+            SSize2 size = this.rightDrawerButtonElement.Size / 2;
+            Vector2 position = new(this.rightDrawerButtonElement.Position.X - 32f, this.rightDrawerButtonElement.Position.Y);
+
+            if (this.GUIEvents.OnMouseClick(position, size))
+            {
+                this.rightToolbarContainerElement.IsVisible = !this.rightToolbarContainerElement.IsVisible;
+            }
+
+            this.rightDrawerButtonElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.LemonYellow : SColorPalette.White;
+            this.rightDrawerButtonElement.Margin = this.rightToolbarContainerElement.IsVisible ? new(-80, 0) : new(16, 0);
+
+            this.rightDrawerButtonElement.PositionRelativeToScreen();
         }
 
         internal void AddItemToToolbar(SItem item)

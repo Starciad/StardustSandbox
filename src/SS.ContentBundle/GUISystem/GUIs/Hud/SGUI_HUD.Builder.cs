@@ -26,9 +26,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private SGUIImageElement leftToolbarBackgroundElement;
         private SGUIImageElement rightToolbarBackgroundElement;
 
-        private SGUIImageElement topDrawerButtonImage;
-        private SGUIImageElement leftDrawerButtonImage;
-        private SGUIImageElement rightDrawerButtonImage;
+        private SGUIImageElement topDrawerButtonElement;
+        private SGUIImageElement leftDrawerButtonElement;
+        private SGUIImageElement rightDrawerButtonElement;
 
         private SGUIImageElement toolbarElementSearchButtonElement;
         private SGUIImageElement toolbarCurrentlySelectedToolIconElement;
@@ -41,6 +41,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
+            BuildDrawerButtons(layoutBuilder);
             BuildToolbars(layoutBuilder);
 
             layoutBuilder.AddElement(this.tooltipBoxElement);
@@ -322,6 +323,69 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         // ============================================================= //
 
+        private void BuildDrawerButtons(ISGUILayoutBuilder layoutBuilder)
+        {
+            BuildTopDrawerButton(layoutBuilder);
+            BuildLeftDrawerButton(layoutBuilder);
+            BuildRightDrawerButton(layoutBuilder);
+        }
+
+        private void BuildTopDrawerButton(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.topDrawerButtonElement = new(this.SGameInstance)
+            {
+                Texture = this.guiHorizontalDrawerButtonsTexture,
+                TextureClipArea = new(new(0, 0), new(80, 24)),
+                Size = new(80, 24),
+                Scale = new(2f),
+                PositionAnchor = SCardinalDirection.North,
+                OriginPivot = SCardinalDirection.Center,
+                Margin = new(0, 128),
+            };
+
+            this.topDrawerButtonElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.topDrawerButtonElement);
+        }
+
+        private void BuildLeftDrawerButton(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.leftDrawerButtonElement = new(this.SGameInstance)
+            {
+                Texture = this.guiVerticalDrawerButtonsTexture,
+                TextureClipArea = new(new(0, 0), new(24, 80)),
+                Size = new(24, 80),
+                Scale = new(2f),
+                PositionAnchor = SCardinalDirection.West,
+                OriginPivot = SCardinalDirection.Center,
+                Margin = new(128, 0),
+            };
+
+            this.leftDrawerButtonElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.leftDrawerButtonElement);
+        }
+
+        private void BuildRightDrawerButton(ISGUILayoutBuilder layoutBuilder)
+        {
+            this.rightDrawerButtonElement = new(this.SGameInstance)
+            {
+                Texture = this.guiVerticalDrawerButtonsTexture,
+                TextureClipArea = new(new(24, 0), new(24, 80)),
+                Size = new(24, 80),
+                Scale = new(2f),
+                PositionAnchor = SCardinalDirection.East,
+                OriginPivot = SCardinalDirection.Center,
+                Margin = new(-80, 0),
+            };
+
+            this.rightDrawerButtonElement.PositionRelativeToScreen();
+
+            layoutBuilder.AddElement(this.rightDrawerButtonElement);
+        }
+
+        // ============================================================= //
+
         private SSlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
         {
             SGUIImageElement backgroundElement = new(this.SGameInstance)
@@ -341,11 +405,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             };
 
             return new(backgroundElement, iconElement);
-        }
-
-        private void BuildDrawerButton()
-        {
-
         }
     }
 }
