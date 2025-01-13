@@ -6,7 +6,6 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Catalog;
-using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
@@ -341,7 +340,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Scale = new(2f),
                 PositionAnchor = SCardinalDirection.North,
                 OriginPivot = SCardinalDirection.Center,
-                Margin = new(0, 128),
             };
 
             this.topDrawerButtonElement.PositionRelativeToScreen();
@@ -359,7 +357,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Scale = new(2f),
                 PositionAnchor = SCardinalDirection.West,
                 OriginPivot = SCardinalDirection.Center,
-                Margin = new(128, 0),
             };
 
             this.leftDrawerButtonElement.PositionRelativeToScreen();
@@ -377,7 +374,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 Scale = new(2f),
                 PositionAnchor = SCardinalDirection.East,
                 OriginPivot = SCardinalDirection.Center,
-                Margin = new(-80, 0),
             };
 
             this.rightDrawerButtonElement.PositionRelativeToScreen();

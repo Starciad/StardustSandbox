@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
@@ -33,6 +32,45 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD : SGUISystem
     {
+        internal bool IsTopToolbarVisible
+        {
+            get
+            {
+                return this.topToolbarContainerElement.IsVisible;
+            }
+
+            set
+            {
+                this.topToolbarContainerElement.IsVisible = value;
+            }
+        }
+
+        internal bool IsLeftToolbarVisible
+        {
+            get
+            {
+                return this.leftToolbarContainerElement.IsVisible;
+            }
+
+            set
+            {
+                this.leftToolbarContainerElement.IsVisible = value;
+            }
+        }
+
+        internal bool IsRightToolbarVisible
+        {
+            get
+            {
+                return this.rightToolbarContainerElement.IsVisible;
+            }
+
+            set
+            {
+                this.rightToolbarContainerElement.IsVisible = value;
+            }
+        }
+
         private int slotSelectedIndex = 0;
 
         private readonly Texture2D guiButtonTexture;
@@ -169,10 +207,10 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
             this.tooltipBoxElement.IsVisible = false;
 
+            SetPlayerInteractionWhenToolbarHovered();
             UpdateSlotIcons();
             UpdateToolbars();
             UpdateDrawerButtons();
-            SetPlayerInteractionWhenToolbarHovered();
 
             this.tooltipBoxElement.RefreshDisplay(SGUIGlobalTooltip.Title, SGUIGlobalTooltip.Description);
         }
@@ -201,7 +239,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateTopToolbar()
         {
-            if (!this.topToolbarContainerElement.IsVisible)
+            if (!this.IsTopToolbarVisible)
             {
                 return;
             }
@@ -303,7 +341,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateLeftToolbar()
         {
-            if (!this.leftToolbarContainerElement.IsVisible)
+            if (!this.IsLeftToolbarVisible)
             {
                 return;
             }
@@ -314,7 +352,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateRightToolbar()
         {
-            if (!this.rightToolbarContainerElement.IsVisible)
+            if (!this.IsRightToolbarVisible)
             {
                 return;
             }
@@ -354,16 +392,36 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void SetPlayerInteractionWhenToolbarHovered()
         {
-            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.topToolbarContainerElement.IsVisible || !this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size);
-            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.leftToolbarContainerElement.IsVisible || !this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.leftToolbarContainerElement.Size);
-            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = !this.rightToolbarContainerElement.IsVisible || !this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.rightToolbarContainerElement.Size);
+            SSize2 topDrawerButtonSize = this.topDrawerButtonElement.Size / 2;
+            SSize2 leftDrawerButtonSize = this.leftDrawerButtonElement.Size / 2;
+            SSize2 rightDrawerButtonSize = this.rightDrawerButtonElement.Size / 2;
+
+            Vector2 topDrawerButtonPosition = this.topDrawerButtonElement.Position + new Vector2(0, -24f);
+            Vector2 leftDrawerButtonPosition = this.leftDrawerButtonElement.Position + new Vector2(-24f, 0);
+            Vector2 rightDrawerButtonPosition = this.rightDrawerButtonElement.Position + new Vector2(-32f, 0);
+
+            if (
+                (this.IsTopToolbarVisible && this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size)) ||
+                (this.IsLeftToolbarVisible && this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.leftToolbarContainerElement.Size)) ||
+                (this.IsRightToolbarVisible && this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.rightToolbarContainerElement.Size)) ||
+                this.GUIEvents.OnMouseOver(topDrawerButtonPosition, topDrawerButtonSize) ||
+                this.GUIEvents.OnMouseOver(leftDrawerButtonPosition, leftDrawerButtonSize) ||
+                this.GUIEvents.OnMouseOver(rightDrawerButtonPosition, rightDrawerButtonSize)
+               )
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
+            }
+            else
+            {
+                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
+            }
         }
 
         private void UpdateDrawerButtons()
         {
-            UpdateDrawerButton(this.topDrawerButtonElement, this.topToolbarContainerElement, new(0, -24f), isVisible => new(0, isVisible ? 128 : 32));
-            UpdateDrawerButton(this.leftDrawerButtonElement, this.leftToolbarContainerElement, new(-24f, 0), isVisible => new(isVisible ? 128 : 32, 0));
-            UpdateDrawerButton(this.rightDrawerButtonElement, this.rightToolbarContainerElement, new(-32f, 0), isVisible => new(isVisible ? -80 : 16, 0));
+            UpdateDrawerButton(this.topDrawerButtonElement, this.topToolbarContainerElement, new(0, -24f), isVisible => new(0, isVisible ? 128 : 16));
+            UpdateDrawerButton(this.leftDrawerButtonElement, this.leftToolbarContainerElement, new(-24f, 0), isVisible => new(isVisible ? 128 : 16, 0));
+            UpdateDrawerButton(this.rightDrawerButtonElement, this.rightToolbarContainerElement, new(-32f, 0), isVisible => new(isVisible ? -80 : 32, 0));
         }
 
         private void UpdateDrawerButton(SGUIElement drawerButtonElement, SGUIElement toolbarContainerElement, Vector2 positionOffset, Func<bool, Vector2> marginCalculator)
