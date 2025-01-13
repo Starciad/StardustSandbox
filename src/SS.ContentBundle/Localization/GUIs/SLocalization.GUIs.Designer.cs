@@ -1373,5 +1373,14 @@ namespace StardustSandbox.ContentBundle.Localization.GUIs {
                 return ResourceManager.GetString("Menu.Options.Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Color Picker.
+        /// </summary>
+        internal static string Tools_ColorPicker_Title {
+            get {
+                return ResourceManager.GetString("Tools.ColorPicker.Title", resourceCulture);
+            }
+        }
     }
 }

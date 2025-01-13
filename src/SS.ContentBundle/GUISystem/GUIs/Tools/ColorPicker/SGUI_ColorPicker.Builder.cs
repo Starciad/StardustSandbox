@@ -4,6 +4,7 @@ using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
+using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
@@ -55,7 +56,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker
                 OriginPivot = SCardinalDirection.Center,
             };
 
-            this.captionElement.SetTextualContent("Color Picker");
+            this.captionElement.SetTextualContent(SLocalization_GUIs.Tools_ColorPicker_Title);
             this.captionElement.PositionRelativeToScreen();
 
             layoutBuilder.AddElement(this.captionElement);

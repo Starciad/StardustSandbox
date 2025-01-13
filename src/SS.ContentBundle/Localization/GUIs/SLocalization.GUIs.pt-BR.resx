@@ -555,4 +555,7 @@
   <data name="Menu.Options.Button.Save.Description" xml:space="preserve">
     <value>Salva e aplica todas as opções modificadas.</value>
   </data>
+  <data name="Tools.ColorPicker.Title" xml:space="preserve">
+    <value>Seletor de Cores</value>
+  </data>
 </root>
