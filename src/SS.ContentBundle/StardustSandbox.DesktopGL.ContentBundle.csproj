@@ -35,6 +35,10 @@
 			<LastGenOutput>SLocalization.Catalog.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Colors\SLocalization.Colors.resx">
+		  <LastGenOutput>SLocalization.Colors.Designer.cs</LastGenOutput>
+		  <Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Elements\SLocalization.Elements.resx">
 			<LastGenOutput>SLocalization.Elements.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
@@ -63,6 +67,11 @@
 			<DependentUpon>SLocalization.Catalog.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Localization\Colors\SLocalization.Colors.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>SLocalization.Colors.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Localization\Elements\SLocalization.Elements.Designer.cs">
 			<DependentUpon>SLocalization.Elements.resx</DependentUpon>
