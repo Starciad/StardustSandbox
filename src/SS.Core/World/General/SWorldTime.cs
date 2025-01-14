@@ -29,7 +29,6 @@ namespace StardustSandbox.Core.World.General
 
             // Normalizes time to 24 hours.
             this.currentTime = TimeSpan.FromSeconds(this.currentTime.TotalSeconds % STimeConstants.SECONDS_IN_A_DAY);
-            Console.WriteLine(this.currentTime);
         }
 
         public SDayPeriod GetCurrentDayPeriod()
