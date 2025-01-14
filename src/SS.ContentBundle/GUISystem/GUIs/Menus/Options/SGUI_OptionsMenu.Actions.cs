@@ -88,9 +88,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void SaveGraphicsSettings()
         {
-            SSection graphicsSettings = this.root.Sections["graphics"];
+            // SSection graphicsSettings = this.root.Sections["graphics"];
 
-            this.graphicsSettings.Lighting = Convert.ToBoolean(graphicsSettings.Options["lighting"].GetValue());
+            // this.graphicsSettings.Lighting = Convert.ToBoolean(graphicsSettings.Options["lighting"].GetValue());
 
             SSettingsHandler.SaveSettings(this.graphicsSettings);
         }
@@ -131,8 +131,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void ApplyVolumeSettings()
         {
-            SSongEngine.Volume = this.volumeSettings.MusicVolume;
-            SSoundEngine.Volume = this.volumeSettings.SFXVolume;
+            SSongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
+            SSoundEngine.Volume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
         }
 
         private void ApplyVideoSettings()

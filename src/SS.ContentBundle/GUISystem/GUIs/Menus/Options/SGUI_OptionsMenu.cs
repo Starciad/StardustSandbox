@@ -141,13 +141,13 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
                         },
                     },
 
-                    ["graphics"] = new(SLocalization_GUIs.Menu_Options_Section_Graphics_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Description)
-                    {
-                        Options = new Dictionary<string, SOption>()
-                        {
-                            ["lighting"] = new SToggleOption(SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Description),
-                        }
-                    },
+                    // ["graphics"] = new(SLocalization_GUIs.Menu_Options_Section_Graphics_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Description)
+                    // {
+                    //     Options = new Dictionary<string, SOption>()
+                    //     {
+                    //         ["lighting"] = new SToggleOption(SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Name, SLocalization_GUIs.Menu_Options_Section_Graphics_Option_Lighting_Description),
+                    //     }
+                    // },
 
                     ["cursor"] = new(SLocalization_GUIs.Menu_Options_Section_Cursor_Name, SLocalization_GUIs.Menu_Options_Section_Cursor_Description)
                     {

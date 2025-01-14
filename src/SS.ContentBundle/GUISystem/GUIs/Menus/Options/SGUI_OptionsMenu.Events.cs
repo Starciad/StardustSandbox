@@ -57,9 +57,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void SyncGraphicsSettings()
         {
-            SSection graphicsSettings = this.root.Sections["graphics"];
+            // SSection graphicsSettings = this.root.Sections["graphics"];
 
-            graphicsSettings.Options["lighting"].SetValue(this.graphicsSettings.Lighting);
+            // graphicsSettings.Options["lighting"].SetValue(this.graphicsSettings.Lighting);
         }
 
         private void SyncCursorSettings()

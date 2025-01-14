@@ -21,8 +21,8 @@ namespace StardustSandbox.Core
             this.gameplaySettings = SSettingsHandler.LoadSettings<SGameplaySettings>();
             this.volumeSettings = SSettingsHandler.LoadSettings<SVolumeSettings>();
 
-            SSongEngine.Volume = this.volumeSettings.MusicVolume;
-            SSoundEngine.Volume = this.volumeSettings.SFXVolume;
+            SSongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
+            SSoundEngine.Volume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
 
             foreach (SPluginBuilder pluginBuilder in this.pluginBuilders)
             {

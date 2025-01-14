@@ -11,14 +11,14 @@ namespace StardustSandbox.Core.IO.Files.Settings
         [XmlElement("MusicVolume", typeof(float))]
         public float MusicVolume
         {
-            get => this.musicVolume * this.MasterVolume;
+            get => this.musicVolume;
             set => this.musicVolume = value;
         }
 
         [XmlElement("SFXVolume", typeof(float))]
         public float SFXVolume
         {
-            get => this.sfxVolume * this.MasterVolume;
+            get => this.sfxVolume;
             set => this.sfxVolume = value;
         }
 
