@@ -1,30 +1,84 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Enums.Simulation;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGameManager(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SGameManager(ISGame gameInstance) : SGameObject(gameInstance), ISGameManager
     {
         public SGameState GameState => this.gameState;
 
         private readonly SGameState gameState = new();
 
-        private readonly SCameraManager cameraManager = gameInstance.CameraManager;
-        private readonly SWorld world = gameInstance.World;
+        private readonly ISCameraManager cameraManager = gameInstance.CameraManager;
+        private readonly ISWorld world = gameInstance.World;
 
         public override void Update(GameTime gameTime)
         {
             ClampCameraInTheWorld();
         }
 
+        public void StartGame()
+        {
+            SSongEngine.Stop();
+
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_IDENTIFIER);
+
+            this.SGameInstance.AmbientManager.BackgroundHandler.SetBackground(this.SGameInstance.BackgroundDatabase.GetBackgroundById("ocean_1"));
+            this.SGameInstance.AmbientManager.SkyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CelestialBodyHandler.IsActive = true;
+            this.SGameInstance.AmbientManager.CloudHandler.IsActive = true;
+
+            this.world.Time.Reset();
+            this.world.StartNew(SWorldConstants.WORLD_SIZES_TEMPLATE[0]);
+
+            this.SGameInstance.CameraManager.Position = new(0f, -(this.world.Infos.Size.Height * SWorldConstants.GRID_SIZE));
+
+            this.SGameInstance.GameInputController.Pen.Tool = SPenTool.Pencil;
+            this.SGameInstance.GameInputController.Activate();
+        }
+
+        public void SetSimulationSpeed(SSimulationSpeed speed)
+        {
+            ISWorld world = this.SGameInstance.World;
+
+            switch (speed)
+            {
+                case SSimulationSpeed.Normal:
+                    world.SetSpeed(SSimulationSpeed.Normal);
+                    break;
+
+                case SSimulationSpeed.Fast:
+                    world.SetSpeed(SSimulationSpeed.Fast);
+                    break;
+
+                case SSimulationSpeed.VeryFast:
+                    world.SetSpeed(SSimulationSpeed.VeryFast);
+                    break;
+
+                default:
+                    world.SetSpeed(SSimulationSpeed.Normal);
+                    break;
+            }
+        }
+
+        public void Reset()
+        {
+            return;
+        }
+
         private void ClampCameraInTheWorld()
         {
-            int totalWorldWidth = this.world.Infos.Size.Width * SWorldConstants.GRID_SCALE;
-            int totalWorldHeight = this.world.Infos.Size.Height * SWorldConstants.GRID_SCALE;
+            int totalWorldWidth = this.world.Infos.Size.Width * SWorldConstants.GRID_SIZE;
+            int totalWorldHeight = this.world.Infos.Size.Height * SWorldConstants.GRID_SIZE;
 
             float visibleWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
             float visibleHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;

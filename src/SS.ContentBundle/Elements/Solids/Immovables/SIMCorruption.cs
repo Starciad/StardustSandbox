@@ -1,32 +1,33 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.ContentBundle.Elements.Utilities;
-using StardustSandbox.ContentBundle.Enums.Elements;
+﻿using StardustSandbox.ContentBundle.Elements.Utilities;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
-using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Slots;
 
-using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
-    public class SIMCorruption : SImmovableSolid, ISCorruption
+    internal sealed class SIMCorruption : SImmovableSolid, ISCorruption
     {
-        public SIMCorruption(ISGame gameInstance) : base(gameInstance)
+        internal SIMCorruption(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.id = (uint)SElementId.IMCorruption;
+            this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_18");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
+            this.defaultDensity = 1600;
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            if (this.Context.CheckIfNeighboringElementsAreCorrupted(neighbors, neighbors.Length))
+            if (SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Foreground, neighbors) &&
+                SCorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(SWorldLayer.Background, neighbors))
             {
                 return;
             }
@@ -35,7 +36,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 
             if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD, SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL))
             {
-                this.Context.InfectNeighboringElements(neighbors, neighbors.Length);
+                this.Context.InfectNeighboringElements(neighbors);
             }
         }
     }

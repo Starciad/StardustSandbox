@@ -8,26 +8,22 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 {
-    public sealed class SGUITooltipBoxElement : SGUIElement
+    internal sealed class SGUITooltipBoxElement : SGUIElement
     {
-        public bool HasContent => this.hasContent;
+        internal bool IsShowing { get; private set; }
+        internal SSize2F MinimumSize { get; set; }
+        internal SSize2F MaximumSize { get; set; }
 
-        public bool IsShowing { get; private set; }
-        public SSize2F MinimumSize { get; set; }
-        public SSize2F MaximumSize { get; set; }
-
-        public SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
-        public SGUILabelElement TitleElement => this.titleElement;
-        public SGUITextElement DescriptionElement => this.descriptionElement;
-
-        private bool hasContent;
+        internal SGUISliceImageElement BackgroundImageElement => this.backgroundImageElement;
+        internal SGUILabelElement TitleElement => this.titleElement;
+        internal SGUITextElement DescriptionElement => this.descriptionElement;
 
         private readonly SGUISliceImageElement backgroundImageElement;
         private readonly SGUILabelElement titleElement;
@@ -35,7 +31,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
         private readonly SGUILayout tooltipLayout;
 
-        public SGUITooltipBoxElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUITooltipBoxElement(ISGame gameInstance) : base(gameInstance)
         {
             this.IsVisible = true;
             this.ShouldUpdate = true;
@@ -54,7 +50,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.titleElement = new(this.SGameInstance)
             {
                 Scale = new(0.12f),
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.DIGITAL_DISCO),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_8"),
                 Margin = new(0, -16f),
             };
 
@@ -63,7 +59,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
                 Scale = new(0.078f),
                 Margin = new(0, 64f),
                 LineHeight = 1.25f,
-                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont(SFontFamilyConstants.PIXEL_OPERATOR),
+                SpriteFont = this.SGameInstance.AssetDatabase.GetSpriteFont("font_9"),
             };
 
             this.tooltipLayout = new(gameInstance);
@@ -92,20 +88,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             this.tooltipLayout.Draw(gameTime, spriteBatch);
         }
 
-        public void RefreshDisplay(string title, string description)
+        internal void RefreshDisplay(string title, string description)
         {
             if (this.IsVisible)
             {
-                if (!this.hasContent)
-                {
-                    this.titleElement.SetTextualContent(title);
-                    this.descriptionElement.SetTextualContent(description);
+                this.titleElement.SetTextualContent(title);
+                this.descriptionElement.SetTextualContent(description);
 
-                    UpdateSize();
-                    UpdatePosition();
-
-                    this.hasContent = true;
-                }
+                UpdateSize();
+                UpdatePosition();
 
                 if (!this.IsShowing)
                 {
@@ -116,29 +107,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             {
                 Hide();
 
-                if (this.hasContent)
-                {
-                    this.hasContent = false;
-
-                    this.titleElement.ClearTextualContent();
-                    this.descriptionElement.ClearTextualContent();
-                }
+                this.titleElement.ClearTextualContent();
+                this.descriptionElement.ClearTextualContent();
             }
         }
 
-        public void Show()
+        internal void Show()
         {
             this.IsVisible = true;
             this.IsShowing = true;
         }
 
-        public void Hide()
+        internal void Hide()
         {
             this.IsVisible = false;
             this.IsShowing = false;
         }
 
-        public void SetTitle(string value)
+        internal void SetTitle(string value)
         {
             this.titleElement.SetTextualContent(value);
 
@@ -146,7 +132,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
             UpdatePosition();
         }
 
-        public void SetDescription(string value)
+        internal void SetDescription(string value)
         {
             this.descriptionElement.SetTextualContent(value);
 
@@ -179,17 +165,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
 
         private void UpdatePosition()
         {
+            Vector2 spacing = this.SGameInstance.CursorManager.Scale * 16;
+
             Vector2 mousePosition = this.SGameInstance.InputManager.GetScaledMousePosition();
-            Vector2 newPosition = mousePosition + this.Margin;
+            Vector2 newPosition = mousePosition + this.Margin + spacing;
 
             if (newPosition.X + this.backgroundImageElement.Size.Width > SScreenConstants.DEFAULT_SCREEN_WIDTH)
             {
-                newPosition.X = mousePosition.X - this.backgroundImageElement.Size.Width - this.Margin.X;
+                newPosition.X = mousePosition.X - this.backgroundImageElement.Size.Width - this.Margin.X - spacing.X;
             }
 
             if (newPosition.Y + this.backgroundImageElement.Size.Height > SScreenConstants.DEFAULT_SCREEN_HEIGHT)
             {
-                newPosition.Y = mousePosition.Y - this.backgroundImageElement.Size.Height - this.Margin.Y;
+                newPosition.Y = mousePosition.Y - this.backgroundImageElement.Size.Height - this.Margin.Y - spacing.Y;
             }
 
             this.backgroundImageElement.Position = newPosition;

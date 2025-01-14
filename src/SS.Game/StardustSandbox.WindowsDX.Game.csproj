@@ -23,8 +23,7 @@
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
-		<PackageReference Include="MessagePack" Version="3.0.214-rc.1" />
-		<PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
+		<PackageReference Include="MessagePack" Version="3.1.1" />
 	</ItemGroup>
 
 	<!-- PROJECTS -->
@@ -45,19 +44,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
-
-	<!-- BEAUTY (BUILD) -->
-	<PropertyGroup>
-		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
-		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../data</BeautyLibsDir>
-		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./data</BeautyLibsDir>
-		<DisableBeauty>False</DisableBeauty>
-		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
-		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
-		<BeautyEnableDebugging>False</BeautyEnableDebugging>
-		<BeautyUsePatch>True</BeautyUsePatch>
-		<BeautyLogLevel>Info</BeautyLogLevel>
-	</PropertyGroup>
 
 	<!-- MONOGAME -->
 	<ItemGroup>

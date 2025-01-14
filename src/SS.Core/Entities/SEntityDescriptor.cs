@@ -1,14 +1,10 @@
-﻿using StardustSandbox.Core.Interfaces.General;
-
-using System;
+﻿using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.Core.Entities
 {
-    public abstract class SEntityDescriptor
+    public abstract class SEntityDescriptor(string identifier)
     {
-        public Type AssociatedEntityType => this.associatedEntityType;
-
-        protected Type associatedEntityType;
+        public string Identifier => identifier;
 
         public abstract SEntity CreateEntity(ISGame gameInstance);
     }

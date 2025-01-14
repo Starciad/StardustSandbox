@@ -2,24 +2,26 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.IO.Files.Settings;
-using StardustSandbox.Core.Managers.IO;
+using StardustSandbox.Core.IO.Handlers;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SGraphicsManager : SManager
+    internal sealed class SGraphicsManager : SManager, ISGraphicsManager
     {
         public GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
         public GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;
-
-        public RenderTarget2D ScreenRenderTarget => this.screenRenderTarget;
-        public RenderTarget2D GuiRenderTarget => this.guiRenderTarget;
-        public RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
-        public RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
-        public RenderTarget2D LightingRenderTarget => this.lightingRenderTarget;
+        public GameWindow GameWindow { get; private set; }
 
         public Viewport Viewport => this.GraphicsDevice.Viewport;
+
+        internal RenderTarget2D ScreenRenderTarget => this.screenRenderTarget;
+        internal RenderTarget2D GuiRenderTarget => this.guiRenderTarget;
+        internal RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
+        internal RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
+        internal RenderTarget2D WorldLightingRenderTarget => this.worldLightingRenderTarget;
 
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
@@ -30,12 +32,12 @@ namespace StardustSandbox.Core.Managers
         private RenderTarget2D guiRenderTarget;
         private RenderTarget2D backgroundRenderTarget;
         private RenderTarget2D worldRenderTarget;
-        private RenderTarget2D lightingRenderTarget;
+        private RenderTarget2D worldLightingRenderTarget;
 
         public SGraphicsManager(ISGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
         {
             this._graphicsDeviceManager = graphicsDeviceManager;
-            UpdateSettings();
+            ApplySettings();
         }
 
         public override void Initialize()
@@ -47,17 +49,36 @@ namespace StardustSandbox.Core.Managers
             this.guiRenderTarget = new(this.GraphicsDevice, width, height);
             this.backgroundRenderTarget = new(this.GraphicsDevice, width, height);
             this.worldRenderTarget = new(this.GraphicsDevice, width, height);
-            this.lightingRenderTarget = new(this.GraphicsDevice, width, height);
+            this.worldLightingRenderTarget = new(this.GraphicsDevice, width, height);
         }
 
-        public void UpdateSettings()
+        internal void SetGameWindow(GameWindow gameWindow)
         {
-            SVideoSettings graphicsSettings = SSettingsManager.LoadSettings<SVideoSettings>();
+            this.GameWindow = gameWindow;
+        }
 
-            this._graphicsDeviceManager.IsFullScreen = graphicsSettings.FullScreen;
-            this._graphicsDeviceManager.PreferredBackBufferWidth = graphicsSettings.ScreenWidth;
-            this._graphicsDeviceManager.PreferredBackBufferHeight = graphicsSettings.ScreenHeight;
-            this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = graphicsSettings.VSync;
+        public void ApplySettings()
+        {
+            SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
+
+            if (this.GameWindow != null)
+            {
+                this.GameWindow.IsBorderless = videoSettings.Borderless;
+            }
+
+            if (videoSettings.Resolution.Width == 0 || videoSettings.Resolution.Height == 0)
+            {
+                this._graphicsDeviceManager.PreferredBackBufferWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;
+            }
+            else
+            {
+                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Resolution.Width;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Resolution.Height;
+            }
+
+            this._graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
+            this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
         }
@@ -68,6 +89,11 @@ namespace StardustSandbox.Core.Managers
                 this._graphicsDeviceManager.PreferredBackBufferWidth / (float)SScreenConstants.DEFAULT_SCREEN_WIDTH,
                 this._graphicsDeviceManager.PreferredBackBufferHeight / (float)SScreenConstants.DEFAULT_SCREEN_HEIGHT
             );
+        }
+
+        public void Reset()
+        {
+            return;
         }
     }
 }

@@ -1,26 +1,29 @@
-﻿using StardustSandbox.ContentBundle.Elements.Solids.Movables;
-using StardustSandbox.ContentBundle.Enums.Elements;
+﻿using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    public class SLava : SLiquid
+    internal sealed class SLava : SLiquid
     {
-        public SLava(ISGame gameInstance) : base(gameInstance)
+        internal SLava(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.id = (uint)SElementId.Lava;
+            this.referenceColor = SColorPalette.Orange;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.enableLightEmission = true;
+            this.defaultLuminousIntensity = 5;
             this.defaultTemperature = 1000;
+            this.defaultDensity = 3000;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue <= 500)
             {
-                this.Context.ReplaceElement<SStone>();
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STONE);
                 this.Context.SetElementTemperature(500);
             }
         }

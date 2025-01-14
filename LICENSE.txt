@@ -94,7 +94,7 @@ permission, would make you directly or secondarily liable for
 infringement under applicable copyright law, except executing it on a
 computer or modifying a private copy.  Propagation includes copying,
 distribution (with or without modification), making available to the
-public, and in some countries other activities as well.
+internal, and in some countries other activities as well.
 
   To "convey" a work means any kind of propagation that enables other
 parties to make or receive copies.  Mere interaction with a user through
@@ -125,7 +125,7 @@ than the work as a whole, that (a) is included in the normal form of
 packaging a Major Component, but which is not part of that Major
 Component, and (b) serves only to enable use of the work with that
 Major Component, or to implement a Standard Interface for which an
-implementation is available to the public in source code form.  A
+implementation is available to the internal in source code form.  A
 "Major Component", in this context, means a major essential component
 (kernel, window system, and so on) of the specific operating system
 (if any) on which the executable work runs, or a compiler used to
@@ -287,7 +287,7 @@ in one of these ways:
 
     e) Convey the object code using peer-to-peer transmission, provided
     you inform other peers where the object code and Corresponding
-    Source of the work are being offered to the general public at no
+    Source of the work are being offered to the general internal at no
     charge under subsection 6d.
 
   A separable portion of the object code, whose source code is excluded
@@ -336,7 +336,7 @@ protocols for communication across the network.
 
   Corresponding Source conveyed, and Installation Information provided,
 in accord with this section must be in a format that is publicly
-documented (and with an implementation available to the public in
+documented (and with an implementation available to the internal in
 source code form), and must require no special password or key for
 unpacking, reading or copying.
 
@@ -578,7 +578,7 @@ by the Free Software Foundation.
 
   If the Program specifies that a proxy can decide which future
 versions of the GNU General Public License can be used, that proxy's
-public statement of acceptance of a version permanently authorizes you
+internal statement of acceptance of a version permanently authorizes you
 to choose that version for the Program.
 
   Later license versions may give you additional or different
@@ -623,7 +623,7 @@ copy of the Program in return for a fee.
             How to Apply These Terms to Your New Programs
 
   If you develop a new program, and you want it to be of the greatest
-possible use to the public, the best way to achieve this is to make it
+possible use to the internal, the best way to achieve this is to make it
 free software which everyone can redistribute and change under these terms.
 
   To do so, attach the following notices to the program.  It is safest

@@ -1,55 +1,70 @@
-﻿using MessagePack;
+﻿using Microsoft.Xna.Framework;
 
-using Microsoft.Xna.Framework;
+using StardustSandbox.Core.Colors;
+
+using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [MessagePackObject]
+    [XmlRoot("CursorSettings")]
     public sealed class SCursorSettings : SSettings
     {
-        [IgnoreMember]
+        [XmlIgnore]
         public Color Color
         {
-            get => new(this.ColorR, this.ColorG, this.ColorB, this.ColorA);
+            get => new(this.ColorR, this.ColorG, this.ColorB, this.Alpha);
 
             set
             {
                 this.ColorR = value.R;
                 this.ColorG = value.G;
                 this.ColorB = value.B;
-                this.ColorA = value.A;
             }
         }
 
-        [IgnoreMember]
+        [XmlIgnore]
         public Color BackgroundColor
         {
-            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.BackgroundColorA);
+            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.Alpha);
 
             set
             {
                 this.BackgroundColorR = value.R;
                 this.BackgroundColorG = value.G;
                 this.BackgroundColorB = value.B;
-                this.BackgroundColorA = value.A;
             }
         }
 
-        [Key(0)] public float Scale { get; set; }
-        [Key(1)] public byte ColorR { get; set; }
-        [Key(2)] public byte ColorG { get; set; }
-        [Key(3)] public byte ColorB { get; set; }
-        [Key(4)] public byte ColorA { get; set; }
-        [Key(5)] public byte BackgroundColorR { get; set; }
-        [Key(6)] public byte BackgroundColorG { get; set; }
-        [Key(7)] public byte BackgroundColorB { get; set; }
-        [Key(8)] public byte BackgroundColorA { get; set; }
+        [XmlElement("ColorR", typeof(byte))]
+        public byte ColorR { get; set; }
+
+        [XmlElement("ColorG", typeof(byte))]
+        public byte ColorG { get; set; }
+
+        [XmlElement("ColorB", typeof(byte))]
+        public byte ColorB { get; set; }
+
+        [XmlElement("BackgroundColorR", typeof(byte))]
+        public byte BackgroundColorR { get; set; }
+
+        [XmlElement("BackgroundColorG", typeof(byte))]
+        public byte BackgroundColorG { get; set; }
+
+        [XmlElement("BackgroundColorB", typeof(byte))]
+        public byte BackgroundColorB { get; set; }
+
+        [XmlElement("Scale", typeof(float))]
+        public float Scale { get; set; }
+
+        [XmlElement("Alpha", typeof(byte))]
+        public byte Alpha { get; set; }
 
         public SCursorSettings()
         {
+            this.Color = SColorPalette.White;
+            this.BackgroundColor = SColorPalette.DarkRed;
             this.Scale = 1f;
-            this.Color = Color.White;
-            this.BackgroundColor = Color.Red;
+            this.Alpha = 255;
         }
     }
 }

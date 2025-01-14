@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Interfaces.General;
+﻿using StardustSandbox.Core.Interfaces.Collections;
 
 using System.Collections.Generic;
 

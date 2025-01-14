@@ -1,26 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.Elements.Gases;
-using StardustSandbox.ContentBundle.Enums.Elements;
 using StardustSandbox.Core.Animations;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Energies;
-using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Slots;
 
-using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Energies
 {
-    public sealed class SFire : SEnergy
+    internal sealed class SFire : SEnergy
     {
-        public SFire(ISGame gameInstance) : base(gameInstance)
+        internal SFire(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.id = (uint)SElementId.Fire;
+            this.referenceColor = SColorPalette.Amber;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_24");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [
                 new(new(new(00, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
@@ -29,6 +28,8 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 new(new(new(96, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
             ])));
             this.enableNeighborsAction = true;
+            this.enableLightEmission = true;
+            this.defaultLuminousIntensity = 7;
             this.defaultTemperature = 500;
         }
 
@@ -36,61 +37,66 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
         {
             if (SRandomMath.Chance(SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR, SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR_TOTAL))
             {
-                this.Context.DestroyElement();
+                this.Context.DestroyElement(this.Context.Layer);
 
                 if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE, SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL))
                 {
-                    this.Context.InstantiateElement<SSmoke>();
+                    this.Context.InstantiateElement(this.Context.Layer, SElementConstants.IDENTIFIER_SMOKE);
                 }
             }
         }
 
         protected override void OnStep()
         {
-            Point targetPos = new(this.Context.Position.X + SRandomMath.Range(-1, 2), this.Context.Position.Y - 1);
+            Point targetPosition = new(this.Context.Slot.Position.X + SRandomMath.Range(-1, 2), this.Context.Slot.Position.Y - 1);
 
-            if (this.Context.IsEmptyElementSlot(targetPos))
+            if (this.Context.IsEmptyWorldSlot(targetPosition))
             {
-                if (this.Context.TrySetPosition(targetPos))
+                if (this.Context.TrySetPosition(targetPosition, this.Context.Layer))
                 {
                     return;
                 }
             }
         }
 
-        protected override void OnNeighbors(ReadOnlySpan<(Point, ISWorldSlot)> neighbors, int length)
+        protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
         {
-            for (int i = 0; i < length; i++)
+            foreach (SWorldSlot neighbor in neighbors)
             {
-                (Point position, ISWorldSlot slot) = neighbors[i];
-                ISElement element = slot.Element;
-
-                if (slot == null || element == null)
+                if (!neighbor.ForegroundLayer.IsEmpty)
                 {
-                    continue;
+                    IgniteElement(neighbor, neighbor.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground);
                 }
 
-                // Increase neighboring temperature by fire's heat value
-                _ = this.Context.TrySetElementTemperature((short)(slot.Temperature + SElementConstants.FIRE_HEAT_VALUE));
-
-                // Check if the element is flammable
-                if (element.EnableFlammability)
+                if (!neighbor.BackgroundLayer.IsEmpty)
                 {
-                    // Adjust combustion chance based on the element's flammability resistance
-                    int combustionChance = SElementConstants.CHANCE_OF_COMBUSTION;
-                    bool isAbove = position.Y < this.Context.Position.Y;
+                    IgniteElement(neighbor, neighbor.GetLayer(SWorldLayer.Background), SWorldLayer.Background);
+                }
+            }
+        }
 
-                    // Increase chance of combustion if the element is directly above
-                    if (isAbove)
-                    {
-                        combustionChance += 10;
-                    }
+        private void IgniteElement(SWorldSlot slot, SWorldSlotLayer worldSlotLayer, SWorldLayer worldLayer)
+        {
+            // Increase neighboring temperature by fire's heat value
+            this.Context.SetElementTemperature((short)(worldSlotLayer.Temperature + SElementConstants.FIRE_HEAT_VALUE));
 
-                    // Attempt combustion based on flammabilityResistance
-                    if (SRandomMath.Chance(combustionChance, 100 + element.DefaultFlammabilityResistance))
-                    {
-                        this.Context.ReplaceElement<SFire>(position);
-                    }
+            // Check if the element is flammable
+            if (worldSlotLayer.Element.EnableFlammability)
+            {
+                // Adjust combustion chance based on the element's flammability resistance
+                int combustionChance = SElementConstants.CHANCE_OF_COMBUSTION;
+                bool isAbove = slot.Position.Y < this.Context.Slot.Position.Y;
+
+                // Increase chance of combustion if the element is directly above
+                if (isAbove)
+                {
+                    combustionChance += 10;
+                }
+
+                // Attempt combustion based on flammabilityResistance
+                if (SRandomMath.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
+                {
+                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementConstants.IDENTIFIER_FIRE);
                 }
             }
         }

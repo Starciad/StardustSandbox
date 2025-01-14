@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
-    public class SGUILabelElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
+    internal sealed class SGUILabelElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

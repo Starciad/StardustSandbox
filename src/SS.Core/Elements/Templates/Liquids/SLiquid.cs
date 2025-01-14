@@ -3,49 +3,32 @@
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
 
 namespace StardustSandbox.Core.Elements.Templates.Liquids
 {
-    public abstract class SLiquid(ISGame gameInstance) : SElement(gameInstance)
+    public abstract class SLiquid : SElement
     {
+        public SLiquid(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        {
+            this.defaultDensity = 1000;
+        }
+
         protected override void OnBehaviourStep()
         {
-            Point[] belowPositions = SElementUtility.GetRandomSidePositions(this.Context.Position, SDirection.Down);
-
-            if (this.Context.Slot.FreeFalling)
+            foreach (Point belowPosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down))
             {
-                for (int i = 0; i < belowPositions.Length; i++)
+                if (TrySetPosition(belowPosition))
                 {
-                    Point position = belowPositions[i];
-
-                    if (TrySetPosition(position))
-                    {
-                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, position);
-                        this.Context.SetElementFreeFalling(position, true);
-                        return;
-                    }
-                }
-
-                SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
-                this.Context.SetElementFreeFalling(false);
-            }
-            else
-            {
-                if (TrySetPosition(new(this.Context.Position.X, this.Context.Position.Y + 1)))
-                {
-                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPositions[0]);
-                    this.Context.SetElementFreeFalling(belowPositions[0], true);
-                    return;
-                }
-                else
-                {
-                    SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
-                    this.Context.SetElementFreeFalling(false);
+                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
+                    this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
                     return;
                 }
             }
+
+            SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
+            this.Context.SetElementFreeFalling(this.Context.Layer, false);
         }
 
         private bool TrySetPosition(Point position)
@@ -55,11 +38,19 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
                 return true;
             }
 
-            if (this.Context.TryGetElement(position, out ISElement value))
+            if (this.Context.TryGetElement(position, this.Context.Layer, out ISElement value))
             {
                 if (value is SGas && this.Context.TrySwappingElements(position))
                 {
                     return true;
+                }
+
+                if (value is SLiquid)
+                {
+                    if (value.DefaultDensity < this.DefaultDensity && this.Context.TrySwappingElements(position))
+                    {
+                        return true;
+                    }
                 }
             }
 

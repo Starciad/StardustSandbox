@@ -1,33 +1,32 @@
 ﻿using StardustSandbox.Core.GUISystem;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Objects;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SGUIDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISGUIDatabase
     {
-        public SGUISystem[] RegisteredGUIs => [.. this._registeredGUIs.Values];
-
-        private readonly Dictionary<string, SGUISystem> _registeredGUIs = [];
+        private readonly Dictionary<string, SGUISystem> registeredGUIs = [];
 
         public override void Initialize()
         {
-            foreach (SGUISystem guiSystem in this._registeredGUIs.Values)
+            foreach (SGUISystem guiSystem in this.registeredGUIs.Values)
             {
                 guiSystem.Initialize();
             }
         }
 
-        public void RegisterGUISystem(string identifier, SGUISystem guiSystem)
+        public void RegisterGUISystem(SGUISystem guiSystem)
         {
-            this._registeredGUIs.Add(identifier, guiSystem);
+            this.registeredGUIs.Add(guiSystem.Identifier, guiSystem);
         }
 
-        public SGUISystem Find(string identifier)
+        public SGUISystem GetGUISystemById(string identifier)
         {
-            return this._registeredGUIs[identifier];
+            return this.registeredGUIs[identifier];
         }
     }
 }

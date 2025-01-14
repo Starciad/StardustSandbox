@@ -1,62 +1,44 @@
-﻿using MessagePack;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.IO.Files.Settings
 {
-    [MessagePackObject]
+    [XmlRoot("VideoSettings")]
     public sealed class SVideoSettings : SSettings
     {
-        [IgnoreMember]
-        public SSize2 Resolution
-        {
-            get
-            {
-                return new(this.ScreenWidth, this.ScreenHeight);
-            }
+        [XmlElement("Resolution", typeof(SSize2))]
+        public SSize2 Resolution { get; set; }
 
-            set
-            {
-                this.ScreenWidth = (ushort)value.Width;
-                this.ScreenHeight = (ushort)value.Height;
-            }
-        }
-
-        [Key(0)]
-        public ushort ScreenWidth { get; set; }
-
-        [Key(1)]
-        public ushort ScreenHeight { get; set; }
-
-        [Key(2)]
+        [XmlElement("FullScreen", typeof(bool))]
         public bool FullScreen { get; set; }
 
-        [Key(3)]
+        [XmlElement("VSync", typeof(bool))]
         public bool VSync { get; set; }
 
-        [Key(4)]
+        [XmlElement("Borderless", typeof(bool))]
         public bool Borderless { get; set; }
 
         public SVideoSettings()
         {
-            SSize2 monitorResolution = GetMonitorResolution();
-            SSize2 autoResolution = GetAutoResolution(monitorResolution);
-
-            this.ScreenWidth = (ushort)autoResolution.Width;
-            this.ScreenHeight = (ushort)autoResolution.Height;
+            this.Resolution = SSize2.Zero;
             this.FullScreen = false;
             this.VSync = false;
             this.Borderless = false;
         }
 
-        private static SSize2 GetMonitorResolution()
+        public void UpdateResolution(GraphicsDevice graphicsDevice)
         {
-            int width = Screen.PrimaryScreen.Bounds.Width;
-            int height = Screen.PrimaryScreen.Bounds.Height;
-            return new SSize2(width, height);
+            SSize2 monitorResolution = new(
+                graphicsDevice.Adapter.CurrentDisplayMode.Width,
+                graphicsDevice.Adapter.CurrentDisplayMode.Height
+            );
+            SSize2 autoResolution = GetAutoResolution(monitorResolution);
+
+            this.Resolution = autoResolution;
         }
 
         private static SSize2 GetAutoResolution(SSize2 monitorResolution)

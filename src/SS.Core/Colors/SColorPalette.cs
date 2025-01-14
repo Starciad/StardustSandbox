@@ -79,5 +79,11 @@ namespace StardustSandbox.Core.Colors
         public static Color Coffee => new(121, 103, 85, 255); // #796755
         public static Color DarkBeige => new(90, 78, 68, 255); // #5a4e44
         public static Color DarkTaupe => new(66, 57, 52, 255); // #423934
+
+        // ================================= //
+        // Utilities
+
+        public static Color HoverColor => LimeGreen;
+        public static Color SelectedColor => Orange;
     }
 }

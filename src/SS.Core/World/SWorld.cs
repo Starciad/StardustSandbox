@@ -1,170 +1,72 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Core.Collections;
+﻿using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.Elements.Contexts;
+using StardustSandbox.Core.Entities;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Objects;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.General;
+using StardustSandbox.Core.World.Slots;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld : SGameObject, ISReset
+    internal sealed partial class SWorld : SGameObject, ISWorld
     {
-        public SWorldInfo Infos { get; private set; } = new();
+        public SWorldInfo Infos { get; }
+        public SWorldTime Time { get; }
+        public SWorldSimulation Simulation { get; }
 
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
+        public int ActiveEntitiesCount => this.instantiatedEntities.Count;
 
-        private readonly SObjectPool worldSlotsPool = new();
-        private readonly SComponentContainer componentContainer;
+        // System
+        private SWorldSaveFile currentlySelectedWorldSaveFile;
 
-        private readonly SWorldChunkingComponent worldChunkingComponent;
-
+        // General
         private SWorldSlot[,] slots;
 
-        private readonly uint totalFramesUpdateDelay = 5;
-        private uint currentFramesUpdateDelay;
+        // World
+        private readonly SComponentContainer componentContainer;
+        private readonly SWorldChunkingComponent worldChunkingComponent;
+        private readonly SElementContext worldElementContext;
+
+        // Entities
+        private readonly List<SEntity> instantiatedEntities = new(SEntityConstants.ACTIVE_ENTITIES_LIMIT);
+
+        // Pools
+        private readonly SObjectPool worldSlotsPool;
+        private readonly Dictionary<string, SObjectPool> entityPools = [];
 
         public SWorld(ISGame gameInstance) : base(gameInstance)
         {
+            this.Infos = new();
+            this.Time = new(gameInstance);
+            this.Simulation = new();
+
+            this.worldSlotsPool = new();
             this.componentContainer = new(gameInstance);
 
             this.worldChunkingComponent = this.componentContainer.AddComponent(new SWorldChunkingComponent(gameInstance, this));
             _ = this.componentContainer.AddComponent(new SWorldUpdatingComponent(gameInstance, this));
             _ = this.componentContainer.AddComponent(new SWorldRenderingComponent(gameInstance, this));
-        }
 
-        public override void Initialize()
-        {
-            this.componentContainer.Initialize();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if (!this.IsActive)
-            {
-                return;
-            }
-
-            // Delay
-            if (this.currentFramesUpdateDelay == 0)
-            {
-                this.currentFramesUpdateDelay = this.totalFramesUpdateDelay;
-            }
-            else
-            {
-                this.currentFramesUpdateDelay--;
-                return;
-            }
-
-            // Update world
-            this.componentContainer.Update(gameTime);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            if (!this.IsVisible)
-            {
-                return;
-            }
-
-            base.Draw(gameTime, spriteBatch);
-            this.componentContainer.Draw(gameTime, spriteBatch);
+            this.worldElementContext = new(this);
         }
 
         public void Reset()
         {
+            this.currentlySelectedWorldSaveFile = null;
+
+            this.Infos.Reset();
+
             this.componentContainer.Reset();
             Clear();
-        }
-
-        public void Resize(SSize2 size)
-        {
-            DestroyWorldSlots();
-
-            this.Infos.SetSize(size);
-            this.slots = new SWorldSlot[size.Width, size.Height];
-
-            InstantiateWorldSlots();
-        }
-
-        public void Clear()
-        {
-            if (this.slots == null)
-            {
-                return;
-            }
-
-            for (int x = 0; x < this.Infos.Size.Width; x++)
-            {
-                for (int y = 0; y < this.Infos.Size.Height; y++)
-                {
-                    if (IsEmptyElementSlot(new(x, y)))
-                    {
-                        continue;
-                    }
-
-                    DestroyElement(new(x, y));
-                }
-            }
-        }
-
-        private void InstantiateWorldSlots()
-        {
-            if (this.slots == null || this.slots.Length == 0)
-            {
-                return;
-            }
-
-            for (int y = 0; y < this.Infos.Size.Height; y++)
-            {
-                for (int x = 0; x < this.Infos.Size.Width; x++)
-                {
-                    this.slots[x, y] = this.worldSlotsPool.TryGet(out ISPoolableObject value) ? (SWorldSlot)value : new();
-                }
-            }
-        }
-
-        private void DestroyWorldSlots()
-        {
-            if (this.slots == null || this.slots.Length == 0)
-            {
-                return;
-            }
-
-            for (int y = 0; y < this.Infos.Size.Height; y++)
-            {
-                for (int x = 0; x < this.Infos.Size.Width; x++)
-                {
-                    if (this.slots[x, y] == null)
-                    {
-                        continue;
-                    }
-
-                    this.worldSlotsPool.Add(this.slots[x, y]);
-                    this.slots[x, y] = null;
-                }
-            }
-        }
-
-        public static Vector2 ToWorldPosition(Vector2 globalPosition)
-        {
-            return new Vector2(
-                (int)(globalPosition.X / SWorldConstants.GRID_SCALE),
-                (int)(globalPosition.Y / SWorldConstants.GRID_SCALE)
-            );
-        }
-
-        public static Vector2 ToGlobalPosition(Vector2 worldPosition)
-        {
-            return new Vector2(
-                (int)(worldPosition.X * SWorldConstants.GRID_SCALE),
-                (int)(worldPosition.Y * SWorldConstants.GRID_SCALE)
-            );
         }
     }
 }

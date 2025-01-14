@@ -3,15 +3,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Elements;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements
 {
-    public class SGUIContainerElement : SGUIElement
+    internal class SGUIContainerElement : SGUIElement
     {
+        public IEnumerable<SGUIElement> Elements => this.containerLayout.Elements;
+
         private readonly SGUILayout containerLayout;
 
-        public SGUIContainerElement(ISGame gameInstance) : base(gameInstance)
+        internal SGUIContainerElement(ISGame gameInstance) : base(gameInstance)
         {
             this.containerLayout = new(gameInstance);
 
@@ -34,17 +38,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements
             this.containerLayout.Draw(gameTime, spriteBatch);
         }
 
-        public void Active()
+        internal void Active()
         {
             this.containerLayout.IsActive = true;
         }
 
-        public void Disable()
+        internal void Disable()
         {
             this.containerLayout.IsActive = false;
         }
 
-        public void AddElement<T>(T value) where T : SGUIElement
+        internal void AddElement<T>(T value) where T : SGUIElement
         {
             this.containerLayout.AddElement(value);
         }

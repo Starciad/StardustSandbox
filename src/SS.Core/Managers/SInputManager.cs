@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Managers;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SInputManager(ISGame gameInstance) : SManager(gameInstance)
+    internal sealed class SInputManager(ISGame gameInstance) : SManager(gameInstance), ISInputManager
     {
         public MouseState MouseState => this._mouseState;
         public MouseState PreviousMouseState => this._previousMouseState;
@@ -41,13 +42,18 @@ namespace StardustSandbox.Core.Managers
             return this._previousMouseState.ScrollWheelValue - this._mouseState.ScrollWheelValue;
         }
 
-        private static Vector2 CalculateScaledMousePosition(MouseState mouseState, SGraphicsManager graphicsManager)
+        private static Vector2 CalculateScaledMousePosition(MouseState mouseState, ISGraphicsManager graphicsManager)
         {
             Vector2 mousePosition = new(mouseState.X, mouseState.Y);
 
             mousePosition /= graphicsManager.GetScreenScaleFactor();
 
             return mousePosition;
+        }
+
+        public void Reset()
+        {
+            return;
         }
     }
 }

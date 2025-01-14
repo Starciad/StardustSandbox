@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 
@@ -11,15 +11,22 @@ using System.Text;
 
 namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
 {
-    public sealed class SGUITextElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
+    internal sealed class SGUITextElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {
-        public SSize2F TextAreaSize { get; set; }
-        public float LineHeight { get; set; } = 1.0f;
-        public float WordSpacing { get; set; } = 0.0f;
+        internal SSize2F TextAreaSize { get; set; }
+        internal float LineHeight { get; set; } = 1.0f;
+        internal float WordSpacing { get; set; } = 0.0f;
+        internal int LineCount => this.wrappedLines.Count;
 
         private readonly List<string> wrappedLines = [];
 
-        public override void SetTextualContent(string value)
+        internal override void SetTextualContent(string value)
+        {
+            base.SetTextualContent(value);
+            WrapText();
+        }
+
+        internal override void SetTextualContent(StringBuilder value)
         {
             base.SetTextualContent(value);
             WrapText();
@@ -67,7 +74,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
             }
         }
 
-        public override SSize2F GetStringSize()
+        internal override SSize2F GetStringSize()
         {
             if (this.wrappedLines.Count == 0)
             {
@@ -87,7 +94,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
                 }
             }
 
-            return new SSize2F(maxWidth, totalHeight);
+            return new(maxWidth, totalHeight);
         }
     }
 }

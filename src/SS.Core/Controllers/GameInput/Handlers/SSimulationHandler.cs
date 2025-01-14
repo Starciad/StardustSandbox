@@ -1,14 +1,14 @@
-﻿using StardustSandbox.Core.Managers;
+﻿using StardustSandbox.Core.Interfaces;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SSimulationHandler(SGameManager gameManager)
+    internal sealed class SSimulationHandler(ISGame game)
     {
-        private readonly SGameManager gameManager = gameManager;
+        private readonly ISGame game = game;
 
         public void TogglePause()
         {
-            this.gameManager.GameState.IsSimulationPaused = !this.gameManager.GameState.IsSimulationPaused;
+            this.game.GameManager.GameState.IsSimulationPaused = !this.game.GameManager.GameState.IsSimulationPaused;
         }
     }
 }

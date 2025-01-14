@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Backgrounds;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Ambient.Background;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Objects;
 
 using System;
@@ -9,22 +10,22 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SBackgroundDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SBackgroundDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISBackgroundDatabase
     {
         private readonly Dictionary<string, SBackground> backgrounds = [];
 
-        public void RegisterBackground(string id, Texture2D texture, Action<SBackground> builderAction)
+        public void RegisterBackground(string identifier, Texture2D texture, Action<SBackground> builderAction)
         {
-            SBackground background = new(this.SGameInstance, id, texture);
+            SBackground background = new(this.SGameInstance, identifier, texture);
 
             builderAction.Invoke(background);
 
-            this.backgrounds.Add(id, background);
+            this.backgrounds.Add(identifier, background);
         }
 
-        public SBackground GetBackgroundById(string id)
+        public SBackground GetBackgroundById(string identifier)
         {
-            return this.backgrounds[id];
+            return this.backgrounds[identifier];
         }
     }
 }

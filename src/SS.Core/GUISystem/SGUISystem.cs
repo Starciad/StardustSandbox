@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.GUISystem.Events;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Objects;
 
@@ -11,16 +11,12 @@ namespace StardustSandbox.Core.GUISystem
     public abstract class SGUISystem : SGameObject
     {
         public string Identifier => this.identifier;
-        public int ZIndex => this.zIndex;
         public bool IsActive => this.isActive;
-        public bool IsShowing => this.isShowing;
-        public bool HasEvents => this.GUIEvents != null;
+        public bool IsOpened => this.isOpened;
         protected SGUIEvents GUIEvents => this.guiEvents;
 
-        protected int zIndex;
-
         private bool isActive;
-        private bool isShowing;
+        private bool isOpened;
 
         private readonly string identifier;
         private readonly SGUILayout layout;
@@ -49,24 +45,24 @@ namespace StardustSandbox.Core.GUISystem
             this.layout.Draw(gameTime, spriteBatch);
         }
 
-        public void Show()
+        internal void Open()
         {
             this.isActive = true;
-            this.isShowing = true;
+            this.isOpened = true;
 
-            OnLoad();
+            OnOpened();
         }
 
-        public void Close()
+        internal void Close()
         {
             this.isActive = false;
-            this.isShowing = false;
+            this.isOpened = false;
 
-            OnUnload();
+            OnClosed();
         }
 
-        protected abstract void OnBuild(ISGUILayoutBuilder layout);
-        protected virtual void OnLoad() { return; }
-        protected virtual void OnUnload() { return; }
+        protected abstract void OnBuild(ISGUILayoutBuilder layoutBuilder);
+        protected virtual void OnOpened() { return; }
+        protected virtual void OnClosed() { return; }
     }
 }

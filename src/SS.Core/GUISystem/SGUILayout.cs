@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.GUISystem.Elements;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Objects;
 
@@ -12,7 +12,7 @@ namespace StardustSandbox.Core.GUISystem
 {
     public sealed class SGUILayout(ISGame gameInstance) : SGameObject(gameInstance), ISGUILayoutBuilder
     {
-        public SGUIElement[] Elements => [.. this.elements];
+        public IEnumerable<SGUIElement> Elements => this.elements;
         public bool IsActive { get; set; } = true;
 
         private readonly List<SGUIElement> elements = [];
@@ -64,6 +64,11 @@ namespace StardustSandbox.Core.GUISystem
         public void AddElement<T>(T value) where T : SGUIElement
         {
             this.elements.Add(value);
+        }
+
+        public void RemoveElement<T>(T value) where T : SGUIElement
+        {
+            _ = this.elements.Remove(value);
         }
     }
 }

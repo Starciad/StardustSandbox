@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.Objects;
 
 using System;
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Components
 {
-    public sealed class SComponentContainer(ISGame gameInstance) : SGameObject(gameInstance), ISReset
+    public sealed class SComponentContainer(ISGame gameInstance) : SGameObject(gameInstance), ISResettable
     {
         public SComponent[] Components => [.. this.components.Values];
 

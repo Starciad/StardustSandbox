@@ -1,32 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Controllers.GameInput.Handlers.Tools;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Enums.Gameplay;
-using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.World;
-
-using System;
+using StardustSandbox.Core.Enums.GameInput;
+using StardustSandbox.Core.Enums.GameInput.Pen;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
-    internal sealed class SWorldHandler(SWorld world, SInputManager inputManager, SCameraManager cameraManager, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen, SElementDatabase elementDatabase)
+    internal sealed class SWorldHandler
     {
-        private readonly SWorld world = world;
+        private readonly ISGame gameInstance;
 
-        private readonly SInputManager inputManager = inputManager;
-        private readonly SCameraManager cameraManager = cameraManager;
+        private readonly SSimulationPlayer simulationPlayer;
+        private readonly SSimulationPen simulationPen;
 
-        private readonly SSimulationPlayer simulationPlayer = simulationPlayer;
-        private readonly SSimulationPen simulationPen = simulationPen;
+        private readonly SVisualizationTool visualizationTool;
+        private readonly SPencilTool pencilTool;
+        private readonly SEraserTool eraserTool;
+        private readonly SFloodFillTool floodFillTool;
+        private readonly SReplaceTool replaceTool;
 
-        private readonly SElementDatabase elementDatabase = elementDatabase;
+        public SWorldHandler(ISGame gameInstance, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen)
+        {
+            this.gameInstance = gameInstance;
+
+            this.simulationPlayer = simulationPlayer;
+            this.simulationPen = simulationPen;
+
+            this.visualizationTool = new(this.gameInstance, simulationPen);
+            this.pencilTool = new(this.gameInstance, simulationPen);
+            this.eraserTool = new(this.gameInstance, simulationPen);
+            this.floodFillTool = new(this.gameInstance, simulationPen);
+            this.replaceTool = new(this.gameInstance, simulationPen);
+        }
 
         public void Clear()
         {
-            this.world.Clear();
+            this.gameInstance.World.Clear();
         }
 
         public void Modify(SWorldModificationType worldModificationType)
@@ -36,17 +49,28 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
                 return;
             }
 
-            Type itemType = this.simulationPlayer.SelectedItem.ReferencedType;
-            Point mouseWorldPosition = GetWorldGridPositionFromMouse();
+            Point mousePosition = GetWorldGridPositionFromMouse(this.gameInstance.InputManager, this.gameInstance.CameraManager).ToPoint();
 
-            switch (worldModificationType)
+            switch (this.simulationPen.Tool)
             {
-                case SWorldModificationType.Adding:
-                    AddItems(itemType, mouseWorldPosition);
+                case SPenTool.Visualization:
+                    this.visualizationTool.Execute(worldModificationType, this.simulationPlayer.SelectedItem.ContentType, this.simulationPlayer.SelectedItem.Identifier, mousePosition);
                     break;
 
-                case SWorldModificationType.Removing:
-                    RemoveItems(mouseWorldPosition);
+                case SPenTool.Pencil:
+                    this.pencilTool.Execute(worldModificationType, this.simulationPlayer.SelectedItem.ContentType, this.simulationPlayer.SelectedItem.Identifier, mousePosition);
+                    break;
+
+                case SPenTool.Eraser:
+                    this.eraserTool.Execute(worldModificationType, this.simulationPlayer.SelectedItem.ContentType, this.simulationPlayer.SelectedItem.Identifier, mousePosition);
+                    break;
+
+                case SPenTool.Fill:
+                    this.floodFillTool.Execute(worldModificationType, this.simulationPlayer.SelectedItem.ContentType, this.simulationPlayer.SelectedItem.Identifier, mousePosition);
+                    break;
+
+                case SPenTool.Replace:
+                    this.replaceTool.Execute(worldModificationType, this.simulationPlayer.SelectedItem.ContentType, this.simulationPlayer.SelectedItem.Identifier, mousePosition);
                     break;
 
                 default:
@@ -54,92 +78,23 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
             }
         }
 
-        private void AddItems(Type itemType, Point position)
-        {
-            if (typeof(SElement).IsAssignableFrom(itemType))
-            {
-                AddElements(this.elementDatabase.GetElementByType(itemType), position);
-            }
-        }
-
-        private void RemoveItems(Point position)
-        {
-            RemoveElements(position);
-        }
-
-        // ========================= //
-
-        private void AddElements(ISElement element, Point position)
-        {
-            if (!this.world.InsideTheWorldDimensions(position))
-            {
-                return;
-            }
-
-            ApplyPenAction(position, (position) => this.world.InstantiateElement(new Point(position.X, position.Y), element.Id));
-        }
-
-        private void RemoveElements(Point position)
-        {
-            if (!this.world.InsideTheWorldDimensions(position))
-            {
-                return;
-            }
-
-            ApplyPenAction(position, this.world.DestroyElement);
-        }
-
         // ================================== //
-        // Utilities
-
-        private void ApplyPenAction(Point centerPos, Action<Point> action)
-        {
-            int size = this.simulationPen.Size - 1;
-
-            if (size == 0)
-            {
-                if (this.world.InsideTheWorldDimensions(centerPos))
-                {
-                    action.Invoke(centerPos);
-                }
-
-                return;
-            }
-
-            for (int x = -size; x <= size; x++)
-            {
-                for (int y = -size; y <= size; y++)
-                {
-                    Point localPos = new Point(x, y) + centerPos;
-
-                    if (this.world.InsideTheWorldDimensions(localPos))
-                    {
-                        action.Invoke(localPos);
-                    }
-                }
-            }
-        }
 
         private bool CanModifyWorld()
         {
             return this.simulationPlayer.CanModifyEnvironment && this.simulationPlayer.SelectedItem != null;
         }
 
-        private Point GetWorldGridPositionFromMouse()
+        private static Vector2 GetWorldGridPositionFromMouse(ISInputManager inputManager, ISCameraManager cameraManager)
         {
-            Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
-
-            Vector2 worldPosition = ConvertScreenToWorld(mousePosition);
-            Vector2 gridPosition = SWorld.ToWorldPosition(worldPosition);
-
-            return gridPosition.ToPoint();
+            return SWorldMath.ToWorldPosition(ConvertScreenToWorld(cameraManager, inputManager.GetScaledMousePosition()));
         }
 
-        private Vector2 ConvertScreenToWorld(Vector2 screenPosition)
+        private static Vector2 ConvertScreenToWorld(ISCameraManager cameraManager, Vector2 screenPosition)
         {
             Vector3 screenPosition3D = new(screenPosition, 0);
 
-            Matrix viewMatrix = this.cameraManager.GetViewMatrix();
+            Matrix viewMatrix = cameraManager.GetViewMatrix();
             Matrix inverseViewMatrix = Matrix.Invert(viewMatrix);
 
             Vector3 worldPosition3D = Vector3.Transform(screenPosition3D, inverseViewMatrix);

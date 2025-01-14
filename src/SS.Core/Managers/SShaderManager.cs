@@ -1,27 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Managers;
 
 namespace StardustSandbox.Core.Managers
 {
-    public sealed class SShaderManager(ISGame gameInstance) : SManager(gameInstance)
+    internal sealed class SShaderManager(ISGame gameInstance) : SManager(gameInstance), ISShaderManager
     {
-        private Effect[] shaders;
-        private int shadersLength;
+        private Effect[] effects;
+        private int effectsLength;
 
         public override void Initialize()
         {
-            this.shaders = this.SGameInstance.AssetDatabase.Shaders;
-            this.shadersLength = this.shaders.Length;
+            this.effects = ((SAssetDatabase)this.SGameInstance.AssetDatabase).GetAllEffects();
+            this.effectsLength = this.effects.Length;
         }
 
         public override void Update(GameTime gameTime)
         {
-            for (int i = 0; i < this.shadersLength; i++)
+            for (int i = 0; i < this.effectsLength; i++)
             {
-                this.shaders[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
+                this.effects[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
             }
+        }
+
+        public void Reset()
+        {
+            return;
         }
     }
 }

@@ -1,40 +1,42 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Chunking;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld
+    internal sealed partial class SWorld
     {
         public int GetActiveChunksCount()
         {
             return this.worldChunkingComponent.GetActiveChunksCount();
         }
 
-        public SWorldChunk[] GetActiveChunks()
+        public IEnumerable<SWorldChunk> GetActiveChunks()
         {
             return this.worldChunkingComponent.GetActiveChunks();
         }
 
-        public bool GetChunkUpdateState(Point pos)
+        public bool GetChunkUpdateState(Point position)
         {
-            _ = TryGetChunkUpdateState(pos, out bool result);
+            _ = TryGetChunkUpdateState(position, out bool result);
             return result;
         }
 
-        public void NotifyChunk(Point pos)
+        public void NotifyChunk(Point position)
         {
-            _ = TryNotifyChunk(pos);
+            _ = TryNotifyChunk(position);
         }
 
-        public bool TryGetChunkUpdateState(Point pos, out bool result)
+        public bool TryGetChunkUpdateState(Point position, out bool result)
         {
-            return this.worldChunkingComponent.TryGetChunkUpdateState(pos, out result);
+            return this.worldChunkingComponent.TryGetChunkUpdateState(position, out result);
         }
 
-        public bool TryNotifyChunk(Point pos)
+        public bool TryNotifyChunk(Point position)
         {
-            return this.worldChunkingComponent.TryNotifyChunk(pos);
+            return this.worldChunkingComponent.TryNotifyChunk(position);
         }
     }
 }

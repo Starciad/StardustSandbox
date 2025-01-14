@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UseWindowsForms>false</UseWindowsForms>
+		<PublishSelfContained>true</PublishSelfContained>
+        <PublishSingleFile>false</PublishSingleFile>
+        <PublishTrimmed>false</PublishTrimmed>
+        <PublishAot>false</PublishAot>
+        <PublishReadyToRun>false</PublishReadyToRun>
+        <TieredCompilation>false</TieredCompilation>
+        <UseWPF>false</UseWPF>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <NoWarn>WFAC010</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugType>embedded</DebugType>
+        <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <PropertyGroup>
+		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../data</BeautyLibsDir>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./data</BeautyLibsDir>
+		<DisableBeauty>False</DisableBeauty>
+		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
+		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
+		<BeautyEnableDebugging>False</BeautyEnableDebugging>
+		<BeautyUsePatch>True</BeautyUsePatch>
+		<BeautyLogLevel>Info</BeautyLogLevel>
+	</PropertyGroup>
+</Project>

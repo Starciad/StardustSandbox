@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.Animations
 {
-    public sealed class SAnimation(ISGame gameInstance, SAnimationFrame[] frames) : SGameObject(gameInstance), ISReset
+    public sealed class SAnimation(ISGame gameInstance, SAnimationFrame[] frames) : SGameObject(gameInstance), ISResettable
     {
         public Texture2D Texture { get; set; }
         public SAnimationFrame CurrentFrame => this.frames[this.currentFrameIndex];

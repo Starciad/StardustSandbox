@@ -4,6 +4,8 @@ namespace StardustSandbox.Core.Audio
 {
     public static class SSongEngine
     {
+        public static Song CurrentSong { get; private set; }
+
         public static float Volume
         {
             get => MediaPlayer.Volume;
@@ -32,6 +34,8 @@ namespace StardustSandbox.Core.Audio
             set => MediaPlayer.IsShuffled = value;
         }
 
+        public static MediaState State => MediaPlayer.State;
+
         public static void Play(Song song)
         {
             if (MediaPlayer.State != MediaState.Stopped)
@@ -39,6 +43,7 @@ namespace StardustSandbox.Core.Audio
                 Stop();
             }
 
+            CurrentSong = song;
             MediaPlayer.Play(song);
         }
 

@@ -5,5 +5,6 @@ namespace StardustSandbox.Core.Interfaces.GUI
     public interface ISGUILayoutBuilder
     {
         void AddElement<T>(T value) where T : SGUIElement;
+        void RemoveElement<T>(T value) where T : SGUIElement;
     }
 }

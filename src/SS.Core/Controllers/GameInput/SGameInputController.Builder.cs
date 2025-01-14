@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Enums.Gameplay;
+using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.InputSystem;
 using StardustSandbox.Core.InputSystem;
 

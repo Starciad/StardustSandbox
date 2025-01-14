@@ -1,289 +1,300 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World.Data;
+using StardustSandbox.Core.World.Slots;
 
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.World
 {
-    public sealed partial class SWorld : ISElementManager
+    internal sealed partial class SWorld
     {
-        public void InstantiateElement<T>(Point pos) where T : ISElement
+        public void InstantiateElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
+            InstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(identifier));
         }
-        public void InstantiateElement(Point pos, uint id)
+        public void InstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            InstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
+            _ = TryInstantiateElement(position, worldLayer, value);
         }
-        public void InstantiateElement(Point pos, ISElement value)
+        public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            _ = TryInstantiateElement(pos, value);
+            return TryInstantiateElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(identifier));
         }
-        public bool TryInstantiateElement<T>(Point pos) where T : ISElement
+        public bool TryInstantiateElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetIdOfElementType<T>());
-        }
-        public bool TryInstantiateElement(Point pos, uint id)
-        {
-            return TryInstantiateElement(pos, this.SGameInstance.ElementDatabase.GetElementById(id));
-        }
-        public bool TryInstantiateElement(Point pos, ISElement value)
-        {
-            if (!InsideTheWorldDimensions(pos) || !IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) || !IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
 
-            NotifyChunk(pos);
+            NotifyChunk(position);
 
-            SWorldSlot worldSlot = this.slots[pos.X, pos.Y];
+            SWorldSlot worldSlot = this.slots[position.X, position.Y];
 
-            worldSlot.Instantiate(value);
-            ((SElement)value).InstantiateStep(worldSlot);
+            worldSlot.Instantiate(position, worldLayer, value);
+
+            this.worldElementContext.UpdateInformation(position, worldLayer, worldSlot);
+
+            value.Context = this.worldElementContext;
+            value.InstantiateStep(worldSlot, worldLayer);
 
             return true;
         }
 
-        public void UpdateElementPosition(Point oldPos, Point newPos)
+        public void UpdateElementPosition(Point oldPosition, Point newPosition, SWorldLayer worldLayer)
         {
-            _ = TryUpdateElementPosition(oldPos, newPos);
+            _ = TryUpdateElementPosition(oldPosition, newPosition, worldLayer);
         }
-        public bool TryUpdateElementPosition(Point oldPos, Point newPos)
+        public bool TryUpdateElementPosition(Point oldPosition, Point newPosition, SWorldLayer worldLayer)
         {
-            if (!InsideTheWorldDimensions(oldPos) ||
-                !InsideTheWorldDimensions(newPos) ||
-                 IsEmptyElementSlot(oldPos) ||
-                !IsEmptyElementSlot(newPos))
+            if (!InsideTheWorldDimensions(oldPosition) ||
+                !InsideTheWorldDimensions(newPosition) ||
+                 IsEmptyWorldSlotLayer(oldPosition, worldLayer) ||
+                !IsEmptyWorldSlotLayer(newPosition, worldLayer))
             {
                 return false;
             }
 
-            NotifyChunk(oldPos);
-            NotifyChunk(newPos);
+            NotifyChunk(oldPosition);
+            NotifyChunk(newPosition);
 
-            this.slots[newPos.X, newPos.Y].Copy(this.slots[oldPos.X, oldPos.Y]);
-            this.slots[oldPos.X, oldPos.Y].Destroy();
+            this.slots[newPosition.X, newPosition.Y].Copy(worldLayer, this.slots[oldPosition.X, oldPosition.Y].GetLayer(worldLayer));
+            this.slots[newPosition.X, newPosition.Y].SetPosition(newPosition);
+            this.slots[oldPosition.X, oldPosition.Y].Destroy(worldLayer);
+
             return true;
         }
 
-        public void SwappingElements(Point element1Pos, Point element2Pos)
+        public void SwappingElements(Point element1Position, Point element2Position, SWorldLayer worldLayer)
         {
-            _ = TrySwappingElements(element1Pos, element2Pos);
+            _ = TrySwappingElements(element1Position, element2Position, worldLayer);
         }
-        public bool TrySwappingElements(Point element1Pos, Point element2Pos)
+        public bool TrySwappingElements(Point element1Position, Point element2Position, SWorldLayer worldLayer)
         {
-            if (!InsideTheWorldDimensions(element1Pos) ||
-                !InsideTheWorldDimensions(element2Pos) ||
-                IsEmptyElementSlot(element1Pos) ||
-                IsEmptyElementSlot(element2Pos))
+            if (!InsideTheWorldDimensions(element1Position) ||
+                !InsideTheWorldDimensions(element2Position) ||
+                IsEmptyWorldSlotLayer(element1Position, worldLayer) ||
+                IsEmptyWorldSlotLayer(element2Position, worldLayer))
             {
                 return false;
             }
 
-            NotifyChunk(element1Pos);
-            NotifyChunk(element2Pos);
+            NotifyChunk(element1Position);
+            NotifyChunk(element2Position);
 
             SWorldSlot tempSlot = this.worldSlotsPool.TryGet(out ISPoolableObject value) ? (SWorldSlot)value : new();
 
-            tempSlot.Copy(this.slots[element1Pos.X, element1Pos.Y]);
+            tempSlot.Copy(worldLayer, this.slots[element1Position.X, element1Position.Y].GetLayer(worldLayer));
 
-            this.slots[element1Pos.X, element1Pos.Y].Copy(this.slots[element2Pos.X, element2Pos.Y]);
-            this.slots[element2Pos.X, element2Pos.Y].Copy(tempSlot);
+            this.slots[element1Position.X, element1Position.Y].Copy(worldLayer, this.slots[element2Position.X, element2Position.Y].GetLayer(worldLayer));
+            this.slots[element2Position.X, element2Position.Y].Copy(worldLayer, tempSlot.GetLayer(worldLayer));
+
+            this.slots[element1Position.X, element1Position.Y].SetPosition(element1Position);
+            this.slots[element2Position.X, element2Position.Y].SetPosition(element2Position);
 
             this.worldSlotsPool.Add(tempSlot);
 
             return true;
         }
 
-        public void DestroyElement(Point pos)
+        public void DestroyElement(Point position, SWorldLayer worldLayer)
         {
-            _ = TryDestroyElement(pos);
+            _ = TryDestroyElement(position, worldLayer);
         }
-        public bool TryDestroyElement(Point pos)
+        public bool TryDestroyElement(Point position, SWorldLayer worldLayer)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
 
-            NotifyChunk(pos);
-            this.slots[pos.X, pos.Y].Destroy();
+            NotifyChunk(position);
+            this.slots[position.X, position.Y].Destroy(worldLayer);
 
             return true;
         }
 
-        public void ReplaceElement<T>(Point pos) where T : ISElement
+        public void ReplaceElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            _ = TryReplaceElement<T>(pos);
+            _ = TryReplaceElement(position, worldLayer, identifier);
         }
-        public void ReplaceElement(Point pos, uint id)
+        public void ReplaceElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            _ = TryReplaceElement(pos, id);
+            _ = TryReplaceElement(position, worldLayer, value);
         }
-        public void ReplaceElement(Point pos, ISElement value)
+        public bool TryReplaceElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            _ = TryReplaceElement(pos, value);
+            return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, identifier);
         }
-        public bool TryReplaceElement<T>(Point pos) where T : ISElement
+        public bool TryReplaceElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            return TryDestroyElement(pos) && TryInstantiateElement<T>(pos);
-        }
-        public bool TryReplaceElement(Point pos, uint id)
-        {
-            return TryDestroyElement(pos) && TryInstantiateElement(pos, id);
-        }
-        public bool TryReplaceElement(Point pos, ISElement value)
-        {
-            return TryDestroyElement(pos) && TryInstantiateElement(pos, value);
+            return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, value);
         }
 
-        public ISElement GetElement(Point pos)
+        public ISElement GetElement(Point position, SWorldLayer worldLayer)
         {
-            _ = TryGetElement(pos, out ISElement value);
+            _ = TryGetElement(position, worldLayer, out ISElement value);
             return value;
         }
-        public bool TryGetElement(Point pos, out ISElement value)
+        public bool TryGetElement(Point position, SWorldLayer worldLayer, out ISElement value)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 value = null;
                 return false;
             }
 
-            value = this.slots[pos.X, pos.Y].Element;
-            return true;
-        }
+            SWorldSlotLayer worldSlotLayer = this.slots[position.X, position.Y].GetLayer(worldLayer);
 
-        public ReadOnlySpan<(Point, ISWorldSlot)> GetElementNeighbors(Point pos)
-        {
-            _ = TryGetElementNeighbors(pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors);
-            return neighbors;
-        }
-        public bool TryGetElementNeighbors(Point pos, out ReadOnlySpan<(Point, ISWorldSlot)> neighbors)
-        {
-            neighbors = default;
-
-            if (!InsideTheWorldDimensions(pos))
+            if (worldSlotLayer.IsEmpty)
             {
+                value = null;
                 return false;
             }
 
-            Point[] neighborsPositions = SPointExtensions.GetNeighboringCardinalPoints(pos);
+            value = worldSlotLayer.Element;
+            return true;
+        }
 
-            (Point, ISWorldSlot)[] slotsFound = new (Point, ISWorldSlot)[neighborsPositions.Length];
-            int count = 0;
-
-            for (int i = 0; i < neighborsPositions.Length; i++)
+        public IEnumerable<SWorldSlot> GetNeighboringSlots(Point position)
+        {
+            foreach (Point neighborPosition in SPointExtensions.GetNeighboringCardinalPoints(position))
             {
-                Point position = neighborsPositions[i];
-                if (TryGetElementSlot(position, out ISWorldSlot value))
+                if (TryGetWorldSlot(neighborPosition, out SWorldSlot value))
                 {
-                    slotsFound[count] = (position, value);
-                    count++;
+                    yield return value;
                 }
             }
-
-            if (count > 0)
-            {
-                neighbors = new ReadOnlySpan<(Point, ISWorldSlot)>(slotsFound, 0, count);
-                return true;
-            }
-
-            return false;
         }
 
-        public ISWorldSlot GetElementSlot(Point pos)
+        public SWorldSlot GetWorldSlot(Point position)
         {
-            _ = TryGetElementSlot(pos, out ISWorldSlot value);
+            _ = TryGetWorldSlot(position, out SWorldSlot value);
             return value;
         }
-        public bool TryGetElementSlot(Point pos, out ISWorldSlot value)
+        public bool TryGetWorldSlot(Point position, out SWorldSlot value)
         {
             value = default;
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlot(position))
             {
                 return false;
             }
 
-            value = this.slots[pos.X, pos.Y];
+            value = this.slots[position.X, position.Y];
             return true;
         }
 
-        public void SetElementTemperature(Point pos, short value)
+        public void SetElementTemperature(Point position, SWorldLayer worldLayer, short value)
         {
-            _ = TrySetElementTemperature(pos, value);
+            _ = TrySetElementTemperature(position, worldLayer, value);
         }
-        public bool TrySetElementTemperature(Point pos, short value)
+        public bool TrySetElementTemperature(Point position, SWorldLayer worldLayer, short value)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
 
-            if (this.slots[pos.X, pos.Y].Temperature != value)
+            SWorldSlotLayer layer = this.slots[position.X, position.Y].GetLayer(worldLayer);
+
+            if (layer.Temperature != value)
             {
-                NotifyChunk(pos);
-                this.slots[pos.X, pos.Y].SetTemperatureValue(value);
+                NotifyChunk(position);
+                layer.SetTemperatureValue(value);
             }
 
             return true;
         }
 
-        public void SetElementFreeFalling(Point pos, bool value)
+        public void SetElementFreeFalling(Point position, SWorldLayer worldLayer, bool value)
         {
-            _ = TrySetElementFreeFalling(pos, value);
+            _ = TrySetElementFreeFalling(position, worldLayer, value);
         }
 
-        public bool TrySetElementFreeFalling(Point pos, bool value)
+        public bool TrySetElementFreeFalling(Point position, SWorldLayer worldLayer, bool value)
         {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
-            {
-                return false;
-            }
-
-            this.slots[pos.X, pos.Y].SetFreeFalling(value);
-
-            return true;
-        }
-
-        public void SetElementColor(Point pos, Color value)
-        {
-            _ = TrySetElementColor(pos, value);
-        }
-        public bool TrySetElementColor(Point pos, Color value)
-        {
-            if (!InsideTheWorldDimensions(pos) ||
-                 IsEmptyElementSlot(pos))
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
             {
                 return false;
             }
 
-            this.slots[pos.X, pos.Y].SetColor(value);
+            this.slots[position.X, position.Y].GetLayer(worldLayer).SetFreeFalling(value);
 
             return true;
         }
 
-        // Tools
-        public bool IsEmptyElementSlot(Point pos)
+        public void SetElementColorModifier(Point position, SWorldLayer worldLayer, Color value)
         {
-            return !InsideTheWorldDimensions(pos) || this.slots[pos.X, pos.Y].IsEmpty;
+            _ = TrySetElementColorModifier(position, worldLayer, value);
+        }
+        public bool TrySetElementColorModifier(Point position, SWorldLayer worldLayer, Color value)
+        {
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
+            {
+                return false;
+            }
+
+            this.slots[position.X, position.Y].GetLayer(worldLayer).SetColorModifier(value);
+
+            return true;
         }
 
-        public bool InsideTheWorldDimensions(Point pos)
+        public bool IsEmptyWorldSlot(Point position)
         {
-            return pos.X >= 0 && pos.X < this.Infos.Size.Width &&
-                   pos.Y >= 0 && pos.Y < this.Infos.Size.Height;
+            return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].IsEmpty;
+        }
+
+        public bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer)
+        {
+            return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].GetLayer(worldLayer).IsEmpty;
+        }
+
+        public uint GetTotalElementCount()
+        {
+            return GetTotalForegroundElementCount() + GetTotalBackgroundElementCount();
+        }
+
+        public uint GetTotalForegroundElementCount()
+        {
+            return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.IsEmpty);
+        }
+
+        public uint GetTotalBackgroundElementCount()
+        {
+            return GetTotalElementCountForLayer(slot => !slot.BackgroundLayer.IsEmpty);
+        }
+
+        private uint GetTotalElementCountForLayer(Func<SWorldSlot, bool> predicate)
+        {
+            uint count = 0;
+            object lockObj = new();
+
+            _ = Parallel.For(0, this.Infos.Size.Height, y =>
+            {
+                uint localCount = 0;
+
+                for (int x = 0; x < this.Infos.Size.Width; x++)
+                {
+                    if (TryGetWorldSlot(new(x, y), out SWorldSlot value) && predicate(value))
+                    {
+                        localCount++;
+                    }
+                }
+
+                lock (lockObj)
+                {
+                    count += localCount;
+                }
+            });
+
+            return count;
         }
     }
 }

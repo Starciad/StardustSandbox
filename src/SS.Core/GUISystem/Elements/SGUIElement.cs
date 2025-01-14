@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Objects;
 

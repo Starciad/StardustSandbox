@@ -1,26 +1,26 @@
 ﻿using StardustSandbox.Core.Entities;
-using StardustSandbox.Core.Interfaces.General;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Databases;
 using StardustSandbox.Core.Objects;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
-    public sealed class SEntityDatabase(ISGame gameInstance) : SGameObject(gameInstance)
+    internal sealed class SEntityDatabase(ISGame gameInstance) : SGameObject(gameInstance), ISEntityDatabase
     {
-        public IReadOnlyDictionary<Type, SEntityDescriptor> RegisteredEntities => this._registeredEntities;
+        public IReadOnlyDictionary<string, SEntityDescriptor> RegisteredDescriptors => this.registeredDescriptors;
 
-        private readonly Dictionary<Type, SEntityDescriptor> _registeredEntities = [];
+        private readonly Dictionary<string, SEntityDescriptor> registeredDescriptors = [];
 
-        public void RegisterEntity(SEntityDescriptor descriptor)
+        public void RegisterEntityDescriptor(SEntityDescriptor descriptor)
         {
-            this._registeredEntities.Add(descriptor.AssociatedEntityType, descriptor);
+            this.registeredDescriptors.Add(descriptor.Identifier, descriptor);
         }
 
-        public SEntityDescriptor GetEntityDescriptor(Type entityType)
+        public SEntityDescriptor GetEntityDescriptor(string entityIdentifier)
         {
-            return this._registeredEntities[entityType];
+            return this.registeredDescriptors[entityIdentifier];
         }
     }
 }

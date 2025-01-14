@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Enums.InputSystem;
-using StardustSandbox.Core.Interfaces.General;
-using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.Managers;
 using StardustSandbox.Core.Objects;
 
 namespace StardustSandbox.Core.InputSystem
@@ -13,10 +13,6 @@ namespace StardustSandbox.Core.InputSystem
         public SInputActionMap ActionMap => this._actionMap;
 
         private SInputActionMap _actionMap;
-        private readonly SInputManager _inputManager;
-
-        private readonly Keys[] _keys;
-        private readonly SMouseButton[] _mouseButtons;
 
         private CallbackContext callback;
 
@@ -32,21 +28,25 @@ namespace StardustSandbox.Core.InputSystem
         public delegate void Performed(CallbackContext context);
         public delegate void Canceled(CallbackContext context);
 
-        public SInputAction(ISGame gameInstance, SInputManager inputManager, params Keys[] keys) : base(gameInstance)
+        private readonly Keys[] _keys;
+        private readonly SMouseButton[] _mouseButtons;
+        private readonly ISInputManager _inputManager;
+
+        public SInputAction(ISGame gameInstance, ISInputManager inputManager, params Keys[] keys) : base(gameInstance)
         {
             this._inputManager = inputManager;
             this._keys = keys;
             this._mouseButtons = [];
         }
 
-        public SInputAction(ISGame gameInstance, SInputManager inputManager, params SMouseButton[] mouseButtons) : base(gameInstance)
+        public SInputAction(ISGame gameInstance, ISInputManager inputManager, params SMouseButton[] mouseButtons) : base(gameInstance)
         {
             this._inputManager = inputManager;
             this._keys = [];
             this._mouseButtons = mouseButtons;
         }
 
-        public SInputAction(ISGame gameInstance, SInputManager inputManager, Keys[] keys, SMouseButton[] mouseButtons) : base(gameInstance)
+        public SInputAction(ISGame gameInstance, ISInputManager inputManager, Keys[] keys, SMouseButton[] mouseButtons) : base(gameInstance)
         {
             this._inputManager = inputManager;
             this._keys = keys;

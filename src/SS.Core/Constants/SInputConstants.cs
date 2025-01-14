@@ -2,7 +2,7 @@
 {
     public static class SInputConstants
     {
-        public const byte PEN_MIN_SIZE = 01;
-        public const byte PEN_MAX_SIZE = 10;
+        public const sbyte PEN_MIN_SIZE = 00;
+        public const sbyte PEN_MAX_SIZE = 09;
     }
 }
