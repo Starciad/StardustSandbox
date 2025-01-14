@@ -12,11 +12,6 @@ Written in C# (CSharp) using the MonoGame framework, Stardust Sandbox is a simul
 
 You are encouraged to create and share your creations in a constantly evolving game, providing more and more content to satisfy your creativity. Explore the endless possibilities of the game by configuring the environment according to your preferences, with no limitations hindering your creations!
 
-## Download
-
-> [!IMPORTANT]  
-> The game has not been officially released yet, preventing a complete experience. Even when trying to build it from the source code, the assets are not available to provide a full experience.
-
 ## Requirements
 
 Here are the necessary requirements for the game to function correctly:
@@ -30,6 +25,12 @@ Here are the necessary requirements for the game to function correctly:
 
 > [!IMPORTANT]
 > For the Linux version, you must have the `xdg-utils` package installed on your system.
+
+## Downloads
+
+The game is available in the following stores:
+
+[![available_itch]](https://starciad.itch.io/stardust-sandbox)
 
 ## Changelog
 
@@ -67,3 +68,4 @@ All game assets (graphics, music, sound effects, and other content) are licensed
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [game_logo]: ./.github/CONTENT/graphics/game/game_title.webp
+[available_itch]: https://static.itch.io/images/badge.svg
