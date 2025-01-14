@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
@@ -14,13 +14,13 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information
 {
     internal sealed partial class SGUI_Information : SGUISystem
     {
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
-        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D panelBackgroundTexture;
+        private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D[] iconTextures;
         private readonly SpriteFont bigApple3PMSpriteFont;
 
@@ -31,8 +31,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         internal SGUI_Information(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-            this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_10");
+            this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.iconTextures = [
@@ -62,12 +62,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             {
                 SSlot slot = this.menuButtonSlots[i];
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)) ? SColorPalette.HoverColor : SColorPalette.White;
+                slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)) ? SColorPalette.HoverColor : SColorPalette.White;
             }
         }
     }

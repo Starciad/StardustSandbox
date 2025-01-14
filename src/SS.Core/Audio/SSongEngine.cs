@@ -4,6 +4,8 @@ namespace StardustSandbox.Core.Audio
 {
     public static class SSongEngine
     {
+        public static Song CurrentSong { get; private set; }
+
         public static float Volume
         {
             get => MediaPlayer.Volume;
@@ -41,6 +43,7 @@ namespace StardustSandbox.Core.Audio
                 Stop();
             }
 
+            CurrentSong = song;
             MediaPlayer.Play(song);
         }
 

@@ -10,10 +10,10 @@ using System;
 
 namespace StardustSandbox.Core.World.General
 {
-    public sealed class SWorldTime(ISGame gameInstance) : SGameObject(gameInstance), ISReset
+    public sealed class SWorldTime(ISGame gameInstance) : SGameObject(gameInstance), ISResettable
     {
         public TimeSpan CurrentTime => this.currentTime;
-        public float SecondsPerFrames { get; set; } = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
+        public float SecondsPerFrames { get; set; } = STimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
         public bool IsFrozen { get; set; } = false;
 
         private TimeSpan currentTime = STimeConstants.DEFAULT_START_TIME_OF_DAY;
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.World.General
         public void Reset()
         {
             this.IsFrozen = false;
-            this.SecondsPerFrames = STimeConstants.DEFAULT_SECONDS_PER_FRAMES;
+            this.SecondsPerFrames = STimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
             this.currentTime = STimeConstants.DEFAULT_START_TIME_OF_DAY;
         }
     }

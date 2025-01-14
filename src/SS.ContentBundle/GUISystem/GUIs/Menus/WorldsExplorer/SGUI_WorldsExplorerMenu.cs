@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Extensions;
@@ -16,7 +16,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
 {
     internal sealed partial class SGUI_WorldsExplorerMenu : SGUISystem
     {
@@ -51,7 +51,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private SWorldSaveFile[] savedWorldFilesLoaded;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D guiButton2Texture;
         private readonly Texture2D exitIconTexture;
         private readonly Texture2D reloadIconTexture;
@@ -66,7 +66,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         internal SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_WorldDetailsMenu detailsMenu) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiButton1Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.guiSmallButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.guiButton2Texture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_2");
             this.exitIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_15");
             this.reloadIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_5");
@@ -105,7 +105,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(buttonBackgroundElement.Position, buttonSize))
                 {
-                    this.headerButtons[i].ClickAction.Invoke();
+                    this.headerButtons[i].ClickAction?.Invoke();
                 }
 
                 buttonBackgroundElement.Color = this.GUIEvents.OnMouseOver(buttonBackgroundElement.Position, buttonSize) ? SColorPalette.LightGrayBlue : SColorPalette.White;
@@ -119,7 +119,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElementSize))
                 {
-                    this.footerButtons[i].ClickAction.Invoke();
+                    this.footerButtons[i].ClickAction?.Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? SColorPalette.LemonYellow : SColorPalette.White;
@@ -153,7 +153,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         {
             this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
-            this.pageIndexLabel?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
+            this.pageIndexLabelElement?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
         }
 
         private void ChangeWorldsCatalog()

@@ -61,7 +61,7 @@ namespace StardustSandbox.ContentBundle.Components.AI.Entities.Specials
         {
             this.world = gameInstance.World;
             this.transformComponent = transformComponent;
-            this.worldSize = this.world.Infos.Size * SWorldConstants.GRID_SCALE;
+            this.worldSize = this.world.Infos.Size * SWorldConstants.GRID_SIZE;
             this.selectedElement = AllowedElements.GetRandomItem();
 
             SelectRandomPosition();
@@ -116,7 +116,7 @@ namespace StardustSandbox.ContentBundle.Components.AI.Entities.Specials
 
         private void ExecuteStateActions()
         {
-            Point gridPosition = (this.transformComponent.Position / SWorldConstants.GRID_SCALE).ToPoint();
+            Point gridPosition = (this.transformComponent.Position / SWorldConstants.GRID_SIZE).ToPoint();
 
             switch (this.currentMoveState)
             {

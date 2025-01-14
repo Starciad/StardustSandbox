@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.WorldSettings
 {
     internal sealed partial class SGUI_WorldSettings
     {
@@ -13,8 +13,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         // Sizes
         private void SetWorldSizeButtonAction(SSize2 size)
         {
-            this.SGameInstance.World.StartNew(size);
-            ExitButtonAction();
+            this.SGameInstance.GUIManager.CloseGUI();
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
+            this.worldTargetSize = size;
+            this.guiConfirm.Configure(this.changeWorldSizeConfirmSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
         }
     }
 }

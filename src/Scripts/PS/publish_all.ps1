@@ -1,12 +1,5 @@
 # ================================================= #
-#                                                   #
-# This script aims to assist in the process of      #
-# compiling and publishing the project in the most  #
-# diverse versions and platforms in an automated    #
-# and easy way. In addition, it creates rules and   #
-# regulated outputs according to the definitions    #
-# used by Stardust Sandbox (SS).                    #
-#                                                   #
+# Stardust Sandbox Build Pipeline                   #
 # ================================================= #
 
 # Clear the console window
@@ -26,9 +19,18 @@ $platforms = @("win-x64", "linux-x64", "osx-x64")
 
 # Function to publish a project for a given platform
 function Publish-Project($projectName, $projectPath, $platform) {
+    $publishDir = "$outputDirectory\$gameName.$gameVersion.$projectName.$platform"
+
     Write-Host "Publishing $projectPath for $platform..."
-    dotnet publish $projectPath -c Release -r $platform --output "$outputDirectory\$gameName $gameVersion ($projectName) [$platform]"
-    Write-Host "Publishing to $platform completed."
+    dotnet publish $projectPath -c Release -r $platform --output $publishDir
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Publishing failed for $platform."
+        return
+    }
+
+    # Organize the published output
+    nbeauty2 --usepatch --loglevel Detail $publishDir "data"
+    Write-Host "Publishing and organization for $platform completed."
 }
 
 # Function to delete specified subdirectories
@@ -68,7 +70,7 @@ Write-Host "All publishing processes have been completed."
 Write-Host "Copying assets directory..."
 
 $source = "..\..\SS.ContentBundle\assets"
-$destination = "$outputDirectory\$gameName $gameVersion (Assets)\assets"
+$destination = "$outputDirectory\$gameName.$gameVersion.assets)\assets"
 $subdirectoriesToDelete = @("bin", "obj")
 
 # Copy the source folder to the destination

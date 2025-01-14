@@ -117,13 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Confirm.Simulation.EraseEverything.Description" xml:space="preserve">
+    <value>Você está prestes a apagar todo o conteúdo do mundo. Isso inclui elementos, itens e quaisquer outros dados. O mundo será restaurado ao estado vazio. Esta ação é irreversível. Deseja mesmo continuar?</value>
+  </data>
+  <data name="Confirm.Simulation.EraseEverything.Title" xml:space="preserve">
+    <value>Você realmente deseja apagar todo conteúdo do mundo?</value>
+  </data>
+  <data name="Confirm.Simulation.Exit.Description" xml:space="preserve">
+    <value>Se você sair agora, todo o progresso será perdido, a menos que sua criação tenha sido salva. Certifique-se de salvar antes de sair para evitar perder seu trabalho. Você quer continuar?</value>
+  </data>
+  <data name="Confirm.Simulation.Exit.Title" xml:space="preserve">
+    <value>Tem certeza de que deseja sair?</value>
+  </data>
+  <data name="Confirm.Simulation.Reload.Description" xml:space="preserve">
+    <value>Você está prestes a recarregar uma simulação. Isso restaurará o mundo para o estado inicial do arquivo carregado. Se nenhum arquivo foi carregado, o mundo será reiniciado por completo. Esta ação é irreversível. Deseja continuar?</value>
+  </data>
+  <data name="Confirm.Simulation.Reload.Title" xml:space="preserve">
+    <value>Você realmente deseja reiniciar o mundo?</value>
+  </data>
+  <data name="Confirm.World.Resize.Description" xml:space="preserve">
+    <value>Para alterar o tamanho do mundo, todo o conteúdo atual precisará ser apagado. Isso resultará na perda de todo o progresso caso as informações não tenham sido salvas. Certifique-se de salvar antes de continuar. Deseja realmente alterar o tamanho do mundo?</value>
+  </data>
+  <data name="Confirm.World.Resize.Title" xml:space="preserve">
+    <value>Alteração de Tamanho do Mundo - Progresso Será Perdido</value>
+  </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Insira a descrição que o mundo terá.</value>
+  </data>
+  <data name="Input.World.Description.Validation.Empty" xml:space="preserve">
+    <value>A descrição do mundo não pode estar vazia. Por favor, insira uma descrição para o seu mundo.</value>
   </data>
   <data name="Input.World.Name" xml:space="preserve">
     <value>Insira o nome que o mundo terá.</value>
   </data>
+  <data name="Input.World.Name.Validation.Empty" xml:space="preserve">
+    <value>O nome do mundo não pode estar vazio. Por favor, insira um nome com pelo menos um caractere.</value>
+  </data>
   <data name="NoDescription" xml:space="preserve">
     <value>Nenhuma descrição foi fornecida.</value>
+  </data>
+  <data name="Settings.RestartRequired" xml:space="preserve">
+    <value>Algumas configurações, como a linguagem do jogo, só serão aplicadas após reiniciar o jogo.</value>
   </data>
 </root>

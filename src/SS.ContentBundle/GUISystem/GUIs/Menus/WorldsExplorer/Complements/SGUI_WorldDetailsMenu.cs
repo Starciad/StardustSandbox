@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
@@ -10,7 +10,7 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu : SGUISystem
     {
@@ -53,7 +53,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 
                 if (this.GUIEvents.OnMouseClick(buttonPosition, buttonSize))
                 {
-                    this.worldButtons[i].ClickAction.Invoke();
+                    this.worldButtons[i].ClickAction?.Invoke();
                 }
 
                 slotInfoElement.Color = this.GUIEvents.OnMouseOver(buttonPosition, buttonSize) ? SColorPalette.LemonYellow : SColorPalette.White;

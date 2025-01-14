@@ -4,7 +4,7 @@ namespace StardustSandbox.Core.Interfaces.Databases
 {
     public interface ISGUIDatabase
     {
-        void RegisterGUISystem(string identifier, SGUISystem guiSystem);
+        void RegisterGUISystem(SGUISystem guiSystem);
         SGUISystem GetGUISystemById(string identifier);
     }
 }

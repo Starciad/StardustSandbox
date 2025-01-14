@@ -2,5 +2,5 @@
 
 namespace StardustSandbox.Core.Interfaces.Collections
 {
-    public interface ISPoolableObject : ISReset { }
+    public interface ISPoolableObject : ISResettable { }
 }

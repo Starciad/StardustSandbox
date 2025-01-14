@@ -11,6 +11,7 @@ namespace StardustSandbox.Core.Interfaces.Managers
 
         public Viewport Viewport { get; }
 
+        void ApplySettings();
         Vector2 GetScreenScaleFactor();
     }
 }

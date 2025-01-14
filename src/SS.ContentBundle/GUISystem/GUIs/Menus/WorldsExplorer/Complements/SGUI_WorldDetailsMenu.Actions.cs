@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.IO.Handlers;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu
     {

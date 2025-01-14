@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.Core.Interfaces.Ambient.Handlers
 {
-    public interface ISCloudHandler : ISReset
+    public interface ISCloudHandler : ISResettable
     {
         bool IsActive { get; set; }
     }

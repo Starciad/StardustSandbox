@@ -28,14 +28,12 @@ namespace StardustSandbox.Core.World
 
         private void UpdateWorld(GameTime gameTime)
         {
-            if (this.currentFrameUpdateSlotsDelay > 0)
-            {
-                this.currentFrameUpdateSlotsDelay--;
-                return;
-            }
+            this.Simulation.Update();
 
-            this.currentFrameUpdateSlotsDelay = this.totalFramesUpdateSlotsDelay;
-            this.componentContainer.Update(gameTime);
+            if (this.Simulation.CanContinueExecution())
+            {
+                this.componentContainer.Update(gameTime);
+            }
         }
 
         private void UpdateEntities(GameTime gameTime)

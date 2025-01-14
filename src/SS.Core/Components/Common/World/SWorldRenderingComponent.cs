@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Components.Templates;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Contexts;
@@ -49,7 +50,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
         private IEnumerable<SWorldSlot> GetAllSlotsForRendering(SpriteBatch spriteBatch)
         {
-            float gridScale = SWorldConstants.GRID_SCALE * this.cameraManager.Zoom;
+            float gridScale = SWorldConstants.GRID_SIZE * this.cameraManager.Zoom;
 
             Vector2 cameraTopLeft = this.cameraManager.ScreenToWorld(Vector2.Zero);
             Vector2 cameraBottomRight = this.cameraManager.ScreenToWorld(new(SScreenConstants.DEFAULT_SCREEN_WIDTH, SScreenConstants.DEFAULT_SCREEN_HEIGHT));
@@ -74,13 +75,13 @@ namespace StardustSandbox.Core.Components.Common.World
                 for (int x = minSlot.X; x <= maxSlot.X; x++)
                 {
                     Vector2 targetPosition = new(x, y);
-                    SSize2 targetSize = new(SWorldConstants.GRID_SCALE);
+                    SSize2 targetSize = new(SWorldConstants.GRID_SIZE);
 
-                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SCALE, targetSize, true, SWorldConstants.GRID_SCALE))
+                    if (this.cameraManager.InsideCameraBounds(targetPosition * SWorldConstants.GRID_SIZE, targetSize, true, SWorldConstants.GRID_SIZE))
                     {
                         if (this.SGameInstance.GameInputController.Pen.Tool != SPenTool.Visualization)
                         {
-                            spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SCALE, null, new Color(Color.White, 16), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                            spriteBatch.Draw(this.gridTexture, targetPosition * SWorldConstants.GRID_SIZE, null, new Color(SColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                         }
 
                         if (this.SWorldInstance.TryGetWorldSlot(targetPosition.ToPoint(), out SWorldSlot value))

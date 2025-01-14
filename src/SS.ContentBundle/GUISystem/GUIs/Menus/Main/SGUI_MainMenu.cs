@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
@@ -17,7 +17,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
 {
     internal sealed partial class SGUI_MainMenu : SGUISystem
     {
@@ -169,7 +169,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 if (this.GUIEvents.OnMouseClick(labelElement.Position, labelElementSize))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 labelElement.Color = this.GUIEvents.OnMouseOver(labelElement.Position, labelElementSize) ? SColorPalette.LemonYellow : SColorPalette.White;

@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Ambient.Handlers;
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.GameInput.Pen;
+
+using System;
 
 namespace StardustSandbox.Core
 {
@@ -22,18 +26,23 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.Clear(SColorPalette.DarkGray);
 
             // BACKGROUND
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
 
             // SCENE & LIGHTING
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.Draw(this.graphicsManager.WorldLightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
 
+            // DETAILS
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            DrawCursorPenActionArea();
+            this.spriteBatch.End();
+
             // GUI
-            this.spriteBatch.Begin();
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.GuiRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
             #endregion
@@ -126,7 +135,6 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldLightingRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
-
             this.spriteBatch.End();
         }
 
@@ -137,6 +145,36 @@ namespace StardustSandbox.Core
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.guiManager.Draw(gameTime, this.spriteBatch);
             this.spriteBatch.End();
+        }
+
+        private void DrawCursorPenActionArea()
+        {
+            SPenTool penTool = this.gameInputController.Pen.Tool;
+
+            if (penTool == SPenTool.Visualization || penTool == SPenTool.Fill)
+            {
+                return;
+            }
+
+            Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
+            Vector2 worldMousePosition = this.cameraManager.ScreenToWorld(mousePosition);
+
+            Point alignedPosition = new(
+                (int)Math.Floor(worldMousePosition.X / SWorldConstants.GRID_SIZE),
+                (int)Math.Floor(worldMousePosition.Y / SWorldConstants.GRID_SIZE)
+            );
+
+            foreach (Point point in this.gameInputController.Pen.GetShapePoints(alignedPosition))
+            {
+                Vector2 worldPosition = new(
+                    point.X * SWorldConstants.GRID_SIZE,
+                    point.Y * SWorldConstants.GRID_SIZE
+                );
+
+                Vector2 screenPosition = this.cameraManager.WorldToScreen(worldPosition);
+
+                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, this.gameplaySettings.PreviewAreaColor, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            }
         }
     }
 }

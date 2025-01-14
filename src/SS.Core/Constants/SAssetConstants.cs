@@ -33,8 +33,8 @@
         public const byte GRAPHICS_GAME_TITLES_LENGTH = 001;
 
         // Gui
-        public const byte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 006;
-        public const byte GRAPHICS_GUI_BUTTONS_LENGTH = 003;
+        public const byte GRAPHICS_GUI_BACKGROUNDS_LENGTH = 016;
+        public const byte GRAPHICS_GUI_BUTTONS_LENGTH = 007;
         public const byte GRAPHICS_GUI_FIELDS_LENGTH = 002;
         public const byte GRAPHICS_GUI_SLIDERS_LENGTH = 001;
 
@@ -42,7 +42,7 @@
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 002;
         public const byte GRAPHICS_ICONS_ENTITIES_LENGTH = 000;
         public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 025;
-        public const byte GRAPHICS_ICONS_GUI_LENGTH = 043;
+        public const byte GRAPHICS_ICONS_GUI_LENGTH = 052;
 
         // Miscellaneous
         public const byte GRAPHICS_MISCELLANEOUS = 001;
@@ -51,7 +51,7 @@
         public const byte GRAPHICS_PARTICLES_LENGTH = 001;
 
         // Shapes
-        public const byte GRAPHICS_SHAPES_SQUARES_LENGTH = 002;
+        public const byte GRAPHICS_SHAPES_SQUARES_LENGTH = 003;
 
         // Third Parties
         public const byte GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH = 002;

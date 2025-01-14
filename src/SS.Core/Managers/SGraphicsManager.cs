@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Managers
         public SGraphicsManager(ISGame gameInstance, GraphicsDeviceManager graphicsDeviceManager) : base(gameInstance)
         {
             this._graphicsDeviceManager = graphicsDeviceManager;
-            UpdateSettings();
+            ApplySettings();
         }
 
         public override void Initialize()
@@ -52,30 +52,35 @@ namespace StardustSandbox.Core.Managers
             this.worldLightingRenderTarget = new(this.GraphicsDevice, width, height);
         }
 
-        internal void UpdateSettings()
+        internal void SetGameWindow(GameWindow gameWindow)
+        {
+            this.GameWindow = gameWindow;
+        }
+
+        public void ApplySettings()
         {
             SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 
-            if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
+            if (this.GameWindow != null)
+            {
+                this.GameWindow.IsBorderless = videoSettings.Borderless;
+            }
+
+            if (videoSettings.Resolution.Width == 0 || videoSettings.Resolution.Height == 0)
             {
                 this._graphicsDeviceManager.PreferredBackBufferWidth = SScreenConstants.DEFAULT_SCREEN_WIDTH;
                 this._graphicsDeviceManager.PreferredBackBufferHeight = SScreenConstants.DEFAULT_SCREEN_HEIGHT;
             }
             else
             {
-                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.ScreenWidth;
-                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.ScreenHeight;
+                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Resolution.Width;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Resolution.Height;
             }
 
             this._graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
             this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
-        }
-
-        internal void SetGameWindow(GameWindow gameWindow)
-        {
-            this.GameWindow = gameWindow;
         }
 
         public Vector2 GetScreenScaleFactor()

@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.ContentBundle.Localization.Tools;
@@ -18,7 +18,7 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettings
 {
     internal sealed partial class SGUI_PenSettings : SGUISystem
     {
@@ -27,10 +27,9 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private int shapeButtonSelectedIndex;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
-        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D panelBackgroundTexture;
+        private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D guiSliderTexture;
-
         private readonly Texture2D eraserIconTexture;
         private readonly Texture2D exitIconTexture;
         private readonly Texture2D penIconTexture;
@@ -63,8 +62,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             this.layerButtonSelectedIndex = 0;
 
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-            this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_8");
+            this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.guiSliderTexture = gameInstance.AssetDatabase.GetTexture("gui_slider_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
@@ -121,8 +120,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             ];
 
             this.shapeButtons = [
-                new(this.squareShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => SelectShapeButtonAction(SPenShape.Circle)),
-                new(this.circleShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => SelectShapeButtonAction(SPenShape.Square)),
+                new(this.circleShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => SelectShapeButtonAction(SPenShape.Circle)),
+                new(this.squareShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => SelectShapeButtonAction(SPenShape.Square)),
                 new(this.triangleShapeIconTexture, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, SLocalization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => SelectShapeButtonAction(SPenShape.Triangle)),
             ];
 
@@ -171,18 +170,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -197,8 +196,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private void UpdateBrushSizeSlider()
         {
             Vector2 basePosition = this.brushSizeSliderElement.Position;
-            Vector2 offset = new(SGUI_HUDConstants.SLOT_SIZE);
-            SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+            Vector2 offset = new(SGUI_HUDConstants.GRID_SIZE);
+            SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
             for (int i = 0; i < this.brushSizeSliderClipTextures.Length; i++)
             {
@@ -227,21 +226,21 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
                 SSlot slot = this.toolButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.toolButtons[i].ClickAction.Invoke();
+                    this.toolButtons[i].ClickAction?.Invoke();
                 }
 
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.toolButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.toolButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.toolButtons[i].Description;
                 }
 
@@ -254,18 +253,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
                 SSlot slot = this.layerButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
                 {
-                    this.layerButtons[i].ClickAction.Invoke();
+                    this.layerButtons[i].ClickAction?.Invoke();
                 }
 
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.layerButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.layerButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.layerButtons[i].Description;
                 }
 
@@ -278,18 +277,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
                 SSlot slot = this.shapeButtonSlots[i];
-                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE));
+                bool isOver = this.GUIEvents.OnMouseOver(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE));
 
-                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.SLOT_SIZE)))
+                if (this.GUIEvents.OnMouseClick(slot.BackgroundElement.Position, new(SGUI_HUDConstants.GRID_SIZE)))
                 {
-                    this.shapeButtons[i].ClickAction.Invoke();
+                    this.shapeButtons[i].ClickAction?.Invoke();
                 }
 
                 if (isOver)
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.shapeButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.shapeButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.shapeButtons[i].Description;
                 }
 

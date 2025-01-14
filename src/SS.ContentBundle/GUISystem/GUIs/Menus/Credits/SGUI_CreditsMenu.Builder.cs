@@ -11,7 +11,7 @@ using StardustSandbox.Core.Interfaces.GUI;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits
 {
     internal sealed partial class SGUI_CreditsMenu
     {
@@ -100,6 +100,24 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 new() {
                     Text = "Focsi",
+                },
+            ]));
+
+            this.creditSections.Add(new(SLocalization_GUIs.Menu_Credits_Title_Testers, [
+                new() {
+                    Text = "Igor S. Zizinio",
+                },
+
+                new() {
+                    Text = "Focsi",
+                },
+
+                new() {
+                    Text = "Gabriel \"Insanya\" Cordeiro",
+                },
+
+                new() {
+                    Text = "Eduardo \"Ice227\" Wesley",
                 },
             ]));
 

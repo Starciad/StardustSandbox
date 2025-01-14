@@ -4,7 +4,7 @@ namespace StardustSandbox.Core.Constants
 {
     public static class SWorldConstants
     {
-        public const byte GRID_SCALE = 32;
+        public const byte GRID_SIZE = 32;
         public const byte CHUNK_SCALE = 6;
         public const byte CHUNK_DEFAULT_COOLDOWN = 3;
         public const float BACKGROUND_COLOR_DARKENING_FACTOR = 0.5f;

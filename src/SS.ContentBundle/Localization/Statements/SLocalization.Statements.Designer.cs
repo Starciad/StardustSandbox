@@ -70,6 +70,24 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Continue.
+        /// </summary>
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Disable.
         /// </summary>
         internal static string Disable {
@@ -138,6 +156,24 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         internal static string No_Short {
             get {
                 return ResourceManager.GetString("No.Short", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Options.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resume.
+        /// </summary>
+        internal static string Resume {
+            get {
+                return ResourceManager.GetString("Resume", resourceCulture);
             }
         }
         
@@ -219,6 +255,15 @@ namespace StardustSandbox.ContentBundle.Localization.Statements {
         internal static string Untitled {
             get {
                 return ResourceManager.GetString("Untitled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

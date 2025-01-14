@@ -4,10 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Specials;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.InputSystem.Settings;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.ContentBundle.Localization.Statements;
@@ -20,14 +21,14 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSettings
 {
     internal sealed partial class SGUI_SaveSettings : SGUISystem
     {
         private Texture2D worldThumbnailTexture;
 
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
+        private readonly Texture2D panelBackgroundTexture;
         private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D guiLargeButtonTexture;
         private readonly Texture2D guiFieldTexture;
@@ -40,17 +41,17 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         private readonly SButton[] footerButtons;
 
         private readonly ISWorld world;
-        private readonly SGUI_Input guiInput;
+        private readonly SGUI_TextInput guiInput;
 
-        private readonly SInputSettings nameInputBuilder;
-        private readonly SInputSettings descriptionInputBuilder;
+        private readonly STextInputSettings nameInputBuilder;
+        private readonly STextInputSettings descriptionInputBuilder;
 
         private readonly SGUITooltipBoxElement tooltipBoxElement;
 
-        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_Input guiInput, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_SaveSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_TextInput guiInput, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_11");
             this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.guiLargeButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_3");
             this.guiFieldTexture = gameInstance.AssetDatabase.GetTexture("gui_field_1");
@@ -88,7 +89,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 InputRestriction = SInputRestriction.Alphanumeric,
                 MaxCharacters = 50,
 
-                OnSendCallback = (SArgumentResult result) =>
+                OnValidationCallback = (STextValidationState validationState, STextArgumentResult result) =>
+                {
+                    if (string.IsNullOrWhiteSpace(result.Content))
+                    {
+                        validationState.Status = SValidationStatus.Failure;
+                        validationState.Message = SLocalization_Messages.Input_World_Name_Validation_Empty;
+                    }
+                },
+
+                OnSendCallback = (STextArgumentResult result) =>
                 {
                     this.world.Infos.Name = result.Content;
                 },
@@ -99,6 +109,15 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 Synopsis = SLocalization_Messages.Input_World_Description,
                 InputMode = SInputMode.Normal,
                 MaxCharacters = 500,
+
+                OnValidationCallback = (STextValidationState validationState, STextArgumentResult result) =>
+                {
+                    if (string.IsNullOrWhiteSpace(result.Content))
+                    {
+                        validationState.Status = SValidationStatus.Failure;
+                        validationState.Message = SLocalization_Messages.Input_World_Description_Validation_Empty;
+                    }
+                },
 
                 OnSendCallback = (result) =>
                 {
@@ -129,18 +148,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -163,7 +182,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.fieldButtons[i].ClickAction.Invoke();
+                    this.fieldButtons[i].ClickAction?.Invoke();
                 }
 
                 slot.BackgroundElement.Color = this.GUIEvents.OnMouseOver(position, size) ? SColorPalette.HoverColor : SColorPalette.White;
@@ -181,14 +200,14 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.footerButtons[i].ClickAction.Invoke();
+                    this.footerButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.footerButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.footerButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.footerButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;

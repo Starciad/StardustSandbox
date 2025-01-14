@@ -8,7 +8,7 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
 {
     internal sealed partial class SGUI_MainMenu
     {
@@ -102,7 +102,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
         private void BuildButtons(ISGUILayoutBuilder layoutBuilder)
         {
             // BUTTONS
-            Vector2 baseMargin = new(0, 0);
+            Vector2 margin = new(0, 0);
 
             // Labels
             for (int i = 0; i < this.menuButtonElements.Length; i++)
@@ -110,19 +110,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 SGUILabelElement labelElement = new(this.SGameInstance)
                 {
                     Scale = new(0.15f),
-                    Margin = baseMargin,
+                    Margin = margin,
                     Color = SColorPalette.White,
                     PositionAnchor = SCardinalDirection.Center,
                     OriginPivot = SCardinalDirection.Center,
                     SpriteFont = this.bigApple3PMSpriteFont,
                 };
 
-                labelElement.SetTextualContent(this.menuButtons[i].DisplayName);
+                labelElement.SetTextualContent(this.menuButtons[i].Name);
                 labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(4f));
                 labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.menuButtonElements[i] = labelElement;
-                baseMargin.Y += 75;
+                margin.Y += 75;
             }
 
             layoutBuilder.AddElement(this.gameTitleElement);

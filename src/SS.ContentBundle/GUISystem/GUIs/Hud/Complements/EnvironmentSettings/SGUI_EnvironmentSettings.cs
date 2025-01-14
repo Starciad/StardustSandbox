@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
 using StardustSandbox.ContentBundle.GUISystem.Global;
-using StardustSandbox.ContentBundle.GUISystem.Specials.General;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
@@ -17,13 +17,13 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.EnvironmentSettings
 {
     internal sealed partial class SGUI_EnvironmentSettings : SGUISystem
     {
         private readonly Texture2D particleTexture;
-        private readonly Texture2D guiBackgroundTexture;
-        private readonly Texture2D guiButton1Texture;
+        private readonly Texture2D panelBackgroundTexture;
+        private readonly Texture2D guiSmallButtonTexture;
         private readonly Texture2D exitIconTexture;
         private readonly Texture2D frozenTimeIconTexture;
         private readonly Texture2D timeProgressIconTexture;
@@ -48,8 +48,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
         internal SGUI_EnvironmentSettings(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUITooltipBoxElement tooltipBoxElement) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
-            this.guiBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_1");
-            this.guiButton1Texture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
+            this.panelBackgroundTexture = gameInstance.AssetDatabase.GetTexture("gui_background_7");
+            this.guiSmallButtonTexture = gameInstance.AssetDatabase.GetTexture("gui_button_1");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
             this.world = gameInstance.World;
@@ -111,18 +111,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.menuButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.menuButtons[i].ClickAction.Invoke();
+                    this.menuButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.menuButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.menuButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.menuButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -141,18 +141,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.timeStateButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.timeStateButtons[i].ClickAction.Invoke();
+                    this.timeStateButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.timeStateButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.timeStateButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.timeStateButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;
@@ -180,18 +180,18 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
                 SSlot slot = this.timeButtonSlots[i];
 
                 Vector2 position = slot.BackgroundElement.Position;
-                SSize2 size = new(SGUI_HUDConstants.SLOT_SIZE);
+                SSize2 size = new(SGUI_HUDConstants.GRID_SIZE);
 
                 if (this.GUIEvents.OnMouseClick(position, size))
                 {
-                    this.timeButtons[i].ClickAction.Invoke();
+                    this.timeButtons[i].ClickAction?.Invoke();
                 }
 
                 if (this.GUIEvents.OnMouseOver(position, size))
                 {
                     this.tooltipBoxElement.IsVisible = true;
 
-                    SGUIGlobalTooltip.Title = this.timeButtons[i].DisplayName;
+                    SGUIGlobalTooltip.Title = this.timeButtons[i].Name;
                     SGUIGlobalTooltip.Description = this.timeButtons[i].Description;
 
                     slot.BackgroundElement.Color = SColorPalette.HoverColor;

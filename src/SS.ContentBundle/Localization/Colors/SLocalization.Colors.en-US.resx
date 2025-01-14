@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Amber" xml:space="preserve">
+    <value>Amber</value>
+  </data>
+  <data name="Aquamarine" xml:space="preserve">
+    <value>Aquamarine</value>
+  </data>
+  <data name="Beige" xml:space="preserve">
+    <value>Beige</value>
+  </data>
+  <data name="Blush" xml:space="preserve">
+    <value>Blush</value>
+  </data>
+  <data name="Brown" xml:space="preserve">
+    <value>Brown</value>
+  </data>
+  <data name="Burgundy" xml:space="preserve">
+    <value>Burgundy</value>
+  </data>
+  <data name="Cerulean" xml:space="preserve">
+    <value>Cerulean</value>
+  </data>
+  <data name="Charcoal" xml:space="preserve">
+    <value>Charcoal</value>
+  </data>
+  <data name="Clay" xml:space="preserve">
+    <value>Clay</value>
+  </data>
+  <data name="Coal" xml:space="preserve">
+    <value>Coal</value>
+  </data>
+  <data name="Cocoa" xml:space="preserve">
+    <value>Cocoa</value>
+  </data>
+  <data name="Coffee" xml:space="preserve">
+    <value>Coffee</value>
+  </data>
+  <data name="Crimson" xml:space="preserve">
+    <value>Crimson</value>
+  </data>
+  <data name="Cyan" xml:space="preserve">
+    <value>Cyan</value>
+  </data>
+  <data name="DarkBeige" xml:space="preserve">
+    <value>Dark Beige</value>
+  </data>
+  <data name="DarkBrown" xml:space="preserve">
+    <value>Dark Brown</value>
+  </data>
+  <data name="DarkGray" xml:space="preserve">
+    <value>Dark Gray</value>
+  </data>
+  <data name="DarkGreen" xml:space="preserve">
+    <value>Dark Green</value>
+  </data>
+  <data name="DarkPurple" xml:space="preserve">
+    <value>Dark Purple</value>
+  </data>
+  <data name="DarkRed" xml:space="preserve">
+    <value>Dark Red</value>
+  </data>
+  <data name="DarkTaupe" xml:space="preserve">
+    <value>Dark Taupe</value>
+  </data>
+  <data name="DarkTeal" xml:space="preserve">
+    <value>Dark Teal</value>
+  </data>
+  <data name="EmeraldGreen" xml:space="preserve">
+    <value>Emerald Green</value>
+  </data>
+  <data name="ForestGreen" xml:space="preserve">
+    <value>Forest Green</value>
+  </data>
+  <data name="Gold" xml:space="preserve">
+    <value>Gold</value>
+  </data>
+  <data name="Graphite" xml:space="preserve">
+    <value>Graphite</value>
+  </data>
+  <data name="GrassGreen" xml:space="preserve">
+    <value>Grass Green</value>
+  </data>
+  <data name="Gunmetal" xml:space="preserve">
+    <value>Gunmetal</value>
+  </data>
+  <data name="HunterGreen" xml:space="preserve">
+    <value>Hunter Green</value>
+  </data>
+  <data name="Khaki" xml:space="preserve">
+    <value>Khaki</value>
+  </data>
+  <data name="LavenderBlue" xml:space="preserve">
+    <value>Lavender Blue</value>
+  </data>
+  <data name="LemonYellow" xml:space="preserve">
+    <value>Lemon Yellow</value>
+  </data>
+  <data name="LightGrayBlue" xml:space="preserve">
+    <value>Light Gray Blue</value>
+  </data>
+  <data name="LimeGreen" xml:space="preserve">
+    <value>Lime Green</value>
+  </data>
+  <data name="Magenta" xml:space="preserve">
+    <value>Magenta</value>
+  </data>
+  <data name="Maroon" xml:space="preserve">
+    <value>Maroon</value>
+  </data>
+  <data name="Mint" xml:space="preserve">
+    <value>Mint</value>
+  </data>
+  <data name="MintGreen" xml:space="preserve">
+    <value>Mint Green</value>
+  </data>
+  <data name="MossGreen" xml:space="preserve">
+    <value>Moss Green</value>
+  </data>
+  <data name="NavyBlue" xml:space="preserve">
+    <value>Navy Blue</value>
+  </data>
+  <data name="Orange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="OrangeRed" xml:space="preserve">
+    <value>Orange Red</value>
+  </data>
+  <data name="PaleBlue" xml:space="preserve">
+    <value>Pale Blue</value>
+  </data>
+  <data name="PaleYellow" xml:space="preserve">
+    <value>Pale Yellow</value>
+  </data>
+  <data name="Peach" xml:space="preserve">
+    <value>Peach</value>
+  </data>
+  <data name="Periwinkle" xml:space="preserve">
+    <value>Periwinkle</value>
+  </data>
+  <data name="PineGreen" xml:space="preserve">
+    <value>Pine Green</value>
+  </data>
+  <data name="PurpleGray" xml:space="preserve">
+    <value>Purple Gray</value>
+  </data>
+  <data name="Rose" xml:space="preserve">
+    <value>Rose</value>
+  </data>
+  <data name="RoyalBlue" xml:space="preserve">
+    <value>Royal Blue</value>
+  </data>
+  <data name="Rust" xml:space="preserve">
+    <value>Rust</value>
+  </data>
+  <data name="Salmon" xml:space="preserve">
+    <value>Salmon</value>
+  </data>
+  <data name="Sand" xml:space="preserve">
+    <value>Sand</value>
+  </data>
+  <data name="SeafoamGreen" xml:space="preserve">
+    <value>Seafoam Green</value>
+  </data>
+  <data name="Sepia" xml:space="preserve">
+    <value>Sepia</value>
+  </data>
+  <data name="SkyBlue" xml:space="preserve">
+    <value>SkyBlue</value>
+  </data>
+  <data name="Slate" xml:space="preserve">
+    <value>Slate</value>
+  </data>
+  <data name="SteelBlue" xml:space="preserve">
+    <value>Steel Blue</value>
+  </data>
+  <data name="Tan" xml:space="preserve">
+    <value>Tan</value>
+  </data>
+  <data name="TealGray" xml:space="preserve">
+    <value>Teal Gray</value>
+  </data>
+  <data name="Terracotta" xml:space="preserve">
+    <value>Terracotta</value>
+  </data>
+  <data name="Umber" xml:space="preserve">
+    <value>Umber</value>
+  </data>
+  <data name="Violet" xml:space="preserve">
+    <value>Violet</value>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>White</value>
+  </data>
+</root>

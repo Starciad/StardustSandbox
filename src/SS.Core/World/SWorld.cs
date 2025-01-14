@@ -19,6 +19,7 @@ namespace StardustSandbox.Core.World
     {
         public SWorldInfo Infos { get; }
         public SWorldTime Time { get; }
+        public SWorldSimulation Simulation { get; }
 
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
@@ -29,10 +30,8 @@ namespace StardustSandbox.Core.World
 
         // General
         private SWorldSlot[,] slots;
-        private uint currentFrameUpdateSlotsDelay;
 
         // World
-        private readonly uint totalFramesUpdateSlotsDelay = 5;
         private readonly SComponentContainer componentContainer;
         private readonly SWorldChunkingComponent worldChunkingComponent;
         private readonly SElementContext worldElementContext;
@@ -48,6 +47,7 @@ namespace StardustSandbox.Core.World
         {
             this.Infos = new();
             this.Time = new(gameInstance);
+            this.Simulation = new();
 
             this.worldSlotsPool = new();
             this.componentContainer = new(gameInstance);

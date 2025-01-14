@@ -80,7 +80,7 @@ namespace StardustSandbox.Core
             // Load Settings
             SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
 
-            if (videoSettings.ScreenWidth == 0 || videoSettings.ScreenHeight == 0)
+            if (videoSettings.Resolution.Width == 0 || videoSettings.Resolution.Height == 0)
             {
                 videoSettings.UpdateResolution(this.GraphicsDevice);
                 SSettingsHandler.SaveSettings(videoSettings);

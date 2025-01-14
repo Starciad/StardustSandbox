@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Enums.Simulation;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 {
@@ -14,11 +15,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         private void PenSettingsButtonAction()
         {
             this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_PEN_SETTINGS_IDENTIFIER);
-        }
-
-        private void ScreenshotButtonAction()
-        {
-            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_SCREENSHOT_SETTINGS_IDENTIFIER);
         }
 
         private void WorldSettingsButtonAction()
@@ -37,6 +33,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = !this.SGameInstance.GameManager.GameState.IsSimulationPaused;
         }
+
+        private void ChangeSimulationSpeedButtonAction()
+        {
+            switch (this.SGameInstance.World.Simulation.CurrentSpeed)
+            {
+                case SSimulationSpeed.Normal:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Fast);
+                    break;
+
+                case SSimulationSpeed.Fast:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.VeryFast);
+                    break;
+
+                case SSimulationSpeed.VeryFast:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Normal);
+                    break;
+
+                default:
+                    this.SGameInstance.GameManager.SetSimulationSpeed(SSimulationSpeed.Normal);
+                    break;
+            }
+        }
         #endregion
         #endregion
 
@@ -46,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #region Top Buttons
         private void GameMenuButtonAction()
         {
-            this.SGameInstance.GUIManager.CloseGUI();
+            this.SGameInstance.GUIManager.OpenGUI(SGUIConstants.HUD_PAUSE_IDENTIFIER);
         }
 
         private void SaveMenuButtonAction()
@@ -58,12 +76,16 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         #region Bottom Buttons
         private void ReloadSimulationButtonAction()
         {
-            this.world.Reload();
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
+            this.guiConfirm.Configure(this.reloadSimulationConfirmSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
         }
 
         private void EraseEverythingButtonAction()
         {
-            this.world.Reset();
+            this.SGameInstance.GameManager.GameState.IsCriticalMenuOpen = true;
+            this.guiConfirm.Configure(this.eraseEverythingConfirmSettings);
+            this.SGameInstance.GUIManager.OpenGUI(this.guiConfirm.Identifier);
         }
         #endregion
         #endregion

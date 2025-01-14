@@ -21,28 +21,82 @@
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
-		<PackageReference Include="MessagePack" Version="3.0.214-rc.1" />
+		<PackageReference Include="MessagePack" Version="3.1.1" />
 	</ItemGroup>
 
 	<!-- PROJECTS -->
 	<ItemGroup>
 		<ProjectReference Include="..\SS.Core\StardustSandbox.DesktopGL.Core.csproj" />
 	</ItemGroup>
-
+	
 	<!-- RESOURCES -->
 	<ItemGroup>
-		<EmbeddedResource Update="Localization\SLocalization.resx">
-			<LastGenOutput>SLocalization.Designer.cs</LastGenOutput>
+		<EmbeddedResource Update="Localization\Catalog\SLocalization.Catalog.resx">
+			<LastGenOutput>SLocalization.Catalog.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Colors\SLocalization.Colors.resx">
+		  <LastGenOutput>SLocalization.Colors.Designer.cs</LastGenOutput>
+		  <Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Elements\SLocalization.Elements.resx">
+			<LastGenOutput>SLocalization.Elements.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\GUIs\SLocalization.GUIs.resx">
+			<LastGenOutput>SLocalization.GUIs.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Messages\SLocalization.Messages.resx">
+			<LastGenOutput>SLocalization.Messages.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Statements\SLocalization.Statements.resx">
+			<LastGenOutput>SLocalization.Statements.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\Tools\SLocalization.Tools.resx">
+			<LastGenOutput>SLocalization.Tools.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemGroup>
 
 	<!-- RESOURCES (COMPILES) -->
 	<ItemGroup>
-		<Compile Update="Localization\SLocalization.Designer.cs">
+		<Compile Update="Localization\Catalog\SLocalization.Catalog.Designer.cs">
+			<DependentUpon>SLocalization.Catalog.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
-			<DependentUpon>SLocalization.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Localization\Colors\SLocalization.Colors.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>SLocalization.Colors.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Localization\Elements\SLocalization.Elements.Designer.cs">
+			<DependentUpon>SLocalization.Elements.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Localization\GUIs\SLocalization.GUIs.Designer.cs">
+			<DependentUpon>SLocalization.GUIs.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Localization\Messages\SLocalization.Messages.Designer.cs">
+			<DependentUpon>SLocalization.Messages.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Localization\Statements\SLocalization.Statements.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.Statements.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Localization\Tools\SLocalization.Tools.Designer.cs">
+			<DependentUpon>SLocalization.Tools.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
 		</Compile>
 	</ItemGroup>
 	

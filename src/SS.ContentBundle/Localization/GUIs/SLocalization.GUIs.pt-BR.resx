@@ -132,8 +132,8 @@
   <data name="Menu.Options.Title" xml:space="preserve">
     <value>OPÇÕES</value>
   </data>
-  <data name="Menu.Options.Section.Language" xml:space="preserve">
-    <value>Idioma</value>
+  <data name="Menu.Options.Section.General.Name" xml:space="preserve">
+    <value>Geral</value>
   </data>
   <data name="HUD.Button.ItemExplorer.Name" xml:space="preserve">
     <value>Explorador de Itens</value>
@@ -141,7 +141,7 @@
   <data name="HUD.Button.ItemExplorer.Description" xml:space="preserve">
     <value>Um portal para todo o catálogo de elementos do jogo. Aqui, você pode navegar, descobrir e aprender sobre cada elemento disponível, explorando suas características, comportamentos e interações.</value>
   </data>
-  <data name="Menu.Options.Section.Video" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Name" xml:space="preserve">
     <value>Vídeo</value>
   </data>
   <data name="Menu.Credits.Title.Creator" xml:space="preserve">
@@ -177,17 +177,17 @@
   <data name="Menu.Credits.Title.SpecialThanks" xml:space="preserve">
     <value>Agradecimentos Especiais</value>
   </data>
-  <data name="Menu.Options.Section.Video.Resolution" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.Resolution.Name" xml:space="preserve">
     <value>Resolução</value>
   </data>
-  <data name="Menu.Options.Section.Video.Fullscreen" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.Fullscreen.Name" xml:space="preserve">
     <value>Tela Cheia</value>
   </data>
-  <data name="Menu.Options.Section.Video.VSync" xml:space="preserve">
+  <data name="Menu.Options.Section.Video.Option.VSync.Name" xml:space="preserve">
     <value>VSync</value>
   </data>
-  <data name="Menu.Options.Section.Video.Borderless" xml:space="preserve">
-    <value>Janela sem Borda</value>
+  <data name="Menu.Options.Section.Video.Option.Borderless.Name" xml:space="preserve">
+    <value>Sem Bordas</value>
   </data>
   <data name="Menu.Main.Button.Play" xml:space="preserve">
     <value>Jogar</value>
@@ -428,5 +428,134 @@
   </data>
   <data name="HUD.Complements.WorldSettings.Section.Size.Button.Medium.Description" xml:space="preserve">
     <value>O tamanho do mundo terá as dimensões 120x69 - Balanceado para a maioria dos cenários de jogo.</value>
+  </data>
+  <data name="HUD.Complements.ItemExplorer.Title" xml:space="preserve">
+    <value>Explorador de Itens</value>
+  </data>
+  <data name="HUD.Button.Speed.Name" xml:space="preserve">
+    <value>Velocidade da Simulação</value>
+  </data>
+  <data name="HUD.Button.Speed.Description" xml:space="preserve">
+    <value>Ajusta a velocidade do fluxo temporal de vários componentes da simulação, incluindo a interação entre elementos, o avanço do tempo e outros aspectos relacionados. Velocidades mais altas podem ocasionar pequenos gargalos no desempenho do jogo devido ao aumento na carga de processamento.</value>
+  </data>
+  <data name="HUD.Complements.Pause.Title" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="Menu.Credits.Title.Testers" xml:space="preserve">
+    <value>Testadores</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Name" xml:space="preserve">
+    <value>Jogabilidade</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Name" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Name" xml:space="preserve">
+    <value>Gráficos</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Name" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="Menu.Options.Section.General.Option.Language.Name" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Name" xml:space="preserve">
+    <value>Cor da Área</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Name" xml:space="preserve">
+    <value>Opacidade da Área</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MasterVolume.Name" xml:space="preserve">
+    <value>Volume Geral</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MusicVolume.Name" xml:space="preserve">
+    <value>Volume da Música</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.SFXVolume.Name" xml:space="preserve">
+    <value>Volume dos SFX</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Option.Lighting.Name" xml:space="preserve">
+    <value>Iluminação</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Color.Name" xml:space="preserve">
+    <value>Cor</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.BackgroundColor.Name" xml:space="preserve">
+    <value>Cor de Fundo</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Scale.Name" xml:space="preserve">
+    <value>Escala</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Opacity.Name" xml:space="preserve">
+    <value>Opacidade</value>
+  </data>
+  <data name="Menu.Options.Section.General.Description" xml:space="preserve">
+    <value>Configurações básicas do jogo, incluindo idioma e acessibilidade.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Description" xml:space="preserve">
+    <value>Ajuste preferências relacionadas à jogabilidade.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Description" xml:space="preserve">
+    <value>Controle os níveis de áudio para diferentes categorias.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Description" xml:space="preserve">
+    <value>Modifique as configurações relacionadas ao vídeo, incluindo resolução e modos de exibição.</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Description" xml:space="preserve">
+    <value>Configure as configurações gráficas para qualidade visual.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Description" xml:space="preserve">
+    <value>Personalize a aparência e o comportamento do cursor do mouse.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.SFXVolume.Description" xml:space="preserve">
+    <value>Ajuste o volume dos efeitos sonoros.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MusicVolume.Description" xml:space="preserve">
+    <value>Defina o volume para a música de fundo.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MasterVolume.Description" xml:space="preserve">
+    <value>Ajuste o volume geral do jogo.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.VSync.Description" xml:space="preserve">
+    <value>Ative ou desative a sincronização vertical para evitar cortes na tela.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Resolution.Description" xml:space="preserve">
+    <value>Selecione a resolução de tela para o jogo.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Fullscreen.Description" xml:space="preserve">
+    <value>Ative ou desative o modo de tela cheia.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Borderless.Description" xml:space="preserve">
+    <value>Ative o modo janela sem bordas.</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Option.Lighting.Description" xml:space="preserve">
+    <value>Ative ou desative os efeitos avançados de iluminação.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Scale.Description" xml:space="preserve">
+    <value>Ajuste o tamanho do cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Opacity.Description" xml:space="preserve">
+    <value>Defina o nível de transparência do cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Color.Description" xml:space="preserve">
+    <value>Defina a cor do cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.BackgroundColor.Description" xml:space="preserve">
+    <value>Defina a cor de fundo do cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Description" xml:space="preserve">
+    <value>Defina o nível de transparência da área de pré-visualização.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Description" xml:space="preserve">
+    <value>Escolha a cor para a área de pré-visualização exibida durante o jogo.</value>
+  </data>
+  <data name="Menu.Options.Section.General.Option.Language.Description" xml:space="preserve">
+    <value>Selecione o idioma para a interface do jogo.</value>
+  </data>
+  <data name="Menu.Options.Button.Save.Description" xml:space="preserve">
+    <value>Salva e aplica todas as opções modificadas.</value>
+  </data>
+  <data name="Tools.ColorPicker.Title" xml:space="preserve">
+    <value>Seletor de Cores</value>
   </data>
 </root>

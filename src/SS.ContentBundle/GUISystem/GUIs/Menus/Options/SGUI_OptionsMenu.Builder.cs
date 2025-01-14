@@ -3,55 +3,43 @@
 using StardustSandbox.ContentBundle.GUISystem.Elements;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Selectors;
-using StardustSandbox.ContentBundle.Localization.GUIs;
-using StardustSandbox.ContentBundle.Localization.Statements;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
-using StardustSandbox.Core.Localization;
+using StardustSandbox.Core.Mathematics.Primitives;
 
-using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu
     {
-        private SGUILabelElement titleLabel;
+        private SGUILabelElement titleLabelElement;
+        private SGUIImageElement panelBackgroundElement;
 
-        private SGUISliceImageElement panelBackground;
-        private SGUISliceImageElement leftPanelBackground;
-        private SGUISliceImageElement rightPanelBackground;
-
-        private readonly SGUIContainerElement[] sectionContainers;
-        private readonly SGUILabelElement[] sectionButtonElements;
         private readonly SGUILabelElement[] systemButtonElements;
+        private readonly Dictionary<string, IEnumerable<SGUILabelElement>> sectionContents = [];
+        private readonly Dictionary<string, SGUIContainerElement> sectionContainerElements = [];
+        private readonly Dictionary<string, SGUILabelElement> sectionButtonElements = [];
 
-        private readonly List<SOptionSelector> generalSectionOptionSelectors = [];
-        private readonly List<SOptionSelector> videoSectionOptionSelectors = [];
-        private readonly List<SOptionSelector> volumeSectionOptionSelectors = [];
-        private readonly List<SOptionSelector> cursorSectionOptionSelectors = [];
+        private readonly List<(SGUIElement, SGUIElement)> plusAndMinusButtons = [];
 
-        private readonly List<SGUILabelElement> generalSectionButtons = [];
-        private readonly List<SGUILabelElement> videoSectionButtons = [];
-        private readonly List<SGUILabelElement> volumeSectionButtons = [];
-        private readonly List<SGUILabelElement> cursorSectionButtons = [];
-        private readonly List<SGUILabelElement> languageSectionButtons = [];
+        private static readonly Vector2 defaultRightPanelMargin = new(-112f, 64f);
 
         private static readonly Vector2 defaultButtonScale = new(0.11f);
         private static readonly Vector2 defaultButtonBorderOffset = new(2f);
-        private static readonly Vector2 baseVerticalMargin = new(0, 4f);
 
-        private static readonly float leftPanelMarginVerticalSpacing = 58f;
-        private static readonly float rightPanelMarginVerticalSpacing = 55f;
+        private static readonly float leftPanelMarginVerticalSpacing = 48f;
+        private static readonly float rightPanelMarginVerticalSpacing = 48f;
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
             // Decorations
-            BuildPanels(layoutBuilder);
+            BuildPanelBackground(layoutBuilder);
             BuildTitle(layoutBuilder);
 
             // Buttons
@@ -60,65 +48,29 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
             // Sections
             BuildSections(layoutBuilder);
-        }
 
-        private void BuildPanels(ISGUILayoutBuilder layoutBuilder)
-        {
-            BuildPanelBackground(layoutBuilder);
-            BuildLeftPanel(layoutBuilder);
-            BuildRightPanel(layoutBuilder);
+            // Final
+            layoutBuilder.AddElement(this.tooltipBoxElement);
+            SelectSection("general");
         }
 
         private void BuildPanelBackground(ISGUILayoutBuilder layoutBuilder)
         {
-            this.panelBackground = new(this.SGameInstance)
+            this.panelBackgroundElement = new(this.SGameInstance)
             {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(32f, 15f),
-                Size = new(32),
-                Margin = new(128f),
-                Color = SColorPalette.NavyBlue
+                Texture = this.panelBackgroundTexture,
+                Size = new(1084, 540),
+                Margin = new(98, 90),
             };
 
-            this.panelBackground.PositionRelativeToScreen();
+            this.panelBackgroundElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.panelBackground);
-        }
-
-        private void BuildLeftPanel(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.leftPanelBackground = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(9f, 13f),
-                Margin = new(32f),
-                Size = new(32),
-                Color = SColorPalette.RoyalBlue
-            };
-
-            this.leftPanelBackground.PositionRelativeToElement(this.panelBackground);
-            layoutBuilder.AddElement(this.leftPanelBackground);
-        }
-
-        private void BuildRightPanel(ISGUILayoutBuilder layoutBuilder)
-        {
-            this.rightPanelBackground = new(this.SGameInstance)
-            {
-                Texture = this.guiBackgroundTexture,
-                Scale = new(18.2f, 13f),
-                Margin = new(90f, 0f),
-                Size = new(32),
-                PositionAnchor = SCardinalDirection.Northeast,
-                Color = SColorPalette.RoyalBlue
-            };
-
-            this.rightPanelBackground.PositionRelativeToElement(this.leftPanelBackground);
-            layoutBuilder.AddElement(this.rightPanelBackground);
+            layoutBuilder.AddElement(this.panelBackgroundElement);
         }
 
         private void BuildTitle(ISGUILayoutBuilder layoutBuilder)
         {
-            this.titleLabel = new(this.SGameInstance)
+            this.titleLabelElement = new(this.SGameInstance)
             {
                 Scale = new(0.15f),
                 Margin = new(0f, 52.5f),
@@ -128,29 +80,29 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 SpriteFont = this.bigApple3PMSpriteFont,
             };
 
-            this.titleLabel.SetTextualContent(this.titleName);
-            this.titleLabel.SetAllBorders(true, SColorPalette.DarkGray, new(4.4f));
-            this.titleLabel.PositionRelativeToScreen();
+            this.titleLabelElement.SetTextualContent(this.titleName);
+            this.titleLabelElement.SetAllBorders(true, SColorPalette.DarkGray, new(4.4f));
+            this.titleLabelElement.PositionRelativeToScreen();
 
-            layoutBuilder.AddElement(this.titleLabel);
+            layoutBuilder.AddElement(this.titleLabelElement);
         }
 
         private void BuildSectionButtons(ISGUILayoutBuilder layoutBuilder)
         {
             // BUTTONS
-            Vector2 margin = baseVerticalMargin;
+            Vector2 margin = new(-335f, 64f);
 
             // Labels
-            for (int i = 0; i < this.sectionNames.Length; i++)
+            foreach (KeyValuePair<string, SSection> item in this.root.Sections)
             {
                 SGUILabelElement labelElement = CreateButtonLabelElement();
 
                 labelElement.PositionAnchor = SCardinalDirection.North;
                 labelElement.Margin = margin;
-                labelElement.SetTextualContent(this.sectionNames[i]);
-                labelElement.PositionRelativeToElement(this.leftPanelBackground);
+                labelElement.SetTextualContent(item.Value.Name);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
-                this.sectionButtonElements[i] = labelElement;
+                this.sectionButtonElements.Add(item.Key, labelElement);
                 margin.Y += leftPanelMarginVerticalSpacing;
 
                 layoutBuilder.AddElement(labelElement);
@@ -159,7 +111,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildSystemButtons(ISGUILayoutBuilder layoutBuilder)
         {
-            Vector2 margin = baseVerticalMargin;
+            Vector2 margin = new(-335f, -64f);
 
             for (int i = 0; i < this.systemButtons.Length; i++)
             {
@@ -167,8 +119,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
                 labelElement.PositionAnchor = SCardinalDirection.South;
                 labelElement.Margin = margin;
-                labelElement.SetTextualContent(this.systemButtons[i].DisplayName);
-                labelElement.PositionRelativeToElement(this.leftPanelBackground);
+                labelElement.SetTextualContent(this.systemButtons[i].Name);
+                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
 
                 this.systemButtonElements[i] = labelElement;
                 margin.Y -= leftPanelMarginVerticalSpacing;
@@ -181,73 +133,137 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
 
         private void BuildSections(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildVideoSection(layoutBuilder);
-            BuildLanguageSection(layoutBuilder);
-        }
-
-        private void BuildVideoSection(ISGUILayoutBuilder layoutBuilder)
-        {
-            SGUIContainerElement container = new(this.SGameInstance);
-
-            // [ FIELDS ]
-            // 0. Resolution
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Resolution, 03, Array.ConvertAll(SScreenConstants.RESOLUTIONS, x => x.ToString())));
-
-            // 1. Fullscreen
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Fullscreen, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
-
-            // 2. VSync
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_VSync, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
-
-            // 3. Borderless
-            this.videoSectionOptionSelectors.Add(new SOptionSelector(SLocalization_GUIs.Menu_Options_Section_Video_Borderless, 00, [SLocalization_Statements.False, SLocalization_Statements.True]));
-
-            // [ LABELS ]
-            Vector2 margin = new(0f, 4f);
-
-            foreach (SOptionSelector optionSelector in this.videoSectionOptionSelectors)
+            foreach (KeyValuePair<string, SSection> item in this.root.Sections)
             {
-                SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+                List<SGUILabelElement> contentBuffer = [];
+                SGUIContainerElement containerElement = new(this.SGameInstance);
 
-                labelElement.Margin = margin;
-                labelElement.PositionRelativeToElement(this.rightPanelBackground);
-                labelElement.SetTextualContent(optionSelector.ToString());
+                Vector2 margin = defaultRightPanelMargin;
 
-                this.videoSectionButtons.Add(labelElement);
-                container.AddElement(labelElement);
+                foreach (SOption option in item.Value.Options.Values)
+                {
+                    SGUILabelElement labelElement = CreateOptionElement(option);
 
-                margin.Y += rightPanelMarginVerticalSpacing;
+                    labelElement.Margin = margin;
+                    labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+
+                    switch (option)
+                    {
+                        case SColorOption:
+                            BuildColorPreview(containerElement, labelElement);
+                            break;
+
+                        case SValueOption:
+                            BuildValueControls(option, containerElement, labelElement);
+                            break;
+
+                        case SToggleOption:
+                            BuildTogglePreview(containerElement, labelElement);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    containerElement.AddElement(labelElement);
+                    margin.Y += rightPanelMarginVerticalSpacing;
+
+                    contentBuffer.Add(labelElement);
+                }
+
+                this.sectionContainerElements.Add(item.Key, containerElement);
+                layoutBuilder.AddElement(containerElement);
+
+                this.sectionContents.Add(item.Key, contentBuffer);
             }
-
-            this.sectionContainers[(byte)SMenuSection.Video] = container;
-            layoutBuilder.AddElement(container);
         }
 
-        private void BuildLanguageSection(ISGUILayoutBuilder layoutBuilder)
+        private void BuildColorPreview(SGUIContainerElement containerElement, SGUILabelElement labelElement)
         {
-            SGUIContainerElement container = new(this.SGameInstance);
+            SSize2 textureSize = new(40, 22);
+            SSize2 labelElementSize = labelElement.GetStringSize();
 
-            Vector2 margin = new(0f, 4f);
+            SColorSlot colorSlot = new(
+                new(this.SGameInstance)
+                {
+                    Texture = this.colorButtonTexture,
+                    TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                    Scale = new(1.5f),
+                    Size = textureSize,
+                    Margin = new(labelElementSize.Width + 6f, labelElementSize.Height / 2 * -1),
+                },
 
-            foreach (SGameCulture gameCulture in SLocalizationConstants.AVAILABLE_GAME_CULTURES)
-            {
-                SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+                new(this.SGameInstance)
+                {
+                    Texture = this.colorButtonTexture,
+                    TextureClipArea = new(new(00, 22), textureSize.ToPoint()),
+                    Scale = new(1.5f),
+                    Size = textureSize,
+                }
+            );
 
-                labelElement.Margin = margin;
-                labelElement.PositionRelativeToElement(this.rightPanelBackground);
-                labelElement.SetTextualContent(gameCulture.CultureInfo.NativeName);
-                labelElement.AddData(SGUIConstants.DATA_LANGUAGE_CODE, gameCulture.Language);
+            colorSlot.BackgroundElement.PositionRelativeToElement(labelElement);
+            colorSlot.BorderElement.PositionRelativeToElement(colorSlot.BackgroundElement);
 
-                this.languageSectionButtons.Add(labelElement);
-                container.AddElement(labelElement);
+            containerElement.AddElement(colorSlot.BackgroundElement);
+            containerElement.AddElement(colorSlot.BorderElement);
 
-                margin.Y += rightPanelMarginVerticalSpacing;
-            }
-
-            this.sectionContainers[(byte)SMenuSection.Language] = container;
-            layoutBuilder.AddElement(container);
+            labelElement.AddData("color_slot", colorSlot);
         }
 
+        private void BuildValueControls(SOption option, SGUIContainerElement containerElement, SGUILabelElement labelElement)
+        {
+            SSize2 labelElementSize = labelElement.GetStringSize();
+
+            SGUIImageElement minusElement = new(this.SGameInstance)
+            {
+                Texture = this.minusIconTexture,
+                Size = new(32),
+                Margin = new(0, labelElementSize.Height / 2 * -1)
+            };
+
+            SGUIImageElement plusElement = new(this.SGameInstance)
+            {
+                Texture = this.plusIconTexture,
+                Size = new(32),
+                Margin = new(this.minusIconTexture.Width + (this.minusIconTexture.Width / 2), 0f),
+            };
+
+            plusElement.AddData("option", option);
+            minusElement.AddData("option", option);
+
+            labelElement.AddData("plus_element", plusElement);
+            labelElement.AddData("minus_element", minusElement);
+
+            minusElement.PositionRelativeToElement(labelElement);
+            plusElement.PositionRelativeToElement(minusElement);
+
+            containerElement.AddElement(plusElement);
+            containerElement.AddElement(minusElement);
+
+            this.plusAndMinusButtons.Add((plusElement, minusElement));
+        }
+
+        private void BuildTogglePreview(SGUIContainerElement containerElement, SGUILabelElement labelElement)
+        {
+            SSize2 textureSize = new(32);
+            SSize2 labelElementSize = labelElement.GetStringSize();
+
+            SGUIImageElement togglePreviewImageElement = new(this.SGameInstance)
+            {
+                Texture = this.toggleButtonTexture,
+                TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                Scale = new(1.25f),
+                Size = textureSize,
+                Margin = new(labelElementSize.Width + 6f, labelElementSize.Height / 2 * -1),
+            };
+
+            togglePreviewImageElement.PositionRelativeToElement(labelElement);
+
+            containerElement.AddElement(togglePreviewImageElement);
+
+            labelElement.AddData("toogle_preview", togglePreviewImageElement);
+        }
         // ============================================================================ //
 
         private SGUILabelElement CreateButtonLabelElement()
@@ -273,11 +289,65 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                 Color = SColorPalette.White,
                 SpriteFont = this.digitalDiscoSpriteFont,
                 PositionAnchor = SCardinalDirection.North,
-                OriginPivot = SCardinalDirection.Center,
+                OriginPivot = SCardinalDirection.East,
             };
 
             labelElement.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
 
+            return labelElement;
+        }
+
+        // ============================================================================ //
+
+        private SGUILabelElement CreateOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = option switch
+            {
+                SButtonOption => CreateButtonOptionElement(option),
+                SSelectorOption => CreateSelectorOptionElement(option),
+                SValueOption => CreateValueOptionElement(option),
+                SColorOption => CreateColorOptionElement(option),
+                SToggleOption => CreateToggleOptionElement(option),
+                _ => null,
+            };
+
+            labelElement.AddData("option", option);
+
+            return labelElement;
+        }
+
+        private SGUILabelElement CreateButtonOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(option.Name);
+            return labelElement;
+        }
+
+        private SGUILabelElement CreateSelectorOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
+            return labelElement;
+        }
+
+        private SGUILabelElement CreateValueOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
+            return labelElement;
+        }
+
+        private SGUILabelElement CreateColorOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": "));
+            return labelElement;
+        }
+
+        private SGUILabelElement CreateToggleOptionElement(SOption option)
+        {
+            SGUILabelElement labelElement = CreateOptionButtonLabelElement();
+            labelElement.SetTextualContent(string.Concat(option.Name, ": "));
             return labelElement;
         }
     }

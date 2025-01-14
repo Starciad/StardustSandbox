@@ -256,29 +256,29 @@ namespace StardustSandbox.Core.World
             return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].GetLayer(worldLayer).IsEmpty;
         }
 
-        public int GetTotalElementCount()
+        public uint GetTotalElementCount()
         {
-            return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.IsEmpty || !slot.BackgroundLayer.IsEmpty);
+            return GetTotalForegroundElementCount() + GetTotalBackgroundElementCount();
         }
 
-        public int GetTotalForegroundElementCount()
+        public uint GetTotalForegroundElementCount()
         {
             return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.IsEmpty);
         }
 
-        public int GetTotalBackgroundElementCount()
+        public uint GetTotalBackgroundElementCount()
         {
             return GetTotalElementCountForLayer(slot => !slot.BackgroundLayer.IsEmpty);
         }
 
-        private int GetTotalElementCountForLayer(Func<SWorldSlot, bool> predicate)
+        private uint GetTotalElementCountForLayer(Func<SWorldSlot, bool> predicate)
         {
-            int count = 0;
+            uint count = 0;
             object lockObj = new();
 
-            Parallel.For(0, this.Infos.Size.Height, y =>
+            _ = Parallel.For(0, this.Infos.Size.Height, y =>
             {
-                int localCount = 0;
+                uint localCount = 0;
 
                 for (int x = 0; x < this.Infos.Size.Width; x++)
                 {

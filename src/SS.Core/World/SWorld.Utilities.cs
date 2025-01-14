@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.IO.Files.World;
@@ -99,6 +101,32 @@ namespace StardustSandbox.Core.World
         {
             return position.X >= 0 && position.X < this.Infos.Size.Width &&
                    position.Y >= 0 && position.Y < this.Infos.Size.Height;
+        }
+
+        public void SetSpeed(SSimulationSpeed speed)
+        {
+            switch (speed)
+            {
+                case SSimulationSpeed.Normal:
+                    this.Time.SecondsPerFrames = STimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
+                    this.Simulation.SetSpeed(SSimulationSpeed.Normal);
+                    break;
+
+                case SSimulationSpeed.Fast:
+                    this.Time.SecondsPerFrames = STimeConstants.DEFAULT_FAST_SECONDS_PER_FRAMES;
+                    this.Simulation.SetSpeed(SSimulationSpeed.Fast);
+                    break;
+
+                case SSimulationSpeed.VeryFast:
+                    this.Time.SecondsPerFrames = STimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
+                    this.Simulation.SetSpeed(SSimulationSpeed.VeryFast);
+                    break;
+
+                default:
+                    this.Time.SecondsPerFrames = STimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
+                    this.Simulation.SetSpeed(SSimulationSpeed.Normal);
+                    break;
+            }
         }
 
         #region Clear

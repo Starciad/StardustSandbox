@@ -117,13 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Confirm.Simulation.EraseEverything.Description" xml:space="preserve">
+    <value>You are about to erase all content from the world. This includes elements, items, and any other data. The world will be restored to an empty state. This action is irreversible. Are you sure you want to continue?</value>
+  </data>
+  <data name="Confirm.Simulation.EraseEverything.Title" xml:space="preserve">
+    <value>Do you really want to erase all content in the world?</value>
+  </data>
+  <data name="Confirm.Simulation.Exit.Description" xml:space="preserve">
+    <value>If you exit now, all progress will be lost unless your creation has been saved. Make sure to save before exiting to avoid losing your work. Do you want to continue?</value>
+  </data>
+  <data name="Confirm.Simulation.Exit.Title" xml:space="preserve">
+    <value>Are you sure you want to exit?</value>
+  </data>
+  <data name="Confirm.Simulation.Reload.Description" xml:space="preserve">
+    <value>You are about to reload a simulation. This will restore the world to the initial state of the loaded file. If no file was loaded, the world will be completely reset. This action is irreversible. Do you wish to continue?</value>
+  </data>
+  <data name="Confirm.Simulation.Reload.Title" xml:space="preserve">
+    <value>Do you really want to restart the world?</value>
+  </data>
+  <data name="Confirm.World.Resize.Description" xml:space="preserve">
+    <value>To change the size of the world, all current content will need to be deleted. This will result in the loss of all progress unless the information has been saved. Make sure to save before proceeding. Do you really want to change the size of the world?</value>
+  </data>
+  <data name="Confirm.World.Resize.Title" xml:space="preserve">
+    <value>World Size Change - Progress Will Be Lost</value>
+  </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Enter the description that the world will have.</value>
+  </data>
+  <data name="Input.World.Description.Validation.Empty" xml:space="preserve">
+    <value>The world description cannot be empty. Please provide a description for your world.</value>
   </data>
   <data name="Input.World.Name" xml:space="preserve">
     <value>Enter the name the world will have.</value>
   </data>
+  <data name="Input.World.Name.Validation.Empty" xml:space="preserve">
+    <value>The world name cannot be empty. Please enter a name with at least one character.</value>
+  </data>
   <data name="NoDescription" xml:space="preserve">
     <value>No description provided.</value>
+  </data>
+  <data name="Settings.RestartRequired" xml:space="preserve">
+    <value>Some settings, such as the game language, will only be applied after restarting the game.</value>
   </data>
 </root>

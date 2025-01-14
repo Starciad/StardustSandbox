@@ -2,14 +2,14 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play
 {
     internal sealed partial class SGUI_PlayMenu
     {
@@ -64,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus
                     OriginPivot = SCardinalDirection.Center,
                 };
 
-                buttonLabel.SetTextualContent(button.DisplayName);
+                buttonLabel.SetTextualContent(button.Name);
                 buttonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
 
                 SGUIImageElement buttonIcon = new(this.SGameInstance)

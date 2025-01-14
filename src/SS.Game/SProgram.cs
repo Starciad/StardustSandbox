@@ -59,7 +59,7 @@ namespace StardustSandbox.Game
             SDirectory.Initialize();
             SSettingsHandler.Initialize();
 
-            SGameCulture gameCulture = SSettingsHandler.LoadSettings<SLanguageSettings>().GameCulture;
+            SGameCulture gameCulture = SSettingsHandler.LoadSettings<SGeneralSettings>().GameCulture;
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;

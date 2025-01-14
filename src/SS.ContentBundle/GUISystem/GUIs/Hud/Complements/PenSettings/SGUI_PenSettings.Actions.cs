@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Enums.World;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettings
 {
     internal sealed partial class SGUI_PenSettings
     {

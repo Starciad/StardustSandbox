@@ -2,7 +2,7 @@
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.Specials.Interactive;
+using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
@@ -11,7 +11,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu
     {
@@ -27,7 +27,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
 
         protected override void OnBuild(ISGUILayoutBuilder layoutBuilder)
         {
-            BuildGUIBackground(layoutBuilder);
+            BuildBackground(layoutBuilder);
             BuildHeader(layoutBuilder);
             BuildThumbnail(layoutBuilder);
             BuildDescription(layoutBuilder);
@@ -36,7 +36,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
             BuildWorldButtons(layoutBuilder);
         }
 
-        private void BuildGUIBackground(ISGUILayoutBuilder layoutBuilder)
+        private void BuildBackground(ISGUILayoutBuilder layoutBuilder)
         {
             SGUIImageElement guiBackground = new(this.SGameInstance)
             {
@@ -161,7 +161,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Complements
                     OriginPivot = SCardinalDirection.East,
                 };
 
-                buttonLabel.SetTextualContent(button.DisplayName);
+                buttonLabel.SetTextualContent(button.Name);
                 buttonLabel.SetAllBorders(true, SColorPalette.DarkGray, new(2f));
                 buttonLabel.PositionRelativeToScreen();
 

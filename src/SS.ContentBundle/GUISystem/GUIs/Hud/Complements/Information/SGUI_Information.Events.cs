@@ -1,9 +1,8 @@
 ﻿using StardustSandbox.ContentBundle.Localization.GUIs;
-using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information
 {
     internal sealed partial class SGUI_Information
     {
@@ -15,7 +14,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements
 
             uint limitOfElementsOnTheMap = (uint)(worldSize.Width * worldSize.Height * 2);
             uint limitOfElementsPerLayer = (uint)(worldSize.Width * worldSize.Height);
-            
+
             this.infoElements[0].SetTextualContent(string.Concat(SLocalization_Statements.Size, ": ", worldSize));
             this.infoElements[1].SetTextualContent(string.Concat(SLocalization_Statements.Time, ": ", this.world.Time.CurrentTime));
             this.infoElements[2].SetTextualContent(string.Concat(SLocalization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap));

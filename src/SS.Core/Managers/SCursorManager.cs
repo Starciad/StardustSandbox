@@ -11,19 +11,20 @@ namespace StardustSandbox.Core.Managers
 {
     internal sealed class SCursorManager(ISGame gameInstance) : SManager(gameInstance), ISCursorManager
     {
+        public Vector2 Scale => this.scale;
+
         private readonly Texture2D[] cursorTextures = new Texture2D[2];
         private static readonly Rectangle[] cursorClipAreas = [
             new Rectangle(new Point(0, 0), new Point(36, 36)),
             new Rectangle(new Point(0, 36), new Point(36, 36)),
         ];
 
-        private Vector2 cursorScale;
+        private Vector2 position;
+        private Vector2 scale;
+        private Color color;
 
-        private Color cursorColor;
-        private Color cursorBackgroundColor;
-
-        private Vector2 cursorBackgroundPosition;
-        private Vector2 cursorPosition;
+        private Vector2 backgroundPosition;
+        private Color backgroundColor;
 
         private readonly int cursorTextureSelected = 0;
 
@@ -35,32 +36,32 @@ namespace StardustSandbox.Core.Managers
             this.cursorTextures[0] = this._assetDatabase.GetTexture("cursor_1");
             this.cursorTextures[1] = this._assetDatabase.GetTexture("cursor_2");
 
-            UpdateSettings();
+            ApplySettings();
         }
 
         public override void Update(GameTime gameTime)
         {
             Vector2 pos = this._inputManager.MouseState.Position.ToVector2();
 
-            this.cursorBackgroundPosition = pos;
-            this.cursorPosition = pos;
+            this.backgroundPosition = pos;
+            this.position = pos;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Texture2D cursorSelectedTexture = this.cursorTextures[this.cursorTextureSelected];
 
-            spriteBatch.Draw(cursorSelectedTexture, this.cursorBackgroundPosition, cursorClipAreas[1], this.cursorBackgroundColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
-            spriteBatch.Draw(cursorSelectedTexture, this.cursorPosition, cursorClipAreas[0], this.cursorColor, 0f, Vector2.Zero, this.cursorScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(cursorSelectedTexture, this.backgroundPosition, cursorClipAreas[1], this.backgroundColor, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(cursorSelectedTexture, this.position, cursorClipAreas[0], this.color, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
         }
 
-        internal void UpdateSettings()
+        public void ApplySettings()
         {
             SCursorSettings cursorSettings = SSettingsHandler.LoadSettings<SCursorSettings>();
 
-            this.cursorScale = new(cursorSettings.Scale);
-            this.cursorColor = cursorSettings.Color;
-            this.cursorBackgroundColor = cursorSettings.BackgroundColor;
+            this.color = cursorSettings.Color;
+            this.backgroundColor = cursorSettings.BackgroundColor;
+            this.scale = new(cursorSettings.Scale);
         }
 
         public void Reset()

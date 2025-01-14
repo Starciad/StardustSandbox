@@ -19,9 +19,9 @@ namespace StardustSandbox.Core.Databases
             }
         }
 
-        public void RegisterGUISystem(string identifier, SGUISystem guiSystem)
+        public void RegisterGUISystem(SGUISystem guiSystem)
         {
-            this.registeredGUIs.Add(identifier, guiSystem);
+            this.registeredGUIs.Add(guiSystem.Identifier, guiSystem);
         }
 
         public SGUISystem GetGUISystemById(string identifier)
