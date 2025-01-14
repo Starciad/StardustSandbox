@@ -70,7 +70,7 @@ Write-Host "All publishing processes have been completed."
 Write-Host "Copying assets directory..."
 
 $source = "..\..\SS.ContentBundle\assets"
-$destination = "$outputDirectory\$gameName.$gameVersion.assets)\assets"
+$destination = "$outputDirectory\$gameName.$gameVersion.assets\assets"
 $subdirectoriesToDelete = @("bin", "obj")
 
 # Copy the source folder to the destination
