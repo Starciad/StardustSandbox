@@ -21,11 +21,15 @@ You are encouraged to create and share your creations in a constantly evolving g
 
 Here are the necessary requirements for the game to function correctly:
 
-- **Operating System:** Windows (only for now);
+- **Operating System:** Windows, MacOS and Linux;
 - **DirectX:** Version 9.0c or higher;
+- **OpenGL:** Version 2.0 or higher;
 - **RAM:** At least 500 MB;
 - **Disk Space:** Minimum of 100 MB available;
 - **System Architecture:** x64 (64 bits).
+
+> [!IMPORTANT]
+> For the Linux version, you must have the `xdg-utils` package installed on your system.
 
 ## Changelog
 

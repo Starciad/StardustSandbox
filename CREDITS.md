@@ -21,3 +21,10 @@ Thank you for dedicating your time to play and experience this game.
 ### Artists
 
 - **Focsi**: designed the fire sprite.
+
+## Testers
+
+- [@igorunderplayer](https://github.com/igorunderplayer)
+- Focsi
+- Gabriel \"Insanya\" Cordeiro
+- Eduardo \"Ice227\" Wesley
