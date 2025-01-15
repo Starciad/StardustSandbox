@@ -29,7 +29,7 @@ function Publish-Project($projectName, $projectPath, $platform) {
     }
 
     # Organize the published output
-    nbeauty2 --usepatch --loglevel Detail $publishDir "data"
+    nbeauty2 --usepatch --loglevel Detail $publishDir "data" "SDL2.dll;libSDL2-2.0.so.0;libopenal.so.1;libopenal.1.dylib;libSDL2.dylib;"
     Write-Host "Publishing and organization for $platform completed."
 }
 
