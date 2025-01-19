@@ -141,7 +141,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
 
                 if (this.GUIEvents.OnMouseClick(backgroundPosition, backgroundSize))
                 {
-                    this.detailsMenu.SetWorldSaveFile(this.savedWorldFilesLoaded[this.currentPage + i]);
+                    this.detailsMenu.SetWorldSaveFile(this.savedWorldFilesLoaded[this.currentPage * SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE + i]);
                     this.SGameInstance.GUIManager.OpenGUI(this.detailsMenu.Identifier);
                 }
 
