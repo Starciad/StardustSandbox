@@ -15,6 +15,7 @@ using StardustSandbox.Core.IO.Files.World;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 {
@@ -48,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
         private int currentPage = 0;
         private int totalPages = 1;
 
-        private SWorldSaveFile[] savedWorldFilesLoaded;
+        private List<SWorldSaveFile> savedWorldFilesLoaded;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiSmallButtonTexture;
@@ -151,7 +152,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 
         private void UpdatePagination()
         {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SGUI_WorldExplorerConstants.ITEMS_PER_PAGE));
+            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Count ?? 0) / SGUI_WorldExplorerConstants.ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
             this.pageIndexLabelElement?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
         }
@@ -165,7 +166,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
                 SSlotInfoElement slotInfoElement = this.slotInfoElements[i];
                 int worldIndex = startIndex + i;
 
-                if (worldIndex < this.savedWorldFilesLoaded?.Length)
+                if (worldIndex < this.savedWorldFilesLoaded?.Count)
                 {
                     SWorldSaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
 

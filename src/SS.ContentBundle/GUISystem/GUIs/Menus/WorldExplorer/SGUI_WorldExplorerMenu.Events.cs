@@ -14,12 +14,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 
         protected override void OnClosed()
         {
-            Array.Clear(this.savedWorldFilesLoaded);
+            this.savedWorldFilesLoaded.Clear();
         }
 
         private void LoadAllLocalSavedWorlds()
         {
-            this.savedWorldFilesLoaded = SWorldSavingHandler.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice);
+            this.savedWorldFilesLoaded = new(SWorldSavingHandler.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice));
         }
     }
 }

@@ -15,11 +15,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Runtime.Caching;
 
 namespace StardustSandbox.Core.IO.Handlers
 {
     public static class SWorldSavingHandler
     {
+        private static readonly ObjectCache cache = MemoryCache.Default;
+        private static readonly CacheItemPolicy cachePolicy = new()
+        {
+            SlidingExpiration = TimeSpan.FromMinutes(10)
+        };
+
         private static readonly Dictionary<string, Action<ZipArchiveEntry, SWorldSaveFile, GraphicsDevice>> fileHandlers = new(StringComparer.InvariantCulture)
         {
             {
@@ -113,17 +120,22 @@ namespace StardustSandbox.Core.IO.Handlers
             return ReadZipFile(saveFileZipArchive, graphicsDevice);
         }
 
-        public static SWorldSaveFile[] LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
+        public static IEnumerable<SWorldSaveFile> LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
         {
             string[] files = Directory.GetFiles(SDirectory.Worlds, string.Concat('*', SFileExtensionConstants.WORLD), SearchOption.TopDirectoryOnly);
-            SWorldSaveFile[] saveFiles = new SWorldSaveFile[files.Length];
 
-            for (int i = 0; i < files.Length; i++)
+            foreach (var file in files)
             {
-                saveFiles[i] = LoadWorldSaveData(Path.GetFileNameWithoutExtension(files[i]), graphicsDevice);
-            }
+                string worldName = Path.GetFileNameWithoutExtension(file);
 
-            return saveFiles;
+                if (cache[worldName] is not SWorldSaveFile worldData)
+                {
+                    worldData = LoadWorldSaveData(worldName, graphicsDevice);
+                    cache.Set(worldName, worldData, cachePolicy);
+                }
+
+                yield return worldData;
+            }
         }
 
         public static void DeleteSavedFile(string name)
