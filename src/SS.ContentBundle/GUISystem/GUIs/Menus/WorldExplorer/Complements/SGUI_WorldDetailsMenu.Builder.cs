@@ -11,7 +11,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu
     {

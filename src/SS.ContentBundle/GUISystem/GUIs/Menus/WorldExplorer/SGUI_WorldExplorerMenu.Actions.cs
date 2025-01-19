@@ -1,8 +1,8 @@
 ﻿using StardustSandbox.Core.IO;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 {
-    internal sealed partial class SGUI_WorldsExplorerMenu
+    internal sealed partial class SGUI_WorldExplorerMenu
     {
         private void ReloadButtonAction()
         {

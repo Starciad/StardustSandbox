@@ -11,8 +11,8 @@ using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
@@ -61,7 +61,7 @@ namespace StardustSandbox.ContentBundle
             SGUI_Information information = new(game, SGUIConstants.HUD_INFORMATION_IDENTIFIER, game.GUIManager.GUIEvents);
 
             SGUI_WorldDetailsMenu detailsMenu = new(game, SGUIConstants.WORLD_DETAILS_IDENTIFIER, game.GUIManager.GUIEvents);
-            SGUI_WorldsExplorerMenu worldsExplorer = new(game, SGUIConstants.WORLDS_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, detailsMenu);
+            SGUI_WorldExplorerMenu worldsExplorer = new(game, SGUIConstants.WORLDS_EXPLORER_IDENTIFIER, game.GUIManager.GUIEvents, detailsMenu);
 
             // =================================== //
             // Register

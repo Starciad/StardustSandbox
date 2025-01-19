@@ -2,9 +2,9 @@
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 {
-    internal sealed partial class SGUI_WorldsExplorerMenu
+    internal sealed partial class SGUI_WorldExplorerMenu
     {
         protected override void OnOpened()
         {
