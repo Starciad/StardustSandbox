@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.IO.Handlers;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu
     {
@@ -12,7 +12,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Comp
 
         private void DeleteButtonAction()
         {
-            SWorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Metadata.Name);
+            SWorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Header.Metadata.Name);
             this.SGameInstance.GUIManager.CloseGUI();
         }
 

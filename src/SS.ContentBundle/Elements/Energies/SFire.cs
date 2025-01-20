@@ -6,6 +6,9 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Energies;
+using StardustSandbox.Core.Elements.Templates.Gases;
+using StardustSandbox.Core.Elements.Templates.Liquids;
+using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
@@ -31,6 +34,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             this.enableLightEmission = true;
             this.defaultLuminousIntensity = 7;
             this.defaultTemperature = 500;
+            this.defaultDensity = 0;
         }
 
         protected override void OnBeforeStep()
@@ -55,6 +59,13 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 if (this.Context.TrySetPosition(targetPosition, this.Context.Layer))
                 {
                     return;
+                }
+            }
+            else
+            {
+                if (this.Context.GetElement(targetPosition, this.Context.Layer) is SMovableSolid or SLiquid or SGas)
+                {
+                    this.Context.SwappingElements(targetPosition);
                 }
             }
         }

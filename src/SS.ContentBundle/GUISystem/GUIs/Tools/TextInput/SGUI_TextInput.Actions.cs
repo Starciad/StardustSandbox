@@ -12,7 +12,6 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 
         private void SendButtonAction()
         {
-            this.SGameInstance.GUIManager.CloseGUI();
             this.inputSettings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
 
             if (this.inputSettings != null)
@@ -31,6 +30,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
 
                 this.inputSettings.OnSendCallback?.Invoke(argumentResult);
             }
+
+            this.SGameInstance.GUIManager.CloseGUI();
         }
     }
 }

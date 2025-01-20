@@ -7,14 +7,14 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu : SGUISystem
     {
-        private SWorldSaveFile worldSaveFile;
+        private SSaveFile worldSaveFile;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiButton3Texture;
@@ -60,19 +60,19 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Comp
             }
         }
 
-        internal void SetWorldSaveFile(SWorldSaveFile worldSaveFile)
+        internal void SetWorldSaveFile(SSaveFile worldSaveFile)
         {
             this.worldSaveFile = worldSaveFile;
             UpdateDisplay(worldSaveFile);
         }
 
-        private void UpdateDisplay(SWorldSaveFile worldSaveFile)
+        private void UpdateDisplay(SSaveFile worldSaveFile)
         {
-            this.worldTitleElement.SetTextualContent(worldSaveFile.Metadata.Name);
-            this.worldDescriptionElement.SetTextualContent(worldSaveFile.Metadata.Description);
-            this.worldThumbnailElement.Texture = worldSaveFile.ThumbnailTexture;
-            this.worldVersionElement.SetTextualContent(string.Concat('v', worldSaveFile.Metadata.Version));
-            this.worldCreationTimestampElement.SetTextualContent(worldSaveFile.Metadata.CreationTimestamp.ToString());
+            this.worldThumbnailElement.Texture = worldSaveFile.Header.ThumbnailTexture;
+            this.worldTitleElement.SetTextualContent(worldSaveFile.Header.Metadata.Name);
+            this.worldDescriptionElement.SetTextualContent(worldSaveFile.Header.Metadata.Description);
+            this.worldVersionElement.SetTextualContent(string.Concat('v', worldSaveFile.Header.Information.SaveVersion));
+            this.worldCreationTimestampElement.SetTextualContent(worldSaveFile.Header.Information.CreationTimestamp.ToString());
         }
     }
 }

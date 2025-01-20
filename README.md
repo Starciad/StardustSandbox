@@ -2,6 +2,9 @@
 
 ![GAME LOGO][game_logo]
 
+[![youtube_button]](https://www.youtube.com/@starciad)
+[![itch_button]](https://starciad.itch.io/stardust-sandbox)
+
 ## Introduction
 
 **Stardust Sandbox** is a Sandbox game inspired by the classic "Falling-Sand," providing an immersive experience where the only limitation is your imagination!
@@ -30,7 +33,7 @@ Here are the necessary requirements for the game to function correctly:
 
 The game is available in the following stores:
 
-[![available_itch]](https://starciad.itch.io/stardust-sandbox)
+[![itch_button]](https://starciad.itch.io/stardust-sandbox)
 
 ## Changelog
 
@@ -68,4 +71,7 @@ All game assets (graphics, music, sound effects, and other content) are licensed
 [cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [game_logo]: ./.github/CONTENT/graphics/game/game_title.webp
-[available_itch]: https://static.itch.io/images/badge.svg
+
+<!-- Buttons -->
+[youtube_button]: ./.github/CONTENT/graphics/buttons/youtube_button.webp
+[itch_button]: ./.github/CONTENT/graphics/buttons/itch_button.webp

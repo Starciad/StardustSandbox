@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
 using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer.Complements;
+using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
@@ -11,14 +11,15 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
+using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
+namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 {
-    internal sealed partial class SGUI_WorldsExplorerMenu : SGUISystem
+    internal sealed partial class SGUI_WorldExplorerMenu : SGUISystem
     {
         private sealed class SSlotInfoElement
         {
@@ -48,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
         private int currentPage = 0;
         private int totalPages = 1;
 
-        private SWorldSaveFile[] savedWorldFilesLoaded;
+        private List<SSaveFile> savedWorldFilesLoaded;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiSmallButtonTexture;
@@ -63,7 +64,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
 
         private readonly SGUI_WorldDetailsMenu detailsMenu;
 
-        internal SGUI_WorldsExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_WorldDetailsMenu detailsMenu) : base(gameInstance, identifier, guiEvents)
+        internal SGUI_WorldExplorerMenu(ISGame gameInstance, string identifier, SGUIEvents guiEvents, SGUI_WorldDetailsMenu detailsMenu) : base(gameInstance, identifier, guiEvents)
         {
             this.particleTexture = gameInstance.AssetDatabase.GetTexture("particle_1");
             this.guiSmallButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
@@ -73,7 +74,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
             this.folderIconTexture = this.SGameInstance.AssetDatabase.GetTexture("icon_gui_18");
             this.bigApple3PMSpriteFont = gameInstance.AssetDatabase.GetSpriteFont("font_2");
 
-            this.slotInfoElements = new SSlotInfoElement[SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE];
+            this.slotInfoElements = new SSlotInfoElement[SGUI_WorldExplorerConstants.ITEMS_PER_PAGE];
 
             this.headerButtons = [
                 new(this.exitIconTexture, "Exit", string.Empty, ExitButtonAction),
@@ -141,7 +142,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
 
                 if (this.GUIEvents.OnMouseClick(backgroundPosition, backgroundSize))
                 {
-                    this.detailsMenu.SetWorldSaveFile(this.savedWorldFilesLoaded[this.currentPage + i]);
+                    this.detailsMenu.SetWorldSaveFile(this.savedWorldFilesLoaded[(this.currentPage * SGUI_WorldExplorerConstants.ITEMS_PER_PAGE) + i]);
                     this.SGameInstance.GUIManager.OpenGUI(this.detailsMenu.Identifier);
                 }
 
@@ -151,27 +152,27 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldsExplorer
 
         private void UpdatePagination()
         {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Length ?? 0) / SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE));
+            this.totalPages = Math.Max(1, (int)Math.Ceiling((double)(this.savedWorldFilesLoaded?.Count ?? 0) / SGUI_WorldExplorerConstants.ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
             this.pageIndexLabelElement?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
         }
 
         private void ChangeWorldsCatalog()
         {
-            int startIndex = this.currentPage * SGUI_WorldsExplorerConstants.ITEMS_PER_PAGE;
+            int startIndex = this.currentPage * SGUI_WorldExplorerConstants.ITEMS_PER_PAGE;
 
             for (int i = 0; i < this.slotInfoElements.Length; i++)
             {
                 SSlotInfoElement slotInfoElement = this.slotInfoElements[i];
                 int worldIndex = startIndex + i;
 
-                if (worldIndex < this.savedWorldFilesLoaded?.Length)
+                if (worldIndex < this.savedWorldFilesLoaded?.Count)
                 {
-                    SWorldSaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
+                    SSaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
 
                     slotInfoElement.EnableVisibility();
-                    slotInfoElement.ThumbnailElement.Texture = worldSaveFile.ThumbnailTexture;
-                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Metadata.Name.Truncate(10));
+                    slotInfoElement.ThumbnailElement.Texture = worldSaveFile.Header.ThumbnailTexture;
+                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Header.Metadata.Name.Truncate(10));
                 }
                 else
                 {

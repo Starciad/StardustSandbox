@@ -6,7 +6,7 @@ using StardustSandbox.Core.Elements.Contexts;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.General;
 using StardustSandbox.Core.World.Slots;
@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.World
         public int ActiveEntitiesCount => this.instantiatedEntities.Count;
 
         // System
-        private SWorldSaveFile currentlySelectedWorldSaveFile;
+        private SSaveFile currentlySelectedWorldSaveFile;
 
         // General
         private SWorldSlot[,] slots;

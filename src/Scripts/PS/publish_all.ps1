@@ -9,6 +9,10 @@ Clear-Host
 $gameName = "StardustSandbox"
 $gameVersion = "v0.0.0.0"
 
+# beauty2
+$beauty2Directory = "libraries"
+$beauty2Ignored = "SDL2.dll;libSDL2-2.0.so.0;libopenal.so.1;libopenal.1.dylib;libSDL2.dylib;soft_oal.dll;"
+
 # Define solutions and publishing directories
 $windowsDX = "..\..\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
 $desktopGL = "..\..\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
@@ -29,7 +33,7 @@ function Publish-Project($projectName, $projectPath, $platform) {
     }
 
     # Organize the published output
-    nbeauty2 --usepatch --loglevel Detail $publishDir "data" "SDL2.dll;libSDL2-2.0.so.0;libopenal.so.1;libopenal.1.dylib;libSDL2.dylib;"
+    nbeauty2 --usepatch --loglevel Detail $publishDir $beauty2Directory $beauty2Ignored
     Write-Host "Publishing and organization for $platform completed."
 }
 

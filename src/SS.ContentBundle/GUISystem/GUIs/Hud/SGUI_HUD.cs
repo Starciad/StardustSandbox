@@ -34,41 +34,23 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
     {
         internal bool IsTopToolbarVisible
         {
-            get
-            {
-                return this.topToolbarContainerElement.IsVisible;
-            }
+            get => this.topToolbarContainerElement.IsVisible;
 
-            set
-            {
-                this.topToolbarContainerElement.IsVisible = value;
-            }
+            set => this.topToolbarContainerElement.IsVisible = value;
         }
 
         internal bool IsLeftToolbarVisible
         {
-            get
-            {
-                return this.leftToolbarContainerElement.IsVisible;
-            }
+            get => this.leftToolbarContainerElement.IsVisible;
 
-            set
-            {
-                this.leftToolbarContainerElement.IsVisible = value;
-            }
+            set => this.leftToolbarContainerElement.IsVisible = value;
         }
 
         internal bool IsRightToolbarVisible
         {
-            get
-            {
-                return this.rightToolbarContainerElement.IsVisible;
-            }
+            get => this.rightToolbarContainerElement.IsVisible;
 
-            set
-            {
-                this.rightToolbarContainerElement.IsVisible = value;
-            }
+            set => this.rightToolbarContainerElement.IsVisible = value;
         }
 
         private int slotSelectedIndex = 0;
@@ -400,21 +382,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
             Vector2 leftDrawerButtonPosition = this.leftDrawerButtonElement.Position + new Vector2(-24f, 0);
             Vector2 rightDrawerButtonPosition = this.rightDrawerButtonElement.Position + new Vector2(-32f, 0);
 
-            if (
-                (this.IsTopToolbarVisible && this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size)) ||
-                (this.IsLeftToolbarVisible && this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.leftToolbarContainerElement.Size)) ||
-                (this.IsRightToolbarVisible && this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.rightToolbarContainerElement.Size)) ||
-                this.GUIEvents.OnMouseOver(topDrawerButtonPosition, topDrawerButtonSize) ||
-                this.GUIEvents.OnMouseOver(leftDrawerButtonPosition, leftDrawerButtonSize) ||
-                this.GUIEvents.OnMouseOver(rightDrawerButtonPosition, rightDrawerButtonSize)
-               )
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = false;
-            }
-            else
-            {
-                this.SGameInstance.GameInputController.Player.CanModifyEnvironment = true;
-            }
+            this.SGameInstance.GameInputController.Player.CanModifyEnvironment = (!this.IsTopToolbarVisible || !this.GUIEvents.OnMouseOver(this.topToolbarContainerElement.Position, this.topToolbarContainerElement.Size)) &&
+                (!this.IsLeftToolbarVisible || !this.GUIEvents.OnMouseOver(this.leftToolbarContainerElement.Position, this.leftToolbarContainerElement.Size)) &&
+                (!this.IsRightToolbarVisible || !this.GUIEvents.OnMouseOver(this.rightToolbarContainerElement.Position, this.rightToolbarContainerElement.Size)) &&
+!this.GUIEvents.OnMouseOver(topDrawerButtonPosition, topDrawerButtonSize) &&
+!this.GUIEvents.OnMouseOver(leftDrawerButtonPosition, leftDrawerButtonSize) &&
+!this.GUIEvents.OnMouseOver(rightDrawerButtonPosition, rightDrawerButtonSize);
         }
 
         private void UpdateDrawerButtons()
@@ -453,7 +426,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SSlot slot = toolbarElementSlots[i];
+                SSlot slot = this.toolbarElementSlots[i];
 
                 if (slot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM) &&
                     slot.BackgroundElement.GetData(SGUIConstants.DATA_ITEM) is SItem otherItem &&
@@ -471,8 +444,8 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
         {
             for (int i = 0; i < SGUI_HUDConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
             {
-                SSlot currentSlot = toolbarElementSlots[i];
-                SSlot nextSlot = toolbarElementSlots[i + 1];
+                SSlot currentSlot = this.toolbarElementSlots[i];
+                SSlot nextSlot = this.toolbarElementSlots[i + 1];
 
                 if (currentSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM) &&
                     nextSlot.BackgroundElement.ContainsData(SGUIConstants.DATA_ITEM))
@@ -491,12 +464,12 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
 
         private void UpdateLastSlot(SItem item)
         {
-            SSlot lastSlot = toolbarElementSlots[^1];
+            SSlot lastSlot = this.toolbarElementSlots[^1];
 
             lastSlot.BackgroundElement.UpdateData(SGUIConstants.DATA_ITEM, item);
             lastSlot.IconElement.Texture = item.IconTexture;
 
-            SelectItemSlot(toolbarElementSlots.Length - 1, item);
+            SelectItemSlot(this.toolbarElementSlots.Length - 1, item);
         }
 
         internal bool ItemIsEquipped(SItem item)

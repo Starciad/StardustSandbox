@@ -2,8 +2,11 @@
 {
     public static class SDirectoryConstants
     {
+        #region LOCAL
+        public const string LOCAL_LOGS = "logs";
+        #endregion
+
         #region APPDATA
-        public const string APPDATA_LOGS = "logs";
         public const string APPDATA_SETTINGS = "settings";
         public const string APPDATA_WORLDS = "worlds";
         #endregion
@@ -76,7 +79,11 @@
         #endregion
 
         #region WORLD SAVE FILE
-        public const string WORLD_SAVE_FILE_DATA = "data";
+        public const string SAVE_FILE_HEADER = "header";
+        public const string SAVE_FILE_WORLD = "world";
+        public const string SAVE_FILE_WORLD_RESOURCES = "resources";
+        public const string SAVE_FILE_WORLD_CONTENT = "content";
+        public const string SAVE_FILE_WORLD_ENVIRONMENT = "environment";
         #endregion
     }
 }
