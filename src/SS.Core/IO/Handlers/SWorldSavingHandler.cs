@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.IO.Handlers
             };
         }
 
-        public static SSaveFile LoadWorldSaveData(string name, GraphicsDevice graphicsDevice)
+        public static SSaveFile LoadSaveFile(string name, GraphicsDevice graphicsDevice)
         {
             // Paths
             string filename = Path.Combine(SDirectory.Worlds, string.Concat(name, SFileExtensionConstants.WORLD));
@@ -111,10 +111,20 @@ namespace StardustSandbox.Core.IO.Handlers
         public static IEnumerable<SSaveFile> LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
         {
             string[] files = Directory.GetFiles(SDirectory.Worlds, string.Concat('*', SFileExtensionConstants.WORLD), SearchOption.TopDirectoryOnly);
+            SSaveFile saveFile;
 
             for (int i = 0; i < files.Length; i++)
             {
-                yield return LoadWorldSaveData(Path.GetFileNameWithoutExtension(files[i]), graphicsDevice);
+                try
+                {
+                    saveFile = LoadSaveFile(Path.GetFileNameWithoutExtension(files[i]), graphicsDevice);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+
+                yield return saveFile;
             }
         }
 
