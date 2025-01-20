@@ -2,8 +2,11 @@
 {
     public static class SDirectoryConstants
     {
+        #region LOCAL
+        public const string LOCAL_LOGS = "logs";
+        #endregion
+
         #region APPDATA
-        public const string APPDATA_LOGS = "logs";
         public const string APPDATA_SETTINGS = "settings";
         public const string APPDATA_WORLDS = "worlds";
         #endregion
