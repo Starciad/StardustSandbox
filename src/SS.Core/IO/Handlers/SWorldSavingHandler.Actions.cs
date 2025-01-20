@@ -180,10 +180,8 @@ namespace StardustSandbox.Core.IO.Handlers
 
             #region Environment
             // ROOT/world/environment/time.pdworlddata
-            using (Stream worldEnvironmentTimeStreamWriter = saveFileZipArchive.CreateEntry(WorldEnvironmentTimeFilePath).Open())
-            {
-                worldEnvironmentTimeStreamWriter.Write(MessagePackSerializer.Serialize(worldSaveFile.World.Environment.Time));
-            }
+            using Stream worldEnvironmentTimeStreamWriter = saveFileZipArchive.CreateEntry(WorldEnvironmentTimeFilePath).Open();
+            worldEnvironmentTimeStreamWriter.Write(MessagePackSerializer.Serialize(worldSaveFile.World.Environment.Time));
             #endregion
 
             #endregion

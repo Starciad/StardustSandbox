@@ -11,15 +11,9 @@ namespace StardustSandbox.Core.IO.Files.Saving.World.Information
         [Key(0)]
         public IEnumerable<SSaveFileResource> Resources
         {
-            get
-            {
-                return this.resources;
-            }
+            get => this.resources;
 
-            set
-            {
-                this.resources = new(value);
-            }
+            set => this.resources = new(value);
         }
 
         private List<SSaveFileResource> resources = [];
