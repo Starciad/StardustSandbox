@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Constants.Elements
 
         // Fire
         public const byte CHANCE_OF_FIRE_TO_DISAPPEAR_TOTAL = 100;
-        public const byte CHANCE_OF_FIRE_TO_DISAPPEAR = 15;
+        public const byte CHANCE_OF_FIRE_TO_DISAPPEAR = 20;
 
         public const byte CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL = 100;
         public const byte CHANCE_FOR_FIRE_TO_LEAVE_SMOKE = 25;
