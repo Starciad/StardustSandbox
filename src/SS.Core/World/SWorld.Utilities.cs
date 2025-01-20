@@ -50,7 +50,11 @@ namespace StardustSandbox.Core.World
             this.Infos.Name = worldSaveFile.Header.Metadata.Name;
             this.Infos.Description = worldSaveFile.Header.Metadata.Description;
 
-            // Allocate Elements
+            // Time
+            this.Time.SetTime(worldSaveFile.World.Environment.Time.CurrentTime);
+            this.Time.IsFrozen = worldSaveFile.World.Environment.Time.IsFrozen;
+
+            // Allocate Slots
             foreach (SSaveFileWorldSlot worldSlotData in worldSaveFile.World.Content.Slots)
             {
                 if (worldSlotData.ForegroundLayer != null)
