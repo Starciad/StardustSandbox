@@ -11,7 +11,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.IO.Files.World;
+using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
@@ -49,7 +49,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
         private int currentPage = 0;
         private int totalPages = 1;
 
-        private List<SWorldSaveFile> savedWorldFilesLoaded;
+        private List<SSaveFile> savedWorldFilesLoaded;
 
         private readonly Texture2D particleTexture;
         private readonly Texture2D guiSmallButtonTexture;
@@ -168,11 +168,11 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
 
                 if (worldIndex < this.savedWorldFilesLoaded?.Count)
                 {
-                    SWorldSaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
+                    SSaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
 
                     slotInfoElement.EnableVisibility();
-                    slotInfoElement.ThumbnailElement.Texture = worldSaveFile.ThumbnailTexture;
-                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Metadata.Name.Truncate(10));
+                    slotInfoElement.ThumbnailElement.Texture = worldSaveFile.Header.ThumbnailTexture;
+                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Header.Metadata.Name.Truncate(10));
                 }
                 else
                 {

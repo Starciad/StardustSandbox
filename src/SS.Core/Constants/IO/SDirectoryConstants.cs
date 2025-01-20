@@ -76,7 +76,11 @@
         #endregion
 
         #region WORLD SAVE FILE
-        public const string WORLD_SAVE_FILE_DATA = "data";
+        public const string SAVE_FILE_HEADER = "header";
+        public const string SAVE_FILE_WORLD = "world";
+        public const string SAVE_FILE_WORLD_RESOURCES = "resources";
+        public const string SAVE_FILE_WORLD_CONTENT = "content";
+        public const string SAVE_FILE_WORLD_ENVIRONMENT = "environment";
         #endregion
     }
 }

@@ -1,60 +1,26 @@
-﻿using MessagePack;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.IO.Files.World;
-using StardustSandbox.Core.IO.Files.World.Data;
+using StardustSandbox.Core.IO.Files.Saving;
+using StardustSandbox.Core.IO.Files.Saving.World.Content;
+using StardustSandbox.Core.IO.Files.Saving.World.Information;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Runtime.Caching;
 
 namespace StardustSandbox.Core.IO.Handlers
 {
-    public static class SWorldSavingHandler
+    public static partial class SWorldSavingHandler
     {
-        private static readonly ObjectCache cache = MemoryCache.Default;
-        private static readonly CacheItemPolicy cachePolicy = new()
-        {
-            SlidingExpiration = TimeSpan.FromMinutes(10)
-        };
-
-        private static readonly Dictionary<string, Action<ZipArchiveEntry, SWorldSaveFile, GraphicsDevice>> fileHandlers = new(StringComparer.InvariantCulture)
-        {
-            {
-                SFileConstants.WORLD_SAVE_FILE_THUMBNAIL,
-                (entry, saveFile, graphicsDevice) =>
-                {
-                    using Stream stream = entry.Open();
-                    saveFile.ThumbnailTexture = Texture2D.FromStream(graphicsDevice, stream);
-                }
-            },
-            {
-                SFileConstants.WORLD_SAVE_FILE_METADATA,
-                (entry, saveFile, _) =>
-                {
-                    using Stream stream = entry.Open();
-                    saveFile.Metadata = MessagePackSerializer.Deserialize<SWorldSaveFileMetadata>(stream, MessagePackSerializerOptions.Standard);
-                }
-            },
-            {
-                Path.Combine(SDirectoryConstants.WORLD_SAVE_FILE_DATA, SFileConstants.WORLD_SAVE_FILE_DATA_WORLD),
-                (entry, saveFile, _) =>
-                {
-                    using Stream stream = entry.Open();
-                    saveFile.World = MessagePackSerializer.Deserialize<SWorldData>(stream, MessagePackSerializer.DefaultOptions);
-                }
-            }
-        };
-
         public static void Serialize(ISWorld world, GraphicsDevice graphicsDevice)
         {
             // Paths
@@ -65,49 +31,70 @@ namespace StardustSandbox.Core.IO.Handlers
             using FileStream outputSaveFile = new(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
 
             // Saving
-            CreateZipFile(CreateWorldSaveFile(world, graphicsDevice), saveFileMemoryStream);
+            WriteZipFile(CreateWorldSaveFile(filename, world, graphicsDevice), saveFileMemoryStream);
 
             // Write
             _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
             saveFileMemoryStream.WriteTo(outputSaveFile);
         }
 
-        public static void Deserialize(string name, ISWorld world, GraphicsDevice graphicsDevice)
-        {
-            // Read
-            SWorldSaveFile worldSaveFile = LoadWorldSaveData(name, graphicsDevice);
-
-            // Apply
-            world.LoadFromWorldSaveFile(worldSaveFile);
-        }
-
-        public static SWorldSaveFile CreateWorldSaveFile(ISWorld world, GraphicsDevice graphicsDevice)
+        public static SSaveFile CreateWorldSaveFile(string filename, ISWorld world, GraphicsDevice graphicsDevice)
         {
             DateTime currentDateTime = DateTime.Now;
 
+            SSaveFileWorldResources resources = CreateWorldResources(world);
+
             return new()
             {
-                ThumbnailTexture = world.CreateThumbnail(graphicsDevice),
-
-                Metadata = new()
+                Header = new()
                 {
-                    Identifier = world.Infos.Identifier,
-                    Name = world.Infos.Name,
-                    Description = world.Infos.Description,
-                    Version = SFileConstants.WORLD_SAVE_FILE_VERSION,
-                    CreationTimestamp = currentDateTime,
+                    ThumbnailTexture = world.CreateThumbnail(graphicsDevice),
+
+                    Metadata = new()
+                    {
+                        Filename = filename,
+                        Identifier = world.Infos.Identifier,
+                        Name = world.Infos.Name,
+                        Description = world.Infos.Description,
+                    },
+
+                    Information = new()
+                    {
+                        SaveVersion = SFileConstants.WORLD_SAVE_FILE_VERSION,
+                        GameVersion = SGameConstants.VERSION,
+                        CreationTimestamp = currentDateTime,
+                        LastUpdateTimestamp = currentDateTime,
+                    },
                 },
 
                 World = new()
                 {
-                    Width = world.Infos.Size.Width,
-                    Height = world.Infos.Size.Height,
-                    Slots = CreateWorldSlotsData(world, world.Infos.Size),
+                    Information = new()
+                    {
+                        Width = world.Infos.Size.Width,
+                        Height = world.Infos.Size.Height,
+                    },
+
+                    Resources = resources,
+
+                    Environment = new()
+                    {
+                        Time = new()
+                        {
+                            CurrentTime = world.Time.CurrentTime,
+                            IsFrozen = world.Time.IsFrozen,
+                        }
+                    },
+
+                    Content = new()
+                    {
+                        Slots = CreateWorldSlotsData(resources, world, world.Infos.Size),
+                    },
                 },
             };
         }
 
-        public static SWorldSaveFile LoadWorldSaveData(string name, GraphicsDevice graphicsDevice)
+        public static SSaveFile LoadWorldSaveData(string name, GraphicsDevice graphicsDevice)
         {
             // Paths
             string filename = Path.Combine(SDirectory.Worlds, string.Concat(name, SFileExtensionConstants.WORLD));
@@ -120,21 +107,14 @@ namespace StardustSandbox.Core.IO.Handlers
             return ReadZipFile(saveFileZipArchive, graphicsDevice);
         }
 
-        public static IEnumerable<SWorldSaveFile> LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
+        // Utilities
+        public static IEnumerable<SSaveFile> LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
         {
             string[] files = Directory.GetFiles(SDirectory.Worlds, string.Concat('*', SFileExtensionConstants.WORLD), SearchOption.TopDirectoryOnly);
 
-            foreach (var file in files)
+            for (int i = 0; i < files.Length; i++)
             {
-                string worldName = Path.GetFileNameWithoutExtension(file);
-
-                if (cache[worldName] is not SWorldSaveFile worldData)
-                {
-                    worldData = LoadWorldSaveData(worldName, graphicsDevice);
-                    cache.Set(worldName, worldData, cachePolicy);
-                }
-
-                yield return worldData;
+                yield return LoadWorldSaveData(Path.GetFileNameWithoutExtension(files[i]), graphicsDevice);
             }
         }
 
@@ -151,10 +131,45 @@ namespace StardustSandbox.Core.IO.Handlers
         // ============================================== //
         // Utilities
 
-        private static SWorldSlotData[] CreateWorldSlotsData(ISWorld world, SSize2 worldSize)
+        private static SSaveFileWorldResources CreateWorldResources(ISWorld world)
         {
-            List<SWorldSlotData> slotData = [];
+            return new()
+            {
+                Elements = GetAllWorldDistinctElements(world),
+            };
+        }
 
+        private static SSaveFileResourceContainer GetAllWorldDistinctElements(ISWorld world)
+        {
+            SSaveFileResourceContainer container = new();
+
+            void TryAddElement(Point position, SWorldLayer layer)
+            {
+                if (world.TryGetElement(position, layer, out ISElement element) && !container.ContainsValue(element.Identifier))
+                {
+                    container.Add(element.Identifier);
+                }
+            }
+
+            for (int y = 0; y < world.Infos.Size.Height; y++)
+            {
+                for (int x = 0; x < world.Infos.Size.Width; x++)
+                {
+                    Point position = new(x, y);
+
+                    if (!world.IsEmptyWorldSlot(position))
+                    {
+                        TryAddElement(position, SWorldLayer.Foreground);
+                        TryAddElement(position, SWorldLayer.Background);
+                    }
+                }
+            }
+
+            return container;
+        }
+
+        private static IEnumerable<SSaveFileWorldSlot> CreateWorldSlotsData(SSaveFileWorldResources resources, ISWorld world, SSize2 worldSize)
+        {
             for (int y = 0; y < worldSize.Height; y++)
             {
                 for (int x = 0; x < worldSize.Width; x++)
@@ -163,48 +178,10 @@ namespace StardustSandbox.Core.IO.Handlers
 
                     if (!world.IsEmptyWorldSlot(position))
                     {
-                        slotData.Add(new(world.GetWorldSlot(position)));
+                        yield return new(resources, world.GetWorldSlot(position));
                     }
                 }
             }
-
-            return [.. slotData];
-        }
-
-        private static void CreateZipFile(SWorldSaveFile worldSaveFile, MemoryStream memoryStream)
-        {
-            using ZipArchive saveFileZipArchive = new(memoryStream, ZipArchiveMode.Create, true);
-
-            // ROOT/thumbnail
-            using (Stream thumbnailStreamWriter = saveFileZipArchive.CreateEntry(SFileConstants.WORLD_SAVE_FILE_THUMBNAIL).Open())
-            {
-                worldSaveFile.ThumbnailTexture.SaveAsPng(thumbnailStreamWriter, SWorldConstants.WORLD_THUMBNAIL_SIZE.Width, SWorldConstants.WORLD_THUMBNAIL_SIZE.Height);
-            }
-
-            // ROOT/metadata
-            using (Stream metadataStreamWriter = saveFileZipArchive.CreateEntry(SFileConstants.WORLD_SAVE_FILE_METADATA).Open())
-            {
-                metadataStreamWriter.Write(MessagePackSerializer.Serialize(worldSaveFile.Metadata));
-            }
-
-            // ROOT/data/world
-            using Stream worldDataStreamWriter = saveFileZipArchive.CreateEntry(Path.Combine(SDirectoryConstants.WORLD_SAVE_FILE_DATA, SFileConstants.WORLD_SAVE_FILE_DATA_WORLD)).Open();
-            worldDataStreamWriter.Write(MessagePackSerializer.Serialize(worldSaveFile.World));
-        }
-
-        private static SWorldSaveFile ReadZipFile(ZipArchive zipArchive, GraphicsDevice graphicsDevice)
-        {
-            SWorldSaveFile saveFile = new();
-
-            foreach (ZipArchiveEntry entry in zipArchive.Entries)
-            {
-                if (fileHandlers.TryGetValue(entry.FullName, out Action<ZipArchiveEntry, SWorldSaveFile, GraphicsDevice> handler))
-                {
-                    handler.Invoke(entry, saveFile, graphicsDevice);
-                }
-            }
-
-            return saveFile;
         }
     }
 }

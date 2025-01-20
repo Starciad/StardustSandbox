@@ -3,12 +3,13 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.IO.Files.Saving.World.Information;
 using StardustSandbox.Core.World.Slots;
 
-namespace StardustSandbox.Core.IO.Files.World.Data
+namespace StardustSandbox.Core.IO.Files.Saving.World.Content
 {
     [MessagePackObject]
-    public sealed class SWorldSlotLayerData
+    public sealed class SSaveFileWorldSlotLayer
     {
         [IgnoreMember]
         public Color ColorModifier
@@ -24,7 +25,7 @@ namespace StardustSandbox.Core.IO.Files.World.Data
             }
         }
 
-        [Key(0)] public string ElementIdentifier { get; set; }
+        [Key(0)] public uint ElementIndex { get; set; }
         [Key(1)] public short Temperature { get; set; }
         [Key(2)] public bool FreeFalling { get; set; }
         [Key(3)] public byte ColorModifierR { get; set; }
@@ -34,14 +35,14 @@ namespace StardustSandbox.Core.IO.Files.World.Data
         [Key(7)] public SUpdateCycleFlag UpdateCycleFlag { get; set; }
         [Key(8)] public SUpdateCycleFlag StepCycleFlag { get; set; }
 
-        public SWorldSlotLayerData()
+        public SSaveFileWorldSlotLayer()
         {
 
         }
 
-        public SWorldSlotLayerData(SWorldSlotLayer worldSlotLayer)
+        public SSaveFileWorldSlotLayer(SSaveFileWorldResources resources, SWorldSlotLayer worldSlotLayer)
         {
-            this.ElementIdentifier = worldSlotLayer.Element.Identifier;
+            this.ElementIndex = resources.Elements.FindIndexByValue(worldSlotLayer.Element.Identifier);
             this.Temperature = worldSlotLayer.Temperature;
             this.FreeFalling = worldSlotLayer.FreeFalling;
             this.ColorModifier = worldSlotLayer.ColorModifier;

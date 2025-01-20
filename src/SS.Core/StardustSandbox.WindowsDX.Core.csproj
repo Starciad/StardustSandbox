@@ -22,7 +22,6 @@
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
 		<PackageReference Include="MessagePack" Version="3.1.1" />
-		<PackageReference Include="System.Runtime.Caching" Version="9.0.1" />
 	</ItemGroup>
 
 	<!-- MONOGAME -->

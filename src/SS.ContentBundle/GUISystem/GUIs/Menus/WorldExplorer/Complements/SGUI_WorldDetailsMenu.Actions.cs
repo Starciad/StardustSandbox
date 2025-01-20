@@ -12,7 +12,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Compl
 
         private void DeleteButtonAction()
         {
-            SWorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Metadata.Name);
+            SWorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Header.Metadata.Name);
             this.SGameInstance.GUIManager.CloseGUI();
         }
 

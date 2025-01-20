@@ -4,8 +4,9 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
-using StardustSandbox.Core.IO.Files.World;
-using StardustSandbox.Core.IO.Files.World.Data;
+using StardustSandbox.Core.IO.Files.Saving;
+using StardustSandbox.Core.IO.Files.Saving.World.Content;
+using StardustSandbox.Core.IO.Files.Saving.World.Information;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.World.Slots;
 
@@ -34,38 +35,38 @@ namespace StardustSandbox.Core.World
         #endregion
 
         #region Load From World File
-        public void LoadFromWorldSaveFile(SWorldSaveFile worldSaveFile)
+        public void LoadFromWorldSaveFile(SSaveFile worldSaveFile)
         {
             this.SGameInstance.GameManager.GameState.IsSimulationPaused = true;
 
             // World
-            StartNew(worldSaveFile.World.Size);
+            StartNew(worldSaveFile.World.Information.Size);
 
             // Cache
             this.currentlySelectedWorldSaveFile = worldSaveFile;
 
             // Metadata
-            this.Infos.Identifier = worldSaveFile.Metadata.Identifier;
-            this.Infos.Name = worldSaveFile.Metadata.Name;
-            this.Infos.Description = worldSaveFile.Metadata.Description;
+            this.Infos.Identifier = worldSaveFile.Header.Metadata.Identifier;
+            this.Infos.Name = worldSaveFile.Header.Metadata.Name;
+            this.Infos.Description = worldSaveFile.Header.Metadata.Description;
 
             // Allocate Elements
-            foreach (SWorldSlotData worldSlotData in worldSaveFile.World.Slots)
+            foreach (SSaveFileWorldSlot worldSlotData in worldSaveFile.World.Content.Slots)
             {
                 if (worldSlotData.ForegroundLayer != null)
                 {
-                    LoadWorldSlotLayerData(SWorldLayer.Foreground, worldSlotData.Position, worldSlotData.ForegroundLayer);
+                    LoadWorldSlotLayerData(worldSaveFile.World.Resources, SWorldLayer.Foreground, worldSlotData.Position, worldSlotData.ForegroundLayer);
                 }
 
                 if (worldSlotData.BackgroundLayer != null)
                 {
-                    LoadWorldSlotLayerData(SWorldLayer.Background, worldSlotData.Position, worldSlotData.BackgroundLayer);
+                    LoadWorldSlotLayerData(worldSaveFile.World.Resources, SWorldLayer.Background, worldSlotData.Position, worldSlotData.BackgroundLayer);
                 }
             }
         }
-        private void LoadWorldSlotLayerData(SWorldLayer worldLayer, Point position, SWorldSlotLayerData worldSlotLayerData)
+        private void LoadWorldSlotLayerData(SSaveFileWorldResources resources, SWorldLayer worldLayer, Point position, SSaveFileWorldSlotLayer worldSlotLayerData)
         {
-            InstantiateElement(position, worldLayer, worldSlotLayerData.ElementIdentifier);
+            InstantiateElement(position, worldLayer, resources.Elements.FindValueByIndex(worldSlotLayerData.ElementIndex));
 
             SWorldSlot worldSlot = GetWorldSlot(position);
 
