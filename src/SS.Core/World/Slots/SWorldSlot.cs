@@ -70,6 +70,11 @@ namespace StardustSandbox.Core.World.Slots
             GetLayer(worldLayer).SetColorModifier(value);
         }
 
+        public void SetStoredElement(SWorldLayer worldLayer, ISElement value)
+        {
+            GetLayer(worldLayer).SetStoredElement(value);
+        }
+
         public void Reset(SWorldLayer worldLayer)
         {
             GetLayer(worldLayer).Reset();

@@ -77,6 +77,7 @@ namespace StardustSandbox.Core.World
             worldSlot.SetTemperatureValue(worldLayer, worldSlotLayerData.Temperature);
             worldSlot.SetFreeFalling(worldLayer, worldSlotLayerData.FreeFalling);
             worldSlot.SetColorModifier(worldLayer, worldSlotLayerData.ColorModifier);
+            worldSlot.SetStoredElement(worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(resources.Elements.FindValueByIndex(worldSlotLayerData.StoredElementIndex)));
         }
         #endregion
 

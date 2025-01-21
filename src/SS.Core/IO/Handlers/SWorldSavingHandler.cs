@@ -11,6 +11,7 @@ using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.IO.Files.Saving.World.Content;
 using StardustSandbox.Core.IO.Files.Saving.World.Information;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.World.Slots;
 
 using System;
 using System.Collections.Generic;
@@ -153,11 +154,33 @@ namespace StardustSandbox.Core.IO.Handlers
         {
             SSaveFileResourceContainer container = new();
 
-            void TryAddElement(Point position, SWorldLayer layer)
+            void TryAddElementIdentifier(string identifier)
             {
-                if (world.TryGetElement(position, layer, out ISElement element) && !container.ContainsValue(element.Identifier))
+                if (!container.ContainsValue(identifier))
                 {
-                    container.Add(element.Identifier);
+                    container.Add(identifier);
+                }
+            }
+
+            void ProcessWorldSlot(Point position, SWorldLayer layer)
+            {
+                if (!world.TryGetWorldSlot(position, out SWorldSlot slot))
+                {
+                    return;
+                }
+
+                SWorldSlotLayer worldSlotLayer = slot.GetLayer(layer);
+
+                if (worldSlotLayer.IsEmpty)
+                {
+                    return;
+                }
+
+                TryAddElementIdentifier(worldSlotLayer.Element.Identifier);
+
+                if (worldSlotLayer.StoredElement != null)
+                {
+                    TryAddElementIdentifier(worldSlotLayer.StoredElement.Identifier);
                 }
             }
 
@@ -169,8 +192,8 @@ namespace StardustSandbox.Core.IO.Handlers
 
                     if (!world.IsEmptyWorldSlot(position))
                     {
-                        TryAddElement(position, SWorldLayer.Foreground);
-                        TryAddElement(position, SWorldLayer.Background);
+                        ProcessWorldSlot(position, SWorldLayer.Foreground);
+                        ProcessWorldSlot(position, SWorldLayer.Background);
                     }
                 }
             }
