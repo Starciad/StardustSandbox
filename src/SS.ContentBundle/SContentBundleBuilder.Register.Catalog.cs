@@ -318,7 +318,7 @@ namespace StardustSandbox.ContentBundle
                 description: string.Empty,
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_27")
             ));
             #endregion
 

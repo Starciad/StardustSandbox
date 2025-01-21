@@ -18,12 +18,12 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 
         internal SClone(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.referenceColor = SColorPalette.DarkGray;
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_1");
+            this.referenceColor = SColorPalette.Amber;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_27");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableTemperature = false;
             this.enableNeighborsAction = true;
-            this.defaultDensity = 220;
+            this.defaultDensity = 3000;
         }
 
         protected override void OnBeforeStep()
