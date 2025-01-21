@@ -47,19 +47,18 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
         {
             targets.Clear();
 
+            void ProcessLayer(SWorldSlot slot, SWorldLayer layer, ISElement element)
+            {
+                if (element is not ISCorruption && element is not (SWall or SClone))
+                {
+                    targets.Add(new(slot, layer));
+                }
+            }
+
             foreach (SWorldSlot neighbor in neighbors)
             {
-                ISElement foregroundElement = neighbor.ForegroundLayer.Element;
-                if (foregroundElement is not ISCorruption && foregroundElement is not SWall)
-                {
-                    targets.Add(new(neighbor, SWorldLayer.Foreground));
-                }
-
-                ISElement backgroundElement = neighbor.BackgroundLayer.Element;
-                if (backgroundElement is not ISCorruption && backgroundElement is not SWall)
-                {
-                    targets.Add(new(neighbor, SWorldLayer.Background));
-                }
+                ProcessLayer(neighbor, SWorldLayer.Foreground, neighbor.ForegroundLayer.Element);
+                ProcessLayer(neighbor, SWorldLayer.Background, neighbor.BackgroundLayer.Element);
             }
 
             if (targets.Count == 0)
@@ -69,6 +68,7 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
 
             InfectWorldSlotLayer(context, targets.GetRandomItem());
         }
+
 
         private static void InfectWorldSlotLayer(ISElementContext context, SSlotTarget slotTarget)
         {

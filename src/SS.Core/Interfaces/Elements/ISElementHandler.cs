@@ -45,6 +45,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         void SetElementColorModifier(Point position, SWorldLayer worldLayer, Color value);
         bool TrySetElementColorModifier(Point position, SWorldLayer worldLayer, Color value);
 
+        void SetStoredElement(Point position, SWorldLayer worldLayer, ISElement element);
+        bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element);
+
         bool IsEmptyWorldSlot(Point position);
         bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer);
 

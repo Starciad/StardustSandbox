@@ -76,6 +76,11 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         bool TrySetElementColorModifier(Color value);
         bool TrySetElementColorModifier(SWorldLayer worldLayer, Color value);
 
+        void SetStoredElement(SWorldLayer worldLayer, ISElement element);
+        void SetStoredElement(ISElement element);
+        bool TrySetStoredElement(SWorldLayer worldLayer, ISElement element);
+        bool TrySetStoredElement(ISElement element);
+
         void NotifyChunk();
         void NotifyChunk(Point position);
         bool TryNotifyChunk();

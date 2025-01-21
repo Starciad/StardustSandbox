@@ -10,6 +10,7 @@ namespace StardustSandbox.Core.World.Slots
     public sealed class SWorldSlotLayer
     {
         public ISElement Element => this.element;
+        public ISElement StoredElement => this.storedElement;
         public bool IsEmpty => this.isEmpty;
         public short Temperature => this.temperature;
         public bool FreeFalling => this.freeFalling;
@@ -18,6 +19,7 @@ namespace StardustSandbox.Core.World.Slots
         public SUpdateCycleFlag StepCycleFlag => this.stepCycleFlag;
 
         private ISElement element;
+        private ISElement storedElement;
         private bool isEmpty;
         private short temperature;
         private bool freeFalling;
@@ -34,6 +36,7 @@ namespace StardustSandbox.Core.World.Slots
         {
             this.isEmpty = false;
             this.element = value;
+            this.storedElement = null;
             this.temperature = value.DefaultTemperature;
             this.freeFalling = false;
             this.colorModifier = Color.White;
@@ -45,6 +48,7 @@ namespace StardustSandbox.Core.World.Slots
         {
             this.isEmpty = true;
             this.element = null;
+            this.storedElement = null;
             this.temperature = 0;
             this.freeFalling = false;
             this.colorModifier = Color.White;
@@ -54,13 +58,14 @@ namespace StardustSandbox.Core.World.Slots
 
         public void Copy(SWorldSlotLayer valueToCopy)
         {
-            this.element = valueToCopy.Element;
-            this.isEmpty = valueToCopy.IsEmpty;
-            this.temperature = valueToCopy.Temperature;
-            this.freeFalling = valueToCopy.FreeFalling;
-            this.colorModifier = valueToCopy.ColorModifier;
-            this.updateCycleFlag = valueToCopy.UpdateCycleFlag;
-            this.stepCycleFlag = valueToCopy.StepCycleFlag;
+            this.element = valueToCopy.element;
+            this.storedElement = valueToCopy.storedElement;
+            this.isEmpty = valueToCopy.isEmpty;
+            this.temperature = valueToCopy.temperature;
+            this.freeFalling = valueToCopy.freeFalling;
+            this.colorModifier = valueToCopy.colorModifier;
+            this.updateCycleFlag = valueToCopy.updateCycleFlag;
+            this.stepCycleFlag = valueToCopy.stepCycleFlag;
         }
 
         public void SetTemperatureValue(short value)
@@ -86,6 +91,11 @@ namespace StardustSandbox.Core.World.Slots
         public void NextStepCycle()
         {
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
+        }
+
+        public void SetStoredElement(ISElement value)
+        {
+            this.storedElement = value;
         }
 
         public void Reset()

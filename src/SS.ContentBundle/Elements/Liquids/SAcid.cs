@@ -35,6 +35,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SAcid:
                     case SWall:
+                    case SClone:
+                    case SVoid:
                         continue;
                 }
 

@@ -332,6 +332,31 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TrySetElementColorModifier(position, worldLayer, value);
         }
 
+        public void SetStoredElement(ISElement element)
+        {
+            SetStoredElement(this.worldLayer, element);
+        }
+        public void SetStoredElement(SWorldLayer worldLayer, ISElement element)
+        {
+            SetStoredElement(this.Position, worldLayer, element);
+        }
+        public void SetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
+        {
+            this.world.SetStoredElement(position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(ISElement element)
+        {
+            return TrySetStoredElement(this.worldLayer, element);
+        }
+        public bool TrySetStoredElement(SWorldLayer worldLayer, ISElement element)
+        {
+            return TrySetStoredElement(this.Position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
+        {
+            return this.world.TrySetStoredElement(position, worldLayer, element);
+        }
+
         public bool IsEmptyWorldSlot()
         {
             return IsEmptyWorldSlot(this.Position);

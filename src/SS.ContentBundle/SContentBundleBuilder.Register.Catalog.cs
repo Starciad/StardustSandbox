@@ -311,6 +311,15 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_26")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_CLONE,
+                name: "Clone",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+            ));
             #endregion
 
             #endregion
