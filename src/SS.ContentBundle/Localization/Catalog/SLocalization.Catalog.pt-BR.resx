@@ -129,9 +129,6 @@
   <data name="Subcategory.Elements.Solids.Name" xml:space="preserve">
     <value>Sólidos</value>
   </data>
-  <data name="Subcategory.Elements.Walls.Name" xml:space="preserve">
-    <value>Paredes</value>
-  </data>
   <data name="Subcategory.Elements.Energies.Name" xml:space="preserve">
     <value>Energias</value>
   </data>
@@ -149,9 +146,6 @@
   </data>
   <data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
     <value>As âncoras do mundo, firmes e inabaláveis. Sólidos oferecem estrutura e resistência, permanecendo inertes frente às forças da natureza.</value>
-  </data>
-  <data name="Subcategory.Elements.Walls.Description" xml:space="preserve">
-    <value>Barreiras com propósito, projetadas para separar e proteger. As paredes são guardiãs silenciosas, definindo limites e protegendo contra forças externas.</value>
   </data>
   <data name="Category.Elements.Name" xml:space="preserve">
     <value>Elementos</value>

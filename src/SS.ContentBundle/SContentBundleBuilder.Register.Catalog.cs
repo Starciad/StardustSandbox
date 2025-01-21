@@ -58,14 +58,6 @@ namespace StardustSandbox.ContentBundle
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
             );
 
-            SSubcategory elementWallSubcategory = new(
-                parent: elementCategory,
-                identifier: "walls",
-                name: SLocalization_Catalog.Subcategory_Elements_Walls_Name,
-                description: SLocalization_Catalog.Subcategory_Elements_Walls_Description,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
-            );
-
             SSubcategory elementEnergySubcategory = new(
                 parent: elementCategory,
                 identifier: "energies",
@@ -78,7 +70,6 @@ namespace StardustSandbox.ContentBundle
             elementCategory.AddSubcategory(elementLiquidSubcategory);
             elementCategory.AddSubcategory(elementGasSubcategory);
             elementCategory.AddSubcategory(elementSolidSubcategory);
-            elementCategory.AddSubcategory(elementWallSubcategory);
             elementCategory.AddSubcategory(elementEnergySubcategory);
             #endregion
 
@@ -209,7 +200,7 @@ namespace StardustSandbox.ContentBundle
                 name: SLocalization_Elements.Solid_Immovable_Wall_Name,
                 description: SLocalization_Elements.Solid_Immovable_Wall_Description,
                 contentType: SItemContentType.Element,
-                subcategory: elementWallSubcategory,
+                subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_14")
             ));
 

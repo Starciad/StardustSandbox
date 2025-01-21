@@ -129,9 +129,6 @@
   <data name="Subcategory.Elements.Solids.Name" xml:space="preserve">
     <value>Solids</value>
   </data>
-  <data name="Subcategory.Elements.Walls.Name" xml:space="preserve">
-    <value>Walls</value>
-  </data>
   <data name="Subcategory.Elements.Energies.Name" xml:space="preserve">
     <value>Energies</value>
   </data>
@@ -149,9 +146,6 @@
   </data>
   <data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
     <value>The anchors of the world, unyielding and steadfast. Solids provide structure and strength, standing firm against the forces of nature, embodying permanence and resilience.</value>
-  </data>
-  <data name="Subcategory.Elements.Walls.Description" xml:space="preserve">
-    <value>Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces.</value>
   </data>
   <data name="Category.Elements.Name" xml:space="preserve">
     <value>Elements</value>

@@ -167,23 +167,5 @@ namespace StardustSandbox.ContentBundle.Localization.Catalog {
                 return ResourceManager.GetString("Subcategory.Elements.Solids.Name", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces..
-        /// </summary>
-        internal static string Subcategory_Elements_Walls_Description {
-            get {
-                return ResourceManager.GetString("Subcategory.Elements.Walls.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Walls.
-        /// </summary>
-        internal static string Subcategory_Elements_Walls_Name {
-            get {
-                return ResourceManager.GetString("Subcategory.Elements.Walls.Name", resourceCulture);
-            }
-        }
     }
 }
