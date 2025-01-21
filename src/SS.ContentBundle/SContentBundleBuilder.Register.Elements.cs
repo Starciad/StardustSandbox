@@ -38,6 +38,7 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new SMountingBlock(game, SElementConstants.IDENTIFIER_MOUNTING_BLOCK));
             elementDatabase.RegisterElement(new SFire(game, SElementConstants.IDENTIFIER_FIRE));
             elementDatabase.RegisterElement(new SLamp(game, SElementConstants.IDENTIFIER_LAMP));
+            elementDatabase.RegisterElement(new SVoid(game, SElementConstants.IDENTIFIER_VOID));
         }
     }
 }

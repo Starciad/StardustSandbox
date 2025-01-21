@@ -302,6 +302,15 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_25")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_VOID,
+                name: "Void",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_26")
+            ));
             #endregion
 
             #endregion
