@@ -70,7 +70,7 @@ namespace StardustSandbox.Game
         private static void InitializeGame()
         {
             stardustSandboxEngine = new();
-            stardustSandboxEngine.RegisterPlugin(new SContentBundleBuilder());
+            stardustSandboxEngine.RegisterPlugin(new SDefaultGameBundle());
             stardustSandboxEngine.Start();
         }
 

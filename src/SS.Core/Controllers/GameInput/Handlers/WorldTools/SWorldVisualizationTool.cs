@@ -5,9 +5,9 @@ using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
+namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
-    internal sealed class SVisualizationTool(ISGame game, SSimulationPen simulationPen) : STool(game, simulationPen)
+    internal sealed class SWorldVisualizationTool(SWorldHandler worldHandler, ISGame gameInstance, SSimulationPen simulationPen) : SWorldTool(worldHandler, gameInstance, simulationPen)
     {
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {

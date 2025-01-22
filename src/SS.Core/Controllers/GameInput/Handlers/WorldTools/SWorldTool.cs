@@ -6,18 +6,20 @@ using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 
-namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
+namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
-    internal abstract class STool
+    internal abstract class SWorldTool
     {
-        protected readonly ISGame game;
+        protected readonly SWorldHandler worldHandler;
+        protected readonly ISGame gameInstance;
         protected readonly ISWorld world;
         protected readonly SSimulationPen simulationPen;
 
-        internal STool(ISGame game, SSimulationPen simulationPen)
+        internal SWorldTool(SWorldHandler worldHandler, ISGame gameInstance, SSimulationPen simulationPen)
         {
-            this.game = game;
-            this.world = game.World;
+            this.worldHandler = worldHandler;
+            this.gameInstance = gameInstance;
+            this.world = gameInstance.World;
             this.simulationPen = simulationPen;
         }
 

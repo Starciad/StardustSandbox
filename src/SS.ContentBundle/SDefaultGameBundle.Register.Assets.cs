@@ -12,7 +12,7 @@ using System.IO;
 
 namespace StardustSandbox.ContentBundle
 {
-    public sealed partial class SContentBundleBuilder
+    public sealed partial class SDefaultGameBundle
     {
         private enum SAssetType
         {

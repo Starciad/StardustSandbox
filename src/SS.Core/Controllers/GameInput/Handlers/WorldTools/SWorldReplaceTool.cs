@@ -8,11 +8,11 @@ using StardustSandbox.Core.Interfaces.Elements;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
+namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
-    internal sealed class SReplaceTool : STool
+    internal sealed class SWorldReplaceTool : SWorldTool
     {
-        internal SReplaceTool(ISGame game, SSimulationPen simulationPen) : base(game, simulationPen)
+        internal SWorldReplaceTool(SWorldHandler worldHandler, ISGame gameInstance, SSimulationPen simulationPen) : base(worldHandler, gameInstance, simulationPen)
         {
 
         }
@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                     switch (worldModificationType)
                     {
                         case SWorldModificationType.Adding:
-                            ReplaceElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), targetPoints);
+                            ReplaceElements(this.gameInstance.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), targetPoints);
                             break;
 
                         case SWorldModificationType.Removing:

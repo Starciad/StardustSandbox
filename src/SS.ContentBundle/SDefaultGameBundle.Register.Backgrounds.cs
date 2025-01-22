@@ -8,7 +8,7 @@ using System;
 
 namespace StardustSandbox.ContentBundle
 {
-    public sealed partial class SContentBundleBuilder
+    public sealed partial class SDefaultGameBundle
     {
         protected override void OnRegisterBackgrounds(ISGame game, ISBackgroundDatabase backgroundDatabase)
         {

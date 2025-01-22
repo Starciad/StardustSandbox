@@ -8,14 +8,14 @@ using StardustSandbox.Core.Interfaces.Elements;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
+namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
-    internal sealed class SFloodFillTool : STool
+    internal sealed class SWorldFloodFillTool : SWorldTool
     {
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
-        internal SFloodFillTool(ISGame game, SSimulationPen simulationPen) : base(game, simulationPen)
+        internal SWorldFloodFillTool(SWorldHandler worldHandler, ISGame gameInstance, SSimulationPen simulationPen) : base(worldHandler, gameInstance, simulationPen)
         {
 
         }
@@ -28,11 +28,11 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                     switch (worldModificationType)
                     {
                         case SWorldModificationType.Adding:
-                            FloodFillElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), position, false);
+                            FloodFillElements(this.gameInstance.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), position, false);
                             break;
 
                         case SWorldModificationType.Removing:
-                            FloodFillElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), position, true);
+                            FloodFillElements(this.gameInstance.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), position, true);
                             break;
 
                         default:

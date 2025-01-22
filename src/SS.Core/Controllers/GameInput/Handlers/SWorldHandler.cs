@@ -1,40 +1,46 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Controllers.GameInput.Handlers.Tools;
+using StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools;
 using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.GameInput;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Managers;
+using StardustSandbox.Core.Interfaces.Tools.Contexts;
 using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Tools.Contexts;
 
 namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 {
     internal sealed class SWorldHandler
     {
+        internal ISToolContext ToolContext { get; private set; }
+
         private readonly ISGame gameInstance;
 
         private readonly SSimulationPlayer simulationPlayer;
         private readonly SSimulationPen simulationPen;
 
-        private readonly SVisualizationTool visualizationTool;
-        private readonly SPencilTool pencilTool;
-        private readonly SEraserTool eraserTool;
-        private readonly SFloodFillTool floodFillTool;
-        private readonly SReplaceTool replaceTool;
+        private readonly SWorldVisualizationTool visualizationTool;
+        private readonly SWorldPencilTool pencilTool;
+        private readonly SWorldEraserTool eraserTool;
+        private readonly SWorldFloodFillTool floodFillTool;
+        private readonly SWorldReplaceTool replaceTool;
 
         public SWorldHandler(ISGame gameInstance, SSimulationPlayer simulationPlayer, SSimulationPen simulationPen)
         {
+            this.ToolContext = new SToolContext(gameInstance.World);
+
             this.gameInstance = gameInstance;
 
             this.simulationPlayer = simulationPlayer;
             this.simulationPen = simulationPen;
 
-            this.visualizationTool = new(this.gameInstance, simulationPen);
-            this.pencilTool = new(this.gameInstance, simulationPen);
-            this.eraserTool = new(this.gameInstance, simulationPen);
-            this.floodFillTool = new(this.gameInstance, simulationPen);
-            this.replaceTool = new(this.gameInstance, simulationPen);
+            this.visualizationTool = new(this, this.gameInstance, simulationPen);
+            this.pencilTool = new(this, this.gameInstance, simulationPen);
+            this.eraserTool = new(this, this.gameInstance, simulationPen);
+            this.floodFillTool = new(this, this.gameInstance, simulationPen);
+            this.replaceTool = new(this, this.gameInstance, simulationPen);
         }
 
         public void Clear()

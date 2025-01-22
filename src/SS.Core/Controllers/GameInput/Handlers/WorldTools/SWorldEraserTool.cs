@@ -7,11 +7,11 @@ using StardustSandbox.Core.Interfaces;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
+namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
-    internal sealed class SEraserTool : STool
+    internal sealed class SWorldEraserTool : SWorldTool
     {
-        internal SEraserTool(ISGame game, SSimulationPen simulationPen) : base(game, simulationPen)
+        internal SWorldEraserTool(SWorldHandler worldHandler, ISGame gameInstance, SSimulationPen simulationPen) : base(worldHandler, gameInstance, simulationPen)
         {
 
         }

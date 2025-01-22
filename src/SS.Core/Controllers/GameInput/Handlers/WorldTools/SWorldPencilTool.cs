@@ -8,26 +8,26 @@ using StardustSandbox.Core.Interfaces.Elements;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
+namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
-    internal sealed class SPencilTool : STool
+    internal sealed class SWorldPencilTool : SWorldTool
     {
-        internal SPencilTool(ISGame game, SSimulationPen simulationPen) : base(game, simulationPen)
+        internal SWorldPencilTool(SWorldHandler worldHandler, ISGame gameInstance, SSimulationPen simulationPen) : base(worldHandler, gameInstance, simulationPen)
         {
 
         }
 
         internal override void Execute(SWorldModificationType worldModificationType, SItemContentType contentType, string referencedItemIdentifier, Point position)
         {
+            IEnumerable<Point> targetPoints = this.simulationPen.GetShapePoints(position);
+
             switch (contentType)
             {
                 case SItemContentType.Element:
-                    IEnumerable<Point> targetPoints = this.simulationPen.GetShapePoints(position);
-
                     switch (worldModificationType)
                     {
                         case SWorldModificationType.Adding:
-                            DrawElements(this.game.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), targetPoints);
+                            DrawElements(this.gameInstance.ElementDatabase.GetElementByIdentifier(referencedItemIdentifier), targetPoints);
                             break;
 
                         case SWorldModificationType.Removing:
@@ -37,7 +37,10 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
                         default:
                             break;
                     }
+                    break;
 
+                case SItemContentType.Tool:
+                    ExecuteTool(referencedItemIdentifier, targetPoints);
                     break;
 
                 default:
@@ -81,5 +84,18 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.Tools
         //{
 
         //}
+
+        // ============================================ //
+        // Tools
+
+        private void ExecuteTool(string identifier, IEnumerable<Point> positions)
+        {
+            foreach (Point position in positions)
+            {
+                this.worldHandler.ToolContext.Update(position, this.simulationPen.Layer);
+                this.gameInstance.ToolDatabase.GetToolByIdentifier(identifier).Execute(this.worldHandler.ToolContext);
+            }
+            
+        }
     }
 }

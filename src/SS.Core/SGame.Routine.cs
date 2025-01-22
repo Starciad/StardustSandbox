@@ -2,10 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Bundles;
 using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
-using StardustSandbox.Core.Plugins;
 
 namespace StardustSandbox.Core
 {
@@ -24,7 +24,7 @@ namespace StardustSandbox.Core
             SSongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
             SSoundEngine.Volume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
 
-            foreach (SPluginBuilder pluginBuilder in this.pluginBuilders)
+            foreach (SGameBundle pluginBuilder in this.pluginBuilders)
             {
                 pluginBuilder.Initialize(this, this.Content);
             }
@@ -36,6 +36,7 @@ namespace StardustSandbox.Core
             this.guiDatabase.Initialize();
             this.backgroundDatabase.Initialize();
             this.entityDatabase.Initialize();
+            this.toolDatabase.Initialize();
 
             // Managers
             this.gameManager.Initialize();

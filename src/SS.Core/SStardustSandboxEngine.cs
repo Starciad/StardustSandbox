@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Plugins;
+﻿using StardustSandbox.Core.Bundles;
 
 using System;
 
@@ -9,7 +9,7 @@ namespace StardustSandbox.Core
         private readonly SGame game = new();
         private bool disposedValue;
 
-        public void RegisterPlugin(SPluginBuilder pluginBuilder)
+        public void RegisterPlugin(SGameBundle pluginBuilder)
         {
             this.game.RegisterPlugin(pluginBuilder);
         }

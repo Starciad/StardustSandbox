@@ -5,7 +5,7 @@ using StardustSandbox.Core.Interfaces.Databases;
 
 namespace StardustSandbox.ContentBundle
 {
-    public sealed partial class SContentBundleBuilder
+    public sealed partial class SDefaultGameBundle
     {
         protected override void OnRegisterEntities(ISGame game, ISEntityDatabase entityDatabase)
         {

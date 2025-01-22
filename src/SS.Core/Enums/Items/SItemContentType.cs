@@ -5,6 +5,6 @@
         Element = 0,
         BGO = 1,
         Entity = 2,
-        Tools = 3,
+        Tool = 3,
     }
 }

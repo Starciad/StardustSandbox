@@ -8,7 +8,7 @@ using StardustSandbox.Core.Interfaces.Databases;
 
 namespace StardustSandbox.ContentBundle
 {
-    public sealed partial class SContentBundleBuilder
+    public sealed partial class SDefaultGameBundle
     {
         protected override void OnRegisterCatalog(ISGame game, ISCatalogDatabase catalogDatabase)
         {
@@ -20,7 +20,15 @@ namespace StardustSandbox.ContentBundle
                 game.AssetDatabase.GetTexture("icon_element_1")
             );
 
+            SCategory toolCategory = new(
+                "tools",
+                "Tools",
+                string.Empty,
+                game.AssetDatabase.GetTexture("icon_element_1")
+            );
+
             catalogDatabase.RegisterCategory(elementCategory);
+            catalogDatabase.RegisterCategory(toolCategory);
             #endregion
 
             #region Subcategories
@@ -71,6 +79,18 @@ namespace StardustSandbox.ContentBundle
             elementCategory.AddSubcategory(elementGasSubcategory);
             elementCategory.AddSubcategory(elementSolidSubcategory);
             elementCategory.AddSubcategory(elementEnergySubcategory);
+            #endregion
+
+            #region Utilities
+            SSubcategory toolEnvironmentSubcategory = new(
+                parent: toolCategory,
+                identifier: "environment",
+                name: "Environment",
+                description: string.Empty,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+            );
+
+            toolCategory.AddSubcategory(toolEnvironmentSubcategory);
             #endregion
 
             #endregion
@@ -319,6 +339,26 @@ namespace StardustSandbox.ContentBundle
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_27")
+            ));
+            #endregion
+
+            #region Tools
+            catalogDatabase.RegisterItem(new(
+                identifier: "heat_tool",
+                name: "Heat Tool",
+                description: string.Empty,
+                contentType: SItemContentType.Tool,
+                subcategory: toolEnvironmentSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+            ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: "freeze_tool",
+                name: "Freeze Tool",
+                description: string.Empty,
+                contentType: SItemContentType.Tool,
+                subcategory: toolEnvironmentSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
             ));
             #endregion
 
