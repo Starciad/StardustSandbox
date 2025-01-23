@@ -7,6 +7,7 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
@@ -33,11 +34,13 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
                 {
                     this.emptyPositionsCache.Add(position);
                 }
-                else if (this.Context.TryGetElement(position, this.Context.Layer, out ISElement value))
+                else if (this.Context.TryGetWorldSlot(position, out SWorldSlot value))
                 {
-                    if (value is SGas || value is SLiquid)
+                    SWorldSlotLayer worldSlotLayer = value.GetLayer(this.Context.Layer);
+
+                    if (worldSlotLayer.Element is SGas || worldSlotLayer.Element is SLiquid)
                     {
-                        if (value.DefaultDensity < this.DefaultDensity)
+                        if ((worldSlotLayer.Element.GetType() == GetType() && worldSlotLayer.Temperature > this.Context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
                         {
                             this.validPositionsCache.Add(position);
                         }
