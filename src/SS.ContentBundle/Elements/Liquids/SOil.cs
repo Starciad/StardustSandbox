@@ -15,7 +15,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         public SOil(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.referenceColor = SColorPalette.PurpleGray;
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_26");
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_28");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableFlammability = true;
             this.enableNeighborsAction = true;
