@@ -1,5 +1,6 @@
-﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.Core.Colors;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.ContentBundle.Elements.Energies;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
@@ -14,7 +15,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
     {
         internal SOil(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.referenceColor = SColorPalette.PurpleGray;
+            this.referenceColor = Color.Black;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_28");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableFlammability = true;
