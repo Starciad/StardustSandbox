@@ -62,6 +62,7 @@
         public const string ASSETS_GRAPHICS_ICONS_ENTITIES = "entities";
         public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
         public const string ASSETS_GRAPHICS_ICONS_CONTROLLERS = "controllers";
+        public const string ASSETS_GRAPHICS_ICONS_TOOLS = "tools";
 
         // Miscellaneous
         public const string ASSETS_GRAPHICS_MISCELLANEOUS = "miscellaneous";

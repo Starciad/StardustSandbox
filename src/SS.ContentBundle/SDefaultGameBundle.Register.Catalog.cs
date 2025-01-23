@@ -24,7 +24,7 @@ namespace StardustSandbox.ContentBundle
                 "tools",
                 "Tools",
                 string.Empty,
-                game.AssetDatabase.GetTexture("icon_element_1")
+                game.AssetDatabase.GetTexture("icon_gui_53")
             );
 
             catalogDatabase.RegisterCategory(elementCategory);
@@ -81,13 +81,13 @@ namespace StardustSandbox.ContentBundle
             elementCategory.AddSubcategory(elementEnergySubcategory);
             #endregion
 
-            #region Utilities
+            #region Tools
             SSubcategory toolEnvironmentSubcategory = new(
                 parent: toolCategory,
                 identifier: "environment",
                 name: "Environment",
                 description: string.Empty,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+                iconTexture: game.AssetDatabase.GetTexture("icon_gui_54")
             );
 
             toolCategory.AddSubcategory(toolEnvironmentSubcategory);
@@ -349,7 +349,7 @@ namespace StardustSandbox.ContentBundle
                 description: string.Empty,
                 contentType: SItemContentType.Tool,
                 subcategory: toolEnvironmentSubcategory,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+                iconTexture: game.AssetDatabase.GetTexture("icon_tool_1")
             ));
 
             catalogDatabase.RegisterItem(new(
@@ -358,7 +358,7 @@ namespace StardustSandbox.ContentBundle
                 description: string.Empty,
                 contentType: SItemContentType.Tool,
                 subcategory: toolEnvironmentSubcategory,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_1")
+                iconTexture: game.AssetDatabase.GetTexture("icon_tool_2")
             ));
             #endregion
 

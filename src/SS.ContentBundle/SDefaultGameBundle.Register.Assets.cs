@@ -81,6 +81,7 @@ namespace StardustSandbox.ContentBundle
             AssetLoader(contentManager, assetDatabase, SAssetType.Texture, SAssetConstants.GRAPHICS_ICONS_ELEMENTS_LENGTH, "icon_element_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_ELEMENTS));
             AssetLoader(contentManager, assetDatabase, SAssetType.Texture, SAssetConstants.GRAPHICS_ICONS_GUI_LENGTH, "icon_gui_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_GUI));
             AssetLoader(contentManager, assetDatabase, SAssetType.Texture, SAssetConstants.GRAPHICS_ICONS_CONTROLLERS_LENGTH, "icon_controller_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_CONTROLLERS));
+            AssetLoader(contentManager, assetDatabase, SAssetType.Texture, SAssetConstants.GRAPHICS_ICONS_TOOLS_LENGTH, "icon_tool_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS, SDirectoryConstants.ASSETS_GRAPHICS_ICONS_TOOLS));
 
             // Miscellaneous
             AssetLoader(contentManager, assetDatabase, SAssetType.Texture, SAssetConstants.GRAPHICS_MISCELLANEOUS, "miscellany_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_MISCELLANEOUS));
