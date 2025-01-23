@@ -350,6 +350,24 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_28")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_SALT,
+                name: "Salt",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementPowderSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_29")
+            ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_SALTWATER,
+                name: "Saltwater",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementLiquidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_30")
+            ));
             #endregion
 
             #region Tools

@@ -37,6 +37,8 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string IDENTIFIER_VOID = IDENTIFIER_PREFIX + "void";
         public const string IDENTIFIER_CLONE = IDENTIFIER_PREFIX + "clone";
         public const string IDENTIFIER_OIL = IDENTIFIER_PREFIX + "oil";
+        public const string IDENTIFIER_SALT = IDENTIFIER_PREFIX + "salt";
+        public const string IDENTIFIER_SALTWATER = IDENTIFIER_PREFIX + "saltwater";
 
         // Corruption
         public const byte CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL = 100;

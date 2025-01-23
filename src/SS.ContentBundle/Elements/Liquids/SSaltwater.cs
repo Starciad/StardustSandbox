@@ -11,17 +11,17 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
-    internal sealed class SWater : SLiquid
+    internal sealed class SSaltwater : SLiquid
     {
-        internal SWater(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        internal SSaltwater(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.referenceColor = new(8, 120, 284, 255);
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
+            this.referenceColor = new(62, 182, 249, 255);
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_30");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
             this.defaultDispersionRate = 3;
             this.defaultTemperature = 25;
-            this.defaultDensity = 1000;
+            this.defaultDensity = 1200;
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
@@ -52,13 +52,13 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue <= 0)
+            if (currentValue <= 21)
             {
                 this.Context.ReplaceElement(SElementConstants.IDENTIFIER_ICE);
                 return;
             }
 
-            if (currentValue >= 100)
+            if (currentValue >= 110)
             {
                 this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STEAM);
                 return;

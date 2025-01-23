@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             if (currentValue >= 0)
             {
                 this.Context.ReplaceElement(SElementConstants.IDENTIFIER_WATER);
-                this.Context.SetElementTemperature(8);
+                this.Context.SetElementTemperature(13);
             }
         }
     }

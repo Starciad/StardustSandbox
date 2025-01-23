@@ -12,7 +12,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 {
     internal sealed class SOil : SLiquid
     {
-        public SOil(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        internal SOil(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.referenceColor = SColorPalette.PurpleGray;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_28");

@@ -41,6 +41,8 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new SVoid(game, SElementConstants.IDENTIFIER_VOID));
             elementDatabase.RegisterElement(new SClone(game, SElementConstants.IDENTIFIER_CLONE));
             elementDatabase.RegisterElement(new SOil(game, SElementConstants.IDENTIFIER_OIL));
+            elementDatabase.RegisterElement(new SSalt(game, SElementConstants.IDENTIFIER_SALT));
+            elementDatabase.RegisterElement(new SSaltwater(game, SElementConstants.IDENTIFIER_SALTWATER));
         }
     }
 }
