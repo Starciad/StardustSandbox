@@ -1,6 +1,10 @@
-﻿using StardustSandbox.Core.Elements.Rendering;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.ContentBundle.Elements.Gases
 {
@@ -13,6 +17,21 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 350;
             this.defaultDensity = 2;
+        }
+
+        protected override void OnBeforeStep()
+        {
+            if (SRandomMath.Chance(75, 101))
+            {
+                return;
+            }
+
+            Point topPosition = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y - 1);
+
+            if (this.Context.IsEmptyWorldSlotLayer(topPosition, this.Context.Layer))
+            {
+                this.Context.SetPosition(topPosition);
+            }
         }
     }
 }

@@ -21,7 +21,6 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
             this.texture = gameInstance.AssetDatabase.GetTexture("element_16");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
-            this.movementType = SGasMovementType.Spread;
             this.defaultDensity = 5;
         }
 

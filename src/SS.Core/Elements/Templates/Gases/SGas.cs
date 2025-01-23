@@ -14,10 +14,6 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
 {
     public abstract class SGas : SElement
     {
-        public SGasMovementType MovementType => this.movementType;
-
-        protected SGasMovementType movementType;
-
         private readonly List<Point> emptyPositionsCache = [];
         private readonly List<Point> validPositionsCache = [];
 
@@ -27,36 +23,6 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
         }
 
         protected override void OnBehaviourStep()
-        {
-            switch (this.movementType)
-            {
-                case SGasMovementType.Up:
-                    UpMovementTypeUpdate();
-                    break;
-
-                case SGasMovementType.Spread:
-                    SpreadMovementTypeUpdate();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        private void UpMovementTypeUpdate()
-        {
-            foreach (Point abovePosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Up))
-            {
-                if (TrySetPosition(abovePosition))
-                {
-                    return;
-                }
-            }
-
-            SElementUtility.UpdateHorizontalPosition(this.Context, this.DefaultDispersionRate);
-        }
-
-        private void SpreadMovementTypeUpdate()
         {
             this.emptyPositionsCache.Clear();
             this.validPositionsCache.Clear();
@@ -88,27 +54,6 @@ namespace StardustSandbox.Core.Elements.Templates.Gases
                 Point targetPosition = this.validPositionsCache.GetRandomItem();
                 _ = this.Context.TrySwappingElements(targetPosition);
             }
-        }
-
-        private bool TrySetPosition(Point position)
-        {
-            if (this.Context.TrySetPosition(position))
-            {
-                return true;
-            }
-
-            if (this.Context.TryGetElement(position, this.Context.Layer, out ISElement value))
-            {
-                if (value is SGas || value is SLiquid)
-                {
-                    if (value.DefaultDensity < this.DefaultDensity && this.Context.TrySwappingElements(position))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }
