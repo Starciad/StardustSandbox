@@ -20,7 +20,15 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue >= 0)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_WATER);
+                if (this.Context.SlotLayer.StoredElement == null)
+                {
+                    this.Context.ReplaceElement(SElementConstants.IDENTIFIER_WATER);
+                }
+                else
+                {
+                    this.Context.ReplaceElement(this.Context.SlotLayer.StoredElement);
+                }
+
                 this.Context.SetElementTemperature(13);
             }
         }

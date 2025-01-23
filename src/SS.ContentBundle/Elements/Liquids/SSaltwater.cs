@@ -55,6 +55,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             if (currentValue <= 21)
             {
                 this.Context.ReplaceElement(SElementConstants.IDENTIFIER_ICE);
+                this.Context.SetStoredElement(SElementConstants.IDENTIFIER_SALTWATER);
                 return;
             }
 
