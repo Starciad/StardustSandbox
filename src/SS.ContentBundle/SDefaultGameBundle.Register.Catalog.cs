@@ -75,11 +75,20 @@ namespace StardustSandbox.ContentBundle
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_24")
             );
 
+            SSubcategory elementExplosiveSubcategory = new(
+                parent: elementCategory,
+                identifier: "explosives",
+                name: "Explosives",
+                description: string.Empty,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_31")
+            );
+
             elementCategory.AddSubcategory(elementPowderSubcategory);
             elementCategory.AddSubcategory(elementLiquidSubcategory);
             elementCategory.AddSubcategory(elementGasSubcategory);
             elementCategory.AddSubcategory(elementSolidSubcategory);
             elementCategory.AddSubcategory(elementEnergySubcategory);
+            elementCategory.AddSubcategory(elementExplosiveSubcategory);
             #endregion
 
             #region Tools
@@ -367,6 +376,15 @@ namespace StardustSandbox.ContentBundle
                 contentType: SItemContentType.Element,
                 subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_30")
+            ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_BOMB,
+                name: "Bomb",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementExplosiveSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_31")
             ));
             #endregion
 

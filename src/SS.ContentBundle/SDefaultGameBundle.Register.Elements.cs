@@ -43,6 +43,7 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new SOil(game, SElementConstants.IDENTIFIER_OIL));
             elementDatabase.RegisterElement(new SSalt(game, SElementConstants.IDENTIFIER_SALT));
             elementDatabase.RegisterElement(new SSaltwater(game, SElementConstants.IDENTIFIER_SALTWATER));
+            elementDatabase.RegisterElement(new SBomb(game, SElementConstants.IDENTIFIER_BOMB));
         }
     }
 }
