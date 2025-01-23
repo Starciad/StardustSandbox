@@ -40,6 +40,7 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new SLamp(game, SElementConstants.IDENTIFIER_LAMP));
             elementDatabase.RegisterElement(new SVoid(game, SElementConstants.IDENTIFIER_VOID));
             elementDatabase.RegisterElement(new SClone(game, SElementConstants.IDENTIFIER_CLONE));
+            elementDatabase.RegisterElement(new SOil(game, SElementConstants.IDENTIFIER_OIL));
         }
     }
 }

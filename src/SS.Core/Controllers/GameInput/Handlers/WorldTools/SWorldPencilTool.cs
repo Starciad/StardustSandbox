@@ -95,7 +95,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
                 this.worldHandler.ToolContext.Update(position, this.simulationPen.Layer);
                 this.gameInstance.ToolDatabase.GetToolByIdentifier(identifier).Execute(this.worldHandler.ToolContext);
             }
-            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.ContentBundle.Localization.Catalog;
 using StardustSandbox.ContentBundle.Localization.Elements;
 using StardustSandbox.Core.Catalog;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces;
@@ -340,11 +341,20 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_27")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.IDENTIFIER_OIL,
+                name: "Oil",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementLiquidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_26")
+            ));
             #endregion
 
             #region Tools
             catalogDatabase.RegisterItem(new(
-                identifier: "heat_tool",
+                identifier: SToolConstants.IDENTIFIER_HEAT,
                 name: "Heat Tool",
                 description: string.Empty,
                 contentType: SItemContentType.Tool,
@@ -353,7 +363,7 @@ namespace StardustSandbox.ContentBundle
             ));
 
             catalogDatabase.RegisterItem(new(
-                identifier: "freeze_tool",
+                identifier: SToolConstants.IDENTIFIER_FREEZE,
                 name: "Freeze Tool",
                 description: string.Empty,
                 contentType: SItemContentType.Tool,
