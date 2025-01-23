@@ -69,8 +69,8 @@ namespace StardustSandbox.Core
         private readonly SWorld world;
         private readonly SGameInputController gameInputController;
 
-        // Plugin System
-        private readonly List<SGameBundle> pluginBuilders = [];
+        // Bundle System
+        private readonly List<SGameBundle> bundles = [];
 
         // ================================= //
 
@@ -125,9 +125,9 @@ namespace StardustSandbox.Core
             this.ambientManager = new(this);
         }
 
-        public void RegisterPlugin(SGameBundle pluginBuilder)
+        public void AddBundle(SGameBundle bundle)
         {
-            this.pluginBuilders.Add(pluginBuilder);
+            this.bundles.Add(bundle);
         }
 
         public void Quit()

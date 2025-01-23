@@ -9,9 +9,9 @@ namespace StardustSandbox.Core
         private readonly SGame game = new();
         private bool disposedValue;
 
-        public void RegisterPlugin(SGameBundle pluginBuilder)
+        public void AddBundle(SGameBundle bundle)
         {
-            this.game.RegisterPlugin(pluginBuilder);
+            this.game.AddBundle(bundle);
         }
 
         public void Start()

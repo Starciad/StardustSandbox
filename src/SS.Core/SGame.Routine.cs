@@ -24,9 +24,9 @@ namespace StardustSandbox.Core
             SSongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
             SSoundEngine.Volume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
 
-            foreach (SGameBundle pluginBuilder in this.pluginBuilders)
+            foreach (SGameBundle bundle in this.bundles)
             {
-                pluginBuilder.Initialize(this, this.Content);
+                bundle.Initialize(this, this.Content);
             }
 
             // Databases
