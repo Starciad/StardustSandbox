@@ -5,6 +5,7 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace StardustSandbox.Core.Elements.Contexts
 {
@@ -332,25 +333,49 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TrySetElementColorModifier(position, worldLayer, value);
         }
 
+        public void SetStoredElement(string identifier)
+        {
+            SetStoredElement(this.worldLayer, identifier);
+        }
         public void SetStoredElement(ISElement element)
         {
             SetStoredElement(this.worldLayer, element);
+        }
+        public void SetStoredElement(SWorldLayer worldLayer, string identifier)
+        {
+            SetStoredElement(this.Position, worldLayer, identifier);
         }
         public void SetStoredElement(SWorldLayer worldLayer, ISElement element)
         {
             SetStoredElement(this.Position, worldLayer, element);
         }
+        public void SetStoredElement(Point position, SWorldLayer worldLayer, string identifier)
+        {
+            this.world.SetStoredElement(position, worldLayer, identifier);
+        }
         public void SetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
         {
             this.world.SetStoredElement(position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(string identifier)
+        {
+            return TrySetStoredElement(this.worldLayer, identifier);
         }
         public bool TrySetStoredElement(ISElement element)
         {
             return TrySetStoredElement(this.worldLayer, element);
         }
+        public bool TrySetStoredElement(SWorldLayer worldLayer, string identifier)
+        {
+            return TrySetStoredElement(this.Position, worldLayer, identifier);
+        }
         public bool TrySetStoredElement(SWorldLayer worldLayer, ISElement element)
         {
             return TrySetStoredElement(this.Position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, string identifier)
+        {
+            return this.world.TrySetStoredElement(position, worldLayer, identifier);
         }
         public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
         {

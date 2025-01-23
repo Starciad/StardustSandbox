@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Core.Elements.Rendering;
+﻿using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
 
@@ -19,7 +20,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue >= 620)
             {
-                this.Context.DestroyElement();
+                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_LAVA);
+                this.Context.SetStoredElement(SElementConstants.IDENTIFIER_GLASS);
             }
         }
     }

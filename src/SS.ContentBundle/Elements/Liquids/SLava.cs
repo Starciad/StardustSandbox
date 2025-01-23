@@ -23,7 +23,15 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue <= 500)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STONE);
+                if (this.Context.SlotLayer.StoredElement == null)
+                {
+                    this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STONE);
+                }
+                else
+                {
+                    this.Context.ReplaceElement(this.Context.SlotLayer.StoredElement);
+                }
+                
                 this.Context.SetElementTemperature(500);
             }
         }

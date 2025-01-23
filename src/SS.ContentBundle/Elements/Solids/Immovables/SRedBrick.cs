@@ -22,6 +22,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             if (currentValue >= 1727)
             {
                 this.Context.ReplaceElement(SElementConstants.IDENTIFIER_LAVA);
+                this.Context.SetStoredElement(SElementConstants.IDENTIFIER_RED_BRICK);
             }
         }
     }

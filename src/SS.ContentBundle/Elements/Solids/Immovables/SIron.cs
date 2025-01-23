@@ -21,6 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             if (currentValue > 1200)
             {
                 this.Context.ReplaceElement(SElementConstants.IDENTIFIER_LAVA);
+                this.Context.SetStoredElement(SElementConstants.IDENTIFIER_IRON);
             }
         }
     }

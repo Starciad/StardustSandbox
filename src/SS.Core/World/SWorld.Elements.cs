@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using SharpDX.Direct3D9;
-
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -248,9 +246,17 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
+        public void SetStoredElement(Point position, SWorldLayer worldLayer, string identifier)
+        {
+            SetStoredElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(identifier));
+        }
         public void SetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
         {
             _ = TrySetStoredElement(position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, string identifier)
+        {
+            return TrySetStoredElement(position, worldLayer, this.SGameInstance.ElementDatabase.GetElementByIdentifier(identifier));
         }
         public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
         {
