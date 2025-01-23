@@ -40,7 +40,19 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
                     break;
 
                 case SItemContentType.Tool:
-                    ExecuteTool(referencedItemIdentifier, targetPoints);
+                    switch (worldModificationType)
+                    {
+                        case SWorldModificationType.Adding:
+                            ExecuteTool(referencedItemIdentifier, targetPoints);
+                            break;
+
+                        case SWorldModificationType.Removing:
+                            EraseElements(targetPoints);
+                            break;
+
+                        default:
+                            break;
+                    }
                     break;
 
                 default:

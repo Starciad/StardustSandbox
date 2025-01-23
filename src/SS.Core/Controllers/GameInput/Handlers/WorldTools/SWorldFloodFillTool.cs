@@ -41,9 +41,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 
                     break;
 
-                case SItemContentType.Entity:
-                    break;
-
                 default:
                     break;
             }
