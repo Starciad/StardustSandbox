@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             {
                 SWorldSlotLayer neighborLayer = neighbor.GetLayer(this.Context.Layer);
 
-                if (!neighborLayer.IsEmpty && neighborLayer.Element is not (SWall or SVoid))
+                if (!neighborLayer.IsEmpty && neighborLayer.Element is not (SWall or SVoid or SClone))
                 {
                     this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
                 }
