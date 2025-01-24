@@ -3,6 +3,7 @@
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Entities;
+using StardustSandbox.Core.Interfaces.Explosions;
 using StardustSandbox.Core.Interfaces.System;
 using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Mathematics.Primitives;
@@ -10,7 +11,7 @@ using StardustSandbox.Core.World.General;
 
 namespace StardustSandbox.Core.Interfaces.World
 {
-    public interface ISWorld : ISResettable, ISElementHandler, ISEntityHandler, ISWorldChunking
+    public interface ISWorld : ISResettable, ISElementHandler, ISEntityHandler, ISExplosionHandler, ISWorldChunking
     {
         SWorldInfo Infos { get; }
         SWorldTime Time { get; }

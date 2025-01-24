@@ -21,11 +21,14 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool EnableFlammability { get; }
         bool EnableLightEmission { get; }
 
+        bool IsExplosionImmune { get; }
+
         int DefaultDispersionRate { get; }
         short DefaultTemperature { get; }
         short DefaultFlammabilityResistance { get; }
         short DefaultDensity { get; }
         byte DefaultLuminousIntensity { get; }
+        float DefaultExplosionResistance { get; }
 
         SElementRendering Rendering { get; }
         ISElementContext Context { get; set; }
@@ -33,7 +36,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         void Update(GameTime gameTime);
         void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        void InstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer);
+        void Initialize(SWorldSlot worldSlot, SWorldLayer worldLayer);
+        void Destroy(SWorldSlot worldSlot, SWorldLayer worldLayer);
+
         void Steps();
     }
 }

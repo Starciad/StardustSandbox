@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Explosions;
+using StardustSandbox.Core.Interfaces.Explosions;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 {
-    public interface ISElementContext : ISElementHandler
+    public interface ISElementContext : ISElementHandler, ISExplosionHandler, ISWorldChunkingHandler
     {
         SWorldSlot Slot { get; }
         SWorldSlotLayer SlotLayer { get; }
@@ -86,9 +89,7 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         bool TrySetStoredElement(ISElement element);
 
         void NotifyChunk();
-        void NotifyChunk(Point position);
         bool TryNotifyChunk();
-        bool TryNotifyChunk(Point position);
 
         bool IsEmptyWorldSlot();
         bool IsEmptyWorldSlotLayer();

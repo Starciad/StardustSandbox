@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors;
+using StardustSandbox.Core.Explosions;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Constants.Elements
 {

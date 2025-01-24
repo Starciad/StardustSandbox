@@ -28,12 +28,15 @@ namespace StardustSandbox.Core.Elements
         public bool EnableTemperature => this.enableTemperature;
         public bool EnableFlammability => this.enableFlammability;
         public bool EnableLightEmission => this.enableLightEmission;
+        
+        public bool IsExplosionImmune => this.isExplosionImmune;
 
         public int DefaultDispersionRate => this.defaultDispersionRate;
         public short DefaultTemperature => this.defaultTemperature;
         public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
         public short DefaultDensity => this.defaultDensity;
         public byte DefaultLuminousIntensity => this.defaultLuminousIntensity;
+        public float DefaultExplosionResistance => this.defaultExplosionResistance;
 
         public SElementRendering Rendering => this.rendering;
         public ISElementContext Context { get => this.context; set => this.context = value; }
@@ -51,11 +54,14 @@ namespace StardustSandbox.Core.Elements
         protected bool enableFlammability;
         protected bool enableLightEmission;
 
+        protected bool isExplosionImmune;
+
         protected int defaultDispersionRate = 1;
         protected short defaultTemperature = 25;
         protected short defaultFlammabilityResistance = 25;
         protected short defaultDensity = 0;
         protected byte defaultLuminousIntensity = 0;
+        protected float defaultExplosionResistance = 0.5f;
 
         private ISElementContext context;
 
@@ -78,9 +84,14 @@ namespace StardustSandbox.Core.Elements
             this.rendering.Draw(gameTime, spriteBatch);
         }
 
-        public void InstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer)
+        public void Initialize(SWorldSlot worldSlot, SWorldLayer worldLayer)
         {
-            OnInstantiateStep(worldSlot, worldLayer);
+            OnInstantiated(worldSlot, worldLayer);
+        }
+
+        public void Destroy(SWorldSlot worldSlot, SWorldLayer worldLayer)
+        {
+            OnDestroyed(worldSlot, worldLayer);
         }
 
         public void Steps()
@@ -154,12 +165,13 @@ namespace StardustSandbox.Core.Elements
             OnTemperatureChanged(this.context.SlotLayer.Temperature);
         }
 
-        protected virtual void OnInstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
         protected virtual void OnBeforeStep() { return; }
         protected virtual void OnStep() { return; }
         protected virtual void OnAfterStep() { return; }
         protected virtual void OnBehaviourStep() { return; }
 
+        protected virtual void OnInstantiated(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
+        protected virtual void OnDestroyed(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
         protected virtual void OnNeighbors(IEnumerable<SWorldSlot> neighbors) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
     }

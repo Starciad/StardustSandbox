@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.World
             this.worldElementContext.UpdateInformation(position, worldLayer, worldSlot);
 
             value.Context = this.worldElementContext;
-            value.InstantiateStep(worldSlot, worldLayer);
+            value.Initialize(worldSlot, worldLayer);
 
             return true;
         }
@@ -115,7 +115,12 @@ namespace StardustSandbox.Core.World
             }
 
             NotifyChunk(position);
-            this.slots[position.X, position.Y].Destroy(worldLayer);
+
+            SWorldSlot worldSlot = this.slots[position.X, position.Y];
+            SWorldSlotLayer worldSlotLayer = worldSlot.GetLayer(worldLayer);
+
+            worldSlotLayer.Element.Destroy(worldSlot, worldLayer);
+            worldSlotLayer.Destroy();
 
             return true;
         }

@@ -24,7 +24,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultDensity = 1800;
         }
 
-        protected override void OnInstantiateStep(SWorldSlot worldSlot, SWorldLayer worldLayer)
+        protected override void OnInstantiated(SWorldSlot worldSlot, SWorldLayer worldLayer)
         {
             this.Context.SetElementColorModifier(worldLayer, SElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
