@@ -38,6 +38,9 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                     case SClone:
                     case SVoid:
                         continue;
+
+                    default:
+                        break;
                 }
 
                 this.Context.DestroyElement();

@@ -46,6 +46,9 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                     case SFire:
                         this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
                         break;
+
+                    default:
+                        break;
                 }
             }
         }

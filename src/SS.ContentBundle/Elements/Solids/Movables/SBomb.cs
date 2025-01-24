@@ -48,6 +48,9 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
                     case SLava:
                         this.Context.DestroyElement();
                         break;
+
+                    default:
+                        break;
                 }
             }
         }

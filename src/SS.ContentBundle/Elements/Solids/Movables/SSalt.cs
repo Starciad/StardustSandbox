@@ -34,6 +34,9 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
                         this.Context.DestroyElement();
                         this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SALTWATER);
                         break;
+
+                    default:
+                        break;
                 }
             }
         }

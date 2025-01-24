@@ -34,6 +34,9 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                     case SFire:
                         this.Context.ReplaceElement(SElementConstants.IDENTIFIER_FIRE);
                         break;
+
+                    default:
+                        break;
                 }
             }
         }
