@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Elements.Rendering;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
-using StardustSandbox.Core.World.Slots;
 
 namespace StardustSandbox.Core.Interfaces.Elements
 {
@@ -36,8 +34,8 @@ namespace StardustSandbox.Core.Interfaces.Elements
         void Update(GameTime gameTime);
         void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
-        void Initialize(SWorldSlot worldSlot, SWorldLayer worldLayer);
-        void Destroy(SWorldSlot worldSlot, SWorldLayer worldLayer);
+        void Instantiate();
+        void Destroy();
 
         void Steps();
     }

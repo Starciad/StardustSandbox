@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Core.Explosions;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Explosions;
 
 namespace StardustSandbox.Core.Elements.Contexts
 {
@@ -6,12 +8,22 @@ namespace StardustSandbox.Core.Elements.Contexts
     {
         public void InstantiateExplosion(SExplosionBuilder explosionBuilder)
         {
-            this.world.InstantiateExplosion(explosionBuilder);
+            InstantiateExplosion(this.Position, explosionBuilder);
+        }
+
+        public void InstantiateExplosion(Point position, SExplosionBuilder explosionBuilder)
+        {
+            this.world.InstantiateExplosion(position, explosionBuilder);
         }
 
         public bool TryInstantiateExplosion(SExplosionBuilder explosionBuilder)
         {
-            return this.world.TryInstantiateExplosion(explosionBuilder);
+            return TryInstantiateExplosion(this.Position, explosionBuilder);
+        }
+
+        public bool TryInstantiateExplosion(Point position, SExplosionBuilder explosionBuilder)
+        {
+            return this.world.TryInstantiateExplosion(position, explosionBuilder);
         }
     }
 }

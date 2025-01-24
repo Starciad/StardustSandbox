@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using SharpDX.Direct3D9;
+
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -36,13 +38,11 @@ namespace StardustSandbox.Core.World
             NotifyChunk(position);
 
             SWorldSlot worldSlot = this.slots[position.X, position.Y];
-
             worldSlot.Instantiate(position, worldLayer, value);
 
             this.worldElementContext.UpdateInformation(position, worldLayer, worldSlot);
-
             value.Context = this.worldElementContext;
-            value.Initialize(worldSlot, worldLayer);
+            value.Instantiate();
 
             return true;
         }
@@ -119,8 +119,28 @@ namespace StardustSandbox.Core.World
             SWorldSlot worldSlot = this.slots[position.X, position.Y];
             SWorldSlotLayer worldSlotLayer = worldSlot.GetLayer(worldLayer);
 
-            worldSlotLayer.Element.Destroy(worldSlot, worldLayer);
+            this.worldElementContext.UpdateInformation(position, worldLayer, worldSlot);
+            worldSlotLayer.Element.Context = this.worldElementContext;
+            worldSlotLayer.Element.Destroy();
             worldSlotLayer.Destroy();
+
+            return true;
+        }
+
+        public void RemoveElement(Point position, SWorldLayer worldLayer)
+        {
+            _ = TryRemoveElement(position, worldLayer);
+        }
+        public bool TryRemoveElement(Point position, SWorldLayer worldLayer)
+        {
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
+            {
+                return false;
+            }
+
+            NotifyChunk(position);
+
+            this.slots[position.X, position.Y].Destroy(worldLayer);
 
             return true;
         }

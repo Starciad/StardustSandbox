@@ -45,6 +45,11 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         bool TryDestroyElement();
         bool TryDestroyElement(SWorldLayer worldLayer);
 
+        void RemoveElement();
+        void RemoveElement(Point position);
+        bool TryRemoveElement();
+        bool TryRemoveElement(Point position);
+
         void ReplaceElement(string identifier);
         void ReplaceElement(SWorldLayer worldLayer, string identifier);
         void ReplaceElement(ISElement value);
@@ -94,5 +99,8 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         bool IsEmptyWorldSlot();
         bool IsEmptyWorldSlotLayer();
         bool IsEmptyWorldSlotLayer(SWorldLayer worldLayer);
+
+        void InstantiateExplosion(SExplosionBuilder explosionBuilder);
+        bool TryInstantiateExplosion(SExplosionBuilder explosionBuilder);
     }
 }

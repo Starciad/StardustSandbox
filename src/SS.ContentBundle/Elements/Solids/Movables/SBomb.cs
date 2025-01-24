@@ -3,10 +3,8 @@ using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Slots;
@@ -20,7 +18,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         private static readonly SExplosionBuilder explosionBuilder = new()
         {
             Power = 5,
-            Radius = 10,
+            Radius = 6,
         };
 
         internal SBomb(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
@@ -33,9 +31,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.defaultDensity = 3500;
         }
 
-        protected override void OnDestroyed(SWorldSlot worldSlot, SWorldLayer worldLayer)
+        protected override void OnDestroyed()
         {
-            explosionBuilder.Position = this.Context.Slot.Position;
             this.Context.InstantiateExplosion(explosionBuilder);
         }
 

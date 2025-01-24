@@ -7,12 +7,12 @@ namespace StardustSandbox.Core.Explosions
     internal class SExplosion : ISPoolableObject
     {
         internal Point Position { get; set; }
-        internal float Radius { get; set; }
+        internal int Radius { get; set; }
         internal float Power { get; set; }
 
-        public void Build(SExplosionBuilder builder)
+        public void Build(Point position, SExplosionBuilder builder)
         {
-            this.Position = builder.Position;
+            this.Position = position;
             this.Radius = builder.Radius;
             this.Power = builder.Power;
         }
@@ -20,7 +20,7 @@ namespace StardustSandbox.Core.Explosions
         public void Reset()
         {
             this.Position = Point.Zero;
-            this.Radius = 0f;
+            this.Radius = 0;
             this.Power = 0f;
         }
     }

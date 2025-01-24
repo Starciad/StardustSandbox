@@ -84,14 +84,14 @@ namespace StardustSandbox.Core.Elements
             this.rendering.Draw(gameTime, spriteBatch);
         }
 
-        public void Initialize(SWorldSlot worldSlot, SWorldLayer worldLayer)
+        public void Instantiate()
         {
-            OnInstantiated(worldSlot, worldLayer);
+            OnInstantiated();
         }
 
-        public void Destroy(SWorldSlot worldSlot, SWorldLayer worldLayer)
+        public void Destroy()
         {
-            OnDestroyed(worldSlot, worldLayer);
+            OnDestroyed();
         }
 
         public void Steps()
@@ -170,8 +170,8 @@ namespace StardustSandbox.Core.Elements
         protected virtual void OnAfterStep() { return; }
         protected virtual void OnBehaviourStep() { return; }
 
-        protected virtual void OnInstantiated(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
-        protected virtual void OnDestroyed(SWorldSlot worldSlot, SWorldLayer worldLayer) { return; }
+        protected virtual void OnInstantiated() { return; }
+        protected virtual void OnDestroyed() { return; }
         protected virtual void OnNeighbors(IEnumerable<SWorldSlot> neighbors) { return; }
         protected virtual void OnTemperatureChanged(short currentValue) { return; }
     }

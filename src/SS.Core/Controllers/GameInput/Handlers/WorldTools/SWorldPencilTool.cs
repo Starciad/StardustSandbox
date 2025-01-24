@@ -75,27 +75,9 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
         {
             foreach (Point position in positions)
             {
-                this.world.DestroyElement(position, this.simulationPen.Layer);
+                this.world.RemoveElement(position, this.simulationPen.Layer);
             }
         }
-
-        // ============================================ //
-        // Entities
-
-        //private void DrawEntities(string entityIdentifier, Vector2 position)
-        //{
-        //    _ = this.world.InstantiateEntity(entityIdentifier, (entity) =>
-        //    {
-        //        SEntityTransformComponent transformComponent = entity.ComponentContainer.GetComponent<SEntityTransformComponent>();
-
-        //        transformComponent.Position = position;
-        //    });
-        //}
-
-        //private void EraseEntities()
-        //{
-
-        //}
 
         // ============================================ //
         // Tools

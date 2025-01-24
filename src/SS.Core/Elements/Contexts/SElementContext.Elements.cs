@@ -158,6 +158,31 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TryDestroyElement(position, worldLayer);
         }
 
+        public void RemoveElement()
+        {
+            throw new System.NotImplementedException();
+        }
+        public void RemoveElement(Point position)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void RemoveElement(Point position, SWorldLayer worldLayer)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool TryRemoveElement()
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool TryRemoveElement(Point position)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool TryRemoveElement(Point position, SWorldLayer worldLayer)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void ReplaceElement(string identifier)
         {
             ReplaceElement(this.Layer, identifier);

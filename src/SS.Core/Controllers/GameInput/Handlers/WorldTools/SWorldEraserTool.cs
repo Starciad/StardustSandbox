@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
         {
             foreach (Point position in positions)
             {
-                this.world.DestroyElement(position, this.simulationPen.Layer);
+                this.world.RemoveElement(position, this.simulationPen.Layer);
             }
         }
     }

@@ -98,12 +98,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers
 
         private static Vector2 ConvertScreenToWorld(ISCameraManager cameraManager, Vector2 screenPosition)
         {
-            Vector3 screenPosition3D = new(screenPosition, 0);
-
-            Matrix viewMatrix = cameraManager.GetViewMatrix();
-            Matrix inverseViewMatrix = Matrix.Invert(viewMatrix);
-
-            Vector3 worldPosition3D = Vector3.Transform(screenPosition3D, inverseViewMatrix);
+            Vector3 worldPosition3D = Vector3.Transform(new(screenPosition, 0), Matrix.Invert(cameraManager.GetViewMatrix()));
 
             return new Vector2(worldPosition3D.X, worldPosition3D.Y);
         }

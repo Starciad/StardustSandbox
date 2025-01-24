@@ -12,6 +12,14 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 {
     internal sealed class SWorldFloodFillTool : SWorldTool
     {
+        private static readonly Point[] offsets =
+        [
+            new(0, -1),
+            new(0, 1),
+            new(-1, 0),
+            new(1, 0)
+        ];
+
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
@@ -134,7 +142,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
         {
             if (isErasing)
             {
-                this.world.DestroyElement(position, this.simulationPen.Layer); // Remove the element
+                this.world.TryRemoveElement(position, this.simulationPen.Layer); // Remove the element
             }
             else if (this.world.IsEmptyWorldSlotLayer(position, this.simulationPen.Layer))
             {
@@ -148,14 +156,6 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
 
         private IEnumerable<Point> GetNeighbors(Point position)
         {
-            Point[] offsets =
-            [
-                new(0, -1),
-                new(0, 1),
-                new(-1, 0),
-                new(1, 0)
-            ];
-
             foreach (Point offset in offsets)
             {
                 Point neighborPosition = new(position.X + offset.X, position.Y + offset.Y);

@@ -23,6 +23,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         void DestroyElement(Point position, SWorldLayer worldLayer);
         bool TryDestroyElement(Point position, SWorldLayer worldLayer);
 
+        void RemoveElement(Point position, SWorldLayer worldLayer);
+        bool TryRemoveElement(Point position, SWorldLayer worldLayer);
+
         void ReplaceElement(Point position, SWorldLayer worldLayer, string identifier);
         void ReplaceElement(Point position, SWorldLayer worldLayer, ISElement value);
         bool TryReplaceElement(Point position, SWorldLayer worldLayer, string identifier);

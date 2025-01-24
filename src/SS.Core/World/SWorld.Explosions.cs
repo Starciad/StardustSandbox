@@ -6,6 +6,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Mathematics.Geometry;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace StardustSandbox.Core.World
         private readonly Queue<SExplosion> instantiatedExplosions = new(SExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT);
         private readonly SObjectPool explosionPool = new();
 
-        public void InstantiateExplosion(SExplosionBuilder explosionBuilder)
+        public void InstantiateExplosion(Point position, SExplosionBuilder explosionBuilder)
         {
-            _ = TryInstantiateExplosion(explosionBuilder);
+            _ = TryInstantiateExplosion(position, explosionBuilder);
         }
 
-        public bool TryInstantiateExplosion(SExplosionBuilder explosionBuilder)
+        public bool TryInstantiateExplosion(Point position, SExplosionBuilder explosionBuilder)
         {
-            if (!InsideTheWorldDimensions(explosionBuilder.Position) && this.instantiatedExplosions.Count >= SExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT)
+            if (!InsideTheWorldDimensions(position) && this.instantiatedExplosions.Count >= SExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT)
             {
                 return false;
             }
@@ -33,7 +34,7 @@ namespace StardustSandbox.Core.World
                 ? (SExplosion)pooledObject
                 : new();
 
-            explosion.Build(explosionBuilder);
+            explosion.Build(position, explosionBuilder);
             this.instantiatedExplosions.Enqueue(explosion);
 
             return true;
@@ -50,39 +51,21 @@ namespace StardustSandbox.Core.World
 
         private void HandleExplosion(SExplosion explosion)
         {
-            HashSet<Point> visitedPoints = [];
-            int radiusCeil = (int)explosion.Radius;
-
-            for (int dx = -radiusCeil; dx <= radiusCeil; dx++)
+            foreach (Point point in SShapePointGenerator.GenerateCirclePoints(explosion.Position, explosion.Radius))
             {
-                for (int dy = -radiusCeil; dy <= radiusCeil; dy++)
-                {
-                    Point target = new(explosion.Position.X + dx, explosion.Position.Y + dy);
-
-                    if (!visitedPoints.Contains(target) && TryAffectPoint(target, explosion.Power))
-                    {
-                        _ = visitedPoints.Add(target);
-                    }
-                }
+                _ = TryAffectPoint(point, explosion.Power);
             }
         }
 
         private bool TryAffectPoint(Point position, float power)
         {
-            if (!InsideTheWorldDimensions(position))
+            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlot(position) || !TryGetWorldSlot(position, out SWorldSlot worldSlot))
             {
                 return false;
             }
 
-            SWorldSlot worldSlot = GetWorldSlot(position);
-
-            if (worldSlot.IsEmpty)
-            {
-                return false;
-            }
-
-            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground, worldSlot.Position, power);
-            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Background), SWorldLayer.Background, worldSlot.Position, power);
+            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground, position, power);
+            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Background), SWorldLayer.Background, position, power);
 
             return true;
         }
