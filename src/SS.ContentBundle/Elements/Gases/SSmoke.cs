@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Interfaces;

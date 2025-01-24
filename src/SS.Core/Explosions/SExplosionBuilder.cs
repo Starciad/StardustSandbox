@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace StardustSandbox.Core.Explosions
+﻿namespace StardustSandbox.Core.Explosions
 {
     public sealed class SExplosionBuilder
     {

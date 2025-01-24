@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Controllers.GameInput.Simulation;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Tools.Contexts;
 using StardustSandbox.Core.Interfaces.World;
-using StardustSandbox.Core.World.Slots;
 
 namespace StardustSandbox.Core.Tools.Contexts
 {

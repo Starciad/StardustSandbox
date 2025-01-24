@@ -69,7 +69,6 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             InfectWorldSlotLayer(context, targets.GetRandomItem());
         }
 
-
         private static void InfectWorldSlotLayer(ISElementContext context, SSlotTarget slotTarget)
         {
             ISElement targetElement = slotTarget.Layer == SWorldLayer.Foreground

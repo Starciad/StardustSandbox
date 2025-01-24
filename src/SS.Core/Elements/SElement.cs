@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements
         public bool EnableTemperature => this.enableTemperature;
         public bool EnableFlammability => this.enableFlammability;
         public bool EnableLightEmission => this.enableLightEmission;
-        
+
         public bool IsExplosionImmune => this.isExplosionImmune;
 
         public int DefaultDispersionRate => this.defaultDispersionRate;

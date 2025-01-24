@@ -5,7 +5,6 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace StardustSandbox.Core.Elements.Contexts
 {

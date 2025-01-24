@@ -20,6 +20,7 @@ namespace StardustSandbox.ContentBundle.Tools
             {
                 return;
             }
+
             context.World.SetElementTemperature(context.Position, context.Layer, STemperatureMath.Clamp(worldSlotLayer.Temperature - 5));
         }
     }

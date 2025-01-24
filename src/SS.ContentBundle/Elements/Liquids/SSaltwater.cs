@@ -41,6 +41,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                             this.Context.DestroyElement();
                             this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SAND);
                         }
+
                         break;
 
                     case SFire:
@@ -72,7 +73,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     this.Context.ReplaceElement(SElementConstants.IDENTIFIER_SALT);
                 }
-                
+
                 return;
             }
         }

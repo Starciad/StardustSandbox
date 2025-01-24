@@ -31,7 +31,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     this.Context.ReplaceElement(this.Context.SlotLayer.StoredElement);
                 }
-                
+
                 this.Context.SetElementTemperature(500);
             }
         }

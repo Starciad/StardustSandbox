@@ -1,12 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Elements.Templates.Liquids;
-using StardustSandbox.Core.Elements.Utilities;
-using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;

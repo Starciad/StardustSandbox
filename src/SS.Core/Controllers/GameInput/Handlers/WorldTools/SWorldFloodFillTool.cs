@@ -142,7 +142,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
         {
             if (isErasing)
             {
-                this.world.TryRemoveElement(position, this.simulationPen.Layer); // Remove the element
+                _ = this.world.TryRemoveElement(position, this.simulationPen.Layer); // Remove the element
             }
             else if (this.world.IsEmptyWorldSlotLayer(position, this.simulationPen.Layer))
             {

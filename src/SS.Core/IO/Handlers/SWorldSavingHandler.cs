@@ -5,7 +5,6 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.IO.Files.Saving.World.Content;

@@ -37,6 +37,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
                         default:
                             break;
                     }
+
                     break;
 
                 case SItemContentType.Tool:
@@ -53,6 +54,7 @@ namespace StardustSandbox.Core.Controllers.GameInput.Handlers.WorldTools
                         default:
                             break;
                     }
+
                     break;
 
                 default:

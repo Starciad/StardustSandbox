@@ -8,17 +8,17 @@ namespace StardustSandbox.Core.Elements.Contexts
         {
             NotifyChunk(this.Position);
         }
-        
+
         public void NotifyChunk(Point position)
         {
             this.world.NotifyChunk(position);
         }
-        
+
         public bool TryNotifyChunk()
         {
             return TryNotifyChunk(this.Position);
         }
-        
+
         public bool TryNotifyChunk(Point position)
         {
             return this.world.TryNotifyChunk(position);

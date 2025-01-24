@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using SharpDX.Direct3D9;
-
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
