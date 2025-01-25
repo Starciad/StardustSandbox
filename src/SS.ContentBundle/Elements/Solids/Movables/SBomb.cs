@@ -6,6 +6,7 @@ using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Explosions;
@@ -20,8 +21,23 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
     {
         private static readonly SExplosionBuilder explosionBuilder = new()
         {
-            Power = 1.5f,
             Radius = 5,
+            Power = 3f,
+            Heat = 200,
+
+            AffectsWater = false,
+            AffectsSolids = true,
+            AffectsGases = true,
+
+            Color = SColorPalette.OrangeRed,
+            CreatesLight = true,
+            LightIntensity = 0.5f,
+
+            ExplosionResidues =
+            [
+                new(SElementConstants.IDENTIFIER_FIRE, 50),
+                new(SElementConstants.IDENTIFIER_SMOKE, 70)
+            ]
         };
 
         private readonly SoundEffect explosionSoundEffect;

@@ -4,8 +4,10 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Geometry;
 using StardustSandbox.Core.World.Slots;
 
@@ -53,24 +55,44 @@ namespace StardustSandbox.Core.World
         {
             foreach (Point point in SShapePointGenerator.GenerateCirclePoints(explosion.Position, explosion.Radius))
             {
-                _ = TryAffectPoint(point, explosion.Power);
+                if (!InsideTheWorldDimensions(point) || !TryGetWorldSlot(point, out SWorldSlot worldSlot))
+                {
+                    continue;
+                }
+
+                TryAffectPoint(point, explosion);
+
+                foreach (SExplosionResidue residue in explosion.ExplosionResidues)
+                {
+                    SWorldLayer targetLayer = SRandomMath.Chance(50, 100) ? SWorldLayer.Foreground : SWorldLayer.Background;
+
+                    if (SRandomMath.Chance(residue.CreationChance, 100))
+                    {
+                        InstantiateElement(point, targetLayer, residue.Identifier);
+                    }
+                }
+
+                // if (explosion.CreatesLight)
+                // {
+                //     AddLightSource(<position>, <lightIntensity>, <color>);
+                // }
             }
         }
 
-        private bool TryAffectPoint(Point position, float power)
+        private bool TryAffectPoint(Point targetPosition, SExplosion explosion)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlot(position) || !TryGetWorldSlot(position, out SWorldSlot worldSlot))
+            if (!InsideTheWorldDimensions(explosion.Position) || IsEmptyWorldSlot(explosion.Position) || !TryGetWorldSlot(explosion.Position, out SWorldSlot worldSlot))
             {
                 return false;
             }
 
-            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground, position, power);
-            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Background), SWorldLayer.Background, position, power);
+            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground, targetPosition, explosion);
+            TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Background), SWorldLayer.Background, targetPosition, explosion);
 
             return true;
         }
 
-        private void TryAffectSlotLayer(SWorldSlotLayer worldSlotLayer, SWorldLayer worldLayer, Point position, float power)
+        private void TryAffectSlotLayer(SWorldSlotLayer worldSlotLayer, SWorldLayer worldLayer, Point targetPosition, SExplosion explosion)
         {
             if (worldSlotLayer.IsEmpty)
             {
@@ -84,13 +106,15 @@ namespace StardustSandbox.Core.World
                 return;
             }
 
-            if (element.DefaultExplosionResistance >= power)
+            if (element.DefaultExplosionResistance >= explosion.Power)
             {
-                SetElementTemperature(position, worldLayer, (short)(element.DefaultTemperature + 300));
-                return;
+                worldSlotLayer.SetTemperatureValue((short)(worldSlotLayer.Temperature + explosion.Heat));
+                worldSlotLayer.SetColorModifier(worldSlotLayer.ColorModifier.Darken(2f));
             }
-
-            DestroyElement(position, worldLayer);
+            else
+            {
+                DestroyElement(targetPosition, worldLayer);
+            }
         }
     }
 }
