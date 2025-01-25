@@ -15,15 +15,15 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
+namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 {
-    internal sealed class SBomb : SMovableSolid
+    internal sealed class SDynamiteBomb : SMovableSolid
     {
         private static readonly SExplosionBuilder explosionBuilder = new()
         {
-            Radius = 5,
-            Power = 3f,
-            Heat = 200,
+            Radius = 6,
+            Power = 5f,
+            Heat = 450,
 
             AffectsWater = false,
             AffectsSolids = true,
@@ -31,27 +31,27 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 
             Color = SColorPalette.OrangeRed,
             CreatesLight = true,
-            LightIntensity = 0.5f,
+            LightIntensity = 0.8f,
 
             ExplosionResidues =
             [
-                new(SElementConstants.IDENTIFIER_FIRE, 50),
-                new(SElementConstants.IDENTIFIER_SMOKE, 70)
+                new(SElementConstants.IDENTIFIER_FIRE, 65),
+                new(SElementConstants.IDENTIFIER_SMOKE, 65)
             ]
         };
 
         private readonly SoundEffect explosionSoundEffect;
 
-        internal SBomb(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        internal SDynamiteBomb(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.referenceColor = SColorPalette.Charcoal;
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_31");
-            this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_1");
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_32");
+            this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_2");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
             this.enableNeighborsAction = true;
-            this.defaultTemperature = 25;
-            this.defaultDensity = 3500;
-            this.defaultExplosionResistance = 0.3f;
+            this.defaultTemperature = 22;
+            this.defaultDensity = 2400;
+            this.defaultExplosionResistance = 0.5f;
         }
 
         protected override void OnDestroyed()
@@ -81,7 +81,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue > 100)
+            if (currentValue > 150)
             {
                 this.Context.DestroyElement();
             }
