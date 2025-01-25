@@ -55,22 +55,13 @@ namespace StardustSandbox.Core.World
         {
             foreach (Point point in SShapePointGenerator.GenerateCirclePoints(explosion.Position, explosion.Radius))
             {
-                if (!InsideTheWorldDimensions(point) || !TryGetWorldSlot(point, out SWorldSlot worldSlot))
+                if (!TryGetWorldSlot(point, out SWorldSlot worldSlot))
                 {
                     continue;
                 }
 
-                TryAffectPoint(point, explosion);
-
-                foreach (SExplosionResidue residue in explosion.ExplosionResidues)
-                {
-                    SWorldLayer targetLayer = SRandomMath.Chance(50, 100) ? SWorldLayer.Foreground : SWorldLayer.Background;
-
-                    if (SRandomMath.Chance(residue.CreationChance, 100))
-                    {
-                        InstantiateElement(point, targetLayer, residue.Identifier);
-                    }
-                }
+                TryAffectPoint(worldSlot, point, explosion);
+                InstantiateExplosionResidue(point, explosion.ExplosionResidues);
 
                 // if (explosion.CreatesLight)
                 // {
@@ -79,17 +70,10 @@ namespace StardustSandbox.Core.World
             }
         }
 
-        private bool TryAffectPoint(Point targetPosition, SExplosion explosion)
+        private void TryAffectPoint(SWorldSlot worldSlot, Point targetPosition, SExplosion explosion)
         {
-            if (!InsideTheWorldDimensions(explosion.Position) || IsEmptyWorldSlot(explosion.Position) || !TryGetWorldSlot(explosion.Position, out SWorldSlot worldSlot))
-            {
-                return false;
-            }
-
             TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Foreground), SWorldLayer.Foreground, targetPosition, explosion);
             TryAffectSlotLayer(worldSlot.GetLayer(SWorldLayer.Background), SWorldLayer.Background, targetPosition, explosion);
-
-            return true;
         }
 
         private void TryAffectSlotLayer(SWorldSlotLayer worldSlotLayer, SWorldLayer worldLayer, Point targetPosition, SExplosion explosion)
@@ -109,11 +93,23 @@ namespace StardustSandbox.Core.World
             if (element.DefaultExplosionResistance >= explosion.Power)
             {
                 worldSlotLayer.SetTemperatureValue((short)(worldSlotLayer.Temperature + explosion.Heat));
-                worldSlotLayer.SetColorModifier(worldSlotLayer.ColorModifier.Darken(2f));
             }
             else
             {
                 DestroyElement(targetPosition, worldLayer);
+            }
+        }
+
+        private void InstantiateExplosionResidue(Point position, IEnumerable<SExplosionResidue> explosionResidues)
+        {
+            foreach (SExplosionResidue residue in explosionResidues)
+            {
+                SWorldLayer targetLayer = SRandomMath.Chance(50, 100) ? SWorldLayer.Foreground : SWorldLayer.Background;
+
+                if (SRandomMath.Chance(residue.CreationChance, 100))
+                {
+                    InstantiateElement(position, targetLayer, residue.Identifier);
+                }
             }
         }
     }

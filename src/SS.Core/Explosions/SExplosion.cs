@@ -11,21 +11,21 @@ namespace StardustSandbox.Core.Explosions
     {
         internal Point Position { get; private set; }
 
-        public byte Radius { get; private set; }
-        public float Power { get; private set; }
-        public short Heat { get; private set; }
+        internal byte Radius { get; private set; }
+        internal float Power { get; private set; }
+        internal short Heat { get; private set; }
 
-        public bool AffectsWater { get; private set; }
-        public bool AffectsSolids { get; private set; }
-        public bool AffectsGases { get; private set; }
+        internal bool AffectsWater { get; private set; }
+        internal bool AffectsSolids { get; private set; }
+        internal bool AffectsGases { get; private set; }
 
-        public Color Color { get; private set; }
-        public bool CreatesLight { get; private set; }
-        public float LightIntensity { get; private set; }
+        internal Color Color { get; private set; }
+        internal bool CreatesLight { get; private set; }
+        internal float LightIntensity { get; private set; }
 
-        public IEnumerable<SExplosionResidue> ExplosionResidues { get; private set; }
+        internal IEnumerable<SExplosionResidue> ExplosionResidues { get; private set; }
 
-        public void Build(Point position, SExplosionBuilder builder)
+        internal void Build(Point position, SExplosionBuilder builder)
         {
             this.Position = position;
 

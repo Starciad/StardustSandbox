@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 
-using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.ContentBundle.Elements.Liquids;
+using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors;
@@ -21,9 +20,9 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
     {
         private static readonly SExplosionBuilder explosionBuilder = new()
         {
-            Radius = 5,
-            Power = 3f,
-            Heat = 200,
+            Radius = 4,
+            Power = 2.5f,
+            Heat = 180,
 
             AffectsWater = false,
             AffectsSolids = true,
@@ -35,7 +34,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
             ExplosionResidues =
             [
-                new(SElementConstants.IDENTIFIER_FIRE, 50),
+                new(SElementConstants.IDENTIFIER_FIRE, 65),
                 new(SElementConstants.IDENTIFIER_SMOKE, 70)
             ]
         };
@@ -68,12 +67,12 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
                 switch (worldSlotLayer.Element)
                 {
-                    case SFire:
-                    case SLava:
-                        this.Context.DestroyElement();
+                    case SBomb:
+                    case SWall:
                         break;
 
                     default:
+                        this.Context.DestroyElement();
                         break;
                 }
             }
