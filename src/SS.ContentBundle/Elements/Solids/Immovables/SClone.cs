@@ -23,6 +23,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableTemperature = false;
             this.enableNeighborsAction = true;
+            this.isExplosionImmune = true;
             this.defaultDensity = 3000;
         }
 

@@ -74,7 +74,6 @@ namespace StardustSandbox.Core.World
         {
             if (worldSlotLayer.IsEmpty)
             {
-                // Create Explosion Spark
                 return;
             }
 

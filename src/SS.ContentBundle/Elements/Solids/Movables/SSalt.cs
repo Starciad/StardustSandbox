@@ -20,6 +20,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.enableNeighborsAction = true;
             this.defaultTemperature = 22;
             this.defaultDensity = 2200;
+            this.defaultExplosionResistance = 0.7f;
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)

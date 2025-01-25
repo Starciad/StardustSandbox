@@ -32,6 +32,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
             ])));
             this.enableNeighborsAction = true;
             this.enableLightEmission = true;
+            this.isExplosionImmune = true;
             this.defaultLuminousIntensity = 7;
             this.defaultTemperature = 500;
             this.defaultDensity = 0;

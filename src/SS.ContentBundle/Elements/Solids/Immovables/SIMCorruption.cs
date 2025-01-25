@@ -22,6 +22,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
             this.defaultDensity = 1600;
+            this.defaultExplosionResistance = 1.2f;
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)

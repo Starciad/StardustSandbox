@@ -59,6 +59,9 @@
         #endregion
 
         public const byte SONGS_LENGTH = 002;
-        public const byte SOUNDS_LENGTH = 001;
+
+        #region SOUNDS
+        public const byte SOUNDS_EXPLOSIONS_LENGTH = 001;
+        #endregion
     }
 }

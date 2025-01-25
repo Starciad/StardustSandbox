@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.World
 
         // General
         private SWorldSlot[,] slots;
-
+        
         // World
         private readonly SComponentContainer componentContainer;
         private readonly SWorldChunkingComponent worldChunkingComponent;

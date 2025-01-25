@@ -17,6 +17,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.defaultLuminousIntensity = 5;
             this.defaultTemperature = 1000;
             this.defaultDensity = 3000;
+            this.defaultExplosionResistance = 0.4f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

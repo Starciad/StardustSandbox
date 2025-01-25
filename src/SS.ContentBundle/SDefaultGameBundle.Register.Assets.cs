@@ -19,7 +19,7 @@ namespace StardustSandbox.ContentBundle
             Texture,
             Font,
             Song,
-            Sound,
+            SoundEffect,
             Effect
         }
 
@@ -28,7 +28,7 @@ namespace StardustSandbox.ContentBundle
             LoadEffects(contentManager, assetDatabase);
             LoadFonts(contentManager, assetDatabase);
             LoadGraphics(contentManager, assetDatabase);
-            LoadSounds(contentManager, assetDatabase);
+            LoadSoundEffects(contentManager, assetDatabase);
             LoadSongs(contentManager, assetDatabase);
         }
 
@@ -96,9 +96,9 @@ namespace StardustSandbox.ContentBundle
             AssetLoader(contentManager, assetDatabase, SAssetType.Texture, SAssetConstants.GRAPHICS_SHAPES_THIRD_PARTIES_LENGTH, "third_party_", Path.Combine(SDirectoryConstants.ASSETS_GRAPHICS, SDirectoryConstants.ASSETS_GRAPHICS_THIRD_PARTIES));
         }
 
-        private static void LoadSounds(ContentManager contentManager, ISAssetDatabase assetDatabase)
+        private static void LoadSoundEffects(ContentManager contentManager, ISAssetDatabase assetDatabase)
         {
-            AssetLoader(contentManager, assetDatabase, SAssetType.Sound, SAssetConstants.SOUNDS_LENGTH, "sound_", SDirectoryConstants.ASSETS_SOUNDS);
+            AssetLoader(contentManager, assetDatabase, SAssetType.SoundEffect, SAssetConstants.SOUNDS_EXPLOSIONS_LENGTH, "sound_explosion_", Path.Combine(SDirectoryConstants.ASSETS_SOUNDS, SDirectoryConstants.ASSETS_SOUNDS_EXPLOSIONS));
         }
 
         private static void LoadSongs(ContentManager contentManager, ISAssetDatabase assetDatabase)
@@ -132,7 +132,7 @@ namespace StardustSandbox.ContentBundle
                         assetDatabase.RegisterSong(targetName, contentManager.Load<Song>(targetPath));
                         break;
 
-                    case SAssetType.Sound:
+                    case SAssetType.SoundEffect:
                         assetDatabase.RegisterSoundEffect(targetName, contentManager.Load<SoundEffect>(targetPath));
                         break;
 

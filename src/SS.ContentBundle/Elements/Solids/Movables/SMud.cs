@@ -14,6 +14,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 18;
             this.defaultDensity = 1500;
+            this.defaultExplosionResistance = 0.6f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

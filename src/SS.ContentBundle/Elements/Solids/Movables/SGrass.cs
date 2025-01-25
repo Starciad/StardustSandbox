@@ -16,6 +16,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 10;
             this.defaultDensity = 1100;
+            this.defaultExplosionResistance = 0.5f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

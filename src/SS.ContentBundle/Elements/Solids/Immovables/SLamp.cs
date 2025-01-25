@@ -18,6 +18,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.defaultLuminousIntensity = 10;
             this.defaultTemperature = 26;
             this.defaultDensity = 2800;
+            this.defaultExplosionResistance = 0.8f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)

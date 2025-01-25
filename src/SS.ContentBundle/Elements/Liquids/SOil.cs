@@ -22,6 +22,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.enableNeighborsAction = true;
             this.defaultFlammabilityResistance = 5;
             this.defaultDensity = 980;
+            this.defaultExplosionResistance = 0.3f;
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
