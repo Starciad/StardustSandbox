@@ -169,7 +169,7 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Molten rock that incinerates almost everything on contact. It cools down into solid stone if exposed to lower temperatures..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Molten rock that incinerates almost everything on contact. It cools in the element that originated it if exposed to lower temperatures..
         /// </summary>
         internal static string Liquid_Lava_Description {
             get {
@@ -183,6 +183,42 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         internal static string Liquid_Lava_Name {
             get {
                 return ResourceManager.GetString("Liquid.Lava.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dark and thick, highly flammable liquid. It has a relatively low density..
+        /// </summary>
+        internal static string Liquid_Oil_Description {
+            get {
+                return ResourceManager.GetString("Liquid.Oil.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Oil.
+        /// </summary>
+        internal static string Liquid_Oil_Name {
+            get {
+                return ResourceManager.GetString("Liquid.Oil.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A slightly blue and translucent liquid with particles of salt floating in its composition..
+        /// </summary>
+        internal static string Liquid_Saltwater_Description {
+            get {
+                return ResourceManager.GetString("Liquid.Saltwater.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Saltwater.
+        /// </summary>
+        internal static string Liquid_Saltwater_Name {
+            get {
+                return ResourceManager.GetString("Liquid.Saltwater.Name", resourceCulture);
             }
         }
         
@@ -205,6 +241,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An element that, upon contact with a neighboring element, will generate it infinitely until the cloner is destroyed or removed..
+        /// </summary>
+        internal static string Solid_Immovable_Clone_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Clone.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Clone.
+        /// </summary>
+        internal static string Solid_Immovable_Clone_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Clone.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Crystallized and dense form of corruption. Immobile and permanent, it creates irreversible contaminated zones..
         /// </summary>
         internal static string Solid_Immovable_Corruption_Description {
@@ -223,6 +277,42 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dry sponge that can absorb liquids around it. It is highly flammable..
+        /// </summary>
+        internal static string Solid_Immovable_DrySponge_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DrySponge.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sponge (dry).
+        /// </summary>
+        internal static string Solid_Immovable_DrySponge_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DrySponge.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A specialized device that consistently cools all nearby elements..
+        /// </summary>
+        internal static string Solid_Immovable_Freezer_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Freezer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Freezer.
+        /// </summary>
+        internal static string Solid_Immovable_Freezer_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Freezer.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A transparent yet fragile material, shattering on impact or disintegrating under high temperatures..
         /// </summary>
         internal static string Solid_Immovable_Glass_Description {
@@ -237,6 +327,42 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         internal static string Solid_Immovable_Glass_Name {
             get {
                 return ResourceManager.GetString("Solid.Immovable.Glass.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A bright yellow, soft, and malleable metal..
+        /// </summary>
+        internal static string Solid_Immovable_Gold_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Gold.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gold.
+        /// </summary>
+        internal static string Solid_Immovable_Gold_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Gold.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A specialized device that consistently heats all nearby elements..
+        /// </summary>
+        internal static string Solid_Immovable_Heater_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Heater.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Heater.
+        /// </summary>
+        internal static string Solid_Immovable_Heater_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Heater.Name", resourceCulture);
             }
         }
         
@@ -331,6 +457,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An element that absorbs and destroys everything it touches..
+        /// </summary>
+        internal static string Solid_Immovable_Void_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Void.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Void.
+        /// </summary>
+        internal static string Solid_Immovable_Void_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Void.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a An impenetrable, solid barrier. Resistant to natural forces and unaffected by other elements..
         /// </summary>
         internal static string Solid_Immovable_Wall_Description {
@@ -349,6 +493,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A wet sponge. Its density is slightly greater than a dry sponge, making it difficult to ignite in this state. If dry sponges are placed below, it will always reposition itself to the lowest point. It can be dried by heating..
+        /// </summary>
+        internal static string Solid_Immovable_WetSponge_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetSponge.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sponge (wet).
+        /// </summary>
+        internal static string Solid_Immovable_WetSponge_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetSponge.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A natural, flammable material often used in constructions. Burns easily when in contact with fire..
         /// </summary>
         internal static string Solid_Immovable_Wood_Description {
@@ -363,6 +525,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         internal static string Solid_Immovable_Wood_Name {
             get {
                 return ResourceManager.GetString("Solid.Immovable.Wood.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A not-so-powerful bomb that explodes upon colliding with neighboring elements..
+        /// </summary>
+        internal static string Solid_Movable_Bomb_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Bomb.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Bomb.
+        /// </summary>
+        internal static string Solid_Movable_Bomb_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Bomb.Name", resourceCulture);
             }
         }
         
@@ -399,6 +579,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         internal static string Solid_Movable_Dirt_Name {
             get {
                 return ResourceManager.GetString("Solid.Movable.Dirt.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An explosive that causes a massive explosion with a large destruction radius, affecting extensive areas and creating significant debris and secondary effects. It only explodes when exposed to high temperatures or comes into contact with hot elements like lava or fire..
+        /// </summary>
+        internal static string Solid_Movable_Dynamite_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Dynamite.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dynamite.
+        /// </summary>
+        internal static string Solid_Movable_Dynamite_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Dynamite.Name", resourceCulture);
             }
         }
         
@@ -457,6 +655,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A white, crystalline powder formed by small, shiny grains. Dissolves when it comes into contact with water..
+        /// </summary>
+        internal static string Solid_Movable_Salt_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Salt.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Salt.
+        /// </summary>
+        internal static string Solid_Movable_Salt_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Salt.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Fine, loose grains that flow and accumulate easily. Under extreme heat, it fuses into glass..
         /// </summary>
         internal static string Solid_Movable_Sand_Description {
@@ -507,6 +723,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         internal static string Solid_Movable_Stone_Name {
             get {
                 return ResourceManager.GetString("Solid.Movable.Stone.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Performs a moderate explosion with great destructive power, primarily affecting solids and leaving remnants of smoke and fire. It only explodes when exposed to high temperatures or comes into contact with hot elements like lava or fire..
+        /// </summary>
+        internal static string Solid_Movable_TNT_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.TNT.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a TNT.
+        /// </summary>
+        internal static string Solid_Movable_TNT_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.TNT.Name", resourceCulture);
             }
         }
     }

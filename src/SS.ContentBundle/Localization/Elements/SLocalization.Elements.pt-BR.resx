@@ -208,7 +208,7 @@
     <value>Substância líquida altamente contaminante, fluindo livremente e corrompendo toda matéria com que interage.</value>
   </data>
   <data name="Liquid.Lava.Description" xml:space="preserve">
-    <value>Rocha fundida a altíssimas temperaturas, capaz de destruir quase todos os materiais ao contato. Resfria-se em pedra sólida quando exposta a baixas temperaturas.</value>
+    <value>Rocha derretida que incinera quase tudo em contato. Ela esfria no elemento que a originou se exposta a temperaturas mais baixas.</value>
   </data>
   <data name="Liquid.Water.Description" xml:space="preserve">
     <value>Líquido essencial e fluido, com comportamento dinâmico. Pode ser congelada ou evaporado. Pode apagar incêndios pelo caminho.</value>
@@ -266,5 +266,83 @@
   </data>
   <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
     <value>Uma fonte de luz capaz de iluminar os arredores e destacar detalhes. Resistente e fixa, é perfeita para ambientes que necessitam de clareza constante.</value>
+  </data>
+  <data name="Solid.Movable.Salt.Name" xml:space="preserve">
+    <value>Sal</value>
+  </data>
+  <data name="Solid.Movable.Salt.Description" xml:space="preserve">
+    <value>Um pó branco e cristalino formado por grãos pequenos e brilhantes. Dissolve-se quando entra em contato com água.</value>
+  </data>
+  <data name="Liquid.Oil.Name" xml:space="preserve">
+    <value>Petróleo</value>
+  </data>
+  <data name="Liquid.Oil.Description" xml:space="preserve">
+    <value>Um líquido escuro e espesso, altamente inflamável. Tem uma densidade relativamente baixa.</value>
+  </data>
+  <data name="Liquid.Saltwater.Name" xml:space="preserve">
+    <value>Água Salgada</value>
+  </data>
+  <data name="Liquid.Saltwater.Description" xml:space="preserve">
+    <value>Um líquido ligeiramente azul e translúcido com partículas de sal flutuando em sua composição.</value>
+  </data>
+  <data name="Solid.Immovable.DrySponge.Name" xml:space="preserve">
+    <value>Esponja (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DrySponge.Description" xml:space="preserve">
+    <value>Uma esponja seca que pode absorver líquidos ao redor dela. É altamente inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.WetSponge.Name" xml:space="preserve">
+    <value>Esponja (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetSponge.Description" xml:space="preserve">
+    <value>Uma esponja molhada. Sua densidade é um pouco maior do que uma esponja seca, dificultando sua ignição nesse estado. Se esponjas secas forem colocadas abaixo, ela sempre se reposicionará para o ponto mais baixo. Pode ser seca por aquecimento.</value>
+  </data>
+  <data name="Solid.Immovable.Gold.Name" xml:space="preserve">
+    <value>Ouro</value>
+  </data>
+  <data name="Solid.Immovable.Gold.Description" xml:space="preserve">
+    <value>Um metal amarelo brilhante, macio e maleável.</value>
+  </data>
+  <data name="Solid.Immovable.Heater.Name" xml:space="preserve">
+    <value>Aquecedor</value>
+  </data>
+  <data name="Solid.Immovable.Heater.Description" xml:space="preserve">
+    <value>Um dispositivo especializado que aquece consistentemente todos os elementos próximos.</value>
+  </data>
+  <data name="Solid.Immovable.Freezer.Name" xml:space="preserve">
+    <value>Congelador</value>
+  </data>
+  <data name="Solid.Immovable.Freezer.Description" xml:space="preserve">
+    <value>Um dispositivo especializado que resfria consistentemente todos os elementos próximos.</value>
+  </data>
+  <data name="Solid.Movable.Bomb.Name" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="Solid.Movable.Bomb.Description" xml:space="preserve">
+    <value>Uma bomba não tão poderosa que explode ao colidir com elementos vizinhos.</value>
+  </data>
+  <data name="Solid.Movable.Dynamite.Name" xml:space="preserve">
+    <value>Dinamite</value>
+  </data>
+  <data name="Solid.Movable.Dynamite.Description" xml:space="preserve">
+    <value>Um explosivo que causa uma explosão massiva com um grande raio de destruição, afetando áreas extensas e criando detritos significativos e efeitos secundários. Ele só explode quando exposto a altas temperaturas ou quando entra em contato com elementos quentes como lava ou fogo.</value>
+  </data>
+  <data name="Solid.Movable.TNT.Name" xml:space="preserve">
+    <value>TNT</value>
+  </data>
+  <data name="Solid.Movable.TNT.Description" xml:space="preserve">
+    <value>Executa uma explosão moderada com grande poder destrutivo, afetando principalmente sólidos e deixando restos de fumaça e fogo. Ele só explode quando exposto a altas temperaturas ou quando entra em contato com elementos quentes como lava ou fogo.</value>
+  </data>
+  <data name="Solid.Immovable.Void.Name" xml:space="preserve">
+    <value>Vazio</value>
+  </data>
+  <data name="Solid.Immovable.Void.Description" xml:space="preserve">
+    <value>Um elemento que absorve e destrói tudo o que toca.</value>
+  </data>
+  <data name="Solid.Immovable.Clone.Name" xml:space="preserve">
+    <value>Clonador</value>
+  </data>
+  <data name="Solid.Immovable.Clone.Description" xml:space="preserve">
+    <value>Um elemento que, ao entrar em contato com um elemento vizinho, irá gerá-lo infinitamente até que o clonador seja destruído ou removido.</value>
   </data>
 </root>

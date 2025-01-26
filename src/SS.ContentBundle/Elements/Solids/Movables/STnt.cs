@@ -13,7 +13,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
+namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
     internal sealed class STnt : SMovableSolid
     {

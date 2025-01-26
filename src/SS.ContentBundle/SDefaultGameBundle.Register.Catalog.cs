@@ -23,8 +23,8 @@ namespace StardustSandbox.ContentBundle
 
             SCategory toolCategory = new(
                 "tools",
-                "Tools",
-                string.Empty,
+                SLocalization_Catalog.Category_Tools_Name,
+                SLocalization_Catalog.Category_Tools_Description,
                 game.AssetDatabase.GetTexture("icon_gui_53")
             );
 
@@ -64,7 +64,7 @@ namespace StardustSandbox.ContentBundle
                 identifier: "solids",
                 name: SLocalization_Catalog.Subcategory_Elements_Solids_Name,
                 description: SLocalization_Catalog.Subcategory_Elements_Solids_Description,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_13")
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_15")
             );
 
             SSubcategory elementEnergySubcategory = new(
@@ -78,9 +78,17 @@ namespace StardustSandbox.ContentBundle
             SSubcategory elementExplosiveSubcategory = new(
                 parent: elementCategory,
                 identifier: "explosives",
-                name: "Explosives",
-                description: string.Empty,
-                iconTexture: game.AssetDatabase.GetTexture("icon_element_31")
+                name: SLocalization_Catalog.Subcategory_Elements_Explosives_Name,
+                description: SLocalization_Catalog.Subcategory_Elements_Explosives_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_33")
+            );
+
+            SSubcategory elementSpecialSubcategory = new(
+                parent: elementCategory,
+                identifier: "specials",
+                name: SLocalization_Catalog.Subcategory_Elements_Specials_Name,
+                description: SLocalization_Catalog.Subcategory_Elements_Specials_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_26")
             );
 
             elementCategory.AddSubcategory(elementPowderSubcategory);
@@ -89,14 +97,15 @@ namespace StardustSandbox.ContentBundle
             elementCategory.AddSubcategory(elementSolidSubcategory);
             elementCategory.AddSubcategory(elementEnergySubcategory);
             elementCategory.AddSubcategory(elementExplosiveSubcategory);
+            elementCategory.AddSubcategory(elementSpecialSubcategory);
             #endregion
 
             #region Tools
             SSubcategory toolEnvironmentSubcategory = new(
                 parent: toolCategory,
                 identifier: "environment",
-                name: "Environment",
-                description: string.Empty,
+                name: SLocalization_Catalog.Subcategory_Tools_Environment_Name,
+                description: SLocalization_Catalog.Subcategory_Tools_Environment_Description,
                 iconTexture: game.AssetDatabase.GetTexture("icon_gui_54")
             );
 
@@ -335,26 +344,26 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.VOID_IDENTIFIER,
-                name: "Void",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_Void_Name,
+                description: SLocalization_Elements.Solid_Immovable_Void_Description,
                 contentType: SItemContentType.Element,
-                subcategory: elementSolidSubcategory,
+                subcategory: elementSpecialSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_26")
             ));
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.CLONE_IDENTIFIER,
-                name: "Clone",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_Clone_Name,
+                description: SLocalization_Elements.Solid_Immovable_Clone_Description,
                 contentType: SItemContentType.Element,
-                subcategory: elementSolidSubcategory,
+                subcategory: elementSpecialSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_27")
             ));
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.OIL_IDENTIFIER,
-                name: "Oil",
-                description: string.Empty,
+                name: SLocalization_Elements.Liquid_Oil_Name,
+                description: SLocalization_Elements.Liquid_Oil_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_28")
@@ -362,8 +371,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.SALT_IDENTIFIER,
-                name: "Salt",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Movable_Salt_Name,
+                description: SLocalization_Elements.Solid_Movable_Salt_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementPowderSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_29")
@@ -371,8 +380,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.SALTWATER_IDENTIFIER,
-                name: "Saltwater",
-                description: string.Empty,
+                name: SLocalization_Elements.Liquid_Saltwater_Name,
+                description: SLocalization_Elements.Liquid_Saltwater_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementLiquidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_30")
@@ -380,8 +389,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.BOMB_IDENTIFIER,
-                name: "Bomb",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Movable_Bomb_Name,
+                description: SLocalization_Elements.Solid_Movable_Bomb_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementExplosiveSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_31")
@@ -389,8 +398,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.DYNAMITE_IDENTIFIER,
-                name: "Dynamite",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Movable_Dynamite_Name,
+                description: SLocalization_Elements.Solid_Movable_Dynamite_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementExplosiveSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_32")
@@ -398,8 +407,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.TNT_IDENTIFIER,
-                name: "TNT",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Movable_TNT_Name,
+                description: SLocalization_Elements.Solid_Movable_TNT_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementExplosiveSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_33")
@@ -407,8 +416,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.DRY_SPONGE_IDENTIFIER,
-                name: "Dry Sponge",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_DrySponge_Name,
+                description: SLocalization_Elements.Solid_Immovable_DrySponge_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_34")
@@ -416,8 +425,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.WET_SPONGE_IDENTIFIER,
-                name: "Wet Sponge",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_WetSponge_Name,
+                description: SLocalization_Elements.Solid_Immovable_WetSponge_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_35")
@@ -425,8 +434,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.GOLD_IDENTIFIER,
-                name: "Gold",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_Gold_Name,
+                description: SLocalization_Elements.Solid_Immovable_Gold_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_36")
@@ -434,8 +443,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.HEATER_IDENTIFIER,
-                name: "Heater",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_Heater_Name,
+                description: SLocalization_Elements.Solid_Immovable_Heater_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_37")
@@ -443,8 +452,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SElementConstants.FREEZER_IDENTIFIER,
-                name: "Freezer",
-                description: string.Empty,
+                name: SLocalization_Elements.Solid_Immovable_Freezer_Name,
+                description: SLocalization_Elements.Solid_Immovable_Freezer_Description,
                 contentType: SItemContentType.Element,
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_38")

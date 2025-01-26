@@ -153,4 +153,28 @@
   <data name="Category.Elements.Description" xml:space="preserve">
     <value>Collection of all the elements that can be used for the most varied activities, ranging from simpler compounds to complex and more varied components.</value>
   </data>
+  <data name="Subcategory.Elements.Explosives.Name" xml:space="preserve">
+    <value>Explosives</value>
+  </data>
+  <data name="Subcategory.Elements.Explosives.Description" xml:space="preserve">
+    <value>Destructive elements designed to cause powerful reactions. They release energy in the form of heat, shockwaves, and debris upon activation, often impacting their surroundings with a high level of destruction.</value>
+  </data>
+  <data name="Subcategory.Elements.Specials.Name" xml:space="preserve">
+    <value>Specials</value>
+  </data>
+  <data name="Subcategory.Elements.Specials.Description" xml:space="preserve">
+    <value>Unique and highly specialized elements that do not conform to the typical behaviors of powders, liquids, gases or solids. These elements serve specific and often transformative purposes.</value>
+  </data>
+  <data name="Category.Tools.Name" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="Category.Tools.Description" xml:space="preserve">
+    <value>Set of all the tools that add extra functionality and enable more types of changes in the world.</value>
+  </data>
+  <data name="Subcategory.Tools.Environment.Name" xml:space="preserve">
+    <value>Environment</value>
+  </data>
+  <data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
+    <value>Tools that provide the ability to interact with and modify the environment.</value>
+  </data>
 </root>

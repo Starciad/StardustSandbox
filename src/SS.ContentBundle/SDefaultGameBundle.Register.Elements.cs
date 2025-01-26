@@ -3,7 +3,6 @@ using StardustSandbox.ContentBundle.Elements.Gases;
 using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.ContentBundle.Elements.Solids.Movables;
-using StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;

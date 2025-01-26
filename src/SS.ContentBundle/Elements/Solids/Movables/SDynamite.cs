@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 
-using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
+using StardustSandbox.ContentBundle.Elements.Energies;
+using StardustSandbox.ContentBundle.Elements.Liquids;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
@@ -12,43 +13,44 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
+namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
-    internal sealed class SBomb : SMovableSolid
+    internal sealed class SDynamite : SMovableSolid
     {
         private static readonly SExplosionBuilder explosionBuilder = new()
         {
-            Radius = 4,
-            Power = 2.5f,
-            Heat = 180,
+            Radius = 10,
+            Power = 5f,
+            Heat = 850,
 
-            AffectsWater = false,
+            AffectsWater = true,
             AffectsSolids = true,
             AffectsGases = true,
 
-            Color = SColorPalette.OrangeRed,
+            Color = SColorPalette.LemonYellow,
             CreatesLight = true,
-            LightIntensity = 0.5f,
+            LightIntensity = 1.0f,
 
             ExplosionResidues =
             [
-                new(SElementConstants.FIRE_IDENTIFIER, 65),
-                new(SElementConstants.SMOKE_IDENTIFIER, 70)
+                new(SElementConstants.FIRE_IDENTIFIER, 80),
+                new(SElementConstants.SMOKE_IDENTIFIER, 90),
+                new(SElementConstants.STONE_IDENTIFIER, 90)
             ]
         };
 
         private readonly SoundEffect explosionSoundEffect;
 
-        internal SBomb(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        internal SDynamite(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.referenceColor = SColorPalette.Charcoal;
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_31");
+            this.referenceColor = SColorPalette.OrangeRed;
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_32");
             this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_1");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(gameInstance));
             this.enableNeighborsAction = true;
-            this.defaultTemperature = 25;
-            this.defaultDensity = 3500;
-            this.defaultExplosionResistance = 0.3f;
+            this.defaultTemperature = 22;
+            this.defaultDensity = 2400;
+            this.defaultExplosionResistance = 0.5f;
         }
 
         protected override void OnDestroyed()
@@ -65,12 +67,12 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
                 switch (worldSlotLayer.Element)
                 {
-                    case SBomb:
-                    case SWall:
+                    case SFire:
+                    case SLava:
+                        this.Context.DestroyElement();
                         break;
 
                     default:
-                        this.Context.DestroyElement();
                         break;
                 }
             }
@@ -78,7 +80,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue > 100)
+            if (currentValue > 150)
             {
                 this.Context.DestroyElement();
             }
