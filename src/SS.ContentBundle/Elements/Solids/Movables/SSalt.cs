@@ -33,7 +33,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
                     case SIce:
                     case SSnow:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SALTWATER);
+                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.SALTWATER_IDENTIFIER);
                         break;
 
                     default:
@@ -46,8 +46,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue > 900)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_LAVA);
-                this.Context.SetStoredElement(SElementConstants.IDENTIFIER_SALT);
+                this.Context.ReplaceElement(SElementConstants.LAVA_IDENTIFIER);
+                this.Context.SetStoredElement(SElementConstants.SALT_IDENTIFIER);
             }
         }
     }

@@ -32,7 +32,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue > 300)
             {
-                this.Context.ReplaceElement(this.Context.Layer, SElementConstants.IDENTIFIER_FIRE);
+                this.Context.ReplaceElement(this.Context.Layer, SElementConstants.FIRE_IDENTIFIER);
             }
         }
     }

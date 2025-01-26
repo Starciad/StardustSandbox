@@ -33,14 +33,14 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_MUD);
+                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.MUD_IDENTIFIER);
                         break;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SAND);
+                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.SAND_IDENTIFIER);
                         }
 
                         break;
@@ -59,8 +59,8 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue <= 21)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_ICE);
-                this.Context.SetStoredElement(SElementConstants.IDENTIFIER_SALTWATER);
+                this.Context.ReplaceElement(SElementConstants.ICE_IDENTIFIER);
+                this.Context.SetStoredElement(SElementConstants.SALTWATER_IDENTIFIER);
                 return;
             }
 
@@ -68,11 +68,11 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             {
                 if (SRandomMath.Chance(50, 101))
                 {
-                    this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STEAM);
+                    this.Context.ReplaceElement(SElementConstants.STEAM_IDENTIFIER);
                 }
                 else
                 {
-                    this.Context.ReplaceElement(SElementConstants.IDENTIFIER_SALT);
+                    this.Context.ReplaceElement(SElementConstants.SALT_IDENTIFIER);
                 }
 
                 return;

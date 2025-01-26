@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 {
-    internal sealed class SDynamiteBomb : SMovableSolid
+    internal sealed class STnt : SMovableSolid
     {
         private static readonly SExplosionBuilder explosionBuilder = new()
         {
@@ -35,23 +35,22 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
             ExplosionResidues =
             [
-                new(SElementConstants.IDENTIFIER_FIRE, 65),
-                new(SElementConstants.IDENTIFIER_SMOKE, 65)
+                new(SElementConstants.FIRE_IDENTIFIER, 65),
+                new(SElementConstants.SMOKE_IDENTIFIER, 65)
             ]
         };
-
         private readonly SoundEffect explosionSoundEffect;
 
-        internal SDynamiteBomb(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
+        internal STnt(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.referenceColor = SColorPalette.Charcoal;
-            this.texture = gameInstance.AssetDatabase.GetTexture("element_32");
-            this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_2");
+            this.texture = gameInstance.AssetDatabase.GetTexture("element_33");
+            this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_1");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
             this.enableNeighborsAction = true;
             this.defaultTemperature = 22;
-            this.defaultDensity = 2400;
-            this.defaultExplosionResistance = 0.5f;
+            this.defaultDensity = 2800;
+            this.defaultExplosionResistance = 0.35f;
         }
 
         protected override void OnDestroyed()
@@ -81,7 +80,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue > 150)
+            if (currentValue > 120)
             {
                 this.Context.DestroyElement();
             }

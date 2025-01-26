@@ -3,9 +3,9 @@
     public static class SToolConstants
     {
         // Identifiers
-        public const string IDENTIFIER_PREFIX = "tool_";
+        public const string PREFIX_IDENTIFIER = "tool_";
 
-        public const string IDENTIFIER_HEAT = IDENTIFIER_PREFIX + "heat";
-        public const string IDENTIFIER_FREEZE = IDENTIFIER_PREFIX + "freeze";
+        public const string HEAT_IDENTIFIER = PREFIX_IDENTIFIER + "heat";
+        public const string FREEZE_IDENTIFIER = PREFIX_IDENTIFIER + "freeze";
     }
 }

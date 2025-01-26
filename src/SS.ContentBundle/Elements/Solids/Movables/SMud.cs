@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_DIRT);
+                this.Context.ReplaceElement(SElementConstants.DIRT_IDENTIFIER);
             }
         }
     }

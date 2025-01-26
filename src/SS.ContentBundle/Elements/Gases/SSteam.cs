@@ -38,7 +38,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
         {
             if (currentValue < 35)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_WATER);
+                this.Context.ReplaceElement(SElementConstants.WATER_IDENTIFIER);
             }
         }
     }

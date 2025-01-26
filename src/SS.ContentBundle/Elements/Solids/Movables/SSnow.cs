@@ -23,7 +23,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             {
                 if (this.Context.SlotLayer.StoredElement == null)
                 {
-                    this.Context.ReplaceElement(SElementConstants.IDENTIFIER_WATER);
+                    this.Context.ReplaceElement(SElementConstants.WATER_IDENTIFIER);
                 }
                 else
                 {

@@ -78,23 +78,23 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             switch (targetElement)
             {
                 case SMovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.MOVABLE_CORRUPTION_IDENTIFIER);
                     break;
 
                 case SImmovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_IMMOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IMMOVABLE_CORRUPTION_IDENTIFIER);
                     break;
 
                 case SLiquid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_LIQUID_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.LIQUID_CORRUPTION_IDENTIFIER);
                     break;
 
                 case SGas:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_GAS_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.GAS_CORRUPTION_IDENTIFIER);
                     break;
 
                 default:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.MOVABLE_CORRUPTION_IDENTIFIER);
                     break;
             }
         }

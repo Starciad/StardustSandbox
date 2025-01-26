@@ -122,7 +122,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
                 return;
             }
 
-            _ = this.world.InstantiateEntity(SEntityConstants.IDENTIFIER_MAGIC_CURSOR, null);
+            _ = this.world.InstantiateEntity(SEntityConstants.MAGIC_CURSOR_IDENTIFIER, null);
         }
 
         // =========================================== //

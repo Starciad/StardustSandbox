@@ -10,8 +10,8 @@ namespace StardustSandbox.ContentBundle
     {
         protected override void OnRegisterTools(ISGame game, ISToolDatabase toolDatabase)
         {
-            toolDatabase.RegisterTool(new SHeatTool(SToolConstants.IDENTIFIER_HEAT));
-            toolDatabase.RegisterTool(new SFreezeTool(SToolConstants.IDENTIFIER_FREEZE));
+            toolDatabase.RegisterTool(new SHeatTool(SToolConstants.HEAT_IDENTIFIER));
+            toolDatabase.RegisterTool(new SFreezeTool(SToolConstants.FREEZE_IDENTIFIER));
         }
     }
 }

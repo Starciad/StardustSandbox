@@ -33,14 +33,14 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_MUD);
+                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.MUD_IDENTIFIER);
                         break;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SAND);
+                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.SAND_IDENTIFIER);
                         }
 
                         break;
@@ -59,13 +59,13 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue <= 0)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_ICE);
+                this.Context.ReplaceElement(SElementConstants.ICE_IDENTIFIER);
                 return;
             }
 
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STEAM);
+                this.Context.ReplaceElement(SElementConstants.STEAM_IDENTIFIER);
                 return;
             }
         }

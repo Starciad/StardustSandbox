@@ -33,7 +33,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SLava:
                     case SFire:
-                        this.Context.ReplaceElement(SElementConstants.IDENTIFIER_FIRE);
+                        this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
                         break;
 
                     default:
@@ -46,7 +46,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
         {
             if (currentValue >= 280)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_FIRE);
+                this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
             }
         }
     }

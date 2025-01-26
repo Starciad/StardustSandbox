@@ -128,7 +128,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 },
             };
 
-            SelectItemSlot(0, SElementConstants.IDENTIFIER_DIRT);
+            SelectItemSlot(0, SElementConstants.DIRT_IDENTIFIER);
 
             this.guiButtonTexture = this.SGameInstance.AssetDatabase.GetTexture("gui_button_1");
 

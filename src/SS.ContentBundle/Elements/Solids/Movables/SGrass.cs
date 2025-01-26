@@ -23,7 +23,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue > 200)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_FIRE);
+                this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
             }
         }
     }

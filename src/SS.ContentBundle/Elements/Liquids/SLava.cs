@@ -26,7 +26,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             {
                 if (this.Context.SlotLayer.StoredElement == null)
                 {
-                    this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STONE);
+                    this.Context.ReplaceElement(SElementConstants.STONE_IDENTIFIER);
                 }
                 else
                 {

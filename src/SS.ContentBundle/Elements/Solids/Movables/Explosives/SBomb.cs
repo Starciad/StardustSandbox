@@ -34,8 +34,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
 
             ExplosionResidues =
             [
-                new(SElementConstants.IDENTIFIER_FIRE, 65),
-                new(SElementConstants.IDENTIFIER_SMOKE, 70)
+                new(SElementConstants.FIRE_IDENTIFIER, 65),
+                new(SElementConstants.SMOKE_IDENTIFIER, 70)
             ]
         };
 
