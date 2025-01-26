@@ -4,7 +4,6 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
-using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Mathematics;

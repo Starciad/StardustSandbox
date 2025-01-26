@@ -5,7 +5,6 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
-using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Geometry;
 using StardustSandbox.Core.World.Slots;
