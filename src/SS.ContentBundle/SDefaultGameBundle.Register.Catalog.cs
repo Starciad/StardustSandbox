@@ -404,6 +404,24 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementExplosiveSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_33")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.DRY_SPONGE_IDENTIFIER,
+                name: "Dry Sponge",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_34")
+            ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.WET_SPONGE_IDENTIFIER,
+                name: "Wet Sponge",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_35")
+            ));
             #endregion
 
             #region Tools
