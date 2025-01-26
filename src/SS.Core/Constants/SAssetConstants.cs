@@ -23,7 +23,7 @@
         public const byte GRAPHICS_EFFECTS_LENGTH = 000;
 
         // Elements
-        public const byte GRAPHICS_ELEMENTS_LENGTH = 036;
+        public const byte GRAPHICS_ELEMENTS_LENGTH = 038;
 
         // Entities
         public const byte GRAPHICS_ENTITIES_LENGTH = 000;
@@ -41,7 +41,7 @@
         // Icons
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 002;
         public const byte GRAPHICS_ICONS_ENTITIES_LENGTH = 000;
-        public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 036;
+        public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 038;
         public const byte GRAPHICS_ICONS_GUI_LENGTH = 054;
         public const byte GRAPHICS_ICONS_TOOLS_LENGTH = 002;
 

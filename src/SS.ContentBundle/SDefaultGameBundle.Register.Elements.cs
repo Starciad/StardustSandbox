@@ -50,6 +50,8 @@ namespace StardustSandbox.ContentBundle
             /* 034. */ elementDatabase.RegisterElement(new SDrySponge(game, SElementConstants.DRY_SPONGE_IDENTIFIER));
             /* 035. */ elementDatabase.RegisterElement(new SWetSponge(game, SElementConstants.WET_SPONGE_IDENTIFIER));
             /* 036. */ elementDatabase.RegisterElement(new SGold(game, SElementConstants.GOLD_IDENTIFIER));
+            /* 037. */ elementDatabase.RegisterElement(new SHeater(game, SElementConstants.HEATER_IDENTIFIER));
+            /* 038. */ elementDatabase.RegisterElement(new SFreezer(game, SElementConstants.FREEZER_IDENTIFIER));
         }
     }
 }

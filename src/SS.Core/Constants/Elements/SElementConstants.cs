@@ -45,6 +45,8 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string DRY_SPONGE_IDENTIFIER = PREFIX_IDENTIFIER + "dry_sponge";
         public const string WET_SPONGE_IDENTIFIER = PREFIX_IDENTIFIER + "wet_sponge";
         public const string GOLD_IDENTIFIER = PREFIX_IDENTIFIER + "gold";
+        public const string HEATER_IDENTIFIER = PREFIX_IDENTIFIER + "heater";
+        public const string FREEZER_IDENTIFIER = PREFIX_IDENTIFIER + "freezer";
 
         // Corruption
         public const byte CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL = 100;

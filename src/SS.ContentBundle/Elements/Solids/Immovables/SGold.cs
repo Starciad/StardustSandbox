@@ -1,6 +1,4 @@
-﻿using StardustSandbox.Core.Animations;
-using StardustSandbox.Core.Colors;
-using StardustSandbox.Core.Constants;
+﻿using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
@@ -14,7 +12,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             this.referenceColor = SColorPalette.Gold;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_36");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
+            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(gameInstance));
             this.defaultTemperature = 22;
             this.defaultDensity = 17_150;
             this.defaultExplosionResistance = 0.3f;

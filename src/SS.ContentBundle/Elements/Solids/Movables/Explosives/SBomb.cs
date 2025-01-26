@@ -46,7 +46,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables.Explosives
             this.referenceColor = SColorPalette.Charcoal;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_31");
             this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_1");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
+            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(gameInstance));
             this.enableNeighborsAction = true;
             this.defaultTemperature = 25;
             this.defaultDensity = 3500;

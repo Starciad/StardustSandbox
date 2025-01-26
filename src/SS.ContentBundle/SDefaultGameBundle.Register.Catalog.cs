@@ -431,6 +431,24 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_36")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.HEATER_IDENTIFIER,
+                name: "Heater",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_37")
+            ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.FREEZER_IDENTIFIER,
+                name: "Freezer",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_38")
+            ));
             #endregion
 
             #region Tools

@@ -15,7 +15,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             this.referenceColor = SColorPalette.White;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_23");
-            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(new SAnimation(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)])));
+            this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(gameInstance));
             this.defaultTemperature = 20;
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 150;

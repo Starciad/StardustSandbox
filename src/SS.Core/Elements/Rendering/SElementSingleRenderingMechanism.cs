@@ -5,13 +5,24 @@ using StardustSandbox.Core.Animations;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
 
 namespace StardustSandbox.Core.Elements.Rendering
 {
-    public sealed class SElementSingleRenderingMechanism(SAnimation animation) : SElementRenderingMechanism
+    public sealed class SElementSingleRenderingMechanism : SElementRenderingMechanism
     {
-        private readonly SAnimation animation = animation;
+        private readonly SAnimation animation;
+
+        public SElementSingleRenderingMechanism(ISGame gameInstance)
+        {
+            this.animation = new(gameInstance, [new(new(new(0), new(SSpritesConstants.SPRITE_SCALE)), 0)]);
+        }
+
+        public SElementSingleRenderingMechanism(SAnimation animation)
+        {
+            this.animation = animation;
+        }
 
         public override void Initialize(SElement element)
         {
