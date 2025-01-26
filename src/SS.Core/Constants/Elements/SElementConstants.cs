@@ -44,6 +44,7 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string TNT_IDENTIFIER = PREFIX_IDENTIFIER + "tnt";
         public const string DRY_SPONGE_IDENTIFIER = PREFIX_IDENTIFIER + "dry_sponge";
         public const string WET_SPONGE_IDENTIFIER = PREFIX_IDENTIFIER + "wet_sponge";
+        public const string GOLD_IDENTIFIER = PREFIX_IDENTIFIER + "gold";
 
         // Corruption
         public const byte CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL = 100;

@@ -422,6 +422,15 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementSolidSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_35")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.GOLD_IDENTIFIER,
+                name: "Gold",
+                description: string.Empty,
+                contentType: SItemContentType.Element,
+                subcategory: elementSolidSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_36")
+            ));
             #endregion
 
             #region Tools

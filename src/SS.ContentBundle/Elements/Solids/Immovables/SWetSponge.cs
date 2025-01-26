@@ -6,12 +6,9 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.General;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
-using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Core.World.Slots;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
@@ -19,7 +16,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
     {
         internal SWetSponge(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
-            this.referenceColor = SColorPalette.Amber;
+            this.referenceColor = SColorPalette.Amber.Darken(0.25f);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_35");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 20;

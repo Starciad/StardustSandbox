@@ -49,6 +49,7 @@ namespace StardustSandbox.ContentBundle
             /* 033. */ elementDatabase.RegisterElement(new STnt(game, SElementConstants.TNT_IDENTIFIER));
             /* 034. */ elementDatabase.RegisterElement(new SDrySponge(game, SElementConstants.DRY_SPONGE_IDENTIFIER));
             /* 035. */ elementDatabase.RegisterElement(new SWetSponge(game, SElementConstants.WET_SPONGE_IDENTIFIER));
+            /* 036. */ elementDatabase.RegisterElement(new SGold(game, SElementConstants.GOLD_IDENTIFIER));
         }
     }
 }
