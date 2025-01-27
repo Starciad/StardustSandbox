@@ -17,7 +17,6 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool EnableNeighborsAction { get; }
         bool EnableTemperature { get; }
         bool EnableFlammability { get; }
-        bool EnableLightEmission { get; }
 
         bool IsExplosionImmune { get; }
 
@@ -25,7 +24,6 @@ namespace StardustSandbox.Core.Interfaces.Elements
         short DefaultTemperature { get; }
         short DefaultFlammabilityResistance { get; }
         short DefaultDensity { get; }
-        byte DefaultLuminousIntensity { get; }
         float DefaultExplosionResistance { get; }
 
         SElementRendering Rendering { get; }

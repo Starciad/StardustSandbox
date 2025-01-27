@@ -293,22 +293,6 @@ namespace StardustSandbox.Core.World
             return true;
         }
 
-        public void SetLightIntensity(Point position, SWorldLayer worldLayer, byte value)
-        {
-            _ = TrySetLightIntensity(position, worldLayer, value);
-        }
-        public bool TrySetLightIntensity(Point position, SWorldLayer worldLayer, byte value)
-        {
-            if (!InsideTheWorldDimensions(position) || IsEmptyWorldSlotLayer(position, worldLayer))
-            {
-                return false;
-            }
-
-            this.slots[position.X, position.Y].GetLayer(worldLayer).SetLightIntensity(value);
-
-            return true;
-        }
-
         public bool IsEmptyWorldSlot(Point position)
         {
             return !InsideTheWorldDimensions(position) || this.slots[position.X, position.Y].IsEmpty;

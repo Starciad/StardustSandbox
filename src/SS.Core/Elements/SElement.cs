@@ -27,7 +27,6 @@ namespace StardustSandbox.Core.Elements
         public bool EnableNeighborsAction => this.enableNeighborsAction;
         public bool EnableTemperature => this.enableTemperature;
         public bool EnableFlammability => this.enableFlammability;
-        public bool EnableLightEmission => this.enableLightEmission;
 
         public bool IsExplosionImmune => this.isExplosionImmune;
 
@@ -35,7 +34,6 @@ namespace StardustSandbox.Core.Elements
         public short DefaultTemperature => this.defaultTemperature;
         public short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
         public short DefaultDensity => this.defaultDensity;
-        public byte DefaultLuminousIntensity => this.defaultLuminousIntensity;
         public float DefaultExplosionResistance => this.defaultExplosionResistance;
 
         public SElementRendering Rendering => this.rendering;
@@ -52,7 +50,6 @@ namespace StardustSandbox.Core.Elements
         protected bool enableNeighborsAction = false;
         protected bool enableTemperature = true;
         protected bool enableFlammability;
-        protected bool enableLightEmission;
 
         protected bool isExplosionImmune;
 
@@ -60,7 +57,6 @@ namespace StardustSandbox.Core.Elements
         protected short defaultTemperature = 25;
         protected short defaultFlammabilityResistance = 25;
         protected short defaultDensity = 0;
-        protected byte defaultLuminousIntensity = 0;
         protected float defaultExplosionResistance = 0.5f;
 
         private ISElementContext context;

@@ -14,10 +14,6 @@ namespace StardustSandbox.Core.Explosions
         public bool AffectsSolids { get; init; }
         public bool AffectsGases { get; init; }
 
-        public Color Color { get; init; }
-        public bool CreatesLight { get; init; }
-        public byte LightIntensity { get; init; }
-
         public IEnumerable<SExplosionResidue> ExplosionResidues { get; init; }
     }
 }

@@ -13,8 +13,6 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.referenceColor = SColorPalette.Orange;
             this.texture = gameInstance.AssetDatabase.GetTexture("element_10");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
-            this.enableLightEmission = true;
-            this.defaultLuminousIntensity = 5;
             this.defaultTemperature = 1000;
             this.defaultDensity = 3000;
             this.defaultExplosionResistance = 0.4f;

@@ -17,7 +17,6 @@ namespace StardustSandbox.Core.World.Slots
         public Color ColorModifier => this.colorModifier;
         public SUpdateCycleFlag UpdateCycleFlag => this.updateCycleFlag;
         public SUpdateCycleFlag StepCycleFlag => this.stepCycleFlag;
-        public byte LightIntensity => this.lightIntensity;
 
         private ISElement element;
         private ISElement storedElement;
@@ -27,7 +26,6 @@ namespace StardustSandbox.Core.World.Slots
         private Color colorModifier;
         private SUpdateCycleFlag updateCycleFlag;
         private SUpdateCycleFlag stepCycleFlag;
-        private byte lightIntensity;
 
         internal SWorldSlotLayer()
         {
@@ -44,7 +42,6 @@ namespace StardustSandbox.Core.World.Slots
             this.colorModifier = Color.White;
             this.updateCycleFlag = SUpdateCycleFlag.None;
             this.stepCycleFlag = SUpdateCycleFlag.None;
-            this.lightIntensity = 0;
         }
 
         public void Destroy()
@@ -57,7 +54,6 @@ namespace StardustSandbox.Core.World.Slots
             this.colorModifier = Color.White;
             this.updateCycleFlag = SUpdateCycleFlag.None;
             this.stepCycleFlag = SUpdateCycleFlag.None;
-            this.lightIntensity = 0;
         }
 
         public void Copy(SWorldSlotLayer valueToCopy)
@@ -70,7 +66,6 @@ namespace StardustSandbox.Core.World.Slots
             this.colorModifier = valueToCopy.colorModifier;
             this.updateCycleFlag = valueToCopy.updateCycleFlag;
             this.stepCycleFlag = valueToCopy.stepCycleFlag;
-            this.lightIntensity = valueToCopy.lightIntensity;
         }
 
         public void SetTemperatureValue(short value)
@@ -101,11 +96,6 @@ namespace StardustSandbox.Core.World.Slots
         public void SetStoredElement(ISElement value)
         {
             this.storedElement = value;
-        }
-
-        public void SetLightIntensity(byte value)
-        {
-            this.lightIntensity = SLightingMath.Clamp(value);
         }
 
         public void Reset()

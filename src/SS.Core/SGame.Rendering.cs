@@ -17,7 +17,6 @@ namespace StardustSandbox.Core
             #region RENDERING (ELEMENTS)
             DrawAmbient(gameTime);
             DrawWorld(gameTime);
-            DrawWorldLighting(gameTime);
             DrawGUI(gameTime);
             #endregion
 
@@ -30,10 +29,9 @@ namespace StardustSandbox.Core
             this.spriteBatch.Draw(this.graphicsManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
 
-            // SCENE & LIGHTING
+            // SCENE
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.spriteBatch.Draw(this.graphicsManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this.spriteBatch.Draw(this.graphicsManager.WorldLightingRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
 
             // DETAILS
@@ -127,14 +125,6 @@ namespace StardustSandbox.Core
             this.GraphicsDevice.Clear(Color.Transparent);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
             this.world.Draw(gameTime, this.spriteBatch);
-            this.spriteBatch.End();
-        }
-
-        private void DrawWorldLighting(GameTime gameTime)
-        {
-            this.GraphicsDevice.SetRenderTarget(this.graphicsManager.WorldLightingRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
             this.spriteBatch.End();
         }
 

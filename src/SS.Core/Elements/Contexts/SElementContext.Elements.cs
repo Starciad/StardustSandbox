@@ -406,31 +406,6 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TrySetStoredElement(position, worldLayer, element);
         }
 
-        public void SetLightIntensity(byte value)
-        {
-            SetLightIntensity(this.Position, this.worldLayer, value);
-        }
-        public void SetLightIntensity(SWorldLayer worldLayer, byte value)
-        {
-            SetLightIntensity(this.Position, worldLayer, value);
-        }
-        public void SetLightIntensity(Point position, SWorldLayer worldLayer, byte value)
-        {
-            this.world.SetLightIntensity(position, worldLayer, value);
-        }
-        public bool TrySetLightIntensity(byte value)
-        {
-            return TrySetLightIntensity(this.Position, this.worldLayer, value);
-        }
-        public bool TrySetLightIntensity(SWorldLayer worldLayer, byte value)
-        {
-            return TrySetLightIntensity(this.Position, worldLayer, value);
-        }
-        public bool TrySetLightIntensity(Point position, SWorldLayer worldLayer, byte value)
-        {
-            return this.world.TrySetLightIntensity(position, worldLayer, value);
-        }
-
         public bool IsEmptyWorldSlot()
         {
             return IsEmptyWorldSlot(this.Position);

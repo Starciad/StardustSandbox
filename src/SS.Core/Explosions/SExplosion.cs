@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Interfaces.Collections;
 
 using System.Collections.Generic;
@@ -19,10 +18,6 @@ namespace StardustSandbox.Core.Explosions
         internal bool AffectsSolids { get; private set; }
         internal bool AffectsGases { get; private set; }
 
-        internal Color Color { get; private set; }
-        internal bool CreatesLight { get; private set; }
-        internal byte LightIntensity { get; private set; }
-
         internal IEnumerable<SExplosionResidue> ExplosionResidues { get; private set; }
 
         internal void Build(Point position, SExplosionBuilder builder)
@@ -36,10 +31,6 @@ namespace StardustSandbox.Core.Explosions
             this.AffectsWater = builder.AffectsWater;
             this.AffectsSolids = builder.AffectsSolids;
             this.AffectsGases = builder.AffectsGases;
-
-            this.Color = builder.Color;
-            this.CreatesLight = builder.CreatesLight;
-            this.LightIntensity = builder.LightIntensity;
 
             this.ExplosionResidues = builder.ExplosionResidues;
         }
@@ -55,10 +46,6 @@ namespace StardustSandbox.Core.Explosions
             this.AffectsWater = false;
             this.AffectsSolids = false;
             this.AffectsGases = false;
-
-            this.Color = SColorPalette.White;
-            this.CreatesLight = false;
-            this.LightIntensity = 0;
 
             this.ExplosionResidues = null;
         }

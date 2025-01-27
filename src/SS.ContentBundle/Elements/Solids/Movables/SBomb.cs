@@ -26,10 +26,6 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             AffectsSolids = true,
             AffectsGases = true,
 
-            Color = SColorPalette.OrangeRed,
-            CreatesLight = true,
-            LightIntensity = 0.5f,
-
             ExplosionResidues =
             [
                 new(SElementConstants.FIRE_IDENTIFIER, 65),
