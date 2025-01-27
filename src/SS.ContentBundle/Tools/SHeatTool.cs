@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Core.Interfaces.Tools.Contexts;
+﻿using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces.Tools.Contexts;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.World.Slots;
@@ -21,7 +22,7 @@ namespace StardustSandbox.ContentBundle.Tools
                 return;
             }
 
-            context.World.SetElementTemperature(context.Position, context.Layer, STemperatureMath.Clamp(worldSlotLayer.Temperature + 5));
+            context.World.SetElementTemperature(context.Position, context.Layer, STemperatureMath.Clamp(worldSlotLayer.Temperature + SToolConstants.DEFAULT_HEAT_VALUE));
         }
     }
 }
