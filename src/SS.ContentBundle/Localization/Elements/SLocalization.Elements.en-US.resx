@@ -265,7 +265,7 @@
     <value>Lamp</value>
   </data>
   <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
-    <value>A light source capable of illuminating surroundings and highlighting details. Durable and fixed, it is perfect for environments that require constant clarity.</value>
+    <value>A lantern that is sturdy and fixed. A decorative object.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Salt</value>

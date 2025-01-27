@@ -385,7 +385,7 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A light source capable of illuminating surroundings and highlighting details. Durable and fixed, it is perfect for environments that require constant clarity..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A lantern that is sturdy and fixed. A decorative object..
         /// </summary>
         internal static string Solid_Immovable_Lamp_Description {
             get {
