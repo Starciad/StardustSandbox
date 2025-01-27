@@ -21,50 +21,62 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
         {
             foreach (Point belowPosition in SElementUtility.GetRandomSidePositions(this.Context.Slot.Position, SDirection.Down))
             {
-                if (TrySetPosition(belowPosition))
+                if (this.Context.TrySetPosition(belowPosition))
                 {
-                    SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
-                    this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
                     return;
+                }
+
+                if (this.Context.TryGetWorldSlot(belowPosition, out SWorldSlot belowWorldSlot))
+                {
+                    SWorldSlotLayer belowLayer = belowWorldSlot.GetLayer(this.Context.Layer);
+
+                    if (TrySwappingElements(belowPosition, belowLayer))
+                    {
+                        SElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
+                        this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
+                        return;
+                    }
+
+                    TryPerformConvection(belowPosition, belowLayer);
                 }
             }
 
             UpdateHorizontalPosition();
+
             this.Context.SetElementFreeFalling(this.Context.Layer, false);
         }
 
-        private bool TrySetPosition(Point position)
+        private bool TrySwappingElements(Point position, SWorldSlotLayer belowLayer)
         {
-            if (this.Context.TrySetPosition(position))
+            switch (belowLayer.Element)
             {
-                return true;
-            }
+                case SGas:
+                    this.Context.SwappingElements(position);
+                    return true;
 
-            if (this.Context.TryGetWorldSlot(position, out SWorldSlot value))
-            {
-                SWorldSlotLayer worldSlotLayer = value.GetLayer(this.Context.Layer);
-
-                switch (worldSlotLayer.Element)
-                {
-                    case SGas:
+                case SLiquid:
+                    if (belowLayer.Element.DefaultDensity < this.DefaultDensity)
+                    {
                         this.Context.SwappingElements(position);
                         return true;
+                    }
 
-                    case SLiquid:
-                        if ((worldSlotLayer.Element.GetType() == GetType() && worldSlotLayer.Temperature > this.Context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
-                        {
-                            this.Context.SwappingElements(position);
-                            return true;
-                        }
-
-                        break;
-
-                    default:
-                        break;
-                }
+                    break;
             }
 
             return false;
+        }
+
+        private void TryPerformConvection(Point position, SWorldSlotLayer belowLayer)
+        {
+            if (belowLayer.IsEmpty ||
+                belowLayer.Element.GetType() != GetType() ||
+                belowLayer.Temperature <= this.Context.SlotLayer.Temperature)
+            {
+                return;
+            }
+
+            this.Context.SwappingElements(position);
         }
 
         private void UpdateHorizontalPosition()
