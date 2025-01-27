@@ -345,4 +345,10 @@
   <data name="Solid.Immovable.Clone.Description" xml:space="preserve">
     <value>Um elemento que, ao entrar em contato com um elemento vizinho, irá gerá-lo infinitamente até que o clonador seja destruído ou removido.</value>
   </data>
+  <data name="Solid.Movable.Ash.Name" xml:space="preserve">
+    <value>Cinzas</value>
+  </data>
+  <data name="Solid.Movable.Ash.Description" xml:space="preserve">
+    <value>Um pó cinza escuro, ligeiramente granulado, que lembra restos de madeira ou outros materiais queimados.</value>
+  </data>
 </root>

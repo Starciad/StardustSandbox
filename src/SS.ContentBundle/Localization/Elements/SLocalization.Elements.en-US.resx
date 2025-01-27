@@ -345,4 +345,10 @@
   <data name="Solid.Immovable.Clone.Description" xml:space="preserve">
     <value>An element that, upon contact with a neighboring element, will generate it infinitely until the cloner is destroyed or removed.</value>
   </data>
+  <data name="Solid.Movable.Ash.Name" xml:space="preserve">
+    <value>Ash</value>
+  </data>
+  <data name="Solid.Movable.Ash.Description" xml:space="preserve">
+    <value>A dark gray, slightly grainy powder that resembles the remains of wood or other burnt materials.</value>
+  </data>
 </root>

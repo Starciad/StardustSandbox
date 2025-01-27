@@ -2,6 +2,7 @@
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 {
@@ -23,7 +24,14 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue > 200)
             {
-                this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
+                if (SRandomMath.Chance(85, 100))
+                {
+                    this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
+                }
+                else
+                {
+                    this.Context.ReplaceElement(SElementConstants.ASH_IDENTIFIER);
+                }
             }
         }
     }

@@ -89,6 +89,8 @@ namespace StardustSandbox.ContentBundle
             elementDatabase.RegisterElement(new SHeater(game, SElementConstants.HEATER_IDENTIFIER));
             /* 038. */
             elementDatabase.RegisterElement(new SFreezer(game, SElementConstants.FREEZER_IDENTIFIER));
+            /* 039. */
+            elementDatabase.RegisterElement(new SAsh(game, SElementConstants.ASH_IDENTIFIER));
         }
     }
 }

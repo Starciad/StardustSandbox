@@ -529,6 +529,24 @@ namespace StardustSandbox.ContentBundle.Localization.Elements {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dark gray, slightly grainy powder that resembles the remains of wood or other burnt materials..
+        /// </summary>
+        internal static string Solid_Movable_Ash_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Ash.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ash.
+        /// </summary>
+        internal static string Solid_Movable_Ash_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Ash.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A not-so-powerful bomb that explodes upon colliding with neighboring elements..
         /// </summary>
         internal static string Solid_Movable_Bomb_Description {

@@ -468,6 +468,15 @@ namespace StardustSandbox.ContentBundle
                 subcategory: elementTechnologySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_38")
             ));
+
+            catalogDatabase.RegisterItem(new(
+                identifier: SElementConstants.ASH_IDENTIFIER,
+                name: SLocalization_Elements.Solid_Movable_Ash_Name,
+                description: SLocalization_Elements.Solid_Movable_Ash_Description,
+                contentType: SItemContentType.Element,
+                subcategory: elementPowderSubcategory,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_39")
+            ));
             #endregion
 
             #region Tools

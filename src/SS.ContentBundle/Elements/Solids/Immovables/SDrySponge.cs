@@ -6,6 +6,7 @@ using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Geometry;
 using StardustSandbox.Core.World.Slots;
 
@@ -77,7 +78,14 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
         {
             if (currentValue >= 180)
             {
-                this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
+                if (SRandomMath.Chance(70, 100))
+                {
+                    this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
+                }
+                else
+                {
+                    this.Context.ReplaceElement(SElementConstants.ASH_IDENTIFIER);
+                }
             }
         }
     }
