@@ -56,7 +56,11 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Tools\SLocalization.Tools.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>SLocalization.Tools.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\WorldTools\SLocalization.WorldTools.resx">
+			<LastGenOutput>SLocalization.WorldTools.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemGroup>
@@ -94,9 +98,14 @@
 			<DependentUpon>SLocalization.Statements.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Localization\Tools\SLocalization.Tools.Designer.cs">
-			<DependentUpon>SLocalization.Tools.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.Tools.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Localization\WorldTools\SLocalization.WorldTools.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.WorldTools.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
 	

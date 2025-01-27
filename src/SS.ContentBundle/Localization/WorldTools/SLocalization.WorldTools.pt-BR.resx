@@ -117,70 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Subcategory.Elements.Powders.Name" xml:space="preserve">
-    <value>Poeiras</value>
+  <data name="Eraser.Description" xml:space="preserve">
+    <value>Remove itens previamente posicionados no mapa de forma direta.</value>
   </data>
-  <data name="Subcategory.Elements.Liquids.Name" xml:space="preserve">
-    <value>Líquidos</value>
+  <data name="Eraser.Name" xml:space="preserve">
+    <value>Apagador</value>
   </data>
-  <data name="Subcategory.Elements.Gases.Name" xml:space="preserve">
-    <value>Gases</value>
+  <data name="Fill.Description" xml:space="preserve">
+    <value>Preenche completamente áreas vazias com o item selecionado ou substitui itens existentes no mapa.</value>
   </data>
-  <data name="Subcategory.Elements.Solids.Name" xml:space="preserve">
-    <value>Sólidos</value>
+  <data name="Fill.Name" xml:space="preserve">
+    <value>Preenchimento</value>
   </data>
-  <data name="Subcategory.Elements.Energies.Name" xml:space="preserve">
-    <value>Energias</value>
+  <data name="Pencil.Description" xml:space="preserve">
+    <value>Ferramenta utilizada para posicionar itens no mapa.</value>
   </data>
-  <data name="Subcategory.Elements.Energies.Description" xml:space="preserve">
-    <value>Forças da natureza em sua forma mais pura e dinâmica. Imprevisíveis e poderosas, moldam e transformam o ambiente com intensidade, trazendo mudanças onde quer que passem.</value>
+  <data name="Pencil.Name" xml:space="preserve">
+    <value>Caneta</value>
   </data>
-  <data name="Subcategory.Elements.Gases.Description" xml:space="preserve">
-    <value>Escapam e se movem constantemente, preenchendo o ar sem limites. Visíveis ou invisíveis, podem ser inofensivos, sufocantes ou até mesmo destrutivos, sempre em movimento, sempre presentes.</value>
+  <data name="Replace.Description" xml:space="preserve">
+    <value>Substitui itens já posicionados no mapa por outros previamente selecionados.</value>
   </data>
-  <data name="Subcategory.Elements.Liquids.Description" xml:space="preserve">
-    <value>Fluídos e adaptáveis, os líquidos traçam seu caminho pelo mundo. Serenos ou caóticos, eles fluem, preenchem e se transformam, essenciais para a vida, mas também capazes de causar destruição avassaladora.</value>
+  <data name="Replace.Name" xml:space="preserve">
+    <value>Substituidor</value>
   </data>
-  <data name="Subcategory.Elements.Powders.Description" xml:space="preserve">
-    <value>Elementos com o poder de se agrupar ou se dispersar. Movem-se, assentam-se e se adaptam ao ambiente, demonstrando que até os menores elementos podem causar grandes impactos.</value>
+  <data name="Visualization.Description" xml:space="preserve">
+    <value>Permite visualizar o mapa sem interagir ou modificar seu conteúdo.</value>
   </data>
-  <data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
-    <value>As âncoras do mundo, firmes e inabaláveis. Sólidos oferecem estrutura e resistência, permanecendo inertes frente às forças da natureza.</value>
-  </data>
-  <data name="Category.Elements.Name" xml:space="preserve">
-    <value>Elementos</value>
-  </data>
-  <data name="Category.Elements.Description" xml:space="preserve">
-    <value>Conjunto de todos os elementos que podem ser utilizados nas mais variadas atividades, desde compostos mais simples até componentes mais complexos e variados.</value>
-  </data>
-  <data name="Subcategory.Elements.Explosives.Name" xml:space="preserve">
-    <value>Explosivos</value>
-  </data>
-  <data name="Subcategory.Elements.Explosives.Description" xml:space="preserve">
-    <value>Elementos destrutivos projetados para causar reações poderosas. Eles liberam energia na forma de calor, ondas de choque e detritos após a ativação, muitas vezes impactando seus arredores com um alto nível de destruição.</value>
-  </data>
-  <data name="Subcategory.Elements.Specials.Name" xml:space="preserve">
-    <value>Especiais</value>
-  </data>
-  <data name="Subcategory.Elements.Specials.Description" xml:space="preserve">
-    <value>Elementos únicos e altamente especializados que não se conformam aos comportamentos típicos de pós, líquidos, gases ou sólidos. Esses elementos atendem a propósitos específicos e muitas vezes transformadores.</value>
-  </data>
-  <data name="Category.Tools.Name" xml:space="preserve">
-    <value>Ferramentas</value>
-  </data>
-  <data name="Category.Tools.Description" xml:space="preserve">
-    <value>Conjunto de todos as ferramentas que adicionam funcionalidades extras e possibilitando mais tipos de alterações no mundo.</value>
-  </data>
-  <data name="Subcategory.Tools.Environment.Name" xml:space="preserve">
-    <value>Ambiente</value>
-  </data>
-  <data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
-    <value>Ferramentas que oferecem a capacidade de interagir e modificar o ambiente.</value>
-  </data>
-  <data name="Subcategory.Elements.Technologies.Name" xml:space="preserve">
-    <value>Tecnologias</value>
-  </data>
-  <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
-    <value>Conjunto de elementos especiais que realizam funções automatizadas para facilitar determinadas tarefas. Uma grande compilação de todos os artefatos que podem ajudar nas mais diversas criações.</value>
+  <data name="Visualization.Name" xml:space="preserve">
+    <value>Visualizador</value>
   </data>
 </root>

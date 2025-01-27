@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.ContentBundle.Localization.Catalog;
 using StardustSandbox.ContentBundle.Localization.Elements;
+using StardustSandbox.ContentBundle.Localization.Tools;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
@@ -83,6 +84,14 @@ namespace StardustSandbox.ContentBundle
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_33")
             );
 
+            SSubcategory elementTechnologySubcategory = new(
+                parent: elementCategory,
+                identifier: "technologies",
+                name: SLocalization_Catalog.Subcategory_Elements_Technologies_Name,
+                description: SLocalization_Catalog.Subcategory_Elements_Technologies_Description,
+                iconTexture: game.AssetDatabase.GetTexture("icon_element_37")
+            );
+
             SSubcategory elementSpecialSubcategory = new(
                 parent: elementCategory,
                 identifier: "specials",
@@ -97,6 +106,7 @@ namespace StardustSandbox.ContentBundle
             elementCategory.AddSubcategory(elementSolidSubcategory);
             elementCategory.AddSubcategory(elementEnergySubcategory);
             elementCategory.AddSubcategory(elementExplosiveSubcategory);
+            elementCategory.AddSubcategory(elementTechnologySubcategory);
             elementCategory.AddSubcategory(elementSpecialSubcategory);
             #endregion
 
@@ -446,7 +456,7 @@ namespace StardustSandbox.ContentBundle
                 name: SLocalization_Elements.Solid_Immovable_Heater_Name,
                 description: SLocalization_Elements.Solid_Immovable_Heater_Description,
                 contentType: SItemContentType.Element,
-                subcategory: elementSolidSubcategory,
+                subcategory: elementTechnologySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_37")
             ));
 
@@ -455,7 +465,7 @@ namespace StardustSandbox.ContentBundle
                 name: SLocalization_Elements.Solid_Immovable_Freezer_Name,
                 description: SLocalization_Elements.Solid_Immovable_Freezer_Description,
                 contentType: SItemContentType.Element,
-                subcategory: elementSolidSubcategory,
+                subcategory: elementTechnologySubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_element_38")
             ));
             #endregion
@@ -463,8 +473,8 @@ namespace StardustSandbox.ContentBundle
             #region Tools
             catalogDatabase.RegisterItem(new(
                 identifier: SToolConstants.HEAT_IDENTIFIER,
-                name: "Heat Tool",
-                description: string.Empty,
+                name: SLocalization_Tools.Environment_Heat_Name,
+                description: SLocalization_Tools.Environment_Heat_Description,
                 contentType: SItemContentType.Tool,
                 subcategory: toolEnvironmentSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_tool_1")
@@ -472,8 +482,8 @@ namespace StardustSandbox.ContentBundle
 
             catalogDatabase.RegisterItem(new(
                 identifier: SToolConstants.FREEZE_IDENTIFIER,
-                name: "Freeze Tool",
-                description: string.Empty,
+                name: SLocalization_Tools.Environment_Freeze_Name,
+                description: SLocalization_Tools.Environment_Freeze_Description,
                 contentType: SItemContentType.Tool,
                 subcategory: toolEnvironmentSubcategory,
                 iconTexture: game.AssetDatabase.GetTexture("icon_tool_2")

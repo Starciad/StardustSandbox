@@ -223,6 +223,24 @@ namespace StardustSandbox.ContentBundle.Localization.Catalog {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set of special elements that perform automated functions to facilitate certain tasks. A large compilation of all the artifacts that can help in the most diverse creations..
+        /// </summary>
+        internal static string Subcategory_Elements_Technologies_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Technologies.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Technologies.
+        /// </summary>
+        internal static string Subcategory_Elements_Technologies_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Technologies.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Tools that provide the ability to interact with and modify the environment..
         /// </summary>
         internal static string Subcategory_Tools_Environment_Description {

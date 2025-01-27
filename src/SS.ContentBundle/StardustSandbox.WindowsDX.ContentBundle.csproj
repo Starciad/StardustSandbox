@@ -28,7 +28,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\SS.Core\StardustSandbox.WindowsDX.Core.csproj" />
 	</ItemGroup>
-	
+
 	<!-- RESOURCES -->
 	<ItemGroup>
 		<EmbeddedResource Update="Localization\Catalog\SLocalization.Catalog.resx">
@@ -36,8 +36,8 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Colors\SLocalization.Colors.resx">
-		  <LastGenOutput>SLocalization.Colors.Designer.cs</LastGenOutput>
-		  <Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>SLocalization.Colors.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Elements\SLocalization.Elements.resx">
 			<LastGenOutput>SLocalization.Elements.Designer.cs</LastGenOutput>
@@ -56,7 +56,11 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Tools\SLocalization.Tools.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>SLocalization.Tools.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Localization\WorldTools\SLocalization.WorldTools.resx">
+			<LastGenOutput>SLocalization.WorldTools.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemGroup>
@@ -69,9 +73,9 @@
 			<AutoGen>True</AutoGen>
 		</Compile>
 		<Compile Update="Localization\Colors\SLocalization.Colors.Designer.cs">
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>SLocalization.Colors.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.Colors.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Localization\Elements\SLocalization.Elements.Designer.cs">
 			<DependentUpon>SLocalization.Elements.resx</DependentUpon>
@@ -94,9 +98,14 @@
 			<DependentUpon>SLocalization.Statements.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Localization\Tools\SLocalization.Tools.Designer.cs">
-			<DependentUpon>SLocalization.Tools.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.Tools.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Localization\WorldTools\SLocalization.WorldTools.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SLocalization.WorldTools.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
 

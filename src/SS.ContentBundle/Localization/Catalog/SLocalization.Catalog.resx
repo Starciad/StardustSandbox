@@ -177,4 +177,10 @@
   <data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
     <value>Tools that provide the ability to interact with and modify the environment.</value>
   </data>
+  <data name="Subcategory.Elements.Technologies.Name" xml:space="preserve">
+    <value>Technologies</value>
+  </data>
+  <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
+    <value>Set of special elements that perform automated functions to facilitate certain tasks. A large compilation of all the artifacts that can help in the most diverse creations.</value>
+  </data>
 </root>

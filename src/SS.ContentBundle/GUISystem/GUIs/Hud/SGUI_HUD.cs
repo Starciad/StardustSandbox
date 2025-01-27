@@ -11,7 +11,7 @@ using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.ContentBundle.Localization.Statements;
-using StardustSandbox.ContentBundle.Localization.Tools;
+using StardustSandbox.ContentBundle.Localization.WorldTools;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
@@ -240,28 +240,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
                 switch (this.SGameInstance.GameInputController.Pen.Tool)
                 {
                     case SPenTool.Visualization:
-                        SGUIGlobalTooltip.Title = SLocalization_Tools.Visualization_Name;
-                        SGUIGlobalTooltip.Description = SLocalization_Tools.Visualization_Description;
+                        SGUIGlobalTooltip.Title = SLocalization_WorldTools.Visualization_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_WorldTools.Visualization_Description;
                         break;
 
                     case SPenTool.Pencil:
-                        SGUIGlobalTooltip.Title = SLocalization_Tools.Pencil_Name;
-                        SGUIGlobalTooltip.Description = SLocalization_Tools.Pencil_Description;
+                        SGUIGlobalTooltip.Title = SLocalization_WorldTools.Pencil_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_WorldTools.Pencil_Description;
                         break;
 
                     case SPenTool.Eraser:
-                        SGUIGlobalTooltip.Title = SLocalization_Tools.Eraser_Name;
-                        SGUIGlobalTooltip.Description = SLocalization_Tools.Eraser_Description;
+                        SGUIGlobalTooltip.Title = SLocalization_WorldTools.Eraser_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_WorldTools.Eraser_Description;
                         break;
 
                     case SPenTool.Fill:
-                        SGUIGlobalTooltip.Title = SLocalization_Tools.Fill_Name;
-                        SGUIGlobalTooltip.Description = SLocalization_Tools.Fill_Description;
+                        SGUIGlobalTooltip.Title = SLocalization_WorldTools.Fill_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_WorldTools.Fill_Description;
                         break;
 
                     case SPenTool.Replace:
-                        SGUIGlobalTooltip.Title = SLocalization_Tools.Replace_Name;
-                        SGUIGlobalTooltip.Description = SLocalization_Tools.Replace_Description;
+                        SGUIGlobalTooltip.Title = SLocalization_WorldTools.Replace_Name;
+                        SGUIGlobalTooltip.Description = SLocalization_WorldTools.Replace_Description;
                         break;
 
                     default:

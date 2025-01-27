@@ -117,34 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Eraser.Description" xml:space="preserve">
-    <value>Remove itens previamente posicionados no mapa de forma direta.</value>
+  <data name="Environment.Freeze.Description" xml:space="preserve">
+    <value>Esta ferramenta concede a capacidade de diminuir a temperatura de uma determinada área do mundo.</value>
   </data>
-  <data name="Eraser.Name" xml:space="preserve">
-    <value>Apagador</value>
+  <data name="Environment.Freeze.Name" xml:space="preserve">
+    <value>Ferramenta de Congelamento</value>
   </data>
-  <data name="Fill.Description" xml:space="preserve">
-    <value>Preenche completamente áreas vazias com o item selecionado ou substitui itens existentes no mapa.</value>
+  <data name="Environment.Heat.Description" xml:space="preserve">
+    <value>Esta ferramenta concede a capacidade de aumentar a temperatura de uma determinada área do mundo.</value>
   </data>
-  <data name="Fill.Name" xml:space="preserve">
-    <value>Preenchimento</value>
-  </data>
-  <data name="Pencil.Description" xml:space="preserve">
-    <value>Ferramenta utilizada para posicionar itens no mapa.</value>
-  </data>
-  <data name="Pencil.Name" xml:space="preserve">
-    <value>Caneta</value>
-  </data>
-  <data name="Replace.Description" xml:space="preserve">
-    <value>Substitui itens já posicionados no mapa por outros previamente selecionados.</value>
-  </data>
-  <data name="Replace.Name" xml:space="preserve">
-    <value>Substituidor</value>
-  </data>
-  <data name="Visualization.Description" xml:space="preserve">
-    <value>Permite visualizar o mapa sem interagir ou modificar seu conteúdo.</value>
-  </data>
-  <data name="Visualization.Name" xml:space="preserve">
-    <value>Visualizador</value>
+  <data name="Environment.Heat.Name" xml:space="preserve">
+    <value>Ferramenta de Aquecimento</value>
   </data>
 </root>
