@@ -62,10 +62,11 @@ namespace StardustSandbox.Core.World
                 TryAffectPoint(worldSlot, point, explosion);
                 InstantiateExplosionResidue(point, explosion.ExplosionResidues);
 
-                // if (explosion.CreatesLight)
-                // {
-                //     AddLightSource(<position>, <lightIntensity>, <color>);
-                // }
+                if (explosion.CreatesLight)
+                {
+                    InstantiateLightingSource(point, SWorldLayer.Foreground, explosion.LightIntensity, explosion.Color);
+                    InstantiateLightingSource(point, SWorldLayer.Background, explosion.LightIntensity, explosion.Color);
+                }
             }
         }
 

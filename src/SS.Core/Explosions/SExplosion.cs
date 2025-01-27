@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Explosions
 
         internal Color Color { get; private set; }
         internal bool CreatesLight { get; private set; }
-        internal float LightIntensity { get; private set; }
+        internal byte LightIntensity { get; private set; }
 
         internal IEnumerable<SExplosionResidue> ExplosionResidues { get; private set; }
 
@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Explosions
 
             this.Color = SColorPalette.White;
             this.CreatesLight = false;
-            this.LightIntensity = 0f;
+            this.LightIntensity = 0;
 
             this.ExplosionResidues = null;
         }

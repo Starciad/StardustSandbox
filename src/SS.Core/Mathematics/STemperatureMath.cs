@@ -10,6 +10,7 @@ namespace StardustSandbox.Core.Mathematics
         {
             return Clamp(Convert.ToInt16(value));
         }
+
         public static short Clamp(short value)
         {
             return short.Clamp(value, STemperatureConstants.MIN_CELSIUS_VALUE, STemperatureConstants.MAX_CELSIUS_VALUE);

@@ -53,6 +53,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         bool TrySetStoredElement(Point position, SWorldLayer worldLayer, string identifier);
         bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element);
 
+        void SetLightIntensity(Point position, SWorldLayer worldLayer, byte value);
+        bool TrySetLightIntensity(Point position, SWorldLayer worldLayer, byte value);
+
         bool IsEmptyWorldSlot(Point position);
         bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer);
 

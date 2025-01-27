@@ -3,6 +3,7 @@
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Interfaces.Explosions;
+using StardustSandbox.Core.Interfaces.Lighting;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Slots;
 
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 {
-    public interface ISElementContext : ISElementHandler, ISExplosionHandler, ISWorldChunkingHandler
+    public interface ISElementContext : ISElementHandler, ISExplosionHandler, ISWorldChunkingHandler, ISLightingHandler
     {
         SWorldSlot Slot { get; }
         SWorldSlotLayer SlotLayer { get; }
@@ -93,6 +94,11 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         bool TrySetStoredElement(string identifier);
         bool TrySetStoredElement(ISElement element);
 
+        void SetLightIntensity(byte value);
+        void SetLightIntensity(SWorldLayer worldLayer, byte value);
+        bool TrySetLightIntensity(byte value);
+        bool TrySetLightIntensity(SWorldLayer worldLayer, byte value);
+
         void NotifyChunk();
         bool TryNotifyChunk();
 
@@ -102,5 +108,8 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 
         void InstantiateExplosion(SExplosionBuilder explosionBuilder);
         bool TryInstantiateExplosion(SExplosionBuilder explosionBuilder);
+
+        void InstantiateLightingSource(byte intensity, Color color);
+        void InstantiateLightingSource(SWorldLayer worldLayer, byte intensity, Color color);
     }
 }
