@@ -103,9 +103,9 @@ namespace StardustSandbox.Core.World
         {
             foreach (SExplosionResidue residue in explosionResidues)
             {
-                SWorldLayer targetLayer = SRandomMath.Chance(50, 100) ? SWorldLayer.Foreground : SWorldLayer.Background;
+                SWorldLayer targetLayer = SRandomMath.Chance(50) ? SWorldLayer.Foreground : SWorldLayer.Background;
 
-                if (SRandomMath.Chance(residue.CreationChance, 100))
+                if (SRandomMath.Chance(residue.CreationChance))
                 {
                     InstantiateElement(position, targetLayer, residue.Identifier);
                 }

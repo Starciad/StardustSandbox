@@ -21,7 +21,7 @@ namespace StardustSandbox.ContentBundle.Elements.Gases
 
         protected override void OnBeforeStep()
         {
-            if (SRandomMath.Chance(60, 101))
+            if (SRandomMath.Chance(60))
             {
                 return;
             }

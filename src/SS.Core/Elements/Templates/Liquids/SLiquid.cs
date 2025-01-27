@@ -76,7 +76,7 @@ namespace StardustSandbox.Core.Elements.Templates.Liquids
             float rightDistance = SPointExtensions.Distance(this.Context.Slot.Position, right);
 
             Point targetPosition = leftDistance == rightDistance
-                ? (SRandomMath.Chance(50, 101) ? left : right)
+                ? (SRandomMath.Chance(50) ? left : right)
                 : (leftDistance > rightDistance ? left : right);
 
             if (this.Context.IsEmptyWorldSlotLayer(targetPosition, this.Context.Layer))

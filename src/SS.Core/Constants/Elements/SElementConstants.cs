@@ -50,14 +50,10 @@ namespace StardustSandbox.Core.Constants.Elements
         public const string ASH_IDENTIFIER = PREFIX_IDENTIFIER + "ash";
 
         // Corruption
-        public const byte CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL = 100;
         public const byte CHANCE_OF_CORRUPTION_TO_SPREAD = 4;
 
         // Fire
-        public const byte CHANCE_OF_FIRE_TO_DISAPPEAR_TOTAL = 100;
         public const byte CHANCE_OF_FIRE_TO_DISAPPEAR = 20;
-
-        public const byte CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL = 100;
         public const byte CHANCE_FOR_FIRE_TO_LEAVE_SMOKE = 25;
 
         public const byte FIRE_HEAT_VALUE = 5;

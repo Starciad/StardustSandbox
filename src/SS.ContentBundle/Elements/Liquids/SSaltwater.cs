@@ -65,7 +65,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 
             if (currentValue >= 110)
             {
-                if (SRandomMath.Chance(50, 101))
+                if (SRandomMath.Chance(50))
                 {
                     this.Context.ReplaceElement(SElementConstants.STEAM_IDENTIFIER);
                 }

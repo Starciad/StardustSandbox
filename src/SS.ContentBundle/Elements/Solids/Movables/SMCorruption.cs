@@ -35,7 +35,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
 
             this.Context.NotifyChunk();
 
-            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD, SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL))
+            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
                 this.Context.InfectNeighboringElements(neighbors);
             }

@@ -24,7 +24,7 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
         {
             if (currentValue > 200)
             {
-                if (SRandomMath.Chance(85, 100))
+                if (SRandomMath.Chance(85))
                 {
                     this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
                 }

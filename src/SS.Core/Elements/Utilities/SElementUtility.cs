@@ -12,7 +12,7 @@ namespace StardustSandbox.Core.Elements.Utilities
     {
         public static IEnumerable<Point> GetRandomSidePositions(Point targetPosition, SDirection direction)
         {
-            int rDirection = SRandomMath.Chance(50, 100) ? 1 : -1;
+            int rDirection = SRandomMath.Chance(50) ? 1 : -1;
 
             switch (direction)
             {

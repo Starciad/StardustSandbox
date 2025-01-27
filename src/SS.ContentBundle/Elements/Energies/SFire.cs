@@ -40,11 +40,11 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
 
         protected override void OnBeforeStep()
         {
-            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR, SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR_TOTAL))
+            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
                 this.Context.DestroyElement(this.Context.Layer);
 
-                if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE, SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL))
+                if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
                     this.Context.InstantiateElement(this.Context.Layer, SElementConstants.SMOKE_IDENTIFIER);
                 }
