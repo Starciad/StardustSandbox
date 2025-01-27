@@ -67,6 +67,8 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
                 {
                     case SBomb:
                     case SWall:
+                    case SClone:
+                    case SVoid:
                         break;
 
                     default:

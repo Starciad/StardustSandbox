@@ -153,11 +153,11 @@ namespace StardustSandbox.Core.World
         }
         public bool TryReplaceElement(Point position, SWorldLayer worldLayer, string identifier)
         {
-            return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, identifier);
+            return TryRemoveElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, identifier);
         }
         public bool TryReplaceElement(Point position, SWorldLayer worldLayer, ISElement value)
         {
-            return TryDestroyElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, value);
+            return TryRemoveElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, value);
         }
 
         public ISElement GetElement(Point position, SWorldLayer worldLayer)
