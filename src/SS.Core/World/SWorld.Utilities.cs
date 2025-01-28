@@ -158,8 +158,8 @@ namespace StardustSandbox.Core.World
                         continue;
                     }
 
-                    DestroyElement(new(x, y), SWorldLayer.Foreground);
-                    DestroyElement(new(x, y), SWorldLayer.Background);
+                    RemoveElement(new(x, y), SWorldLayer.Foreground);
+                    RemoveElement(new(x, y), SWorldLayer.Background);
                 }
             }
         }
