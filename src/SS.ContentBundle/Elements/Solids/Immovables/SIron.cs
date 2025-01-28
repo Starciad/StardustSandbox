@@ -14,13 +14,15 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 30;
             this.defaultDensity = 7800;
+            this.defaultExplosionResistance = 0.3f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue > 1200)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_LAVA);
+                this.Context.ReplaceElement(SElementConstants.LAVA_IDENTIFIER);
+                this.Context.SetStoredElement(SElementConstants.IRON_IDENTIFIER);
             }
         }
     }

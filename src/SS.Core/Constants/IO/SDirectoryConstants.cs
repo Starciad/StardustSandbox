@@ -18,7 +18,11 @@
         public const string ASSETS_FONTS = "fonts";
         public const string ASSETS_GRAPHICS = "graphics";
         public const string ASSETS_SONGS = "songs";
+
+        #region SOUNDS
         public const string ASSETS_SOUNDS = "sounds";
+        public const string ASSETS_SOUNDS_EXPLOSIONS = "explosions";
+        #endregion
 
         #region GRAPHICS
         // Backgrounds
@@ -62,6 +66,7 @@
         public const string ASSETS_GRAPHICS_ICONS_ENTITIES = "entities";
         public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
         public const string ASSETS_GRAPHICS_ICONS_CONTROLLERS = "controllers";
+        public const string ASSETS_GRAPHICS_ICONS_TOOLS = "tools";
 
         // Miscellaneous
         public const string ASSETS_GRAPHICS_MISCELLANEOUS = "miscellaneous";

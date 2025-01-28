@@ -22,6 +22,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.enableNeighborsAction = true;
             this.defaultDensity = 1050;
+            this.defaultExplosionResistance = 0.1f;
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
@@ -34,7 +35,7 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
 
             this.Context.NotifyChunk();
 
-            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD, SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD_TOTAL))
+            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
                 this.Context.InfectNeighboringElements(neighbors);
             }

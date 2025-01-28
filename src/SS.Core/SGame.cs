@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Bundles;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
 using StardustSandbox.Core.Controllers.GameInput;
@@ -13,7 +14,6 @@ using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Plugins;
 using StardustSandbox.Core.World;
 
 using System;
@@ -29,6 +29,7 @@ namespace StardustSandbox.Core
         public ISCatalogDatabase CatalogDatabase => this.catalogDatabase;
         public ISBackgroundDatabase BackgroundDatabase => this.backgroundDatabase;
         public ISEntityDatabase EntityDatabase => this.entityDatabase;
+        public ISToolDatabase ToolDatabase => this.toolDatabase;
 
         public ISInputManager InputManager => this.inputManager;
         public ISCameraManager CameraManager => this.cameraManager;
@@ -52,6 +53,7 @@ namespace StardustSandbox.Core
         private readonly SCatalogDatabase catalogDatabase;
         private readonly SBackgroundDatabase backgroundDatabase;
         private readonly SEntityDatabase entityDatabase;
+        private readonly SToolDatabase toolDatabase;
 
         // Managers
         private readonly SCameraManager cameraManager;
@@ -67,8 +69,8 @@ namespace StardustSandbox.Core
         private readonly SWorld world;
         private readonly SGameInputController gameInputController;
 
-        // Plugin System
-        private readonly List<SPluginBuilder> pluginBuilders = [];
+        // Bundle System
+        private readonly List<SGameBundle> bundles = [];
 
         // ================================= //
 
@@ -107,6 +109,7 @@ namespace StardustSandbox.Core
             this.catalogDatabase = new(this);
             this.backgroundDatabase = new(this);
             this.entityDatabase = new(this);
+            this.toolDatabase = new(this);
 
             // Core
             this.cameraManager = new(this);
@@ -122,9 +125,9 @@ namespace StardustSandbox.Core
             this.ambientManager = new(this);
         }
 
-        public void RegisterPlugin(SPluginBuilder pluginBuilder)
+        public void AddBundle(SGameBundle bundle)
         {
-            this.pluginBuilders.Add(pluginBuilder);
+            this.bundles.Add(bundle);
         }
 
         public void Quit()

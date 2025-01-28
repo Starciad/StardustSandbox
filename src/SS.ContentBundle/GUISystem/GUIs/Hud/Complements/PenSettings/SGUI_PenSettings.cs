@@ -7,7 +7,7 @@ using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
 using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.ContentBundle.Localization.Statements;
-using StardustSandbox.ContentBundle.Localization.Tools;
+using StardustSandbox.ContentBundle.Localization.WorldTools;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.GameInput.Pen;
@@ -86,28 +86,28 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettin
             ];
 
             this.toolButtons = [
-                new(this.eyeIconTexture, SLocalization_Tools.Visualization_Name, SLocalization_Tools.Visualization_Description, () =>
+                new(this.eyeIconTexture, SLocalization_WorldTools.Visualization_Name, SLocalization_WorldTools.Visualization_Description, () =>
                 {
                     SelectToolButtonAction(SPenTool.Visualization);
                     this.guiHUD.SetToolIcon(this.eyeIconTexture);
                 }),
 
-                new(this.penIconTexture, SLocalization_Tools.Pencil_Name, SLocalization_Tools.Pencil_Description, () =>
+                new(this.penIconTexture, SLocalization_WorldTools.Pencil_Name, SLocalization_WorldTools.Pencil_Description, () =>
                 {
                     SelectToolButtonAction(SPenTool.Pencil);
                     this.guiHUD.SetToolIcon(this.penIconTexture);
                 }),
-                new(this.eraserIconTexture, SLocalization_Tools.Eraser_Name, SLocalization_Tools.Eraser_Description, () =>
+                new(this.eraserIconTexture, SLocalization_WorldTools.Eraser_Name, SLocalization_WorldTools.Eraser_Description, () =>
                 {
                     SelectToolButtonAction(SPenTool.Eraser);
                     this.guiHUD.SetToolIcon(this.eraserIconTexture);
                 }),
-                new(this.bucketIconTexture, SLocalization_Tools.Fill_Name, SLocalization_Tools.Fill_Description, () =>
+                new(this.bucketIconTexture, SLocalization_WorldTools.Fill_Name, SLocalization_WorldTools.Fill_Description, () =>
                 {
                     SelectToolButtonAction(SPenTool.Fill);
                     this.guiHUD.SetToolIcon(this.bucketIconTexture);
                 }),
-                new(this.replacementIconTexture, SLocalization_Tools.Replace_Name, SLocalization_Tools.Replace_Description, () =>
+                new(this.replacementIconTexture, SLocalization_WorldTools.Replace_Name, SLocalization_WorldTools.Replace_Description, () =>
                 {
                     SelectToolButtonAction(SPenTool.Replace);
                     this.guiHUD.SetToolIcon(this.replacementIconTexture);

@@ -14,13 +14,14 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 22;
             this.defaultDensity = 1500;
+            this.defaultExplosionResistance = 0.5f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue >= 1500)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_GLASS);
+                this.Context.ReplaceElement(SElementConstants.GLASS_IDENTIFIER);
             }
         }
     }

@@ -15,7 +15,7 @@ namespace StardustSandbox.Core.Databases
         private readonly Dictionary<string, Texture2D> textures = [];
         private readonly Dictionary<string, SpriteFont> fonts = [];
         private readonly Dictionary<string, Song> songs = [];
-        private readonly Dictionary<string, SoundEffect> sounds = [];
+        private readonly Dictionary<string, SoundEffect> soundEffects = [];
         private readonly Dictionary<string, Effect> effects = [];
 
         public void RegisterTexture(string identifier, Texture2D value)
@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Databases
 
         public void RegisterSoundEffect(string identifier, SoundEffect value)
         {
-            this.sounds.Add(identifier, value);
+            this.soundEffects.Add(identifier, value);
         }
 
         public void RegisterEffect(string identifier, Effect value)
@@ -60,9 +60,9 @@ namespace StardustSandbox.Core.Databases
             return this.songs[name];
         }
 
-        public SoundEffect GetSound(string name)
+        public SoundEffect GetSoundEffect(string name)
         {
-            return this.sounds[name];
+            return this.soundEffects[name];
         }
 
         public Effect GetEffect(string name)

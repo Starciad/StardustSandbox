@@ -555,4 +555,7 @@
   <data name="Menu.Options.Button.Save.Description" xml:space="preserve">
     <value>Saves and applies all modified options.</value>
   </data>
+  <data name="Tools.ColorPicker.Title" xml:space="preserve">
+    <value>Color Picker</value>
+  </data>
 </root>

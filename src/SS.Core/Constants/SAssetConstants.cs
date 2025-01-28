@@ -23,7 +23,7 @@
         public const byte GRAPHICS_EFFECTS_LENGTH = 000;
 
         // Elements
-        public const byte GRAPHICS_ELEMENTS_LENGTH = 025;
+        public const byte GRAPHICS_ELEMENTS_LENGTH = 039;
 
         // Entities
         public const byte GRAPHICS_ENTITIES_LENGTH = 000;
@@ -41,8 +41,9 @@
         // Icons
         public const byte GRAPHICS_ICONS_CONTROLLERS_LENGTH = 002;
         public const byte GRAPHICS_ICONS_ENTITIES_LENGTH = 000;
-        public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 025;
-        public const byte GRAPHICS_ICONS_GUI_LENGTH = 052;
+        public const byte GRAPHICS_ICONS_ELEMENTS_LENGTH = 039;
+        public const byte GRAPHICS_ICONS_GUI_LENGTH = 054;
+        public const byte GRAPHICS_ICONS_TOOLS_LENGTH = 002;
 
         // Miscellaneous
         public const byte GRAPHICS_MISCELLANEOUS = 001;
@@ -58,6 +59,9 @@
         #endregion
 
         public const byte SONGS_LENGTH = 002;
-        public const byte SOUNDS_LENGTH = 001;
+
+        #region SOUNDS
+        public const byte SOUNDS_EXPLOSIONS_LENGTH = 001;
+        #endregion
     }
 }

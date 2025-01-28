@@ -24,6 +24,7 @@ namespace StardustSandbox.Core.World
 
             UpdateWorld(gameTime);
             UpdateEntities(gameTime);
+            UpdateExplosions();
         }
 
         private void UpdateWorld(GameTime gameTime)
@@ -47,6 +48,11 @@ namespace StardustSandbox.Core.World
 
                 entity.Update(gameTime);
             });
+        }
+
+        private void UpdateExplosions()
+        {
+            HandleExplosions();
         }
         #endregion
 

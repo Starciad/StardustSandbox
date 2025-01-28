@@ -17,6 +17,7 @@ namespace StardustSandbox.Core.Interfaces
         ISCatalogDatabase CatalogDatabase { get; }
         ISBackgroundDatabase BackgroundDatabase { get; }
         ISEntityDatabase EntityDatabase { get; }
+        ISToolDatabase ToolDatabase { get; }
 
         // Managers
         ISGameManager GameManager { get; }

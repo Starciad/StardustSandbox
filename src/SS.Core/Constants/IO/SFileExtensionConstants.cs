@@ -3,12 +3,12 @@
     public static class SFileExtensionConstants
     {
         // General
-        public const string PREFIX = ".pd";
+        public const string PREFIX_IDENTIFIER = ".pd";
 
         // Core
-        public const string SETTINGS = PREFIX + "settings";
-        public const string WORLD = PREFIX + "world";
-        public const string WORLD_DATA = PREFIX + "worlddata";
+        public const string SETTINGS = PREFIX_IDENTIFIER + "settings";
+        public const string WORLD = PREFIX_IDENTIFIER + "world";
+        public const string WORLD_DATA = PREFIX_IDENTIFIER + "worlddata";
 
         // System
         public const string BACKUP = ".backup";

@@ -117,34 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Eraser.Description" xml:space="preserve">
-    <value>Directly removes previously placed items from the map.</value>
+  <data name="Environment.Freeze.Description" xml:space="preserve">
+    <value>This tool grants the ability to decrease the temperature of a certain area of ​​the world.</value>
   </data>
-  <data name="Eraser.Name" xml:space="preserve">
-    <value>Eraser</value>
+  <data name="Environment.Freeze.Name" xml:space="preserve">
+    <value>Freeze Tool</value>
   </data>
-  <data name="Fill.Description" xml:space="preserve">
-    <value>Completely fills empty areas with the selected item or replaces existing items on the map.</value>
+  <data name="Environment.Heat.Description" xml:space="preserve">
+    <value>This tool grants the ability to increase the temperature of a certain area of ​​the world.</value>
   </data>
-  <data name="Fill.Name" xml:space="preserve">
-    <value>Fill</value>
-  </data>
-  <data name="Pencil.Description" xml:space="preserve">
-    <value>A tool used to place items on the map.</value>
-  </data>
-  <data name="Pencil.Name" xml:space="preserve">
-    <value>Pen</value>
-  </data>
-  <data name="Replace.Description" xml:space="preserve">
-    <value>Replaces items already placed on the map with others selected beforehand.</value>
-  </data>
-  <data name="Replace.Name" xml:space="preserve">
-    <value>Replacer</value>
-  </data>
-  <data name="Visualization.Description" xml:space="preserve">
-    <value>Allows you to view the map without interacting with or modifying its content.</value>
-  </data>
-  <data name="Visualization.Name" xml:space="preserve">
-    <value>Viewer</value>
+  <data name="Environment.Heat.Name" xml:space="preserve">
+    <value>Heat Tool</value>
   </data>
 </root>

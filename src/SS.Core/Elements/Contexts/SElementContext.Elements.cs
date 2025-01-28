@@ -12,7 +12,7 @@ namespace StardustSandbox.Core.Elements.Contexts
     {
         public void SetPosition(Point newPosition)
         {
-            SetPosition(newPosition, this.Layer);
+            SetPosition(newPosition, this.worldLayer);
         }
         public void SetPosition(Point newPosition, SWorldLayer worldLayer)
         {
@@ -20,7 +20,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TrySetPosition(Point newPosition)
         {
-            return TrySetPosition(newPosition, this.Layer);
+            return TrySetPosition(newPosition, this.worldLayer);
         }
         public bool TrySetPosition(Point newPosition, SWorldLayer worldLayer)
         {
@@ -35,11 +35,11 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void InstantiateElement(string identifier)
         {
-            InstantiateElement(this.Layer, identifier);
+            InstantiateElement(this.worldLayer, identifier);
         }
         public void InstantiateElement(ISElement value)
         {
-            InstantiateElement(this.Layer, value);
+            InstantiateElement(this.worldLayer, value);
         }
         public void InstantiateElement(SWorldLayer worldLayer, string identifier)
         {
@@ -59,11 +59,11 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TryInstantiateElement(string identifier)
         {
-            return TryInstantiateElement(this.Layer, identifier);
+            return TryInstantiateElement(this.worldLayer, identifier);
         }
         public bool TryInstantiateElement(ISElement value)
         {
-            return TryInstantiateElement(this.Layer, value);
+            return TryInstantiateElement(this.worldLayer, value);
         }
         public bool TryInstantiateElement(SWorldLayer worldLayer, string identifier)
         {
@@ -84,7 +84,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void UpdateElementPosition(Point newPosition)
         {
-            UpdateElementPosition(newPosition, this.Layer);
+            UpdateElementPosition(newPosition, this.worldLayer);
         }
         public void UpdateElementPosition(Point newPosition, SWorldLayer worldLayer)
         {
@@ -96,7 +96,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TryUpdateElementPosition(Point newPosition)
         {
-            return TryUpdateElementPosition(newPosition, this.Layer);
+            return TryUpdateElementPosition(newPosition, this.worldLayer);
         }
         public bool TryUpdateElementPosition(Point newPosition, SWorldLayer worldLayer)
         {
@@ -109,7 +109,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void SwappingElements(Point targetPosition)
         {
-            SwappingElements(targetPosition, this.Layer);
+            SwappingElements(targetPosition, this.worldLayer);
         }
         public void SwappingElements(Point targetPosition, SWorldLayer worldLayer)
         {
@@ -121,7 +121,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TrySwappingElements(Point targetPosition)
         {
-            return TrySwappingElements(targetPosition, this.Layer);
+            return TrySwappingElements(targetPosition, this.worldLayer);
         }
         public bool TrySwappingElements(Point targetPosition, SWorldLayer worldLayer)
         {
@@ -134,7 +134,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void DestroyElement()
         {
-            DestroyElement(this.Layer);
+            DestroyElement(this.worldLayer);
         }
         public void DestroyElement(SWorldLayer worldLayer)
         {
@@ -146,7 +146,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TryDestroyElement()
         {
-            return TryDestroyElement(this.Layer);
+            return TryDestroyElement(this.worldLayer);
         }
         public bool TryDestroyElement(SWorldLayer worldLayer)
         {
@@ -157,13 +157,38 @@ namespace StardustSandbox.Core.Elements.Contexts
             return this.world.TryDestroyElement(position, worldLayer);
         }
 
+        public void RemoveElement()
+        {
+            throw new System.NotImplementedException();
+        }
+        public void RemoveElement(Point position)
+        {
+            throw new System.NotImplementedException();
+        }
+        public void RemoveElement(Point position, SWorldLayer worldLayer)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool TryRemoveElement()
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool TryRemoveElement(Point position)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool TryRemoveElement(Point position, SWorldLayer worldLayer)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void ReplaceElement(string identifier)
         {
-            ReplaceElement(this.Layer, identifier);
+            ReplaceElement(this.worldLayer, identifier);
         }
         public void ReplaceElement(ISElement value)
         {
-            ReplaceElement(this.Layer, value);
+            ReplaceElement(this.worldLayer, value);
         }
         public void ReplaceElement(SWorldLayer worldLayer, string identifier)
         {
@@ -183,11 +208,11 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TryReplaceElement(string identifier)
         {
-            return TryReplaceElement(this.Layer, identifier);
+            return TryReplaceElement(this.worldLayer, identifier);
         }
         public bool TryReplaceElement(ISElement value)
         {
-            return TryReplaceElement(this.Layer, value);
+            return TryReplaceElement(this.worldLayer, value);
         }
         public bool TryReplaceElement(SWorldLayer worldLayer, string identifier)
         {
@@ -208,7 +233,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public ISElement GetElement()
         {
-            return GetElement(this.Layer);
+            return GetElement(this.worldLayer);
         }
         public ISElement GetElement(SWorldLayer worldLayer)
         {
@@ -220,7 +245,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TryGetElement(out ISElement value)
         {
-            return TryGetElement(this.Layer, out value);
+            return TryGetElement(this.worldLayer, out value);
         }
         public bool TryGetElement(SWorldLayer worldLayer, out ISElement value)
         {
@@ -259,7 +284,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void SetElementTemperature(short value)
         {
-            SetElementTemperature(this.Layer, value);
+            SetElementTemperature(this.worldLayer, value);
         }
         public void SetElementTemperature(SWorldLayer worldLayer, short value)
         {
@@ -271,7 +296,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TrySetElementTemperature(short value)
         {
-            return TrySetElementTemperature(this.Layer, value);
+            return TrySetElementTemperature(this.worldLayer, value);
         }
         public bool TrySetElementTemperature(SWorldLayer worldLayer, short value)
         {
@@ -284,7 +309,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void SetElementFreeFalling(bool value)
         {
-            SetElementFreeFalling(this.Layer, value);
+            SetElementFreeFalling(this.worldLayer, value);
         }
         public void SetElementFreeFalling(SWorldLayer worldLayer, bool value)
         {
@@ -296,7 +321,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TrySetElementFreeFalling(bool value)
         {
-            return TrySetElementFreeFalling(this.Layer, value);
+            return TrySetElementFreeFalling(this.worldLayer, value);
         }
         public bool TrySetElementFreeFalling(SWorldLayer worldLayer, bool value)
         {
@@ -309,7 +334,7 @@ namespace StardustSandbox.Core.Elements.Contexts
 
         public void SetElementColorModifier(Color value)
         {
-            SetElementColorModifier(this.Layer, value);
+            SetElementColorModifier(this.worldLayer, value);
         }
         public void SetElementColorModifier(SWorldLayer worldLayer, Color value)
         {
@@ -321,7 +346,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool TrySetElementColorModifier(Color value)
         {
-            return TrySetElementColorModifier(this.Layer, value);
+            return TrySetElementColorModifier(this.worldLayer, value);
         }
         public bool TrySetElementColorModifier(SWorldLayer worldLayer, Color value)
         {
@@ -330,6 +355,55 @@ namespace StardustSandbox.Core.Elements.Contexts
         public bool TrySetElementColorModifier(Point position, SWorldLayer worldLayer, Color value)
         {
             return this.world.TrySetElementColorModifier(position, worldLayer, value);
+        }
+
+        public void SetStoredElement(string identifier)
+        {
+            SetStoredElement(this.worldLayer, identifier);
+        }
+        public void SetStoredElement(ISElement element)
+        {
+            SetStoredElement(this.worldLayer, element);
+        }
+        public void SetStoredElement(SWorldLayer worldLayer, string identifier)
+        {
+            SetStoredElement(this.Position, worldLayer, identifier);
+        }
+        public void SetStoredElement(SWorldLayer worldLayer, ISElement element)
+        {
+            SetStoredElement(this.Position, worldLayer, element);
+        }
+        public void SetStoredElement(Point position, SWorldLayer worldLayer, string identifier)
+        {
+            this.world.SetStoredElement(position, worldLayer, identifier);
+        }
+        public void SetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
+        {
+            this.world.SetStoredElement(position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(string identifier)
+        {
+            return TrySetStoredElement(this.worldLayer, identifier);
+        }
+        public bool TrySetStoredElement(ISElement element)
+        {
+            return TrySetStoredElement(this.worldLayer, element);
+        }
+        public bool TrySetStoredElement(SWorldLayer worldLayer, string identifier)
+        {
+            return TrySetStoredElement(this.Position, worldLayer, identifier);
+        }
+        public bool TrySetStoredElement(SWorldLayer worldLayer, ISElement element)
+        {
+            return TrySetStoredElement(this.Position, worldLayer, element);
+        }
+        public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, string identifier)
+        {
+            return this.world.TrySetStoredElement(position, worldLayer, identifier);
+        }
+        public bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element)
+        {
+            return this.world.TrySetStoredElement(position, worldLayer, element);
         }
 
         public bool IsEmptyWorldSlot()
@@ -342,7 +416,7 @@ namespace StardustSandbox.Core.Elements.Contexts
         }
         public bool IsEmptyWorldSlotLayer()
         {
-            return IsEmptyWorldSlotLayer(this.Position, this.Layer);
+            return IsEmptyWorldSlotLayer(this.Position, this.worldLayer);
         }
         public bool IsEmptyWorldSlotLayer(SWorldLayer worldLayer)
         {

@@ -1,17 +1,13 @@
 ﻿using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Components;
 using StardustSandbox.Core.Components.Common.World;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Contexts;
-using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Objects;
 using StardustSandbox.Core.World.General;
 using StardustSandbox.Core.World.Slots;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
 {
@@ -23,7 +19,6 @@ namespace StardustSandbox.Core.World
 
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
-        public int ActiveEntitiesCount => this.instantiatedEntities.Count;
 
         // System
         private SSaveFile currentlySelectedWorldSaveFile;
@@ -36,12 +31,8 @@ namespace StardustSandbox.Core.World
         private readonly SWorldChunkingComponent worldChunkingComponent;
         private readonly SElementContext worldElementContext;
 
-        // Entities
-        private readonly List<SEntity> instantiatedEntities = new(SEntityConstants.ACTIVE_ENTITIES_LIMIT);
-
         // Pools
         private readonly SObjectPool worldSlotsPool;
-        private readonly Dictionary<string, SObjectPool> entityPools = [];
 
         public SWorld(ISGame gameInstance) : base(gameInstance)
         {

@@ -2,6 +2,7 @@
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
 {
@@ -16,13 +17,21 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.enableFlammability = true;
             this.defaultFlammabilityResistance = 35;
             this.defaultDensity = 700;
+            this.defaultExplosionResistance = 1.5f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue >= 300)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_FIRE);
+                if (SRandomMath.Chance(65))
+                {
+                    this.Context.ReplaceElement(SElementConstants.FIRE_IDENTIFIER);
+                }
+                else
+                {
+                    this.Context.ReplaceElement(SElementConstants.ASH_IDENTIFIER);
+                }
             }
         }
     }

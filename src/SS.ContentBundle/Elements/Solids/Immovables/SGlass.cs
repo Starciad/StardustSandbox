@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Core.Elements.Rendering;
+﻿using StardustSandbox.Core.Constants.Elements;
+using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
 
@@ -13,13 +14,15 @@ namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
             this.defaultTemperature = 25;
             this.defaultDensity = 2500;
+            this.defaultExplosionResistance = 0.5f;
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
             if (currentValue >= 620)
             {
-                this.Context.DestroyElement();
+                this.Context.ReplaceElement(SElementConstants.LAVA_IDENTIFIER);
+                this.Context.SetStoredElement(SElementConstants.GLASS_IDENTIFIER);
             }
         }
     }

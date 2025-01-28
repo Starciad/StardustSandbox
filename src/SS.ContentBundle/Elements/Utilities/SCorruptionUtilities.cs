@@ -47,19 +47,18 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
         {
             targets.Clear();
 
+            void ProcessLayer(SWorldSlot slot, SWorldLayer layer, ISElement element)
+            {
+                if (element is not ISCorruption && element is not (SWall or SClone))
+                {
+                    targets.Add(new(slot, layer));
+                }
+            }
+
             foreach (SWorldSlot neighbor in neighbors)
             {
-                ISElement foregroundElement = neighbor.ForegroundLayer.Element;
-                if (foregroundElement is not ISCorruption && foregroundElement is not SWall)
-                {
-                    targets.Add(new(neighbor, SWorldLayer.Foreground));
-                }
-
-                ISElement backgroundElement = neighbor.BackgroundLayer.Element;
-                if (backgroundElement is not ISCorruption && backgroundElement is not SWall)
-                {
-                    targets.Add(new(neighbor, SWorldLayer.Background));
-                }
+                ProcessLayer(neighbor, SWorldLayer.Foreground, neighbor.ForegroundLayer.Element);
+                ProcessLayer(neighbor, SWorldLayer.Background, neighbor.BackgroundLayer.Element);
             }
 
             if (targets.Count == 0)
@@ -79,23 +78,23 @@ namespace StardustSandbox.ContentBundle.Elements.Utilities
             switch (targetElement)
             {
                 case SMovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.MOVABLE_CORRUPTION_IDENTIFIER);
                     break;
 
                 case SImmovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_IMMOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IMMOVABLE_CORRUPTION_IDENTIFIER);
                     break;
 
                 case SLiquid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_LIQUID_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.LIQUID_CORRUPTION_IDENTIFIER);
                     break;
 
                 case SGas:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_GAS_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.GAS_CORRUPTION_IDENTIFIER);
                     break;
 
                 default:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.IDENTIFIER_MOVABLE_CORRUPTION);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, SElementConstants.MOVABLE_CORRUPTION_IDENTIFIER);
                     break;
             }
         }

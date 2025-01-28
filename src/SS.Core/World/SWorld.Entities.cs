@@ -4,11 +4,17 @@ using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces.Collections;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.World
 {
     internal sealed partial class SWorld
     {
+        public int ActiveEntitiesCount => this.instantiatedEntities.Count;
+
+        private readonly List<SEntity> instantiatedEntities = new(SEntityConstants.ACTIVE_ENTITIES_LIMIT);
+        private readonly Dictionary<string, SObjectPool> entityPools = [];
+
         public SEntity InstantiateEntity(string entityIdentifier, Action<SEntity> entityConfigurationAction)
         {
             _ = TryInstantiateEntity(entityIdentifier, entityConfigurationAction, out SEntity entity);
@@ -18,7 +24,7 @@ namespace StardustSandbox.Core.World
 
         public bool TryInstantiateEntity(string entityIdentifier, Action<SEntity> entityConfigurationAction, out SEntity entity)
         {
-            if (this.instantiatedEntities.Count >= SEntityConstants.ACTIVE_ENTITIES_LIMIT)
+            if (this.ActiveEntitiesCount >= SEntityConstants.ACTIVE_ENTITIES_LIMIT)
             {
                 entity = null;
                 return false;

@@ -1,13 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Explosions;
+using StardustSandbox.Core.Interfaces.Explosions;
+using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Interfaces.Elements.Contexts
 {
-    public interface ISElementContext : ISElementHandler
+    public interface ISElementContext : ISElementHandler, ISExplosionHandler, ISWorldChunkingHandler
     {
         SWorldSlot Slot { get; }
         SWorldSlotLayer SlotLayer { get; }
@@ -41,6 +44,11 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         void DestroyElement(SWorldLayer worldLayer);
         bool TryDestroyElement();
         bool TryDestroyElement(SWorldLayer worldLayer);
+
+        void RemoveElement();
+        void RemoveElement(Point position);
+        bool TryRemoveElement();
+        bool TryRemoveElement(Point position);
 
         void ReplaceElement(string identifier);
         void ReplaceElement(SWorldLayer worldLayer, string identifier);
@@ -76,13 +84,23 @@ namespace StardustSandbox.Core.Interfaces.Elements.Contexts
         bool TrySetElementColorModifier(Color value);
         bool TrySetElementColorModifier(SWorldLayer worldLayer, Color value);
 
+        void SetStoredElement(SWorldLayer worldLayer, string identifier);
+        void SetStoredElement(SWorldLayer worldLayer, ISElement element);
+        void SetStoredElement(string identifier);
+        void SetStoredElement(ISElement element);
+        bool TrySetStoredElement(SWorldLayer worldLayer, string identifier);
+        bool TrySetStoredElement(SWorldLayer worldLayer, ISElement element);
+        bool TrySetStoredElement(string identifier);
+        bool TrySetStoredElement(ISElement element);
+
         void NotifyChunk();
-        void NotifyChunk(Point position);
         bool TryNotifyChunk();
-        bool TryNotifyChunk(Point position);
 
         bool IsEmptyWorldSlot();
         bool IsEmptyWorldSlotLayer();
         bool IsEmptyWorldSlotLayer(SWorldLayer worldLayer);
+
+        void InstantiateExplosion(SExplosionBuilder explosionBuilder);
+        bool TryInstantiateExplosion(SExplosionBuilder explosionBuilder);
     }
 }

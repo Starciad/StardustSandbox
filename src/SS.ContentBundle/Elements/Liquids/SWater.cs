@@ -18,10 +18,11 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
             this.referenceColor = new(8, 120, 284, 255);
             this.texture = gameInstance.AssetDatabase.GetTexture("element_3");
             this.Rendering.SetRenderingMechanism(new SElementBlobRenderingMechanism());
+            this.enableNeighborsAction = true;
             this.defaultDispersionRate = 3;
             this.defaultTemperature = 25;
-            this.enableNeighborsAction = true;
             this.defaultDensity = 1000;
+            this.defaultExplosionResistance = 0.2f;
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
@@ -32,35 +33,40 @@ namespace StardustSandbox.ContentBundle.Elements.Liquids
                 {
                     case SDirt:
                         this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_MUD);
-                        return;
+                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.MUD_IDENTIFIER);
+                        break;
 
                     case SStone:
                         if (SRandomMath.Range(0, 150) == 0)
                         {
                             this.Context.DestroyElement();
-                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.IDENTIFIER_SAND);
+                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, SElementConstants.SAND_IDENTIFIER);
                         }
 
-                        return;
+                        break;
 
                     case SFire:
                         this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
-                        return;
+                        break;
+
+                    default:
+                        break;
                 }
             }
         }
 
         protected override void OnTemperatureChanged(short currentValue)
         {
-            if (currentValue >= 100)
-            {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_STEAM);
-            }
-
             if (currentValue <= 0)
             {
-                this.Context.ReplaceElement(SElementConstants.IDENTIFIER_ICE);
+                this.Context.ReplaceElement(SElementConstants.ICE_IDENTIFIER);
+                return;
+            }
+
+            if (currentValue >= 100)
+            {
+                this.Context.ReplaceElement(SElementConstants.STEAM_IDENTIFIER);
+                return;
             }
         }
     }

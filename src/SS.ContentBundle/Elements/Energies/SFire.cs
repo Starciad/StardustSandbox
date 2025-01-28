@@ -31,21 +31,20 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 new(new(new(96, 00), new(SSpritesConstants.SPRITE_SCALE)), 200),
             ])));
             this.enableNeighborsAction = true;
-            this.enableLightEmission = true;
-            this.defaultLuminousIntensity = 7;
+            this.isExplosionImmune = true;
             this.defaultTemperature = 500;
             this.defaultDensity = 0;
         }
 
         protected override void OnBeforeStep()
         {
-            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR, SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR_TOTAL))
+            if (SRandomMath.Chance(SElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
                 this.Context.DestroyElement(this.Context.Layer);
 
-                if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE, SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE_TOTAL))
+                if (SRandomMath.Chance(SElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
-                    this.Context.InstantiateElement(this.Context.Layer, SElementConstants.IDENTIFIER_SMOKE);
+                    this.Context.InstantiateElement(this.Context.Layer, SElementConstants.SMOKE_IDENTIFIER);
                 }
             }
         }
@@ -107,7 +106,7 @@ namespace StardustSandbox.ContentBundle.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (SRandomMath.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementConstants.IDENTIFIER_FIRE);
+                    this.Context.ReplaceElement(slot.Position, worldLayer, SElementConstants.FIRE_IDENTIFIER);
                 }
             }
         }

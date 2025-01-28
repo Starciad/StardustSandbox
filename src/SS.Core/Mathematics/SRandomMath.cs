@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StardustSandbox.Core.Constants;
+
+using System;
 
 namespace StardustSandbox.Core.Mathematics
 {
@@ -19,6 +21,11 @@ namespace StardustSandbox.Core.Mathematics
         public static int Range(int min, int max)
         {
             return _random.Next(min, max);
+        }
+
+        public static bool Chance(int chance)
+        {
+            return Chance(chance, SMathConstants.TOTAL_CHANCE_DEFAULT_VALUE);
         }
 
         public static bool Chance(int chance, int total)

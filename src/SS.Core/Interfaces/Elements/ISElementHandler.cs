@@ -23,6 +23,9 @@ namespace StardustSandbox.Core.Interfaces.Elements
         void DestroyElement(Point position, SWorldLayer worldLayer);
         bool TryDestroyElement(Point position, SWorldLayer worldLayer);
 
+        void RemoveElement(Point position, SWorldLayer worldLayer);
+        bool TryRemoveElement(Point position, SWorldLayer worldLayer);
+
         void ReplaceElement(Point position, SWorldLayer worldLayer, string identifier);
         void ReplaceElement(Point position, SWorldLayer worldLayer, ISElement value);
         bool TryReplaceElement(Point position, SWorldLayer worldLayer, string identifier);
@@ -44,6 +47,11 @@ namespace StardustSandbox.Core.Interfaces.Elements
 
         void SetElementColorModifier(Point position, SWorldLayer worldLayer, Color value);
         bool TrySetElementColorModifier(Point position, SWorldLayer worldLayer, Color value);
+
+        void SetStoredElement(Point position, SWorldLayer worldLayer, string identifier);
+        void SetStoredElement(Point position, SWorldLayer worldLayer, ISElement element);
+        bool TrySetStoredElement(Point position, SWorldLayer worldLayer, string identifier);
+        bool TrySetStoredElement(Point position, SWorldLayer worldLayer, ISElement element);
 
         bool IsEmptyWorldSlot(Point position);
         bool IsEmptyWorldSlotLayer(Point position, SWorldLayer worldLayer);

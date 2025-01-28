@@ -15,7 +15,7 @@ namespace StardustSandbox.Core.Interfaces.Databases
         Texture2D GetTexture(string name);
         SpriteFont GetSpriteFont(string name);
         Song GetSong(string name);
-        SoundEffect GetSound(string name);
+        SoundEffect GetSoundEffect(string name);
         Effect GetEffect(string name);
     }
 }

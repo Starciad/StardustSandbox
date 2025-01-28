@@ -79,6 +79,24 @@ namespace StardustSandbox.ContentBundle.Localization.Catalog {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set of all the tools that add extra functionality and enable more types of changes in the world..
+        /// </summary>
+        internal static string Category_Tools_Description {
+            get {
+                return ResourceManager.GetString("Category.Tools.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools.
+        /// </summary>
+        internal static string Category_Tools_Name {
+            get {
+                return ResourceManager.GetString("Category.Tools.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Forces of nature in their purest and most dynamic forms. Unpredictable and powerful, they shape and transform their surroundings with intensity, igniting change wherever they go..
         /// </summary>
         internal static string Subcategory_Elements_Energies_Description {
@@ -93,6 +111,24 @@ namespace StardustSandbox.ContentBundle.Localization.Catalog {
         internal static string Subcategory_Elements_Energies_Name {
             get {
                 return ResourceManager.GetString("Subcategory.Elements.Energies.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Destructive elements designed to cause powerful reactions. They release energy in the form of heat, shockwaves, and debris upon activation, often impacting their surroundings with a high level of destruction..
+        /// </summary>
+        internal static string Subcategory_Elements_Explosives_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Explosives.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Explosives.
+        /// </summary>
+        internal static string Subcategory_Elements_Explosives_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Explosives.Name", resourceCulture);
             }
         }
         
@@ -169,20 +205,56 @@ namespace StardustSandbox.ContentBundle.Localization.Catalog {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Barriers of purpose, designed to separate and protect. Walls are the silent guardians, creating boundaries that define spaces and safeguard from external forces..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Unique and highly specialized elements that do not conform to the typical behaviors of powders, liquids, gases or solids. These elements serve specific and often transformative purposes..
         /// </summary>
-        internal static string Subcategory_Elements_Walls_Description {
+        internal static string Subcategory_Elements_Specials_Description {
             get {
-                return ResourceManager.GetString("Subcategory.Elements.Walls.Description", resourceCulture);
+                return ResourceManager.GetString("Subcategory.Elements.Specials.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Walls.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Specials.
         /// </summary>
-        internal static string Subcategory_Elements_Walls_Name {
+        internal static string Subcategory_Elements_Specials_Name {
             get {
-                return ResourceManager.GetString("Subcategory.Elements.Walls.Name", resourceCulture);
+                return ResourceManager.GetString("Subcategory.Elements.Specials.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set of special elements that perform automated functions to facilitate certain tasks. A large compilation of all the artifacts that can help in the most diverse creations..
+        /// </summary>
+        internal static string Subcategory_Elements_Technologies_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Technologies.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Technologies.
+        /// </summary>
+        internal static string Subcategory_Elements_Technologies_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Technologies.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools that provide the ability to interact with and modify the environment..
+        /// </summary>
+        internal static string Subcategory_Tools_Environment_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Tools.Environment.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment.
+        /// </summary>
+        internal static string Subcategory_Tools_Environment_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Tools.Environment.Name", resourceCulture);
             }
         }
     }

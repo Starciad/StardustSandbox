@@ -61,92 +61,38 @@ namespace StardustSandbox.ContentBundle.Localization.Tools {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Directly removes previously placed items from the map..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This tool grants the ability to decrease the temperature of a certain area of ​​the world..
         /// </summary>
-        internal static string Eraser_Description {
+        internal static string Environment_Freeze_Description {
             get {
-                return ResourceManager.GetString("Eraser.Description", resourceCulture);
+                return ResourceManager.GetString("Environment.Freeze.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Eraser.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Freeze Tool.
         /// </summary>
-        internal static string Eraser_Name {
+        internal static string Environment_Freeze_Name {
             get {
-                return ResourceManager.GetString("Eraser.Name", resourceCulture);
+                return ResourceManager.GetString("Environment.Freeze.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Completely fills empty areas with the selected item or replaces existing items on the map..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This tool grants the ability to increase the temperature of a certain area of ​​the world..
         /// </summary>
-        internal static string Fill_Description {
+        internal static string Environment_Heat_Description {
             get {
-                return ResourceManager.GetString("Fill.Description", resourceCulture);
+                return ResourceManager.GetString("Environment.Heat.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Fill.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Heat Tool.
         /// </summary>
-        internal static string Fill_Name {
+        internal static string Environment_Heat_Name {
             get {
-                return ResourceManager.GetString("Fill.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A tool used to place items on the map..
-        /// </summary>
-        internal static string Pencil_Description {
-            get {
-                return ResourceManager.GetString("Pencil.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Pen.
-        /// </summary>
-        internal static string Pencil_Name {
-            get {
-                return ResourceManager.GetString("Pencil.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Replaces items already placed on the map with others selected beforehand..
-        /// </summary>
-        internal static string Replace_Description {
-            get {
-                return ResourceManager.GetString("Replace.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Replacer.
-        /// </summary>
-        internal static string Replace_Name {
-            get {
-                return ResourceManager.GetString("Replace.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Allows you to view the map without interacting with or modifying its content..
-        /// </summary>
-        internal static string Visualization_Description {
-            get {
-                return ResourceManager.GetString("Visualization.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Viewer.
-        /// </summary>
-        internal static string Visualization_Name {
-            get {
-                return ResourceManager.GetString("Visualization.Name", resourceCulture);
+                return ResourceManager.GetString("Environment.Heat.Name", resourceCulture);
             }
         }
     }
