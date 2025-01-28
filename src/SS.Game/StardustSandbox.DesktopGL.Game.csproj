@@ -15,8 +15,8 @@
 	<PropertyGroup>
 		<AssemblyName>StardustSandbox</AssemblyName>
 		<RootNamespace>StardustSandbox.Game</RootNamespace>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<ApplicationIcon>icon.ico</ApplicationIcon>
+		<ApplicationManifest>Resources\Manifestos\app.manifest</ApplicationManifest>
+		<ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -32,16 +32,14 @@
 		<ProjectReference Include="..\SS.Core\StardustSandbox.DesktopGL.Core.csproj" />
 	</ItemGroup>
 
-	<!-- FILES (RESOURCE) -->
+	<!-- RESOURCES -->
 	<ItemGroup>
 		<EmbeddedResource Include="icon.ico">
 			<LogicalName>Icon.ico</LogicalName>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 
 		<EmbeddedResource Include="icon.bmp">
 			<LogicalName>Icon.bmp</LogicalName>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 
