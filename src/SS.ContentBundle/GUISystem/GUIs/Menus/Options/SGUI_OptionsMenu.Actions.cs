@@ -88,7 +88,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 
         private void SaveGraphicsSettings()
         {
-            SSection graphicsSettings = this.root.Sections["graphics"];
+            // SSection graphicsSettings = this.root.Sections["graphics"];
 
             SSettingsHandler.SaveSettings(this.graphicsSettings);
         }
