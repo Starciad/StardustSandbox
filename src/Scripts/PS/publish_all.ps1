@@ -74,11 +74,13 @@ Write-Host "All publishing processes have been completed."
 Write-Host "Copying assets directory..."
 
 $source = "..\..\SS.ContentBundle\assets"
+$license = "..\..\..\LICENSE-ASSETS.txt"
 $destination = "$outputDirectory\$gameName.$gameVersion.assets\assets"
 $subdirectoriesToDelete = @("bin", "obj")
 
 # Copy the source folder to the destination
 Copy-Item -Path $source -Destination $destination -Recurse
+Copy-Item -Path $license -Destination $destination
 
 # Delete the specified subdirectories
 Remove-Subdirectories $destination $subdirectoriesToDelete
