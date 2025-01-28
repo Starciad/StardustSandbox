@@ -34,11 +34,11 @@
 
 	<!-- RESOURCES -->
 	<ItemGroup>
-		<EmbeddedResource Include="icon.ico">
+		<EmbeddedResource Include="Resources\Icons\icon.ico">
 			<LogicalName>Icon.ico</LogicalName>
 		</EmbeddedResource>
 
-		<EmbeddedResource Include="icon.bmp">
+		<EmbeddedResource Include="Resources\Icons\icon.bmp">
 			<LogicalName>Icon.bmp</LogicalName>
 		</EmbeddedResource>
 	</ItemGroup>
