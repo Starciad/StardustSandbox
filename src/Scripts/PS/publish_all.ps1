@@ -18,6 +18,11 @@ $windowsDX = "..\..\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
 $desktopGL = "..\..\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
 $outputDirectory = "..\..\Publish"
 
+if (Test-Path $outputDirectory) {
+    Remove-Item -Path $outputDirectory -Recurse -Force
+    Write-Output "We found a Publish directory. To avoid potential failures, it was deleted for the rebuild process."
+}
+
 # List of target platforms
 $platforms = @("win-x64", "linux-x64", "osx-x64")
 
@@ -57,7 +62,6 @@ if (Test-Path $outputDirectory -PathType Container) {
 }
 
 # Publish WindowsDX
-Clear-Host
 Write-Host "Publishing Stardust Sandbox (WindowsDX) for Win-x64..."
 Publish-Project "windowsdx" $windowsDX $platforms[0]
 
