@@ -10,23 +10,22 @@ namespace StardustSandbox.Core.Audio
 {
     public static class SSoundEngine
     {
-        private sealed class SPoolableSoundEffect(SoundEffectInstance instance) : ISPoolableObject
+        private sealed class SPoolableSoundEffect(SoundEffect soundEffect, SoundEffectInstance instance) : ISPoolableObject
         {
-            public SoundEffectInstance Instance => this.instance;
-
-            private readonly SoundEffectInstance instance = instance;
+            public SoundEffect SoundEffect => soundEffect;
+            public SoundEffectInstance Instance => instance;
 
             public void Reset()
             {
-                this.instance.Stop();
-                this.instance.Volume = 1.0f;
-                this.instance.Pitch = 0.0f;
-                this.instance.Pan = 0.0f;
+                this.Instance.Stop();
+                this.Instance.Volume = 1.0f;
+                this.Instance.Pitch = 0.0f;
+                this.Instance.Pan = 0.0f;
             }
         }
 
         private static readonly List<SPoolableSoundEffect> activeInstances = [];
-        private static readonly SObjectPool soundEffectPool = new();
+        private static readonly Dictionary<SoundEffect, SObjectPool> soundEffectPools = [];
 
         public static float Volume
         {
@@ -65,9 +64,17 @@ namespace StardustSandbox.Core.Audio
 
         private static SPoolableSoundEffect GetOrCreateInstance(SoundEffect soundEffect)
         {
-            return soundEffectPool.TryGet(out ISPoolableObject pooledObject) && pooledObject is SPoolableSoundEffect instance
-                ? instance
-                : new(soundEffect.CreateInstance());
+            if (!soundEffectPools.TryGetValue(soundEffect, out SObjectPool pool))
+            {
+                pool = new();
+                soundEffectPools[soundEffect] = pool;
+            }
+
+            SPoolableSoundEffect result = pool.TryGet(out ISPoolableObject poolableObject)
+                ? (SPoolableSoundEffect)poolableObject
+                : new(soundEffect, soundEffect.CreateInstance());
+
+            return result;
         }
 
         private static void ReleaseInstances()
@@ -94,7 +101,7 @@ namespace StardustSandbox.Core.Audio
 
             poolableSoundEffect.Instance.Stop();
 
-            soundEffectPool.Add(poolableSoundEffect);
+            soundEffectPools[poolableSoundEffect.SoundEffect].Add(poolableSoundEffect);
         }
     }
 }
