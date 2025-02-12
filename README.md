@@ -19,7 +19,7 @@ You are encouraged to create and share your creations in a constantly evolving g
 
 Here are the necessary requirements for the game to function correctly:
 
-- **Operating System:** Windows, MacOS and Linux;
+- **Operating System:** Windows, MacOS or Linux;
 - **DirectX:** Version 9.0c or higher;
 - **OpenGL:** Version 2.0 or higher;
 - **RAM:** At least 500 MB;
