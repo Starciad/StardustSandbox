@@ -28,8 +28,8 @@ namespace StardustSandbox.Core.Ambient.Handlers
 
         public override void Initialize()
         {
-            this.sunTexture = this.SGameInstance.AssetDatabase.GetTexture("bgo_celestial_body_1");
-            this.moonTexture = this.SGameInstance.AssetDatabase.GetTexture("bgo_celestial_body_2");
+            this.sunTexture = this.SGameInstance.AssetDatabase.GetTexture("texture_bgo_celestial_body_1");
+            this.moonTexture = this.SGameInstance.AssetDatabase.GetTexture("texture_bgo_celestial_body_2");
         }
 
         public override void Update(GameTime gameTime)

@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
         public override void Initialize()
         {
-            this.gridTexture = this.SGameInstance.AssetDatabase.GetTexture("shape_square_2");
+            this.gridTexture = this.SGameInstance.AssetDatabase.GetTexture("texture_shape_square_2");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

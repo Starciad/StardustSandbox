@@ -152,7 +152,7 @@ namespace StardustSandbox.Core.Ambient.Handlers
 
         public override void Initialize()
         {
-            this.texture = this.SGameInstance.AssetDatabase.GetTexture("background_4");
+            this.texture = this.SGameInstance.AssetDatabase.GetTexture("texture_background_4");
             this.effect = this.SGameInstance.AssetDatabase.GetEffect("effect_1");
         }
 

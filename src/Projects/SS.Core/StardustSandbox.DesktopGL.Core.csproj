@@ -23,11 +23,6 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
 		<PackageReference Include="MessagePack" Version="3.1.1" />
 	</ItemGroup>
-	
-	<!-- MONOGAME -->
-	<ItemGroup>
-		<MonoGameContentReference Include="..\SS.ContentBundle\assets\assets.mgcb" Link="assets\assets.mgcb" />
-	</ItemGroup>
 
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">

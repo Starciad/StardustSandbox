@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Core.Bundles;
+﻿using StardustSandbox.Core.Content;
 
 using System;
 
@@ -9,9 +9,9 @@ namespace StardustSandbox.Core
         private readonly SGame game = new();
         private bool disposedValue;
 
-        public void AddBundle(SGameBundle bundle)
+        public void AddContent(SGameContent content)
         {
-            this.game.AddBundle(bundle);
+            this.game.AddContent(content);
         }
 
         public void Start()

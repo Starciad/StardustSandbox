@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Bundles;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.IO;
+using StardustSandbox.Core.Content;
 using StardustSandbox.Core.Controllers.GameInput;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces;
@@ -69,8 +69,8 @@ namespace StardustSandbox.Core
         private readonly SWorld world;
         private readonly SGameInputController gameInputController;
 
-        // Bundle System
-        private readonly List<SGameBundle> bundles = [];
+        // Content System
+        private readonly List<SGameContent> contents = [];
 
         // ================================= //
 
@@ -125,9 +125,9 @@ namespace StardustSandbox.Core
             this.ambientManager = new(this);
         }
 
-        public void AddBundle(SGameBundle bundle)
+        public void AddContent(SGameContent content)
         {
-            this.bundles.Add(bundle);
+            this.contents.Add(content);
         }
 
         public void Quit()

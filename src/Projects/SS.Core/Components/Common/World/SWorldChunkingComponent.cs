@@ -22,7 +22,7 @@ namespace StardustSandbox.Core.Components.Common.World
 
         public override void Initialize()
         {
-            this.pixelTexture = this.SGameInstance.AssetDatabase.GetTexture("particle_1");
+            this.pixelTexture = this.SGameInstance.AssetDatabase.GetTexture("texture_particle_1");
         }
 
         public override void Reset()

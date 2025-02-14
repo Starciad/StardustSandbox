@@ -20,15 +20,15 @@ namespace StardustSandbox.Core.Ambient.Handlers
     {
         public bool IsActive { get; set; } = true;
 
-        private readonly Texture2D[] cloudTextures = new Texture2D[SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH];
+        private readonly Texture2D[] cloudTextures = new Texture2D[SAssetConstants.TEXTURES_BGOS_CLOUDS_LENGTH];
         private readonly List<SCloud> activeClouds = new(SBackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly SObjectPool cloudPool = new();
 
         public override void Initialize()
         {
-            for (int i = 0; i < SAssetConstants.GRAPHICS_BGOS_CLOUDS_LENGTH; i++)
+            for (int i = 0; i < SAssetConstants.TEXTURES_BGOS_CLOUDS_LENGTH; i++)
             {
-                this.cloudTextures[i] = this.SGameInstance.AssetDatabase.GetTexture($"bgo_cloud_{i + 1}");
+                this.cloudTextures[i] = this.SGameInstance.AssetDatabase.GetTexture($"texture_bgo_cloud_{i + 1}");
             }
         }
 

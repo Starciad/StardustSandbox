@@ -33,8 +33,8 @@ namespace StardustSandbox.Core.Managers
 
         public override void Initialize()
         {
-            this.cursorTextures[0] = this._assetDatabase.GetTexture("cursor_1");
-            this.cursorTextures[1] = this._assetDatabase.GetTexture("cursor_2");
+            this.cursorTextures[0] = this._assetDatabase.GetTexture("texture_cursor_1");
+            this.cursorTextures[1] = this._assetDatabase.GetTexture("texture_cursor_2");
 
             ApplySettings();
         }

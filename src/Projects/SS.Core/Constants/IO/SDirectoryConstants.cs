@@ -16,7 +16,7 @@
 
         public const string ASSETS_EFFECTS = "effects";
         public const string ASSETS_FONTS = "fonts";
-        public const string ASSETS_GRAPHICS = "graphics";
+        public const string ASSETS_TEXTURES = "textures";
         public const string ASSETS_SONGS = "songs";
 
         #region SOUNDS
@@ -24,62 +24,62 @@
         public const string ASSETS_SOUNDS_EXPLOSIONS = "explosions";
         #endregion
 
-        #region GRAPHICS
+        #region TEXTURES
         // Backgrounds
-        public const string ASSETS_GRAPHICS_BACKGROUNDS = "backgrounds";
+        public const string ASSETS_TEXTURES_BACKGROUNDS = "backgrounds";
 
         // Bgos
-        public const string ASSETS_GRAPHICS_BGOS = "bgos";
-        public const string ASSETS_GRAPHICS_BGOS_CELESTIAL_BODIES = "celestial_bodies";
-        public const string ASSETS_GRAPHICS_BGOS_CLOUDS = "clouds";
+        public const string ASSETS_TEXTURES_BGOS = "bgos";
+        public const string ASSETS_TEXTURES_BGOS_CELESTIAL_BODIES = "celestial_bodies";
+        public const string ASSETS_TEXTURES_BGOS_CLOUDS = "clouds";
 
         // Characters
-        public const string ASSETS_GRAPHICS_CHARACTERS = "characters";
+        public const string ASSETS_TEXTURES_CHARACTERS = "characters";
 
         // Cursors
-        public const string ASSETS_GRAPHICS_CURSORS = "cursors";
+        public const string ASSETS_TEXTURES_CURSORS = "cursors";
 
         // Effects
-        public const string ASSETS_GRAPHICS_EFFECTS = "effects";
+        public const string ASSETS_TEXTURES_EFFECTS = "effects";
 
         // Elements
-        public const string ASSETS_GRAPHICS_ELEMENTS = "elements";
+        public const string ASSETS_TEXTURES_ELEMENTS = "elements";
 
         // Entities
-        public const string ASSETS_GRAPHICS_ENTITIES = "entities";
+        public const string ASSETS_TEXTURES_ENTITIES = "entities";
 
         // Game
-        public const string ASSETS_GRAPHICS_GAME = "game";
-        public const string ASSETS_GRAPHICS_GAME_ICONS = "icons";
-        public const string ASSETS_GRAPHICS_GAME_TITLES = "titles";
+        public const string ASSETS_TEXTURES_GAME = "game";
+        public const string ASSETS_TEXTURES_GAME_ICONS = "icons";
+        public const string ASSETS_TEXTURES_GAME_TITLES = "titles";
 
         // Gui
-        public const string ASSETS_GRAPHICS_GUI = "gui";
-        public const string ASSETS_GRAPHICS_GUI_BACKGROUNDS = "backgrounds";
-        public const string ASSETS_GRAPHICS_GUI_BUTTONS = "buttons";
-        public const string ASSETS_GRAPHICS_GUI_SLIDERS = "sliders";
-        public const string ASSETS_GRAPHICS_GUI_FIELDS = "fields";
+        public const string ASSETS_TEXTURES_GUI = "gui";
+        public const string ASSETS_TEXTURES_GUI_BACKGROUNDS = "backgrounds";
+        public const string ASSETS_TEXTURES_GUI_BUTTONS = "buttons";
+        public const string ASSETS_TEXTURES_GUI_SLIDERS = "sliders";
+        public const string ASSETS_TEXTURES_GUI_FIELDS = "fields";
 
         // Icons
-        public const string ASSETS_GRAPHICS_ICONS = "icons";
-        public const string ASSETS_GRAPHICS_ICONS_ELEMENTS = "elements";
-        public const string ASSETS_GRAPHICS_ICONS_ENTITIES = "entities";
-        public const string ASSETS_GRAPHICS_ICONS_GUI = "gui";
-        public const string ASSETS_GRAPHICS_ICONS_CONTROLLERS = "controllers";
-        public const string ASSETS_GRAPHICS_ICONS_TOOLS = "tools";
+        public const string ASSETS_TEXTURES_ICONS = "icons";
+        public const string ASSETS_TEXTURES_ICONS_ELEMENTS = "elements";
+        public const string ASSETS_TEXTURES_ICONS_ENTITIES = "entities";
+        public const string ASSETS_TEXTURES_ICONS_GUI = "gui";
+        public const string ASSETS_TEXTURES_ICONS_CONTROLLERS = "controllers";
+        public const string ASSETS_TEXTURES_ICONS_TOOLS = "tools";
 
         // Miscellaneous
-        public const string ASSETS_GRAPHICS_MISCELLANEOUS = "miscellaneous";
+        public const string ASSETS_TEXTURES_MISCELLANEOUS = "miscellaneous";
 
         // Particles
-        public const string ASSETS_GRAPHICS_PARTICLES = "particles";
+        public const string ASSETS_TEXTURES_PARTICLES = "particles";
 
         // Shapes
-        public const string ASSETS_GRAPHICS_SHAPES = "shapes";
-        public const string ASSETS_GRAPHICS_SHAPES_SQUARES = "squares";
+        public const string ASSETS_TEXTURES_SHAPES = "shapes";
+        public const string ASSETS_TEXTURES_SHAPES_SQUARES = "squares";
 
         // Third Parties
-        public const string ASSETS_GRAPHICS_THIRD_PARTIES = "third_parties";
+        public const string ASSETS_TEXTURES_THIRD_PARTIES = "third_parties";
         #endregion
         #endregion
 

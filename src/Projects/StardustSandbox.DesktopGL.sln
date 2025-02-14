@@ -7,15 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StardustSandbox.DesktopGL.G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StardustSandbox.DesktopGL.Core", "SS.Core\StardustSandbox.DesktopGL.Core.csproj", "{997E1CBB-01A0-4BA6-8CC7-C59E47FC8D6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StardustSandbox.DesktopGL.ContentBundle", "SS.ContentBundle\StardustSandbox.DesktopGL.ContentBundle.csproj", "{FD426859-7A10-4C75-9E84-CE081AB6F8E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StardustSandbox.DesktopGL.GameContent", "SS.GameContent\StardustSandbox.DesktopGL.GameContent.csproj", "{77174FA7-3A21-41DB-B289-3A0AA9E6E9D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E44005CD-C6A8-4F7A-846C-DCB7D483372A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,9 +23,12 @@ Global
 		{997E1CBB-01A0-4BA6-8CC7-C59E47FC8D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{997E1CBB-01A0-4BA6-8CC7-C59E47FC8D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{997E1CBB-01A0-4BA6-8CC7-C59E47FC8D6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD426859-7A10-4C75-9E84-CE081AB6F8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD426859-7A10-4C75-9E84-CE081AB6F8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD426859-7A10-4C75-9E84-CE081AB6F8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD426859-7A10-4C75-9E84-CE081AB6F8E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77174FA7-3A21-41DB-B289-3A0AA9E6E9D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77174FA7-3A21-41DB-B289-3A0AA9E6E9D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77174FA7-3A21-41DB-B289-3A0AA9E6E9D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77174FA7-3A21-41DB-B289-3A0AA9E6E9D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

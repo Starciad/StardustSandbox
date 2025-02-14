@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Audio;
-using StardustSandbox.Core.Bundles;
 using StardustSandbox.Core.Constants.GUISystem;
+using StardustSandbox.Core.Content;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
 
@@ -24,9 +24,9 @@ namespace StardustSandbox.Core
             SSongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
             SSoundEngine.Volume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
 
-            foreach (SGameBundle bundle in this.bundles)
+            foreach (SGameContent content in this.contents)
             {
-                bundle.Initialize(this, this.Content);
+                content.Initialize(this, this.Content);
             }
 
             // Databases
@@ -59,7 +59,7 @@ namespace StardustSandbox.Core
         protected override void LoadContent()
         {
             this.spriteBatch = new(this.GraphicsDevice);
-            this.mouseActionSquareTexture = this.assetDatabase.GetTexture("shape_square_3");
+            this.mouseActionSquareTexture = this.assetDatabase.GetTexture("texture_shape_square_3");
         }
 
         protected override void BeginRun()
