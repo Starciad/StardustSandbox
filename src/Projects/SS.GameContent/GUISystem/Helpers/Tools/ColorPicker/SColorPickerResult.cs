@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.ColorPicker
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.ColorPicker
 {
     internal sealed class SColorPickerResult
     {

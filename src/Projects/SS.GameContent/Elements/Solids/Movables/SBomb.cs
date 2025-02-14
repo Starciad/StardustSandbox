@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 
-using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
@@ -12,7 +11,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
+namespace StardustSandbox.GameContent.Elements.Solids.Movables
 {
     internal sealed class SBomb : SMovableSolid
     {

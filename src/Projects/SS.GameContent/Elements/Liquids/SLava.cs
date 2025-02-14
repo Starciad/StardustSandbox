@@ -4,7 +4,7 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.ContentBundle.Elements.Liquids
+namespace StardustSandbox.GameContent.Elements.Liquids
 {
     internal sealed class SLava : SLiquid
     {

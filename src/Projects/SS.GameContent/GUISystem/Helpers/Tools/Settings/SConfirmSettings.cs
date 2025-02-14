@@ -1,8 +1,6 @@
-﻿using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm;
+﻿using System;
 
-using System;
-
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings
 {
     internal sealed class SConfirmSettings
     {

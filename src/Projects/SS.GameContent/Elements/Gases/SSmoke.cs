@@ -5,7 +5,7 @@ using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.ContentBundle.Elements.Gases
+namespace StardustSandbox.GameContent.Elements.Gases
 {
     internal sealed class SSmoke : SGas
     {

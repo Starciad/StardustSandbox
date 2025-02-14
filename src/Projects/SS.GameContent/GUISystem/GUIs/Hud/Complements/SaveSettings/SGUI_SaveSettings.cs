@@ -1,17 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
-using StardustSandbox.ContentBundle.GUISystem.Global;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings;
-using StardustSandbox.ContentBundle.Localization.GUIs;
-using StardustSandbox.ContentBundle.Localization.Messages;
-using StardustSandbox.ContentBundle.Localization.Statements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Extensions;

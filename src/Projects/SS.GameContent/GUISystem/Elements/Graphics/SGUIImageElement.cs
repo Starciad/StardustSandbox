@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
+namespace StardustSandbox.GameContent.GUISystem.Elements.Graphics
 {
     internal sealed class SGUIImageElement : SGUIGraphicElement
     {

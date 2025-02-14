@@ -5,7 +5,7 @@ using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
+namespace StardustSandbox.GameContent.Elements.Solids.Immovables
 {
     internal sealed class STreeLeaf : SImmovableSolid
     {

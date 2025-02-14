@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Informational;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud;
+﻿using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.EnvironmentSettings;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplorer;

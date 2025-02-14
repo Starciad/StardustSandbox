@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Solids.Immovables;
-using StardustSandbox.Core.Constants.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
@@ -13,7 +12,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Utilities
+namespace StardustSandbox.GameContent.Elements.Utilities
 {
     internal static class SCorruptionUtilities
     {

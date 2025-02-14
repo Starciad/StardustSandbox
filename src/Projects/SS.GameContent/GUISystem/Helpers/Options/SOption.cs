@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
+﻿namespace StardustSandbox.GameContent.GUISystem.Helpers.Options
 {
     internal abstract class SOption(string name, string description)
     {

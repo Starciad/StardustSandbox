@@ -4,7 +4,7 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
+namespace StardustSandbox.GameContent.Elements.Solids.Immovables
 {
     internal sealed class SGold : SImmovableSolid
     {

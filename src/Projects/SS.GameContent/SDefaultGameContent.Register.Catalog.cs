@@ -1,7 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Localization.Catalog;
-using StardustSandbox.ContentBundle.Localization.Elements;
-using StardustSandbox.ContentBundle.Localization.Tools;
-using StardustSandbox.Core.Catalog;
+﻿using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Items;

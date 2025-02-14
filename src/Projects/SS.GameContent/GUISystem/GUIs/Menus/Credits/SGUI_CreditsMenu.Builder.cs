@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.Localization.GUIs;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;

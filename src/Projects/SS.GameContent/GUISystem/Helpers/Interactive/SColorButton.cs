@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Interactive
 {
     internal sealed class SColorButton(string name, Color color)
     {

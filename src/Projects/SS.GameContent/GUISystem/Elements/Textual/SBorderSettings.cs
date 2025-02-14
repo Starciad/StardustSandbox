@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
+namespace StardustSandbox.GameContent.GUISystem.Elements.Textual
 {
     internal class SBorderSettings(bool enable, Color color, Vector2 offset)
     {

@@ -10,7 +10,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Elements;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
+namespace StardustSandbox.GameContent.Elements.Solids.Immovables
 {
     internal sealed class SWetSponge : SImmovableSolid
     {

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
+namespace StardustSandbox.GameContent.GUISystem.Elements.Textual
 {
     internal sealed class SGUILabelElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {

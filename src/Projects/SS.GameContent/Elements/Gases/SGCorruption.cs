@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Utilities;
-using StardustSandbox.Core.Constants.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Gases;
 using StardustSandbox.Core.Enums.World;
@@ -10,7 +9,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Gases
+namespace StardustSandbox.GameContent.Elements.Gases
 {
     internal sealed class SGCorruption : SGas, ISCorruption
     {

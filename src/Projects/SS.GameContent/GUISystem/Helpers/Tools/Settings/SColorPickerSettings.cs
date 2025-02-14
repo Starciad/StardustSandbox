@@ -1,8 +1,6 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.ColorPicker;
+﻿using System;
 
-using System;
-
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Settings
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings
 {
     internal sealed class SColorPickerSettings
     {

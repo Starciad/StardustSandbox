@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Entities.Specials;
-using StardustSandbox.Core.Constants;
+﻿using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
 

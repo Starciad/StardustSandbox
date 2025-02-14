@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem;
-
 using System;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput

@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.Enums.Elements.Utilities
+﻿namespace StardustSandbox.GameContent.Enums.Elements.Utilities
 {
     internal enum STemperatureModifierMode : byte
     {

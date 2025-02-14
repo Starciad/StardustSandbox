@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Utilities;
-using StardustSandbox.Core.Colors;
+﻿using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
@@ -11,7 +10,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Liquids
+namespace StardustSandbox.GameContent.Elements.Liquids
 {
     internal sealed class SLCorruption : SLiquid, ISCorruption
     {

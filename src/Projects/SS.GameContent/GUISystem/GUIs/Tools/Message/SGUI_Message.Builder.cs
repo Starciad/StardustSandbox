@@ -1,7 +1,4 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.Localization.Statements;
-using StardustSandbox.Core.Colors;
+﻿using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;

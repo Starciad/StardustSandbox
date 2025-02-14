@@ -1,5 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Liquids;
-using StardustSandbox.Core.Colors;
+﻿using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces;
@@ -7,7 +6,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
+namespace StardustSandbox.GameContent.Elements.Solids.Movables
 {
     internal sealed class SAsh : SMovableSolid
     {

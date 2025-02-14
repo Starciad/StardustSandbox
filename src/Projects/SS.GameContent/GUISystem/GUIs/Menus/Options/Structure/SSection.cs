@@ -1,8 +1,6 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
-
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options.Structure
 {
     internal sealed class SSection(string name, string description)
     {

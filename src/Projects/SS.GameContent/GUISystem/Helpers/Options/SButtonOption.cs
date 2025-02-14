@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Options
 {
     internal sealed class SButtonOption(string name, string description, Action onClickCallback) : SOption(name, description)
     {

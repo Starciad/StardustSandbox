@@ -1,7 +1,4 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.General
+﻿namespace StardustSandbox.GameContent.GUISystem.Helpers.General
 {
     internal sealed class SSlot
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StardustSandbox.ContentBundle.Localization.Colors {
+namespace StardustSandbox.GameContent.Localization.Colors {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace StardustSandbox.ContentBundle.Localization.Colors {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StardustSandbox.ContentBundle.Localization.Colors.SLocalization.Colors", typeof(SLocalization_Colors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StardustSandbox.GameContent.Localization.Colors.SLocalization.Colors", typeof(SLocalization_Colors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

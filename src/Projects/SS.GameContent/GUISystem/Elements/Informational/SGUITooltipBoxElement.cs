@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
@@ -13,7 +11,7 @@ using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Informational
+namespace StardustSandbox.GameContent.GUISystem.Elements.Informational
 {
     internal sealed class SGUITooltipBoxElement : SGUIElement
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StardustSandbox.ContentBundle.Localization.Messages {
+namespace StardustSandbox.GameContent.Localization.Messages {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace StardustSandbox.ContentBundle.Localization.Messages {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StardustSandbox.ContentBundle.Localization.Messages.SLocalization.Messages", typeof(SLocalization_Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StardustSandbox.GameContent.Localization.Messages.SLocalization.Messages", typeof(SLocalization_Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.Enums.GUISystem.Tools.InputSystem
+﻿namespace StardustSandbox.GameContent.Enums.GUISystem.Tools.InputSystem
 {
     internal enum SValidationStatus : byte
     {

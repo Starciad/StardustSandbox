@@ -7,7 +7,7 @@ using StardustSandbox.Core.Interfaces;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements
+namespace StardustSandbox.GameContent.GUISystem.Elements
 {
     internal class SGUIContainerElement : SGUIElement
     {

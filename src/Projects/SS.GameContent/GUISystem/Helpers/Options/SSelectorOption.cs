@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Options
 {
     internal sealed class SSelectorOption(string name, string description, object[] possibleValues) : SOption(name, description)
     {
@@ -25,7 +25,7 @@ namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
 
         internal void Previous()
         {
-            this.selectedValueIndex = (this.selectedValueIndex == 0)
+            this.selectedValueIndex = this.selectedValueIndex == 0
                 ? (uint)(this.PossibleValues.Length - 1)
                 : this.selectedValueIndex - 1;
         }

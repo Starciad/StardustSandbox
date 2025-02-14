@@ -3,7 +3,7 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
+namespace StardustSandbox.GameContent.Elements.Solids.Movables
 {
     internal sealed class SIce : SMovableSolid
     {

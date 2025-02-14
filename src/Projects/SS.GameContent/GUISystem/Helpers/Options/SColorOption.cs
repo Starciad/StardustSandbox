@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Options
 {
     internal sealed class SColorOption(string name, string description) : SOption(name, description)
     {

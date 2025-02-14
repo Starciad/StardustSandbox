@@ -1,11 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Options;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.GUISystem.Elements;

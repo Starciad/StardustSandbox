@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
-
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu

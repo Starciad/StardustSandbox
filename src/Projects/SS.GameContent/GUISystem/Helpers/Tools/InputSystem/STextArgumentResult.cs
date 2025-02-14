@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.InputSystem
+﻿namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.InputSystem
 {
     internal sealed class STextArgumentResult
     {

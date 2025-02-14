@@ -12,7 +12,7 @@ using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.Components.AI.Entities.Specials
+namespace StardustSandbox.GameContent.Components.AI.Entities.Specials
 {
     internal sealed class SMagicCursorAIComponent : SEntityComponent
     {

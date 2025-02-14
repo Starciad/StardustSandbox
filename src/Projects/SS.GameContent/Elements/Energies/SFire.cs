@@ -16,7 +16,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Energies
+namespace StardustSandbox.GameContent.Elements.Energies
 {
     internal sealed class SFire : SEnergy
     {

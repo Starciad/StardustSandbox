@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.General;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Constants.GUISystem;

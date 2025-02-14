@@ -1,7 +1,6 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
-using StardustSandbox.Core.Interfaces;
+﻿using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements
+namespace StardustSandbox.GameContent.GUISystem.Elements
 {
     internal static class STemplate
     {

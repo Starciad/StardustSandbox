@@ -4,7 +4,7 @@ using StardustSandbox.Core.Elements.Templates.Solids.Movables;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Movables
+namespace StardustSandbox.GameContent.Elements.Solids.Movables
 {
     internal sealed class SGrass : SMovableSolid
     {

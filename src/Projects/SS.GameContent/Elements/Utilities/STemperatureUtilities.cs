@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.Enums.Elements.Utilities;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Utilities
+namespace StardustSandbox.GameContent.Elements.Utilities
 {
     internal static class STemperatureUtilities
     {

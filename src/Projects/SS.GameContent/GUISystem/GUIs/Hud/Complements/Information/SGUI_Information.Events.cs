@@ -1,6 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Localization.GUIs;
-using StardustSandbox.ContentBundle.Localization.Statements;
-using StardustSandbox.Core.Mathematics.Primitives;
+﻿using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information
 {

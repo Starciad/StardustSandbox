@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-using StardustSandbox.ContentBundle.GUISystem.Elements.Textual;
 using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements;
-using StardustSandbox.ContentBundle.GUISystem.Helpers.Interactive;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Extensions;

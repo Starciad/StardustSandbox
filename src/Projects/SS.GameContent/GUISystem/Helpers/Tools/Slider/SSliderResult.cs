@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Tools.Slider
+﻿namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.Slider
 {
     internal sealed class SSliderResult
     {

@@ -9,7 +9,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Solids.Immovables
+namespace StardustSandbox.GameContent.Elements.Solids.Immovables
 {
     internal sealed class SClone : SImmovableSolid
     {

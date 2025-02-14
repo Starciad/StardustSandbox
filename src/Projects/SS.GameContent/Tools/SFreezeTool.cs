@@ -4,7 +4,7 @@ using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.World.Slots;
 
-namespace StardustSandbox.ContentBundle.Tools
+namespace StardustSandbox.GameContent.Tools
 {
     public sealed class SFreezeTool(string identifier) : STool(identifier)
     {

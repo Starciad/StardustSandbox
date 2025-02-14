@@ -1,6 +1,4 @@
-﻿using StardustSandbox.ContentBundle.Elements.Energies;
-using StardustSandbox.ContentBundle.Elements.Solids.Movables;
-using StardustSandbox.Core.Constants.Elements;
+﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces;
@@ -9,7 +7,7 @@ using StardustSandbox.Core.World.Slots;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.Elements.Liquids
+namespace StardustSandbox.GameContent.Elements.Liquids
 {
     internal sealed class SSaltwater : SLiquid
     {

@@ -13,8 +13,8 @@
 
 	<!-- SYSTEM -->
 	<PropertyGroup>
-		<AssemblyName>StardustSandbox.ContentBundle</AssemblyName>
-		<RootNamespace>StardustSandbox.ContentBundle</RootNamespace>
+		<AssemblyName>StardustSandbox.GameContent</AssemblyName>
+		<RootNamespace>StardustSandbox.GameContent</RootNamespace>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Graphics
+namespace StardustSandbox.GameContent.GUISystem.Elements.Graphics
 {
     internal abstract class SGUIGraphicElement(ISGame gameInstance) : SGUIElement(gameInstance)
     {

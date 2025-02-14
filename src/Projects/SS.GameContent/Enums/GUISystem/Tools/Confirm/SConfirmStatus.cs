@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.Enums.GUISystem.Tools.Confirm
+﻿namespace StardustSandbox.GameContent.Enums.GUISystem.Tools.Confirm
 {
     internal enum SConfirmStatus : byte
     {

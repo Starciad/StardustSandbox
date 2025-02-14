@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options.Structure;
-using StardustSandbox.ContentBundle.Localization.Messages;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO.Handlers;

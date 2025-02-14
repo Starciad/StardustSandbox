@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
+namespace StardustSandbox.GameContent.GUISystem.Elements.Textual
 {
     internal abstract class SGUITextualElement : SGUIElement
     {

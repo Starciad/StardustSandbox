@@ -24,6 +24,11 @@
 		<PackageReference Include="MessagePack" Version="3.1.1" />
 	</ItemGroup>
 
+	<!-- MONOGAME -->
+	<ItemGroup>
+		<MonoGameContentReference Include="..\SS.GameContent\assets\assets.mgcb" Link="assets\assets.mgcb" />
+	</ItemGroup>
+	
 	<!-- TARGETS -->
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
 		<Message Text="[ Restoring Dotnet Tools ]" Importance="high" />

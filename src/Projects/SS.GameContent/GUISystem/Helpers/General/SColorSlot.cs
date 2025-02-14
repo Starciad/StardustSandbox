@@ -1,6 +1,4 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.Elements.Graphics;
-
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.General
+﻿namespace StardustSandbox.GameContent.GUISystem.Helpers.General
 {
     internal sealed class SColorSlot
     {

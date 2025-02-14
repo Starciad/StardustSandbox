@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Helpers.Options
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Options
 {
     internal sealed class SValueOption(string name, string description, int minimumValue, int maximumValue) : SOption(name, description)
     {

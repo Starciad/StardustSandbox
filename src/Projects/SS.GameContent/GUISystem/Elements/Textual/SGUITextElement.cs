@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StardustSandbox.ContentBundle.GUISystem.Elements.Textual
+namespace StardustSandbox.GameContent.GUISystem.Elements.Textual
 {
     internal sealed class SGUITextElement(ISGame gameInstance) : SGUITextualElement(gameInstance)
     {
