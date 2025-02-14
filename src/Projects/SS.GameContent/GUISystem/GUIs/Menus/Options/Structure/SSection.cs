@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using StardustSandbox.GameContent.GUISystem.Helpers.Options;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options.Structure
 {

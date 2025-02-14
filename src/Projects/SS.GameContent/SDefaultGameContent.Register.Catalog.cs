@@ -4,8 +4,11 @@ using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.GameContent.Localization.Catalog;
+using StardustSandbox.GameContent.Localization.Elements;
+using StardustSandbox.GameContent.Localization.Tools;
 
-namespace StardustSandbox.ContentBundle
+namespace StardustSandbox.GameContent
 {
     public sealed partial class SDefaultGameContent
     {

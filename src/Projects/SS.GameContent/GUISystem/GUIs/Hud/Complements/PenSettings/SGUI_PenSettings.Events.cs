@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettings
+﻿namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.PenSettings
 {
     internal sealed partial class SGUI_PenSettings
     {

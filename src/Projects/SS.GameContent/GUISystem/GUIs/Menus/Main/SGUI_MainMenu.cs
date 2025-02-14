@@ -10,11 +10,14 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.Localization.GUIs;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Main
 {
     internal sealed partial class SGUI_MainMenu : SGUISystem
     {

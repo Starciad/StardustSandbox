@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Extensions;
@@ -10,11 +9,15 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer.Complements;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer
 {
     internal sealed partial class SGUI_WorldExplorerMenu : SGUISystem
     {

@@ -5,6 +5,7 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Slots;
+using StardustSandbox.GameContent.Elements.Energies;
 
 using System.Collections.Generic;
 

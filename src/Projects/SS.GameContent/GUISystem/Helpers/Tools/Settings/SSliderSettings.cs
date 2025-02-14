@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StardustSandbox.GameContent.GUISystem.Helpers.Tools.Slider;
+
+using System;
 
 namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings
 {

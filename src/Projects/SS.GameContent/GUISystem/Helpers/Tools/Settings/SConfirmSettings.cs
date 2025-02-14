@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StardustSandbox.GameContent.Enums.GUISystem.Tools.Confirm;
+
+using System;
 
 namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings
 {

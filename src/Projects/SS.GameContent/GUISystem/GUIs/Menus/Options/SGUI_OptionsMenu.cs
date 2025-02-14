@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
@@ -13,11 +11,26 @@ using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Informational;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Global;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.ColorPicker;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.Message;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.GUISystem.Helpers.Options;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.ColorPicker;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings;
+using StardustSandbox.GameContent.Localization.GUIs;
+using StardustSandbox.GameContent.Localization.Statements;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu : SGUISystem
     {

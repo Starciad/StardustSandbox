@@ -10,12 +10,18 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Informational;
+using StardustSandbox.GameContent.GUISystem.Global;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.Localization.GUIs;
+using StardustSandbox.GameContent.Localization.Statements;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplorer
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.ItemExplorer
 {
     internal sealed partial class SGUI_ItemExplorer : SGUISystem
     {

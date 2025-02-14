@@ -5,10 +5,13 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu
     {

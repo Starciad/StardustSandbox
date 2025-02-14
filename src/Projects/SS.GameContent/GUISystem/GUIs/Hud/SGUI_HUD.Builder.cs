@@ -7,10 +7,14 @@ using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.GameContent.GUISystem.Elements;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
 using System.Linq;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud
 {
     internal partial class SGUI_HUD
     {

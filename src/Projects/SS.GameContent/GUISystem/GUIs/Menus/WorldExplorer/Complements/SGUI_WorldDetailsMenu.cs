@@ -7,8 +7,10 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.IO.Files.Saving;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer.Complements
 {
     internal sealed partial class SGUI_WorldDetailsMenu : SGUISystem
     {

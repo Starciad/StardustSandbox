@@ -1,4 +1,7 @@
-﻿using System;
+﻿using StardustSandbox.GameContent.Enums.GUISystem.Tools.InputSystem;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.InputSystem;
+
+using System;
 
 namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings
 {

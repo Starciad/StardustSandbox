@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplorer
+﻿namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.ItemExplorer
 {
     internal sealed partial class SGUI_ItemExplorer
     {

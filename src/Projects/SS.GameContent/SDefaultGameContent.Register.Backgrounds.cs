@@ -6,7 +6,7 @@ using StardustSandbox.Core.Interfaces.Databases;
 
 using System;
 
-namespace StardustSandbox.ContentBundle
+namespace StardustSandbox.GameContent
 {
     public sealed partial class SDefaultGameContent
     {

@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.IO;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer
 {
     internal sealed partial class SGUI_WorldExplorerMenu
     {

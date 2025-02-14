@@ -2,6 +2,7 @@
 using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Slots;
+using StardustSandbox.GameContent.Elements.Solids.Immovables;
 
 using System.Collections.Generic;
 

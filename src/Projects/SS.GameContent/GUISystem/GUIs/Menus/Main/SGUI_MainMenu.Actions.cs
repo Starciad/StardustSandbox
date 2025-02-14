@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Main
 {
     internal sealed partial class SGUI_MainMenu
     {

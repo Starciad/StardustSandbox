@@ -1,4 +1,6 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
+﻿using StardustSandbox.GameContent.Enums.GUISystem.Tools.Confirm;
+
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.Confirm
 {
     internal sealed partial class SGUI_Confirm
     {

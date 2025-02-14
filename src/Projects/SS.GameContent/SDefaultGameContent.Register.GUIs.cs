@@ -1,26 +1,27 @@
-﻿using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.EnvironmentSettings;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplorer;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Pause;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettings;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSettings;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.WorldSettings;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.WorldExplorer.Complements;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput;
-using StardustSandbox.Core.Constants.GUISystem;
+﻿using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.GameContent.GUISystem.Elements.Informational;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.EnvironmentSettings;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.Information;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.ItemExplorer;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.Pause;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.PenSettings;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.SaveSettings;
+using StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.WorldSettings;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Credits;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Main;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Play;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer.Complements;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.ColorPicker;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.Confirm;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.Message;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.TextInput;
 
-namespace StardustSandbox.ContentBundle
+namespace StardustSandbox.GameContent
 {
     public sealed partial class SDefaultGameContent
     {

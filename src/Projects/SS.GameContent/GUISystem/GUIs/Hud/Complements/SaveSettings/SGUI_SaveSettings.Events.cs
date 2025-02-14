@@ -1,4 +1,7 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSettings
+﻿using StardustSandbox.GameContent.Localization.Messages;
+using StardustSandbox.GameContent.Localization.Statements;
+
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.SaveSettings
 {
     internal sealed partial class SGUI_SaveSettings
     {

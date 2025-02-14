@@ -1,8 +1,13 @@
 ﻿using StardustSandbox.Core.Constants.Elements;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.GameContent.Elements.Energies;
+using StardustSandbox.GameContent.Elements.Gases;
+using StardustSandbox.GameContent.Elements.Liquids;
+using StardustSandbox.GameContent.Elements.Solids.Immovables;
+using StardustSandbox.GameContent.Elements.Solids.Movables;
 
-namespace StardustSandbox.ContentBundle
+namespace StardustSandbox.GameContent
 {
     public sealed partial class SDefaultGameContent
     {

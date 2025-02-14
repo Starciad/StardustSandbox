@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.IO.Handlers;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.SaveSettings
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.SaveSettings
 {
     internal sealed partial class SGUI_SaveSettings
     {

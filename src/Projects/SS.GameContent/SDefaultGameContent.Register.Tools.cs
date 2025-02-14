@@ -2,8 +2,9 @@
 using StardustSandbox.Core.Content;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Databases;
+using StardustSandbox.GameContent.Tools;
 
-namespace StardustSandbox.ContentBundle
+namespace StardustSandbox.GameContent
 {
     public sealed partial class SDefaultGameContent : SGameContent
     {

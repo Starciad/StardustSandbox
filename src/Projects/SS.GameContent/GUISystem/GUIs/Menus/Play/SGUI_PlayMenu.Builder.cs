@@ -5,8 +5,11 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Play
 {
     internal sealed partial class SGUI_PlayMenu
     {

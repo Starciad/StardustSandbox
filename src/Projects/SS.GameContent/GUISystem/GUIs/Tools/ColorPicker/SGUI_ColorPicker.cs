@@ -6,8 +6,16 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Informational;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Global;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings;
+using StardustSandbox.GameContent.Localization.Colors;
+using StardustSandbox.GameContent.Localization.Statements;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.ColorPicker
 {
     internal sealed partial class SGUI_ColorPicker : SGUISystem
     {

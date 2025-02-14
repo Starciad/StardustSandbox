@@ -10,8 +10,15 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Controllers.GameInput;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Informational;
+using StardustSandbox.GameContent.GUISystem.Global;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.Localization.GUIs;
+using StardustSandbox.GameContent.Localization.Statements;
+using StardustSandbox.GameContent.Localization.WorldTools;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.PenSettings
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.PenSettings
 {
     internal sealed partial class SGUI_PenSettings : SGUISystem
     {

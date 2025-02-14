@@ -4,8 +4,11 @@ using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.Confirm
 {
     internal sealed partial class SGUI_Confirm
     {

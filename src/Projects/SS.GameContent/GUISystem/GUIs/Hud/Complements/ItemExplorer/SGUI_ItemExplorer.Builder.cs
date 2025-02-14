@@ -8,8 +8,13 @@ using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud;
 using StardustSandbox.Core.Constants.GUISystem.GUIs.Hud.Complements;
 using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.Localization.GUIs;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.ItemExplorer
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.ItemExplorer
 {
     internal sealed partial class SGUI_ItemExplorer
     {

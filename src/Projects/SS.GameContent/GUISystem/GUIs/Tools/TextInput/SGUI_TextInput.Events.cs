@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.GameContent.Enums.GUISystem.Tools.InputSystem;
+
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.TextInput
 {
     internal sealed partial class SGUI_TextInput
     {

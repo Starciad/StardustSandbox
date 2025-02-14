@@ -9,7 +9,7 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Credits
 {
     internal sealed partial class SGUI_CreditsMenu : SGUISystem
     {

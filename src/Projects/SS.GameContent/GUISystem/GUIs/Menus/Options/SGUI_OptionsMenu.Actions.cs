@@ -5,10 +5,12 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options.Structure;
+using StardustSandbox.GameContent.Localization.Messages;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu
     {

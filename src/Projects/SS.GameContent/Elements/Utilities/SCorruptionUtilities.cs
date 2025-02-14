@@ -9,6 +9,7 @@ using StardustSandbox.Core.Interfaces.Elements;
 using StardustSandbox.Core.Interfaces.Elements.Contexts;
 using StardustSandbox.Core.Interfaces.Elements.Templates;
 using StardustSandbox.Core.World.Slots;
+using StardustSandbox.GameContent.Elements.Solids.Immovables;
 
 using System.Collections.Generic;
 

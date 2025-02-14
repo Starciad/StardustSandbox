@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Content;
 
-namespace StardustSandbox.ContentBundle
+namespace StardustSandbox.GameContent
 {
     public sealed partial class SDefaultGameContent : SGameContent
     {

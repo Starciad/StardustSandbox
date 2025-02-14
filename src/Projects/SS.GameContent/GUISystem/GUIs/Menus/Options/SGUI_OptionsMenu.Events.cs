@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Options
+using StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options.Structure;
+
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Options
 {
     internal sealed partial class SGUI_OptionsMenu
     {

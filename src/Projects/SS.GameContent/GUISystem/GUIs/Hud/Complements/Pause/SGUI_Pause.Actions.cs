@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Pause
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.Pause
 {
     internal sealed partial class SGUI_Pause
     {

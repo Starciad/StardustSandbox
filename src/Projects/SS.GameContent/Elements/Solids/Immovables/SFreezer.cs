@@ -3,6 +3,8 @@ using StardustSandbox.Core.Elements.Rendering;
 using StardustSandbox.Core.Elements.Templates.Solids.Immovables;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.World.Slots;
+using StardustSandbox.GameContent.Elements.Utilities;
+using StardustSandbox.GameContent.Enums.Elements.Utilities;
 
 using System.Collections.Generic;
 

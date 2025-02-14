@@ -8,8 +8,13 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.Localization.GUIs;
+using StardustSandbox.GameContent.Localization.Statements;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.Information
 {
     internal sealed partial class SGUI_Information : SGUISystem
     {

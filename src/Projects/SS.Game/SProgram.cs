@@ -1,4 +1,4 @@
-﻿using StardustSandbox.ContentBundle;
+﻿using StardustSandbox.GameContent;
 using StardustSandbox.Core;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;

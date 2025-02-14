@@ -1,4 +1,7 @@
-﻿namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
+﻿using StardustSandbox.GameContent.Enums.GUISystem.Tools.InputSystem;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.InputSystem;
+
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.TextInput
 {
     internal sealed partial class SGUI_TextInput
     {

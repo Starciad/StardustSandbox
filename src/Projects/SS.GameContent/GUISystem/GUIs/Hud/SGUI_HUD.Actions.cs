@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Core.Constants.GUISystem;
 using StardustSandbox.Core.Enums.Simulation;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD
     {

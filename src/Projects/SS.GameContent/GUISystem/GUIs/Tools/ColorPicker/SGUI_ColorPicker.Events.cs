@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Core.GUISystem;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.ColorPicker
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.ColorPicker
 {
     internal sealed partial class SGUI_ColorPicker : SGUISystem
     {

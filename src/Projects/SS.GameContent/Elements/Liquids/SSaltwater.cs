@@ -4,6 +4,8 @@ using StardustSandbox.Core.Elements.Templates.Liquids;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.World.Slots;
+using StardustSandbox.GameContent.Elements.Energies;
+using StardustSandbox.GameContent.Elements.Solids.Movables;
 
 using System.Collections.Generic;
 

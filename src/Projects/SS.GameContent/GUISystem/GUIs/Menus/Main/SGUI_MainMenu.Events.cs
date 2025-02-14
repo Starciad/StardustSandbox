@@ -4,7 +4,7 @@ using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Enums.GameInput.Pen;
 using StardustSandbox.Core.Enums.Simulation;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Main
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Main
 {
     internal partial class SGUI_MainMenu
     {

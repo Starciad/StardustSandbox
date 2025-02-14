@@ -6,8 +6,10 @@ using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Play
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Play
 {
     internal partial class SGUI_PlayMenu : SGUISystem
     {

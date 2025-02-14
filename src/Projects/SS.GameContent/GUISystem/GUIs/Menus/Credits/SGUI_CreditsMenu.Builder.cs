@@ -5,10 +5,13 @@ using StardustSandbox.Core.Enums.General;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.GUISystem.Elements;
 using StardustSandbox.Core.Interfaces.GUI;
+using StardustSandbox.GameContent.GUISystem.Elements.Graphics;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.Localization.GUIs;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Menus.Credits
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.Credits
 {
     internal sealed partial class SGUI_CreditsMenu
     {

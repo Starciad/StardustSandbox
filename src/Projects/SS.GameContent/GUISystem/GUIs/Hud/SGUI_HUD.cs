@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Confirm;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants.Elements;
@@ -15,10 +14,21 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.World;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.Enums.GUISystem.Tools.Confirm;
+using StardustSandbox.GameContent.GUISystem.Elements.Informational;
+using StardustSandbox.GameContent.GUISystem.Global;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.Confirm;
+using StardustSandbox.GameContent.GUISystem.Helpers.General;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings;
+using StardustSandbox.GameContent.Localization.GUIs;
+using StardustSandbox.GameContent.Localization.Messages;
+using StardustSandbox.GameContent.Localization.Statements;
+using StardustSandbox.GameContent.Localization.WorldTools;
 
 using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud
 {
     internal sealed partial class SGUI_HUD : SGUISystem
     {

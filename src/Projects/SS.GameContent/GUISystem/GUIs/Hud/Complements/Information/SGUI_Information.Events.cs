@@ -1,6 +1,8 @@
 ﻿using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.Localization.GUIs;
+using StardustSandbox.GameContent.Localization.Statements;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.Information
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.Information
 {
     internal sealed partial class SGUI_Information
     {

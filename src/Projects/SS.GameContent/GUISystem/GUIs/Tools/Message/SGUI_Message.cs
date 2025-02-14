@@ -7,7 +7,7 @@ using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.Message
 {
     internal sealed partial class SGUI_Message(ISGame gameInstance, string identifier, SGUIEvents guiEvents) : SGUISystem(gameInstance, identifier, guiEvents)
     {

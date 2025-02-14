@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Components.Common.Entities;
 using StardustSandbox.Core.Entities;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.GameContent.Components.AI.Entities.Specials;
 
 namespace StardustSandbox.GameContent.Entities.Specials
 {

@@ -1,17 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.Message;
 using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.GUISystem;
 using StardustSandbox.Core.GUISystem.Events;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.GameContent.GUISystem.Elements.Textual;
+using StardustSandbox.GameContent.GUISystem.GUIs.Tools.Message;
+using StardustSandbox.GameContent.GUISystem.Helpers.Interactive;
+using StardustSandbox.GameContent.GUISystem.Helpers.Tools.Settings;
+using StardustSandbox.GameContent.Localization.Statements;
 
 using System.Text;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Tools.TextInput
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Tools.TextInput
 {
     internal sealed partial class SGUI_TextInput : SGUISystem
     {

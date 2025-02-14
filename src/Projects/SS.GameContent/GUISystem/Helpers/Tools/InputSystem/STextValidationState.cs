@@ -1,4 +1,6 @@
-﻿namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.InputSystem
+﻿using StardustSandbox.GameContent.Enums.GUISystem.Tools.InputSystem;
+
+namespace StardustSandbox.GameContent.GUISystem.Helpers.Tools.InputSystem
 {
     internal sealed class STextValidationState
     {

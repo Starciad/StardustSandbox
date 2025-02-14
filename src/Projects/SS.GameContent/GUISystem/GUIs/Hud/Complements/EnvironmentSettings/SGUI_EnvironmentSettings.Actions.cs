@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.ContentBundle.GUISystem.GUIs.Hud.Complements.EnvironmentSettings
+namespace StardustSandbox.GameContent.GUISystem.GUIs.Hud.Complements.EnvironmentSettings
 {
     internal sealed partial class SGUI_EnvironmentSettings
     {
