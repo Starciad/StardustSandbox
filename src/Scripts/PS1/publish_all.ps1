@@ -77,7 +77,7 @@ Write-Host "All publishing processes have been completed."
 # Copy assets directory and delete specific subdirectories
 Write-Host "Copying assets directory..."
 
-$source = "..\..\Projects\SS.ContentBundle\assets"
+$source = "..\..\Projects\SS.GameContent\assets"
 $license = "..\..\..\LICENSE-ASSETS.txt"
 $destination = "$outputDirectory\$gameName.$gameVersion.assets\assets"
 $subdirectoriesToDelete = @("bin", "obj")
