@@ -14,8 +14,8 @@ $beauty2Directory = "libraries"
 $beauty2Ignored = "SDL2.dll;libSDL2-2.0.so.0;libopenal.so.1;libopenal.1.dylib;libSDL2.dylib;soft_oal.dll;"
 
 # Define solutions and publishing directories
-$windowsDX = "..\..\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
-$desktopGL = "..\..\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
+$windowsDX = "..\..\Projects\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
+$desktopGL = "..\..\Projects\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
 $outputDirectory = "..\..\Publish"
 
 if (Test-Path $outputDirectory) {
@@ -77,7 +77,7 @@ Write-Host "All publishing processes have been completed."
 # Copy assets directory and delete specific subdirectories
 Write-Host "Copying assets directory..."
 
-$source = "..\..\SS.ContentBundle\assets"
+$source = "..\..\Projects\SS.ContentBundle\assets"
 $license = "..\..\..\LICENSE-ASSETS.txt"
 $destination = "$outputDirectory\$gameName.$gameVersion.assets\assets"
 $subdirectoriesToDelete = @("bin", "obj")

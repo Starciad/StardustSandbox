@@ -21,25 +21,25 @@
 
 	<!-- FILES IMPORT -->
 	<ItemGroup>
-		<None Include="..\..\LICENSE.txt">
+		<None Include="..\..\..\LICENSE.txt">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 
-		<None Include="..\..\README.md">
+		<None Include="..\..\..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 
-		<None Include="..\..\CREDITS.md">
+		<None Include="..\..\..\CREDITS.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 
-		<None Include="..\..\CHANGELOG.md">
+		<None Include="..\..\..\CHANGELOG.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
