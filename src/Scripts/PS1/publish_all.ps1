@@ -11,7 +11,7 @@ $gameVersion = "v0.0.0.0"
 
 # beauty2
 $beauty2Directory = "libraries"
-$beauty2Ignored = "SDL2.dll;libSDL2-2.0.so.0;libopenal.so.1;libopenal.1.dylib;libSDL2.dylib;soft_oal.dll;"
+$beauty2Ignored = "SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;"
 
 # Define solutions and publishing directories
 $windowsDX = "..\..\Projects\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
@@ -24,7 +24,7 @@ if (Test-Path $outputDirectory) {
 }
 
 # List of target platforms
-$platforms = @("win-x64", "linux-x64", "osx-x64")
+$platforms = @("win-x64", "linux-x64")
 
 # Function to publish a project for a given platform
 function Publish-Project($projectName, $projectPath, $platform) {
