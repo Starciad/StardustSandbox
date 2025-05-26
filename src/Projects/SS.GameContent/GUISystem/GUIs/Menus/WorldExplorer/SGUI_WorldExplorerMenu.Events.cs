@@ -17,7 +17,7 @@ namespace StardustSandbox.GameContent.GUISystem.GUIs.Menus.WorldExplorer
 
         private void LoadAllLocalSavedWorlds()
         {
-            this.savedWorldFilesLoaded = new(SWorldSavingHandler.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice));
+            this.savedWorldFilesLoaded = [.. SWorldSavingHandler.LoadAllSavedWorldData(this.SGameInstance.GraphicsManager.GraphicsDevice)];
         }
     }
 }

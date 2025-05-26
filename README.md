@@ -16,14 +16,12 @@ Crafted in C# with the MonoGame framework, Stardust Sandbox lets you:
 
 ## 🔨 System Requirements
 
-- **OS:** Windows, Linux  
+- **OS:** Windows  
 - **DirectX:** 9.0c or later  
 - **OpenGL:** 2.0 or later  
 - **RAM:** ≥ 500 MB  
 - **Disk Space:** ≥ 100 MB free  
 - **Architecture:** 64-bit  
-
-> **Linux Users:** Ensure `xdg-utils` is installed.
 
 ## 📩 Download
 

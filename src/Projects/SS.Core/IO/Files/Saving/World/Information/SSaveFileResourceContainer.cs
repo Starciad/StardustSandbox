@@ -13,7 +13,7 @@ namespace StardustSandbox.Core.IO.Files.Saving.World.Information
         {
             get => this.resources;
 
-            set => this.resources = new(value);
+            set => this.resources = [.. value];
         }
 
         private List<SSaveFileResource> resources = [];

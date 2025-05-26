@@ -9,7 +9,7 @@ namespace StardustSandbox.Core.Interfaces.Managers
         GraphicsDevice GraphicsDevice { get; }
         GameWindow GameWindow { get; }
 
-        public Viewport Viewport { get; }
+        Viewport Viewport { get; }
 
         void ApplySettings();
         Vector2 GetScreenScaleFactor();

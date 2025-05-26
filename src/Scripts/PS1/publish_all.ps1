@@ -1,92 +1,76 @@
-# ================================================= #
-# Stardust Sandbox Build Pipeline                   #
-# ================================================= #
+# --------------------------------------------- 
+# Stardust Sandbox Build Pipeline (en-US)
+# ---------------------------------------------
 
-# Clear the console window
+# Clear console
 Clear-Host
 
-# General
-$gameName = "StardustSandbox"
-$gameVersion = "v0.0.0.0"
+# Configuration
+$gameName      = 'StardustSandbox'
+$gameVersion   = 'v0.0.0.0'
+$outputDir     = '..\..\Publish'
+$beauty2Dir    = 'libraries'
+$beauty2Ignore = 'SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;'
 
-# beauty2
-$beauty2Directory = "libraries"
-$beauty2Ignored = "SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;"
+# Project definitions
+$projects = @(
+    @{ Name='windowsdx'; Path='..\..\Projects\SS.Game\StardustSandbox.WindowsDX.Game.csproj'; Runtimes=@('win-x64') }
+)
 
-# Define solutions and publishing directories
-$windowsDX = "..\..\Projects\SS.Game\StardustSandbox.WindowsDX.Game.csproj"
-$desktopGL = "..\..\Projects\SS.Game\StardustSandbox.DesktopGL.Game.csproj"
-$outputDirectory = "..\..\Publish"
-
-if (Test-Path $outputDirectory) {
-    Remove-Item -Path $outputDirectory -Recurse -Force
-    Write-Output "We found a Publish directory. To avoid potential failures, it was deleted for the rebuild process."
+# Clean output directory
+if (Test-Path $outputDir) {
+    Write-Host "Removing existing publish directory: $outputDir"
+    Remove-Item $outputDir -Recurse -Force
 }
 
-# List of target platforms
-$platforms = @("win-x64", "linux-x64")
+# Function: publish + post-process
+function Publish-Project {
+    param (
+        [string]$projectName,
+        [string]$projectPath,
+        [string]$runtime
+    )
 
-# Function to publish a project for a given platform
-function Publish-Project($projectName, $projectPath, $platform) {
-    $publishDir = "$outputDirectory\$gameName.$gameVersion.$projectName.$platform"
-
-    Write-Host "Publishing $projectPath for $platform..."
-    dotnet publish $projectPath -c Release -r $platform --output $publishDir
+    $publishDir = Join-Path $outputDir "$gameName.$gameVersion.$projectName.$runtime"
+    Write-Host "→ Publishing '$projectName' for runtime '$runtime'..."
+    dotnet publish $projectPath -c Release -r $runtime --output $publishDir
     if ($LASTEXITCODE -ne 0) {
-        Write-Error "Publishing failed for $platform."
+        Write-Error "✖ Publish failed for $projectName/$runtime."
         return
     }
 
-    # Organize the published output
-    nbeauty2 --usepatch --loglevel Detail $publishDir $beauty2Directory $beauty2Ignored
-    Write-Host "Publishing and organization for $platform completed."
+    # Run nbeauty2 to strip ignored files
+    nbeauty2 --usepatch --loglevel Detail $publishDir $beauty2Dir $beauty2Ignore
+    Write-Host "✔ Publish & cleanup completed for '$projectName' ($runtime)."
 }
 
-# Function to delete specified subdirectories
-function Remove-Subdirectories($destination, $subdirectoriesToDelete) {
-    foreach ($subdirectory in $subdirectoriesToDelete) {
-        $subdirectoryPath = Join-Path -Path $destination -ChildPath $subdirectory
-        if (Test-Path $subdirectoryPath -PathType Container) {
-            Remove-Item -Path $subdirectoryPath -Recurse -Force
-            Write-Host "Subdirectory $subdirectory deleted successfully."
-        } else {
-            Write-Host "Subdirectory $subdirectory not found in $destination."
-        }
+# Execute publishes
+foreach ($proj in $projects) {
+    foreach ($rt in $proj.Runtimes) {
+        Publish-Project -projectName $proj.Name -projectPath $proj.Path -runtime $rt
     }
 }
 
-# Delete existing directories
-if (Test-Path $outputDirectory -PathType Container) {
-    Remove-Item -Path $outputDirectory -Recurse -Force
-    Write-Host "Existing directory deleted."
+Write-Host "All publish processes completed.`n"
+
+# Copy assets and remove unwanted subdirs
+$assetsSource      = '..\..\Projects\SS.GameContent\assets'
+$licenseFile       = '..\..\..\LICENSE-ASSETS.txt'
+$assetsDestination = Join-Path $outputDir "$gameName.$gameVersion.assets\assets"
+$subdirsToRemove   = @('bin','obj')
+
+Write-Host "Copying assets to '$assetsDestination'..."
+Copy-Item -Path $assetsSource -Destination $assetsDestination -Recurse -Force
+Copy-Item -Path $licenseFile -Destination $assetsDestination -Force
+
+foreach ($sub in $subdirsToRemove) {
+    $path = Join-Path $assetsDestination $sub
+    if (Test-Path $path) {
+        Remove-Item $path -Recurse -Force
+        Write-Host "Removed subdirectory: $sub"
+    } else {
+        Write-Host "Subdirectory not found (skipped): $sub"
+    }
 }
 
-# Publish WindowsDX
-Write-Host "Publishing Stardust Sandbox (WindowsDX) for Win-x64..."
-Publish-Project "windowsdx" $windowsDX $platforms[0]
-
-# Publish DesktopGL for all platforms
-Write-Host "Publishing Stardust Sandbox (DesktopGL) for all platforms..."
-foreach ($platform in $platforms) {
-    Publish-Project "desktopgl" $desktopGL $platform
-    Write-Host "Next..."
-}
-
-Write-Host "All publishing processes have been completed."
-
-# Copy assets directory and delete specific subdirectories
-Write-Host "Copying assets directory..."
-
-$source = "..\..\Projects\SS.GameContent\assets"
-$license = "..\..\..\LICENSE-ASSETS.txt"
-$destination = "$outputDirectory\$gameName.$gameVersion.assets\assets"
-$subdirectoriesToDelete = @("bin", "obj")
-
-# Copy the source folder to the destination
-Copy-Item -Path $source -Destination $destination -Recurse
-Copy-Item -Path $license -Destination $destination
-
-# Delete the specified subdirectories
-Remove-Subdirectories $destination $subdirectoriesToDelete
-
-Write-Host "Operation completed. The folder has been copied to $destination, and the specified subdirectories have been deleted."
+Write-Host "`nBuild pipeline finished successfully."

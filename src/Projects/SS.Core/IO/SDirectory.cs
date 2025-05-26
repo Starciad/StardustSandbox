@@ -35,39 +35,9 @@ namespace StardustSandbox.Core.IO
                 throw new ArgumentException("The specified path is invalid or nonexistent.", nameof(directoryPath));
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                OpenInWindowsExplorer(directoryPath);
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                OpenInMacExplorer(directoryPath);
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                OpenInLinuxFileManager(directoryPath);
-            }
-            else
-            {
-                throw new PlatformNotSupportedException("The operating system is not supported.");
-            }
-        }
-
-        private static void OpenInWindowsExplorer(string directoryPath)
-        {
             StartOpenDirectoryProcess("explorer.exe", string.Concat("\"", directoryPath, "\""));
         }
-
-        private static void OpenInMacExplorer(string directoryPath)
-        {
-            StartOpenDirectoryProcess("open", string.Concat("\"", directoryPath, "\""));
-        }
-
-        private static void OpenInLinuxFileManager(string directoryPath)
-        {
-            StartOpenDirectoryProcess("xdg-open", string.Concat("\"", directoryPath, "\""));
-        }
-
+        
         private static void StartOpenDirectoryProcess(string fileName, string arguments)
         {
             using Process process = new()

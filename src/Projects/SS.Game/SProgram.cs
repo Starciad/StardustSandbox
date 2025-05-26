@@ -1,16 +1,13 @@
-﻿using StardustSandbox.GameContent;
-using StardustSandbox.Core;
+﻿using StardustSandbox.Core;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
+using StardustSandbox.GameContent;
 
 using System;
 using System.Threading;
-
-#if WINDOWS_DX
 using System.Windows.Forms;
-#endif
 
 #if !DEBUG
 using StardustSandbox.Core.Constants;
@@ -26,9 +23,7 @@ namespace StardustSandbox.Game
         [STAThread]
         private static void Main()
         {
-#if WINDOWS_DX
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-#endif
 
 #if DEBUG
             InitializeEnvironment();
@@ -77,7 +72,6 @@ namespace StardustSandbox.Game
 #if !DEBUG
         private static void HandleException(Exception value)
         {
-#if WINDOWS_DX
             string logFilename = SFile.WriteException(value);
 
             StringBuilder logString = new();
@@ -91,9 +85,6 @@ namespace StardustSandbox.Game
                             $"{SGameConstants.GetTitleAndVersionString()} - Fatal Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
-#else
-            _ = SFile.WriteException(value);
-#endif
         }
 #endif
     }
