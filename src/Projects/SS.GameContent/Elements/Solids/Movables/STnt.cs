@@ -33,13 +33,11 @@ namespace StardustSandbox.GameContent.Elements.Solids.Movables
                 new(SElementConstants.SMOKE_IDENTIFIER, 65)
             ]
         };
-        private readonly SoundEffect explosionSoundEffect;
-
+        
         internal STnt(ISGame gameInstance, string identifier) : base(gameInstance, identifier)
         {
             this.referenceColor = SColorPalette.DarkRed;
             this.texture = gameInstance.AssetDatabase.GetTexture("texture_element_33");
-            this.explosionSoundEffect = gameInstance.AssetDatabase.GetSoundEffect("sound_explosion_1");
             this.Rendering.SetRenderingMechanism(new SElementSingleRenderingMechanism(gameInstance));
             this.enableNeighborsAction = true;
             this.defaultTemperature = 22;
@@ -50,7 +48,6 @@ namespace StardustSandbox.GameContent.Elements.Solids.Movables
         protected override void OnDestroyed()
         {
             this.Context.InstantiateExplosion(explosionBuilder);
-            SSoundEngine.Play(this.explosionSoundEffect);
         }
 
         protected override void OnNeighbors(IEnumerable<SWorldSlot> neighbors)
