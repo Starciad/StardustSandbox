@@ -1,0 +1,27 @@
+﻿using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces.Tools.Contexts;
+using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.World.Slots;
+
+namespace StardustSandbox.Core.Tools.Common
+{
+    public sealed class SFreezeTool(string identifier) : STool(identifier)
+    {
+        public override void Execute(ISToolContext context)
+        {
+            if (!context.World.TryGetWorldSlot(context.Position, out SWorldSlot worldSlot))
+            {
+                return;
+            }
+
+            SWorldSlotLayer worldSlotLayer = worldSlot.GetLayer(context.Layer);
+
+            if (worldSlotLayer.IsEmpty)
+            {
+                return;
+            }
+
+            context.World.SetElementTemperature(context.Position, context.Layer, STemperatureMath.Clamp(worldSlotLayer.Temperature + SToolConstants.DEFAULT_FREEZE_VALUE));
+        }
+    }
+}

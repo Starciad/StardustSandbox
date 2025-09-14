@@ -46,11 +46,6 @@ namespace StardustSandbox.Core.Managers
             this.cloudHandler.Update(gameTime);
         }
 
-        public void SetSpeed(SSimulationSpeed speed)
-        {
-
-        }
-
         public void Reset()
         {
             this.cloudHandler.Reset();

@@ -3,7 +3,6 @@ using StardustSandbox.Core.IO;
 using StardustSandbox.Core.IO.Files.Settings;
 using StardustSandbox.Core.IO.Handlers;
 using StardustSandbox.Core.Localization;
-using StardustSandbox.GameContent;
 
 using System;
 using System.Threading;
@@ -18,7 +17,7 @@ namespace StardustSandbox.Game
 {
     internal static class SProgram
     {
-        private static SStardustSandboxEngine stardustSandboxEngine;
+        private static SGame game;
 
         [STAThread]
         private static void Main()
@@ -40,10 +39,10 @@ namespace StardustSandbox.Game
             }
             finally
             {
-                if (stardustSandboxEngine != null)
+                if (game != null)
                 {
-                    stardustSandboxEngine.Stop();
-                    stardustSandboxEngine.Dispose();
+                    game.Exit();
+                    game.Dispose();
                 }
             }
 #endif
@@ -64,9 +63,8 @@ namespace StardustSandbox.Game
 
         private static void InitializeGame()
         {
-            stardustSandboxEngine = new();
-            stardustSandboxEngine.AddContent(new SDefaultGameContent());
-            stardustSandboxEngine.Start();
+            game = new();
+            game.Run();
         }
 
 #if !DEBUG

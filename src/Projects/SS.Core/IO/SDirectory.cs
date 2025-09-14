@@ -4,7 +4,6 @@ using StardustSandbox.Core.Constants.IO;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace StardustSandbox.Core.IO
 {
@@ -37,7 +36,7 @@ namespace StardustSandbox.Core.IO
 
             StartOpenDirectoryProcess("explorer.exe", string.Concat("\"", directoryPath, "\""));
         }
-        
+
         private static void StartOpenDirectoryProcess(string fileName, string arguments)
         {
             using Process process = new()

@@ -49,11 +49,6 @@ namespace StardustSandbox.Core.Managers
             this.worldRenderTarget = new(this.GraphicsDevice, width, height);
         }
 
-        internal void SetGameWindow(GameWindow gameWindow)
-        {
-            this.GameWindow = gameWindow;
-        }
-
         public void ApplySettings()
         {
             SVideoSettings videoSettings = SSettingsHandler.LoadSettings<SVideoSettings>();
@@ -78,6 +73,11 @@ namespace StardustSandbox.Core.Managers
             this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this._graphicsDeviceManager.ApplyChanges();
+        }
+
+        internal void SetGameWindow(GameWindow gameWindow)
+        {
+            this.GameWindow = gameWindow;
         }
 
         public Vector2 GetScreenScaleFactor()

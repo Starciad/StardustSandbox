@@ -28,8 +28,7 @@
 
 	<!-- PROJECTS -->
 	<ItemGroup>
-		<ProjectReference Include="..\SS.Core\StardustSandbox.WindowsDX.Core.csproj" />
-		<ProjectReference Include="..\SS.GameContent\StardustSandbox.WindowsDX.GameContent.csproj" />
+		<ProjectReference Include="..\SS.Core\StardustSandbox.Core.csproj" />
 	</ItemGroup>
 
 	<!-- RESOURCES -->
@@ -45,7 +44,7 @@
 
 	<!-- MONOGAME -->
 	<ItemGroup>
-		<MonoGameContentReference Include="..\SS.GameContent\assets\assets.mgcb" Link="assets\assets.mgcb" />
+		<MonoGameContentReference Include="..\SS.Core\assets\assets.mgcb" Link="assets\assets.mgcb" />
 	</ItemGroup>
 	
 	<!-- TARGETS -->
