@@ -398,4 +398,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Game
-assets/
+src/StardustSandbox/assets/*
+!src/StardustSandbox/assets/assets.mgcb
