@@ -257,6 +257,6 @@
 	<Target Name="CreateExtraPublishDirectories" AfterTargets="Publish">
 		<Message Text="Creating extra empty directories in the publish directory." Importance="High" />
 
-		<MakeDir Directories="$(PublishDir)Logs" Condition="'$(PublishDir)' != ''" />
+		<MakeDir Directories="$(PublishDir)logs" Condition="'$(PublishDir)' != ''" />
 	</Target>
 </Project>
