@@ -1,0 +1,370 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+using StardustSandbox.Colors.Palettes;
+using StardustSandbox.Constants;
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.States;
+using StardustSandbox.InputSystem.GameInput;
+using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
+using StardustSandbox.UISystem.Elements.Graphics;
+using StardustSandbox.UISystem.Elements.Textual;
+using StardustSandbox.UISystem.Settings;
+using StardustSandbox.UISystem.Utilities;
+
+namespace StardustSandbox.UISystem.UIs.Tools
+{
+    internal sealed class ColorPickerUI : UI
+    {
+        private ColorPickerSettings colorPickerSettings;
+        private TextUIElement captionElement;
+
+        private readonly TooltipBoxUIElement tooltipBoxElement;
+
+        private readonly Texture2D particleTexture;
+        private readonly Texture2D colorButtonTexture;
+        private readonly SpriteFont bigApple3PMSpriteFont;
+        private readonly SpriteFont pixelOperatorSpriteFont;
+
+        private readonly UIButton[] menuButtons;
+        private readonly UIColorButton[] colorButtons;
+
+        private readonly LabelUIElement[] menuButtonElements;
+        private readonly UIColorSlot[] colorButtonElements;
+
+        private readonly GameManager gameManager;
+        private readonly InputController inputController;
+        private readonly UIManager uiManager;
+
+        internal ColorPickerUI(
+            GameManager gameManager,
+            UIIndex index,
+            InputController inputController,
+            TooltipBoxUIElement tooltipBoxElement,
+            UIManager uiManager
+        ) : base(index)
+        {
+            this.gameManager = gameManager;
+            this.inputController = inputController;
+            this.tooltipBoxElement = tooltipBoxElement;
+            this.uiManager = uiManager;
+
+            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
+            this.colorButtonTexture = AssetDatabase.GetTexture("texture_gui_button_4");
+            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
+            this.pixelOperatorSpriteFont = AssetDatabase.GetSpriteFont("font_9");
+
+            this.menuButtons = [
+                new(null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
+            ];
+
+            this.colorButtons = [
+                new(Localization_Colors.DarkGray, AAP64ColorPalette.DarkGray),
+                new(Localization_Colors.Charcoal, AAP64ColorPalette.Charcoal),
+                new(Localization_Colors.Maroon, AAP64ColorPalette.Maroon),
+                new(Localization_Colors.DarkRed, AAP64ColorPalette.DarkRed),
+                new(Localization_Colors.Crimson, AAP64ColorPalette.Crimson),
+                new(Localization_Colors.OrangeRed, AAP64ColorPalette.OrangeRed),
+                new(Localization_Colors.Orange, AAP64ColorPalette.Orange),
+                new(Localization_Colors.Amber, AAP64ColorPalette.Amber),
+                new(Localization_Colors.Gold, AAP64ColorPalette.Gold),
+                new(Localization_Colors.LemonYellow, AAP64ColorPalette.LemonYellow),
+                new(Localization_Colors.LimeGreen, AAP64ColorPalette.LimeGreen),
+                new(Localization_Colors.GrassGreen, AAP64ColorPalette.GrassGreen),
+                new(Localization_Colors.ForestGreen, AAP64ColorPalette.ForestGreen),
+                new(Localization_Colors.EmeraldGreen, AAP64ColorPalette.EmeraldGreen),
+                new(Localization_Colors.DarkGreen, AAP64ColorPalette.DarkGreen),
+                new(Localization_Colors.MossGreen, AAP64ColorPalette.MossGreen),
+                new(Localization_Colors.DarkTeal, AAP64ColorPalette.DarkTeal),
+                new(Localization_Colors.NavyBlue, AAP64ColorPalette.NavyBlue),
+                new(Localization_Colors.RoyalBlue, AAP64ColorPalette.RoyalBlue),
+                new(Localization_Colors.SkyBlue, AAP64ColorPalette.SkyBlue),
+                new(Localization_Colors.Cyan, AAP64ColorPalette.Cyan),
+                new(Localization_Colors.Mint, AAP64ColorPalette.Mint),
+                new(Localization_Colors.White, AAP64ColorPalette.White),
+                new(Localization_Colors.PaleYellow, AAP64ColorPalette.PaleYellow),
+                new(Localization_Colors.Peach, AAP64ColorPalette.Peach),
+                new(Localization_Colors.Salmon, AAP64ColorPalette.Salmon),
+                new(Localization_Colors.Rose, AAP64ColorPalette.Rose),
+                new(Localization_Colors.Magenta, AAP64ColorPalette.Magenta),
+                new(Localization_Colors.Violet, AAP64ColorPalette.Violet),
+                new(Localization_Colors.PurpleGray, AAP64ColorPalette.PurpleGray),
+                new(Localization_Colors.DarkPurple, AAP64ColorPalette.DarkPurple),
+                new(Localization_Colors.Cocoa, AAP64ColorPalette.Cocoa),
+                new(Localization_Colors.Umber, AAP64ColorPalette.Umber),
+                new(Localization_Colors.Brown, AAP64ColorPalette.Brown),
+                new(Localization_Colors.Rust, AAP64ColorPalette.Rust),
+                new(Localization_Colors.Sand, AAP64ColorPalette.Sand),
+                new(Localization_Colors.Tan, AAP64ColorPalette.Tan),
+                new(Localization_Colors.LightGrayBlue, AAP64ColorPalette.LightGrayBlue),
+                new(Localization_Colors.SteelBlue, AAP64ColorPalette.SteelBlue),
+                new(Localization_Colors.Slate, AAP64ColorPalette.Slate),
+                new(Localization_Colors.Graphite, AAP64ColorPalette.Graphite),
+                new(Localization_Colors.Gunmetal, AAP64ColorPalette.Gunmetal),
+                new(Localization_Colors.Coal, AAP64ColorPalette.Coal),
+                new(Localization_Colors.DarkBrown, AAP64ColorPalette.DarkBrown),
+                new(Localization_Colors.Burgundy, AAP64ColorPalette.Burgundy),
+                new(Localization_Colors.Clay, AAP64ColorPalette.Clay),
+                new(Localization_Colors.Terracotta, AAP64ColorPalette.Terracotta),
+                new(Localization_Colors.Blush, AAP64ColorPalette.Blush),
+                new(Localization_Colors.PaleBlue, AAP64ColorPalette.PaleBlue),
+                new(Localization_Colors.LavenderBlue, AAP64ColorPalette.LavenderBlue),
+                new(Localization_Colors.Periwinkle, AAP64ColorPalette.Periwinkle),
+                new(Localization_Colors.Cerulean, AAP64ColorPalette.Cerulean),
+                new(Localization_Colors.TealGray, AAP64ColorPalette.TealGray),
+                new(Localization_Colors.HunterGreen, AAP64ColorPalette.HunterGreen),
+                new(Localization_Colors.PineGreen, AAP64ColorPalette.PineGreen),
+                new(Localization_Colors.SeafoamGreen, AAP64ColorPalette.SeafoamGreen),
+                new(Localization_Colors.MintGreen, AAP64ColorPalette.MintGreen),
+                new(Localization_Colors.Aquamarine, AAP64ColorPalette.Aquamarine),
+                new(Localization_Colors.Khaki, AAP64ColorPalette.Khaki),
+                new(Localization_Colors.Beige, AAP64ColorPalette.Beige),
+                new(Localization_Colors.Sepia, AAP64ColorPalette.Sepia),
+                new(Localization_Colors.Coffee, AAP64ColorPalette.Coffee),
+                new(Localization_Colors.DarkBeige, AAP64ColorPalette.DarkBeige),
+                new(Localization_Colors.DarkTaupe, AAP64ColorPalette.DarkTaupe),
+            ];
+
+            this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
+            this.colorButtonElements = new UIColorSlot[this.colorButtons.Length];
+        }
+
+        #region INITIALIZE
+
+        internal void Configure(ColorPickerSettings settings)
+        {
+            this.colorPickerSettings = settings;
+        }
+
+        #endregion
+
+        #region ACTIONS
+
+        private void CancelButtonAction()
+        {
+            this.uiManager.CloseGUI();
+        }
+
+        private void SelectColorButtonAction(Color color)
+        {
+            this.uiManager.CloseGUI();
+            this.colorPickerSettings?.OnSelectCallback?.Invoke(new(color));
+        }
+
+        #endregion
+
+        #region BUILDER
+
+        protected override void OnBuild(Layout layout)
+        {
+            BuildBackground(layout);
+            BuildCaption(layout);
+            BuildColorButtons(layout);
+            BuildMenuButtons(layout);
+
+            layout.AddElement(this.tooltipBoxElement);
+        }
+
+        private void BuildBackground(Layout layout)
+        {
+            ImageUIElement guiBackground = new()
+            {
+                Texture = this.particleTexture,
+                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Size = ScreenConstants.DEFAULT_SCREEN_SIZE.ToVector2(),
+                Color = new(AAP64ColorPalette.DarkGray, 160)
+            };
+
+            layout.AddElement(guiBackground);
+        }
+
+        private void BuildCaption(Layout layout)
+        {
+            this.captionElement = new()
+            {
+                Scale = new(0.1f),
+                Margin = new(0, 96),
+                LineHeight = 1.25f,
+                TextAreaSize = new(850, 1000),
+                SpriteFont = this.pixelOperatorSpriteFont,
+                PositionAnchor = CardinalDirection.North,
+                OriginPivot = CardinalDirection.Center,
+            };
+
+            this.captionElement.SetTextualContent(Localization_GUIs.Tools_ColorPicker_Title);
+            this.captionElement.PositionRelativeToScreen();
+
+            layout.AddElement(this.captionElement);
+        }
+
+        private void BuildColorButtons(Layout layout)
+        {
+            Vector2 baseMargin = new(74.0f, 192.0f);
+            Vector2 margin = baseMargin;
+
+            Vector2 textureSize = new(40.0f, 22.0f);
+
+            int buttonsPerRow = 12;
+
+            int totalButtons = this.colorButtons.Length;
+            int totalRows = (totalButtons + buttonsPerRow - 1) / buttonsPerRow;
+
+            int index = 0;
+
+            for (int row = 0; row < totalRows; row++)
+            {
+                for (int col = 0; col < buttonsPerRow; col++)
+                {
+                    if (index >= totalButtons)
+                    {
+                        break;
+                    }
+
+                    UIColorButton colorButton = this.colorButtons[index];
+
+                    ImageUIElement backgroundElement = new()
+                    {
+                        Texture = this.colorButtonTexture,
+                        TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                        Scale = new(2f),
+                        Size = textureSize,
+                        Color = colorButton.Color,
+                        Margin = margin,
+                    };
+
+                    ImageUIElement borderElement = new()
+                    {
+                        Texture = this.colorButtonTexture,
+                        TextureClipArea = new(new(00, 22), textureSize.ToPoint()),
+                        Scale = new(2f),
+                        Size = textureSize,
+                    };
+
+                    backgroundElement.PositionRelativeToScreen();
+                    borderElement.PositionRelativeToElement(backgroundElement);
+
+                    layout.AddElement(backgroundElement);
+                    layout.AddElement(borderElement);
+
+                    this.colorButtonElements[index] = new(backgroundElement, borderElement);
+                    index++;
+
+                    margin.X += backgroundElement.Size.X + 16.0f;
+                }
+
+                margin.X = baseMargin.X;
+                margin.Y += (textureSize.Y * 2.0f) + 16.0f;
+            }
+        }
+
+        private void BuildMenuButtons(Layout layout)
+        {
+            Vector2 margin = new(0, -48);
+
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                UIButton button = this.menuButtons[i];
+
+                LabelUIElement labelElement = new()
+                {
+                    SpriteFont = this.bigApple3PMSpriteFont,
+                    Scale = new(0.125f),
+                    Margin = margin,
+                    PositionAnchor = CardinalDirection.South,
+                    OriginPivot = CardinalDirection.Center,
+                };
+
+                labelElement.SetTextualContent(button.Name);
+                labelElement.PositionRelativeToScreen();
+                labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
+
+                margin.Y -= 72;
+
+                layout.AddElement(labelElement);
+
+                this.menuButtonElements[i] = labelElement;
+            }
+        }
+
+        #endregion
+
+        #region UPDATING
+
+        internal override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            this.tooltipBoxElement.IsVisible = false;
+
+            UpdateMenuButtons();
+            UpdateColorButtons();
+
+            this.tooltipBoxElement.RefreshDisplay(TooltipContent.Title, TooltipContent.Description);
+        }
+
+        private void UpdateMenuButtons()
+        {
+            for (int i = 0; i < this.menuButtons.Length; i++)
+            {
+                LabelUIElement labelElement = this.menuButtonElements[i];
+
+                Vector2 size = labelElement.GetStringSize() / 2.0f;
+                Vector2 position = labelElement.Position;
+
+                if (UIInteraction.OnMouseClick(position, size))
+                {
+                    this.menuButtons[i].ClickAction?.Invoke();
+                }
+
+                labelElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateColorButtons()
+        {
+            for (int i = 0; i < this.colorButtons.Length; i++)
+            {
+                UIColorSlot colorSlot = this.colorButtonElements[i];
+                UIColorButton colorButton = this.colorButtons[i];
+
+                Vector2 size = colorSlot.BorderElement.Size / 2.0f;
+                Vector2 position = new(colorSlot.BorderElement.Position.X + size.X, colorSlot.BorderElement.Position.Y + size.Y);
+
+                if (UIInteraction.OnMouseClick(position, size))
+                {
+                    SelectColorButtonAction(colorButton.Color);
+                }
+
+                if (UIInteraction.OnMouseOver(position, size))
+                {
+                    this.tooltipBoxElement.IsVisible = true;
+
+                    TooltipContent.Title = colorButton.Name;
+                    TooltipContent.Description = string.Empty;
+                }
+            }
+        }
+
+        #endregion
+
+        #region EVENTS
+
+        protected override void OnOpened()
+        {
+            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            this.inputController.Disable();
+        }
+
+        protected override void OnClosed()
+        {
+            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.inputController.Activate();
+        }
+
+        #endregion
+    }
+}

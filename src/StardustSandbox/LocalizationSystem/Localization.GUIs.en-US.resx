@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Menu.Main.Button.Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Menu.Main.Button.Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Menu.Main.Button.Credits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="Menu.Main.Button.Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="Menu.Options.Title" xml:space="preserve">
+    <value>OPTIONS</value>
+  </data>
+  <data name="Menu.Options.Section.General.Name" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="HUD.Button.ItemExplorer.Name" xml:space="preserve">
+    <value>Item Explorer</value>
+  </data>
+  <data name="HUD.Button.ItemExplorer.Description" xml:space="preserve">
+    <value>A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interaction.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Name" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="Menu.Credits.Title.Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="Menu.Credits.Title.Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Menu.Credits.Title.Programming" xml:space="preserve">
+    <value>Programming</value>
+  </data>
+  <data name="Menu.Credits.Title.Artists" xml:space="preserve">
+    <value>Artists</value>
+  </data>
+  <data name="Menu.Credits.Title.Composers" xml:space="preserve">
+    <value>Composers</value>
+  </data>
+  <data name="Menu.Credits.Title.Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="Menu.Credits.Message.Finalization" xml:space="preserve">
+    <value>And that's the end...</value>
+  </data>
+  <data name="Menu.Credits.Message.ThankPlayer" xml:space="preserve">
+    <value>Thanks for Playing!</value>
+  </data>
+  <data name="Menu.Credits.People.Parents" xml:space="preserve">
+    <value>To my parents.</value>
+  </data>
+  <data name="Menu.Credits.Title.Contributors" xml:space="preserve">
+    <value>Contributors</value>
+  </data>
+  <data name="Menu.Credits.Title.SpecialThanks" xml:space="preserve">
+    <value>Special Thanks</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Resolution.Name" xml:space="preserve">
+    <value>Resolution</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Fullscreen.Name" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.VSync.Name" xml:space="preserve">
+    <value>VSync</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Borderless.Name" xml:space="preserve">
+    <value>Borderless</value>
+  </data>
+  <data name="Menu.Main.Button.Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="HUD.Button.EnvironmentSettings.Name" xml:space="preserve">
+    <value>Environment Settings</value>
+  </data>
+  <data name="HUD.Button.PenSettings.Name" xml:space="preserve">
+    <value>Pen Settings</value>
+  </data>
+  <data name="HUD.Button.WorldSettings.Name" xml:space="preserve">
+    <value>World Settings</value>
+  </data>
+  <data name="HUD.Button.PauseSimulation.Name" xml:space="preserve">
+    <value>Pause/Resume Simulation</value>
+  </data>
+  <data name="HUD.Button.GameMenu.Name" xml:space="preserve">
+    <value>Game Menu</value>
+  </data>
+  <data name="HUD.Button.SaveMenu.Name" xml:space="preserve">
+    <value>Save Menu</value>
+  </data>
+  <data name="HUD.Button.EraseEverything.Name" xml:space="preserve">
+    <value>Erase Everything</value>
+  </data>
+  <data name="HUD.Button.ReloadSimulation.Name" xml:space="preserve">
+    <value>Reload Simulation</value>
+  </data>
+  <data name="HUD.Button.Eraser.Name" xml:space="preserve">
+    <value>Eraser</value>
+  </data>
+  <data name="HUD.Button.EraseEverything.Description" xml:space="preserve">
+    <value>Clears all content from the map, including elements, entities, and decorations, restoring it to an empty initial state.</value>
+  </data>
+  <data name="HUD.Button.GameMenu.Description" xml:space="preserve">
+    <value>Opens the game's main menu to access settings and other options.</value>
+  </data>
+  <data name="HUD.Button.PauseSimulation.Description" xml:space="preserve">
+    <value>Pauses or resumes the ongoing simulation.</value>
+  </data>
+  <data name="HUD.Button.PenSettings.Description" xml:space="preserve">
+    <value>Adjusts the pen settings, modifying how it interacts with the world's canvas.</value>
+  </data>
+  <data name="HUD.Button.ReloadSimulation.Description" xml:space="preserve">
+    <value>Reloads a previously loaded simulation, reverting any changes made. If no simulation is loaded, clears the map, leaving the canvas empty.</value>
+  </data>
+  <data name="HUD.Button.SaveMenu.Description" xml:space="preserve">
+    <value>Opens the menu to manage simulation and world saving.</value>
+  </data>
+  <data name="HUD.Button.WorldSettings.Description" xml:space="preserve">
+    <value>Adjusts general and systematic settings for the world.</value>
+  </data>
+  <data name="HUD.Button.EnvironmentSettings.Description" xml:space="preserve">
+    <value>Modifies the world's environmental properties, including weather, temperature, and other factors.</value>
+  </data>
+  <data name="HUD.Button.Eraser.Description" xml:space="preserve">
+    <value>Turns the current pen into an eraser, allowing you to directly remove content from the canvas.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Name" xml:space="preserve">
+    <value>Foreground</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Name" xml:space="preserve">
+    <value>Background Layer</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Name" xml:space="preserve">
+    <value>Circle Shape</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Name" xml:space="preserve">
+    <value>Square Shape</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name" xml:space="preserve">
+    <value>Triangle Shape</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Title" xml:space="preserve">
+    <value>Pen Settings</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Title" xml:space="preserve">
+    <value>Brush Size</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Name" xml:space="preserve">
+    <value>Brush Size</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.BrushSize.Button.Slider.Description" xml:space="preserve">
+    <value>Brush size is set to {0}.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Tool.Title" xml:space="preserve">
+    <value>Tool</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Title" xml:space="preserve">
+    <value>Layer</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Title" xml:space="preserve">
+    <value>Shape</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Description" xml:space="preserve">
+    <value>The back layer of the world is used for item placement.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Description" xml:space="preserve">
+    <value>The front layer of the world is used for item placement.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Description" xml:space="preserve">
+    <value>The pen shape becomes a circle.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Description" xml:space="preserve">
+    <value>The pen shape becomes a square.</value>
+  </data>
+  <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Description" xml:space="preserve">
+    <value>The pen shape becomes a triangle.</value>
+  </data>
+  <data name="Button.Exit.Description" xml:space="preserve">
+    <value>Closes the current menu.</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Title" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Section.Name.Title" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Section.Description.Title" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Section.Thumbnail.Title" xml:space="preserve">
+    <value>Thumbnail</value>
+  </data>
+  <data name="HUD.Complements.SaveSettings.Button.Save.Description" xml:space="preserve">
+    <value>Saves the current state of the world to a file on the computer for later access. If a file with the specified name already exists, it will be overwritten with the current world's data.</value>
+  </data>
+  <data name="HUD.Button.Information.Name" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="HUD.Button.Information.Description" xml:space="preserve">
+    <value>View general information and statistics related to your world.</value>
+  </data>
+  <data name="HUD.Complements.Information.Title" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="HUD.Complements.Information.Field.ForegroundElements" xml:space="preserve">
+    <value>Foreground Elements</value>
+  </data>
+  <data name="HUD.Complements.Information.Field.BackgroundElements" xml:space="preserve">
+    <value>Background Elements</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Title" xml:space="preserve">
+    <value>Environment Settings</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Title" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Title" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Title" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Title" xml:space="preserve">
+    <value>Dawn</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Title" xml:space="preserve">
+    <value>Morning</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Title" xml:space="preserve">
+    <value>Noon</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Title" xml:space="preserve">
+    <value>Afternoon</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Title" xml:space="preserve">
+    <value>Dusk</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Title" xml:space="preserve">
+    <value>Evening</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Description" xml:space="preserve">
+    <value>Jump to afternoon (03:00 PM).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Description" xml:space="preserve">
+    <value>Jump to dawn (06:00 AM).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Description" xml:space="preserve">
+    <value>Jump to dusk (06:00 PM).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Description" xml:space="preserve">
+    <value>Jump to evening (09:00 PM).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Description" xml:space="preserve">
+    <value>Jump to midnight (00:00).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Description" xml:space="preserve">
+    <value>Jump to morning (09:00 AM).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Description" xml:space="preserve">
+    <value>Jump to noon (12:00 PM).</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Disable.Description" xml:space="preserve">
+    <value>Disable the time progression, freezing the current time.</value>
+  </data>
+  <data name="HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Enable.Description" xml:space="preserve">
+    <value>Enable the time progression, resuming the natural time flow.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Small.Name" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumSmall.Name" xml:space="preserve">
+    <value>Medium Small</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Medium.Name" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumLarge.Name" xml:space="preserve">
+    <value>Medium Large</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Large.Name" xml:space="preserve">
+    <value>Large</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.VeryLarge.Name" xml:space="preserve">
+    <value>Very Large</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Large.Description" xml:space="preserve">
+    <value>The size of the world will have the dimensions 240x138 - Designed for expansive gameplay areas. May impact performance on lower-end systems.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumLarge.Description" xml:space="preserve">
+    <value>The size of the world will have the dimensions 160x92 - Provides ample space for exploration.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Small.Description" xml:space="preserve">
+    <value>The size of the world will have the dimensions 40x23 - Fits entirely within the player's camera.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.VeryLarge.Description" xml:space="preserve">
+    <value>The size of the world will have the dimensions 320x184 - Best for epic-scale worlds. May impact performance on lower-end systems.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Title" xml:space="preserve">
+    <value>Sizes</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Title" xml:space="preserve">
+    <value>World Settings</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.MediumSmall.Description" xml:space="preserve">
+    <value>The size of the world will have the dimensions 80x46 - Allows limited free movement.</value>
+  </data>
+  <data name="HUD.Complements.WorldSettings.Section.Size.Button.Medium.Description" xml:space="preserve">
+    <value>The size of the world will have the dimensions 120x69 - Balanced for most gameplay scenarios.</value>
+  </data>
+  <data name="HUD.Complements.ItemExplorer.Title" xml:space="preserve">
+    <value>Item Explorer</value>
+  </data>
+  <data name="HUD.Button.Speed.Name" xml:space="preserve">
+    <value>Simulation Speed</value>
+  </data>
+  <data name="HUD.Button.Speed.Description" xml:space="preserve">
+    <value>Adjusts the temporal flow speed of various simulation components, including element interaction, time progression, and related aspects. Higher speeds may cause minor performance slowdowns due to increased processing demand.</value>
+  </data>
+  <data name="HUD.Complements.Pause.Title" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Menu.Credits.Title.Testers" xml:space="preserve">
+    <value>Testers</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Name" xml:space="preserve">
+    <value>Gameplay</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Name" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Name" xml:space="preserve">
+    <value>Graphics</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Name" xml:space="preserve">
+    <value>Cursor</value>
+  </data>
+  <data name="Menu.Options.Section.General.Option.Language.Name" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Name" xml:space="preserve">
+    <value>Preview Area Color</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Name" xml:space="preserve">
+    <value>Preview Area Opacity</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MasterVolume.Name" xml:space="preserve">
+    <value>Master Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MusicVolume.Name" xml:space="preserve">
+    <value>Music Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.SFXVolume.Name" xml:space="preserve">
+    <value>SFX Volume</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Option.Lighting.Name" xml:space="preserve">
+    <value>Lighting</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Color.Name" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.BackgroundColor.Name" xml:space="preserve">
+    <value>Background Color</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Scale.Name" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Opacity.Name" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="Menu.Options.Section.General.Description" xml:space="preserve">
+    <value>Basic game settings, including language and accessibility.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Description" xml:space="preserve">
+    <value>Adjust gameplay-related preferences.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Description" xml:space="preserve">
+    <value>Control audio levels for different categories.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Description" xml:space="preserve">
+    <value>Modify video-related settings, including resolution and display modes.</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Description" xml:space="preserve">
+    <value>Configure graphical settings for visual quality.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Description" xml:space="preserve">
+    <value>Customize the appearance and behavior of the mouse cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.SFXVolume.Description" xml:space="preserve">
+    <value>Adjust the sound effects volume.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MusicVolume.Description" xml:space="preserve">
+    <value>Set the volume for background music.</value>
+  </data>
+  <data name="Menu.Options.Section.Volume.Option.MasterVolume.Description" xml:space="preserve">
+    <value>Adjust the overall game volume.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.VSync.Description" xml:space="preserve">
+    <value>Turn vertical synchronization on or off to avoid screen tearing.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Resolution.Description" xml:space="preserve">
+    <value>Select the screen resolution for the game.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Fullscreen.Description" xml:space="preserve">
+    <value>Enable or disable fullscreen mode.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Borderless.Description" xml:space="preserve">
+    <value>Enable borderless windowed mode.</value>
+  </data>
+  <data name="Menu.Options.Section.Graphics.Option.Lighting.Description" xml:space="preserve">
+    <value>Enable or disable advanced lighting effects.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Scale.Description" xml:space="preserve">
+    <value>Adjust the size of the cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Opacity.Description" xml:space="preserve">
+    <value>Set the transparency level of the cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.Color.Description" xml:space="preserve">
+    <value>Set the color of the cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Cursor.Option.BackgroundColor.Description" xml:space="preserve">
+    <value>Set the background color of the cursor.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Description" xml:space="preserve">
+    <value>Set the transparency level of the preview area.</value>
+  </data>
+  <data name="Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Description" xml:space="preserve">
+    <value>Choose the color for the preview area displayed during gameplay.</value>
+  </data>
+  <data name="Menu.Options.Section.General.Option.Language.Description" xml:space="preserve">
+    <value>Select the language for the game interface.</value>
+  </data>
+  <data name="Menu.Options.Button.Save.Description" xml:space="preserve">
+    <value>Saves and applies all modified options.</value>
+  </data>
+  <data name="Tools.ColorPicker.Title" xml:space="preserve">
+    <value>Color Picker</value>
+  </data>
+</root>

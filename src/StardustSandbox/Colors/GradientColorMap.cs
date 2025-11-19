@@ -1,0 +1,22 @@
+﻿using Microsoft.Xna.Framework;
+
+using System;
+
+namespace StardustSandbox.Colors
+{
+    internal sealed class GradientColorMap
+    {
+        internal (Color Start, Color End) Color1 { get; set; }
+        internal (Color Start, Color End) Color2 { get; set; }
+        internal TimeSpan StartTime { get; set; }
+        internal TimeSpan EndTime { get; set; }
+
+        internal float GetInterpolationFactor(TimeSpan currentTime)
+        {
+            float totalSeconds = (float)(this.EndTime - this.StartTime).TotalSeconds;
+            float elapsedSeconds = (float)(currentTime - this.StartTime).TotalSeconds;
+
+            return MathHelper.Clamp((float)(elapsedSeconds / totalSeconds), 0, 1);
+        }
+    }
+}
