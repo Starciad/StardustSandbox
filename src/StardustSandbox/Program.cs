@@ -69,17 +69,17 @@ namespace StardustSandbox
 #if !DEBUG
         private static void HandleException(Exception value)
         {
-            string logFilename = SFile.WriteException(value);
+            string logFilename = SSFile.WriteException(value);
 
             StringBuilder logString = new();
-            logString.AppendLine(string.Concat("An unexpected error caused ", SGameConstants.TITLE, " to crash!"));
+            logString.AppendLine(string.Concat("An unexpected error caused ", GameConstants.TITLE, " to crash!"));
             logString.AppendLine();
             logString.AppendLine(string.Concat("For more details, see the log file at: ", logFilename));
             logString.AppendLine();
             logString.AppendLine($"Exception: {value.Message}");
 
             MessageBox.Show(logString.ToString(),
-                            $"{SGameConstants.GetTitleAndVersionString()} - Fatal Error",
+                            $"{GameConstants.GetTitleAndVersionString()} - Fatal Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
         }
