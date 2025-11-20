@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Rendering;
 using StardustSandbox.Elements.Solids.Immovables;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.WorldSystem;
 
@@ -27,7 +28,7 @@ namespace StardustSandbox.Elements.Liquids
             {
                 SlotLayer slotLayer = neighbor.GetLayer(this.Context.Layer);
 
-                if (slotLayer.IsEmpty)
+                if (slotLayer.HasState(ElementStates.IsEmpty))
                 {
                     continue;
                 }

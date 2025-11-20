@@ -5,6 +5,7 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.World;
 using StardustSandbox.InputSystem.GameInput;
@@ -33,12 +34,12 @@ namespace StardustSandbox.WorldSystem.Components
         {
             foreach (Slot worldSlot in GetAllSlotsForRendering(spriteBatch))
             {
-                if (!worldSlot.BackgroundLayer.IsEmpty)
+                if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
                 {
                     DrawSlotLayer(spriteBatch, worldSlot.Position, LayerType.Background, worldSlot, worldSlot.GetLayer(LayerType.Background).Element);
                 }
 
-                if (!worldSlot.ForegroundLayer.IsEmpty)
+                if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
                 {
                     DrawSlotLayer(spriteBatch, worldSlot.Position, LayerType.Foreground, worldSlot, worldSlot.GetLayer(LayerType.Foreground).Element);
                 }
@@ -90,9 +91,9 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, LayerType worldLayer, Slot worldSlot, Element element)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, LayerType layer, Slot worldSlot, Element element)
         {
-            this.elementRenderingContext.UpdateInformation(position, worldLayer, worldSlot);
+            this.elementRenderingContext.UpdateInformation(position, layer, worldSlot);
 
             element.Context = this.elementRenderingContext;
             element.Draw(spriteBatch);

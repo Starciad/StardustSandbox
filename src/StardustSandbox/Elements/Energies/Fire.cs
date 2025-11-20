@@ -7,6 +7,7 @@ using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Elements.Rendering;
 using StardustSandbox.Elements.Solids.Movables;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
@@ -37,11 +38,11 @@ namespace StardustSandbox.Elements.Energies
         {
             if (SSRandom.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
-                this.Context.DestroyElement(this.Context.Layer);
+                this.Context.DestroyElement();
 
                 if (SSRandom.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
-                    this.Context.InstantiateElement(this.Context.Layer, ElementIndex.Smoke);
+                    this.Context.InstantiateElement(ElementIndex.Smoke);
                 }
             }
         }
@@ -70,19 +71,19 @@ namespace StardustSandbox.Elements.Energies
         {
             foreach (Slot neighbor in neighbors)
             {
-                if (!neighbor.ForegroundLayer.IsEmpty)
+                if (!neighbor.ForegroundLayer.HasState(ElementStates.IsEmpty))
                 {
                     IgniteElement(neighbor, neighbor.GetLayer(LayerType.Foreground), LayerType.Foreground);
                 }
 
-                if (!neighbor.BackgroundLayer.IsEmpty)
+                if (!neighbor.BackgroundLayer.HasState(ElementStates.IsEmpty))
                 {
                     IgniteElement(neighbor, neighbor.GetLayer(LayerType.Background), LayerType.Background);
                 }
             }
         }
 
-        private void IgniteElement(Slot slot, SlotLayer worldSlotLayer, LayerType worldLayer)
+        private void IgniteElement(Slot slot, SlotLayer worldSlotLayer, LayerType layer)
         {
             // Increase neighboring temperature by fire's heat value
             this.Context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));
@@ -103,7 +104,7 @@ namespace StardustSandbox.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (SSRandom.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    this.Context.ReplaceElement(slot.Position, worldLayer, ElementIndex.Fire);
+                    this.Context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
                 }
             }
         }

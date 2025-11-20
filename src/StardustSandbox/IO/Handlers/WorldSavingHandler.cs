@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
@@ -181,7 +182,7 @@ namespace StardustSandbox.IO.Handlers
 
                 SlotLayer worldSlotLayer = slot.GetLayer(layer);
 
-                if (worldSlotLayer.IsEmpty)
+                if (worldSlotLayer.HasState(ElementStates.IsEmpty))
                 {
                     return;
                 }

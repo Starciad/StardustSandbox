@@ -30,7 +30,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 switch (element)
                 {
                     case DrySponge:
-                        this.Context.SwappingElements(belowPosition, this.Context.Layer);
+                        this.Context.SwappingElements(this.Context.Position, belowPosition);
                         break;
 
                     default:

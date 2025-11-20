@@ -30,13 +30,13 @@ namespace StardustSandbox.WorldSystem.Components
         {
             foreach (Slot worldSlot in GetAllSlotsForUpdating())
             {
-                if (!worldSlot.ForegroundLayer.IsEmpty)
+                if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
                 {
                     UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Update);
                     UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Step);
                 }
 
-                if (!worldSlot.BackgroundLayer.IsEmpty)
+                if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
                 {
                     UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Update);
                     UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Step);
@@ -68,9 +68,9 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        private void UpdateSlotLayerTarget(GameTime gameTime, Point position, LayerType worldLayer, Slot worldSlot, UpdateType updateType)
+        private void UpdateSlotLayerTarget(GameTime gameTime, Point position, LayerType layer, Slot worldSlot, UpdateType updateType)
         {
-            SlotLayer worldSlotLayer = worldSlot.GetLayer(worldLayer);
+            SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
             Element element = worldSlotLayer.Element;
 
             if (worldSlotLayer == null || element == null)
@@ -78,7 +78,7 @@ namespace StardustSandbox.WorldSystem.Components
                 return;
             }
 
-            this.elementUpdateContext.UpdateInformation(position, worldLayer, worldSlot);
+            this.elementUpdateContext.UpdateInformation(position, layer, worldSlot);
             element.Context = this.elementUpdateContext;
 
             switch (updateType)

@@ -5,6 +5,7 @@ using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 
 namespace StardustSandbox.Elements.Solids.Movables
@@ -13,32 +14,33 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         protected override void OnBehaviourStep()
         {
-            if (this.Context.SlotLayer.FreeFalling)
+            if (this.Context.SlotLayer.HasState(ElementStates.FreeFalling))
             {
                 foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(this.Context.Slot.Position, Direction.Down))
                 {
                     if (TrySetPosition(belowPosition))
                     {
                         ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
-                        this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
+                        this.Context.SetElementState(belowPosition, ElementStates.FreeFalling);
                         return;
                     }
                 }
 
-                this.Context.SetElementFreeFalling(this.Context.Layer, false);
+                this.Context.RemoveElementState(ElementStates.FreeFalling);
             }
             else
             {
-                Point below = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
-                if (TrySetPosition(below))
+                Point belowPosition = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
+
+                if (TrySetPosition(belowPosition))
                 {
-                    ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, below);
-                    this.Context.SetElementFreeFalling(below, this.Context.Layer, true);
+                    ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
+                    this.Context.SetElementState(belowPosition, ElementStates.FreeFalling);
                     return;
                 }
                 else
                 {
-                    this.Context.SetElementFreeFalling(this.Context.Layer, false);
+                    this.Context.RemoveElementState(ElementStates.FreeFalling);
                     return;
                 }
             }

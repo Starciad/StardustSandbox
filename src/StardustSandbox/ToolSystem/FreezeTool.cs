@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Constants;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Interfaces.Tools;
 using StardustSandbox.Mathematics;
 using StardustSandbox.WorldSystem;
@@ -16,7 +17,7 @@ namespace StardustSandbox.ToolSystem
 
             SlotLayer worldSlotLayer = worldSlot.GetLayer(context.Layer);
 
-            if (worldSlotLayer.IsEmpty)
+            if (worldSlotLayer.HasState(ElementStates.IsEmpty))
             {
                 return;
             }
