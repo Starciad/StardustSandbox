@@ -256,8 +256,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             Section videoSection = this.root.Sections["video"];
 
-            this.videoSettings.Width = Convert.ToInt32(videoSection.Options["width"].GetValue());
-            this.videoSettings.Height = Convert.ToInt32(videoSection.Options["height"].GetValue());
+            this.videoSettings.Resolution = (Point)videoSection.Options["resolution"].GetValue();
             this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options["fullscreen"].GetValue());
             this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options["vsync"].GetValue());
             this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options["borderless"].GetValue());
