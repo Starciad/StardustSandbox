@@ -32,45 +32,17 @@ namespace StardustSandbox.WorldSystem.Components
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Slot worldSlot in GetAllSlotsForRendering(spriteBatch))
+            Vector2 topLeftWorld = cameraManager.ScreenToWorld(new Vector2(0, 0));
+            Vector2 bottomRightWorld = cameraManager.ScreenToWorld(new Vector2(ScreenConstants.DEFAULT_SCREEN_SIZE.X, ScreenConstants.DEFAULT_SCREEN_SIZE.Y));
+
+            int minTileX = (int)Math.Clamp(Math.Floor(topLeftWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
+            int minTileY = (int)Math.Clamp(Math.Floor(topLeftWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
+            int maxTileX = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
+            int maxTileY = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
+
+            for (int y = minTileY; y < maxTileY; y++)
             {
-                if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
-                {
-                    DrawSlotLayer(spriteBatch, worldSlot.Position, LayerType.Background, worldSlot, worldSlot.GetLayer(LayerType.Background).Element);
-                }
-
-                if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
-                {
-                    DrawSlotLayer(spriteBatch, worldSlot.Position, LayerType.Foreground, worldSlot, worldSlot.GetLayer(LayerType.Foreground).Element);
-                }
-            }
-        }
-
-        private IEnumerable<Slot> GetAllSlotsForRendering(SpriteBatch spriteBatch)
-        {
-            float gridScale = WorldConstants.GRID_SIZE * this.cameraManager.Zoom;
-
-            Vector2 cameraTopLeft = this.cameraManager.ScreenToWorld(Vector2.Zero);
-            Vector2 cameraBottomRight = this.cameraManager.ScreenToWorld(new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT));
-
-            Point minSlot = new(
-                (int)Math.Floor(cameraTopLeft.X / gridScale),
-                (int)Math.Floor(cameraTopLeft.Y / gridScale)
-            );
-
-            Point maxSlot = new(
-                (int)Math.Ceiling(cameraBottomRight.X / gridScale),
-                (int)Math.Ceiling(cameraBottomRight.Y / gridScale)
-            );
-
-            minSlot.X = Math.Max(minSlot.X, 0);
-            minSlot.Y = Math.Max(minSlot.Y, 0);
-            maxSlot.X = Math.Min(maxSlot.X, this.world.Information.Size.X - 1);
-            maxSlot.Y = Math.Min(maxSlot.Y, this.world.Information.Size.Y - 1);
-
-            for (int y = minSlot.Y; y <= maxSlot.Y; y++)
-            {
-                for (int x = minSlot.X; x <= maxSlot.X; x++)
+                for (int x = minTileX; x < maxTileX; x++)
                 {
                     Vector2 targetPosition = new(x, y);
                     Point targetSize = new(WorldConstants.GRID_SIZE);
@@ -84,16 +56,24 @@ namespace StardustSandbox.WorldSystem.Components
 
                         if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
                         {
-                            yield return value;
+                            if (!value.BackgroundLayer.HasState(ElementStates.IsEmpty))
+                            {
+                                DrawSlotLayer(spriteBatch, value.Position, LayerType.Background, value, value.GetLayer(LayerType.Background).Element);
+                            }
+
+                            if (!value.ForegroundLayer.HasState(ElementStates.IsEmpty))
+                            {
+                                DrawSlotLayer(spriteBatch, value.Position, LayerType.Foreground, value, value.GetLayer(LayerType.Foreground).Element);
+                            }
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, LayerType layer, Slot worldSlot, Element element)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, LayerType layer, Slot value, Element element)
         {
-            this.elementRenderingContext.UpdateInformation(position, layer, worldSlot);
+            this.elementRenderingContext.UpdateInformation(position, layer, value);
 
             element.Context = this.elementRenderingContext;
             element.Draw(spriteBatch);

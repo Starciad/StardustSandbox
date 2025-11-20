@@ -28,27 +28,6 @@ namespace StardustSandbox.WorldSystem.Components
 
         internal void Update(GameTime gameTime)
         {
-            foreach (Slot worldSlot in GetAllSlotsForUpdating())
-            {
-                if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
-                {
-                    UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Update);
-                    UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Step);
-                }
-
-                if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
-                {
-                    UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Update);
-                    UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Step);
-                }
-            }
-
-            this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
-            this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
-        }
-
-        private IEnumerable<Slot> GetAllSlotsForUpdating()
-        {
             foreach (Chunk worldChunk in this.world.GetActiveChunks())
             {
                 for (int y = 0; y < WorldConstants.CHUNK_SCALE; y++)
@@ -62,10 +41,23 @@ namespace StardustSandbox.WorldSystem.Components
                             continue;
                         }
 
-                        yield return worldSlot;
+                        if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
+                        {
+                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Update);
+                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Step);
+                        }
+
+                        if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
+                        {
+                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Update);
+                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Step);
+                        }
                     }
                 }
             }
+
+            this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
+            this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
         private void UpdateSlotLayerTarget(GameTime gameTime, Point position, LayerType layer, Slot worldSlot, UpdateType updateType)

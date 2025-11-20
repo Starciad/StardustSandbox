@@ -150,19 +150,8 @@ namespace StardustSandbox.Managers
                 screenBottomRight = WorldToScreen(bottomRight);
             }
 
-            // =========================== //
-
-            // FAKE | DEBUG ONLY
-            // Viewport temp = this._graphicsManager.Viewport;
-            // Viewport viewport = new(temp.X, temp.Y, SScreenConstants.DEFAULT_SCREEN_WIDTH / 2, SScreenConstants.DEFAULT_SCREEN_HEIGHT / 2);
-
-            // IN-GAME | FINAL
-            Viewport viewport = this.videoManager.Viewport;
-
-            // =========================== //
-
-            return screenBottomRight.X >= 0 && screenTopLeft.X < viewport.Width &&
-                   screenBottomRight.Y >= 0 && screenTopLeft.Y < viewport.Height;
+            return screenBottomRight.X >= 0 && screenTopLeft.X < this.videoManager.Viewport.Width &&
+                   screenBottomRight.Y >= 0 && screenTopLeft.Y < this.videoManager.Viewport.Height;
         }
     }
 }
