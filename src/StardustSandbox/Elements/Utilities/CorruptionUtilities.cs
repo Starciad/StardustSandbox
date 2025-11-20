@@ -22,14 +22,14 @@ namespace StardustSandbox.Elements.Utilities
 
         private static readonly List<SSlotTarget> targets = [];
 
-        internal static bool CheckIfNeighboringElementsAreCorrupted(LayerType worldLayer, IEnumerable<Slot> neighbors)
+        internal static bool CheckIfNeighboringElementsAreCorrupted(LayerType layer, IEnumerable<Slot> neighbors)
         {
             int count = 0;
             int corruptNeighboringElements = 0;
 
             foreach (Slot neighbor in neighbors)
             {
-                if (neighbor.GetLayer(worldLayer).Element is ICorruptionElement)
+                if (neighbor.GetLayer(layer).Element is ICorruptionElement)
                 {
                     corruptNeighboringElements++;
                 }

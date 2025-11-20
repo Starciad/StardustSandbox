@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
 
 using System.Collections.Generic;
@@ -49,8 +50,8 @@ namespace StardustSandbox.Elements.Utilities
 
         internal static void NotifyFreeFallingFromAdjacentNeighbors(ElementContext context, Point position)
         {
-            context.SetElementFreeFalling(new(position.X - 1, position.Y), context.Layer, true);
-            context.SetElementFreeFalling(new(position.X + 1, position.Y), context.Layer, true);
+            context.SetElementState(new(position.X - 1, position.Y), context.Layer, ElementStates.FreeFalling);
+            context.SetElementState(new(position.X + 1, position.Y), context.Layer, ElementStates.FreeFalling);
         }
     }
 }

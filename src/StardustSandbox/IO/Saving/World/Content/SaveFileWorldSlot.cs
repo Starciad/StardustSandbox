@@ -2,6 +2,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.IO.Saving.World.Information;
 using StardustSandbox.WorldSystem;
 
@@ -36,12 +37,12 @@ namespace StardustSandbox.IO.Saving.World.Content
         {
             this.Position = worldSlot.Position;
 
-            if (!worldSlot.ForegroundLayer.IsEmpty)
+            if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
             {
                 this.ForegroundLayer = new(resources, worldSlot.ForegroundLayer);
             }
 
-            if (!worldSlot.BackgroundLayer.IsEmpty)
+            if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
             {
                 this.BackgroundLayer = new(resources, worldSlot.BackgroundLayer);
             }

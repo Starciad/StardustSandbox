@@ -23,7 +23,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         protected override void OnInstantiated()
         {
-            this.Context.SetElementColorModifier(this.Context.Layer, ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
+            this.Context.SetElementColorModifier(ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
 
         protected override void OnTemperatureChanged(short currentValue)

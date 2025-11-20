@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
 
@@ -8,7 +9,7 @@ namespace StardustSandbox.WorldSystem
 {
     public sealed class Slot : IPoolableObject
     {
-        internal bool IsEmpty => this.ForegroundLayer.IsEmpty && this.BackgroundLayer.IsEmpty;
+        internal bool IsEmpty => this.ForegroundLayer.HasState(ElementStates.IsEmpty) && this.BackgroundLayer.HasState(ElementStates.IsEmpty);
         internal Point Position => this.position;
 
         internal SlotLayer ForegroundLayer => this.foregroundLayer;
@@ -24,9 +25,9 @@ namespace StardustSandbox.WorldSystem
 
         }
 
-        internal SlotLayer GetLayer(LayerType worldLayer)
+        internal SlotLayer GetLayer(LayerType layer)
         {
-            return worldLayer switch
+            return layer switch
             {
                 LayerType.Foreground => this.foregroundLayer,
                 LayerType.Background => this.backgroundLayer,
@@ -39,45 +40,65 @@ namespace StardustSandbox.WorldSystem
             this.position = position;
         }
 
-        internal void Instantiate(Point position, LayerType worldLayer, Element value)
+        internal void Instantiate(Point position, LayerType layer, Element value)
         {
             this.position = position;
-            GetLayer(worldLayer).Instantiate(value);
+            GetLayer(layer).Instantiate(value);
         }
 
-        internal void Destroy(LayerType worldLayer)
+        internal void Destroy(LayerType layer)
         {
-            GetLayer(worldLayer).Destroy();
+            GetLayer(layer).Destroy();
         }
 
-        internal void Copy(LayerType worldLayer, SlotLayer valueToCopy)
+        internal void Copy(LayerType layer, SlotLayer valueToCopy)
         {
-            GetLayer(worldLayer).Copy(valueToCopy);
+            GetLayer(layer).Copy(valueToCopy);
         }
 
-        internal void SetTemperatureValue(LayerType worldLayer, short value)
+        internal void SetTemperatureValue(LayerType layer, short value)
         {
-            GetLayer(worldLayer).SetTemperatureValue(value);
+            GetLayer(layer).SetTemperatureValue(value);
         }
 
-        internal void SetFreeFalling(LayerType worldLayer, bool value)
+        internal void SetColorModifier(LayerType layer, Color value)
         {
-            GetLayer(worldLayer).SetFreeFalling(value);
+            GetLayer(layer).SetColorModifier(value);
         }
 
-        internal void SetColorModifier(LayerType worldLayer, Color value)
+        internal void SetStoredElement(LayerType layer, Element value)
         {
-            GetLayer(worldLayer).SetColorModifier(value);
+            GetLayer(layer).SetStoredElement(value);
         }
 
-        internal void SetStoredElement(LayerType worldLayer, Element value)
+        internal bool HasState(LayerType layer, ElementStates value)
         {
-            GetLayer(worldLayer).SetStoredElement(value);
+            return GetLayer(layer).HasState(value);
         }
 
-        internal void Reset(LayerType worldLayer)
+        internal void SetState(LayerType layer, ElementStates value)
         {
-            GetLayer(worldLayer).Reset();
+            GetLayer(layer).SetState(value);
+        }
+
+        internal void RemoveState(LayerType layer, ElementStates value)
+        {
+            GetLayer(layer).RemoveState(value);
+        }
+
+        internal void ClearStates(LayerType layer)
+        {
+            GetLayer(layer).ClearStates();
+        }
+
+        internal void ToggleState(LayerType layer, ElementStates value)
+        {
+            GetLayer(layer).ToggleState(value);
+        }
+
+        internal void Reset(LayerType layer)
+        {
+            GetLayer(layer).Reset();
         }
 
         public void Reset()

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Rendering;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.WorldSystem;
 
@@ -26,7 +27,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             {
                 SlotLayer neighborLayer = neighbor.GetLayer(this.Context.Layer);
 
-                if (!neighborLayer.IsEmpty && neighborLayer.Element is not (Wall or Void or Clone))
+                if (!neighborLayer.HasState(ElementStates.IsEmpty) && neighborLayer.Element is not (Wall or Void or Clone))
                 {
                     this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
                 }

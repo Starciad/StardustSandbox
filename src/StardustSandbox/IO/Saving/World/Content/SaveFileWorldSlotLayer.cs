@@ -27,7 +27,7 @@ namespace StardustSandbox.IO.Saving.World.Content
 
         [Key(0)] public uint ElementIndex { get; set; }
         [Key(1)] public short Temperature { get; set; }
-        [Key(2)] public bool FreeFalling { get; set; }
+        [Key(2)] public ElementStates States { get; set; }
         [Key(3)] public byte ColorModifierR { get; set; }
         [Key(4)] public byte ColorModifierG { get; set; }
         [Key(5)] public byte ColorModifierB { get; set; }
@@ -45,7 +45,7 @@ namespace StardustSandbox.IO.Saving.World.Content
         {
             this.ElementIndex = resources.Elements.FindIndexByValue(worldSlotLayer.Element.Index);
             this.Temperature = worldSlotLayer.Temperature;
-            this.FreeFalling = worldSlotLayer.FreeFalling;
+            this.States = worldSlotLayer.States;
             this.ColorModifier = worldSlotLayer.ColorModifier;
             this.UpdateCycleFlag = worldSlotLayer.UpdateCycleFlag;
             this.StepCycleFlag = worldSlotLayer.StepCycleFlag;

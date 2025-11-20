@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.ExplosionSystem;
@@ -12,28 +13,27 @@ namespace StardustSandbox.Elements
     internal sealed class ElementContext(World world)
     {
         internal Slot Slot => this.worldSlot;
-        internal SlotLayer SlotLayer => this.worldSlot.GetLayer(this.worldLayer);
+        internal SlotLayer SlotLayer => this.worldSlot.GetLayer(this.Layer);
         internal Point Position => this.worldSlot.Position;
-        internal LayerType Layer => this.worldLayer;
+        internal LayerType Layer { get; private set; }
 
-        private LayerType worldLayer;
         private Slot worldSlot;
 
         private readonly World world = world;
 
-        internal void UpdateInformation(Point position, LayerType worldLayer, Slot worldSlot)
+        internal void UpdateInformation(Point position, LayerType layer, Slot worldSlot)
         {
             worldSlot.SetPosition(position);
 
-            this.worldLayer = worldLayer;
+            this.Layer = layer;
             this.worldSlot = worldSlot;
         }
 
         #region ELEMENTS
 
-        internal bool TrySetPosition(Point newPosition, LayerType worldLayer)
+        internal bool TrySetPosition(Point newPosition, LayerType layer)
         {
-            if (this.world.TryUpdateElementPosition(this.Position, newPosition, worldLayer))
+            if (this.world.TryUpdateElementPosition(this.Position, newPosition, layer))
             {
                 this.worldSlot = GetSlot(newPosition);
                 return true;
@@ -43,122 +43,122 @@ namespace StardustSandbox.Elements
         }
         internal bool TrySetPosition(Point newPosition)
         {
-            return TrySetPosition(newPosition, this.worldLayer);
+            return TrySetPosition(newPosition, this.Layer);
         }
 
-        internal bool TryInstantiateElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TryInstantiateElement(Point position, LayerType layer, ElementIndex index)
         {
-            return this.world.TryInstantiateElement(position, worldLayer, index);
+            return this.world.TryInstantiateElement(position, layer, index);
         }
-        internal bool TryInstantiateElement(Point position, LayerType worldLayer, Element value)
+        internal bool TryInstantiateElement(Point position, LayerType layer, Element value)
         {
-            return this.world.TryInstantiateElement(position, worldLayer, value);
+            return this.world.TryInstantiateElement(position, layer, value);
         }
-        internal bool TryInstantiateElement(LayerType worldLayer, ElementIndex index)
+        internal bool TryInstantiateElement(Point position, ElementIndex index)
         {
-            return TryInstantiateElement(this.Position, worldLayer, index);
+            return TryInstantiateElement(position, this.Layer, index);
         }
-        internal bool TryInstantiateElement(LayerType worldLayer, Element value)
+        internal bool TryInstantiateElement(Point position, Element value)
         {
-            return TryInstantiateElement(this.Position, worldLayer, value);
+            return TryInstantiateElement(position, this.Layer, value);
         }
         internal bool TryInstantiateElement(ElementIndex index)
         {
-            return TryInstantiateElement(this.worldLayer, index);
+            return TryInstantiateElement(this.Position, index);
         }
         internal bool TryInstantiateElement(Element value)
         {
-            return TryInstantiateElement(this.worldLayer, value);
+            return TryInstantiateElement(this.Position, value);
         }
 
-        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, LayerType worldLayer)
+        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, LayerType layer)
         {
-            return this.world.TryUpdateElementPosition(oldPosition, newPosition, worldLayer);
+            return this.world.TryUpdateElementPosition(oldPosition, newPosition, layer);
         }
-        internal bool TryUpdateElementPosition(Point newPosition, LayerType worldLayer)
+        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition)
         {
-            return TryUpdateElementPosition(this.Position, newPosition, worldLayer);
+            return TryUpdateElementPosition(oldPosition, newPosition, this.Layer);
         }
         internal bool TryUpdateElementPosition(Point newPosition)
         {
-            return TryUpdateElementPosition(newPosition, this.worldLayer);
+            return TryUpdateElementPosition(this.Position, newPosition);
         }
 
-        internal bool TrySwappingElements(Point element1Position, Point element2Position, LayerType worldLayer)
+        internal bool TrySwappingElements(Point element1Position, Point element2Position, LayerType layer)
         {
-            return this.world.TrySwappingElements(element1Position, element2Position, worldLayer);
+            return this.world.TrySwappingElements(element1Position, element2Position, layer);
         }
-        internal bool TrySwappingElements(Point targetPosition, LayerType worldLayer)
+        internal bool TrySwappingElements(Point element1Position, Point element2Position)
         {
-            return TrySwappingElements(this.Position, targetPosition, worldLayer);
+            return TrySwappingElements(element1Position, element2Position, this.Layer);
         }
         internal bool TrySwappingElements(Point targetPosition)
         {
-            return TrySwappingElements(targetPosition, this.worldLayer);
+            return TrySwappingElements(this.Position, targetPosition);
         }
 
-        internal bool TryDestroyElement(Point position, LayerType worldLayer)
+        internal bool TryDestroyElement(Point position, LayerType layer)
         {
-            return this.world.TryDestroyElement(position, worldLayer);
+            return this.world.TryDestroyElement(position, layer);
         }
-        internal bool TryDestroyElement(LayerType worldLayer)
+        internal bool TryDestroyElement(Point position)
         {
-            return TryDestroyElement(this.Position, worldLayer);
+            return TryDestroyElement(position, this.Layer);
         }
         internal bool TryDestroyElement()
         {
-            return TryDestroyElement(this.worldLayer);
+            return TryDestroyElement(this.Position);
         }
 
-        internal bool TryRemoveElement(Point position, LayerType worldLayer)
+        internal bool TryRemoveElement(Point position, LayerType layer)
         {
-            return this.world.TryRemoveElement(position, worldLayer);
+            return this.world.TryRemoveElement(position, layer);
         }
         internal bool TryRemoveElement(Point position)
         {
-            return TryRemoveElement(position, this.worldLayer);
+            return TryRemoveElement(position, this.Layer);
         }
         internal bool TryRemoveElement()
         {
             return TryRemoveElement(this.Position);
         }
 
-        internal bool TryReplaceElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TryReplaceElement(Point position, LayerType layer, ElementIndex index)
         {
-            return this.world.TryReplaceElement(position, worldLayer, index);
+            return this.world.TryReplaceElement(position, layer, index);
         }
-        internal bool TryReplaceElement(Point position, LayerType worldLayer, Element value)
+        internal bool TryReplaceElement(Point position, LayerType layer, Element value)
         {
-            return this.world.TryReplaceElement(position, worldLayer, value);
+            return this.world.TryReplaceElement(position, layer, value);
         }
-        internal bool TryReplaceElement(LayerType worldLayer, ElementIndex index)
+        internal bool TryReplaceElement(Point position, ElementIndex index)
         {
-            return TryReplaceElement(this.Position, worldLayer, index);
+            return TryReplaceElement(position, this.Layer, index);
         }
-        internal bool TryReplaceElement(LayerType worldLayer, Element value)
+        internal bool TryReplaceElement(Point position, Element value)
         {
-            return TryReplaceElement(this.Position, worldLayer, value);
+            return TryReplaceElement(position, this.Layer, value);
         }
         internal bool TryReplaceElement(ElementIndex index)
         {
-            return TryReplaceElement(this.worldLayer, index);
+            return TryReplaceElement(this.Position, index);
         }
         internal bool TryReplaceElement(Element value)
         {
-            return TryReplaceElement(this.worldLayer, value);
+            return TryReplaceElement(this.Position, value);
         }
 
-        internal bool TryGetElement(Point position, LayerType worldLayer, out Element value)
+        internal bool TryGetElement(Point position, LayerType layer, out Element value)
         {
-            return this.world.TryGetElement(position, worldLayer, out value);
+            return this.world.TryGetElement(position, layer, out value);
         }
-        internal bool TryGetElement(LayerType worldLayer, out Element value)
+        internal bool TryGetElement(Point position, out Element value)
         {
-            return TryGetElement(this.Position, worldLayer, out value);
+            return TryGetElement(position, this.Layer, out value);
         }
         internal bool TryGetElement(out Element value)
         {
-            return TryGetElement(this.worldLayer, out value);
+            return TryGetElement(this.Position, out value);
         }
 
         internal bool TryGetSlot(Point position, out Slot value)
@@ -170,146 +170,194 @@ namespace StardustSandbox.Elements
             return TryGetSlot(this.Position, out value);
         }
 
-        internal bool TrySetElementTemperature(Point position, LayerType worldLayer, short value)
+        internal bool TrySetElementTemperature(Point position, LayerType layer, short value)
         {
-            return this.world.TrySetElementTemperature(position, worldLayer, value);
+            return this.world.TrySetElementTemperature(position, layer, value);
         }
-        internal bool TrySetElementTemperature(LayerType worldLayer, short value)
+        internal bool TrySetElementTemperature(Point position, short value)
         {
-            return TrySetElementTemperature(this.Position, worldLayer, value);
+            return TrySetElementTemperature(position, this.Layer, value);
         }
         internal bool TrySetElementTemperature(short value)
         {
-            return TrySetElementTemperature(this.worldLayer, value);
+            return TrySetElementTemperature(this.Position, value);
         }
 
-        internal bool TrySetElementFreeFalling(Point position, LayerType worldLayer, bool value)
+        internal bool TrySetElementColorModifier(Point position, LayerType layer, Color value)
         {
-            return this.world.TrySetElementFreeFalling(position, worldLayer, value);
+            return this.world.TrySetElementColorModifier(position, layer, value);
         }
-        internal bool TrySetElementFreeFalling(LayerType worldLayer, bool value)
+        internal bool TrySetElementColorModifier(Point position, Color value)
         {
-            return TrySetElementFreeFalling(this.Position, worldLayer, value);
-        }
-        internal bool TrySetElementFreeFalling(bool value)
-        {
-            return TrySetElementFreeFalling(this.worldLayer, value);
-        }
-
-        internal bool TrySetElementColorModifier(Point position, LayerType worldLayer, Color value)
-        {
-            return this.world.TrySetElementColorModifier(position, worldLayer, value);
-        }
-        internal bool TrySetElementColorModifier(LayerType worldLayer, Color value)
-        {
-            return TrySetElementColorModifier(this.Position, worldLayer, value);
+            return TrySetElementColorModifier(position, this.Layer, value);
         }
         internal bool TrySetElementColorModifier(Color value)
         {
-            return TrySetElementColorModifier(this.worldLayer, value);
+            return TrySetElementColorModifier(this.Position, value);
         }
 
-        internal bool TrySetStoredElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TrySetStoredElement(Point position, LayerType layer, ElementIndex index)
         {
-            return this.world.TrySetStoredElement(position, worldLayer, index);
+            return this.world.TrySetStoredElement(position, layer, index);
         }
-        internal bool TrySetStoredElement(Point position, LayerType worldLayer, Element element)
+        internal bool TrySetStoredElement(Point position, LayerType layer, Element element)
         {
-            return this.world.TrySetStoredElement(position, worldLayer, element);
+            return this.world.TrySetStoredElement(position, layer, element);
         }
-        internal bool TrySetStoredElement(LayerType worldLayer, ElementIndex index)
+        internal bool TrySetStoredElement(Point position, ElementIndex index)
         {
-            return TrySetStoredElement(this.Position, worldLayer, index);
+            return TrySetStoredElement(position, this.Layer, index);
         }
-        internal bool TrySetStoredElement(LayerType worldLayer, Element element)
+        internal bool TrySetStoredElement(Point position, Element element)
         {
-            return TrySetStoredElement(this.Position, worldLayer, element);
+            return TrySetStoredElement(position, this.Layer, element);
         }
         internal bool TrySetStoredElement(ElementIndex index)
         {
-            return TrySetStoredElement(this.worldLayer, index);
+            return TrySetStoredElement(this.Position, index);
         }
         internal bool TrySetStoredElement(Element element)
         {
-            return TrySetStoredElement(this.worldLayer, element);
+            return TrySetStoredElement(this.Position, element);
         }
 
+        internal bool TryHasElementState(Point position, LayerType layer, ElementStates state, out bool value)
+        {
+            return this.world.TryHasElementState(position, layer, state, out value);
+        }
+        internal bool TryHasElementState(Point position, ElementStates state, out bool value)
+        {
+            return TryHasElementState(position, this.Layer, state, out value);
+        }
+        internal bool TryHasElementState(ElementStates state, out bool value)
+        {
+            return TryHasElementState(this.Position, state, out value);
+        }
+        internal bool TrySetElementState(Point position, LayerType layer, ElementStates state)
+        {
+            return this.world.TrySetElementState(position, layer, state);
+        }
+        internal bool TrySetElementState(Point position, ElementStates state)
+        {
+            return TrySetElementState(position, this.Layer, state);
+        }
+        internal bool TrySetElementState(ElementStates state)
+        {
+            return TrySetElementState(this.Position, state);
+        }
+        internal bool TryRemoveElementState(Point position, LayerType layer, ElementStates state)
+        {
+            return this.world.TryRemoveElementState(position, layer, state);
+        }
+        internal bool TryRemoveElementState(Point position, ElementStates state)
+        {
+            return TryRemoveElementState(position, this.Layer, state);
+        }
+        internal bool TryRemoveElementState(ElementStates state)
+        {
+            return TryRemoveElementState(this.Position, state);
+        }
+        internal bool TryClearElementStates(Point position, LayerType layer)
+        {
+            return this.world.TryClearElementStates(position, layer);
+        }
+        internal bool TryClearElementStates(Point position)
+        {
+            return TryClearElementStates(position, this.Layer);
+        }
+        internal bool TryClearElementStates()
+        {
+            return TryClearElementStates(this.Position, this.Layer);
+        }
+        internal bool TryToggleElementState(Point position, LayerType layer, ElementStates state)
+        {
+            return this.world.TryToggleElementState(position, layer, state);
+        }
+        internal bool TryToggleElementState(Point position, ElementStates state)
+        {
+            return TryToggleElementState(position, this.Layer, state);
+        }
+        internal bool TryToggleElementState(ElementStates state)
+        {
+            return TryToggleElementState(this.Position, state);
+        }
+
+        internal void SetPosition(Point newPosition, LayerType layer)
+        {
+            _ = TrySetPosition(newPosition, layer);
+        }
         internal void SetPosition(Point newPosition)
         {
-            SetPosition(newPosition, this.worldLayer);
-        }
-        internal void SetPosition(Point newPosition, LayerType worldLayer)
-        {
-            _ = TrySetPosition(newPosition, worldLayer);
+            SetPosition(newPosition, this.Layer);
         }
 
-        internal void InstantiateElement(Point position, LayerType worldLayer, Element value)
+        internal void InstantiateElement(Point position, LayerType layer, Element value)
         {
-            this.world.InstantiateElement(position, worldLayer, value);
+            this.world.InstantiateElement(position, layer, value);
         }
-        internal void InstantiateElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal void InstantiateElement(Point position, LayerType layer, ElementIndex index)
         {
-            this.world.InstantiateElement(position, worldLayer, index);
+            this.world.InstantiateElement(position, layer, index);
         }
-        internal void InstantiateElement(LayerType worldLayer, ElementIndex index)
+        internal void InstantiateElement(Point position, ElementIndex index)
         {
-            InstantiateElement(this.Position, worldLayer, index);
+            InstantiateElement(position, this.Layer, index);
         }
-        internal void InstantiateElement(LayerType worldLayer, Element value)
+        internal void InstantiateElement(Point position, Element value)
         {
-            InstantiateElement(this.Position, worldLayer, value);
+            InstantiateElement(position, this.Layer, value);
         }
         internal void InstantiateElement(ElementIndex index)
         {
-            InstantiateElement(this.worldLayer, index);
+            InstantiateElement(this.Position, index);
         }
         internal void InstantiateElement(Element value)
         {
-            InstantiateElement(this.worldLayer, value);
+            InstantiateElement(this.Position, value);
         }
 
-        internal void UpdateElementPosition(Point oldPosition, Point newPosition, LayerType worldLayer)
+        internal void UpdateElementPosition(Point oldPosition, Point newPosition, LayerType layer)
         {
-            this.world.UpdateElementPosition(oldPosition, newPosition, worldLayer);
+            this.world.UpdateElementPosition(oldPosition, newPosition, layer);
         }
-        internal void UpdateElementPosition(Point newPosition, LayerType worldLayer)
+        internal void UpdateElementPosition(Point oldPosition, Point newPosition)
         {
-            UpdateElementPosition(this.Position, newPosition, worldLayer);
+            UpdateElementPosition(oldPosition, newPosition, this.Layer);
         }
         internal void UpdateElementPosition(Point newPosition)
         {
-            UpdateElementPosition(newPosition, this.worldLayer);
+            UpdateElementPosition(this.Position, newPosition);
         }
 
-        internal void SwappingElements(Point element1Position, Point element2Position, LayerType worldLayer)
+        internal void SwappingElements(Point element1Position, Point element2Position, LayerType layer)
         {
-            _ = TrySwappingElements(element1Position, element2Position, worldLayer);
+            _ = TrySwappingElements(element1Position, element2Position, layer);
         }
-        internal void SwappingElements(Point targetPosition, LayerType worldLayer)
+        internal void SwappingElements(Point element1Position, Point element2Position)
         {
-            SwappingElements(this.Position, targetPosition, worldLayer);
+            SwappingElements(element1Position, element2Position, this.Layer);
         }
         internal void SwappingElements(Point targetPosition)
         {
-            SwappingElements(targetPosition, this.worldLayer);
+            SwappingElements(this.Position, targetPosition);
         }
 
-        internal void DestroyElement(Point position, LayerType worldLayer)
+        internal void DestroyElement(Point position, LayerType layer)
         {
-            this.world.DestroyElement(position, worldLayer);
+            this.world.DestroyElement(position, layer);
         }
-        internal void DestroyElement(LayerType worldLayer)
+        internal void DestroyElement(Point positionr)
         {
-            this.world.DestroyElement(this.Position, worldLayer);
+            this.world.DestroyElement(positionr, this.Layer);
         }
         internal void DestroyElement()
         {
-            DestroyElement(this.worldLayer);
+            DestroyElement(this.Position);
         }
 
-        internal void RemoveElement(Point position, LayerType worldLayer)
+        internal void RemoveElement(Point position, LayerType layer)
         {
-            _ = TryRemoveElement(position, worldLayer);
+            _ = TryRemoveElement(position, layer);
         }
         internal void RemoveElement(Point position)
         {
@@ -320,106 +368,154 @@ namespace StardustSandbox.Elements
             RemoveElement(this.Position, this.Layer);
         }
 
-        internal void ReplaceElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal void ReplaceElement(Point position, LayerType layer, ElementIndex index)
         {
-            this.world.ReplaceElement(position, worldLayer, index);
+            this.world.ReplaceElement(position, layer, index);
         }
-        internal void ReplaceElement(Point position, LayerType worldLayer, Element value)
+        internal void ReplaceElement(Point position, LayerType layer, Element value)
         {
-            this.world.ReplaceElement(position, worldLayer, value);
+            this.world.ReplaceElement(position, layer, value);
         }
-        internal void ReplaceElement(LayerType worldLayer, ElementIndex index)
+        internal void ReplaceElement(Point position, ElementIndex index)
         {
-            ReplaceElement(this.Position, worldLayer, index);
+            ReplaceElement(position, this.Layer, index);
         }
-        internal void ReplaceElement(LayerType worldLayer, Element value)
+        internal void ReplaceElement(Point position, Element value)
         {
-            ReplaceElement(this.Position, worldLayer, value);
+            ReplaceElement(position, this.Layer, value);
         }
         internal void ReplaceElement(ElementIndex index)
         {
-            ReplaceElement(this.worldLayer, index);
+            ReplaceElement(this.Position, index);
         }
         internal void ReplaceElement(Element value)
         {
-            ReplaceElement(this.worldLayer, value);
+            ReplaceElement(this.Position, value);
         }
 
-        internal void SetElementTemperature(Point position, LayerType worldLayer, short value)
+        internal void SetElementTemperature(Point position, LayerType layer, short value)
         {
-            this.world.SetElementTemperature(position, worldLayer, value);
+            this.world.SetElementTemperature(position, layer, value);
         }
-        internal void SetElementTemperature(LayerType worldLayer, short value)
+        internal void SetElementTemperature(Point position, short value)
         {
-            SetElementTemperature(this.Position, worldLayer, value);
+            SetElementTemperature(position, this.Layer, value);
         }
         internal void SetElementTemperature(short value)
         {
-            SetElementTemperature(this.worldLayer, value);
+            SetElementTemperature(this.Position, value);
         }
 
-        internal void SetElementFreeFalling(Point position, LayerType worldLayer, bool value)
+        internal void SetElementColorModifier(Point position, LayerType layer, Color value)
         {
-            this.world.SetElementFreeFalling(position, worldLayer, value);
+            this.world.SetElementColorModifier(position, layer, value);
         }
-        internal void SetElementFreeFalling(LayerType worldLayer, bool value)
+        internal void SetElementColorModifier(Point position, Color value)
         {
-            SetElementFreeFalling(this.Position, worldLayer, value);
-        }
-        internal void SetElementFreeFalling(bool value)
-        {
-            SetElementFreeFalling(this.worldLayer, value);
-        }
-
-        internal void SetElementColorModifier(Point position, LayerType worldLayer, Color value)
-        {
-            this.world.SetElementColorModifier(position, worldLayer, value);
-        }
-        internal void SetElementColorModifier(LayerType worldLayer, Color value)
-        {
-            SetElementColorModifier(this.Position, worldLayer, value);
+            SetElementColorModifier(position, this.Layer, value);
         }
         internal void SetElementColorModifier(Color value)
         {
-            SetElementColorModifier(this.worldLayer, value);
+            SetElementColorModifier(this.Position, value);
         }
 
-        internal void SetStoredElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal void SetStoredElement(Point position, LayerType layer, ElementIndex index)
         {
-            this.world.SetStoredElement(position, worldLayer, index);
+            this.world.SetStoredElement(position, layer, index);
         }
-        internal void SetStoredElement(Point position, LayerType worldLayer, Element element)
+        internal void SetStoredElement(Point position, LayerType layer, Element element)
         {
-            this.world.SetStoredElement(position, worldLayer, element);
+            this.world.SetStoredElement(position, layer, element);
         }
-        internal void SetStoredElement(LayerType worldLayer, ElementIndex index)
+        internal void SetStoredElement(Point position, ElementIndex index)
         {
-            SetStoredElement(this.Position, worldLayer, index);
+            SetStoredElement(position, this.Layer, index);
         }
-        internal void SetStoredElement(LayerType worldLayer, Element element)
+        internal void SetStoredElement(Point position, Element element)
         {
-            SetStoredElement(this.Position, worldLayer, element);
+            SetStoredElement(position, this.Layer, element);
         }
         internal void SetStoredElement(ElementIndex index)
         {
-            SetStoredElement(this.worldLayer, index);
+            SetStoredElement(this.Position, index);
         }
         internal void SetStoredElement(Element element)
         {
-            SetStoredElement(this.worldLayer, element);
+            SetStoredElement(this.Position, element);
         }
 
-        internal Element GetElement(Point position, LayerType worldLayer)
+        internal bool HasElementState(Point position, LayerType layer, ElementStates state)
         {
-            return this.world.GetElement(position, worldLayer);
+            return this.world.HasElementState(position, layer, state);
         }
-        internal Element GetElement(LayerType worldLayer)
+        internal bool HasElementState(Point position, ElementStates state)
         {
-            return GetElement(this.Position, worldLayer);
+            return HasElementState(position, this.Layer, state);
+        }
+        internal bool HasElementState(ElementStates state)
+        {
+            return HasElementState(this.Position, state);
+        }
+        internal void SetElementState(Point position, LayerType layer, ElementStates state)
+        {
+            this.world.SetElementState(position, layer, state);
+        }
+        internal void SetElementState(Point position, ElementStates state)
+        {
+            SetElementState(position, this.Layer, state);
+        }
+        internal void SetElementState(ElementStates state)
+        {
+            SetElementState(this.Position, state);
+        }
+        internal void RemoveElementState(Point position, LayerType layer, ElementStates state)
+        {
+            this.world.RemoveElementState(position, layer, state);
+        }
+        internal void RemoveElementState(Point position, ElementStates state)
+        {
+            RemoveElementState(position, this.Layer, state);
+        }
+        internal void RemoveElementState(ElementStates state)
+        {
+            RemoveElementState(this.Position, state);
+        }
+        internal void ClearElementStates(Point position, LayerType layer)
+        {
+            this.world.ClearElementStates(position, layer);
+        }
+        internal void ClearElementStates(Point position)
+        {
+            ClearElementStates(position, this.Layer);
+        }
+        internal void ClearElementStates()
+        {
+            ClearElementStates(this.Position, this.Layer);
+        }
+        internal void ToggleElementState(Point position, LayerType layer, ElementStates state)
+        {
+            this.world.ToggleElementState(position, layer, state);
+        }
+        internal void ToggleElementState(Point position, ElementStates state)
+        {
+            ToggleElementState(position, this.Layer, state);
+        }
+        internal void ToggleElementState(ElementStates state)
+        {
+            ToggleElementState(this.Position, state);
+        }
+
+        internal Element GetElement(Point position, LayerType layer)
+        {
+            return this.world.GetElement(position, layer);
+        }
+        internal Element GetElement(Point position)
+        {
+            return GetElement(position, this.Layer);
         }
         internal Element GetElement()
         {
-            return GetElement(this.worldLayer);
+            return GetElement(this.Position);
         }
 
         internal Slot GetSlot(Point position)
@@ -449,17 +545,17 @@ namespace StardustSandbox.Elements
             return IsEmptySlot(this.Position);
         }
 
-        internal bool IsEmptySlotLayer(Point position, LayerType worldLayer)
+        internal bool IsEmptySlotLayer(Point position, LayerType layer)
         {
-            return this.world.IsEmptySlotLayer(position, worldLayer);
+            return this.world.IsEmptySlotLayer(position, layer);
         }
-        internal bool IsEmptySlotLayer(LayerType worldLayer)
+        internal bool IsEmptySlotLayer(Point position)
         {
-            return IsEmptySlotLayer(this.Position, worldLayer);
+            return IsEmptySlotLayer(position, this.Layer);
         }
         internal bool IsEmptySlotLayer()
         {
-            return IsEmptySlotLayer(this.Position, this.worldLayer);
+            return IsEmptySlotLayer(this.Position, this.Layer);
         }
 
         internal uint GetTotalElementCount()

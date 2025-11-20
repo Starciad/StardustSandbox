@@ -5,6 +5,7 @@ using StardustSandbox.Collections;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
@@ -103,9 +104,9 @@ namespace StardustSandbox.WorldSystem
 
         #region ELEMENTS
 
-        internal bool TryInstantiateElement(Point position, LayerType worldLayer, Element value)
+        internal bool TryInstantiateElement(Point position, LayerType layer, Element value)
         {
-            if (!InsideTheWorldDimensions(position) || !IsEmptySlotLayer(position, worldLayer))
+            if (!InsideTheWorldDimensions(position) || !IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -113,26 +114,26 @@ namespace StardustSandbox.WorldSystem
             NotifyChunk(position);
 
             Slot worldSlot = this[position.X, position.Y];
-            worldSlot.Instantiate(position, worldLayer, value);
+            worldSlot.Instantiate(position, layer, value);
 
-            this.worldElementContext.UpdateInformation(position, worldLayer, worldSlot);
+            this.worldElementContext.UpdateInformation(position, layer, worldSlot);
             value.Context = this.worldElementContext;
             value.Instantiate();
 
             return true;
         }
 
-        internal bool TryInstantiateElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TryInstantiateElement(Point position, LayerType layer, ElementIndex index)
         {
-            return TryInstantiateElement(position, worldLayer, ElementDatabase.GetElementByIndex(index));
+            return TryInstantiateElement(position, layer, ElementDatabase.GetElementByIndex(index));
         }
 
-        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, LayerType worldLayer)
+        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, LayerType layer)
         {
             if (!InsideTheWorldDimensions(oldPosition) ||
                 !InsideTheWorldDimensions(newPosition) ||
-                 IsEmptySlotLayer(oldPosition, worldLayer) ||
-                !IsEmptySlotLayer(newPosition, worldLayer))
+                 IsEmptySlotLayer(oldPosition, layer) ||
+                !IsEmptySlotLayer(newPosition, layer))
             {
                 return false;
             }
@@ -140,19 +141,19 @@ namespace StardustSandbox.WorldSystem
             NotifyChunk(oldPosition);
             NotifyChunk(newPosition);
 
-            this[newPosition.X, newPosition.Y].Copy(worldLayer, this[oldPosition.X, oldPosition.Y].GetLayer(worldLayer));
+            this[newPosition.X, newPosition.Y].Copy(layer, this[oldPosition.X, oldPosition.Y].GetLayer(layer));
             this[newPosition.X, newPosition.Y].SetPosition(newPosition);
-            this[oldPosition.X, oldPosition.Y].Destroy(worldLayer);
+            this[oldPosition.X, oldPosition.Y].Destroy(layer);
 
             return true;
         }
 
-        internal bool TrySwappingElements(Point element1Position, Point element2Position, LayerType worldLayer)
+        internal bool TrySwappingElements(Point element1Position, Point element2Position, LayerType layer)
         {
             if (!InsideTheWorldDimensions(element1Position) ||
                 !InsideTheWorldDimensions(element2Position) ||
-                IsEmptySlotLayer(element1Position, worldLayer) ||
-                IsEmptySlotLayer(element2Position, worldLayer))
+                IsEmptySlotLayer(element1Position, layer) ||
+                IsEmptySlotLayer(element2Position, layer))
             {
                 return false;
             }
@@ -162,10 +163,10 @@ namespace StardustSandbox.WorldSystem
 
             Slot tempSlot = this.worldSlotsPool.TryDequeue(out IPoolableObject value) ? (Slot)value : new();
 
-            tempSlot.Copy(worldLayer, this[element1Position.X, element1Position.Y].GetLayer(worldLayer));
+            tempSlot.Copy(layer, this[element1Position.X, element1Position.Y].GetLayer(layer));
 
-            this[element1Position.X, element1Position.Y].Copy(worldLayer, this[element2Position.X, element2Position.Y].GetLayer(worldLayer));
-            this[element2Position.X, element2Position.Y].Copy(worldLayer, tempSlot.GetLayer(worldLayer));
+            this[element1Position.X, element1Position.Y].Copy(layer, this[element2Position.X, element2Position.Y].GetLayer(layer));
+            this[element2Position.X, element2Position.Y].Copy(layer, tempSlot.GetLayer(layer));
 
             this[element1Position.X, element1Position.Y].SetPosition(element1Position);
             this[element2Position.X, element2Position.Y].SetPosition(element2Position);
@@ -175,9 +176,9 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TryDestroyElement(Point position, LayerType worldLayer)
+        internal bool TryDestroyElement(Point position, LayerType layer)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -185,9 +186,9 @@ namespace StardustSandbox.WorldSystem
             NotifyChunk(position);
 
             Slot worldSlot = this[position.X, position.Y];
-            SlotLayer worldSlotLayer = worldSlot.GetLayer(worldLayer);
+            SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
 
-            this.worldElementContext.UpdateInformation(position, worldLayer, worldSlot);
+            this.worldElementContext.UpdateInformation(position, layer, worldSlot);
             worldSlotLayer.Element.Context = this.worldElementContext;
             worldSlotLayer.Element.Destroy();
             worldSlotLayer.Destroy();
@@ -195,41 +196,41 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TryRemoveElement(Point position, LayerType worldLayer)
+        internal bool TryRemoveElement(Point position, LayerType layer)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
 
             NotifyChunk(position);
 
-            this[position.X, position.Y].Destroy(worldLayer);
+            this[position.X, position.Y].Destroy(layer);
 
             return true;
         }
 
-        internal bool TryReplaceElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TryReplaceElement(Point position, LayerType layer, ElementIndex index)
         {
-            return TryRemoveElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, index);
+            return TryRemoveElement(position, layer) && TryInstantiateElement(position, layer, index);
         }
 
-        internal bool TryReplaceElement(Point position, LayerType worldLayer, Element value)
+        internal bool TryReplaceElement(Point position, LayerType layer, Element value)
         {
-            return TryRemoveElement(position, worldLayer) && TryInstantiateElement(position, worldLayer, value);
+            return TryRemoveElement(position, layer) && TryInstantiateElement(position, layer, value);
         }
 
-        internal bool TryGetElement(Point position, LayerType worldLayer, out Element value)
+        internal bool TryGetElement(Point position, LayerType layer, out Element value)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 value = null;
                 return false;
             }
 
-            SlotLayer worldSlotLayer = this[position.X, position.Y].GetLayer(worldLayer);
+            SlotLayer worldSlotLayer = this[position.X, position.Y].GetLayer(layer);
 
-            if (worldSlotLayer.IsEmpty)
+            if (worldSlotLayer.HasState(ElementStates.IsEmpty))
             {
                 value = null;
                 return false;
@@ -252,108 +253,152 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TrySetElementTemperature(Point position, LayerType worldLayer, short value)
+        internal bool TrySetElementTemperature(Point position, LayerType layerType, short value)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layerType))
             {
                 return false;
             }
 
-            SlotLayer layer = this[position.X, position.Y].GetLayer(worldLayer);
+            SlotLayer slotLayer = this[position.X, position.Y].GetLayer(layerType);
 
-            if (layer.Temperature != value)
+            if (slotLayer.Temperature != value)
             {
                 NotifyChunk(position);
-                layer.SetTemperatureValue(value);
+                slotLayer.SetTemperatureValue(value);
             }
 
             return true;
         }
 
-        internal bool TrySetElementFreeFalling(Point position, LayerType worldLayer, bool value)
+        internal bool TrySetElementColorModifier(Point position, LayerType layer, Color value)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(worldLayer).SetFreeFalling(value);
+            this[position.X, position.Y].GetLayer(layer).SetColorModifier(value);
 
             return true;
         }
 
-        internal bool TrySetElementColorModifier(Point position, LayerType worldLayer, Color value)
+        internal bool TrySetStoredElement(Point position, LayerType layer, ElementIndex index)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            return TrySetStoredElement(position, layer, ElementDatabase.GetElementByIndex(index));
+        }
+
+        internal bool TrySetStoredElement(Point position, LayerType layer, Element element)
+        {
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(worldLayer).SetColorModifier(value);
+            this[position.X, position.Y].GetLayer(layer).SetStoredElement(element);
 
             return true;
         }
 
-        internal bool TrySetStoredElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TryHasElementState(Point position, LayerType layer, ElementStates state, out bool value)
         {
-            return TrySetStoredElement(position, worldLayer, ElementDatabase.GetElementByIndex(index));
-        }
-
-        internal bool TrySetStoredElement(Point position, LayerType worldLayer, Element element)
-        {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, worldLayer))
+            value = false;
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(worldLayer).SetStoredElement(element);
-
+            value = this[position.X, position.Y].HasState(layer, state);
             return true;
         }
 
-        internal void InstantiateElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal bool TrySetElementState(Point position, LayerType layer, ElementStates state)
         {
-            InstantiateElement(position, worldLayer, ElementDatabase.GetElementByIndex(index));
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            this[position.X, position.Y].SetState(layer, state);
+            return true;
         }
 
-        internal void InstantiateElement(Point position, LayerType worldLayer, Element value)
+        internal bool TryRemoveElementState(Point position, LayerType layer, ElementStates state)
         {
-            _ = TryInstantiateElement(position, worldLayer, value);
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            this[position.X, position.Y].RemoveState(layer, state);
+            return true;
         }
 
-        internal void UpdateElementPosition(Point oldPosition, Point newPosition, LayerType worldLayer)
+        internal bool TryClearElementStates(Point position, LayerType layer)
         {
-            _ = TryUpdateElementPosition(oldPosition, newPosition, worldLayer);
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            this[position.X, position.Y].ClearStates(layer);
+            return true;
         }
 
-        internal void SwappingElements(Point element1Position, Point element2Position, LayerType worldLayer)
+        internal bool TryToggleElementState(Point position, LayerType layer, ElementStates state)
         {
-            _ = TrySwappingElements(element1Position, element2Position, worldLayer);
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            this[position.X, position.Y].ToggleState(layer, state);
+            return true;
         }
 
-        internal void DestroyElement(Point position, LayerType worldLayer)
+        internal void InstantiateElement(Point position, LayerType layer, ElementIndex index)
         {
-            _ = TryDestroyElement(position, worldLayer);
+            InstantiateElement(position, layer, ElementDatabase.GetElementByIndex(index));
         }
 
-        internal void RemoveElement(Point position, LayerType worldLayer)
+        internal void InstantiateElement(Point position, LayerType layer, Element value)
         {
-            _ = TryRemoveElement(position, worldLayer);
+            _ = TryInstantiateElement(position, layer, value);
         }
 
-        internal void ReplaceElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal void UpdateElementPosition(Point oldPosition, Point newPosition, LayerType layer)
         {
-            _ = TryReplaceElement(position, worldLayer, index);
+            _ = TryUpdateElementPosition(oldPosition, newPosition, layer);
         }
 
-        internal void ReplaceElement(Point position, LayerType worldLayer, Element value)
+        internal void SwappingElements(Point element1Position, Point element2Position, LayerType layer)
         {
-            _ = TryReplaceElement(position, worldLayer, value);
+            _ = TrySwappingElements(element1Position, element2Position, layer);
         }
 
-        internal Element GetElement(Point position, LayerType worldLayer)
+        internal void DestroyElement(Point position, LayerType layer)
         {
-            _ = TryGetElement(position, worldLayer, out Element value);
+            _ = TryDestroyElement(position, layer);
+        }
+
+        internal void RemoveElement(Point position, LayerType layer)
+        {
+            _ = TryRemoveElement(position, layer);
+        }
+
+        internal void ReplaceElement(Point position, LayerType layer, ElementIndex index)
+        {
+            _ = TryReplaceElement(position, layer, index);
+        }
+
+        internal void ReplaceElement(Point position, LayerType layer, Element value)
+        {
+            _ = TryReplaceElement(position, layer, value);
+        }
+
+        internal Element GetElement(Point position, LayerType layer)
+        {
+            _ = TryGetElement(position, layer, out Element value);
             return value;
         }
 
@@ -374,29 +419,50 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        internal void SetElementTemperature(Point position, LayerType worldLayer, short value)
+        internal void SetElementTemperature(Point position, LayerType layer, short value)
         {
-            _ = TrySetElementTemperature(position, worldLayer, value);
+            _ = TrySetElementTemperature(position, layer, value);
         }
 
-        internal void SetElementFreeFalling(Point position, LayerType worldLayer, bool value)
+        internal void SetElementColorModifier(Point position, LayerType layer, Color value)
         {
-            _ = TrySetElementFreeFalling(position, worldLayer, value);
+            _ = TrySetElementColorModifier(position, layer, value);
         }
 
-        internal void SetElementColorModifier(Point position, LayerType worldLayer, Color value)
+        internal void SetStoredElement(Point position, LayerType layer, ElementIndex index)
         {
-            _ = TrySetElementColorModifier(position, worldLayer, value);
+            SetStoredElement(position, layer, ElementDatabase.GetElementByIndex(index));
         }
 
-        internal void SetStoredElement(Point position, LayerType worldLayer, ElementIndex index)
+        internal void SetStoredElement(Point position, LayerType layer, Element element)
         {
-            SetStoredElement(position, worldLayer, ElementDatabase.GetElementByIndex(index));
+            _ = TrySetStoredElement(position, layer, element);
         }
 
-        internal void SetStoredElement(Point position, LayerType worldLayer, Element element)
+        internal bool HasElementState(Point position, LayerType layer, ElementStates state)
         {
-            _ = TrySetStoredElement(position, worldLayer, element);
+            _ = TryHasElementState(position, layer, state, out bool value);
+            return value;
+        }
+
+        internal void SetElementState(Point position, LayerType layer, ElementStates state)
+        {
+            _ = TrySetElementState(position, layer, state);
+        }
+
+        internal void RemoveElementState(Point position, LayerType layer, ElementStates state)
+        {
+            _ = TryRemoveElementState(position, layer, state);
+        }
+
+        internal void ClearElementStates(Point position, LayerType layer)
+        {
+            _ = TryClearElementStates(position, layer);
+        }
+
+        internal void ToggleElementState(Point position, LayerType layer, ElementStates state)
+        {
+            _ = TryToggleElementState(position, layer, state);
         }
 
         internal bool IsEmptySlot(Point position)
@@ -404,9 +470,9 @@ namespace StardustSandbox.WorldSystem
             return !InsideTheWorldDimensions(position) || this[position.X, position.Y].IsEmpty;
         }
 
-        internal bool IsEmptySlotLayer(Point position, LayerType worldLayer)
+        internal bool IsEmptySlotLayer(Point position, LayerType layer)
         {
-            return !InsideTheWorldDimensions(position) || this[position.X, position.Y].GetLayer(worldLayer).IsEmpty;
+            return !InsideTheWorldDimensions(position) || this[position.X, position.Y].GetLayer(layer).HasState(ElementStates.IsEmpty);
         }
 
         internal uint GetTotalElementCount()
@@ -416,12 +482,12 @@ namespace StardustSandbox.WorldSystem
 
         internal uint GetTotalForegroundElementCount()
         {
-            return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.IsEmpty);
+            return GetTotalElementCountForLayer(slot => !slot.ForegroundLayer.HasState(ElementStates.IsEmpty));
         }
 
         internal uint GetTotalBackgroundElementCount()
         {
-            return GetTotalElementCountForLayer(slot => !slot.BackgroundLayer.IsEmpty);
+            return GetTotalElementCountForLayer(slot => !slot.BackgroundLayer.HasState(ElementStates.IsEmpty));
         }
 
         private uint GetTotalElementCountForLayer(Func<Slot, bool> predicate)
@@ -547,9 +613,9 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void TryAffectSlotLayer(SlotLayer worldSlotLayer, LayerType worldLayer, Point targetPosition, Explosion explosion)
+        private void TryAffectSlotLayer(SlotLayer worldSlotLayer, LayerType layer, Point targetPosition, Explosion explosion)
         {
-            if (worldSlotLayer.IsEmpty)
+            if (worldSlotLayer.HasState(ElementStates.IsEmpty))
             {
                 return;
             }
@@ -567,7 +633,7 @@ namespace StardustSandbox.WorldSystem
             }
             else
             {
-                DestroyElement(targetPosition, worldLayer);
+                DestroyElement(targetPosition, layer);
             }
         }
 
@@ -690,16 +756,16 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void LoadSlotLayerData(SaveFileWorldResources resources, LayerType worldLayer, Point position, SaveFileSlotLayer worldSlotLayerData)
+        private void LoadSlotLayerData(SaveFileWorldResources resources, LayerType layer, Point position, SaveFileSlotLayer worldSlotLayerData)
         {
-            InstantiateElement(position, worldLayer, resources.Elements.FindValueByIndex(worldSlotLayerData.ElementIndex));
+            InstantiateElement(position, layer, resources.Elements.FindValueByIndex(worldSlotLayerData.ElementIndex));
 
             Slot worldSlot = GetSlot(position);
 
-            worldSlot.SetTemperatureValue(worldLayer, worldSlotLayerData.Temperature);
-            worldSlot.SetFreeFalling(worldLayer, worldSlotLayerData.FreeFalling);
-            worldSlot.SetColorModifier(worldLayer, worldSlotLayerData.ColorModifier);
-            worldSlot.SetStoredElement(worldLayer, ElementDatabase.GetElementByIndex(resources.Elements.FindValueByIndex(worldSlotLayerData.StoredElementIndex)));
+            worldSlot.SetTemperatureValue(layer, worldSlotLayerData.Temperature);
+            worldSlot.SetState(layer, ElementStates.FreeFalling);
+            worldSlot.SetColorModifier(layer, worldSlotLayerData.ColorModifier);
+            worldSlot.SetStoredElement(layer, ElementDatabase.GetElementByIndex(resources.Elements.FindValueByIndex(worldSlotLayerData.StoredElementIndex)));
         }
 
         #endregion

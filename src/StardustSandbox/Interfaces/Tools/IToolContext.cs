@@ -11,6 +11,6 @@ namespace StardustSandbox.Interfaces.Tools
         Point Position { get; }
         LayerType Layer { get; }
 
-        void Update(Point position, LayerType worldLayer);
+        void Update(Point position, LayerType layer);
     }
 }

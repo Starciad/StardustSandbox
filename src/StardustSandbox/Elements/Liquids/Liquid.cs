@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Extensions;
 using StardustSandbox.Randomness;
@@ -34,7 +35,7 @@ namespace StardustSandbox.Elements.Liquids
                     if (TrySwappingElements(belowPosition, belowLayer))
                     {
                         ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
-                        this.Context.SetElementFreeFalling(belowPosition, this.Context.Layer, true);
+                        this.Context.SetElementState(belowPosition, this.Context.Layer, ElementStates.FreeFalling);
                         return;
                     }
 
@@ -44,7 +45,7 @@ namespace StardustSandbox.Elements.Liquids
 
             UpdateHorizontalPosition();
 
-            this.Context.SetElementFreeFalling(this.Context.Layer, false);
+            this.Context.RemoveElementState(ElementStates.FreeFalling);
         }
 
         private bool TrySwappingElements(Point position, SlotLayer belowLayer)
@@ -70,7 +71,7 @@ namespace StardustSandbox.Elements.Liquids
 
         private void TryPerformConvection(Point position, SlotLayer belowLayer)
         {
-            if (belowLayer.IsEmpty ||
+            if (belowLayer.HasState(ElementStates.IsEmpty) ||
                 belowLayer.Element.GetType() != GetType() ||
                 belowLayer.Temperature <= this.Context.SlotLayer.Temperature)
             {
@@ -98,7 +99,7 @@ namespace StardustSandbox.Elements.Liquids
             }
             else
             {
-                this.Context.SwappingElements(targetPosition, this.Context.Layer);
+                this.Context.SwappingElements(this.Context.Position, targetPosition, this.Context.Layer);
             }
         }
 

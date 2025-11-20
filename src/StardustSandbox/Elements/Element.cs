@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Elements.Rendering;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Mathematics;
@@ -127,7 +128,7 @@ namespace StardustSandbox.Elements
                 SlotLayer neighborForeground = neighbor.GetLayer(LayerType.Foreground);
                 SlotLayer neighborBackground = neighbor.GetLayer(LayerType.Background);
 
-                if (!neighborForeground.IsEmpty)
+                if (!neighborForeground.HasState(ElementStates.IsEmpty))
                 {
                     if (neighborForeground.Element.EnableTemperature)
                     {
@@ -137,7 +138,7 @@ namespace StardustSandbox.Elements
                     neighborsForegroundLayerLength++;
                 }
 
-                if (!neighborBackground.IsEmpty)
+                if (!neighborBackground.HasState(ElementStates.IsEmpty))
                 {
                     if (neighborBackground.Element.EnableTemperature)
                     {
@@ -149,11 +150,11 @@ namespace StardustSandbox.Elements
             }
 
             short averageTemperatureChange = (short)Math.Round(totalTemperatureChange / (short)(neighborsForegroundLayerLength + neighborsBackgroundLayerLength));
-            this.context.SetElementTemperature(this.context.Layer, TemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature - averageTemperatureChange)));
+            this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature - averageTemperatureChange)));
 
             if (MathF.Abs(averageTemperatureChange) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
-                this.context.SetElementTemperature(this.context.Layer, TemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature + averageTemperatureChange)));
+                this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature + averageTemperatureChange)));
             }
 
             OnTemperatureChanged(this.context.SlotLayer.Temperature);

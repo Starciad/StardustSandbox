@@ -11,18 +11,16 @@ namespace StardustSandbox.WorldSystem
     {
         internal Element Element => this.element;
         internal Element StoredElement => this.storedElement;
-        internal bool IsEmpty => this.isEmpty;
+        internal ElementStates States => this.states;
         internal short Temperature => this.temperature;
-        internal bool FreeFalling => this.freeFalling;
         internal Color ColorModifier => this.colorModifier;
         internal UpdateCycleFlag UpdateCycleFlag => this.updateCycleFlag;
         internal UpdateCycleFlag StepCycleFlag => this.stepCycleFlag;
 
         private Element element;
         private Element storedElement;
-        private bool isEmpty;
+        private ElementStates states;
         private short temperature;
-        private bool freeFalling;
         private Color colorModifier;
         private UpdateCycleFlag updateCycleFlag;
         private UpdateCycleFlag stepCycleFlag;
@@ -34,11 +32,11 @@ namespace StardustSandbox.WorldSystem
 
         internal void Instantiate(Element value)
         {
-            this.isEmpty = false;
+            ClearStates();
+
             this.element = value;
             this.storedElement = null;
             this.temperature = value.DefaultTemperature;
-            this.freeFalling = false;
             this.colorModifier = Color.White;
             this.updateCycleFlag = UpdateCycleFlag.None;
             this.stepCycleFlag = UpdateCycleFlag.None;
@@ -46,11 +44,12 @@ namespace StardustSandbox.WorldSystem
 
         internal void Destroy()
         {
-            this.isEmpty = true;
+            ClearStates();
+            SetState(ElementStates.IsEmpty);
+
             this.element = null;
             this.storedElement = null;
             this.temperature = 0;
-            this.freeFalling = false;
             this.colorModifier = Color.White;
             this.updateCycleFlag = UpdateCycleFlag.None;
             this.stepCycleFlag = UpdateCycleFlag.None;
@@ -60,9 +59,8 @@ namespace StardustSandbox.WorldSystem
         {
             this.element = valueToCopy.element;
             this.storedElement = valueToCopy.storedElement;
-            this.isEmpty = valueToCopy.isEmpty;
+            this.states = valueToCopy.states;
             this.temperature = valueToCopy.temperature;
-            this.freeFalling = valueToCopy.freeFalling;
             this.colorModifier = valueToCopy.colorModifier;
             this.updateCycleFlag = valueToCopy.updateCycleFlag;
             this.stepCycleFlag = valueToCopy.stepCycleFlag;
@@ -71,11 +69,6 @@ namespace StardustSandbox.WorldSystem
         internal void SetTemperatureValue(short value)
         {
             this.temperature = TemperatureMath.Clamp(value);
-        }
-
-        internal void SetFreeFalling(bool value)
-        {
-            this.freeFalling = value;
         }
 
         internal void SetColorModifier(Color value)
@@ -101,6 +94,31 @@ namespace StardustSandbox.WorldSystem
         public void Reset()
         {
             Destroy();
+        }
+
+        internal bool HasState(ElementStates value)
+        {
+            return this.states.HasFlag(value);
+        }
+
+        internal void SetState(ElementStates value)
+        {
+            this.states |= value;
+        }
+
+        internal void RemoveState(ElementStates value)
+        {
+            this.states &= ~value;
+        }
+
+        internal void ClearStates()
+        {
+            this.states = ElementStates.None;
+        }
+
+        internal void ToggleState(ElementStates value)
+        {
+            this.states ^= value;
         }
     }
 }

@@ -21,15 +21,15 @@ namespace StardustSandbox.ToolSystem
         private Point position;
         private LayerType layer;
 
-        internal void Update(Point position, LayerType worldLayer)
+        internal void Update(Point position, LayerType layer)
         {
             this.position = position;
-            this.layer = worldLayer;
+            this.layer = layer;
         }
 
-        void IToolContext.Update(Point position, LayerType worldLayer)
+        void IToolContext.Update(Point position, LayerType layer)
         {
-            Update(position, worldLayer);
+            Update(position, layer);
         }
     }
 }
