@@ -348,7 +348,7 @@ namespace StardustSandbox.Elements
         }
         internal void DestroyElement(Point position)
         {
-            this.world.DestroyElement(position, this.Layer);
+            this.DestroyElement(position, this.Layer);
         }
         internal void DestroyElement()
         {
