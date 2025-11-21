@@ -6,7 +6,6 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.World;
@@ -622,7 +621,7 @@ namespace StardustSandbox.WorldSystem
 
             Element element = worldSlotLayer.Element;
 
-            if (element.IsExplosionImmune)
+            if (element.HasCharacteristic(ElementCharacteristics.IsExplosionImmune))
             {
                 return;
             }
@@ -649,7 +648,7 @@ namespace StardustSandbox.WorldSystem
 
         #region Update
 
-        internal void Update(GameTime gameTime)
+        internal void Update()
         {
             if (!this.IsActive)
             {
@@ -658,18 +657,18 @@ namespace StardustSandbox.WorldSystem
 
             this.time.Update();
 
-            UpdateWorld(gameTime);
+            UpdateWorld();
             UpdateExplosions();
         }
 
-        private void UpdateWorld(GameTime gameTime)
+        private void UpdateWorld()
         {
             this.simulation.Update();
 
             if (this.simulation.CanContinueExecution())
             {
                 this.chunking.Update();
-                this.updating.Update(gameTime);
+                this.updating.Update();
             }
         }
 

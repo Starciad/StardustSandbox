@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
 using StardustSandbox.Randomness;
 
@@ -13,9 +12,10 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         internal MountingBlock(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementSingleRenderingMechanism());
+            this.renderingType = ElementRenderingType.Single;
+            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsFlammable | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 20;
-            this.enableFlammability = true;
             this.defaultFlammabilityResistance = 150;
             this.defaultDensity = 1800;
             this.defaultExplosionResistance = 1.5f;

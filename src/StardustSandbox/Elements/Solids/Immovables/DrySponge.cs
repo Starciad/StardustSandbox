@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
@@ -16,9 +15,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         internal DrySponge(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
-            this.enableFlammability = true;
-            this.enableNeighborsAction = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsFlammable | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 25;
             this.defaultFlammabilityResistance = 10;
             this.defaultDensity = 550;

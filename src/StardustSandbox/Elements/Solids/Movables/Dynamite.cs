@@ -3,8 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Energies;
 using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.ExplosionSystem;
 using StardustSandbox.WorldSystem;
 
@@ -34,8 +33,9 @@ namespace StardustSandbox.Elements.Solids.Movables
 
         internal Dynamite(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementSingleRenderingMechanism());
-            this.enableNeighborsAction = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 22;
             this.defaultDensity = 2400;
             this.defaultExplosionResistance = 0.5f;

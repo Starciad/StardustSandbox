@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Rendering;
 using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
 
@@ -16,8 +15,9 @@ namespace StardustSandbox.Elements.Liquids
     {
         internal Water(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
-            this.enableNeighborsAction = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultDispersionRate = 3;
             this.defaultTemperature = 25;
             this.defaultDensity = 1000;

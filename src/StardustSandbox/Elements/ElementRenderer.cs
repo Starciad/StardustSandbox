@@ -8,22 +8,19 @@ using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.WorldSystem;
 
-namespace StardustSandbox.Elements.Rendering
+namespace StardustSandbox.Elements
 {
-    internal sealed class ElementBlobRenderingMechanism : ElementRenderingMechanism
+    internal static class ElementRenderer
     {
         private readonly struct BlobInfo(Point position, byte blobValue)
         {
-            internal readonly Point Position => position;
-            internal readonly byte BlobValue => blobValue;
+            public readonly Point Position => position;
+            public readonly byte BlobValue => blobValue;
         }
 
-        private Element element;
-        private Texture2D elementTexture;
-
-        private readonly BlobInfo[] blobInfos = new BlobInfo[3];
-        private readonly Vector2[] spritePositions = new Vector2[ElementConstants.SPRITE_DIVISIONS_LENGTH];
-        private readonly Rectangle[] spriteClipAreas = new Rectangle[ElementConstants.SPRITE_DIVISIONS_LENGTH];
+        private static readonly BlobInfo[] blobInfos = new BlobInfo[3];
+        private static readonly Vector2[] spritePositions = new Vector2[ElementConstants.SPRITE_DIVISIONS_LENGTH];
+        private static readonly Rectangle[] spriteClipAreas = new Rectangle[ElementConstants.SPRITE_DIVISIONS_LENGTH];
 
         private static readonly Rectangle[] spriteKeyPoints = [
             // Full 0, 1, 2, 3
@@ -57,121 +54,96 @@ namespace StardustSandbox.Elements.Rendering
             new Rectangle(location: new Point(144, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
         ];
 
-        internal override void Initialize(Element element)
-        {
-            this.element = element;
-            this.elementTexture = element.Texture;
-        }
+        #region BLOB RENDERING
 
-        internal override void Draw(SpriteBatch spriteBatch, ElementContext context)
-        {
-            SlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
-
-            Color colorModifier = TemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
-
-            if (context.Layer == LayerType.Background)
-            {
-                colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
-            }
-
-            UpdateSpritePositions(context.Slot.Position);
-
-            for (byte i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
-            {
-                UpdateSpriteSlice(context, i, context.Slot.Position);
-                spriteBatch.Draw(this.elementTexture, this.spritePositions[i], this.spriteClipAreas[i], colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
-            }
-        }
-
-        // Updates
-        private void UpdateSpritePositions(Point position)
+        private static void UpdateSpritePositions(Point position)
         {
             float xOffset = ElementConstants.SPRITE_X_OFFSET, yOffset = ElementConstants.SPRITE_Y_OFFSET;
 
-            this.spritePositions[0] = new Vector2(position.X, position.Y) * WorldConstants.GRID_SIZE;
-            this.spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * WorldConstants.GRID_SIZE;
-            this.spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * WorldConstants.GRID_SIZE;
-            this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
+            spritePositions[0] = new Vector2(position.X, position.Y) * WorldConstants.GRID_SIZE;
+            spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * WorldConstants.GRID_SIZE;
+            spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * WorldConstants.GRID_SIZE;
+            spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
         }
 
-        private void UpdateSpriteSlice(ElementContext context, byte index, Point position)
+        private static void UpdateSpriteSlice(ElementContext context, Element element, byte index, Point position)
         {
-            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, index, position));
+            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, element, index, position));
         }
 
-        private byte GetBlobValueFromTargetPositions(ElementContext context, byte index, Point position)
+        private static byte GetBlobValueFromTargetPositions(ElementContext context, Element element, byte index, Point position)
         {
             byte result = 0;
 
             GetTargetPositionsFromIndex(index, position);
 
             // Check each of the target positions.
-            for (byte i = 0; i < this.blobInfos.Length; i++)
+            for (byte i = 0; i < blobInfos.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(this.blobInfos[i].Position, context.Layer, out Element value))
+                if (context.TryGetElement(blobInfos[i].Position, context.Layer, out Element value))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
-                    if (value != this.element)
+                    if (value != element)
                     {
                         continue;
                     }
 
                     // Upon successful completion of the conditions and steps, add to the blob value.
-                    result += this.blobInfos[i].BlobValue;
+                    result += blobInfos[i].BlobValue;
                 }
             }
 
             return result;
         }
 
-        private void GetTargetPositionsFromIndex(byte index, Point position)
+        private static void GetTargetPositionsFromIndex(byte index, Point position)
         {
             switch (index)
             {
                 // Sprite Piece 1 (Northwest Pivot)
                 case 0:
-                    this.blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
-                    this.blobInfos[1] = new(new Point(position.X - 1, position.Y - 1), (byte)BlobCardinalDirection.Northwest);
-                    this.blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
+                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
+                    blobInfos[1] = new(new Point(position.X - 1, position.Y - 1), (byte)BlobCardinalDirection.Northwest);
+                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
                     break;
 
                 // Sprite Piece 2 (Northeast Pivot)
                 case 1:
-                    this.blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
-                    this.blobInfos[1] = new(new Point(position.X + 1, position.Y - 1), (byte)BlobCardinalDirection.Northeast);
-                    this.blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
+                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
+                    blobInfos[1] = new(new Point(position.X + 1, position.Y - 1), (byte)BlobCardinalDirection.Northeast);
+                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
                     break;
 
                 // Sprite Piece 3 (Southwest Pivot)
                 case 2:
-                    this.blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
-                    this.blobInfos[1] = new(new Point(position.X - 1, position.Y + 1), (byte)BlobCardinalDirection.Southwest);
-                    this.blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
+                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
+                    blobInfos[1] = new(new Point(position.X - 1, position.Y + 1), (byte)BlobCardinalDirection.Southwest);
+                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
                     break;
 
                 // Sprite Piece 4 (Southeast Pivot)
                 case 3:
-                    this.blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
-                    this.blobInfos[1] = new(new Point(position.X + 1, position.Y + 1), (byte)BlobCardinalDirection.Southeast);
-                    this.blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
+                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
+                    blobInfos[1] = new(new Point(position.X + 1, position.Y + 1), (byte)BlobCardinalDirection.Southeast);
+                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
                     break;
 
                 default:
-                    this.blobInfos[0] = default;
-                    this.blobInfos[1] = default;
-                    this.blobInfos[2] = default;
+                    blobInfos[0] = default;
+                    blobInfos[1] = default;
+                    blobInfos[2] = default;
                     break;
             }
         }
 
-        private void SetChunkSpriteFromIndexAndBlobValue(int index, byte blobValue)
+        private static void SetChunkSpriteFromIndexAndBlobValue(int index, byte blobValue)
         {
             switch (index)
             {
                 // (Sprite 1 - Northwest Pivot)
                 case 0:
-                    this.spriteClipAreas[index] = blobValue switch
+                    spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_NORTHWEST_PIVOT_EMPTY => spriteKeyPoints[(int)SpriteKeyPoints.Corner_Northwest],
                         ElementConstants.BLOB_NORTHWEST_PIVOT_CASE_1 => spriteKeyPoints[(int)SpriteKeyPoints.Horizontal_Edge_Northwest],
@@ -187,7 +159,7 @@ namespace StardustSandbox.Elements.Rendering
 
                 // (Sprite 2 - Northeast Pivot)
                 case 1:
-                    this.spriteClipAreas[index] = blobValue switch
+                    spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_NORTHEAST_PIVOT_EMPTY => spriteKeyPoints[(int)SpriteKeyPoints.Corner_Northeast],
                         ElementConstants.BLOB_NORTHEAST_PIVOT_CASE_1 => spriteKeyPoints[(int)SpriteKeyPoints.Horizontal_Edge_Northeast],
@@ -203,7 +175,7 @@ namespace StardustSandbox.Elements.Rendering
 
                 // (Sprite 3 - Southwest Pivot)
                 case 2:
-                    this.spriteClipAreas[index] = blobValue switch
+                    spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_SOUTHWEST_PIVOT_EMPTY => spriteKeyPoints[(int)SpriteKeyPoints.Corner_Southwest],
                         ElementConstants.BLOB_SOUTHWEST_PIVOT_CASE_1 => spriteKeyPoints[(int)SpriteKeyPoints.Horizontal_Edge_Southwest],
@@ -219,7 +191,7 @@ namespace StardustSandbox.Elements.Rendering
 
                 // (Sprite 4 - Southeast Pivot)
                 case 3:
-                    this.spriteClipAreas[index] = blobValue switch
+                    spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_SOUTHEAST_PIVOT_EMPTY => spriteKeyPoints[(int)SpriteKeyPoints.Corner_Southeast],
                         ElementConstants.BLOB_SOUTHEAST_PIVOT_CASE_1 => spriteKeyPoints[(int)SpriteKeyPoints.Horizontal_Edge_Southeast],
@@ -237,5 +209,61 @@ namespace StardustSandbox.Elements.Rendering
                     break;
             }
         }
+
+        #endregion
+
+        #region DRAWING LOGIC
+
+        private static void DrawBlobElementRoutine(ElementContext context, Element element, Point position, SpriteBatch spriteBatch)
+        {
+            SlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
+
+            Color colorModifier = TemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
+
+            if (context.Layer == LayerType.Background)
+            {
+                colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+            }
+
+            UpdateSpritePositions(context.Slot.Position);
+
+            for (byte i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
+            {
+                UpdateSpriteSlice(context, element, i, context.Slot.Position);
+                spriteBatch.Draw(element.Texture, spritePositions[i], spriteClipAreas[i], colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+            }
+        }
+
+        private static void DrawSingleElementRoutine(ElementContext context, Element element, Point position, SpriteBatch spriteBatch)
+        {
+            Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
+
+            if (context.Layer == LayerType.Background)
+            {
+                colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+            }
+
+            spriteBatch.Draw(element.Texture, new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, null, colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+        }
+
+        internal static void Draw(ElementContext context, Element element, Point position, SpriteBatch spriteBatch)
+        {
+            // Handle blob tiles separately.
+            switch (element.RenderingType)
+            {
+                case ElementRenderingType.Single:
+                    DrawSingleElementRoutine(context, element, position, spriteBatch);
+                    break;
+
+                case ElementRenderingType.Blob:
+                    DrawBlobElementRoutine(context, element, position, spriteBatch);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

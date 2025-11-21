@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Immovables
 {
@@ -12,7 +11,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         internal WetSponge(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 20;
             this.defaultDensity = 1200;
             this.defaultExplosionResistance = 0.8f;

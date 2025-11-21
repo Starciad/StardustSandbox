@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Enums.Indexers
+﻿namespace StardustSandbox.Enums.UISystem
 {
     internal enum UIIndex : sbyte
     {

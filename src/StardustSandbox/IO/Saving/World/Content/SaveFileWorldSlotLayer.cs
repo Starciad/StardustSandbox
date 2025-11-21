@@ -32,9 +32,8 @@ namespace StardustSandbox.IO.Saving.World.Content
         [Key(4)] public byte ColorModifierG { get; set; }
         [Key(5)] public byte ColorModifierB { get; set; }
         [Key(6)] public byte ColorModifierA { get; set; }
-        [Key(7)] public UpdateCycleFlag UpdateCycleFlag { get; set; }
-        [Key(8)] public UpdateCycleFlag StepCycleFlag { get; set; }
-        [Key(9)] public uint StoredElementIndex { get; set; }
+        [Key(7)] public UpdateCycleFlag StepCycleFlag { get; set; }
+        [Key(8)] public uint StoredElementIndex { get; set; }
 
         public SaveFileSlotLayer()
         {
@@ -47,7 +46,6 @@ namespace StardustSandbox.IO.Saving.World.Content
             this.Temperature = worldSlotLayer.Temperature;
             this.States = worldSlotLayer.States;
             this.ColorModifier = worldSlotLayer.ColorModifier;
-            this.UpdateCycleFlag = worldSlotLayer.UpdateCycleFlag;
             this.StepCycleFlag = worldSlotLayer.StepCycleFlag;
 
             if (worldSlotLayer.StoredElement != null)

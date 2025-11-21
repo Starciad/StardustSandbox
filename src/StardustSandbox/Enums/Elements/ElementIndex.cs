@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Enums.Indexers
+﻿namespace StardustSandbox.Enums.Elements
 {
     public enum ElementIndex : sbyte
     {

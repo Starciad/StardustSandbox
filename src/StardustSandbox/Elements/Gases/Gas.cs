@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
 using StardustSandbox.WorldSystem;
 
@@ -17,10 +16,12 @@ namespace StardustSandbox.Elements.Gases
 
         internal Gas(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
+            this.category = ElementCategory.Gas;
+
             this.defaultDensity = 1;
         }
 
-        protected override void OnBehaviourStep()
+        protected override void OnStep()
         {
             this.emptyPositionsCache.Clear();
             this.validPositionsCache.Clear();
@@ -35,7 +36,8 @@ namespace StardustSandbox.Elements.Gases
                 {
                     SlotLayer worldSlotLayer = value.GetLayer(this.Context.Layer);
 
-                    if (worldSlotLayer.Element is Gas || worldSlotLayer.Element is Liquid)
+                    if (worldSlotLayer.Element.Category == ElementCategory.Gas ||
+                        worldSlotLayer.Element.Category == ElementCategory.Liquid)
                     {
                         if ((worldSlotLayer.Element.GetType() == GetType() && worldSlotLayer.Temperature > this.Context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
                         {

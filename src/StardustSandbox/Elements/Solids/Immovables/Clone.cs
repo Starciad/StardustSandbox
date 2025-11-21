@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Extensions;
 using StardustSandbox.WorldSystem;
 
@@ -18,10 +16,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         internal Clone(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
-            this.enableTemperature = false;
-            this.enableNeighborsAction = true;
-            this.isExplosionImmune = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.IsExplosionImmune;
+
             this.defaultDensity = 3000;
         }
 
@@ -83,7 +80,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 SlotLayer layer = neighbor.GetLayer(this.Context.Layer);
 
                 if (layer.HasState(ElementStates.IsEmpty) ||
-                    layer.Element is Clone or Wall or Void)
+                    layer.Element.Index == ElementIndex.Clone ||
+                    layer.Element.Index == ElementIndex.Wall ||
+                    layer.Element.Index == ElementIndex.Void)
                 {
                     continue;
                 }

@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
 using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
@@ -15,9 +13,10 @@ namespace StardustSandbox.Elements.Liquids
     {
         internal Acid(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 10;
-            this.enableNeighborsAction = true;
             this.defaultDensity = 1100;
             this.defaultExplosionResistance = 0.2f;
         }

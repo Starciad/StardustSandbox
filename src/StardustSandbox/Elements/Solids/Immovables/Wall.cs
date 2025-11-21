@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Immovables
 {
@@ -10,9 +9,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         internal Wall(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
-            this.enableTemperature = false;
-            this.isExplosionImmune = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.IsExplosionImmune;
+
             this.defaultDensity = 2200;
         }
     }

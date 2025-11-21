@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids
 {

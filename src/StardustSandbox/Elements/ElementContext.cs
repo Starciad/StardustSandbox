@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.ExplosionSystem;
 using StardustSandbox.WorldSystem;
@@ -348,7 +347,7 @@ namespace StardustSandbox.Elements
         }
         internal void DestroyElement(Point position)
         {
-            this.DestroyElement(position, this.Layer);
+            DestroyElement(position, this.Layer);
         }
         internal void DestroyElement()
         {

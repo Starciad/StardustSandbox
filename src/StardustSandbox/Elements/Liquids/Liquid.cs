@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Extensions;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
@@ -16,10 +14,12 @@ namespace StardustSandbox.Elements.Liquids
     {
         internal Liquid(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
+            this.category = ElementCategory.Liquid;
+
             this.defaultDensity = 1000;
         }
 
-        protected override void OnBehaviourStep()
+        protected override void OnStep()
         {
             foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(this.Context.Slot.Position, Direction.Down))
             {
@@ -50,23 +50,20 @@ namespace StardustSandbox.Elements.Liquids
 
         private bool TrySwappingElements(Point position, SlotLayer belowLayer)
         {
-            switch (belowLayer.Element)
+            if (belowLayer.Element.Category == ElementCategory.Gas)
             {
-                case Gas:
-                    this.Context.SwappingElements(position);
-                    return true;
-
-                case Liquid:
-                    if (belowLayer.Element.DefaultDensity < this.DefaultDensity)
-                    {
-                        this.Context.SwappingElements(position);
-                        return true;
-                    }
-
-                    break;
+                this.Context.SwappingElements(position);
+                return true;
             }
-
-            return false;
+            else if (belowLayer.Element.Category == ElementCategory.Liquid && belowLayer.Element.DefaultDensity < this.DefaultDensity)
+            {
+                this.Context.SwappingElements(position);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void TryPerformConvection(Point position, SlotLayer belowLayer)
@@ -111,8 +108,9 @@ namespace StardustSandbox.Elements.Liquids
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
-                if (this.Context.IsEmptySlotLayer(nextPosition, this.Context.Layer) ||
-                    this.Context.GetElement(nextPosition, this.Context.Layer) is Liquid or Gas)
+                Element nextElement = this.Context.GetElement(nextPosition, this.Context.Layer);
+
+                if (this.Context.IsEmptySlotLayer(nextPosition, this.Context.Layer) || (nextElement != null && (nextElement.Category == ElementCategory.Liquid || nextElement.Category == ElementCategory.Gas)))
                 {
                     dispersionPosition = nextPosition;
                 }

@@ -3,10 +3,10 @@
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
+using StardustSandbox.Enums.UISystem;
 using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.WorldSystem;
 

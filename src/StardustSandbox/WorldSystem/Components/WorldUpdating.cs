@@ -8,8 +8,6 @@ using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem.Chunking;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.WorldSystem.Components
 {
     internal sealed class WorldUpdating(World world) : IResettable
@@ -26,7 +24,7 @@ namespace StardustSandbox.WorldSystem.Components
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update()
         {
             foreach (Chunk worldChunk in this.world.GetActiveChunks())
             {
@@ -43,14 +41,12 @@ namespace StardustSandbox.WorldSystem.Components
 
                         if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
                         {
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Update);
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot, UpdateType.Step);
+                            UpdateSlotLayerTarget(worldSlot.Position, LayerType.Foreground, worldSlot);
                         }
 
                         if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
                         {
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Update);
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot, UpdateType.Step);
+                            UpdateSlotLayerTarget(worldSlot.Position, LayerType.Background, worldSlot);
                         }
                     }
                 }
@@ -60,7 +56,7 @@ namespace StardustSandbox.WorldSystem.Components
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void UpdateSlotLayerTarget(GameTime gameTime, Point position, LayerType layer, Slot worldSlot, UpdateType updateType)
+        private void UpdateSlotLayerTarget(Point position, LayerType layer, Slot worldSlot)
         {
             SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
             Element element = worldSlotLayer.Element;
@@ -73,31 +69,13 @@ namespace StardustSandbox.WorldSystem.Components
             this.elementUpdateContext.UpdateInformation(position, layer, worldSlot);
             element.Context = this.elementUpdateContext;
 
-            switch (updateType)
+            if (worldSlotLayer.StepCycleFlag == this.stepCycleFlag)
             {
-                case UpdateType.Update:
-                    if (worldSlotLayer.UpdateCycleFlag == this.updateCycleFlag)
-                    {
-                        break;
-                    }
-
-                    worldSlotLayer.NextUpdateCycle();
-                    element.Update(gameTime);
-                    break;
-
-                case UpdateType.Step:
-                    if (worldSlotLayer.StepCycleFlag == this.stepCycleFlag)
-                    {
-                        break;
-                    }
-
-                    worldSlotLayer.NextStepCycle();
-                    element.Steps();
-                    break;
-
-                default:
-                    return;
+                return;
             }
+
+            worldSlotLayer.NextStepCycle();
+            element.Steps();
         }
     }
 }

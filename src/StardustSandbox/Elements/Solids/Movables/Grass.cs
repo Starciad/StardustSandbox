@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
 
 namespace StardustSandbox.Elements.Solids.Movables
@@ -11,9 +10,10 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         internal Grass(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsFlammable | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 22;
-            this.enableFlammability = true;
             this.defaultFlammabilityResistance = 10;
             this.defaultDensity = 1100;
             this.defaultExplosionResistance = 0.5f;

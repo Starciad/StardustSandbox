@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Immovables
 {
@@ -10,7 +9,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         internal Gold(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementSingleRenderingMechanism());
+            this.renderingType = ElementRenderingType.Single;
+            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 22;
             this.defaultDensity = 17_150;
             this.defaultExplosionResistance = 0.3f;

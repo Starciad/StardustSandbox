@@ -6,9 +6,9 @@ using StardustSandbox.Colors;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.States;
+using StardustSandbox.Enums.UISystem;
 using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Settings;
@@ -174,7 +174,7 @@ namespace StardustSandbox
 
             if (!this.gameManager.HasState(GameStates.IsSimulationPaused) && !this.gameManager.HasState(GameStates.IsCriticalMenuOpen))
             {
-                this.world.Update(gameTime);
+                this.world.Update();
             }
 
             this.ambientManager.Update(gameTime);
@@ -185,7 +185,7 @@ namespace StardustSandbox
         protected override void Draw(GameTime gameTime)
         {
             #region RENDERING (ELEMENTS)
-            DrawAmbient(gameTime);
+            DrawAmbient();
             DrawWorld();
             DrawGUI();
             #endregion
@@ -218,13 +218,13 @@ namespace StardustSandbox
 
         #region RENDERING
 
-        private void DrawAmbient(GameTime gameTime)
+        private void DrawAmbient()
         {
             this.GraphicsDevice.SetRenderTarget(this.videoManager.BackgroundRenderTarget);
             this.GraphicsDevice.Clear(this.ambientManager.BackgroundHandler.SolidColor);
 
             DrawAmbientSky();
-            DrawAmbientDetails(gameTime);
+            DrawAmbientDetails();
             DrawAmbientBackground();
         }
 
@@ -250,7 +250,7 @@ namespace StardustSandbox
             this.spriteBatch.End();
         }
 
-        private void DrawAmbientDetails(GameTime gameTime)
+        private void DrawAmbientDetails()
         {
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
             this.ambientManager.CelestialBodyHandler.Draw(this.spriteBatch);

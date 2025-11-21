@@ -7,7 +7,7 @@ using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
 
 using System;

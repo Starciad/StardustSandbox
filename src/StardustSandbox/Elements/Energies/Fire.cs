@@ -1,14 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.AnimationSystem;
 using StardustSandbox.Constants;
-using StardustSandbox.Elements.Gases;
-using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Elements.Solids.Movables;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
@@ -21,15 +15,9 @@ namespace StardustSandbox.Elements.Energies
     {
         internal Fire(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementSingleRenderingMechanism(new Animation([
-                new(new(new(00, 00), new(SpriteConstants.SPRITE_SCALE)), 200),
-                new(new(new(32, 00), new(SpriteConstants.SPRITE_SCALE)), 200),
-                new(new(new(64, 00), new(SpriteConstants.SPRITE_SCALE)), 200),
-                new(new(new(96, 00), new(SpriteConstants.SPRITE_SCALE)), 200),
-            ])));
+            this.renderingType = ElementRenderingType.Single;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsExplosionImmune | ElementCharacteristics.IsCorruptible;
 
-            this.enableNeighborsAction = true;
-            this.isExplosionImmune = true;
             this.defaultTemperature = 500;
             this.defaultDensity = 0;
         }
@@ -60,7 +48,9 @@ namespace StardustSandbox.Elements.Energies
             }
             else
             {
-                if (this.Context.GetElement(targetPosition, this.Context.Layer) is MovableSolid or Liquid or Gas)
+                Element targetElement = this.Context.GetElement(targetPosition, this.Context.Layer);
+
+                if ((targetElement != null && targetElement.Category == ElementCategory.MovableSolid) || targetElement.Category == ElementCategory.Liquid || targetElement.Category == ElementCategory.Gas)
                 {
                     this.Context.SwappingElements(targetPosition);
                 }
@@ -89,7 +79,7 @@ namespace StardustSandbox.Elements.Energies
             this.Context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));
 
             // Check if the element is flammable
-            if (worldSlotLayer.Element.EnableFlammability)
+            if (worldSlotLayer.Element.HasCharacteristic(ElementCharacteristics.IsFlammable))
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;

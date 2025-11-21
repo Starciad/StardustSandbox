@@ -1,18 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Gases;
-using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
-    internal abstract class MovableSolid(Color referenceColor, ElementIndex index, Texture2D texture) : Solid(referenceColor, index, texture)
+    internal abstract class MovableSolid : Solid
     {
-        protected override void OnBehaviourStep()
+        internal MovableSolid(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
+        {
+            this.category = ElementCategory.MovableSolid;
+        }
+
+        protected override void OnStep()
         {
             if (this.Context.SlotLayer.HasState(ElementStates.FreeFalling))
             {
@@ -55,15 +57,15 @@ namespace StardustSandbox.Elements.Solids.Movables
 
             if (this.Context.TryGetElement(position, this.Context.Layer, out Element value))
             {
-                if (value is Liquid liquid)
+                if (value.Category == ElementCategory.Liquid)
                 {
-                    if (this.DefaultDensity > liquid.DefaultDensity && this.Context.TrySwappingElements(position))
+                    if (this.DefaultDensity > value.DefaultDensity && this.Context.TrySwappingElements(position))
                     {
                         return true;
                     }
                 }
 
-                if (value is Gas && this.Context.TrySwappingElements(position))
+                if (value.Category == ElementCategory.Gas && this.Context.TrySwappingElements(position))
                 {
                     return true;
                 }

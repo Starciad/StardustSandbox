@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
@@ -14,8 +13,9 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         internal Ash(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
-            this.enableNeighborsAction = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 40;
             this.defaultDensity = 350;
             this.defaultExplosionResistance = 0f;

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Databases;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Interfaces;
 using StardustSandbox.UISystem;
 

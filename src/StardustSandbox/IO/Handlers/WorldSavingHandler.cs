@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Enums.Indexers;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.IO.Saving;

@@ -1,11 +1,6 @@
-﻿using StardustSandbox.Elements.Gases;
-using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Elements.Solids.Immovables;
-using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Enums.Indexers;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
-using StardustSandbox.Interfaces.Elements;
 using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
@@ -29,7 +24,14 @@ namespace StardustSandbox.Elements.Utilities
 
             foreach (Slot neighbor in neighbors)
             {
-                if (neighbor.GetLayer(layer).Element is ICorruptionElement)
+                Element element = neighbor.GetLayer(layer).Element;
+
+                if (element == null)
+                {
+                    continue;
+                }
+
+                if (element.HasCharacteristic(ElementCharacteristics.IsCorruption))
                 {
                     corruptNeighboringElements++;
                 }
@@ -46,7 +48,7 @@ namespace StardustSandbox.Elements.Utilities
 
             void ProcessLayer(Slot slot, LayerType layer, Element element)
             {
-                if (element is not ICorruptionElement && element is not (Wall or Clone))
+                if (element != null && element.HasCharacteristic(ElementCharacteristics.IsCorruptible))
                 {
                     targets.Add(new(slot, layer));
                 }
@@ -72,24 +74,26 @@ namespace StardustSandbox.Elements.Utilities
                 ? slotTarget.Slot.ForegroundLayer.Element
                 : slotTarget.Slot.BackgroundLayer.Element;
 
-            switch (targetElement)
+            switch (targetElement.Category)
             {
-                case MovableSolid:
+                case ElementCategory.MovableSolid:
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MCorruption);
                     break;
 
-                case ImmovableSolid:
+                case ElementCategory.ImmovableSolid:
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.IMCorruption);
                     break;
 
-                case Liquid:
+                case ElementCategory.Liquid:
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LCorruption);
                     break;
 
-                case Gas:
+                case ElementCategory.Gas:
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GCorruption);
                     break;
 
+                case ElementCategory.None:
+                case ElementCategory.Energy:
                 default:
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MCorruption);
                     break;

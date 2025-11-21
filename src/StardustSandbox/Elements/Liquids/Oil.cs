@@ -2,8 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
@@ -14,9 +13,9 @@ namespace StardustSandbox.Elements.Liquids
     {
         internal Oil(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
-            this.enableFlammability = true;
-            this.enableNeighborsAction = true;
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsFlammable | ElementCharacteristics.IsCorruptible;
+
             this.defaultFlammabilityResistance = 5;
             this.defaultDensity = 980;
             this.defaultExplosionResistance = 0.3f;

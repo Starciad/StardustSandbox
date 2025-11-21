@@ -16,7 +16,7 @@ namespace StardustSandbox.Elements.Utilities
             {
                 SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
 
-                if (!worldSlotLayer.Element.EnableFlammability)
+                if (!worldSlotLayer.Element.HasCharacteristic(ElementCharacteristics.IsFlammable))
                 {
                     continue;
                 }

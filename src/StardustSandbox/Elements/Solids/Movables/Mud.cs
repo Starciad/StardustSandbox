@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Elements.Rendering;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
@@ -10,7 +9,9 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         internal Mud(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.Rendering.SetRenderingMechanism(new ElementBlobRenderingMechanism());
+            this.renderingType = ElementRenderingType.Blob;
+            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
+
             this.defaultTemperature = 18;
             this.defaultDensity = 1500;
             this.defaultExplosionResistance = 0.6f;

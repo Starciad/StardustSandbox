@@ -6,7 +6,7 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.Indexers;
+using StardustSandbox.Enums.UISystem;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Settings;
 using StardustSandbox.LocalizationSystem;

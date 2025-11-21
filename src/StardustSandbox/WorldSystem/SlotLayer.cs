@@ -14,7 +14,6 @@ namespace StardustSandbox.WorldSystem
         internal ElementStates States => this.states;
         internal short Temperature => this.temperature;
         internal Color ColorModifier => this.colorModifier;
-        internal UpdateCycleFlag UpdateCycleFlag => this.updateCycleFlag;
         internal UpdateCycleFlag StepCycleFlag => this.stepCycleFlag;
 
         private Element element;
@@ -22,7 +21,6 @@ namespace StardustSandbox.WorldSystem
         private ElementStates states;
         private short temperature;
         private Color colorModifier;
-        private UpdateCycleFlag updateCycleFlag;
         private UpdateCycleFlag stepCycleFlag;
 
         internal SlotLayer()
@@ -38,7 +36,6 @@ namespace StardustSandbox.WorldSystem
             this.storedElement = null;
             this.temperature = value.DefaultTemperature;
             this.colorModifier = Color.White;
-            this.updateCycleFlag = UpdateCycleFlag.None;
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
@@ -51,7 +48,6 @@ namespace StardustSandbox.WorldSystem
             this.storedElement = null;
             this.temperature = 0;
             this.colorModifier = Color.White;
-            this.updateCycleFlag = UpdateCycleFlag.None;
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
@@ -62,7 +58,6 @@ namespace StardustSandbox.WorldSystem
             this.states = valueToCopy.states;
             this.temperature = valueToCopy.temperature;
             this.colorModifier = valueToCopy.colorModifier;
-            this.updateCycleFlag = valueToCopy.updateCycleFlag;
             this.stepCycleFlag = valueToCopy.stepCycleFlag;
         }
 
@@ -74,11 +69,6 @@ namespace StardustSandbox.WorldSystem
         internal void SetColorModifier(Color value)
         {
             this.colorModifier = value;
-        }
-
-        internal void NextUpdateCycle()
-        {
-            this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
         }
 
         internal void NextStepCycle()
