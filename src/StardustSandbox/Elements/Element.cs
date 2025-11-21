@@ -15,6 +15,8 @@ namespace StardustSandbox.Elements
 {
     internal abstract class Element
     {
+        #region Properties
+
         internal ElementIndex Index => this.index;
         internal Texture2D Texture => this.texture;
         internal ElementCategory Category => this.category;
@@ -30,7 +32,9 @@ namespace StardustSandbox.Elements
 
         internal ElementContext Context { get => this.context; set => this.context = value; }
 
-        // =========================== //
+        #endregion
+
+        #region Fields
 
         protected ElementCategory category = ElementCategory.None;
         protected ElementCharacteristics characteristics = ElementCharacteristics.None;
@@ -42,11 +46,13 @@ namespace StardustSandbox.Elements
         protected short defaultDensity = 0;
         protected float defaultExplosionResistance = 0.5f;
 
-        private ElementContext context;
-
         protected readonly ElementIndex index = ElementIndex.None;
         protected readonly Texture2D texture = null;
         protected readonly Color referenceColor = AAP64ColorPalette.White;
+
+        #endregion
+
+        private ElementContext context;
 
         internal Element(Color referenceColor, ElementIndex index, Texture2D texture)
         {
@@ -55,10 +61,20 @@ namespace StardustSandbox.Elements
             this.texture = texture;
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
-        {
-            ElementRenderer.Draw(this.context, this, this.context.Position, spriteBatch);
-        }
+        #region Virtual Methods
+
+        protected virtual void OnBeforeStep() { return; }
+        protected virtual void OnStep() { return; }
+        protected virtual void OnAfterStep() { return; }
+
+        protected virtual void OnInstantiated() { return; }
+        protected virtual void OnDestroyed() { return; }
+        protected virtual void OnNeighbors(IEnumerable<Slot> neighbors) { return; }
+        protected virtual void OnTemperatureChanged(short currentValue) { return; }
+
+        #endregion
+
+        #region Routines
 
         internal void Instantiate()
         {
@@ -139,14 +155,12 @@ namespace StardustSandbox.Elements
             OnTemperatureChanged(this.context.SlotLayer.Temperature);
         }
 
-        protected virtual void OnBeforeStep() { return; }
-        protected virtual void OnStep() { return; }
-        protected virtual void OnAfterStep() { return; }
+        #endregion
 
-        protected virtual void OnInstantiated() { return; }
-        protected virtual void OnDestroyed() { return; }
-        protected virtual void OnNeighbors(IEnumerable<Slot> neighbors) { return; }
-        protected virtual void OnTemperatureChanged(short currentValue) { return; }
+        internal void Draw(SpriteBatch spriteBatch)
+        {
+            ElementRenderer.Draw(this.context, this, spriteBatch);
+        }
 
         internal bool HasCharacteristic(ElementCharacteristics characteristic)
         {

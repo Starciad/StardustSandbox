@@ -214,7 +214,7 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(ElementContext context, Element element, Point position, SpriteBatch spriteBatch)
+        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch)
         {
             SlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
 
@@ -234,7 +234,7 @@ namespace StardustSandbox.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(ElementContext context, Element element, Point position, SpriteBatch spriteBatch)
+        private static void DrawSingleElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch)
         {
             Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
 
@@ -246,17 +246,17 @@ namespace StardustSandbox.Elements
             spriteBatch.Draw(element.Texture, new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, null, colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
-        internal static void Draw(ElementContext context, Element element, Point position, SpriteBatch spriteBatch)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch)
         {
             // Handle blob tiles separately.
             switch (element.RenderingType)
             {
                 case ElementRenderingType.Single:
-                    DrawSingleElementRoutine(context, element, position, spriteBatch);
+                    DrawSingleElementRoutine(context, element, spriteBatch);
                     break;
 
                 case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element, position, spriteBatch);
+                    DrawBlobElementRoutine(context, element, spriteBatch);
                     break;
 
                 default:

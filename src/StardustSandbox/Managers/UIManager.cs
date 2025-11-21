@@ -45,15 +45,19 @@ namespace StardustSandbox.Managers
 
         internal void OpenGUI(UIIndex index)
         {
-            if (TryGetGUIById(index, out UI guiSystem))
+            UI ui = UIDatabase.GetUI(index);
+
+            if (ui == null)
             {
-                this.currentUI?.Close();
-
-                this.uiStack.Push(guiSystem);
-                this.currentUI = guiSystem;
-
-                guiSystem.Open();
+                return;
             }
+
+            this.currentUI?.Close();
+
+            this.uiStack.Push(ui);
+            this.currentUI = ui;
+
+            ui.Open();
         }
 
         internal void CloseGUI()
@@ -69,20 +73,6 @@ namespace StardustSandbox.Managers
             this.currentUI = this.uiStack.Count > 0 ? this.uiStack.Peek() : null;
 
             this.currentUI?.Open();
-        }
-
-        internal UI GetGUIById(UIIndex index)
-        {
-            _ = TryGetGUIById(index, out UI guiSystem);
-            return guiSystem;
-        }
-
-        internal bool TryGetGUIById(UIIndex index, out UI guiSystem)
-        {
-            UI target = UIDatabase.GetUI(index);
-            guiSystem = target;
-
-            return target != null;
         }
     }
 }

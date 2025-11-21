@@ -903,7 +903,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             UpdateDrawerButton(this.rightDrawerButtonElement, this.rightToolbarContainerElement, new(-32f, 0), isVisible => new(isVisible ? -80 : 32, 0));
         }
 
-        private void UpdateDrawerButton(UIElement drawerButtonElement, UIElement toolbarContainerElement, Vector2 positionOffset, Func<bool, Vector2> marginCalculator)
+        private static void UpdateDrawerButton(UIElement drawerButtonElement, UIElement toolbarContainerElement, Vector2 positionOffset, Func<bool, Vector2> marginCalculator)
         {
             Vector2 size = drawerButtonElement.Size / 2;
             Vector2 position = drawerButtonElement.Position + positionOffset;
