@@ -44,26 +44,22 @@ namespace StardustSandbox.WorldSystem.Components
                 for (int x = minTileX; x < maxTileX; x++)
                 {
                     Vector2 targetPosition = new(x, y);
-                    Point targetSize = new(WorldConstants.GRID_SIZE);
 
-                    if (this.cameraManager.InsideCameraBounds(targetPosition * WorldConstants.GRID_SIZE, targetSize, true, WorldConstants.GRID_SIZE))
+                    if (this.inputController.Pen.Tool != PenTool.Visualization)
                     {
-                        if (this.inputController.Pen.Tool != PenTool.Visualization)
+                        spriteBatch.Draw(this.gridTexture, targetPosition * WorldConstants.GRID_SIZE, null, new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                    }
+
+                    if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
+                    {
+                        if (!value.BackgroundLayer.HasState(ElementStates.IsEmpty))
                         {
-                            spriteBatch.Draw(this.gridTexture, targetPosition * WorldConstants.GRID_SIZE, null, new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                            DrawSlotLayer(spriteBatch, value.Position, LayerType.Background, value, value.GetLayer(LayerType.Background).Element);
                         }
 
-                        if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
+                        if (!value.ForegroundLayer.HasState(ElementStates.IsEmpty))
                         {
-                            if (!value.BackgroundLayer.HasState(ElementStates.IsEmpty))
-                            {
-                                DrawSlotLayer(spriteBatch, value.Position, LayerType.Background, value, value.GetLayer(LayerType.Background).Element);
-                            }
-
-                            if (!value.ForegroundLayer.HasState(ElementStates.IsEmpty))
-                            {
-                                DrawSlotLayer(spriteBatch, value.Position, LayerType.Foreground, value, value.GetLayer(LayerType.Foreground).Element);
-                            }
+                            DrawSlotLayer(spriteBatch, value.Position, LayerType.Foreground, value, value.GetLayer(LayerType.Foreground).Element);
                         }
                     }
                 }
