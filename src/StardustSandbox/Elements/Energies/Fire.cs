@@ -37,7 +37,7 @@ namespace StardustSandbox.Elements.Energies
 
         protected override void OnStep()
         {
-            Point targetPosition = new(this.Context.Slot.Position.X + SSRandom.Range(-1, 2), this.Context.Slot.Position.Y - 1);
+            Point targetPosition = new(this.Context.Slot.Position.X + SSRandom.Range(-1, 1), this.Context.Slot.Position.Y - 1);
 
             if (this.Context.IsEmptySlot(targetPosition))
             {
@@ -50,7 +50,7 @@ namespace StardustSandbox.Elements.Energies
             {
                 Element targetElement = this.Context.GetElement(targetPosition, this.Context.Layer);
 
-                if ((targetElement != null && targetElement.Category == ElementCategory.MovableSolid) || targetElement.Category == ElementCategory.Liquid || targetElement.Category == ElementCategory.Gas)
+                if (targetElement != null && (targetElement.Category == ElementCategory.MovableSolid || targetElement.Category == ElementCategory.Liquid || targetElement.Category == ElementCategory.Gas))
                 {
                     this.Context.SwappingElements(targetPosition);
                 }

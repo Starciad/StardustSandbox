@@ -2,7 +2,7 @@
 {
     internal enum ElementCategory : byte
     {
-        None = 0,
+        None,
         MovableSolid,
         ImmovableSolid,
         Liquid,

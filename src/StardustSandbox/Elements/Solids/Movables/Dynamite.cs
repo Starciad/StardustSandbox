@@ -33,7 +33,7 @@ namespace StardustSandbox.Elements.Solids.Movables
 
         internal Dynamite(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
         {
-            this.renderingType = ElementRenderingType.Blob;
+            this.renderingType = ElementRenderingType.Single;
             this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
 
             this.defaultTemperature = 22;

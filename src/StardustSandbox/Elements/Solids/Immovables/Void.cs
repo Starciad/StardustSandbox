@@ -24,7 +24,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             {
                 SlotLayer neighborLayer = neighbor.GetLayer(this.Context.Layer);
 
-                if (!neighborLayer.HasState(ElementStates.IsEmpty) && (neighborLayer.Element.Index != ElementIndex.Wall || neighborLayer.Element.Index != ElementIndex.Void || neighborLayer.Element.Index != ElementIndex.Clone))
+                if (!neighborLayer.HasState(ElementStates.IsEmpty) && neighborLayer.Element.Index != ElementIndex.Wall && neighborLayer.Element.Index != ElementIndex.Void && neighborLayer.Element.Index != ElementIndex.Clone)
                 {
                     this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
                 }

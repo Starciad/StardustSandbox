@@ -14,7 +14,7 @@ namespace StardustSandbox.Extensions
 
             int VaryChannel(int channel)
             {
-                int randomOffset = SSRandom.Range(-variationFactor, variationFactor + 1);
+                int randomOffset = SSRandom.Range(-variationFactor, variationFactor);
                 return Math.Clamp(channel + randomOffset, 0, 255);
             }
 

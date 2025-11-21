@@ -25,6 +25,17 @@ namespace StardustSandbox
         // Rendering
         private SpriteBatch spriteBatch;
 
+        // Textures
+        private Texture2D mouseActionSquareTexture;
+
+        // Settings
+        private GameplaySettings gameplaySettings;
+        private VolumeSettings volumeSettings;
+
+        // Core
+        private readonly World world;
+        private readonly InputController inputController;
+
         // Managers
         private readonly AmbientManager ambientManager;
         private readonly CameraManager cameraManager;
@@ -34,19 +45,6 @@ namespace StardustSandbox
         private readonly ShaderManager shaderManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
-
-        // Core
-        private readonly World world;
-        private readonly InputController inputController;
-
-        // Textures
-        private Texture2D mouseActionSquareTexture;
-
-        // Settings
-        private GameplaySettings gameplaySettings;
-        private VolumeSettings volumeSettings;
-
-        // ================================= //
 
         internal SSGame()
         {
