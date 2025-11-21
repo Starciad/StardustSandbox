@@ -29,7 +29,7 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            ReplaceElements(ElementDatabase.GetElementByType(itemAssociateType), targetPoints);
+                            ReplaceElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
                             break;
 
                         case WorldModificationType.Removing:

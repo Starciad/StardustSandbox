@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Constants;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Constants;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
 
@@ -10,44 +12,37 @@ namespace StardustSandbox.WorldSystem.Status
 
         private SimulationSpeed currentSpeed = SimulationSpeed.Normal;
 
-        private byte frameDelayThreshold = SimulationConstants.NORMAL_SPEED_FRAME_DELAY;
-        private byte remainingFrameDelay;
+        private double delayThresholdSeconds = SimulationConstants.NORMAL_SPEED_DELAY_SECONDS;
+        private double accumulatedTimeSeconds;
 
         public void Reset()
         {
-            this.frameDelayThreshold = SimulationConstants.NORMAL_SPEED_FRAME_DELAY;
-            this.remainingFrameDelay = 0;
+            this.delayThresholdSeconds = SimulationConstants.NORMAL_SPEED_DELAY_SECONDS;
+            this.accumulatedTimeSeconds = 0.0;
         }
 
-        internal void Update()
+        internal void Update(GameTime gameTime)
         {
-            if (this.remainingFrameDelay > 0)
-            {
-                this.remainingFrameDelay--;
-                return;
-            }
-
-            this.remainingFrameDelay = this.frameDelayThreshold;
+            this.accumulatedTimeSeconds += gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         internal void SetSpeed(SimulationSpeed speed)
         {
             this.currentSpeed = speed;
-
-            this.frameDelayThreshold = speed switch
+            this.delayThresholdSeconds = speed switch
             {
-                SimulationSpeed.Normal => SimulationConstants.NORMAL_SPEED_FRAME_DELAY,
-                SimulationSpeed.Fast => SimulationConstants.FAST_SPEED_FRAME_DELAY,
-                SimulationSpeed.VeryFast => SimulationConstants.VERY_FAST_SPEED_FRAME_DELAY,
-                _ => SimulationConstants.NORMAL_SPEED_FRAME_DELAY,
+                SimulationSpeed.Normal => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS,
+                SimulationSpeed.Fast => SimulationConstants.FAST_SPEED_DELAY_SECONDS,
+                SimulationSpeed.VeryFast => SimulationConstants.VERY_FAST_SPEED_DELAY_SECONDS,
+                _ => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS,
             };
         }
 
         internal bool CanContinueExecution()
         {
-            if (this.remainingFrameDelay == 0)
+            if (this.accumulatedTimeSeconds >= this.delayThresholdSeconds)
             {
-                this.remainingFrameDelay = this.frameDelayThreshold;
+                this.accumulatedTimeSeconds -= this.delayThresholdSeconds;
                 return true;
             }
 

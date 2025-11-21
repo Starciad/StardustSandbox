@@ -29,7 +29,7 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            DrawElements(ElementDatabase.GetElementByType(itemAssociateType), targetPoints);
+                            DrawElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
                             break;
 
                         case WorldModificationType.Removing:
@@ -91,7 +91,7 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers.Gizmos
             foreach (Point position in positions)
             {
                 this.WorldHandler.ToolContext.Update(position, this.Pen.Layer);
-                ToolDatabase.GetToolByType(toolType).Execute(this.WorldHandler.ToolContext);
+                ToolDatabase.GetTool(toolType).Execute(this.WorldHandler.ToolContext);
             }
         }
     }

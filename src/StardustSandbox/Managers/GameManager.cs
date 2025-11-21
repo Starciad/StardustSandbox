@@ -2,7 +2,7 @@
 
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
+using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
@@ -42,7 +42,7 @@ namespace StardustSandbox.Managers
 
             this.uiManager.OpenGUI(UIIndex.Hud);
 
-            this.ambientManager.BackgroundHandler.SetBackground(BackgroundDatabase.GetBackgroundById("ocean_1"));
+            this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
             this.ambientManager.SkyHandler.IsActive = true;
             this.ambientManager.CelestialBodyHandler.IsActive = true;
             this.ambientManager.CloudHandler.IsActive = true;
@@ -83,8 +83,8 @@ namespace StardustSandbox.Managers
             int totalWorldWidth = this.world.Information.Size.X * WorldConstants.GRID_SIZE;
             int totalWorldHeight = this.world.Information.Size.Y * WorldConstants.GRID_SIZE;
 
-            float visibleWidth = ScreenConstants.DEFAULT_SCREEN_WIDTH;
-            float visibleHeight = ScreenConstants.DEFAULT_SCREEN_HEIGHT;
+            float visibleWidth = ScreenConstants.SCREEN_WIDTH;
+            float visibleHeight = ScreenConstants.SCREEN_HEIGHT;
 
             float worldLeftLimit = 0f;
             float worldRightLimit = totalWorldWidth - visibleWidth;

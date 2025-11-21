@@ -19,6 +19,8 @@ namespace StardustSandbox.Databases
             Effect = 3
         }
 
+        private static bool isLoaded = false;
+
         private static readonly Dictionary<string, Texture2D> textures = [];
         private static readonly Dictionary<string, SpriteFont> fonts = [];
         private static readonly Dictionary<string, Song> songs = [];
@@ -75,10 +77,17 @@ namespace StardustSandbox.Databases
 
         internal static void Load(ContentManager contentManager)
         {
+            if (isLoaded)
+            {
+                throw new System.InvalidOperationException($"{nameof(AssetDatabase)} has already been loaded.");
+            }
+
             LoadEffects(contentManager);
             LoadFonts(contentManager);
             LoadGraphics(contentManager);
             LoadSongs(contentManager);
+
+            isLoaded = true;
         }
 
         private static void LoadEffects(ContentManager contentManager)

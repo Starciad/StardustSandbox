@@ -11,11 +11,14 @@ using StardustSandbox.UISystem.UIs.Menus;
 using StardustSandbox.UISystem.UIs.Tools;
 using StardustSandbox.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.Databases
 {
     internal static class UIDatabase
     {
         private static UI[] uis;
+        private static bool isLoaded;
 
         internal static void Load(
             AmbientManager ambientManager,
@@ -30,6 +33,11 @@ namespace StardustSandbox.Databases
             World world
         )
         {
+            if (isLoaded)
+            {
+                throw new InvalidOperationException($"{nameof(UIDatabase)} has already been loaded.");
+            }
+
             #region Elements
 
             TooltipBoxUIElement tooltipBoxElement = new(cursorManager, inputManager)
@@ -216,9 +224,11 @@ namespace StardustSandbox.Databases
             }
 
             #endregion
+
+            isLoaded = true;
         }
 
-        internal static UI GetUIByIndex(UIIndex index)
+        internal static UI GetUI(UIIndex index)
         {
             return uis[(int)index];
         }

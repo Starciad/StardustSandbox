@@ -38,11 +38,11 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            FloodFillElements(ElementDatabase.GetElementByType(itemAssociateType), position, false);
+                            FloodFillElements(ElementDatabase.GetElement(itemAssociateType), position, false);
                             break;
 
                         case WorldModificationType.Removing:
-                            FloodFillElements(ElementDatabase.GetElementByType(itemAssociateType), position, true);
+                            FloodFillElements(ElementDatabase.GetElement(itemAssociateType), position, true);
                             break;
 
                         default:

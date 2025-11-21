@@ -2,8 +2,8 @@
 {
     internal static class SimulationConstants
     {
-        internal const byte NORMAL_SPEED_FRAME_DELAY = 6;
-        internal const byte FAST_SPEED_FRAME_DELAY = 3;
-        internal const byte VERY_FAST_SPEED_FRAME_DELAY = 1;
+        internal const double NORMAL_SPEED_DELAY_SECONDS = 0.1;
+        internal const double FAST_SPEED_DELAY_SECONDS = 0.05;
+        internal const double VERY_FAST_SPEED_DELAY_SECONDS = 0.01;
     }
 }

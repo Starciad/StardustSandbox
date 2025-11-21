@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Extensions;
@@ -391,7 +392,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         protected override void OnOpened()
         {
-            this.ambientManager.BackgroundHandler.SetBackground(BackgroundDatabase.GetBackgroundById("credits"));
+            this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
             this.ambientManager.CloudHandler.IsActive = false;
             this.ambientManager.CelestialBodyHandler.IsActive = false;
             this.ambientManager.SkyHandler.IsActive = false;

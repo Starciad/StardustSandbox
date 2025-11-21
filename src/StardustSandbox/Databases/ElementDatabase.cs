@@ -17,9 +17,15 @@ namespace StardustSandbox.Databases
     internal static class ElementDatabase
     {
         private static Element[] elements;
+        private static bool isLoaded;
 
         internal static void Load()
         {
+            if (isLoaded)
+            {
+                throw new InvalidOperationException($"{nameof(ElementDatabase)} is already loaded.");
+            }
+
             elements = [
                 new Dirt(AAP64ColorPalette.Burgundy, ElementIndex.Dirt, AssetDatabase.GetTexture("texture_element_1")),
                 new Mud(new(75, 36, 38, 255), ElementIndex.Mud, AssetDatabase.GetTexture("texture_element_2")),
@@ -61,14 +67,16 @@ namespace StardustSandbox.Databases
                 new Freezer(AAP64ColorPalette.NavyBlue, ElementIndex.Freezer, AssetDatabase.GetTexture("texture_element_38")),
                 new Ash(AAP64ColorPalette.LightGrayBlue, ElementIndex.Ash, AssetDatabase.GetTexture("texture_element_39")),
             ];
+
+            isLoaded = true;
         }
 
-        internal static Element GetElementByIndex(ElementIndex index)
+        internal static Element GetElement(ElementIndex index)
         {
             return elements[(byte)index];
         }
 
-        internal static Element GetElementByType(Type type)
+        internal static Element GetElement(Type type)
         {
             return Array.Find(elements, x => x.GetType() == type);
         }

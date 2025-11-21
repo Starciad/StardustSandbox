@@ -23,11 +23,20 @@ namespace StardustSandbox.Databases
 
         private static Category[] categories;
 
+        private static bool isLoaded;
+
         internal static void Load()
         {
+            if (isLoaded)
+            {
+                throw new InvalidOperationException($"{nameof(CatalogDatabase)} has already been loaded.");
+            }
+
             CreateCatalogStructure();
             SetParentReferences();
             CalculateCatalogLengths();
+
+            isLoaded = true;
         }
 
         private static void CreateCatalogStructure()

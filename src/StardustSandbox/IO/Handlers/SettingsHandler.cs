@@ -21,7 +21,6 @@ namespace StardustSandbox.IO.Handlers
             { typeof(CursorSettings), () => new CursorSettings() },
             { typeof(GeneralSettings), () => new GeneralSettings() },
             { typeof(GameplaySettings), () => new GameplaySettings() },
-            { typeof(GraphicsSettings), () => new GraphicsSettings() },
         };
 
         private static readonly Dictionary<Type, string> settingsFileMap = new()
@@ -31,7 +30,6 @@ namespace StardustSandbox.IO.Handlers
             { typeof(CursorSettings), IOConstants.CURSOR_SETTINGS_FILE },
             { typeof(GeneralSettings), IOConstants.GENERAL_SETTINGS_FILE },
             { typeof(GameplaySettings), IOConstants.GAMEPLAY_SETTINGS_FILE },
-            { typeof(GraphicsSettings), IOConstants.GRAPHICS_SETTINGS_FILE },
         };
 
         private static readonly Dictionary<Type, XmlSerializer> serializers = new()
@@ -41,7 +39,6 @@ namespace StardustSandbox.IO.Handlers
             { typeof(CursorSettings), new(typeof(CursorSettings))},
             { typeof(GeneralSettings), new(typeof(GeneralSettings))},
             { typeof(GameplaySettings), new(typeof(GameplaySettings))},
-            { typeof(GraphicsSettings), new(typeof(GraphicsSettings))},
         };
 
         internal static void Initialize()

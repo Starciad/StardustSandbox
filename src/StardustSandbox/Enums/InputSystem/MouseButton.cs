@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Enums.InputSystem
 {
-    internal enum MouseButton : short
+    internal enum MouseButton : sbyte
     {
         Left = -1,
         Middle = 0,

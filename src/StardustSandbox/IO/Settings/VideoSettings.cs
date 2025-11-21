@@ -10,6 +10,9 @@ namespace StardustSandbox.IO.Settings
     [XmlRoot("VideoSettings")]
     public sealed class VideoSettings : SettingsModule
     {
+        [XmlElement("Framerate", typeof(double))]
+        public double Framerate { get; set; }
+
         [XmlElement("Width", typeof(int))]
         public int Width { get; set; }
 
@@ -39,6 +42,7 @@ namespace StardustSandbox.IO.Settings
 
         public VideoSettings()
         {
+            this.Framerate = ScreenConstants.FRAMERATE;
             this.Width = 0;
             this.Height = 0;
             this.FullScreen = false;

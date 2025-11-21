@@ -7,7 +7,7 @@ using StardustSandbox.Databases;
 
 using System;
 
-namespace StardustSandbox.AmbientSystem.Handlers
+namespace StardustSandbox.AmbientSystem
 {
     internal sealed class SkyHandler
     {

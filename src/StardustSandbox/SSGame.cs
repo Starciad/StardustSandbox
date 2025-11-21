@@ -83,7 +83,7 @@ namespace StardustSandbox
             this.videoManager.SetGameWindow(this.Window);
 
             // Configure game settings
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1f / ScreenConstants.DEFAULT_FRAME_RATE);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0 / videoSettings.Framerate);
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
@@ -172,7 +172,7 @@ namespace StardustSandbox
 
             if (!this.gameManager.HasState(GameStates.IsSimulationPaused) && !this.gameManager.HasState(GameStates.IsCriticalMenuOpen))
             {
-                this.world.Update();
+                this.world.Update(gameTime);
             }
 
             this.ambientManager.Update(gameTime);

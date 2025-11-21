@@ -71,7 +71,7 @@ namespace StardustSandbox.UISystem.Elements
             this.tooltipLayout.AddElement(this.titleElement);
             this.tooltipLayout.AddElement(this.descriptionElement);
 
-            this.MaximumSize = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT);
+            this.MaximumSize = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT);
         }
 
         internal override void Initialize()
@@ -174,12 +174,12 @@ namespace StardustSandbox.UISystem.Elements
             Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
             Vector2 newPosition = mousePosition + this.Margin + spacing;
 
-            if (newPosition.X + this.backgroundImageElement.Size.X > ScreenConstants.DEFAULT_SCREEN_WIDTH)
+            if (newPosition.X + this.backgroundImageElement.Size.X > ScreenConstants.SCREEN_WIDTH)
             {
                 newPosition.X = mousePosition.X - this.backgroundImageElement.Size.X - this.Margin.X - spacing.X;
             }
 
-            if (newPosition.Y + this.backgroundImageElement.Size.Y > ScreenConstants.DEFAULT_SCREEN_HEIGHT)
+            if (newPosition.Y + this.backgroundImageElement.Size.Y > ScreenConstants.SCREEN_HEIGHT)
             {
                 newPosition.Y = mousePosition.Y - this.backgroundImageElement.Size.Y - this.Margin.Y - spacing.Y;
             }

@@ -6,6 +6,7 @@ using StardustSandbox.AudioSystem;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.Simulation;
@@ -189,7 +190,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.panelBackgroundElement = new()
             {
                 Texture = this.particleTexture,
-                Scale = new(487f, ScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Scale = new(487f, ScreenConstants.SCREEN_HEIGHT),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 180),
             };
@@ -357,7 +358,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         protected override void OnOpened()
         {
-            this.ambientManager.BackgroundHandler.SetBackground(BackgroundDatabase.GetBackgroundById("main_menu"));
+            this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
             this.ambientManager.CloudHandler.IsActive = true;
             this.ambientManager.CelestialBodyHandler.IsActive = true;
             this.ambientManager.SkyHandler.IsActive = true;
@@ -376,7 +377,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.gameManager.RemoveState(GameStates.IsSimulationPaused);
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
 
-            this.world.Time.SecondsPerFrames = 60f;
+            this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
             this.world.Time.IsFrozen = false;
 
             if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSong != this.mainMenuSong)

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.AmbientSystem.Handlers;
+using StardustSandbox.AmbientSystem;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem;
 
@@ -28,9 +28,9 @@ namespace StardustSandbox.Managers
         internal void Initialize(CameraManager cameraManager, GameManager gameManager, World world)
         {
             this.backgroundHandler = new();
-            this.cloudHandler = new(cameraManager, gameManager);
+            this.cloudHandler = new(cameraManager, gameManager, world.Simulation);
             this.skyHandler = new();
-            this.timeHandler = new(world);
+            this.timeHandler = new(world.Time);
             this.celestialBodyHandler = new(this.timeHandler, world);
         }
 

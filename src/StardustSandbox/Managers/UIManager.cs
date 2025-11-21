@@ -79,7 +79,7 @@ namespace StardustSandbox.Managers
 
         internal bool TryGetGUIById(UIIndex index, out UI guiSystem)
         {
-            UI target = UIDatabase.GetUIByIndex(index);
+            UI target = UIDatabase.GetUI(index);
             guiSystem = target;
 
             return target != null;

@@ -35,8 +35,8 @@ namespace StardustSandbox.Managers
 
         internal void Initialize()
         {
-            int width = ScreenConstants.DEFAULT_SCREEN_WIDTH;
-            int height = ScreenConstants.DEFAULT_SCREEN_HEIGHT;
+            int width = ScreenConstants.SCREEN_WIDTH;
+            int height = ScreenConstants.SCREEN_HEIGHT;
 
             this.screenRenderTarget = new(this.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents, false);
             this.uiRenderTarget = new(this.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents, false);
@@ -55,8 +55,8 @@ namespace StardustSandbox.Managers
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                this._graphicsDeviceManager.PreferredBackBufferWidth = ScreenConstants.DEFAULT_SCREEN_WIDTH;
-                this._graphicsDeviceManager.PreferredBackBufferHeight = ScreenConstants.DEFAULT_SCREEN_HEIGHT;
+                this._graphicsDeviceManager.PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH;
+                this._graphicsDeviceManager.PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT;
             }
             else
             {
@@ -78,8 +78,8 @@ namespace StardustSandbox.Managers
         internal Vector2 GetScreenScaleFactor()
         {
             return new(
-                this._graphicsDeviceManager.PreferredBackBufferWidth / (float)ScreenConstants.DEFAULT_SCREEN_WIDTH,
-                this._graphicsDeviceManager.PreferredBackBufferHeight / (float)ScreenConstants.DEFAULT_SCREEN_HEIGHT
+                this._graphicsDeviceManager.PreferredBackBufferWidth / (float)ScreenConstants.SCREEN_WIDTH,
+                this._graphicsDeviceManager.PreferredBackBufferHeight / (float)ScreenConstants.SCREEN_HEIGHT
             );
         }
     }

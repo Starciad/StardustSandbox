@@ -1,29 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Constants;
-using StardustSandbox.WorldSystem;
 using StardustSandbox.WorldSystem.Status;
 
-namespace StardustSandbox.AmbientSystem.Handlers
+namespace StardustSandbox.AmbientSystem
 {
-    internal sealed class TimeHandler(World world)
+    internal sealed class TimeHandler(Time time)
     {
-        internal float GlobalIllumination => this.globalIllumination;
-        internal float CurrentSeconds => this.currentSeconds;
-        internal float IntervalDuration => this.intervalDuration;
-        internal float IntervalProgress => this.intervalProgress;
+        internal double GlobalIllumination => this.globalIllumination;
+        internal double CurrentSeconds => this.currentSeconds;
+        internal double IntervalDuration => this.intervalDuration;
+        internal double IntervalProgress => this.intervalProgress;
 
-        private float globalIllumination = 1.0f;
-        private float currentSeconds;
-        private float intervalDuration;
-        private float intervalProgress;
+        private double globalIllumination = 1.0;
+        private double currentSeconds;
+        private double intervalDuration;
+        private double intervalProgress;
         private bool isDay;
 
-        private readonly Time time = world.Time;
+        private readonly Time time = time;
 
         internal void Update()
         {
-            this.currentSeconds = (float)this.time.CurrentTime.TotalSeconds;
+            this.currentSeconds = this.time.CurrentTime.TotalSeconds;
 
             UpdateDayState();
             UpdateIntervalDuration();

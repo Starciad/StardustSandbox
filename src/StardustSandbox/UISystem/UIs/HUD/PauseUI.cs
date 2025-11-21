@@ -112,7 +112,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ImageUIElement backgroundShadowElement = new()
             {
                 Texture = this.particleTexture,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = new(1),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };

@@ -180,7 +180,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Texture = this.particleTexture,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 96f),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, 96f),
             };
 
             // Title
@@ -244,7 +244,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Texture = this.particleTexture,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 96.0f),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
                 PositionAnchor = CardinalDirection.Southwest,
                 Margin = new(0.0f, -96.0f),
             };

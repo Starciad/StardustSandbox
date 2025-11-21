@@ -62,7 +62,7 @@ namespace StardustSandbox.UISystem.Elements
 
         internal void PositionRelativeToScreen()
         {
-            PositionRelativeToElement(Vector2.Zero, ScreenConstants.DEFAULT_SCREEN_SIZE.ToVector2());
+            PositionRelativeToElement(Vector2.Zero, ScreenConstants.SCREEN_DIMENSIONS.ToVector2());
         }
 
         private Vector2 GetAnchorPosition(Vector2 targetPosition, Vector2 targetSize)

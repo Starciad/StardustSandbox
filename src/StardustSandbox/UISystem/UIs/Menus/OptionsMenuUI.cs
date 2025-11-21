@@ -84,7 +84,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private readonly GameplaySettings gameplaySettings;
         private readonly VolumeSettings volumeSettings;
         private readonly VideoSettings videoSettings;
-        private readonly GraphicsSettings graphicsSettings;
         private readonly CursorSettings cursorSettings;
 
         private static readonly Vector2 defaultRightPanelMargin = new(-112.0f, 64.0f);
@@ -116,7 +115,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.gameplaySettings = SettingsHandler.LoadSettings<GameplaySettings>();
             this.volumeSettings = SettingsHandler.LoadSettings<VolumeSettings>();
             this.videoSettings = SettingsHandler.LoadSettings<VideoSettings>();
-            this.graphicsSettings = SettingsHandler.LoadSettings<GraphicsSettings>();
             this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
 
             this.toggleButtonTexture = AssetDatabase.GetTexture("texture_gui_button_5");
@@ -167,6 +165,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     {
                         Options = new Dictionary<string, Option>()
                         {
+                            ["framerate"] = new SelectorOption("Framerate", "Description", Array.ConvertAll<double, object>(ScreenConstants.FRAMERATES, x => x)),
                             ["resolution"] = new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Point, object>(ScreenConstants.RESOLUTIONS, x => x)),
                             ["fullscreen"] = new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
                             ["vsync"] = new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
@@ -209,14 +208,16 @@ namespace StardustSandbox.UISystem.UIs.Menus
             }
         }
 
+        #region SETTINGS HANDLING
+
         #region SAVE SETTINGS
+
         private void SaveSettings()
         {
             SaveGeneralSettings();
             SaveGameplaySettings();
             SaveVolumeSettings();
             SaveVideoSettings();
-            SaveGraphicsSettings();
             SaveCursorSettings();
         }
 
@@ -256,19 +257,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             Section videoSection = this.root.Sections["video"];
 
+            this.videoSettings.Framerate = (double)videoSection.Options["framerate"].GetValue();
             this.videoSettings.Resolution = (Point)videoSection.Options["resolution"].GetValue();
             this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options["fullscreen"].GetValue());
             this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options["vsync"].GetValue());
             this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options["borderless"].GetValue());
 
             SettingsHandler.SaveSettings(this.videoSettings);
-        }
-
-        private void SaveGraphicsSettings()
-        {
-            // SSection graphicsSettings = this.root.Sections["graphics"];
-
-            SettingsHandler.SaveSettings(this.graphicsSettings);
         }
 
         private void SaveCursorSettings()
@@ -282,27 +277,75 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             SettingsHandler.SaveSettings(this.cursorSettings);
         }
+
+        #endregion
+
+        #region SYNC SETTINGS
+
+        private void SyncSettingElements()
+        {
+            SyncGeneralSettings();
+            SyncGameplaySettings();
+            SyncVolumeSettings();
+            SyncVideoSettings();
+            SyncCursorSettings();
+        }
+
+        private void SyncGeneralSettings()
+        {
+            Section generalSection = this.root.Sections["general"];
+
+            generalSection.Options["language"].SetValue(this.generalSettings.GameCulture.Name);
+        }
+
+        private void SyncGameplaySettings()
+        {
+            Section gameplaySection = this.root.Sections["gameplay"];
+
+            gameplaySection.Options["preview_area_color"].SetValue(new Color(this.gameplaySettings.PreviewAreaColor, 255));
+            gameplaySection.Options["preview_area_opacity"].SetValue(this.gameplaySettings.PreviewAreaColorA);
+        }
+
+        private void SyncVolumeSettings()
+        {
+            Section volumeSection = this.root.Sections["volume"];
+
+            volumeSection.Options["master_volume"].SetValue(this.volumeSettings.MasterVolume * 100.0f);
+            volumeSection.Options["music_volume"].SetValue(this.volumeSettings.MusicVolume * 100.0f);
+            volumeSection.Options["sfx_volume"].SetValue(this.volumeSettings.SFXVolume * 100.0f);
+        }
+
+        private void SyncVideoSettings()
+        {
+            Section videoSection = this.root.Sections["video"];
+
+            videoSection.Options["framerate"].SetValue(this.videoSettings.Framerate);
+            videoSection.Options["resolution"].SetValue(this.videoSettings.Resolution);
+            videoSection.Options["fullscreen"].SetValue(this.videoSettings.FullScreen);
+            videoSection.Options["vsync"].SetValue(this.videoSettings.VSync);
+            videoSection.Options["borderless"].SetValue(this.videoSettings.Borderless);
+        }
+
+        private void SyncCursorSettings()
+        {
+            Section cursorSettings = this.root.Sections["cursor"];
+
+            cursorSettings.Options["color"].SetValue(new Color(this.cursorSettings.Color, 255));
+            cursorSettings.Options["background_color"].SetValue(new Color(this.cursorSettings.BackgroundColor, 255));
+            cursorSettings.Options["opacity"].SetValue(this.cursorSettings.Alpha);
+            cursorSettings.Options["scale"].SetValue(this.cursorSettings.Scale);
+        }
+
+        #endregion
+
         #endregion
 
         #region Apply Settings
         private void ApplySettings()
         {
-            ApplyGeneralSettings();
-            ApplyGameplaySettings();
             ApplyVolumeSettings();
             ApplyVideoSettings();
-            ApplyGraphicsSettings();
             ApplyCursorSettings();
-        }
-
-        private static void ApplyGeneralSettings()
-        {
-            return;
-        }
-
-        private static void ApplyGameplaySettings()
-        {
-            return;
         }
 
         private void ApplyVolumeSettings()
@@ -314,11 +357,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private void ApplyVideoSettings()
         {
             this.videoManager.ApplySettings();
-        }
-
-        private static void ApplyGraphicsSettings()
-        {
-            return;
         }
 
         private void ApplyCursorSettings()
@@ -913,65 +951,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         protected override void OnOpened()
         {
             SyncSettingElements();
-        }
-
-        private void SyncSettingElements()
-        {
-            SyncGeneralSettings();
-            SyncGameplaySettings();
-            SyncVolumeSettings();
-            SyncVideoSettings();
-            SyncGraphicsSettings();
-            SyncCursorSettings();
-        }
-
-        private void SyncGeneralSettings()
-        {
-            Section generalSection = this.root.Sections["general"];
-
-            generalSection.Options["language"].SetValue(this.generalSettings.GameCulture.Name);
-        }
-
-        private void SyncGameplaySettings()
-        {
-            Section gameplaySection = this.root.Sections["gameplay"];
-
-            gameplaySection.Options["preview_area_color"].SetValue(new Color(this.gameplaySettings.PreviewAreaColor, 255));
-            gameplaySection.Options["preview_area_opacity"].SetValue(this.gameplaySettings.PreviewAreaColorA);
-        }
-
-        private void SyncVolumeSettings()
-        {
-            Section volumeSection = this.root.Sections["volume"];
-
-            volumeSection.Options["master_volume"].SetValue(this.volumeSettings.MasterVolume * 100.0f);
-            volumeSection.Options["music_volume"].SetValue(this.volumeSettings.MusicVolume * 100.0f);
-            volumeSection.Options["sfx_volume"].SetValue(this.volumeSettings.SFXVolume * 100.0f);
-        }
-
-        private void SyncVideoSettings()
-        {
-            Section videoSection = this.root.Sections["video"];
-
-            videoSection.Options["resolution"].SetValue(this.videoSettings.Resolution);
-            videoSection.Options["fullscreen"].SetValue(this.videoSettings.FullScreen);
-            videoSection.Options["vsync"].SetValue(this.videoSettings.VSync);
-            videoSection.Options["borderless"].SetValue(this.videoSettings.Borderless);
-        }
-
-        private static void SyncGraphicsSettings()
-        {
-            // SSection graphicsSettings = this.root.Sections["graphics"];
-        }
-
-        private void SyncCursorSettings()
-        {
-            Section cursorSettings = this.root.Sections["cursor"];
-
-            cursorSettings.Options["color"].SetValue(new Color(this.cursorSettings.Color, 255));
-            cursorSettings.Options["background_color"].SetValue(new Color(this.cursorSettings.BackgroundColor, 255));
-            cursorSettings.Options["opacity"].SetValue(this.cursorSettings.Alpha);
-            cursorSettings.Options["scale"].SetValue(this.cursorSettings.Scale);
         }
 
         #endregion

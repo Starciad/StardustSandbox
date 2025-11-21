@@ -2,10 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Randomness;
 
-namespace StardustSandbox.AmbientSystem.Clouds
+namespace StardustSandbox.BackgroundSystem.Clouds
 {
     internal sealed class Cloud : IPoolableObject
     {
@@ -29,9 +30,17 @@ namespace StardustSandbox.AmbientSystem.Clouds
             Reset();
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(GameTime gameTime, SimulationSpeed simulationSpeed)
         {
-            this.position.X += (float)(this.speed * gameTime.ElapsedGameTime.TotalSeconds);
+            double multiplier = simulationSpeed switch
+            {
+                SimulationSpeed.Normal => 1.0,
+                SimulationSpeed.Fast => 2.0,
+                SimulationSpeed.VeryFast => 4.0,
+                _ => 1.0,
+            };
+
+            this.position.X += (float)(this.speed * multiplier * gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         internal void Draw(SpriteBatch spriteBatch)

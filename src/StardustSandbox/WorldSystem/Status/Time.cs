@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Constants;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Constants;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
 
@@ -9,28 +11,29 @@ namespace StardustSandbox.WorldSystem.Status
     internal sealed class Time : IResettable
     {
         internal TimeSpan CurrentTime => this.currentTime;
-        internal float SecondsPerFrames { get; set; } = TimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
+        internal double InGameSecondsPerRealSecond { get; set; } = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
         internal bool IsFrozen { get; set; } = false;
 
-        private TimeSpan currentTime = TimeConstants.DEFAULT_START_TIME_OF_DAY;
+        private TimeSpan currentTime = TimeConstants.DAY_START_TIMESPAN;
 
         public void Reset()
         {
             this.IsFrozen = false;
-            this.SecondsPerFrames = TimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
-            this.currentTime = TimeConstants.DEFAULT_START_TIME_OF_DAY;
+            this.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
+            this.currentTime = TimeConstants.DAY_START_TIMESPAN;
         }
 
-        internal void Update()
+        internal void Update(GameTime gameTime)
         {
             if (this.IsFrozen)
             {
                 return;
             }
 
-            this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(this.SecondsPerFrames));
+            // Uses deltaTime to update the time independently of the FPS.
+            this.currentTime = this.currentTime.Add(TimeSpan.FromSeconds(this.InGameSecondsPerRealSecond * gameTime.ElapsedGameTime.TotalSeconds));
 
-            // Normalizes time to 24 hours.
+            // Normalizes the time to 24 hours.
             this.currentTime = TimeSpan.FromSeconds(this.currentTime.TotalSeconds % TimeConstants.SECONDS_IN_A_DAY);
         }
 

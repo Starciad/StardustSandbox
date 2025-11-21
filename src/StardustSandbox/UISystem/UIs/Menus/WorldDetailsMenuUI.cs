@@ -110,8 +110,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
             ImageUIElement guiBackground = new()
             {
                 Texture = this.particleTexture,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT),
-                Size = ScreenConstants.DEFAULT_SCREEN_SIZE.ToVector2(),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
+                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
                 Color = new Color(AAP64ColorPalette.DarkGray, 160)
             };
 
@@ -126,7 +126,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Texture = this.particleTexture,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 96.0f),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
             };
 
             // Title

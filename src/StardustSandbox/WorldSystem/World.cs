@@ -124,7 +124,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryInstantiateElement(Point position, LayerType layer, ElementIndex index)
         {
-            return TryInstantiateElement(position, layer, ElementDatabase.GetElementByIndex(index));
+            return TryInstantiateElement(position, layer, ElementDatabase.GetElement(index));
         }
 
         internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, LayerType layer)
@@ -284,7 +284,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TrySetStoredElement(Point position, LayerType layer, ElementIndex index)
         {
-            return TrySetStoredElement(position, layer, ElementDatabase.GetElementByIndex(index));
+            return TrySetStoredElement(position, layer, ElementDatabase.GetElement(index));
         }
 
         internal bool TrySetStoredElement(Point position, LayerType layer, Element element)
@@ -357,7 +357,7 @@ namespace StardustSandbox.WorldSystem
 
         internal void InstantiateElement(Point position, LayerType layer, ElementIndex index)
         {
-            InstantiateElement(position, layer, ElementDatabase.GetElementByIndex(index));
+            InstantiateElement(position, layer, ElementDatabase.GetElement(index));
         }
 
         internal void InstantiateElement(Point position, LayerType layer, Element value)
@@ -430,7 +430,7 @@ namespace StardustSandbox.WorldSystem
 
         internal void SetStoredElement(Point position, LayerType layer, ElementIndex index)
         {
-            SetStoredElement(position, layer, ElementDatabase.GetElementByIndex(index));
+            SetStoredElement(position, layer, ElementDatabase.GetElement(index));
         }
 
         internal void SetStoredElement(Point position, LayerType layer, Element element)
@@ -648,32 +648,22 @@ namespace StardustSandbox.WorldSystem
 
         #region Update
 
-        internal void Update()
+        internal void Update(GameTime gameTime)
         {
             if (!this.IsActive)
             {
                 return;
             }
 
-            this.time.Update();
-
-            UpdateWorld();
-            UpdateExplosions();
-        }
-
-        private void UpdateWorld()
-        {
-            this.simulation.Update();
+            this.time.Update(gameTime);
+            this.simulation.Update(gameTime);
 
             if (this.simulation.CanContinueExecution())
             {
                 this.chunking.Update();
                 this.updating.Update();
             }
-        }
 
-        private void UpdateExplosions()
-        {
             HandleExplosions();
         }
 
@@ -764,7 +754,7 @@ namespace StardustSandbox.WorldSystem
             worldSlot.SetTemperatureValue(layer, worldSlotLayerData.Temperature);
             worldSlot.SetState(layer, ElementStates.FreeFalling);
             worldSlot.SetColorModifier(layer, worldSlotLayerData.ColorModifier);
-            worldSlot.SetStoredElement(layer, ElementDatabase.GetElementByIndex(resources.Elements.FindValueByIndex(worldSlotLayerData.StoredElementIndex)));
+            worldSlot.SetStoredElement(layer, ElementDatabase.GetElement(resources.Elements.FindValueByIndex(worldSlotLayerData.StoredElementIndex)));
         }
 
         #endregion
@@ -802,22 +792,22 @@ namespace StardustSandbox.WorldSystem
             switch (speed)
             {
                 case SimulationSpeed.Normal:
-                    this.time.SecondsPerFrames = TimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
+                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
                     this.simulation.SetSpeed(SimulationSpeed.Normal);
                     break;
 
                 case SimulationSpeed.Fast:
-                    this.time.SecondsPerFrames = TimeConstants.DEFAULT_FAST_SECONDS_PER_FRAMES;
+                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_FAST_SECONDS_PER_FRAMES;
                     this.simulation.SetSpeed(SimulationSpeed.Fast);
                     break;
 
                 case SimulationSpeed.VeryFast:
-                    this.time.SecondsPerFrames = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
+                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
                     this.simulation.SetSpeed(SimulationSpeed.VeryFast);
                     break;
 
                 default:
-                    this.time.SecondsPerFrames = TimeConstants.DEFAULT_NORMAL_SECONDS_PER_FRAMES;
+                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
                     this.simulation.SetSpeed(SimulationSpeed.Normal);
                     break;
             }

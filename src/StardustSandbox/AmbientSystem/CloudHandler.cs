@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.AmbientSystem.Clouds;
+using StardustSandbox.BackgroundSystem.Clouds;
 using StardustSandbox.Collections;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -11,10 +11,11 @@ using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
+using StardustSandbox.WorldSystem.Status;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.AmbientSystem.Handlers
+namespace StardustSandbox.AmbientSystem
 {
     internal sealed class CloudHandler : IResettable
     {
@@ -26,11 +27,13 @@ namespace StardustSandbox.AmbientSystem.Handlers
 
         private readonly CameraManager cameraManager;
         private readonly GameManager gameManager;
+        private readonly Simulation simulation;
 
-        public CloudHandler(CameraManager cameraManager, GameManager gameManager)
+        public CloudHandler(CameraManager cameraManager, GameManager gameManager, Simulation simulation)
         {
             this.cameraManager = cameraManager;
             this.gameManager = gameManager;
+            this.simulation = simulation;
 
             for (byte i = 0; i < AssetConstants.TEXTURES_BGOS_CLOUDS_LENGTH; i++)
             {
@@ -62,7 +65,7 @@ namespace StardustSandbox.AmbientSystem.Handlers
                     continue;
                 }
 
-                cloud.Update(gameTime);
+                cloud.Update(gameTime, this.simulation.CurrentSpeed);
             }
 
             if (SSRandom.Chance(BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING, BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING_TOTAL))

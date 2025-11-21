@@ -32,7 +32,7 @@ namespace StardustSandbox.WorldSystem.Components
         internal void Draw(SpriteBatch spriteBatch)
         {
             Vector2 topLeftWorld = this.cameraManager.ScreenToWorld(new Vector2(0, 0));
-            Vector2 bottomRightWorld = this.cameraManager.ScreenToWorld(new Vector2(ScreenConstants.DEFAULT_SCREEN_SIZE.X, ScreenConstants.DEFAULT_SCREEN_SIZE.Y));
+            Vector2 bottomRightWorld = this.cameraManager.ScreenToWorld(new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
 
             int minTileX = (int)Math.Clamp(Math.Floor(topLeftWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
             int minTileY = (int)Math.Clamp(Math.Floor(topLeftWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);

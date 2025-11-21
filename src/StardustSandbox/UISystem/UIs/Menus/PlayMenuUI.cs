@@ -75,7 +75,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Texture = this.particleTexture,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 128f),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, 128f),
             };
 
             LabelUIElement titleLabel = new()

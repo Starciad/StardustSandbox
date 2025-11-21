@@ -174,8 +174,8 @@ namespace StardustSandbox.UISystem.UIs.Tools
             ImageUIElement guiBackground = new()
             {
                 Texture = this.particleTexture,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT),
-                Size = ScreenConstants.DEFAULT_SCREEN_SIZE.ToVector2(),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
+                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 

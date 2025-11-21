@@ -88,7 +88,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ImageUIElement backgroundShadowElement = new()
             {
                 Texture = this.particleTexture,
-                Scale = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, ScreenConstants.DEFAULT_SCREEN_HEIGHT),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = new(1),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
@@ -243,7 +243,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);
 
             this.infoElements[0].SetTextualContent(string.Concat(Localization_Statements.Size, ": ", worldSize));
-            this.infoElements[1].SetTextualContent(string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime));
+            this.infoElements[1].SetTextualContent(string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss")));
             this.infoElements[2].SetTextualContent(string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap));
             this.infoElements[3].SetTextualContent(string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer));
             this.infoElements[4].SetTextualContent(string.Concat(Localization_GUIs.HUD_Complements_Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer));

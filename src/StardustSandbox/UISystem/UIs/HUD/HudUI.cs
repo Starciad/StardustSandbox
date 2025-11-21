@@ -324,7 +324,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.topToolbarContainerElement = new()
             {
-                Size = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
+                Size = new(ScreenConstants.SCREEN_WIDTH, 96),
             };
 
             this.leftToolbarContainerElement = new()
@@ -361,8 +361,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.topToolbarBackgroundElement = new()
             {
                 Texture = this.guiHorizontalBackgroundTexture,
-                TextureClipArea = new(new(0, 0), new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 96)),
-                Size = new(ScreenConstants.DEFAULT_SCREEN_WIDTH, 96),
+                TextureClipArea = new(new(0, 0), new(ScreenConstants.SCREEN_WIDTH, 96)),
+                Size = new(ScreenConstants.SCREEN_WIDTH, 96),
             };
 
             this.topToolbarBackgroundElement.PositionRelativeToScreen();

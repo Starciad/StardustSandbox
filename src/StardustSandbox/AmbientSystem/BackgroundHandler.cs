@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.AmbientSystem.BackgroundSystem;
+using StardustSandbox.BackgroundSystem;
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.BackgroundSystem;
 
-namespace StardustSandbox.AmbientSystem.Handlers
+namespace StardustSandbox.AmbientSystem
 {
     internal sealed class BackgroundHandler
     {
@@ -22,9 +24,9 @@ namespace StardustSandbox.AmbientSystem.Handlers
             this.selectedBackground.Draw(spriteBatch);
         }
 
-        internal void SetBackground(Background background)
+        internal void SetBackground(BackgroundIndex backgroundIndex)
         {
-            this.selectedBackground = background;
+            this.selectedBackground = BackgroundDatabase.GetBackground(backgroundIndex);
         }
     }
 }
