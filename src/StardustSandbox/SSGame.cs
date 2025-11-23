@@ -119,7 +119,7 @@ namespace StardustSandbox
             UIInteraction.Initialize(this.inputManager);
 
             // Databases
-            AssetDatabase.Load(this.Content);
+            AssetDatabase.Load(this.Content, this.GraphicsDevice);
             ElementDatabase.Load();
             CatalogDatabase.Load();
             UIDatabase.Load(this.ambientManager, this.cursorManager, this.gameManager, this.Window, this.GraphicsDevice, this.inputController, this.inputManager, this.uiManager, this.videoManager, this.world);
@@ -210,6 +210,12 @@ namespace StardustSandbox
             #endregion
 
             base.Draw(gameTime);
+        }
+
+        protected override void UnloadContent()
+        {
+            AssetDatabase.Unload();
+            base.UnloadContent();
         }
 
         #endregion
