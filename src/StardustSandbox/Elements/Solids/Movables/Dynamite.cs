@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Elements.Energies;
+﻿using StardustSandbox.Elements.Energies;
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.ExplosionSystem;
@@ -31,16 +28,6 @@ namespace StardustSandbox.Elements.Solids.Movables
             ]
         };
 
-        internal Dynamite(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.renderingType = ElementRenderingType.Single;
-            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
-
-            this.defaultTemperature = 22;
-            this.defaultDensity = 2400;
-            this.defaultExplosionResistance = 0.5f;
-        }
-
         protected override void OnDestroyed()
         {
             this.Context.InstantiateExplosion(explosionBuilder);
@@ -65,7 +52,7 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        protected override void OnTemperatureChanged(short currentValue)
+        protected override void OnTemperatureChanged(double currentValue)
         {
             if (currentValue > 150)
             {

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.WorldSystem;
 
@@ -18,9 +19,6 @@ namespace StardustSandbox.AmbientSystem
         private double positionY;
         private double rotation;
         private double angle;
-
-        private readonly Texture2D sunTexture = AssetDatabase.GetTexture("texture_bgo_celestial_body_1");
-        private readonly Texture2D moonTexture = AssetDatabase.GetTexture("texture_bgo_celestial_body_2");
 
         private readonly TimeHandler timeHandler = timeHandler;
         private readonly World world = world;
@@ -44,14 +42,14 @@ namespace StardustSandbox.AmbientSystem
             DayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();
 
             // Select the texture based on the time of day
-            Texture2D texture = dayPeriod switch
+            Rectangle rectangle = dayPeriod switch
             {
-                DayPeriod.AnteLucan or DayPeriod.Night => this.moonTexture,
-                DayPeriod.Morning or DayPeriod.Afternoon => this.sunTexture,
+                DayPeriod.AnteLucan or DayPeriod.Night => new(32, 0, 32, 32),
+                DayPeriod.Morning or DayPeriod.Afternoon => new(0, 0, 32, 32),
                 _ => throw new InvalidOperationException("Unexpected day period."),
             };
 
-            spriteBatch.Draw(texture, new((float)this.positionX, (float)this.positionY), null, Color.White, (float)this.rotation, Vector2.Zero, new Vector2(1.2f), SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoCelestialBodies), new((float)this.positionX, (float)this.positionY), rectangle, Color.White, (float)this.rotation, Vector2.Zero, new Vector2(1.2f), SpriteEffects.None, 0f);
         }
     }
 }

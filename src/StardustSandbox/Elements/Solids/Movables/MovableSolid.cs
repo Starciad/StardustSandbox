@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
@@ -9,11 +8,6 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal abstract class MovableSolid : Solid
     {
-        internal MovableSolid(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.category = ElementCategory.MovableSolid;
-        }
-
         protected override void OnStep()
         {
             if (this.Context.SlotLayer.HasState(ElementStates.FreeFalling))

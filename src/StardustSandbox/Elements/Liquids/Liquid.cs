@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
@@ -12,13 +11,6 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal abstract class Liquid : Element
     {
-        internal Liquid(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.category = ElementCategory.Liquid;
-
-            this.defaultDensity = 1000;
-        }
-
         protected override void OnStep()
         {
             foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(this.Context.Slot.Position, Direction.Down))
@@ -104,7 +96,7 @@ namespace StardustSandbox.Elements.Liquids
         {
             Point dispersionPosition = this.Context.Slot.Position;
 
-            for (int i = 0; i < this.defaultDispersionRate; i++)
+            for (int i = 0; i < this.DefaultDispersionRate; i++)
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 

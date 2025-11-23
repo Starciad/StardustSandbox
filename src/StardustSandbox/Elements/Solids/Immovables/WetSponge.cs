@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
@@ -9,16 +8,6 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class WetSponge : ImmovableSolid
     {
-        internal WetSponge(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
-
-            this.defaultTemperature = 20;
-            this.defaultDensity = 1200;
-            this.defaultExplosionResistance = 0.8f;
-        }
-
         protected override void OnStep()
         {
             foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(this.Context.Slot.Position, Direction.Down))
@@ -40,7 +29,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(short currentValue)
+        protected override void OnTemperatureChanged(double currentValue)
         {
             if (currentValue >= 60)
             {

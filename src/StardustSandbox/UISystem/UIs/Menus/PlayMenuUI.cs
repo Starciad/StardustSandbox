@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Managers;
@@ -16,12 +16,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
     internal class PlayMenuUI : UI
     {
         private readonly LabelUIElement[] menuButtonElements;
-
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D returnIconTexture;
-        private readonly Texture2D worldIconTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-
         private readonly UIButton[] menuButtons;
 
         private readonly UIManager uiManager;
@@ -33,14 +27,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.uiManager = uiManager;
 
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.returnIconTexture = AssetDatabase.GetTexture("texture_icon_gui_16");
-            this.worldIconTexture = AssetDatabase.GetTexture("texture_icon_gui_17");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-
             this.menuButtons = [
-                new(this.worldIconTexture, "Worlds", string.Empty, WorldsButtonAction),
-                new(this.returnIconTexture, "Return", string.Empty, ReturnButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(0, 32, 32, 32), "Worlds", string.Empty, WorldsButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), "Return", string.Empty, ReturnButtonAction),
             ];
 
             this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
@@ -68,11 +57,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
             BuildMenuButtons(layout);
         }
 
-        private void BuildTitle(Layout layout)
+        private static void BuildTitle(Layout layout)
         {
             ImageUIElement backgroundImage = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 128f),
@@ -81,7 +70,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             LabelUIElement titleLabel = new()
             {
                 Scale = new(0.2f),
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 PositionAnchor = CardinalDirection.Center,
                 OriginPivot = CardinalDirection.Center,
             };
@@ -106,7 +95,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 {
                     Scale = new(0.15f),
                     Margin = margin,
-                    SpriteFont = this.bigApple3PMSpriteFont,
+                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     PositionAnchor = CardinalDirection.Center,
                     OriginPivot = CardinalDirection.Center,
                 };

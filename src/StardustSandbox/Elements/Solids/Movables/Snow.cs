@@ -1,23 +1,15 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Snow : MovableSolid
     {
-        internal Snow(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
+        internal Snow() : base()
         {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
 
-            this.defaultTemperature = -15;
-            this.defaultDensity = 600;
-            this.defaultExplosionResistance = 0.3f;
         }
 
-        protected override void OnTemperatureChanged(short currentValue)
+        protected override void OnTemperatureChanged(double currentValue)
         {
             if (currentValue >= 8)
             {

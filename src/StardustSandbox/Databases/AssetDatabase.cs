@@ -29,7 +29,7 @@ namespace StardustSandbox.Databases
             }
 
             pixelTexture = new(graphicsDevice, 1, 1);
-            pixelTexture.SetData([ Color.White ]);
+            pixelTexture.SetData([Color.White]);
 
             effects = [
                 contentManager.Load<Effect>(Path.Combine("effects", "gradient_transition")),
@@ -57,6 +57,7 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "ocean")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "sky")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "celestial_bodies")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "clouds")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "characters", "starciad")),
@@ -106,6 +107,11 @@ namespace StardustSandbox.Databases
         internal static Song GetSong(SongIndex index)
         {
             return songs[(int)index];
+        }
+
+        internal static Effect[] GetEffects()
+        {
+            return effects;
         }
 
         internal static Effect GetEffect(EffectIndex index)

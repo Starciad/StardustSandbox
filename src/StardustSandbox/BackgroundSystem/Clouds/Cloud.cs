@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Randomness;
@@ -10,10 +12,10 @@ namespace StardustSandbox.BackgroundSystem.Clouds
 {
     internal sealed class Cloud : IPoolableObject
     {
-        internal Texture2D Texture => this.texture;
+        internal Rectangle TextureRectangle => this.textureRectangle;
         internal Vector2 Position => this.position;
 
-        private Texture2D texture;
+        private Rectangle textureRectangle;
         private Vector2 position;
         private float speed;
         private float opacity;
@@ -45,12 +47,12 @@ namespace StardustSandbox.BackgroundSystem.Clouds
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.position, null, Color.White * this.opacity, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoClouds), this.position, this.textureRectangle, Color.White * this.opacity, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
-        internal void SetTexture(Texture2D texture)
+        internal void SetTextureRectangle(Rectangle rectangle)
         {
-            this.texture = texture;
+            this.textureRectangle = rectangle;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Catalog;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UISystem;
@@ -46,14 +46,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private readonly UISlot[] subcategoryButtonSlots;
         private readonly UISlot[] paginationButtonSlots;
 
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D panelBackgroundTexture;
-        private readonly Texture2D guiSmallButtonTexture;
-        private readonly Texture2D exitIconTexture;
-        private readonly Texture2D rightIconTexture;
-        private readonly Texture2D leftIconTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-
         private readonly HudUI hudUI;
 
         private readonly GameManager gameManager;
@@ -76,25 +68,16 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.currentPage = 0;
             this.totalPages = 0;
 
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.panelBackgroundTexture = AssetDatabase.GetTexture("texture_gui_background_12");
-            this.guiSmallButtonTexture = AssetDatabase.GetTexture("texture_gui_button_1");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-
-            this.exitIconTexture = AssetDatabase.GetTexture("texture_icon_gui_16");
-            this.rightIconTexture = AssetDatabase.GetTexture("texture_icon_gui_48");
-            this.leftIconTexture = AssetDatabase.GetTexture("texture_icon_gui_50");
-
             this.hudUI = hudUI;
             this.tooltipBoxElement = tooltipBoxElement;
 
             this.menuButtons = [
-                new(this.exitIconTexture, Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.paginationButtons = [
-                new(this.leftIconTexture, "Left", string.Empty, PreviousButtonAction),
-                new(this.rightIconTexture, "Right", string.Empty, NextButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(128, 160, 32, 32), "Left", string.Empty, PreviousButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(64, 160, 32, 32), "Right", string.Empty, NextButtonAction),
             ];
 
             this.menuButtonSlots = new UISlot[this.menuButtons.Length];
@@ -162,7 +145,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             ImageUIElement backgroundShadowElement = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = new(1),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
@@ -170,7 +153,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = this.panelBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundItemExplorer),
                 Size = new(1084, 607),
                 Margin = new(98, 90),
             };
@@ -185,7 +168,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.menuTitleElement = new()
             {
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 PositionAnchor = CardinalDirection.Northwest,
                 OriginPivot = CardinalDirection.East,
@@ -210,7 +193,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 ImageUIElement backgroundElement = new()
                 {
-                    Texture = this.guiSmallButtonTexture,
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    TextureClipArea = new(320, 140, 32, 32),
                     Scale = new(UIConstants.HUD_SLOT_SCALE),
                     Size = new(UIConstants.HUD_GRID_SIZE),
                     Margin = margin,
@@ -255,7 +239,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     ImageUIElement slotBackground = new()
                     {
-                        Texture = this.guiSmallButtonTexture,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        TextureClipArea = new(320, 140, 32, 32),
                         OriginPivot = CardinalDirection.Center,
                         Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
                         PositionAnchor = CardinalDirection.Northwest,
@@ -301,7 +286,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 ImageUIElement slotBackground = new()
                 {
-                    Texture = this.guiSmallButtonTexture,
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    TextureClipArea = new(320, 140, 32, 32),
                     OriginPivot = CardinalDirection.Center,
                     PositionAnchor = CardinalDirection.Northwest,
                     Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
@@ -356,7 +342,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     ImageUIElement slotBackground = new()
                     {
-                        Texture = this.guiSmallButtonTexture,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        TextureClipArea = new(320, 140, 32, 32),
                         PositionAnchor = positionAnchor,
                         OriginPivot = CardinalDirection.Center,
                         Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
@@ -392,7 +379,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.pageIndexLabelElement = new()
             {
                 Scale = new(0.1f),
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 PositionAnchor = CardinalDirection.South,
                 OriginPivot = CardinalDirection.Center,
                 Margin = new(0f, -35f),
@@ -408,7 +395,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 ImageUIElement slotBackground = new()
                 {
-                    Texture = this.guiSmallButtonTexture,
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    TextureClipArea = new(320, 140, 32, 32),
                     OriginPivot = CardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE),

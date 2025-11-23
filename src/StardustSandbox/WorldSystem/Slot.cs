@@ -56,7 +56,7 @@ namespace StardustSandbox.WorldSystem
             GetLayer(layer).Copy(valueToCopy);
         }
 
-        internal void SetTemperatureValue(LayerType layer, short value)
+        internal void SetTemperatureValue(LayerType layer, double value)
         {
             GetLayer(layer).SetTemperatureValue(value);
         }

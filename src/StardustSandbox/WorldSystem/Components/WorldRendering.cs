@@ -5,6 +5,7 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.World;
@@ -17,17 +18,10 @@ namespace StardustSandbox.WorldSystem.Components
 {
     internal sealed class WorldRendering(CameraManager cameraManager, InputController inputController, World world)
     {
-        private Texture2D gridTexture;
-
         private readonly CameraManager cameraManager = cameraManager;
         private readonly ElementContext elementRenderingContext = new(world);
         private readonly InputController inputController = inputController;
         private readonly World world = world;
-
-        internal void Initialize()
-        {
-            this.gridTexture = AssetDatabase.GetTexture("texture_shape_square_2");
-        }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
@@ -47,7 +41,7 @@ namespace StardustSandbox.WorldSystem.Components
 
                     if (this.inputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(this.gridTexture, targetPosition * WorldConstants.GRID_SIZE, null, new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(78, 0, 32, 32), new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))

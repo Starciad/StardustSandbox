@@ -16,7 +16,7 @@ namespace StardustSandbox.Elements.Utilities
             {
                 SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
 
-                if (!worldSlotLayer.Element.HasCharacteristic(ElementCharacteristics.IsFlammable))
+                if (!worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
                 {
                     continue;
                 }
@@ -27,7 +27,7 @@ namespace StardustSandbox.Elements.Utilities
 
         private static void ApplyTemperature(ElementContext context, Point targetPosition, SlotLayer worldSlotLayer, TemperatureModifierMode temperatureModifierMode)
         {
-            short result = worldSlotLayer.Temperature;
+            double result = worldSlotLayer.Temperature;
 
             switch (temperatureModifierMode)
             {

@@ -169,15 +169,15 @@ namespace StardustSandbox.Elements
             return TryGetSlot(this.Position, out value);
         }
 
-        internal bool TrySetElementTemperature(Point position, LayerType layer, short value)
+        internal bool TrySetElementTemperature(Point position, LayerType layer, double value)
         {
             return this.world.TrySetElementTemperature(position, layer, value);
         }
-        internal bool TrySetElementTemperature(Point position, short value)
+        internal bool TrySetElementTemperature(Point position, double value)
         {
             return TrySetElementTemperature(position, this.Layer, value);
         }
-        internal bool TrySetElementTemperature(short value)
+        internal bool TrySetElementTemperature(double value)
         {
             return TrySetElementTemperature(this.Position, value);
         }
@@ -392,15 +392,15 @@ namespace StardustSandbox.Elements
             ReplaceElement(this.Position, value);
         }
 
-        internal void SetElementTemperature(Point position, LayerType layer, short value)
+        internal void SetElementTemperature(Point position, LayerType layer, double value)
         {
             this.world.SetElementTemperature(position, layer, value);
         }
-        internal void SetElementTemperature(Point position, short value)
+        internal void SetElementTemperature(Point position, double value)
         {
             SetElementTemperature(position, this.Layer, value);
         }
-        internal void SetElementTemperature(short value)
+        internal void SetElementTemperature(double value)
         {
             SetElementTemperature(this.Position, value);
         }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
@@ -13,13 +12,6 @@ namespace StardustSandbox.Elements.Gases
     {
         private readonly List<Point> emptyPositionsCache = [];
         private readonly List<Point> validPositionsCache = [];
-
-        internal Gas(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.category = ElementCategory.Gas;
-
-            this.defaultDensity = 1;
-        }
 
         protected override void OnStep()
         {

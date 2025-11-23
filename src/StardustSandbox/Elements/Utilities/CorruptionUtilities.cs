@@ -31,7 +31,7 @@ namespace StardustSandbox.Elements.Utilities
                     continue;
                 }
 
-                if (element.HasCharacteristic(ElementCharacteristics.IsCorruption))
+                if (element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
                 {
                     corruptNeighboringElements++;
                 }
@@ -48,7 +48,7 @@ namespace StardustSandbox.Elements.Utilities
 
             void ProcessLayer(Slot slot, LayerType layer, Element element)
             {
-                if (element != null && element.HasCharacteristic(ElementCharacteristics.IsCorruptible))
+                if (element != null && element.Characteristics.HasFlag(ElementCharacteristics.IsCorruptible))
                 {
                     targets.Add(new(slot, layer));
                 }
@@ -77,25 +77,25 @@ namespace StardustSandbox.Elements.Utilities
             switch (targetElement.Category)
             {
                 case ElementCategory.MovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
 
                 case ElementCategory.ImmovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.IMCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
                     break;
 
                 case ElementCategory.Liquid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
                     break;
 
                 case ElementCategory.Gas:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
                     break;
 
                 case ElementCategory.None:
                 case ElementCategory.Energy:
                 default:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
             }
         }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UISystem;
@@ -37,21 +37,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private readonly UIButton[] timeStateButtons;
         private readonly UIButton[] timeButtons;
 
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D panelBackgroundTexture;
-        private readonly Texture2D guiSmallButtonTexture;
-        private readonly Texture2D exitIconTexture;
-        private readonly Texture2D frozenTimeIconTexture;
-        private readonly Texture2D timeProgressIconTexture;
-        private readonly Texture2D midnightIconTexture;
-        private readonly Texture2D dawnIconTexture;
-        private readonly Texture2D morningIconTexture;
-        private readonly Texture2D noonIconTexture;
-        private readonly Texture2D afternoonIconTexture;
-        private readonly Texture2D duskIconTexture;
-        private readonly Texture2D eveningIconTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
         private readonly World world;
@@ -69,39 +54,23 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.uiManager = uiManager;
             this.world = world;
 
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.panelBackgroundTexture = AssetDatabase.GetTexture("texture_gui_background_7");
-            this.guiSmallButtonTexture = AssetDatabase.GetTexture("texture_gui_button_1");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-
-            this.exitIconTexture = AssetDatabase.GetTexture("texture_icon_gui_16");
-            this.frozenTimeIconTexture = AssetDatabase.GetTexture("texture_icon_gui_29");
-            this.timeProgressIconTexture = AssetDatabase.GetTexture("texture_icon_gui_30");
-            this.midnightIconTexture = AssetDatabase.GetTexture("texture_icon_gui_31");
-            this.dawnIconTexture = AssetDatabase.GetTexture("texture_icon_gui_32");
-            this.morningIconTexture = AssetDatabase.GetTexture("texture_icon_gui_33");
-            this.noonIconTexture = AssetDatabase.GetTexture("texture_icon_gui_34");
-            this.afternoonIconTexture = AssetDatabase.GetTexture("texture_icon_gui_35");
-            this.duskIconTexture = AssetDatabase.GetTexture("texture_icon_gui_36");
-            this.eveningIconTexture = AssetDatabase.GetTexture("texture_icon_gui_37");
-
             this.menuButtons = [
-                new(this.exitIconTexture, Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.timeStateButtons = [
-                new UIButton(this.frozenTimeIconTexture, Localization_Statements.Disable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description, () => SetTimeFreezeState(true)),
-                new UIButton(this.timeProgressIconTexture, Localization_Statements.Enable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description, () => SetTimeFreezeState(false)),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(160, 64, 32, 32), Localization_Statements.Disable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description, () => SetTimeFreezeState(true)),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(192, 64, 32, 32), Localization_Statements.Enable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description, () => SetTimeFreezeState(false)),
             ];
 
             this.timeButtons = [
-                new UIButton(this.midnightIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description, () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
-                new UIButton(this.dawnIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description, () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
-                new UIButton(this.morningIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description, () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
-                new UIButton(this.noonIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description, () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
-                new UIButton(this.afternoonIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description, () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
-                new UIButton(this.duskIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description, () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
-                new UIButton(this.eveningIconTexture, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description, () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(0, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description, () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(32, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description, () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(64, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description, () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(96, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description, () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(128, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description, () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(160, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description, () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
+                new UIButton(AssetDatabase.GetTexture(TextureIndex.IconUi), new(192, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description, () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
             ];
 
             this.menuButtonSlots = new UISlot[this.menuButtons.Length];
@@ -145,7 +114,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             ImageUIElement backgroundShadowElement = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = new(1),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
@@ -153,7 +122,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = this.panelBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundEnvironmentSettings),
                 Size = new(1084, 540),
                 Margin = new(98, 90),
             };
@@ -168,7 +137,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.menuTitleElement = new()
             {
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 PositionAnchor = CardinalDirection.Northwest,
                 OriginPivot = CardinalDirection.East,
@@ -190,7 +159,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 UIButton button = this.menuButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.Northeast;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -217,7 +186,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Scale = new(0.1f),
                 Margin = new(32, 112),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             this.timeStateSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title);
@@ -231,7 +200,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             for (int i = 0; i < this.timeStateButtonSlots.Length; i++)
             {
                 UIButton button = this.timeStateButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -258,7 +227,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Scale = new(0.1f),
                 Margin = new(this.timeStateSectionTitleElement.Size.X + (UIConstants.HUD_GRID_SIZE * UIConstants.HUD_SLOT_SCALE * this.timeStateButtonSlots.Length) + 64, 0f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             this.timeSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Title);
@@ -272,7 +241,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             for (int i = 0; i < this.timeButtonSlots.Length; i++)
             {
                 UIButton button = this.timeButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -294,11 +263,12 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
         // =============================================================== //
 
-        private UISlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
+        private static UISlot CreateButtonSlot(Vector2 margin, UIButton button)
         {
             ImageUIElement backgroundElement = new()
             {
-                Texture = this.guiSmallButtonTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(320, 140, 32, 32),
                 Scale = new(UIConstants.HUD_SLOT_SCALE),
                 Size = new(UIConstants.HUD_GRID_SIZE),
                 Margin = margin,
@@ -306,7 +276,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             ImageUIElement iconElement = new()
             {
-                Texture = iconTexture,
+                Texture = button.IconTexture,
+                TextureClipArea = button.IconTextureRectangle,
                 OriginPivot = CardinalDirection.Center,
                 Scale = new(1.5f),
                 Size = new(UIConstants.HUD_GRID_SIZE)

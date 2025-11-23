@@ -6,6 +6,7 @@ using StardustSandbox.Colors;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UISystem;
@@ -24,9 +25,6 @@ namespace StardustSandbox
     {
         // Rendering
         private SpriteBatch spriteBatch;
-
-        // Textures
-        private Texture2D mouseActionSquareTexture;
 
         // Settings
         private GameplaySettings gameplaySettings;
@@ -139,10 +137,7 @@ namespace StardustSandbox
 
             // ============================= //
 
-            this.world.Initialize();
-
             this.spriteBatch = new(this.GraphicsDevice);
-            this.mouseActionSquareTexture = AssetDatabase.GetTexture("texture_shape_square_3");
         }
 
         protected override void BeginRun()
@@ -242,7 +237,7 @@ namespace StardustSandbox
             GradientColorMap skyGradientColorMap = this.ambientManager.SkyHandler.GetSkyGradientByTime(this.world.Time.CurrentTime);
             float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
 
-            Effect skyEffect = this.ambientManager.SkyHandler.Effect;
+            Effect skyEffect = this.ambientManager.SkyHandler.GradientTransitionEffect;
             skyEffect.Parameters["StartColor1"].SetValue(skyGradientColorMap.Color1.Start.ToVector4());
             skyEffect.Parameters["StartColor2"].SetValue(skyGradientColorMap.Color2.Start.ToVector4());
             skyEffect.Parameters["EndColor1"].SetValue(skyGradientColorMap.Color1.End.ToVector4());
@@ -250,7 +245,7 @@ namespace StardustSandbox
             skyEffect.Parameters["TimeNormalized"].SetValue(interpolation);
 
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, skyEffect, null);
-            this.spriteBatch.Draw(this.ambientManager.SkyHandler.Texture, Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            this.spriteBatch.Draw(this.ambientManager.SkyHandler.SkyTexture, Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             this.spriteBatch.End();
         }
 
@@ -270,7 +265,7 @@ namespace StardustSandbox
                 GradientColorMap backgroundGradientColorMap = this.ambientManager.SkyHandler.GetBackgroundGradientByTime(this.world.Time.CurrentTime);
                 float interpolation = backgroundGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
 
-                backgroundEffect = this.ambientManager.SkyHandler.Effect;
+                backgroundEffect = this.ambientManager.SkyHandler.GradientTransitionEffect;
                 backgroundEffect.Parameters["StartColor1"].SetValue(backgroundGradientColorMap.Color1.Start.ToVector4());
                 backgroundEffect.Parameters["StartColor2"].SetValue(backgroundGradientColorMap.Color2.Start.ToVector4());
                 backgroundEffect.Parameters["EndColor1"].SetValue(backgroundGradientColorMap.Color1.End.ToVector4());
@@ -328,7 +323,7 @@ namespace StardustSandbox
 
                 Vector2 screenPosition = this.cameraManager.WorldToScreen(worldPosition);
 
-                this.spriteBatch.Draw(this.mouseActionSquareTexture, screenPosition, null, this.gameplaySettings.PreviewAreaColor, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                this.spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), screenPosition, new(110, 0, 32, 32), this.gameplaySettings.PreviewAreaColor, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             }
         }
 

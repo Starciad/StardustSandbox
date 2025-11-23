@@ -294,6 +294,39 @@ namespace StardustSandbox.Randomness
             return Range(0, total) < chance;
         }
 
+        /// <summary>
+        /// Evaluates a probabilistic event with a specified chance out of 100 using double precision.
+        /// </summary>
+        /// <param name="chance">The number of chances for the event to occur (0.0-100.0).</param>
+        /// <returns><c>true</c> if the event occurs; otherwise, <c>false</c>.</returns>
+        /// <remarks>
+        /// This method is equivalent to calling <see cref="Chance(double, double)"/> with <paramref name="total"/> set to 100.0.
+        /// </remarks>
+        internal static bool Chance(double chance)
+        {
+            return Chance(chance, 100.0);
+        }
+
+        /// <summary>
+        /// Evaluates a probabilistic event with a specified chance out of a total using double precision.
+        /// </summary>
+        /// <param name="chance">The number of chances for the event to occur.</param>
+        /// <param name="total">The total number of possible outcomes.</param>
+        /// <returns><c>true</c> if the event occurs; otherwise, <c>false</c>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="chance"/> is negative or greater than <paramref name="total"/>.</exception>
+        /// <example>
+        /// <code>
+        /// // 25% chance to return true
+        /// bool result = SSRandom.Chance(25.0, 100.0);
+        /// </code>
+        /// </example>
+        internal static bool Chance(double chance, double total)
+        {
+            return chance < 0.0 || chance > total
+                ? throw new ArgumentOutOfRangeException(nameof(chance), "Chance must be between 0 and total (inclusive).")
+                : Range(0.0, total) < chance;
+        }
+
         internal static float GetDouble()
         {
             return (float)random.NextDouble();

@@ -15,13 +15,13 @@
 
 #begin audio/songs/volume_01/01_canvas_of_silence.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:audio/songs/volume_01/01_canvas_of_silence.wav
 
 #begin audio/songs/volume_01/02_endless_rebirth.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:audio/songs/volume_01/02_endless_rebirth.wav
 
@@ -105,6 +105,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/backgrounds/ocean.png
+
+#begin textures/backgrounds/sky.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/backgrounds/sky.png
 
 #begin textures/bgos/celestial_bodies.png
 /importer:TextureImporter

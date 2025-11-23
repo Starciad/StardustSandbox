@@ -12,14 +12,14 @@ namespace StardustSandbox.WorldSystem
         internal Element Element => this.element;
         internal Element StoredElement => this.storedElement;
         internal ElementStates States => this.states;
-        internal short Temperature => this.temperature;
+        internal double Temperature => this.temperature;
         internal Color ColorModifier => this.colorModifier;
         internal UpdateCycleFlag StepCycleFlag => this.stepCycleFlag;
 
         private Element element;
         private Element storedElement;
         private ElementStates states;
-        private short temperature;
+        private double temperature;
         private Color colorModifier;
         private UpdateCycleFlag stepCycleFlag;
 
@@ -61,7 +61,7 @@ namespace StardustSandbox.WorldSystem
             this.stepCycleFlag = valueToCopy.stepCycleFlag;
         }
 
-        internal void SetTemperatureValue(short value)
+        internal void SetTemperatureValue(double value)
         {
             this.temperature = TemperatureMath.Clamp(value);
         }

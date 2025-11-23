@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
@@ -13,14 +12,6 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         private static readonly List<Point> positionBuffer = [];
         private static readonly List<SlotLayer> layerBuffer = [];
-
-        internal Clone(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.IsExplosionImmune;
-
-            this.defaultDensity = 3000;
-        }
 
         protected override void OnBeforeStep()
         {

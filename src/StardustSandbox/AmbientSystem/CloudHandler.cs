@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.BackgroundSystem.Clouds;
 using StardustSandbox.Collections;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
@@ -17,29 +16,24 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.AmbientSystem
 {
-    internal sealed class CloudHandler : IResettable
+    internal sealed class CloudHandler(CameraManager cameraManager, GameManager gameManager, Simulation simulation) : IResettable
     {
         internal bool IsActive { get; set; } = true;
 
-        private readonly Texture2D[] cloudTextures = new Texture2D[AssetConstants.TEXTURES_BGOS_CLOUDS_LENGTH];
+        private static readonly Rectangle[] cloudRectangles = [
+            new(0, 0, 160, 64),
+            new(160, 0, 96, 32),
+            new(256, 0, 160, 96),
+            new(0, 64, 128, 64),
+            new(128, 64, 128, 64),
+        ];
+
         private readonly List<Cloud> activeClouds = new(BackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly ObjectPool cloudPool = new();
 
-        private readonly CameraManager cameraManager;
-        private readonly GameManager gameManager;
-        private readonly Simulation simulation;
-
-        public CloudHandler(CameraManager cameraManager, GameManager gameManager, Simulation simulation)
-        {
-            this.cameraManager = cameraManager;
-            this.gameManager = gameManager;
-            this.simulation = simulation;
-
-            for (byte i = 0; i < AssetConstants.TEXTURES_BGOS_CLOUDS_LENGTH; i++)
-            {
-                this.cloudTextures[i] = AssetDatabase.GetTexture($"texture_bgo_cloud_{i + 1}");
-            }
-        }
+        private readonly CameraManager cameraManager = cameraManager;
+        private readonly GameManager gameManager = gameManager;
+        private readonly Simulation simulation = simulation;
 
         internal void Update(GameTime gameTime)
         {
@@ -59,7 +53,7 @@ namespace StardustSandbox.AmbientSystem
                     continue;
                 }
 
-                if (!this.cameraManager.InsideCameraBounds(cloud.Position, new Point(cloud.Texture.Width, cloud.Texture.Height), false, cloud.Texture.Width + (WorldConstants.GRID_SIZE * 2)))
+                if (!this.cameraManager.InsideCameraBounds(cloud.Position, new Point(cloud.TextureRectangle.Width, cloud.TextureRectangle.Height), false, cloud.TextureRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
                 {
                     DestroyCloud(cloud);
                     continue;
@@ -122,12 +116,12 @@ namespace StardustSandbox.AmbientSystem
             }
 
             Cloud target;
-            Texture2D randomBGOCloudTexture = GetRandomBGOCloudTexture();
+            Rectangle randomCloudRectangle = cloudRectangles.GetRandomItem();
 
             if (this.cloudPool.TryDequeue(out IPoolableObject value))
             {
                 target = (Cloud)value;
-                target.SetTexture(randomBGOCloudTexture);
+                target.SetTextureRectangle(randomCloudRectangle);
                 target.Reset();
 
                 this.activeClouds.Add(target);
@@ -135,7 +129,7 @@ namespace StardustSandbox.AmbientSystem
             else
             {
                 target = new();
-                target.SetTexture(randomBGOCloudTexture);
+                target.SetTextureRectangle(randomCloudRectangle);
 
                 this.activeClouds.Add(target);
             }
@@ -145,11 +139,6 @@ namespace StardustSandbox.AmbientSystem
         {
             _ = this.activeClouds.Remove(cloud);
             this.cloudPool.Enqueue(cloud);
-        }
-
-        private Texture2D GetRandomBGOCloudTexture()
-        {
-            return this.cloudTextures.GetRandomItem();
         }
     }
 }

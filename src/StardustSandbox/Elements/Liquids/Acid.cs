@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Elements.Solids.Immovables;
+﻿using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
@@ -11,14 +8,9 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Acid : Liquid
     {
-        internal Acid(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
+        internal Acid() : base()
         {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
 
-            this.defaultTemperature = 10;
-            this.defaultDensity = 1100;
-            this.defaultExplosionResistance = 0.2f;
         }
 
         protected override void OnNeighbors(IEnumerable<Slot> neighbors)

@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.IO.Handlers;
@@ -30,10 +30,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private LabelUIElement worldVersionElement;
         private LabelUIElement worldCreationTimestampElement;
 
-        private readonly Texture2D particleTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-        private readonly SpriteFont pixelOperatorSpriteFont;
-
         private readonly LabelUIElement[] worldButtonElements;
 
         private readonly UIButton[] worldButtons;
@@ -54,14 +50,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.uiManager = uiManager;
             this.world = world;
 
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-            this.pixelOperatorSpriteFont = AssetDatabase.GetSpriteFont("font_9");
-
             this.worldButtons = [
-                new(null, "Return", string.Empty, ReturnButtonAction),
-                new(null, "Delete", string.Empty, DeleteButtonAction),
-                new(null, "Play", string.Empty, PlayButtonAction),
+                new(null, null, "Return", string.Empty, ReturnButtonAction),
+                new(null, null, "Delete", string.Empty, DeleteButtonAction),
+                new(null, null, "Play", string.Empty, PlayButtonAction),
             ];
 
             this.worldButtonElements = new LabelUIElement[this.worldButtons.Length];
@@ -105,11 +97,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
             BuildWorldButtons(layout);
         }
 
-        private void BuildBackground(Layout layout)
+        private static void BuildBackground(Layout layout)
         {
             ImageUIElement guiBackground = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
                 Color = new Color(AAP64ColorPalette.DarkGray, 160)
@@ -123,7 +115,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             // Background
             this.headerBackgroundElement = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
@@ -133,7 +125,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.worldTitleElement = new()
             {
                 Scale = new(0.15f),
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 PositionAnchor = CardinalDirection.West,
                 OriginPivot = CardinalDirection.East,
                 Margin = new(32.0f, 0.0f),
@@ -168,7 +160,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(0.078f),
                 Margin = new(32.0f, 0.0f),
                 LineHeight = 1.25f,
-                SpriteFont = this.pixelOperatorSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 TextAreaSize = new(930.0f, 600.0f),
                 PositionAnchor = CardinalDirection.Northeast,
             };
@@ -183,7 +175,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.worldCreationTimestampElement = new()
             {
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.075f),
                 Margin = new(-8),
                 PositionAnchor = CardinalDirection.Southeast,
@@ -200,7 +192,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.worldVersionElement = new()
             {
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.075f),
                 Margin = new(0.0f, this.worldCreationTimestampElement.GetStringSize().Y + (64.0f * -1.0f)),
                 PositionAnchor = CardinalDirection.Northeast,
@@ -225,7 +217,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 {
                     Scale = new(0.12f),
                     Margin = margin,
-                    SpriteFont = this.bigApple3PMSpriteFont,
+                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     PositionAnchor = CardinalDirection.Southwest,
                     OriginPivot = CardinalDirection.East,
                 };

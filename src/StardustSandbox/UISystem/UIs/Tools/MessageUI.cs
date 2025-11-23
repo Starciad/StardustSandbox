@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.LocalizationSystem;
@@ -21,10 +21,6 @@ namespace StardustSandbox.UISystem.UIs.Tools
         private TextUIElement messageElement;
         private LabelUIElement continueButtonElement;
 
-        private readonly Texture2D particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-        private readonly SpriteFont bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-        private readonly SpriteFont pixelOperatorSpriteFont = AssetDatabase.GetSpriteFont("font_9");
-
         private readonly UIManager uiManager = uiManager;
 
         #region BUILDER
@@ -40,7 +36,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             ImageUIElement guiBackground = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
@@ -57,7 +53,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Margin = new(0f, 96f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
-                SpriteFont = this.pixelOperatorSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 PositionAnchor = CardinalDirection.North,
                 OriginPivot = CardinalDirection.Center,
             };
@@ -72,7 +68,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.continueButtonElement = new()
             {
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.13f),
                 Margin = new(0f, -96f),
                 PositionAnchor = CardinalDirection.South,

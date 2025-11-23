@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
@@ -57,13 +57,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private readonly CreditSection[] creditSections;
         private readonly List<UIElement> creditElements = [];
 
-        private readonly Texture2D gameTitleTexture;
-        private readonly Texture2D starciadCharacterTexture;
-        private readonly Texture2D monogameLogoTexture;
-        private readonly Texture2D xnaLogoTexture;
-        private readonly Song creditsMenuSong;
-        private readonly SpriteFont digitalDiscoSpriteFont;
-
         private readonly World world;
 
         private readonly AmbientManager ambientManager;
@@ -86,13 +79,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.uiManager = uiManager;
             this.world = world;
 
-            this.gameTitleTexture = AssetDatabase.GetTexture("texture_game_title_1");
-            this.starciadCharacterTexture = AssetDatabase.GetTexture("texture_character_1");
-            this.monogameLogoTexture = AssetDatabase.GetTexture("texture_third_party_1");
-            this.xnaLogoTexture = AssetDatabase.GetTexture("texture_third_party_2");
-            this.creditsMenuSong = AssetDatabase.GetSong("song_2");
-            this.digitalDiscoSpriteFont = AssetDatabase.GetSpriteFont("font_8");
-
             // Build Credit Sections
             this.creditSections = [
                 // Game Title
@@ -100,7 +86,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 [
                     new()
                     {
-                        Texture = this.gameTitleTexture,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.GameTitle),
                         ContentType = CreditContentType.Image,
                         TextureScale = new(2.5f),
                     },
@@ -201,14 +187,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     new()
                     {
                         ContentType = CreditContentType.Image,
-                        Texture = this.monogameLogoTexture,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.ThirdPartyMonogame),
                         TextureScale = new(0.2f),
                     },
 
                     new()
                     {
                         ContentType = CreditContentType.Image,
-                        Texture = this.xnaLogoTexture,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.ThirdPartyXna),
                         TextureScale = new(0.15f),
                     },
                 ]),
@@ -223,8 +209,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     new()
                     {
                         ContentType = CreditContentType.Image,
-                        Texture = this.starciadCharacterTexture,
-                        Margin = new(0f, this.starciadCharacterTexture.Height / 2f),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.CharacterStarciad),
+                        Margin = new(0f, AssetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height / 2f),
                     },
                 ]),
             ];
@@ -254,7 +240,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     LabelUIElement sectionTitleElement = new()
                     {
                         Scale = new(0.25f),
-                        SpriteFont = this.digitalDiscoSpriteFont,
+                        SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                         Margin = margin,
                         OriginPivot = CardinalDirection.Center,
                         PositionAnchor = CardinalDirection.South,
@@ -277,7 +263,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                         LabelUIElement contentTitleElement = new()
                         {
                             Scale = new(0.2f),
-                            SpriteFont = this.digitalDiscoSpriteFont,
+                            SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                             Margin = margin + content.Margin,
                             OriginPivot = CardinalDirection.Center,
                             PositionAnchor = CardinalDirection.South,
@@ -298,7 +284,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                         LabelUIElement contentText = new()
                         {
                             Scale = new(0.15f),
-                            SpriteFont = this.digitalDiscoSpriteFont,
+                            SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                             Margin = margin + content.Margin,
                             OriginPivot = CardinalDirection.Center,
                             PositionAnchor = CardinalDirection.South,
@@ -400,7 +386,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.world.IsActive = false;
             this.world.IsVisible = false;
 
-            SongEngine.Play(this.creditsMenuSong);
+            SongEngine.Play(SongIndex.V01_EndlessRebirth);
 
             foreach (UIElement element in this.creditElements)
             {

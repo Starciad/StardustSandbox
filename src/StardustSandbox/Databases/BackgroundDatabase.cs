@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.BackgroundSystem;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Managers;
 
@@ -25,17 +26,17 @@ namespace StardustSandbox.Databases
                 // [0] Main Menu
                 new([
                     new(new(2.0f, 0.0f), new(-16.0f, 0.0f), false, true),
-                ], cameraManager, true, AssetDatabase.GetTexture("texture_background_1")),
+                ], cameraManager, true, AssetDatabase.GetTexture(TextureIndex.BackgroundOcean)),
 
                 // [1] Ocean
                 new([
                     new(new(2.0f, 0.0f), Vector2.Zero, false, true),
-                ], cameraManager, true, AssetDatabase.GetTexture("texture_background_1")),
+                ], cameraManager, true, AssetDatabase.GetTexture(TextureIndex.BackgroundOcean)),
 
                 // [2] Credits
                 new([
                     new(new(0.0f, 0.0f), new(-32.0f), false, false),
-                ], cameraManager, false, AssetDatabase.GetTexture("texture_background_3")),
+                ], cameraManager, false, AssetDatabase.GetTexture(TextureIndex.PatternDiamonds)),
             ];
 
             isLoaded = true;

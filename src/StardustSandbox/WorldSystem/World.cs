@@ -85,11 +85,6 @@ namespace StardustSandbox.WorldSystem
             this.worldElementContext = new(this);
         }
 
-        internal void Initialize()
-        {
-            this.rendering.Initialize();
-        }
-
         public void Reset()
         {
             this.currentlySelectedWorldSaveFile = null;
@@ -252,7 +247,7 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TrySetElementTemperature(Point position, LayerType layerType, short value)
+        internal bool TrySetElementTemperature(Point position, LayerType layerType, double value)
         {
             if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layerType))
             {
@@ -418,7 +413,7 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        internal void SetElementTemperature(Point position, LayerType layer, short value)
+        internal void SetElementTemperature(Point position, LayerType layer, double value)
         {
             _ = TrySetElementTemperature(position, layer, value);
         }
@@ -621,14 +616,14 @@ namespace StardustSandbox.WorldSystem
 
             Element element = worldSlotLayer.Element;
 
-            if (element.HasCharacteristic(ElementCharacteristics.IsExplosionImmune))
+            if (element.Characteristics.HasFlag(ElementCharacteristics.IsExplosionImmune))
             {
                 return;
             }
 
             if (element.DefaultExplosionResistance >= explosion.Power)
             {
-                worldSlotLayer.SetTemperatureValue((short)(worldSlotLayer.Temperature + explosion.Heat));
+                worldSlotLayer.SetTemperatureValue(worldSlotLayer.Temperature + explosion.Heat);
             }
             else
             {
@@ -661,7 +656,7 @@ namespace StardustSandbox.WorldSystem
             if (this.simulation.CanContinueExecution())
             {
                 this.chunking.Update();
-                this.updating.Update();
+                this.updating.Update(gameTime);
             }
 
             HandleExplosions();

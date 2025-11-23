@@ -26,7 +26,7 @@ namespace StardustSandbox.IO.Saving.World.Content
         }
 
         [Key(0)] public uint ElementIndex { get; set; }
-        [Key(1)] public short Temperature { get; set; }
+        [Key(1)] public double Temperature { get; set; }
         [Key(2)] public ElementStates States { get; set; }
         [Key(3)] public byte ColorModifierR { get; set; }
         [Key(4)] public byte ColorModifierG { get; set; }

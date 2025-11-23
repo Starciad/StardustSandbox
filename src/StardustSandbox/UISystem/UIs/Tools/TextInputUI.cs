@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UISystem;
@@ -40,11 +40,6 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
         private readonly LabelUIElement[] menuButtonElements;
 
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D typingFieldTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-        private readonly SpriteFont pixelOperatorSpriteFont;
-
         private readonly StringBuilder userInputStringBuilder = new();
         private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
@@ -71,14 +66,9 @@ namespace StardustSandbox.UISystem.UIs.Tools
             this.messageUI = messageUI;
             this.uiManager = uiManager;
 
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.typingFieldTexture = AssetDatabase.GetTexture("texture_gui_field_2");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-            this.pixelOperatorSpriteFont = AssetDatabase.GetSpriteFont("font_9");
-
             this.menuButtons = [
-                new(null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
-                new(null, Localization_Statements.Send, string.Empty, SendButtonAction),
+                new(null, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(null, null, Localization_Statements.Send, string.Empty, SendButtonAction),
             ];
 
             this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
@@ -160,11 +150,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
             BuildMenuButtons(layout);
         }
 
-        private void BuildBackground(Layout layout)
+        private static void BuildBackground(Layout layout)
         {
             ImageUIElement guiBackground = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
@@ -181,7 +171,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Margin = new(0, -128),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
-                SpriteFont = this.pixelOperatorSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 PositionAnchor = CardinalDirection.Center,
                 OriginPivot = CardinalDirection.Center,
             };
@@ -196,7 +186,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.userInputBackgroundElement = new()
             {
-                Texture = this.typingFieldTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiTextInputOrnament),
                 Scale = new(1.5f),
                 Size = new(632, 50),
                 Margin = new(0, 64),
@@ -206,7 +196,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
             this.userInputElement = new()
             {
-                SpriteFont = this.pixelOperatorSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Scale = new(0.085f),
                 TextAreaSize = new(1000, 1000),
                 Margin = new(0, -32),
@@ -225,7 +215,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.characterCountElement = new()
             {
-                SpriteFont = this.pixelOperatorSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Scale = new(0.08f),
                 Margin = new(-212, -16),
                 PositionAnchor = CardinalDirection.East,
@@ -248,7 +238,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
                 LabelUIElement labelElement = new()
                 {
-                    SpriteFont = this.bigApple3PMSpriteFont,
+                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Scale = new(0.125f),
                     Margin = margin,
                     PositionAnchor = CardinalDirection.South,

@@ -5,7 +5,7 @@
         None = -1,
 
         // Volume 01
-        CanvasOfSilence,
-        EndlessRebirth,
+        V01_CanvasOfSilence,
+        V01_EndlessRebirth,
     }
 }

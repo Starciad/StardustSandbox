@@ -1,23 +1,15 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Lava : Liquid
     {
-        internal Lava(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
+        internal Lava() : base()
         {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
 
-            this.defaultTemperature = 1000;
-            this.defaultDensity = 3000;
-            this.defaultExplosionResistance = 0.4f;
         }
 
-        protected override void OnTemperatureChanged(short currentValue)
+        protected override void OnTemperatureChanged(double currentValue)
         {
             if (currentValue <= 500)
             {

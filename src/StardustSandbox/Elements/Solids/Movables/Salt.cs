@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Elements.Liquids;
+﻿using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
@@ -11,16 +8,6 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Salt : MovableSolid
     {
-        internal Salt(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.HasTemperature | ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.IsCorruptible;
-
-            this.defaultTemperature = 22;
-            this.defaultDensity = 2200;
-            this.defaultExplosionResistance = 0.7f;
-        }
-
         protected override void OnNeighbors(IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
@@ -40,7 +27,7 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        protected override void OnTemperatureChanged(short currentValue)
+        protected override void OnTemperatureChanged(double currentValue)
         {
             if (currentValue > 900)
             {

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Media;
 
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
+
 namespace StardustSandbox.AudioSystem
 {
     internal static class SongEngine
@@ -36,15 +39,15 @@ namespace StardustSandbox.AudioSystem
 
         internal static MediaState State => MediaPlayer.State;
 
-        internal static void Play(Song song)
+        internal static void Play(SongIndex songIndex)
         {
             if (MediaPlayer.State != MediaState.Stopped)
             {
                 Stop();
             }
 
-            CurrentSong = song;
-            MediaPlayer.Play(song);
+            CurrentSong = AssetDatabase.GetSong(songIndex);
+            MediaPlayer.Play(CurrentSong);
         }
 
         internal static void Stop()

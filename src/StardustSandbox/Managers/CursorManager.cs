@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Settings;
 
@@ -22,8 +23,7 @@ namespace StardustSandbox.Managers
 
         private InputManager inputManager;
 
-        private readonly Texture2D[] cursorTextures = new Texture2D[2];
-        private readonly int cursorTextureSelected = 0;
+        private Texture2D cursorTexture;
 
         private static readonly Rectangle[] cursorClipAreas = [
             new(new Point(0, 0), new Point(36, 36)),
@@ -32,9 +32,7 @@ namespace StardustSandbox.Managers
 
         internal void Initialize(InputManager inputManager)
         {
-            this.cursorTextures[0] = AssetDatabase.GetTexture("texture_cursor_1");
-            this.cursorTextures[1] = AssetDatabase.GetTexture("texture_cursor_2");
-
+            this.cursorTexture = AssetDatabase.GetTexture(TextureIndex.Cursors);
             this.inputManager = inputManager;
 
             ApplySettings();
@@ -50,10 +48,8 @@ namespace StardustSandbox.Managers
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            Texture2D cursorSelectedTexture = this.cursorTextures[this.cursorTextureSelected];
-
-            spriteBatch.Draw(cursorSelectedTexture, this.backgroundPosition, cursorClipAreas[1], this.backgroundColor, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
-            spriteBatch.Draw(cursorSelectedTexture, this.position, cursorClipAreas[0], this.color, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.cursorTexture, this.backgroundPosition, cursorClipAreas[1], this.backgroundColor, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.cursorTexture, this.position, cursorClipAreas[0], this.color, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
         }
 
         internal void ApplySettings()

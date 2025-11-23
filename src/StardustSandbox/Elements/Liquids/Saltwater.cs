@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Elements.Energies;
+﻿using StardustSandbox.Elements.Energies;
 using StardustSandbox.Elements.Solids.Movables;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
@@ -13,17 +10,6 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Saltwater : Liquid
     {
-        internal Saltwater(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.renderingType = ElementRenderingType.Blob;
-            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible;
-
-            this.defaultDispersionRate = 3;
-            this.defaultTemperature = 25;
-            this.defaultDensity = 1200;
-            this.defaultExplosionResistance = 0.2f;
-        }
-
         protected override void OnNeighbors(IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
@@ -54,7 +40,7 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(short currentValue)
+        protected override void OnTemperatureChanged(double currentValue)
         {
             if (currentValue <= 21)
             {

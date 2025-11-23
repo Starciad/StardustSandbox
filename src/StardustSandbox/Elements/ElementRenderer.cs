@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
@@ -214,7 +216,7 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch)
+        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             SlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
 
@@ -230,11 +232,21 @@ namespace StardustSandbox.Elements
             for (byte i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, element, i, context.Slot.Position);
-                spriteBatch.Draw(element.Texture, spritePositions[i], spriteClipAreas[i], colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(
+                    AssetDatabase.GetTexture(TextureIndex.Elements),
+                    spritePositions[i],
+                    new(textureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size),
+                    colorModifier,
+                    0.0f,
+                    Vector2.Zero,
+                    Vector2.One,
+                    SpriteEffects.None,
+                    0.0f
+                );
             }
         }
 
-        private static void DrawSingleElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
 
@@ -243,20 +255,30 @@ namespace StardustSandbox.Elements
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            spriteBatch.Draw(element.Texture, new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, null, colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(
+                AssetDatabase.GetTexture(TextureIndex.Elements),
+                new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE,
+                new Rectangle(textureOriginOffset, new(32)),
+                colorModifier,
+                0f,
+                Vector2.Zero,
+                Vector2.One,
+                SpriteEffects.None,
+                0f
+            );
         }
 
-        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             // Handle blob tiles separately.
             switch (element.RenderingType)
             {
                 case ElementRenderingType.Single:
-                    DrawSingleElementRoutine(context, element, spriteBatch);
+                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset);
                     break;
 
                 case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element, spriteBatch);
+                    DrawBlobElementRoutine(context, element, spriteBatch, textureOriginOffset);
                     break;
 
                 default:

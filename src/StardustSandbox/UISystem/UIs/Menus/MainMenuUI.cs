@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.InputSystem.GameInput;
@@ -28,15 +28,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
 {
     internal sealed class MainMenuUI : UI
     {
-        private enum MainMenuButtonIndex : byte
-        {
-            Create = 0,
-            Play = 1,
-            Options = 2,
-            Credits = 3,
-            Quit = 4
-        }
-
         private const float animationSpeed = 2f;
         private const float animationAmplitude = 10f;
         private const float ButtonAnimationSpeed = 1.5f;
@@ -51,21 +42,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private Dictionary<LabelUIElement, Vector2> buttonOriginalPositions;
         private float[] buttonAnimationOffsets;
 
-        private readonly Texture2D gameTitleTexture;
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D prosceniumCurtainTexture;
-        private readonly Song mainMenuSong;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-
         private readonly LabelUIElement[] menuButtonElements;
         private readonly UIButton[] menuButtons;
-        private readonly World world;
 
         private readonly InputController inputController;
 
         private readonly AmbientManager ambientManager;
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
+        private readonly World world;
 
         internal MainMenuUI(
             AmbientManager ambientManager,
@@ -82,20 +67,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.uiManager = uiManager;
             this.world = world;
 
-            this.gameTitleTexture = AssetDatabase.GetTexture("texture_game_title_1");
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.prosceniumCurtainTexture = AssetDatabase.GetTexture("texture_miscellany_1");
-
-            this.mainMenuSong = AssetDatabase.GetSong("song_1");
-
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-
             this.menuButtons = [
-                new(null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, CreateMenuButtonAction),
-                new(null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, PlayMenuButtonAction),
-                new(null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, OptionsMenuButtonAction),
-                new(null, Localization_GUIs.Menu_Main_Button_Credits, string.Empty, CreditsMenuButtonAction),
-                new(null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
+                new(null, null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, CreateMenuButtonAction),
+                new(null, null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, PlayMenuButtonAction),
+                new(null, null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, OptionsMenuButtonAction),
+                new(null, null, Localization_GUIs.Menu_Main_Button_Credits, string.Empty, CreditsMenuButtonAction),
+                new(null, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
             ];
 
             this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
@@ -189,7 +166,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.panelBackgroundElement = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(487f, ScreenConstants.SCREEN_HEIGHT),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 180),
@@ -198,18 +175,18 @@ namespace StardustSandbox.UISystem.UIs.Menus
             layout.AddElement(this.panelBackgroundElement);
         }
 
-        private void BuildDecorations(Layout layout)
+        private static void BuildDecorations(Layout layout)
         {
             ImageUIElement prosceniumCurtainElement = new()
             {
-                Texture = this.prosceniumCurtainTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.MiscellaneousTheatricalCurtains),
                 Scale = new(2)
             };
 
             layout.AddElement(prosceniumCurtainElement);
         }
 
-        private void BuildInfos(Layout layout)
+        private static void BuildInfos(Layout layout)
         {
             LabelUIElement gameVersionLabel = new()
             {
@@ -218,7 +195,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = AAP64ColorPalette.White,
                 PositionAnchor = CardinalDirection.Southeast,
                 OriginPivot = CardinalDirection.West,
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             LabelUIElement copyrightLabel = new()
@@ -228,7 +205,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = AAP64ColorPalette.White,
                 PositionAnchor = CardinalDirection.South,
                 OriginPivot = CardinalDirection.Center,
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             gameVersionLabel.SetTextualContent($"Ver. {GameConstants.VERSION}");
@@ -245,7 +222,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.gameTitleElement = new()
             {
-                Texture = this.gameTitleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GameTitle),
                 Scale = new(1.5f),
                 Size = new(292, 112),
                 Margin = new(0, 96),
@@ -273,7 +250,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     Color = AAP64ColorPalette.White,
                     PositionAnchor = CardinalDirection.Center,
                     OriginPivot = CardinalDirection.Center,
-                    SpriteFont = this.bigApple3PMSpriteFont,
+                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 };
 
                 labelElement.SetTextualContent(this.menuButtons[i].Name);
@@ -380,9 +357,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
             this.world.Time.IsFrozen = false;
 
-            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSong != this.mainMenuSong)
+            if (SongEngine.State != MediaState.Playing)
             {
-                SongEngine.Play(this.mainMenuSong);
+                SongEngine.Play(SongIndex.V01_CanvasOfSilence);
             }
         }
 

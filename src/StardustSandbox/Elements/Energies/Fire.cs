@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
@@ -13,15 +12,6 @@ namespace StardustSandbox.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        internal Fire(Color referenceColor, ElementIndex index, Texture2D texture) : base(referenceColor, index, texture)
-        {
-            this.renderingType = ElementRenderingType.Single;
-            this.characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsExplosionImmune | ElementCharacteristics.IsCorruptible;
-
-            this.defaultTemperature = 500;
-            this.defaultDensity = 0;
-        }
-
         protected override void OnBeforeStep()
         {
             if (SSRandom.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
@@ -79,7 +69,7 @@ namespace StardustSandbox.Elements.Energies
             this.Context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));
 
             // Check if the element is flammable
-            if (worldSlotLayer.Element.HasCharacteristic(ElementCharacteristics.IsFlammable))
+            if (worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
@@ -92,7 +82,7 @@ namespace StardustSandbox.Elements.Energies
                 }
 
                 // Attempt combustion based on flammabilityResistance
-                if (SSRandom.Chance(combustionChance, 100 + worldSlotLayer.Element.DefaultFlammabilityResistance))
+                if (SSRandom.Chance(combustionChance, 100.0 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
                     this.Context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
                 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements.Graphics;
@@ -44,7 +45,8 @@ namespace StardustSandbox.UISystem.Elements
 
             this.backgroundImageElement = new()
             {
-                Texture = AssetDatabase.GetTexture("texture_gui_background_4"),
+                Texture = AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
+                TextureClipArea = new(0, 0, 46, 46),
                 Color = AAP64ColorPalette.DarkPurple,
                 Scale = new(10f, 10f),
                 PositionAnchor = CardinalDirection.Center,
@@ -54,7 +56,7 @@ namespace StardustSandbox.UISystem.Elements
             this.titleElement = new()
             {
                 Scale = new(0.12f),
-                SpriteFont = AssetDatabase.GetSpriteFont("font_8"),
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = new(0, -16f),
             };
 
@@ -63,7 +65,7 @@ namespace StardustSandbox.UISystem.Elements
                 Scale = new(0.078f),
                 Margin = new(0, 64f),
                 LineHeight = 1.25f,
-                SpriteFont = AssetDatabase.GetSpriteFont("font_9"),
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
             };
 
             this.tooltipLayout = new();

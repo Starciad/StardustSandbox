@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
@@ -17,49 +16,24 @@ namespace StardustSandbox.Elements
     {
         #region Properties
 
-        internal ElementIndex Index => this.index;
-        internal Texture2D Texture => this.texture;
-        internal ElementCategory Category => this.category;
-        internal ElementRenderingType RenderingType => this.renderingType;
+        internal required ElementIndex Index { get; init; }
+        internal required ElementCategory Category { get; init; }
+        internal required ElementCharacteristics Characteristics { get; init; }
+        internal required ElementRenderingType RenderingType { get; init; }
+        internal required Point TextureOriginOffset { get; init; }
+        internal required Color ReferenceColor { get; init; }
 
-        internal Color ReferenceColor => this.referenceColor;
-
-        internal int DefaultDispersionRate => this.defaultDispersionRate;
-        internal short DefaultTemperature => this.defaultTemperature;
-        internal short DefaultFlammabilityResistance => this.defaultFlammabilityResistance;
-        internal short DefaultDensity => this.defaultDensity;
-        internal float DefaultExplosionResistance => this.defaultExplosionResistance;
+        internal int DefaultDispersionRate { get; init; } = 1;
+        internal double DefaultTemperature { get; init; } = 25.0;
+        internal double DefaultFlammabilityResistance { get; init; } = 25.0;
+        internal double DefaultDensity { get; init; } = 0;
+        internal double DefaultExplosionResistance { get; init; } = 0.5;
 
         internal ElementContext Context { get => this.context; set => this.context = value; }
 
         #endregion
 
-        #region Fields
-
-        protected ElementCategory category = ElementCategory.None;
-        protected ElementCharacteristics characteristics = ElementCharacteristics.None;
-        protected ElementRenderingType renderingType = ElementRenderingType.Single;
-
-        protected int defaultDispersionRate = 1;
-        protected short defaultTemperature = 25;
-        protected short defaultFlammabilityResistance = 25;
-        protected short defaultDensity = 0;
-        protected float defaultExplosionResistance = 0.5f;
-
-        protected readonly ElementIndex index = ElementIndex.None;
-        protected readonly Texture2D texture = null;
-        protected readonly Color referenceColor = AAP64ColorPalette.White;
-
-        #endregion
-
         private ElementContext context;
-
-        internal Element(Color referenceColor, ElementIndex index, Texture2D texture)
-        {
-            this.referenceColor = referenceColor;
-            this.index = index;
-            this.texture = texture;
-        }
 
         #region Virtual Methods
 
@@ -70,7 +44,7 @@ namespace StardustSandbox.Elements
         protected virtual void OnInstantiated() { return; }
         protected virtual void OnDestroyed() { return; }
         protected virtual void OnNeighbors(IEnumerable<Slot> neighbors) { return; }
-        protected virtual void OnTemperatureChanged(short currentValue) { return; }
+        protected virtual void OnTemperatureChanged(double currentValue) { return; }
 
         #endregion
 
@@ -86,10 +60,10 @@ namespace StardustSandbox.Elements
             OnDestroyed();
         }
 
-        internal void Steps()
+        internal void Steps(GameTime gameTime)
         {
-            bool hasTemperature = this.characteristics.HasFlag(ElementCharacteristics.HasTemperature);
-            bool affectsNeighbors = this.characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
+            bool hasTemperature = this.Characteristics.HasFlag(ElementCharacteristics.HasTemperature);
+            bool affectsNeighbors = this.Characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
 
             if (hasTemperature || affectsNeighbors)
             {
@@ -97,7 +71,7 @@ namespace StardustSandbox.Elements
 
                 if (hasTemperature)
                 {
-                    UpdateTemperature(neighbors);
+                    UpdateTemperature(gameTime, neighbors);
                 }
 
                 if (affectsNeighbors)
@@ -111,45 +85,50 @@ namespace StardustSandbox.Elements
             OnAfterStep();
         }
 
-        private void UpdateTemperature(IEnumerable<Slot> neighbors)
+        // Updated temperature transfer using Fourier's law of thermal conduction
+        private void UpdateTemperature(GameTime gameTime, IEnumerable<Slot> neighbors)
         {
-            float totalTemperatureChange = 0;
+            double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
 
-            short neighborsForegroundLayerLength = 0;
-            short neighborsBackgroundLayerLength = 0;
+            double currentTemperature = this.context.SlotLayer.Temperature;
+            double totalHeatTransfer = 0.0;
+            int validNeighborCount = 0;
 
             foreach (Slot neighbor in neighbors)
             {
                 SlotLayer neighborForeground = neighbor.GetLayer(LayerType.Foreground);
                 SlotLayer neighborBackground = neighbor.GetLayer(LayerType.Background);
 
-                if (!neighborForeground.HasState(ElementStates.IsEmpty))
+                // Foreground layer
+                if (!neighborForeground.HasState(ElementStates.IsEmpty) &&
+                    neighborForeground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
-                    if (neighborForeground.Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
-                    {
-                        totalTemperatureChange += this.context.SlotLayer.Temperature - neighborForeground.Temperature;
-                    }
-
-                    neighborsForegroundLayerLength++;
+                    double neighborTemp = neighborForeground.Temperature;
+                    // Fourier's law: Q = -k * A * (dT/dx) * dt
+                    double heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+                    totalHeatTransfer += heatTransfer;
+                    validNeighborCount++;
                 }
 
-                if (!neighborBackground.HasState(ElementStates.IsEmpty))
+                // Background layer
+                if (!neighborBackground.HasState(ElementStates.IsEmpty) &&
+                    neighborBackground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
-                    if (neighborBackground.Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
-                    {
-                        totalTemperatureChange += this.context.SlotLayer.Temperature - neighborBackground.Temperature;
-                    }
-
-                    neighborsBackgroundLayerLength++;
+                    double neighborTemp = neighborBackground.Temperature;
+                    double heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+                    totalHeatTransfer += heatTransfer;
+                    validNeighborCount++;
                 }
             }
 
-            short averageTemperatureChange = (short)Math.Round(totalTemperatureChange / (short)(neighborsForegroundLayerLength + neighborsBackgroundLayerLength));
-            this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature - averageTemperatureChange)));
+            // Update temperature based on total heat transfer
+            double newTemperature = currentTemperature + totalHeatTransfer;
+            this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
 
-            if (MathF.Abs(averageTemperatureChange) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
+            // Equilibrium check (optional: can be tuned for stability)
+            if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
-                this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp((short)(this.context.SlotLayer.Temperature + averageTemperatureChange)));
+                this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
             }
 
             OnTemperatureChanged(this.context.SlotLayer.Temperature);
@@ -159,12 +138,7 @@ namespace StardustSandbox.Elements
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            ElementRenderer.Draw(this.context, this, spriteBatch);
-        }
-
-        internal bool HasCharacteristic(ElementCharacteristics characteristic)
-        {
-            return this.characteristics.HasFlag(characteristic);
+            ElementRenderer.Draw(this.context, this, spriteBatch, this.TextureOriginOffset);
         }
     }
 }

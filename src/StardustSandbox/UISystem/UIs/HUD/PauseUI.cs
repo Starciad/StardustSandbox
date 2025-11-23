@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UISystem;
@@ -26,11 +26,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private readonly UIButton[] menuButtons;
         private readonly UISlot[] menuButtonSlots;
 
-        private readonly Texture2D particleTexture;
-        private readonly Texture2D panelBackgroundTexture;
-        private readonly Texture2D guiLargeButtonTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-
         private readonly ConfirmUI confirmUI;
         private readonly ConfirmSettings exitConfirmSettings;
 
@@ -48,11 +43,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.gameManager = gameManager;
             this.uiManager = uiManager;
 
-            this.particleTexture = AssetDatabase.GetTexture("texture_particle_1");
-            this.panelBackgroundTexture = AssetDatabase.GetTexture("texture_gui_background_14");
-            this.guiLargeButtonTexture = AssetDatabase.GetTexture("texture_gui_button_3");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-
             this.exitConfirmSettings = new()
             {
                 Caption = Localization_Messages.Confirm_Simulation_Exit_Title,
@@ -68,9 +58,9 @@ namespace StardustSandbox.UISystem.UIs.HUD
             };
 
             this.menuButtons = [
-                new(null, Localization_Statements.Resume, string.Empty, ResumeButtonAction),
-                new(null, Localization_Statements.Options, string.Empty, OptionsButtonAction),
-                new(null, Localization_Statements.Exit, string.Empty, ExitButtonAction),
+                new(null, null, Localization_Statements.Resume, string.Empty, ResumeButtonAction),
+                new(null, null, Localization_Statements.Options, string.Empty, OptionsButtonAction),
+                new(null, null, Localization_Statements.Exit, string.Empty, ExitButtonAction),
             ];
 
             this.menuButtonSlots = new UISlot[this.menuButtons.Length];
@@ -111,7 +101,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             ImageUIElement backgroundShadowElement = new()
             {
-                Texture = this.particleTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Size = new(1),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
@@ -119,9 +109,9 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = this.panelBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPause),
                 Size = new(542, 540),
-                Margin = new(this.panelBackgroundTexture.Width / 2 * -1, 90),
+                Margin = new(AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPause).Width / 2 * -1, 90),
                 PositionAnchor = CardinalDirection.North,
             };
 
@@ -135,7 +125,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.menuTitleElement = new()
             {
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 PositionAnchor = CardinalDirection.North,
                 OriginPivot = CardinalDirection.Center,
@@ -160,10 +150,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 ImageUIElement backgroundElement = new()
                 {
-                    Texture = this.guiLargeButtonTexture,
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    TextureClipArea = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320, 80),
-                    Margin = new(this.guiLargeButtonTexture.Width / 2 * -1, marginY),
+                    Margin = new(-160.0f, marginY),
                     PositionAnchor = CardinalDirection.North,
                 };
 
@@ -171,7 +162,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
-                    SpriteFont = this.bigApple3PMSpriteFont,
+                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     PositionAnchor = CardinalDirection.Center,
                     OriginPivot = CardinalDirection.Center
                 };

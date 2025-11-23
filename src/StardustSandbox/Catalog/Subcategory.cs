@@ -1,14 +1,16 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using System;
 
 namespace StardustSandbox.Catalog
 {
-    internal sealed class Subcategory(string name, string description, Texture2D iconTexture, Item[] items)
+    internal sealed class Subcategory(string name, string description, Texture2D iconTexture, Rectangle iconTextureRectangle, Item[] items)
     {
         internal string Name => name;
         internal string Description => description;
         internal Texture2D IconTexture => iconTexture;
+        internal Rectangle IconTextureRectangle => iconTextureRectangle;
         internal Item[] Items => this.items;
         internal int ItemLength => this.items.Length;
         internal Category ParentCategory { get; private set; }

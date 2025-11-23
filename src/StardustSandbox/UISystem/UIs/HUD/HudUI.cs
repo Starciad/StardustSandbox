@@ -5,6 +5,7 @@ using StardustSandbox.Catalog;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.Simulation;
@@ -75,25 +76,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private readonly UIButton[] rightPanelTopButtons;
         private readonly UIButton[] rightPanelBottomButtons;
 
-        private readonly Texture2D guiButtonTexture;
-        private readonly Texture2D guiVerticalDrawerButtonsTexture;
-        private readonly Texture2D guiHorizontalDrawerButtonsTexture;
-        private readonly Texture2D guiHorizontalBackgroundTexture;
-        private readonly Texture2D guiVerticalBackgroundTexture;
-        private readonly Texture2D magnifyingGlassIconTexture;
-        private readonly Texture2D weatherIconTexture;
-        private readonly Texture2D pencilIconTexture;
-        private readonly Texture2D penIconTexture;
-        private readonly Texture2D settingsIconTexture;
-        private readonly Texture2D pauseIconTexture;
-        private readonly Texture2D resumeIconTexture;
-        private readonly Texture2D menuIconTexture;
-        private readonly Texture2D saveIconTexture;
-        private readonly Texture2D trashIconTexture;
-        private readonly Texture2D reloadIconTexture;
-        private readonly Texture2D infoIconTexture;
-        private readonly Texture2D[] speedIconTextures;
-
         private readonly ConfirmSettings reloadSimulationConfirmSettings;
         private readonly ConfirmSettings eraseEverythingConfirmSettings;
 
@@ -102,6 +84,17 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
         private readonly World world;
+
+        private readonly Rectangle[] speedIconRectangles = [
+            new(192, 128, 32, 32),
+            new(224, 128, 32, 32),
+            new(0, 160, 32, 32),
+        ];
+
+        private readonly Rectangle[] pauseAndResumeRectangles = [
+            new(96, 192, 32, 32),
+            new(128, 192, 32, 32),
+        ];
 
         internal HudUI(
             GameManager gameManager,
@@ -155,52 +148,26 @@ namespace StardustSandbox.UISystem.UIs.HUD
             // Default Selection
             SelectItemSlot(0, 0, 0, 0);
 
-            this.guiButtonTexture = AssetDatabase.GetTexture("texture_gui_button_1");
-
-            this.guiVerticalBackgroundTexture = AssetDatabase.GetTexture("texture_gui_background_15");
-            this.guiHorizontalBackgroundTexture = AssetDatabase.GetTexture("texture_gui_background_16");
-            this.guiHorizontalDrawerButtonsTexture = AssetDatabase.GetTexture("texture_gui_button_6");
-            this.guiVerticalDrawerButtonsTexture = AssetDatabase.GetTexture("texture_gui_button_7");
-
-            this.magnifyingGlassIconTexture = AssetDatabase.GetTexture("texture_icon_gui_1");
-            this.trashIconTexture = AssetDatabase.GetTexture("texture_icon_gui_2");
-            this.reloadIconTexture = AssetDatabase.GetTexture("texture_icon_gui_5");
-            this.menuIconTexture = AssetDatabase.GetTexture("texture_icon_gui_6");
-            this.saveIconTexture = AssetDatabase.GetTexture("texture_icon_gui_7");
-            this.pauseIconTexture = AssetDatabase.GetTexture("texture_icon_gui_8");
-            this.resumeIconTexture = AssetDatabase.GetTexture("texture_icon_gui_9");
-            this.pencilIconTexture = AssetDatabase.GetTexture("texture_icon_gui_10");
-            this.weatherIconTexture = AssetDatabase.GetTexture("texture_icon_gui_11");
-            this.settingsIconTexture = AssetDatabase.GetTexture("texture_icon_gui_14");
-            this.penIconTexture = AssetDatabase.GetTexture("texture_icon_gui_19");
-            this.infoIconTexture = AssetDatabase.GetTexture("texture_icon_gui_28");
-
-            this.speedIconTextures = [
-                AssetDatabase.GetTexture("texture_icon_gui_44"),
-                AssetDatabase.GetTexture("texture_icon_gui_45"),
-                AssetDatabase.GetTexture("texture_icon_gui_46"),
-            ];
-
             this.leftPanelTopButtons = [
-                new(this.weatherIconTexture, Localization_GUIs.HUD_Button_EnvironmentSettings_Name, Localization_GUIs.HUD_Button_EnvironmentSettings_Description, EnvironmentSettingsButtonAction),
-                new(this.pencilIconTexture, Localization_GUIs.HUD_Button_PenSettings_Name, Localization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
-                new(this.settingsIconTexture, Localization_GUIs.HUD_Button_WorldSettings_Name, Localization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
-                new(this.infoIconTexture, Localization_GUIs.HUD_Button_Information_Name, Localization_GUIs.HUD_Button_Information_Description, InfoButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(64, 0, 32, 32), Localization_GUIs.HUD_Button_EnvironmentSettings_Name, Localization_GUIs.HUD_Button_EnvironmentSettings_Description, EnvironmentSettingsButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(32, 0, 32, 32), Localization_GUIs.HUD_Button_PenSettings_Name, Localization_GUIs.HUD_Button_PenSettings_Description, PenSettingsButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(160, 0, 32, 32), Localization_GUIs.HUD_Button_WorldSettings_Name, Localization_GUIs.HUD_Button_WorldSettings_Description, WorldSettingsButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(128, 64, 32, 32), Localization_GUIs.HUD_Button_Information_Name, Localization_GUIs.HUD_Button_Information_Description, InfoButtonAction),
             ];
 
             this.leftPanelBottomButtons = [
-                new(this.pauseIconTexture, Localization_GUIs.HUD_Button_PauseSimulation_Name, Localization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
-                new(this.speedIconTextures[0], Localization_GUIs.HUD_Button_Speed_Name, Localization_GUIs.HUD_Button_Speed_Description, ChangeSimulationSpeedButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_Button_PauseSimulation_Name, Localization_GUIs.HUD_Button_PauseSimulation_Description, PauseSimulationButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), this.speedIconRectangles[0], Localization_GUIs.HUD_Button_Speed_Name, Localization_GUIs.HUD_Button_Speed_Description, ChangeSimulationSpeedButtonAction),
             ];
 
             this.rightPanelTopButtons = [
-                new(this.menuIconTexture, Localization_GUIs.HUD_Button_GameMenu_Name, Localization_GUIs.HUD_Button_GameMenu_Description, GameMenuButtonAction),
-                new(this.saveIconTexture, Localization_GUIs.HUD_Button_SaveMenu_Name, Localization_GUIs.HUD_Button_SaveMenu_Description, SaveMenuButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(32, 192, 32, 32), Localization_GUIs.HUD_Button_GameMenu_Name, Localization_GUIs.HUD_Button_GameMenu_Description, GameMenuButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(64, 192, 32, 32), Localization_GUIs.HUD_Button_SaveMenu_Name, Localization_GUIs.HUD_Button_SaveMenu_Description, SaveMenuButtonAction),
             ];
 
             this.rightPanelBottomButtons = [
-                new(this.trashIconTexture, Localization_GUIs.HUD_Button_EraseEverything_Name, Localization_GUIs.HUD_Button_EraseEverything_Description, EraseEverythingButtonAction),
-                new(this.reloadIconTexture, Localization_GUIs.HUD_Button_ReloadSimulation_Name, Localization_GUIs.HUD_Button_ReloadSimulation_Description, ReloadSimulationButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 96, 32, 32), Localization_GUIs.HUD_Button_EraseEverything_Name, Localization_GUIs.HUD_Button_EraseEverything_Description, EraseEverythingButtonAction),
+                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(160, 192, 32, 32), Localization_GUIs.HUD_Button_ReloadSimulation_Name, Localization_GUIs.HUD_Button_ReloadSimulation_Description, ReloadSimulationButtonAction),
             ];
 
             this.leftPanelTopButtonElements = new UISlot[this.leftPanelTopButtons.Length];
@@ -360,7 +327,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.topToolbarBackgroundElement = new()
             {
-                Texture = this.guiHorizontalBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundHudHorizontalToolbar),
                 TextureClipArea = new(new(0, 0), new(ScreenConstants.SCREEN_WIDTH, 96)),
                 Size = new(ScreenConstants.SCREEN_WIDTH, 96),
             };
@@ -378,7 +345,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             ImageUIElement slotSearchBackground = new()
             {
-                Texture = this.guiButtonTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(0, 0, 32, 32),
                 OriginPivot = CardinalDirection.Center,
                 Scale = new(UIConstants.HUD_SLOT_SCALE + 0.45f),
                 PositionAnchor = CardinalDirection.West,
@@ -388,7 +356,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             ImageUIElement slotIcon = new()
             {
-                Texture = this.penIconTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
+                TextureClipArea = new(64, 32, 32, 32),
                 OriginPivot = CardinalDirection.Center,
                 Scale = new(2f),
                 Size = new(1),
@@ -413,7 +382,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 Item curentItem = items[i];
 
-                UISlot slot = CreateButtonSlot(margin, curentItem.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, curentItem);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.West;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -442,7 +411,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             ImageUIElement slotSearchBackground = new()
             {
-                Texture = this.guiButtonTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(0, 0, 32, 32),
                 OriginPivot = CardinalDirection.Center,
                 Scale = new(UIConstants.HUD_SLOT_SCALE + 0.45f),
                 PositionAnchor = CardinalDirection.East,
@@ -452,7 +422,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             ImageUIElement slotIcon = new()
             {
-                Texture = this.magnifyingGlassIconTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
+                TextureClipArea = new(0, 0, 32, 32),
                 OriginPivot = CardinalDirection.Center,
                 Scale = new(2f),
                 Size = new(1),
@@ -473,7 +444,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.leftToolbarBackgroundElement = new()
             {
-                Texture = this.guiVerticalBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundHudVerticalToolbar),
                 TextureClipArea = new(new(0, 0), new(96, 608)),
                 Size = new(96, 608),
                 PositionAnchor = CardinalDirection.Northwest,
@@ -493,7 +464,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UIButton button = this.leftPanelTopButtons[i];
 
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.North;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -516,7 +487,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UIButton button = this.leftPanelBottomButtons[i];
 
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -539,7 +510,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.rightToolbarBackgroundElement = new()
             {
-                Texture = this.guiVerticalBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundHudVerticalToolbar),
                 TextureClipArea = new(new(96, 0), new(96, 608)),
                 Size = new(96, 608),
                 Margin = new(96, 112),
@@ -560,7 +531,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UIButton button = this.rightPanelTopButtons[i];
 
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.North;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -583,7 +554,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UIButton button = this.rightPanelBottomButtons[i];
 
-                UISlot slot = CreateButtonSlot(margin, button.IconTexture);
+                UISlot slot = CreateButtonSlot(margin, button);
 
                 slot.BackgroundElement.PositionAnchor = CardinalDirection.South;
                 slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
@@ -615,8 +586,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.topDrawerButtonElement = new()
             {
-                Texture = this.guiHorizontalDrawerButtonsTexture,
-                TextureClipArea = new(new(0, 0), new(80, 24)),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(163, 220, 80, 24),
                 Size = new(80, 24),
                 Scale = new(2f),
                 PositionAnchor = CardinalDirection.North,
@@ -632,8 +603,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.leftDrawerButtonElement = new()
             {
-                Texture = this.guiVerticalDrawerButtonsTexture,
-                TextureClipArea = new(new(0, 0), new(24, 80)),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(243, 220, 24, 80),
                 Size = new(24, 80),
                 Scale = new(2f),
                 PositionAnchor = CardinalDirection.West,
@@ -649,8 +620,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             this.rightDrawerButtonElement = new()
             {
-                Texture = this.guiVerticalDrawerButtonsTexture,
-                TextureClipArea = new(new(24, 0), new(24, 80)),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(267, 220, 24, 80),
                 Size = new(24, 80),
                 Scale = new(2f),
                 PositionAnchor = CardinalDirection.East,
@@ -664,11 +635,12 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
         // ============================================================= //
 
-        private UISlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture)
+        private static UISlot CreateButtonSlot(Vector2 margin, Texture2D iconTexture, Rectangle? iconTextureRectangle)
         {
             ImageUIElement backgroundElement = new()
             {
-                Texture = this.guiButtonTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(0, 0, 32, 32),
                 Scale = new(UIConstants.HUD_SLOT_SCALE),
                 Size = new(UIConstants.HUD_GRID_SIZE),
                 Margin = margin,
@@ -677,12 +649,23 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ImageUIElement iconElement = new()
             {
                 Texture = iconTexture,
+                TextureClipArea = iconTextureRectangle,
                 OriginPivot = CardinalDirection.Center,
                 Scale = new(1.5f),
                 Size = new(UIConstants.HUD_GRID_SIZE)
             };
 
             return new(backgroundElement, iconElement);
+        }
+
+        private static UISlot CreateButtonSlot(Vector2 margin, Item item)
+        {
+            return CreateButtonSlot(margin, item.IconTexture, item.IconTextureRectangle);
+        }
+
+        private static UISlot CreateButtonSlot(Vector2 margin, UIButton button)
+        {
+            return CreateButtonSlot(margin, button.IconTexture, button.IconTextureRectangle);
         }
 
         #endregion
@@ -706,15 +689,15 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private void UpdateSlotIcons()
         {
             // Pause
-            this.leftPanelBottomButtonElements[0].IconElement.Texture = this.gameManager.HasState(GameStates.IsSimulationPaused) ? this.resumeIconTexture : this.pauseIconTexture;
+            this.leftPanelBottomButtonElements[0].IconElement.TextureClipArea = this.gameManager.HasState(GameStates.IsSimulationPaused) ? this.pauseAndResumeRectangles[1] : this.pauseAndResumeRectangles[0];
 
             // Speed
-            this.leftPanelBottomButtonElements[1].IconElement.Texture = this.world.Simulation.CurrentSpeed switch
+            this.leftPanelBottomButtonElements[1].IconElement.TextureClipArea = this.world.Simulation.CurrentSpeed switch
             {
-                SimulationSpeed.Normal => this.speedIconTextures[(byte)SimulationSpeed.Normal],
-                SimulationSpeed.Fast => this.speedIconTextures[(byte)SimulationSpeed.Fast],
-                SimulationSpeed.VeryFast => this.speedIconTextures[(byte)SimulationSpeed.VeryFast],
-                _ => this.speedIconTextures[(byte)SimulationSpeed.Normal],
+                SimulationSpeed.Normal => this.speedIconRectangles[(byte)SimulationSpeed.Normal],
+                SimulationSpeed.Fast => this.speedIconRectangles[(byte)SimulationSpeed.Fast],
+                SimulationSpeed.VeryFast => this.speedIconRectangles[(byte)SimulationSpeed.VeryFast],
+                _ => this.speedIconRectangles[(byte)SimulationSpeed.Normal],
             };
         }
 
@@ -997,9 +980,9 @@ namespace StardustSandbox.UISystem.UIs.HUD
             return false;
         }
 
-        internal void SetToolIcon(Texture2D iconTexture)
+        internal void SetToolIcon(Rectangle iconRectangle)
         {
-            this.toolbarCurrentlySelectedToolIconElement.Texture = iconTexture;
+            this.toolbarCurrentlySelectedToolIconElement.TextureClipArea = iconRectangle;
         }
 
         private void SelectItemSlot(byte slotIndex, Item item)

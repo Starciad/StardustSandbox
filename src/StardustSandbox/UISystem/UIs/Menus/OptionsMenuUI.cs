@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.IO.Handlers;
@@ -61,14 +61,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         private readonly TooltipBoxUIElement tooltipBoxElement;
 
-        private readonly Texture2D toggleButtonTexture;
-        private readonly Texture2D plusIconTexture;
-        private readonly Texture2D minusIconTexture;
-        private readonly Texture2D panelBackgroundTexture;
-        private readonly Texture2D colorButtonTexture;
-        private readonly SpriteFont bigApple3PMSpriteFont;
-        private readonly SpriteFont digitalDiscoSpriteFont;
-
         private readonly LabelUIElement[] systemButtonElements;
         private readonly Dictionary<string, IEnumerable<LabelUIElement>> sectionContents = [];
         private readonly Dictionary<string, ContainerUIElement> sectionContainerElements = [];
@@ -117,17 +109,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.videoSettings = SettingsHandler.LoadSettings<VideoSettings>();
             this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
 
-            this.toggleButtonTexture = AssetDatabase.GetTexture("texture_gui_button_5");
-            this.plusIconTexture = AssetDatabase.GetTexture("texture_icon_gui_51");
-            this.minusIconTexture = AssetDatabase.GetTexture("texture_icon_gui_52");
-            this.panelBackgroundTexture = AssetDatabase.GetTexture("texture_gui_background_13");
-            this.colorButtonTexture = AssetDatabase.GetTexture("texture_gui_button_4");
-            this.bigApple3PMSpriteFont = AssetDatabase.GetSpriteFont("font_2");
-            this.digitalDiscoSpriteFont = AssetDatabase.GetSpriteFont("font_8");
-
             this.systemButtons = [
-                new(null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, ReturnButtonAction),
-                new(null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, SaveButtonAction),
+                new(null, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, ReturnButtonAction),
+                new(null, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, SaveButtonAction),
             ];
 
             this.root = new()
@@ -397,7 +381,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.panelBackgroundElement = new()
             {
-                Texture = this.panelBackgroundTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundOptions),
                 Size = new(1084, 540),
                 Margin = new(98, 90),
             };
@@ -416,7 +400,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = AAP64ColorPalette.White,
                 PositionAnchor = CardinalDirection.North,
                 OriginPivot = CardinalDirection.Center,
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             this.titleLabelElement.SetTextualContent(this.titleName);
@@ -517,27 +501,26 @@ namespace StardustSandbox.UISystem.UIs.Menus
             }
         }
 
-        private void BuildColorPreview(ContainerUIElement containerElement, LabelUIElement labelElement)
+        private static void BuildColorPreview(ContainerUIElement containerElement, LabelUIElement labelElement)
         {
-            Vector2 textureSize = new(40.0f, 22.0f);
             Vector2 labelElementSize = labelElement.GetStringSize();
 
             UIColorSlot colorSlot = new(
                 new()
                 {
-                    Texture = this.colorButtonTexture,
-                    TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    TextureClipArea = new(386, 0, 40, 22),
                     Scale = new(1.5f),
-                    Size = textureSize,
+                    Size = new(40.0f, 22.0f),
                     Margin = new(labelElementSize.X + 6f, labelElementSize.Y / 2 * -1),
                 },
 
                 new()
                 {
-                    Texture = this.colorButtonTexture,
-                    TextureClipArea = new(new(00, 22), textureSize.ToPoint()),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    TextureClipArea = new(386, 22, 40, 22),
                     Scale = new(1.5f),
-                    Size = textureSize,
+                    Size = new(40.0f, 22.0f),
                 }
             );
 
@@ -556,16 +539,18 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             ImageUIElement minusElement = new()
             {
-                Texture = this.minusIconTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
+                TextureClipArea = new(192, 160, 32, 32),
                 Size = new(32.0f),
                 Margin = new(0, labelElementSize.Y / 2 * -1)
             };
 
             ImageUIElement plusElement = new()
             {
-                Texture = this.plusIconTexture,
+                Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
+                TextureClipArea = new(160, 160, 32, 32),
                 Size = new(32.0f),
-                Margin = new(this.minusIconTexture.Width + (this.minusIconTexture.Width / 2.0f), 0f),
+                Margin = new(48.0f, 0.0f),
             };
 
             plusElement.AddData("option", option);
@@ -583,17 +568,16 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.plusAndMinusButtons.Add((plusElement, minusElement));
         }
 
-        private void BuildTogglePreview(ContainerUIElement containerElement, LabelUIElement labelElement)
+        private static void BuildTogglePreview(ContainerUIElement containerElement, LabelUIElement labelElement)
         {
-            Vector2 textureSize = new(32.0f);
             Vector2 labelElementSize = labelElement.GetStringSize();
 
             ImageUIElement togglePreviewImageElement = new()
             {
-                Texture = this.toggleButtonTexture,
-                TextureClipArea = new(new(00, 00), textureSize.ToPoint()),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                TextureClipArea = new(352, 140, 32, 32),
                 Scale = new(1.25f),
-                Size = textureSize,
+                Size = new(32.0f),
                 Margin = new(labelElementSize.X + 6.0f, labelElementSize.Y / 2.0f * -1.0f),
             };
 
@@ -605,14 +589,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
         }
         // ============================================================================ //
 
-        private LabelUIElement CreateButtonLabelElement()
+        private static LabelUIElement CreateButtonLabelElement()
         {
             LabelUIElement labelElement = new()
             {
                 Scale = defaultButtonScale,
                 Color = AAP64ColorPalette.White,
                 OriginPivot = CardinalDirection.Center,
-                SpriteFont = this.bigApple3PMSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, defaultButtonBorderOffset);
@@ -620,13 +604,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
             return labelElement;
         }
 
-        private LabelUIElement CreateOptionButtonLabelElement()
+        private static LabelUIElement CreateOptionButtonLabelElement()
         {
             LabelUIElement labelElement = new()
             {
                 Scale = new(0.12f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.digitalDiscoSpriteFont,
+                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 PositionAnchor = CardinalDirection.North,
                 OriginPivot = CardinalDirection.East,
             };
@@ -638,7 +622,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         // ============================================================================ //
 
-        private LabelUIElement CreateOptionElement(Option option)
+        private static LabelUIElement CreateOptionElement(Option option)
         {
             LabelUIElement labelElement = option switch
             {
@@ -655,35 +639,35 @@ namespace StardustSandbox.UISystem.UIs.Menus
             return labelElement;
         }
 
-        private LabelUIElement CreateButtonOptionElement(Option option)
+        private static LabelUIElement CreateButtonOptionElement(Option option)
         {
             LabelUIElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(option.Name);
             return labelElement;
         }
 
-        private LabelUIElement CreateSelectorOptionElement(Option option)
+        private static LabelUIElement CreateSelectorOptionElement(Option option)
         {
             LabelUIElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
             return labelElement;
         }
 
-        private LabelUIElement CreateValueOptionElement(Option option)
+        private static LabelUIElement CreateValueOptionElement(Option option)
         {
             LabelUIElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
             return labelElement;
         }
 
-        private LabelUIElement CreateColorOptionElement(Option option)
+        private static LabelUIElement CreateColorOptionElement(Option option)
         {
             LabelUIElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(string.Concat(option.Name, ": "));
             return labelElement;
         }
 
-        private LabelUIElement CreateToggleOptionElement(Option option)
+        private static LabelUIElement CreateToggleOptionElement(Option option)
         {
             LabelUIElement labelElement = CreateOptionButtonLabelElement();
             labelElement.SetTextualContent(string.Concat(option.Name, ": "));

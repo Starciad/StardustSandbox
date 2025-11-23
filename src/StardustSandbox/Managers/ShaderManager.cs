@@ -12,7 +12,7 @@ namespace StardustSandbox.Managers
 
         internal void Initialize()
         {
-            this.effects = AssetDatabase.GetAllEffects();
+            this.effects = AssetDatabase.GetEffects();
             this.effectsLength = this.effects.Length;
         }
 
