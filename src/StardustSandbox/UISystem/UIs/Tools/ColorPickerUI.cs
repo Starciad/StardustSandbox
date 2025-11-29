@@ -23,7 +23,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         private ColorPickerSettings colorPickerSettings;
         private TextUIElement captionElement;
 
-        private readonly TooltipBoxUIElement tooltipBoxElement;
+        private readonly TooltipBox tooltipBoxElement;
 
         private readonly UIButton[] menuButtons;
         private readonly UIColorButton[] colorButtons;
@@ -39,7 +39,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
             GameManager gameManager,
             UIIndex index,
             InputController inputController,
-            TooltipBoxUIElement tooltipBoxElement,
+            TooltipBox tooltipBoxElement,
             UIManager uiManager
         ) : base(index)
         {
@@ -181,12 +181,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.North,
             };
 
             this.captionElement.SetTextualContent(Localization_GUIs.Tools_ColorPicker_Title);
-            this.captionElement.PositionRelativeToScreen();
+            this.captionElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.captionElement);
         }
@@ -219,7 +218,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
                     ImageUIElement backgroundElement = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                        TextureClipArea = new(386, 0, 40, 22),
+                        TextureRectangle = new(386, 0, 40, 22),
                         Scale = new(2f),
                         Size = textureSize,
                         Color = colorButton.Color,
@@ -229,13 +228,13 @@ namespace StardustSandbox.UISystem.UIs.Tools
                     ImageUIElement borderElement = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                        TextureClipArea = new(386, 22, 40, 22),
+                        TextureRectangle = new(386, 22, 40, 22),
                         Scale = new(2f),
                         Size = textureSize,
                     };
 
-                    backgroundElement.PositionRelativeToScreen();
-                    borderElement.PositionRelativeToElement(backgroundElement);
+                    backgroundElement.RepositionRelativeToScreen();
+                    borderElement.RepositionRelativeToElement(backgroundElement);
 
                     layout.AddElement(backgroundElement);
                     layout.AddElement(borderElement);
@@ -264,12 +263,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Scale = new(0.125f),
                     Margin = margin,
-                    PositionAnchor = CardinalDirection.South,
-                    OriginPivot = CardinalDirection.Center,
+                    Alignment = CardinalDirection.South,
                 };
 
                 labelElement.SetTextualContent(button.Name);
-                labelElement.PositionRelativeToScreen();
+                labelElement.RepositionRelativeToScreen();
                 labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
 
                 margin.Y -= 72;
@@ -288,7 +286,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.IsVisible = false;
+            this.tooltipBoxElement.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateColorButtons();
@@ -305,12 +303,12 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Vector2 size = labelElement.GetStringSize() / 2.0f;
                 Vector2 position = labelElement.Position;
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                labelElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -324,14 +322,14 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Vector2 size = colorSlot.BorderElement.Size / 2.0f;
                 Vector2 position = new(colorSlot.BorderElement.Position.X + size.X, colorSlot.BorderElement.Position.Y + size.Y);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     SelectColorButtonAction(colorButton.Color);
                 }
 
-                if (UIInteraction.OnMouseOver(position, size))
+                if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = colorButton.Name;
                     TooltipContent.Description = string.Empty;
@@ -353,6 +351,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
             this.inputController.Activate();
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

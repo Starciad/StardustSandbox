@@ -7,6 +7,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Utilities;
@@ -71,13 +72,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 Scale = new(0.2f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
             titleLabel.SetTextualContent("Play Menu");
             titleLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2.0f));
-            titleLabel.PositionRelativeToElement(backgroundImage);
+            titleLabel.RepositionRelativeToElement(backgroundImage);
 
             layout.AddElement(backgroundImage);
             layout.AddElement(titleLabel);
@@ -96,8 +96,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     Scale = new(0.15f),
                     Margin = margin,
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                    PositionAnchor = CardinalDirection.Center,
-                    OriginPivot = CardinalDirection.Center,
+                    Alignment = CardinalDirection.Center,
                 };
 
                 buttonLabel.SetTextualContent(button.Name);
@@ -106,14 +105,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 ImageUIElement buttonIcon = new()
                 {
                     Texture = button.IconTexture,
-                    PositionAnchor = CardinalDirection.West,
-                    OriginPivot = CardinalDirection.Center,
+                    Alignment = CardinalDirection.West,
                     Margin = new((buttonLabel.GetStringSize().X + (button.IconTexture.Width / 2.0f)) * -1.0f, 0.0f),
                     Scale = new(2),
                 };
 
-                buttonLabel.PositionRelativeToScreen();
-                buttonIcon.PositionRelativeToElement(buttonLabel);
+                buttonLabel.RepositionRelativeToScreen();
+                buttonIcon.RepositionRelativeToElement(buttonLabel);
 
                 layout.AddElement(buttonLabel);
                 layout.AddElement(buttonIcon);
@@ -140,13 +138,18 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 LabelUIElement labelElement = this.menuButtonElements[i];
                 Vector2 labelElementSize = labelElement.GetStringSize() / 2.0f;
 
-                if (UIInteraction.OnMouseClick(labelElement.Position, labelElementSize))
+                if (Interaction.OnMouseClick(labelElement.Position, labelElementSize))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = UIInteraction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                labelElement.Color = Interaction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

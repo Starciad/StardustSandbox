@@ -21,11 +21,6 @@ namespace StardustSandbox.Mathematics
             return GetOriginPoint(new(measuredString.X, measuredString.Y), direction);
         }
 
-        internal static Vector2 GetTextureOriginPoint(this Texture2D texture, CardinalDirection direction)
-        {
-            return GetOriginPoint(new(texture.Width, texture.Height), direction);
-        }
-
         internal static Vector2 GetOriginPoint(Vector2 size, CardinalDirection direction)
         {
             return direction switch

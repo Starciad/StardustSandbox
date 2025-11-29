@@ -59,7 +59,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private readonly string titleName = Localization_GUIs.Menu_Options_Title;
         private readonly List<(UIElement, UIElement)> plusAndMinusButtons = [];
 
-        private readonly TooltipBoxUIElement tooltipBoxElement;
+        private readonly TooltipBox tooltipBoxElement;
 
         private readonly LabelUIElement[] systemButtonElements;
         private readonly Dictionary<string, IEnumerable<LabelUIElement>> sectionContents = [];
@@ -89,7 +89,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             CursorManager cursorManager,
             UIIndex index,
             MessageUI messageUI,
-            TooltipBoxUIElement tooltipBoxElement,
+            TooltipBox tooltipBoxElement,
             UIManager uiManager,
             VideoManager videoManager
         ) : base(index)
@@ -386,7 +386,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(98, 90),
             };
 
-            this.panelBackgroundElement.PositionRelativeToScreen();
+            this.panelBackgroundElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.panelBackgroundElement);
         }
@@ -398,14 +398,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(0.15f),
                 Margin = new(0f, 52.5f),
                 Color = AAP64ColorPalette.White,
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.North,
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             this.titleLabelElement.SetTextualContent(this.titleName);
             this.titleLabelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(4.4f));
-            this.titleLabelElement.PositionRelativeToScreen();
+            this.titleLabelElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.titleLabelElement);
         }
@@ -420,10 +419,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 LabelUIElement labelElement = CreateButtonLabelElement();
 
-                labelElement.PositionAnchor = CardinalDirection.North;
+                labelElement.Alignment = CardinalDirection.North;
                 labelElement.Margin = margin;
                 labelElement.SetTextualContent(item.Value.Name);
-                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+                labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
                 this.sectionButtonElements.Add(item.Key, labelElement);
                 margin.Y += leftPanelMarginVerticalSpacing;
@@ -440,10 +439,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 LabelUIElement labelElement = CreateButtonLabelElement();
 
-                labelElement.PositionAnchor = CardinalDirection.South;
+                labelElement.Alignment = CardinalDirection.South;
                 labelElement.Margin = margin;
                 labelElement.SetTextualContent(this.systemButtons[i].Name);
-                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+                labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
                 this.systemButtonElements[i] = labelElement;
                 margin.Y -= leftPanelMarginVerticalSpacing;
@@ -468,7 +467,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     LabelUIElement labelElement = CreateOptionElement(option);
 
                     labelElement.Margin = margin;
-                    labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+                    labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
                     switch (option)
                     {
@@ -509,7 +508,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(386, 0, 40, 22),
+                    TextureRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
                     Margin = new(labelElementSize.X + 6f, labelElementSize.Y / 2 * -1),
@@ -518,14 +517,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(386, 22, 40, 22),
+                    TextureRectangle = new(386, 22, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
                 }
             );
 
-            colorSlot.BackgroundElement.PositionRelativeToElement(labelElement);
-            colorSlot.BorderElement.PositionRelativeToElement(colorSlot.BackgroundElement);
+            colorSlot.BackgroundElement.RepositionRelativeToElement(labelElement);
+            colorSlot.BorderElement.RepositionRelativeToElement(colorSlot.BackgroundElement);
 
             containerElement.AddElement(colorSlot.BackgroundElement);
             containerElement.AddElement(colorSlot.BorderElement);
@@ -540,7 +539,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             ImageUIElement minusElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
-                TextureClipArea = new(192, 160, 32, 32),
+                TextureRectangle = new(192, 160, 32, 32),
                 Size = new(32.0f),
                 Margin = new(0, labelElementSize.Y / 2 * -1)
             };
@@ -548,7 +547,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             ImageUIElement plusElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
-                TextureClipArea = new(160, 160, 32, 32),
+                TextureRectangle = new(160, 160, 32, 32),
                 Size = new(32.0f),
                 Margin = new(48.0f, 0.0f),
             };
@@ -559,8 +558,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
             labelElement.AddData("plus_element", plusElement);
             labelElement.AddData("minus_element", minusElement);
 
-            minusElement.PositionRelativeToElement(labelElement);
-            plusElement.PositionRelativeToElement(minusElement);
+            minusElement.RepositionRelativeToElement(labelElement);
+            plusElement.RepositionRelativeToElement(minusElement);
 
             containerElement.AddElement(plusElement);
             containerElement.AddElement(minusElement);
@@ -575,13 +574,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
             ImageUIElement togglePreviewImageElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                TextureClipArea = new(352, 140, 32, 32),
+                TextureRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
                 Size = new(32.0f),
                 Margin = new(labelElementSize.X + 6.0f, labelElementSize.Y / 2.0f * -1.0f),
             };
 
-            togglePreviewImageElement.PositionRelativeToElement(labelElement);
+            togglePreviewImageElement.RepositionRelativeToElement(labelElement);
 
             containerElement.AddElement(togglePreviewImageElement);
 
@@ -595,7 +594,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 Scale = defaultButtonScale,
                 Color = AAP64ColorPalette.White,
-                OriginPivot = CardinalDirection.Center,
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
@@ -611,8 +609,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(0.12f),
                 Color = AAP64ColorPalette.White,
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.East,
+                Alignment = CardinalDirection.North,
             };
 
             labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
@@ -682,7 +679,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.IsVisible = false;
+            this.tooltipBoxElement.CanDraw = false;
 
             UpdateSectionButtons();
             UpdateSystemButtons();
@@ -700,16 +697,16 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Vector2 size = labelElement.GetStringSize() / 2.0f;
                 Vector2 position = labelElement.Position;
 
-                bool onMouseOver = UIInteraction.OnMouseOver(position, size);
+                bool onMouseOver = Interaction.OnMouseOver(position, size);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     SelectSection(item.Key);
                 }
 
                 if (onMouseOver)
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     Section section = this.root.Sections[item.Key];
 
@@ -733,14 +730,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Vector2 size = labelElement.GetStringSize() / 2.0f;
                 Vector2 position = labelElement.Position;
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     button.ClickAction?.Invoke();
                 }
 
-                if (UIInteraction.OnMouseOver(position, size))
+                if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = button.Name;
                     TooltipContent.Description = button.Description;
@@ -764,18 +761,18 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Vector2 position = new(element.Position.X + interactiveAreaSize.X, element.Position.Y - 6);
                 Option option = (Option)element.GetData("option");
 
-                if (UIInteraction.OnMouseClick(position, interactiveAreaSize))
+                if (Interaction.OnMouseClick(position, interactiveAreaSize))
                 {
                     HandleOptionInteractivity(option);
                 }
 
                 UpdateOptionSync(option, element);
 
-                if (UIInteraction.OnMouseOver(position, interactiveAreaSize))
+                if (Interaction.OnMouseOver(position, interactiveAreaSize))
                 {
                     element.Color = AAP64ColorPalette.LemonYellow;
 
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = option.Name;
                     TooltipContent.Description = option.Description;
@@ -788,11 +785,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             foreach ((UIElement plusElement, UIElement minusElement) in this.plusAndMinusButtons)
             {
-                if (UIInteraction.OnMouseDown(plusElement.Position, plusAndMinusButtonAreaSize))
+                if (Interaction.OnMouseDown(plusElement.Position, plusAndMinusButtonAreaSize))
                 {
                     ((ValueOption)plusElement.GetData("option")).Increment();
                 }
-                else if (UIInteraction.OnMouseDown(minusElement.Position, plusAndMinusButtonAreaSize))
+                else if (Interaction.OnMouseDown(minusElement.Position, plusAndMinusButtonAreaSize))
                 {
                     ((ValueOption)minusElement.GetData("option")).Decrement();
                 }
@@ -845,13 +842,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             minusElement.Margin = new(labelElementSize.X + 8.0f, labelElementSize.Y / 2.0f * -1.0f);
 
-            minusElement.PositionRelativeToElement(labelElement);
-            plusElement.PositionRelativeToElement(minusElement);
+            minusElement.RepositionRelativeToElement(labelElement);
+            plusElement.RepositionRelativeToElement(minusElement);
         }
 
         private static void UpdateToggleOption(ToggleOption toggleOption, ImageUIElement toggleStateElement)
         {
-            toggleStateElement.TextureClipArea = toggleOption.State ? new(new(0, 32), new(32)) : new(new(0), new(32));
+            toggleStateElement.TextureRectangle = toggleOption.State ? new(new(0, 32), new(32)) : new(new(0), new(32));
         }
         #endregion
 
@@ -935,6 +932,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
         protected override void OnOpened()
         {
             SyncSettingElements();
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

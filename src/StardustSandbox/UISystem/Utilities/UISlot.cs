@@ -31,17 +31,17 @@ namespace StardustSandbox.UISystem.Utilities
         {
             if (this.backgroundElement != null)
             {
-                this.backgroundElement.IsVisible = true;
+                this.backgroundElement.CanDraw = true;
             }
 
             if (this.iconElement != null)
             {
-                this.iconElement.IsVisible = true;
+                this.iconElement.CanDraw = true;
             }
 
             if (this.labelElement != null)
             {
-                this.labelElement.IsVisible = true;
+                this.labelElement.CanDraw = true;
             }
         }
 
@@ -49,17 +49,17 @@ namespace StardustSandbox.UISystem.Utilities
         {
             if (this.backgroundElement != null)
             {
-                this.backgroundElement.IsVisible = false;
+                this.backgroundElement.CanDraw = false;
             }
 
             if (this.iconElement != null)
             {
-                this.iconElement.IsVisible = false;
+                this.iconElement.CanDraw = false;
             }
 
             if (this.labelElement != null)
             {
-                this.labelElement.IsVisible = false;
+                this.labelElement.CanDraw = false;
             }
         }
     }

@@ -242,12 +242,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                         Scale = new(0.25f),
                         SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                         Margin = margin,
-                        OriginPivot = CardinalDirection.Center,
-                        PositionAnchor = CardinalDirection.South,
+                        Alignment = CardinalDirection.South,
                     };
 
                     sectionTitleElement.SetTextualContent(creditSection.Title);
-                    sectionTitleElement.PositionRelativeToScreen();
+                    sectionTitleElement.RepositionRelativeToScreen();
 
                     this.creditElements.Add(sectionTitleElement);
 
@@ -265,12 +264,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                             Scale = new(0.2f),
                             SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                             Margin = margin + content.Margin,
-                            OriginPivot = CardinalDirection.Center,
-                            PositionAnchor = CardinalDirection.South,
+                            Alignment = CardinalDirection.South,
                         };
 
                         contentTitleElement.SetTextualContent(content.Text);
-                        contentTitleElement.PositionRelativeToScreen();
+                        contentTitleElement.RepositionRelativeToScreen();
 
                         this.creditElements.Add(contentTitleElement);
 
@@ -286,13 +284,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
                             Scale = new(0.15f),
                             SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                             Margin = margin + content.Margin,
-                            OriginPivot = CardinalDirection.Center,
-                            PositionAnchor = CardinalDirection.South,
+                            Alignment = CardinalDirection.South,
                         };
 
                         contentText.Margin = margin + content.Margin;
                         contentText.SetTextualContent(content.Text);
-                        contentText.PositionRelativeToScreen();
+                        contentText.RepositionRelativeToScreen();
 
                         this.creditElements.Add(contentText);
 
@@ -308,11 +305,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
                             Scale = content.TextureScale,
                             Size = content.Texture.GetSize().ToVector2(),
                             Texture = content.Texture,
-                            OriginPivot = CardinalDirection.Center,
-                            PositionAnchor = CardinalDirection.South,
+                            Alignment = CardinalDirection.South,
                             Margin = margin + content.Margin
                         };
-                        contentImage.PositionRelativeToScreen();
+                        contentImage.RepositionRelativeToScreen();
 
                         this.creditElements.Add(contentImage);
 
@@ -390,8 +386,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             foreach (UIElement element in this.creditElements)
             {
-                element.PositionRelativeToScreen();
+                element.RepositionRelativeToScreen();
             }
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

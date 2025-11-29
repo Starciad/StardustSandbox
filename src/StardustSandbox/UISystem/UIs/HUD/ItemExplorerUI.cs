@@ -35,7 +35,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private LabelUIElement menuTitleElement;
         private LabelUIElement pageIndexLabelElement;
 
-        private readonly TooltipBoxUIElement tooltipBoxElement;
+        private readonly TooltipBox tooltipBoxElement;
 
         private readonly UIButton[] menuButtons;
         private readonly UIButton[] paginationButtons;
@@ -55,7 +55,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             GameManager gameManager,
             UIIndex index,
             HudUI hudUI,
-            TooltipBoxUIElement tooltipBoxElement,
+            TooltipBox tooltipBoxElement,
             UIManager uiManager
         ) : base(index)
         {
@@ -158,7 +158,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Margin = new(98, 90),
             };
 
-            this.panelBackgroundElement.PositionRelativeToScreen();
+            this.panelBackgroundElement.RepositionRelativeToScreen();
 
             layout.AddElement(backgroundShadowElement);
             layout.AddElement(this.panelBackgroundElement);
@@ -170,15 +170,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
-                PositionAnchor = CardinalDirection.Northwest,
-                OriginPivot = CardinalDirection.East,
+                Alignment = CardinalDirection.Northwest,
                 Margin = new(32, 40),
                 Color = AAP64ColorPalette.White,
             };
 
             this.menuTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_ItemExplorer_Title);
             this.menuTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.menuTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             layout.AddElement(this.menuTitleElement);
         }
@@ -194,7 +193,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement backgroundElement = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(320, 140, 32, 32),
+                    TextureRectangle = new(320, 140, 32, 32),
                     Scale = new(UIConstants.HUD_SLOT_SCALE),
                     Size = new(UIConstants.HUD_GRID_SIZE),
                     Margin = margin,
@@ -203,19 +202,17 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement iconElement = new()
                 {
                     Texture = button.IconTexture,
-                    OriginPivot = CardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(UIConstants.HUD_GRID_SIZE)
                 };
 
                 UISlot slot = new(backgroundElement, iconElement);
 
-                slot.BackgroundElement.PositionAnchor = CardinalDirection.Northeast;
-                slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
+                slot.BackgroundElement.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
-                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.BackgroundElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.menuButtonSlots[i] = slot;
@@ -240,24 +237,22 @@ namespace StardustSandbox.UISystem.UIs.HUD
                     ImageUIElement slotBackground = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                        TextureClipArea = new(320, 140, 32, 32),
-                        OriginPivot = CardinalDirection.Center,
+                        TextureRectangle = new(320, 140, 32, 32),
                         Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
-                        PositionAnchor = CardinalDirection.Northwest,
+                        Alignment = CardinalDirection.Northwest,
                         Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE),
                         Margin = slotMargin
                     };
 
                     ImageUIElement slotIcon = new()
                     {
-                        OriginPivot = CardinalDirection.Center,
                         Scale = new(1.5f),
                         Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE)
                     };
 
                     // Position
-                    slotBackground.PositionRelativeToElement(this.panelBackgroundElement);
-                    slotIcon.PositionRelativeToElement(slotBackground);
+                    slotBackground.RepositionRelativeToElement(this.panelBackgroundElement);
+                    slotIcon.RepositionRelativeToElement(slotBackground);
 
                     // Spacing
                     slotMargin.X += UIConstants.HUD_ITEM_EXPLORER_SLOT_SPACING + (UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE / 2);
@@ -287,9 +282,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement slotBackground = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(320, 140, 32, 32),
-                    OriginPivot = CardinalDirection.Center,
-                    PositionAnchor = CardinalDirection.Northwest,
+                    TextureRectangle = new(320, 140, 32, 32),
+                    Alignment = CardinalDirection.Northwest,
                     Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
                     Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE),
                     Margin = slotMargin
@@ -298,7 +292,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement slotIcon = new()
                 {
                     Texture = category.IconTexture,
-                    OriginPivot = CardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE)
                 };
@@ -310,8 +303,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 }
 
                 // Position
-                slotBackground.PositionRelativeToElement(this.panelBackgroundElement);
-                slotIcon.PositionRelativeToElement(slotBackground);
+                slotBackground.RepositionRelativeToElement(this.panelBackgroundElement);
+                slotIcon.RepositionRelativeToElement(slotBackground);
 
                 // Spacing
                 slotMargin.X += UIConstants.HUD_ITEM_EXPLORER_SLOT_SPACING + (UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE / 2);
@@ -343,9 +336,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
                     ImageUIElement slotBackground = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                        TextureClipArea = new(320, 140, 32, 32),
-                        PositionAnchor = positionAnchor,
-                        OriginPivot = CardinalDirection.Center,
+                        TextureRectangle = new(320, 140, 32, 32),
+                        Alignment = positionAnchor,
                         Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
                         Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE),
                         Margin = margin
@@ -353,14 +345,13 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                     ImageUIElement slotIcon = new()
                     {
-                        OriginPivot = CardinalDirection.Center,
                         Scale = new(1.5f),
                         Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE)
                     };
 
                     // Position
-                    slotBackground.PositionRelativeToElement(this.panelBackgroundElement);
-                    slotIcon.PositionRelativeToElement(slotBackground);
+                    slotBackground.RepositionRelativeToElement(this.panelBackgroundElement);
+                    slotIcon.RepositionRelativeToElement(slotBackground);
 
                     // Spacing
                     margin.Y += UIConstants.HUD_ITEM_EXPLORER_SLOT_SPACING + (UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE / 2);
@@ -380,14 +371,13 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 Scale = new(0.1f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.South,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.South,
                 Margin = new(0f, -35f),
             };
 
             this.pageIndexLabelElement.SetTextualContent("1 / 1");
             this.pageIndexLabelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-            this.pageIndexLabelElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.pageIndexLabelElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             layout.AddElement(this.pageIndexLabelElement);
 
@@ -396,8 +386,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement slotBackground = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(320, 140, 32, 32),
-                    OriginPivot = CardinalDirection.Center,
+                    TextureRectangle = new(320, 140, 32, 32),
                     Scale = new(1.5f),
                     Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE),
                 };
@@ -405,7 +394,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement slotIcon = new()
                 {
                     Texture = this.paginationButtons[i].IconTexture,
-                    OriginPivot = CardinalDirection.Center,
                     Scale = new(1f),
                     Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE)
                 };
@@ -420,18 +408,18 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             // Left
             UISlot leftSlot = this.paginationButtonSlots[0];
-            leftSlot.BackgroundElement.PositionAnchor = CardinalDirection.Southwest;
+            leftSlot.BackgroundElement.Alignment = CardinalDirection.Southwest;
             leftSlot.BackgroundElement.Margin = new(34f, -34f);
 
             // Right
             UISlot rightSlot = this.paginationButtonSlots[1];
-            rightSlot.BackgroundElement.PositionAnchor = CardinalDirection.Southeast;
+            rightSlot.BackgroundElement.Alignment = CardinalDirection.Southeast;
             rightSlot.BackgroundElement.Margin = new(-34f);
 
             foreach (UISlot slot in this.paginationButtonSlots)
             {
-                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
-                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.BackgroundElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
             }
         }
 
@@ -443,7 +431,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.IsVisible = false;
+            this.tooltipBoxElement.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateCategoryButtons();
@@ -463,14 +451,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 position = slot.BackgroundElement.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                if (UIInteraction.OnMouseOver(position, size))
+                if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = this.menuButtons[i].Name;
                     TooltipContent.Description = this.menuButtons[i].Description;
@@ -490,7 +478,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UISlot categorySlot = this.categoryButtonSlots[i];
 
-                if (!categorySlot.BackgroundElement.IsVisible)
+                if (!categorySlot.BackgroundElement.CanDraw)
                 {
                     continue;
                 }
@@ -501,16 +489,16 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
                 // Check if the mouse clicked on the current slot.
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     SelectItemCatalog(category, category.Subcategories[0], 0);
                 }
 
-                bool isOver = UIInteraction.OnMouseOver(position, size);
+                bool isOver = Interaction.OnMouseOver(position, size);
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = category.Name;
                     TooltipContent.Description = category.Description;
@@ -524,7 +512,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UISlot subcategorySlot = this.subcategoryButtonSlots[i];
 
-                if (!subcategorySlot.BackgroundElement.IsVisible)
+                if (!subcategorySlot.BackgroundElement.CanDraw)
                 {
                     continue;
                 }
@@ -535,16 +523,16 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
                 // Check if the mouse clicked on the current slot.
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     SelectItemCatalog(subcategory.ParentCategory, subcategory, 0);
                 }
 
-                bool isOver = UIInteraction.OnMouseOver(position, size);
+                bool isOver = Interaction.OnMouseOver(position, size);
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = subcategory.Name;
                     TooltipContent.Description = subcategory.Description;
@@ -558,7 +546,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 UISlot slot = this.itemButtonSlots[i];
 
-                if (!slot.BackgroundElement.IsVisible)
+                if (!slot.BackgroundElement.CanDraw)
                 {
                     continue;
                 }
@@ -568,17 +556,17 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 position = slot.BackgroundElement.Position;
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.hudUI.AddItemToToolbar(item);
                     this.uiManager.CloseGUI();
                 }
 
-                bool isOver = UIInteraction.OnMouseOver(position, size);
+                bool isOver = Interaction.OnMouseOver(position, size);
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = item.Name;
                     TooltipContent.Description = item.Description;
@@ -606,12 +594,12 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 position = slot.BackgroundElement.Position;
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.paginationButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.BackgroundElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.BackgroundElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -719,6 +707,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
         protected override void OnClosed()
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

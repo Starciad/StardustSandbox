@@ -7,13 +7,21 @@ using System;
 
 namespace StardustSandbox.UISystem
 {
-    internal static class UIInteraction
+    internal static class Interaction
     {
         private static InputManager inputManager;
 
+        private static bool isInitialized = false;
+
         internal static void Initialize(InputManager inputManager)
         {
-            UIInteraction.inputManager = inputManager;
+            if (!isInitialized)
+            {
+                throw new InvalidOperationException($"{nameof(Interaction)} system has already been initialized.");
+            }
+
+            Interaction.inputManager = inputManager;
+            isInitialized = true;
         }
 
         #region MOUSE EVENTS

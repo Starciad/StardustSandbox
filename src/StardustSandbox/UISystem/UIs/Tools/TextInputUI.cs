@@ -12,6 +12,7 @@ using StardustSandbox.Enums.UISystem.Tools;
 using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Results;
@@ -101,7 +102,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
             }
 
             // Count
-            this.characterCountElement.IsVisible = settings.MaxCharacters != 0;
+            this.characterCountElement.CanDraw = settings.MaxCharacters != 0;
         }
 
         #endregion
@@ -172,12 +173,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
             this.synopsisElement.SetTextualContent("Synopsis");
-            this.synopsisElement.PositionRelativeToScreen();
+            this.synopsisElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.synopsisElement);
         }
@@ -190,8 +190,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Scale = new(1.5f),
                 Size = new(632, 50),
                 Margin = new(0, 64),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
             this.userInputElement = new()
@@ -200,12 +199,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Scale = new(0.085f),
                 TextAreaSize = new(1000, 1000),
                 Margin = new(0, -32),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
-            this.userInputBackgroundElement.PositionRelativeToScreen();
-            this.userInputElement.PositionRelativeToScreen();
+            this.userInputBackgroundElement.RepositionRelativeToScreen();
+            this.userInputElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.userInputBackgroundElement);
             layout.AddElement(this.userInputElement);
@@ -218,12 +216,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Scale = new(0.08f),
                 Margin = new(-212, -16),
-                PositionAnchor = CardinalDirection.East,
-                OriginPivot = CardinalDirection.West,
+                Alignment = CardinalDirection.East,
             };
 
             this.characterCountElement.SetTextualContent("000/000");
-            this.characterCountElement.PositionRelativeToScreen();
+            this.characterCountElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.characterCountElement);
         }
@@ -241,12 +238,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Scale = new(0.125f),
                     Margin = margin,
-                    PositionAnchor = CardinalDirection.South,
-                    OriginPivot = CardinalDirection.Center,
+                    Alignment = CardinalDirection.South,
                 };
 
                 labelElement.SetTextualContent(button.Name);
-                labelElement.PositionRelativeToScreen();
+                labelElement.RepositionRelativeToScreen();
                 labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
 
                 margin.Y -= 72;
@@ -278,12 +274,12 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Vector2 size = labelElement.GetStringSize() / 2;
                 Vector2 position = labelElement.Position;
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                labelElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -491,7 +487,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.userInputElement.SetTextualContent(this.userInputStringBuilder);
 
-            if (this.characterCountElement.IsVisible)
+            if (this.characterCountElement.CanDraw)
             {
                 this.characterCountElement.SetTextualContent(string.Concat(this.userInputStringBuilder.Length, '/', this.inputSettings.MaxCharacters));
             }
@@ -535,6 +531,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
             {
                 _ = this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
             }
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

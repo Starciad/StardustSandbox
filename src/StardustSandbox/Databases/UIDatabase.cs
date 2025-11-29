@@ -40,7 +40,7 @@ namespace StardustSandbox.Databases
 
             #region Elements
 
-            TooltipBoxUIElement tooltipBoxElement = new(cursorManager, inputManager)
+            TooltipBox tooltipBoxElement = new(cursorManager, inputManager)
             {
                 MinimumSize = new(500f, 0f),
             };

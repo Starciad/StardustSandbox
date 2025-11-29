@@ -114,7 +114,7 @@ namespace StardustSandbox
 
         protected override void LoadContent()
         {
-            UIInteraction.Initialize(this.inputManager);
+            Interaction.Initialize(this.inputManager);
 
             // Databases
             AssetDatabase.Load(this.Content, this.GraphicsDevice);

@@ -10,6 +10,7 @@ using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Enums.UISystem.Tools;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Settings;
@@ -112,10 +113,10 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPause),
                 Size = new(542, 540),
                 Margin = new(AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPause).Width / 2 * -1, 90),
-                PositionAnchor = CardinalDirection.North,
+                Alignment = CardinalDirection.North,
             };
 
-            this.panelBackgroundElement.PositionRelativeToScreen();
+            this.panelBackgroundElement.RepositionRelativeToScreen();
 
             layout.AddElement(backgroundShadowElement);
             layout.AddElement(this.panelBackgroundElement);
@@ -127,15 +128,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.North,
                 Margin = new(0f, 40f),
                 Color = AAP64ColorPalette.White,
             };
 
             this.menuTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_Pause_Title);
             this.menuTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.menuTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             layout.AddElement(this.menuTitleElement);
         }
@@ -151,11 +151,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 ImageUIElement backgroundElement = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(0, 140, 320, 80),
+                    TextureRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320, 80),
                     Margin = new(-160.0f, marginY),
-                    PositionAnchor = CardinalDirection.North,
+                    Alignment = CardinalDirection.North,
                 };
 
                 LabelUIElement labelElement = new()
@@ -163,15 +163,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                    PositionAnchor = CardinalDirection.Center,
-                    OriginPivot = CardinalDirection.Center
+                    Alignment = CardinalDirection.Center,
                 };
 
                 labelElement.SetTextualContent(button.Name);
                 labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
 
-                backgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
-                labelElement.PositionRelativeToElement(backgroundElement);
+                backgroundElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                labelElement.RepositionRelativeToElement(backgroundElement);
 
                 layout.AddElement(backgroundElement);
                 layout.AddElement(labelElement);
@@ -202,12 +201,12 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 size = slot.BackgroundElement.Size / 2;
                 Vector2 position = slot.BackgroundElement.Position + size;
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.BackgroundElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.BackgroundElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -223,6 +222,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
         protected override void OnClosed()
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

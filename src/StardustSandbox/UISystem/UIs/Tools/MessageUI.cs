@@ -8,6 +8,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 
@@ -54,12 +55,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.North,
             };
 
             this.messageElement.SetTextualContent("Message");
-            this.messageElement.PositionRelativeToScreen();
+            this.messageElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.messageElement);
         }
@@ -71,12 +71,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.13f),
                 Margin = new(0f, -96f),
-                PositionAnchor = CardinalDirection.South,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.South,
             };
 
             this.continueButtonElement.SetTextualContent(Localization_Statements.Continue);
-            this.continueButtonElement.PositionRelativeToScreen();
+            this.continueButtonElement.RepositionRelativeToScreen();
             this.continueButtonElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
 
             layout.AddElement(this.continueButtonElement);
@@ -97,17 +96,22 @@ namespace StardustSandbox.UISystem.UIs.Tools
             Vector2 position = this.continueButtonElement.Position;
             Vector2 size = this.continueButtonElement.GetStringSize() / 2;
 
-            if (UIInteraction.OnMouseClick(position, size))
+            if (Interaction.OnMouseClick(position, size))
             {
                 this.uiManager.CloseGUI();
             }
 
-            this.continueButtonElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            this.continueButtonElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
         }
 
         internal void SetContent(string text)
         {
             this.messageElement.SetTextualContent(text);
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

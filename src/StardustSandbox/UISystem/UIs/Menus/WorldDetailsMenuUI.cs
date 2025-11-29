@@ -9,6 +9,7 @@ using StardustSandbox.Enums.UISystem;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Saving;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Utilities;
@@ -126,14 +127,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 Scale = new(0.15f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.West,
-                OriginPivot = CardinalDirection.East,
+                Alignment = CardinalDirection.West,
                 Margin = new(32.0f, 0.0f),
             };
 
             this.worldTitleElement.SetTextualContent("Title");
             this.worldTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2.0f));
-            this.worldTitleElement.PositionRelativeToElement(this.headerBackgroundElement);
+            this.worldTitleElement.RepositionRelativeToElement(this.headerBackgroundElement);
 
             layout.AddElement(this.headerBackgroundElement);
             layout.AddElement(this.worldTitleElement);
@@ -148,7 +148,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(32f, 128f),
             };
 
-            this.worldThumbnailElement.PositionRelativeToScreen();
+            this.worldThumbnailElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.worldThumbnailElement);
         }
@@ -162,11 +162,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 LineHeight = 1.25f,
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 TextAreaSize = new(930.0f, 600.0f),
-                PositionAnchor = CardinalDirection.Northeast,
+                Alignment = CardinalDirection.Northeast,
             };
 
             this.worldDescriptionElement.SetTextualContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-            this.worldDescriptionElement.PositionRelativeToElement(this.worldThumbnailElement);
+            this.worldDescriptionElement.RepositionRelativeToElement(this.worldThumbnailElement);
 
             layout.AddElement(this.worldDescriptionElement);
         }
@@ -178,12 +178,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.075f),
                 Margin = new(-8),
-                PositionAnchor = CardinalDirection.Southeast,
-                OriginPivot = CardinalDirection.Northwest,
+                Alignment = CardinalDirection.Southeast,
             };
 
             this.worldCreationTimestampElement.SetTextualContent(DateTime.Now.ToString());
-            this.worldCreationTimestampElement.PositionRelativeToScreen();
+            this.worldCreationTimestampElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.worldCreationTimestampElement);
         }
@@ -195,12 +194,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.075f),
                 Margin = new(0.0f, this.worldCreationTimestampElement.GetStringSize().Y + (64.0f * -1.0f)),
-                PositionAnchor = CardinalDirection.Northeast,
-                OriginPivot = CardinalDirection.Northwest,
+                Alignment = CardinalDirection.Northeast,
             };
 
             this.worldVersionElement.SetTextualContent("Version 1.0.0");
-            this.worldVersionElement.PositionRelativeToElement(this.worldCreationTimestampElement);
+            this.worldVersionElement.RepositionRelativeToElement(this.worldCreationTimestampElement);
 
             layout.AddElement(this.worldVersionElement);
         }
@@ -218,13 +216,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     Scale = new(0.12f),
                     Margin = margin,
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                    PositionAnchor = CardinalDirection.Southwest,
-                    OriginPivot = CardinalDirection.East,
+                    Alignment = CardinalDirection.Southwest,
                 };
 
                 buttonLabel.SetTextualContent(button.Name);
                 buttonLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2.0f));
-                buttonLabel.PositionRelativeToScreen();
+                buttonLabel.RepositionRelativeToScreen();
 
                 layout.AddElement(buttonLabel);
                 margin.Y -= buttonLabel.GetStringSize().Y + 8.0f;
@@ -247,12 +244,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Vector2 buttonSize = slotInfoElement.GetStringSize() / 2.0f;
                 Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.X, slotInfoElement.Position.Y - (buttonSize.Y / 4.0f));
 
-                if (UIInteraction.OnMouseClick(buttonPosition, buttonSize))
+                if (Interaction.OnMouseClick(buttonPosition, buttonSize))
                 {
                     this.worldButtons[i].ClickAction?.Invoke();
                 }
 
-                slotInfoElement.Color = UIInteraction.OnMouseOver(buttonPosition, buttonSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                slotInfoElement.Color = Interaction.OnMouseOver(buttonPosition, buttonSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
 
@@ -273,6 +270,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.worldDescriptionElement.SetTextualContent(worldSaveFile.Header.Metadata.Description);
             this.worldVersionElement.SetTextualContent(string.Concat('v', worldSaveFile.Header.Information.SaveVersion));
             this.worldCreationTimestampElement.SetTextualContent(worldSaveFile.Header.Information.CreationTimestamp.ToString());
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

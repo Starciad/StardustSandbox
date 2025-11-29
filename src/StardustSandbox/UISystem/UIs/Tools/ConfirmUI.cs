@@ -9,6 +9,7 @@ using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Enums.UISystem.Tools;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Settings;
@@ -103,12 +104,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.North,
             };
 
             this.captionElement.SetTextualContent("Caption");
-            this.captionElement.PositionRelativeToScreen();
+            this.captionElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.captionElement);
         }
@@ -122,12 +122,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
             this.messageElement.SetTextualContent("Message");
-            this.messageElement.PositionRelativeToScreen();
+            this.messageElement.RepositionRelativeToScreen();
 
             layout.AddElement(this.messageElement);
         }
@@ -145,12 +144,11 @@ namespace StardustSandbox.UISystem.UIs.Tools
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Scale = new(0.125f),
                     Margin = margin,
-                    PositionAnchor = CardinalDirection.South,
-                    OriginPivot = CardinalDirection.Center,
+                    Alignment = CardinalDirection.South,
                 };
 
                 labelElement.SetTextualContent(button.Name);
-                labelElement.PositionRelativeToScreen();
+                labelElement.RepositionRelativeToScreen();
                 labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
 
                 margin.Y -= 72;
@@ -180,13 +178,18 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Vector2 size = labelElement.GetStringSize() / 2.0f;
                 Vector2 position = labelElement.Position;
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = UIInteraction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                labelElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion

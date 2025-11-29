@@ -1,56 +1,74 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Constants;
+using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
+using StardustSandbox.UISystem.Elements;
 
 namespace StardustSandbox.UISystem
 {
-    internal abstract class UI(UIIndex index)
+    internal abstract class UI
     {
         internal UIIndex Index => this.index;
         internal bool IsActive => this.isActive;
-        internal bool IsOpened => this.isOpened;
 
         private bool isActive;
-        private bool isOpened;
 
-        private readonly UIIndex index = index;
-        private readonly Layout layout = new();
+        private readonly Container root;
+        private readonly UIIndex index;
+
+        internal UI(UIIndex index)
+        {
+            this.index = index;
+
+            this.root = new()
+            {
+                Alignment = CardinalDirection.Northwest,
+                CanDraw = true,
+                CanUpdate = true,
+                Color = Color.Transparent,
+                Margin = Vector2.Zero,
+                Position = Vector2.Zero,
+                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2()
+            };
+        }
 
         internal virtual void Initialize()
         {
-            OnBuild(this.layout);
-            this.layout.Initialize();
+            OnBuild(this.root);
+            this.root.Initialize();
         }
 
         internal virtual void Update(GameTime gameTime)
         {
-            this.layout.Update(gameTime);
+            this.root.Update(gameTime);
         }
 
         internal virtual void Draw(SpriteBatch spriteBatch)
         {
-            this.layout.Draw(spriteBatch);
+            this.root.Draw(spriteBatch);
         }
 
         internal void Open()
         {
             this.isActive = true;
-            this.isOpened = true;
-
             OnOpened();
         }
 
         internal void Close()
         {
             this.isActive = false;
-            this.isOpened = false;
-
             OnClosed();
         }
 
-        protected abstract void OnBuild(Layout layout);
-        protected virtual void OnOpened() { return; }
-        protected virtual void OnClosed() { return; }
+        protected abstract void OnBuild(Container root);
+        protected virtual void OnOpened() { }
+        protected virtual void OnClosed() { }
+
+        public override string ToString()
+        {
+            return this.root.ToString();
+        }
     }
 }

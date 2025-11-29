@@ -27,7 +27,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private LabelUIElement timeStateSectionTitleElement;
         private LabelUIElement timeSectionTitleElement;
 
-        private readonly TooltipBoxUIElement tooltipBoxElement;
+        private readonly TooltipBox tooltipBoxElement;
 
         private readonly UISlot[] menuButtonSlots;
         private readonly UISlot[] timeStateButtonSlots;
@@ -44,7 +44,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         internal EnvironmentSettingsUI(
             GameManager gameManager,
             UIIndex index,
-            TooltipBoxUIElement tooltipBoxElement,
+            TooltipBox tooltipBoxElement,
             UIManager uiManager,
             World world
         ) : base(index)
@@ -127,7 +127,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Margin = new(98, 90),
             };
 
-            this.panelBackgroundElement.PositionRelativeToScreen();
+            this.panelBackgroundElement.RepositionRelativeToScreen();
 
             layout.AddElement(backgroundShadowElement);
             layout.AddElement(this.panelBackgroundElement);
@@ -139,15 +139,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
-                PositionAnchor = CardinalDirection.Northwest,
-                OriginPivot = CardinalDirection.East,
+                Alignment = CardinalDirection.Northwest,
                 Margin = new(32, 40),
                 Color = AAP64ColorPalette.White,
             };
 
             this.menuTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_EnvironmentSettings_Title);
             this.menuTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.menuTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             layout.AddElement(this.menuTitleElement);
         }
@@ -161,12 +160,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 UIButton button = this.menuButtons[i];
                 UISlot slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.PositionAnchor = CardinalDirection.Northeast;
-                slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
+                slot.BackgroundElement.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.panelBackgroundElement);
-                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.BackgroundElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.menuButtonSlots[i] = slot;
@@ -190,7 +188,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             };
 
             this.timeStateSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title);
-            this.timeStateSectionTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.timeStateSectionTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             layout.AddElement(this.timeStateSectionTitleElement);
 
@@ -202,12 +200,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 UIButton button = this.timeStateButtons[i];
                 UISlot slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.PositionAnchor = CardinalDirection.South;
-                slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
+                slot.BackgroundElement.Alignment = CardinalDirection.South;
 
                 // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.timeStateSectionTitleElement);
-                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.BackgroundElement.RepositionRelativeToElement(this.timeStateSectionTitleElement);
+                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.timeStateButtonSlots[i] = slot;
@@ -231,7 +228,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             };
 
             this.timeSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Title);
-            this.timeSectionTitleElement.PositionRelativeToElement(this.timeStateSectionTitleElement);
+            this.timeSectionTitleElement.RepositionRelativeToElement(this.timeStateSectionTitleElement);
 
             layout.AddElement(this.timeSectionTitleElement);
 
@@ -243,12 +240,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 UIButton button = this.timeButtons[i];
                 UISlot slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.PositionAnchor = CardinalDirection.South;
-                slot.BackgroundElement.OriginPivot = CardinalDirection.Center;
+                slot.BackgroundElement.Alignment = CardinalDirection.South;
 
                 // Update
-                slot.BackgroundElement.PositionRelativeToElement(this.timeSectionTitleElement);
-                slot.IconElement.PositionRelativeToElement(slot.BackgroundElement);
+                slot.BackgroundElement.RepositionRelativeToElement(this.timeSectionTitleElement);
+                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
 
                 // Save
                 this.timeButtonSlots[i] = slot;
@@ -268,7 +264,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ImageUIElement backgroundElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                TextureClipArea = new(320, 140, 32, 32),
+                TextureRectangle = new(320, 140, 32, 32),
                 Scale = new(UIConstants.HUD_SLOT_SCALE),
                 Size = new(UIConstants.HUD_GRID_SIZE),
                 Margin = margin,
@@ -277,8 +273,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ImageUIElement iconElement = new()
             {
                 Texture = button.IconTexture,
-                TextureClipArea = button.IconTextureRectangle,
-                OriginPivot = CardinalDirection.Center,
+                TextureRectangle = button.IconTextureRectangle,
                 Scale = new(1.5f),
                 Size = new(UIConstants.HUD_GRID_SIZE)
             };
@@ -294,7 +289,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.IsVisible = false;
+            this.tooltipBoxElement.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateTimeStateButtons();
@@ -312,14 +307,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 position = slot.BackgroundElement.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                if (UIInteraction.OnMouseOver(position, size))
+                if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = this.menuButtons[i].Name;
                     TooltipContent.Description = this.menuButtons[i].Description;
@@ -342,14 +337,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 position = slot.BackgroundElement.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.timeStateButtons[i].ClickAction?.Invoke();
                 }
 
-                if (UIInteraction.OnMouseOver(position, size))
+                if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = this.timeStateButtons[i].Name;
                     TooltipContent.Description = this.timeStateButtons[i].Description;
@@ -381,14 +376,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Vector2 position = slot.BackgroundElement.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (UIInteraction.OnMouseClick(position, size))
+                if (Interaction.OnMouseClick(position, size))
                 {
                     this.timeButtons[i].ClickAction?.Invoke();
                 }
 
-                if (UIInteraction.OnMouseOver(position, size))
+                if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.IsVisible = true;
+                    this.tooltipBoxElement.CanDraw = true;
 
                     TooltipContent.Title = this.timeButtons[i].Name;
                     TooltipContent.Description = this.timeButtons[i].Description;
@@ -414,6 +409,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
         protected override void OnClosed()
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

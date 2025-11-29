@@ -12,6 +12,7 @@ using StardustSandbox.IO;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Saving;
 using StardustSandbox.Managers;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Utilities;
@@ -34,17 +35,17 @@ namespace StardustSandbox.UISystem.UIs.Menus
             internal void EnableVisibility()
             {
                 this.IsVisible = true;
-                this.BackgroundElement.IsVisible = true;
-                this.ThumbnailElement.IsVisible = true;
-                this.TitleElement.IsVisible = true;
+                this.BackgroundElement.CanDraw = true;
+                this.ThumbnailElement.CanDraw = true;
+                this.TitleElement.CanDraw = true;
             }
 
             internal void DisableVisibility()
             {
                 this.IsVisible = false;
-                this.BackgroundElement.IsVisible = false;
-                this.ThumbnailElement.IsVisible = false;
-                this.TitleElement.IsVisible = false;
+                this.BackgroundElement.CanDraw = false;
+                this.ThumbnailElement.CanDraw = false;
+                this.TitleElement.CanDraw = false;
             }
         }
 
@@ -173,14 +174,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 Scale = new(0.15f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.West,
-                OriginPivot = CardinalDirection.East,
+                Alignment = CardinalDirection.West,
                 Margin = new(32f, 0f),
             };
 
             titleLabelElement.SetTextualContent("Worlds Explorer");
             titleLabelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-            titleLabelElement.PositionRelativeToElement(this.headerBackgroundElement);
+            titleLabelElement.RepositionRelativeToElement(this.headerBackgroundElement);
 
             layout.AddElement(this.headerBackgroundElement);
             layout.AddElement(titleLabelElement);
@@ -195,9 +195,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 ImageUIElement buttonBackgroundElement = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureClipArea = new(320, 140, 32, 32),
-                    PositionAnchor = CardinalDirection.East,
-                    OriginPivot = CardinalDirection.Center,
+                    TextureRectangle = new(320, 140, 32, 32),
+                    Alignment = CardinalDirection.East,
                     Margin = margin,
                     Scale = new(2f),
                     Size = new(32f),
@@ -206,13 +205,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 ImageUIElement buttonIconElement = new()
                 {
                     Texture = button.IconTexture,
-                    OriginPivot = CardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32f),
                 };
 
-                buttonBackgroundElement.PositionRelativeToElement(this.headerBackgroundElement);
-                buttonIconElement.PositionRelativeToElement(buttonBackgroundElement);
+                buttonBackgroundElement.RepositionRelativeToElement(this.headerBackgroundElement);
+                buttonIconElement.RepositionRelativeToElement(buttonBackgroundElement);
 
                 layout.AddElement(buttonBackgroundElement);
                 layout.AddElement(buttonIconElement);
@@ -231,7 +229,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
-                PositionAnchor = CardinalDirection.Southwest,
+                Alignment = CardinalDirection.Southwest,
                 Margin = new(0.0f, -96.0f),
             };
 
@@ -239,32 +237,28 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 Scale = new(0.1f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
             this.pageIndexLabelElement = new()
             {
                 Scale = new(0.1f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.Center,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.Center,
             };
 
             LabelUIElement previousButtonLabel = new()
             {
                 Scale = new(0.15f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.West,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.West,
             };
 
             LabelUIElement nextButtonLabel = new()
             {
                 Scale = new(0.15f),
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                PositionAnchor = CardinalDirection.East,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.East,
             };
 
             this.footerButtonElements[0] = previousButtonLabel;
@@ -285,11 +279,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
             previousButtonLabel.Margin = new(previousButtonLabel.GetStringSize().X + 32f, 0f);
             nextButtonLabel.Margin = new((nextButtonLabel.GetStringSize().X + 32f) * -1, 0f);
 
-            backgroundImage.PositionRelativeToScreen();
-            pageIndexTitleLabel.PositionRelativeToElement(backgroundImage);
-            this.pageIndexLabelElement.PositionRelativeToElement(pageIndexTitleLabel);
-            previousButtonLabel.PositionRelativeToElement(backgroundImage);
-            nextButtonLabel.PositionRelativeToElement(backgroundImage);
+            backgroundImage.RepositionRelativeToScreen();
+            pageIndexTitleLabel.RepositionRelativeToElement(backgroundImage);
+            this.pageIndexLabelElement.RepositionRelativeToElement(pageIndexTitleLabel);
+            previousButtonLabel.RepositionRelativeToElement(backgroundImage);
+            nextButtonLabel.RepositionRelativeToElement(backgroundImage);
 
             layout.AddElement(backgroundImage);
             layout.AddElement(pageIndexTitleLabel);
@@ -315,7 +309,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     ImageUIElement backgroundImageElement = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                        TextureClipArea = new(0, 0, 386, 140),
+                        TextureRectangle = new(0, 0, 386, 140),
                         Size = new(UIConstants.HUD_WORLD_EXPLORER_SLOT_WIDTH, UIConstants.HUD_WORLD_EXPLORER_SLOT_HEIGHT),
                         Margin = slotMargin
                     };
@@ -324,8 +318,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     {
                         Scale = new(5.1f),
                         Size = WorldConstants.WORLD_THUMBNAIL_SIZE.ToVector2(),
-                        PositionAnchor = CardinalDirection.West,
-                        OriginPivot = CardinalDirection.East,
+                        Alignment = CardinalDirection.West,
                         Margin = new(11.5f, 0f),
                     };
 
@@ -333,8 +326,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     {
                         Color = AAP64ColorPalette.White,
                         SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                        OriginPivot = CardinalDirection.East,
-                        PositionAnchor = CardinalDirection.North,
+                        Alignment = CardinalDirection.North,
                         Scale = new(0.1f),
                         Margin = new(-52.5f, 23f),
                     };
@@ -343,9 +335,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     titleLabelElement.SetTextualContent("Title");
 
                     // Position
-                    backgroundImageElement.PositionRelativeToElement(this.headerBackgroundElement);
-                    thumbnailImageElement.PositionRelativeToElement(backgroundImageElement);
-                    titleLabelElement.PositionRelativeToElement(backgroundImageElement);
+                    backgroundImageElement.RepositionRelativeToElement(this.headerBackgroundElement);
+                    thumbnailImageElement.RepositionRelativeToElement(backgroundImageElement);
+                    titleLabelElement.RepositionRelativeToElement(backgroundImageElement);
 
                     // Spacing
                     slotMargin.X += UIConstants.HUD_WORLD_EXPLORER_SLOT_WIDTH_SPACING;
@@ -384,12 +376,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                 Vector2 buttonSize = buttonBackgroundElement.Size / 2.0f;
 
-                if (UIInteraction.OnMouseClick(buttonBackgroundElement.Position, buttonSize))
+                if (Interaction.OnMouseClick(buttonBackgroundElement.Position, buttonSize))
                 {
                     this.headerButtons[i].ClickAction?.Invoke();
                 }
 
-                buttonBackgroundElement.Color = UIInteraction.OnMouseOver(buttonBackgroundElement.Position, buttonSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+                buttonBackgroundElement.Color = Interaction.OnMouseOver(buttonBackgroundElement.Position, buttonSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
 
             // FOOTER
@@ -398,12 +390,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 LabelUIElement labelElement = this.footerButtonElements[i];
                 Vector2 labelElementSize = labelElement.GetStringSize() / 2f;
 
-                if (UIInteraction.OnMouseClick(labelElement.Position, labelElementSize))
+                if (Interaction.OnMouseClick(labelElement.Position, labelElementSize))
                 {
                     this.footerButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = UIInteraction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                labelElement.Color = Interaction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
             #endregion
 
@@ -420,13 +412,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Vector2 backgroundSize = slotInfoElement.BackgroundElement.Size / 2.0f;
                 Vector2 backgroundPosition = slotInfoElement.BackgroundElement.Position + backgroundSize;
 
-                if (UIInteraction.OnMouseClick(backgroundPosition, backgroundSize))
+                if (Interaction.OnMouseClick(backgroundPosition, backgroundSize))
                 {
                     this.worldDetailsMenuUI.SetWorldSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
                     this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
                 }
 
-                slotInfoElement.BackgroundElement.Color = UIInteraction.OnMouseOver(backgroundPosition, backgroundSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+                slotInfoElement.BackgroundElement.Color = Interaction.OnMouseOver(backgroundPosition, backgroundSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
         }
 
@@ -481,6 +473,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private void LoadAllLocalSavedWorlds()
         {
             this.savedWorldFilesLoaded = [.. WorldSavingHandler.LoadAllSavedWorldData(this.graphicsDevice)];
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

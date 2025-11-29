@@ -16,6 +16,7 @@ using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
+using StardustSandbox.UISystem.Elements;
 using StardustSandbox.UISystem.Elements.Graphics;
 using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.UISystem.Utilities;
@@ -82,11 +83,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         private void ResetElementPositions()
         {
-            this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.gameTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             foreach (LabelUIElement buttonLabelElement in this.menuButtonElements)
             {
-                buttonLabelElement.PositionRelativeToElement(this.panelBackgroundElement);
+                buttonLabelElement.RepositionRelativeToElement(this.panelBackgroundElement);
             }
         }
 
@@ -193,8 +194,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(-32f, -32f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
-                PositionAnchor = CardinalDirection.Southeast,
-                OriginPivot = CardinalDirection.West,
+                Alignment = CardinalDirection.Southeast,
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
@@ -203,16 +203,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(0f, -32),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
-                PositionAnchor = CardinalDirection.South,
-                OriginPivot = CardinalDirection.Center,
+                Alignment = CardinalDirection.South,
                 SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
             };
 
             gameVersionLabel.SetTextualContent($"Ver. {GameConstants.VERSION}");
-            gameVersionLabel.PositionRelativeToScreen();
+            gameVersionLabel.RepositionRelativeToScreen();
 
             copyrightLabel.SetTextualContent($"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}");
-            copyrightLabel.PositionRelativeToScreen();
+            copyrightLabel.RepositionRelativeToScreen();
 
             layout.AddElement(gameVersionLabel);
             layout.AddElement(copyrightLabel);
@@ -226,11 +225,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(1.5f),
                 Size = new(292, 112),
                 Margin = new(0, 96),
-                PositionAnchor = CardinalDirection.North,
-                OriginPivot = CardinalDirection.Center
+                Alignment = CardinalDirection.North,
             };
 
-            this.gameTitleElement.PositionRelativeToElement(this.panelBackgroundElement);
+            this.gameTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
             layout.AddElement(this.gameTitleElement);
         }
@@ -248,14 +246,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     Scale = new(0.15f),
                     Margin = margin,
                     Color = AAP64ColorPalette.White,
-                    PositionAnchor = CardinalDirection.Center,
-                    OriginPivot = CardinalDirection.Center,
+                    Alignment = CardinalDirection.Center,
                     SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 };
 
                 labelElement.SetTextualContent(this.menuButtons[i].Name);
                 labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(4f));
-                labelElement.PositionRelativeToElement(this.panelBackgroundElement);
+                labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
 
                 this.menuButtonElements[i] = labelElement;
                 margin.Y += 75;
@@ -320,12 +317,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 LabelUIElement labelElement = this.menuButtonElements[i];
                 Vector2 labelElementSize = labelElement.GetStringSize() / 2f;
 
-                if (UIInteraction.OnMouseClick(labelElement.Position, labelElementSize))
+                if (Interaction.OnMouseClick(labelElement.Position, labelElementSize))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = UIInteraction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                labelElement.Color = Interaction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
 
@@ -367,6 +364,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.world.Clear();
             this.world.IsVisible = false;
+        }
+
+        protected override void OnBuild(ContainerUIElement root)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
