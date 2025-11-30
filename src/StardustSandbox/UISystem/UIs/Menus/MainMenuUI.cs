@@ -27,29 +27,29 @@ namespace StardustSandbox.UISystem.UIs.Menus
 {
     internal sealed class MainMenuUI : UI
     {
-        private const float animationSpeed = 2f;
-        private const float animationAmplitude = 10f;
-        private const float ButtonAnimationSpeed = 1.5f;
-        private const float ButtonAnimationAmplitude = 5f;
-
-        private Image panelBackgroundElement;
-        private Image gameTitleElement;
+        private Image panelBackground;
+        private Image gameTitle;
 
         private Vector2 originalGameTitleElementPosition;
-        private float animationTime = 0f;
 
-        private Dictionary<Label, Vector2> buttonOriginalPositions;
+        private float animationTime = 0f;
         private float[] buttonAnimationOffsets;
 
-        private readonly Label[] menuButtonElements;
-        private readonly ButtonInfo[] menuButtons;
+        private Dictionary<Label, Vector2> buttonOriginalPositions;
+
+        private readonly Label[] menuButtons;
+        private readonly ButtonInfo[] menuButtonInfos;
 
         private readonly InputController inputController;
-
         private readonly AmbientManager ambientManager;
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
         private readonly World world;
+
+        private const float animationSpeed = 2f;
+        private const float animationAmplitude = 10f;
+        private const float buttonAnimationSpeed = 1.5f;
+        private const float buttonAnimationAmplitude = 5f;
 
         internal MainMenuUI(
             AmbientManager ambientManager,
@@ -66,7 +66,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.uiManager = uiManager;
             this.world = world;
 
-            this.menuButtons = [
+            this.menuButtonInfos = [
                 new(null, null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, CreateMenuButtonAction),
                 new(null, null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, PlayMenuButtonAction),
                 new(null, null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, OptionsMenuButtonAction),
@@ -74,33 +74,33 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new(null, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
             ];
 
-            this.menuButtonElements = new Label[this.menuButtons.Length];
+            this.menuButtons = new Label[this.menuButtonInfos.Length];
         }
 
         #region INITIALIZATION
 
         private void ResetElementPositions()
         {
-            this.panelBackgroundElement.AddChild(this.gameTitleElement);
+            this.panelBackground.AddChild(this.gameTitle);
 
-            foreach (Label buttonLabelElement in this.menuButtonElements)
+            foreach (Label buttonLabelElement in this.menuButtons)
             {
-                this.panelBackgroundElement.AddChild(buttonLabelElement);
+                this.panelBackground.AddChild(buttonLabelElement);
             }
         }
 
         private void LoadAnimationValues()
         {
             // GameTitle
-            this.originalGameTitleElementPosition = this.gameTitleElement.Position;
+            this.originalGameTitleElementPosition = this.gameTitle.Position;
 
             // Buttons
             this.buttonOriginalPositions = [];
-            this.buttonAnimationOffsets = new float[this.menuButtonElements.Length];
+            this.buttonAnimationOffsets = new float[this.menuButtons.Length];
 
-            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                this.buttonOriginalPositions[this.menuButtonElements[i]] = this.menuButtonElements[i].Position;
+                this.buttonOriginalPositions[this.menuButtons[i]] = this.menuButtons[i].Position;
                 this.buttonAnimationOffsets[i] = (float)(SSRandom.GetDouble() * Math.PI * 2);
             }
         }
@@ -108,16 +108,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private void LoadMainMenuWorld()
         {
             this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
-        }
-
-        private static void LoadMagicCursor()
-        {
-            // if (this.world.ActiveEntitiesCount > 0)
-            // {
-            //     return;
-            // }
-            // 
-            // _ = this.world.InstantiateEntity(EntityConstants.MAGIC_CURSOR_IDENTIFIER, null);
         }
 
         #endregion
@@ -152,18 +142,19 @@ namespace StardustSandbox.UISystem.UIs.Menus
         #endregion
 
         #region BUILDER
+
         protected override void OnBuild(Container root)
         {
             BuildMainPanel(root);
-            BuildDecorations(root);
-            BuildGameTitle(root);
-            BuildButtons(root);
+            BuildDecorations();
+            BuildGameTitle();
+            BuildButtons();
             BuildInfos(root);
         }
 
         private void BuildMainPanel(Container root)
         {
-            this.panelBackgroundElement = new()
+            this.panelBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(487f, ScreenConstants.SCREEN_HEIGHT),
@@ -171,10 +162,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = new(AAP64ColorPalette.DarkGray, 180),
             };
 
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.panelBackground);
         }
 
-        private static void BuildDecorations(Container root)
+        private void BuildDecorations()
         {
             Image prosceniumCurtainElement = new()
             {
@@ -182,7 +173,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(2)
             };
 
-            root.AddChild(prosceniumCurtainElement);
+            this.panelBackground.AddChild(prosceniumCurtainElement);
         }
 
         private static void BuildInfos(Container root)
@@ -193,6 +184,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = CardinalDirection.Southeast,
+                TextAlignment = CardinalDirection.West,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = $"Ver. {GameConstants.VERSION}",
             };
@@ -203,6 +195,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = CardinalDirection.South,
+                TextAlignment = CardinalDirection.Center,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
@@ -211,28 +204,27 @@ namespace StardustSandbox.UISystem.UIs.Menus
             root.AddChild(copyrightLabel);
         }
 
-        private void BuildGameTitle(Container root)
+        private void BuildGameTitle()
         {
-            this.gameTitleElement = new()
+            this.gameTitle = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.GameTitle),
                 Scale = new(1.5f),
                 Size = new(292, 112),
-                Margin = new(0, 96),
+                Margin = new(0, 32),
                 Alignment = CardinalDirection.North,
             };
 
-            this.panelBackgroundElement.AddChild(this.gameTitleElement);
-            root.AddChild(this.gameTitleElement);
+            this.panelBackground.AddChild(this.gameTitle);
         }
 
-        private void BuildButtons(Container root)
+        private void BuildButtons()
         {
             // BUTTONS
             Vector2 margin = new(0, 0);
 
             // Labels
-            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            for (int i = 0; i < this.menuButtons.Length; i++)
             {
                 Label label = new()
                 {
@@ -241,7 +233,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     Color = AAP64ColorPalette.White,
                     Alignment = CardinalDirection.Center,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    TextContent = this.menuButtons[i].Name,
+                    TextContent = this.menuButtonInfos[i].Name,
+                    TextAlignment = CardinalDirection.Center,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
@@ -249,12 +242,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     BorderThickness = 4f,
                 };
 
-                this.panelBackgroundElement.AddChild(label);
-                this.menuButtonElements[i] = label;
+                this.panelBackground.AddChild(label);
+                this.menuButtons[i] = label;
+
                 margin.Y += 75;
             }
-
-            root.AddChild(this.gameTitleElement);
         }
 
         #endregion
@@ -282,20 +274,20 @@ namespace StardustSandbox.UISystem.UIs.Menus
             float offsetY = (float)Math.Sin(this.animationTime) * animationAmplitude;
             Vector2 newPosition = new(this.originalGameTitleElementPosition.X, this.originalGameTitleElementPosition.Y + offsetY);
 
-            this.gameTitleElement.Position = newPosition;
+            this.gameTitle.Position = newPosition;
         }
 
         private void UpdateButtonElementsAnimation(GameTime gameTime)
         {
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                Label button = this.menuButtonElements[i];
+                Label button = this.menuButtons[i];
                 Vector2 originalPosition = this.buttonOriginalPositions[button];
 
-                this.buttonAnimationOffsets[i] += elapsedTime * ButtonAnimationSpeed;
-                float offsetY = (float)Math.Sin(this.buttonAnimationOffsets[i]) * ButtonAnimationAmplitude;
+                this.buttonAnimationOffsets[i] += elapsedTime * buttonAnimationSpeed;
+                float offsetY = (float)Math.Sin(this.buttonAnimationOffsets[i]) * buttonAnimationAmplitude;
 
                 button.Position = new(originalPosition.X, originalPosition.Y + offsetY);
             }
@@ -303,14 +295,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         private void UpdateButtons()
         {
-            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                Label label = this.menuButtonElements[i];
+                Label label = this.menuButtons[i];
                 Vector2 labelElementSize = label.MeasuredText / 2f;
 
                 if (Interaction.OnMouseClick(label.Position, labelElementSize))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
@@ -335,7 +328,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             LoadAnimationValues();
             LoadMainMenuWorld();
-            LoadMagicCursor();
 
             this.gameManager.SetSimulationSpeed(SimulationSpeed.Normal);
             this.gameManager.RemoveState(GameStates.IsPaused);
@@ -345,7 +337,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
             this.world.Time.IsFrozen = false;
 
-            if (SongEngine.State != MediaState.Playing)
+            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_CanvasOfSilence)
             {
                 SongEngine.Play(SongIndex.V01_CanvasOfSilence);
             }

@@ -9,12 +9,6 @@ namespace StardustSandbox.Mathematics
 {
     internal static class OriginMath
     {
-        internal static Vector2 GetSpriteFontOriginPoint(this SpriteFont spriteFont, StringBuilder text, CardinalDirection direction)
-        {
-            Vector2 measuredString = spriteFont.MeasureString(text);
-            return GetOriginPoint(new(measuredString.X, measuredString.Y), direction);
-        }
-
         internal static Vector2 GetSpriteFontOriginPoint(this SpriteFont spriteFont, string text, CardinalDirection direction)
         {
             Vector2 measuredString = spriteFont.MeasureString(text);

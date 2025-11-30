@@ -8,6 +8,7 @@ namespace StardustSandbox.AudioSystem
     internal static class SongEngine
     {
         internal static Song CurrentSong { get; private set; }
+        internal static SongIndex CurrentSongIndex { get; private set; }
 
         internal static float Volume
         {
@@ -47,6 +48,8 @@ namespace StardustSandbox.AudioSystem
             }
 
             CurrentSong = AssetDatabase.GetSong(songIndex);
+            CurrentSongIndex = songIndex;
+
             MediaPlayer.Play(CurrentSong);
         }
 

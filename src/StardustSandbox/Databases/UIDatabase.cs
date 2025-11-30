@@ -220,12 +220,12 @@ namespace StardustSandbox.Databases
                 worldsExplorerMenuUI,
             ];
 
-            DirectoryInfo dic = Directory.CreateDirectory(Path.Combine(SSDirectory.Local, "UIs"));
+            // DirectoryInfo dic = Directory.CreateDirectory(Path.Combine(SSDirectory.Local, "UIs"));
 
             for (int i = 0; i < uis.Length; i++)
             {
                 uis[i].Initialize();
-                File.WriteAllText(Path.Combine(dic.FullName, string.Concat(uis[i].GetType().FullName, ".txt")), uis[i].ToString());
+                // File.WriteAllText(Path.Combine(dic.FullName, string.Concat(uis[i].GetType().FullName, ".txt")), uis[i].ToString());
             }
 
             #endregion
