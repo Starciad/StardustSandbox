@@ -10,22 +10,20 @@ using StardustSandbox.Enums.UISystem.Tools;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
+using StardustSandbox.UISystem.Information;
 using StardustSandbox.UISystem.Settings;
-using StardustSandbox.UISystem.Utilities;
 
 namespace StardustSandbox.UISystem.UIs.Tools
 {
     internal sealed class ConfirmUI : UI
     {
         private ConfirmSettings confirmSettings;
-        private TextUIElement captionElement;
-        private TextUIElement messageElement;
+        private Text captionElement;
+        private Text messageElement;
 
-        private readonly LabelUIElement[] menuButtonElements;
+        private readonly Label[] menuButtonElements;
 
-        private readonly UIButton[] menuButtons;
+        private readonly ButtonInfo[] menuButtons;
 
         private readonly UIManager uiManager;
 
@@ -41,7 +39,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 new(null, null, Localization_Statements.Confirm, string.Empty, ConfirmButtonAction),
             ];
 
-            this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
+            this.menuButtonElements = new Label[this.menuButtons.Length];
         }
 
         #region INITIALIZE
@@ -50,8 +48,8 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.confirmSettings = settings;
 
-            this.captionElement.SetTextualContent(settings.Caption);
-            this.messageElement.SetTextualContent(settings.Message);
+            this.captionElement.TextContent = settings.Caption;
+            this.messageElement.TextContent = settings.Message;
         }
 
         #endregion
@@ -74,17 +72,17 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildBackground(layout);
-            BuildCaption(layout);
-            BuildMessage(layout);
-            BuildMenuButtons(layout);
+            BuildBackground(root);
+            BuildCaption(root);
+            BuildMessage(root);
+            BuildMenuButtons(root);
         }
 
-        private void BuildBackground(Layout layout)
+        private static void BuildBackground(Container root)
         {
-            ImageUIElement guiBackground = new()
+            Image guiBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -92,10 +90,10 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            layout.AddElement(guiBackground);
+            root.AddChild(guiBackground);
         }
 
-        private void BuildCaption(Layout layout)
+        private void BuildCaption(Container root)
         {
             this.captionElement = new()
             {
@@ -103,17 +101,15 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Margin = new(0, 96),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
+                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
+                TextContent = "Caption"
             };
 
-            this.captionElement.SetTextualContent("Caption");
-            this.captionElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.captionElement);
+            root.AddChild(this.captionElement);
         }
 
-        private void BuildMessage(Layout layout)
+        private void BuildMessage(Container root)
         {
             this.messageElement = new()
             {
@@ -121,41 +117,41 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Margin = new(0, -128),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
+                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.Center,
+                TextContent = "Message",
             };
 
-            this.messageElement.SetTextualContent("Message");
-            this.messageElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.messageElement);
+            root.AddChild(this.messageElement);
         }
 
-        private void BuildMenuButtons(Layout layout)
+        private void BuildMenuButtons(Container root)
         {
             Vector2 margin = new(0, -64);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                UIButton button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtons[i];
 
-                LabelUIElement labelElement = new()
+                Label label = new()
                 {
-                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = margin,
                     Alignment = CardinalDirection.South,
-                };
+                    TextContent = button.Name,
 
-                labelElement.SetTextualContent(button.Name);
-                labelElement.RepositionRelativeToScreen();
-                labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderOffset = 2f,
+                    BorderThickness = 2f,
+                };
 
                 margin.Y -= 72;
 
-                layout.AddElement(labelElement);
+                root.AddChild(label);
 
-                this.menuButtonElements[i] = labelElement;
+                this.menuButtonElements[i] = label;
             }
         }
 
@@ -173,23 +169,18 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                LabelUIElement labelElement = this.menuButtonElements[i];
+                Label label = this.menuButtonElements[i];
 
-                Vector2 size = labelElement.GetStringSize() / 2.0f;
-                Vector2 position = labelElement.Position;
+                Vector2 size = label.MeasuredText / 2.0f;
+                Vector2 position = label.Position;
 
                 if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion

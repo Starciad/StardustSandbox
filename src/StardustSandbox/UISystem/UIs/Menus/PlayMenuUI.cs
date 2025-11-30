@@ -8,16 +8,14 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
-using StardustSandbox.UISystem.Utilities;
+using StardustSandbox.UISystem.Information;
 
 namespace StardustSandbox.UISystem.UIs.Menus
 {
     internal class PlayMenuUI : UI
     {
-        private readonly LabelUIElement[] menuButtonElements;
-        private readonly UIButton[] menuButtons;
+        private readonly Label[] menuButtonElements;
+        private readonly ButtonInfo[] menuButtons;
 
         private readonly UIManager uiManager;
 
@@ -33,7 +31,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), "Return", string.Empty, ReturnButtonAction),
             ];
 
-            this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
+            this.menuButtonElements = new Label[this.menuButtons.Length];
         }
 
         #region ACTIONS
@@ -52,15 +50,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildTitle(layout);
-            BuildMenuButtons(layout);
+            BuildTitle(root);
+            BuildMenuButtons(root);
         }
 
-        private static void BuildTitle(Layout layout)
+        private static void BuildTitle(Container root)
         {
-            ImageUIElement backgroundImage = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
@@ -68,55 +66,57 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 128f),
             };
 
-            LabelUIElement titleLabel = new()
+            Label title = new()
             {
                 Scale = new(0.2f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
+                TextContent = "Play Menu",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
-            titleLabel.SetTextualContent("Play Menu");
-            titleLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2.0f));
-            titleLabel.RepositionRelativeToElement(backgroundImage);
-
-            layout.AddElement(backgroundImage);
-            layout.AddElement(titleLabel);
+            background.AddChild(title);
+            root.AddChild(background);
         }
 
-        private void BuildMenuButtons(Layout layout)
+        private void BuildMenuButtons(Container root)
         {
             Vector2 margin = Vector2.Zero;
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                UIButton button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtons[i];
 
-                LabelUIElement buttonLabel = new()
+                Label buttonLabel = new()
                 {
                     Scale = new(0.15f),
                     Margin = margin,
-                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = CardinalDirection.Center,
+                    TextContent = button.Name,
+
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderOffset = 2f,
+                    BorderThickness = 2f,
                 };
 
-                buttonLabel.SetTextualContent(button.Name);
-                buttonLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-
-                ImageUIElement buttonIcon = new()
+                Image buttonIcon = new()
                 {
                     Texture = button.IconTexture,
                     Alignment = CardinalDirection.West,
-                    Margin = new((buttonLabel.GetStringSize().X + (button.IconTexture.Width / 2.0f)) * -1.0f, 0.0f),
+                    Margin = new((buttonLabel.MeasuredText.X + (button.IconTexture.Width / 2.0f)) * -1.0f, 0.0f),
                     Scale = new(2),
                 };
 
-                buttonLabel.RepositionRelativeToScreen();
-                buttonIcon.RepositionRelativeToElement(buttonLabel);
+                buttonLabel.AddChild(buttonIcon);
+                root.AddChild(buttonLabel);
 
-                layout.AddElement(buttonLabel);
-                layout.AddElement(buttonIcon);
-
-                margin.Y += buttonLabel.GetStringSize().X + 32.0f;
+                margin.Y += buttonLabel.MeasuredText.X + 32.0f;
 
                 this.menuButtonElements[i] = buttonLabel;
             }
@@ -135,21 +135,16 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                LabelUIElement labelElement = this.menuButtonElements[i];
-                Vector2 labelElementSize = labelElement.GetStringSize() / 2.0f;
+                Label label = this.menuButtonElements[i];
+                Vector2 labelElementSize = label.MeasuredText / 2.0f;
 
-                if (Interaction.OnMouseClick(labelElement.Position, labelElementSize))
+                if (Interaction.OnMouseClick(label.Position, labelElementSize))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = Interaction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion

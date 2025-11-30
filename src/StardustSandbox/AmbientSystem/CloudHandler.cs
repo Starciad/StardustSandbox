@@ -53,7 +53,7 @@ namespace StardustSandbox.AmbientSystem
                     continue;
                 }
 
-                if (!this.cameraManager.InsideCameraBounds(cloud.Position, new Point(cloud.TextureRectangle.Width, cloud.TextureRectangle.Height), false, cloud.TextureRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
+                if (!this.cameraManager.InsideCameraBounds(cloud.Position, new Point(cloud.SourceRectangle.Width, cloud.SourceRectangle.Height), false, cloud.SourceRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
                 {
                     DestroyCloud(cloud);
                     continue;

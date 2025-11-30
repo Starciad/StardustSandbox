@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Enums.UISystem.Tools;
 
-namespace StardustSandbox.UISystem.Utilities
+namespace StardustSandbox.UISystem.States
 {
     internal sealed class TextValidationState
     {

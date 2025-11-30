@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.Enums.TextSystem
+﻿namespace StardustSandbox.Enums.UISystem
 {
     internal enum TextAlignment : byte
     {

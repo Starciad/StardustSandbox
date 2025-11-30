@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.UISystem;
 
 using System;
 
@@ -9,12 +10,6 @@ namespace StardustSandbox.UISystem.Elements
 {
     internal sealed class StackPanel : UIElement
     {
-        internal enum Orientation
-        {
-            Vertical,
-            Horizontal
-        }
-        
         internal Orientation PanelOrientation { get; set; } = Orientation.Vertical;
         internal float Spacing { get; set; } = 0f;
         internal Vector2 Padding { get; set; } = Vector2.Zero;
@@ -111,8 +106,9 @@ namespace StardustSandbox.UISystem.Elements
             }
 
             // Available content rectangle inside padding
-            Vector2 panelPos = this.Position;
+            Vector2 panelPosition = this.Position;
             Vector2 panelSize = this.Size;
+
             float contentWidth = Math.Max(0f, panelSize.X - (this.Padding.X * 2f));
             float contentHeight = Math.Max(0f, panelSize.Y - (this.Padding.Y * 2f));
 
@@ -151,7 +147,7 @@ namespace StardustSandbox.UISystem.Elements
             }
 
             // Starting offset (top-left inside padding)
-            Vector2 contentOrigin = new(panelPos.X + this.Padding.X, panelPos.Y + this.Padding.Y);
+            Vector2 contentOrigin = new(panelPosition.X + this.Padding.X, panelPosition.Y + this.Padding.Y);
             float offsetMain = 0f;
 
             for (int i = 0; i < childCount; i++)

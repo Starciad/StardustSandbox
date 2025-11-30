@@ -17,9 +17,7 @@ using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
-using StardustSandbox.UISystem.Utilities;
+using StardustSandbox.UISystem.Information;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -34,17 +32,17 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private const float ButtonAnimationSpeed = 1.5f;
         private const float ButtonAnimationAmplitude = 5f;
 
-        private ImageUIElement panelBackgroundElement;
-        private ImageUIElement gameTitleElement;
+        private Image panelBackgroundElement;
+        private Image gameTitleElement;
 
         private Vector2 originalGameTitleElementPosition;
         private float animationTime = 0f;
 
-        private Dictionary<LabelUIElement, Vector2> buttonOriginalPositions;
+        private Dictionary<Label, Vector2> buttonOriginalPositions;
         private float[] buttonAnimationOffsets;
 
-        private readonly LabelUIElement[] menuButtonElements;
-        private readonly UIButton[] menuButtons;
+        private readonly Label[] menuButtonElements;
+        private readonly ButtonInfo[] menuButtons;
 
         private readonly InputController inputController;
 
@@ -76,18 +74,18 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new(null, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
             ];
 
-            this.menuButtonElements = new LabelUIElement[this.menuButtons.Length];
+            this.menuButtonElements = new Label[this.menuButtons.Length];
         }
 
         #region INITIALIZATION
 
         private void ResetElementPositions()
         {
-            this.gameTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
+            this.panelBackgroundElement.AddChild(this.gameTitleElement);
 
-            foreach (LabelUIElement buttonLabelElement in this.menuButtonElements)
+            foreach (Label buttonLabelElement in this.menuButtonElements)
             {
-                buttonLabelElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                this.panelBackgroundElement.AddChild(buttonLabelElement);
             }
         }
 
@@ -154,16 +152,16 @@ namespace StardustSandbox.UISystem.UIs.Menus
         #endregion
 
         #region BUILDER
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildMainPanel(layout);
-            BuildDecorations(layout);
-            BuildGameTitle(layout);
-            BuildButtons(layout);
-            BuildInfos(layout);
+            BuildMainPanel(root);
+            BuildDecorations(root);
+            BuildGameTitle(root);
+            BuildButtons(root);
+            BuildInfos(root);
         }
 
-        private void BuildMainPanel(Layout layout)
+        private void BuildMainPanel(Container root)
         {
             this.panelBackgroundElement = new()
             {
@@ -173,51 +171,47 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = new(AAP64ColorPalette.DarkGray, 180),
             };
 
-            layout.AddElement(this.panelBackgroundElement);
+            root.AddChild(this.panelBackgroundElement);
         }
 
-        private static void BuildDecorations(Layout layout)
+        private static void BuildDecorations(Container root)
         {
-            ImageUIElement prosceniumCurtainElement = new()
+            Image prosceniumCurtainElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.MiscellaneousTheatricalCurtains),
                 Scale = new(2)
             };
 
-            layout.AddElement(prosceniumCurtainElement);
+            root.AddChild(prosceniumCurtainElement);
         }
 
-        private static void BuildInfos(Layout layout)
+        private static void BuildInfos(Container root)
         {
-            LabelUIElement gameVersionLabel = new()
+            Label gameVersionLabel = new()
             {
                 Margin = new(-32f, -32f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = CardinalDirection.Southeast,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = $"Ver. {GameConstants.VERSION}",
             };
 
-            LabelUIElement copyrightLabel = new()
+            Label copyrightLabel = new()
             {
                 Margin = new(0f, -32),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = CardinalDirection.South,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
 
-            gameVersionLabel.SetTextualContent($"Ver. {GameConstants.VERSION}");
-            gameVersionLabel.RepositionRelativeToScreen();
-
-            copyrightLabel.SetTextualContent($"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}");
-            copyrightLabel.RepositionRelativeToScreen();
-
-            layout.AddElement(gameVersionLabel);
-            layout.AddElement(copyrightLabel);
+            root.AddChild(gameVersionLabel);
+            root.AddChild(copyrightLabel);
         }
 
-        private void BuildGameTitle(Layout layout)
+        private void BuildGameTitle(Container root)
         {
             this.gameTitleElement = new()
             {
@@ -228,12 +222,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Alignment = CardinalDirection.North,
             };
 
-            this.gameTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
-
-            layout.AddElement(this.gameTitleElement);
+            this.panelBackgroundElement.AddChild(this.gameTitleElement);
+            root.AddChild(this.gameTitleElement);
         }
 
-        private void BuildButtons(Layout layout)
+        private void BuildButtons(Container root)
         {
             // BUTTONS
             Vector2 margin = new(0, 0);
@@ -241,29 +234,27 @@ namespace StardustSandbox.UISystem.UIs.Menus
             // Labels
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                LabelUIElement labelElement = new()
+                Label label = new()
                 {
                     Scale = new(0.15f),
                     Margin = margin,
                     Color = AAP64ColorPalette.White,
                     Alignment = CardinalDirection.Center,
-                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    TextContent = this.menuButtons[i].Name,
+
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderOffset = 4f,
+                    BorderThickness = 4f,
                 };
 
-                labelElement.SetTextualContent(this.menuButtons[i].Name);
-                labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(4f));
-                labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
-
-                this.menuButtonElements[i] = labelElement;
+                this.panelBackgroundElement.AddChild(label);
+                this.menuButtonElements[i] = label;
                 margin.Y += 75;
             }
 
-            layout.AddElement(this.gameTitleElement);
-
-            for (int i = 0; i < this.menuButtonElements.Length; i++)
-            {
-                layout.AddElement(this.menuButtonElements[i]);
-            }
+            root.AddChild(this.gameTitleElement);
         }
 
         #endregion
@@ -300,7 +291,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                LabelUIElement button = this.menuButtonElements[i];
+                Label button = this.menuButtonElements[i];
                 Vector2 originalPosition = this.buttonOriginalPositions[button];
 
                 this.buttonAnimationOffsets[i] += elapsedTime * ButtonAnimationSpeed;
@@ -314,15 +305,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
-                LabelUIElement labelElement = this.menuButtonElements[i];
-                Vector2 labelElementSize = labelElement.GetStringSize() / 2f;
+                Label label = this.menuButtonElements[i];
+                Vector2 labelElementSize = label.MeasuredText / 2f;
 
-                if (Interaction.OnMouseClick(labelElement.Position, labelElementSize))
+                if (Interaction.OnMouseClick(label.Position, labelElementSize))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = Interaction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
 
@@ -364,11 +355,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.world.Clear();
             this.world.IsVisible = false;
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

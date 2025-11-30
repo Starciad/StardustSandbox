@@ -15,7 +15,7 @@ namespace StardustSandbox.UISystem
 
         internal static void Initialize(InputManager inputManager)
         {
-            if (!isInitialized)
+            if (isInitialized)
             {
                 throw new InvalidOperationException($"{nameof(Interaction)} system has already been initialized.");
             }

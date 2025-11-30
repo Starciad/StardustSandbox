@@ -27,7 +27,6 @@ namespace StardustSandbox.UISystem
                 Alignment = CardinalDirection.Northwest,
                 CanDraw = true,
                 CanUpdate = true,
-                Color = Color.Transparent,
                 Margin = Vector2.Zero,
                 Position = Vector2.Zero,
                 Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2()

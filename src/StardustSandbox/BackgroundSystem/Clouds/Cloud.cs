@@ -12,7 +12,7 @@ namespace StardustSandbox.BackgroundSystem.Clouds
 {
     internal sealed class Cloud : IPoolableObject
     {
-        internal Rectangle TextureRectangle => this.textureRectangle;
+        internal Rectangle SourceRectangle => this.textureRectangle;
         internal Vector2 Position => this.position;
 
         private Rectangle textureRectangle;

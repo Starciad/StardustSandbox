@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.UISystem;
 using StardustSandbox.InputSystem.GameInput;
+using StardustSandbox.IO;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem;
 using StardustSandbox.UISystem.Elements;
@@ -12,6 +13,7 @@ using StardustSandbox.UISystem.UIs.Tools;
 using StardustSandbox.WorldSystem;
 
 using System;
+using System.IO;
 
 namespace StardustSandbox.Databases
 {
@@ -218,9 +220,12 @@ namespace StardustSandbox.Databases
                 worldsExplorerMenuUI,
             ];
 
+            DirectoryInfo dic = Directory.CreateDirectory(Path.Combine(SSDirectory.Local, "UIs"));
+
             for (int i = 0; i < uis.Length; i++)
             {
                 uis[i].Initialize();
+                File.WriteAllText(Path.Combine(dic.FullName, string.Concat(uis[i].GetType().FullName, ".txt")), uis[i].ToString());
             }
 
             #endregion

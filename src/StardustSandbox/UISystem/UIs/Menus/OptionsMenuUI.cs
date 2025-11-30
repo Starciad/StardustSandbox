@@ -12,12 +12,10 @@ using StardustSandbox.IO.Settings;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
+using StardustSandbox.UISystem.Information;
 using StardustSandbox.UISystem.Options;
 using StardustSandbox.UISystem.Settings;
 using StardustSandbox.UISystem.UIs.Tools;
-using StardustSandbox.UISystem.Utilities;
 
 using System;
 using System.Collections.Generic;
@@ -47,8 +45,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private string selectedSectionIdentififer;
         private bool restartMessageAppeared;
 
-        private LabelUIElement titleLabelElement;
-        private ImageUIElement panelBackgroundElement;
+        private Label titleLabelElement;
+        private Image panelBackgroundElement;
 
         private readonly Root root;
         private readonly ColorPickerSettings colorPickerSettings;
@@ -61,12 +59,12 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         private readonly TooltipBox tooltipBoxElement;
 
-        private readonly LabelUIElement[] systemButtonElements;
-        private readonly Dictionary<string, IEnumerable<LabelUIElement>> sectionContents = [];
-        private readonly Dictionary<string, ContainerUIElement> sectionContainerElements = [];
-        private readonly Dictionary<string, LabelUIElement> sectionButtonElements = [];
+        private readonly Label[] systemButtonElements;
+        private readonly Dictionary<string, IEnumerable<Label>> sectionContents = [];
+        private readonly Dictionary<string, Container> sectionContainerElements = [];
+        private readonly Dictionary<string, Label> sectionButtonElements = [];
 
-        private readonly UIButton[] systemButtons;
+        private readonly ButtonInfo[] systemButtons;
 
         private readonly CursorManager cursorManager;
         private readonly UIManager uiManager;
@@ -80,7 +78,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         private static readonly Vector2 defaultRightPanelMargin = new(-112.0f, 64.0f);
         private static readonly Vector2 defaultButtonScale = new(0.11f);
-        private static readonly Vector2 defaultButtonBorderOffset = new(2.0f);
+        private static readonly float defaultButtonBorderOffset = 2.0f;
         private static readonly float leftPanelMarginVerticalSpacing = 48.0f;
         private static readonly float rightPanelMarginVerticalSpacing = 48.0f;
 
@@ -170,7 +168,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 },
             };
 
-            this.systemButtonElements = new LabelUIElement[this.systemButtons.Length];
+            this.systemButtonElements = new Label[this.systemButtons.Length];
         }
 
         #region ACTIONS
@@ -359,25 +357,25 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
             // Decorations
-            BuildPanelBackground(layout);
-            BuildTitle(layout);
+            BuildPanelBackground(root);
+            BuildTitle(root);
 
             // Buttons
-            BuildSectionButtons(layout);
-            BuildSystemButtons(layout);
+            BuildSectionButtons();
+            BuildSystemButtons();
 
             // Sections
-            BuildSections(layout);
+            BuildSections(root);
 
             // Final
-            layout.AddElement(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBoxElement);
             SelectSection("general");
         }
 
-        private void BuildPanelBackground(Layout layout)
+        private void BuildPanelBackground(Container root)
         {
             this.panelBackgroundElement = new()
             {
@@ -386,12 +384,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(98, 90),
             };
 
-            this.panelBackgroundElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.panelBackgroundElement);
+            root.AddChild(this.panelBackgroundElement);
         }
 
-        private void BuildTitle(Layout layout)
+        private void BuildTitle(Container root)
         {
             this.titleLabelElement = new()
             {
@@ -399,17 +395,19 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(0f, 52.5f),
                 Color = AAP64ColorPalette.White,
                 Alignment = CardinalDirection.North,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = this.titleName,
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 4.4f,
+                BorderThickness = 4.4f,
             };
 
-            this.titleLabelElement.SetTextualContent(this.titleName);
-            this.titleLabelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(4.4f));
-            this.titleLabelElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.titleLabelElement);
+            root.AddChild(this.titleLabelElement);
         }
 
-        private void BuildSectionButtons(Layout layout)
+        private void BuildSectionButtons()
         {
             // BUTTONS
             Vector2 margin = new(-335f, 64f);
@@ -417,211 +415,205 @@ namespace StardustSandbox.UISystem.UIs.Menus
             // Labels
             foreach (KeyValuePair<string, Section> item in this.root.Sections)
             {
-                LabelUIElement labelElement = CreateButtonLabelElement();
+                Label label = CreateButtonLabelElement(item.Value.Name);
 
-                labelElement.Alignment = CardinalDirection.North;
-                labelElement.Margin = margin;
-                labelElement.SetTextualContent(item.Value.Name);
-                labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                label.Alignment = CardinalDirection.North;
+                label.Margin = margin;
+                this.panelBackgroundElement.AddChild(label);
 
-                this.sectionButtonElements.Add(item.Key, labelElement);
+                this.sectionButtonElements.Add(item.Key, label);
                 margin.Y += leftPanelMarginVerticalSpacing;
-
-                layout.AddElement(labelElement);
             }
         }
 
-        private void BuildSystemButtons(Layout layout)
+        private void BuildSystemButtons()
         {
             Vector2 margin = new(-335f, -64f);
 
             for (int i = 0; i < this.systemButtons.Length; i++)
             {
-                LabelUIElement labelElement = CreateButtonLabelElement();
+                Label label = CreateButtonLabelElement(this.systemButtons[i].Name);
 
-                labelElement.Alignment = CardinalDirection.South;
-                labelElement.Margin = margin;
-                labelElement.SetTextualContent(this.systemButtons[i].Name);
-                labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                label.Alignment = CardinalDirection.South;
+                label.Margin = margin;
+                this.panelBackgroundElement.AddChild(label);
 
-                this.systemButtonElements[i] = labelElement;
+                this.systemButtonElements[i] = label;
                 margin.Y -= leftPanelMarginVerticalSpacing;
-
-                layout.AddElement(labelElement);
             }
         }
 
         // ============================================================================ //
 
-        private void BuildSections(Layout layout)
+        private void BuildSections(Container root)
         {
             foreach (KeyValuePair<string, Section> item in this.root.Sections)
             {
-                List<LabelUIElement> contentBuffer = [];
-                ContainerUIElement containerElement = new();
+                List<Label> contentBuffer = [];
+                Container container = new();
 
                 Vector2 margin = defaultRightPanelMargin;
 
                 foreach (Option option in item.Value.Options.Values)
                 {
-                    LabelUIElement labelElement = CreateOptionElement(option);
+                    Label label = CreateOptionElement(option);
 
-                    labelElement.Margin = margin;
-                    labelElement.RepositionRelativeToElement(this.panelBackgroundElement);
+                    label.Margin = margin;
+                    this.panelBackgroundElement.AddChild(label);
 
                     switch (option)
                     {
                         case ColorOption:
-                            BuildColorPreview(containerElement, labelElement);
+                            BuildColorPreview(container, label);
                             break;
 
                         case ValueOption:
-                            BuildValueControls(option, containerElement, labelElement);
+                            BuildValueControls(option, container, label);
                             break;
 
                         case ToggleOption:
-                            BuildTogglePreview(containerElement, labelElement);
+                            BuildTogglePreview(container, label);
                             break;
 
                         default:
                             break;
                     }
 
-                    containerElement.AddElement(labelElement);
+                    container.AddChild(label);
                     margin.Y += rightPanelMarginVerticalSpacing;
 
-                    contentBuffer.Add(labelElement);
+                    contentBuffer.Add(label);
                 }
 
-                this.sectionContainerElements.Add(item.Key, containerElement);
-                layout.AddElement(containerElement);
+                this.sectionContainerElements.Add(item.Key, container);
+                root.AddChild(container);
 
                 this.sectionContents.Add(item.Key, contentBuffer);
             }
         }
 
-        private static void BuildColorPreview(ContainerUIElement containerElement, LabelUIElement labelElement)
+        private static void BuildColorPreview(Container container, Label label)
         {
-            Vector2 labelElementSize = labelElement.GetStringSize();
-
-            UIColorSlot colorSlot = new(
+            ColorSlotInfo colorSlot = new(
                 new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureRectangle = new(386, 0, 40, 22),
+                    SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
-                    Margin = new(labelElementSize.X + 6f, labelElementSize.Y / 2 * -1),
+                    Margin = new(label.MeasuredText.X + 6f, label.MeasuredText.Y / 2f * -1f),
                 },
 
                 new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureRectangle = new(386, 22, 40, 22),
+                    SourceRectangle = new(386, 22, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
                 }
             );
 
-            colorSlot.BackgroundElement.RepositionRelativeToElement(labelElement);
-            colorSlot.BorderElement.RepositionRelativeToElement(colorSlot.BackgroundElement);
+            label.AddChild(colorSlot.Background);
+            colorSlot.Background.AddChild(colorSlot.Border);
 
-            containerElement.AddElement(colorSlot.BackgroundElement);
-            containerElement.AddElement(colorSlot.BorderElement);
+            container.AddChild(colorSlot.Background);
+            container.AddChild(colorSlot.Border);
 
-            labelElement.AddData("color_slot", colorSlot);
+            label.AddData("color_slot", colorSlot);
         }
 
-        private void BuildValueControls(Option option, ContainerUIElement containerElement, LabelUIElement labelElement)
+        private void BuildValueControls(Option option, Container container, Label label)
         {
-            Vector2 labelElementSize = labelElement.GetStringSize();
-
-            ImageUIElement minusElement = new()
+            Image minus = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
-                TextureRectangle = new(192, 160, 32, 32),
+                SourceRectangle = new(192, 160, 32, 32),
                 Size = new(32.0f),
-                Margin = new(0, labelElementSize.Y / 2 * -1)
+                Margin = new(0, label.MeasuredText.Y / 2f * -1f)
             };
 
-            ImageUIElement plusElement = new()
+            Image plus = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
-                TextureRectangle = new(160, 160, 32, 32),
+                SourceRectangle = new(160, 160, 32, 32),
                 Size = new(32.0f),
                 Margin = new(48.0f, 0.0f),
             };
 
-            plusElement.AddData("option", option);
-            minusElement.AddData("option", option);
+            plus.AddData("option", option);
+            minus.AddData("option", option);
 
-            labelElement.AddData("plus_element", plusElement);
-            labelElement.AddData("minus_element", minusElement);
+            label.AddData("plus_element", plus);
+            label.AddData("minus_element", minus);
 
-            minusElement.RepositionRelativeToElement(labelElement);
-            plusElement.RepositionRelativeToElement(minusElement);
+            label.AddChild(minus);
+            minus.AddChild(plus);
 
-            containerElement.AddElement(plusElement);
-            containerElement.AddElement(minusElement);
+            container.AddChild(plus);
+            container.AddChild(minus);
 
-            this.plusAndMinusButtons.Add((plusElement, minusElement));
+            this.plusAndMinusButtons.Add((plus, minus));
         }
 
-        private static void BuildTogglePreview(ContainerUIElement containerElement, LabelUIElement labelElement)
+        private static void BuildTogglePreview(Container container, Label label)
         {
-            Vector2 labelElementSize = labelElement.GetStringSize();
-
-            ImageUIElement togglePreviewImageElement = new()
+            Image togglePreviewImageElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                TextureRectangle = new(352, 140, 32, 32),
+                SourceRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
                 Size = new(32.0f),
-                Margin = new(labelElementSize.X + 6.0f, labelElementSize.Y / 2.0f * -1.0f),
+                Margin = new(label.MeasuredText.X + 6.0f, label.MeasuredText.Y / 2.0f * -1.0f),
             };
 
-            togglePreviewImageElement.RepositionRelativeToElement(labelElement);
+            label.AddChild(togglePreviewImageElement);
 
-            containerElement.AddElement(togglePreviewImageElement);
+            container.AddChild(togglePreviewImageElement);
 
-            labelElement.AddData("toogle_preview", togglePreviewImageElement);
+            label.AddData("toogle_preview", togglePreviewImageElement);
         }
         // ============================================================================ //
 
-        private static LabelUIElement CreateButtonLabelElement()
+        private static Label CreateButtonLabelElement(string text)
         {
-            LabelUIElement labelElement = new()
+            Label label = new()
             {
                 Scale = defaultButtonScale,
                 Color = AAP64ColorPalette.White,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = defaultButtonBorderOffset,
+                BorderThickness = defaultButtonBorderOffset,
+                TextContent = text
             };
 
-            labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, defaultButtonBorderOffset);
-
-            return labelElement;
+            return label;
         }
 
-        private static LabelUIElement CreateOptionButtonLabelElement()
+        private static Label CreateOptionButtonLabelElement(string text)
         {
-            LabelUIElement labelElement = new()
+            Label label = new()
             {
                 Scale = new(0.12f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
+                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                 Alignment = CardinalDirection.North,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
+                TextContent = text
             };
 
-            labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-
-            return labelElement;
+            return label;
         }
 
         // ============================================================================ //
 
-        private static LabelUIElement CreateOptionElement(Option option)
+        private static Label CreateOptionElement(Option option)
         {
-            LabelUIElement labelElement = option switch
+            Label label = option switch
             {
                 ButtonOption => CreateButtonOptionElement(option),
                 SelectorOption => CreateSelectorOptionElement(option),
@@ -631,44 +623,34 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 _ => null,
             };
 
-            labelElement.AddData("option", option);
+            label.AddData("option", option);
 
-            return labelElement;
+            return label;
         }
 
-        private static LabelUIElement CreateButtonOptionElement(Option option)
+        private static Label CreateButtonOptionElement(Option option)
         {
-            LabelUIElement labelElement = CreateOptionButtonLabelElement();
-            labelElement.SetTextualContent(option.Name);
-            return labelElement;
+            return CreateOptionButtonLabelElement(option.Name);
         }
 
-        private static LabelUIElement CreateSelectorOptionElement(Option option)
+        private static Label CreateSelectorOptionElement(Option option)
         {
-            LabelUIElement labelElement = CreateOptionButtonLabelElement();
-            labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
-            return labelElement;
+            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": ", option.GetValue()));
         }
 
-        private static LabelUIElement CreateValueOptionElement(Option option)
+        private static Label CreateValueOptionElement(Option option)
         {
-            LabelUIElement labelElement = CreateOptionButtonLabelElement();
-            labelElement.SetTextualContent(string.Concat(option.Name, ": ", option.GetValue()));
-            return labelElement;
+            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": ", option.GetValue()));
         }
 
-        private static LabelUIElement CreateColorOptionElement(Option option)
+        private static Label CreateColorOptionElement(Option option)
         {
-            LabelUIElement labelElement = CreateOptionButtonLabelElement();
-            labelElement.SetTextualContent(string.Concat(option.Name, ": "));
-            return labelElement;
+            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": "));
         }
 
-        private static LabelUIElement CreateToggleOptionElement(Option option)
+        private static Label CreateToggleOptionElement(Option option)
         {
-            LabelUIElement labelElement = CreateOptionButtonLabelElement();
-            labelElement.SetTextualContent(string.Concat(option.Name, ": "));
-            return labelElement;
+            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": "));
         }
 
         #endregion
@@ -685,17 +667,17 @@ namespace StardustSandbox.UISystem.UIs.Menus
             UpdateSystemButtons();
             UpdateSectionOptions();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipContent.Title, TooltipContent.Description);
+            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateSectionButtons()
         {
-            foreach (KeyValuePair<string, LabelUIElement> item in this.sectionButtonElements)
+            foreach (KeyValuePair<string, Label> item in this.sectionButtonElements)
             {
-                LabelUIElement labelElement = item.Value;
+                Label label = item.Value;
 
-                Vector2 size = labelElement.GetStringSize() / 2.0f;
-                Vector2 position = labelElement.Position;
+                Vector2 size = label.MeasuredText / 2.0f;
+                Vector2 position = label.Position;
 
                 bool onMouseOver = Interaction.OnMouseOver(position, size);
 
@@ -710,11 +692,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                     Section section = this.root.Sections[item.Key];
 
-                    TooltipContent.Title = section.Name;
-                    TooltipContent.Description = section.Description;
+                    TooltipBoxContent.Title = section.Name;
+                    TooltipBoxContent.Description = section.Description;
                 }
 
-                labelElement.Color = this.selectedSectionIdentififer.Equals(item.Key)
+                label.Color = this.selectedSectionIdentififer.Equals(item.Key)
                     ? AAP64ColorPalette.LemonYellow
                     : onMouseOver ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
@@ -724,11 +706,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             for (byte i = 0; i < this.systemButtons.Length; i++)
             {
-                LabelUIElement labelElement = this.systemButtonElements[i];
-                UIButton button = this.systemButtons[i];
+                Label label = this.systemButtonElements[i];
+                ButtonInfo button = this.systemButtons[i];
 
-                Vector2 size = labelElement.GetStringSize() / 2.0f;
-                Vector2 position = labelElement.Position;
+                Vector2 size = label.MeasuredText / 2.0f;
+                Vector2 position = label.Position;
 
                 if (Interaction.OnMouseClick(position, size))
                 {
@@ -739,14 +721,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 {
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = button.Name;
-                    TooltipContent.Description = button.Description;
+                    TooltipBoxContent.Title = button.Name;
+                    TooltipBoxContent.Description = button.Description;
 
-                    labelElement.Color = AAP64ColorPalette.LemonYellow;
+                    label.Color = AAP64ColorPalette.LemonYellow;
                 }
                 else
                 {
-                    labelElement.Color = AAP64ColorPalette.White;
+                    label.Color = AAP64ColorPalette.White;
                 }
             }
         }
@@ -756,42 +738,42 @@ namespace StardustSandbox.UISystem.UIs.Menus
             Vector2 interactiveAreaSize = new(295.0f, 18.0f);
             Vector2 plusAndMinusButtonAreaSize = new(32.0f);
 
-            foreach (UIElement element in this.sectionContents[this.selectedSectionIdentififer])
+            foreach (Label label in this.sectionContents[this.selectedSectionIdentififer])
             {
-                Vector2 position = new(element.Position.X + interactiveAreaSize.X, element.Position.Y - 6);
-                Option option = (Option)element.GetData("option");
+                Vector2 position = new(label.Position.X + interactiveAreaSize.X, label.Position.Y - 6);
+                Option option = (Option)label.GetData("option");
 
                 if (Interaction.OnMouseClick(position, interactiveAreaSize))
                 {
                     HandleOptionInteractivity(option);
                 }
 
-                UpdateOptionSync(option, element);
+                UpdateOptionSync(option, label);
 
                 if (Interaction.OnMouseOver(position, interactiveAreaSize))
                 {
-                    element.Color = AAP64ColorPalette.LemonYellow;
+                    label.Color = AAP64ColorPalette.LemonYellow;
 
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = option.Name;
-                    TooltipContent.Description = option.Description;
+                    TooltipBoxContent.Title = option.Name;
+                    TooltipBoxContent.Description = option.Description;
                 }
                 else
                 {
-                    element.Color = AAP64ColorPalette.White;
+                    label.Color = AAP64ColorPalette.White;
                 }
             }
 
-            foreach ((UIElement plusElement, UIElement minusElement) in this.plusAndMinusButtons)
+            foreach ((UIElement plus, UIElement minus) in this.plusAndMinusButtons)
             {
-                if (Interaction.OnMouseDown(plusElement.Position, plusAndMinusButtonAreaSize))
+                if (Interaction.OnMouseDown(plus.Position, plusAndMinusButtonAreaSize))
                 {
-                    ((ValueOption)plusElement.GetData("option")).Increment();
+                    ((ValueOption)plus.GetData("option")).Increment();
                 }
-                else if (Interaction.OnMouseDown(minusElement.Position, plusAndMinusButtonAreaSize))
+                else if (Interaction.OnMouseDown(minus.Position, plusAndMinusButtonAreaSize))
                 {
-                    ((ValueOption)minusElement.GetData("option")).Decrement();
+                    ((ValueOption)minus.GetData("option")).Decrement();
                 }
             }
         }
@@ -802,19 +784,19 @@ namespace StardustSandbox.UISystem.UIs.Menus
             switch (option)
             {
                 case ColorOption colorOption:
-                    UpdateColorOption(colorOption, element.GetData("color_slot") as UIColorSlot);
+                    UpdateColorOption(colorOption, element.GetData("color_slot") as ColorSlotInfo);
                     break;
 
                 case SelectorOption selectorOption:
-                    UpdateSelectorOption(selectorOption, element as LabelUIElement);
+                    UpdateSelectorOption(selectorOption, element as Label);
                     break;
 
                 case ValueOption valueOption:
-                    UpdateValueOption(valueOption, element as LabelUIElement);
+                    UpdateValueOption(valueOption, element as Label);
                     break;
 
                 case ToggleOption toggleOption:
-                    UpdateToggleOption(toggleOption, element.GetData("toogle_preview") as ImageUIElement);
+                    UpdateToggleOption(toggleOption, element.GetData("toogle_preview") as Image);
                     break;
 
                 default:
@@ -822,33 +804,33 @@ namespace StardustSandbox.UISystem.UIs.Menus
             }
         }
 
-        private static void UpdateColorOption(ColorOption colorOption, UIColorSlot colorSlot)
+        private static void UpdateColorOption(ColorOption colorOption, ColorSlotInfo colorSlot)
         {
-            colorSlot.BackgroundElement.Color = colorOption.CurrentColor;
+            colorSlot.Background.Color = colorOption.CurrentColor;
         }
 
-        private static void UpdateSelectorOption(SelectorOption selectorOption, LabelUIElement labelElement)
+        private static void UpdateSelectorOption(SelectorOption selectorOption, Label label)
         {
-            labelElement.SetTextualContent(string.Concat(selectorOption.Name, ": ", selectorOption.GetValue()));
+            label.TextContent = string.Concat(selectorOption.Name, ": ", selectorOption.GetValue());
         }
 
-        private static void UpdateValueOption(ValueOption valueOption, LabelUIElement labelElement)
+        private static void UpdateValueOption(ValueOption valueOption, Label label)
         {
-            labelElement.SetTextualContent(string.Concat(valueOption.Name, ": ", valueOption.CurrentValue.ToString($"D{valueOption.MaximumValue.ToString().Length}")));
-            Vector2 labelElementSize = labelElement.GetStringSize();
+            label.TextContent = string.Concat(valueOption.Name, ": ", valueOption.CurrentValue.ToString($"D{valueOption.MaximumValue.ToString().Length}"));
+            Vector2 labelElementSize = label.MeasuredText;
 
-            UIElement plusElement = (UIElement)labelElement.GetData("plus_element");
-            UIElement minusElement = (UIElement)labelElement.GetData("minus_element");
+            UIElement plus = (UIElement)label.GetData("plus_element");
+            UIElement minus = (UIElement)label.GetData("minus_element");
 
-            minusElement.Margin = new(labelElementSize.X + 8.0f, labelElementSize.Y / 2.0f * -1.0f);
+            minus.Margin = new(labelElementSize.X + 8.0f, labelElementSize.Y / 2.0f * -1.0f);
 
-            minusElement.RepositionRelativeToElement(labelElement);
-            plusElement.RepositionRelativeToElement(minusElement);
+            label.AddChild(minus);
+            minus.AddChild(plus);
         }
 
-        private static void UpdateToggleOption(ToggleOption toggleOption, ImageUIElement toggleStateElement)
+        private static void UpdateToggleOption(ToggleOption toggleOption, Image toggleStateElement)
         {
-            toggleStateElement.TextureRectangle = toggleOption.State ? new(new(0, 32), new(32)) : new(new(0), new(32));
+            toggleStateElement.SourceRectangle = toggleOption.State ? new(new(0, 32), new(32)) : new(new(0), new(32));
         }
         #endregion
 
@@ -913,15 +895,17 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.selectedSectionIdentififer = identififer;
 
-            foreach (KeyValuePair<string, ContainerUIElement> item in this.sectionContainerElements)
+            foreach (KeyValuePair<string, Container> item in this.sectionContainerElements)
             {
                 if (item.Key.Equals(identififer))
                 {
-                    item.Value.Active();
+                    item.Value.CanDraw = true;
+                    item.Value.CanUpdate = true;
                     continue;
                 }
 
-                item.Value.Disable();
+                item.Value.CanDraw = false;
+                item.Value.CanUpdate = false;
             }
         }
 
@@ -932,11 +916,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         protected override void OnOpened()
         {
             SyncSettingElements();
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

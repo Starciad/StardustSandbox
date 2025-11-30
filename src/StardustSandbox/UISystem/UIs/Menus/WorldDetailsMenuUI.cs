@@ -10,9 +10,7 @@ using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Saving;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
-using StardustSandbox.UISystem.Utilities;
+using StardustSandbox.UISystem.Information;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -23,17 +21,17 @@ namespace StardustSandbox.UISystem.UIs.Menus
     {
         private SaveFile worldSaveFile;
 
-        private ImageUIElement headerBackgroundElement;
+        private Image headerBackgroundElement;
 
-        private LabelUIElement worldTitleElement;
-        private ImageUIElement worldThumbnailElement;
-        private TextUIElement worldDescriptionElement;
-        private LabelUIElement worldVersionElement;
-        private LabelUIElement worldCreationTimestampElement;
+        private Label worldTitleElement;
+        private Image worldThumbnailElement;
+        private Text worldDescriptionElement;
+        private Label worldVersionElement;
+        private Label worldCreationTimestampElement;
 
-        private readonly LabelUIElement[] worldButtonElements;
+        private readonly Label[] worldButtonElements;
 
-        private readonly UIButton[] worldButtons;
+        private readonly ButtonInfo[] worldButtons;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
@@ -57,7 +55,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new(null, null, "Play", string.Empty, PlayButtonAction),
             ];
 
-            this.worldButtonElements = new LabelUIElement[this.worldButtons.Length];
+            this.worldButtonElements = new Label[this.worldButtons.Length];
         }
 
         #region ACTIONS
@@ -87,20 +85,20 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildBackground(layout);
-            BuildHeader(layout);
-            BuildThumbnail(layout);
-            BuildDescription(layout);
-            BuildCreationTimestamp(layout);
-            BuildVersion(layout);
-            BuildWorldButtons(layout);
+            BuildBackground(root);
+            BuildHeader(root);
+            BuildThumbnail(root);
+            BuildDescription();
+            BuildCreationTimestamp(root);
+            BuildVersion();
+            BuildWorldButtons(root);
         }
 
-        private static void BuildBackground(Layout layout)
+        private static void BuildBackground(Container root)
         {
-            ImageUIElement guiBackground = new()
+            Image guiBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -108,10 +106,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Color = new Color(AAP64ColorPalette.DarkGray, 160)
             };
 
-            layout.AddElement(guiBackground);
+            root.AddChild(guiBackground);
         }
 
-        private void BuildHeader(Layout layout)
+        private void BuildHeader(Container root)
         {
             // Background
             this.headerBackgroundElement = new()
@@ -126,20 +124,23 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.worldTitleElement = new()
             {
                 Scale = new(0.15f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
                 Margin = new(32.0f, 0.0f),
+                TextContent = "Title",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
-            this.worldTitleElement.SetTextualContent("Title");
-            this.worldTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2.0f));
-            this.worldTitleElement.RepositionRelativeToElement(this.headerBackgroundElement);
+            this.headerBackgroundElement.AddChild(this.worldTitleElement);
 
-            layout.AddElement(this.headerBackgroundElement);
-            layout.AddElement(this.worldTitleElement);
+            root.AddChild(this.headerBackgroundElement);
         }
 
-        private void BuildThumbnail(Layout layout)
+        private void BuildThumbnail(Container root)
         {
             this.worldThumbnailElement = new()
             {
@@ -148,83 +149,77 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(32f, 128f),
             };
 
-            this.worldThumbnailElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.worldThumbnailElement);
+            root.AddChild(this.worldThumbnailElement);
         }
 
-        private void BuildDescription(Layout layout)
+        private void BuildDescription()
         {
             this.worldDescriptionElement = new()
             {
                 Scale = new(0.078f),
                 Margin = new(32.0f, 0.0f),
                 LineHeight = 1.25f,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
+                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 TextAreaSize = new(930.0f, 600.0f),
                 Alignment = CardinalDirection.Northeast,
+                TextContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             };
 
-            this.worldDescriptionElement.SetTextualContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-            this.worldDescriptionElement.RepositionRelativeToElement(this.worldThumbnailElement);
-
-            layout.AddElement(this.worldDescriptionElement);
+            this.worldThumbnailElement.AddChild(this.worldDescriptionElement);
         }
 
-        private void BuildCreationTimestamp(Layout layout)
+        private void BuildCreationTimestamp(Container root)
         {
             this.worldCreationTimestampElement = new()
             {
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.075f),
                 Margin = new(-8),
                 Alignment = CardinalDirection.Southeast,
+                TextContent = DateTime.Now.ToString(),
             };
 
-            this.worldCreationTimestampElement.SetTextualContent(DateTime.Now.ToString());
-            this.worldCreationTimestampElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.worldCreationTimestampElement);
+            root.AddChild(this.worldCreationTimestampElement);
         }
 
-        private void BuildVersion(Layout layout)
+        private void BuildVersion()
         {
             this.worldVersionElement = new()
             {
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.075f),
-                Margin = new(0.0f, this.worldCreationTimestampElement.GetStringSize().Y + (64.0f * -1.0f)),
+                Margin = new(0.0f, this.worldCreationTimestampElement.MeasuredText.Y + (64.0f * -1.0f)),
                 Alignment = CardinalDirection.Northeast,
+                TextContent = "Version 1.0.0",
             };
 
-            this.worldVersionElement.SetTextualContent("Version 1.0.0");
-            this.worldVersionElement.RepositionRelativeToElement(this.worldCreationTimestampElement);
-
-            layout.AddElement(this.worldVersionElement);
+            this.worldCreationTimestampElement.AddChild(this.worldVersionElement);
         }
 
-        private void BuildWorldButtons(Layout layout)
+        private void BuildWorldButtons(Container root)
         {
             Vector2 margin = new(32.0f, -32.0f);
 
             for (int i = 0; i < this.worldButtons.Length; i++)
             {
-                UIButton button = this.worldButtons[i];
+                ButtonInfo button = this.worldButtons[i];
 
-                LabelUIElement buttonLabel = new()
+                Label buttonLabel = new()
                 {
                     Scale = new(0.12f),
                     Margin = margin,
-                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = CardinalDirection.Southwest,
+                    TextContent = button.Name,
+
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderOffset = 2f,
+                    BorderThickness = 2f,
                 };
 
-                buttonLabel.SetTextualContent(button.Name);
-                buttonLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2.0f));
-                buttonLabel.RepositionRelativeToScreen();
-
-                layout.AddElement(buttonLabel);
-                margin.Y -= buttonLabel.GetStringSize().Y + 8.0f;
+                root.AddChild(buttonLabel);
+                margin.Y -= buttonLabel.MeasuredText.Y + 8.0f;
 
                 this.worldButtonElements[i] = buttonLabel;
             }
@@ -239,9 +234,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
             // Buttons
             for (int i = 0; i < this.worldButtonElements.Length; i++)
             {
-                LabelUIElement slotInfoElement = this.worldButtonElements[i];
+                Label slotInfoElement = this.worldButtonElements[i];
 
-                Vector2 buttonSize = slotInfoElement.GetStringSize() / 2.0f;
+                Vector2 buttonSize = slotInfoElement.MeasuredText / 2.0f;
                 Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.X, slotInfoElement.Position.Y - (buttonSize.Y / 4.0f));
 
                 if (Interaction.OnMouseClick(buttonPosition, buttonSize))
@@ -266,15 +261,10 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private void UpdateDisplay(SaveFile worldSaveFile)
         {
             this.worldThumbnailElement.Texture = worldSaveFile.Header.ThumbnailTexture;
-            this.worldTitleElement.SetTextualContent(worldSaveFile.Header.Metadata.Name);
-            this.worldDescriptionElement.SetTextualContent(worldSaveFile.Header.Metadata.Description);
-            this.worldVersionElement.SetTextualContent(string.Concat('v', worldSaveFile.Header.Information.SaveVersion));
-            this.worldCreationTimestampElement.SetTextualContent(worldSaveFile.Header.Information.CreationTimestamp.ToString());
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new NotImplementedException();
+            this.worldTitleElement.TextContent = worldSaveFile.Header.Metadata.Name;
+            this.worldDescriptionElement.TextContent = worldSaveFile.Header.Metadata.Description;
+            this.worldVersionElement.TextContent = string.Concat('v', worldSaveFile.Header.Information.SaveVersion);
+            this.worldCreationTimestampElement.TextContent = worldSaveFile.Header.Information.CreationTimestamp.ToString();
         }
 
         #endregion

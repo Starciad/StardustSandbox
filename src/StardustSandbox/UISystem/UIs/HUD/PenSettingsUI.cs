@@ -13,9 +13,7 @@ using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
-using StardustSandbox.UISystem.Utilities;
+using StardustSandbox.UISystem.Information;
 
 namespace StardustSandbox.UISystem.UIs.HUD
 {
@@ -25,29 +23,29 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private int layerButtonSelectedIndex;
         private int shapeButtonSelectedIndex;
 
-        private ImageUIElement panelBackgroundElement;
+        private Image panelBackgroundElement;
 
-        private LabelUIElement menuTitleElement;
-        private LabelUIElement brushSectionTitleElement;
-        private LabelUIElement toolsSectionTitleElement;
-        private LabelUIElement layerSectionTitleElement;
-        private LabelUIElement shapeSectionTitleElement;
+        private Label menuTitleElement;
+        private Label brushSectionTitleElement;
+        private Label toolsSectionTitleElement;
+        private Label layerSectionTitleElement;
+        private Label shapeSectionTitleElement;
 
-        private ImageUIElement brushSizeSliderElement;
+        private Image brushSizeSliderElement;
 
         private readonly TooltipBox tooltipBoxElement;
 
         private readonly Rectangle[] brushSizeSliderClipTextures;
 
-        private readonly UIButton[] menuButtons;
-        private readonly UIButton[] toolButtons;
-        private readonly UIButton[] layerButtons;
-        private readonly UIButton[] shapeButtons;
+        private readonly ButtonInfo[] menuButtons;
+        private readonly ButtonInfo[] toolButtons;
+        private readonly ButtonInfo[] layerButtons;
+        private readonly ButtonInfo[] shapeButtons;
 
-        private readonly UISlot[] menuButtonSlots;
-        private readonly UISlot[] toolButtonSlots;
-        private readonly UISlot[] layerButtonSlots;
-        private readonly UISlot[] shapeButtonSlots;
+        private readonly SlotInfo[] menuButtonSlots;
+        private readonly SlotInfo[] toolButtonSlots;
+        private readonly SlotInfo[] layerButtonSlots;
+        private readonly SlotInfo[] shapeButtonSlots;
 
         private readonly HudUI hudUI;
 
@@ -117,10 +115,10 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(64, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => SelectShapeButtonAction(PenShape.Triangle)),
             ];
 
-            this.menuButtonSlots = new UISlot[this.menuButtons.Length];
-            this.toolButtonSlots = new UISlot[this.toolButtons.Length];
-            this.layerButtonSlots = new UISlot[this.layerButtons.Length];
-            this.shapeButtonSlots = new UISlot[this.shapeButtons.Length];
+            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
+            this.toolButtonSlots = new SlotInfo[this.toolButtons.Length];
+            this.layerButtonSlots = new SlotInfo[this.layerButtons.Length];
+            this.shapeButtonSlots = new SlotInfo[this.shapeButtons.Length];
 
             this.brushSizeSliderClipTextures = [
                 new(new(000, 000), new(326, 38)),
@@ -166,22 +164,22 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildBackground(layout);
-            BuildTitle(layout);
-            BuildMenuButtons(layout);
-            BuildBrushSizeSection(layout);
-            BuildToolSection(layout);
-            BuildLayerSection(layout);
-            BuildShapeSection(layout);
+            BuildBackground(root);
+            BuildTitle();
+            BuildMenuButtons();
+            BuildBrushSizeSection();
+            BuildToolSection();
+            BuildLayerSection();
+            BuildShapeSection();
 
-            layout.AddElement(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBoxElement);
         }
 
-        private void BuildBackground(Layout layout)
+        private void BuildBackground(Container root)
         {
-            ImageUIElement backgroundShadowElement = new()
+            Image backgroundShadowElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -196,222 +194,200 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Margin = new(98, 90),
             };
 
-            this.panelBackgroundElement.RepositionRelativeToScreen();
-
-            layout.AddElement(backgroundShadowElement);
-            layout.AddElement(this.panelBackgroundElement);
+            root.AddChild(backgroundShadowElement);
+            root.AddChild(this.panelBackgroundElement);
         }
 
-        private void BuildTitle(Layout layout)
+        private void BuildTitle()
         {
             this.menuTitleElement = new()
             {
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Alignment = CardinalDirection.Northwest,
                 Margin = new(32, 40),
                 Color = AAP64ColorPalette.White,
+                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Title,
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 3f,
+                BorderThickness = 3f,
             };
 
-            this.menuTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_PenSettings_Title);
-            this.menuTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
-
-            layout.AddElement(this.menuTitleElement);
+            this.panelBackgroundElement.AddChild(this.menuTitleElement);
         }
 
-        private void BuildMenuButtons(Layout layout)
+        private void BuildMenuButtons()
         {
             Vector2 margin = new(-32f, -40f);
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                UIButton button = this.menuButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.menuButtons[i];
+                SlotInfo slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.Alignment = CardinalDirection.Northeast;
+                slot.Background.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                slot.BackgroundElement.RepositionRelativeToElement(this.panelBackgroundElement);
-                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
+                this.panelBackgroundElement.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
 
                 // Save
                 this.menuButtonSlots[i] = slot;
 
                 // Spacing
                 margin.X -= UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
-
-                layout.AddElement(slot.BackgroundElement);
-                layout.AddElement(slot.IconElement);
             }
         }
 
-        private void BuildBrushSizeSection(Layout layout)
+        private void BuildBrushSizeSection()
         {
             this.brushSectionTitleElement = new()
             {
                 Scale = new(0.1f),
                 Margin = new(32, 112),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Title,
             };
 
             this.brushSizeSliderElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.GuiSizeSlider),
-                TextureRectangle = new(new(0, 0), new(326, 38)),
+                SourceRectangle = new(new(0, 0), new(326, 38)),
                 Size = new(326, 38),
                 Scale = new(2f),
                 Margin = new(0, 48),
                 Alignment = CardinalDirection.South,
             };
 
-            this.brushSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Title);
-
-            this.brushSectionTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
-            this.brushSizeSliderElement.RepositionRelativeToElement(this.brushSectionTitleElement);
-
-            layout.AddElement(this.brushSectionTitleElement);
-            layout.AddElement(this.brushSizeSliderElement);
+            this.panelBackgroundElement.AddChild(this.brushSectionTitleElement);
+            this.brushSectionTitleElement.AddChild(this.brushSizeSliderElement);
         }
 
-        private void BuildToolSection(Layout layout)
+        private void BuildToolSection()
         {
             this.toolsSectionTitleElement = new()
             {
                 Scale = new(0.1f),
                 Margin = new(0, 144),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_Tool_Title
             };
 
-            this.toolsSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_PenSettings_Section_Tool_Title);
-            this.toolsSectionTitleElement.RepositionRelativeToElement(this.brushSectionTitleElement);
-
-            layout.AddElement(this.toolsSectionTitleElement);
+            this.brushSectionTitleElement.AddChild(this.toolsSectionTitleElement);
 
             // Buttons
             Vector2 margin = new(32, 80);
 
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
-                UIButton button = this.toolButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.toolButtons[i];
+                SlotInfo slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.Alignment = CardinalDirection.South;
+                slot.Background.Alignment = CardinalDirection.South;
 
                 // Update
-                slot.BackgroundElement.RepositionRelativeToElement(this.toolsSectionTitleElement);
-                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
+                this.toolsSectionTitleElement.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
 
                 // Save
                 this.toolButtonSlots[i] = slot;
 
                 // Spacing
                 margin.X += UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
-
-                layout.AddElement(slot.BackgroundElement);
-                layout.AddElement(slot.IconElement);
             }
         }
 
-        private void BuildLayerSection(Layout layout)
+        private void BuildLayerSection()
         {
             this.layerSectionTitleElement = new()
             {
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                Margin = new(this.toolsSectionTitleElement.Size.X + (UIConstants.HUD_GRID_SIZE * UIConstants.HUD_SLOT_SCALE * this.toolButtonSlots.Length) + 96, 0f)
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Margin = new(this.toolsSectionTitleElement.Size.X + (UIConstants.HUD_GRID_SIZE * UIConstants.HUD_SLOT_SCALE * this.toolButtonSlots.Length) + 96, 0f),
+                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Title,
             };
 
-            this.layerSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Title);
-            this.layerSectionTitleElement.RepositionRelativeToElement(this.toolsSectionTitleElement);
-
-            layout.AddElement(this.layerSectionTitleElement);
+            this.toolsSectionTitleElement.AddChild(this.layerSectionTitleElement);
 
             // Buttons
             Vector2 margin = new(32, 80);
 
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
-                UIButton button = this.layerButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.layerButtons[i];
+                SlotInfo slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.Alignment = CardinalDirection.South;
+                slot.Background.Alignment = CardinalDirection.South;
 
                 // Update
-                slot.BackgroundElement.RepositionRelativeToElement(this.layerSectionTitleElement);
-                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
+                this.layerSectionTitleElement.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
 
                 // Save
                 this.layerButtonSlots[i] = slot;
 
                 // Spacing
                 margin.X += UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
-
-                layout.AddElement(slot.BackgroundElement);
-                layout.AddElement(slot.IconElement);
             }
         }
 
-        private void BuildShapeSection(Layout layout)
+        private void BuildShapeSection()
         {
             this.shapeSectionTitleElement = new()
             {
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
-                Margin = new(this.layerSectionTitleElement.Size.X + (UIConstants.HUD_GRID_SIZE * UIConstants.HUD_SLOT_SCALE * this.layerButtonSlots.Length) + 48, 0f)
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Margin = new(this.layerSectionTitleElement.Size.X + (UIConstants.HUD_GRID_SIZE * UIConstants.HUD_SLOT_SCALE * this.layerButtonSlots.Length) + 48, 0f),
+                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Title
             };
 
-            this.shapeSectionTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Title);
-            this.shapeSectionTitleElement.RepositionRelativeToElement(this.layerSectionTitleElement);
-
-            layout.AddElement(this.shapeSectionTitleElement);
+            this.layerSectionTitleElement.AddChild(this.shapeSectionTitleElement);
 
             // Buttons
             Vector2 margin = new(32, 80);
 
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
-                UIButton button = this.shapeButtons[i];
-                UISlot slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.shapeButtons[i];
+                SlotInfo slot = CreateButtonSlot(margin, button);
 
-                slot.BackgroundElement.Alignment = CardinalDirection.South;
+                slot.Background.Alignment = CardinalDirection.South;
 
                 // Update
-                slot.BackgroundElement.RepositionRelativeToElement(this.shapeSectionTitleElement);
-                slot.IconElement.RepositionRelativeToElement(slot.BackgroundElement);
+                this.shapeSectionTitleElement.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
 
                 // Save
                 this.shapeButtonSlots[i] = slot;
 
                 // Spacing
                 margin.X += UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
-
-                layout.AddElement(slot.BackgroundElement);
-                layout.AddElement(slot.IconElement);
             }
         }
 
         // =============================================================== //
 
-        private UISlot CreateButtonSlot(Vector2 margin, UIButton button)
+        private SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
-            ImageUIElement backgroundElement = new()
+            Image backgroundElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                TextureRectangle = new(320, 140, 32, 32),
+                SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(UIConstants.HUD_SLOT_SCALE),
                 Size = new(UIConstants.HUD_GRID_SIZE),
                 Margin = margin,
             };
 
-            ImageUIElement iconElement = new()
+            Image iconElement = new()
             {
                 Texture = button.IconTexture,
-                TextureRectangle = button.IconTextureRectangle,
+                SourceRectangle = button.IconTextureRectangle,
                 Scale = new(1.5f),
                 Size = new(UIConstants.HUD_GRID_SIZE)
             };
@@ -436,16 +412,16 @@ namespace StardustSandbox.UISystem.UIs.HUD
             UpdateShapeButtons();
             SyncGUIElements();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipContent.Title, TooltipContent.Description);
+            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateMenuButtons()
         {
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                UISlot slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlots[i];
 
-                Vector2 position = slot.BackgroundElement.Position;
+                Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
                 if (Interaction.OnMouseClick(position, size))
@@ -457,14 +433,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = this.menuButtons[i].Name;
-                    TooltipContent.Description = this.menuButtons[i].Description;
+                    TooltipBoxContent.Title = this.menuButtons[i].Name;
+                    TooltipBoxContent.Description = this.menuButtons[i].Description;
 
-                    slot.BackgroundElement.Color = AAP64ColorPalette.HoverColor;
+                    slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
                 else
                 {
-                    slot.BackgroundElement.Color = AAP64ColorPalette.White;
+                    slot.Background.Color = AAP64ColorPalette.White;
                 }
             }
         }
@@ -483,8 +459,8 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
-                    TooltipContent.Description = string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
+                    TooltipBoxContent.Title = Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
+                    TooltipBoxContent.Description = string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
                 }
 
                 if (Interaction.OnMouseDown(position, size))
@@ -501,10 +477,10 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
-                UISlot slot = this.toolButtonSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.BackgroundElement.Position, new(UIConstants.HUD_GRID_SIZE));
+                SlotInfo slot = this.toolButtonSlots[i];
+                bool isOver = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
 
-                Vector2 position = slot.BackgroundElement.Position;
+                Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
                 if (Interaction.OnMouseClick(position, size))
@@ -516,11 +492,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = this.toolButtons[i].Name;
-                    TooltipContent.Description = this.toolButtons[i].Description;
+                    TooltipBoxContent.Title = this.toolButtons[i].Name;
+                    TooltipBoxContent.Description = this.toolButtons[i].Description;
                 }
 
-                slot.BackgroundElement.Color = this.toolButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = this.toolButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -528,10 +504,10 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
-                UISlot slot = this.layerButtonSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.BackgroundElement.Position, new(UIConstants.HUD_GRID_SIZE));
+                SlotInfo slot = this.layerButtonSlots[i];
+                bool isOver = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
 
-                if (Interaction.OnMouseClick(slot.BackgroundElement.Position, new(UIConstants.HUD_GRID_SIZE)))
+                if (Interaction.OnMouseClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
                 {
                     this.layerButtons[i].ClickAction?.Invoke();
                 }
@@ -540,11 +516,11 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = this.layerButtons[i].Name;
-                    TooltipContent.Description = this.layerButtons[i].Description;
+                    TooltipBoxContent.Title = this.layerButtons[i].Name;
+                    TooltipBoxContent.Description = this.layerButtons[i].Description;
                 }
 
-                slot.BackgroundElement.Color = this.layerButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = this.layerButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -552,10 +528,10 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
-                UISlot slot = this.shapeButtonSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.BackgroundElement.Position, new(UIConstants.HUD_GRID_SIZE));
+                SlotInfo slot = this.shapeButtonSlots[i];
+                bool isOver = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
 
-                if (Interaction.OnMouseClick(slot.BackgroundElement.Position, new(UIConstants.HUD_GRID_SIZE)))
+                if (Interaction.OnMouseClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
                 {
                     this.shapeButtons[i].ClickAction?.Invoke();
                 }
@@ -564,18 +540,18 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     this.tooltipBoxElement.CanDraw = true;
 
-                    TooltipContent.Title = this.shapeButtons[i].Name;
-                    TooltipContent.Description = this.shapeButtons[i].Description;
+                    TooltipBoxContent.Title = this.shapeButtons[i].Name;
+                    TooltipBoxContent.Description = this.shapeButtons[i].Description;
                 }
 
-                slot.BackgroundElement.Color = this.shapeButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = this.shapeButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
         private void SyncGUIElements()
         {
             // Brush Size Slider
-            this.brushSizeSliderElement.TextureRectangle = this.brushSizeSliderClipTextures[this.inputController.Pen.Size];
+            this.brushSizeSliderElement.SourceRectangle = this.brushSizeSliderClipTextures[this.inputController.Pen.Size];
 
             // Tool
             this.toolButtonSelectedIndex = (byte)this.inputController.Pen.Tool;
@@ -599,11 +575,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
         protected override void OnClosed()
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion

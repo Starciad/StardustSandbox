@@ -13,9 +13,7 @@ using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Saving;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
-using StardustSandbox.UISystem.Utilities;
+using StardustSandbox.UISystem.Information;
 
 using System;
 using System.Collections.Generic;
@@ -28,9 +26,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             internal bool IsVisible { get; private set; }
 
-            internal ImageUIElement BackgroundElement { get; set; }
-            internal ImageUIElement ThumbnailElement { get; set; }
-            internal LabelUIElement TitleElement { get; set; }
+            internal Image BackgroundElement { get; set; }
+            internal Image ThumbnailElement { get; set; }
+            internal Label TitleElement { get; set; }
 
             internal void EnableVisibility()
             {
@@ -53,14 +51,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private int totalPages = 1;
 
         private List<SaveFile> savedWorldFilesLoaded;
-        private ImageUIElement headerBackgroundElement;
-        private LabelUIElement pageIndexLabelElement;
+        private Image headerBackgroundElement;
+        private Label pageIndexLabelElement;
 
-        private readonly UIButton[] headerButtons;
-        private readonly UIButton[] footerButtons;
+        private readonly ButtonInfo[] headerButtons;
+        private readonly ButtonInfo[] footerButtons;
 
-        private readonly ImageUIElement[] headerButtonElements;
-        private readonly LabelUIElement[] footerButtonElements;
+        private readonly Image[] headerButtonElements;
+        private readonly Label[] footerButtonElements;
         private readonly SSlotInfoElement[] slotInfoElements;
 
         private readonly WorldDetailsMenuUI worldDetailsMenuUI;
@@ -92,8 +90,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 new(null, null, "Next", string.Empty, NextButtonAction),
             ];
 
-            this.headerButtonElements = new ImageUIElement[this.headerButtons.Length];
-            this.footerButtonElements = new LabelUIElement[this.footerButtons.Length];
+            this.headerButtonElements = new Image[this.headerButtons.Length];
+            this.footerButtonElements = new Label[this.footerButtons.Length];
 
             UpdatePagination();
         }
@@ -150,15 +148,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildHeader(layout);
-            BuildFooter(layout);
+            BuildHeader();
+            BuildFooter(root);
 
-            BuildingWorldDisplaySlots(layout);
+            BuildingWorldDisplaySlots();
         }
 
-        private void BuildHeader(Layout layout)
+        private void BuildHeader()
         {
             // Background
             this.headerBackgroundElement = new()
@@ -170,50 +168,48 @@ namespace StardustSandbox.UISystem.UIs.Menus
             };
 
             // Title
-            LabelUIElement titleLabelElement = new()
+            Label titleLabelElement = new()
             {
                 Scale = new(0.15f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
                 Margin = new(32f, 0f),
+                TextContent = "World Explorer",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
-            titleLabelElement.SetTextualContent("Worlds Explorer");
-            titleLabelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-            titleLabelElement.RepositionRelativeToElement(this.headerBackgroundElement);
-
-            layout.AddElement(this.headerBackgroundElement);
-            layout.AddElement(titleLabelElement);
+            this.headerBackgroundElement.AddChild(titleLabelElement);
 
             // Buttons
             Vector2 margin = new(-64f, 0);
 
             for (int i = 0; i < this.headerButtons.Length; i++)
             {
-                UIButton button = this.headerButtons[i];
+                ButtonInfo button = this.headerButtons[i];
 
-                ImageUIElement buttonBackgroundElement = new()
+                Image buttonBackgroundElement = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureRectangle = new(320, 140, 32, 32),
+                    SourceRectangle = new(320, 140, 32, 32),
                     Alignment = CardinalDirection.East,
                     Margin = margin,
                     Scale = new(2f),
                     Size = new(32f),
                 };
 
-                ImageUIElement buttonIconElement = new()
+                Image buttonIconElement = new()
                 {
                     Texture = button.IconTexture,
                     Scale = new(1.5f),
                     Size = new(32f),
                 };
 
-                buttonBackgroundElement.RepositionRelativeToElement(this.headerBackgroundElement);
-                buttonIconElement.RepositionRelativeToElement(buttonBackgroundElement);
-
-                layout.AddElement(buttonBackgroundElement);
-                layout.AddElement(buttonIconElement);
+                this.headerBackgroundElement.AddChild(buttonBackgroundElement);
+                buttonBackgroundElement.AddChild(buttonIconElement);
 
                 this.headerButtonElements[i] = buttonBackgroundElement;
 
@@ -221,9 +217,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
             }
         }
 
-        private void BuildFooter(Layout layout)
+        private void BuildFooter(Container root)
         {
-            ImageUIElement backgroundImage = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
@@ -233,68 +229,78 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 Margin = new(0.0f, -96.0f),
             };
 
-            LabelUIElement pageIndexTitleLabel = new()
+            Label pageIndexTitleLabel = new()
             {
                 Scale = new(0.1f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
+                TextContent = "Current Page",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
             this.pageIndexLabelElement = new()
             {
                 Scale = new(0.1f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
+                TextContent = "1 / 1",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
-            LabelUIElement previousButtonLabel = new()
+            Label previousButtonLabel = new()
             {
                 Scale = new(0.15f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
+                TextContent = "Previous",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
-            LabelUIElement nextButtonLabel = new()
+            Label nextButtonLabel = new()
             {
                 Scale = new(0.15f),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.East,
+                TextContent = "Next",
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
             this.footerButtonElements[0] = previousButtonLabel;
             this.footerButtonElements[1] = nextButtonLabel;
 
-            pageIndexTitleLabel.SetTextualContent("Current Page");
-            this.pageIndexLabelElement.SetTextualContent("1 / 1");
-            previousButtonLabel.SetTextualContent("Previous");
-            nextButtonLabel.SetTextualContent("Next");
-
-            pageIndexTitleLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-            this.pageIndexLabelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-            previousButtonLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-            nextButtonLabel.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2f));
-
             pageIndexTitleLabel.Margin = new(0f, -16f);
-            this.pageIndexLabelElement.Margin = new(0f, pageIndexTitleLabel.GetStringSize().Y);
-            previousButtonLabel.Margin = new(previousButtonLabel.GetStringSize().X + 32f, 0f);
-            nextButtonLabel.Margin = new((nextButtonLabel.GetStringSize().X + 32f) * -1, 0f);
+            this.pageIndexLabelElement.Margin = new(0f, pageIndexTitleLabel.MeasuredText.Y);
+            previousButtonLabel.Margin = new(previousButtonLabel.MeasuredText.X + 32f, 0f);
+            nextButtonLabel.Margin = new((nextButtonLabel.MeasuredText.X + 32f) * -1, 0f);
 
-            backgroundImage.RepositionRelativeToScreen();
-            pageIndexTitleLabel.RepositionRelativeToElement(backgroundImage);
-            this.pageIndexLabelElement.RepositionRelativeToElement(pageIndexTitleLabel);
-            previousButtonLabel.RepositionRelativeToElement(backgroundImage);
-            nextButtonLabel.RepositionRelativeToElement(backgroundImage);
+            background.AddChild(pageIndexTitleLabel);
+            background.AddChild(previousButtonLabel);
+            background.AddChild(nextButtonLabel);
 
-            layout.AddElement(backgroundImage);
-            layout.AddElement(pageIndexTitleLabel);
-            layout.AddElement(this.pageIndexLabelElement);
-            layout.AddElement(previousButtonLabel);
-            layout.AddElement(nextButtonLabel);
+            pageIndexTitleLabel.AddChild(this.pageIndexLabelElement);
+
+            root.AddChild(background);
         }
 
         // ========================================================================== //
 
-        private void BuildingWorldDisplaySlots(Layout layout)
+        private void BuildingWorldDisplaySlots()
         {
             Vector2 slotMargin = new(32, (UIConstants.HUD_WORLD_EXPLORER_SLOT_HEIGHT_SPACING / 2) + 32);
 
@@ -306,15 +312,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
             {
                 for (int row = 0; row < rows; row++)
                 {
-                    ImageUIElement backgroundImageElement = new()
+                    Image backgroundImageElement = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                        TextureRectangle = new(0, 0, 386, 140),
+                        SourceRectangle = new(0, 0, 386, 140),
                         Size = new(UIConstants.HUD_WORLD_EXPLORER_SLOT_WIDTH, UIConstants.HUD_WORLD_EXPLORER_SLOT_HEIGHT),
                         Margin = slotMargin
                     };
 
-                    ImageUIElement thumbnailImageElement = new()
+                    Image thumbnailImageElement = new()
                     {
                         Scale = new(5.1f),
                         Size = WorldConstants.WORLD_THUMBNAIL_SIZE.ToVector2(),
@@ -322,22 +328,20 @@ namespace StardustSandbox.UISystem.UIs.Menus
                         Margin = new(11.5f, 0f),
                     };
 
-                    LabelUIElement titleLabelElement = new()
+                    Label titleLabelElement = new()
                     {
                         Color = AAP64ColorPalette.White,
-                        SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                        SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                         Alignment = CardinalDirection.North,
                         Scale = new(0.1f),
                         Margin = new(-52.5f, 23f),
+                        TextContent = "Title"
                     };
 
-                    // Setting
-                    titleLabelElement.SetTextualContent("Title");
-
                     // Position
-                    backgroundImageElement.RepositionRelativeToElement(this.headerBackgroundElement);
-                    thumbnailImageElement.RepositionRelativeToElement(backgroundImageElement);
-                    titleLabelElement.RepositionRelativeToElement(backgroundImageElement);
+                    this.headerBackgroundElement.AddChild(backgroundImageElement);
+                    backgroundImageElement.AddChild(thumbnailImageElement);
+                    thumbnailImageElement.AddChild(titleLabelElement);
 
                     // Spacing
                     slotMargin.X += UIConstants.HUD_WORLD_EXPLORER_SLOT_WIDTH_SPACING;
@@ -350,11 +354,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
                     };
 
                     index++;
-
-                    // Adding
-                    layout.AddElement(backgroundImageElement);
-                    layout.AddElement(thumbnailImageElement);
-                    layout.AddElement(titleLabelElement);
                 }
 
                 slotMargin.X = 32;
@@ -372,7 +371,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             // HEADER
             for (int i = 0; i < this.headerButtonElements.Length; i++)
             {
-                ImageUIElement buttonBackgroundElement = this.headerButtonElements[i];
+                Image buttonBackgroundElement = this.headerButtonElements[i];
 
                 Vector2 buttonSize = buttonBackgroundElement.Size / 2.0f;
 
@@ -387,15 +386,15 @@ namespace StardustSandbox.UISystem.UIs.Menus
             // FOOTER
             for (int i = 0; i < this.footerButtonElements.Length; i++)
             {
-                LabelUIElement labelElement = this.footerButtonElements[i];
-                Vector2 labelElementSize = labelElement.GetStringSize() / 2f;
+                Label label = this.footerButtonElements[i];
+                Vector2 labelElementSize = label.MeasuredText / 2f;
 
-                if (Interaction.OnMouseClick(labelElement.Position, labelElementSize))
+                if (Interaction.OnMouseClick(label.Position, labelElementSize))
                 {
                     this.footerButtons[i].ClickAction?.Invoke();
                 }
 
-                labelElement.Color = Interaction.OnMouseOver(labelElement.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
             #endregion
 
@@ -426,7 +425,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.totalPages = Math.Max(1, (int)Math.Ceiling((float)(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
-            this.pageIndexLabelElement?.SetTextualContent(string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1)));
+
+            if (this.pageIndexLabelElement != null)
+            {
+                this.pageIndexLabelElement.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
+            }
         }
 
         private void ChangeWorldsCatalog()
@@ -444,7 +447,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                     slotInfoElement.EnableVisibility();
                     slotInfoElement.ThumbnailElement.Texture = worldSaveFile.Header.ThumbnailTexture;
-                    slotInfoElement.TitleElement.SetTextualContent(worldSaveFile.Header.Metadata.Name.Truncate(10));
+                    slotInfoElement.TitleElement.TextContent = worldSaveFile.Header.Metadata.Name.Truncate(10);
                 }
                 else
                 {
@@ -473,11 +476,6 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private void LoadAllLocalSavedWorlds()
         {
             this.savedWorldFilesLoaded = [.. WorldSavingHandler.LoadAllSavedWorldData(this.graphicsDevice)];
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion

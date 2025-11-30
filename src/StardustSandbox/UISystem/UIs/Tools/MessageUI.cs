@@ -9,8 +9,6 @@ using StardustSandbox.Enums.UISystem;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
 
 namespace StardustSandbox.UISystem.UIs.Tools
 {
@@ -19,23 +17,23 @@ namespace StardustSandbox.UISystem.UIs.Tools
         UIManager uiManager
     ) : UI(index)
     {
-        private TextUIElement messageElement;
-        private LabelUIElement continueButtonElement;
+        private Text messageElement;
+        private Label continueButtonElement;
 
         private readonly UIManager uiManager = uiManager;
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildBackground(layout);
-            BuildMessage(layout);
-            BuildButton(layout);
+            BuildBackground(root);
+            BuildMessage(root);
+            BuildButton(root);
         }
 
-        private void BuildBackground(Layout layout)
+        private static void BuildBackground(Container root)
         {
-            ImageUIElement guiBackground = new()
+            Image guiBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -43,10 +41,10 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            layout.AddElement(guiBackground);
+            root.AddChild(guiBackground);
         }
 
-        private void BuildMessage(Layout layout)
+        private void BuildMessage(Container root)
         {
             this.messageElement = new()
             {
@@ -54,31 +52,31 @@ namespace StardustSandbox.UISystem.UIs.Tools
                 Margin = new(0f, 96f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850, 1000),
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
+                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
+                TextContent = "Message"
             };
 
-            this.messageElement.SetTextualContent("Message");
-            this.messageElement.RepositionRelativeToScreen();
-
-            layout.AddElement(this.messageElement);
+            root.AddChild(this.messageElement);
         }
 
-        private void BuildButton(Layout layout)
+        private void BuildButton(Container root)
         {
             this.continueButtonElement = new()
             {
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.13f),
                 Margin = new(0f, -96f),
                 Alignment = CardinalDirection.South,
+                TextContent = Localization_Statements.Continue,
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2f,
+                BorderThickness = 2f,
             };
 
-            this.continueButtonElement.SetTextualContent(Localization_Statements.Continue);
-            this.continueButtonElement.RepositionRelativeToScreen();
-            this.continueButtonElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
-
-            layout.AddElement(this.continueButtonElement);
+            root.AddChild(this.continueButtonElement);
         }
 
         #endregion
@@ -94,7 +92,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         private void UpdateContinueButton()
         {
             Vector2 position = this.continueButtonElement.Position;
-            Vector2 size = this.continueButtonElement.GetStringSize() / 2;
+            Vector2 size = this.continueButtonElement.MeasuredText / 2;
 
             if (Interaction.OnMouseClick(position, size))
             {
@@ -106,12 +104,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
         internal void SetContent(string text)
         {
-            this.messageElement.SetTextualContent(text);
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new System.NotImplementedException();
+            this.messageElement.TextContent = text;
         }
 
         #endregion

@@ -15,6 +15,9 @@ namespace StardustSandbox.UISystem.Elements
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
+        internal IReadOnlyList<UIElement> Children => this.children.AsReadOnly();
+        internal FloatRectangle SelfFloatRectangle => new(this.Position, this.Size);
+
         internal UIElement Parent
         {
             get => this.parent;
@@ -24,11 +27,6 @@ namespace StardustSandbox.UISystem.Elements
                 RepositionRelativeToParent();
             }
         }
-
-        public IReadOnlyList<UIElement> Children => this.children.AsReadOnly();
-
-        internal FloatRectangle SelfFloatRectangle => new(this.Position, this.Size);
-
         internal Vector2 Position
         {
             get => this.position;
@@ -38,7 +36,6 @@ namespace StardustSandbox.UISystem.Elements
                 RepositionChildren();
             }
         }
-
         internal Vector2 Size
         {
             get => this.rawSize * this.scale;
@@ -48,7 +45,6 @@ namespace StardustSandbox.UISystem.Elements
                 RepositionRelativeToParent();
             }
         }
-
         internal Vector2 Margin
         {
             get => this.margin;
@@ -58,7 +54,6 @@ namespace StardustSandbox.UISystem.Elements
                 RepositionRelativeToParent();
             }
         }
-
         internal Vector2 Scale
         {
             get => this.scale;
@@ -68,7 +63,6 @@ namespace StardustSandbox.UISystem.Elements
                 RepositionRelativeToParent();
             }
         }
-
         internal CardinalDirection Alignment
         {
             get => this.alignment;
@@ -78,8 +72,6 @@ namespace StardustSandbox.UISystem.Elements
                 RepositionRelativeToParent();
             }
         }
-
-        internal Color Color { get; set; }
 
         private UIElement parent;
 
@@ -103,7 +95,6 @@ namespace StardustSandbox.UISystem.Elements
             this.rawSize = Vector2.Zero;
             this.margin = Vector2.Zero;
             this.scale = Vector2.One;
-            this.Color = Color.White;
 
             this.CanDraw = true;
             this.CanUpdate = true;
@@ -114,7 +105,6 @@ namespace StardustSandbox.UISystem.Elements
             while (this.childrenToAdd.Count > 0)
             {
                 UIElement actor = this.childrenToAdd.Dequeue();
-                // assign parent reference directly to avoid re-queueing/resizing before being part of list
                 actor.parent = this;
                 actor.RepositionRelativeToParent();
                 this.children.Add(actor);
@@ -228,24 +218,24 @@ namespace StardustSandbox.UISystem.Elements
             return new Vector2(x + margin.X, y + margin.Y);
         }
 
-        internal void RepositionRelativeToElement(FloatRectangle targetRectangle)
+        private void RepositionRelativeToElement(FloatRectangle targetRectangle)
         {
             // set position using anchored calculation
             this.position = GetAnchoredPosition(this.SelfFloatRectangle, targetRectangle, this.Alignment, this.Margin);
             RepositionChildren();
         }
 
-        internal void RepositionRelativeToElement(UIElement targetElement)
+        private void RepositionRelativeToElement(UIElement targetElement)
         {
             RepositionRelativeToElement(targetElement.SelfFloatRectangle);
         }
 
-        internal void RepositionRelativeToScreen()
+        private void RepositionRelativeToScreen()
         {
             RepositionRelativeToElement(new FloatRectangle(Vector2.Zero, new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
         }
 
-        internal void RepositionRelativeToParent()
+        private void RepositionRelativeToParent()
         {
             if (this.Parent == null)
             {
@@ -257,7 +247,7 @@ namespace StardustSandbox.UISystem.Elements
             }
         }
 
-        internal void RepositionChildren()
+        private void RepositionChildren()
         {
             foreach (UIElement child in this.children)
             {
@@ -269,27 +259,27 @@ namespace StardustSandbox.UISystem.Elements
 
         #region Hierarchy Management
 
-        internal void SetParent(UIElement parent)
-        {
-            this.Parent = parent;
-            // Parent setter triggers RepositionRelativeToParent
-        }
-
-        internal void AddChildElement(UIElement element)
+        internal void AddChild(UIElement element)
         {
             if (element == null)
+            {
                 return;
+            }
+
             this.childrenToAdd.Enqueue(element);
         }
 
-        internal void RemoveChildElement(UIElement element)
+        internal void RemoveChild(UIElement element)
         {
             if (element == null)
+            {
                 return;
+            }
+
             this.childrenToRemove.Enqueue(element);
         }
 
-        internal void RemoveAllChildElements()
+        internal void RemoveAllChildren()
         {
             foreach (UIElement child in this.children)
             {

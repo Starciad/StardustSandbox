@@ -11,21 +11,19 @@ using StardustSandbox.Enums.UISystem.Tools;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
+using StardustSandbox.UISystem.Information;
 using StardustSandbox.UISystem.Settings;
 using StardustSandbox.UISystem.UIs.Tools;
-using StardustSandbox.UISystem.Utilities;
 
 namespace StardustSandbox.UISystem.UIs.HUD
 {
     internal sealed class PauseUI : UI
     {
-        private ImageUIElement panelBackgroundElement;
-        private LabelUIElement menuTitleElement;
+        private Image panelBackgroundElement;
+        private Label menuTitleElement;
 
-        private readonly UIButton[] menuButtons;
-        private readonly UISlot[] menuButtonSlots;
+        private readonly ButtonInfo[] menuButtons;
+        private readonly SlotInfo[] menuButtonSlots;
 
         private readonly ConfirmUI confirmUI;
         private readonly ConfirmSettings exitConfirmSettings;
@@ -64,7 +62,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 new(null, null, Localization_Statements.Exit, string.Empty, ExitButtonAction),
             ];
 
-            this.menuButtonSlots = new UISlot[this.menuButtons.Length];
+            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
         }
 
         #region ACTIONS
@@ -91,16 +89,16 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
         #region BUILDERS
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildBackground(layout);
-            BuildTitle(layout);
-            BuildMenuButtons(layout);
+            BuildBackground(root);
+            BuildTitle();
+            BuildMenuButtons();
         }
 
-        private void BuildBackground(Layout layout)
+        private void BuildBackground(Container root)
         {
-            ImageUIElement backgroundShadowElement = new()
+            Image backgroundShadowElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -116,66 +114,66 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 Alignment = CardinalDirection.North,
             };
 
-            this.panelBackgroundElement.RepositionRelativeToScreen();
-
-            layout.AddElement(backgroundShadowElement);
-            layout.AddElement(this.panelBackgroundElement);
+            root.AddChild(backgroundShadowElement);
+            root.AddChild(this.panelBackgroundElement);
         }
 
-        private void BuildTitle(Layout layout)
+        private void BuildTitle()
         {
             this.menuTitleElement = new()
             {
-                SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Alignment = CardinalDirection.North,
                 Margin = new(0f, 40f),
                 Color = AAP64ColorPalette.White,
+                TextContent = Localization_GUIs.HUD_Complements_Pause_Title,
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 3f,
+                BorderThickness = 3f
             };
 
-            this.menuTitleElement.SetTextualContent(Localization_GUIs.HUD_Complements_Pause_Title);
-            this.menuTitleElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(3f));
-            this.menuTitleElement.RepositionRelativeToElement(this.panelBackgroundElement);
-
-            layout.AddElement(this.menuTitleElement);
+            this.panelBackgroundElement.AddChild(this.menuTitleElement);
         }
 
-        private void BuildMenuButtons(Layout layout)
+        private void BuildMenuButtons()
         {
             float marginY = 118f;
 
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                UIButton button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtons[i];
 
-                ImageUIElement backgroundElement = new()
+                Image backgroundElement = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
-                    TextureRectangle = new(0, 140, 320, 80),
+                    SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320, 80),
                     Margin = new(-160.0f, marginY),
                     Alignment = CardinalDirection.North,
                 };
 
-                LabelUIElement labelElement = new()
+                Label label = new()
                 {
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
-                    SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = CardinalDirection.Center,
+                    TextContent = button.Name,
+
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderOffset = 2f,
+                    BorderThickness = 2f,
                 };
 
-                labelElement.SetTextualContent(button.Name);
-                labelElement.SetAllBorders(true, AAP64ColorPalette.DarkGray, new(2));
+                this.panelBackgroundElement.AddChild(backgroundElement);
+                backgroundElement.AddChild(label);
 
-                backgroundElement.RepositionRelativeToElement(this.panelBackgroundElement);
-                labelElement.RepositionRelativeToElement(backgroundElement);
-
-                layout.AddElement(backgroundElement);
-                layout.AddElement(labelElement);
-
-                this.menuButtonSlots[i] = new(backgroundElement, null, labelElement);
+                this.menuButtonSlots[i] = new(backgroundElement, null, label);
 
                 marginY += backgroundElement.Size.Y + 32;
             }
@@ -196,17 +194,17 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             for (int i = 0; i < this.menuButtons.Length; i++)
             {
-                UISlot slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlots[i];
 
-                Vector2 size = slot.BackgroundElement.Size / 2;
-                Vector2 position = slot.BackgroundElement.Position + size;
+                Vector2 size = slot.Background.Size / 2;
+                Vector2 position = slot.Background.Position + size;
 
                 if (Interaction.OnMouseClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.BackgroundElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -222,11 +220,6 @@ namespace StardustSandbox.UISystem.UIs.HUD
         protected override void OnClosed()
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion

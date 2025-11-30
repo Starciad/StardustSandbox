@@ -13,8 +13,6 @@ using StardustSandbox.Extensions;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
 using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.Elements.Graphics;
-using StardustSandbox.UISystem.Elements.Textual;
 using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
@@ -218,16 +216,16 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(Layout layout)
+        protected override void OnBuild(Container root)
         {
-            BuildElements();
-            RegisterElements(layout);
+            BuildElements(root);
+            RegisterElements(root);
 
             this.elementCount = this.creditElements.Count;
             this.lastElement = this.creditElements[this.elementCount - 1];
         }
 
-        private void BuildElements()
+        private void BuildElements(Container root)
         {
             Vector2 margin = new(0, VERTICAL_SPACING * 2f);
 
@@ -237,20 +235,20 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                 if (!string.IsNullOrWhiteSpace(creditSection.Title))
                 {
-                    LabelUIElement sectionTitleElement = new()
+                    Label sectionTitleElement = new()
                     {
                         Scale = new(0.25f),
-                        SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
+                        SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                         Margin = margin,
                         Alignment = CardinalDirection.South,
+                        TextContent = creditSection.Title
                     };
 
-                    sectionTitleElement.SetTextualContent(creditSection.Title);
-                    sectionTitleElement.RepositionRelativeToScreen();
+                    root.AddChild(sectionTitleElement);
 
                     this.creditElements.Add(sectionTitleElement);
 
-                    margin.Y += sectionTitleElement.GetStringSize().Y + VERTICAL_SPACING;
+                    margin.Y += sectionTitleElement.MeasuredText.Y + VERTICAL_SPACING;
                 }
 
                 for (int j = 0; j < creditSection.Contents.Length; j++)
@@ -259,48 +257,48 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                     if (content.ContentType == CreditContentType.Title)
                     {
-                        LabelUIElement contentTitleElement = new()
+                        Label contentTitleElement = new()
                         {
                             Scale = new(0.2f),
-                            SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
+                            SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                             Margin = margin + content.Margin,
                             Alignment = CardinalDirection.South,
+                            TextContent = content.Text
                         };
 
-                        contentTitleElement.SetTextualContent(content.Text);
-                        contentTitleElement.RepositionRelativeToScreen();
+                        root.AddChild(contentTitleElement);
 
                         this.creditElements.Add(contentTitleElement);
 
-                        margin.Y += contentTitleElement.GetStringSize().Y + VERTICAL_SPACING;
+                        margin.Y += contentTitleElement.MeasuredText.Y + VERTICAL_SPACING;
 
                         continue;
                     }
 
                     if (content.ContentType == CreditContentType.Text)
                     {
-                        LabelUIElement contentText = new()
+                        Label contentText = new()
                         {
                             Scale = new(0.15f),
-                            SpriteFont = AssetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
+                            SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                             Margin = margin + content.Margin,
                             Alignment = CardinalDirection.South,
+                            TextContent = content.Text
                         };
 
                         contentText.Margin = margin + content.Margin;
-                        contentText.SetTextualContent(content.Text);
-                        contentText.RepositionRelativeToScreen();
+                        root.AddChild(contentText);
 
                         this.creditElements.Add(contentText);
 
-                        margin.Y += contentText.GetStringSize().Y + VERTICAL_SPACING;
+                        margin.Y += contentText.MeasuredText.Y + VERTICAL_SPACING;
 
                         continue;
                     }
 
                     if (content.ContentType == CreditContentType.Image)
                     {
-                        ImageUIElement contentImage = new()
+                        Image contentImage = new()
                         {
                             Scale = content.TextureScale,
                             Size = content.Texture.GetSize().ToVector2(),
@@ -308,7 +306,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
                             Alignment = CardinalDirection.South,
                             Margin = margin + content.Margin
                         };
-                        contentImage.RepositionRelativeToScreen();
+
+                        root.AddChild(contentImage);
 
                         this.creditElements.Add(contentImage);
 
@@ -322,11 +321,19 @@ namespace StardustSandbox.UISystem.UIs.Menus
             }
         }
 
-        private void RegisterElements(Layout layout)
+        private void ResetElementsPosition()
+        {
+            foreach (UIElement creditElement in this.creditElements)
+            {
+                creditElement.Position = new(creditElement.Position.X, ScreenConstants.SCREEN_HEIGHT + creditElement.Size.Y);
+            }
+        }
+
+        private void RegisterElements(Container root)
         {
             foreach (UIElement element in this.creditElements)
             {
-                layout.AddElement(element);
+                root.AddChild(element);
             }
         }
 
@@ -384,15 +391,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             SongEngine.Play(SongIndex.V01_EndlessRebirth);
 
-            foreach (UIElement element in this.creditElements)
-            {
-                element.RepositionRelativeToScreen();
-            }
-        }
-
-        protected override void OnBuild(ContainerUIElement root)
-        {
-            throw new System.NotImplementedException();
+            ResetElementsPosition();
         }
 
         #endregion
