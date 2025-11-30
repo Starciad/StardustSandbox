@@ -103,14 +103,17 @@ namespace StardustSandbox.UISystem.Elements
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 position = this.Position;
-            Vector2 origin = this.spriteFont.GetSpriteFontOriginPoint(this.textContent, this.TextAlignment);
+            if (!string.IsNullOrEmpty(this.textContent))
+            {
+                Vector2 position = this.Position;
+                Vector2 origin = this.spriteFont.GetSpriteFontOriginPoint(this.textContent, this.TextAlignment);
 
-            // Draw borders
-            DrawBorders(spriteBatch, position, origin);
+                // Draw borders
+                DrawBorders(spriteBatch, position, origin);
 
-            // Draw main text
-            spriteBatch.DrawString(this.spriteFont, this.textContent, position, this.Color, 0.0f, origin, this.Scale, SpriteEffects.None, 0.0f);
+                // Draw main text
+                spriteBatch.DrawString(this.spriteFont, this.textContent, position, this.Color, 0.0f, origin, this.Scale, SpriteEffects.None, 0.0f);
+            }
 
             base.Draw(spriteBatch);
         }

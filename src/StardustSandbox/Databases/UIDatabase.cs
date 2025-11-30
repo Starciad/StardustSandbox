@@ -42,7 +42,7 @@ namespace StardustSandbox.Databases
 
             #region Elements
 
-            TooltipBox tooltipBoxElement = new(cursorManager, inputManager)
+            TooltipBox tooltipBox = new(cursorManager, inputManager)
             {
                 MinimumSize = new(500f, 0f),
             };
@@ -55,7 +55,7 @@ namespace StardustSandbox.Databases
                 gameManager,
                 UIIndex.ColorPicker,
                 inputController,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager
             );
 
@@ -93,7 +93,7 @@ namespace StardustSandbox.Databases
             EnvironmentSettingsUI environmentSettingsUI = new(
                 gameManager,
                 UIIndex.EnvironmentSettings,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager,
                 world
             );
@@ -103,7 +103,7 @@ namespace StardustSandbox.Databases
                 inputController,
                 confirmUI,
                 UIIndex.Hud,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager,
                 world
             );
@@ -119,7 +119,7 @@ namespace StardustSandbox.Databases
                 gameManager,
                 UIIndex.ItemExplorer,
                 hudUI,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager
             );
 
@@ -137,7 +137,7 @@ namespace StardustSandbox.Databases
                 cursorManager,
                 UIIndex.OptionsMenu,
                 messageUI,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager,
                 videoManager
             );
@@ -154,7 +154,7 @@ namespace StardustSandbox.Databases
                 UIIndex.PenSettings,
                 inputController,
                 hudUI,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager
             );
 
@@ -168,7 +168,7 @@ namespace StardustSandbox.Databases
                 graphicsDevice,
                 UIIndex.SaveSettings,
                 textInputUI,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager,
                 world
             );
@@ -191,7 +191,7 @@ namespace StardustSandbox.Databases
                 confirmUI,
                 gameManager,
                 UIIndex.WorldSettings,
-                tooltipBoxElement,
+                tooltipBox,
                 uiManager,
                 world
             );

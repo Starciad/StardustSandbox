@@ -27,7 +27,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private Label menuTitleElement;
         private Label sizeSectionTitleElement;
 
-        private readonly TooltipBox tooltipBoxElement;
+        private readonly TooltipBox tooltipBox;
 
         private readonly SlotInfo[] menuButtonSlots;
         private readonly SlotInfo[] sizeButtonSlots;
@@ -45,14 +45,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ConfirmUI confirmUI,
             GameManager gameManager,
             UIIndex index,
-            TooltipBox tooltipBoxElement,
+            TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base(index)
         {
             this.confirmUI = confirmUI;
             this.gameManager = gameManager;
-            this.tooltipBoxElement = tooltipBoxElement;
+            this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
             this.changeWorldSizeConfirmSettings = new()
@@ -116,7 +116,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             BuildMenuButtons();
             BuildSizeSection();
 
-            root.AddChild(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBox);
         }
 
         private void BuildBackground(Container root)
@@ -250,12 +250,12 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.CanDraw = false;
+            this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateSizeButtons();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateMenuButtons()
@@ -289,7 +289,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.sizeButtons[i].Name;
                     TooltipBoxContent.Description = this.sizeButtons[i].Description;

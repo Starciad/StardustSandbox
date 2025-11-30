@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.Directions;
 
-using System.Text;
-
 namespace StardustSandbox.Mathematics
 {
     internal static class OriginMath

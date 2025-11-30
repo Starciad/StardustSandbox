@@ -163,46 +163,42 @@ namespace StardustSandbox.UISystem.Elements
 
         private static Vector2 GetAnchoredPosition(FloatRectangle rect1, FloatRectangle rect2, CardinalDirection anchor, Vector2 margin)
         {
-            Vector2 targetPosition = rect2.Location;
-            Vector2 targetSize = rect2.Size;
-            Vector2 rect1Size = rect1.Size;
-
-            float x = targetPosition.X;
-            float y = targetPosition.Y;
+            float x = rect2.Location.X;
+            float y = rect2.Location.Y;
 
             switch (anchor)
             {
                 case CardinalDirection.Center:
-                    x += (targetSize.X - rect1Size.X) / 2f;
-                    y += (targetSize.Y - rect1Size.Y) / 2f;
+                    x += (rect2.Size.X - rect1.Size.X) / 2f;
+                    y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
                 case CardinalDirection.North:
-                    x += (targetSize.X - rect1Size.X) / 2f;
+                    x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += 0f;
                     break;
                 case CardinalDirection.Northeast:
-                    x += targetSize.X - rect1Size.X;
+                    x += rect2.Size.X - rect1.Size.X;
                     y += 0f;
                     break;
                 case CardinalDirection.East:
-                    x += targetSize.X - rect1Size.X;
-                    y += (targetSize.Y - rect1Size.Y) / 2f;
+                    x += rect2.Size.X - rect1.Size.X;
+                    y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
                 case CardinalDirection.Southeast:
-                    x += targetSize.X - rect1Size.X;
-                    y += targetSize.Y - rect1Size.Y;
+                    x += rect2.Size.X - rect1.Size.X;
+                    y += rect2.Size.Y - rect1.Size.Y;
                     break;
                 case CardinalDirection.South:
-                    x += (targetSize.X - rect1Size.X) / 2f;
-                    y += targetSize.Y - rect1Size.Y;
+                    x += (rect2.Size.X - rect1.Size.X) / 2f;
+                    y += rect2.Size.Y - rect1.Size.Y;
                     break;
                 case CardinalDirection.Southwest:
                     x += 0f;
-                    y += targetSize.Y - rect1Size.Y;
+                    y += rect2.Size.Y - rect1.Size.Y;
                     break;
                 case CardinalDirection.West:
                     x += 0f;
-                    y += (targetSize.Y - rect1Size.Y) / 2f;
+                    y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
                 case CardinalDirection.Northwest:
                 default:
@@ -212,8 +208,8 @@ namespace StardustSandbox.UISystem.Elements
             }
 
             // clamp to keep within target rectangle
-            x = Math.Clamp(x, targetPosition.X, targetPosition.X + Math.Max(0, targetSize.X - rect1Size.X));
-            y = Math.Clamp(y, targetPosition.Y, targetPosition.Y + Math.Max(0, targetSize.Y - rect1Size.Y));
+            x = Math.Clamp(x, rect2.Location.X, rect2.Location.X + Math.Max(0, rect2.Size.X - rect1.Size.X));
+            y = Math.Clamp(y, rect2.Location.Y, rect2.Location.Y + Math.Max(0, rect2.Size.Y - rect1.Size.Y));
 
             return new Vector2(x + margin.X, y + margin.Y);
         }

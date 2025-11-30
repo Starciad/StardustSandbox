@@ -21,7 +21,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         private ColorPickerSettings colorPickerSettings;
         private Text captionElement;
 
-        private readonly TooltipBox tooltipBoxElement;
+        private readonly TooltipBox tooltipBox;
 
         private readonly ButtonInfo[] menuButtons;
         private readonly ColorButtonInfo[] colorButtons;
@@ -37,13 +37,13 @@ namespace StardustSandbox.UISystem.UIs.Tools
             GameManager gameManager,
             UIIndex index,
             InputController inputController,
-            TooltipBox tooltipBoxElement,
+            TooltipBox tooltipBox,
             UIManager uiManager
         ) : base(index)
         {
             this.gameManager = gameManager;
             this.inputController = inputController;
-            this.tooltipBoxElement = tooltipBoxElement;
+            this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
             this.menuButtons = [
@@ -154,7 +154,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
             BuildColorButtons(root);
             BuildMenuButtons(root);
 
-            root.AddChild(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBox);
         }
 
         private static void BuildBackground(Container root)
@@ -282,12 +282,12 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.CanDraw = false;
+            this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateColorButtons();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateMenuButtons()
@@ -325,7 +325,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = colorButton.Name;
                     TooltipBoxContent.Description = string.Empty;

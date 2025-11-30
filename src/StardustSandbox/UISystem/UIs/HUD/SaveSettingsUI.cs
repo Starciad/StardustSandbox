@@ -40,7 +40,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
         private Image thumbnailPreviewElement;
 
-        private readonly TooltipBox tooltipBoxElement;
+        private readonly TooltipBox tooltipBox;
 
         private readonly ButtonInfo[] menuButtons;
         private readonly ButtonInfo[] fieldButtons;
@@ -66,7 +66,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             GraphicsDevice graphicsDevice,
             UIIndex index,
             TextInputUI textInputUI,
-            TooltipBox tooltipBoxElement,
+            TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base(index)
@@ -74,7 +74,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.gameManager = gameManager;
             this.graphicsDevice = graphicsDevice;
             this.textInputUI = textInputUI;
-            this.tooltipBoxElement = tooltipBoxElement;
+            this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -185,7 +185,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             BuildThumbnailSection();
             BuildFooterButtons();
 
-            root.AddChild(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBox);
         }
 
         private void BuildBackground(Container root)
@@ -415,13 +415,13 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.CanDraw = false;
+            this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateFieldButtons();
             UpdateFooterButtons();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateMenuButtons()
@@ -440,7 +440,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.menuButtons[i].Name;
                     TooltipBoxContent.Description = this.menuButtons[i].Description;
@@ -488,7 +488,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.footerButtons[i].Name;
                     TooltipBoxContent.Description = this.footerButtons[i].Description;

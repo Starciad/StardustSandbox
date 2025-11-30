@@ -57,7 +57,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         private readonly string titleName = Localization_GUIs.Menu_Options_Title;
         private readonly List<(UIElement, UIElement)> plusAndMinusButtons = [];
 
-        private readonly TooltipBox tooltipBoxElement;
+        private readonly TooltipBox tooltipBox;
 
         private readonly Label[] systemButtonElements;
         private readonly Dictionary<string, IEnumerable<Label>> sectionContents = [];
@@ -87,7 +87,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             CursorManager cursorManager,
             UIIndex index,
             MessageUI messageUI,
-            TooltipBox tooltipBoxElement,
+            TooltipBox tooltipBox,
             UIManager uiManager,
             VideoManager videoManager
         ) : base(index)
@@ -95,7 +95,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.colorPickerUI = colorPickerUI;
             this.cursorManager = cursorManager;
             this.messageUI = messageUI;
-            this.tooltipBoxElement = tooltipBoxElement;
+            this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.videoManager = videoManager;
 
@@ -371,7 +371,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             BuildSections(root);
 
             // Final
-            root.AddChild(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBox);
             SelectSection("general");
         }
 
@@ -661,13 +661,13 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.CanDraw = false;
+            this.tooltipBox.CanDraw = false;
 
             UpdateSectionButtons();
             UpdateSystemButtons();
             UpdateSectionOptions();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateSectionButtons()
@@ -688,7 +688,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                 if (onMouseOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     Section section = this.root.Sections[item.Key];
 
@@ -719,7 +719,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = button.Name;
                     TooltipBoxContent.Description = button.Description;
@@ -754,7 +754,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 {
                     label.Color = AAP64ColorPalette.LemonYellow;
 
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = option.Name;
                     TooltipBoxContent.Description = option.Description;

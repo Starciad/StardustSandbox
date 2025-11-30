@@ -33,7 +33,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         private Label menuTitleElement;
         private Label pageIndexLabelElement;
 
-        private readonly TooltipBox tooltipBoxElement;
+        private readonly TooltipBox tooltipBox;
 
         private readonly ButtonInfo[] menuButtons;
         private readonly ButtonInfo[] paginationButtons;
@@ -53,7 +53,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             GameManager gameManager,
             UIIndex index,
             HudUI hudUI,
-            TooltipBox tooltipBoxElement,
+            TooltipBox tooltipBox,
             UIManager uiManager
         ) : base(index)
         {
@@ -67,7 +67,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.totalPages = 0;
 
             this.hudUI = hudUI;
-            this.tooltipBoxElement = tooltipBoxElement;
+            this.tooltipBox = tooltipBox;
 
             this.menuButtons = [
                 new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
@@ -136,7 +136,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             BuildSubcategoryButtons();
             BuildPagination(root);
 
-            root.AddChild(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBox);
         }
 
         private void BuildBackground(Container root)
@@ -418,7 +418,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.CanDraw = false;
+            this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateCategoryButtons();
@@ -426,7 +426,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             UpdateItemCatalog();
             UpdatePagination();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateMenuButtons()
@@ -445,7 +445,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.menuButtons[i].Name;
                     TooltipBoxContent.Description = this.menuButtons[i].Description;
@@ -485,7 +485,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = category.Name;
                     TooltipBoxContent.Description = category.Description;
@@ -519,7 +519,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = subcategory.Name;
                     TooltipBoxContent.Description = subcategory.Description;
@@ -553,7 +553,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = item.Name;
                     TooltipBoxContent.Description = item.Description;

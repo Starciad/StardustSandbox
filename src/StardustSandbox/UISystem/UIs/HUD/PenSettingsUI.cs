@@ -33,7 +33,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
         private Image brushSizeSliderElement;
 
-        private readonly TooltipBox tooltipBoxElement;
+        private readonly TooltipBox tooltipBox;
 
         private readonly Rectangle[] brushSizeSliderClipTextures;
 
@@ -58,14 +58,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
             UIIndex index,
             InputController inputController,
             HudUI hudUI,
-            TooltipBox tooltipBoxElement,
+            TooltipBox tooltipBox,
             UIManager uiManager
         ) : base(index)
         {
             this.inputController = inputController;
             this.gameManager = gameManager;
             this.hudUI = hudUI;
-            this.tooltipBoxElement = tooltipBoxElement;
+            this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
             this.toolButtonSelectedIndex = 0;
@@ -174,7 +174,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             BuildLayerSection();
             BuildShapeSection();
 
-            root.AddChild(this.tooltipBoxElement);
+            root.AddChild(this.tooltipBox);
         }
 
         private void BuildBackground(Container root)
@@ -403,7 +403,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             base.Update(gameTime);
 
-            this.tooltipBoxElement.CanDraw = false;
+            this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateBrushSizeSlider();
@@ -412,7 +412,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             UpdateShapeButtons();
             SyncGUIElements();
 
-            this.tooltipBoxElement.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
         }
 
         private void UpdateMenuButtons()
@@ -431,7 +431,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.menuButtons[i].Name;
                     TooltipBoxContent.Description = this.menuButtons[i].Description;
@@ -457,7 +457,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (Interaction.OnMouseOver(position, size))
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
                     TooltipBoxContent.Description = string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
@@ -490,7 +490,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.toolButtons[i].Name;
                     TooltipBoxContent.Description = this.toolButtons[i].Description;
@@ -514,7 +514,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.layerButtons[i].Name;
                     TooltipBoxContent.Description = this.layerButtons[i].Description;
@@ -538,7 +538,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 if (isOver)
                 {
-                    this.tooltipBoxElement.CanDraw = true;
+                    this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.Title = this.shapeButtons[i].Name;
                     TooltipBoxContent.Description = this.shapeButtons[i].Description;
