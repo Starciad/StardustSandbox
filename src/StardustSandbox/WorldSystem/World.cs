@@ -111,7 +111,7 @@ namespace StardustSandbox.WorldSystem
             worldSlot.Instantiate(position, layer, value);
 
             this.worldElementContext.UpdateInformation(position, layer, worldSlot);
-            value.Context = this.worldElementContext;
+            value.SetContext(this.worldElementContext);
             value.Instantiate();
 
             return true;
@@ -183,7 +183,7 @@ namespace StardustSandbox.WorldSystem
             SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
 
             this.worldElementContext.UpdateInformation(position, layer, worldSlot);
-            worldSlotLayer.Element.Context = this.worldElementContext;
+            worldSlotLayer.Element.SetContext(this.worldElementContext);
             worldSlotLayer.Element.Destroy();
             worldSlotLayer.Destroy();
 

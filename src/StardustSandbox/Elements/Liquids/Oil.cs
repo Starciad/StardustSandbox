@@ -8,15 +8,15 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Oil : Liquid
     {
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                switch (neighbor.GetLayer(this.Context.Layer).Element)
+                switch (neighbor.GetLayer(context.Layer).Element)
                 {
                     case Lava:
                     case Fire:
-                        this.Context.ReplaceElement(ElementIndex.Fire);
+                        context.ReplaceElement(ElementIndex.Fire);
                         break;
 
                     default:
@@ -25,11 +25,11 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue >= 280)
             {
-                this.Context.ReplaceElement(ElementIndex.Fire);
+                context.ReplaceElement(ElementIndex.Fire);
             }
         }
     }

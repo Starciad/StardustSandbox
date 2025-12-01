@@ -70,12 +70,12 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.tooltipBox = tooltipBox;
 
             this.menuButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.paginationButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(128, 160, 32, 32), "Left", string.Empty, PreviousButtonAction),
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(64, 160, 32, 32), "Right", string.Empty, NextButtonAction),
+                new(TextureIndex.IconUI, new(128, 160, 32, 32), "Left", string.Empty, PreviousButtonAction),
+                new(TextureIndex.IconUI, new(64, 160, 32, 32), "Right", string.Empty, NextButtonAction),
             ];
 
             this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
@@ -151,7 +151,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundItemExplorer),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084, 607),
                 Margin = new(98, 90),
             };
@@ -190,7 +190,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 Image backgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(UIConstants.HUD_SLOT_SCALE),
                     Size = new(UIConstants.HUD_GRID_SIZE),
@@ -231,7 +231,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     Image slotBackground = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
                         Alignment = CardinalDirection.Northwest,
@@ -272,7 +272,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 Image slotBackground = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = CardinalDirection.Northwest,
                     Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
@@ -322,7 +322,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
                 {
                     Image slotBackground = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Alignment = positionAnchor,
                         Scale = new(UIConstants.HUD_ITEM_EXPLORER_SLOT_SCALE),
@@ -370,7 +370,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
             {
                 Image slotBackground = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(1.5f),
                     Size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE),

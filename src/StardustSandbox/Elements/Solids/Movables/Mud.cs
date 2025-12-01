@@ -9,11 +9,11 @@ namespace StardustSandbox.Elements.Solids.Movables
 
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement(ElementIndex.Dirt);
+                context.ReplaceElement(ElementIndex.Dirt);
             }
         }
     }

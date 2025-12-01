@@ -27,8 +27,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(0, 32, 32, 32), "Worlds", string.Empty, WorldsButtonAction),
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(224, 0, 32, 32), "Return", string.Empty, ReturnButtonAction),
+                new(TextureIndex.IconUI, new(0, 32, 32, 32), "Worlds", string.Empty, WorldsButtonAction),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), "Return", string.Empty, ReturnButtonAction),
             ];
 
             this.menuButtonElements = new Label[this.menuButtons.Length];

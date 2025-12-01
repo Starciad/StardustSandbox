@@ -7,26 +7,26 @@ namespace StardustSandbox.Elements.Gases
 {
     internal sealed class Steam : Gas
     {
-        protected override void OnBeforeStep()
+        protected override void OnBeforeStep(ElementContext context)
         {
             if (SSRandom.Chance(60))
             {
                 return;
             }
 
-            Point topPosition = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y - 1);
+            Point topPosition = new(context.Slot.Position.X, context.Slot.Position.Y - 1);
 
-            if (this.Context.IsEmptySlotLayer(topPosition, this.Context.Layer))
+            if (context.IsEmptySlotLayer(topPosition, context.Layer))
             {
-                this.Context.SetPosition(topPosition);
+                context.SetPosition(topPosition);
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue < 35)
             {
-                this.Context.ReplaceElement(ElementIndex.Water);
+                context.ReplaceElement(ElementIndex.Water);
             }
         }
     }

@@ -15,28 +15,28 @@ namespace StardustSandbox.Elements.Liquids
 
         }
 
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                switch (neighbor.GetLayer(this.Context.Layer).Element)
+                switch (neighbor.GetLayer(context.Layer).Element)
                 {
                     case Dirt:
-                        this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, ElementIndex.Mud);
+                        context.DestroyElement();
+                        context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Mud);
                         break;
 
                     case Stone:
                         if (SSRandom.Range(0, 150) == 0)
                         {
-                            this.Context.DestroyElement();
-                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, ElementIndex.Sand);
+                            context.DestroyElement();
+                            context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Sand);
                         }
 
                         break;
 
                     case Fire:
-                        this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
+                        context.DestroyElement(neighbor.Position, context.Layer);
                         break;
 
                     default:
@@ -45,17 +45,17 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue <= 0)
             {
-                this.Context.ReplaceElement(ElementIndex.Ice);
+                context.ReplaceElement(ElementIndex.Ice);
                 return;
             }
 
             if (currentValue >= 100)
             {
-                this.Context.ReplaceElement(ElementIndex.Steam);
+                context.ReplaceElement(ElementIndex.Steam);
                 return;
             }
         }

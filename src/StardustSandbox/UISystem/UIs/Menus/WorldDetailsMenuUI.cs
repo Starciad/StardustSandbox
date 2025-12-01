@@ -50,9 +50,9 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.world = world;
 
             this.worldButtons = [
-                new(null, null, "Return", string.Empty, ReturnButtonAction),
-                new(null, null, "Delete", string.Empty, DeleteButtonAction),
-                new(null, null, "Play", string.Empty, PlayButtonAction),
+                new(TextureIndex.None, null, "Return", string.Empty, ReturnButtonAction),
+                new(TextureIndex.None, null, "Delete", string.Empty, DeleteButtonAction),
+                new(TextureIndex.None, null, "Play", string.Empty, PlayButtonAction),
             ];
 
             this.worldButtonElements = new Label[this.worldButtons.Length];

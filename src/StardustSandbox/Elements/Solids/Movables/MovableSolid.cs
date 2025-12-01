@@ -8,58 +8,58 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal abstract class MovableSolid : Solid
     {
-        protected override void OnStep()
+        protected override void OnStep(ElementContext context)
         {
-            if (this.Context.SlotLayer.HasState(ElementStates.FreeFalling))
+            if (context.SlotLayer.HasState(ElementStates.FreeFalling))
             {
-                foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(this.Context.Slot.Position, Direction.Down))
+                foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
                 {
-                    if (TrySetPosition(belowPosition))
+                    if (TrySetPosition(context, belowPosition))
                     {
-                        ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
-                        this.Context.SetElementState(belowPosition, ElementStates.FreeFalling);
+                        ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
+                        context.SetElementState(belowPosition, ElementStates.FreeFalling);
                         return;
                     }
                 }
 
-                this.Context.RemoveElementState(ElementStates.FreeFalling);
+                context.RemoveElementState(ElementStates.FreeFalling);
             }
             else
             {
-                Point belowPosition = new(this.Context.Slot.Position.X, this.Context.Slot.Position.Y + 1);
+                Point belowPosition = new(context.Slot.Position.X, context.Slot.Position.Y + 1);
 
-                if (TrySetPosition(belowPosition))
+                if (TrySetPosition(context, belowPosition))
                 {
-                    ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(this.Context, belowPosition);
-                    this.Context.SetElementState(belowPosition, ElementStates.FreeFalling);
+                    ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
+                    context.SetElementState(belowPosition, ElementStates.FreeFalling);
                     return;
                 }
                 else
                 {
-                    this.Context.RemoveElementState(ElementStates.FreeFalling);
+                    context.RemoveElementState(ElementStates.FreeFalling);
                     return;
                 }
             }
         }
 
-        private bool TrySetPosition(Point position)
+        private bool TrySetPosition(ElementContext context, Point position)
         {
-            if (this.Context.TrySetPosition(position))
+            if (context.TrySetPosition(position))
             {
                 return true;
             }
 
-            if (this.Context.TryGetElement(position, this.Context.Layer, out Element value))
+            if (context.TryGetElement(position, context.Layer, out Element value))
             {
                 if (value.Category == ElementCategory.Liquid)
                 {
-                    if (this.DefaultDensity > value.DefaultDensity && this.Context.TrySwappingElements(position))
+                    if (this.DefaultDensity > value.DefaultDensity && context.TrySwappingElements(position))
                     {
                         return true;
                     }
                 }
 
-                if (value.Category == ElementCategory.Gas && this.Context.TrySwappingElements(position))
+                if (value.Category == ElementCategory.Gas && context.TrySwappingElements(position))
                 {
                     return true;
                 }

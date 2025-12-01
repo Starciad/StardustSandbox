@@ -47,7 +47,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(null, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
             ];
 
             this.colorButtons = [
@@ -213,7 +213,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
                     Image backgroundElement = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 0, 40, 22),
                         Scale = new(2f),
                         Size = textureSize,
@@ -223,7 +223,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
 
                     Image borderElement = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 22, 40, 22),
                         Scale = new(2f),
                         Size = textureSize,

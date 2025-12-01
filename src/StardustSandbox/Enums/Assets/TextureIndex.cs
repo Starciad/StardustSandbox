@@ -38,21 +38,21 @@
 
         #endregion
 
-        #region GUI
+        #region UI
 
-        GuiBackgroundEnvironmentSettings,
-        GuiBackgroundHudHorizontalToolbar,
-        GuiBackgroundHudVerticalToolbar,
-        GuiBackgroundInformation,
-        GuiBackgroundItemExplorer,
-        GuiBackgroundOptions,
-        GuiBackgroundPause,
-        GuiBackgroundPenSettings,
-        GuiBackgroundSaveSettings,
-        GuiBackgroundWorldSettings,
-        GuiButtons,
-        GuiSizeSlider,
-        GuiTextInputOrnament,
+        UIBackgroundEnvironmentSettings,
+        UIBackgroundHudHorizontalToolbar,
+        UIBackgroundHudVerticalToolbar,
+        UIBackgroundInformation,
+        UIBackgroundItemExplorer,
+        UIBackgroundOptions,
+        UIBackgroundPause,
+        UIBackgroundPenSettings,
+        UIBackgroundSaveSettings,
+        UIBackgroundWorldSettings,
+        UIButtons,
+        UISizeSlider,
+        UITextInputOrnament,
 
         #endregion
 
@@ -61,7 +61,7 @@
         IconElements,
         IconKeys,
         IconTools,
-        IconUi,
+        IconUI,
 
         #endregion
 

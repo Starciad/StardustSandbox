@@ -10,28 +10,28 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Saltwater : Liquid
     {
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                switch (neighbor.GetLayer(this.Context.Layer).Element)
+                switch (neighbor.GetLayer(context.Layer).Element)
                 {
                     case Dirt:
-                        this.Context.DestroyElement();
-                        this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, ElementIndex.Mud);
+                        context.DestroyElement();
+                        context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Mud);
                         break;
 
                     case Stone:
                         if (SSRandom.Range(0, 150) == 0)
                         {
-                            this.Context.DestroyElement();
-                            this.Context.ReplaceElement(neighbor.Position, this.Context.Layer, ElementIndex.Sand);
+                            context.DestroyElement();
+                            context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Sand);
                         }
 
                         break;
 
                     case Fire:
-                        this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
+                        context.DestroyElement(neighbor.Position, context.Layer);
                         break;
 
                     default:
@@ -40,12 +40,12 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue <= 21)
             {
-                this.Context.ReplaceElement(ElementIndex.Ice);
-                this.Context.SetStoredElement(ElementIndex.Saltwater);
+                context.ReplaceElement(ElementIndex.Ice);
+                context.SetStoredElement(ElementIndex.Saltwater);
                 return;
             }
 
@@ -53,11 +53,11 @@ namespace StardustSandbox.Elements.Liquids
             {
                 if (SSRandom.Chance(50))
                 {
-                    this.Context.ReplaceElement(ElementIndex.Steam);
+                    context.ReplaceElement(ElementIndex.Steam);
                 }
                 else
                 {
-                    this.Context.ReplaceElement(ElementIndex.Saltwater);
+                    context.ReplaceElement(ElementIndex.Saltwater);
                 }
 
                 return;

@@ -35,8 +35,8 @@ namespace StardustSandbox.UISystem.UIs.Tools
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(null, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
-                new(null, null, Localization_Statements.Confirm, string.Empty, ConfirmButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, ConfirmButtonAction),
             ];
 
             this.menuButtonElements = new Label[this.menuButtons.Length];

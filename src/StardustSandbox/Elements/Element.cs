@@ -29,22 +29,24 @@ namespace StardustSandbox.Elements
         internal double DefaultDensity { get; init; } = 0;
         internal double DefaultExplosionResistance { get; init; } = 0.5;
 
-        internal ElementContext Context { get => this.context; set => this.context = value; }
-
         #endregion
 
         private ElementContext context;
 
+        internal void SetContext(ElementContext context)
+        {
+            this.context = context;
+        }
+
         #region Virtual Methods
 
-        protected virtual void OnBeforeStep() { return; }
-        protected virtual void OnStep() { return; }
-        protected virtual void OnAfterStep() { return; }
-
-        protected virtual void OnInstantiated() { return; }
-        protected virtual void OnDestroyed() { return; }
-        protected virtual void OnNeighbors(IEnumerable<Slot> neighbors) { return; }
-        protected virtual void OnTemperatureChanged(double currentValue) { return; }
+        protected virtual void OnInstantiated(ElementContext context) { return; }
+        protected virtual void OnBeforeStep(ElementContext context) { return; }
+        protected virtual void OnStep(ElementContext context) { return; }
+        protected virtual void OnAfterStep(ElementContext context) { return; }
+        protected virtual void OnDestroyed(ElementContext context) { return; }
+        protected virtual void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors) { return; }
+        protected virtual void OnTemperatureChanged(ElementContext context, double currentValue) { return; }
 
         #endregion
 
@@ -52,12 +54,12 @@ namespace StardustSandbox.Elements
 
         internal void Instantiate()
         {
-            OnInstantiated();
+            OnInstantiated(this.context);
         }
 
         internal void Destroy()
         {
-            OnDestroyed();
+            OnDestroyed(this.context);
         }
 
         internal void Steps(GameTime gameTime)
@@ -76,13 +78,13 @@ namespace StardustSandbox.Elements
 
                 if (affectsNeighbors)
                 {
-                    OnNeighbors(neighbors);
+                    OnNeighbors(this.context, neighbors);
                 }
             }
 
-            OnBeforeStep();
-            OnStep();
-            OnAfterStep();
+            OnBeforeStep(this.context);
+            OnStep(this.context);
+            OnAfterStep(this.context);
         }
 
         // Updated temperature transfer using Fourier's law of thermal conduction
@@ -131,7 +133,7 @@ namespace StardustSandbox.Elements
                 this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
             }
 
-            OnTemperatureChanged(this.context.SlotLayer.Temperature);
+            OnTemperatureChanged(this.context, this.context.SlotLayer.Temperature);
         }
 
         #endregion

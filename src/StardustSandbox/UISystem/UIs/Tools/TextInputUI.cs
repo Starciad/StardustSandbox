@@ -67,8 +67,8 @@ namespace StardustSandbox.UISystem.UIs.Tools
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(null, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
-                new(null, null, Localization_Statements.Send, string.Empty, SendButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, SendButtonAction),
             ];
 
             this.menuButtonElements = new Label[this.menuButtons.Length];
@@ -183,7 +183,7 @@ namespace StardustSandbox.UISystem.UIs.Tools
         {
             this.userInputBackgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiTextInputOrnament),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
                 Scale = new(1.5f),
                 Size = new(632, 50),
                 Margin = new(0, 64),

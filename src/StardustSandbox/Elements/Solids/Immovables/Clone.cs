@@ -13,37 +13,37 @@ namespace StardustSandbox.Elements.Solids.Immovables
         private static readonly List<Point> positionBuffer = [];
         private static readonly List<SlotLayer> layerBuffer = [];
 
-        protected override void OnBeforeStep()
+        protected override void OnBeforeStep(ElementContext context)
         {
             positionBuffer.Clear();
             layerBuffer.Clear();
         }
 
-        protected override void OnAfterStep()
+        protected override void OnAfterStep(ElementContext context)
         {
-            TryInstantiateStoredElement();
+            TryInstantiateStoredElement(context);
         }
 
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
-            TryDefineStoredElement(neighbors);
+            TryDefineStoredElement(context, neighbors);
         }
 
-        private void TryInstantiateStoredElement()
+        private static void TryInstantiateStoredElement(ElementContext context)
         {
-            if (this.Context.SlotLayer.StoredElement == null || !TryGetValidPosition(out Point validPositon))
+            if (context.SlotLayer.StoredElement == null || !TryGetValidPosition(context, out Point validPositon))
             {
                 return;
             }
 
-            this.Context.InstantiateElement(validPositon, this.Context.Layer, this.Context.SlotLayer.StoredElement);
+            context.InstantiateElement(validPositon, context.Layer, context.SlotLayer.StoredElement);
         }
 
-        private bool TryGetValidPosition(out Point validPosition)
+        private static bool TryGetValidPosition(ElementContext context, out Point validPosition)
         {
-            foreach (Point position in this.Context.Slot.Position.GetNeighboringCardinalPoints())
+            foreach (Point position in context.Slot.Position.GetNeighboringCardinalPoints())
             {
-                if (this.Context.IsEmptySlotLayer(position, this.Context.Layer))
+                if (context.IsEmptySlotLayer(position, context.Layer))
                 {
                     positionBuffer.Add(position);
                 }
@@ -59,16 +59,16 @@ namespace StardustSandbox.Elements.Solids.Immovables
             return true;
         }
 
-        private void TryDefineStoredElement(IEnumerable<Slot> neighbors)
+        private static void TryDefineStoredElement(ElementContext context, IEnumerable<Slot> neighbors)
         {
-            if (this.Context.SlotLayer.StoredElement != null)
+            if (context.SlotLayer.StoredElement != null)
             {
                 return;
             }
 
             foreach (Slot neighbor in neighbors)
             {
-                SlotLayer layer = neighbor.GetLayer(this.Context.Layer);
+                SlotLayer layer = neighbor.GetLayer(context.Layer);
 
                 if (layer.HasState(ElementStates.IsEmpty) ||
                     layer.Element.Index == ElementIndex.Clone ||
@@ -86,7 +86,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 return;
             }
 
-            this.Context.SetStoredElement(layerBuffer.GetRandomItem().Element);
+            context.SetStoredElement(layerBuffer.GetRandomItem().Element);
         }
     }
 }

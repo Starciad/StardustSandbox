@@ -8,11 +8,11 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class WetSponge : ImmovableSolid
     {
-        protected override void OnStep()
+        protected override void OnStep(ElementContext context)
         {
-            foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(this.Context.Slot.Position, Direction.Down))
+            foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
             {
-                if (!this.Context.TryGetElement(belowPosition, this.Context.Layer, out Element element))
+                if (!context.TryGetElement(belowPosition, context.Layer, out Element element))
                 {
                     return;
                 }
@@ -20,7 +20,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 switch (element)
                 {
                     case DrySponge:
-                        this.Context.SwappingElements(this.Context.Position, belowPosition);
+                        context.SwappingElements(context.Position, belowPosition);
                         break;
 
                     default:
@@ -29,11 +29,11 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue >= 60)
             {
-                this.Context.ReplaceElement(ElementIndex.DrySponge);
+                context.ReplaceElement(ElementIndex.DrySponge);
             }
         }
     }

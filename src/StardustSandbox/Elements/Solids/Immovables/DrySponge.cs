@@ -12,22 +12,22 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class DrySponge : ImmovableSolid
     {
-        private void AbsorbWaterAround()
+        private static void AbsorbWaterAround(ElementContext context)
         {
-            foreach (Point position in ShapePointGenerator.GenerateSquarePoints(this.Context.Slot.Position, 1))
+            foreach (Point position in ShapePointGenerator.GenerateSquarePoints(context.Slot.Position, 1))
             {
-                if (!this.Context.TryGetSlot(position, out Slot worldSlot))
+                if (!context.TryGetSlot(position, out Slot worldSlot))
                 {
                     continue;
                 }
 
-                SlotLayer worldSlotLayer = worldSlot.GetLayer(this.Context.Layer);
+                SlotLayer worldSlotLayer = worldSlot.GetLayer(context.Layer);
 
                 switch (worldSlotLayer.Element)
                 {
                     case Water:
                     case Saltwater:
-                        this.Context.DestroyElement(position, this.Context.Layer);
+                        context.DestroyElement(position, context.Layer);
                         break;
 
                     default:
@@ -35,20 +35,20 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 }
             }
 
-            this.Context.ReplaceElement(ElementIndex.WetSponge);
+            context.ReplaceElement(ElementIndex.WetSponge);
         }
 
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                SlotLayer worldSlotLayer = neighbor.GetLayer(this.Context.Layer);
+                SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
 
                 switch (worldSlotLayer.Element)
                 {
                     case Water:
                     case Saltwater:
-                        AbsorbWaterAround();
+                        AbsorbWaterAround(context);
                         return;
 
                     default:
@@ -57,17 +57,17 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue >= 180)
             {
                 if (SSRandom.Chance(70))
                 {
-                    this.Context.ReplaceElement(ElementIndex.Fire);
+                    context.ReplaceElement(ElementIndex.Fire);
                 }
                 else
                 {
-                    this.Context.ReplaceElement(ElementIndex.Ash);
+                    context.ReplaceElement(ElementIndex.Ash);
                 }
             }
         }

@@ -57,9 +57,9 @@ namespace StardustSandbox.UISystem.UIs.HUD
             };
 
             this.menuButtons = [
-                new(null, null, Localization_Statements.Resume, string.Empty, ResumeButtonAction),
-                new(null, null, Localization_Statements.Options, string.Empty, OptionsButtonAction),
-                new(null, null, Localization_Statements.Exit, string.Empty, ExitButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, ResumeButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, OptionsButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, ExitButtonAction),
             ];
 
             this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
@@ -108,9 +108,9 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPause),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
                 Size = new(542, 540),
-                Margin = new(AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPause).Width / 2 * -1, 90),
+                Margin = new(AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause).Width / 2 * -1, 90),
                 Alignment = CardinalDirection.North,
             };
 
@@ -148,7 +148,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 Image backgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320, 80),

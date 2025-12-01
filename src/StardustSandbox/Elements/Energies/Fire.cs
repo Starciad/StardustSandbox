@@ -12,68 +12,68 @@ namespace StardustSandbox.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        protected override void OnBeforeStep()
+        protected override void OnBeforeStep(ElementContext context)
         {
             if (SSRandom.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
-                this.Context.DestroyElement();
+                context.DestroyElement();
 
                 if (SSRandom.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
-                    this.Context.InstantiateElement(ElementIndex.Smoke);
+                    context.InstantiateElement(ElementIndex.Smoke);
                 }
             }
         }
 
-        protected override void OnStep()
+        protected override void OnStep(ElementContext context)
         {
-            Point targetPosition = new(this.Context.Slot.Position.X + SSRandom.Range(-1, 1), this.Context.Slot.Position.Y - 1);
+            Point targetPosition = new(context.Slot.Position.X + SSRandom.Range(-1, 1), context.Slot.Position.Y - 1);
 
-            if (this.Context.IsEmptySlot(targetPosition))
+            if (context.IsEmptySlot(targetPosition))
             {
-                if (this.Context.TrySetPosition(targetPosition, this.Context.Layer))
+                if (context.TrySetPosition(targetPosition, context.Layer))
                 {
                     return;
                 }
             }
             else
             {
-                Element targetElement = this.Context.GetElement(targetPosition, this.Context.Layer);
+                Element targetElement = context.GetElement(targetPosition, context.Layer);
 
                 if (targetElement != null && (targetElement.Category == ElementCategory.MovableSolid || targetElement.Category == ElementCategory.Liquid || targetElement.Category == ElementCategory.Gas))
                 {
-                    this.Context.SwappingElements(targetPosition);
+                    context.SwappingElements(targetPosition);
                 }
             }
         }
 
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
                 if (!neighbor.ForegroundLayer.HasState(ElementStates.IsEmpty))
                 {
-                    IgniteElement(neighbor, neighbor.GetLayer(LayerType.Foreground), LayerType.Foreground);
+                    IgniteElement(context, neighbor, neighbor.GetLayer(LayerType.Foreground), LayerType.Foreground);
                 }
 
                 if (!neighbor.BackgroundLayer.HasState(ElementStates.IsEmpty))
                 {
-                    IgniteElement(neighbor, neighbor.GetLayer(LayerType.Background), LayerType.Background);
+                    IgniteElement(context, neighbor, neighbor.GetLayer(LayerType.Background), LayerType.Background);
                 }
             }
         }
 
-        private void IgniteElement(Slot slot, SlotLayer worldSlotLayer, LayerType layer)
+        private static void IgniteElement(ElementContext context, Slot slot, SlotLayer worldSlotLayer, LayerType layer)
         {
             // Increase neighboring temperature by fire's heat value
-            this.Context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));
+            context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));
 
             // Check if the element is flammable
             if (worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
-                bool isAbove = slot.Position.Y < this.Context.Slot.Position.Y;
+                bool isAbove = slot.Position.Y < context.Slot.Position.Y;
 
                 // Increase chance of combustion if the element is directly above
                 if (isAbove)
@@ -84,7 +84,7 @@ namespace StardustSandbox.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (SSRandom.Chance(combustionChance, 100.0 + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    this.Context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
+                    context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
                 }
             }
         }

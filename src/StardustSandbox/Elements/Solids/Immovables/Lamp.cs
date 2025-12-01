@@ -2,11 +2,11 @@
 {
     internal sealed class Lamp : ImmovableSolid
     {
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue >= 600)
             {
-                this.Context.DestroyElement();
+                context.DestroyElement();
             }
         }
     }

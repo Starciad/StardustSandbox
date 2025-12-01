@@ -7,16 +7,16 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Ash : MovableSolid
     {
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                switch (neighbor.GetLayer(this.Context.Layer).Element)
+                switch (neighbor.GetLayer(context.Layer).Element)
                 {
                     case Water:
                     case Saltwater:
                     case Lava:
-                        this.Context.DestroyElement();
+                        context.DestroyElement();
                         break;
 
                     default:

@@ -13,25 +13,25 @@ namespace StardustSandbox.Elements.Gases
         private readonly List<Point> emptyPositionsCache = [];
         private readonly List<Point> validPositionsCache = [];
 
-        protected override void OnStep()
+        protected override void OnStep(ElementContext context)
         {
             this.emptyPositionsCache.Clear();
             this.validPositionsCache.Clear();
 
-            foreach (Point position in this.Context.Slot.Position.GetNeighboringCardinalPoints())
+            foreach (Point position in context.Slot.Position.GetNeighboringCardinalPoints())
             {
-                if (this.Context.IsEmptySlotLayer(position, this.Context.Layer))
+                if (context.IsEmptySlotLayer(position, context.Layer))
                 {
                     this.emptyPositionsCache.Add(position);
                 }
-                else if (this.Context.TryGetSlot(position, out Slot value))
+                else if (context.TryGetSlot(position, out Slot value))
                 {
-                    SlotLayer worldSlotLayer = value.GetLayer(this.Context.Layer);
+                    SlotLayer worldSlotLayer = value.GetLayer(context.Layer);
 
                     if (worldSlotLayer.Element.Category == ElementCategory.Gas ||
                         worldSlotLayer.Element.Category == ElementCategory.Liquid)
                     {
-                        if ((worldSlotLayer.Element.GetType() == GetType() && worldSlotLayer.Temperature > this.Context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
+                        if ((worldSlotLayer.Element.GetType() == GetType() && worldSlotLayer.Temperature > context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
                         {
                             this.validPositionsCache.Add(position);
                         }
@@ -41,12 +41,12 @@ namespace StardustSandbox.Elements.Gases
 
             if (this.emptyPositionsCache.Count > 0)
             {
-                this.Context.SetPosition(this.emptyPositionsCache.GetRandomItem());
+                context.SetPosition(this.emptyPositionsCache.GetRandomItem());
             }
             else if (this.validPositionsCache.Count > 0)
             {
                 Point targetPosition = this.validPositionsCache.GetRandomItem();
-                _ = this.Context.TrySwappingElements(targetPosition);
+                _ = context.TrySwappingElements(targetPosition);
             }
         }
     }

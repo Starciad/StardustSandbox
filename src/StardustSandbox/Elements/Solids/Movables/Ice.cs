@@ -9,20 +9,20 @@ namespace StardustSandbox.Elements.Solids.Movables
 
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue >= 0)
             {
-                if (this.Context.SlotLayer.StoredElement == null)
+                if (context.SlotLayer.StoredElement == null)
                 {
-                    this.Context.ReplaceElement(ElementIndex.Water);
+                    context.ReplaceElement(ElementIndex.Water);
                 }
                 else
                 {
-                    this.Context.ReplaceElement(this.Context.SlotLayer.StoredElement);
+                    context.ReplaceElement(context.SlotLayer.StoredElement);
                 }
 
-                this.Context.SetElementTemperature(13);
+                context.SetElementTemperature(13);
             }
         }
     }

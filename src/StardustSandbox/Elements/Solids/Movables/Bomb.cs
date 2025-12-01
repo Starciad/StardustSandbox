@@ -26,16 +26,16 @@ namespace StardustSandbox.Elements.Solids.Movables
             ]
         };
 
-        protected override void OnDestroyed()
+        protected override void OnDestroyed(ElementContext context)
         {
-            this.Context.InstantiateExplosion(explosionBuilder);
+            context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                SlotLayer worldSlotLayer = neighbor.GetLayer(this.Context.Layer);
+                SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
 
                 switch (worldSlotLayer.Element)
                 {
@@ -46,17 +46,17 @@ namespace StardustSandbox.Elements.Solids.Movables
                         break;
 
                     default:
-                        this.Context.DestroyElement();
+                        context.DestroyElement();
                         break;
                 }
             }
         }
 
-        protected override void OnTemperatureChanged(double currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
         {
             if (currentValue > 100)
             {
-                this.Context.DestroyElement();
+                context.DestroyElement();
             }
         }
     }

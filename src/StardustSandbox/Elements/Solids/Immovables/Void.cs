@@ -7,15 +7,15 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class Void : ImmovableSolid
     {
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                SlotLayer neighborLayer = neighbor.GetLayer(this.Context.Layer);
+                SlotLayer neighborLayer = neighbor.GetLayer(context.Layer);
 
                 if (!neighborLayer.HasState(ElementStates.IsEmpty) && neighborLayer.Element.Index != ElementIndex.Wall && neighborLayer.Element.Index != ElementIndex.Void && neighborLayer.Element.Index != ElementIndex.Clone)
                 {
-                    this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
+                    context.DestroyElement(neighbor.Position, context.Layer);
                 }
             }
         }

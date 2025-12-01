@@ -72,32 +72,32 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.layerButtonSelectedIndex = 0;
 
             this.menuButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.toolButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(96, 64, 32, 32), Localization_WorldGizmos.Visualization_Name, Localization_WorldGizmos.Visualization_Description, () =>
+                new(TextureIndex.UIButtons, new(96, 64, 32, 32), Localization_WorldGizmos.Visualization_Name, Localization_WorldGizmos.Visualization_Description, () =>
                 {
                     SelectToolButtonAction(PenTool.Visualization);
                     this.hudUI.SetToolIcon(new(96, 64, 32, 32));
                 }),
 
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(64, 32, 32, 32), Localization_WorldGizmos.Pencil_Name, Localization_WorldGizmos.Pencil_Description, () =>
+                new(TextureIndex.UIButtons, new(64, 32, 32, 32), Localization_WorldGizmos.Pencil_Name, Localization_WorldGizmos.Pencil_Description, () =>
                 {
                     SelectToolButtonAction(PenTool.Pencil);
                     this.hudUI.SetToolIcon(new(64, 32, 32, 32));
                 }),
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(96, 32, 32, 32), Localization_WorldGizmos.Eraser_Name, Localization_WorldGizmos.Eraser_Description, () =>
+                new(TextureIndex.UIButtons, new(96, 32, 32, 32), Localization_WorldGizmos.Eraser_Name, Localization_WorldGizmos.Eraser_Description, () =>
                 {
                     SelectToolButtonAction(PenTool.Eraser);
                     this.hudUI.SetToolIcon(new(96, 32, 32, 32));
                 }),
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(128, 32, 32, 32), Localization_WorldGizmos.Fill_Name, Localization_WorldGizmos.Fill_Description, () =>
+                new(TextureIndex.UIButtons, new(128, 32, 32, 32), Localization_WorldGizmos.Fill_Name, Localization_WorldGizmos.Fill_Description, () =>
                 {
                     SelectToolButtonAction(PenTool.Fill);
                     this.hudUI.SetToolIcon(new(128, 32, 32, 32));
                 }),
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(160, 32, 32, 32), Localization_WorldGizmos.Replace_Name, Localization_WorldGizmos.Replace_Description, () =>
+                new(TextureIndex.UIButtons, new(160, 32, 32, 32), Localization_WorldGizmos.Replace_Name, Localization_WorldGizmos.Replace_Description, () =>
                 {
                     SelectToolButtonAction(PenTool.Replace);
                     this.hudUI.SetToolIcon(new(160, 32, 32, 32));
@@ -105,14 +105,14 @@ namespace StardustSandbox.UISystem.UIs.HUD
             ];
 
             this.layerButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(192, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => SelectLayerButtonAction(LayerType.Foreground)),
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(224, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => SelectLayerButtonAction(LayerType.Background)),
+                new(TextureIndex.UIButtons, new(192, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => SelectLayerButtonAction(LayerType.Foreground)),
+                new(TextureIndex.UIButtons, new(224, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => SelectLayerButtonAction(LayerType.Background)),
             ];
 
             this.shapeButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(0, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => SelectShapeButtonAction(PenShape.Circle)),
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(32, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => SelectShapeButtonAction(PenShape.Square)),
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(64, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => SelectShapeButtonAction(PenShape.Triangle)),
+                new(TextureIndex.UIButtons, new(0, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => SelectShapeButtonAction(PenShape.Circle)),
+                new(TextureIndex.UIButtons, new(32, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => SelectShapeButtonAction(PenShape.Square)),
+                new(TextureIndex.UIButtons, new(64, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => SelectShapeButtonAction(PenShape.Triangle)),
             ];
 
             this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
@@ -189,7 +189,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundPenSettings),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings),
                 Size = new(1084, 540),
                 Margin = new(98, 90),
             };
@@ -254,7 +254,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.brushSizeSliderElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiSizeSlider),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UISizeSlider),
                 SourceRectangle = new(new(0, 0), new(326, 38)),
                 Size = new(326, 38),
                 Scale = new(2f),
@@ -377,7 +377,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             Image backgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(UIConstants.HUD_SLOT_SCALE),
                 Size = new(UIConstants.HUD_GRID_SIZE),

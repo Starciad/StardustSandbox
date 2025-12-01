@@ -10,7 +10,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class ImmovableCorruption : ImmovableSolid
     {
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             if (CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(LayerType.Foreground, neighbors) &&
                 CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(LayerType.Background, neighbors))
@@ -18,11 +18,11 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 return;
             }
 
-            this.Context.NotifyChunk();
+            context.NotifyChunk();
 
             if (SSRandom.Chance(ElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
-                this.Context.InfectNeighboringElements(neighbors);
+                context.InfectNeighboringElements(neighbors);
             }
         }
     }

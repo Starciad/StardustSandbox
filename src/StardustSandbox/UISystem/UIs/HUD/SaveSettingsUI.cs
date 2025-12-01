@@ -79,16 +79,16 @@ namespace StardustSandbox.UISystem.UIs.HUD
             this.world = world;
 
             this.menuButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.GuiButtons), new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
             ];
 
             this.fieldButtons = [
-                new(null, null, "Name Field", string.Empty, NameFieldButtonAction),
-                new(null, null, "Description Field", string.Empty, DescriptionFieldButtonAction)
+                new(TextureIndex.None, null, "Name Field", string.Empty, NameFieldButtonAction),
+                new(TextureIndex.None, null, "Description Field", string.Empty, DescriptionFieldButtonAction)
             ];
 
             this.footerButtons = [
-                new(null, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, SaveButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, SaveButtonAction),
             ];
 
             this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
@@ -200,7 +200,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.panelBackgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundSaveSettings),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSaveSettings),
                 Size = new(1084, 540),
                 Margin = new(98, 90),
             };
@@ -263,7 +263,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.titleInputFieldElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2f),
                 Size = new(163f, 38f),
@@ -297,7 +297,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
             this.descriptionInputFieldElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2f),
                 Size = new(163f, 38f),
@@ -351,7 +351,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
 
                 Image backgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Scale = new(1f),
@@ -389,7 +389,7 @@ namespace StardustSandbox.UISystem.UIs.HUD
         {
             Image backgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(UIConstants.HUD_SLOT_SCALE),
                 Size = new(UIConstants.HUD_GRID_SIZE),

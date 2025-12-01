@@ -67,11 +67,11 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.world = world;
 
             this.menuButtonInfos = [
-                new(null, null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, CreateMenuButtonAction),
-                new(null, null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, PlayMenuButtonAction),
-                new(null, null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, OptionsMenuButtonAction),
-                new(null, null, Localization_GUIs.Menu_Main_Button_Credits, string.Empty, CreditsMenuButtonAction),
-                new(null, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
+                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, CreateMenuButtonAction),
+                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, PlayMenuButtonAction),
+                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, OptionsMenuButtonAction),
+                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Credits, string.Empty, CreditsMenuButtonAction),
+                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, QuitMenuButtonAction),
             ];
 
             this.menuButtons = new Label[this.menuButtonInfos.Length];

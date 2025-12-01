@@ -13,11 +13,11 @@ namespace StardustSandbox.Elements.Liquids
 
         }
 
-        protected override void OnNeighbors(IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
-                SlotLayer slotLayer = neighbor.GetLayer(this.Context.Layer);
+                SlotLayer slotLayer = neighbor.GetLayer(context.Layer);
 
                 if (slotLayer.HasState(ElementStates.IsEmpty))
                 {
@@ -36,8 +36,8 @@ namespace StardustSandbox.Elements.Liquids
                         break;
                 }
 
-                this.Context.DestroyElement();
-                this.Context.DestroyElement(neighbor.Position, this.Context.Layer);
+                context.DestroyElement();
+                context.DestroyElement(neighbor.Position, context.Layer);
             }
         }
     }

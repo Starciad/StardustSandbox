@@ -80,14 +80,14 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.slotInfoElements = new SSlotInfoElement[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
 
             this.headerButtons = [
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(192, 0, 32, 32), "Exit", string.Empty, ExitButtonAction),
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(160, 192, 32, 32), "Reload", string.Empty, ReloadButtonAction),
-                new(AssetDatabase.GetTexture(TextureIndex.IconUi), new(32, 32, 32, 32), "Open Directory in Explorer", string.Empty, OpenDirectoryInExplorerAction),
+                new(TextureIndex.IconUI, new(192, 0, 32, 32), "Exit", string.Empty, ExitButtonAction),
+                new(TextureIndex.IconUI, new(160, 192, 32, 32), "Reload", string.Empty, ReloadButtonAction),
+                new(TextureIndex.IconUI, new(32, 32, 32, 32), "Open Directory in Explorer", string.Empty, OpenDirectoryInExplorerAction),
             ];
 
             this.footerButtons = [
-                new(null, null, "Previous", string.Empty, PreviousButtonAction),
-                new(null, null, "Next", string.Empty, NextButtonAction),
+                new(TextureIndex.None, null, "Previous", string.Empty, PreviousButtonAction),
+                new(TextureIndex.None, null, "Next", string.Empty, NextButtonAction),
             ];
 
             this.headerButtonElements = new Image[this.headerButtons.Length];
@@ -193,7 +193,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                 Image buttonBackgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = CardinalDirection.East,
                     Margin = margin,
@@ -314,7 +314,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
                 {
                     Image backgroundImageElement = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(0, 0, 386, 140),
                         Size = new(UIConstants.HUD_WORLD_EXPLORER_SLOT_WIDTH, UIConstants.HUD_WORLD_EXPLORER_SLOT_HEIGHT),
                         Margin = slotMargin

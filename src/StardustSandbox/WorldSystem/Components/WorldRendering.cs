@@ -41,7 +41,7 @@ namespace StardustSandbox.WorldSystem.Components
 
                     if (this.inputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(78, 0, 32, 32), new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
@@ -64,7 +64,7 @@ namespace StardustSandbox.WorldSystem.Components
         {
             this.elementRenderingContext.UpdateInformation(position, layer, value);
 
-            element.Context = this.elementRenderingContext;
+            element.SetContext(this.elementRenderingContext);
             element.Draw(spriteBatch);
         }
     }

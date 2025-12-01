@@ -108,8 +108,8 @@ namespace StardustSandbox.UISystem.UIs.Menus
             this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
 
             this.systemButtons = [
-                new(null, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, ReturnButtonAction),
-                new(null, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, SaveButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, ReturnButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, SaveButtonAction),
             ];
 
             this.root = new()
@@ -379,7 +379,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             this.panelBackgroundElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiBackgroundOptions),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
                 Size = new(1084, 540),
                 Margin = new(98, 90),
             };
@@ -497,7 +497,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
             ColorSlotInfo colorSlot = new(
                 new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
@@ -506,7 +506,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
                 new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 22, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
@@ -526,7 +526,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             Image minus = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
+                Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(192, 160, 32, 32),
                 Size = new(32.0f),
                 Margin = new(0, label.MeasuredText.Y / 2f * -1f)
@@ -534,7 +534,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
 
             Image plus = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.IconUi),
+                Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(160, 160, 32, 32),
                 Size = new(32.0f),
                 Margin = new(48.0f, 0.0f),
@@ -559,7 +559,7 @@ namespace StardustSandbox.UISystem.UIs.Menus
         {
             Image togglePreviewImageElement = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GuiButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
                 Size = new(32.0f),

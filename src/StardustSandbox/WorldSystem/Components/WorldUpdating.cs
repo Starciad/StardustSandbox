@@ -67,7 +67,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
 
             this.elementUpdateContext.UpdateInformation(position, layer, worldSlot);
-            element.Context = this.elementUpdateContext;
+            element.SetContext(this.elementUpdateContext);
 
             if (worldSlotLayer.StepCycleFlag == this.stepCycleFlag)
             {
