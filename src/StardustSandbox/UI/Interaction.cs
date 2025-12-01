@@ -20,7 +20,7 @@ namespace StardustSandbox.UI
                 throw new InvalidOperationException($"{nameof(Interaction)} system has already been initialized.");
             }
 
-            Interaction.inputManager = inputManager;
+            Interaction.inputManager = inputManager ?? throw new ArgumentNullException(nameof(inputManager));
             isInitialized = true;
         }
 
@@ -30,6 +30,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseClick(Vector2 targetPosition, Vector2 areaSize)
         {
+            EnsureInitialized();
+
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
             return inputManager.MouseState.LeftButton == ButtonState.Released &&
@@ -42,6 +44,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseDown(Vector2 targetPosition, Vector2 areaSize)
         {
+            EnsureInitialized();
+
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
             return inputManager.MouseState.LeftButton == ButtonState.Pressed &&
@@ -53,6 +57,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseUp(Vector2 targetPosition, Vector2 areaSize)
         {
+            EnsureInitialized();
+
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
             return inputManager.MouseState.LeftButton == ButtonState.Released &&
@@ -65,6 +71,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseEnter(Vector2 targetPosition, Vector2 areaSize)
         {
+            EnsureInitialized();
+
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
             Vector2 previousMousePosition = inputManager.GetScaledPreviousMousePosition();
 
@@ -79,6 +87,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseOver(Vector2 targetPosition, Vector2 areaSize)
         {
+            EnsureInitialized();
+
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -89,6 +99,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseLeave(Vector2 targetPosition, Vector2 areaSize)
         {
+            EnsureInitialized();
+
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
             Vector2 previousMousePosition = inputManager.GetScaledPreviousMousePosition();
 
@@ -100,10 +112,23 @@ namespace StardustSandbox.UI
 
         private static bool IsMouseWithinArea(Vector2 mousePosition, Vector2 targetPosition, Vector2 areaSize)
         {
-            bool withinHorizontalBounds = MathF.Abs(mousePosition.X - targetPosition.X) < areaSize.X;
-            bool withinVerticalBounds = MathF.Abs(mousePosition.Y - targetPosition.Y) < areaSize.Y;
+            float left = targetPosition.X;
+            float right = targetPosition.X + areaSize.X;
+            float top = targetPosition.Y;
+            float bottom = targetPosition.Y + areaSize.Y;
+
+            bool withinHorizontalBounds = mousePosition.X >= left && mousePosition.X <= right;
+            bool withinVerticalBounds = mousePosition.Y >= top && mousePosition.Y <= bottom;
 
             return withinHorizontalBounds && withinVerticalBounds;
+        }
+
+        private static void EnsureInitialized()
+        {
+            if (!isInitialized || inputManager is null)
+            {
+                throw new InvalidOperationException($"{nameof(Interaction)} system is not initialized.");
+            }
         }
         #endregion
     }

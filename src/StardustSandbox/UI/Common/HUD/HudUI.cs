@@ -23,6 +23,7 @@ using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 using System;
+using System.Diagnostics;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -340,17 +341,15 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdatePlayerInteractionOnToolbarHover()
         {
-            // bool isMouseOverDrawerButtons =
-            //     Interaction.OnMouseOver(this.topDrawerButton.Position, this.topDrawerButton.Size) ||
-            //     Interaction.OnMouseOver(this.leftDrawerButton.Position, this.leftDrawerButton.Size) ||
-            //     Interaction.OnMouseOver(this.rightDrawerButton.Position, this.rightDrawerButton.Size);
+            bool isMouseOverDrawerButtons =
+                Interaction.OnMouseOver(this.topDrawerButton.Position, this.topDrawerButton.Size);
 
             bool isMouseOverToolbars =
                 Interaction.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
                 Interaction.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
                 Interaction.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
 
-            this.inputController.Player.CanModifyEnvironment = !isMouseOverToolbars;
+            this.inputController.Player.CanModifyEnvironment = !isMouseOverDrawerButtons && !isMouseOverToolbars;
         }
 
         #endregion
