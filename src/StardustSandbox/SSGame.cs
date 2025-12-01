@@ -9,12 +9,12 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.States;
-using StardustSandbox.Enums.UISystem;
+using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Settings;
 using StardustSandbox.Managers;
-using StardustSandbox.UISystem;
+using StardustSandbox.UI;
 using StardustSandbox.WorldSystem;
 
 using System;

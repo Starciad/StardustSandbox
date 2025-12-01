@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Databases;
-using StardustSandbox.Enums.UISystem;
+using StardustSandbox.Enums.UI;
 using StardustSandbox.Interfaces;
-using StardustSandbox.UISystem;
+using StardustSandbox.UI;
 
 using System.Collections.Generic;
 
@@ -12,15 +12,15 @@ namespace StardustSandbox.Managers
 {
     internal sealed class UIManager : IResettable
     {
-        private UI currentUI;
+        private UIBase currentUI;
 
-        private readonly Stack<UI> uiStack = [];
+        private readonly Stack<UIBase> uiStack = [];
 
         public void Reset()
         {
             while (this.uiStack.Count > 0)
             {
-                UI gui = this.uiStack.Pop();
+                UIBase gui = this.uiStack.Pop();
                 gui.Close();
             }
 
@@ -45,7 +45,7 @@ namespace StardustSandbox.Managers
 
         internal void OpenGUI(UIIndex index)
         {
-            UI ui = UIDatabase.GetUI(index);
+            UIBase ui = UIDatabase.GetUI(index);
 
             if (ui == null)
             {

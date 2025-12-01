@@ -1,25 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Enums.UISystem;
+using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem.GameInput;
-using StardustSandbox.IO;
 using StardustSandbox.Managers;
-using StardustSandbox.UISystem;
-using StardustSandbox.UISystem.Elements;
-using StardustSandbox.UISystem.UIs.HUD;
-using StardustSandbox.UISystem.UIs.Menus;
-using StardustSandbox.UISystem.UIs.Tools;
+using StardustSandbox.UI;
+using StardustSandbox.UI.Common.HUD;
+using StardustSandbox.UI.Common.Menus;
+using StardustSandbox.UI.Common.Tools;
+using StardustSandbox.UI.Elements;
 using StardustSandbox.WorldSystem;
 
 using System;
-using System.IO;
 
 namespace StardustSandbox.Databases
 {
     internal static class UIDatabase
     {
-        private static UI[] uis;
+        private static UIBase[] uis;
         private static bool isLoaded;
 
         internal static void Load(
@@ -233,7 +231,7 @@ namespace StardustSandbox.Databases
             isLoaded = true;
         }
 
-        internal static UI GetUI(UIIndex index)
+        internal static UIBase GetUI(UIIndex index)
         {
             return uis[(int)index];
         }

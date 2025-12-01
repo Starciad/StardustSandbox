@@ -1,5 +1,5 @@
-﻿using StardustSandbox.Enums.UISystem;
-using StardustSandbox.UISystem.Elements.TextSystem;
+﻿using StardustSandbox.Enums.UI;
+using StardustSandbox.UI.Elements.TextSystem;
 
 namespace StardustSandbox.Constants
 {

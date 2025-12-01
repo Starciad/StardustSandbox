@@ -6,7 +6,7 @@ using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
-using StardustSandbox.Enums.UISystem;
+using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem.GameInput;
 using StardustSandbox.WorldSystem;
 
