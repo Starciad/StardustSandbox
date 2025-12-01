@@ -142,8 +142,8 @@ namespace StardustSandbox.UI.Elements
 
         private void UpdateSize()
         {
-            Vector2 titleSize = this.title.MeasuredText;
-            Vector2 descriptionSize = this.description.MeasuredText;
+            Vector2 titleSize = this.title.Size;
+            Vector2 descriptionSize = this.description.Size;
             Vector2 backgroundBaseSize = new(32f, 32f);
 
             float finalWidth = Math.Max(this.MinimumSize.X, titleSize.X);

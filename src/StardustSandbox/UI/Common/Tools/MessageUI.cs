@@ -92,7 +92,7 @@ namespace StardustSandbox.UI.Common.Tools
         private void UpdateContinueButton()
         {
             Vector2 position = this.continueButtonElement.Position;
-            Vector2 size = this.continueButtonElement.MeasuredText / 2;
+            Vector2 size = this.continueButtonElement.Size / 2;
 
             if (Interaction.OnMouseClick(position, size))
             {

@@ -265,7 +265,7 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 Label label = this.menuButtonElements[i];
 
-                Vector2 size = label.MeasuredText / 2;
+                Vector2 size = label.Size / 2;
                 Vector2 position = label.Position;
 
                 if (Interaction.OnMouseClick(position, size))
@@ -279,7 +279,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = (ScreenConstants.SCREEN_HEIGHT / 2) + this.userInputElement.MeasuredText.Y;
+            float screenCenterYPosition = (ScreenConstants.SCREEN_HEIGHT / 2) + this.userInputElement.Size.Y;
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackgroundElement.Position.X;

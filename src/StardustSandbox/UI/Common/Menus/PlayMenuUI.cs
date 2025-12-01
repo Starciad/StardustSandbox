@@ -109,14 +109,14 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     Texture = button.IconTexture,
                     Alignment = CardinalDirection.West,
-                    Margin = new((buttonLabel.MeasuredText.X + (button.IconTexture.Width / 2.0f)) * -1.0f, 0.0f),
+                    Margin = new((buttonLabel.Size.X + (button.IconTexture.Width / 2.0f)) * -1.0f, 0.0f),
                     Scale = new(2),
                 };
 
                 buttonLabel.AddChild(buttonIcon);
                 root.AddChild(buttonLabel);
 
-                margin.Y += buttonLabel.MeasuredText.X + 32.0f;
+                margin.Y += buttonLabel.Size.X + 32.0f;
 
                 this.menuButtonElements[i] = buttonLabel;
             }
@@ -136,7 +136,7 @@ namespace StardustSandbox.UI.Common.Menus
             for (int i = 0; i < this.menuButtonElements.Length; i++)
             {
                 Label label = this.menuButtonElements[i];
-                Vector2 labelElementSize = label.MeasuredText / 2.0f;
+                Vector2 labelElementSize = label.Size / 2.0f;
 
                 if (Interaction.OnMouseClick(label.Position, labelElementSize))
                 {

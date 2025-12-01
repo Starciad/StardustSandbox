@@ -342,7 +342,9 @@ namespace StardustSandbox.UI.Common.HUD
         private void UpdatePlayerInteractionOnToolbarHover()
         {
             bool isMouseOverDrawerButtons =
-                Interaction.OnMouseOver(this.topDrawerButton.Position, this.topDrawerButton.Size);
+                Interaction.OnMouseOver(this.topDrawerButton.Position, this.topDrawerButton.Size) ||
+                Interaction.OnMouseOver(this.leftDrawerButton.Position, this.leftDrawerButton.Size) ||
+                Interaction.OnMouseOver(this.rightDrawerButton.Position, this.rightDrawerButton.Size);
 
             bool isMouseOverToolbars =
                 Interaction.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||

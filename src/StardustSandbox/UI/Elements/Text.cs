@@ -15,6 +15,25 @@ namespace StardustSandbox.UI.Elements
 {
     internal sealed class Text : UIElement
     {
+        internal override Vector2 Size
+        {
+            get
+            {
+                if (this.isTextContentDirty)
+                {
+                    this.measuredText = MeasureText();
+                    this.isTextContentDirty = false;
+                }
+
+                return this.measuredText;
+            }
+
+            set
+            {
+                throw new InvalidOperationException("Cannot set Size of Text directly. Size is determined by the text content and wrapping.");
+            }
+        }
+
         internal Vector2 TextAreaSize { get; set; }
         internal float LineHeight { get; set; } = 1.0f;
         internal float WordSpacing { get; set; } = 0.0f;
@@ -42,20 +61,6 @@ namespace StardustSandbox.UI.Elements
                 }
             }
         }
-        internal Vector2 MeasuredText
-        {
-            get
-            {
-                if (this.isTextContentDirty)
-                {
-                    this.measuredText = MeasureText();
-                    this.isTextContentDirty = false;
-                }
-
-                return this.measuredText;
-            }
-        }
-
         internal Color Color { get; set; }
 
         internal LabelBorderDirection BorderDirections { get; set; }

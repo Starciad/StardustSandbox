@@ -1,18 +1,39 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.Mathematics;
 using StardustSandbox.UI.Elements.TextSystem;
+
+using System;
 
 namespace StardustSandbox.UI.Elements
 {
     internal sealed class Label : UIElement
     {
+        internal override Vector2 Size
+        {
+            get
+            {
+                if (this.textContentDirty)
+                {
+                    this.measuredText = MeasureText();
+                    this.textContentDirty = false;
+                }
+
+                return this.measuredText;
+            }
+
+            set
+            {
+                throw new InvalidOperationException("Cannot set Size of Label directly. Size is determined by the text content.");
+            }
+        }
+
         internal string TextContent
         {
             get => this.textContent;
@@ -25,6 +46,7 @@ namespace StardustSandbox.UI.Elements
                 }
             }
         }
+
         internal SpriteFontIndex SpriteFontIndex
         {
             get => this.spriteFontIndex;
@@ -34,20 +56,7 @@ namespace StardustSandbox.UI.Elements
                 this.spriteFont = AssetDatabase.GetSpriteFont(value);
             }
         }
-        internal Vector2 MeasuredText
-        {
-            get
-            {
-                if (this.textContentDirty)
-                {
-                    this.measuredText = MeasureText();
-                    this.textContentDirty = false;
-                }
 
-                return this.measuredText;
-            }
-        }
-        internal CardinalDirection TextAlignment { get; set; }
         internal Color Color { get; set; }
 
         internal LabelBorderDirection BorderDirections { get; set; } = LabelBorderDirection.None;
@@ -66,6 +75,8 @@ namespace StardustSandbox.UI.Elements
         {
             this.CanDraw = true;
             this.CanUpdate = true;
+
+            this.Color = AAP64ColorPalette.White;
         }
 
         internal override void Initialize()
@@ -78,7 +89,7 @@ namespace StardustSandbox.UI.Elements
             base.Update(gameTime);
         }
 
-        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position, Vector2 origin)
+        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
         {
             if (this.BorderDirections == LabelBorderDirection.None)
             {
@@ -95,7 +106,7 @@ namespace StardustSandbox.UI.Elements
                     {
                         float scale = (t + 1) / this.BorderThickness;
                         Vector2 offset = borderDirectionOffset.Offset * this.BorderOffset * scale;
-                        spriteBatch.DrawString(this.spriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, origin, this.Scale, SpriteEffects.None, 0.0f);
+                        spriteBatch.DrawString(this.spriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
                     }
                 }
             }
@@ -106,13 +117,12 @@ namespace StardustSandbox.UI.Elements
             if (!string.IsNullOrEmpty(this.textContent))
             {
                 Vector2 position = this.Position;
-                Vector2 origin = this.spriteFont.GetSpriteFontOriginPoint(this.textContent, this.TextAlignment);
 
                 // Draw borders
-                DrawBorders(spriteBatch, position, origin);
+                DrawBorders(spriteBatch, position);
 
                 // Draw main text
-                spriteBatch.DrawString(this.spriteFont, this.textContent, position, this.Color, 0.0f, origin, this.Scale, SpriteEffects.None, 0.0f);
+                spriteBatch.DrawString(this.spriteFont, this.textContent, position, this.Color, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
             }
 
             base.Draw(spriteBatch);

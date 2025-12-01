@@ -153,7 +153,7 @@ namespace StardustSandbox.UI.Common.HUD
                 this.infoElements[i] = label;
 
                 // Spacing
-                margin.Y += label.MeasuredText.Y + 8;
+                margin.Y += label.Size.Y + 8;
             }
         }
 

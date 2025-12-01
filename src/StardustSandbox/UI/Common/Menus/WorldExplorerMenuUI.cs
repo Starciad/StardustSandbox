@@ -285,9 +285,9 @@ namespace StardustSandbox.UI.Common.Menus
             this.footerButtonElements[1] = nextButtonLabel;
 
             pageIndexTitleLabel.Margin = new(0f, -16f);
-            this.pageIndexLabelElement.Margin = new(0f, pageIndexTitleLabel.MeasuredText.Y);
-            previousButtonLabel.Margin = new(previousButtonLabel.MeasuredText.X + 32f, 0f);
-            nextButtonLabel.Margin = new((nextButtonLabel.MeasuredText.X + 32f) * -1, 0f);
+            this.pageIndexLabelElement.Margin = new(0f, pageIndexTitleLabel.Size.Y);
+            previousButtonLabel.Margin = new(previousButtonLabel.Size.X + 32f, 0f);
+            nextButtonLabel.Margin = new((nextButtonLabel.Size.X + 32f) * -1, 0f);
 
             background.AddChild(pageIndexTitleLabel);
             background.AddChild(previousButtonLabel);
@@ -387,7 +387,7 @@ namespace StardustSandbox.UI.Common.Menus
             for (int i = 0; i < this.footerButtonElements.Length; i++)
             {
                 Label label = this.footerButtonElements[i];
-                Vector2 labelElementSize = label.MeasuredText / 2f;
+                Vector2 labelElementSize = label.Size / 2f;
 
                 if (Interaction.OnMouseClick(label.Position, labelElementSize))
                 {

@@ -296,7 +296,7 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 Label label = this.menuButtonElements[i];
 
-                Vector2 size = label.MeasuredText / 2.0f;
+                Vector2 size = label.Size / 2.0f;
                 Vector2 position = label.Position;
 
                 if (Interaction.OnMouseClick(position, size))

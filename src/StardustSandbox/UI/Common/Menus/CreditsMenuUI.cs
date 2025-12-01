@@ -248,7 +248,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                     this.creditElements.Add(sectionTitleElement);
 
-                    margin.Y += sectionTitleElement.MeasuredText.Y + VERTICAL_SPACING;
+                    margin.Y += sectionTitleElement.Size.Y + VERTICAL_SPACING;
                 }
 
                 for (int j = 0; j < creditSection.Contents.Length; j++)
@@ -270,7 +270,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                         this.creditElements.Add(contentTitleElement);
 
-                        margin.Y += contentTitleElement.MeasuredText.Y + VERTICAL_SPACING;
+                        margin.Y += contentTitleElement.Size.Y + VERTICAL_SPACING;
 
                         continue;
                     }
@@ -291,7 +291,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                         this.creditElements.Add(contentText);
 
-                        margin.Y += contentText.MeasuredText.Y + VERTICAL_SPACING;
+                        margin.Y += contentText.Size.Y + VERTICAL_SPACING;
 
                         continue;
                     }

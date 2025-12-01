@@ -501,7 +501,7 @@ namespace StardustSandbox.UI.Common.Menus
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
-                    Margin = new(label.MeasuredText.X + 6f, label.MeasuredText.Y / 2f * -1f),
+                    Margin = new(label.Size.X + 6f, label.Size.Y / 2f * -1f),
                 },
 
                 new()
@@ -529,7 +529,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(192, 160, 32, 32),
                 Size = new(32.0f),
-                Margin = new(0, label.MeasuredText.Y / 2f * -1f)
+                Margin = new(0, label.Size.Y / 2f * -1f)
             };
 
             Image plus = new()
@@ -563,7 +563,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SourceRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
                 Size = new(32.0f),
-                Margin = new(label.MeasuredText.X + 6.0f, label.MeasuredText.Y / 2.0f * -1.0f),
+                Margin = new(label.Size.X + 6.0f, label.Size.Y / 2.0f * -1.0f),
             };
 
             label.AddChild(togglePreviewImageElement);
@@ -676,7 +676,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label label = item.Value;
 
-                Vector2 size = label.MeasuredText / 2.0f;
+                Vector2 size = label.Size / 2.0f;
                 Vector2 position = label.Position;
 
                 bool onMouseOver = Interaction.OnMouseOver(position, size);
@@ -709,7 +709,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Label label = this.systemButtonElements[i];
                 ButtonInfo button = this.systemButtons[i];
 
-                Vector2 size = label.MeasuredText / 2.0f;
+                Vector2 size = label.Size / 2.0f;
                 Vector2 position = label.Position;
 
                 if (Interaction.OnMouseClick(position, size))
@@ -817,7 +817,7 @@ namespace StardustSandbox.UI.Common.Menus
         private static void UpdateValueOption(ValueOption valueOption, Label label)
         {
             label.TextContent = string.Concat(valueOption.Name, ": ", valueOption.CurrentValue.ToString($"D{valueOption.MaximumValue.ToString().Length}"));
-            Vector2 labelElementSize = label.MeasuredText;
+            Vector2 labelElementSize = label.Size;
 
             UIElement plus = (UIElement)label.GetData("plus_element");
             UIElement minus = (UIElement)label.GetData("minus_element");

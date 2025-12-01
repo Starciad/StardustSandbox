@@ -188,7 +188,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.075f),
-                Margin = new(0.0f, this.worldCreationTimestampElement.MeasuredText.Y + (64.0f * -1.0f)),
+                Margin = new(0.0f, this.worldCreationTimestampElement.Size.Y + (64.0f * -1.0f)),
                 Alignment = CardinalDirection.Northeast,
                 TextContent = "Version 1.0.0",
             };
@@ -219,7 +219,7 @@ namespace StardustSandbox.UI.Common.Menus
                 };
 
                 root.AddChild(buttonLabel);
-                margin.Y -= buttonLabel.MeasuredText.Y + 8.0f;
+                margin.Y -= buttonLabel.Size.Y + 8.0f;
 
                 this.worldButtonElements[i] = buttonLabel;
             }
@@ -236,7 +236,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label slotInfoElement = this.worldButtonElements[i];
 
-                Vector2 buttonSize = slotInfoElement.MeasuredText / 2.0f;
+                Vector2 buttonSize = slotInfoElement.Size / 2.0f;
                 Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.X, slotInfoElement.Position.Y - (buttonSize.Y / 4.0f));
 
                 if (Interaction.OnMouseClick(buttonPosition, buttonSize))

@@ -36,7 +36,7 @@ namespace StardustSandbox.UI.Elements
                 RepositionChildren();
             }
         }
-        internal Vector2 Size
+        internal virtual Vector2 Size
         {
             get => this.rawSize * this.scale;
             set
