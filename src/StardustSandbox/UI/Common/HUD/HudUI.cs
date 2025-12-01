@@ -332,7 +332,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.tooltipBox.CanDraw = false;
 
             UpdatePlayerInteractionOnToolbarHover();
-            // UpdateSlotIcons();
+            UpdateSimulationControlIcons();
             // UpdateToolbars();
             // UpdateDrawerButtons();
 
@@ -352,6 +352,20 @@ namespace StardustSandbox.UI.Common.HUD
                 Interaction.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
 
             this.inputController.Player.CanModifyEnvironment = !isMouseOverDrawerButtons && !isMouseOverToolbars;
+        }
+
+        private void UpdateSimulationControlIcons()
+        {
+            this.leftPanelBottomButtons[0].Icon.SourceRectangle = this.gameManager.HasState(GameStates.IsSimulationPaused)
+                ? this.pauseAndResumeRectangles[1] // Resume
+                : this.pauseAndResumeRectangles[0]; // Pause
+
+            this.leftPanelBottomButtons[1].Icon.SourceRectangle = this.world.Simulation.CurrentSpeed switch
+            {
+                SimulationSpeed.Fast => this.speedIconRectangles[1],
+                SimulationSpeed.VeryFast => this.speedIconRectangles[2],
+                _ => this.speedIconRectangles[0],
+            };
         }
 
         #endregion
