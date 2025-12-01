@@ -14,8 +14,21 @@ namespace StardustSandbox.UI.Elements
 {
     internal static class TooltipBoxContent
     {
-        internal static string Title { get; set; }
-        internal static string Description { get; set; }
+        internal static string Title => title;
+        internal static string Description => description;
+
+        private static string title;
+        private static string description;
+
+        internal static void SetTitle(string value)
+        {
+            title = value;
+        }
+
+        internal static void SetDescription(string value)
+        {
+            description = value;
+        }
     }
 
     internal sealed class TooltipBox : UIElement
@@ -54,7 +67,7 @@ namespace StardustSandbox.UI.Elements
                 Color = AAP64ColorPalette.DarkPurple,
                 Scale = new(10f, 10f),
                 Alignment = CardinalDirection.Center,
-                Size = new(32f),
+                Size = new(48f),
 
                 TileSize = new(16),
                 SourceRectangle = new(0, 32, 48, 48),
@@ -104,11 +117,8 @@ namespace StardustSandbox.UI.Elements
         {
             if (this.CanDraw)
             {
-                this.title.TextContent = TooltipBoxContent.Title;
-                this.description.TextContent = TooltipBoxContent.Description;
-
-                UpdateSize();
-                UpdatePosition();
+                SetTitle(TooltipBoxContent.Title);
+                SetDescription(TooltipBoxContent.Description);
 
                 if (!this.IsShowing)
                 {

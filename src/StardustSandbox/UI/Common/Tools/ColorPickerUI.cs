@@ -327,8 +327,8 @@ namespace StardustSandbox.UI.Common.Tools
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = colorButton.Name;
-                    TooltipBoxContent.Description = string.Empty;
+                    TooltipBoxContent.SetTitle(colorButton.Name);
+                    TooltipBoxContent.SetDescription(string.Empty);
                 }
             }
         }

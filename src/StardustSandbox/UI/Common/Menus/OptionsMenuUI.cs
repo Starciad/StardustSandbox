@@ -692,8 +692,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                     Section section = this.root.Sections[item.Key];
 
-                    TooltipBoxContent.Title = section.Name;
-                    TooltipBoxContent.Description = section.Description;
+                    TooltipBoxContent.SetTitle(section.Name);
+                    TooltipBoxContent.SetDescription(section.Description);
                 }
 
                 label.Color = this.selectedSectionIdentififer.Equals(item.Key)
@@ -721,8 +721,8 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = button.Name;
-                    TooltipBoxContent.Description = button.Description;
+                    TooltipBoxContent.SetTitle(button.Name);
+                    TooltipBoxContent.SetDescription(button.Description);
 
                     label.Color = AAP64ColorPalette.LemonYellow;
                 }
@@ -756,8 +756,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = option.Name;
-                    TooltipBoxContent.Description = option.Description;
+                    TooltipBoxContent.SetTitle(option.Name);
+                    TooltipBoxContent.SetDescription(option.Description);
                 }
                 else
                 {

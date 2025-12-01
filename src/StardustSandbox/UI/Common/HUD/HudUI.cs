@@ -333,6 +333,14 @@ namespace StardustSandbox.UI.Common.HUD
 
             UpdatePlayerInteractionOnToolbarHover();
             UpdateSimulationControlIcons();
+
+            UpdateTopToolbarToolPreview();
+            UpdateTopToolbarItemButtons();
+            // UpdateTopToolbarSearchButton();
+
+            // UpdateLeftToolbar();
+            // UpdateRightToolbar();
+
             // UpdateToolbars();
             // UpdateDrawerButtons();
 
@@ -366,6 +374,94 @@ namespace StardustSandbox.UI.Common.HUD
                 SimulationSpeed.VeryFast => this.speedIconRectangles[2],
                 _ => this.speedIconRectangles[0],
             };
+        }
+
+        private void UpdateTopToolbarToolPreview()
+        {
+            if (Interaction.OnMouseOver(
+                this.toolbarCurrentlySelectedToolIcon.Position,
+                this.toolbarCurrentlySelectedToolIcon.Size
+            ))
+            {
+                this.tooltipBox.CanDraw = true;
+
+                switch (this.inputController.Pen.Tool)
+                {
+                    case PenTool.Visualization:
+                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Visualization_Name);
+                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Visualization_Description);
+                        break;
+
+                    case PenTool.Pencil:
+                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Pencil_Name);
+                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Pencil_Description);
+                        break;
+
+                    case PenTool.Eraser:
+                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Eraser_Name);
+                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Eraser_Description);
+                        break;
+
+                    case PenTool.Fill:
+                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Fill_Name);
+                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Fill_Description);
+                        break;
+
+                    case PenTool.Replace:
+                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Replace_Name);
+                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Replace_Description);
+                        break;
+
+                    default:
+                        TooltipBoxContent.SetTitle(Localization_Statements.Unknown);
+                        TooltipBoxContent.SetDescription(string.Empty);
+                        break;
+                }
+            }
+        }
+
+        private void UpdateTopToolbarItemButtons()
+        {
+            for (byte i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
+            {
+                SlotInfo slot = this.toolbarSlots[i];
+                bool isOver = Interaction.OnMouseOver(slot.Background.Position, slot.Background.Size);
+
+                if (Interaction.OnMouseClick(slot.Background.Position, slot.Background.Size))
+                {
+                    SelectItemSlot(i, (Item)slot.Background.GetData(UIConstants.DATA_ITEM));
+                }
+
+                if (isOver)
+                {
+                    this.tooltipBox.CanDraw = true;
+
+                    slot.Background.Scale = Vector2.Lerp(
+                        slot.Background.Scale,
+                        new(UIConstants.HUD_SLOT_SCALE + 0.2f),
+                        0.2f
+                    );
+
+                    Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
+
+                    TooltipBoxContent.SetTitle(item.Name);
+                    TooltipBoxContent.SetDescription(item.Description);
+                }
+                else
+                {
+                    slot.Background.Scale = Vector2.Lerp(
+                        slot.Background.Scale,
+                        new(UIConstants.HUD_SLOT_SCALE),
+                        0.2f
+                    );
+                }
+
+                slot.Background.Color = this.slotSelectedIndex == i
+                    ? AAP64ColorPalette.OrangeRed
+                    : isOver
+                        ? AAP64ColorPalette.EmeraldGreen
+                        : AAP64ColorPalette.White;
+            }
         }
 
         #endregion

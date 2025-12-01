@@ -373,7 +373,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         // =============================================================== //
 
-        private SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
+        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
             Image backgroundElement = new()
             {
@@ -433,8 +433,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = this.menuButtons[i].Name;
-                    TooltipBoxContent.Description = this.menuButtons[i].Description;
+                    TooltipBoxContent.SetTitle(this.menuButtons[i].Name);
+                    TooltipBoxContent.SetDescription(this.menuButtons[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -459,8 +459,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name;
-                    TooltipBoxContent.Description = string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1);
+                    TooltipBoxContent.SetTitle(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name);
+                    TooltipBoxContent.SetDescription(string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1));
                 }
 
                 if (Interaction.OnMouseDown(position, size))
@@ -492,8 +492,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = this.toolButtons[i].Name;
-                    TooltipBoxContent.Description = this.toolButtons[i].Description;
+                    TooltipBoxContent.SetTitle(this.toolButtons[i].Name);
+                    TooltipBoxContent.SetDescription(this.toolButtons[i].Description);
                 }
 
                 slot.Background.Color = this.toolButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -516,8 +516,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = this.layerButtons[i].Name;
-                    TooltipBoxContent.Description = this.layerButtons[i].Description;
+                    TooltipBoxContent.SetTitle(this.layerButtons[i].Name);
+                    TooltipBoxContent.SetDescription(this.layerButtons[i].Description);
                 }
 
                 slot.Background.Color = this.layerButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -540,8 +540,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = this.shapeButtons[i].Name;
-                    TooltipBoxContent.Description = this.shapeButtons[i].Description;
+                    TooltipBoxContent.SetTitle(this.shapeButtons[i].Name);
+                    TooltipBoxContent.SetDescription(this.shapeButtons[i].Description);
                 }
 
                 slot.Background.Color = this.shapeButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;

@@ -220,7 +220,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         // =============================================================== //
 
-        private SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
+        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
             Image backgroundElement = new()
             {
@@ -291,8 +291,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.Title = this.sizeButtons[i].Name;
-                    TooltipBoxContent.Description = this.sizeButtons[i].Description;
+                    TooltipBoxContent.SetTitle(this.sizeButtons[i].Name);
+                    TooltipBoxContent.SetDescription(this.sizeButtons[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
