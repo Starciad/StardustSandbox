@@ -1,11 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Catalog;
+using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
@@ -326,7 +329,28 @@ namespace StardustSandbox.UI.Common.HUD
         {
             base.Update(gameTime);
             this.tooltipBox.CanDraw = false;
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+
+            UpdatePlayerInteractionOnToolbarHover();
+            // UpdateSlotIcons();
+            // UpdateToolbars();
+            // UpdateDrawerButtons();
+
+            this.tooltipBox.RefreshDisplay();
+        }
+
+        private void UpdatePlayerInteractionOnToolbarHover()
+        {
+            // bool isMouseOverDrawerButtons =
+            //     Interaction.OnMouseOver(this.topDrawerButton.Position, this.topDrawerButton.Size) ||
+            //     Interaction.OnMouseOver(this.leftDrawerButton.Position, this.leftDrawerButton.Size) ||
+            //     Interaction.OnMouseOver(this.rightDrawerButton.Position, this.rightDrawerButton.Size);
+
+            bool isMouseOverToolbars =
+                Interaction.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
+                Interaction.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
+                Interaction.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
+
+            this.inputController.Player.CanModifyEnvironment = !isMouseOverToolbars;
         }
 
         #endregion

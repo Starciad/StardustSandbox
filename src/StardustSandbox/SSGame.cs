@@ -199,7 +199,7 @@ namespace StardustSandbox
             this.GraphicsDevice.SetRenderTarget(null);
             this.GraphicsDevice.Clear(AAP64ColorPalette.DarkGray);
             this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.spriteBatch.Draw(this.videoManager.ScreenRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, this.videoManager.GetScreenScaleFactor(), SpriteEffects.None, 0f);
+            this.spriteBatch.Draw(this.videoManager.ScreenRenderTarget, this.videoManager.AdjustRenderTargetOnScreen(this.videoManager.ScreenRenderTarget), Color.White);
             this.cursorManager.Draw(this.spriteBatch);
             this.spriteBatch.End();
             #endregion
@@ -210,6 +210,8 @@ namespace StardustSandbox
         protected override void UnloadContent()
         {
             AssetDatabase.Unload();
+            this.videoManager.Unload();
+
             base.UnloadContent();
         }
 

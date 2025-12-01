@@ -426,7 +426,7 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateItemCatalog();
             UpdatePagination();
 
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateMenuButtons()

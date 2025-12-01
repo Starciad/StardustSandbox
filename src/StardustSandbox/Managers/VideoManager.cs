@@ -5,12 +5,14 @@ using StardustSandbox.Constants;
 using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Settings;
 
+using System;
+
 namespace StardustSandbox.Managers
 {
     internal sealed class VideoManager
     {
-        internal GraphicsDeviceManager GraphicsDeviceManager => this._graphicsDeviceManager;
-        internal GraphicsDevice GraphicsDevice => this._graphicsDeviceManager.GraphicsDevice;
+        internal GraphicsDeviceManager GraphicsDeviceManager => this.graphicsDeviceManager;
+        internal GraphicsDevice GraphicsDevice => this.graphicsDeviceManager.GraphicsDevice;
         internal GameWindow GameWindow { get; private set; }
 
         internal Viewport Viewport => this.GraphicsDevice.Viewport;
@@ -20,7 +22,7 @@ namespace StardustSandbox.Managers
         internal RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
         internal RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
 
-        private readonly GraphicsDeviceManager _graphicsDeviceManager;
+        private readonly GraphicsDeviceManager graphicsDeviceManager;
 
         private RenderTarget2D backgroundRenderTarget;
         private RenderTarget2D screenRenderTarget;
@@ -29,7 +31,7 @@ namespace StardustSandbox.Managers
 
         internal VideoManager(GraphicsDeviceManager graphicsDeviceManager)
         {
-            this._graphicsDeviceManager = graphicsDeviceManager;
+            this.graphicsDeviceManager = graphicsDeviceManager;
             ApplySettings();
         }
 
@@ -55,19 +57,19 @@ namespace StardustSandbox.Managers
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                this._graphicsDeviceManager.PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH;
-                this._graphicsDeviceManager.PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT;
+                this.graphicsDeviceManager.PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH;
+                this.graphicsDeviceManager.PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT;
             }
             else
             {
-                this._graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Width;
-                this._graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Height;
+                this.graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Width;
+                this.graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Height;
             }
 
-            this._graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
-            this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
-            this._graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
-            this._graphicsDeviceManager.ApplyChanges();
+            this.graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
+            this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
+            this.graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
+            this.graphicsDeviceManager.ApplyChanges();
         }
 
         internal void SetGameWindow(GameWindow gameWindow)
@@ -75,12 +77,35 @@ namespace StardustSandbox.Managers
             this.GameWindow = gameWindow;
         }
 
-        internal Vector2 GetScreenScaleFactor()
+        internal Rectangle AdjustRenderTargetOnScreen(RenderTarget2D renderTarget)
         {
-            return new(
-                this._graphicsDeviceManager.PreferredBackBufferWidth / (float)ScreenConstants.SCREEN_WIDTH,
-                this._graphicsDeviceManager.PreferredBackBufferHeight / (float)ScreenConstants.SCREEN_HEIGHT
+            Rectangle screenDimensions, adjustedScreen;
+            double scale, newWidth, newHeight, posX, posY;
+
+            screenDimensions = this.GraphicsDevice.PresentationParameters.Bounds;
+
+            scale = Math.Min(
+                (double)screenDimensions.Width / renderTarget.Width,
+                (double)screenDimensions.Height / renderTarget.Height
             );
+
+            newWidth = renderTarget.Width * scale;
+            newHeight = renderTarget.Height * scale;
+
+            posX = (screenDimensions.Width - newWidth) / 2;
+            posY = (screenDimensions.Height - newHeight) / 2;
+
+            adjustedScreen = new((int)posX, (int)posY, (int)newWidth, (int)newHeight);
+
+            return adjustedScreen;
+        }
+
+        internal void Unload()
+        {
+            this.screenRenderTarget.Dispose();
+            this.uiRenderTarget.Dispose();
+            this.backgroundRenderTarget.Dispose();
+            this.worldRenderTarget.Dispose();
         }
     }
 }

@@ -100,12 +100,12 @@ namespace StardustSandbox.UI.Elements
             base.Draw(spriteBatch);
         }
 
-        internal void RefreshDisplay(string title, string description)
+        internal void RefreshDisplay()
         {
             if (this.CanDraw)
             {
-                this.title.TextContent = title;
-                this.description.TextContent = description;
+                this.title.TextContent = TooltipBoxContent.Title;
+                this.description.TextContent = TooltipBoxContent.Description;
 
                 UpdateSize();
                 UpdatePosition();

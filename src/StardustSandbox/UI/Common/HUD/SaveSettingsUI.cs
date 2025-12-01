@@ -421,7 +421,7 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateFieldButtons();
             UpdateFooterButtons();
 
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateMenuButtons()

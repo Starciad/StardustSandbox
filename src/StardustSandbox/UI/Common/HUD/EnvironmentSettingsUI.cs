@@ -280,7 +280,7 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateTimeStateButtons();
             UpdateTimeButtons();
 
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateMenuButtons()

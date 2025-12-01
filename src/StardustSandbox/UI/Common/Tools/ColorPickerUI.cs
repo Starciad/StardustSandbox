@@ -287,7 +287,7 @@ namespace StardustSandbox.UI.Common.Tools
             UpdateMenuButtons();
             UpdateColorButtons();
 
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateMenuButtons()

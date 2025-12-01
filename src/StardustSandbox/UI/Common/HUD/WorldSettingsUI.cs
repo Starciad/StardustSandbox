@@ -255,7 +255,7 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateMenuButtons();
             UpdateSizeButtons();
 
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateMenuButtons()

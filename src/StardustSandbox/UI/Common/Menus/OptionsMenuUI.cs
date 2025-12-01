@@ -667,7 +667,7 @@ namespace StardustSandbox.UI.Common.Menus
             UpdateSystemButtons();
             UpdateSectionOptions();
 
-            this.tooltipBox.RefreshDisplay(TooltipBoxContent.Title, TooltipBoxContent.Description);
+            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateSectionButtons()
