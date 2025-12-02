@@ -25,10 +25,10 @@ namespace StardustSandbox.Managers
             this.cloudHandler.Reset();
         }
 
-        internal void Initialize(CameraManager cameraManager, GameManager gameManager, World world)
+        internal void Initialize(GameManager gameManager, World world)
         {
             this.backgroundHandler = new();
-            this.cloudHandler = new(cameraManager, gameManager, world.Simulation);
+            this.cloudHandler = new(gameManager, world.Simulation);
             this.skyHandler = new();
             this.timeHandler = new(world.Time);
             this.celestialBodyHandler = new(this.timeHandler, world);

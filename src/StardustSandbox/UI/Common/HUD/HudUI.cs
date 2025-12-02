@@ -345,9 +345,9 @@ namespace StardustSandbox.UI.Common.HUD
             UpdatePlayerInteractionOnToolbarHover();
             UpdateSimulationControlIcons();
 
-            AnimateToolbarPosition(this.topToolbarContainer, this.isTopToolbarExpanded, new(0.0f, (this.topToolbarContainer.Size.Y + this.topDrawerButton.Size.Y / 2.0f + 8.0f) * -1.0f));
-            AnimateToolbarPosition(this.leftToolbarContainer, this.isLeftToolbarExpanded, new((this.leftToolbarContainer.Size.X + this.leftDrawerButton.Size.X / 2.0f + 8.0f) * -1.0f, 0.0f));
-            AnimateToolbarPosition(this.rightToolbarContainer, this.isRightToolbarExpanded, new(this.rightToolbarContainer.Size.X + this.rightDrawerButton.Size.X / 2.0f + 8.0f, 0.0f));
+            AnimateToolbarPosition(this.topToolbarContainer, this.isTopToolbarExpanded, new(0.0f, (this.topToolbarContainer.Size.Y + (this.topDrawerButton.Size.Y / 2.0f) + 8.0f) * -1.0f));
+            AnimateToolbarPosition(this.leftToolbarContainer, this.isLeftToolbarExpanded, new((this.leftToolbarContainer.Size.X + (this.leftDrawerButton.Size.X / 2.0f) + 8.0f) * -1.0f, 0.0f));
+            AnimateToolbarPosition(this.rightToolbarContainer, this.isRightToolbarExpanded, new(this.rightToolbarContainer.Size.X + (this.rightDrawerButton.Size.X / 2.0f) + 8.0f, 0.0f));
 
             if (this.isTopToolbarExpanded)
             {
@@ -355,18 +355,19 @@ namespace StardustSandbox.UI.Common.HUD
                 UpdateTopToolbarItemButtons();
                 UpdateTopToolbarSearchButton();
             }
-            
+
             if (this.isLeftToolbarExpanded)
             {
                 UpdatePanelButtons(this.leftPanelTopButtonSlotInfos, this.leftPanelTopButtonInfos);
                 UpdatePanelButtons(this.leftPanelBottomButtonSlotInfos, this.leftPanelBottomButtonInfos);
             }
-            
+
             if (this.isRightToolbarExpanded)
             {
                 UpdatePanelButtons(this.rightPanelTopButtonSlotInfos, this.rightPanelTopButtonInfos);
-            }   UpdatePanelButtons(this.rightPanelBottomButtonSlotInfos, this.rightPanelBottomButtonInfos);
-            
+            }
+            UpdatePanelButtons(this.rightPanelBottomButtonSlotInfos, this.rightPanelBottomButtonInfos);
+
             UpdateDrawerButtons();
 
             base.Update(gameTime);
@@ -693,7 +694,7 @@ namespace StardustSandbox.UI.Common.HUD
         private void UpdateLastSlot(Item item)
         {
             SlotInfo lastSlot = this.toolbarSlots[^1];
-            
+
             lastSlot.Background.UpdateData(UIConstants.DATA_ITEM, item);
             lastSlot.Icon.Texture = item.Texture;
             lastSlot.Icon.SourceRectangle = item.SourceRectangle;

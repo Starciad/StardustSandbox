@@ -60,15 +60,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnBuild(Container root)
         {
-            BuildBackground(root);
-            BuildCaption(root);
-            BuildMessage(root);
-            BuildMenuButtons(root);
-        }
-
-        private static void BuildBackground(Container root)
-        {
-            Image guiBackground = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -76,11 +68,6 @@ namespace StardustSandbox.UI.Common.Tools
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            root.AddChild(guiBackground);
-        }
-
-        private void BuildCaption(Container root)
-        {
             this.caption = new()
             {
                 Scale = new(0.1f),
@@ -89,14 +76,8 @@ namespace StardustSandbox.UI.Common.Tools
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
-                TextContent = "Caption"
             };
 
-            root.AddChild(this.caption);
-        }
-
-        private void BuildMessage(Container root)
-        {
             this.message = new()
             {
                 Scale = new(0.1f),
@@ -105,10 +86,13 @@ namespace StardustSandbox.UI.Common.Tools
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.Center,
-                TextContent = "Message",
             };
 
+            root.AddChild(background);
+            root.AddChild(this.caption);
             root.AddChild(this.message);
+
+            BuildMenuButtons(root);
         }
 
         private void BuildMenuButtons(Container root)

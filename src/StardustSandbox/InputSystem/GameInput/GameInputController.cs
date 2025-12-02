@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Camera;
 using StardustSandbox.Enums.InputSystem;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.InputSystem.GameInput.Handlers;
@@ -15,7 +16,6 @@ namespace StardustSandbox.InputSystem.GameInput
         internal Pen Pen => this.pen;
         internal Player Player => this.player;
 
-        private CameraHandler cameraHandler;
         private SimulationHandler simulationHandler;
         private WorldHandler worldHandler;
         private InputActionMapHandler actionHandler;
@@ -36,10 +36,10 @@ namespace StardustSandbox.InputSystem.GameInput
             InputActionMap simulationKeyboardActionMap = this.actionHandler.AddActionMap("Simulation_Keyboard", true);
             InputActionMap worldKeyboardActionMap = this.actionHandler.AddActionMap("World_Keyboard", true);
 
-            cameraKeyboardActionMap.AddAction("Move_Camera_Up", new InputAction(this.inputManager, Keys.W, Keys.Up)).OnPerformed += _ => this.cameraHandler.MoveCamera(new Vector2(0, this.player.MovementSpeed));
-            cameraKeyboardActionMap.AddAction("Move_Camera_Right", new InputAction(this.inputManager, Keys.D, Keys.Right)).OnPerformed += _ => this.cameraHandler.MoveCamera(new Vector2(this.player.MovementSpeed, 0));
-            cameraKeyboardActionMap.AddAction("Move_Camera_Down", new InputAction(this.inputManager, Keys.S, Keys.Down)).OnPerformed += _ => this.cameraHandler.MoveCamera(new Vector2(0, -this.player.MovementSpeed));
-            cameraKeyboardActionMap.AddAction("Move_Camera_Left", new InputAction(this.inputManager, Keys.A, Keys.Left)).OnPerformed += _ => this.cameraHandler.MoveCamera(new Vector2(-this.player.MovementSpeed, 0));
+            cameraKeyboardActionMap.AddAction("Move_Camera_Up", new InputAction(this.inputManager, Keys.W, Keys.Up)).OnPerformed += _ => SSCamera.Move(new Vector2(0, this.player.MovementSpeed));
+            cameraKeyboardActionMap.AddAction("Move_Camera_Right", new InputAction(this.inputManager, Keys.D, Keys.Right)).OnPerformed += _ => SSCamera.Move(new Vector2(this.player.MovementSpeed, 0));
+            cameraKeyboardActionMap.AddAction("Move_Camera_Down", new InputAction(this.inputManager, Keys.S, Keys.Down)).OnPerformed += _ => SSCamera.Move(new Vector2(0, -this.player.MovementSpeed));
+            cameraKeyboardActionMap.AddAction("Move_Camera_Left", new InputAction(this.inputManager, Keys.A, Keys.Left)).OnPerformed += _ => SSCamera.Move(new Vector2(-this.player.MovementSpeed, 0));
 
             simulationKeyboardActionMap.AddAction("Toggle_Pause", new(this.inputManager, Keys.Space)).OnStarted += _ => this.simulationHandler.TogglePause();
 
@@ -53,11 +53,10 @@ namespace StardustSandbox.InputSystem.GameInput
             worldMouseActionMap.AddAction("Erase_Item", new(this.inputManager, MouseButton.Right)).OnPerformed += _ => this.worldHandler.Modify(WorldModificationType.Removing);
         }
 
-        internal void Initialize(CameraManager cameraManager, GameManager gameManager, InputManager inputManager, World world)
+        internal void Initialize(GameManager gameManager, InputManager inputManager, World world)
         {
-            this.cameraHandler = new(cameraManager);
             this.simulationHandler = new(gameManager);
-            this.worldHandler = new(cameraManager, inputManager, this.player, this.pen, world);
+            this.worldHandler = new(inputManager, this.player, this.pen, world);
 
             this.inputManager = inputManager;
             this.actionHandler = new();

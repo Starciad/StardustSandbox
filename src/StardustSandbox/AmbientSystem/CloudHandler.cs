@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.BackgroundSystem.Clouds;
+using StardustSandbox.Camera;
 using StardustSandbox.Collections;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.States;
@@ -16,7 +17,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.AmbientSystem
 {
-    internal sealed class CloudHandler(CameraManager cameraManager, GameManager gameManager, Simulation simulation) : IResettable
+    internal sealed class CloudHandler(GameManager gameManager, Simulation simulation) : IResettable
     {
         internal bool IsActive { get; set; } = true;
 
@@ -31,7 +32,6 @@ namespace StardustSandbox.AmbientSystem
         private readonly List<Cloud> activeClouds = new(BackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly ObjectPool cloudPool = new();
 
-        private readonly CameraManager cameraManager = cameraManager;
         private readonly GameManager gameManager = gameManager;
         private readonly Simulation simulation = simulation;
 
@@ -53,7 +53,7 @@ namespace StardustSandbox.AmbientSystem
                     continue;
                 }
 
-                if (!this.cameraManager.InsideCameraBounds(cloud.Position, new Point(cloud.SourceRectangle.Width, cloud.SourceRectangle.Height), false, cloud.SourceRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
+                if (!SSCamera.InsideCameraBounds(cloud.Position, new Point(cloud.SourceRectangle.Width, cloud.SourceRectangle.Height), false, cloud.SourceRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
                 {
                     DestroyCloud(cloud);
                     continue;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.AudioSystem;
+using StardustSandbox.Camera;
 using StardustSandbox.Colors;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
@@ -36,7 +37,6 @@ namespace StardustSandbox
 
         // Managers
         private readonly AmbientManager ambientManager;
-        private readonly CameraManager cameraManager;
         private readonly CursorManager cursorManager;
         private readonly GameManager gameManager;
         private readonly InputManager inputManager;
@@ -96,14 +96,15 @@ namespace StardustSandbox
             this.ambientManager = new();
 
             // Core
-            this.cameraManager = new(this.videoManager);
-            this.world = new(this.cameraManager, this.inputController, this.gameManager);
+            this.world = new(this.inputController, this.gameManager);
         }
 
         #region ROUTINE
 
         protected override void Initialize()
         {
+            SSCamera.Initialize(this.videoManager);
+
             this.gameplaySettings = SettingsHandler.LoadSettings<GameplaySettings>();
             this.volumeSettings = SettingsHandler.LoadSettings<VolumeSettings>();
 
@@ -121,19 +122,19 @@ namespace StardustSandbox
             ElementDatabase.Load();
             CatalogDatabase.Load();
             UIDatabase.Load(this.ambientManager, this.cursorManager, this.gameManager, this.Window, this.GraphicsDevice, this.inputController, this.inputManager, this.uiManager, this.videoManager, this.world);
-            BackgroundDatabase.Load(this.cameraManager);
+            BackgroundDatabase.Load();
             ToolDatabase.Load();
 
             // Managers
-            this.gameManager.Initialize(this.ambientManager, this.cameraManager, this.inputController, this.uiManager, this.world);
+            this.gameManager.Initialize(this.ambientManager, this.inputController, this.uiManager, this.world);
             this.videoManager.Initialize();
             this.shaderManager.Initialize();
             this.inputManager.Initialize(this.videoManager);
             this.cursorManager.Initialize(this.inputManager);
-            this.ambientManager.Initialize(this.cameraManager, this.gameManager, this.world);
+            this.ambientManager.Initialize(this.gameManager, this.world);
 
             // Controllers
-            this.inputController.Initialize(this.cameraManager, this.gameManager, this.inputManager, this.world);
+            this.inputController.Initialize(this.gameManager, this.inputManager, this.world);
 
             // ============================= //
 
@@ -285,7 +286,7 @@ namespace StardustSandbox
         {
             this.GraphicsDevice.SetRenderTarget(this.videoManager.WorldRenderTarget);
             this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.cameraManager.GetViewMatrix());
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, SSCamera.GetViewMatrix());
             this.world.Draw(this.spriteBatch);
             this.spriteBatch.End();
         }
@@ -309,7 +310,7 @@ namespace StardustSandbox
             }
 
             Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
-            Vector2 worldMousePosition = this.cameraManager.ScreenToWorld(mousePosition);
+            Vector2 worldMousePosition = SSCamera.ScreenToWorld(mousePosition);
 
             Point alignedPosition = new(
                 (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
@@ -323,7 +324,7 @@ namespace StardustSandbox
                     point.Y * WorldConstants.GRID_SIZE
                 );
 
-                Vector2 screenPosition = this.cameraManager.WorldToScreen(worldPosition);
+                Vector2 screenPosition = SSCamera.WorldToScreen(worldPosition);
 
                 this.spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), screenPosition, new(110, 0, 32, 32), this.gameplaySettings.PreviewAreaColor, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             }

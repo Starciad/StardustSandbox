@@ -6,6 +6,8 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.UI.Elements;
 
+using System;
+
 namespace StardustSandbox.UI
 {
     internal abstract class UIBase
@@ -14,6 +16,7 @@ namespace StardustSandbox.UI
         internal bool IsActive => this.isActive;
 
         private bool isActive;
+        private bool isInitialized;
 
         private readonly Container root;
         private readonly UIIndex index;
@@ -35,8 +38,15 @@ namespace StardustSandbox.UI
 
         internal virtual void Initialize()
         {
+            if (this.isInitialized)
+            {
+                throw new InvalidOperationException($"{GetType().Name} has already been initialized.");
+            }
+
             OnBuild(this.root);
             this.root.Initialize();
+
+            this.isInitialized = true;
         }
 
         internal virtual void Update(GameTime gameTime)

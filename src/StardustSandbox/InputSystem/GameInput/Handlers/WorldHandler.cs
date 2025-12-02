@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Camera;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.InputSystem.GameInput.Handlers.Gizmos;
 using StardustSandbox.InputSystem.GameInput.Simulation;
@@ -24,16 +25,14 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers
         private readonly FloodFillGizmo floodFillGizmo;
         private readonly ReplaceGizmo replaceGizmo;
 
-        private readonly CameraManager cameraManager;
         private readonly InputManager inputManager;
 
         private readonly World world;
 
-        internal WorldHandler(CameraManager cameraManager, InputManager inputManager, Player player, Pen pen, World world)
+        internal WorldHandler(InputManager inputManager, Player player, Pen pen, World world)
         {
             this.world = world;
 
-            this.cameraManager = cameraManager;
             this.inputManager = inputManager;
 
             this.ToolContext = new ToolContext(world);
@@ -60,7 +59,7 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers
                 return;
             }
 
-            Point mousePosition = GetWorldGridPositionFromMouse(this.inputManager, this.cameraManager).ToPoint();
+            Point mousePosition = GetWorldGridPositionFromMouse(this.inputManager).ToPoint();
 
             switch (this.pen.Tool)
             {
@@ -96,14 +95,14 @@ namespace StardustSandbox.InputSystem.GameInput.Handlers
             return this.player.CanModifyEnvironment && this.player.SelectedItem != null;
         }
 
-        private static Vector2 GetWorldGridPositionFromMouse(InputManager inputManager, CameraManager cameraManager)
+        private static Vector2 GetWorldGridPositionFromMouse(InputManager inputManager)
         {
-            return WorldMath.ToWorldPosition(ConvertScreenToWorld(cameraManager, inputManager.GetScaledMousePosition()));
+            return WorldMath.ToWorldPosition(ConvertScreenToWorld(inputManager.GetScaledMousePosition()));
         }
 
-        private static Vector2 ConvertScreenToWorld(CameraManager cameraManager, Vector2 screenPosition)
+        private static Vector2 ConvertScreenToWorld(Vector2 screenPosition)
         {
-            Vector3 worldPosition3D = Vector3.Transform(new(screenPosition, 0), Matrix.Invert(cameraManager.GetViewMatrix()));
+            Vector3 worldPosition3D = Vector3.Transform(new(screenPosition, 0), Matrix.Invert(SSCamera.GetViewMatrix()));
 
             return new Vector2(worldPosition3D.X, worldPosition3D.Y);
         }

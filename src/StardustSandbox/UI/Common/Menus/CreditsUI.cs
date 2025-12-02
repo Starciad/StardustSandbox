@@ -15,8 +15,6 @@ using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.WorldSystem;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.UI.Common.Menus
 {
     internal sealed class CreditsUI : UIBase
@@ -49,11 +47,10 @@ namespace StardustSandbox.UI.Common.Menus
             internal readonly CreditContent[] Contents => contents;
         }
 
+        private Container rootContainer;
         private UIElement lastElement;
-        private int elementCount;
 
         private readonly CreditSection[] creditSections;
-        private readonly List<UIElement> creditElements = [];
 
         private readonly World world;
 
@@ -61,7 +58,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly InputManager inputManager;
         private readonly UIManager uiManager;
 
-        private const float SPEED = 0.75f;
+        private const float SPEED = 0.05f;
         private const float VERTICAL_SPACING = 64.0f;
 
         internal CreditsUI(
@@ -218,18 +215,16 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnBuild(Container root)
         {
-            BuildElements(root);
-            RegisterElements(root);
+            this.rootContainer = root;
 
-            this.elementCount = this.creditElements.Count;
-            this.lastElement = this.creditElements[this.elementCount - 1];
+            BuildElements(root);
         }
 
         private void BuildElements(Container root)
         {
             Vector2 margin = new(0.0f, VERTICAL_SPACING * 2.0f);
 
-            for (byte i = 0; i < this.creditSections.Length; i++)
+            for (int i = 0; i < this.creditSections.Length; i++)
             {
                 CreditSection creditSection = this.creditSections[i];
 
@@ -245,8 +240,6 @@ namespace StardustSandbox.UI.Common.Menus
                     };
 
                     root.AddChild(sectionTitleElement);
-
-                    this.creditElements.Add(sectionTitleElement);
 
                     margin.Y += sectionTitleElement.Size.Y + VERTICAL_SPACING;
                 }
@@ -268,8 +261,6 @@ namespace StardustSandbox.UI.Common.Menus
 
                         root.AddChild(contentTitleElement);
 
-                        this.creditElements.Add(contentTitleElement);
-
                         margin.Y += contentTitleElement.Size.Y + VERTICAL_SPACING;
 
                         continue;
@@ -289,8 +280,6 @@ namespace StardustSandbox.UI.Common.Menus
                         contentText.Margin = margin + content.Margin;
                         root.AddChild(contentText);
 
-                        this.creditElements.Add(contentText);
-
                         margin.Y += contentText.Size.Y + VERTICAL_SPACING;
 
                         continue;
@@ -309,8 +298,6 @@ namespace StardustSandbox.UI.Common.Menus
 
                         root.AddChild(contentImage);
 
-                        this.creditElements.Add(contentImage);
-
                         margin.Y += contentImage.Size.Y + VERTICAL_SPACING;
 
                         continue;
@@ -321,27 +308,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        private void ResetElementsPosition()
-        {
-            for (int i = 0, length = this.creditElements.Count; i < length; i++)
-            {
-                UIElement element = this.creditElements[i];
-
-                element.Position = new(
-                    element.Position.X,
-                    ScreenConstants.SCREEN_HEIGHT + (element.Size.Y * element.Scale.Y) + (i * VERTICAL_SPACING)
-                );
-            }
-        }
-
-        private void RegisterElements(Container root)
-        {
-            foreach (UIElement element in this.creditElements)
-            {
-                root.AddChild(element);
-            }
-        }
-
         #endregion
 
         #region UPDATING
@@ -349,8 +315,12 @@ namespace StardustSandbox.UI.Common.Menus
         internal override void Update(GameTime gameTime)
         {
             UpdateUserInput();
-            UpdateElementsPosition();
             CheckIfTheCreditsHaveFinished();
+
+            this.rootContainer.Margin = new Vector2(
+                this.rootContainer.Margin.X,
+                this.rootContainer.Margin.Y - (SPEED * (float)gameTime.ElapsedGameTime.TotalMilliseconds)
+            );
 
             base.Update(gameTime);
         }
@@ -361,14 +331,6 @@ namespace StardustSandbox.UI.Common.Menus
                 this.inputManager.KeyboardState.GetPressedKeyCount() > 0)
             {
                 this.uiManager.CloseGUI();
-            }
-        }
-
-        private void UpdateElementsPosition()
-        {
-            foreach (UIElement creditElement in this.creditElements)
-            {
-                creditElement.Position = new(creditElement.Position.X, creditElement.Position.Y - SPEED);
             }
         }
 
@@ -396,7 +358,9 @@ namespace StardustSandbox.UI.Common.Menus
 
             SongEngine.Play(SongIndex.V01_EndlessRebirth);
 
-            ResetElementsPosition();
+            this.rootContainer.Margin = new(0.0f, ScreenConstants.SCREEN_HEIGHT / 2.0f);
+
+            this.lastElement ??= this.rootContainer.Children[^1];
         }
 
         #endregion

@@ -527,13 +527,9 @@ namespace StardustSandbox.UI.Common.HUD
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
-                else if (this.hudUI.ItemIsEquipped(item))
-                {
-                    slot.Background.Color = AAP64ColorPalette.TealGray;
-                }
                 else
                 {
-                    slot.Background.Color = AAP64ColorPalette.White;
+                    slot.Background.Color = this.hudUI.ItemIsEquipped(item) ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
                 }
             }
         }

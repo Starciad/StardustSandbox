@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Camera;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -10,23 +11,21 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.InputSystem.GameInput;
 using StardustSandbox.Enums.World;
 using StardustSandbox.InputSystem.GameInput;
-using StardustSandbox.Managers;
 
 using System;
 
 namespace StardustSandbox.WorldSystem.Components
 {
-    internal sealed class WorldRendering(CameraManager cameraManager, InputController inputController, World world)
+    internal sealed class WorldRendering(InputController inputController, World world)
     {
-        private readonly CameraManager cameraManager = cameraManager;
         private readonly ElementContext elementRenderingContext = new(world);
         private readonly InputController inputController = inputController;
         private readonly World world = world;
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 topLeftWorld = this.cameraManager.ScreenToWorld(new Vector2(0, 0));
-            Vector2 bottomRightWorld = this.cameraManager.ScreenToWorld(new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
+            Vector2 topLeftWorld = SSCamera.ScreenToWorld(new Vector2(0, 0));
+            Vector2 bottomRightWorld = SSCamera.ScreenToWorld(new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
 
             int minTileX = (int)Math.Clamp(Math.Floor(topLeftWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
             int minTileY = (int)Math.Clamp(Math.Floor(topLeftWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);

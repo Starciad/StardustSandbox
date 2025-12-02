@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Managers;
+using StardustSandbox.Camera;
 
 namespace StardustSandbox.BackgroundSystem
 {
@@ -28,10 +28,10 @@ namespace StardustSandbox.BackgroundSystem
             this.lockY = lockY;
         }
 
-        internal void Update(CameraManager cameraManager, GameTime gameTime, int textureWidth, int textureHeight)
+        internal void Update(GameTime gameTime, int textureWidth, int textureHeight)
         {
             float elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Vector2 cameraPosition = cameraManager.Position;
+            Vector2 cameraPosition = SSCamera.Position;
 
             if (!this.lockX)
             {

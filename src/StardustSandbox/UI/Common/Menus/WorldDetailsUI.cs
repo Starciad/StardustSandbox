@@ -82,7 +82,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private static void BuildBackground(Container root)
         {
-            Image guiBackground = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -90,7 +90,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Color = new Color(AAP64ColorPalette.DarkGray, 160)
             };
 
-            root.AddChild(guiBackground);
+            root.AddChild(background);
         }
 
         private void BuildHeader(Container root)

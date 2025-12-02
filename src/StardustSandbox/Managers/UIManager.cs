@@ -52,7 +52,18 @@ namespace StardustSandbox.Managers
                 return;
             }
 
+            if (this.currentUI == ui)
+            {
+                return;
+            }
+
             this.currentUI?.Close();
+
+            while (this.uiStack.Contains(ui))
+            {
+                UIBase redundant = this.uiStack.Pop();
+                redundant.Close();
+            }
 
             this.uiStack.Push(ui);
             this.currentUI = ui;

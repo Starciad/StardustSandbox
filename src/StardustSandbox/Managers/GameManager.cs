@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.AudioSystem;
+using StardustSandbox.Camera;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.BackgroundSystem;
 using StardustSandbox.Enums.InputSystem.GameInput;
@@ -17,15 +18,13 @@ namespace StardustSandbox.Managers
         private GameStates states;
 
         private AmbientManager ambientManager;
-        private CameraManager cameraManager;
         private InputController inputController;
         private UIManager uiManager;
         private World world;
 
-        internal void Initialize(AmbientManager ambientManager, CameraManager cameraManager, InputController inputController, UIManager uiManager, World world)
+        internal void Initialize(AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
             this.ambientManager = ambientManager;
-            this.cameraManager = cameraManager;
             this.inputController = inputController;
             this.uiManager = uiManager;
             this.world = world;
@@ -50,7 +49,7 @@ namespace StardustSandbox.Managers
             this.world.Time.Reset();
             this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
-            this.cameraManager.Position = new(0f, -(this.world.Information.Size.Y * WorldConstants.GRID_SIZE));
+            SSCamera.Position = new(0f, -(this.world.Information.Size.Y * WorldConstants.GRID_SIZE));
 
             this.inputController.Pen.Tool = PenTool.Pencil;
             this.inputController.Activate();
@@ -92,12 +91,12 @@ namespace StardustSandbox.Managers
             float worldBottomLimit = (totalWorldHeight - visibleHeight) * -1;
             float worldTopLimit = 0f;
 
-            Vector2 cameraPosition = this.cameraManager.Position;
+            Vector2 cameraPosition = SSCamera.Position;
 
             cameraPosition.X = MathHelper.Clamp(cameraPosition.X, worldLeftLimit, worldRightLimit);
             cameraPosition.Y = MathHelper.Clamp(cameraPosition.Y, worldBottomLimit, worldTopLimit);
 
-            this.cameraManager.Position = cameraPosition;
+            SSCamera.Position = cameraPosition;
         }
 
         internal bool HasState(GameStates value)

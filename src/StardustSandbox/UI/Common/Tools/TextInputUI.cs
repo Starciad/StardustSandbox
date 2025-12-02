@@ -135,7 +135,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private static void BuildBackground(Container root)
         {
-            Image guiBackground = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -143,7 +143,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            root.AddChild(guiBackground);
+            root.AddChild(background);
         }
 
         private void BuildSynopsis(Container root)

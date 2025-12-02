@@ -21,7 +21,6 @@ using StardustSandbox.UI.Information;
 using StardustSandbox.WorldSystem;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.UI.Common.Menus
 {
@@ -29,12 +28,9 @@ namespace StardustSandbox.UI.Common.Menus
     {
         private Image background, gameTitle;
 
-        private Vector2 originalGameTitleElementPosition;
-
         private float animationTime;
-        private float[] buttonAnimationOffsets;
 
-        private Dictionary<Label, Vector2> buttonOriginalPositions;
+        private readonly float[] buttonAnimationOffsets;
 
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
@@ -74,41 +70,8 @@ namespace StardustSandbox.UI.Common.Menus
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
-        }
-
-        #region INITIALIZATION
-
-        private void ResetElementPositions()
-        {
-            this.background.AddChild(this.gameTitle);
-
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
-            {
-                this.background.AddChild(this.menuButtonLabels[i]);
-            }
-        }
-
-        private void LoadAnimationValues()
-        {
-            this.originalGameTitleElementPosition = this.gameTitle.Position;
-            this.buttonOriginalPositions = [];
             this.buttonAnimationOffsets = new float[this.menuButtonLabels.Length];
-
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
-            {
-                Label btn = this.menuButtonLabels[i];
-
-                this.buttonOriginalPositions[btn] = btn.Position;
-                this.buttonAnimationOffsets[i] = SSRandom.GetDouble() * MathF.PI * 2.0f;
-            }
         }
-
-        private void LoadMainMenuWorld()
-        {
-            this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -228,15 +191,20 @@ namespace StardustSandbox.UI.Common.Menus
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             this.animationTime += elapsedTime * animationSpeed;
-            this.gameTitle.Position = new(this.originalGameTitleElementPosition.X, this.originalGameTitleElementPosition.Y + (MathF.Sin(this.animationTime) * animationAmplitude));
+            this.gameTitle.Margin = new(
+                0.0f,
+                32.0f + (MathF.Sin(this.animationTime) * animationAmplitude)
+            );
 
             for (byte i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 Label button = this.menuButtonLabels[i];
-                Vector2 originalPosition = this.buttonOriginalPositions[button];
                 this.buttonAnimationOffsets[i] += elapsedTime * buttonAnimationSpeed;
 
-                button.Position = new(originalPosition.X, originalPosition.Y + (MathF.Sin(this.buttonAnimationOffsets[i]) * buttonAnimationAmplitude));
+                button.Margin = new(
+                    0.0f,
+                    (i * 75.0f) + (MathF.Sin(this.buttonAnimationOffsets[i]) * buttonAnimationAmplitude)
+                );
             }
         }
 
@@ -267,11 +235,18 @@ namespace StardustSandbox.UI.Common.Menus
             this.ambientManager.CelestialBodyHandler.IsActive = true;
             this.ambientManager.SkyHandler.IsActive = true;
 
-            ResetElementPositions();
             this.inputController.Pen.Tool = PenTool.Visualization;
             this.inputController.Disable();
-            LoadAnimationValues();
-            LoadMainMenuWorld();
+
+            this.gameTitle.Margin = Vector2.Zero;
+
+            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
+            {
+                this.menuButtonLabels[i].Margin = Vector2.Zero;
+                this.buttonAnimationOffsets[i] = SSRandom.GetDouble() * MathF.PI * 2.0f;
+            }
+
+            this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
             this.gameManager.SetSimulationSpeed(SimulationSpeed.Normal);
             this.gameManager.RemoveState(GameStates.IsPaused);
