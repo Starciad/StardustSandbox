@@ -259,7 +259,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildingWorldDisplaySlots()
         {
-            Vector2 slotMargin = new(32.0f, 118.0f);
+            Vector2 margin = new(32.0f, 118.0f);
 
             int rows = UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_ROW;
             int columns = UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_COLUMN;
@@ -275,7 +275,7 @@ namespace StardustSandbox.UI.Common.Menus
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(0, 0, 386, 140),
                         Size = new(386.0f, 140.0f),
-                        Margin = slotMargin
+                        Margin = margin
                     };
 
                     Image thumbnailImageElement = new()
@@ -302,15 +302,15 @@ namespace StardustSandbox.UI.Common.Menus
                     thumbnailImageElement.AddChild(titleLabelElement);
 
                     // Spacing
-                    slotMargin.X += 418.0f;
+                    margin.X += 418.0f;
 
                     this.itemSlotInfos[index] = new(backgroundImageElement, thumbnailImageElement, titleLabelElement);
 
                     index++;
                 }
 
-                slotMargin.X = 32.0f;
-                slotMargin.Y += 172.0f;
+                margin.X = 32.0f;
+                margin.Y += 172.0f;
             }
         }
 

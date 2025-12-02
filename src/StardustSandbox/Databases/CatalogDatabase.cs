@@ -213,7 +213,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Liquid_Oil_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(194, 64, 32, 32)
+                                    sourceRectangle: new(192, 64, 32, 32)
                                 ),
 
                                 // [5] Saltwater

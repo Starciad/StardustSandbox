@@ -30,7 +30,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 20.0,
-                    DefaultDensity = 1600.0,
+                    DefaultDensity = 1.6,
                     DefaultExplosionResistance = 1.0,
                 },
                 new Elements.Solids.Movables.Mud()
@@ -43,7 +43,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 18.0,
-                    DefaultDensity = 1500.0,
+                    DefaultDensity = 1.5,
                     DefaultExplosionResistance = 0.6,
                 },
                 new Elements.Liquids.Water()
@@ -57,7 +57,7 @@ namespace StardustSandbox.Databases
 
                     DefaultDispersionRate = 3,
                     DefaultTemperature = 25.0,
-                    DefaultDensity = 1000.0,
+                    DefaultDensity = 1.0,
                     DefaultExplosionResistance = 0.2,
                 },
                 new Elements.Solids.Movables.Stone()
@@ -70,7 +70,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 20.0,
-                    DefaultDensity = 2500.0,
+                    DefaultDensity = 2.5,
                     DefaultExplosionResistance = 0.5,
                 },
                 new Elements.Solids.Movables.Grass()
@@ -84,7 +84,7 @@ namespace StardustSandbox.Databases
 
                     DefaultTemperature = 22.0,
                     DefaultFlammabilityResistance = 10.0,
-                    DefaultDensity = 1100.0,
+                    DefaultDensity = 0.1,
                     DefaultExplosionResistance = 0.5,
                 },
                 new Elements.Solids.Movables.Ice()
@@ -97,7 +97,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = -25.0,
-                    DefaultDensity = 920.0,
+                    DefaultDensity = 0.92,
                     DefaultExplosionResistance = 1.2,
                 },
                 new Elements.Solids.Movables.Sand()
@@ -110,7 +110,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 22.0,
-                    DefaultDensity = 1500.0,
+                    DefaultDensity = 1.5,
                     DefaultExplosionResistance = 0.5,
                 },
                 new Elements.Solids.Movables.Snow()
@@ -123,7 +123,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = -15.0,
-                    DefaultDensity = 600.0,
+                    DefaultDensity = 0.1,
                     DefaultExplosionResistance = 0.3,
                 },
                 new Elements.Solids.Movables.MovableCorruption()
@@ -135,7 +135,7 @@ namespace StardustSandbox.Databases
                     TextureOriginOffset = new(0, 256),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 1400.0,
+                    DefaultDensity = 1.4,
                     DefaultExplosionResistance = 0.8,
                 },
                 new Elements.Liquids.Lava()
@@ -148,7 +148,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 1000.0,
-                    DefaultDensity = 3000.0,
+                    DefaultDensity = 2.7,
                     DefaultExplosionResistance = 0.4,
                 },
                 new Elements.Liquids.Acid()
@@ -161,7 +161,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 10.0,
-                    DefaultDensity = 1100.0,
+                    DefaultDensity = 1.2,
                     DefaultExplosionResistance = 0.2,
                 },
                 new Elements.Solids.Immovables.Glass()
@@ -174,7 +174,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 25.0,
-                    DefaultDensity = 2500.0,
+                    DefaultDensity = 2.5,
                     DefaultExplosionResistance = 0.5,
                 },
                 new Elements.Solids.Immovables.Iron()
@@ -187,7 +187,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 30.0,
-                    DefaultDensity = 7800.0,
+                    DefaultDensity = 7.8,
                     DefaultExplosionResistance = 0.3,
                 },
                 new Elements.Solids.Immovables.Wall()
@@ -199,7 +199,7 @@ namespace StardustSandbox.Databases
                     TextureOriginOffset = new(160, 96),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 2200.0,
+                    DefaultDensity = 2.2,
                 },
                 new Elements.Solids.Immovables.Wood()
                 {
@@ -212,7 +212,7 @@ namespace StardustSandbox.Databases
 
                     DefaultTemperature = 20.0,
                     DefaultFlammabilityResistance = 35.0,
-                    DefaultDensity = 700.0,
+                    DefaultDensity = 0.7,
                     DefaultExplosionResistance = 1.5,
                 },
                 new Elements.Gases.GasCorruption()
@@ -224,7 +224,7 @@ namespace StardustSandbox.Databases
                     TextureOriginOffset = new(160, 160),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 5.0,
+                    DefaultDensity = 0.005,
                 },
                 new Elements.Liquids.LiquidCorruption()
                 {
@@ -235,7 +235,7 @@ namespace StardustSandbox.Databases
                     TextureOriginOffset = new(160, 192),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 1050.0,
+                    DefaultDensity = 1.05,
                     DefaultExplosionResistance = 0.1,
                 },
                 new Elements.Solids.Immovables.ImmovableCorruption()
@@ -247,7 +247,7 @@ namespace StardustSandbox.Databases
                     TextureOriginOffset = new(160, 224),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 1600.0,
+                    DefaultDensity = 1.6,
                     DefaultExplosionResistance = 1.2,
                 },
                 new Elements.Gases.Steam()
@@ -260,7 +260,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 200.0,
-                    DefaultDensity = 1.0,
+                    DefaultDensity = 0.0006,
                 },
                 new Elements.Gases.Smoke()
                 {
@@ -272,7 +272,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 350.0,
-                    DefaultDensity = 2.0,
+                    DefaultDensity = 0.002,
                 },
                 new Elements.Solids.Immovables.RedBrick()
                 {
@@ -284,7 +284,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 25.0,
-                    DefaultDensity = 2400.0,
+                    DefaultDensity = 2.4,
                     DefaultExplosionResistance = 2.5,
                 },
                 new Elements.Solids.Immovables.TreeLeaf()
@@ -298,7 +298,7 @@ namespace StardustSandbox.Databases
 
                     DefaultTemperature = 22.0,
                     DefaultFlammabilityResistance = 5.0,
-                    DefaultDensity = 400.0,
+                    DefaultDensity = 0.04,
                     DefaultExplosionResistance = 0.1,
                 },
                 new Elements.Solids.Immovables.MountingBlock()
@@ -312,7 +312,7 @@ namespace StardustSandbox.Databases
 
                     DefaultTemperature = 20.0,
                     DefaultFlammabilityResistance = 150.0,
-                    DefaultDensity = 1800.0,
+                    DefaultDensity = 1.8,
                     DefaultExplosionResistance = 1.5,
                 },
                 new Elements.Energies.Fire()
@@ -337,7 +337,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 26.0,
-                    DefaultDensity = 2800.0,
+                    DefaultDensity = 2.8,
                 },
                 new Elements.Solids.Immovables.Void()
                 {
@@ -345,10 +345,10 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.IsExplosionImmune,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(360, 64),
+                    TextureOriginOffset = new(320, 64),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 220.0,
+                    DefaultDensity = 0.001,
                 },
                 new Elements.Solids.Immovables.Clone()
                 {
@@ -356,10 +356,10 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.IsExplosionImmune,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(360, 96),
+                    TextureOriginOffset = new(320, 96),
                     ReferenceColor = Color.White,
 
-                    DefaultDensity = 3000.0,
+                    DefaultDensity = 3.0,
                 },
                 new Elements.Liquids.Oil()
                 {
@@ -371,7 +371,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultFlammabilityResistance = 5.0,
-                    DefaultDensity = 980.0,
+                    DefaultDensity = 0.92,
                     DefaultExplosionResistance = 0.3,
                 },
                 new Elements.Solids.Movables.Salt()
@@ -384,7 +384,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 22.0,
-                    DefaultDensity = 2200.0,
+                    DefaultDensity = 2.2,
                     DefaultExplosionResistance = 0.7,
                 },
                 new Elements.Liquids.Saltwater()
@@ -398,7 +398,7 @@ namespace StardustSandbox.Databases
 
                     DefaultDispersionRate = 3,
                     DefaultTemperature = 25.0,
-                    DefaultDensity = 1200.0,
+                    DefaultDensity = 1.03,
                     DefaultExplosionResistance = 0.2,
                 },
                 new Elements.Solids.Movables.Bomb()
@@ -411,7 +411,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 25.0,
-                    DefaultDensity = 3500.0,
+                    DefaultDensity = 3.5,
                     DefaultExplosionResistance = 0.3,
                 },
                 new Elements.Solids.Movables.Dynamite()
@@ -424,7 +424,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 22.0,
-                    DefaultDensity = 2400.0,
+                    DefaultDensity = 2.4,
                     DefaultExplosionResistance = 0.5,
                 },
                 new Elements.Solids.Movables.Tnt()
@@ -437,7 +437,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 22.0,
-                    DefaultDensity = 2800.0,
+                    DefaultDensity = 2.8,
                     DefaultExplosionResistance = 0.35,
                 },
                 new Elements.Solids.Immovables.DrySponge()
@@ -451,7 +451,7 @@ namespace StardustSandbox.Databases
 
                     DefaultTemperature = 25.0,
                     DefaultFlammabilityResistance = 10.0,
-                    DefaultDensity = 550.0,
+                    DefaultDensity = 0.055,
                     DefaultExplosionResistance = 0.5,
                 },
                 new Elements.Solids.Immovables.WetSponge()
@@ -464,7 +464,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 20.0,
-                    DefaultDensity = 1200.0,
+                    DefaultDensity = 1.2,
                     DefaultExplosionResistance = 0.8,
                 },
                 new Elements.Solids.Immovables.Gold()
@@ -477,20 +477,20 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 22.0,
-                    DefaultDensity = 17_150.0,
+                    DefaultDensity = 19.3,
                     DefaultExplosionResistance = 0.3,
                 },
                 new Elements.Solids.Immovables.Heater()
                 {
                     Index = ElementIndex.Heater,
                     Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsFlammable | ElementCharacteristics.IsCorruptible,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(224, 320),
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 0.0,
-                    DefaultDensity = 1500.0,
+                    DefaultDensity = 1.5,
                     DefaultExplosionResistance = 2.5,
                 },
                 new Elements.Solids.Immovables.Freezer()
@@ -503,7 +503,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 0.0,
-                    DefaultDensity = 1500.0,
+                    DefaultDensity = 1.5,
                 },
                 new Elements.Solids.Movables.Ash()
                 {
@@ -515,7 +515,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = Color.White,
 
                     DefaultTemperature = 40.0,
-                    DefaultDensity = 350.0,
+                    DefaultDensity = 0.35,
                     DefaultExplosionResistance = 0.0,
                 },
             ];

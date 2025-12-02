@@ -31,7 +31,7 @@ namespace StardustSandbox.Elements.Gases
                     if (worldSlotLayer.Element.Category == ElementCategory.Gas ||
                         worldSlotLayer.Element.Category == ElementCategory.Liquid)
                     {
-                        if ((worldSlotLayer.Element.GetType() == GetType() && worldSlotLayer.Temperature > context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
+                        if ((worldSlotLayer.Element.Index == Index && worldSlotLayer.Temperature > context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
                         {
                             this.validPositionsCache.Add(position);
                         }

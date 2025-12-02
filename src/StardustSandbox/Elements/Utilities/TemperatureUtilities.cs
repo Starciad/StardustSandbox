@@ -16,7 +16,7 @@ namespace StardustSandbox.Elements.Utilities
             {
                 SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
 
-                if (!worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
+                if (worldSlotLayer.Element == null || !worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }

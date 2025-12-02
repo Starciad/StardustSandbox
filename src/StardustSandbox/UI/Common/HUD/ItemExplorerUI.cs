@@ -123,7 +123,6 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
@@ -131,6 +130,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084.0f, 607.0f),
+                Margin = new(0.0f, 32.0f),
                 Alignment = CardinalDirection.Center,
             };
 
@@ -172,7 +172,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Alignment = CardinalDirection.Northeast,
                     Scale = new(2.0f),
                     Size = new(32.0f),
-                    Margin = new(marginX, -40.0f),
+                    Margin = new(marginX, -72.0f),
                 };
 
                 Image iconElement = new()
@@ -198,53 +198,9 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        private void BuildItemCatalogSlots()
-        {
-            Vector2 slotMargin = new(96.0f, 192.0f);
-
-            int index = 0;
-
-            for (byte col = 0; col < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_COLUMN; col++)
-            {
-                for (byte row = 0; row < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_ROW; row++)
-                {
-                    Image background = new()
-                    {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(320, 140, 32, 32),
-                        Alignment = CardinalDirection.Northwest,
-                        Scale = new(2.0f),
-                        Size = new(32.0f),
-                        Margin = slotMargin
-                    };
-
-                    Image icon = new()
-                    {
-                        Alignment = CardinalDirection.Center,
-                        Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
-                        SourceRectangle = new(0, 0, 32, 32),
-                        Scale = new(1.5f),
-                        Size = new(32.0f)
-                    };
-
-                    // Position
-                    this.background.AddChild(background);
-                    background.AddChild(icon);
-
-                    // Spacing
-                    slotMargin.X += 80.0f;
-                    this.itemButtonSlotInfos[index] = new(background, icon);
-                    index++;
-                }
-
-                slotMargin.X = 96.0f;
-                slotMargin.Y += 80.0f;
-            }
-        }
-
         private void BuildCategoryButtons()
         {
-            Vector2 slotMargin = new(32.0f, -40.0f);
+            Vector2 margin = new(32.0f, -72.0f);
 
             int index = 0;
 
@@ -259,7 +215,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Alignment = CardinalDirection.Northwest,
                     Scale = new(2.0f),
                     Size = new(32.0f),
-                    Margin = slotMargin
+                    Margin = margin
                 };
 
                 Image icon = new()
@@ -282,7 +238,7 @@ namespace StardustSandbox.UI.Common.HUD
                 background.AddChild(icon);
 
                 // Spacing
-                slotMargin.X += 80.0f;
+                margin.X += 80.0f;
                 this.categoryButtonSlotInfos[index] = new(background, icon);
 
                 index++;
@@ -295,10 +251,10 @@ namespace StardustSandbox.UI.Common.HUD
             int sideCounts = UIConstants.HUD_ITEM_EXPLORER_SUB_CATEGORY_BUTTONS_LENGTH / 2;
             Vector2 margin;
 
-            margin = new(-48.0f, 48.0f);
+            margin = new(-80.0f, 32.0f);
             BuildSlots(CardinalDirection.Northwest);
 
-            margin = new(48.0f, 48.0f);
+            margin = new(80.0f, 32.0f);
             BuildSlots(CardinalDirection.Northeast);
 
             // =============================== //
@@ -310,7 +266,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(320, 140, 32, 32),
+                        SourceRectangle = new(320, 141, 32, 32),
                         Alignment = positionAnchor,
                         Scale = new(2.0f),
                         Size = new(32.0f),
@@ -338,6 +294,50 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
+        private void BuildItemCatalogSlots()
+        {
+            Vector2 margin = new(48.0f, 148.0f);
+
+            int index = 0;
+
+            for (byte col = 0; col < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_COLUMN; col++)
+            {
+                for (byte row = 0; row < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_ROW; row++)
+                {
+                    Image background = new()
+                    {
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        SourceRectangle = new(320, 141, 32, 32),
+                        Alignment = CardinalDirection.Northwest,
+                        Scale = new(2.0f),
+                        Size = new(32.0f),
+                        Margin = margin
+                    };
+
+                    Image icon = new()
+                    {
+                        Alignment = CardinalDirection.Center,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
+                        SourceRectangle = new(0, 0, 32, 32),
+                        Scale = new(1.5f),
+                        Size = new(32.0f)
+                    };
+
+                    // Position
+                    this.background.AddChild(background);
+                    background.AddChild(icon);
+
+                    // Spacing
+                    margin.X += 80.0f;
+                    this.itemButtonSlotInfos[index] = new(background, icon);
+                    index++;
+                }
+
+                margin.X = 96.0f;
+                margin.Y += 80.0f;
+            }
+        }
+
         private void BuildPagination(Container root)
         {
             this.pageIndexLabel = new()
@@ -345,7 +345,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.South,
-                Margin = new(0.0f, -35.0f),
+                Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
 
                 BorderDirections = LabelBorderDirection.All,
@@ -362,7 +362,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Scale = new(1.5f),
+                    Scale = new(1.6f),
                     Size = new(32.0f),
                 };
 
@@ -370,7 +370,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = this.paginationButtonInfos[i].Texture,
                     SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
-                    Scale = new(1.0f),
+                    Alignment = CardinalDirection.Center,
                     Size = new(32.0f)
                 };
 
@@ -384,15 +384,13 @@ namespace StardustSandbox.UI.Common.HUD
                 root.AddChild(icon);
             }
 
-            // Left
-            SlotInfo leftSlot = this.paginationButtonSlotInfos[0];
-            leftSlot.Background.Alignment = CardinalDirection.Southwest;
-            leftSlot.Background.Margin = new(34.0f, -34.0f);
+            SlotInfo left = this.paginationButtonSlotInfos[0];
+            left.Background.Alignment = CardinalDirection.Southwest;
+            left.Background.Margin = new(9.0f, -9.0f);
 
-            // Right
-            SlotInfo rightSlot = this.paginationButtonSlotInfos[1];
-            rightSlot.Background.Alignment = CardinalDirection.Southeast;
-            rightSlot.Background.Margin = new(-34.0f);
+            SlotInfo right = this.paginationButtonSlotInfos[1];
+            right.Background.Alignment = CardinalDirection.Southeast;
+            right.Background.Margin = new(-9.0f);
 
             foreach (SlotInfo slot in this.paginationButtonSlotInfos)
             {
