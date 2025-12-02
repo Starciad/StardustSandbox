@@ -125,13 +125,15 @@ namespace StardustSandbox.UI.Elements
         {
             FlushPendingHierarchyChanges();
 
+            OnInitialize();
+
             foreach (UIElement childElement in this.children)
             {
                 childElement.Initialize();
             }
         }
 
-        internal virtual void Update(GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (!this.CanUpdate)
             {
@@ -140,24 +142,32 @@ namespace StardustSandbox.UI.Elements
 
             FlushPendingHierarchyChanges();
 
+            OnUpdate(gameTime);
+
             foreach (UIElement childElement in this.children)
             {
                 childElement.Update(gameTime);
             }
         }
 
-        internal virtual void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {
                 return;
             }
 
+            OnDraw(spriteBatch);
+
             foreach (UIElement childElement in this.children)
             {
                 childElement.Draw(spriteBatch);
             }
         }
+
+        protected abstract void OnInitialize();
+        protected abstract void OnUpdate(GameTime gameTime);
+        protected abstract void OnDraw(SpriteBatch spriteBatch);
 
         #region Positioning
 

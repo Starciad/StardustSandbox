@@ -92,9 +92,9 @@ namespace StardustSandbox.UI.Elements
             this.MaximumSize = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT);
         }
 
-        internal override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            return;
         }
 
         private void RefreshDisplay()
@@ -118,18 +118,16 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             UpdateSize();
             UpdatePosition();
             RefreshDisplay();
-
-            base.Update(gameTime);
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            return;
         }
 
         private void UpdateSize()

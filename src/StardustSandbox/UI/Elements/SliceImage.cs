@@ -50,7 +50,7 @@ namespace StardustSandbox.UI.Elements
             this.slices = new SliceInfo[9];
         }
 
-        internal override void Initialize()
+        protected override void OnInitialize()
         {
             int originX = this.Origin.X;
             int originY = this.Origin.Y;
@@ -101,15 +101,12 @@ namespace StardustSandbox.UI.Elements
             this.slices[(byte)CardinalDirection.Northwest].SetSourceRectangle(
                 new(originX, originY, tileWidth, tileHeight)
             );
-
-            base.Initialize();
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             if (!this.HasTexture)
             {
-                base.Update(gameTime);
                 return;
             }
 
@@ -151,15 +148,12 @@ namespace StardustSandbox.UI.Elements
             // Northwest
             this.slices[(byte)CardinalDirection.Northwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y - tileHeight));
             this.slices[(byte)CardinalDirection.Northwest].SetScale(Vector2.One);
-
-            base.Update(gameTime);
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
             if (!this.HasTexture)
             {
-                base.Draw(spriteBatch);
                 return;
             }
 
@@ -167,8 +161,6 @@ namespace StardustSandbox.UI.Elements
             {
                 spriteBatch.Draw(this.Texture, this.slices[i].Position, this.slices[i].SourceRectangle, this.Color, 0f, Vector2.Zero, this.slices[i].Scale, SpriteEffects.None, 0f);
             }
-
-            base.Draw(spriteBatch);
         }
     }
 }

@@ -631,13 +631,13 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             this.tooltipBox.CanDraw = false;
 
             UpdateSectionButtons();
             UpdateSystemButtons();
             UpdateSectionOptions();
+
+            base.Update(gameTime);
         }
 
         private void UpdateSectionButtons()

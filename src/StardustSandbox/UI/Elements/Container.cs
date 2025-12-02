@@ -11,19 +11,19 @@ namespace StardustSandbox.UI.Elements
             this.CanUpdate = true;
         }
 
-        internal override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            return;
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
-            base.Update(gameTime);
+            return;
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            return;
         }
     }
 }

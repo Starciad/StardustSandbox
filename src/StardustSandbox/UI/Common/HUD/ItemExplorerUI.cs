@@ -131,7 +131,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084.0f, 607.0f),
-                Margin = new(98.0f, 90.0f),
+                Alignment = CardinalDirection.Center,
             };
 
             root.AddChild(backgroundShadowElement);
@@ -144,7 +144,6 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
-                Alignment = CardinalDirection.Northwest,
                 Margin = new(32.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_ItemExplorer_Title,
@@ -170,6 +169,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
+                    Alignment = CardinalDirection.Northeast,
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = new(marginX, -40.0f),
@@ -179,13 +179,12 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
+                    Alignment = CardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 };
 
                 SlotInfo slot = new(backgroundElement, iconElement);
-
-                slot.Background.Alignment = CardinalDirection.Northeast;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -209,29 +208,32 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 for (byte row = 0; row < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_ROW; row++)
                 {
-                    Image slotBackground = new()
+                    Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
-                        Scale = new(2.0f),
                         Alignment = CardinalDirection.Northwest,
+                        Scale = new(2.0f),
                         Size = new(32.0f),
                         Margin = slotMargin
                     };
 
-                    Image slotIcon = new()
+                    Image icon = new()
                     {
+                        Alignment = CardinalDirection.Center,
+                        Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
+                        SourceRectangle = new(0, 0, 32, 32),
                         Scale = new(1.5f),
                         Size = new(32.0f)
                     };
 
                     // Position
-                    this.background.AddChild(slotBackground);
-                    slotBackground.AddChild(slotIcon);
+                    this.background.AddChild(background);
+                    background.AddChild(icon);
 
                     // Spacing
                     slotMargin.X += 80.0f;
-                    this.itemButtonSlotInfos[index] = new(slotBackground, slotIcon);
+                    this.itemButtonSlotInfos[index] = new(background, icon);
                     index++;
                 }
 
@@ -250,7 +252,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Category category = CatalogDatabase.Categories[i];
 
-                Image slotBackground = new()
+                Image background = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
@@ -260,27 +262,28 @@ namespace StardustSandbox.UI.Common.HUD
                     Margin = slotMargin
                 };
 
-                Image slotIcon = new()
+                Image icon = new()
                 {
                     Texture = category.Texture,
-                    SourceRectangle = category.TextureSourceRectangle,
+                    SourceRectangle = category.SourceRectangle,
+                    Alignment = CardinalDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 };
 
                 // Data
-                if (!slotBackground.ContainsData(UIConstants.DATA_CATEGORY))
+                if (!background.ContainsData(UIConstants.DATA_CATEGORY))
                 {
-                    slotBackground.AddData(UIConstants.DATA_CATEGORY, category);
+                    background.AddData(UIConstants.DATA_CATEGORY, category);
                 }
 
                 // Position
-                this.background.AddChild(slotBackground);
-                slotBackground.AddChild(slotIcon);
+                this.background.AddChild(background);
+                background.AddChild(icon);
 
                 // Spacing
                 slotMargin.X += 80.0f;
-                this.categoryButtonSlotInfos[index] = new(slotBackground, slotIcon);
+                this.categoryButtonSlotInfos[index] = new(background, icon);
 
                 index++;
             }
@@ -304,7 +307,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 for (byte i = 0; i < sideCounts; i++)
                 {
-                    Image slotBackground = new()
+                    Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
@@ -314,19 +317,22 @@ namespace StardustSandbox.UI.Common.HUD
                         Margin = margin
                     };
 
-                    Image slotIcon = new()
+                    Image icon = new()
                     {
+                        Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
+                        SourceRectangle = new(0, 0, 32, 32),
+                        Alignment = CardinalDirection.Center,
                         Scale = new(1.5f),
                         Size = new(32.0f)
                     };
 
                     // Position
-                    this.background.AddChild(slotBackground);
-                    slotBackground.AddChild(slotIcon);
+                    this.background.AddChild(background);
+                    background.AddChild(icon);
 
                     // Spacing
                     margin.Y += 80.0f;
-                    this.subcategoryButtonSlotInfos[index] = new(slotBackground, slotIcon);
+                    this.subcategoryButtonSlotInfos[index] = new(background, icon);
                     index++;
                 }
             }
@@ -352,7 +358,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             for (byte i = 0; i < this.paginationButtonInfos.Length; i++)
             {
-                Image slotBackground = new()
+                Image background = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
@@ -360,7 +366,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Size = new(32.0f),
                 };
 
-                Image slotIcon = new()
+                Image icon = new()
                 {
                     Texture = this.paginationButtonInfos[i].Texture,
                     SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
@@ -368,14 +374,14 @@ namespace StardustSandbox.UI.Common.HUD
                     Size = new(32.0f)
                 };
 
-                slotBackground.AddChild(slotIcon);
+                background.AddChild(icon);
 
                 // Spacing
-                this.paginationButtonSlotInfos[i] = new(slotBackground, slotIcon);
+                this.paginationButtonSlotInfos[i] = new(background, icon);
 
                 // Adding
-                root.AddChild(slotBackground);
-                root.AddChild(slotIcon);
+                root.AddChild(background);
+                root.AddChild(icon);
             }
 
             // Left
@@ -401,8 +407,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
@@ -410,6 +414,8 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateSubcategoryButtons();
             UpdateItemCatalog();
             UpdatePagination();
+
+            base.Update(gameTime);
         }
 
         private void UpdateMenuButtons()
@@ -523,14 +529,13 @@ namespace StardustSandbox.UI.Common.HUD
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
+                else if (this.hudUI.ItemIsEquipped(item))
+                {
+                    slot.Background.Color = AAP64ColorPalette.TealGray;
+                }
                 else
                 {
                     slot.Background.Color = AAP64ColorPalette.White;
-                }
-
-                if (this.hudUI.ItemIsEquipped(item))
-                {
-                    slot.Background.Color = AAP64ColorPalette.TealGray;
                 }
             }
         }
@@ -575,10 +580,12 @@ namespace StardustSandbox.UI.Common.HUD
 
                 if (i < this.selectedCategory.SubcategoriesLength)
                 {
-                    subcategorySlot.Show();
+                    subcategorySlot.Background.CanDraw = true;
 
                     Subcategory subcategory = this.selectedCategory.Subcategories[i];
-                    subcategorySlot.Icon.Texture = subcategory.IconTexture;
+
+                    subcategorySlot.Icon.Texture = subcategory.Texture;
+                    subcategorySlot.Icon.SourceRectangle = subcategory.SourceRectangle;
 
                     // Add or Update Data
                     if (!subcategorySlot.Background.ContainsData(UIConstants.DATA_SUBCATEGORY))
@@ -592,7 +599,7 @@ namespace StardustSandbox.UI.Common.HUD
                 }
                 else
                 {
-                    subcategorySlot.Hide();
+                    subcategorySlot.Background.CanDraw = false;
                 }
             }
         }
@@ -613,7 +620,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 if (i < this.selectedItemsLength)
                 {
-                    itemSlot.Show();
+                    itemSlot.Background.CanDraw = true;
 
                     Item item = this.selectedItems[i];
 
@@ -622,7 +629,8 @@ namespace StardustSandbox.UI.Common.HUD
                         continue;
                     }
 
-                    itemSlot.Icon.Texture = item.IconTexture;
+                    itemSlot.Icon.Texture = item.Texture;
+                    itemSlot.Icon.SourceRectangle = item.SourceRectangle;
 
                     // Add or Update Data
                     if (!itemSlot.Background.ContainsData(UIConstants.DATA_ITEM))
@@ -636,7 +644,7 @@ namespace StardustSandbox.UI.Common.HUD
                 }
                 else
                 {
-                    itemSlot.Hide();
+                    itemSlot.Background.CanDraw = false;
                 }
             }
         }

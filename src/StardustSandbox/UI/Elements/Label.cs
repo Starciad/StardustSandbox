@@ -75,14 +75,14 @@ namespace StardustSandbox.UI.Elements
             this.Color = AAP64ColorPalette.White;
         }
 
-        internal override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            return;
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
-            base.Update(gameTime);
+            return;
         }
 
         private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
@@ -108,7 +108,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
             if (!string.IsNullOrEmpty(this.textContent))
             {
@@ -120,8 +120,6 @@ namespace StardustSandbox.UI.Elements
                 // Draw main text
                 spriteBatch.DrawString(this.spriteFont, this.textContent, position, this.Color, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
             }
-
-            base.Draw(spriteBatch);
         }
 
         private Vector2 MeasureText()

@@ -124,6 +124,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
+
+            base.Update(gameTime);
         }
     }
 }

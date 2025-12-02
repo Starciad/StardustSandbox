@@ -6,7 +6,6 @@ namespace StardustSandbox.UI.Elements
     internal sealed class Image : UIElement
     {
         internal bool HasTexture => this.texture != null;
-        internal bool HasSourceRectangle => this.sourceRectangle != null;
 
         internal Texture2D Texture
         {
@@ -36,24 +35,22 @@ namespace StardustSandbox.UI.Elements
             this.color = Color.White;
         }
 
-        internal override void Initialize()
+        protected override void OnInitialize()
         {
-            base.Initialize();
+            return;
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
-            base.Update(gameTime);
+            return;
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
             if (this.HasTexture)
             {
                 spriteBatch.Draw(this.texture, this.Position, this.sourceRectangle, this.color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
             }
-
-            base.Draw(spriteBatch);
         }
     }
 }

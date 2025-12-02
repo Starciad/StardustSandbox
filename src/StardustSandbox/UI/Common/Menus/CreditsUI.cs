@@ -348,11 +348,11 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             UpdateUserInput();
             UpdateElementsPosition();
             CheckIfTheCreditsHaveFinished();
+
+            base.Update(gameTime);
         }
 
         private void UpdateUserInput()

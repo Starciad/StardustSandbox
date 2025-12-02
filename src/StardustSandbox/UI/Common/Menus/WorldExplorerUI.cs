@@ -320,8 +320,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal override void Update(GameTime gameTime)
         {
-            #region BUTTONS
-
             // HEADER
             for (byte i = 0; i < this.headerButtonImages.Length; i++)
             {
@@ -348,8 +346,6 @@ namespace StardustSandbox.UI.Common.Menus
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
 
-            #endregion
-
             // SLOTS
             for (byte i = 0; i < this.itemSlotInfos.Length; i++)
             {
@@ -368,6 +364,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                 slotInfoElement.Background.Color = Interaction.OnMouseOver(slotInfoElement.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
+
+            base.Update(gameTime);
         }
 
         private void UpdatePagination()

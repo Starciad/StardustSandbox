@@ -25,41 +25,5 @@ namespace StardustSandbox.UI.Information
             this.icon = iconElement;
             this.label = label;
         }
-
-        internal void Show()
-        {
-            if (this.background != null)
-            {
-                this.background.CanDraw = true;
-            }
-
-            if (this.icon != null)
-            {
-                this.icon.CanDraw = true;
-            }
-
-            if (this.label != null)
-            {
-                this.label.CanDraw = true;
-            }
-        }
-
-        internal void Hide()
-        {
-            if (this.background != null)
-            {
-                this.background.CanDraw = false;
-            }
-
-            if (this.icon != null)
-            {
-                this.icon.CanDraw = false;
-            }
-
-            if (this.label != null)
-            {
-                this.label.CanDraw = false;
-            }
-        }
     }
 }

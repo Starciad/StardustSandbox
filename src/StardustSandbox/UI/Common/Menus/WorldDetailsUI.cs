@@ -226,6 +226,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                 slotInfoElement.Color = Interaction.OnMouseOver(slotInfoElement) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
+
+            base.Update(gameTime);
         }
 
         #endregion
