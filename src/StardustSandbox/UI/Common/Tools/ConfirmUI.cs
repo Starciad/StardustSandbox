@@ -35,14 +35,20 @@ namespace StardustSandbox.UI.Common.Tools
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
-                new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, ConfirmButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
+                {
+                    this.uiManager.CloseGUI();
+                    this.confirmSettings?.OnConfirmCallback?.Invoke(ConfirmStatus.Cancelled);
+                }),
+                new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, () =>
+                {
+                    this.uiManager.CloseGUI();
+                    this.confirmSettings?.OnConfirmCallback?.Invoke(ConfirmStatus.Confirmed);
+                }),
             ];
 
             this.menuButtonElements = new Label[this.menuButtons.Length];
         }
-
-        #region INITIALIZE
 
         internal void Configure(ConfirmSettings settings)
         {
@@ -51,24 +57,6 @@ namespace StardustSandbox.UI.Common.Tools
             this.captionElement.TextContent = settings.Caption;
             this.messageElement.TextContent = settings.Message;
         }
-
-        #endregion
-
-        #region ACTIONS
-
-        private void CancelButtonAction()
-        {
-            this.uiManager.CloseGUI();
-            this.confirmSettings?.OnConfirmCallback?.Invoke(ConfirmStatus.Cancelled);
-        }
-
-        private void ConfirmButtonAction()
-        {
-            this.uiManager.CloseGUI();
-            this.confirmSettings?.OnConfirmCallback?.Invoke(ConfirmStatus.Confirmed);
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -98,9 +86,9 @@ namespace StardustSandbox.UI.Common.Tools
             this.captionElement = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0, 96),
+                Margin = new(0.0f, 96.0f),
                 LineHeight = 1.25f,
-                TextAreaSize = new(850, 1000),
+                TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
                 TextContent = "Caption"
@@ -114,9 +102,9 @@ namespace StardustSandbox.UI.Common.Tools
             this.messageElement = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0, -128),
+                Margin = new(0.0f, -128.0f),
                 LineHeight = 1.25f,
-                TextAreaSize = new(850, 1000),
+                TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.Center,
                 TextContent = "Message",
@@ -127,9 +115,9 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void BuildMenuButtons(Container root)
         {
-            Vector2 margin = new(0, -64);
+            float marginY = -64.0f;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 ButtonInfo button = this.menuButtons[i];
 
@@ -137,17 +125,17 @@ namespace StardustSandbox.UI.Common.Tools
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
-                    Margin = margin,
+                    Margin = new(0.0f, marginY),
                     Alignment = CardinalDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2f,
-                    BorderThickness = 2f,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
-                margin.Y -= 72;
+                marginY -= 72.0f;
 
                 root.AddChild(label);
 
@@ -161,26 +149,19 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-            UpdateMenuButtons();
-        }
-
-        private void UpdateMenuButtons()
-        {
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 Label label = this.menuButtonElements[i];
 
-                Vector2 size = label.Size / 2.0f;
-                Vector2 position = label.Position;
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
+
+            base.Update(gameTime);
         }
 
         #endregion

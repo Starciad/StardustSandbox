@@ -96,7 +96,7 @@ namespace StardustSandbox.Elements.Liquids
         {
             Point dispersionPosition = context.Slot.Position;
 
-            for (int i = 0; i < this.DefaultDispersionRate; i++)
+            for (byte i = 0; i < this.DefaultDispersionRate; i++)
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 

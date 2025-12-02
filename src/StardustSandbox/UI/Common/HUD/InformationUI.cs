@@ -17,12 +17,12 @@ namespace StardustSandbox.UI.Common.HUD
 {
     internal sealed class InformationUI : UIBase
     {
-        private Image panelBackgroundElement;
-        private Label menuTitleElement;
+        private Image background;
+        private Label menuTitle;
 
-        private readonly Label[] infoElements;
-        private readonly SlotInfo[] menuButtonSlots;
-        private readonly ButtonInfo[] menuButtons;
+        private readonly Label[] infoLabels;
+        private readonly SlotInfo[] menuButtonSlotInfos;
+        private readonly ButtonInfo[] menuButtonInfos;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
@@ -39,23 +39,13 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager = uiManager;
             this.world = world;
 
-            this.menuButtons = [
-                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+            this.menuButtonInfos = [
+                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
-            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
-            this.infoElements = new Label[UIConstants.HUD_INFORMATION_AMOUNT];
+            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            this.infoLabels = new Label[UIConstants.HUD_INFORMATION_AMOUNT];
         }
-
-        #region ACTIONS
-
-        // Menu
-        private void ExitButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -73,87 +63,87 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1),
+                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackgroundElement = new()
+            this.background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundInformation),
-                Size = new(1084, 540),
-                Margin = new(98, 90),
+                Size = new(1084.0f, 540.0f),
+                Margin = new(98.0f, 90.0f),
             };
 
             root.AddChild(backgroundShadowElement);
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.background);
         }
 
         private void BuildTitle()
         {
-            this.menuTitleElement = new()
+            this.menuTitle = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Alignment = CardinalDirection.Northwest,
-                Margin = new(32, 40),
+                Margin = new(32.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_Information_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
-                BorderThickness = 3f,
-                BorderOffset = 3f,
+                BorderThickness = 3.0f,
+                BorderOffset = 3.0f,
             };
 
-            this.panelBackgroundElement.AddChild(this.menuTitleElement);
+            this.background.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
-            Vector2 margin = new(-32f, -40f);
+            float marginX = -32.0f;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
-                SlotInfo slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.menuButtonInfos[i];
+                SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                this.panelBackgroundElement.AddChild(slot.Background);
+                this.background.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.menuButtonSlots[i] = slot;
+                this.menuButtonSlotInfos[i] = slot;
 
                 // Spacing
-                margin.X -= UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
+                marginX -= 80.0f;
             }
         }
 
         private void BuildInfoFields()
         {
-            Vector2 margin = new(32, 144);
+            float marginY = 144.0f;
 
-            for (int i = 0; i < this.infoElements.Length; i++)
+            for (byte i = 0; i < this.infoLabels.Length; i++)
             {
                 Label label = new()
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.1f),
                     Alignment = CardinalDirection.Northwest,
-                    Margin = margin,
+                    Margin = new(32.0f, marginY),
                     Color = AAP64ColorPalette.White,
                     TextContent = string.Concat("Info ", i)
                 };
 
-                this.panelBackgroundElement.AddChild(label);
+                this.background.AddChild(label);
 
                 // Save
-                this.infoElements[i] = label;
+                this.infoLabels[i] = label;
 
                 // Spacing
-                margin.Y += label.Size.Y + 8;
+                marginY += label.Size.Y + 8.0f;
             }
         }
 
@@ -165,17 +155,17 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(UIConstants.HUD_SLOT_SCALE),
-                Size = new(UIConstants.HUD_GRID_SIZE),
+                Scale = new(2.0f),
+                Size = new(32.0f),
                 Margin = margin,
             };
 
             Image iconElement = new()
             {
-                Texture = button.IconTexture,
-                SourceRectangle = button.IconTextureRectangle,
+                Texture = button.Texture,
+                SourceRectangle = button.TextureSourceRectangle,
                 Scale = new(1.5f),
-                Size = new(UIConstants.HUD_GRID_SIZE)
+                Size = new(32.0f)
             };
 
             return new(backgroundElement, iconElement);
@@ -193,16 +183,16 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtonSlots.Length; i++)
+            for (byte i = 0; i < this.menuButtonSlotInfos.Length; i++)
             {
-                SlotInfo slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlotInfos[i];
 
-                if (Interaction.OnMouseLeftClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
-                slot.Background.Color = Interaction.OnMouseLeftOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -219,11 +209,11 @@ namespace StardustSandbox.UI.Common.HUD
             uint limitOfElementsOnTheMap = (uint)(worldSize.X * worldSize.Y * 2);
             uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);
 
-            this.infoElements[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize);
-            this.infoElements[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
-            this.infoElements[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
-            this.infoElements[3].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
-            this.infoElements[4].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize);
+            this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
+            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
+            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
         }
 
         protected override void OnClosed()

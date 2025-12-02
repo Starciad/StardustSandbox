@@ -17,7 +17,7 @@ using System;
 
 namespace StardustSandbox.UI.Common.Menus
 {
-    internal sealed class WorldDetailsMenuUI : UIBase
+    internal sealed class WorldDetailsUI : UIBase
     {
         private SaveFile worldSaveFile;
 
@@ -38,7 +38,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly World world;
 
-        internal WorldDetailsMenuUI(
+        internal WorldDetailsUI(
             GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
@@ -50,38 +50,25 @@ namespace StardustSandbox.UI.Common.Menus
             this.world = world;
 
             this.worldButtons = [
-                new(TextureIndex.None, null, "Return", string.Empty, ReturnButtonAction),
-                new(TextureIndex.None, null, "Delete", string.Empty, DeleteButtonAction),
-                new(TextureIndex.None, null, "Play", string.Empty, PlayButtonAction),
+                new(TextureIndex.None, null, "Return", string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, "Delete", string.Empty, () =>
+                {
+                    WorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Header.Metadata.Name);
+                    this.uiManager.CloseGUI();
+                }),
+                new(TextureIndex.None, null, "Play", string.Empty, () =>
+                {
+                    this.uiManager.Reset();
+                    this.uiManager.OpenGUI(UIIndex.MainMenu);
+                    this.uiManager.OpenGUI(UIIndex.Hud);
+
+                    this.gameManager.StartGame();
+                    this.world.LoadFromWorldSaveFile(this.worldSaveFile);
+                }),
             ];
 
             this.worldButtonElements = new Label[this.worldButtons.Length];
         }
-
-        #region ACTIONS
-
-        private void ReturnButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
-
-        private void DeleteButtonAction()
-        {
-            WorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Header.Metadata.Name);
-            this.uiManager.CloseGUI();
-        }
-
-        private void PlayButtonAction()
-        {
-            this.uiManager.Reset();
-            this.uiManager.OpenGUI(UIIndex.MainMenu);
-            this.uiManager.OpenGUI(UIIndex.Hud);
-
-            this.gameManager.StartGame();
-            this.world.LoadFromWorldSaveFile(this.worldSaveFile);
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -131,8 +118,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2f,
-                BorderThickness = 2f,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
             };
 
             this.headerBackgroundElement.AddChild(this.worldTitleElement);
@@ -146,7 +133,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(12.0f),
                 Size = WorldConstants.WORLD_THUMBNAIL_SIZE.ToVector2(),
-                Margin = new(32f, 128f),
+                Margin = new(32.0f, 128f),
             };
 
             root.AddChild(this.worldThumbnailElement);
@@ -174,7 +161,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.075f),
-                Margin = new(-8),
+                Margin = new(-8.0f),
                 Alignment = CardinalDirection.Southeast,
                 TextContent = DateTime.Now.ToString(),
             };
@@ -198,28 +185,28 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildWorldButtons(Container root)
         {
-            Vector2 margin = new(32.0f, -32.0f);
+            float marginY = -32.0f;
 
-            for (int i = 0; i < this.worldButtons.Length; i++)
+            for (byte i = 0; i < this.worldButtons.Length; i++)
             {
                 ButtonInfo button = this.worldButtons[i];
 
                 Label buttonLabel = new()
                 {
                     Scale = new(0.12f),
-                    Margin = margin,
+                    Margin = new(32.0f, -32.0f),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = CardinalDirection.Southwest,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2f,
-                    BorderThickness = 2f,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
                 root.AddChild(buttonLabel);
-                margin.Y -= buttonLabel.Size.Y + 8.0f;
+                marginY -= buttonLabel.Size.Y + 8.0f;
 
                 this.worldButtonElements[i] = buttonLabel;
             }
@@ -231,20 +218,16 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal override void Update(GameTime gameTime)
         {
-            // Buttons
-            for (int i = 0; i < this.worldButtonElements.Length; i++)
+            for (byte i = 0; i < this.worldButtonElements.Length; i++)
             {
                 Label slotInfoElement = this.worldButtonElements[i];
 
-                Vector2 buttonSize = slotInfoElement.Size / 2.0f;
-                Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.X, slotInfoElement.Position.Y - (buttonSize.Y / 4.0f));
-
-                if (Interaction.OnMouseLeftClick(buttonPosition, buttonSize))
+                if (Interaction.OnMouseLeftClick(slotInfoElement))
                 {
                     this.worldButtons[i].ClickAction?.Invoke();
                 }
 
-                slotInfoElement.Color = Interaction.OnMouseLeftOver(buttonPosition, buttonSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                slotInfoElement.Color = Interaction.OnMouseOver(slotInfoElement) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
 

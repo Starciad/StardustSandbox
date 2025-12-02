@@ -48,7 +48,7 @@ namespace StardustSandbox.Databases
                     Localization_Catalog.Category_Elements_Name,
                     Localization_Catalog.Category_Elements_Description,
                     TextureIndex.IconElements,
-                    iconTextureRectangle: new(32, 0, 32, 32),
+                    textureSourceRectangle: new(32, 0, 32, 32),
                     [
                         // [0] Powders
                         new(
@@ -519,7 +519,7 @@ namespace StardustSandbox.Databases
                     Localization_Catalog.Category_Tools_Name,
                     Localization_Catalog.Category_Tools_Description,
                     TextureIndex.IconUI,
-                    iconTextureRectangle: new(224, 160, 32, 32),
+                    textureSourceRectangle: new(224, 160, 32, 32),
                     [
                         // [0] Environment
                         new(
@@ -556,7 +556,7 @@ namespace StardustSandbox.Databases
 
         private static void SetParentReferences()
         {
-            for (int i = 0; i < categories.Length; i++)
+            for (byte i = 0; i < categories.Length; i++)
             {
                 Category category = categories[i];
 
@@ -579,7 +579,7 @@ namespace StardustSandbox.Databases
             categoryLength = categories.Length;
             itemLength = 0;
 
-            for (int i = 0; i < categories.Length; i++)
+            for (byte i = 0; i < categories.Length; i++)
             {
                 Category category = categories[i];
 

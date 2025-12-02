@@ -19,11 +19,11 @@ namespace StardustSandbox.UI.Common.HUD
 {
     internal sealed class PauseUI : UIBase
     {
-        private Image panelBackgroundElement;
-        private Label menuTitleElement;
+        private Image background;
+        private Label menuTitle;
 
-        private readonly ButtonInfo[] menuButtons;
-        private readonly SlotInfo[] menuButtonSlots;
+        private readonly ButtonInfo[] menuButtonInfos;
+        private readonly SlotInfo[] menuButtonSlotInfos;
 
         private readonly ConfirmUI confirmUI;
         private readonly ConfirmSettings exitConfirmSettings;
@@ -56,36 +56,23 @@ namespace StardustSandbox.UI.Common.HUD
                 }
             };
 
-            this.menuButtons = [
-                new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, ResumeButtonAction),
-                new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, OptionsButtonAction),
-                new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, ExitButtonAction),
+            this.menuButtonInfos = [
+                new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
+                {
+                    this.uiManager.OpenGUI(UIIndex.OptionsMenu);
+                    this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+                }),
+                new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
+                {
+                    this.confirmUI.Configure(this.exitConfirmSettings);
+                    this.uiManager.OpenGUI(UIIndex.Confirm);
+                    this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+                }),
             ];
 
-            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
+            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
         }
-
-        #region ACTIONS
-
-        private void ResumeButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
-
-        private void OptionsButtonAction()
-        {
-            this.uiManager.OpenGUI(UIIndex.OptionsMenu);
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-        }
-
-        private void ExitButtonAction()
-        {
-            this.confirmUI.Configure(this.exitConfirmSettings);
-            this.uiManager.OpenGUI(UIIndex.Confirm);
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-        }
-
-        #endregion
 
         #region BUILDERS
 
@@ -102,56 +89,56 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1),
+                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackgroundElement = new()
+            this.background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
                 Size = new(542, 540),
-                Margin = new(AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause).Width / 2 * -1, 90),
+                Margin = new(AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause).Width / 2.0f * -1.0f, 90.0f),
                 Alignment = CardinalDirection.North,
             };
 
             root.AddChild(backgroundShadowElement);
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.background);
         }
 
         private void BuildTitle()
         {
-            this.menuTitleElement = new()
+            this.menuTitle = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Alignment = CardinalDirection.North,
-                Margin = new(0f, 40f),
+                Margin = new(0.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_Pause_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 3f,
-                BorderThickness = 3f
+                BorderOffset = 3.0f,
+                BorderThickness = 3.0f
             };
 
-            this.panelBackgroundElement.AddChild(this.menuTitleElement);
+            this.background.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
-            float marginY = 118f;
+            float marginY = 118.0f;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtonInfos[i];
 
                 Image backgroundElement = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
-                    Size = new(320, 80),
+                    Size = new(320.0f, 80.0f),
                     Margin = new(-160.0f, marginY),
                     Alignment = CardinalDirection.North,
                 };
@@ -166,16 +153,16 @@ namespace StardustSandbox.UI.Common.HUD
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2f,
-                    BorderThickness = 2f,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
-                this.panelBackgroundElement.AddChild(backgroundElement);
+                this.background.AddChild(backgroundElement);
                 backgroundElement.AddChild(label);
 
-                this.menuButtonSlots[i] = new(backgroundElement, null, label);
+                this.menuButtonSlotInfos[i] = new(backgroundElement, null, label);
 
-                marginY += backgroundElement.Size.Y + 32;
+                marginY += backgroundElement.Size.Y + 32.0f;
             }
         }
 
@@ -192,19 +179,16 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlotInfos[i];
 
-                Vector2 size = slot.Background.Size / 2;
-                Vector2 position = slot.Background.Position + size;
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
-                slot.Background.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

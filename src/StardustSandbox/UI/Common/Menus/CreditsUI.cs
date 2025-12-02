@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.UI.Common.Menus
 {
-    internal sealed class CreditsMenuUI : UIBase
+    internal sealed class CreditsUI : UIBase
     {
         private enum CreditContentType : byte
         {
@@ -62,9 +62,9 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly UIManager uiManager;
 
         private const float SPEED = 0.75f;
-        private const float VERTICAL_SPACING = 64f;
+        private const float VERTICAL_SPACING = 64.0f;
 
-        internal CreditsMenuUI(
+        internal CreditsUI(
             AmbientManager ambientManager,
             UIIndex index,
             InputManager inputManager,
@@ -208,7 +208,7 @@ namespace StardustSandbox.UI.Common.Menus
                     {
                         ContentType = CreditContentType.Image,
                         Texture = AssetDatabase.GetTexture(TextureIndex.CharacterStarciad),
-                        Margin = new(0f, AssetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height / 2f),
+                        Margin = new(0.0f, AssetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height / 2.0f),
                     },
                 ]),
             ];
@@ -227,9 +227,9 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildElements(Container root)
         {
-            Vector2 margin = new(0, VERTICAL_SPACING * 2f);
+            Vector2 margin = new(0.0f, VERTICAL_SPACING * 2.0f);
 
-            for (int i = 0; i < this.creditSections.Length; i++)
+            for (byte i = 0; i < this.creditSections.Length; i++)
             {
                 CreditSection creditSection = this.creditSections[i];
 
@@ -323,9 +323,14 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void ResetElementsPosition()
         {
-            foreach (UIElement creditElement in this.creditElements)
+            for (int i = 0, length = this.creditElements.Count; i < length; i++)
             {
-                creditElement.Position = new(creditElement.Position.X, ScreenConstants.SCREEN_HEIGHT + creditElement.Size.Y);
+                UIElement element = this.creditElements[i];
+
+                element.Position = new(
+                    element.Position.X,
+                    ScreenConstants.SCREEN_HEIGHT + (element.Size.Y * element.Scale.Y) + (i * VERTICAL_SPACING)
+                );
             }
         }
 
@@ -369,7 +374,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void CheckIfTheCreditsHaveFinished()
         {
-            if (((this.lastElement.Position.Y + this.lastElement.Size.Y) * this.lastElement.Scale.Y) + 16f < 0f)
+            if (((this.lastElement.Position.Y + this.lastElement.Size.Y) * this.lastElement.Scale.Y) + 16.0f < 0.0f)
             {
                 this.uiManager.CloseGUI();
             }

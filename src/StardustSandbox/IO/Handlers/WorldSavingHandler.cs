@@ -124,7 +124,7 @@ namespace StardustSandbox.IO.Handlers
             string[] files = Directory.GetFiles(SSDirectory.Worlds, string.Concat('*', IOConstants.WORLD_FILE_EXTENSION), SearchOption.TopDirectoryOnly);
             SaveFile saveFile;
 
-            for (int i = 0; i < files.Length; i++)
+            for (byte i = 0; i < files.Length; i++)
             {
                 try
                 {

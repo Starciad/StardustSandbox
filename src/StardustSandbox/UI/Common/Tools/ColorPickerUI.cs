@@ -47,7 +47,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI),
             ];
 
             this.colorButtons = [
@@ -121,20 +121,9 @@ namespace StardustSandbox.UI.Common.Tools
             this.colorButtonElements = new ColorSlotInfo[this.colorButtons.Length];
         }
 
-        #region INITIALIZE
-
         internal void Configure(ColorPickerSettings settings)
         {
             this.colorPickerSettings = settings;
-        }
-
-        #endregion
-
-        #region ACTIONS
-
-        private void CancelButtonAction()
-        {
-            this.uiManager.CloseGUI();
         }
 
         private void SelectColorButtonAction(Color color)
@@ -142,8 +131,6 @@ namespace StardustSandbox.UI.Common.Tools
             this.uiManager.CloseGUI();
             this.colorPickerSettings?.OnSelectCallback?.Invoke(new(color));
         }
-
-        #endregion
 
         #region BUILDER
 
@@ -175,9 +162,9 @@ namespace StardustSandbox.UI.Common.Tools
             this.captionElement = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0, 96),
+                Margin = new(0.0f, 96.0f),
                 LineHeight = 1.25f,
-                TextAreaSize = new(850, 1000),
+                TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
                 TextContent = Localization_GUIs.Tools_ColorPicker_Title,
@@ -200,9 +187,9 @@ namespace StardustSandbox.UI.Common.Tools
 
             int index = 0;
 
-            for (int row = 0; row < totalRows; row++)
+            for (byte row = 0; row < totalRows; row++)
             {
-                for (int col = 0; col < buttonsPerRow; col++)
+                for (byte col = 0; col < buttonsPerRow; col++)
                 {
                     if (index >= totalButtons)
                     {
@@ -215,7 +202,7 @@ namespace StardustSandbox.UI.Common.Tools
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 0, 40, 22),
-                        Scale = new(2f),
+                        Scale = new(2.0f),
                         Size = textureSize,
                         Color = colorButton.Color,
                         Margin = margin,
@@ -225,7 +212,7 @@ namespace StardustSandbox.UI.Common.Tools
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 22, 40, 22),
-                        Scale = new(2f),
+                        Scale = new(2.0f),
                         Size = textureSize,
                     };
 
@@ -246,9 +233,9 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void BuildMenuButtons(Container root)
         {
-            Vector2 margin = new(0, -48);
+            float marginY = -48.0f;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 ButtonInfo button = this.menuButtons[i];
 
@@ -256,17 +243,17 @@ namespace StardustSandbox.UI.Common.Tools
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
-                    Margin = margin,
+                    Margin = new(0.0f, marginY),
                     Alignment = CardinalDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2f,
-                    BorderThickness = 2f,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
-                margin.Y -= 72;
+                marginY -= 72;
 
                 root.AddChild(label);
 
@@ -286,44 +273,36 @@ namespace StardustSandbox.UI.Common.Tools
 
             UpdateMenuButtons();
             UpdateColorButtons();
-
-            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 Label label = this.menuButtonElements[i];
 
-                Vector2 size = label.Size / 2.0f;
-                Vector2 position = label.Position;
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
         private void UpdateColorButtons()
         {
-            for (int i = 0; i < this.colorButtons.Length; i++)
+            for (byte i = 0; i < this.colorButtons.Length; i++)
             {
                 ColorSlotInfo colorSlot = this.colorButtonElements[i];
                 ColorButtonInfo colorButton = this.colorButtons[i];
-
-                Vector2 size = colorSlot.Border.Size / 2.0f;
-                Vector2 position = new(colorSlot.Border.Position.X + size.X, colorSlot.Border.Position.Y + size.Y);
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                
+                if (Interaction.OnMouseLeftClick(colorSlot.Border))
                 {
                     SelectColorButtonAction(colorButton.Color);
                 }
 
-                if (Interaction.OnMouseLeftOver(position, size))
+                if (Interaction.OnMouseOver(colorSlot.Border))
                 {
                     this.tooltipBox.CanDraw = true;
 

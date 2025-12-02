@@ -41,7 +41,7 @@ namespace StardustSandbox.Constants
 
         internal static Color GetTemperatureColor(double temperature)
         {
-            for (int i = 0; i < TEMPERATURE_COLOR_RANGES.Length; i++)
+            for (byte i = 0; i < TEMPERATURE_COLOR_RANGES.Length; i++)
             {
                 if (temperature >= TEMPERATURE_COLOR_RANGES[i].MinimumTemperature && temperature <= TEMPERATURE_COLOR_RANGES[i].MaximumTemperature)
                 {

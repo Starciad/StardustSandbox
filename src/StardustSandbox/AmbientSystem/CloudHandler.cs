@@ -44,7 +44,7 @@ namespace StardustSandbox.AmbientSystem
                 return;
             }
 
-            for (int i = 0; i < this.activeClouds.Count; i++)
+            for (byte i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];
 
@@ -75,7 +75,7 @@ namespace StardustSandbox.AmbientSystem
                 return;
             }
 
-            for (int i = 0; i < this.activeClouds.Count; i++)
+            for (byte i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];
 
@@ -90,7 +90,7 @@ namespace StardustSandbox.AmbientSystem
 
         internal void Clear()
         {
-            for (int i = 0; i < this.activeClouds.Count; i++)
+            for (byte i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];
 

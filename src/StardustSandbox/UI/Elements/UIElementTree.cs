@@ -38,7 +38,7 @@ namespace StardustSandbox.UI.Elements
 
             IReadOnlyList<UIElement> children = element.Children;
 
-            for (int i = 0; i < children.Count; i++)
+            for (byte i = 0; i < children.Count; i++)
             {
                 BuildString(children[i], outputString, indent, i == children.Count - 1);
             }

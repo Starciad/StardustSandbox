@@ -13,27 +13,25 @@ using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.UI.Common.HUD
 {
     internal sealed class EnvironmentSettingsUI : UIBase
     {
-        private Image panelBackgroundElement;
+        private Image background;
 
-        private Label menuTitleElement;
-        private Label timeStateSectionTitleElement;
-        private Label timeSectionTitleElement;
+        private Label menuTitle;
+        private Label timeStateSectionTitle;
+        private Label timeSectionTitle;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly SlotInfo[] menuButtonSlots;
-        private readonly SlotInfo[] timeStateButtonSlots;
-        private readonly SlotInfo[] timeButtonSlots;
+        private readonly SlotInfo[] menuButtonSlotInfos;
+        private readonly SlotInfo[] timeStateButtonSlotInfos;
+        private readonly SlotInfo[] timeButtonSlotInfos;
 
-        private readonly ButtonInfo[] menuButtons;
-        private readonly ButtonInfo[] timeStateButtons;
-        private readonly ButtonInfo[] timeButtons;
+        private readonly ButtonInfo[] menuButtonInfos;
+        private readonly ButtonInfo[] timeStateButtonInfos;
+        private readonly ButtonInfo[] timeButtonInfos;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
@@ -52,48 +50,29 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager = uiManager;
             this.world = world;
 
-            this.menuButtons = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, ExitButtonAction),
+            this.menuButtonInfos = [
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
-            this.timeStateButtons = [
-                new ButtonInfo(TextureIndex.IconUI, new(160, 64, 32, 32), Localization_Statements.Disable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description, () => SetTimeFreezeState(true)),
-                new ButtonInfo(TextureIndex.IconUI, new(192, 64, 32, 32), Localization_Statements.Enable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description, () => SetTimeFreezeState(false)),
+            this.timeStateButtonInfos = [
+                new ButtonInfo(TextureIndex.IconUI, new(160, 64, 32, 32), Localization_Statements.Disable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description, () => { this.world.Time.IsFrozen = true; }),
+                new ButtonInfo(TextureIndex.IconUI, new(192, 64, 32, 32), Localization_Statements.Enable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description, () => { this.world.Time.IsFrozen = false; }),
             ];
 
-            this.timeButtons = [
-                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description, () => SetTimeButtonAction(new TimeSpan(0, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(32, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description, () => SetTimeButtonAction(new TimeSpan(6, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(64, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description, () => SetTimeButtonAction(new TimeSpan(9, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(96, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description, () => SetTimeButtonAction(new TimeSpan(12, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(128, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description, () => SetTimeButtonAction(new TimeSpan(15, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(160, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description, () => SetTimeButtonAction(new TimeSpan(18, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(192, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description, () => SetTimeButtonAction(new TimeSpan(21, 0, 0))),
+            this.timeButtonInfos = [
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description, () => this.world.Time.SetTime(new(0, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(32, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description, () => this.world.Time.SetTime(new(6, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(64, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description, () => this.world.Time.SetTime(new(9, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(96, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description, () => this.world.Time.SetTime(new(12, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(128, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description, () => this.world.Time.SetTime(new(15, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(160, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description, () => this.world.Time.SetTime(new(18, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(192, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description, () => this.world.Time.SetTime(new(21, 0, 0))),
             ];
 
-            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
-            this.timeStateButtonSlots = new SlotInfo[this.timeStateButtons.Length];
-            this.timeButtonSlots = new SlotInfo[this.timeButtons.Length];
+            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            this.timeStateButtonSlotInfos = new SlotInfo[this.timeStateButtonInfos.Length];
+            this.timeButtonSlotInfos = new SlotInfo[this.timeButtonInfos.Length];
         }
-
-        #region ACTIONS
-
-        private void ExitButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
-
-        private void SetTimeFreezeState(bool value)
-        {
-            this.world.Time.IsFrozen = value;
-        }
-
-        private void SetTimeButtonAction(TimeSpan value)
-        {
-            this.world.Time.SetTime(value);
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -114,131 +93,131 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1),
+                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackgroundElement = new()
+            this.background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
-                Size = new(1084, 540),
-                Margin = new(98, 90),
+                Size = new(1084.0f, 540.0f),
+                Margin = new(98.0f, 90.0f),
             };
 
             root.AddChild(backgroundShadowElement);
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.background);
         }
 
         private void BuildTitle()
         {
-            this.menuTitleElement = new()
+            this.menuTitle = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Alignment = CardinalDirection.Northwest,
-                Margin = new(32, 40),
+                Margin = new(32.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
-                BorderOffset = 3f,
-                BorderThickness = 3f,
+                BorderOffset = 3.0f,
+                BorderThickness = 3.0f,
             };
 
-            this.panelBackgroundElement.AddChild(this.menuTitleElement);
+            this.background.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
-            Vector2 margin = new(-32f, -40f);
+            float marginX = -32.0f;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
-                SlotInfo slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.menuButtonInfos[i];
+                SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                this.panelBackgroundElement.AddChild(slot.Background);
+                this.background.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.menuButtonSlots[i] = slot;
+                this.menuButtonSlotInfos[i] = slot;
 
                 // Spacing
-                margin.X -= UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
+                marginX -= 80.0f;
             }
         }
 
         private void BuildTimeStateSection()
         {
-            this.timeStateSectionTitleElement = new()
+            this.timeStateSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(32, 112),
+                Margin = new(32.0f, 112.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title
             };
 
-            this.panelBackgroundElement.AddChild(this.timeStateSectionTitleElement);
+            this.background.AddChild(this.timeStateSectionTitle);
 
             // Buttons
-            Vector2 margin = new(32, 80);
+            float marginX = 32.0f;
 
-            for (int i = 0; i < this.timeStateButtonSlots.Length; i++)
+            for (byte i = 0; i < this.timeStateButtonSlotInfos.Length; i++)
             {
-                ButtonInfo button = this.timeStateButtons[i];
-                SlotInfo slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.timeStateButtonInfos[i];
+                SlotInfo slot = CreateButtonSlot(new(marginX, 80.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.South;
 
                 // Update
-                this.timeStateSectionTitleElement.AddChild(slot.Background);
+                this.timeStateSectionTitle.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.timeStateButtonSlots[i] = slot;
+                this.timeStateButtonSlotInfos[i] = slot;
 
                 // Spacing
-                margin.X += UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
+                marginX += 80.0f;
             }
         }
 
         private void BuildTimeSection()
         {
-            this.timeSectionTitleElement = new()
+            this.timeSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(this.timeStateSectionTitleElement.Size.X + (UIConstants.HUD_GRID_SIZE * UIConstants.HUD_SLOT_SCALE * this.timeStateButtonSlots.Length) + 64, 0f),
+                Margin = new(this.timeStateSectionTitle.Size.X + (64.0f * this.timeStateButtonSlotInfos.Length) + 64.0f, 0.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Title
             };
 
-            this.timeStateSectionTitleElement.AddChild(this.timeSectionTitleElement);
+            this.timeStateSectionTitle.AddChild(this.timeSectionTitle);
 
             // Buttons
-            Vector2 margin = new(32, 80);
+            float marginX = 32.0f;
 
-            for (int i = 0; i < this.timeButtonSlots.Length; i++)
+            for (byte i = 0; i < this.timeButtonSlotInfos.Length; i++)
             {
-                ButtonInfo button = this.timeButtons[i];
-                SlotInfo slot = CreateButtonSlot(margin, button);
+                ButtonInfo button = this.timeButtonInfos[i];
+                SlotInfo slot = CreateButtonSlot(new(marginX, 80.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.South;
 
                 // Update
-                this.timeSectionTitleElement.AddChild(slot.Background);
+                this.timeSectionTitle.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.timeButtonSlots[i] = slot;
+                this.timeButtonSlotInfos[i] = slot;
 
                 // Spacing
-                margin.X += UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
+                marginX += 80.0f;
             }
         }
 
@@ -250,17 +229,17 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(UIConstants.HUD_SLOT_SCALE),
-                Size = new(UIConstants.HUD_GRID_SIZE),
+                Scale = new(2.0f),
+                Size = new(32.0f),
                 Margin = margin,
             };
 
             Image iconElement = new()
             {
-                Texture = button.IconTexture,
-                SourceRectangle = button.IconTextureRectangle,
+                Texture = button.Texture,
+                SourceRectangle = button.TextureSourceRectangle,
                 Scale = new(1.5f),
-                Size = new(UIConstants.HUD_GRID_SIZE)
+                Size = new(32.0f)
             };
 
             return new(backgroundElement, iconElement);
@@ -272,37 +251,32 @@ namespace StardustSandbox.UI.Common.HUD
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             this.tooltipBox.CanDraw = false;
 
             UpdateMenuButtons();
             UpdateTimeStateButtons();
             UpdateTimeButtons();
 
-            this.tooltipBox.RefreshDisplay();
+            base.Update(gameTime);
         }
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlotInfos[i];
 
-                Vector2 position = slot.Background.Position;
-                Vector2 size = new(UIConstants.HUD_GRID_SIZE);
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseLeftOver(position, size))
+                if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.menuButtons[i].Name);
-                    TooltipBoxContent.SetDescription(this.menuButtons[i].Description);
+                    TooltipBoxContent.SetTitle(this.menuButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.menuButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -315,24 +289,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTimeStateButtons()
         {
-            for (int i = 0; i < this.timeStateButtons.Length; i++)
+            for (byte i = 0; i < this.timeStateButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.timeStateButtonSlots[i];
+                SlotInfo slot = this.timeStateButtonSlotInfos[i];
 
-                Vector2 position = slot.Background.Position;
-                Vector2 size = new(UIConstants.HUD_GRID_SIZE);
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.timeStateButtons[i].ClickAction?.Invoke();
+                    this.timeStateButtonInfos[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseLeftOver(position, size))
+                if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.timeStateButtons[i].Name);
-                    TooltipBoxContent.SetDescription(this.timeStateButtons[i].Description);
+                    TooltipBoxContent.SetTitle(this.timeStateButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.timeStateButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -344,34 +315,31 @@ namespace StardustSandbox.UI.Common.HUD
 
             if (this.world.Time.IsFrozen)
             {
-                this.timeStateButtonSlots[0].Background.Color = AAP64ColorPalette.SelectedColor;
+                this.timeStateButtonSlotInfos[0].Background.Color = AAP64ColorPalette.SelectedColor;
             }
             else
             {
-                this.timeStateButtonSlots[1].Background.Color = AAP64ColorPalette.SelectedColor;
+                this.timeStateButtonSlotInfos[1].Background.Color = AAP64ColorPalette.SelectedColor;
             }
         }
 
         private void UpdateTimeButtons()
         {
-            for (int i = 0; i < this.timeButtons.Length; i++)
+            for (byte i = 0; i < this.timeButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.timeButtonSlots[i];
+                SlotInfo slot = this.timeButtonSlotInfos[i];
 
-                Vector2 position = slot.Background.Position;
-                Vector2 size = new(UIConstants.HUD_GRID_SIZE);
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.timeButtons[i].ClickAction?.Invoke();
+                    this.timeButtonInfos[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseLeftOver(position, size))
+                if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.timeButtons[i].Name);
-                    TooltipBoxContent.SetDescription(this.timeButtons[i].Description);
+                    TooltipBoxContent.SetTitle(this.timeButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.timeButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }

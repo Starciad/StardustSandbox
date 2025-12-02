@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.AudioSystem;
 using StardustSandbox.Colors.Palettes;
@@ -22,7 +24,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.UI.Common.Menus
 {
-    internal sealed class OptionsMenuUI : UIBase
+    internal sealed class OptionsUI : UIBase
     {
         private enum SystemButton : byte
         {
@@ -82,7 +84,7 @@ namespace StardustSandbox.UI.Common.Menus
         private static readonly float leftPanelMarginVerticalSpacing = 48.0f;
         private static readonly float rightPanelMarginVerticalSpacing = 48.0f;
 
-        internal OptionsMenuUI(
+        internal OptionsUI(
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
             UIIndex index,
@@ -108,8 +110,20 @@ namespace StardustSandbox.UI.Common.Menus
             this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
 
             this.systemButtons = [
-                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, ReturnButtonAction),
-                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, SaveButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, () =>
+                {
+                    SaveSettings();
+                    ApplySettings();
+                    
+                    if (!this.restartMessageAppeared)
+                    {
+                        this.messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
+                        this.uiManager.OpenGUI(UIIndex.Message);
+                    
+                        this.restartMessageAppeared = true;
+                    }
+                }),
             ];
 
             this.root = new()
@@ -171,28 +185,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.systemButtonElements = new Label[this.systemButtons.Length];
         }
 
-        #region ACTIONS
-
-        // ================================== //
-        // Button Methods
-
-        private void SaveButtonAction()
-        {
-            SaveSettings();
-            ApplySettings();
-
-            if (!this.restartMessageAppeared)
-            {
-                this.messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
-                this.uiManager.OpenGUI(UIIndex.Message);
-
-                this.restartMessageAppeared = true;
-            }
-        }
-
         #region SETTINGS HANDLING
-
-        #region SAVE SETTINGS
 
         private void SaveSettings()
         {
@@ -202,6 +195,24 @@ namespace StardustSandbox.UI.Common.Menus
             SaveVideoSettings();
             SaveCursorSettings();
         }
+
+        private void SyncSettingElements()
+        {
+            SyncGeneralSettings();
+            SyncGameplaySettings();
+            SyncVolumeSettings();
+            SyncVideoSettings();
+            SyncCursorSettings();
+        }
+
+        private void ApplySettings()
+        {
+            ApplyVolumeSettings();
+            ApplyVideoSettings();
+            ApplyCursorSettings();
+        }
+
+        #region SAVE SETTINGS
 
         private void SaveGeneralSettings()
         {
@@ -264,15 +275,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region SYNC SETTINGS
 
-        private void SyncSettingElements()
-        {
-            SyncGeneralSettings();
-            SyncGameplaySettings();
-            SyncVolumeSettings();
-            SyncVideoSettings();
-            SyncCursorSettings();
-        }
-
         private void SyncGeneralSettings()
         {
             Section generalSection = this.root.Sections["general"];
@@ -320,20 +322,12 @@ namespace StardustSandbox.UI.Common.Menus
 
         #endregion
 
-        #endregion
-
-        #region Apply Settings
-        private void ApplySettings()
-        {
-            ApplyVolumeSettings();
-            ApplyVideoSettings();
-            ApplyCursorSettings();
-        }
+        #region APPLY SETTINGS
 
         private void ApplyVolumeSettings()
         {
-            SongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
-            // SoundEngine.Volume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
+            MediaPlayer.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
+            SoundEffect.MasterVolume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
         }
 
         private void ApplyVideoSettings()
@@ -347,11 +341,6 @@ namespace StardustSandbox.UI.Common.Menus
         }
 
         #endregion
-
-        private void ReturnButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
 
         #endregion
 
@@ -380,8 +369,8 @@ namespace StardustSandbox.UI.Common.Menus
             this.panelBackgroundElement = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
-                Size = new(1084, 540),
-                Margin = new(98, 90),
+                Size = new(1084.0f, 540.0f),
+                Margin = new(98.0f, 90.0f),
             };
 
             root.AddChild(this.panelBackgroundElement);
@@ -392,7 +381,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.titleLabelElement = new()
             {
                 Scale = new(0.15f),
-                Margin = new(0f, 52.5f),
+                Margin = new(0.0f, 52.5f),
                 Color = AAP64ColorPalette.White,
                 Alignment = CardinalDirection.North,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
@@ -409,41 +398,37 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildSectionButtons()
         {
-            // BUTTONS
-            Vector2 margin = new(-335f, 64f);
+            float marginY = 64.0f;
 
-            // Labels
             foreach (KeyValuePair<string, Section> item in this.root.Sections)
             {
                 Label label = CreateButtonLabelElement(item.Value.Name);
 
                 label.Alignment = CardinalDirection.North;
-                label.Margin = margin;
+                label.Margin = new(-335.0f, marginY);
                 this.panelBackgroundElement.AddChild(label);
 
                 this.sectionButtonElements.Add(item.Key, label);
-                margin.Y += leftPanelMarginVerticalSpacing;
+                marginY += leftPanelMarginVerticalSpacing;
             }
         }
 
         private void BuildSystemButtons()
         {
-            Vector2 margin = new(-335f, -64f);
+            float marginY = -64.0f;
 
-            for (int i = 0; i < this.systemButtons.Length; i++)
+            for (byte i = 0; i < this.systemButtons.Length; i++)
             {
                 Label label = CreateButtonLabelElement(this.systemButtons[i].Name);
 
                 label.Alignment = CardinalDirection.South;
-                label.Margin = margin;
+                label.Margin = new(-335f, -64.0f);
                 this.panelBackgroundElement.AddChild(label);
 
                 this.systemButtonElements[i] = label;
-                margin.Y -= leftPanelMarginVerticalSpacing;
+                marginY -= leftPanelMarginVerticalSpacing;
             }
         }
-
-        // ============================================================================ //
 
         private void BuildSections(Container root)
         {
@@ -501,7 +486,7 @@ namespace StardustSandbox.UI.Common.Menus
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
-                    Margin = new(label.Size.X + 6f, label.Size.Y / 2f * -1f),
+                    Margin = new(label.Size.X + 6.0f, label.Size.Y / 2.0f * -1.0f),
                 },
 
                 new()
@@ -529,7 +514,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(192, 160, 32, 32),
                 Size = new(32.0f),
-                Margin = new(0, label.Size.Y / 2f * -1f)
+                Margin = new(0.0f, label.Size.Y / 2.0f * -1.0f)
             };
 
             Image plus = new()
@@ -601,8 +586,8 @@ namespace StardustSandbox.UI.Common.Menus
                 Alignment = CardinalDirection.North,
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2f,
-                BorderThickness = 2f,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
                 TextContent = text
             };
 
@@ -666,8 +651,6 @@ namespace StardustSandbox.UI.Common.Menus
             UpdateSectionButtons();
             UpdateSystemButtons();
             UpdateSectionOptions();
-
-            this.tooltipBox.RefreshDisplay();
         }
 
         private void UpdateSectionButtons()
@@ -676,15 +659,12 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label label = item.Value;
 
-                Vector2 size = label.Size / 2.0f;
-                Vector2 position = label.Position;
-
-                bool onMouseOver = Interaction.OnMouseLeftOver(position, size);
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     SelectSection(item.Key);
                 }
+
+                bool onMouseOver = Interaction.OnMouseOver(label);
 
                 if (onMouseOver)
                 {
@@ -709,15 +689,12 @@ namespace StardustSandbox.UI.Common.Menus
                 Label label = this.systemButtonElements[i];
                 ButtonInfo button = this.systemButtons[i];
 
-                Vector2 size = label.Size / 2.0f;
-                Vector2 position = label.Position;
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     button.ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseLeftOver(position, size))
+                if (Interaction.OnMouseOver(label))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -740,7 +717,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             foreach (Label label in this.sectionContents[this.selectedSectionIdentififer])
             {
-                Vector2 position = new(label.Position.X + interactiveAreaSize.X, label.Position.Y - 6);
+                Vector2 position = new(label.Position.X + interactiveAreaSize.X, label.Position.Y - 6.0f);
                 Option option = (Option)label.GetData("option");
 
                 if (Interaction.OnMouseLeftClick(position, interactiveAreaSize))
@@ -750,7 +727,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 UpdateOptionSync(option, label);
 
-                if (Interaction.OnMouseLeftOver(position, interactiveAreaSize))
+                if (Interaction.OnMouseOver(position, interactiveAreaSize))
                 {
                     label.Color = AAP64ColorPalette.LemonYellow;
 
@@ -779,6 +756,7 @@ namespace StardustSandbox.UI.Common.Menus
         }
 
         #region Sync
+
         private static void UpdateOptionSync(Option option, UIElement element)
         {
             switch (option)
@@ -830,7 +808,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private static void UpdateToggleOption(ToggleOption toggleOption, Image toggleStateElement)
         {
-            toggleStateElement.SourceRectangle = toggleOption.State ? new(new(0, 32), new(32)) : new(new(0), new(32));
+            toggleStateElement.SourceRectangle = toggleOption.State ? new(0, 32, 32, 32) : new(0, 0, 32, 32);
         }
         #endregion
 

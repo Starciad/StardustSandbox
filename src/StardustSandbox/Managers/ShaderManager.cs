@@ -18,7 +18,7 @@ namespace StardustSandbox.Managers
 
         internal void Update(GameTime gameTime)
         {
-            for (int i = 0; i < this.effectsLength; i++)
+            for (byte i = 0; i < this.effectsLength; i++)
             {
                 this.effects[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
             }

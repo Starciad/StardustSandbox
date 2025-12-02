@@ -97,20 +97,7 @@ namespace StardustSandbox.UI.Elements
             base.Initialize();
         }
 
-        internal override void Update(GameTime gameTime)
-        {
-            UpdateSize();
-            UpdatePosition();
-
-            base.Update(gameTime);
-        }
-
-        internal override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
-
-        internal void RefreshDisplay()
+        private void RefreshDisplay()
         {
             if (this.CanDraw)
             {
@@ -131,13 +118,27 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
+        internal override void Update(GameTime gameTime)
+        {
+            UpdateSize();
+            UpdatePosition();
+            RefreshDisplay();
+
+            base.Update(gameTime);
+        }
+
+        internal override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
+
         private void UpdateSize()
         {
             Vector2 titleSize = this.title.Size;
             Vector2 descriptionSize = this.description.Size;
 
             float finalWidth = Math.Max(this.MinimumSize.X, titleSize.X);
-            float finalHeight = Math.Max(this.MinimumSize.Y, descriptionSize.Y + titleSize.Y + 10f);
+            float finalHeight = Math.Max(this.MinimumSize.Y, descriptionSize.Y + titleSize.Y + 10.0f);
 
             finalWidth = finalWidth > this.MaximumSize.X ? this.MaximumSize.X : finalWidth;
             finalHeight = finalHeight > this.MaximumSize.Y ? this.MaximumSize.Y : finalHeight;
@@ -153,7 +154,7 @@ namespace StardustSandbox.UI.Elements
 
         private void UpdatePosition()
         {
-            Vector2 spacing = this.cursorManager.Scale * 16;
+            Vector2 spacing = this.cursorManager.Scale * 16.0f;
 
             Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
             Vector2 newPosition = mousePosition + this.Margin + spacing;

@@ -49,9 +49,9 @@ namespace StardustSandbox.UI.Common.Tools
             this.messageElement = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0f, 96f),
+                Margin = new(0.0f, 96.0f),
                 LineHeight = 1.25f,
-                TextAreaSize = new(850, 1000),
+                TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
                 TextContent = "Message"
@@ -66,14 +66,14 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.13f),
-                Margin = new(0f, -96f),
+                Margin = new(0.0f, -96.0f),
                 Alignment = CardinalDirection.South,
                 TextContent = Localization_Statements.Continue,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2f,
-                BorderThickness = 2f,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
             };
 
             root.AddChild(this.continueButtonElement);
@@ -85,21 +85,14 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-            UpdateContinueButton();
-        }
-
-        private void UpdateContinueButton()
-        {
-            Vector2 position = this.continueButtonElement.Position;
-            Vector2 size = this.continueButtonElement.Size / 2;
-
-            if (Interaction.OnMouseLeftClick(position, size))
+            if (Interaction.OnMouseLeftClick(this.continueButtonElement))
             {
                 this.uiManager.CloseGUI();
             }
 
-            this.continueButtonElement.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            this.continueButtonElement.Color = Interaction.OnMouseOver(this.continueButtonElement) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+
+            base.Update(gameTime);
         }
 
         internal void SetContent(string text)

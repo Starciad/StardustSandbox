@@ -92,7 +92,7 @@ namespace StardustSandbox.UI.Elements
                 return;
             }
 
-            for (int i = 0; i < TextConstants.BORDER_DIRECTION_OFFSETS.Length; i++)
+            for (byte i = 0; i < TextConstants.BORDER_DIRECTION_OFFSETS.Length; i++)
             {
                 BorderDirectionOffset borderDirectionOffset = TextConstants.BORDER_DIRECTION_OFFSETS[i];
 

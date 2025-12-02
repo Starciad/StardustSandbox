@@ -67,14 +67,34 @@ namespace StardustSandbox.UI.Common.Tools
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, CancelButtonAction),
-                new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, SendButtonAction),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
+                {
+                    this.inputSettings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
+
+                    if (this.inputSettings != null)
+                    {
+                        TextValidationState validationState = new();
+                        TextArgumentResult argumentResult = new(this.userInputStringBuilder.ToString());
+                    
+                        this.inputSettings.OnValidationCallback?.Invoke(validationState, argumentResult);
+                    
+                        if (validationState.Status == ValidationStatus.Failure)
+                        {
+                            this.messageUI.SetContent(validationState.Message);
+                            this.uiManager.OpenGUI(UIIndex.Message);
+                            return;
+                        }
+                    
+                        this.inputSettings.OnSendCallback?.Invoke(argumentResult);
+                    }
+                    
+                    this.uiManager.CloseGUI();
+                }),
             ];
 
             this.menuButtonElements = new Label[this.menuButtons.Length];
         }
-
-        #region INITIALIZE
 
         internal void Configure(TextInputSettings settings)
         {
@@ -103,41 +123,6 @@ namespace StardustSandbox.UI.Common.Tools
             // Count
             this.characterCountElement.CanDraw = settings.MaxCharacters != 0;
         }
-
-        #endregion
-
-        #region ACTIONS
-
-        private void CancelButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
-
-        private void SendButtonAction()
-        {
-            this.inputSettings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
-
-            if (this.inputSettings != null)
-            {
-                TextValidationState validationState = new();
-                TextArgumentResult argumentResult = new(this.userInputStringBuilder.ToString());
-
-                this.inputSettings.OnValidationCallback?.Invoke(validationState, argumentResult);
-
-                if (validationState.Status == ValidationStatus.Failure)
-                {
-                    this.messageUI.SetContent(validationState.Message);
-                    this.uiManager.OpenGUI(UIIndex.Message);
-                    return;
-                }
-
-                this.inputSettings.OnSendCallback?.Invoke(argumentResult);
-            }
-
-            this.uiManager.CloseGUI();
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -168,9 +153,9 @@ namespace StardustSandbox.UI.Common.Tools
             this.synopsisElement = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0, -128),
+                Margin = new(0.0f, -128.0f),
                 LineHeight = 1.25f,
-                TextAreaSize = new(850, 1000),
+                TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.Center,
                 TextContent = "Synopsis"
@@ -185,8 +170,8 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
                 Scale = new(1.5f),
-                Size = new(632, 50),
-                Margin = new(0, 64),
+                Size = new(632.0f, 50.0f),
+                Margin = new(0.0f, 64.0f),
                 Alignment = CardinalDirection.Center,
             };
 
@@ -194,8 +179,8 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Scale = new(0.085f),
-                TextAreaSize = new(1000, 1000),
-                Margin = new(0, -32),
+                TextAreaSize = new(1000.0f, 1000.0f),
+                Margin = new(0.0f, -32.0f),
                 Alignment = CardinalDirection.Center,
             };
 
@@ -209,7 +194,7 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Scale = new(0.08f),
-                Margin = new(-212, -16),
+                Margin = new(-212.0f, -16.0f),
                 Alignment = CardinalDirection.East,
                 TextContent = "000/000"
             };
@@ -219,9 +204,9 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void BuildMenuButtons(Container root)
         {
-            Vector2 margin = new(0, -48);
+            float marginY = -48.0f;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 ButtonInfo button = this.menuButtons[i];
 
@@ -229,17 +214,17 @@ namespace StardustSandbox.UI.Common.Tools
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
-                    Margin = margin,
+                    Margin = new(0.0f, marginY),
                     Alignment = CardinalDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2f,
-                    BorderThickness = 2f,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
-                margin.Y -= 72;
+                marginY -= 72;
 
                 root.AddChild(label);
 
@@ -261,19 +246,16 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 Label label = this.menuButtonElements[i];
 
-                Vector2 size = label.Size / 2;
-                Vector2 position = label.Position;
-
-                if (Interaction.OnMouseLeftClick(position, size))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -318,7 +300,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.gameWindow.TextInput -= OnTextInput;
         }
 
-        // ======================================================================== //
+        #region INPUT EVENTS
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
         {
@@ -343,7 +325,9 @@ namespace StardustSandbox.UI.Common.Tools
             UpdateDisplayedText();
         }
 
-        // ========================================================= //
+        #endregion
+
+        #region KEY CHECKERS
 
         private bool IsSpecialKey(Keys key, out Action action)
         {
@@ -371,7 +355,9 @@ namespace StardustSandbox.UI.Common.Tools
             return action != null;
         }
 
-        // ========================================================= //
+        #endregion
+
+        #region CURSOR MOVEMENT
 
         private void MoveCursorLeft()
         {
@@ -388,6 +374,10 @@ namespace StardustSandbox.UI.Common.Tools
                 this.cursorPosition++;
             }
         }
+
+        #endregion
+
+        #region SPECIAL KEY HANDLERS
 
         private void HandleBackspaceKey()
         {
@@ -427,6 +417,10 @@ namespace StardustSandbox.UI.Common.Tools
             _ = this.userInputStringBuilder.Insert(this.cursorPosition, ' ');
             this.cursorPosition++;
         }
+
+        #endregion
+
+        #region CHARACTER HANDLER
 
         private void AddCharacter(char character)
         {
@@ -477,6 +471,10 @@ namespace StardustSandbox.UI.Common.Tools
             this.cursorPosition++;
         }
 
+        #endregion
+
+        #region DISPLAY UPDATER
+
         private void UpdateDisplayedText()
         {
             this.userInputElement.TextContent = this.userInputStringBuilder.ToString();
@@ -521,11 +519,13 @@ namespace StardustSandbox.UI.Common.Tools
 
             _ = this.userInputPasswordMaskedStringBuilder.Clear();
 
-            for (int i = 0; i < this.userInputStringBuilder.Length; i++)
+            for (byte i = 0; i < this.userInputStringBuilder.Length; i++)
             {
                 _ = this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
             }
         }
+
+        #endregion
 
         #endregion
     }

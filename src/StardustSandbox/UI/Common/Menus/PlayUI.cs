@@ -12,14 +12,14 @@ using StardustSandbox.UI.Information;
 
 namespace StardustSandbox.UI.Common.Menus
 {
-    internal class PlayMenuUI : UIBase
+    internal class PlayUI : UIBase
     {
         private readonly Label[] menuButtonElements;
         private readonly ButtonInfo[] menuButtons;
 
         private readonly UIManager uiManager;
 
-        internal PlayMenuUI(
+        internal PlayUI(
             UIIndex index,
             UIManager uiManager
         ) : base(index)
@@ -27,26 +27,12 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
 
             this.menuButtons = [
-                new(TextureIndex.IconUI, new(0, 32, 32, 32), "Worlds", string.Empty, WorldsButtonAction),
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), "Return", string.Empty, ReturnButtonAction),
+                new(TextureIndex.IconUI, new(0, 32, 32, 32), "Worlds", string.Empty, () => this.uiManager.OpenGUI(UIIndex.WorldExplorerMenu)),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), "Return", string.Empty, this.uiManager.CloseGUI),
             ];
 
             this.menuButtonElements = new Label[this.menuButtons.Length];
         }
-
-        #region ACTIONS
-
-        private void WorldsButtonAction()
-        {
-            this.uiManager.OpenGUI(UIIndex.WorldExplorerMenu);
-        }
-
-        private void ReturnButtonAction()
-        {
-            this.uiManager.CloseGUI();
-        }
-
-        #endregion
 
         #region BUILDER
 
@@ -63,7 +49,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.SCREEN_WIDTH, 128f),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, 128.0f),
             };
 
             Label title = new()
@@ -75,8 +61,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2f,
-                BorderThickness = 2f,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
             };
 
             background.AddChild(title);
@@ -87,7 +73,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Vector2 margin = Vector2.Zero;
 
-            for (int i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtons.Length; i++)
             {
                 ButtonInfo button = this.menuButtons[i];
 
@@ -101,15 +87,16 @@ namespace StardustSandbox.UI.Common.Menus
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2f,
-                    BorderThickness = 2f,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
                 Image buttonIcon = new()
                 {
-                    Texture = button.IconTexture,
+                    Texture = button.Texture,
+                    SourceRectangle = button.TextureSourceRectangle,
                     Alignment = CardinalDirection.West,
-                    Margin = new((buttonLabel.Size.X + (button.IconTexture.Width / 2.0f)) * -1.0f, 0.0f),
+                    Margin = new((buttonLabel.Size.X + (button.Texture.Width / 2.0f)) * -1.0f, 0.0f),
                     Scale = new(2),
                 };
 
@@ -124,29 +111,19 @@ namespace StardustSandbox.UI.Common.Menus
 
         #endregion
 
-        #region UPDATING
-
         internal override void Update(GameTime gameTime)
         {
-            UpdateButtons();
-        }
-
-        private void UpdateButtons()
-        {
-            for (int i = 0; i < this.menuButtonElements.Length; i++)
+            for (byte i = 0; i < this.menuButtonElements.Length; i++)
             {
                 Label label = this.menuButtonElements[i];
-                Vector2 labelElementSize = label.Size / 2.0f;
 
-                if (Interaction.OnMouseLeftClick(label.Position, labelElementSize))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseLeftOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
-
-        #endregion
     }
 }

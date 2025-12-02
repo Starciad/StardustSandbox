@@ -35,7 +35,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Image toolbarSearchButton, toolbarCurrentlySelectedToolBackground, toolbarCurrentlySelectedToolIcon;
         private readonly TooltipBox tooltipBox;
 
-        private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.HUD_ELEMENT_BUTTONS_LENGTH];
+        private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly SlotInfo[] leftPanelTopButtons, leftPanelBottomButtons, rightPanelTopButtons, rightPanelBottomButtons;
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
@@ -191,17 +191,17 @@ namespace StardustSandbox.UI.Common.HUD
 
         private static void BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, SlotInfo[] slots, CardinalDirection alignment, bool isTop)
         {
-            Vector2 margin = isTop ? new(0, UIConstants.HUD_SLOT_SPACING / 2f) : new(0, -(UIConstants.HUD_SLOT_SPACING / 2f));
-            int direction = isTop ? 1 : -1;
+            float marginY = isTop ? 32.0f : -32.0f;
+            float direction = isTop ? 1.0f : -1.0f;
 
-            for (int i = 0; i < buttonInfos.Length; i++)
+            for (byte i = 0; i < buttonInfos.Length; i++)
             {
-                SlotInfo slot = CreateButtonSlot(margin, buttonInfos[i]);
+                SlotInfo slot = CreateButtonSlot(new(0.0f, marginY), buttonInfos[i]);
                 slot.Background.Alignment = alignment;
                 container.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
                 slots[i] = slot;
-                margin.Y += direction * (UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2));
+                marginY += direction * 80.0f;
             }
         }
 
@@ -213,7 +213,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SourceRectangle = srcRect,
                 Size = size,
                 Margin = margin,
-                Scale = new(2f),
+                Scale = new(2.0f),
                 Alignment = alignment,
             };
 
@@ -226,19 +226,21 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(UIConstants.HUD_SLOT_SCALE + 0.45f),
+                Scale = new(2.45f),
                 Alignment = CardinalDirection.West,
-                Size = new(UIConstants.HUD_GRID_SIZE),
-                Margin = new(UIConstants.HUD_GRID_SIZE, 0),
+                Size = new(32.0f),
+                Margin = new(32.0f, 0.0f),
             };
+
             Image slotIcon = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(64, 32, 32, 32),
                 Alignment = CardinalDirection.Center,
-                Scale = new(2f),
-                Size = new(32f),
+                Scale = new(2.0f),
+                Size = new(32.0f),
             };
+
             this.topToolbarBackground.AddChild(slotSearchBackground);
             slotSearchBackground.AddChild(slotIcon);
 
@@ -248,12 +250,14 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void CreateTopToolbarSlots()
         {
-            Vector2 margin = new(UIConstants.HUD_SLOT_SPACING * 2f, 0);
-            Item[] items = CatalogDatabase.GetItems(UIConstants.HUD_ELEMENT_BUTTONS_LENGTH);
+            float marginX = 128.0f;
+
+            Item[] items = CatalogDatabase.GetItems(UIConstants.ELEMENT_BUTTONS_LENGTH);
+
             for (int i = 0, length = items.Length; i < length; i++)
             {
                 Item curentItem = items[i];
-                SlotInfo slot = CreateButtonSlot(margin, curentItem);
+                SlotInfo slot = CreateButtonSlot(new(marginX, 0.0f), curentItem);
                 slot.Background.Alignment = CardinalDirection.West;
                 if (!slot.Background.ContainsData(UIConstants.DATA_ITEM))
                 {
@@ -263,7 +267,7 @@ namespace StardustSandbox.UI.Common.HUD
                 this.topToolbarBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
                 this.toolbarSlots[i] = slot;
-                margin.X += UIConstants.HUD_SLOT_SPACING + (UIConstants.HUD_GRID_SIZE / 2);
+                marginX += 80.0f;
             }
         }
 
@@ -273,19 +277,21 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(UIConstants.HUD_SLOT_SCALE + 0.45f),
+                Scale = new(2.45f),
                 Alignment = CardinalDirection.East,
-                Size = new(UIConstants.HUD_GRID_SIZE),
-                Margin = new(UIConstants.HUD_GRID_SIZE * -1, 0),
+                Size = new(32.0f),
+                Margin = new(-32.0f, 0.0f),
             };
+
             Image slotIcon = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(0, 0, 32, 32),
                 Alignment = CardinalDirection.Center,
-                Scale = new(2f),
-                Size = new(32f),
+                Scale = new(2.0f),
+                Size = new(32.0f),
             };
+
             this.topToolbarBackground.AddChild(slotSearchBackground);
             slotSearchBackground.AddChild(slotIcon);
             this.toolbarSearchButton = slotSearchBackground;
@@ -297,8 +303,8 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(UIConstants.HUD_SLOT_SCALE),
-                Size = new(UIConstants.HUD_GRID_SIZE),
+                Scale = new(2.0f),
+                Size = new(32.0f),
                 Margin = margin,
             };
             Image iconElement = new()
@@ -306,7 +312,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = iconTexture,
                 SourceRectangle = iconTextureRectangle,
                 Scale = new(1.5f),
-                Size = new(UIConstants.HUD_GRID_SIZE),
+                Size = new(32.0f),
                 Alignment = CardinalDirection.Center,
             };
             return new(backgroundElement, iconElement);
@@ -319,7 +325,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
-            return CreateButtonSlot(margin, button.IconTexture, button.IconTextureRectangle);
+            return CreateButtonSlot(margin, button.Texture, button.TextureSourceRectangle);
         }
 
         #endregion
@@ -328,7 +334,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         internal override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             this.tooltipBox.CanDraw = false;
 
             UpdatePlayerInteractionOnToolbarHover();
@@ -344,20 +349,20 @@ namespace StardustSandbox.UI.Common.HUD
             // UpdateToolbars();
             // UpdateDrawerButtons();
 
-            this.tooltipBox.RefreshDisplay();
+            base.Update(gameTime);
         }
 
         private void UpdatePlayerInteractionOnToolbarHover()
         {
             bool isMouseOverDrawerButtons =
-                Interaction.OnMouseLeftOver(this.topDrawerButton.Position, this.topDrawerButton.Size) ||
-                Interaction.OnMouseLeftOver(this.leftDrawerButton.Position, this.leftDrawerButton.Size) ||
-                Interaction.OnMouseLeftOver(this.rightDrawerButton.Position, this.rightDrawerButton.Size);
+                Interaction.OnMouseOver(this.topDrawerButton) ||
+                Interaction.OnMouseOver(this.leftDrawerButton) ||
+                Interaction.OnMouseOver(this.rightDrawerButton);
 
             bool isMouseOverToolbars =
-                Interaction.OnMouseLeftOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
-                Interaction.OnMouseLeftOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
-                Interaction.OnMouseLeftOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
+                Interaction.OnMouseOver(this.topToolbarContainer) ||
+                Interaction.OnMouseOver(this.leftToolbarContainer) ||
+                Interaction.OnMouseOver(this.rightToolbarContainer);
 
             this.inputController.Player.CanModifyEnvironment = !isMouseOverDrawerButtons && !isMouseOverToolbars;
         }
@@ -388,10 +393,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarToolPreview()
         {
-            if (Interaction.OnMouseLeftClick(
-                this.toolbarCurrentlySelectedToolIcon.Position,
-                this.toolbarCurrentlySelectedToolIcon.Size
-            ))
+            if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
             {
                 this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
                 {
@@ -404,10 +406,7 @@ namespace StardustSandbox.UI.Common.HUD
                 };
             }
 
-            if (Interaction.OnMouseRightClick(
-                this.toolbarCurrentlySelectedToolIcon.Position,
-                this.toolbarCurrentlySelectedToolIcon.Size
-            ))
+            if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
             {
                 this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
                 {
@@ -420,10 +419,7 @@ namespace StardustSandbox.UI.Common.HUD
                 };
             }
 
-            if (Interaction.OnMouseLeftOver(
-                this.toolbarCurrentlySelectedToolIcon.Position,
-                this.toolbarCurrentlySelectedToolIcon.Size
-            ))
+            if (Interaction.OnMouseOver(this.toolbarCurrentlySelectedToolIcon))
             {
                 this.tooltipBox.CanDraw = true;
 
@@ -462,7 +458,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
                     this.toolbarCurrentlySelectedToolBackground.Scale,
-                    new(UIConstants.HUD_SLOT_SCALE + 0.45f + 0.2f),
+                    new(2.65f),
                     0.2f
                 );
 
@@ -472,7 +468,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
                     this.toolbarCurrentlySelectedToolBackground.Scale,
-                    new(UIConstants.HUD_SLOT_SCALE + 0.45f),
+                    new(2.45f),
                     0.2f
                 );
 
@@ -482,12 +478,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarItemButtons()
         {
-            for (byte i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
+            for (byte i = 0; i < UIConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SlotInfo slot = this.toolbarSlots[i];
-                bool isOver = Interaction.OnMouseLeftOver(slot.Background.Position, slot.Background.Size);
+                bool isOver = Interaction.OnMouseOver(slot.Background);
 
-                if (Interaction.OnMouseLeftClick(slot.Background.Position, slot.Background.Size))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SelectItemSlot(i, (Item)slot.Background.GetData(UIConstants.DATA_ITEM));
                 }
@@ -498,7 +494,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                     slot.Background.Scale = Vector2.Lerp(
                         slot.Background.Scale,
-                        new(UIConstants.HUD_SLOT_SCALE + 0.2f),
+                        new(2.2f),
                         0.2f
                     );
 
@@ -511,7 +507,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     slot.Background.Scale = Vector2.Lerp(
                         slot.Background.Scale,
-                        new(UIConstants.HUD_SLOT_SCALE),
+                        new(2.0f),
                         0.2f
                     );
                 }
@@ -526,19 +522,19 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarSearchButton()
         {
-            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton.Position, this.toolbarSearchButton.Size))
+            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
             {
                 this.uiManager.OpenGUI(UIIndex.ItemExplorer);
             }
 
-            if (Interaction.OnMouseLeftOver(this.toolbarSearchButton.Position, this.toolbarSearchButton.Size))
+            if (Interaction.OnMouseOver(this.toolbarSearchButton))
             {
                 this.toolbarSearchButton.Color = AAP64ColorPalette.Graphite;
                 this.tooltipBox.CanDraw = true;
 
                 this.toolbarSearchButton.Scale = Vector2.Lerp(
                     this.toolbarSearchButton.Scale,
-                    new(UIConstants.HUD_SLOT_SCALE + 0.45f + 0.2f),
+                    new(2.65f),
                     0.2f
                 );
 
@@ -549,7 +545,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 this.toolbarSearchButton.Scale = Vector2.Lerp(
                     this.toolbarSearchButton.Scale,
-                    new(UIConstants.HUD_SLOT_SCALE + 0.45f),
+                    new(2.45f),
                     0.2f
                 );
 
@@ -573,7 +569,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private bool TryHighlightExistingItem(Item item)
         {
-            for (byte i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
+            for (byte i = 0; i < UIConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SlotInfo slot = this.toolbarSlots[i];
                 if (slot.Background.ContainsData(UIConstants.DATA_ITEM) &&
@@ -590,7 +586,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void ShiftItemsAndAddToLastSlot(Item item)
         {
-            for (int i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH - 1; i++)
+            for (byte i = 0; i < UIConstants.ELEMENT_BUTTONS_LENGTH - 1; i++)
             {
                 SlotInfo currentSlot = this.toolbarSlots[i];
                 SlotInfo nextSlot = this.toolbarSlots[i + 1];
@@ -618,7 +614,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         internal bool ItemIsEquipped(Item item)
         {
-            for (int i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
+            for (byte i = 0; i < UIConstants.ELEMENT_BUTTONS_LENGTH; i++)
             {
                 Item hudItem = (Item)this.toolbarSlots[i].Background.GetData(UIConstants.DATA_ITEM);
                 if (item == hudItem)

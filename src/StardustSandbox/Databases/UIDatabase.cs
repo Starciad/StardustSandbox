@@ -80,7 +80,7 @@ namespace StardustSandbox.Databases
 
             #region UIs
 
-            CreditsMenuUI creditsMenuUI = new(
+            CreditsUI creditsUI = new(
                 ambientManager,
                 UIIndex.CreditsMenu,
                 inputManager,
@@ -121,7 +121,7 @@ namespace StardustSandbox.Databases
                 uiManager
             );
 
-            MainMenuUI mainMenuUI = new(
+            MainUI mainUI = new(
                 ambientManager,
                 inputController,
                 gameManager,
@@ -130,7 +130,7 @@ namespace StardustSandbox.Databases
                 world
             );
 
-            OptionsMenuUI optionsMenuUI = new(
+            OptionsUI optionsUI = new(
                 colorPickerUI,
                 cursorManager,
                 UIIndex.OptionsMenu,
@@ -156,7 +156,7 @@ namespace StardustSandbox.Databases
                 uiManager
             );
 
-            PlayMenuUI playMenuUI = new(
+            PlayUI playUI = new(
                 UIIndex.PlayMenu,
                 uiManager
             );
@@ -171,18 +171,18 @@ namespace StardustSandbox.Databases
                 world
             );
 
-            WorldDetailsMenuUI worldDetailsMenuUI = new(
+            WorldDetailsUI worldDetailsUI = new(
                 gameManager,
                 UIIndex.WorldDetailsMenu,
                 uiManager,
                 world
             );
 
-            WorldExplorerMenuUI worldsExplorerMenuUI = new(
+            WorldExplorerUI worldsExplorerUI = new(
                 graphicsDevice,
                 UIIndex.WorldExplorerMenu,
                 uiManager,
-                worldDetailsMenuUI
+                worldDetailsUI
             );
 
             WorldSettingsUI worldSettingsUI = new(
@@ -200,10 +200,10 @@ namespace StardustSandbox.Databases
                 colorPickerUI,
                 textInputUI,
 
-                mainMenuUI,
-                playMenuUI,
-                optionsMenuUI,
-                creditsMenuUI,
+                mainUI,
+                playUI,
+                optionsUI,
+                creditsUI,
 
                 hudUI,
                 pauseUI,
@@ -214,13 +214,13 @@ namespace StardustSandbox.Databases
                 worldSettingsUI,
                 informationUI,
 
-                worldDetailsMenuUI,
-                worldsExplorerMenuUI,
+                worldDetailsUI,
+                worldsExplorerUI,
             ];
 
             // DirectoryInfo dic = Directory.CreateDirectory(Path.Combine(SSDirectory.Local, "UIs"));
 
-            for (int i = 0; i < uis.Length; i++)
+            for (byte i = 0; i < uis.Length; i++)
             {
                 uis[i].Initialize();
                 // File.WriteAllText(Path.Combine(dic.FullName, string.Concat(uis[i].GetType().FullName, ".txt")), uis[i].ToString());

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Enums.InputSystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UI.Elements;
 
 using System;
 
@@ -25,8 +26,6 @@ namespace StardustSandbox.UI
             isInitialized = true;
         }
 
-        #region MOUSE EVENTS
-
         /// <summary>
         /// Checks if the specified mouse button was clicked within the given area.
         /// </summary>
@@ -39,6 +38,14 @@ namespace StardustSandbox.UI
             return GetButtonState(button, inputManager.MouseState) == ButtonState.Released &&
                    GetButtonState(button, inputManager.PreviousMouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the specified mouse button was clicked within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseClick(MouseButton button, UIElement element)
+        {
+            return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseClick(button, element.Position, element.Size);
         }
 
         /// <summary>
@@ -55,6 +62,14 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
+        /// Checks if the specified mouse button is pressed within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseDown(MouseButton button, UIElement element)
+        {
+            return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseDown(button, element.Position, element.Size);
+        }
+
+        /// <summary>
         /// Checks if the specified mouse button is released within the given area.
         /// </summary>
         internal static bool OnMouseUp(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
@@ -66,6 +81,14 @@ namespace StardustSandbox.UI
             return GetButtonState(button, inputManager.MouseState) == ButtonState.Released &&
                    GetButtonState(button, inputManager.PreviousMouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the specified mouse button is released within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseUp(MouseButton button, UIElement element)
+        {
+            return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseUp(button, element.Position, element.Size);
         }
 
         /// <summary>
@@ -85,6 +108,14 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
+        /// Checks if the mouse cursor enters the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseEnter(UIElement element)
+        {
+            return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseEnter(element.Position, element.Size);
+        }
+
+        /// <summary>
         /// Checks if the mouse cursor is over the specified area.
         /// </summary>
         internal static bool OnMouseOver(Vector2 targetPosition, Vector2 areaSize)
@@ -94,6 +125,14 @@ namespace StardustSandbox.UI
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor is over the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseOver(UIElement element)
+        {
+            return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseOver(element.Position, element.Size);
         }
 
         /// <summary>
@@ -113,11 +152,27 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
+        /// Checks if the mouse cursor leaves the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseLeave(UIElement element)
+        {
+            return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseLeave(element.Position, element.Size);
+        }
+
+        /// <summary>
         /// Checks if the left mouse button was clicked within the specified area.
         /// </summary>
         internal static bool OnMouseLeftClick(Vector2 targetPosition, Vector2 areaSize)
         {
             return OnMouseClick(MouseButton.Left, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the left mouse button was clicked within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseLeftClick(UIElement element)
+        {
+            return OnMouseClick(MouseButton.Left, element);
         }
 
         /// <summary>
@@ -129,6 +184,14 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
+        /// Checks if the left mouse button is pressed within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseLeftDown(UIElement element)
+        {
+            return OnMouseDown(MouseButton.Left, element);
+        }
+
+        /// <summary>
         /// Checks if the left mouse button is released within the specified area.
         /// </summary>
         internal static bool OnMouseLeftUp(Vector2 targetPosition, Vector2 areaSize)
@@ -137,27 +200,11 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
-        /// Checks if the mouse cursor enters the specified area (left button context).
+        /// Checks if the left mouse button is released within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseLeftEnter(Vector2 targetPosition, Vector2 areaSize)
+        internal static bool OnMouseLeftUp(UIElement element)
         {
-            return OnMouseEnter(targetPosition, areaSize);
-        }
-
-        /// <summary>
-        /// Checks if the mouse cursor is over the specified area (left button context).
-        /// </summary>
-        internal static bool OnMouseLeftOver(Vector2 targetPosition, Vector2 areaSize)
-        {
-            return OnMouseOver(targetPosition, areaSize);
-        }
-
-        /// <summary>
-        /// Checks if the mouse cursor leaves the specified area (left button context).
-        /// </summary>
-        internal static bool OnMouseLeftLeave(Vector2 targetPosition, Vector2 areaSize)
-        {
-            return OnMouseLeave(targetPosition, areaSize);
+            return OnMouseUp(MouseButton.Left, element);
         }
 
         /// <summary>
@@ -169,11 +216,27 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
+        /// Checks if the right mouse button was clicked within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseRightClick(UIElement element)
+        {
+            return OnMouseClick(MouseButton.Right, element);
+        }
+
+        /// <summary>
         /// Checks if the right mouse button is pressed within the specified area.
         /// </summary>
         internal static bool OnMouseRightDown(Vector2 targetPosition, Vector2 areaSize)
         {
             return OnMouseDown(MouseButton.Right, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the right mouse button is pressed within the area of the given <see cref="UIElement"/>.
+        /// </summary>
+        internal static bool OnMouseRightDown(UIElement element)
+        {
+            return OnMouseDown(MouseButton.Right, element);
         }
 
         /// <summary>
@@ -185,27 +248,11 @@ namespace StardustSandbox.UI
         }
 
         /// <summary>
-        /// Checks if the mouse cursor enters the specified area (right button context).
+        /// Checks if the right mouse button is released within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseRightEnter(Vector2 targetPosition, Vector2 areaSize)
+        internal static bool OnMouseRightUp(UIElement element)
         {
-            return OnMouseEnter(targetPosition, areaSize);
-        }
-
-        /// <summary>
-        /// Checks if the mouse cursor is over the specified area (right button context).
-        /// </summary>
-        internal static bool OnMouseRightOver(Vector2 targetPosition, Vector2 areaSize)
-        {
-            return OnMouseOver(targetPosition, areaSize);
-        }
-
-        /// <summary>
-        /// Checks if the mouse cursor leaves the specified area (right button context).
-        /// </summary>
-        internal static bool OnMouseRightLeave(Vector2 targetPosition, Vector2 areaSize)
-        {
-            return OnMouseLeave(targetPosition, areaSize);
+            return OnMouseUp(MouseButton.Right, element);
         }
 
         /// <summary>
@@ -248,7 +295,5 @@ namespace StardustSandbox.UI
                 _ => throw new ArgumentOutOfRangeException(nameof(button), button, null)
             };
         }
-
-        #endregion
     }
 }
