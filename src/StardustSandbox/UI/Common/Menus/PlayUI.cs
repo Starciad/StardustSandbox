@@ -14,8 +14,8 @@ namespace StardustSandbox.UI.Common.Menus
 {
     internal class PlayUI : UIBase
     {
-        private readonly Label[] menuButtonElements;
-        private readonly ButtonInfo[] menuButtons;
+        private readonly Label[] menuButtonLabels;
+        private readonly ButtonInfo[] menuButtonInfos;
 
         private readonly UIManager uiManager;
 
@@ -26,12 +26,12 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.uiManager = uiManager;
 
-            this.menuButtons = [
+            this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(0, 32, 32, 32), "Worlds", string.Empty, () => this.uiManager.OpenGUI(UIIndex.WorldExplorerMenu)),
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), "Return", string.Empty, this.uiManager.CloseGUI),
             ];
 
-            this.menuButtonElements = new Label[this.menuButtons.Length];
+            this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
         #region BUILDER
@@ -73,9 +73,9 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Vector2 margin = Vector2.Zero;
 
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtonInfos[i];
 
                 Label buttonLabel = new()
                 {
@@ -105,7 +105,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 margin.Y += buttonLabel.Size.X + 32.0f;
 
-                this.menuButtonElements[i] = buttonLabel;
+                this.menuButtonLabels[i] = buttonLabel;
             }
         }
 
@@ -113,13 +113,13 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal override void Update(GameTime gameTime)
         {
-            for (byte i = 0; i < this.menuButtonElements.Length; i++)
+            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
             {
-                Label label = this.menuButtonElements[i];
+                Label label = this.menuButtonLabels[i];
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;

@@ -25,36 +25,18 @@ namespace StardustSandbox.UI.Common.HUD
     {
         private Texture2D worldThumbnailTexture;
 
-        private Image panelBackgroundElement;
-
-        private Label menuTitleElement;
-        private Label nameSectionTitleElement;
-        private Label descriptionSectionTitleElement;
-        private Label thumbnailSectionTitleElement;
-
-        private Image titleInputFieldElement;
-        private Image descriptionInputFieldElement;
-
-        private Label titleTextualContentElement;
-        private Label descriptionTextualContentElement;
-
-        private Image thumbnailPreviewElement;
+        private Label menuTitle, nameSectionTitle, descriptionSectionTitle, thumbnailSectionTitle, titleTextualContent, descriptionTextualContent;
+        private Image panelBackground, titleInputField, descriptionInputField, thumbnailPreviewElement;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly ButtonInfo[] menuButtons;
-        private readonly ButtonInfo[] fieldButtons;
-        private readonly ButtonInfo[] footerButtons;
-
-        private readonly SlotInfo[] menuButtonSlots;
-        private readonly SlotInfo[] fieldButtonSlots;
-        private readonly SlotInfo[] footerButtonSlots;
+        private readonly ButtonInfo[] menuButtonInfos, fieldButtonInfos, footerButtonInfos;
+        private readonly SlotInfo[] menuButtonSlotInfos, fieldButtonSlotInfos, footerButtonSlotInfos;
 
         private readonly World world;
         private readonly TextInputUI textInputUI;
 
-        private readonly TextInputSettings nameInputBuilder;
-        private readonly TextInputSettings descriptionInputBuilder;
+        private readonly TextInputSettings nameInputBuilder, descriptionInputBuilder;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
@@ -78,11 +60,11 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager = uiManager;
             this.world = world;
 
-            this.menuButtons = [
+            this.menuButtonInfos = [
                 new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
-            this.fieldButtons = [
+            this.fieldButtonInfos = [
                 new(TextureIndex.None, null, "Name Field", string.Empty, () =>
                 {
                     this.nameInputBuilder.Content = this.world.Information.Name;
@@ -99,7 +81,7 @@ namespace StardustSandbox.UI.Common.HUD
                 })
             ];
 
-            this.footerButtons = [
+            this.footerButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, () =>
                 {
                     WorldSavingHandler.Serialize(this.world, this.graphicsDevice);
@@ -107,9 +89,9 @@ namespace StardustSandbox.UI.Common.HUD
                 }),
             ];
 
-            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
-            this.fieldButtonSlots = new SlotInfo[this.fieldButtons.Length];
-            this.footerButtonSlots = new SlotInfo[this.footerButtons.Length];
+            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            this.fieldButtonSlotInfos = new SlotInfo[this.fieldButtonInfos.Length];
+            this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
 
             this.nameInputBuilder = new()
             {
@@ -180,7 +162,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackgroundElement = new()
+            this.panelBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSaveSettings),
                 Size = new(1084.0f, 540.0f),
@@ -188,12 +170,12 @@ namespace StardustSandbox.UI.Common.HUD
             };
 
             root.AddChild(backgroundShadowElement);
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
         {
-            this.menuTitleElement = new()
+            this.menuTitle = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
@@ -208,26 +190,26 @@ namespace StardustSandbox.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.panelBackgroundElement.AddChild(this.menuTitleElement);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                this.panelBackgroundElement.AddChild(slot.Background);
+                this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.menuButtonSlots[i] = slot;
+                this.menuButtonSlotInfos[i] = slot;
 
                 // Spacing
                 marginX -= 80.0f;
@@ -236,14 +218,14 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildNameSection()
         {
-            this.nameSectionTitleElement = new()
+            this.nameSectionTitle = new()
             {
                 Scale = new(0.1f),
                 Margin = new(32.0f, 112.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
             };
 
-            this.titleInputFieldElement = new()
+            this.titleInputField = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
@@ -252,7 +234,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(0.0f, 48.0f),
             };
 
-            this.titleTextualContentElement = new()
+            this.titleTextualContent = new()
             {
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
@@ -261,23 +243,23 @@ namespace StardustSandbox.UI.Common.HUD
                 TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Name_Title
             };
 
-            this.panelBackgroundElement.AddChild(this.nameSectionTitleElement);
-            this.nameSectionTitleElement.AddChild(this.titleInputFieldElement);
-            this.titleInputFieldElement.AddChild(this.titleTextualContentElement);
+            this.panelBackground.AddChild(this.nameSectionTitle);
+            this.nameSectionTitle.AddChild(this.titleInputField);
+            this.titleInputField.AddChild(this.titleTextualContent);
 
-            this.fieldButtonSlots[0] = new(this.titleInputFieldElement, null, this.titleTextualContentElement);
+            this.fieldButtonSlotInfos[0] = new(this.titleInputField, null, this.titleTextualContent);
         }
 
         private void BuildDescriptionSection()
         {
-            this.descriptionSectionTitleElement = new()
+            this.descriptionSectionTitle = new()
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
             };
 
-            this.descriptionInputFieldElement = new()
+            this.descriptionInputField = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
@@ -286,7 +268,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(0.0f, 48.0f),
             };
 
-            this.descriptionTextualContentElement = new()
+            this.descriptionTextualContent = new()
             {
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
@@ -295,16 +277,16 @@ namespace StardustSandbox.UI.Common.HUD
                 TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Description_Title
             };
 
-            this.titleInputFieldElement.AddChild(this.descriptionSectionTitleElement);
-            this.descriptionSectionTitleElement.AddChild(this.descriptionInputFieldElement);
-            this.descriptionInputFieldElement.AddChild(this.descriptionTextualContentElement);
+            this.titleInputField.AddChild(this.descriptionSectionTitle);
+            this.descriptionSectionTitle.AddChild(this.descriptionInputField);
+            this.descriptionInputField.AddChild(this.descriptionTextualContent);
 
-            this.fieldButtonSlots[1] = new(this.descriptionInputFieldElement, null, this.descriptionTextualContentElement);
+            this.fieldButtonSlotInfos[1] = new(this.descriptionInputField, null, this.descriptionTextualContent);
         }
 
         private void BuildThumbnailSection()
         {
-            this.thumbnailSectionTitleElement = new()
+            this.thumbnailSectionTitle = new()
             {
                 Scale = new(0.1f),
                 Margin = new(-32.0f, 112.0f),
@@ -319,17 +301,17 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(0.0f, 48.0f),
             };
 
-            this.panelBackgroundElement.AddChild(this.thumbnailSectionTitleElement);
-            this.thumbnailSectionTitleElement.AddChild(this.thumbnailPreviewElement);
+            this.panelBackground.AddChild(this.thumbnailSectionTitle);
+            this.thumbnailSectionTitle.AddChild(this.thumbnailPreviewElement);
         }
 
         private void BuildFooterButtons()
         {
             float marginX = 32.0f;
 
-            for (byte i = 0; i < this.footerButtons.Length; i++)
+            for (byte i = 0; i < this.footerButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.footerButtons[i];
+                ButtonInfo button = this.footerButtonInfos[i];
 
                 Image backgroundElement = new()
                 {
@@ -356,10 +338,10 @@ namespace StardustSandbox.UI.Common.HUD
                     BorderThickness = 2.0f,
                 };
 
-                this.panelBackgroundElement.AddChild(backgroundElement);
+                this.panelBackground.AddChild(backgroundElement);
                 backgroundElement.AddChild(label);
 
-                this.footerButtonSlots[i] = new(backgroundElement, null, label);
+                this.footerButtonSlotInfos[i] = new(backgroundElement, null, label);
 
                 marginX += backgroundElement.Size.X + 32.0f;
             }
@@ -406,21 +388,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.menuButtons[i].Name);
-                    TooltipBoxContent.SetDescription(this.menuButtons[i].Description);
+                    TooltipBoxContent.SetTitle(this.menuButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.menuButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -433,13 +415,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateFieldButtons()
         {
-            for (byte i = 0; i < this.fieldButtons.Length; i++)
+            for (byte i = 0; i < this.fieldButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.fieldButtonSlots[i];
+                SlotInfo slot = this.fieldButtonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.fieldButtons[i].ClickAction?.Invoke();
+                    this.fieldButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -448,21 +430,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateFooterButtons()
         {
-            for (byte i = 0; i < this.footerButtons.Length; i++)
+            for (byte i = 0; i < this.footerButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.footerButtonSlots[i];
+                SlotInfo slot = this.footerButtonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.footerButtons[i].ClickAction?.Invoke();
+                    this.footerButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.footerButtons[i].Name);
-                    TooltipBoxContent.SetDescription(this.footerButtons[i].Description);
+                    TooltipBoxContent.SetTitle(this.footerButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.footerButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -478,8 +460,8 @@ namespace StardustSandbox.UI.Common.HUD
             this.worldThumbnailTexture = this.world.CreateThumbnail(this.graphicsDevice);
             this.thumbnailPreviewElement.Texture = this.worldThumbnailTexture;
 
-            this.titleTextualContentElement.TextContent = this.world.Information.Name.Truncate(19);
-            this.descriptionTextualContentElement.TextContent = this.world.Information.Description.Truncate(19);
+            this.titleTextualContent.TextContent = this.world.Information.Name.Truncate(19);
+            this.descriptionTextualContent.TextContent = this.world.Information.Description.Truncate(19);
         }
 
         #endregion

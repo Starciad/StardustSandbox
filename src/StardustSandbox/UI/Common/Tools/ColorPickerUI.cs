@@ -23,11 +23,11 @@ namespace StardustSandbox.UI.Common.Tools
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly ButtonInfo[] menuButtons;
-        private readonly ColorButtonInfo[] colorButtons;
+        private readonly ButtonInfo[] menuButtonInfos;
+        private readonly ColorButtonInfo[] colorButtonInfos;
 
-        private readonly Label[] menuButtonElements;
-        private readonly ColorSlotInfo[] colorButtonElements;
+        private readonly Label[] menuButtonLabels;
+        private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
         private readonly GameManager gameManager;
         private readonly InputController inputController;
@@ -46,11 +46,11 @@ namespace StardustSandbox.UI.Common.Tools
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
-            this.menuButtons = [
+            this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI),
             ];
 
-            this.colorButtons = [
+            this.colorButtonInfos = [
                 new(Localization_Colors.DarkGray, AAP64ColorPalette.DarkGray),
                 new(Localization_Colors.Charcoal, AAP64ColorPalette.Charcoal),
                 new(Localization_Colors.Maroon, AAP64ColorPalette.Maroon),
@@ -117,8 +117,8 @@ namespace StardustSandbox.UI.Common.Tools
                 new(Localization_Colors.DarkTaupe, AAP64ColorPalette.DarkTaupe),
             ];
 
-            this.menuButtonElements = new Label[this.menuButtons.Length];
-            this.colorButtonElements = new ColorSlotInfo[this.colorButtons.Length];
+            this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
+            this.colorButtonSlotInfos = new ColorSlotInfo[this.colorButtonInfos.Length];
         }
 
         internal void Configure(ColorPickerSettings settings)
@@ -182,7 +182,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             int buttonsPerRow = 12;
 
-            int totalButtons = this.colorButtons.Length;
+            int totalButtons = this.colorButtonInfos.Length;
             int totalRows = (totalButtons + buttonsPerRow - 1) / buttonsPerRow;
 
             int index = 0;
@@ -196,7 +196,7 @@ namespace StardustSandbox.UI.Common.Tools
                         break;
                     }
 
-                    ColorButtonInfo colorButton = this.colorButtons[index];
+                    ColorButtonInfo colorButton = this.colorButtonInfos[index];
 
                     Image backgroundElement = new()
                     {
@@ -220,7 +220,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                     root.AddChild(backgroundElement);
 
-                    this.colorButtonElements[index] = new(backgroundElement, borderElement);
+                    this.colorButtonSlotInfos[index] = new(backgroundElement, borderElement);
                     index++;
 
                     margin.X += backgroundElement.Size.X + 16.0f;
@@ -235,9 +235,9 @@ namespace StardustSandbox.UI.Common.Tools
         {
             float marginY = -48.0f;
 
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtonInfos[i];
 
                 Label label = new()
                 {
@@ -257,7 +257,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                 root.AddChild(label);
 
-                this.menuButtonElements[i] = label;
+                this.menuButtonLabels[i] = label;
             }
         }
 
@@ -277,13 +277,13 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                Label label = this.menuButtonElements[i];
+                Label label = this.menuButtonLabels[i];
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -292,11 +292,11 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateColorButtons()
         {
-            for (byte i = 0; i < this.colorButtons.Length; i++)
+            for (byte i = 0; i < this.colorButtonInfos.Length; i++)
             {
-                ColorSlotInfo colorSlot = this.colorButtonElements[i];
-                ColorButtonInfo colorButton = this.colorButtons[i];
-                
+                ColorSlotInfo colorSlot = this.colorButtonSlotInfos[i];
+                ColorButtonInfo colorButton = this.colorButtonInfos[i];
+
                 if (Interaction.OnMouseLeftClick(colorSlot.Border))
                 {
                     SelectColorButtonAction(colorButton.Color);

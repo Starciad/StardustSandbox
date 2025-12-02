@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.AudioSystem;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -26,12 +25,6 @@ namespace StardustSandbox.UI.Common.Menus
 {
     internal sealed class OptionsUI : UIBase
     {
-        private enum SystemButton : byte
-        {
-            Return = 0,
-            Save = 1
-        }
-
         private sealed class Root
         {
             internal IReadOnlyDictionary<string, Section> Sections { get; init; }
@@ -47,8 +40,8 @@ namespace StardustSandbox.UI.Common.Menus
         private string selectedSectionIdentififer;
         private bool restartMessageAppeared;
 
-        private Label titleLabelElement;
-        private Image panelBackgroundElement;
+        private Label titleLabel;
+        private Image background;
 
         private readonly Root root;
         private readonly ColorPickerSettings colorPickerSettings;
@@ -61,12 +54,12 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly Label[] systemButtonElements;
+        private readonly Label[] systemButtonLabels;
+        private readonly ButtonInfo[] systemButtonInfos;
+
         private readonly Dictionary<string, IEnumerable<Label>> sectionContents = [];
         private readonly Dictionary<string, Container> sectionContainerElements = [];
         private readonly Dictionary<string, Label> sectionButtonElements = [];
-
-        private readonly ButtonInfo[] systemButtons;
 
         private readonly CursorManager cursorManager;
         private readonly UIManager uiManager;
@@ -77,12 +70,6 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly VolumeSettings volumeSettings;
         private readonly VideoSettings videoSettings;
         private readonly CursorSettings cursorSettings;
-
-        private static readonly Vector2 defaultRightPanelMargin = new(-112.0f, 64.0f);
-        private static readonly Vector2 defaultButtonScale = new(0.11f);
-        private static readonly float defaultButtonBorderOffset = 2.0f;
-        private static readonly float leftPanelMarginVerticalSpacing = 48.0f;
-        private static readonly float rightPanelMarginVerticalSpacing = 48.0f;
 
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
@@ -109,18 +96,18 @@ namespace StardustSandbox.UI.Common.Menus
             this.videoSettings = SettingsHandler.LoadSettings<VideoSettings>();
             this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
 
-            this.systemButtons = [
+            this.systemButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, () =>
                 {
                     SaveSettings();
                     ApplySettings();
-                    
+
                     if (!this.restartMessageAppeared)
                     {
                         this.messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
                         this.uiManager.OpenGUI(UIIndex.Message);
-                    
+
                         this.restartMessageAppeared = true;
                     }
                 }),
@@ -182,7 +169,7 @@ namespace StardustSandbox.UI.Common.Menus
                 },
             };
 
-            this.systemButtonElements = new Label[this.systemButtons.Length];
+            this.systemButtonLabels = new Label[this.systemButtonInfos.Length];
         }
 
         #region SETTINGS HANDLING
@@ -366,19 +353,19 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildPanelBackground(Container root)
         {
-            this.panelBackgroundElement = new()
+            this.background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
                 Size = new(1084.0f, 540.0f),
                 Margin = new(98.0f, 90.0f),
             };
 
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.background);
         }
 
         private void BuildTitle(Container root)
         {
-            this.titleLabelElement = new()
+            this.titleLabel = new()
             {
                 Scale = new(0.15f),
                 Margin = new(0.0f, 52.5f),
@@ -393,7 +380,7 @@ namespace StardustSandbox.UI.Common.Menus
                 BorderThickness = 4.4f,
             };
 
-            root.AddChild(this.titleLabelElement);
+            root.AddChild(this.titleLabel);
         }
 
         private void BuildSectionButtons()
@@ -406,10 +393,10 @@ namespace StardustSandbox.UI.Common.Menus
 
                 label.Alignment = CardinalDirection.North;
                 label.Margin = new(-335.0f, marginY);
-                this.panelBackgroundElement.AddChild(label);
+                this.background.AddChild(label);
 
                 this.sectionButtonElements.Add(item.Key, label);
-                marginY += leftPanelMarginVerticalSpacing;
+                marginY += 48.0f;
             }
         }
 
@@ -417,16 +404,16 @@ namespace StardustSandbox.UI.Common.Menus
         {
             float marginY = -64.0f;
 
-            for (byte i = 0; i < this.systemButtons.Length; i++)
+            for (byte i = 0; i < this.systemButtonInfos.Length; i++)
             {
-                Label label = CreateButtonLabelElement(this.systemButtons[i].Name);
+                Label label = CreateButtonLabelElement(this.systemButtonInfos[i].Name);
 
                 label.Alignment = CardinalDirection.South;
                 label.Margin = new(-335f, -64.0f);
-                this.panelBackgroundElement.AddChild(label);
+                this.background.AddChild(label);
 
-                this.systemButtonElements[i] = label;
-                marginY -= leftPanelMarginVerticalSpacing;
+                this.systemButtonLabels[i] = label;
+                marginY -= 48.0f;
             }
         }
 
@@ -437,14 +424,14 @@ namespace StardustSandbox.UI.Common.Menus
                 List<Label> contentBuffer = [];
                 Container container = new();
 
-                Vector2 margin = defaultRightPanelMargin;
+                Vector2 margin = new(-112.0f, 64.0f);
 
                 foreach (Option option in item.Value.Options.Values)
                 {
                     Label label = CreateOptionElement(option);
 
                     label.Margin = margin;
-                    this.panelBackgroundElement.AddChild(label);
+                    this.background.AddChild(label);
 
                     switch (option)
                     {
@@ -465,7 +452,7 @@ namespace StardustSandbox.UI.Common.Menus
                     }
 
                     container.AddChild(label);
-                    margin.Y += rightPanelMarginVerticalSpacing;
+                    margin.Y += 48.0f;
 
                     contentBuffer.Add(label);
                 }
@@ -563,13 +550,13 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Label label = new()
             {
-                Scale = defaultButtonScale,
+                Scale = new(0.11f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = defaultButtonBorderOffset,
-                BorderThickness = defaultButtonBorderOffset,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
                 TextContent = text
             };
 
@@ -684,10 +671,10 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateSystemButtons()
         {
-            for (byte i = 0; i < this.systemButtons.Length; i++)
+            for (byte i = 0; i < this.systemButtonInfos.Length; i++)
             {
-                Label label = this.systemButtonElements[i];
-                ButtonInfo button = this.systemButtons[i];
+                Label label = this.systemButtonLabels[i];
+                ButtonInfo button = this.systemButtonInfos[i];
 
                 if (Interaction.OnMouseLeftClick(label))
                 {

@@ -21,8 +21,8 @@ namespace StardustSandbox.UI.Common.HUD
         private Label menuTitle;
 
         private readonly Label[] infoLabels;
-        private readonly SlotInfo[] menuButtonSlotInfos;
-        private readonly ButtonInfo[] menuButtonInfos;
+        private readonly SlotInfo[] buttonSlotInfos;
+        private readonly ButtonInfo[] buttonInfos;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
@@ -39,11 +39,11 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager = uiManager;
             this.world = world;
 
-            this.menuButtonInfos = [
+            this.buttonInfos = [
                 new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
-            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
             this.infoLabels = new Label[UIConstants.HUD_INFORMATION_AMOUNT];
         }
 
@@ -102,9 +102,9 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (byte i = 0; i < this.buttonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtonInfos[i];
+                ButtonInfo button = this.buttonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
@@ -114,7 +114,7 @@ namespace StardustSandbox.UI.Common.HUD
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.menuButtonSlotInfos[i] = slot;
+                this.buttonSlotInfos[i] = slot;
 
                 // Spacing
                 marginX -= 80.0f;
@@ -183,13 +183,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonSlotInfos.Length; i++)
+            for (byte i = 0; i < this.buttonSlotInfos.Length; i++)
             {
-                SlotInfo slot = this.menuButtonSlotInfos[i];
+                SlotInfo slot = this.buttonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtonInfos[i].ClickAction?.Invoke();
+                    this.buttonInfos[i].ClickAction?.Invoke();
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;

@@ -33,6 +33,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Image topToolbarBackground, leftToolbarBackground, rightToolbarBackground;
         private Image topDrawerButton, leftDrawerButton, rightDrawerButton;
         private Image toolbarSearchButton, toolbarCurrentlySelectedToolBackground, toolbarCurrentlySelectedToolIcon;
+
         private readonly TooltipBox tooltipBox;
 
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];

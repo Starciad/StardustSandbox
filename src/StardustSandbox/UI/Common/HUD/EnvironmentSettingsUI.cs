@@ -18,20 +18,12 @@ namespace StardustSandbox.UI.Common.HUD
     internal sealed class EnvironmentSettingsUI : UIBase
     {
         private Image background;
-
-        private Label menuTitle;
-        private Label timeStateSectionTitle;
-        private Label timeSectionTitle;
+        private Label menuTitle, timeStateSectionTitle, timeSectionTitle;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly SlotInfo[] menuButtonSlotInfos;
-        private readonly SlotInfo[] timeStateButtonSlotInfos;
-        private readonly SlotInfo[] timeButtonSlotInfos;
-
-        private readonly ButtonInfo[] menuButtonInfos;
-        private readonly ButtonInfo[] timeStateButtonInfos;
-        private readonly ButtonInfo[] timeButtonInfos;
+        private readonly SlotInfo[] menuButtonSlotInfos, timeStateButtonSlotInfos, timeButtonSlotInfos;
+        private readonly ButtonInfo[] menuButtonInfos, timeStateButtonInfos, timeButtonInfos;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;

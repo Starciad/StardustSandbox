@@ -22,18 +22,13 @@ namespace StardustSandbox.UI.Common.HUD
     {
         private Point worldTargetSize;
 
-        private Image panelBackgroundElement;
-
-        private Label menuTitleElement;
-        private Label sizeSectionTitleElement;
+        private Image background;
+        private Label menuTitle, sizeSectionTitle;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly SlotInfo[] menuButtonSlots;
-        private readonly SlotInfo[] sizeButtonSlots;
-
-        private readonly ButtonInfo[] menuButtons;
-        private readonly ButtonInfo[] sizeButtons;
+        private readonly ButtonInfo[] menuButtonInfos, sizeButtonInfos;
+        private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
         private readonly ConfirmSettings changeWorldSizeConfirmSettings;
 
@@ -70,11 +65,11 @@ namespace StardustSandbox.UI.Common.HUD
                 },
             };
 
-            this.menuButtons = [
+            this.menuButtonInfos = [
                 new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
-            this.sizeButtons = [
+            this.sizeButtonInfos = [
                 new(TextureIndex.UIButtons, new(0, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
                 new(TextureIndex.UIButtons, new(32, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
                 new(TextureIndex.UIButtons, new(64, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
@@ -83,8 +78,8 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.UIButtons, new(160, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
             ];
 
-            this.menuButtonSlots = new SlotInfo[this.menuButtons.Length];
-            this.sizeButtonSlots = new SlotInfo[this.sizeButtons.Length];
+            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            this.sizeButtonSlotInfos = new SlotInfo[this.sizeButtonInfos.Length];
         }
 
         private void SetWorldSizeButtonAction(Point size)
@@ -118,7 +113,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackgroundElement = new()
+            this.background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundWorldSettings),
                 Size = new(1084.0f, 540.0f),
@@ -126,12 +121,12 @@ namespace StardustSandbox.UI.Common.HUD
             };
 
             root.AddChild(backgroundShadowElement);
-            root.AddChild(this.panelBackgroundElement);
+            root.AddChild(this.background);
         }
 
         private void BuildTitle()
         {
-            this.menuTitleElement = new()
+            this.menuTitle = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
@@ -146,26 +141,26 @@ namespace StardustSandbox.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.panelBackgroundElement.AddChild(this.menuTitleElement);
+            this.background.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
+                ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
 
                 // Update
-                this.panelBackgroundElement.AddChild(slot.Background);
+                this.background.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.menuButtonSlots[i] = slot;
+                this.menuButtonSlotInfos[i] = slot;
 
                 // Spacing
                 marginX -= 80.0f;
@@ -174,7 +169,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildSizeSection()
         {
-            this.sizeSectionTitleElement = new()
+            this.sizeSectionTitle = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
@@ -183,24 +178,24 @@ namespace StardustSandbox.UI.Common.HUD
                 TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Title
             };
 
-            this.panelBackgroundElement.AddChild(this.sizeSectionTitleElement);
+            this.background.AddChild(this.sizeSectionTitle);
 
             // Buttons
             float marginX = 32.0f;
 
-            for (byte i = 0; i < this.sizeButtons.Length; i++)
+            for (byte i = 0; i < this.sizeButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.sizeButtons[i];
+                ButtonInfo button = this.sizeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 80.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.South;
 
                 // Update
-                this.sizeSectionTitleElement.AddChild(slot.Background);
+                this.sizeSectionTitle.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
-                this.sizeButtonSlots[i] = slot;
+                this.sizeButtonSlotInfos[i] = slot;
 
                 // Spacing
                 marginX += 80.0f;
@@ -247,13 +242,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonSlots.Length; i++)
+            for (byte i = 0; i < this.menuButtonSlotInfos.Length; i++)
             {
-                SlotInfo slot = this.menuButtonSlots[i];
+                SlotInfo slot = this.menuButtonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -262,21 +257,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateSizeButtons()
         {
-            for (byte i = 0; i < this.sizeButtons.Length; i++)
+            for (byte i = 0; i < this.sizeButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.sizeButtonSlots[i];
+                SlotInfo slot = this.sizeButtonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.sizeButtons[i].ClickAction?.Invoke();
+                    this.sizeButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.sizeButtons[i].Name);
-                    TooltipBoxContent.SetDescription(this.sizeButtons[i].Description);
+                    TooltipBoxContent.SetTitle(this.sizeButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.sizeButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }

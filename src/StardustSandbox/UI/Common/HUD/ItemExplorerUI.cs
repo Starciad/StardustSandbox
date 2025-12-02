@@ -29,20 +29,12 @@ namespace StardustSandbox.UI.Common.HUD
         private Item[] selectedItems;
 
         private Image background;
-
-        private Label menuTitle;
-        private Label pageIndexLabel;
+        private Label menuTitle, pageIndexLabel;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly ButtonInfo[] menuButtonInfos;
-        private readonly ButtonInfo[] paginationButtonInfos;
-
-        private readonly SlotInfo[] menuButtonSlotInfos;
-        private readonly SlotInfo[] itemButtonSlotInfos;
-        private readonly SlotInfo[] categoryButtonSlotInfos;
-        private readonly SlotInfo[] subcategoryButtonSlotInfos;
-        private readonly SlotInfo[] paginationButtonSlotInfos;
+        private readonly ButtonInfo[] buttonInfos, paginationButtonInfos;
+        private readonly SlotInfo[] menuButtonSlotInfos, itemButtonSlotInfos, categoryButtonSlotInfos, subcategoryButtonSlotInfos, paginationButtonSlotInfos;
 
         private readonly HudUI hudUI;
 
@@ -69,7 +61,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
 
-            this.menuButtonInfos = [
+            this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
@@ -103,7 +95,7 @@ namespace StardustSandbox.UI.Common.HUD
                 }),
             ];
 
-            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            this.menuButtonSlotInfos = new SlotInfo[this.buttonInfos.Length];
             this.itemButtonSlotInfos = new SlotInfo[UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_PAGE];
             this.categoryButtonSlotInfos = new SlotInfo[CatalogDatabase.CategoryLength];
             this.subcategoryButtonSlotInfos = new SlotInfo[UIConstants.HUD_ITEM_EXPLORER_SUB_CATEGORY_BUTTONS_LENGTH];
@@ -170,9 +162,9 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (byte i = 0; i < this.buttonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtonInfos[i];
+                ButtonInfo button = this.buttonInfos[i];
 
                 Image backgroundElement = new()
                 {
@@ -422,21 +414,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (byte i = 0; i < this.buttonInfos.Length; i++)
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    this.menuButtonInfos[i].ClickAction?.Invoke();
+                    this.buttonInfos[i].ClickAction?.Invoke();
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.menuButtonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.menuButtonInfos[i].Description);
+                    TooltipBoxContent.SetTitle(this.buttonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.buttonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }

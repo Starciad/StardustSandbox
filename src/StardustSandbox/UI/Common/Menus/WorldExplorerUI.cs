@@ -26,15 +26,14 @@ namespace StardustSandbox.UI.Common.Menus
         private int totalPages = 1;
 
         private List<SaveFile> savedWorldFilesLoaded;
-        private Image headerBackgroundElement;
-        private Label pageIndexLabelElement;
+        private Image headerBackground;
+        private Label pageIndexLabel;
 
-        private readonly ButtonInfo[] headerButtons;
-        private readonly ButtonInfo[] footerButtons;
+        private readonly ButtonInfo[] headerButtonInfos, footerButtonInfos;
 
-        private readonly Image[] headerButtonElements;
-        private readonly Label[] footerButtonElements;
-        private readonly SlotInfo[] slotInfoElements;
+        private readonly Image[] headerButtonImages;
+        private readonly Label[] footerButtonLabels;
+        private readonly SlotInfo[] itemSlotInfos;
 
         private readonly WorldDetailsUI worldDetailsMenuUI;
 
@@ -52,9 +51,9 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
             this.worldDetailsMenuUI = worldDetailsMenuUI;
 
-            this.slotInfoElements = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
+            this.itemSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
 
-            this.headerButtons = [
+            this.headerButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), "Exit", string.Empty, this.uiManager.CloseGUI),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), "Reload", string.Empty, () =>
                 {
@@ -69,7 +68,7 @@ namespace StardustSandbox.UI.Common.Menus
                 }),
             ];
 
-            this.footerButtons = [
+            this.footerButtonInfos = [
                 new(TextureIndex.None, null, "Previous", string.Empty, () =>
                 {
                     if (this.currentPage > 0)
@@ -98,8 +97,8 @@ namespace StardustSandbox.UI.Common.Menus
                 }),
             ];
 
-            this.headerButtonElements = new Image[this.headerButtons.Length];
-            this.footerButtonElements = new Label[this.footerButtons.Length];
+            this.headerButtonImages = new Image[this.headerButtonInfos.Length];
+            this.footerButtonLabels = new Label[this.footerButtonInfos.Length];
 
             UpdatePagination();
         }
@@ -117,7 +116,7 @@ namespace StardustSandbox.UI.Common.Menus
         private void BuildHeader()
         {
             // Background
-            this.headerBackgroundElement = new()
+            this.headerBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
@@ -140,14 +139,14 @@ namespace StardustSandbox.UI.Common.Menus
                 BorderThickness = 2.0f,
             };
 
-            this.headerBackgroundElement.AddChild(titleLabelElement);
+            this.headerBackground.AddChild(titleLabelElement);
 
             // Buttons
             float marginX = -64.0f;
 
-            for (byte i = 0; i < this.headerButtons.Length; i++)
+            for (byte i = 0; i < this.headerButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.headerButtons[i];
+                ButtonInfo button = this.headerButtonInfos[i];
 
                 Image buttonBackgroundElement = new()
                 {
@@ -166,10 +165,10 @@ namespace StardustSandbox.UI.Common.Menus
                     Size = new(32.0f),
                 };
 
-                this.headerBackgroundElement.AddChild(buttonBackgroundElement);
+                this.headerBackground.AddChild(buttonBackgroundElement);
                 buttonBackgroundElement.AddChild(buttonIconElement);
 
-                this.headerButtonElements[i] = buttonBackgroundElement;
+                this.headerButtonImages[i] = buttonBackgroundElement;
 
                 marginX -= buttonBackgroundElement.Size.X + 16.0f;
             }
@@ -200,7 +199,7 @@ namespace StardustSandbox.UI.Common.Menus
                 BorderThickness = 2.0f,
             };
 
-            this.pageIndexLabelElement = new()
+            this.pageIndexLabel = new()
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
@@ -239,11 +238,11 @@ namespace StardustSandbox.UI.Common.Menus
                 BorderThickness = 2.0f,
             };
 
-            this.footerButtonElements[0] = previousButtonLabel;
-            this.footerButtonElements[1] = nextButtonLabel;
+            this.footerButtonLabels[0] = previousButtonLabel;
+            this.footerButtonLabels[1] = nextButtonLabel;
 
             pageIndexTitleLabel.Margin = new(0.0f, -16.0f);
-            this.pageIndexLabelElement.Margin = new(0.0f, pageIndexTitleLabel.Size.Y);
+            this.pageIndexLabel.Margin = new(0.0f, pageIndexTitleLabel.Size.Y);
             previousButtonLabel.Margin = new(previousButtonLabel.Size.X + 32.0f, 0.0f);
             nextButtonLabel.Margin = new((nextButtonLabel.Size.X + 32.0f) * -1.0f, 0.0f);
 
@@ -251,7 +250,7 @@ namespace StardustSandbox.UI.Common.Menus
             background.AddChild(previousButtonLabel);
             background.AddChild(nextButtonLabel);
 
-            pageIndexTitleLabel.AddChild(this.pageIndexLabelElement);
+            pageIndexTitleLabel.AddChild(this.pageIndexLabel);
 
             root.AddChild(background);
         }
@@ -298,14 +297,14 @@ namespace StardustSandbox.UI.Common.Menus
                     };
 
                     // Position
-                    this.headerBackgroundElement.AddChild(backgroundImageElement);
+                    this.headerBackground.AddChild(backgroundImageElement);
                     backgroundImageElement.AddChild(thumbnailImageElement);
                     thumbnailImageElement.AddChild(titleLabelElement);
 
                     // Spacing
                     slotMargin.X += 418.0f;
 
-                    this.slotInfoElements[index] = new(backgroundImageElement, thumbnailImageElement, titleLabelElement);
+                    this.itemSlotInfos[index] = new(backgroundImageElement, thumbnailImageElement, titleLabelElement);
 
                     index++;
                 }
@@ -324,26 +323,26 @@ namespace StardustSandbox.UI.Common.Menus
             #region BUTTONS
 
             // HEADER
-            for (byte i = 0; i < this.headerButtonElements.Length; i++)
+            for (byte i = 0; i < this.headerButtonImages.Length; i++)
             {
-                Image buttonBackgroundElement = this.headerButtonElements[i];
+                Image buttonBackgroundElement = this.headerButtonImages[i];
 
                 if (Interaction.OnMouseLeftClick(buttonBackgroundElement))
                 {
-                    this.headerButtons[i].ClickAction?.Invoke();
+                    this.headerButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 buttonBackgroundElement.Color = Interaction.OnMouseOver(buttonBackgroundElement) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
 
             // FOOTER
-            for (byte i = 0; i < this.footerButtonElements.Length; i++)
+            for (byte i = 0; i < this.footerButtonLabels.Length; i++)
             {
-                Label label = this.footerButtonElements[i];
+                Label label = this.footerButtonLabels[i];
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    this.footerButtons[i].ClickAction?.Invoke();
+                    this.footerButtonInfos[i].ClickAction?.Invoke();
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
@@ -352,11 +351,11 @@ namespace StardustSandbox.UI.Common.Menus
             #endregion
 
             // SLOTS
-            for (byte i = 0; i < this.slotInfoElements.Length; i++)
+            for (byte i = 0; i < this.itemSlotInfos.Length; i++)
             {
-                SlotInfo slotInfoElement = this.slotInfoElements[i];
+                SlotInfo slotInfoElement = this.itemSlotInfos[i];
 
-                if (!this.slotInfoElements[i].Background.CanDraw)
+                if (!this.itemSlotInfos[i].Background.CanDraw)
                 {
                     break;
                 }
@@ -376,9 +375,9 @@ namespace StardustSandbox.UI.Common.Menus
             this.totalPages = Math.Max(1, (int)Math.Ceiling((float)(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
 
-            if (this.pageIndexLabelElement != null)
+            if (this.pageIndexLabel != null)
             {
-                this.pageIndexLabelElement.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
+                this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
             }
         }
 
@@ -386,9 +385,9 @@ namespace StardustSandbox.UI.Common.Menus
         {
             int startIndex = this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE;
 
-            for (byte i = 0; i < this.slotInfoElements.Length; i++)
+            for (byte i = 0; i < this.itemSlotInfos.Length; i++)
             {
-                SlotInfo slotInfoElement = this.slotInfoElements[i];
+                SlotInfo slotInfoElement = this.itemSlotInfos[i];
                 int worldIndex = startIndex + i;
 
                 if (worldIndex < this.savedWorldFilesLoaded?.Count)
@@ -396,7 +395,7 @@ namespace StardustSandbox.UI.Common.Menus
                     SaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
 
                     slotInfoElement.Background.CanDraw = true;
-                    
+
                     slotInfoElement.Icon.Texture = worldSaveFile.Header.ThumbnailTexture;
                     slotInfoElement.Label.TextContent = worldSaveFile.Header.Metadata.Name.Truncate(10);
                 }
@@ -415,7 +414,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
-            this.headerButtons[1].ClickAction?.Invoke();
+            this.headerButtonInfos[1].ClickAction?.Invoke();
             ChangeWorldsCatalog();
         }
 

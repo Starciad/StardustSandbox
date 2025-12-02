@@ -18,12 +18,10 @@ namespace StardustSandbox.UI.Common.Tools
     internal sealed class ConfirmUI : UIBase
     {
         private ConfirmSettings confirmSettings;
-        private Text captionElement;
-        private Text messageElement;
+        private Text caption, message;
 
-        private readonly Label[] menuButtonElements;
-
-        private readonly ButtonInfo[] menuButtons;
+        private readonly Label[] buttonLabels;
+        private readonly ButtonInfo[] buttonInfos;
 
         private readonly UIManager uiManager;
 
@@ -34,7 +32,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             this.uiManager = uiManager;
 
-            this.menuButtons = [
+            this.buttonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
                     this.uiManager.CloseGUI();
@@ -47,15 +45,15 @@ namespace StardustSandbox.UI.Common.Tools
                 }),
             ];
 
-            this.menuButtonElements = new Label[this.menuButtons.Length];
+            this.buttonLabels = new Label[this.buttonInfos.Length];
         }
 
         internal void Configure(ConfirmSettings settings)
         {
             this.confirmSettings = settings;
 
-            this.captionElement.TextContent = settings.Caption;
-            this.messageElement.TextContent = settings.Message;
+            this.caption.TextContent = settings.Caption;
+            this.message.TextContent = settings.Message;
         }
 
         #region BUILDER
@@ -83,7 +81,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void BuildCaption(Container root)
         {
-            this.captionElement = new()
+            this.caption = new()
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
@@ -94,12 +92,12 @@ namespace StardustSandbox.UI.Common.Tools
                 TextContent = "Caption"
             };
 
-            root.AddChild(this.captionElement);
+            root.AddChild(this.caption);
         }
 
         private void BuildMessage(Container root)
         {
-            this.messageElement = new()
+            this.message = new()
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, -128.0f),
@@ -110,16 +108,16 @@ namespace StardustSandbox.UI.Common.Tools
                 TextContent = "Message",
             };
 
-            root.AddChild(this.messageElement);
+            root.AddChild(this.message);
         }
 
         private void BuildMenuButtons(Container root)
         {
             float marginY = -64.0f;
 
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.buttonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtons[i];
+                ButtonInfo button = this.buttonInfos[i];
 
                 Label label = new()
                 {
@@ -139,7 +137,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                 root.AddChild(label);
 
-                this.menuButtonElements[i] = label;
+                this.buttonLabels[i] = label;
             }
         }
 
@@ -149,13 +147,13 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal override void Update(GameTime gameTime)
         {
-            for (byte i = 0; i < this.menuButtons.Length; i++)
+            for (byte i = 0; i < this.buttonInfos.Length; i++)
             {
-                Label label = this.menuButtonElements[i];
+                Label label = this.buttonLabels[i];
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    this.menuButtons[i].ClickAction?.Invoke();
+                    this.buttonInfos[i].ClickAction?.Invoke();
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;

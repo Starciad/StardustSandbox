@@ -17,8 +17,8 @@ namespace StardustSandbox.UI.Common.Tools
         UIManager uiManager
     ) : UIBase(index)
     {
-        private Text messageElement;
-        private Label continueButtonElement;
+        private Text message;
+        private Label continueButtonLabel;
 
         private readonly UIManager uiManager = uiManager;
 
@@ -46,7 +46,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void BuildMessage(Container root)
         {
-            this.messageElement = new()
+            this.message = new()
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
@@ -57,12 +57,12 @@ namespace StardustSandbox.UI.Common.Tools
                 TextContent = "Message"
             };
 
-            root.AddChild(this.messageElement);
+            root.AddChild(this.message);
         }
 
         private void BuildButton(Container root)
         {
-            this.continueButtonElement = new()
+            this.continueButtonLabel = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.13f),
@@ -76,7 +76,7 @@ namespace StardustSandbox.UI.Common.Tools
                 BorderThickness = 2.0f,
             };
 
-            root.AddChild(this.continueButtonElement);
+            root.AddChild(this.continueButtonLabel);
         }
 
         #endregion
@@ -85,19 +85,19 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal override void Update(GameTime gameTime)
         {
-            if (Interaction.OnMouseLeftClick(this.continueButtonElement))
+            if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
             {
                 this.uiManager.CloseGUI();
             }
 
-            this.continueButtonElement.Color = Interaction.OnMouseOver(this.continueButtonElement) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            this.continueButtonLabel.Color = Interaction.OnMouseOver(this.continueButtonLabel) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
 
             base.Update(gameTime);
         }
 
         internal void SetContent(string text)
         {
-            this.messageElement.TextContent = text;
+            this.message.TextContent = text;
         }
 
         #endregion
