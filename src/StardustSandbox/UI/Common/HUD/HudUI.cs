@@ -28,6 +28,7 @@ namespace StardustSandbox.UI.Common.HUD
     internal sealed class HudUI : UIBase
     {
         private byte slotSelectedIndex = 0;
+        private bool isTopToolbarExpanded = true, isLeftToolbarExpanded = true, isRightToolbarExpanded = true;
 
         private Container topToolbarContainer, leftToolbarContainer, rightToolbarContainer;
         private Image topToolbarBackground, leftToolbarBackground, rightToolbarBackground;
@@ -37,7 +38,7 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly TooltipBox tooltipBox;
 
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];
-        private readonly SlotInfo[] leftPanelTopButtons, leftPanelBottomButtons, rightPanelTopButtons, rightPanelBottomButtons;
+        private readonly SlotInfo[] leftPanelTopButtonSlotInfos, leftPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos;
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
         private readonly ConfirmSettings reloadSimulationConfirmSettings, eraseEverythingConfirmSettings;
@@ -146,10 +147,10 @@ namespace StardustSandbox.UI.Common.HUD
                 }),
             ];
 
-            this.leftPanelTopButtons = new SlotInfo[this.leftPanelTopButtonInfos.Length];
-            this.leftPanelBottomButtons = new SlotInfo[this.leftPanelBottomButtonInfos.Length];
-            this.rightPanelTopButtons = new SlotInfo[this.rightPanelTopButtonInfos.Length];
-            this.rightPanelBottomButtons = new SlotInfo[this.rightPanelBottomButtonInfos.Length];
+            this.leftPanelTopButtonSlotInfos = new SlotInfo[this.leftPanelTopButtonInfos.Length];
+            this.leftPanelBottomButtonSlotInfos = new SlotInfo[this.leftPanelBottomButtonInfos.Length];
+            this.rightPanelTopButtonSlotInfos = new SlotInfo[this.rightPanelTopButtonInfos.Length];
+            this.rightPanelBottomButtonSlotInfos = new SlotInfo[this.rightPanelBottomButtonInfos.Length];
         }
 
         #region BUILD
@@ -157,10 +158,10 @@ namespace StardustSandbox.UI.Common.HUD
         protected override void OnBuild(Container root)
         {
             BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), CardinalDirection.Northwest, BuildTopToolbarContent);
-            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), CardinalDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtons, CardinalDirection.North, true));
-            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), CardinalDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtons, CardinalDirection.North, true));
-            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtons, CardinalDirection.South, false);
-            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtons, CardinalDirection.South, false);
+            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), CardinalDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, CardinalDirection.North, true));
+            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), CardinalDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, CardinalDirection.North, true));
+            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, CardinalDirection.South, false);
+            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, CardinalDirection.South, false);
             BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), CardinalDirection.South);
             BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), CardinalDirection.East);
             BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), CardinalDirection.West);
@@ -344,15 +345,29 @@ namespace StardustSandbox.UI.Common.HUD
             UpdatePlayerInteractionOnToolbarHover();
             UpdateSimulationControlIcons();
 
-            UpdateTopToolbarToolPreview();
-            UpdateTopToolbarItemButtons();
-            UpdateTopToolbarSearchButton();
+            AnimateToolbarPosition(this.topToolbarContainer, this.isTopToolbarExpanded, new(0.0f, (this.topToolbarContainer.Size.Y + this.topDrawerButton.Size.Y / 2.0f + 8.0f) * -1.0f));
+            AnimateToolbarPosition(this.leftToolbarContainer, this.isLeftToolbarExpanded, new((this.leftToolbarContainer.Size.X + this.leftDrawerButton.Size.X / 2.0f + 8.0f) * -1.0f, 0.0f));
+            AnimateToolbarPosition(this.rightToolbarContainer, this.isRightToolbarExpanded, new(this.rightToolbarContainer.Size.X + this.rightDrawerButton.Size.X / 2.0f + 8.0f, 0.0f));
 
-            // UpdateLeftToolbar();
-            // UpdateRightToolbar();
-
-            // UpdateToolbars();
-            // UpdateDrawerButtons();
+            if (this.isTopToolbarExpanded)
+            {
+                UpdateTopToolbarToolPreview();
+                UpdateTopToolbarItemButtons();
+                UpdateTopToolbarSearchButton();
+            }
+            
+            if (this.isLeftToolbarExpanded)
+            {
+                UpdatePanelButtons(this.leftPanelTopButtonSlotInfos, this.leftPanelTopButtonInfos);
+                UpdatePanelButtons(this.leftPanelBottomButtonSlotInfos, this.leftPanelBottomButtonInfos);
+            }
+            
+            if (this.isRightToolbarExpanded)
+            {
+                UpdatePanelButtons(this.rightPanelTopButtonSlotInfos, this.rightPanelTopButtonInfos);
+            }   UpdatePanelButtons(this.rightPanelBottomButtonSlotInfos, this.rightPanelBottomButtonInfos);
+            
+            UpdateDrawerButtons();
 
             base.Update(gameTime);
         }
@@ -374,11 +389,11 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateSimulationControlIcons()
         {
-            this.leftPanelBottomButtons[0].Icon.SourceRectangle = this.gameManager.HasState(GameStates.IsSimulationPaused)
+            this.leftPanelBottomButtonSlotInfos[0].Icon.SourceRectangle = this.gameManager.HasState(GameStates.IsSimulationPaused)
                 ? this.pauseAndResumeRectangles[1] // Resume
                 : this.pauseAndResumeRectangles[0]; // Pause
 
-            this.leftPanelBottomButtons[1].Icon.SourceRectangle = this.world.Simulation.CurrentSpeed switch
+            this.leftPanelBottomButtonSlotInfos[1].Icon.SourceRectangle = this.world.Simulation.CurrentSpeed switch
             {
                 SimulationSpeed.Fast => this.speedIconRectangles[1],
                 SimulationSpeed.VeryFast => this.speedIconRectangles[2],
@@ -394,6 +409,15 @@ namespace StardustSandbox.UI.Common.HUD
                 PenTool.Replace => new(160, 32, 32, 32),
                 _ => new(192, 0, 32, 32),
             };
+        }
+
+        private static void AnimateToolbarPosition(Container toolbarContainer, bool shouldExpand, Vector2 collapsedOffset)
+        {
+            toolbarContainer.Margin = Vector2.Lerp(
+                toolbarContainer.Margin,
+                shouldExpand ? Vector2.Zero : collapsedOffset,
+                0.2f
+            );
         }
 
         private void UpdateTopToolbarToolPreview()
@@ -555,6 +579,60 @@ namespace StardustSandbox.UI.Common.HUD
                 );
 
                 this.toolbarSearchButton.Color = AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdatePanelButtons(SlotInfo[] slots, ButtonInfo[] buttons)
+        {
+            if (slots.Length != buttons.Length)
+            {
+                throw new ArgumentException("Slots and buttons arrays must have the same length.");
+            }
+
+            for (int i = 0, total = slots.Length; i < total; i++)
+            {
+                SlotInfo slot = slots[i];
+                ButtonInfo button = buttons[i];
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    button.ClickAction?.Invoke();
+                }
+
+                if (Interaction.OnMouseOver(slot.Background))
+                {
+                    slot.Background.Color = AAP64ColorPalette.Graphite;
+
+                    this.tooltipBox.CanDraw = true;
+
+                    TooltipBoxContent.SetTitle(button.Name);
+                    TooltipBoxContent.SetDescription(button.Description);
+
+                    slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.2f), 0.2f);
+                }
+                else
+                {
+                    slot.Background.Color = AAP64ColorPalette.White;
+                    slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.0f), 0.2f);
+                }
+            }
+        }
+
+        private void UpdateDrawerButtons()
+        {
+            if (Interaction.OnMouseLeftClick(this.topDrawerButton))
+            {
+                this.isTopToolbarExpanded = !this.isTopToolbarExpanded;
+            }
+
+            if (Interaction.OnMouseLeftClick(this.leftDrawerButton))
+            {
+                this.isLeftToolbarExpanded = !this.isLeftToolbarExpanded;
+            }
+
+            if (Interaction.OnMouseLeftClick(this.rightDrawerButton))
+            {
+                this.isRightToolbarExpanded = !this.isRightToolbarExpanded;
             }
         }
 
