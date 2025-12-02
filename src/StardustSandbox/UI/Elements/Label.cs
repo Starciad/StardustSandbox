@@ -5,7 +5,6 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.UI.Elements.TextSystem;
 
@@ -28,10 +27,7 @@ namespace StardustSandbox.UI.Elements
                 return this.measuredText;
             }
 
-            set
-            {
-                throw new InvalidOperationException("Cannot set Size of Label directly. Size is determined by the text content.");
-            }
+            set => throw new InvalidOperationException("Cannot set Size of Label directly. Size is determined by the text content.");
         }
 
         internal string TextContent

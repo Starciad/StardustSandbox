@@ -292,12 +292,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -322,12 +322,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.timeStateButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -361,12 +361,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.timeButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 

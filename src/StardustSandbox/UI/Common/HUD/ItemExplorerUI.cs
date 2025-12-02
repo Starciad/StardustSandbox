@@ -438,12 +438,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -476,12 +476,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
                 // Check if the mouse clicked on the current slot.
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     SelectItemCatalog(category, category.Subcategories[0], 0);
                 }
 
-                bool isOver = Interaction.OnMouseOver(position, size);
+                bool isOver = Interaction.OnMouseLeftOver(position, size);
 
                 if (isOver)
                 {
@@ -510,12 +510,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
                 // Check if the mouse clicked on the current slot.
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     SelectItemCatalog(subcategory.ParentCategory, subcategory, 0);
                 }
 
-                bool isOver = Interaction.OnMouseOver(position, size);
+                bool isOver = Interaction.OnMouseLeftOver(position, size);
 
                 if (isOver)
                 {
@@ -543,13 +543,13 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.hudUI.AddItemToToolbar(item);
                     this.uiManager.CloseGUI();
                 }
 
-                bool isOver = Interaction.OnMouseOver(position, size);
+                bool isOver = Interaction.OnMouseLeftOver(position, size);
 
                 if (isOver)
                 {
@@ -581,12 +581,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_ITEM_EXPLORER_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.paginationButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.Background.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

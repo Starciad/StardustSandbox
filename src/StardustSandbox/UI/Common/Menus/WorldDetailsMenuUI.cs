@@ -239,12 +239,12 @@ namespace StardustSandbox.UI.Common.Menus
                 Vector2 buttonSize = slotInfoElement.Size / 2.0f;
                 Vector2 buttonPosition = new(slotInfoElement.Position.X + buttonSize.X, slotInfoElement.Position.Y - (buttonSize.Y / 4.0f));
 
-                if (Interaction.OnMouseClick(buttonPosition, buttonSize))
+                if (Interaction.OnMouseLeftClick(buttonPosition, buttonSize))
                 {
                     this.worldButtons[i].ClickAction?.Invoke();
                 }
 
-                slotInfoElement.Color = Interaction.OnMouseOver(buttonPosition, buttonSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                slotInfoElement.Color = Interaction.OnMouseLeftOver(buttonPosition, buttonSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Constants;
 using StardustSandbox.Enums.Directions;
 
 namespace StardustSandbox.UI.Elements
@@ -70,27 +69,27 @@ namespace StardustSandbox.UI.Elements
 
             // Northeast
             this.slices[(byte)CardinalDirection.Northeast].SetSourceRectangle(
-                new(originX + tileWidth * 2, originY, tileWidth, tileHeight)
+                new(originX + (tileWidth * 2), originY, tileWidth, tileHeight)
             );
 
             // East
             this.slices[(byte)CardinalDirection.East].SetSourceRectangle(
-                new(originX + tileWidth * 2, originY + tileHeight, tileWidth, tileHeight)
+                new(originX + (tileWidth * 2), originY + tileHeight, tileWidth, tileHeight)
             );
 
             // Southeast
             this.slices[(byte)CardinalDirection.Southeast].SetSourceRectangle(
-                new(originX + tileWidth * 2, originY + tileHeight * 2, tileWidth, tileHeight)
+                new(originX + (tileWidth * 2), originY + (tileHeight * 2), tileWidth, tileHeight)
             );
 
             // South
             this.slices[(byte)CardinalDirection.South].SetSourceRectangle(
-                new(originX + tileWidth, originY + tileHeight * 2, tileWidth, tileHeight)
+                new(originX + tileWidth, originY + (tileHeight * 2), tileWidth, tileHeight)
             );
 
             // Southwest
             this.slices[(byte)CardinalDirection.Southwest].SetSourceRectangle(
-                new(originX, originY + tileHeight * 2, tileWidth, tileHeight)
+                new(originX, originY + (tileHeight * 2), tileWidth, tileHeight)
             );
 
             // West

@@ -94,12 +94,12 @@ namespace StardustSandbox.UI.Common.Tools
             Vector2 position = this.continueButtonElement.Position;
             Vector2 size = this.continueButtonElement.Size / 2;
 
-            if (Interaction.OnMouseClick(position, size))
+            if (Interaction.OnMouseLeftClick(position, size))
             {
                 this.uiManager.CloseGUI();
             }
 
-            this.continueButtonElement.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            this.continueButtonElement.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
         }
 
         internal void SetContent(string text)

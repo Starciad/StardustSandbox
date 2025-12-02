@@ -375,12 +375,12 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Vector2 buttonSize = buttonBackgroundElement.Size / 2.0f;
 
-                if (Interaction.OnMouseClick(buttonBackgroundElement.Position, buttonSize))
+                if (Interaction.OnMouseLeftClick(buttonBackgroundElement.Position, buttonSize))
                 {
                     this.headerButtons[i].ClickAction?.Invoke();
                 }
 
-                buttonBackgroundElement.Color = Interaction.OnMouseOver(buttonBackgroundElement.Position, buttonSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+                buttonBackgroundElement.Color = Interaction.OnMouseLeftOver(buttonBackgroundElement.Position, buttonSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
 
             // FOOTER
@@ -389,12 +389,12 @@ namespace StardustSandbox.UI.Common.Menus
                 Label label = this.footerButtonElements[i];
                 Vector2 labelElementSize = label.Size / 2f;
 
-                if (Interaction.OnMouseClick(label.Position, labelElementSize))
+                if (Interaction.OnMouseLeftClick(label.Position, labelElementSize))
                 {
                     this.footerButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseLeftOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
             #endregion
 
@@ -411,13 +411,13 @@ namespace StardustSandbox.UI.Common.Menus
                 Vector2 backgroundSize = slotInfoElement.BackgroundElement.Size / 2.0f;
                 Vector2 backgroundPosition = slotInfoElement.BackgroundElement.Position + backgroundSize;
 
-                if (Interaction.OnMouseClick(backgroundPosition, backgroundSize))
+                if (Interaction.OnMouseLeftClick(backgroundPosition, backgroundSize))
                 {
                     this.worldDetailsMenuUI.SetWorldSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
                     this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
                 }
 
-                slotInfoElement.BackgroundElement.Color = Interaction.OnMouseOver(backgroundPosition, backgroundSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+                slotInfoElement.BackgroundElement.Color = Interaction.OnMouseLeftOver(backgroundPosition, backgroundSize) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
         }
 

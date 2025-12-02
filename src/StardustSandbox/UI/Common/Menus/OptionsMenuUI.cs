@@ -679,9 +679,9 @@ namespace StardustSandbox.UI.Common.Menus
                 Vector2 size = label.Size / 2.0f;
                 Vector2 position = label.Position;
 
-                bool onMouseOver = Interaction.OnMouseOver(position, size);
+                bool onMouseOver = Interaction.OnMouseLeftOver(position, size);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     SelectSection(item.Key);
                 }
@@ -712,12 +712,12 @@ namespace StardustSandbox.UI.Common.Menus
                 Vector2 size = label.Size / 2.0f;
                 Vector2 position = label.Position;
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     button.ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -743,14 +743,14 @@ namespace StardustSandbox.UI.Common.Menus
                 Vector2 position = new(label.Position.X + interactiveAreaSize.X, label.Position.Y - 6);
                 Option option = (Option)label.GetData("option");
 
-                if (Interaction.OnMouseClick(position, interactiveAreaSize))
+                if (Interaction.OnMouseLeftClick(position, interactiveAreaSize))
                 {
                     HandleOptionInteractivity(option);
                 }
 
                 UpdateOptionSync(option, label);
 
-                if (Interaction.OnMouseOver(position, interactiveAreaSize))
+                if (Interaction.OnMouseLeftOver(position, interactiveAreaSize))
                 {
                     label.Color = AAP64ColorPalette.LemonYellow;
 
@@ -767,11 +767,11 @@ namespace StardustSandbox.UI.Common.Menus
 
             foreach ((UIElement plus, UIElement minus) in this.plusAndMinusButtons)
             {
-                if (Interaction.OnMouseDown(plus.Position, plusAndMinusButtonAreaSize))
+                if (Interaction.OnMouseLeftDown(plus.Position, plusAndMinusButtonAreaSize))
                 {
                     ((ValueOption)plus.GetData("option")).Increment();
                 }
-                else if (Interaction.OnMouseDown(minus.Position, plusAndMinusButtonAreaSize))
+                else if (Interaction.OnMouseLeftDown(minus.Position, plusAndMinusButtonAreaSize))
                 {
                     ((ValueOption)minus.GetData("option")).Decrement();
                 }

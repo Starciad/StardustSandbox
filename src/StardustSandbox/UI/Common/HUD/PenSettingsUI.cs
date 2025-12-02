@@ -424,12 +424,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -455,7 +455,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Vector2 position = basePosition + offset;
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -463,7 +463,7 @@ namespace StardustSandbox.UI.Common.HUD
                     TooltipBoxContent.SetDescription(string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1));
                 }
 
-                if (Interaction.OnMouseDown(position, size))
+                if (Interaction.OnMouseLeftDown(position, size))
                 {
                     this.inputController.Pen.Size = (sbyte)i;
                     break;
@@ -478,12 +478,12 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.toolButtons.Length; i++)
             {
                 SlotInfo slot = this.toolButtonSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
+                bool isOver = Interaction.OnMouseLeftOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
 
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.toolButtons[i].ClickAction?.Invoke();
                 }
@@ -505,9 +505,9 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.layerButtons.Length; i++)
             {
                 SlotInfo slot = this.layerButtonSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
+                bool isOver = Interaction.OnMouseLeftOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
 
-                if (Interaction.OnMouseClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
+                if (Interaction.OnMouseLeftClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
                 {
                     this.layerButtons[i].ClickAction?.Invoke();
                 }
@@ -529,9 +529,9 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.shapeButtons.Length; i++)
             {
                 SlotInfo slot = this.shapeButtonSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
+                bool isOver = Interaction.OnMouseLeftOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE));
 
-                if (Interaction.OnMouseClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
+                if (Interaction.OnMouseLeftClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
                 {
                     this.shapeButtons[i].ClickAction?.Invoke();
                 }

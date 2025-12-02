@@ -197,12 +197,12 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlots[i];
 
-                if (Interaction.OnMouseClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
+                if (Interaction.OnMouseLeftClick(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.Background.Color = Interaction.OnMouseOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseLeftOver(slot.Background.Position, new(UIConstants.HUD_GRID_SIZE)) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

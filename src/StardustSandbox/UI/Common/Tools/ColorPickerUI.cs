@@ -299,12 +299,12 @@ namespace StardustSandbox.UI.Common.Tools
                 Vector2 size = label.Size / 2.0f;
                 Vector2 position = label.Position;
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -318,12 +318,12 @@ namespace StardustSandbox.UI.Common.Tools
                 Vector2 size = colorSlot.Border.Size / 2.0f;
                 Vector2 position = new(colorSlot.Border.Position.X + size.X, colorSlot.Border.Position.Y + size.Y);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     SelectColorButtonAction(colorButton.Color);
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 

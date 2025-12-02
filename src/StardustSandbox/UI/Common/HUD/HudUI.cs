@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Catalog;
@@ -23,7 +22,6 @@ using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 using System;
-using System.Diagnostics;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -34,7 +32,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Container topToolbarContainer, leftToolbarContainer, rightToolbarContainer;
         private Image topToolbarBackground, leftToolbarBackground, rightToolbarBackground;
         private Image topDrawerButton, leftDrawerButton, rightDrawerButton;
-        private Image toolbarSearchButton, toolbarCurrentlySelectedToolIcon;
+        private Image toolbarSearchButton, toolbarCurrentlySelectedToolBackground, toolbarCurrentlySelectedToolIcon;
         private readonly TooltipBox tooltipBox;
 
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.HUD_ELEMENT_BUTTONS_LENGTH];
@@ -243,6 +241,8 @@ namespace StardustSandbox.UI.Common.HUD
             };
             this.topToolbarBackground.AddChild(slotSearchBackground);
             slotSearchBackground.AddChild(slotIcon);
+
+            this.toolbarCurrentlySelectedToolBackground = slotSearchBackground;
             this.toolbarCurrentlySelectedToolIcon = slotIcon;
         }
 
@@ -336,7 +336,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             UpdateTopToolbarToolPreview();
             UpdateTopToolbarItemButtons();
-            // UpdateTopToolbarSearchButton();
+            UpdateTopToolbarSearchButton();
 
             // UpdateLeftToolbar();
             // UpdateRightToolbar();
@@ -350,14 +350,14 @@ namespace StardustSandbox.UI.Common.HUD
         private void UpdatePlayerInteractionOnToolbarHover()
         {
             bool isMouseOverDrawerButtons =
-                Interaction.OnMouseOver(this.topDrawerButton.Position, this.topDrawerButton.Size) ||
-                Interaction.OnMouseOver(this.leftDrawerButton.Position, this.leftDrawerButton.Size) ||
-                Interaction.OnMouseOver(this.rightDrawerButton.Position, this.rightDrawerButton.Size);
+                Interaction.OnMouseLeftOver(this.topDrawerButton.Position, this.topDrawerButton.Size) ||
+                Interaction.OnMouseLeftOver(this.leftDrawerButton.Position, this.leftDrawerButton.Size) ||
+                Interaction.OnMouseLeftOver(this.rightDrawerButton.Position, this.rightDrawerButton.Size);
 
             bool isMouseOverToolbars =
-                Interaction.OnMouseOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
-                Interaction.OnMouseOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
-                Interaction.OnMouseOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
+                Interaction.OnMouseLeftOver(this.topToolbarContainer.Position, this.topToolbarContainer.Size) ||
+                Interaction.OnMouseLeftOver(this.leftToolbarContainer.Position, this.leftToolbarContainer.Size) ||
+                Interaction.OnMouseLeftOver(this.rightToolbarContainer.Position, this.rightToolbarContainer.Size);
 
             this.inputController.Player.CanModifyEnvironment = !isMouseOverDrawerButtons && !isMouseOverToolbars;
         }
@@ -374,11 +374,53 @@ namespace StardustSandbox.UI.Common.HUD
                 SimulationSpeed.VeryFast => this.speedIconRectangles[2],
                 _ => this.speedIconRectangles[0],
             };
+
+            this.toolbarCurrentlySelectedToolIcon.SourceRectangle = this.inputController.Pen.Tool switch
+            {
+                PenTool.Visualization => new(96, 64, 32, 32),
+                PenTool.Pencil => new(64, 32, 32, 32),
+                PenTool.Eraser => new(96, 32, 32, 32),
+                PenTool.Fill => new(128, 32, 32, 32),
+                PenTool.Replace => new(160, 32, 32, 32),
+                _ => new(192, 0, 32, 32),
+            };
         }
 
         private void UpdateTopToolbarToolPreview()
         {
-            if (Interaction.OnMouseOver(
+            if (Interaction.OnMouseLeftClick(
+                this.toolbarCurrentlySelectedToolIcon.Position,
+                this.toolbarCurrentlySelectedToolIcon.Size
+            ))
+            {
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
+                {
+                    PenTool.Visualization => PenTool.Pencil,
+                    PenTool.Pencil => PenTool.Eraser,
+                    PenTool.Eraser => PenTool.Fill,
+                    PenTool.Fill => PenTool.Replace,
+                    PenTool.Replace => PenTool.Visualization,
+                    _ => PenTool.Visualization,
+                };
+            }
+
+            if (Interaction.OnMouseRightClick(
+                this.toolbarCurrentlySelectedToolIcon.Position,
+                this.toolbarCurrentlySelectedToolIcon.Size
+            ))
+            {
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
+                {
+                    PenTool.Visualization => PenTool.Replace,
+                    PenTool.Pencil => PenTool.Visualization,
+                    PenTool.Eraser => PenTool.Pencil,
+                    PenTool.Fill => PenTool.Eraser,
+                    PenTool.Replace => PenTool.Fill,
+                    _ => PenTool.Visualization,
+                };
+            }
+
+            if (Interaction.OnMouseLeftOver(
                 this.toolbarCurrentlySelectedToolIcon.Position,
                 this.toolbarCurrentlySelectedToolIcon.Size
             ))
@@ -417,6 +459,24 @@ namespace StardustSandbox.UI.Common.HUD
                         TooltipBoxContent.SetDescription(string.Empty);
                         break;
                 }
+
+                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
+                    this.toolbarCurrentlySelectedToolBackground.Scale,
+                    new(UIConstants.HUD_SLOT_SCALE + 0.45f + 0.2f),
+                    0.2f
+                );
+
+                this.toolbarCurrentlySelectedToolBackground.Color = AAP64ColorPalette.Graphite;
+            }
+            else
+            {
+                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
+                    this.toolbarCurrentlySelectedToolBackground.Scale,
+                    new(UIConstants.HUD_SLOT_SCALE + 0.45f),
+                    0.2f
+                );
+
+                this.toolbarCurrentlySelectedToolBackground.Color = AAP64ColorPalette.White;
             }
         }
 
@@ -425,9 +485,9 @@ namespace StardustSandbox.UI.Common.HUD
             for (byte i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
             {
                 SlotInfo slot = this.toolbarSlots[i];
-                bool isOver = Interaction.OnMouseOver(slot.Background.Position, slot.Background.Size);
+                bool isOver = Interaction.OnMouseLeftOver(slot.Background.Position, slot.Background.Size);
 
-                if (Interaction.OnMouseClick(slot.Background.Position, slot.Background.Size))
+                if (Interaction.OnMouseLeftClick(slot.Background.Position, slot.Background.Size))
                 {
                     SelectItemSlot(i, (Item)slot.Background.GetData(UIConstants.DATA_ITEM));
                 }
@@ -461,6 +521,39 @@ namespace StardustSandbox.UI.Common.HUD
                     : isOver
                         ? AAP64ColorPalette.EmeraldGreen
                         : AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateTopToolbarSearchButton()
+        {
+            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton.Position, this.toolbarSearchButton.Size))
+            {
+                this.uiManager.OpenGUI(UIIndex.ItemExplorer);
+            }
+
+            if (Interaction.OnMouseLeftOver(this.toolbarSearchButton.Position, this.toolbarSearchButton.Size))
+            {
+                this.toolbarSearchButton.Color = AAP64ColorPalette.Graphite;
+                this.tooltipBox.CanDraw = true;
+
+                this.toolbarSearchButton.Scale = Vector2.Lerp(
+                    this.toolbarSearchButton.Scale,
+                    new(UIConstants.HUD_SLOT_SCALE + 0.45f + 0.2f),
+                    0.2f
+                );
+
+                TooltipBoxContent.SetTitle(Localization_GUIs.HUD_Button_ItemExplorer_Name);
+                TooltipBoxContent.SetDescription(Localization_GUIs.HUD_Button_ItemExplorer_Description);
+            }
+            else
+            {
+                this.toolbarSearchButton.Scale = Vector2.Lerp(
+                    this.toolbarSearchButton.Scale,
+                    new(UIConstants.HUD_SLOT_SCALE + 0.45f),
+                    0.2f
+                );
+
+                this.toolbarSearchButton.Color = AAP64ColorPalette.White;
             }
         }
 

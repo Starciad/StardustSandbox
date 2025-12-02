@@ -18,7 +18,6 @@ using StardustSandbox.UI;
 using StardustSandbox.WorldSystem;
 
 using System;
-using System.Diagnostics;
 
 namespace StardustSandbox
 {

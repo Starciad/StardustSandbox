@@ -138,12 +138,12 @@ namespace StardustSandbox.UI.Common.Menus
                 Label label = this.menuButtonElements[i];
                 Vector2 labelElementSize = label.Size / 2.0f;
 
-                if (Interaction.OnMouseClick(label.Position, labelElementSize))
+                if (Interaction.OnMouseLeftClick(label.Position, labelElementSize))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                label.Color = Interaction.OnMouseOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                label.Color = Interaction.OnMouseLeftOver(label.Position, labelElementSize) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
         }
 

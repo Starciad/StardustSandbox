@@ -433,12 +433,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 position = slot.Background.Position;
                 Vector2 size = new(UIConstants.HUD_GRID_SIZE);
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.menuButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 
@@ -463,12 +463,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 size = slot.Background.Size / 2;
                 Vector2 position = slot.Background.Position + size;
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.fieldButtons[i].ClickAction?.Invoke();
                 }
 
-                slot.Background.Color = Interaction.OnMouseOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseLeftOver(position, size) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -481,12 +481,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Vector2 size = slot.Background.Size / 2;
                 Vector2 position = slot.Background.Position + size;
 
-                if (Interaction.OnMouseClick(position, size))
+                if (Interaction.OnMouseLeftClick(position, size))
                 {
                     this.footerButtons[i].ClickAction?.Invoke();
                 }
 
-                if (Interaction.OnMouseOver(position, size))
+                if (Interaction.OnMouseLeftOver(position, size))
                 {
                     this.tooltipBox.CanDraw = true;
 

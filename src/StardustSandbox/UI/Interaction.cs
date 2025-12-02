@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Enums.InputSystem;
 using StardustSandbox.Managers;
 
 using System;
@@ -25,44 +26,45 @@ namespace StardustSandbox.UI
         }
 
         #region MOUSE EVENTS
+
         /// <summary>
-        /// Checks if the left mouse button was clicked within the specified area.
+        /// Checks if the specified mouse button was clicked within the given area.
         /// </summary>
-        internal static bool OnMouseClick(Vector2 targetPosition, Vector2 areaSize)
+        internal static bool OnMouseClick(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
         {
             EnsureInitialized();
 
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
-            return inputManager.MouseState.LeftButton == ButtonState.Released &&
-                   inputManager.PreviousMouseState.LeftButton == ButtonState.Pressed &&
+            return GetButtonState(button, inputManager.MouseState) == ButtonState.Released &&
+                   GetButtonState(button, inputManager.PreviousMouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
         /// <summary>
-        /// Checks if the left mouse button is pressed within the specified area.
+        /// Checks if the specified mouse button is pressed within the given area.
         /// </summary>
-        internal static bool OnMouseDown(Vector2 targetPosition, Vector2 areaSize)
+        internal static bool OnMouseDown(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
         {
             EnsureInitialized();
 
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
-            return inputManager.MouseState.LeftButton == ButtonState.Pressed &&
+            return GetButtonState(button, inputManager.MouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
         /// <summary>
-        /// Checks if the left mouse button is released within the specified area.
+        /// Checks if the specified mouse button is released within the given area.
         /// </summary>
-        internal static bool OnMouseUp(Vector2 targetPosition, Vector2 areaSize)
+        internal static bool OnMouseUp(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
         {
             EnsureInitialized();
 
             Vector2 mousePosition = inputManager.GetScaledMousePosition();
 
-            return inputManager.MouseState.LeftButton == ButtonState.Released &&
-                   inputManager.PreviousMouseState.LeftButton == ButtonState.Pressed &&
+            return GetButtonState(button, inputManager.MouseState) == ButtonState.Released &&
+                   GetButtonState(button, inputManager.PreviousMouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
@@ -110,6 +112,105 @@ namespace StardustSandbox.UI
             return mouseWasInside && mouseIsOutside;
         }
 
+        /// <summary>
+        /// Checks if the left mouse button was clicked within the specified area.
+        /// </summary>
+        internal static bool OnMouseLeftClick(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseClick(MouseButton.Left, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the left mouse button is pressed within the specified area.
+        /// </summary>
+        internal static bool OnMouseLeftDown(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseDown(MouseButton.Left, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the left mouse button is released within the specified area.
+        /// </summary>
+        internal static bool OnMouseLeftUp(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseUp(MouseButton.Left, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor enters the specified area (left button context).
+        /// </summary>
+        internal static bool OnMouseLeftEnter(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseEnter(targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor is over the specified area (left button context).
+        /// </summary>
+        internal static bool OnMouseLeftOver(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseOver(targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor leaves the specified area (left button context).
+        /// </summary>
+        internal static bool OnMouseLeftLeave(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseLeave(targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the right mouse button was clicked within the specified area.
+        /// </summary>
+        internal static bool OnMouseRightClick(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseClick(MouseButton.Right, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the right mouse button is pressed within the specified area.
+        /// </summary>
+        internal static bool OnMouseRightDown(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseDown(MouseButton.Right, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the right mouse button is released within the specified area.
+        /// </summary>
+        internal static bool OnMouseRightUp(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseUp(MouseButton.Right, targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor enters the specified area (right button context).
+        /// </summary>
+        internal static bool OnMouseRightEnter(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseEnter(targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor is over the specified area (right button context).
+        /// </summary>
+        internal static bool OnMouseRightOver(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseOver(targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Checks if the mouse cursor leaves the specified area (right button context).
+        /// </summary>
+        internal static bool OnMouseRightLeave(Vector2 targetPosition, Vector2 areaSize)
+        {
+            return OnMouseLeave(targetPosition, areaSize);
+        }
+
+        /// <summary>
+        /// Determines if the mouse position is within the specified area.
+        /// </summary>
         private static bool IsMouseWithinArea(Vector2 mousePosition, Vector2 targetPosition, Vector2 areaSize)
         {
             float left = targetPosition.X;
@@ -123,6 +224,9 @@ namespace StardustSandbox.UI
             return withinHorizontalBounds && withinVerticalBounds;
         }
 
+        /// <summary>
+        /// Ensures the interaction system is initialized.
+        /// </summary>
         private static void EnsureInitialized()
         {
             if (!isInitialized || inputManager is null)
@@ -130,6 +234,21 @@ namespace StardustSandbox.UI
                 throw new InvalidOperationException($"{nameof(Interaction)} system is not initialized.");
             }
         }
+
+        /// <summary>
+        /// Gets the state of the specified mouse button from the given MouseState.
+        /// </summary>
+        private static ButtonState GetButtonState(MouseButton button, MouseState state)
+        {
+            return button switch
+            {
+                MouseButton.Left => state.LeftButton,
+                MouseButton.Right => state.RightButton,
+                MouseButton.Middle => state.MiddleButton,
+                _ => throw new ArgumentOutOfRangeException(nameof(button), button, null)
+            };
+        }
+
         #endregion
     }
 }

@@ -29,10 +29,7 @@ namespace StardustSandbox.UI.Elements
                 return this.measuredText;
             }
 
-            set
-            {
-                throw new InvalidOperationException("Cannot set Size of Text directly. Size is determined by the text content and wrapping.");
-            }
+            set => throw new InvalidOperationException("Cannot set Size of Text directly. Size is determined by the text content and wrapping.");
         }
 
         internal Vector2 TextAreaSize { get; set; }
