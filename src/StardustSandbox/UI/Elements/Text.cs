@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
@@ -83,6 +84,8 @@ namespace StardustSandbox.UI.Elements
         {
             this.CanDraw = true;
             this.CanUpdate = true;
+
+            this.Color = AAP64ColorPalette.White;
         }
 
         internal override void Initialize()
