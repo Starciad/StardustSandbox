@@ -106,7 +106,6 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Title,
 
                 BorderDirections = LabelBorderDirection.All,
@@ -148,7 +147,6 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title
             };
