@@ -66,16 +66,16 @@ namespace StardustSandbox.UI.Common.HUD
             };
 
             this.menuButtonInfos = [
-                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
             this.sizeButtonInfos = [
-                new(TextureIndex.UIButtons, new(0, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
-                new(TextureIndex.UIButtons, new(32, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
-                new(TextureIndex.UIButtons, new(64, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
-                new(TextureIndex.UIButtons, new(96, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[3]); }),
-                new(TextureIndex.UIButtons, new(128, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[4]); }),
-                new(TextureIndex.UIButtons, new(160, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
+                new(TextureIndex.IconUI, new(0, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
+                new(TextureIndex.IconUI, new(32, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
+                new(TextureIndex.IconUI, new(64, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
+                new(TextureIndex.IconUI, new(96, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[3]); }),
+                new(TextureIndex.IconUI, new(128, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[4]); }),
+                new(TextureIndex.IconUI, new(160, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
             ];
 
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
@@ -109,15 +109,14 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
             this.background = new()
             {
+                Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundWorldSettings),
                 Size = new(1084.0f, 540.0f),
-                Margin = new(98.0f, 90.0f),
             };
 
             root.AddChild(shadow);
@@ -130,9 +129,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
-                Alignment = CardinalDirection.Northwest,
-                Margin = new(32.0f, 40.0f),
-                Color = AAP64ColorPalette.White,
+                Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -151,9 +148,10 @@ namespace StardustSandbox.UI.Common.HUD
             for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -173,22 +171,22 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
-                Margin = new(32.0f, 112.0f),
-                Color = AAP64ColorPalette.White,
+                Margin = new(32.0f, 128.0f),
                 TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Title
             };
 
             this.background.AddChild(this.sizeSectionTitle);
 
             // Buttons
-            float marginX = 32.0f;
+            float marginX = 0.0f;
 
             for (byte i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.sizeButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 80.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.South;
+                slot.Background.Alignment = CardinalDirection.Southwest;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
                 this.sizeSectionTitle.AddChild(slot.Background);

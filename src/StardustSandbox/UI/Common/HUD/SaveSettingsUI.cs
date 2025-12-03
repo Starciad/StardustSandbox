@@ -26,7 +26,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Texture2D worldThumbnailTexture;
 
         private Label menuTitle, nameSectionTitle, descriptionSectionTitle, thumbnailSectionTitle, titleTextualContent, descriptionTextualContent;
-        private Image panelBackground, titleInputField, descriptionInputField, thumbnailPreviewElement;
+        private Image background, titleInputField, descriptionInputField, thumbnailPreviewElement;
 
         private readonly TooltipBox tooltipBox;
 
@@ -61,7 +61,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
             this.fieldButtonInfos = [
@@ -158,19 +158,18 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackground = new()
+            this.background = new()
             {
+                Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSaveSettings),
                 Size = new(1084.0f, 540.0f),
-                Margin = new(98.0f, 90.0f),
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.panelBackground);
+            root.AddChild(this.background);
         }
 
         private void BuildTitle()
@@ -179,9 +178,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
-                Alignment = CardinalDirection.Northwest,
-                Margin = new(32.0f, 40.0f),
-                Color = AAP64ColorPalette.White,
+                Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -190,7 +187,7 @@ namespace StardustSandbox.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.panelBackground.AddChild(this.menuTitle);
+            this.background.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
@@ -200,12 +197,13 @@ namespace StardustSandbox.UI.Common.HUD
             for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
-                this.panelBackground.AddChild(slot.Background);
+                this.background.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
@@ -221,12 +219,14 @@ namespace StardustSandbox.UI.Common.HUD
             this.nameSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(32.0f, 112.0f),
+                Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Name_Title,
             };
 
             this.titleInputField = new()
             {
+                Alignment = CardinalDirection.Southwest,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
@@ -237,13 +237,12 @@ namespace StardustSandbox.UI.Common.HUD
             this.titleTextualContent = new()
             {
                 Scale = new(0.1f),
-                Margin = new(16.0f, 0.0f),
+                Margin = new(16.0f, -19.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.West,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Name_Title
             };
 
-            this.panelBackground.AddChild(this.nameSectionTitle);
+            this.background.AddChild(this.nameSectionTitle);
             this.nameSectionTitle.AddChild(this.titleInputField);
             this.titleInputField.AddChild(this.titleTextualContent);
 
@@ -257,10 +256,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Description_Title,
             };
 
             this.descriptionInputField = new()
             {
+                Alignment = CardinalDirection.Southwest,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
@@ -271,10 +272,9 @@ namespace StardustSandbox.UI.Common.HUD
             this.descriptionTextualContent = new()
             {
                 Scale = new(0.1f),
-                Margin = new(16.0f, 0.0f),
+                Margin = new(16.0f, -19.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.West,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Description_Title
             };
 
             this.titleInputField.AddChild(this.descriptionSectionTitle);
@@ -289,7 +289,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.thumbnailSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(-32.0f, 112.0f),
+                Margin = new(-176.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Northeast,
                 TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Thumbnail_Title
@@ -297,11 +297,12 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.thumbnailPreviewElement = new()
             {
+                Alignment = CardinalDirection.Southwest,
                 Scale = new(12.5f),
-                Margin = new(0.0f, 48.0f),
+                Margin = new(0.0f, 8.0f),
             };
 
-            this.panelBackground.AddChild(this.thumbnailSectionTitle);
+            this.background.AddChild(this.thumbnailSectionTitle);
             this.thumbnailSectionTitle.AddChild(this.thumbnailPreviewElement);
         }
 
@@ -318,9 +319,8 @@ namespace StardustSandbox.UI.Common.HUD
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
-                    Scale = new(1.0f),
                     Size = new(320.0f, 80.0f),
-                    Margin = new(marginX, -96.0f),
+                    Margin = new(marginX, -32.0f),
                     Alignment = CardinalDirection.Southwest,
                 };
 
@@ -338,7 +338,7 @@ namespace StardustSandbox.UI.Common.HUD
                     BorderThickness = 2.0f,
                 };
 
-                this.panelBackground.AddChild(background);
+                this.background.AddChild(background);
                 background.AddChild(label);
 
                 this.footerButtonSlotInfos[i] = new(background, null, label);
