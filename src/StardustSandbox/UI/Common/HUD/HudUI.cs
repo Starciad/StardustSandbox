@@ -349,6 +349,10 @@ namespace StardustSandbox.UI.Common.HUD
             AnimateToolbarPosition(this.leftToolbarContainer, this.isLeftToolbarExpanded, new((this.leftToolbarContainer.Size.X + (this.leftDrawerButton.Size.X / 2.0f) + 8.0f) * -1.0f, 0.0f));
             AnimateToolbarPosition(this.rightToolbarContainer, this.isRightToolbarExpanded, new(this.rightToolbarContainer.Size.X + (this.rightDrawerButton.Size.X / 2.0f) + 8.0f, 0.0f));
 
+            AnimateDrawerButton(this.topDrawerButton);
+            AnimateDrawerButton(this.leftDrawerButton);
+            AnimateDrawerButton(this.rightDrawerButton);
+
             if (this.isTopToolbarExpanded)
             {
                 UpdateTopToolbarToolPreview();
@@ -365,8 +369,8 @@ namespace StardustSandbox.UI.Common.HUD
             if (this.isRightToolbarExpanded)
             {
                 UpdatePanelButtons(this.rightPanelTopButtonSlotInfos, this.rightPanelTopButtonInfos);
+                UpdatePanelButtons(this.rightPanelBottomButtonSlotInfos, this.rightPanelBottomButtonInfos);
             }
-            UpdatePanelButtons(this.rightPanelBottomButtonSlotInfos, this.rightPanelBottomButtonInfos);
 
             UpdateDrawerButtons();
 
@@ -419,6 +423,11 @@ namespace StardustSandbox.UI.Common.HUD
                 shouldExpand ? Vector2.Zero : collapsedOffset,
                 0.2f
             );
+        }
+
+        private static void AnimateDrawerButton(Image drawerButton)
+        {
+            drawerButton.Color = Interaction.OnMouseOver(drawerButton) ? AAP64ColorPalette.Graphite : AAP64ColorPalette.White;
         }
 
         private void UpdateTopToolbarToolPreview()
