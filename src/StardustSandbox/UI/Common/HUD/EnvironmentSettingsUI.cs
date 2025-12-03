@@ -90,9 +90,9 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
+                Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
                 Size = new(1084.0f, 540.0f),
-                Alignment = CardinalDirection.Center,
             };
 
             root.AddChild(shadow);
@@ -147,7 +147,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.timeStateSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(32.0f, 112.0f),
+                Margin = new(32.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title

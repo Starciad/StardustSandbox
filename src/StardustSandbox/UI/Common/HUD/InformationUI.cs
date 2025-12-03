@@ -40,7 +40,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.world = world;
 
             this.buttonInfos = [
-                new(TextureIndex.UIButtons, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
             this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
@@ -69,9 +69,9 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
+                Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundInformation),
                 Size = new(1084.0f, 540.0f),
-                Margin = new(98.0f, 90.0f),
             };
 
             root.AddChild(shadow);
@@ -84,15 +84,14 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
-                Alignment = CardinalDirection.Northwest,
-                Margin = new(32.0f, 40.0f),
+                Margin = new(24.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_Information_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
-                BorderThickness = 3.0f,
                 BorderOffset = 3.0f,
+                BorderThickness = 3.0f,
             };
 
             this.background.AddChild(this.menuTitle);
@@ -105,9 +104,10 @@ namespace StardustSandbox.UI.Common.HUD
             for (byte i = 0; i < this.buttonInfos.Length; i++)
             {
                 ButtonInfo button = this.buttonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -123,7 +123,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildInfoFields()
         {
-            float marginY = 144.0f;
+            float marginY = 128.0f;
 
             for (byte i = 0; i < this.infoLabels.Length; i++)
             {
