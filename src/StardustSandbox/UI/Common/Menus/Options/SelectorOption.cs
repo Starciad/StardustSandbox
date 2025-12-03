@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.UI.Options
+namespace StardustSandbox.UI.Common.Menus.Options
 {
     internal sealed class SelectorOption(string name, string description, object[] possibleValues) : Option(name, description)
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.UI.Options
+namespace StardustSandbox.UI.Common.Menus.Options
 {
     internal sealed class ToggleOption(string name, string description) : Option(name, description)
     {

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
-using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.UI.Elements;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.UI.Options
+namespace StardustSandbox.UI.Common.Menus.Options
 {
     internal sealed class ValueOption(string name, string description, int minimumValue, int maximumValue) : Option(name, description)
     {

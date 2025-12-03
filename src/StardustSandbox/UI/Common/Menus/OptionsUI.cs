@@ -12,10 +12,10 @@ using StardustSandbox.IO.Handlers;
 using StardustSandbox.IO.Settings;
 using StardustSandbox.LocalizationSystem;
 using StardustSandbox.Managers;
+using StardustSandbox.UI.Common.Menus.Options;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Options;
 using StardustSandbox.UI.Settings;
 
 using System;
@@ -25,46 +25,56 @@ namespace StardustSandbox.UI.Common.Menus
 {
     internal sealed class OptionsUI : UIBase
     {
+        private enum SectionIndex : byte { General, Gameplay, Volume, Video, Cursor }
+        private enum GeneralSectionOptionIndex : byte { Language }
+        private enum GameplaySectionOptionIndex : byte { PreviewAreaColor, PreviewAreaOpacity }
+        private enum VolumeSectionOptionIndex : byte { MasterVolume, MusicVolume, SFXVolume }
+        private enum VideoSectionOptionIndex : byte { Framerate, Resolution, Fullscreen, VSync, Borderless }
+        private enum CursorSectionOptionIndex : byte { Color, BackgroundColor, Scale, Opacity }
+
         private sealed class Root
         {
-            internal IReadOnlyDictionary<string, Section> Sections { get; init; }
+            internal Section[] Sections { get; }
+            internal Root(Section[] sections) { this.Sections = sections; }
         }
 
-        private sealed class Section(string name, string description)
+        private sealed class Section
         {
-            internal string Name => name;
-            internal string Description => description;
-            internal IReadOnlyDictionary<string, Option> Options { get; init; }
+            internal string Name { get; }
+            internal string Description { get; }
+            internal Option[] Options { get; }
+            internal Section(string name, string description, Option[] options)
+            {
+                this.Name = name;
+                this.Description = description;
+                this.Options = options;
+            }
         }
 
-        private string selectedSectionIdentififer;
-        private bool restartMessageAppeared;
+        private struct SectionUI
+        {
+            internal Container Container;
+            internal Label[] ContentLabels;
+        }
 
+        private byte selectedSectionIndex;
+        private bool restartMessageAppeared;
         private Label titleLabel;
         private Image background;
-
         private readonly Root root;
         private readonly ColorPickerSettings colorPickerSettings;
-
         private readonly ColorPickerUI colorPickerUI;
         private readonly MessageUI messageUI;
-
         private readonly string titleName = Localization_GUIs.Menu_Options_Title;
-        private readonly List<(UIElement, UIElement)> plusAndMinusButtons = [];
-
+        private readonly List<PlusMinusButtonInfo> plusMinusButtons = [];
         private readonly TooltipBox tooltipBox;
-
         private readonly Label[] systemButtonLabels;
         private readonly ButtonInfo[] systemButtonInfos;
-
-        private readonly Dictionary<string, IEnumerable<Label>> sectionContents = [];
-        private readonly Dictionary<string, Container> sectionContainerElements = [];
-        private readonly Dictionary<string, Label> sectionButtonElements = [];
-
+        private readonly SectionUI[] sectionUIs;
+        private readonly Label[] sectionButtonLabels;
         private readonly CursorManager cursorManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
-
         private readonly GeneralSettings generalSettings;
         private readonly GameplaySettings gameplaySettings;
         private readonly VolumeSettings volumeSettings;
@@ -87,9 +97,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.videoManager = videoManager;
-
             this.colorPickerSettings = new();
-
             this.generalSettings = SettingsHandler.LoadSettings<GeneralSettings>();
             this.gameplaySettings = SettingsHandler.LoadSettings<GameplaySettings>();
             this.volumeSettings = SettingsHandler.LoadSettings<VolumeSettings>();
@@ -97,370 +105,251 @@ namespace StardustSandbox.UI.Common.Menus
             this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
 
             this.systemButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, () =>
                 {
                     SaveSettings();
                     ApplySettings();
-
                     if (!this.restartMessageAppeared)
                     {
-                        this.messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
-                        this.uiManager.OpenGUI(UIIndex.Message);
-
+                        messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
+                        uiManager.OpenGUI(UIIndex.Message);
                         this.restartMessageAppeared = true;
                     }
                 }),
             ];
 
-            this.root = new()
-            {
-                Sections = new Dictionary<string, Section>()
-                {
-                    ["general"] = new(Localization_GUIs.Menu_Options_Section_General_Name, Localization_GUIs.Menu_Options_Section_General_Description)
-                    {
-                        Options = new Dictionary<string, Option>()
-                        {
-                            ["language"] = new SelectorOption(Localization_GUIs.Menu_Options_Section_General_Option_Language_Name, Localization_GUIs.Menu_Options_Section_General_Option_Language_Description, Array.ConvertAll<GameCulture, object>(LocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name)),
-                        },
-                    },
-
-                    ["gameplay"] = new(Localization_GUIs.Menu_Options_Section_Gameplay_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Description)
-                    {
-                        Options = new Dictionary<string, Option>()
-                        {
-                            ["preview_area_color"] = new ColorOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Description),
-                            ["preview_area_opacity"] = new ValueOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Description, byte.MinValue, byte.MaxValue),
-                        },
-                    },
-
-                    ["volume"] = new(Localization_GUIs.Menu_Options_Section_Volume_Name, Localization_GUIs.Menu_Options_Section_Volume_Description)
-                    {
-                        Options = new Dictionary<string, Option>()
-                        {
-                            ["master_volume"] = new ValueOption(Localization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Description, 0, 100),
-                            ["music_volume"] = new ValueOption(Localization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Description, 0, 100),
-                            ["sfx_volume"] = new ValueOption(Localization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Description, 0, 100),
-                        }
-                    },
-
-                    ["video"] = new(Localization_GUIs.Menu_Options_Section_Video_Name, Localization_GUIs.Menu_Options_Section_Video_Description)
-                    {
-                        Options = new Dictionary<string, Option>()
-                        {
-                            ["framerate"] = new SelectorOption("Framerate", "Description", Array.ConvertAll<double, object>(ScreenConstants.FRAMERATES, x => x)),
-                            ["resolution"] = new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Point, object>(ScreenConstants.RESOLUTIONS, x => x)),
-                            ["fullscreen"] = new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
-                            ["vsync"] = new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
-                            ["borderless"] = new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description),
-                        },
-                    },
-
-                    ["cursor"] = new(Localization_GUIs.Menu_Options_Section_Cursor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Description)
-                    {
-                        Options = new Dictionary<string, Option>()
-                        {
-                            ["color"] = new ColorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Color_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Color_Description),
-                            ["background_color"] = new ColorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Description),
-                            ["scale"] = new SelectorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Description, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
-                            ["opacity"] = new ValueOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Description, byte.MinValue, byte.MaxValue),
-                        }
-                    },
-                },
-            };
+            this.root = new([
+                new(Localization_GUIs.Menu_Options_Section_General_Name, Localization_GUIs.Menu_Options_Section_General_Description,
+                [
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_General_Option_Language_Name, Localization_GUIs.Menu_Options_Section_General_Option_Language_Description, Array.ConvertAll(LocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name))
+                ]),
+                new(Localization_GUIs.Menu_Options_Section_Gameplay_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Description,
+                [
+                    new ColorOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Description),
+                    new ValueOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Description, byte.MinValue, byte.MaxValue)
+                ]),
+                new(Localization_GUIs.Menu_Options_Section_Volume_Name, Localization_GUIs.Menu_Options_Section_Volume_Description,
+                [
+                    new ValueOption(Localization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Description, 0, 100),
+                    new ValueOption(Localization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Description, 0, 100),
+                    new ValueOption(Localization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Description, 0, 100)
+                ]),
+                new(Localization_GUIs.Menu_Options_Section_Video_Name, Localization_GUIs.Menu_Options_Section_Video_Description,
+                [
+                    new SelectorOption("Framerate", "Description", Array.ConvertAll<double, object>(ScreenConstants.FRAMERATES, x => x)),
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Point, object>(ScreenConstants.RESOLUTIONS, x => x)),
+                    new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
+                    new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
+                    new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description)
+                ]),
+                new(Localization_GUIs.Menu_Options_Section_Cursor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Description,
+                [
+                    new ColorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Color_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Color_Description),
+                    new ColorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Description),
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Description, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
+                    new ValueOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Description, byte.MinValue, byte.MaxValue)
+                ]),
+            ]);
 
             this.systemButtonLabels = new Label[this.systemButtonInfos.Length];
+            this.sectionUIs = new SectionUI[this.root.Sections.Length];
+            this.sectionButtonLabels = new Label[this.root.Sections.Length];
         }
-
-        #region SETTINGS HANDLING
 
         private void SaveSettings()
         {
-            SaveGeneralSettings();
-            SaveGameplaySettings();
-            SaveVolumeSettings();
-            SaveVideoSettings();
-            SaveCursorSettings();
+            Section generalSection = this.root.Sections[(byte)SectionIndex.General];
+            GameCulture gameCulture = LocalizationConstants.GetGameCulture(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
+            this.generalSettings.Language = gameCulture.Language;
+            this.generalSettings.Region = gameCulture.Region;
+            SettingsHandler.SaveSettings(this.generalSettings);
+
+            Section gameplaySection = this.root.Sections[(byte)SectionIndex.Gameplay];
+            this.gameplaySettings.PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue();
+            this.gameplaySettings.PreviewAreaColorA = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].GetValue());
+            SettingsHandler.SaveSettings(this.gameplaySettings);
+
+            Section volumeSection = this.root.Sections[(byte)SectionIndex.Volume];
+            this.volumeSettings.MasterVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MasterVolume].GetValue()) / 100.0f;
+            this.volumeSettings.MusicVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MusicVolume].GetValue()) / 100.0f;
+            this.volumeSettings.SFXVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.SFXVolume].GetValue()) / 100.0f;
+            SettingsHandler.SaveSettings(this.volumeSettings);
+
+            Section videoSection = this.root.Sections[(byte)SectionIndex.Video];
+            this.videoSettings.Framerate = (double)videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue();
+            this.videoSettings.Resolution = (Point)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue();
+            this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].GetValue());
+            this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.VSync].GetValue());
+            this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].GetValue());
+            SettingsHandler.SaveSettings(this.videoSettings);
+
+            Section cursorSection = this.root.Sections[(byte)SectionIndex.Cursor];
+            this.cursorSettings.Color = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.Color].GetValue();
+            this.cursorSettings.BackgroundColor = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].GetValue();
+            this.cursorSettings.Alpha = Convert.ToByte(cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].GetValue());
+            this.cursorSettings.Scale = Convert.ToSingle(cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].GetValue());
+            SettingsHandler.SaveSettings(this.cursorSettings);
         }
 
         private void SyncSettingElements()
         {
-            SyncGeneralSettings();
-            SyncGameplaySettings();
-            SyncVolumeSettings();
-            SyncVideoSettings();
-            SyncCursorSettings();
+            Section generalSection = this.root.Sections[(byte)SectionIndex.General];
+            generalSection.Options[(byte)GeneralSectionOptionIndex.Language].SetValue(this.generalSettings.GameCulture.Name);
+
+            Section gameplaySection = this.root.Sections[(byte)SectionIndex.Gameplay];
+            gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].SetValue(new Color(this.gameplaySettings.PreviewAreaColor, 255));
+            gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].SetValue(this.gameplaySettings.PreviewAreaColorA);
+
+            Section volumeSection = this.root.Sections[(byte)SectionIndex.Volume];
+            volumeSection.Options[(byte)VolumeSectionOptionIndex.MasterVolume].SetValue(this.volumeSettings.MasterVolume * 100.0f);
+            volumeSection.Options[(byte)VolumeSectionOptionIndex.MusicVolume].SetValue(this.volumeSettings.MusicVolume * 100.0f);
+            volumeSection.Options[(byte)VolumeSectionOptionIndex.SFXVolume].SetValue(this.volumeSettings.SFXVolume * 100.0f);
+
+            Section videoSection = this.root.Sections[(byte)SectionIndex.Video];
+            videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].SetValue(this.videoSettings.Framerate);
+            videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].SetValue(this.videoSettings.Resolution);
+            videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].SetValue(this.videoSettings.FullScreen);
+            videoSection.Options[(byte)VideoSectionOptionIndex.VSync].SetValue(this.videoSettings.VSync);
+            videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].SetValue(this.videoSettings.Borderless);
+
+            Section cursorSection = this.root.Sections[(byte)SectionIndex.Cursor];
+            cursorSection.Options[(byte)CursorSectionOptionIndex.Color].SetValue(new Color(this.cursorSettings.Color, 255));
+            cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].SetValue(new Color(this.cursorSettings.BackgroundColor, 255));
+            cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].SetValue(this.cursorSettings.Alpha);
+            cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].SetValue(this.cursorSettings.Scale);
         }
 
         private void ApplySettings()
         {
-            ApplyVolumeSettings();
-            ApplyVideoSettings();
-            ApplyCursorSettings();
-        }
-
-        #region SAVE SETTINGS
-
-        private void SaveGeneralSettings()
-        {
-            Section generalSection = this.root.Sections["general"];
-            GameCulture gameCulture = LocalizationConstants.GetGameCulture(Convert.ToString(generalSection.Options["language"].GetValue()));
-
-            this.generalSettings.Language = gameCulture.Language;
-            this.generalSettings.Region = gameCulture.Region;
-
-            SettingsHandler.SaveSettings(this.generalSettings);
-        }
-
-        private void SaveGameplaySettings()
-        {
-            Section gameplaySection = this.root.Sections["gameplay"];
-
-            this.gameplaySettings.PreviewAreaColor = (Color)gameplaySection.Options["preview_area_color"].GetValue();
-            this.gameplaySettings.PreviewAreaColorA = Convert.ToByte(gameplaySection.Options["preview_area_opacity"].GetValue());
-
-            SettingsHandler.SaveSettings(this.gameplaySettings);
-        }
-
-        private void SaveVolumeSettings()
-        {
-            Section volumeSection = this.root.Sections["volume"];
-
-            this.volumeSettings.MasterVolume = Convert.ToSingle(volumeSection.Options["master_volume"].GetValue()) / 100.0f;
-            this.volumeSettings.MusicVolume = Convert.ToSingle(volumeSection.Options["music_volume"].GetValue()) / 100.0f;
-            this.volumeSettings.SFXVolume = Convert.ToSingle(volumeSection.Options["sfx_volume"].GetValue()) / 100.0f;
-
-            SettingsHandler.SaveSettings(this.volumeSettings);
-        }
-
-        private void SaveVideoSettings()
-        {
-            Section videoSection = this.root.Sections["video"];
-
-            this.videoSettings.Framerate = (double)videoSection.Options["framerate"].GetValue();
-            this.videoSettings.Resolution = (Point)videoSection.Options["resolution"].GetValue();
-            this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options["fullscreen"].GetValue());
-            this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options["vsync"].GetValue());
-            this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options["borderless"].GetValue());
-
-            SettingsHandler.SaveSettings(this.videoSettings);
-        }
-
-        private void SaveCursorSettings()
-        {
-            Section cursorSettings = this.root.Sections["cursor"];
-
-            this.cursorSettings.Color = (Color)cursorSettings.Options["color"].GetValue();
-            this.cursorSettings.BackgroundColor = (Color)cursorSettings.Options["background_color"].GetValue();
-            this.cursorSettings.Alpha = Convert.ToByte(cursorSettings.Options["opacity"].GetValue());
-            this.cursorSettings.Scale = Convert.ToSingle(cursorSettings.Options["scale"].GetValue());
-
-            SettingsHandler.SaveSettings(this.cursorSettings);
-        }
-
-        #endregion
-
-        #region SYNC SETTINGS
-
-        private void SyncGeneralSettings()
-        {
-            Section generalSection = this.root.Sections["general"];
-
-            generalSection.Options["language"].SetValue(this.generalSettings.GameCulture.Name);
-        }
-
-        private void SyncGameplaySettings()
-        {
-            Section gameplaySection = this.root.Sections["gameplay"];
-
-            gameplaySection.Options["preview_area_color"].SetValue(new Color(this.gameplaySettings.PreviewAreaColor, 255));
-            gameplaySection.Options["preview_area_opacity"].SetValue(this.gameplaySettings.PreviewAreaColorA);
-        }
-
-        private void SyncVolumeSettings()
-        {
-            Section volumeSection = this.root.Sections["volume"];
-
-            volumeSection.Options["master_volume"].SetValue(this.volumeSettings.MasterVolume * 100.0f);
-            volumeSection.Options["music_volume"].SetValue(this.volumeSettings.MusicVolume * 100.0f);
-            volumeSection.Options["sfx_volume"].SetValue(this.volumeSettings.SFXVolume * 100.0f);
-        }
-
-        private void SyncVideoSettings()
-        {
-            Section videoSection = this.root.Sections["video"];
-
-            videoSection.Options["framerate"].SetValue(this.videoSettings.Framerate);
-            videoSection.Options["resolution"].SetValue(this.videoSettings.Resolution);
-            videoSection.Options["fullscreen"].SetValue(this.videoSettings.FullScreen);
-            videoSection.Options["vsync"].SetValue(this.videoSettings.VSync);
-            videoSection.Options["borderless"].SetValue(this.videoSettings.Borderless);
-        }
-
-        private void SyncCursorSettings()
-        {
-            Section cursorSettings = this.root.Sections["cursor"];
-
-            cursorSettings.Options["color"].SetValue(new Color(this.cursorSettings.Color, 255));
-            cursorSettings.Options["background_color"].SetValue(new Color(this.cursorSettings.BackgroundColor, 255));
-            cursorSettings.Options["opacity"].SetValue(this.cursorSettings.Alpha);
-            cursorSettings.Options["scale"].SetValue(this.cursorSettings.Scale);
-        }
-
-        #endregion
-
-        #region APPLY SETTINGS
-
-        private void ApplyVolumeSettings()
-        {
             MediaPlayer.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
             SoundEffect.MasterVolume = this.volumeSettings.SFXVolume * this.volumeSettings.MasterVolume;
-        }
-
-        private void ApplyVideoSettings()
-        {
             this.videoManager.ApplySettings();
-        }
-
-        private void ApplyCursorSettings()
-        {
             this.cursorManager.ApplySettings();
         }
 
-        #endregion
-
-        #endregion
-
-        #region BUILDER
-
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(Container rootContainer)
         {
-            // Decorations
-            BuildPanelBackground(root);
-            BuildTitle(root);
-
-            // Buttons
+            BuildPanelBackground(rootContainer);
+            BuildTitle();
             BuildSectionButtons();
             BuildSystemButtons();
+            BuildSections(rootContainer);
 
-            // Sections
-            BuildSections(root);
-
-            // Final
-            root.AddChild(this.tooltipBox);
-            SelectSection("general");
+            rootContainer.AddChild(this.tooltipBox);
         }
 
-        private void BuildPanelBackground(Container root)
+        private void BuildPanelBackground(Container rootContainer)
         {
             this.background = new()
             {
+                Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
                 Size = new(1084.0f, 540.0f),
-                Margin = new(98.0f, 90.0f),
             };
 
-            root.AddChild(this.background);
+            rootContainer.AddChild(this.background);
         }
 
-        private void BuildTitle(Container root)
+        private void BuildTitle()
         {
             this.titleLabel = new()
             {
                 Scale = new(0.15f),
-                Margin = new(0.0f, 52.5f),
-                Color = AAP64ColorPalette.White,
+                Margin = new(0.0f, -38.0f),
                 Alignment = CardinalDirection.North,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = this.titleName,
-
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
                 BorderOffset = 4.4f,
                 BorderThickness = 4.4f,
             };
 
-            root.AddChild(this.titleLabel);
+            this.background.AddChild(this.titleLabel);
         }
 
         private void BuildSectionButtons()
         {
-            float marginY = 64.0f;
+            float marginY = 48.0f;
 
-            foreach (KeyValuePair<string, Section> item in this.root.Sections)
+            for (byte i = 0; i < this.root.Sections.Length; i++)
             {
-                Label label = CreateButtonLabelElement(item.Value.Name);
+                Section section = this.root.Sections[i];
 
+                Label label = CreateButtonLabelElement(section.Name);
                 label.Alignment = CardinalDirection.North;
                 label.Margin = new(-335.0f, marginY);
-                this.background.AddChild(label);
 
-                this.sectionButtonElements.Add(item.Key, label);
+                this.background.AddChild(label);
+                this.sectionButtonLabels[i] = label;
                 marginY += 48.0f;
             }
         }
 
         private void BuildSystemButtons()
         {
-            float marginY = -64.0f;
+            float marginY = -38.0f;
 
             for (byte i = 0; i < this.systemButtonInfos.Length; i++)
             {
                 Label label = CreateButtonLabelElement(this.systemButtonInfos[i].Name);
 
                 label.Alignment = CardinalDirection.South;
-                label.Margin = new(-335f, -64.0f);
-                this.background.AddChild(label);
+                label.Margin = new(-335.0f, marginY);
 
+                this.background.AddChild(label);
                 this.systemButtonLabels[i] = label;
+
                 marginY -= 48.0f;
             }
         }
 
-        private void BuildSections(Container root)
+        private void BuildSections(Container rootContainer)
         {
-            foreach (KeyValuePair<string, Section> item in this.root.Sections)
+            for (byte i = 0; i < this.root.Sections.Length; i++)
             {
-                List<Label> contentBuffer = [];
-                Container container = new();
+                Section section = this.root.Sections[i];
+                Label[] contentBuffer = new Label[section.Options.Length];
 
-                Vector2 margin = new(-112.0f, 64.0f);
-
-                foreach (Option option in item.Value.Options.Values)
+                Container container = new()
                 {
+                    CanDraw = false,
+                    CanUpdate = false,
+                    Alignment = CardinalDirection.Northeast,
+                    Margin = new(-96.0f, 80.0f),
+                    Size = new(642.0f, 476.0f),
+                };
+
+                Vector2 margin = new(0.0f, 64.0f);
+
+                for (byte j = 0; j < section.Options.Length; j++)
+                {
+                    Option option = section.Options[j];
                     Label label = CreateOptionElement(option);
 
                     label.Margin = margin;
-                    this.background.AddChild(label);
 
-                    switch (option)
+                    if (option is ColorOption)
                     {
-                        case ColorOption:
-                            BuildColorPreview(container, label);
-                            break;
-
-                        case ValueOption:
-                            BuildValueControls(option, container, label);
-                            break;
-
-                        case ToggleOption:
-                            BuildTogglePreview(container, label);
-                            break;
-
-                        default:
-                            break;
+                        BuildColorPreview(container, label);
+                    }
+                    else if (option is ValueOption)
+                    {
+                        BuildValueControls(option, container, label);
+                    }
+                    else if (option is ToggleOption)
+                    {
+                        BuildTogglePreview(container, label);
                     }
 
                     container.AddChild(label);
                     margin.Y += 48.0f;
-
-                    contentBuffer.Add(label);
+                    contentBuffer[j] = label;
                 }
 
-                this.sectionContainerElements.Add(item.Key, container);
-                root.AddChild(container);
-
-                this.sectionContents.Add(item.Key, contentBuffer);
+                this.sectionUIs[i] = new SectionUI { Container = container, ContentLabels = contentBuffer };
+                rootContainer.AddChild(container);
             }
         }
 
@@ -487,10 +376,8 @@ namespace StardustSandbox.UI.Common.Menus
 
             label.AddChild(colorSlot.Background);
             colorSlot.Background.AddChild(colorSlot.Border);
-
             container.AddChild(colorSlot.Background);
             container.AddChild(colorSlot.Border);
-
             label.AddData("color_slot", colorSlot);
         }
 
@@ -514,17 +401,14 @@ namespace StardustSandbox.UI.Common.Menus
 
             plus.AddData("option", option);
             minus.AddData("option", option);
-
             label.AddData("plus_element", plus);
             label.AddData("minus_element", minus);
-
             label.AddChild(minus);
             minus.AddChild(plus);
-
             container.AddChild(plus);
             container.AddChild(minus);
 
-            this.plusAndMinusButtons.Add((plus, minus));
+            this.plusMinusButtons.Add(new(plus, minus));
         }
 
         private static void BuildTogglePreview(Container container, Label label)
@@ -539,19 +423,15 @@ namespace StardustSandbox.UI.Common.Menus
             };
 
             label.AddChild(togglePreviewImageElement);
-
             container.AddChild(togglePreviewImageElement);
-
             label.AddData("toogle_preview", togglePreviewImageElement);
         }
-        // ============================================================================ //
 
         private static Label CreateButtonLabelElement(string text)
         {
-            Label label = new()
+            return new Label
             {
                 Scale = new(0.11f),
-                Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -559,111 +439,68 @@ namespace StardustSandbox.UI.Common.Menus
                 BorderThickness = 2.0f,
                 TextContent = text
             };
-
-            return label;
         }
 
         private static Label CreateOptionButtonLabelElement(string text)
         {
-            Label label = new()
+            return new Label
             {
                 Scale = new(0.12f),
-                Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.DigitalDisco,
-                Alignment = CardinalDirection.North,
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
                 BorderOffset = 2.0f,
                 BorderThickness = 2.0f,
                 TextContent = text
             };
-
-            return label;
         }
-
-        // ============================================================================ //
 
         private static Label CreateOptionElement(Option option)
         {
             Label label = option switch
             {
-                ButtonOption => CreateButtonOptionElement(option),
-                SelectorOption => CreateSelectorOptionElement(option),
-                ValueOption => CreateValueOptionElement(option),
-                ColorOption => CreateColorOptionElement(option),
-                ToggleOption => CreateToggleOptionElement(option),
+                ButtonOption => CreateOptionButtonLabelElement(option.Name),
+                SelectorOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
+                ValueOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
+                ColorOption => CreateOptionButtonLabelElement(option.Name + ": "),
+                ToggleOption => CreateOptionButtonLabelElement(option.Name + ": "),
                 _ => null,
             };
 
             label.AddData("option", option);
-
             return label;
         }
-
-        private static Label CreateButtonOptionElement(Option option)
-        {
-            return CreateOptionButtonLabelElement(option.Name);
-        }
-
-        private static Label CreateSelectorOptionElement(Option option)
-        {
-            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": ", option.GetValue()));
-        }
-
-        private static Label CreateValueOptionElement(Option option)
-        {
-            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": ", option.GetValue()));
-        }
-
-        private static Label CreateColorOptionElement(Option option)
-        {
-            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": "));
-        }
-
-        private static Label CreateToggleOptionElement(Option option)
-        {
-            return CreateOptionButtonLabelElement(string.Concat(option.Name, ": "));
-        }
-
-        #endregion
-
-        #region UPDATING
 
         internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
-
             UpdateSectionButtons();
             UpdateSystemButtons();
             UpdateSectionOptions();
-
             base.Update(gameTime);
         }
 
         private void UpdateSectionButtons()
         {
-            foreach (KeyValuePair<string, Label> item in this.sectionButtonElements)
+            for (byte i = 0; i < this.sectionButtonLabels.Length; i++)
             {
-                Label label = item.Value;
+                Label label = this.sectionButtonLabels[i];
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    SelectSection(item.Key);
+                    SelectSection(i);
                 }
 
                 bool onMouseOver = Interaction.OnMouseOver(label);
-
                 if (onMouseOver)
                 {
                     this.tooltipBox.CanDraw = true;
-
-                    Section section = this.root.Sections[item.Key];
-
+                    Section section = this.root.Sections[i];
                     TooltipBoxContent.SetTitle(section.Name);
                     TooltipBoxContent.SetDescription(section.Description);
                 }
 
-                label.Color = this.selectedSectionIdentififer.Equals(item.Key)
+                label.Color = this.selectedSectionIndex.Equals(i)
                     ? AAP64ColorPalette.LemonYellow
                     : onMouseOver ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
@@ -684,10 +521,8 @@ namespace StardustSandbox.UI.Common.Menus
                 if (Interaction.OnMouseOver(label))
                 {
                     this.tooltipBox.CanDraw = true;
-
                     TooltipBoxContent.SetTitle(button.Name);
                     TooltipBoxContent.SetDescription(button.Description);
-
                     label.Color = AAP64ColorPalette.LemonYellow;
                 }
                 else
@@ -699,27 +534,23 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateSectionOptions()
         {
-            Vector2 interactiveAreaSize = new(295.0f, 18.0f);
-            Vector2 plusAndMinusButtonAreaSize = new(32.0f);
-
-            foreach (Label label in this.sectionContents[this.selectedSectionIdentififer])
+            Label[] contentLabels = this.sectionUIs[this.selectedSectionIndex].ContentLabels;
+            for (byte i = 0; i < contentLabels.Length; i++)
             {
-                Vector2 position = new(label.Position.X + interactiveAreaSize.X, label.Position.Y - 6.0f);
+                Label label = contentLabels[i];
                 Option option = (Option)label.GetData("option");
 
-                if (Interaction.OnMouseLeftClick(position, interactiveAreaSize))
+                if (Interaction.OnMouseLeftClick(label))
                 {
                     HandleOptionInteractivity(option);
                 }
 
                 UpdateOptionSync(option, label);
 
-                if (Interaction.OnMouseOver(position, interactiveAreaSize))
+                if (Interaction.OnMouseOver(label))
                 {
                     label.Color = AAP64ColorPalette.LemonYellow;
-
                     this.tooltipBox.CanDraw = true;
-
                     TooltipBoxContent.SetTitle(option.Name);
                     TooltipBoxContent.SetDescription(option.Description);
                 }
@@ -729,43 +560,36 @@ namespace StardustSandbox.UI.Common.Menus
                 }
             }
 
-            foreach ((UIElement plus, UIElement minus) in this.plusAndMinusButtons)
+            foreach (PlusMinusButtonInfo buttonInfo in this.plusMinusButtons)
             {
-                if (Interaction.OnMouseLeftDown(plus.Position, plusAndMinusButtonAreaSize))
+                if (Interaction.OnMouseLeftDown(buttonInfo.PlusElement.Position, new(32.0f)))
                 {
-                    ((ValueOption)plus.GetData("option")).Increment();
+                    ((ValueOption)buttonInfo.PlusElement.GetData("option")).Increment();
                 }
-                else if (Interaction.OnMouseLeftDown(minus.Position, plusAndMinusButtonAreaSize))
+                else if (Interaction.OnMouseLeftDown(buttonInfo.MinusElement.Position, new(32.0f)))
                 {
-                    ((ValueOption)minus.GetData("option")).Decrement();
+                    ((ValueOption)buttonInfo.MinusElement.GetData("option")).Decrement();
                 }
             }
         }
 
-        #region Sync
-
         private static void UpdateOptionSync(Option option, UIElement element)
         {
-            switch (option)
+            if (option is ColorOption colorOption)
             {
-                case ColorOption colorOption:
-                    UpdateColorOption(colorOption, element.GetData("color_slot") as ColorSlotInfo);
-                    break;
-
-                case SelectorOption selectorOption:
-                    UpdateSelectorOption(selectorOption, element as Label);
-                    break;
-
-                case ValueOption valueOption:
-                    UpdateValueOption(valueOption, element as Label);
-                    break;
-
-                case ToggleOption toggleOption:
-                    UpdateToggleOption(toggleOption, element.GetData("toogle_preview") as Image);
-                    break;
-
-                default:
-                    break;
+                UpdateColorOption(colorOption, element.GetData("color_slot") as ColorSlotInfo);
+            }
+            else if (option is SelectorOption selectorOption)
+            {
+                UpdateSelectorOption(selectorOption, element as Label);
+            }
+            else if (option is ValueOption valueOption)
+            {
+                UpdateValueOption(valueOption, element as Label);
+            }
+            else if (option is ToggleOption toggleOption)
+            {
+                UpdateToggleOption(toggleOption, element.GetData("toogle_preview") as Image);
             }
         }
 
@@ -776,113 +600,62 @@ namespace StardustSandbox.UI.Common.Menus
 
         private static void UpdateSelectorOption(SelectorOption selectorOption, Label label)
         {
-            label.TextContent = string.Concat(selectorOption.Name, ": ", selectorOption.GetValue());
+            label.TextContent = selectorOption.Name + ": " + selectorOption.GetValue();
         }
 
         private static void UpdateValueOption(ValueOption valueOption, Label label)
         {
-            label.TextContent = string.Concat(valueOption.Name, ": ", valueOption.CurrentValue.ToString($"D{valueOption.MaximumValue.ToString().Length}"));
-            Vector2 labelElementSize = label.Size;
-
-            UIElement plus = (UIElement)label.GetData("plus_element");
-            UIElement minus = (UIElement)label.GetData("minus_element");
-
-            minus.Margin = new(labelElementSize.X + 8.0f, labelElementSize.Y / 2.0f * -1.0f);
-
-            label.AddChild(minus);
-            minus.AddChild(plus);
+            label.TextContent = valueOption.Name + ": " + valueOption.CurrentValue.ToString("D" + valueOption.MaximumValue.ToString().Length);
         }
 
         private static void UpdateToggleOption(ToggleOption toggleOption, Image toggleStateElement)
         {
             toggleStateElement.SourceRectangle = toggleOption.State ? new(0, 32, 32, 32) : new(0, 0, 32, 32);
         }
-        #endregion
 
-        #region Handlers
         private void HandleOptionInteractivity(Option option)
         {
-            switch (option)
+            if (option is ButtonOption buttonOption)
             {
-                case ButtonOption buttonOption:
-                    HandleButtonOption(buttonOption);
-                    break;
-
-                case ColorOption colorOption:
-                    HandleColorOption(colorOption);
-                    break;
-
-                case SelectorOption selectorOption:
-                    HandleSelectorOption(selectorOption);
-                    break;
-
-                case ToggleOption toggleOption:
-                    HandleToggleOption(toggleOption);
-                    break;
-
-                default:
-                    break;
+                buttonOption.OnClickCallback?.Invoke();
             }
-        }
-
-        private static void HandleButtonOption(ButtonOption buttonOption)
-        {
-            buttonOption.OnClickCallback?.Invoke();
+            else if (option is ColorOption colorOption)
+            {
+                HandleColorOption(colorOption);
+            }
+            else if (option is SelectorOption selectorOption)
+            {
+                selectorOption.Next();
+            }
+            else if (option is ToggleOption toggleOption)
+            {
+                toggleOption.Toggle();
+            }
         }
 
         private void HandleColorOption(ColorOption colorOption)
         {
-            this.colorPickerSettings.OnSelectCallback = result =>
-            {
-                colorOption.SetValue(result.SelectedColor);
-            };
-
+            this.colorPickerSettings.OnSelectCallback = result => colorOption.SetValue(result.SelectedColor);
             this.colorPickerUI.Configure(this.colorPickerSettings);
             this.uiManager.OpenGUI(UIIndex.ColorPicker);
         }
 
-        private static void HandleSelectorOption(SelectorOption selectorOption)
+        private void SelectSection(byte sectionIndex)
         {
-            selectorOption.Next();
-        }
-
-        private static void HandleToggleOption(ToggleOption toggleOption)
-        {
-            toggleOption.Toggle();
-        }
-        #endregion
-
-        #endregion
-
-        #region UTILITIES
-
-        private void SelectSection(string identififer)
-        {
-            this.selectedSectionIdentififer = identififer;
-
-            foreach (KeyValuePair<string, Container> item in this.sectionContainerElements)
+            this.selectedSectionIndex = sectionIndex;
+            for (byte i = 0; i < this.sectionUIs.Length; i++)
             {
-                if (item.Key.Equals(identififer))
-                {
-                    item.Value.CanDraw = true;
-                    item.Value.CanUpdate = true;
-                    continue;
-                }
-
-                item.Value.CanDraw = false;
-                item.Value.CanUpdate = false;
+                SectionUI sectionUI = this.sectionUIs[i];
+                bool isSelected = sectionIndex == i;
+                sectionUI.Container.CanDraw = isSelected;
+                sectionUI.Container.CanUpdate = isSelected;
             }
         }
 
-        #endregion
-
-        #region EVENTS
-
         protected override void OnOpened()
         {
+            SelectSection(0);
             SyncSettingElements();
         }
-
-        #endregion
     }
 }

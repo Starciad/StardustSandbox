@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.UI.Options
+namespace StardustSandbox.UI.Common.Menus.Options
 {
     internal sealed class ButtonOption(string name, string description, Action onClickCallback) : Option(name, description)
     {

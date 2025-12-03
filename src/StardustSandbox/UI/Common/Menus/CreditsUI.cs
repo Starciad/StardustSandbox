@@ -224,7 +224,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Vector2 margin = new(0.0f, VERTICAL_SPACING * 2.0f);
 
-            for (int i = 0; i < this.creditSections.Length; i++)
+            for (byte i = 0; i < this.creditSections.Length; i++)
             {
                 CreditSection creditSection = this.creditSections[i];
 
