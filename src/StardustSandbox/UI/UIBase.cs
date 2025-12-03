@@ -27,11 +27,8 @@ namespace StardustSandbox.UI
 
             this.root = new()
             {
-                Alignment = CardinalDirection.Northwest,
                 CanDraw = true,
                 CanUpdate = true,
-                Margin = Vector2.Zero,
-                Position = Vector2.Zero,
                 Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2()
             };
         }

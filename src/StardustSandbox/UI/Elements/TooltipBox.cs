@@ -17,8 +17,8 @@ namespace StardustSandbox.UI.Elements
         internal static string Title => title;
         internal static string Description => description;
 
-        private static string title;
-        private static string description;
+        private static string title = string.Empty;
+        private static string description = string.Empty;
 
         internal static void SetTitle(string value)
         {

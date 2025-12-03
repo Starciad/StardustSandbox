@@ -237,7 +237,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.titleTextualContent = new()
             {
                 Scale = new(0.1f),
-                Margin = new(16.0f, -19.0f),
+                Margin = new(16.0f, 0.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.West,
             };
@@ -272,7 +272,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.descriptionTextualContent = new()
             {
                 Scale = new(0.1f),
-                Margin = new(16.0f, -19.0f),
+                Margin = new(16.0f, 0.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.West,
             };

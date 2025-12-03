@@ -35,10 +35,12 @@ namespace StardustSandbox.UI.Elements
             get => this.textContent;
             set
             {
-                if (this.textContent != value)
+                if (!this.textContent.Equals(value))
                 {
                     this.textContent = value;
                     this.textContentDirty = true;
+
+                    RepositionRelativeToParent();
                 }
             }
         }
@@ -64,6 +66,7 @@ namespace StardustSandbox.UI.Elements
         private SpriteFont spriteFont;
 
         private string textContent;
+
         private Vector2 measuredText;
         private bool textContentDirty;
 
@@ -71,6 +74,8 @@ namespace StardustSandbox.UI.Elements
         {
             this.CanDraw = true;
             this.CanUpdate = true;
+
+            this.textContent = string.Empty;
 
             this.Color = AAP64ColorPalette.White;
         }

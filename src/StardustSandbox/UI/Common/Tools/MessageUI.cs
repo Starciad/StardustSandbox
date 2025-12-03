@@ -54,7 +54,6 @@ namespace StardustSandbox.UI.Common.Tools
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.North,
-                TextContent = "Message"
             };
 
             root.AddChild(this.message);

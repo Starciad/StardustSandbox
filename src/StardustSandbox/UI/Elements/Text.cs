@@ -50,12 +50,14 @@ namespace StardustSandbox.UI.Elements
             get => this.textContent;
             set
             {
-                if (this.textContent != value)
+                if (!this.textContent.Equals(value))
                 {
                     WrapContent(value);
 
                     this.textContent = value;
                     this.isTextContentDirty = true;
+
+                    RepositionRelativeToParent();
                 }
             }
         }
@@ -70,6 +72,7 @@ namespace StardustSandbox.UI.Elements
         private SpriteFont spriteFont;
 
         private string textContent;
+
         private bool isTextContentDirty;
         private Vector2 measuredText;
 
@@ -81,6 +84,8 @@ namespace StardustSandbox.UI.Elements
         {
             this.CanDraw = true;
             this.CanUpdate = true;
+
+            this.textContent = string.Empty;
 
             this.Color = AAP64ColorPalette.White;
         }
@@ -138,6 +143,11 @@ namespace StardustSandbox.UI.Elements
 
         private void WrapContent(string value)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
+
             this.wrappedLines.Clear();
             string[] words = value.Split(WordSplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 

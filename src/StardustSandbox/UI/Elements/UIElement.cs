@@ -226,7 +226,6 @@ namespace StardustSandbox.UI.Elements
 
         private void RepositionRelativeToElement(FloatRectangle targetRectangle)
         {
-            // set position using anchored calculation
             this.position = GetAnchoredPosition(this.SelfFloatRectangle, targetRectangle, this.Alignment, this.Margin);
             RepositionChildren();
         }
@@ -241,7 +240,7 @@ namespace StardustSandbox.UI.Elements
             RepositionRelativeToElement(new FloatRectangle(Vector2.Zero, new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
         }
 
-        private void RepositionRelativeToParent()
+        protected void RepositionRelativeToParent()
         {
             if (this.Parent == null)
             {

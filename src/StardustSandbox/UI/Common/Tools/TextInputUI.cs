@@ -126,24 +126,18 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnBuild(Container root)
         {
-            BuildBackground(root);
+            // Shadow
+            root.AddChild(new Image()
+            {
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
+                Color = new(AAP64ColorPalette.DarkGray, 160)
+            });
+
             BuildSynopsis(root);
             BuildUserInput(root);
             BuildCharacterCount(root);
             BuildMenuButtons(root);
-        }
-
-        private static void BuildBackground(Container root)
-        {
-            Image background = new()
-            {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
-                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
-                Color = new(AAP64ColorPalette.DarkGray, 160)
-            };
-
-            root.AddChild(background);
         }
 
         private void BuildSynopsis(Container root)
@@ -151,12 +145,11 @@ namespace StardustSandbox.UI.Common.Tools
             this.synopsis = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0.0f, -128.0f),
+                Margin = new(0.0f, 128.0f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.Center,
-                TextContent = "Synopsis"
+                Alignment = CardinalDirection.North,
             };
 
             root.AddChild(this.synopsis);
@@ -164,15 +157,6 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void BuildUserInput(Container root)
         {
-            this.userInputBackground = new()
-            {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
-                Scale = new(1.5f),
-                Size = new(632.0f, 50.0f),
-                Margin = new(0.0f, 64.0f),
-                Alignment = CardinalDirection.Center,
-            };
-
             this.userInput = new()
             {
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
@@ -182,8 +166,17 @@ namespace StardustSandbox.UI.Common.Tools
                 Alignment = CardinalDirection.Center,
             };
 
-            root.AddChild(this.userInputBackground);
+            this.userInputBackground = new()
+            {
+                Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
+                Scale = new(1.5f),
+                Size = new(632.0f, 50.0f),
+                Margin = new(0.0f, 64.0f),
+                Alignment = CardinalDirection.Center,
+            };
+
             root.AddChild(this.userInput);
+            root.AddChild(this.userInputBackground);
         }
 
         private void BuildCharacterCount(Container root)
@@ -194,7 +187,6 @@ namespace StardustSandbox.UI.Common.Tools
                 Scale = new(0.08f),
                 Margin = new(-212.0f, -16.0f),
                 Alignment = CardinalDirection.East,
-                TextContent = "000/000"
             };
 
             root.AddChild(this.characterCount);
@@ -232,8 +224,6 @@ namespace StardustSandbox.UI.Common.Tools
 
         #endregion
 
-        #region UPDATING
-
         internal override void Update(GameTime gameTime)
         {
             UpdateMenuButtons();
@@ -259,7 +249,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = (ScreenConstants.SCREEN_HEIGHT / 2) + this.userInput.Size.Y;
+            float screenCenterYPosition = (ScreenConstants.SCREEN_HEIGHT / 2.0f) + (this.userInput.Size.Y / 2.0f);
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackground.Position.X;
@@ -267,14 +257,12 @@ namespace StardustSandbox.UI.Common.Tools
 
             // Count
             this.characterCountElementPosition.X = this.characterCount.Position.X;
-            this.characterCountElementPosition.Y = screenCenterYPosition - 32;
+            this.characterCountElementPosition.Y = screenCenterYPosition - 32.0f;
 
             // Apply
             this.userInputBackground.Position = this.userInputBackgroundElementPosition;
             this.characterCount.Position = this.characterCountElementPosition;
         }
-
-        #endregion
 
         #region EVENTS
 

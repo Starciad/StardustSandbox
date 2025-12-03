@@ -18,7 +18,9 @@ namespace StardustSandbox.UI.Common.Tools
     internal sealed class ConfirmUI : UIBase
     {
         private ConfirmSettings confirmSettings;
-        private Text caption, message;
+
+        private Label caption;
+        private Text message;
 
         private readonly Label[] buttonLabels;
         private readonly ButtonInfo[] buttonInfos;
@@ -60,35 +62,38 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnBuild(Container root)
         {
-            Image background = new()
+            Image shadow = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
-                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
+                Scale = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
+                Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
             this.caption = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0.0f, 96.0f),
-                LineHeight = 1.25f,
-                TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
+                Margin = new(0.0f, 64.0f),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.North,
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
             };
 
             this.message = new()
             {
                 Scale = new(0.1f),
-                Margin = new(0.0f, -128.0f),
                 LineHeight = 1.25f,
+                Margin = new(0.0f, -32.0f),
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = CardinalDirection.Center,
             };
 
-            root.AddChild(background);
+            root.AddChild(shadow);
             root.AddChild(this.caption);
             root.AddChild(this.message);
 
@@ -127,8 +132,6 @@ namespace StardustSandbox.UI.Common.Tools
 
         #endregion
 
-        #region UPDATING
-
         internal override void Update(GameTime gameTime)
         {
             for (byte i = 0; i < this.buttonInfos.Length; i++)
@@ -145,7 +148,5 @@ namespace StardustSandbox.UI.Common.Tools
 
             base.Update(gameTime);
         }
-
-        #endregion
     }
 }
