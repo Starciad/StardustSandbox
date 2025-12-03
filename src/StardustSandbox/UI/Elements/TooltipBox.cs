@@ -33,10 +33,6 @@ namespace StardustSandbox.UI.Elements
 
     internal sealed class TooltipBox : UIElement
     {
-        internal bool IsShowing
-        {
-            get => this.CanDraw; set => this.CanDraw = value;
-        }
         internal Vector2 MinimumSize { get; set; }
         internal Vector2 MaximumSize { get; set; }
 
@@ -97,32 +93,13 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        private void RefreshDisplay()
-        {
-            if (this.CanDraw)
-            {
-                this.title.TextContent = TooltipBoxContent.Title;
-                this.description.TextContent = TooltipBoxContent.Description;
-
-                if (!this.IsShowing)
-                {
-                    this.IsShowing = true;
-                }
-            }
-            else
-            {
-                this.IsShowing = false;
-
-                this.title.TextContent = string.Empty;
-                this.description.TextContent = string.Empty;
-            }
-        }
-
         protected override void OnUpdate(GameTime gameTime)
         {
+            this.title.TextContent = TooltipBoxContent.Title;
+            this.description.TextContent = TooltipBoxContent.Description;
+
             UpdateSize();
             UpdatePosition();
-            RefreshDisplay();
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)
