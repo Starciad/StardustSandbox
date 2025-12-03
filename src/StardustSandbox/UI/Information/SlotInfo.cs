@@ -12,17 +12,17 @@ namespace StardustSandbox.UI.Information
         private readonly Image icon;
         private readonly Label label;
 
-        internal SlotInfo(Image backgroundElement, Image iconElement)
+        internal SlotInfo(Image background, Image icon)
         {
-            this.background = backgroundElement;
-            this.icon = iconElement;
+            this.background = background;
+            this.icon = icon;
             this.label = null;
         }
 
-        internal SlotInfo(Image backgroundElement, Image iconElement, Label label)
+        internal SlotInfo(Image background, Image icon, Label label)
         {
-            this.background = backgroundElement;
-            this.icon = iconElement;
+            this.background = background;
+            this.icon = icon;
             this.label = label;
         }
     }

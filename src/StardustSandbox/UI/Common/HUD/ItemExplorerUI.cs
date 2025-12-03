@@ -119,7 +119,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image backgroundShadowElement = new()
+            Image shadow = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -134,7 +134,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Alignment = CardinalDirection.Center,
             };
 
-            root.AddChild(backgroundShadowElement);
+            root.AddChild(shadow);
             root.AddChild(this.background);
         }
 
@@ -165,7 +165,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 ButtonInfo button = this.buttonInfos[i];
 
-                Image backgroundElement = new()
+                Image background = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 141, 32, 32),
@@ -175,7 +175,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Margin = new(marginX, -72.0f),
                 };
 
-                Image iconElement = new()
+                Image icon = new()
                 {
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
@@ -184,7 +184,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Size = new(32.0f)
                 };
 
-                SlotInfo slot = new(backgroundElement, iconElement);
+                SlotInfo slot = new(background, icon);
 
                 // Update
                 this.background.AddChild(slot.Background);

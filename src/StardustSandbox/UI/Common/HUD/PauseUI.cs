@@ -85,7 +85,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image backgroundShadowElement = new()
+            Image shadow = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -101,7 +101,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Alignment = CardinalDirection.North,
             };
 
-            root.AddChild(backgroundShadowElement);
+            root.AddChild(shadow);
             root.AddChild(this.background);
         }
 
@@ -133,7 +133,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
-                Image backgroundElement = new()
+                Image background = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
@@ -157,12 +157,12 @@ namespace StardustSandbox.UI.Common.HUD
                     BorderThickness = 2.0f,
                 };
 
-                this.background.AddChild(backgroundElement);
-                backgroundElement.AddChild(label);
+                this.background.AddChild(background);
+                background.AddChild(label);
 
-                this.menuButtonSlotInfos[i] = new(backgroundElement, null, label);
+                this.menuButtonSlotInfos[i] = new(background, null, label);
 
-                marginY += backgroundElement.Size.Y + 32.0f;
+                marginY += background.Size.Y + 32.0f;
             }
         }
 

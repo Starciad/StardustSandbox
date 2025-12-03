@@ -113,8 +113,8 @@ namespace StardustSandbox.UI.Elements
             while (this.childrenToRemove.Count > 0)
             {
                 UIElement actor = this.childrenToRemove.Dequeue();
-                bool removed = this.children.Remove(actor);
-                if (removed)
+
+                if (this.children.Remove(actor))
                 {
                     actor.parent = null;
                 }

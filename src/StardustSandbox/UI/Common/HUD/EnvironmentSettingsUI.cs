@@ -81,11 +81,10 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image backgroundShadowElement = new()
+            Image shadow = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1.0f),
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
@@ -93,10 +92,10 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
                 Size = new(1084.0f, 540.0f),
-                Margin = new(98.0f, 90.0f),
+                Alignment = CardinalDirection.Center,
             };
 
-            root.AddChild(backgroundShadowElement);
+            root.AddChild(shadow);
             root.AddChild(this.background);
         }
 
@@ -106,8 +105,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
-                Alignment = CardinalDirection.Northwest,
-                Margin = new(32.0f, 40.0f),
+                Margin = new(24.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Title,
 
@@ -127,9 +125,10 @@ namespace StardustSandbox.UI.Common.HUD
             for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -40.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
                 slot.Background.Alignment = CardinalDirection.Northeast;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -157,14 +156,15 @@ namespace StardustSandbox.UI.Common.HUD
             this.background.AddChild(this.timeStateSectionTitle);
 
             // Buttons
-            float marginX = 32.0f;
+            float marginX = 0.0f;
 
             for (byte i = 0; i < this.timeStateButtonSlotInfos.Length; i++)
             {
                 ButtonInfo button = this.timeStateButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 80.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.South;
+                slot.Background.Alignment = CardinalDirection.Southwest;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
                 this.timeStateSectionTitle.AddChild(slot.Background);
@@ -183,7 +183,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.timeSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(this.timeStateSectionTitle.Size.X + (64.0f * this.timeStateButtonSlotInfos.Length) + 64.0f, 0.0f),
+                Margin = new(this.timeStateSectionTitle.Size.X + (48.0f * this.timeStateButtonSlotInfos.Length), 0.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Title
@@ -192,14 +192,15 @@ namespace StardustSandbox.UI.Common.HUD
             this.timeStateSectionTitle.AddChild(this.timeSectionTitle);
 
             // Buttons
-            float marginX = 32.0f;
+            float marginX = 0.0f;
 
             for (byte i = 0; i < this.timeButtonSlotInfos.Length; i++)
             {
                 ButtonInfo button = this.timeButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 80.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.South;
+                slot.Background.Alignment = CardinalDirection.Southwest;
+                slot.Icon.Alignment = CardinalDirection.Center;
 
                 // Update
                 this.timeSectionTitle.AddChild(slot.Background);
@@ -217,7 +218,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
-            Image backgroundElement = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
@@ -226,7 +227,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = margin,
             };
 
-            Image iconElement = new()
+            Image icon = new()
             {
                 Texture = button.Texture,
                 SourceRectangle = button.TextureSourceRectangle,
@@ -234,7 +235,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Size = new(32.0f)
             };
 
-            return new(backgroundElement, iconElement);
+            return new(background, icon);
         }
 
         #endregion

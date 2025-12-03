@@ -303,7 +303,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, Texture2D iconTexture, Rectangle? iconTextureRectangle)
         {
-            Image backgroundElement = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
@@ -312,7 +312,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = margin,
             };
 
-            Image iconElement = new()
+            Image icon = new()
             {
                 Texture = iconTexture,
                 SourceRectangle = iconTextureRectangle,
@@ -321,7 +321,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Alignment = CardinalDirection.Center,
             };
 
-            return new(backgroundElement, iconElement);
+            return new(background, icon);
         }
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, Item item)

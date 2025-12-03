@@ -198,7 +198,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                     ColorButtonInfo colorButton = this.colorButtonInfos[index];
 
-                    Image backgroundElement = new()
+                    Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 0, 40, 22),
@@ -216,14 +216,14 @@ namespace StardustSandbox.UI.Common.Tools
                         Size = textureSize,
                     };
 
-                    backgroundElement.AddChild(borderElement);
+                    background.AddChild(borderElement);
 
-                    root.AddChild(backgroundElement);
+                    root.AddChild(background);
 
-                    this.colorButtonSlotInfos[index] = new(backgroundElement, borderElement);
+                    this.colorButtonSlotInfos[index] = new(background, borderElement);
                     index++;
 
-                    margin.X += backgroundElement.Size.X + 16.0f;
+                    margin.X += background.Size.X + 16.0f;
                 }
 
                 margin.X = baseMargin.X;

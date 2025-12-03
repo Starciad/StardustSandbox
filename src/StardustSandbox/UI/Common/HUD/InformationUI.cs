@@ -59,7 +59,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image backgroundShadowElement = new()
+            Image shadow = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
@@ -74,7 +74,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(98.0f, 90.0f),
             };
 
-            root.AddChild(backgroundShadowElement);
+            root.AddChild(shadow);
             root.AddChild(this.background);
         }
 
@@ -151,7 +151,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
-            Image backgroundElement = new()
+            Image background = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
@@ -160,7 +160,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = margin,
             };
 
-            Image iconElement = new()
+            Image icon = new()
             {
                 Texture = button.Texture,
                 SourceRectangle = button.TextureSourceRectangle,
@@ -168,7 +168,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Size = new(32.0f)
             };
 
-            return new(backgroundElement, iconElement);
+            return new(background, icon);
         }
 
         #endregion
