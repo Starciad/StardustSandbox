@@ -139,7 +139,7 @@
     <value>Explorador de Itens</value>
   </data>
   <data name="HUD.Button.ItemExplorer.Description" xml:space="preserve">
-    <value>Um portal para todo o catálogo de elementos do jogo. Aqui, você pode navegar, descobrir e aprender sobre cada elemento disponível, explorando suas características, comportamentos e interações.</value>
+    <value>Acesse e explore todos os elementos do jogo, conhecendo suas características e interações.</value>
   </data>
   <data name="Menu.Options.Section.Video.Name" xml:space="preserve">
     <value>Vídeo</value>
@@ -220,46 +220,46 @@
     <value>Borracha</value>
   </data>
   <data name="HUD.Button.EraseEverything.Description" xml:space="preserve">
-    <value>Apaga todos os conteúdos presentes no mapa, incluindo elementos, entidades e decorações, retornando ao estado inicial vazio.</value>
+    <value>Remove tudo do mapa e retorna ao estado vazio.</value>
   </data>
   <data name="HUD.Button.GameMenu.Description" xml:space="preserve">
-    <value>Abre o menu principal do jogo para acessar configurações e outras opções.</value>
+    <value>Abre o menu principal para acessar configurações e opções.</value>
   </data>
   <data name="HUD.Button.PauseSimulation.Description" xml:space="preserve">
-    <value>Pausa ou retoma a simulação em andamento.</value>
+    <value>Pausa ou continua a simulação.</value>
   </data>
   <data name="HUD.Button.PenSettings.Description" xml:space="preserve">
-    <value>Ajusta as configurações da caneta, alterando como ela interage com o canvas do mundo.</value>
+    <value>Altera como a caneta interage com o mundo.</value>
   </data>
   <data name="HUD.Button.ReloadSimulation.Description" xml:space="preserve">
-    <value>Reinicia uma simulação carregada, revertendo alterações feitas. Caso nenhuma simulação esteja carregada, limpa o mapa, deixando o canvas vazio.</value>
+    <value>Reinicia a simulação ou limpa o mapa se não houver simulação carregada.</value>
   </data>
   <data name="HUD.Button.SaveMenu.Description" xml:space="preserve">
-    <value>Abre o menu para gerenciar o salvamento de simulações e mundos.</value>
+    <value>Abre o menu para salvar simulações e mundos.</value>
   </data>
   <data name="HUD.Button.WorldSettings.Description" xml:space="preserve">
-    <value>Ajusta configurações gerais e sistemáticas do mundo.</value>
+    <value>Ajusta as configurações do mundo.</value>
   </data>
   <data name="HUD.Button.EnvironmentSettings.Description" xml:space="preserve">
-    <value>Altera características ambientais do mundo, como clima, temperatura e outros fatores.</value>
+    <value>Altera clima, temperatura e outros fatores do ambiente.</value>
   </data>
   <data name="HUD.Button.Eraser.Description" xml:space="preserve">
-    <value>Transforma a caneta atual em um apagador, permitindo remover conteúdos diretamente do canvas.</value>
+    <value>Transforma a caneta em apagador para remover conteúdos do mundo.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Name" xml:space="preserve">
     <value>Camada Frontal</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Name" xml:space="preserve">
-    <value>Camda Traseira</value>
+    <value>Camada Traseira</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Name" xml:space="preserve">
-    <value>Formato Círcular</value>
+    <value>Formato Circular</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Name" xml:space="preserve">
     <value>Formato de Quadrado</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Name" xml:space="preserve">
-    <value>Formato Triângular</value>
+    <value>Formato Triangular</value>
   </data>
   <data name="HUD.Complements.PenSettings.Title" xml:space="preserve">
     <value>Configurações da Caneta</value>
@@ -283,22 +283,22 @@
     <value>Formato</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Description" xml:space="preserve">
-    <value>A camada traseira do mundo é usada para posicionamento de itens.</value>
+    <value>Posiciona itens na camada traseira do mundo.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Description" xml:space="preserve">
-    <value>A camada frontal do mundo é usada para posicionamento de itens.</value>
+    <value>Posiciona itens na camada frontal do mundo.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Description" xml:space="preserve">
-    <value>O formato da caneta se torna um círculo.</value>
+    <value>Define o formato da caneta como círculo.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Description" xml:space="preserve">
-    <value>O formato da caneta se torna um quadrado.</value>
+    <value>Define o formato da caneta como quadrado.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Description" xml:space="preserve">
-    <value>O formato da caneta se torna um triângulo.</value>
+    <value>Define o formato da caneta como triângulo.</value>
   </data>
   <data name="Button.Exit.Description" xml:space="preserve">
-    <value>Fecha o menu atual.</value>
+    <value>Fecha o menu.</value>
   </data>
   <data name="HUD.Complements.SaveSettings.Title" xml:space="preserve">
     <value>Configurações de Salvamento</value>
@@ -313,13 +313,13 @@
     <value>Miniatura</value>
   </data>
   <data name="HUD.Complements.SaveSettings.Button.Save.Description" xml:space="preserve">
-    <value>Salva o estado atual do mundo em um arquivo no computador, permitindo acesso posterior. Se o nome especificado já existir, o arquivo correspondente será sobrescrito com as informações do mundo atual.</value>
+    <value>Salva o mundo em um arquivo. Se o nome já existir, sobrescreve o arquivo.</value>
   </data>
   <data name="HUD.Button.Information.Name" xml:space="preserve">
     <value>Informações</value>
   </data>
   <data name="HUD.Button.Information.Description" xml:space="preserve">
-    <value>Veja informações gerais e estatísticas relacionadas ao seu mundo.</value>
+    <value>Veja informações e estatísticas do mundo.</value>
   </data>
   <data name="HUD.Complements.Information.Title" xml:space="preserve">
     <value>Informações</value>
@@ -436,7 +436,7 @@
     <value>Velocidade da Simulação</value>
   </data>
   <data name="HUD.Button.Speed.Description" xml:space="preserve">
-    <value>Ajusta a velocidade do fluxo temporal de vários componentes da simulação, incluindo a interação entre elementos, o avanço do tempo e outros aspectos relacionados. Velocidades mais altas podem ocasionar pequenos gargalos no desempenho do jogo devido ao aumento na carga de processamento.</value>
+    <value>Altera a velocidade da simulação. Velocidades altas podem afetar o desempenho.</value>
   </data>
   <data name="HUD.Complements.Pause.Title" xml:space="preserve">
     <value>Pausa</value>
@@ -499,10 +499,10 @@
     <value>Controle os níveis de áudio para diferentes categorias.</value>
   </data>
   <data name="Menu.Options.Section.Video.Description" xml:space="preserve">
-    <value>Modifique as configurações relacionadas ao vídeo, incluindo resolução e modos de exibição.</value>
+    <value>Modifique as configurações relacionadas ao vídeo.</value>
   </data>
   <data name="Menu.Options.Section.Graphics.Description" xml:space="preserve">
-    <value>Configure as configurações gráficas para qualidade visual.</value>
+    <value>Configure os gráficos para modificar a qualidade visual.</value>
   </data>
   <data name="Menu.Options.Section.Cursor.Description" xml:space="preserve">
     <value>Personalize a aparência e o comportamento do cursor do mouse.</value>

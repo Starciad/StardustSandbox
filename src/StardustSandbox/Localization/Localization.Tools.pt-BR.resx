@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Environment.Freeze.Description" xml:space="preserve">
-    <value>Esta ferramenta concede a capacidade de diminuir a temperatura de uma determinada área do mundo.</value>
+    <value>Diminui a temperatura de uma área do mundo.</value>
   </data>
   <data name="Environment.Freeze.Name" xml:space="preserve">
-    <value>Ferramenta de Congelamento</value>
+    <value>Congelamento</value>
   </data>
   <data name="Environment.Heat.Description" xml:space="preserve">
-    <value>Esta ferramenta concede a capacidade de aumentar a temperatura de uma determinada área do mundo.</value>
+    <value>Aumenta a temperatura de uma área do mundo.</value>
   </data>
   <data name="Environment.Heat.Name" xml:space="preserve">
-    <value>Ferramenta de Aquecimento</value>
+    <value>Aquecimento</value>
   </data>
 </root>

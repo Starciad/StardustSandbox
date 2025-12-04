@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Eraser.Description" xml:space="preserve">
-    <value>Remove itens previamente posicionados no mapa de forma direta.</value>
+    <value>Remove itens do mapa diretamente.</value>
   </data>
   <data name="Eraser.Name" xml:space="preserve">
     <value>Apagador</value>
   </data>
   <data name="Fill.Description" xml:space="preserve">
-    <value>Preenche completamente áreas vazias com o item selecionado ou substitui itens existentes no mapa.</value>
+    <value>Preenche áreas vazias ou substitui itens no mapa pelo item selecionado.</value>
   </data>
   <data name="Fill.Name" xml:space="preserve">
     <value>Preenchimento</value>
   </data>
   <data name="Pencil.Description" xml:space="preserve">
-    <value>Ferramenta utilizada para posicionar itens no mapa.</value>
+    <value>Posiciona itens no mapa.</value>
   </data>
   <data name="Pencil.Name" xml:space="preserve">
     <value>Caneta</value>
   </data>
   <data name="Replace.Description" xml:space="preserve">
-    <value>Substitui itens já posicionados no mapa por outros previamente selecionados.</value>
+    <value>Substitui itens do mapa pelo item selecionado.</value>
   </data>
   <data name="Replace.Name" xml:space="preserve">
     <value>Substituidor</value>
   </data>
   <data name="Visualization.Description" xml:space="preserve">
-    <value>Permite visualizar o mapa sem interagir ou modificar seu conteúdo.</value>
+    <value>Visualiza o mapa sem modificar nada.</value>
   </data>
   <data name="Visualization.Name" xml:space="preserve">
     <value>Visualizador</value>
