@@ -2,14 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.UI;
-using StardustSandbox.InputSystem.GameInput;
+using StardustSandbox.Inputs.Game;
 using StardustSandbox.Managers;
 using StardustSandbox.UI;
 using StardustSandbox.UI.Common.HUD;
 using StardustSandbox.UI.Common.Menus;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 using System;
 
@@ -30,7 +30,7 @@ namespace StardustSandbox.Databases
             InputManager inputManager,
             UIManager uiManager,
             VideoManager videoManager,
-            World world
+            GameWorld world
         )
         {
             if (isLoaded)

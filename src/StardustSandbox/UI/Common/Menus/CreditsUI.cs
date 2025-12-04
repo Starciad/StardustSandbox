@@ -2,18 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.AudioSystem;
+using StardustSandbox.Audio;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.BackgroundSystem;
+using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 namespace StardustSandbox.UI.Common.Menus
 {
@@ -52,7 +52,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly CreditSection[] creditSections;
 
-        private readonly World world;
+        private readonly GameWorld world;
 
         private readonly AmbientManager ambientManager;
         private readonly InputManager inputManager;
@@ -66,7 +66,7 @@ namespace StardustSandbox.UI.Common.Menus
             UIIndex index,
             InputManager inputManager,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.ambientManager = ambientManager;

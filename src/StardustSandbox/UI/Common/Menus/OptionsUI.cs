@@ -8,10 +8,10 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Settings;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI.Common.Menus.Options;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
@@ -98,11 +98,11 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
             this.videoManager = videoManager;
             this.colorPickerSettings = new();
-            this.generalSettings = SettingsHandler.LoadSettings<GeneralSettings>();
-            this.gameplaySettings = SettingsHandler.LoadSettings<GameplaySettings>();
-            this.volumeSettings = SettingsHandler.LoadSettings<VolumeSettings>();
-            this.videoSettings = SettingsHandler.LoadSettings<VideoSettings>();
-            this.cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
+            this.generalSettings = SettingsSerializer.LoadSettings<GeneralSettings>();
+            this.gameplaySettings = SettingsSerializer.LoadSettings<GameplaySettings>();
+            this.volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
+            this.videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
+            this.cursorSettings = SettingsSerializer.LoadSettings<CursorSettings>();
 
             this.systemButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
@@ -163,18 +163,18 @@ namespace StardustSandbox.UI.Common.Menus
             GameCulture gameCulture = LocalizationConstants.GetGameCulture(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
             this.generalSettings.Language = gameCulture.Language;
             this.generalSettings.Region = gameCulture.Region;
-            SettingsHandler.SaveSettings(this.generalSettings);
+            SettingsSerializer.SaveSettings(this.generalSettings);
 
             Section gameplaySection = this.root.Sections[(byte)SectionIndex.Gameplay];
             this.gameplaySettings.PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue();
             this.gameplaySettings.PreviewAreaColorA = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].GetValue());
-            SettingsHandler.SaveSettings(this.gameplaySettings);
+            SettingsSerializer.SaveSettings(this.gameplaySettings);
 
             Section volumeSection = this.root.Sections[(byte)SectionIndex.Volume];
             this.volumeSettings.MasterVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MasterVolume].GetValue()) / 100.0f;
             this.volumeSettings.MusicVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MusicVolume].GetValue()) / 100.0f;
             this.volumeSettings.SFXVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.SFXVolume].GetValue()) / 100.0f;
-            SettingsHandler.SaveSettings(this.volumeSettings);
+            SettingsSerializer.SaveSettings(this.volumeSettings);
 
             Section videoSection = this.root.Sections[(byte)SectionIndex.Video];
             this.videoSettings.Framerate = (double)videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue();
@@ -182,14 +182,14 @@ namespace StardustSandbox.UI.Common.Menus
             this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].GetValue());
             this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.VSync].GetValue());
             this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].GetValue());
-            SettingsHandler.SaveSettings(this.videoSettings);
+            SettingsSerializer.SaveSettings(this.videoSettings);
 
             Section cursorSection = this.root.Sections[(byte)SectionIndex.Cursor];
             this.cursorSettings.Color = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.Color].GetValue();
             this.cursorSettings.BackgroundColor = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].GetValue();
             this.cursorSettings.Alpha = Convert.ToByte(cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].GetValue());
             this.cursorSettings.Scale = Convert.ToSingle(cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].GetValue());
-            SettingsHandler.SaveSettings(this.cursorSettings);
+            SettingsSerializer.SaveSettings(this.cursorSettings);
         }
 
         private void SyncSettingElements()
@@ -409,7 +409,7 @@ namespace StardustSandbox.UI.Common.Menus
             minus.AddData("option", option);
             label.AddData("plus_element", plus);
             label.AddData("minus_element", minus);
-            
+
             label.AddChild(minus);
             minus.AddChild(plus);
 

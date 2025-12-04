@@ -9,9 +9,9 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
 using StardustSandbox.IO;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Saving;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 
@@ -107,13 +107,13 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnBuild(Container root)
         {
-            BuildHeader();
+            BuildHeader(root);
             BuildFooter(root);
 
             BuildingWorldDisplaySlots();
         }
 
-        private void BuildHeader()
+        private void BuildHeader(Container root)
         {
             // Background
             this.headerBackground = new()
@@ -123,6 +123,8 @@ namespace StardustSandbox.UI.Common.Menus
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
             };
+
+            root.AddChild(headerBackground);
 
             // Title
             Label titleLabelElement = new()
@@ -142,7 +144,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.headerBackground.AddChild(titleLabelElement);
 
             // Buttons
-            float marginX = -64.0f;
+            float marginX = -32.0f;
 
             for (byte i = 0; i < this.headerButtonInfos.Length; i++)
             {
@@ -160,7 +162,9 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image buttonIconElement = new()
                 {
+                    Alignment = CardinalDirection.Center,
                     Texture = button.Texture,
+                    SourceRectangle = button.TextureSourceRectangle,
                     Scale = new(1.5f),
                     Size = new(32.0f),
                 };
@@ -183,7 +187,6 @@ namespace StardustSandbox.UI.Common.Menus
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
                 Alignment = CardinalDirection.Southwest,
-                Margin = new(0.0f, -96.0f),
             };
 
             Label pageIndexTitleLabel = new()
@@ -192,6 +195,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
                 TextContent = "Current Page",
+                Margin = new(0.0f, -18.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -205,6 +209,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
                 TextContent = "1 / 1",
+                Margin = new(0.0f, pageIndexTitleLabel.Size.Y),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -218,6 +223,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
                 TextContent = "Previous",
+                Margin = new(32.0f, 0.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -231,6 +237,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.East,
                 TextContent = "Next",
+                Margin = new(-32.0f, 0.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -240,11 +247,6 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.footerButtonLabels[0] = previousButtonLabel;
             this.footerButtonLabels[1] = nextButtonLabel;
-
-            pageIndexTitleLabel.Margin = new(0.0f, -16.0f);
-            this.pageIndexLabel.Margin = new(0.0f, pageIndexTitleLabel.Size.Y);
-            previousButtonLabel.Margin = new(previousButtonLabel.Size.X + 32.0f, 0.0f);
-            nextButtonLabel.Margin = new((nextButtonLabel.Size.X + 32.0f) * -1.0f, 0.0f);
 
             background.AddChild(pageIndexTitleLabel);
             background.AddChild(previousButtonLabel);
@@ -270,7 +272,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 for (byte row = 0; row < rows; row++)
                 {
-                    Image backgroundImageElement = new()
+                    Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(0, 0, 386, 140),
@@ -278,7 +280,7 @@ namespace StardustSandbox.UI.Common.Menus
                         Margin = margin
                     };
 
-                    Image thumbnailImageElement = new()
+                    Image thumbnail = new()
                     {
                         Scale = new(5.1f),
                         Size = WorldConstants.WORLD_THUMBNAIL_SIZE.ToVector2(),
@@ -286,25 +288,28 @@ namespace StardustSandbox.UI.Common.Menus
                         Margin = new(11.5f, 0.0f),
                     };
 
-                    Label titleLabelElement = new()
+                    Label title = new()
                     {
-                        Color = AAP64ColorPalette.White,
                         SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                        Alignment = CardinalDirection.North,
                         Scale = new(0.1f),
-                        Margin = new(-52.5f, 23.0f),
-                        TextContent = "Title"
+                        Margin = new((WorldConstants.WORLD_THUMBNAIL_SIZE.X * thumbnail.Scale.X) + 22.0f, 5.0f),
+                        TextContent = "Title",
+
+                        BorderColor = AAP64ColorPalette.DarkGray,
+                        BorderDirections = LabelBorderDirection.All,
+                        BorderOffset = 2.0f,
+                        BorderThickness = 2.0f,
                     };
 
                     // Position
-                    this.headerBackground.AddChild(backgroundImageElement);
-                    backgroundImageElement.AddChild(thumbnailImageElement);
-                    thumbnailImageElement.AddChild(titleLabelElement);
+                    this.headerBackground.AddChild(background);
+                    background.AddChild(thumbnail);
+                    background.AddChild(title);
 
                     // Spacing
                     margin.X += 418.0f;
 
-                    this.itemSlotInfos[index] = new(backgroundImageElement, thumbnailImageElement, titleLabelElement);
+                    this.itemSlotInfos[index] = new(background, thumbnail, title);
 
                     index++;
                 }
@@ -390,12 +395,12 @@ namespace StardustSandbox.UI.Common.Menus
 
                 if (worldIndex < this.savedWorldFilesLoaded?.Count)
                 {
-                    SaveFile worldSaveFile = this.savedWorldFilesLoaded[worldIndex];
+                    SaveFile saveFile = this.savedWorldFilesLoaded[worldIndex];
 
                     slotInfoElement.Background.CanDraw = true;
 
-                    slotInfoElement.Icon.Texture = worldSaveFile.Header.ThumbnailTexture;
-                    slotInfoElement.Label.TextContent = worldSaveFile.Header.Metadata.Name.Truncate(10);
+                    slotInfoElement.Icon.Texture = saveFile.ThumbnailTexture;
+                    slotInfoElement.Label.TextContent = saveFile.Metadata.Name.Truncate(10);
                 }
                 else
                 {
@@ -407,8 +412,6 @@ namespace StardustSandbox.UI.Common.Menus
         }
 
         #endregion
-
-        #region EVENTS
 
         protected override void OnOpened()
         {
@@ -423,9 +426,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void LoadAllLocalSavedWorlds()
         {
-            this.savedWorldFilesLoaded = [.. WorldSavingHandler.LoadAllSavedWorldData(this.graphicsDevice)];
+            this.savedWorldFilesLoaded = [.. SavingSerializer.LoadAllSavedWorldData(this.graphicsDevice)];
         }
-
-        #endregion
     }
 }

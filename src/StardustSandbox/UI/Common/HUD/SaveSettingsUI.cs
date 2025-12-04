@@ -10,14 +10,14 @@ using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.Extensions;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -33,7 +33,7 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo[] menuButtonInfos, fieldButtonInfos, footerButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos, fieldButtonSlotInfos, footerButtonSlotInfos;
 
-        private readonly World world;
+        private readonly GameWorld world;
         private readonly TextInputUI textInputUI;
 
         private readonly TextInputSettings nameInputBuilder, descriptionInputBuilder;
@@ -50,7 +50,7 @@ namespace StardustSandbox.UI.Common.HUD
             TextInputUI textInputUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.gameManager = gameManager;
@@ -84,7 +84,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.footerButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, () =>
                 {
-                    WorldSavingHandler.Serialize(this.world, this.graphicsDevice);
+                    SavingSerializer.Serialize(this.world, this.graphicsDevice);
                     this.uiManager.CloseGUI();
                 }),
             ];
@@ -158,7 +158,8 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Color = new(AAP64ColorPalette.DarkGray, 160)
+                Color = new(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
             };
 
             this.background = new()

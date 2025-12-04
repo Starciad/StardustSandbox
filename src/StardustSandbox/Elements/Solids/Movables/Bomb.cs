@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.ExplosionSystem;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.Explosions;
+using StardustSandbox.World;
 
 using System.Collections.Generic;
 

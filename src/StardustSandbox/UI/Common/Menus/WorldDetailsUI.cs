@@ -6,12 +6,12 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Saving;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 using System;
 
@@ -19,7 +19,7 @@ namespace StardustSandbox.UI.Common.Menus
 {
     internal sealed class WorldDetailsUI : UIBase
     {
-        private SaveFile worldSaveFile;
+        private SaveFile saveFile;
 
         private Image headerBackground;
 
@@ -33,13 +33,13 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
-        private readonly World world;
+        private readonly GameWorld world;
 
         internal WorldDetailsUI(
             GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.gameManager = gameManager;
@@ -50,7 +50,7 @@ namespace StardustSandbox.UI.Common.Menus
                 new(TextureIndex.None, null, "Return", string.Empty, this.uiManager.CloseGUI),
                 new(TextureIndex.None, null, "Delete", string.Empty, () =>
                 {
-                    WorldSavingHandler.DeleteSavedFile(this.worldSaveFile.Header.Metadata.Name);
+                    SavingSerializer.DeleteSavedFile(this.saveFile);
                     this.uiManager.CloseGUI();
                 }),
                 new(TextureIndex.None, null, "Play", string.Empty, () =>
@@ -60,7 +60,7 @@ namespace StardustSandbox.UI.Common.Menus
                     this.uiManager.OpenGUI(UIIndex.Hud);
 
                     this.gameManager.StartGame();
-                    this.world.LoadFromWorldSaveFile(this.worldSaveFile);
+                    this.world.LoadFromWorldSaveFile(this.saveFile);
                 }),
             ];
 
@@ -86,8 +86,8 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
-                Color = new Color(AAP64ColorPalette.DarkGray, 160)
+                Color = new Color(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
             };
 
             root.AddChild(background);
@@ -100,8 +100,8 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
-                Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
+                Size = Vector2.One,
             };
 
             // Title
@@ -141,11 +141,10 @@ namespace StardustSandbox.UI.Common.Menus
             this.worldDescription = new()
             {
                 Scale = new(0.078f),
-                Margin = new(32.0f, 0.0f),
+                Margin = new(WorldConstants.WORLD_THUMBNAIL_SIZE.X * this.worldThumbnail.Scale.X + 16.0f, 0.0f),
                 LineHeight = 1.25f,
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 TextAreaSize = new(930.0f, 600.0f),
-                Alignment = CardinalDirection.Northeast,
                 TextContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             };
 
@@ -191,7 +190,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Label buttonLabel = new()
                 {
                     Scale = new(0.12f),
-                    Margin = new(32.0f, -32.0f),
+                    Margin = new(32.0f, marginY),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = CardinalDirection.Southwest,
                     TextContent = button.Name,
@@ -234,19 +233,19 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UTILITIES
 
-        internal void SetWorldSaveFile(SaveFile worldSaveFile)
+        internal void SetWorldSaveFile(SaveFile saveFile)
         {
-            this.worldSaveFile = worldSaveFile;
-            UpdateDisplay(worldSaveFile);
+            this.saveFile = saveFile;
+            UpdateDisplay(saveFile);
         }
 
-        private void UpdateDisplay(SaveFile worldSaveFile)
+        private void UpdateDisplay(SaveFile saveFile)
         {
-            this.worldThumbnail.Texture = worldSaveFile.Header.ThumbnailTexture;
-            this.worldTitle.TextContent = worldSaveFile.Header.Metadata.Name;
-            this.worldDescription.TextContent = worldSaveFile.Header.Metadata.Description;
-            this.worldVersion.TextContent = string.Concat('v', worldSaveFile.Header.Information.SaveVersion);
-            this.worldCreationTimestamp.TextContent = worldSaveFile.Header.Information.CreationTimestamp.ToString();
+            this.worldThumbnail.Texture = saveFile.ThumbnailTexture;
+            this.worldTitle.TextContent = saveFile.Metadata.Name;
+            this.worldDescription.TextContent = saveFile.Metadata.Description;
+            this.worldVersion.TextContent = string.Concat('v', saveFile.Manifest.FormatVersion);
+            this.worldCreationTimestamp.TextContent = saveFile.Manifest.CreationTimestamp.ToString();
         }
 
         #endregion

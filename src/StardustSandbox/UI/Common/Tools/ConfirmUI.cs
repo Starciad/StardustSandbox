@@ -7,7 +7,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;

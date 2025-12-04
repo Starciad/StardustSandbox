@@ -4,7 +4,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 using System.Collections.Generic;
 

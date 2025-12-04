@@ -1,8 +1,8 @@
 ﻿using StardustSandbox.Elements.Energies;
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.ExplosionSystem;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.Explosions;
+using StardustSandbox.World;
 
 using System.Collections.Generic;
 

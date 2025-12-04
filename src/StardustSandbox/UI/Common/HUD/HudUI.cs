@@ -7,19 +7,19 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.InputSystem.GameInput;
+using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
-using StardustSandbox.InputSystem.GameInput;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Inputs.Game;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 using System;
 
@@ -46,7 +46,7 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly InputController inputController;
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
-        private readonly World world;
+        private readonly GameWorld world;
 
         private readonly Rectangle[] speedIconRectangles = [
             new(192, 128, 32, 32),
@@ -66,7 +66,7 @@ namespace StardustSandbox.UI.Common.HUD
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.gameManager = gameManager;

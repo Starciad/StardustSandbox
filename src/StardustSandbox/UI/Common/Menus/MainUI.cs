@@ -1,24 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.AudioSystem;
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.BackgroundSystem;
+using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.InputSystem.GameInput;
+using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.InputSystem.GameInput;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Inputs.Game;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 using System;
 
@@ -39,7 +39,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly AmbientManager ambientManager;
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
-        private readonly World world;
+        private readonly GameWorld world;
 
         private const float animationSpeed = 2.0f;
         private const float animationAmplitude = 10.0f;
@@ -52,7 +52,7 @@ namespace StardustSandbox.UI.Common.Menus
             GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.ambientManager = ambientManager;
@@ -90,8 +90,8 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(487.0f, ScreenConstants.SCREEN_HEIGHT),
-                Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 180),
+                Size = Vector2.One,
             };
             root.AddChild(this.background);
         }

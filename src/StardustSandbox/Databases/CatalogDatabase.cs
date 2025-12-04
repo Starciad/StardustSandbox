@@ -6,8 +6,8 @@ using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Elements.Solids.Movables;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Items;
-using StardustSandbox.LocalizationSystem;
-using StardustSandbox.ToolSystem;
+using StardustSandbox.Localization;
+using StardustSandbox.Tools;
 
 using System;
 

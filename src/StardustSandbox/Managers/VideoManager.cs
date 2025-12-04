@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Settings;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 
 using System;
 
@@ -48,7 +48,7 @@ namespace StardustSandbox.Managers
 
         internal void ApplySettings()
         {
-            VideoSettings videoSettings = SettingsHandler.LoadSettings<VideoSettings>();
+            VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
 
             if (this.GameWindow != null)
             {

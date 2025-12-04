@@ -5,7 +5,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
 using StardustSandbox.Randomness;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 namespace StardustSandbox.Elements.Liquids
 {

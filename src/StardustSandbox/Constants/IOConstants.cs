@@ -95,64 +95,28 @@ namespace StardustSandbox.Constants
 
         #endregion
 
-        #region WORLD SAVE FILE
-
-        internal const string SAVE_FILE_HEADER_DIRECTORY = "header";
-        internal const string SAVE_FILE_WORLD_DIRECTORY = "world";
-        internal const string SAVE_FILE_WORLD_RESOURCES_DIRECTORY = "resources";
-        internal const string SAVE_FILE_WORLD_CONTENT_DIRECTORY = "content";
-        internal const string SAVE_FILE_WORLD_ENVIRONMENT_DIRECTORY = "environment";
-
-        #endregion
-
-        #endregion
-
-        #region FILE EXTENSIONS
-
-        // General
-        internal const string PREFIX_IDENTIFIER_FILE_EXTENSION = ".pd";
-
-        // Core
-        internal const string SETTINGS_FILE_EXTENSION = PREFIX_IDENTIFIER_FILE_EXTENSION + "settings";
-        internal const string WORLD_FILE_EXTENSION = PREFIX_IDENTIFIER_FILE_EXTENSION + "world";
-        internal const string WORLD_DATA_FILE_EXTENSION = PREFIX_IDENTIFIER_FILE_EXTENSION + "worlddata";
-
-        // System
-        internal const string BACKUP_FILE_EXTENSION = ".backup";
-
-        // Normal
-        internal const string PNG_FILE_EXTENSION = ".png";
-        internal const string TXT_FILE_EXTENSION = ".txt";
-
         #endregion
 
         #region FILE
 
         // Versions
-        internal static Version WORLD_SAVE_FILE_VERSION => new(2, 0, 0, 0);
+        internal static Version SAVE_FILE_VERSION => new(3, 0, 0, 0);
 
         // Settings
-        internal const string VIDEO_SETTINGS_FILE = "video_settings" + SETTINGS_FILE_EXTENSION;
-        internal const string VOLUME_SETTINGS_FILE = "volume_settings" + SETTINGS_FILE_EXTENSION;
-        internal const string CURSOR_SETTINGS_FILE = "cursor_settings" + SETTINGS_FILE_EXTENSION;
-        internal const string GENERAL_SETTINGS_FILE = "general_settings" + SETTINGS_FILE_EXTENSION;
-        internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings" + SETTINGS_FILE_EXTENSION;
-        internal const string GRAPHICS_SETTINGS_FILE = "graphics_settings" + SETTINGS_FILE_EXTENSION;
+        internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
+        internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
+        internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";
+        internal const string GENERAL_SETTINGS_FILE = "general_settings.xml";
+        internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings.xml";
+        internal const string GRAPHICS_SETTINGS_FILE = "graphics_settings.xml";
 
-        // World
-        internal const string SAVE_FILE_THUMBNAIL = "thumbnail" + PNG_FILE_EXTENSION;
-
-        internal const string SAVE_FILE_HEADER_METADATA = "metadata" + WORLD_DATA_FILE_EXTENSION;
-        internal const string SAVE_FILE_HEADER_INFORMATION = "information" + WORLD_DATA_FILE_EXTENSION;
-
-        internal const string SAVE_FILE_WORLD_INFORMATION = "information" + WORLD_DATA_FILE_EXTENSION;
-        internal const string SAVE_FILE_WORLD_RESOURCE_ELEMENTS = "elements" + WORLD_DATA_FILE_EXTENSION;
-        internal const string SAVE_FILE_WORLD_CONTENT_SLOTS = "slots" + WORLD_DATA_FILE_EXTENSION;
-        internal const string SAVE_FILE_WORLD_CONTENT_ENTITIES = "entities" + WORLD_DATA_FILE_EXTENSION;
-        internal const string SAVE_FILE_WORLD_ENVIRONMENT_TIME = "time" + WORLD_DATA_FILE_EXTENSION;
+        // Save
+        internal const string SAVE_FILE_EXTENSION = ".sf";
+        internal const string SAVE_FILE_DATA = "data.bin";
+        internal const string SAVE_FILE_THUMBNAIL = "thumbnail.png";
 
         // Others
-        internal const string WARNING = "WARNING" + TXT_FILE_EXTENSION;
+        internal const string WARNING = "WARNING.txt";
 
         #endregion
 

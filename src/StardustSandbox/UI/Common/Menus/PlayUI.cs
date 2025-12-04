@@ -34,8 +34,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildTitle(root);
@@ -48,8 +46,8 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Color = new(AAP64ColorPalette.DarkGray, 196),
-                Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 128.0f),
+                Size = Vector2.One,
             };
 
             Label title = new()
@@ -71,16 +69,16 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildMenuButtons(Container root)
         {
-            Vector2 margin = Vector2.Zero;
+            float marginY = 0.0f;
 
             for (byte i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
-                Label buttonLabel = new()
+                Label label = new()
                 {
                     Scale = new(0.15f),
-                    Margin = margin,
+                    Margin = new(0.0f, marginY),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = CardinalDirection.Center,
                     TextContent = button.Name,
@@ -91,25 +89,22 @@ namespace StardustSandbox.UI.Common.Menus
                     BorderThickness = 2.0f,
                 };
 
-                Image buttonIcon = new()
+                Image icon = new()
                 {
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
-                    Alignment = CardinalDirection.West,
-                    Margin = new((buttonLabel.Size.X + (button.Texture.Width / 2.0f)) * -1.0f, 0.0f),
+                    Margin = new(-96.0f, 0.0f),
                     Scale = new(2),
                 };
 
-                buttonLabel.AddChild(buttonIcon);
-                root.AddChild(buttonLabel);
+                label.AddChild(icon);
+                root.AddChild(label);
 
-                margin.Y += buttonLabel.Size.X + 32.0f;
+                marginY += label.Size.Y + 64.0f;
 
-                this.menuButtonLabels[i] = buttonLabel;
+                this.menuButtonLabels[i] = label;
             }
         }
-
-        #endregion
 
         internal override void Update(GameTime gameTime)
         {

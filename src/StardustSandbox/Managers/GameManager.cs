@@ -1,15 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.AudioSystem;
+using StardustSandbox.Audio;
 using StardustSandbox.Camera;
 using StardustSandbox.Constants;
-using StardustSandbox.Enums.BackgroundSystem;
-using StardustSandbox.Enums.InputSystem.GameInput;
+using StardustSandbox.Enums.Backgrounds;
+using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.InputSystem.GameInput;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.Inputs.Game;
+using StardustSandbox.World;
 
 namespace StardustSandbox.Managers
 {
@@ -20,9 +20,9 @@ namespace StardustSandbox.Managers
         private AmbientManager ambientManager;
         private InputController inputController;
         private UIManager uiManager;
-        private World world;
+        private GameWorld world;
 
-        internal void Initialize(AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
+        internal void Initialize(AmbientManager ambientManager, InputController inputController, UIManager uiManager, GameWorld world)
         {
             this.ambientManager = ambientManager;
             this.inputController = inputController;

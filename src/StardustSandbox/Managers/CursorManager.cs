@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Settings;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 
 namespace StardustSandbox.Managers
 {
@@ -54,7 +54,7 @@ namespace StardustSandbox.Managers
 
         internal void ApplySettings()
         {
-            CursorSettings cursorSettings = SettingsHandler.LoadSettings<CursorSettings>();
+            CursorSettings cursorSettings = SettingsSerializer.LoadSettings<CursorSettings>();
 
             this.color = cursorSettings.Color;
             this.backgroundColor = cursorSettings.BackgroundColor;

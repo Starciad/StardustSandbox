@@ -1,22 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.AudioSystem;
+using StardustSandbox.Audio;
 using StardustSandbox.Camera;
 using StardustSandbox.Colors;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.InputSystem.GameInput;
+using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.InputSystem.GameInput;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Settings;
+using StardustSandbox.Inputs.Game;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 using System;
 
@@ -32,7 +32,7 @@ namespace StardustSandbox
         private VolumeSettings volumeSettings;
 
         // Core
-        private readonly World world;
+        private readonly GameWorld world;
         private readonly InputController inputController;
 
         // Managers
@@ -63,12 +63,12 @@ namespace StardustSandbox
             });
 
             // Load Settings
-            VideoSettings videoSettings = SettingsHandler.LoadSettings<VideoSettings>();
+            VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
                 videoSettings.UpdateResolution(this.GraphicsDevice);
-                SettingsHandler.SaveSettings(videoSettings);
+                SettingsSerializer.SaveSettings(videoSettings);
             }
 
             // Initialize Content
@@ -105,8 +105,8 @@ namespace StardustSandbox
         {
             SSCamera.Initialize(this.videoManager);
 
-            this.gameplaySettings = SettingsHandler.LoadSettings<GameplaySettings>();
-            this.volumeSettings = SettingsHandler.LoadSettings<VolumeSettings>();
+            this.gameplaySettings = SettingsSerializer.LoadSettings<GameplaySettings>();
+            this.volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
 
             SongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
 

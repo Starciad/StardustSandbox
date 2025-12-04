@@ -1,4 +1,4 @@
-﻿using StardustSandbox.LocalizationSystem;
+﻿using StardustSandbox.Localization;
 
 using System;
 

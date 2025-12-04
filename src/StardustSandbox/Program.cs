@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.IO;
-using StardustSandbox.IO.Handlers;
-using StardustSandbox.IO.Settings;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 
 using System;
 using System.Threading;
@@ -50,9 +50,9 @@ namespace StardustSandbox
         private static void InitializeEnvironment()
         {
             SSDirectory.Initialize();
-            SettingsHandler.Initialize();
+            SettingsSerializer.Initialize();
 
-            GameCulture gameCulture = SettingsHandler.LoadSettings<GeneralSettings>().GameCulture;
+            GameCulture gameCulture = SettingsSerializer.LoadSettings<GeneralSettings>().GameCulture;
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;

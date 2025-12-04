@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.AmbientSystem;
 using StardustSandbox.Interfaces;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.Scenario;
+using StardustSandbox.World;
 
 namespace StardustSandbox.Managers
 {
@@ -25,7 +25,7 @@ namespace StardustSandbox.Managers
             this.cloudHandler.Reset();
         }
 
-        internal void Initialize(GameManager gameManager, World world)
+        internal void Initialize(GameManager gameManager, GameWorld world)
         {
             this.backgroundHandler = new();
             this.cloudHandler = new(gameManager, world.Simulation);

@@ -8,13 +8,13 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -42,7 +42,7 @@ namespace StardustSandbox.UI.Common.HUD
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.confirmUI = confirmUI;
@@ -109,7 +109,8 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Color = new(AAP64ColorPalette.DarkGray, 160)
+                Color = new(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
             };
 
             this.background = new()

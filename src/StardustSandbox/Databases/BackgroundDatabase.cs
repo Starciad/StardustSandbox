@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.BackgroundSystem;
+using StardustSandbox.Backgrounds;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.BackgroundSystem;
+using StardustSandbox.Enums.Backgrounds;
 
 using System;
 

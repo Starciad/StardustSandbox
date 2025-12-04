@@ -8,7 +8,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
@@ -123,7 +123,8 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Color = new(AAP64ColorPalette.DarkGray, 160)
+                Color = new(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
             };
 
             this.background = new()

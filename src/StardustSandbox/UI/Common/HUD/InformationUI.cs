@@ -7,11 +7,11 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.World;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -26,13 +26,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
-        private readonly World world;
+        private readonly GameWorld world;
 
         internal InformationUI(
             GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
-            World world
+            GameWorld world
         ) : base(index)
         {
             this.gameManager = gameManager;
@@ -63,8 +63,8 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = new(1.0f),
-                Color = new(AAP64ColorPalette.DarkGray, 160)
+                Color = new(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
             };
 
             this.background = new()

@@ -6,7 +6,7 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.LocalizationSystem;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 
@@ -37,8 +37,8 @@ namespace StardustSandbox.UI.Common.Tools
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
-                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
-                Color = new(AAP64ColorPalette.DarkGray, 160)
+                Color = new(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
             };
 
             root.AddChild(background);

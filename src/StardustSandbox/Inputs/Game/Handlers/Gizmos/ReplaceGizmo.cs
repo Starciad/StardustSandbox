@@ -1,0 +1,70 @@
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Databases;
+using StardustSandbox.Elements;
+using StardustSandbox.Enums.Inputs.Game;
+using StardustSandbox.Enums.Items;
+using StardustSandbox.Inputs.Game.Handlers;
+using StardustSandbox.Inputs.Game.Simulation;
+using StardustSandbox.World;
+
+using System;
+using System.Collections.Generic;
+
+namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
+{
+    internal sealed class ReplaceGizmo : Gizmo
+    {
+        internal ReplaceGizmo(Pen pen, GameWorld world, WorldHandler worldHandler) : base(pen, world, worldHandler)
+        {
+
+        }
+
+        internal override void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position)
+        {
+            IEnumerable<Point> targetPoints = this.Pen.GetShapePoints(position);
+
+            switch (contentType)
+            {
+                case ItemContentType.Element:
+                    switch (worldModificationType)
+                    {
+                        case WorldModificationType.Adding:
+                            ReplaceElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
+                            break;
+
+                        case WorldModificationType.Removing:
+                            EraseElements(targetPoints);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // ============================================ //
+        // Elements
+
+        private void ReplaceElements(Element element, IEnumerable<Point> positions)
+        {
+            foreach (Point position in positions)
+            {
+                this.World.ReplaceElement(position, this.Pen.Layer, element);
+            }
+        }
+
+        private void EraseElements(IEnumerable<Point> positions)
+        {
+            foreach (Point position in positions)
+            {
+                this.World.RemoveElement(position, this.Pen.Layer);
+            }
+        }
+    }
+}
