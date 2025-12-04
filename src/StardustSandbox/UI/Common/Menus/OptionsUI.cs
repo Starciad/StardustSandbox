@@ -237,6 +237,8 @@ namespace StardustSandbox.UI.Common.Menus
             BuildSections(rootContainer);
 
             rootContainer.AddChild(this.tooltipBox);
+
+            SelectSection(0);
         }
 
         private void BuildPanelBackground(Container rootContainer)
@@ -305,7 +307,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        private void BuildSections(Container rootContainer)
+        private void BuildSections(Container root)
         {
             for (byte i = 0; i < this.root.Sections.Length; i++)
             {
@@ -332,41 +334,44 @@ namespace StardustSandbox.UI.Common.Menus
 
                     if (option is ColorOption)
                     {
-                        BuildColorPreview(container, label);
+                        BuildColorPreview(label);
                     }
                     else if (option is ValueOption)
                     {
-                        BuildValueControls(option, container, label);
+                        BuildValueControls(option, label);
                     }
                     else if (option is ToggleOption)
                     {
-                        BuildTogglePreview(container, label);
+                        BuildTogglePreview(label);
                     }
 
                     container.AddChild(label);
+
                     margin.Y += 48.0f;
                     contentBuffer[j] = label;
                 }
 
                 this.sectionUIs[i] = new SectionUI { Container = container, ContentLabels = contentBuffer };
-                rootContainer.AddChild(container);
+                root.AddChild(container);
             }
         }
 
-        private static void BuildColorPreview(Container container, Label label)
+        private static void BuildColorPreview(Label label)
         {
             ColorSlotInfo colorSlot = new(
                 new()
                 {
+                    Alignment = CardinalDirection.East,
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
-                    Margin = new(label.Size.X + 6.0f, label.Size.Y / 2.0f * -1.0f),
+                    Margin = new(58.0f, 0.0f),
                 },
 
                 new()
                 {
+                    Alignment = CardinalDirection.Center,
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 22, 40, 22),
                     Scale = new(1.5f),
@@ -374,56 +379,56 @@ namespace StardustSandbox.UI.Common.Menus
                 }
             );
 
-            label.AddChild(colorSlot.Background);
             colorSlot.Background.AddChild(colorSlot.Border);
-            container.AddChild(colorSlot.Background);
-            container.AddChild(colorSlot.Border);
+
+            label.AddChild(colorSlot.Background);
             label.AddData("color_slot", colorSlot);
         }
 
-        private void BuildValueControls(Option option, Container container, Label label)
+        private void BuildValueControls(Option option, Label label)
         {
             Image minus = new()
             {
+                Alignment = CardinalDirection.East,
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(192, 160, 32, 32),
                 Size = new(32.0f),
-                Margin = new(0.0f, label.Size.Y / 2.0f * -1.0f)
+                Margin = new(42.0f, 0.0f),
             };
 
             Image plus = new()
             {
+                Alignment = CardinalDirection.East,
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(160, 160, 32, 32),
                 Size = new(32.0f),
-                Margin = new(48.0f, 0.0f),
+                Margin = new(42.0f, 0.0f),
             };
 
             plus.AddData("option", option);
             minus.AddData("option", option);
             label.AddData("plus_element", plus);
             label.AddData("minus_element", minus);
+            
             label.AddChild(minus);
             minus.AddChild(plus);
-            container.AddChild(plus);
-            container.AddChild(minus);
 
             this.plusMinusButtons.Add(new(plus, minus));
         }
 
-        private static void BuildTogglePreview(Container container, Label label)
+        private static void BuildTogglePreview(Label label)
         {
             Image togglePreviewImageElement = new()
             {
+                Alignment = CardinalDirection.East,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
                 Size = new(32.0f),
-                Margin = new(label.Size.X + 6.0f, label.Size.Y / 2.0f * -1.0f),
+                Margin = new(48.0f, 0.0f),
             };
 
             label.AddChild(togglePreviewImageElement);
-            container.AddChild(togglePreviewImageElement);
             label.AddData("toogle_preview", togglePreviewImageElement);
         }
 
@@ -610,7 +615,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private static void UpdateToggleOption(ToggleOption toggleOption, Image toggleStateElement)
         {
-            toggleStateElement.SourceRectangle = toggleOption.State ? new(0, 32, 32, 32) : new(0, 0, 32, 32);
+            toggleStateElement.SourceRectangle = toggleOption.State ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
         }
 
         private void HandleOptionInteractivity(Option option)
@@ -654,7 +659,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
-            SelectSection(0);
             SyncSettingElements();
         }
     }
