@@ -139,7 +139,7 @@
     <value>Item Explorer</value>
   </data>
   <data name="HUD.Button.ItemExplorer.Description" xml:space="preserve">
-    <value>A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interaction.</value>
+    <value>Browse and learn about all game elements, their features, and interactions.</value>
   </data>
   <data name="Menu.Options.Section.Video.Name" xml:space="preserve">
     <value>Video</value>
@@ -220,31 +220,31 @@
     <value>Eraser</value>
   </data>
   <data name="HUD.Button.EraseEverything.Description" xml:space="preserve">
-    <value>Clears all content from the map, including elements, entities, and decorations, restoring it to an empty initial state.</value>
+    <value>Removes everything from the map and resets it to empty.</value>
   </data>
   <data name="HUD.Button.GameMenu.Description" xml:space="preserve">
-    <value>Opens the game's main menu to access settings and other options.</value>
+    <value>Open the main menu for settings and options.</value>
   </data>
   <data name="HUD.Button.PauseSimulation.Description" xml:space="preserve">
-    <value>Pauses or resumes the ongoing simulation.</value>
+    <value>Pause or resume the simulation.</value>
   </data>
   <data name="HUD.Button.PenSettings.Description" xml:space="preserve">
-    <value>Adjusts the pen settings, modifying how it interacts with the world's canvas.</value>
+    <value>Change pen settings and how it works on the canvas.</value>
   </data>
   <data name="HUD.Button.ReloadSimulation.Description" xml:space="preserve">
-    <value>Reloads a previously loaded simulation, reverting any changes made. If no simulation is loaded, clears the map, leaving the canvas empty.</value>
+    <value>Reload the last simulation or clear the map if none is loaded.</value>
   </data>
   <data name="HUD.Button.SaveMenu.Description" xml:space="preserve">
-    <value>Opens the menu to manage simulation and world saving.</value>
+    <value>Open the menu to save or manage worlds and simulations.</value>
   </data>
   <data name="HUD.Button.WorldSettings.Description" xml:space="preserve">
-    <value>Adjusts general and systematic settings for the world.</value>
+    <value>Change world settings.</value>
   </data>
   <data name="HUD.Button.EnvironmentSettings.Description" xml:space="preserve">
-    <value>Modifies the world's environmental properties, including weather, temperature, and other factors.</value>
+    <value>Change environment settings like weather and temperature.</value>
   </data>
   <data name="HUD.Button.Eraser.Description" xml:space="preserve">
-    <value>Turns the current pen into an eraser, allowing you to directly remove content from the canvas.</value>
+    <value>Switch the pen to eraser mode to remove content.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Name" xml:space="preserve">
     <value>Foreground</value>
@@ -283,22 +283,22 @@
     <value>Shape</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Back.Description" xml:space="preserve">
-    <value>The back layer of the world is used for item placement.</value>
+    <value>Place items on the back layer.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Layer.Button.Front.Description" xml:space="preserve">
-    <value>The front layer of the world is used for item placement.</value>
+    <value>Place items on the front layer.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Circle.Description" xml:space="preserve">
-    <value>The pen shape becomes a circle.</value>
+    <value>Set pen shape to circle.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Square.Description" xml:space="preserve">
-    <value>The pen shape becomes a square.</value>
+    <value>Set pen shape to square.</value>
   </data>
   <data name="HUD.Complements.PenSettings.Section.Shape.Button.Triangle.Description" xml:space="preserve">
-    <value>The pen shape becomes a triangle.</value>
+    <value>Set pen shape to triangle.</value>
   </data>
   <data name="Button.Exit.Description" xml:space="preserve">
-    <value>Closes the current menu.</value>
+    <value>Close the current menu.</value>
   </data>
   <data name="HUD.Complements.SaveSettings.Title" xml:space="preserve">
     <value>Save Settings</value>
@@ -313,13 +313,13 @@
     <value>Thumbnail</value>
   </data>
   <data name="HUD.Complements.SaveSettings.Button.Save.Description" xml:space="preserve">
-    <value>Saves the current state of the world to a file on the computer for later access. If a file with the specified name already exists, it will be overwritten with the current world's data.</value>
+    <value>Save the world to a file. Overwrites if the name already exists.</value>
   </data>
   <data name="HUD.Button.Information.Name" xml:space="preserve">
     <value>Information</value>
   </data>
   <data name="HUD.Button.Information.Description" xml:space="preserve">
-    <value>View general information and statistics related to your world.</value>
+    <value>See information and stats about your world.</value>
   </data>
   <data name="HUD.Complements.Information.Title" xml:space="preserve">
     <value>Information</value>
@@ -436,7 +436,7 @@
     <value>Simulation Speed</value>
   </data>
   <data name="HUD.Button.Speed.Description" xml:space="preserve">
-    <value>Adjusts the temporal flow speed of various simulation components, including element interaction, time progression, and related aspects. Higher speeds may cause minor performance slowdowns due to increased processing demand.</value>
+    <value>Change simulation speed. Higher speeds may slow performance.</value>
   </data>
   <data name="HUD.Complements.Pause.Title" xml:space="preserve">
     <value>Pause</value>

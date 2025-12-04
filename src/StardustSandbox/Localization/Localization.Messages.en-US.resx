@@ -118,45 +118,45 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Confirm.Simulation.EraseEverything.Description" xml:space="preserve">
-    <value>You are about to erase all content from the world. This includes elements, items, and any other data. The world will be restored to an empty state. This action is irreversible. Are you sure you want to continue?</value>
+    <value>This will erase everything in the world, including elements and items, and reset it to empty. This cannot be undone. Continue?</value>
   </data>
   <data name="Confirm.Simulation.EraseEverything.Title" xml:space="preserve">
-    <value>Do you really want to erase all content in the world?</value>
+    <value>Erase all world content?</value>
   </data>
   <data name="Confirm.Simulation.Exit.Description" xml:space="preserve">
-    <value>If you exit now, all progress will be lost unless your creation has been saved. Make sure to save before exiting to avoid losing your work. Do you want to continue?</value>
+    <value>If you exit now, unsaved progress will be lost. Save your work before leaving. Continue?</value>
   </data>
   <data name="Confirm.Simulation.Exit.Title" xml:space="preserve">
-    <value>Are you sure you want to exit?</value>
+    <value>Exit the simulation?</value>
   </data>
   <data name="Confirm.Simulation.Reload.Description" xml:space="preserve">
-    <value>You are about to reload a simulation. This will restore the world to the initial state of the loaded file. If no file was loaded, the world will be completely reset. This action is irreversible. Do you wish to continue?</value>
+    <value>This will reload the simulation and reset the world to the file's initial state. If no file is loaded, the world will be cleared. This cannot be undone. Continue?</value>
   </data>
   <data name="Confirm.Simulation.Reload.Title" xml:space="preserve">
-    <value>Do you really want to restart the world?</value>
+    <value>Restart the world?</value>
   </data>
   <data name="Confirm.World.Resize.Description" xml:space="preserve">
-    <value>To change the size of the world, all current content will need to be deleted. This will result in the loss of all progress unless the information has been saved. Make sure to save before proceeding. Do you really want to change the size of the world?</value>
+    <value>Changing the world size will delete all current content. Save your progress before continuing. Proceed with size change?</value>
   </data>
   <data name="Confirm.World.Resize.Title" xml:space="preserve">
-    <value>World Size Change - Progress Will Be Lost</value>
+    <value>Change world size? Progress will be lost</value>
   </data>
   <data name="Input.World.Description" xml:space="preserve">
-    <value>Enter the description that the world will have.</value>
+    <value>Enter a description for the world.</value>
   </data>
   <data name="Input.World.Description.Validation.Empty" xml:space="preserve">
-    <value>The world description cannot be empty. Please provide a description for your world.</value>
+    <value>The world description can't be empty. Please add one.</value>
   </data>
   <data name="Input.World.Name" xml:space="preserve">
-    <value>Enter the name the world will have.</value>
+    <value>Enter a name for the world.</value>
   </data>
   <data name="Input.World.Name.Validation.Empty" xml:space="preserve">
-    <value>The world name cannot be empty. Please enter a name with at least one character.</value>
+    <value>The world name can't be empty. Please enter at least one character.</value>
   </data>
   <data name="NoDescription" xml:space="preserve">
-    <value>No description provided.</value>
+    <value>No description.</value>
   </data>
   <data name="Settings.RestartRequired" xml:space="preserve">
-    <value>Some settings, such as the game language, will only be applied after restarting the game.</value>
+    <value>Some settings, like language, only apply after restarting the game.</value>
   </data>
 </root>

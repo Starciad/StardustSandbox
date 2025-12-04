@@ -133,54 +133,54 @@
     <value>Energies</value>
   </data>
   <data name="Subcategory.Elements.Energies.Description" xml:space="preserve">
-    <value>Forces of nature in their purest and most dynamic forms. Unpredictable and powerful, they shape and transform their surroundings with intensity, igniting change wherever they go.</value>
+    <value>Pure, dynamic forces of nature. Unpredictable and strong, they quickly change their surroundings.</value>
   </data>
   <data name="Subcategory.Elements.Gases.Description" xml:space="preserve">
-    <value>Elusive and ever-shifting, gases drift through the air, expanding without boundaries. Invisible or visible, they can be harmless, suffocating, or even destructive, always moving, always present.</value>
+    <value>Gases move freely in the air, visible or not, and can be harmless, suffocating, or destructive.</value>
   </data>
   <data name="Subcategory.Elements.Liquids.Description" xml:space="preserve">
-    <value>Fluid and adaptable, liquids carve their path through the world. Whether calm or chaotic, they flow, fill, and transform, essential to life but also capable of overwhelming destruction.</value>
+    <value>Liquids are adaptable and essential for life. They flow, fill spaces, and can be calm or destructive.</value>
   </data>
   <data name="Subcategory.Elements.Powders.Description" xml:space="preserve">
-    <value>Elements with the power to gather and disperse. They shift, settle, and adapt to their environment, demonstrating that even the smallest elements can have a significant impact.</value>
+    <value>Powders can gather or spread, adapting to the environment and showing that small things can have a big impact.</value>
   </data>
   <data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
-    <value>The anchors of the world, unyielding and steadfast. Solids provide structure and strength, standing firm against the forces of nature, embodying permanence and resilience.</value>
+    <value>Solids are strong and stable, giving structure and resisting natural forces.</value>
   </data>
   <data name="Category.Elements.Name" xml:space="preserve">
     <value>Elements</value>
   </data>
   <data name="Category.Elements.Description" xml:space="preserve">
-    <value>Collection of all the elements that can be used for the most varied activities, ranging from simpler compounds to complex and more varied components.</value>
+    <value>All elements used in different activities, from simple to complex.</value>
   </data>
   <data name="Subcategory.Elements.Explosives.Name" xml:space="preserve">
     <value>Explosives</value>
   </data>
   <data name="Subcategory.Elements.Explosives.Description" xml:space="preserve">
-    <value>Destructive elements designed to cause powerful reactions. They release energy in the form of heat, shockwaves, and debris upon activation, often impacting their surroundings with a high level of destruction.</value>
+    <value>Explosives are made to cause strong reactions, releasing energy, heat, and debris with high destructive power.</value>
   </data>
   <data name="Subcategory.Elements.Specials.Name" xml:space="preserve">
     <value>Specials</value>
   </data>
   <data name="Subcategory.Elements.Specials.Description" xml:space="preserve">
-    <value>Unique and highly specialized elements that do not conform to the typical behaviors of powders, liquids, gases or solids. These elements serve specific and often transformative purposes.</value>
+    <value>Unique elements with special functions, different from powders, liquids, gases, or solids.</value>
   </data>
   <data name="Category.Tools.Name" xml:space="preserve">
     <value>Tools</value>
   </data>
   <data name="Category.Tools.Description" xml:space="preserve">
-    <value>Set of all the tools that add extra functionality and enable more types of changes in the world.</value>
+    <value>Tools that add extra features and allow new changes in the world.</value>
   </data>
   <data name="Subcategory.Tools.Environment.Name" xml:space="preserve">
     <value>Environment</value>
   </data>
   <data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
-    <value>Tools that provide the ability to interact with and modify the environment.</value>
+    <value>Tools to interact with and change the environment.</value>
   </data>
   <data name="Subcategory.Elements.Technologies.Name" xml:space="preserve">
     <value>Technologies</value>
   </data>
   <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
-    <value>Set of special elements that perform automated functions to facilitate certain tasks. A large compilation of all the artifacts that can help in the most diverse creations.</value>
+    <value>Special elements that automate tasks and help with different creations.</value>
   </data>
 </root>
