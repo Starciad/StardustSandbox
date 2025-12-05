@@ -61,7 +61,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Closes the current menu..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Close the current menu..
         /// </summary>
         internal static string Button_Exit_Description {
             get {
@@ -70,7 +70,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Modifies the world&apos;s environmental properties, including weather, temperature, and other factors..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change environment settings like weather and temperature..
         /// </summary>
         internal static string HUD_Button_EnvironmentSettings_Description {
             get {
@@ -88,7 +88,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Clears all content from the map, including elements, entities, and decorations, restoring it to an empty initial state..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Removes everything from the map and resets it to empty..
         /// </summary>
         internal static string HUD_Button_EraseEverything_Description {
             get {
@@ -106,7 +106,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Turns the current pen into an eraser, allowing you to directly remove content from the canvas..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Switch the pen to eraser mode to remove content..
         /// </summary>
         internal static string HUD_Button_Eraser_Description {
             get {
@@ -124,7 +124,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Opens the game&apos;s main menu to access settings and other options..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Open the main menu for settings and options..
         /// </summary>
         internal static string HUD_Button_GameMenu_Description {
             get {
@@ -142,7 +142,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a View general information and statistics related to your world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a See information and stats about your world..
         /// </summary>
         internal static string HUD_Button_Information_Description {
             get {
@@ -160,7 +160,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A portal to the entire catalog of game elements. Here, you can browse, discover, and learn about each available element, exploring its characteristics, behaviors, and interaction..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Browse and learn about all game elements, their features, and interactions..
         /// </summary>
         internal static string HUD_Button_ItemExplorer_Description {
             get {
@@ -178,7 +178,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Pauses or resumes the ongoing simulation..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause or resume the simulation..
         /// </summary>
         internal static string HUD_Button_PauseSimulation_Description {
             get {
@@ -187,7 +187,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause Simulation.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause/Resume Simulation.
         /// </summary>
         internal static string HUD_Button_PauseSimulation_Name {
             get {
@@ -196,7 +196,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts the pen settings, modifying how it interacts with the world&apos;s canvas..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change pen settings and how it works on the canvas..
         /// </summary>
         internal static string HUD_Button_PenSettings_Description {
             get {
@@ -214,7 +214,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Reloads a previously loaded simulation, reverting any changes made. If no simulation is loaded, clears the map, leaving the canvas empty..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Reload the last simulation or clear the map if none is loaded..
         /// </summary>
         internal static string HUD_Button_ReloadSimulation_Description {
             get {
@@ -232,7 +232,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Opens the menu to manage simulation and world saving..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Open the menu to save or manage worlds and simulations..
         /// </summary>
         internal static string HUD_Button_SaveMenu_Description {
             get {
@@ -250,7 +250,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts the temporal flow speed of various simulation components, including element interaction, time progression, and related aspects. Higher speeds may cause minor performance slowdowns due to increased processing demand..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change simulation speed. Higher speeds may slow performance..
         /// </summary>
         internal static string HUD_Button_Speed_Description {
             get {
@@ -268,7 +268,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjusts general and systematic settings for the world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change world settings..
         /// </summary>
         internal static string HUD_Button_WorldSettings_Description {
             get {
@@ -529,7 +529,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The back layer of the world is used for item placement..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Place items on the back layer..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Layer_Button_Back_Description {
             get {
@@ -547,7 +547,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The front layer of the world is used for item placement..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Place items on the front layer..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Layer_Button_Front_Description {
             get {
@@ -556,7 +556,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground Layer.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground.
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Layer_Button_Front_Name {
             get {
@@ -574,7 +574,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The pen shape becomes a circle..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set pen shape to circle..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description {
             get {
@@ -592,7 +592,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The pen shape becomes a square..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set pen shape to square..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Shape_Button_Square_Description {
             get {
@@ -610,7 +610,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The pen shape becomes a triangle..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set pen shape to triangle..
         /// </summary>
         internal static string HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description {
             get {
@@ -655,7 +655,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Saves the current state of the world to a file on the computer for later access. If a file with the specified name already exists, it will be overwritten with the current world&apos;s data..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Save the world to a file. Overwrites if the name already exists..
         /// </summary>
         internal static string HUD_Complements_SaveSettings_Button_Save_Description {
             get {
@@ -1168,42 +1168,6 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Configure graphical settings for visual quality..
-        /// </summary>
-        internal static string Menu_Options_Section_Graphics_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Graphics.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Graphics.
-        /// </summary>
-        internal static string Menu_Options_Section_Graphics_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Graphics.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable or disable advanced lighting effects..
-        /// </summary>
-        internal static string Menu_Options_Section_Graphics_Option_Lighting_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Graphics.Option.Lighting.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Lighting.
-        /// </summary>
-        internal static string Menu_Options_Section_Graphics_Option_Lighting_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Graphics.Option.Lighting.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Modify video-related settings, including resolution and display modes..
         /// </summary>
         internal static string Menu_Options_Section_Video_Description {
@@ -1236,6 +1200,24 @@ namespace StardustSandbox.Localization {
         internal static string Menu_Options_Section_Video_Option_Borderless_Name {
             get {
                 return ResourceManager.GetString("Menu.Options.Section.Video.Option.Borderless.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Frame Rate is how many images the game shows per second. Higher rates make motion smoother..
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Option_Framerate_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Framerate.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Frame Rate.
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Option_Framerate_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Framerate.Name", resourceCulture);
             }
         }
         
@@ -1371,6 +1353,42 @@ namespace StardustSandbox.Localization {
         internal static string Menu_Options_Title {
             get {
                 return ResourceManager.GetString("Menu.Options.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Play.
+        /// </summary>
+        internal static string Menu_Play_Title {
+            get {
+                return ResourceManager.GetString("Menu.Play.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Open Directory in Explorer.
+        /// </summary>
+        internal static string Menu_WorldExplorer_Button_OpenInDirectory_Name {
+            get {
+                return ResourceManager.GetString("Menu.WorldExplorer.Button.OpenInDirectory.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Current Page.
+        /// </summary>
+        internal static string Menu_WorldExplorer_Label_CurrentPage {
+            get {
+                return ResourceManager.GetString("Menu.WorldExplorer.Label.CurrentPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a World Explorer.
+        /// </summary>
+        internal static string Menu_WorldExplorer_Title {
+            get {
+                return ResourceManager.GetString("Menu.WorldExplorer.Title", resourceCulture);
             }
         }
         

@@ -192,4 +192,22 @@
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="Worlds" xml:space="preserve">
+    <value>Worlds</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
 </root>

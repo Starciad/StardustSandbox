@@ -6,6 +6,7 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
@@ -27,8 +28,8 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(0, 32, 32, 32), "Worlds", string.Empty, () => this.uiManager.OpenGUI(UIIndex.WorldExplorerMenu)),
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), "Return", string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(0, 32, 32, 32), Localization_Statements.Worlds, string.Empty, () => this.uiManager.OpenGUI(UIIndex.WorldExplorerMenu)),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Return, string.Empty, this.uiManager.CloseGUI),
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
@@ -55,7 +56,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.2f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
-                TextContent = "Play Menu",
+                TextContent = Localization_GUIs.Menu_Play_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,

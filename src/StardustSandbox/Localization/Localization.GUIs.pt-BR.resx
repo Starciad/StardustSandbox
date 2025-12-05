@@ -450,9 +450,6 @@
   <data name="Menu.Options.Section.Volume.Name" xml:space="preserve">
     <value>Volume</value>
   </data>
-  <data name="Menu.Options.Section.Graphics.Name" xml:space="preserve">
-    <value>Gráficos</value>
-  </data>
   <data name="Menu.Options.Section.Cursor.Name" xml:space="preserve">
     <value>Cursor</value>
   </data>
@@ -473,9 +470,6 @@
   </data>
   <data name="Menu.Options.Section.Volume.Option.SFXVolume.Name" xml:space="preserve">
     <value>Volume dos SFX</value>
-  </data>
-  <data name="Menu.Options.Section.Graphics.Option.Lighting.Name" xml:space="preserve">
-    <value>Iluminação</value>
   </data>
   <data name="Menu.Options.Section.Cursor.Option.Color.Name" xml:space="preserve">
     <value>Cor</value>
@@ -501,9 +495,6 @@
   <data name="Menu.Options.Section.Video.Description" xml:space="preserve">
     <value>Modifique as configurações relacionadas ao vídeo.</value>
   </data>
-  <data name="Menu.Options.Section.Graphics.Description" xml:space="preserve">
-    <value>Configure os gráficos para modificar a qualidade visual.</value>
-  </data>
   <data name="Menu.Options.Section.Cursor.Description" xml:space="preserve">
     <value>Personalize a aparência e o comportamento do cursor do mouse.</value>
   </data>
@@ -527,9 +518,6 @@
   </data>
   <data name="Menu.Options.Section.Video.Option.Borderless.Description" xml:space="preserve">
     <value>Ative o modo janela sem bordas.</value>
-  </data>
-  <data name="Menu.Options.Section.Graphics.Option.Lighting.Description" xml:space="preserve">
-    <value>Ative ou desative os efeitos avançados de iluminação.</value>
   </data>
   <data name="Menu.Options.Section.Cursor.Option.Scale.Description" xml:space="preserve">
     <value>Ajuste o tamanho do cursor.</value>
@@ -557,5 +545,23 @@
   </data>
   <data name="Tools.ColorPicker.Title" xml:space="preserve">
     <value>Seletor de Cores</value>
+  </data>
+  <data name="Menu.Play.Title" xml:space="preserve">
+    <value>Jogar</value>
+  </data>
+  <data name="Menu.WorldExplorer.Title" xml:space="preserve">
+    <value>Explorador de Mundos</value>
+  </data>
+  <data name="Menu.WorldExplorer.Button.OpenInDirectory.Name" xml:space="preserve">
+    <value>Abrir diretório no Explorador</value>
+  </data>
+  <data name="Menu.WorldExplorer.Label.CurrentPage" xml:space="preserve">
+    <value>Página Atual</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Framerate.Description" xml:space="preserve">
+    <value>A taxa de quadros indica quantas imagens o jogo exibe por segundo. Taxas mais altas tornam o movimento mais fluido.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Framerate.Name" xml:space="preserve">
+    <value>Taxa de Quadros</value>
   </data>
 </root>

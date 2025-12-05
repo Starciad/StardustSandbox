@@ -9,6 +9,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
 using StardustSandbox.IO;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
@@ -54,22 +55,22 @@ namespace StardustSandbox.UI.Common.Menus
             this.itemSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
 
             this.headerButtonInfos = [
-                new(TextureIndex.IconUI, new(192, 0, 32, 32), "Exit", string.Empty, this.uiManager.CloseGUI),
-                new(TextureIndex.IconUI, new(160, 192, 32, 32), "Reload", string.Empty, () =>
+                new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, () =>
                 {
                     LoadAllLocalSavedWorlds();
                     this.currentPage = 0;
                     UpdatePagination();
                     ChangeWorldsCatalog();
                 }),
-                new(TextureIndex.IconUI, new(32, 32, 32, 32), "Open Directory in Explorer", string.Empty, () =>
+                new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.Menu_WorldExplorer_Button_OpenInDirectory_Name, string.Empty, () =>
                 {
                     SSDirectory.OpenDirectoryInFileExplorer(SSDirectory.Worlds);
                 }),
             ];
 
             this.footerButtonInfos = [
-                new(TextureIndex.None, null, "Previous", string.Empty, () =>
+                new(TextureIndex.None, null, Localization_Statements.Previous, string.Empty, () =>
                 {
                     if (this.currentPage > 0)
                     {
@@ -82,7 +83,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                     ChangeWorldsCatalog();
                 }),
-                new(TextureIndex.None, null, "Next", string.Empty, () =>
+                new(TextureIndex.None, null, Localization_Statements.Next, string.Empty, () =>
                 {
                     if (this.currentPage < this.totalPages - 1)
                     {
@@ -133,7 +134,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
                 Margin = new(32.0f, 0.0f),
-                TextContent = "World Explorer",
+                TextContent = Localization_GUIs.Menu_WorldExplorer_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -194,7 +195,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.Center,
-                TextContent = "Current Page",
+                TextContent = Localization_GUIs.Menu_WorldExplorer_Label_CurrentPage,
                 Margin = new(0.0f, -18.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -222,7 +223,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
-                TextContent = "Previous",
+                TextContent = Localization_Statements.Previous,
                 Margin = new(32.0f, 0.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -236,7 +237,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.East,
-                TextContent = "Next",
+                TextContent = Localization_Statements.Next,
                 Margin = new(-32.0f, 0.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,

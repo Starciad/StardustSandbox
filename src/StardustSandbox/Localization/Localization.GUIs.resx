@@ -450,9 +450,6 @@
   <data name="Menu.Options.Section.Volume.Name" xml:space="preserve">
     <value>Volume</value>
   </data>
-  <data name="Menu.Options.Section.Graphics.Name" xml:space="preserve">
-    <value>Graphics</value>
-  </data>
   <data name="Menu.Options.Section.Cursor.Name" xml:space="preserve">
     <value>Cursor</value>
   </data>
@@ -473,9 +470,6 @@
   </data>
   <data name="Menu.Options.Section.Volume.Option.SFXVolume.Name" xml:space="preserve">
     <value>SFX Volume</value>
-  </data>
-  <data name="Menu.Options.Section.Graphics.Option.Lighting.Name" xml:space="preserve">
-    <value>Lighting</value>
   </data>
   <data name="Menu.Options.Section.Cursor.Option.Color.Name" xml:space="preserve">
     <value>Color</value>
@@ -501,9 +495,6 @@
   <data name="Menu.Options.Section.Video.Description" xml:space="preserve">
     <value>Modify video-related settings, including resolution and display modes.</value>
   </data>
-  <data name="Menu.Options.Section.Graphics.Description" xml:space="preserve">
-    <value>Configure graphical settings for visual quality.</value>
-  </data>
   <data name="Menu.Options.Section.Cursor.Description" xml:space="preserve">
     <value>Customize the appearance and behavior of the mouse cursor.</value>
   </data>
@@ -527,9 +518,6 @@
   </data>
   <data name="Menu.Options.Section.Video.Option.Borderless.Description" xml:space="preserve">
     <value>Enable borderless windowed mode.</value>
-  </data>
-  <data name="Menu.Options.Section.Graphics.Option.Lighting.Description" xml:space="preserve">
-    <value>Enable or disable advanced lighting effects.</value>
   </data>
   <data name="Menu.Options.Section.Cursor.Option.Scale.Description" xml:space="preserve">
     <value>Adjust the size of the cursor.</value>
@@ -557,5 +545,23 @@
   </data>
   <data name="Tools.ColorPicker.Title" xml:space="preserve">
     <value>Color Picker</value>
+  </data>
+  <data name="Menu.Play.Title" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="Menu.WorldExplorer.Title" xml:space="preserve">
+    <value>World Explorer</value>
+  </data>
+  <data name="Menu.WorldExplorer.Button.OpenInDirectory.Name" xml:space="preserve">
+    <value>Open Directory in Explorer</value>
+  </data>
+  <data name="Menu.WorldExplorer.Label.CurrentPage" xml:space="preserve">
+    <value>Current Page</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Framerate.Description" xml:space="preserve">
+    <value>Frame Rate is how many images the game shows per second. Higher rates make motion smoother.</value>
+  </data>
+  <data name="Menu.Options.Section.Video.Option.Framerate.Name" xml:space="preserve">
+    <value>Frame Rate</value>
   </data>
 </root>

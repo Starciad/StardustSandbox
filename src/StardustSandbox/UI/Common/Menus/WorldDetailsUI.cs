@@ -6,6 +6,7 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
+using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
@@ -47,13 +48,13 @@ namespace StardustSandbox.UI.Common.Menus
             this.world = world;
 
             this.worldButtonInfos = [
-                new(TextureIndex.None, null, "Return", string.Empty, this.uiManager.CloseGUI),
-                new(TextureIndex.None, null, "Delete", string.Empty, () =>
+                new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     SavingSerializer.DeleteSavedFile(this.saveFile);
                     this.uiManager.CloseGUI();
                 }),
-                new(TextureIndex.None, null, "Play", string.Empty, () =>
+                new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
                 {
                     this.uiManager.Reset();
                     this.uiManager.OpenGUI(UIIndex.MainMenu);
@@ -111,7 +112,6 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = CardinalDirection.West,
                 Margin = new(32.0f, 0.0f),
-                TextContent = "Title",
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -145,7 +145,6 @@ namespace StardustSandbox.UI.Common.Menus
                 LineHeight = 1.25f,
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 TextAreaSize = new(930.0f, 600.0f),
-                TextContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             };
 
             this.worldThumbnail.AddChild(this.worldDescription);
@@ -173,7 +172,6 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.075f),
                 Margin = new(0.0f, this.worldCreationTimestamp.Size.Y + (64.0f * -1.0f)),
                 Alignment = CardinalDirection.Northeast,
-                TextContent = "Version 1.0.0",
             };
 
             this.worldCreationTimestamp.AddChild(this.worldVersion);

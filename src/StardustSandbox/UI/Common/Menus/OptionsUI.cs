@@ -137,7 +137,7 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
                 new(Localization_GUIs.Menu_Options_Section_Video_Name, Localization_GUIs.Menu_Options_Section_Video_Description,
                 [
-                    new SelectorOption("Framerate", "Description", Array.ConvertAll<double, object>(ScreenConstants.FRAMERATES, x => x)),
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Description, Array.ConvertAll<double, object>(ScreenConstants.FRAMERATES, x => x)),
                     new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Point, object>(ScreenConstants.RESOLUTIONS, x => x)),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
