@@ -12,7 +12,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class DrySponge : ImmovableSolid
     {
-        private static void AbsorbWaterAround(ElementContext context)
+        private static void AbsorbWaterAround(in ElementContext context)
         {
             foreach (Point position in ShapePointGenerator.GenerateSquarePoints(context.Slot.Position, 1))
             {
@@ -38,7 +38,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             context.ReplaceElement(ElementIndex.WetSponge);
         }
 
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
@@ -57,7 +57,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue >= 180)
             {

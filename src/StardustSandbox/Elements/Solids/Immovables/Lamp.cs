@@ -2,7 +2,7 @@
 {
     internal sealed class Lamp : ImmovableSolid
     {
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue >= 600)
             {

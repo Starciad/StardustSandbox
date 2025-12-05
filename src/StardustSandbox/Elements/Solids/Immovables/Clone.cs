@@ -13,23 +13,23 @@ namespace StardustSandbox.Elements.Solids.Immovables
         private static readonly List<Point> positionBuffer = [];
         private static readonly List<SlotLayer> layerBuffer = [];
 
-        protected override void OnBeforeStep(ElementContext context)
+        protected override void OnBeforeStep(in ElementContext context)
         {
             positionBuffer.Clear();
             layerBuffer.Clear();
         }
 
-        protected override void OnAfterStep(ElementContext context)
+        protected override void OnAfterStep(in ElementContext context)
         {
             TryInstantiateStoredElement(context);
         }
 
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             TryDefineStoredElement(context, neighbors);
         }
 
-        private static void TryInstantiateStoredElement(ElementContext context)
+        private static void TryInstantiateStoredElement(in ElementContext context)
         {
             if (context.SlotLayer.StoredElement == null || !TryGetValidPosition(context, out Point validPositon))
             {
@@ -39,7 +39,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             context.InstantiateElement(validPositon, context.Layer, context.SlotLayer.StoredElement);
         }
 
-        private static bool TryGetValidPosition(ElementContext context, out Point validPosition)
+        private static bool TryGetValidPosition(in ElementContext context, out Point validPosition)
         {
             foreach (Point position in context.Slot.Position.GetNeighboringCardinalPoints())
             {
@@ -59,7 +59,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             return true;
         }
 
-        private static void TryDefineStoredElement(ElementContext context, IEnumerable<Slot> neighbors)
+        private static void TryDefineStoredElement(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             if (context.SlotLayer.StoredElement != null)
             {

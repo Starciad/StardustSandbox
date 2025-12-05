@@ -13,7 +13,7 @@ namespace StardustSandbox.Elements.Gases
         private readonly List<Point> emptyPositionsCache = [];
         private readonly List<Point> validPositionsCache = [];
 
-        protected override void OnStep(ElementContext context)
+        protected override void OnStep(in ElementContext context)
         {
             this.emptyPositionsCache.Clear();
             this.validPositionsCache.Clear();

@@ -10,7 +10,7 @@ namespace StardustSandbox.Elements.Utilities
 {
     internal static class TemperatureUtilities
     {
-        internal static void ModifyNeighborsTemperature(ElementContext context, IEnumerable<Slot> neighbors, TemperatureModifierMode temperatureModifierMode)
+        internal static void ModifyNeighborsTemperature(in ElementContext context, IEnumerable<Slot> neighbors, TemperatureModifierMode temperatureModifierMode)
         {
             foreach (Slot neighbor in neighbors)
             {
@@ -25,7 +25,7 @@ namespace StardustSandbox.Elements.Utilities
             }
         }
 
-        private static void ApplyTemperature(ElementContext context, Point targetPosition, SlotLayer worldSlotLayer, TemperatureModifierMode temperatureModifierMode)
+        private static void ApplyTemperature(in ElementContext context, Point targetPosition, SlotLayer worldSlotLayer, TemperatureModifierMode temperatureModifierMode)
         {
             double result = worldSlotLayer.Temperature;
 

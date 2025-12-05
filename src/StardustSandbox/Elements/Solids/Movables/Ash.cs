@@ -7,7 +7,7 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Ash : MovableSolid
     {
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {

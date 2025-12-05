@@ -10,7 +10,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class ImmovableCorruption : ImmovableSolid
     {
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             if (CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(LayerType.Foreground, neighbors) &&
                 CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(LayerType.Background, neighbors))

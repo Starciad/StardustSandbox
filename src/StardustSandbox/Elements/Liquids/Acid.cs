@@ -13,7 +13,7 @@ namespace StardustSandbox.Elements.Liquids
 
         }
 
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {

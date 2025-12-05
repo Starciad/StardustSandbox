@@ -33,20 +33,20 @@ namespace StardustSandbox.Elements
 
         private ElementContext context;
 
-        internal void SetContext(ElementContext context)
+        internal void SetContext(in ElementContext context)
         {
             this.context = context;
         }
 
         #region Virtual Methods
 
-        protected virtual void OnInstantiated(ElementContext context) { return; }
-        protected virtual void OnBeforeStep(ElementContext context) { return; }
-        protected virtual void OnStep(ElementContext context) { return; }
-        protected virtual void OnAfterStep(ElementContext context) { return; }
-        protected virtual void OnDestroyed(ElementContext context) { return; }
-        protected virtual void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors) { return; }
-        protected virtual void OnTemperatureChanged(ElementContext context, double currentValue) { return; }
+        protected virtual void OnInstantiated(in ElementContext context) { return; }
+        protected virtual void OnBeforeStep(in ElementContext context) { return; }
+        protected virtual void OnStep(in ElementContext context) { return; }
+        protected virtual void OnAfterStep(in ElementContext context) { return; }
+        protected virtual void OnDestroyed(in ElementContext context) { return; }
+        protected virtual void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors) { return; }
+        protected virtual void OnTemperatureChanged(in ElementContext context, double currentValue) { return; }
 
         #endregion
 

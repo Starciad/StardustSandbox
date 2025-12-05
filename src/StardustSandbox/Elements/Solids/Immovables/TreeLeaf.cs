@@ -5,7 +5,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class TreeLeaf : ImmovableSolid
     {
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue >= 220)
             {

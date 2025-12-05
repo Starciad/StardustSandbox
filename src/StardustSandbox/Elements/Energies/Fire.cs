@@ -12,7 +12,7 @@ namespace StardustSandbox.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        protected override void OnBeforeStep(ElementContext context)
+        protected override void OnBeforeStep(in ElementContext context)
         {
             if (SSRandom.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
@@ -25,7 +25,7 @@ namespace StardustSandbox.Elements.Energies
             }
         }
 
-        protected override void OnStep(ElementContext context)
+        protected override void OnStep(in ElementContext context)
         {
             Point targetPosition = new(context.Slot.Position.X + SSRandom.Range(-1, 1), context.Slot.Position.Y - 1);
 
@@ -47,7 +47,7 @@ namespace StardustSandbox.Elements.Energies
             }
         }
 
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
@@ -63,7 +63,7 @@ namespace StardustSandbox.Elements.Energies
             }
         }
 
-        private static void IgniteElement(ElementContext context, Slot slot, SlotLayer worldSlotLayer, LayerType layer)
+        private static void IgniteElement(in ElementContext context, Slot slot, SlotLayer worldSlotLayer, LayerType layer)
         {
             // Increase neighboring temperature by fire's heat value
             context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));

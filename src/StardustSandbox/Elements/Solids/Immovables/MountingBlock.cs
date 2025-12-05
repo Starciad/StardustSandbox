@@ -7,12 +7,12 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class MountingBlock : ImmovableSolid
     {
-        protected override void OnInstantiated(ElementContext context)
+        protected override void OnInstantiated(in ElementContext context)
         {
             context.SetElementColorModifier(ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue > 300)
             {

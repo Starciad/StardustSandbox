@@ -8,7 +8,7 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal abstract class MovableSolid : Solid
     {
-        protected override void OnStep(ElementContext context)
+        protected override void OnStep(in ElementContext context)
         {
             if (context.SlotLayer.HasState(ElementStates.FreeFalling))
             {
@@ -42,7 +42,7 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        private bool TrySetPosition(ElementContext context, Point position)
+        private bool TrySetPosition(in ElementContext context, Point position)
         {
             if (context.TrySetPosition(position))
             {

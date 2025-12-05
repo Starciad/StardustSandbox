@@ -9,13 +9,13 @@ namespace StardustSandbox.Elements.Utilities
 {
     internal static class CorruptionUtilities
     {
-        private readonly struct SSlotTarget(Slot slot, LayerType layer)
+        private readonly struct SlotTarget(Slot slot, LayerType layer)
         {
             internal Slot Slot => slot;
             internal LayerType Layer => layer;
         }
 
-        private static readonly List<SSlotTarget> targets = [];
+        private static readonly List<SlotTarget> targets = [];
 
         internal static bool CheckIfNeighboringElementsAreCorrupted(LayerType layer, IEnumerable<Slot> neighbors)
         {
@@ -68,7 +68,7 @@ namespace StardustSandbox.Elements.Utilities
             InfectSlotLayer(context, targets.GetRandomItem());
         }
 
-        private static void InfectSlotLayer(ElementContext context, SSlotTarget slotTarget)
+        private static void InfectSlotLayer(in ElementContext context, SlotTarget slotTarget)
         {
             Element targetElement = slotTarget.Layer == LayerType.Foreground
                 ? slotTarget.Slot.ForegroundLayer.Element

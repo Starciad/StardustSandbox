@@ -11,7 +11,7 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal abstract class Liquid : Element
     {
-        protected override void OnStep(ElementContext context)
+        protected override void OnStep(in ElementContext context)
         {
             foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
             {
@@ -40,7 +40,7 @@ namespace StardustSandbox.Elements.Liquids
             context.RemoveElementState(ElementStates.FreeFalling);
         }
 
-        private bool TrySwappingElements(ElementContext context, Point position, SlotLayer belowLayer)
+        private bool TrySwappingElements(in ElementContext context, Point position, SlotLayer belowLayer)
         {
             if (belowLayer.Element.Category == ElementCategory.Gas)
             {
@@ -58,7 +58,7 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        private void TryPerformConvection(ElementContext context, Point position, SlotLayer belowLayer)
+        private void TryPerformConvection(in ElementContext context, Point position, SlotLayer belowLayer)
         {
             if (belowLayer.HasState(ElementStates.IsEmpty) ||
                 belowLayer.Element.GetType() != GetType() ||
@@ -70,7 +70,7 @@ namespace StardustSandbox.Elements.Liquids
             context.SwappingElements(position);
         }
 
-        private void UpdateHorizontalPosition(ElementContext context)
+        private void UpdateHorizontalPosition(in ElementContext context)
         {
             Point left = GetDispersionPosition(context, -1);
             Point right = GetDispersionPosition(context, 1);
@@ -92,7 +92,7 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        private Point GetDispersionPosition(ElementContext context, int direction)
+        private Point GetDispersionPosition(in ElementContext context, int direction)
         {
             Point dispersionPosition = context.Slot.Position;
 

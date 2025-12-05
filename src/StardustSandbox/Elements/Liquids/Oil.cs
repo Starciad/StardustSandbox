@@ -8,7 +8,7 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Oil : Liquid
     {
-        protected override void OnNeighbors(ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
         {
             foreach (Slot neighbor in neighbors)
             {
@@ -25,7 +25,7 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue >= 280)
             {

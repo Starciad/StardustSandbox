@@ -9,7 +9,7 @@ namespace StardustSandbox.Elements.Solids.Movables
 
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue >= 0)
             {

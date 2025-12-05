@@ -8,7 +8,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class WetSponge : ImmovableSolid
     {
-        protected override void OnStep(ElementContext context)
+        protected override void OnStep(in ElementContext context)
         {
             foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
             {
@@ -29,7 +29,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
         {
             if (currentValue >= 60)
             {
