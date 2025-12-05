@@ -5,14 +5,9 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Grass : MovableSolid
     {
-        internal Grass() : base()
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-
-        }
-
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
-        {
-            if (currentValue > 200)
+            if (currentValue > 200.0f)
             {
                 if (SSRandom.Chance(85))
                 {

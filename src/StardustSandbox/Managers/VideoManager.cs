@@ -80,22 +80,27 @@ namespace StardustSandbox.Managers
         internal Rectangle AdjustRenderTargetOnScreen(RenderTarget2D renderTarget)
         {
             Rectangle screenDimensions, adjustedScreen;
-            double scale, newWidth, newHeight, posX, posY;
+            float scale, newWidth, newHeight, posX, posY;
 
             screenDimensions = this.GraphicsDevice.PresentationParameters.Bounds;
 
-            scale = Math.Min(
-                (double)screenDimensions.Width / renderTarget.Width,
-                (double)screenDimensions.Height / renderTarget.Height
+            scale = MathF.Min(
+                screenDimensions.Width / (float)renderTarget.Width,
+                screenDimensions.Height / (float)renderTarget.Height
             );
 
             newWidth = renderTarget.Width * scale;
             newHeight = renderTarget.Height * scale;
 
-            posX = (screenDimensions.Width - newWidth) / 2;
-            posY = (screenDimensions.Height - newHeight) / 2;
+            posX = (screenDimensions.Width - newWidth) / 2.0f;
+            posY = (screenDimensions.Height - newHeight) / 2.0f;
 
-            adjustedScreen = new((int)posX, (int)posY, (int)newWidth, (int)newHeight);
+            adjustedScreen = new(
+                (int)posX,
+                (int)posY,
+                (int)newWidth,
+                (int)newHeight
+            );
 
             return adjustedScreen;
         }

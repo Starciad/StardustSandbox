@@ -40,7 +40,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        protected override void OnUpdate(in GameTime gameTime)
         {
             return;
         }

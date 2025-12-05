@@ -54,7 +54,7 @@ namespace StardustSandbox.Managers
             Rectangle adjustedScreen = videoManager.AdjustRenderTargetOnScreen(videoManager.ScreenRenderTarget);
 
             // Calculates the scale used for the adjustment
-            float scale = (float)adjustedScreen.Width / videoManager.ScreenRenderTarget.Width;
+            float scale = adjustedScreen.Width / (float)videoManager.ScreenRenderTarget.Width;
 
             // Adjusts the mouse position to the render target space
             float mouseX = (mouseState.X - adjustedScreen.X) / scale;

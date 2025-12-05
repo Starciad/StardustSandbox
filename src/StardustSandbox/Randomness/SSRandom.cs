@@ -117,7 +117,7 @@ namespace StardustSandbox.Randomness
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="min"/> is greater than <paramref name="max"/>.</exception>
         internal static float Range(float min, float max)
         {
-            return (float)((random.NextDouble() * (max - min)) + min);
+            return Convert.ToSingle((random.NextDouble() * (max - min)) + min);
         }
 
         /// <summary>
@@ -295,12 +295,12 @@ namespace StardustSandbox.Randomness
         }
 
         /// <summary>
-        /// Evaluates a probabilistic event with a specified chance out of 100 using double precision.
+        /// Evaluates a probabilistic event with a specified chance out of 100 using float precision.
         /// </summary>
         /// <param name="chance">The number of chances for the event to occur (0.0-100.0).</param>
         /// <returns><c>true</c> if the event occurs; otherwise, <c>false</c>.</returns>
         /// <remarks>
-        /// This method is equivalent to calling <see cref="Chance(double, double)"/> with <paramref name="total"/> set to 100.0.
+        /// This method is equivalent to calling <see cref="Chance(float, float)"/> with <paramref name="total"/> set to 100.0.
         /// </remarks>
         internal static bool Chance(double chance)
         {
@@ -308,7 +308,7 @@ namespace StardustSandbox.Randomness
         }
 
         /// <summary>
-        /// Evaluates a probabilistic event with a specified chance out of a total using double precision.
+        /// Evaluates a probabilistic event with a specified chance out of a total using float precision.
         /// </summary>
         /// <param name="chance">The number of chances for the event to occur.</param>
         /// <param name="total">The total number of possible outcomes.</param>
@@ -327,9 +327,9 @@ namespace StardustSandbox.Randomness
                 : Range(0.0, total) < chance;
         }
 
-        internal static float GetDouble()
+        internal static double GetDouble()
         {
-            return (float)random.NextDouble();
+            return (double)random.NextDouble();
         }
     }
 }

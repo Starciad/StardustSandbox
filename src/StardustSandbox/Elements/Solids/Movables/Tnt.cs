@@ -2,9 +2,6 @@
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
@@ -13,7 +10,7 @@ namespace StardustSandbox.Elements.Solids.Movables
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
             Radius = 6,
-            Power = 5f,
+            Power = 5.0f,
             Heat = 450,
 
             AffectsWater = false,
@@ -32,13 +29,11 @@ namespace StardustSandbox.Elements.Solids.Movables
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
-
-                switch (worldSlotLayer.Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Fire:
                     case Lava:
@@ -51,9 +46,9 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue > 120)
+            if (currentValue > 120.0f)
             {
                 context.DestroyElement();
             }

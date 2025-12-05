@@ -31,7 +31,7 @@ namespace StardustSandbox.Extensions
             return new(r, g, b, a);
         }
 
-        internal static Color Darken(this Color baseColor, double darkenFactor)
+        internal static Color Darken(this Color baseColor, float darkenFactor)
         {
             darkenFactor = Math.Clamp(darkenFactor, 0f, 1f);
 
@@ -42,7 +42,7 @@ namespace StardustSandbox.Extensions
             return new(r, g, b, baseColor.A);
         }
 
-        internal static Color OverlayBlend(this Color baseColor, Color overlayColor, double blendFactor)
+        internal static Color OverlayBlend(this Color baseColor, Color overlayColor, float blendFactor)
         {
             blendFactor = Math.Clamp(blendFactor, 0f, 1f);
 

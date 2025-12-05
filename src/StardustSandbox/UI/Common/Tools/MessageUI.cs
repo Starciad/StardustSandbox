@@ -82,7 +82,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
             {

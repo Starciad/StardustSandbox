@@ -132,7 +132,7 @@ namespace StardustSandbox.Serialization
                 _ = distinctElements.Add(index);
             }
 
-            void ProcessSlot(Point position, LayerType layer)
+            void ProcessSlot(Point position, Layer layer)
             {
                 if (!world.TryGetSlot(position, out Slot slot))
                 {
@@ -162,8 +162,8 @@ namespace StardustSandbox.Serialization
 
                     if (!world.IsEmptySlot(position))
                     {
-                        ProcessSlot(position, LayerType.Foreground);
-                        ProcessSlot(position, LayerType.Background);
+                        ProcessSlot(position, Layer.Foreground);
+                        ProcessSlot(position, Layer.Background);
                     }
                 }
             }

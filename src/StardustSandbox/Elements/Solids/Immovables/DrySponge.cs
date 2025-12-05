@@ -6,8 +6,6 @@ using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
 using StardustSandbox.World;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class DrySponge : ImmovableSolid
@@ -38,13 +36,16 @@ namespace StardustSandbox.Elements.Solids.Immovables
             context.ReplaceElement(ElementIndex.WetSponge);
         }
 
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
 
-                switch (worldSlotLayer.Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Water:
                     case Saltwater:
@@ -57,7 +58,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
             if (currentValue >= 180)
             {

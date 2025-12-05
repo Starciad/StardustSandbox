@@ -162,7 +162,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.buttonInfos.Length; i++)
+            for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 ButtonInfo button = this.buttonInfos[i];
 
@@ -205,7 +205,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             int index = 0;
 
-            for (byte i = 0; i < CatalogDatabase.Categories.Length; i++)
+            for (int i = 0; i < CatalogDatabase.Categories.Length; i++)
             {
                 Category category = CatalogDatabase.Categories[i];
 
@@ -262,7 +262,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             void BuildSlots(CardinalDirection positionAnchor)
             {
-                for (byte i = 0; i < sideCounts; i++)
+                for (int i = 0; i < sideCounts; i++)
                 {
                     Image background = new()
                     {
@@ -357,7 +357,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.pageIndexLabel);
 
-            for (byte i = 0; i < this.paginationButtonInfos.Length; i++)
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
                 Image background = new()
                 {
@@ -404,7 +404,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -419,7 +419,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.buttonInfos.Length; i++)
+            for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
@@ -446,7 +446,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateCategoryButtons()
         {
-            for (byte i = 0; i < this.categoryButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.categoryButtonSlotInfos.Length; i++)
             {
                 SlotInfo categorySlot = this.categoryButtonSlotInfos[i];
 
@@ -474,7 +474,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateSubcategoryButtons()
         {
-            for (byte i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
             {
                 SlotInfo subcategorySlot = this.subcategoryButtonSlotInfos[i];
 
@@ -502,7 +502,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateItemCatalog()
         {
-            for (byte i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
             {
                 SlotInfo slot = this.itemButtonSlotInfos[i];
 
@@ -537,7 +537,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdatePagination()
         {
-            for (byte i = 0; i < this.paginationButtonInfos.Length; i++)
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.paginationButtonSlotInfos[i];
 
@@ -569,7 +569,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void ChangeSubcategorCatalog()
         {
-            for (byte i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
             {
                 SlotInfo subcategorySlot = this.subcategoryButtonSlotInfos[i];
 
@@ -609,7 +609,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.selectedItems = this.selectedSubcategory.GetItems(startIndex, endIndex);
             this.selectedItemsLength = this.selectedItems.Length;
 
-            for (byte i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
             {
                 SlotInfo itemSlot = this.itemButtonSlotInfos[i];
 

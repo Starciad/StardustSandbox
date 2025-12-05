@@ -57,24 +57,31 @@ namespace StardustSandbox.UI.Common.Menus
             internal Label[] ContentLabels;
         }
 
-        private byte selectedSectionIndex;
+        private int selectedSectionIndex;
         private bool restartMessageAppeared;
+
         private Label titleLabel;
         private Image background;
+
         private readonly Root root;
         private readonly ColorPickerSettings colorPickerSettings;
         private readonly ColorPickerUI colorPickerUI;
         private readonly MessageUI messageUI;
+
         private readonly string titleName = Localization_GUIs.Menu_Options_Title;
+
         private readonly List<PlusMinusButtonInfo> plusMinusButtons = [];
-        private readonly TooltipBox tooltipBox;
         private readonly Label[] systemButtonLabels;
         private readonly ButtonInfo[] systemButtonInfos;
-        private readonly SectionUI[] sectionUIs;
         private readonly Label[] sectionButtonLabels;
+        private readonly TooltipBox tooltipBox;
+
         private readonly CursorManager cursorManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
+
+        private readonly SectionUI[] sectionUIs;
+
         private readonly GeneralSettings generalSettings;
         private readonly GameplaySettings gameplaySettings;
         private readonly VolumeSettings volumeSettings;
@@ -137,7 +144,7 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
                 new(Localization_GUIs.Menu_Options_Section_Video_Name, Localization_GUIs.Menu_Options_Section_Video_Description,
                 [
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Description, Array.ConvertAll<double, object>(ScreenConstants.FRAMERATES, x => x)),
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Description, Array.ConvertAll<float, object>(ScreenConstants.FRAMERATES, x => x)),
                     new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Point, object>(ScreenConstants.RESOLUTIONS, x => x)),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
@@ -177,7 +184,7 @@ namespace StardustSandbox.UI.Common.Menus
             SettingsSerializer.SaveSettings(this.volumeSettings);
 
             Section videoSection = this.root.Sections[(byte)SectionIndex.Video];
-            this.videoSettings.Framerate = (double)videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue();
+            this.videoSettings.Framerate = Convert.ToSingle(videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue());
             this.videoSettings.Resolution = (Point)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue();
             this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].GetValue());
             this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.VSync].GetValue());
@@ -275,7 +282,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             float marginY = 48.0f;
 
-            for (byte i = 0; i < this.root.Sections.Length; i++)
+            for (int i = 0; i < this.root.Sections.Length; i++)
             {
                 Section section = this.root.Sections[i];
 
@@ -293,7 +300,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             float marginY = -38.0f;
 
-            for (byte i = 0; i < this.systemButtonInfos.Length; i++)
+            for (int i = 0; i < this.systemButtonInfos.Length; i++)
             {
                 Label label = CreateButtonLabelElement(this.systemButtonInfos[i].Name);
 
@@ -309,7 +316,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void BuildSections(Container root)
         {
-            for (byte i = 0; i < this.root.Sections.Length; i++)
+            for (int i = 0; i < this.root.Sections.Length; i++)
             {
                 Section section = this.root.Sections[i];
                 Label[] contentBuffer = new Label[section.Options.Length];
@@ -476,7 +483,7 @@ namespace StardustSandbox.UI.Common.Menus
             return label;
         }
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
             UpdateSectionButtons();
@@ -487,7 +494,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateSectionButtons()
         {
-            for (byte i = 0; i < this.sectionButtonLabels.Length; i++)
+            for (int i = 0; i < this.sectionButtonLabels.Length; i++)
             {
                 Label label = this.sectionButtonLabels[i];
 
@@ -513,7 +520,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateSystemButtons()
         {
-            for (byte i = 0; i < this.systemButtonInfos.Length; i++)
+            for (int i = 0; i < this.systemButtonInfos.Length; i++)
             {
                 Label label = this.systemButtonLabels[i];
                 ButtonInfo button = this.systemButtonInfos[i];
@@ -540,7 +547,7 @@ namespace StardustSandbox.UI.Common.Menus
         private void UpdateSectionOptions()
         {
             Label[] contentLabels = this.sectionUIs[this.selectedSectionIndex].ContentLabels;
-            for (byte i = 0; i < contentLabels.Length; i++)
+            for (int i = 0; i < contentLabels.Length; i++)
             {
                 Label label = contentLabels[i];
                 Option option = (Option)label.GetData("option");
@@ -645,10 +652,11 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager.OpenGUI(UIIndex.ColorPicker);
         }
 
-        private void SelectSection(byte sectionIndex)
+        private void SelectSection(int sectionIndex)
         {
             this.selectedSectionIndex = sectionIndex;
-            for (byte i = 0; i < this.sectionUIs.Length; i++)
+
+            for (int i = 0; i < this.sectionUIs.Length; i++)
             {
                 SectionUI sectionUI = this.sectionUIs[i];
                 bool isSelected = sectionIndex == i;

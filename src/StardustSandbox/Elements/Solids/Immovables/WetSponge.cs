@@ -29,9 +29,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue >= 60)
+            if (currentValue >= 60.0f)
             {
                 context.ReplaceElement(ElementIndex.DrySponge);
             }

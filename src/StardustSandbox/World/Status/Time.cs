@@ -11,7 +11,7 @@ namespace StardustSandbox.World.Status
     internal sealed class Time : IResettable
     {
         internal TimeSpan CurrentTime => this.currentTime;
-        internal double InGameSecondsPerRealSecond { get; set; } = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
+        internal float InGameSecondsPerRealSecond { get; set; } = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
         internal bool IsFrozen { get; set; } = false;
 
         private TimeSpan currentTime = TimeConstants.DAY_START_TIMESPAN;
@@ -23,7 +23,7 @@ namespace StardustSandbox.World.Status
             this.currentTime = TimeConstants.DAY_START_TIMESPAN;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
             if (this.IsFrozen)
             {

@@ -4,14 +4,9 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Snow : MovableSolid
     {
-        internal Snow() : base()
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-
-        }
-
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
-        {
-            if (currentValue >= 8)
+            if (currentValue >= 8.0f)
             {
                 if (context.SlotLayer.StoredElement == null)
                 {
@@ -22,7 +17,7 @@ namespace StardustSandbox.Elements.Solids.Movables
                     context.ReplaceElement(context.SlotLayer.StoredElement);
                 }
 
-                context.SetElementTemperature(12);
+                context.SetElementTemperature(12.0f);
             }
         }
     }

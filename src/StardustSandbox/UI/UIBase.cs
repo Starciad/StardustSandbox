@@ -45,7 +45,7 @@ namespace StardustSandbox.UI
             this.isInitialized = true;
         }
 
-        internal virtual void Update(GameTime gameTime)
+        internal virtual void Update(in GameTime gameTime)
         {
             this.root.Update(gameTime);
         }

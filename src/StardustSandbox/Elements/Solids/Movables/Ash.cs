@@ -1,17 +1,19 @@
 ﻿using StardustSandbox.Elements.Liquids;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Ash : MovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                switch (neighbor.GetLayer(context.Layer).Element)
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Water:
                     case Saltwater:

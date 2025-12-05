@@ -24,7 +24,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             TryInstantiateStoredElement(context);
         }
 
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
             TryDefineStoredElement(context, neighbors);
         }
@@ -39,13 +39,29 @@ namespace StardustSandbox.Elements.Solids.Immovables
             context.InstantiateElement(validPositon, context.Layer, context.SlotLayer.StoredElement);
         }
 
+        private static void TryAddEmptyPosition(in ElementContext context, Point position)
+        {
+            if (context.IsEmptySlotLayer(position, context.Layer))
+            {
+                positionBuffer.Add(position);
+            }
+        }
+
         private static bool TryGetValidPosition(in ElementContext context, out Point validPosition)
         {
-            foreach (Point position in context.Slot.Position.GetNeighboringCardinalPoints())
+            int centerX = context.Slot.Position.X;
+            int centerY = context.Slot.Position.Y;
+
+            for (int dx = -1; dx <= 1; dx++)
             {
-                if (context.IsEmptySlotLayer(position, context.Layer))
+                for (int dy = -1; dy <= 1; dy++)
                 {
-                    positionBuffer.Add(position);
+                    if (dx == 0 && dy == 0)
+                    {
+                        continue;
+                    }
+
+                    TryAddEmptyPosition(context, new(centerX + dx, centerY + dy));
                 }
             }
 
@@ -59,16 +75,21 @@ namespace StardustSandbox.Elements.Solids.Immovables
             return true;
         }
 
-        private static void TryDefineStoredElement(in ElementContext context, IEnumerable<Slot> neighbors)
+        private static void TryDefineStoredElement(in ElementContext context, in ElementNeighbors neighbors)
         {
             if (context.SlotLayer.StoredElement != null)
             {
                 return;
             }
 
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer layer = neighbor.GetLayer(context.Layer);
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
 
                 if (layer.HasState(ElementStates.IsEmpty) ||
                     layer.Element.Index == ElementIndex.Clone ||

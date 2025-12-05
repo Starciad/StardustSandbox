@@ -149,7 +149,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             float marginY = 0f;
 
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 ButtonInfo info = this.menuButtonInfos[i];
 
@@ -178,7 +178,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             UpdateAnimations(gameTime);
             UpdateButtons();
@@ -186,9 +186,9 @@ namespace StardustSandbox.UI.Common.Menus
             base.Update(gameTime);
         }
 
-        private void UpdateAnimations(GameTime gameTime)
+        private void UpdateAnimations(in GameTime gameTime)
         {
-            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float elapsedTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
             this.animationTime += elapsedTime * animationSpeed;
             this.gameTitle.Margin = new(
@@ -196,7 +196,7 @@ namespace StardustSandbox.UI.Common.Menus
                 32.0f + (MathF.Sin(this.animationTime) * animationAmplitude)
             );
 
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 Label button = this.menuButtonLabels[i];
                 this.buttonAnimationOffsets[i] += elapsedTime * buttonAnimationSpeed;
@@ -210,7 +210,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateButtons()
         {
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 Label label = this.menuButtonLabels[i];
 
@@ -240,10 +240,10 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.gameTitle.Margin = Vector2.Zero;
 
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 this.menuButtonLabels[i].Margin = Vector2.Zero;
-                this.buttonAnimationOffsets[i] = SSRandom.GetDouble() * MathF.PI * 2.0f;
+                this.buttonAnimationOffsets[i] = Convert.ToSingle(SSRandom.GetDouble() * MathF.PI * 2.0f);
             }
 
             this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);

@@ -4,30 +4,33 @@ using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.World;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.Elements.Utilities
 {
     internal static class TemperatureUtilities
     {
-        internal static void ModifyNeighborsTemperature(in ElementContext context, IEnumerable<Slot> neighbors, TemperatureModifierMode temperatureModifierMode)
+        internal static void ModifyNeighborsTemperature(in ElementContext context, in ElementNeighbors neighbors, TemperatureModifierMode temperatureModifierMode)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                SlotLayer worldSlotLayer = neighbors.GetSlotLayer(i, context.Layer);
 
                 if (worldSlotLayer.Element == null || !worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }
 
-                ApplyTemperature(context, neighbor.Position, worldSlotLayer, temperatureModifierMode);
+                ApplyTemperature(context, neighbors.GetSlot(i).Position, worldSlotLayer, temperatureModifierMode);
             }
         }
 
         private static void ApplyTemperature(in ElementContext context, Point targetPosition, SlotLayer worldSlotLayer, TemperatureModifierMode temperatureModifierMode)
         {
-            double result = worldSlotLayer.Temperature;
+            float result = worldSlotLayer.Temperature;
 
             switch (temperatureModifierMode)
             {

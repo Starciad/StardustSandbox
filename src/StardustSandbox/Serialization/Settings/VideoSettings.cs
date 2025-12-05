@@ -10,8 +10,8 @@ namespace StardustSandbox.Serialization.Settings
     [XmlRoot("VideoSettings")]
     public sealed class VideoSettings : SettingsModule
     {
-        [XmlElement("Framerate", typeof(double))]
-        public double Framerate { get; set; }
+        [XmlElement("Framerate", typeof(float))]
+        public float Framerate { get; set; }
 
         [XmlElement("Width", typeof(int))]
         public int Width { get; set; }

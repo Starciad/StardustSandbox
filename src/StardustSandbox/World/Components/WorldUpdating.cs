@@ -24,7 +24,7 @@ namespace StardustSandbox.World.Components
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
             foreach (Chunk worldChunk in this.world.GetActiveChunks())
             {
@@ -39,14 +39,14 @@ namespace StardustSandbox.World.Components
                             continue;
                         }
 
-                        if (!worldSlot.ForegroundLayer.HasState(ElementStates.IsEmpty))
+                        if (!worldSlot.Foreground.HasState(ElementStates.IsEmpty))
                         {
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Foreground, worldSlot);
+                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, Layer.Foreground, worldSlot);
                         }
 
-                        if (!worldSlot.BackgroundLayer.HasState(ElementStates.IsEmpty))
+                        if (!worldSlot.Background.HasState(ElementStates.IsEmpty))
                         {
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, LayerType.Background, worldSlot);
+                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, Layer.Background, worldSlot);
                         }
                     }
                 }
@@ -56,7 +56,7 @@ namespace StardustSandbox.World.Components
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void UpdateSlotLayerTarget(GameTime gameTime, Point position, LayerType layer, Slot worldSlot)
+        private void UpdateSlotLayerTarget(in GameTime gameTime, Point position, Layer layer, Slot worldSlot)
         {
             SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
             Element element = worldSlotLayer.Element;

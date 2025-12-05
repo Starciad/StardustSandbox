@@ -22,9 +22,9 @@ namespace StardustSandbox.Elements.Gases
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue < 35)
+            if (currentValue < 35.0f)
             {
                 context.ReplaceElement(ElementIndex.Water);
             }

@@ -146,7 +146,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
@@ -181,7 +181,7 @@ namespace StardustSandbox.UI.Common.HUD
             // Buttons
             float marginX = 0.0f;
 
-            for (byte i = 0; i < this.sizeButtonInfos.Length; i++)
+            for (int i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.sizeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
@@ -229,7 +229,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -241,7 +241,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonSlotInfos.Length; i++)
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
@@ -256,7 +256,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateSizeButtons()
         {
-            for (byte i = 0; i < this.sizeButtonInfos.Length; i++)
+            for (int i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.sizeButtonSlotInfos[i];
 

@@ -57,24 +57,7 @@ namespace StardustSandbox.Managers
 
         internal void SetSimulationSpeed(SimulationSpeed speed)
         {
-            switch (speed)
-            {
-                case SimulationSpeed.Normal:
-                    this.world.SetSpeed(SimulationSpeed.Normal);
-                    break;
-
-                case SimulationSpeed.Fast:
-                    this.world.SetSpeed(SimulationSpeed.Fast);
-                    break;
-
-                case SimulationSpeed.VeryFast:
-                    this.world.SetSpeed(SimulationSpeed.VeryFast);
-                    break;
-
-                default:
-                    this.world.SetSpeed(SimulationSpeed.Normal);
-                    break;
-            }
+            this.world.SetSpeed(speed);
         }
 
         private void ClampCameraInTheWorld()

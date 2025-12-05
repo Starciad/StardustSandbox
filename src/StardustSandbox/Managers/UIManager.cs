@@ -27,7 +27,7 @@ namespace StardustSandbox.Managers
             this.currentUI = null;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
             if (this.currentUI != null && this.currentUI.IsActive)
             {

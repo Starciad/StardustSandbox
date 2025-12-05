@@ -8,6 +8,8 @@ using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Randomness;
 
+using System;
+
 namespace StardustSandbox.Backgrounds.Clouds
 {
     internal sealed class Cloud : IPoolableObject
@@ -24,7 +26,7 @@ namespace StardustSandbox.Backgrounds.Clouds
         {
             this.position = new Vector2(-(WorldConstants.GRID_SIZE * 5), SSRandom.Range(0, WorldConstants.GRID_SIZE * 10));
             this.speed = SSRandom.Range(10, 50);
-            this.opacity = (float)((SSRandom.GetDouble() * 0.5) + 0.5);
+            this.opacity = Convert.ToSingle((SSRandom.GetDouble() * 0.5) + 0.5);
         }
 
         internal Cloud()
@@ -32,17 +34,17 @@ namespace StardustSandbox.Backgrounds.Clouds
             Reset();
         }
 
-        internal void Update(GameTime gameTime, SimulationSpeed simulationSpeed)
+        internal void Update(in GameTime gameTime, SimulationSpeed simulationSpeed)
         {
-            double multiplier = simulationSpeed switch
+            float multiplier = simulationSpeed switch
             {
-                SimulationSpeed.Normal => 1.0,
-                SimulationSpeed.Fast => 2.0,
-                SimulationSpeed.VeryFast => 4.0,
-                _ => 1.0,
+                SimulationSpeed.Normal => 1.0f,
+                SimulationSpeed.Fast => 2.0f,
+                SimulationSpeed.VeryFast => 4.0f,
+                _ => 1.0f,
             };
 
-            this.position.X += (float)(this.speed * multiplier * gameTime.ElapsedGameTime.TotalSeconds);
+            this.position.X += Convert.ToSingle(this.speed * multiplier * gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         internal void Draw(SpriteBatch spriteBatch)

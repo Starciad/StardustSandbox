@@ -103,7 +103,7 @@ namespace StardustSandbox.UI.Elements
             );
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        protected override void OnUpdate(in GameTime gameTime)
         {
             if (!this.HasTexture)
             {
@@ -157,7 +157,7 @@ namespace StardustSandbox.UI.Elements
                 return;
             }
 
-            for (byte i = 0; i < this.slices.Length; i++)
+            for (int i = 0; i < this.slices.Length; i++)
             {
                 spriteBatch.Draw(this.Texture, this.slices[i].Position, this.slices[i].SourceRectangle, this.Color, 0f, Vector2.Zero, this.slices[i].Scale, SpriteEffects.None, 0f);
             }

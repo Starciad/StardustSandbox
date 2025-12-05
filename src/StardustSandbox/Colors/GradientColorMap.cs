@@ -13,10 +13,10 @@ namespace StardustSandbox.Colors
 
         internal float GetInterpolationFactor(TimeSpan currentTime)
         {
-            float totalSeconds = (float)(this.EndTime - this.StartTime).TotalSeconds;
-            float elapsedSeconds = (float)(currentTime - this.StartTime).TotalSeconds;
+            float totalSeconds = Convert.ToSingle((this.EndTime - this.StartTime).TotalSeconds);
+            float elapsedSeconds = Convert.ToSingle((currentTime - this.StartTime).TotalSeconds);
 
-            return MathHelper.Clamp((float)(elapsedSeconds / totalSeconds), 0, 1);
+            return MathHelper.Clamp(Convert.ToSingle(elapsedSeconds / totalSeconds), 0, 1);
         }
     }
 }

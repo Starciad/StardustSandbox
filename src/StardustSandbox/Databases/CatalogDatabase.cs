@@ -556,7 +556,7 @@ namespace StardustSandbox.Databases
 
         private static void SetParentReferences()
         {
-            for (byte i = 0; i < categories.Length; i++)
+            for (int i = 0; i < categories.Length; i++)
             {
                 Category category = categories[i];
 
@@ -579,7 +579,7 @@ namespace StardustSandbox.Databases
             categoryLength = categories.Length;
             itemLength = 0;
 
-            for (byte i = 0; i < categories.Length; i++)
+            for (int i = 0; i < categories.Length; i++)
             {
                 Category category = categories[i];
 

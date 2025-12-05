@@ -45,21 +45,21 @@ namespace StardustSandbox.World.Components
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
                     {
-                        if (!value.BackgroundLayer.HasState(ElementStates.IsEmpty))
+                        if (!value.Background.HasState(ElementStates.IsEmpty))
                         {
-                            DrawSlotLayer(spriteBatch, value.Position, LayerType.Background, value, value.GetLayer(LayerType.Background).Element);
+                            DrawSlotLayer(spriteBatch, value.Position, Layer.Background, value, value.GetLayer(Layer.Background).Element);
                         }
 
-                        if (!value.ForegroundLayer.HasState(ElementStates.IsEmpty))
+                        if (!value.Foreground.HasState(ElementStates.IsEmpty))
                         {
-                            DrawSlotLayer(spriteBatch, value.Position, LayerType.Foreground, value, value.GetLayer(LayerType.Foreground).Element);
+                            DrawSlotLayer(spriteBatch, value.Position, Layer.Foreground, value, value.GetLayer(Layer.Foreground).Element);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, LayerType layer, Slot value, Element element)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, Layer layer, Slot value, Element element)
         {
             this.elementRenderingContext.UpdateInformation(position, layer, value);
 

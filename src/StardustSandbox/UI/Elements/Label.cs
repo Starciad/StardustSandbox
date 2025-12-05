@@ -85,7 +85,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        protected override void OnUpdate(in GameTime gameTime)
         {
             return;
         }
@@ -97,7 +97,7 @@ namespace StardustSandbox.UI.Elements
                 return;
             }
 
-            for (byte i = 0; i < TextConstants.BORDER_DIRECTION_OFFSETS.Length; i++)
+            for (int i = 0; i < TextConstants.BORDER_DIRECTION_OFFSETS.Length; i++)
             {
                 BorderDirectionOffset borderDirectionOffset = TextConstants.BORDER_DIRECTION_OFFSETS[i];
 

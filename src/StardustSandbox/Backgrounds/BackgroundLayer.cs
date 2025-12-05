@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Camera;
 
+using System;
+
 namespace StardustSandbox.Backgrounds
 {
     internal sealed class BackgroundLayer
@@ -28,9 +30,9 @@ namespace StardustSandbox.Backgrounds
             this.lockY = lockY;
         }
 
-        internal void Update(GameTime gameTime, int textureWidth, int textureHeight)
+        internal void Update(in GameTime gameTime, int textureWidth, int textureHeight)
         {
-            float elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float elapsedSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
             Vector2 cameraPosition = SSCamera.Position;
 
             if (!this.lockX)

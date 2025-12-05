@@ -68,19 +68,19 @@ namespace StardustSandbox.Elements
             spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
         }
 
-        private static void UpdateSpriteSlice(in ElementContext context, Element element, byte index, Point position)
+        private static void UpdateSpriteSlice(in ElementContext context, Element element, int index, Point position)
         {
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, element, index, position));
         }
 
-        private static byte GetBlobValueFromTargetPositions(in ElementContext context, Element element, byte index, Point position)
+        private static byte GetBlobValueFromTargetPositions(in ElementContext context, Element element, int index, Point position)
         {
             byte result = 0;
 
             GetTargetPositionsFromIndex(index, position);
 
             // Check each of the target positions.
-            for (byte i = 0; i < blobInfos.Length; i++)
+            for (int i = 0; i < blobInfos.Length; i++)
             {
                 // Get element from target position.
                 if (context.TryGetElement(blobInfos[i].Position, context.Layer, out Element value))
@@ -99,7 +99,7 @@ namespace StardustSandbox.Elements
             return result;
         }
 
-        private static void GetTargetPositionsFromIndex(byte index, Point position)
+        private static void GetTargetPositionsFromIndex(int index, Point position)
         {
             switch (index)
             {
@@ -222,14 +222,14 @@ namespace StardustSandbox.Elements
 
             Color colorModifier = TemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
 
-            if (context.Layer == LayerType.Background)
+            if (context.Layer == Layer.Background)
             {
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
             UpdateSpritePositions(context.Slot.Position);
 
-            for (byte i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
+            for (int i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, element, i, context.Slot.Position);
                 spriteBatch.Draw(
@@ -250,7 +250,7 @@ namespace StardustSandbox.Elements
         {
             Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
 
-            if (context.Layer == LayerType.Background)
+            if (context.Layer == Layer.Background)
             {
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }

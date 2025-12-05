@@ -147,7 +147,7 @@ namespace StardustSandbox.UI.Common.Menus
             // Buttons
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.headerButtonInfos.Length; i++)
+            for (int i = 0; i < this.headerButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.headerButtonInfos[i];
 
@@ -324,10 +324,10 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             // HEADER
-            for (byte i = 0; i < this.headerButtonImages.Length; i++)
+            for (int i = 0; i < this.headerButtonImages.Length; i++)
             {
                 Image buttonBackgroundElement = this.headerButtonImages[i];
 
@@ -340,7 +340,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
 
             // FOOTER
-            for (byte i = 0; i < this.footerButtonLabels.Length; i++)
+            for (int i = 0; i < this.footerButtonLabels.Length; i++)
             {
                 Label label = this.footerButtonLabels[i];
 
@@ -353,7 +353,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
 
             // SLOTS
-            for (byte i = 0; i < this.itemSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemSlotInfos.Length; i++)
             {
                 SlotInfo slotInfoElement = this.itemSlotInfos[i];
 
@@ -376,7 +376,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdatePagination()
         {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling((float)(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
+            this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
 
             if (this.pageIndexLabel != null)
@@ -389,7 +389,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             int startIndex = this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE;
 
-            for (byte i = 0; i < this.itemSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemSlotInfos.Length; i++)
             {
                 SlotInfo slotInfoElement = this.itemSlotInfos[i];
                 int worldIndex = startIndex + i;

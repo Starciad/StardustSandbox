@@ -20,9 +20,9 @@ namespace StardustSandbox.Backgrounds
             this.texture = texture;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
-            for (byte i = 0; i < this.layerCount; i++)
+            for (int i = 0; i < this.layerCount; i++)
             {
                 this.backgroundLayers[i].Update(gameTime, this.texture.Width, this.texture.Height);
             }
@@ -30,7 +30,7 @@ namespace StardustSandbox.Backgrounds
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (byte i = 0; i < this.layerCount; i++)
+            for (int i = 0; i < this.layerCount; i++)
             {
                 this.backgroundLayers[i].Draw(spriteBatch, this.texture);
             }

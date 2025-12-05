@@ -197,7 +197,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             float marginY = -48.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
@@ -225,7 +225,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #endregion
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             UpdateMenuButtons();
             UpdateElementPositionAccordingToUserInput();
@@ -235,7 +235,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 Label label = this.menuButtonLabels[i];
 
@@ -506,7 +506,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             _ = this.userInputPasswordMaskedStringBuilder.Clear();
 
-            for (byte i = 0; i < this.userInputStringBuilder.Length; i++)
+            for (int i = 0; i < this.userInputStringBuilder.Length; i++)
             {
                 _ = this.userInputPasswordMaskedStringBuilder.Append(i == cursorPosition ? '|' : '*');
             }

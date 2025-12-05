@@ -4,7 +4,8 @@ namespace StardustSandbox.Constants
 {
     internal static class ScreenConstants
     {
-        internal const double FRAMERATE = 60.0;
+        internal const float FRAMERATE = 60.0f;
+
         internal const int SCREEN_WIDTH = 1280;
         internal const int SCREEN_HEIGHT = 720;
 
@@ -22,17 +23,17 @@ namespace StardustSandbox.Constants
             new Point(1920, 1080), // [06] - FHD / Full HD (1080p)
         ];
 
-        internal static double[] FRAMERATES =>
+        internal static float[] FRAMERATES =>
         [
-            030.0, // [00]
-            045.0, // [01]
-            060.0, // [02] [DEFAULT]
-            090.0, // [03]
-            120.0, // [04]
-            144.0, // [05]
-            165.0, // [06]
-            240.0, // [07]
-            360.0, // [08]
+            030.0f, // [00]
+            045.0f, // [01]
+            060.0f, // [02] [DEFAULT]
+            090.0f, // [03]
+            120.0f, // [04]
+            144.0f, // [05]
+            165.0f, // [06]
+            240.0f, // [07]
+            360.0f, // [08]
         ];
     }
 }

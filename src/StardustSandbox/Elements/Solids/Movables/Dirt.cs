@@ -2,9 +2,6 @@
 {
     internal sealed class Dirt : MovableSolid
     {
-        internal Dirt() : base()
-        {
 
-        }
     }
 }

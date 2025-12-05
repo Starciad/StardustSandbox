@@ -104,7 +104,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             float marginY = -64.0f;
 
-            for (byte i = 0; i < this.buttonInfos.Length; i++)
+            for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 ButtonInfo button = this.buttonInfos[i];
 
@@ -132,9 +132,9 @@ namespace StardustSandbox.UI.Common.Tools
 
         #endregion
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
-            for (byte i = 0; i < this.buttonInfos.Length; i++)
+            for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 Label label = this.buttonLabels[i];
 

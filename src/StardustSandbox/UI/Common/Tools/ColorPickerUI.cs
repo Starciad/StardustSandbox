@@ -235,7 +235,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             float marginY = -48.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
@@ -265,7 +265,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -277,7 +277,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 Label label = this.menuButtonLabels[i];
 
@@ -292,7 +292,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateColorButtons()
         {
-            for (byte i = 0; i < this.colorButtonInfos.Length; i++)
+            for (int i = 0; i < this.colorButtonInfos.Length; i++)
             {
                 ColorSlotInfo colorSlot = this.colorButtonSlotInfos[i];
                 ColorButtonInfo colorButton = this.colorButtonInfos[i];

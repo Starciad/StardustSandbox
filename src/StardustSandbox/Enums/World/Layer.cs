@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Enums.World
 {
-    internal enum LayerType : byte
+    internal enum Layer : byte
     {
         Foreground = 0,
         Background = 1,

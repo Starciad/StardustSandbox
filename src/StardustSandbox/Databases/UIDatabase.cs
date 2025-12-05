@@ -220,7 +220,7 @@ namespace StardustSandbox.Databases
 
             // DirectoryInfo dic = Directory.CreateDirectory(Path.Combine(SSDirectory.Local, "UIs"));
 
-            for (byte i = 0; i < uis.Length; i++)
+            for (int i = 0; i < uis.Length; i++)
             {
                 uis[i].Initialize();
                 // File.WriteAllText(Path.Combine(dic.FullName, string.Concat(uis[i].GetType().FullName, ".txt")), uis[i].ToString());

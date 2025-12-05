@@ -35,7 +35,7 @@ namespace StardustSandbox.Scenario
         private readonly GameManager gameManager = gameManager;
         private readonly Simulation simulation = simulation;
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
             if (!this.IsActive ||
                 this.gameManager.HasState(GameStates.IsSimulationPaused) ||
@@ -44,7 +44,7 @@ namespace StardustSandbox.Scenario
                 return;
             }
 
-            for (byte i = 0; i < this.activeClouds.Count; i++)
+            for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];
 
@@ -75,7 +75,7 @@ namespace StardustSandbox.Scenario
                 return;
             }
 
-            for (byte i = 0; i < this.activeClouds.Count; i++)
+            for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];
 
@@ -90,7 +90,7 @@ namespace StardustSandbox.Scenario
 
         internal void Clear()
         {
-            for (byte i = 0; i < this.activeClouds.Count; i++)
+            for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];
 

@@ -8,7 +8,6 @@ using StardustSandbox.Mathematics;
 using StardustSandbox.World;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements
 {
@@ -23,15 +22,24 @@ namespace StardustSandbox.Elements
         internal required Point TextureOriginOffset { get; init; }
         internal required Color ReferenceColor { get; init; }
 
-        internal int DefaultDispersionRate { get; init; } = 1;
-        internal double DefaultTemperature { get; init; } = 25.0;
-        internal double DefaultFlammabilityResistance { get; init; } = 25.0;
-        internal double DefaultDensity { get; init; } = 0;
-        internal double DefaultExplosionResistance { get; init; } = 0.5;
+        internal int DefaultDispersionRate { get; init; }
+        internal float DefaultTemperature { get; init; }
+        internal float DefaultFlammabilityResistance { get; init; }
+        internal float DefaultDensity { get; init; }
+        internal float DefaultExplosionResistance { get; init; }
 
         #endregion
 
         private ElementContext context;
+
+        internal Element()
+        {
+            this.DefaultDispersionRate = 1;
+            this.DefaultTemperature = 25.0f;
+            this.DefaultFlammabilityResistance = 25.0f;
+            this.DefaultDensity = 0.0f;
+            this.DefaultExplosionResistance = 0.5f;
+        }
 
         internal void SetContext(in ElementContext context)
         {
@@ -45,8 +53,8 @@ namespace StardustSandbox.Elements
         protected virtual void OnStep(in ElementContext context) { return; }
         protected virtual void OnAfterStep(in ElementContext context) { return; }
         protected virtual void OnDestroyed(in ElementContext context) { return; }
-        protected virtual void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors) { return; }
-        protected virtual void OnTemperatureChanged(in ElementContext context, double currentValue) { return; }
+        protected virtual void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors) { return; }
+        protected virtual void OnTemperatureChanged(in ElementContext context, float currentValue) { return; }
 
         #endregion
 
@@ -62,14 +70,14 @@ namespace StardustSandbox.Elements
             OnDestroyed(this.context);
         }
 
-        internal void Steps(GameTime gameTime)
+        internal void Steps(in GameTime gameTime)
         {
             bool hasTemperature = this.Characteristics.HasFlag(ElementCharacteristics.HasTemperature);
             bool affectsNeighbors = this.Characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
 
             if (hasTemperature || affectsNeighbors)
             {
-                IEnumerable<Slot> neighbors = this.context.GetNeighboringSlots();
+                ElementNeighbors neighbors = this.context.GetNeighboringSlots();
 
                 if (hasTemperature)
                 {
@@ -88,43 +96,50 @@ namespace StardustSandbox.Elements
         }
 
         // Updated temperature transfer using Fourier's law of thermal conduction
-        private void UpdateTemperature(GameTime gameTime, IEnumerable<Slot> neighbors)
+        // Fourier's law: Q = -k * A * (dT/dx) * dt
+        private void UpdateTemperature(in GameTime gameTime, in ElementNeighbors neighbors)
         {
-            double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+            float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            double currentTemperature = this.context.SlotLayer.Temperature;
-            double totalHeatTransfer = 0.0;
+            float currentTemperature = this.context.SlotLayer.Temperature;
+            float totalHeatTransfer = 0.0f;
             int validNeighborCount = 0;
 
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer neighborForeground = neighbor.GetLayer(LayerType.Foreground);
-                SlotLayer neighborBackground = neighbor.GetLayer(LayerType.Background);
-
                 // Foreground layer
-                if (!neighborForeground.HasState(ElementStates.IsEmpty) &&
-                    neighborForeground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                if (neighbors.HasNeighbor(i))
                 {
-                    double neighborTemp = neighborForeground.Temperature;
-                    // Fourier's law: Q = -k * A * (dT/dx) * dt
-                    double heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
-                    totalHeatTransfer += heatTransfer;
-                    validNeighborCount++;
+                    SlotLayer neighborForeground = neighbors.GetSlotLayer(i, Layer.Foreground);
+
+                    if (!neighborForeground.HasState(ElementStates.IsEmpty) && neighborForeground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                    {
+                        float neighborTemp = neighborForeground.Temperature;
+                        float heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+
+                        totalHeatTransfer += heatTransfer;
+                        validNeighborCount++;
+                    }
                 }
 
                 // Background layer
-                if (!neighborBackground.HasState(ElementStates.IsEmpty) &&
-                    neighborBackground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                if (neighbors.HasNeighbor(i))
                 {
-                    double neighborTemp = neighborBackground.Temperature;
-                    double heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
-                    totalHeatTransfer += heatTransfer;
-                    validNeighborCount++;
+                    SlotLayer neighborBackground = neighbors.GetSlotLayer(i, Layer.Background);
+
+                    if (!neighborBackground.HasState(ElementStates.IsEmpty) && neighborBackground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                    {
+                        float neighborTemp = neighborBackground.Temperature;
+                        float heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+
+                        totalHeatTransfer += heatTransfer;
+                        validNeighborCount++;
+                    }
                 }
             }
 
             // Update temperature based on total heat transfer
-            double newTemperature = currentTemperature + totalHeatTransfer;
+            float newTemperature = currentTemperature + totalHeatTransfer;
             this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
 
             // Equilibrium check (optional: can be tuned for stability)

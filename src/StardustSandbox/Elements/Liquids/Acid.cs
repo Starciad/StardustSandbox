@@ -1,30 +1,19 @@
 ﻿using StardustSandbox.Elements.Solids.Immovables;
-using StardustSandbox.Enums.Elements;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Acid : Liquid
     {
-        internal Acid() : base()
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-
-        }
-
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
-        {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer slotLayer = neighbor.GetLayer(context.Layer);
-
-                if (slotLayer.HasState(ElementStates.IsEmpty))
+                if (!neighbors.HasNeighbor(i))
                 {
                     continue;
                 }
 
-                switch (slotLayer.Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Acid:
                     case Wall:
@@ -37,7 +26,7 @@ namespace StardustSandbox.Elements.Liquids
                 }
 
                 context.DestroyElement();
-                context.DestroyElement(neighbor.Position, context.Layer);
+                context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
             }
         }
     }

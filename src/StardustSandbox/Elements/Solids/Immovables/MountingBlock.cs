@@ -12,9 +12,9 @@ namespace StardustSandbox.Elements.Solids.Immovables
             context.SetElementColorModifier(ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue > 300)
+            if (currentValue > 300.0f)
             {
                 if (SSRandom.Chance(75))
                 {

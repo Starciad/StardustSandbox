@@ -2,36 +2,38 @@
 using StardustSandbox.Elements.Solids.Movables;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Saltwater : Liquid
     {
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                switch (neighbor.GetLayer(context.Layer).Element)
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Dirt:
                         context.DestroyElement();
-                        context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Mud);
+                        context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Mud);
                         break;
 
                     case Stone:
                         if (SSRandom.Range(0, 150) == 0)
                         {
                             context.DestroyElement();
-                            context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Sand);
+                            context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
                         }
 
                         break;
 
                     case Fire:
-                        context.DestroyElement(neighbor.Position, context.Layer);
+                        context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
                         break;
 
                     default:
@@ -40,16 +42,16 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue <= 21)
+            if (currentValue <= 21.0f)
             {
                 context.ReplaceElement(ElementIndex.Ice);
                 context.SetStoredElement(ElementIndex.Saltwater);
                 return;
             }
 
-            if (currentValue >= 110)
+            if (currentValue >= 110.0f)
             {
                 if (SSRandom.Chance(50))
                 {

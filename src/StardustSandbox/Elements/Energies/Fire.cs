@@ -6,8 +6,6 @@ using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
 using StardustSandbox.World;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.Elements.Energies
 {
     internal sealed class Fire : Energy
@@ -47,26 +45,31 @@ namespace StardustSandbox.Elements.Energies
             }
         }
 
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbor.ForegroundLayer.HasState(ElementStates.IsEmpty))
+                if (!neighbors.HasNeighbor(i))
                 {
-                    IgniteElement(context, neighbor, neighbor.GetLayer(LayerType.Foreground), LayerType.Foreground);
+                    continue;
                 }
 
-                if (!neighbor.BackgroundLayer.HasState(ElementStates.IsEmpty))
+                if (!neighbors.GetSlotLayer(i, Layer.Foreground).HasState(ElementStates.IsEmpty))
                 {
-                    IgniteElement(context, neighbor, neighbor.GetLayer(LayerType.Background), LayerType.Background);
+                    IgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Foreground), Layer.Foreground);
+                }
+
+                if (!neighbors.GetSlotLayer(i, Layer.Background).HasState(ElementStates.IsEmpty))
+                {
+                    IgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Background), Layer.Background);
                 }
             }
         }
 
-        private static void IgniteElement(in ElementContext context, Slot slot, SlotLayer worldSlotLayer, LayerType layer)
+        private static void IgniteElement(in ElementContext context, Slot slot, SlotLayer worldSlotLayer, Layer layer)
         {
             // Increase neighboring temperature by fire's heat value
-            context.SetElementTemperature((short)(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE));
+            context.SetElementTemperature(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
 
             // Check if the element is flammable
             if (worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
@@ -82,7 +85,7 @@ namespace StardustSandbox.Elements.Energies
                 }
 
                 // Attempt combustion based on flammabilityResistance
-                if (SSRandom.Chance(combustionChance, 100.0 + worldSlotLayer.Element.DefaultFlammabilityResistance))
+                if (SSRandom.Chance(combustionChance, 100.0f + worldSlotLayer.Element.DefaultFlammabilityResistance))
                 {
                     context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
                 }

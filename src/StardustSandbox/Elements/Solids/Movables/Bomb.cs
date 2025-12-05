@@ -1,9 +1,6 @@
 ﻿using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
@@ -31,13 +28,16 @@ namespace StardustSandbox.Elements.Solids.Movables
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer worldSlotLayer = neighbor.GetLayer(context.Layer);
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
 
-                switch (worldSlotLayer.Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Bomb:
                     case Wall:
@@ -52,9 +52,9 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue > 100)
+            if (currentValue > 100.0f)
             {
                 context.DestroyElement();
             }

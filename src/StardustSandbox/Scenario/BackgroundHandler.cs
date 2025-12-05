@@ -14,7 +14,7 @@ namespace StardustSandbox.Scenario
 
         private Background selectedBackground;
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
             this.selectedBackground.Update(gameTime);
         }

@@ -19,7 +19,7 @@ namespace StardustSandbox.Inputs.Game.Simulation
         }
 
         internal PenTool Tool { get; set; }
-        internal LayerType Layer { get; set; }
+        internal Layer Layer { get; set; }
         internal PenShape Shape { get; set; }
 
         private sbyte size = InputConstants.PEN_MIN_SIZE;
@@ -27,7 +27,7 @@ namespace StardustSandbox.Inputs.Game.Simulation
         internal Pen()
         {
             this.Tool = PenTool.Pencil;
-            this.Layer = LayerType.Foreground;
+            this.Layer = Layer.Foreground;
             this.Shape = PenShape.Circle;
         }
 

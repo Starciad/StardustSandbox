@@ -9,8 +9,8 @@ namespace StardustSandbox.Interfaces.Tools
     {
         GameWorld World { get; }
         Point Position { get; }
-        LayerType Layer { get; }
+        Layer Layer { get; }
 
-        void Update(Point position, LayerType layer);
+        void Update(Point position, Layer layer);
     }
 }

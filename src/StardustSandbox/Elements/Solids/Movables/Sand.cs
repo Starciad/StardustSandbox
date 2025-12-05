@@ -4,14 +4,9 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Sand : MovableSolid
     {
-        internal Sand() : base()
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-
-        }
-
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
-        {
-            if (currentValue >= 1500)
+            if (currentValue >= 1500.0f)
             {
                 context.ReplaceElement(ElementIndex.Glass);
             }

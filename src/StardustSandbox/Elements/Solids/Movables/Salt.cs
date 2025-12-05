@@ -1,24 +1,26 @@
 ﻿using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Salt : MovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                switch (neighbor.GetLayer(context.Layer).Element)
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Water:
                     case Ice:
                     case Snow:
                         context.DestroyElement();
-                        context.ReplaceElement(neighbor.Position, context.Layer, ElementIndex.Saltwater);
+                        context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Saltwater);
                         break;
 
                     default:
@@ -27,9 +29,9 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, double currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue > 900)
+            if (currentValue > 900.0f)
             {
                 context.ReplaceElement(ElementIndex.Lava);
                 context.SetStoredElement(ElementIndex.Salt);

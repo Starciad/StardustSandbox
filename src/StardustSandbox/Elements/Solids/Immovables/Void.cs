@@ -1,21 +1,27 @@
 ﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.World;
 
-using System.Collections.Generic;
-
 namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class Void : ImmovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                SlotLayer neighborLayer = neighbor.GetLayer(context.Layer);
-
-                if (!neighborLayer.HasState(ElementStates.IsEmpty) && neighborLayer.Element.Index != ElementIndex.Wall && neighborLayer.Element.Index != ElementIndex.Void && neighborLayer.Element.Index != ElementIndex.Clone)
+                if (!neighbors.HasNeighbor(i))
                 {
-                    context.DestroyElement(neighbor.Position, context.Layer);
+                    continue;
+                }
+
+                SlotLayer neighborSlotLayer = neighbors.GetSlotLayer(i, context.Layer);
+
+                if (!neighborSlotLayer.HasState(ElementStates.IsEmpty) &&
+                     neighborSlotLayer.Element.Index != ElementIndex.Wall &&
+                     neighborSlotLayer.Element.Index != ElementIndex.Void &&
+                     neighborSlotLayer.Element.Index != ElementIndex.Clone)
+                {
+                    context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
                 }
             }
         }

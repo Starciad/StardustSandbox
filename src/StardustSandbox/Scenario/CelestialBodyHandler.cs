@@ -15,10 +15,10 @@ namespace StardustSandbox.Scenario
     {
         internal bool IsActive { get; set; }
 
-        private double positionX;
-        private double positionY;
-        private double rotation;
-        private double angle;
+        private float positionX;
+        private float positionY;
+        private float rotation;
+        private float angle;
 
         private readonly TimeHandler timeHandler = timeHandler;
         private readonly GameWorld world = world;
@@ -29,8 +29,8 @@ namespace StardustSandbox.Scenario
             this.angle = (BackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE * this.timeHandler.IntervalProgress) + BackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
 
             // Update position based on angle
-            this.positionX = BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Cos(this.angle));
-            this.positionY = BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Sin(this.angle));
+            this.positionX = Convert.ToSingle(BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Cos(this.angle)));
+            this.positionY = Convert.ToSingle(BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Sin(this.angle)));
 
             // Update rotation for alignment
             this.rotation = this.angle - (MathF.PI / 2);
@@ -49,7 +49,7 @@ namespace StardustSandbox.Scenario
                 _ => throw new InvalidOperationException("Unexpected day period."),
             };
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoCelestialBodies), new((float)this.positionX, (float)this.positionY), rectangle, Color.White, (float)this.rotation, Vector2.Zero, new Vector2(1.2f), SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoCelestialBodies), new(this.positionX, this.positionY), rectangle, Color.White, this.rotation, Vector2.Zero, new Vector2(1.2f), SpriteEffects.None, 0f);
         }
     }
 }

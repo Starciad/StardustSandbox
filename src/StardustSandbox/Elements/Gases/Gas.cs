@@ -13,29 +13,45 @@ namespace StardustSandbox.Elements.Gases
         private readonly List<Point> emptyPositionsCache = [];
         private readonly List<Point> validPositionsCache = [];
 
+        private void EvaluateNeighboringPosition(in ElementContext context, Point position)
+        {
+            if (context.IsEmptySlotLayer(position, context.Layer))
+            {
+                this.emptyPositionsCache.Add(position);
+            }
+            else if (context.TryGetSlot(position, out Slot value))
+            {
+                SlotLayer worldSlotLayer = value.GetLayer(context.Layer);
+
+                if (worldSlotLayer.Element.Category == ElementCategory.Gas ||
+                    worldSlotLayer.Element.Category == ElementCategory.Liquid)
+                {
+                    if ((worldSlotLayer.Element.Index == this.Index && worldSlotLayer.Temperature > context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
+                    {
+                        this.validPositionsCache.Add(position);
+                    }
+                }
+            }
+        }
+
         protected override void OnStep(in ElementContext context)
         {
             this.emptyPositionsCache.Clear();
             this.validPositionsCache.Clear();
 
-            foreach (Point position in context.Slot.Position.GetNeighboringCardinalPoints())
-            {
-                if (context.IsEmptySlotLayer(position, context.Layer))
-                {
-                    this.emptyPositionsCache.Add(position);
-                }
-                else if (context.TryGetSlot(position, out Slot value))
-                {
-                    SlotLayer worldSlotLayer = value.GetLayer(context.Layer);
+            int centerX = context.Slot.Position.X;
+            int centerY = context.Slot.Position.Y;
 
-                    if (worldSlotLayer.Element.Category == ElementCategory.Gas ||
-                        worldSlotLayer.Element.Category == ElementCategory.Liquid)
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    if (dx == 0 && dy == 0)
                     {
-                        if ((worldSlotLayer.Element.Index == this.Index && worldSlotLayer.Temperature > context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
-                        {
-                            this.validPositionsCache.Add(position);
-                        }
+                        continue;
                     }
+
+                    EvaluateNeighboringPosition(context, new(centerX + dx, centerY + dy));
                 }
             }
 

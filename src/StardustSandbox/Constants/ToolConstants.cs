@@ -2,7 +2,7 @@
 {
     internal static class ToolConstants
     {
-        internal const byte DEFAULT_HEAT_VALUE = 10;
-        internal const sbyte DEFAULT_FREEZE_VALUE = -10;
+        internal const float DEFAULT_HEAT_VALUE = 5.0f;
+        internal const float DEFAULT_FREEZE_VALUE = -5.0f;
     }
 }

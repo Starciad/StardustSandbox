@@ -3,26 +3,28 @@
 using StardustSandbox.Constants;
 using StardustSandbox.World.Status;
 
+using System;
+
 namespace StardustSandbox.Scenario
 {
     internal sealed class TimeHandler(Time time)
     {
-        internal double GlobalIllumination => this.globalIllumination;
-        internal double CurrentSeconds => this.currentSeconds;
-        internal double IntervalDuration => this.intervalDuration;
-        internal double IntervalProgress => this.intervalProgress;
+        internal float GlobalIllumination => this.globalIllumination;
+        internal float CurrentSeconds => this.currentSeconds;
+        internal float IntervalDuration => this.intervalDuration;
+        internal float IntervalProgress => this.intervalProgress;
 
-        private double globalIllumination = 1.0;
-        private double currentSeconds;
-        private double intervalDuration;
-        private double intervalProgress;
+        private float globalIllumination = 1.0f;
+        private float currentSeconds;
+        private float intervalDuration;
+        private float intervalProgress;
         private bool isDay;
 
         private readonly Time time = time;
 
         internal void Update()
         {
-            this.currentSeconds = this.time.CurrentTime.TotalSeconds;
+            this.currentSeconds = Convert.ToSingle(this.time.CurrentTime.TotalSeconds);
 
             UpdateDayState();
             UpdateIntervalDuration();
@@ -50,12 +52,12 @@ namespace StardustSandbox.Scenario
             if (this.isDay)
             {
                 // Illumination increases in the morning and decreases in the afternoon
-                this.globalIllumination = MathHelper.Lerp(0.5f, 1.0f, (float)(this.intervalProgress <= 0.5 ? this.intervalProgress * 2 : (1 - this.intervalProgress) * 2));
+                this.globalIllumination = MathHelper.Lerp(0.5f, 1.0f, this.intervalProgress <= 0.5 ? this.intervalProgress * 2 : (1 - this.intervalProgress) * 2);
             }
             else
             {
                 // Illumination decreases during the night
-                this.globalIllumination = MathHelper.Lerp(0.1f, 0.5f, (float)(1 - this.intervalProgress));
+                this.globalIllumination = MathHelper.Lerp(0.1f, 0.5f, 1.0f - this.intervalProgress);
             }
         }
 

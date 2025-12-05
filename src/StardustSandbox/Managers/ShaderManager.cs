@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Databases;
 
+using System;
+
 namespace StardustSandbox.Managers
 {
     internal sealed class ShaderManager
@@ -16,11 +18,11 @@ namespace StardustSandbox.Managers
             this.effectsLength = this.effects.Length;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
-            for (byte i = 0; i < this.effectsLength; i++)
+            for (int i = 0; i < this.effectsLength; i++)
             {
-                this.effects[i].Parameters["Time"]?.SetValue((float)gameTime.TotalGameTime.TotalSeconds);
+                this.effects[i].Parameters["Time"]?.SetValue(Convert.ToSingle(gameTime.TotalGameTime.TotalSeconds));
             }
         }
     }

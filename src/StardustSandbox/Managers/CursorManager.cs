@@ -58,7 +58,7 @@ namespace StardustSandbox.Managers
 
             this.color = cursorSettings.Color;
             this.backgroundColor = cursorSettings.BackgroundColor;
-            this.scale = new((float)cursorSettings.Scale);
+            this.scale = new(cursorSettings.Scale);
         }
     }
 }

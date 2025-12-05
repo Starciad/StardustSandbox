@@ -89,8 +89,8 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.layerButtonInfos = [
-                new(TextureIndex.IconUI, new(192, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => this.inputController.Pen.Layer = LayerType.Foreground),
-                new(TextureIndex.IconUI, new(224, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => this.inputController.Pen.Layer = LayerType.Background),
+                new(TextureIndex.IconUI, new(192, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => this.inputController.Pen.Layer = Layer.Foreground),
+                new(TextureIndex.IconUI, new(224, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => this.inputController.Pen.Layer = Layer.Background),
             ];
 
             this.shapeButtonInfos = [
@@ -176,7 +176,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
@@ -236,7 +236,7 @@ namespace StardustSandbox.UI.Common.HUD
             // Buttons
             float marginX = 0.0f;
 
-            for (byte i = 0; i < this.toolButtonInfos.Length; i++)
+            for (int i = 0; i < this.toolButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.toolButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
@@ -272,7 +272,7 @@ namespace StardustSandbox.UI.Common.HUD
             // Buttons
             float marginX = 0.0f;
 
-            for (byte i = 0; i < this.layerButtonInfos.Length; i++)
+            for (int i = 0; i < this.layerButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.layerButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
@@ -308,7 +308,7 @@ namespace StardustSandbox.UI.Common.HUD
             // Buttons
             float marginX = 0.0f;
 
-            for (byte i = 0; i < this.shapeButtonInfos.Length; i++)
+            for (int i = 0; i < this.shapeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.shapeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
@@ -356,7 +356,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -372,7 +372,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
@@ -399,7 +399,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateBrushSizeSlider()
         {
-            for (byte i = 0; i < this.brushSizeSliderSourceRectangles.Length; i++)
+            for (int i = 0; i < this.brushSizeSliderSourceRectangles.Length; i++)
             {
                 Vector2 position = new(
                     this.brushSizeSlider.Position.X + (i * 64.0f),
@@ -424,7 +424,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateToolBottons()
         {
-            for (byte i = 0; i < this.toolButtonInfos.Length; i++)
+            for (int i = 0; i < this.toolButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.toolButtonSlotInfos[i];
 
@@ -449,7 +449,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateLayerButtons()
         {
-            for (byte i = 0; i < this.layerButtonInfos.Length; i++)
+            for (int i = 0; i < this.layerButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.layerButtonSlotInfos[i];
 
@@ -474,7 +474,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateShapeButtons()
         {
-            for (byte i = 0; i < this.shapeButtonInfos.Length; i++)
+            for (int i = 0; i < this.shapeButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.shapeButtonSlotInfos[i];
 

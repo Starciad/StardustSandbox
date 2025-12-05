@@ -101,7 +101,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.buttonInfos.Length; i++)
+            for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 ButtonInfo button = this.buttonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
@@ -125,7 +125,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginY = 128.0f;
 
-            for (byte i = 0; i < this.infoLabels.Length; i++)
+            for (int i = 0; i < this.infoLabels.Length; i++)
             {
                 Label label = new()
                 {
@@ -175,7 +175,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATE
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             UpdateMenuButtons();
             base.Update(gameTime);
@@ -183,7 +183,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.buttonSlotInfos.Length; i++)
+            for (int i = 0; i < this.buttonSlotInfos.Length; i++)
             {
                 SlotInfo slot = this.buttonSlotInfos[i];
 

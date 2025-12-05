@@ -2,18 +2,15 @@
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
-using StardustSandbox.World;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class LiquidCorruption : Liquid
     {
-        protected override void OnNeighbors(in ElementContext context, IEnumerable<Slot> neighbors)
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            if (CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(LayerType.Foreground, neighbors) &&
-                CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(LayerType.Background, neighbors))
+            if (CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(Layer.Foreground, neighbors) &&
+                CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(Layer.Background, neighbors))
             {
                 return;
             }

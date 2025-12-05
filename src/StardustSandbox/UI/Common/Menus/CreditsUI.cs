@@ -15,6 +15,8 @@ using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.World;
 
+using System;
+
 namespace StardustSandbox.UI.Common.Menus
 {
     internal sealed class CreditsUI : UIBase
@@ -224,7 +226,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Vector2 margin = new(0.0f, VERTICAL_SPACING * 2.0f);
 
-            for (byte i = 0; i < this.creditSections.Length; i++)
+            for (int i = 0; i < this.creditSections.Length; i++)
             {
                 CreditSection creditSection = this.creditSections[i];
 
@@ -312,14 +314,14 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             UpdateUserInput();
             CheckIfTheCreditsHaveFinished();
 
             this.rootContainer.Margin = new Vector2(
                 this.rootContainer.Margin.X,
-                this.rootContainer.Margin.Y - (SPEED * (float)gameTime.ElapsedGameTime.TotalMilliseconds)
+                this.rootContainer.Margin.Y - (SPEED * Convert.ToSingle(gameTime.ElapsedGameTime.TotalMilliseconds))
             );
 
             base.Update(gameTime);

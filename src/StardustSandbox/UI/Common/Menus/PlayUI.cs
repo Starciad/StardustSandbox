@@ -72,7 +72,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             float marginY = 0.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
@@ -107,9 +107,9 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
-            for (byte i = 0; i < this.menuButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 Label label = this.menuButtonLabels[i];
 

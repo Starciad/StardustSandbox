@@ -10,22 +10,22 @@ namespace StardustSandbox.Tools
     {
         internal GameWorld World => world;
         internal Point Position => this.position;
-        internal LayerType Layer => this.layer;
+        internal Layer Layer => this.layer;
 
         GameWorld IToolContext.World => this.World;
         Point IToolContext.Position => this.Position;
-        LayerType IToolContext.Layer => this.Layer;
+        Layer IToolContext.Layer => this.Layer;
 
         private Point position;
-        private LayerType layer;
+        private Layer layer;
 
-        internal void Update(Point position, LayerType layer)
+        internal void Update(Point position, Layer layer)
         {
             this.position = position;
             this.layer = layer;
         }
 
-        void IToolContext.Update(Point position, LayerType layer)
+        void IToolContext.Update(Point position, Layer layer)
         {
             Update(position, layer);
         }

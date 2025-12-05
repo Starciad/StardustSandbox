@@ -9,22 +9,27 @@ namespace StardustSandbox.Elements.Utilities
 {
     internal static class CorruptionUtilities
     {
-        private readonly struct SlotTarget(Slot slot, LayerType layer)
+        private readonly struct SlotTarget(Slot slot, Layer layer)
         {
             internal Slot Slot => slot;
-            internal LayerType Layer => layer;
+            internal Layer Layer => layer;
         }
 
         private static readonly List<SlotTarget> targets = [];
 
-        internal static bool CheckIfNeighboringElementsAreCorrupted(LayerType layer, IEnumerable<Slot> neighbors)
+        internal static bool CheckIfNeighboringElementsAreCorrupted(Layer layer, in ElementNeighbors neighbors)
         {
             int count = 0;
             int corruptNeighboringElements = 0;
 
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                Element element = neighbor.GetLayer(layer).Element;
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                Element element = neighbors.GetSlotLayer(i, layer).Element;
 
                 if (element == null)
                 {
@@ -42,11 +47,11 @@ namespace StardustSandbox.Elements.Utilities
             return corruptNeighboringElements == count;
         }
 
-        internal static void InfectNeighboringElements(this ElementContext context, IEnumerable<Slot> neighbors)
+        internal static void InfectNeighboringElements(this ElementContext context, in ElementNeighbors neighbors)
         {
             targets.Clear();
 
-            void ProcessLayer(Slot slot, LayerType layer, Element element)
+            void ProcessLayer(Slot slot, Layer layer, Element element)
             {
                 if (element != null && element.Characteristics.HasFlag(ElementCharacteristics.IsCorruptible))
                 {
@@ -54,10 +59,10 @@ namespace StardustSandbox.Elements.Utilities
                 }
             }
 
-            foreach (Slot neighbor in neighbors)
+            for (int i = 0; i < neighbors.Length; i++)
             {
-                ProcessLayer(neighbor, LayerType.Foreground, neighbor.ForegroundLayer.Element);
-                ProcessLayer(neighbor, LayerType.Background, neighbor.BackgroundLayer.Element);
+                ProcessLayer(neighbors.GetSlot(i), Layer.Foreground, neighbors.GetSlotLayer(i, Layer.Foreground).Element);
+                ProcessLayer(neighbors.GetSlot(i), Layer.Background, neighbors.GetSlotLayer(i, Layer.Background).Element);
             }
 
             if (targets.Count == 0)
@@ -70,9 +75,9 @@ namespace StardustSandbox.Elements.Utilities
 
         private static void InfectSlotLayer(in ElementContext context, SlotTarget slotTarget)
         {
-            Element targetElement = slotTarget.Layer == LayerType.Foreground
-                ? slotTarget.Slot.ForegroundLayer.Element
-                : slotTarget.Slot.BackgroundLayer.Element;
+            Element targetElement = slotTarget.Layer == Layer.Foreground
+                ? slotTarget.Slot.Foreground.Element
+                : slotTarget.Slot.Background.Element;
 
             switch (targetElement.Category)
             {

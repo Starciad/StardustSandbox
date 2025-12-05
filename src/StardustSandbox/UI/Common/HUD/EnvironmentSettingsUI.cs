@@ -122,7 +122,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             float marginX = -32.0f;
 
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
@@ -157,7 +157,7 @@ namespace StardustSandbox.UI.Common.HUD
             // Buttons
             float marginX = 0.0f;
 
-            for (byte i = 0; i < this.timeStateButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.timeStateButtonSlotInfos.Length; i++)
             {
                 ButtonInfo button = this.timeStateButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
@@ -193,7 +193,7 @@ namespace StardustSandbox.UI.Common.HUD
             // Buttons
             float marginX = 0.0f;
 
-            for (byte i = 0; i < this.timeButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.timeButtonSlotInfos.Length; i++)
             {
                 ButtonInfo button = this.timeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
@@ -241,7 +241,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATE
 
-        internal override void Update(GameTime gameTime)
+        internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -254,7 +254,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateMenuButtons()
         {
-            for (byte i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
@@ -281,7 +281,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTimeStateButtons()
         {
-            for (byte i = 0; i < this.timeStateButtonInfos.Length; i++)
+            for (int i = 0; i < this.timeStateButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.timeStateButtonSlotInfos[i];
 
@@ -317,7 +317,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTimeButtons()
         {
-            for (byte i = 0; i < this.timeButtonInfos.Length; i++)
+            for (int i = 0; i < this.timeButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.timeButtonSlotInfos[i];
 

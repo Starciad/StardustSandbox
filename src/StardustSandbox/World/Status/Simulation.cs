@@ -4,6 +4,8 @@ using StardustSandbox.Constants;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
 
+using System;
+
 namespace StardustSandbox.World.Status
 {
     internal sealed class Simulation : IResettable
@@ -12,18 +14,18 @@ namespace StardustSandbox.World.Status
 
         private SimulationSpeed currentSpeed = SimulationSpeed.Normal;
 
-        private double delayThresholdSeconds = SimulationConstants.NORMAL_SPEED_DELAY_SECONDS;
-        private double accumulatedTimeSeconds;
+        private float delayThresholdSeconds = SimulationConstants.NORMAL_SPEED_DELAY_SECONDS;
+        private float accumulatedTimeSeconds;
 
         public void Reset()
         {
             this.delayThresholdSeconds = SimulationConstants.NORMAL_SPEED_DELAY_SECONDS;
-            this.accumulatedTimeSeconds = 0.0;
+            this.accumulatedTimeSeconds = 0.0f;
         }
 
-        internal void Update(GameTime gameTime)
+        internal void Update(in GameTime gameTime)
         {
-            this.accumulatedTimeSeconds += gameTime.ElapsedGameTime.TotalSeconds;
+            this.accumulatedTimeSeconds += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         internal void SetSpeed(SimulationSpeed speed)
@@ -42,7 +44,7 @@ namespace StardustSandbox.World.Status
         {
             if (this.accumulatedTimeSeconds >= this.delayThresholdSeconds)
             {
-                this.accumulatedTimeSeconds -= this.delayThresholdSeconds;
+                this.accumulatedTimeSeconds = 0.0f;
                 return true;
             }
 

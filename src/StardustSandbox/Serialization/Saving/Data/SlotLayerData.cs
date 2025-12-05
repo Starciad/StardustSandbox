@@ -27,7 +27,7 @@ namespace StardustSandbox.Serialization.Saving.Data
         public ElementIndex ElementIndex { get; set; }
 
         [Key("Temperature")]
-        public double Temperature { get; set; }
+        public float Temperature { get; set; }
 
         [Key("States")]
         public ElementStates States { get; set; }

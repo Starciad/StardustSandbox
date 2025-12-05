@@ -42,14 +42,14 @@ namespace StardustSandbox.Serialization.Saving.Data
         {
             this.Position = slot.Position;
 
-            if (!slot.ForegroundLayer.HasState(ElementStates.IsEmpty))
+            if (!slot.Foreground.HasState(ElementStates.IsEmpty))
             {
-                this.ForegroundLayer = new(slot.ForegroundLayer);
+                this.ForegroundLayer = new(slot.Foreground);
             }
 
-            if (!slot.BackgroundLayer.HasState(ElementStates.IsEmpty))
+            if (!slot.Background.HasState(ElementStates.IsEmpty))
             {
-                this.BackgroundLayer = new(slot.BackgroundLayer);
+                this.BackgroundLayer = new(slot.Background);
             }
         }
     }

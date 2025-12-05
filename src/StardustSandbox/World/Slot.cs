@@ -9,28 +9,27 @@ namespace StardustSandbox.World
 {
     public sealed class Slot : IPoolableObject
     {
-        internal bool IsEmpty => this.ForegroundLayer.HasState(ElementStates.IsEmpty) && this.BackgroundLayer.HasState(ElementStates.IsEmpty);
+        internal bool IsEmpty => this.IsBackgroundEmpty && this.IsForegroundEmpty;
+
+        internal bool IsForegroundEmpty => this.Foreground.HasState(ElementStates.IsEmpty);
+        internal bool IsBackgroundEmpty => this.Background.HasState(ElementStates.IsEmpty);
+
         internal Point Position => this.position;
 
-        internal SlotLayer ForegroundLayer => this.foregroundLayer;
-        internal SlotLayer BackgroundLayer => this.backgroundLayer;
+        internal SlotLayer Foreground => this.foreground;
+        internal SlotLayer Background => this.background;
 
         private Point position;
 
-        private readonly SlotLayer foregroundLayer = new();
-        private readonly SlotLayer backgroundLayer = new();
+        private readonly SlotLayer foreground = new();
+        private readonly SlotLayer background = new();
 
-        internal Slot()
-        {
-
-        }
-
-        internal SlotLayer GetLayer(LayerType layer)
+        internal SlotLayer GetLayer(Layer layer)
         {
             return layer switch
             {
-                LayerType.Foreground => this.foregroundLayer,
-                LayerType.Background => this.backgroundLayer,
+                Layer.Foreground => this.foreground,
+                Layer.Background => this.background,
                 _ => null,
             };
         }
@@ -40,71 +39,71 @@ namespace StardustSandbox.World
             this.position = position;
         }
 
-        internal void Instantiate(Point position, LayerType layer, Element value)
+        internal void Instantiate(Point position, Layer layer, Element value)
         {
             this.position = position;
             GetLayer(layer).Instantiate(value);
         }
 
-        internal void Destroy(LayerType layer)
+        internal void Destroy(Layer layer)
         {
             GetLayer(layer).Destroy();
         }
 
-        internal void Copy(LayerType layer, SlotLayer valueToCopy)
+        internal void Copy(Layer layer, SlotLayer valueToCopy)
         {
             GetLayer(layer).Copy(valueToCopy);
         }
 
-        internal void SetTemperatureValue(LayerType layer, double value)
+        internal void SetTemperatureValue(Layer layer, float value)
         {
             GetLayer(layer).SetTemperatureValue(value);
         }
 
-        internal void SetColorModifier(LayerType layer, Color value)
+        internal void SetColorModifier(Layer layer, Color value)
         {
             GetLayer(layer).SetColorModifier(value);
         }
 
-        internal void SetStoredElement(LayerType layer, Element value)
+        internal void SetStoredElement(Layer layer, Element value)
         {
             GetLayer(layer).SetStoredElement(value);
         }
 
-        internal bool HasState(LayerType layer, ElementStates value)
+        internal bool HasState(Layer layer, ElementStates value)
         {
             return GetLayer(layer).HasState(value);
         }
 
-        internal void SetState(LayerType layer, ElementStates value)
+        internal void SetState(Layer layer, ElementStates value)
         {
             GetLayer(layer).SetState(value);
         }
 
-        internal void RemoveState(LayerType layer, ElementStates value)
+        internal void RemoveState(Layer layer, ElementStates value)
         {
             GetLayer(layer).RemoveState(value);
         }
 
-        internal void ClearStates(LayerType layer)
+        internal void ClearStates(Layer layer)
         {
             GetLayer(layer).ClearStates();
         }
 
-        internal void ToggleState(LayerType layer, ElementStates value)
+        internal void ToggleState(Layer layer, ElementStates value)
         {
             GetLayer(layer).ToggleState(value);
         }
 
-        internal void Reset(LayerType layer)
+        internal void Reset(Layer layer)
         {
             GetLayer(layer).Reset();
         }
 
         public void Reset()
         {
-            this.foregroundLayer.Reset();
-            this.backgroundLayer.Reset();
+            this.foreground.Reset();
+            this.background.Reset();
         }
     }
 }
