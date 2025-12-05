@@ -53,7 +53,7 @@ namespace StardustSandbox.Elements.Utilities
 
             void ProcessLayer(Slot slot, Layer layer, Element element)
             {
-                if (element != null && element.Characteristics.HasFlag(ElementCharacteristics.IsCorruptible))
+                if (element.Characteristics.HasFlag(ElementCharacteristics.IsCorruptible))
                 {
                     targets.Add(new(slot, layer));
                 }
@@ -61,8 +61,20 @@ namespace StardustSandbox.Elements.Utilities
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                ProcessLayer(neighbors.GetSlot(i), Layer.Foreground, neighbors.GetSlotLayer(i, Layer.Foreground).Element);
-                ProcessLayer(neighbors.GetSlot(i), Layer.Background, neighbors.GetSlotLayer(i, Layer.Background).Element);
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                if (!neighbors.GetSlot(i).IsForegroundEmpty)
+                {
+                    ProcessLayer(neighbors.GetSlot(i), Layer.Foreground, neighbors.GetSlotLayer(i, Layer.Foreground).Element);
+                }
+
+                if (!neighbors.GetSlot(i).IsBackgroundEmpty)
+                {
+                    ProcessLayer(neighbors.GetSlot(i), Layer.Background, neighbors.GetSlotLayer(i, Layer.Background).Element);
+                }
             }
 
             if (targets.Count == 0)
