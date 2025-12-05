@@ -826,6 +826,15 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Simulation Paused.
+        /// </summary>
+        internal static string HUD_SimulationPaused {
+            get {
+                return ResourceManager.GetString("HUD.SimulationPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a And that&apos;s the end....
         /// </summary>
         internal static string Menu_Credits_Message_Finalization {

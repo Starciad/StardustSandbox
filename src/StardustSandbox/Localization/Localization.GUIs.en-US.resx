@@ -564,4 +564,7 @@
   <data name="Menu.Options.Section.Video.Option.Framerate.Name" xml:space="preserve">
     <value>Frame Rate</value>
   </data>
+  <data name="HUD.SimulationPaused" xml:space="preserve">
+    <value>Simulation Paused</value>
+  </data>
 </root>

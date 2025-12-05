@@ -34,6 +34,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Image topToolbarBackground, leftToolbarBackground, rightToolbarBackground;
         private Image topDrawerButton, leftDrawerButton, rightDrawerButton;
         private Image toolbarSearchButton, toolbarCurrentlySelectedToolBackground, toolbarCurrentlySelectedToolIcon;
+        private Image simulationPauseBackground;
 
         private readonly TooltipBox tooltipBox;
 
@@ -165,7 +166,10 @@ namespace StardustSandbox.UI.Common.HUD
             BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), CardinalDirection.South);
             BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), CardinalDirection.East);
             BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), CardinalDirection.West);
+            
             root.AddChild(this.tooltipBox);
+
+            BuildSimulationPause(root);
         }
 
         private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, CardinalDirection alignment, Action<Container> buildContent)
@@ -334,6 +338,37 @@ namespace StardustSandbox.UI.Common.HUD
             return CreateButtonSlot(margin, button.Texture, button.TextureSourceRectangle);
         }
 
+        private void BuildSimulationPause(Container root)
+        {
+            Color backgroundColor = AAP64ColorPalette.DarkGray;
+            backgroundColor.A = 120;
+
+            this.simulationPauseBackground = new()
+            {
+                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                Size = Vector2.One,
+                Color = backgroundColor,
+                Alignment = CardinalDirection.Center,
+            };
+
+            Label pauseLabel = new()
+            {
+                SpriteFontIndex = SpriteFontIndex.VcrOsdMono1001,
+                Color = AAP64ColorPalette.White,
+                Scale = new(0.08f),
+                Alignment = CardinalDirection.Center,
+                TextContent = Localization_GUIs.HUD_SimulationPaused,
+            };
+
+            this.simulationPauseBackground.Scale = new(
+                (pauseLabel.Size.X / 2.0f) + 225.0f,
+                (pauseLabel.Size.Y / 2.0f) + 70.0f
+            );
+
+            this.simulationPauseBackground.AddChild(pauseLabel);
+            root.AddChild(this.simulationPauseBackground);
+        }
+
         #endregion
 
         #region UPDATE
@@ -373,6 +408,8 @@ namespace StardustSandbox.UI.Common.HUD
             }
 
             UpdateDrawerButtons();
+
+            this.simulationPauseBackground.CanDraw = this.gameManager.HasState(GameStates.IsSimulationPaused);
 
             base.Update(gameTime);
         }
