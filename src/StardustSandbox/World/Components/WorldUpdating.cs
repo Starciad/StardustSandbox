@@ -12,7 +12,6 @@ namespace StardustSandbox.World.Components
 {
     internal sealed class WorldUpdating(GameWorld world) : IResettable
     {
-        private UpdateCycleFlag updateCycleFlag;
         private UpdateCycleFlag stepCycleFlag;
 
         private readonly ElementContext elementUpdateContext = new(world);
@@ -20,7 +19,6 @@ namespace StardustSandbox.World.Components
 
         public void Reset()
         {
-            this.updateCycleFlag = UpdateCycleFlag.None;
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
@@ -52,7 +50,6 @@ namespace StardustSandbox.World.Components
                 }
             }
 
-            this.updateCycleFlag = this.updateCycleFlag.GetNextCycle();
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
