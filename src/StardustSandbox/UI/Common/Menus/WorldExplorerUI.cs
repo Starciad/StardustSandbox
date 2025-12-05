@@ -125,7 +125,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
             };
 
-            root.AddChild(headerBackground);
+            root.AddChild(this.headerBackground);
 
             // Title
             Label titleLabelElement = new()

@@ -24,7 +24,7 @@ namespace StardustSandbox.Backgrounds.Clouds
         {
             this.position = new Vector2(-(WorldConstants.GRID_SIZE * 5), SSRandom.Range(0, WorldConstants.GRID_SIZE * 10));
             this.speed = SSRandom.Range(10, 50);
-            this.opacity = (float)(SSRandom.GetDouble() * 0.5 + 0.5);
+            this.opacity = (float)((SSRandom.GetDouble() * 0.5) + 0.5);
         }
 
         internal Cloud()

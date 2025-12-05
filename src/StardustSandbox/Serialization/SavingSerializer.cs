@@ -89,7 +89,7 @@ namespace StardustSandbox.Serialization
         internal static SaveFile LoadSaveFile(string name, GraphicsDevice graphicsDevice)
         {
             string filename = Path.Combine(SSDirectory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
-            
+
             using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
             using ZipArchive saveFileZipArchive = new(inputSaveFile, ZipArchiveMode.Read);
 
@@ -222,6 +222,7 @@ namespace StardustSandbox.Serialization
                         {
                             thumbnailTexture = Texture2D.FromStream(graphicsDevice, stream);
                         }
+
                         break;
 
                     case IOConstants.SAVE_FILE_DATA:
@@ -229,6 +230,7 @@ namespace StardustSandbox.Serialization
                         {
                             saveFile = MessagePackSerializer.Deserialize<SaveFile>(stream, MessagePackSerializerOptions.Standard);
                         }
+
                         break;
 
                     default:

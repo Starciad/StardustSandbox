@@ -14,7 +14,7 @@ namespace StardustSandbox.Serialization.Saving
 
         [Key("Metadata")]
         public Metadata Metadata { get; set; }
-        
+
         [Key("Manifest")]
         public ManifestData Manifest { get; set; }
 

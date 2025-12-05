@@ -141,7 +141,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.worldDescription = new()
             {
                 Scale = new(0.078f),
-                Margin = new(WorldConstants.WORLD_THUMBNAIL_SIZE.X * this.worldThumbnail.Scale.X + 16.0f, 0.0f),
+                Margin = new((WorldConstants.WORLD_THUMBNAIL_SIZE.X * this.worldThumbnail.Scale.X) + 16.0f, 0.0f),
                 LineHeight = 1.25f,
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 TextAreaSize = new(930.0f, 600.0f),

@@ -40,7 +40,7 @@ namespace StardustSandbox.Backgrounds
                     this.movementOffsetPosition.X += this.movementSpeed.X * elapsedSeconds;
                 }
 
-                this.layerPosition.X = this.movementOffsetPosition.X + this.parallaxFactor.X * cameraPosition.X * elapsedSeconds * -1;
+                this.layerPosition.X = this.movementOffsetPosition.X + (this.parallaxFactor.X * cameraPosition.X * elapsedSeconds * -1);
                 this.layerPosition.X %= textureWidth;
             }
 
@@ -51,7 +51,7 @@ namespace StardustSandbox.Backgrounds
                     this.movementOffsetPosition.Y += this.movementSpeed.Y * elapsedSeconds;
                 }
 
-                this.layerPosition.Y = this.movementOffsetPosition.Y + this.parallaxFactor.Y * cameraPosition.Y * elapsedSeconds;
+                this.layerPosition.Y = this.movementOffsetPosition.Y + (this.parallaxFactor.Y * cameraPosition.Y * elapsedSeconds);
                 this.layerPosition.Y %= textureHeight;
             }
 

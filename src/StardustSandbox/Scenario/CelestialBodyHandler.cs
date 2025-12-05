@@ -26,14 +26,14 @@ namespace StardustSandbox.Scenario
         internal void Update()
         {
             // Calculate the angle of the celestial body
-            this.angle = BackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE * this.timeHandler.IntervalProgress + BackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
+            this.angle = (BackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE * this.timeHandler.IntervalProgress) + BackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
 
             // Update position based on angle
-            this.positionX = BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Cos(this.angle);
-            this.positionY = BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Sin(this.angle);
+            this.positionX = BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Cos(this.angle));
+            this.positionY = BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Sin(this.angle));
 
             // Update rotation for alignment
-            this.rotation = this.angle - MathF.PI / 2;
+            this.rotation = this.angle - (MathF.PI / 2);
         }
 
         internal void Draw(SpriteBatch spriteBatch)
