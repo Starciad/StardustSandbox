@@ -295,6 +295,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It will try to consume everything around it. When it has nothing left to feed on, it will explode..
+        /// </summary>
+        internal static string Solid_Immovable_Devourer_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Devourer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Devourer.
+        /// </summary>
+        internal static string Solid_Immovable_Devourer_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Devourer.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Dry sponge that absorbs liquids and is very flammable..
         /// </summary>
         internal static string Solid_Immovable_DrySponge_Description {

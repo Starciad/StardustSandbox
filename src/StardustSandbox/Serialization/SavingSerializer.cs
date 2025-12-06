@@ -139,18 +139,18 @@ namespace StardustSandbox.Serialization
                     return;
                 }
 
-                SlotLayer worldSlotLayer = slot.GetLayer(layer);
+                SlotLayer slotLayer = slot.GetLayer(layer);
 
-                if (worldSlotLayer.HasState(ElementStates.IsEmpty))
+                if (slotLayer.HasState(ElementStates.IsEmpty))
                 {
                     return;
                 }
 
-                TryAddElementIdentifier(worldSlotLayer.Element.Index);
+                TryAddElementIdentifier(slotLayer.Element.Index);
 
-                if (worldSlotLayer.StoredElement != null)
+                if (slotLayer.StoredElement != null)
                 {
-                    TryAddElementIdentifier(worldSlotLayer.StoredElement.Index);
+                    TryAddElementIdentifier(slotLayer.StoredElement.Index);
                 }
             }
 

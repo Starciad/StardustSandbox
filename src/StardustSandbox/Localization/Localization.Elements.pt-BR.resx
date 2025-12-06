@@ -357,4 +357,10 @@
   <data name="Gas.AntiCorruption.Description" xml:space="preserve">
     <value>Um antídoto gasoso que tenta, por todos os meios, conter a destruição causada pela corrupção e restaurar o meio ambiente ao seu estado original.</value>
   </data>
+  <data name="Solid.Immovable.Devourer.Name" xml:space="preserve">
+    <value>Devorador</value>
+  </data>
+  <data name="Solid.Immovable.Devourer.Description" xml:space="preserve">
+    <value>Tentará consumir tudo ao seu redor. Quando não tiver mais nada para se alimentar, explodirá.</value>
+  </data>
 </root>

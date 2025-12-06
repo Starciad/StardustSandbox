@@ -21,12 +21,12 @@ namespace StardustSandbox.Elements.Gases
             }
             else if (context.TryGetSlot(position, out Slot value))
             {
-                SlotLayer worldSlotLayer = value.GetLayer(context.Layer);
+                SlotLayer slotLayer = value.GetLayer(context.Layer);
 
-                if (worldSlotLayer.Element.Category == ElementCategory.Gas ||
-                    worldSlotLayer.Element.Category == ElementCategory.Liquid)
+                if (slotLayer.Element.Category == ElementCategory.Gas ||
+                    slotLayer.Element.Category == ElementCategory.Liquid)
                 {
-                    if ((worldSlotLayer.Element.Index == this.Index && worldSlotLayer.Temperature > context.SlotLayer.Temperature) || worldSlotLayer.Element.DefaultDensity < this.DefaultDensity)
+                    if ((slotLayer.Element.Index == this.Index && slotLayer.Temperature > context.SlotLayer.Temperature) || slotLayer.Element.DefaultDensity < this.DefaultDensity)
                     {
                         this.validPositionsCache.Add(position);
                     }

@@ -218,9 +218,9 @@ namespace StardustSandbox.Elements
 
         private static void DrawBlobElementRoutine(in ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
-            SlotLayer worldSlotLayer = context.Slot.GetLayer(context.Layer);
+            SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
 
-            Color colorModifier = TemperatureConstants.ApplyHeatColor(worldSlotLayer.ColorModifier, worldSlotLayer.Temperature);
+            Color colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
 
             if (context.Layer == Layer.Background)
             {

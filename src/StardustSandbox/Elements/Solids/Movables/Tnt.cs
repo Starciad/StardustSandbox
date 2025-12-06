@@ -19,8 +19,8 @@ namespace StardustSandbox.Elements.Solids.Movables
 
             ExplosionResidues =
             [
-                new(ElementIndex.Fire, 65),
-                new(ElementIndex.Smoke, 65)
+                ElementIndex.Fire,
+                ElementIndex.Smoke,
             ]
         };
 
@@ -33,6 +33,11 @@ namespace StardustSandbox.Elements.Solids.Movables
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
                 switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Fire:

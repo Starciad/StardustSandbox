@@ -32,19 +32,19 @@ namespace StardustSandbox.WorldSystem.Components
                     {
                         Point position = new((worldChunk.Position.X / WorldConstants.GRID_SIZE) + x, (worldChunk.Position.Y / WorldConstants.GRID_SIZE) + y);
 
-                        if (!this.world.TryGetSlot(position, out Slot worldSlot))
+                        if (!this.world.TryGetSlot(position, out Slot slot))
                         {
                             continue;
                         }
 
-                        if (!worldSlot.Foreground.HasState(ElementStates.IsEmpty))
+                        if (!slot.Foreground.HasState(ElementStates.IsEmpty))
                         {
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, Layer.Foreground, worldSlot);
+                            UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
                         }
 
-                        if (!worldSlot.Background.HasState(ElementStates.IsEmpty))
+                        if (!slot.Background.HasState(ElementStates.IsEmpty))
                         {
-                            UpdateSlotLayerTarget(gameTime, worldSlot.Position, Layer.Background, worldSlot);
+                            UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
                         }
                     }
                 }
@@ -53,25 +53,25 @@ namespace StardustSandbox.WorldSystem.Components
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void UpdateSlotLayerTarget(in GameTime gameTime, Point position, Layer layer, Slot worldSlot)
+        private void UpdateSlotLayerTarget(in GameTime gameTime, Point position, Layer layer, Slot slot)
         {
-            SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
-            Element element = worldSlotLayer.Element;
+            SlotLayer slotLayer = slot.GetLayer(layer);
+            Element element = slotLayer.Element;
 
-            if (worldSlotLayer == null || element == null)
+            if (slotLayer == null || element == null)
             {
                 return;
             }
 
-            this.elementUpdateContext.UpdateInformation(position, layer, worldSlot);
+            this.elementUpdateContext.UpdateInformation(position, layer, slot);
             element.SetContext(this.elementUpdateContext);
 
-            if (worldSlotLayer.StepCycleFlag == this.stepCycleFlag)
+            if (slotLayer.StepCycleFlag == this.stepCycleFlag)
             {
                 return;
             }
 
-            worldSlotLayer.NextStepCycle();
+            slotLayer.NextStepCycle();
             element.Steps(gameTime);
         }
     }

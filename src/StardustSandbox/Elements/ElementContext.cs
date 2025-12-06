@@ -9,21 +9,21 @@ namespace StardustSandbox.Elements
 {
     internal sealed class ElementContext(World world)
     {
-        internal Slot Slot => this.worldSlot;
-        internal SlotLayer SlotLayer => this.worldSlot.GetLayer(this.Layer);
-        internal Point Position => this.worldSlot.Position;
+        internal Slot Slot => this.slot;
+        internal SlotLayer SlotLayer => this.slot.GetLayer(this.Layer);
+        internal Point Position => this.slot.Position;
         internal Layer Layer { get; private set; }
 
-        private Slot worldSlot;
+        private Slot slot;
 
         private readonly World world = world;
 
-        internal void UpdateInformation(Point position, Layer layer, Slot worldSlot)
+        internal void UpdateInformation(Point position, Layer layer, Slot slot)
         {
-            worldSlot.SetPosition(position);
+            slot.SetPosition(position);
 
             this.Layer = layer;
-            this.worldSlot = worldSlot;
+            this.slot = slot;
         }
 
         #region ELEMENTS
@@ -32,7 +32,7 @@ namespace StardustSandbox.Elements
         {
             if (this.world.TryUpdateElementPosition(this.Position, newPosition, layer))
             {
-                this.worldSlot = GetSlot(newPosition);
+                this.slot = GetSlot(newPosition);
                 return true;
             }
 
@@ -603,18 +603,26 @@ namespace StardustSandbox.Elements
 
         #region EXPLOSIONS
 
+        internal bool TryInstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
+        {
+            return this.world.TryInstantiateExplosion(position, layer, explosionBuilder);
+        }
         internal bool TryInstantiateExplosion(Point position, ExplosionBuilder explosionBuilder)
         {
-            return this.world.TryInstantiateExplosion(position, explosionBuilder);
+            return TryInstantiateExplosion(position, this.Layer, explosionBuilder);
         }
         internal bool TryInstantiateExplosion(ExplosionBuilder explosionBuilder)
         {
             return TryInstantiateExplosion(this.Position, explosionBuilder);
         }
 
+        internal void InstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
+        {
+            this.world.InstantiateExplosion(position, layer, explosionBuilder);
+        }
         internal void InstantiateExplosion(Point position, ExplosionBuilder explosionBuilder)
         {
-            this.world.InstantiateExplosion(position, explosionBuilder);
+            InstantiateExplosion(position, this.Layer, explosionBuilder);
         }
         internal void InstantiateExplosion(ExplosionBuilder explosionBuilder)
         {

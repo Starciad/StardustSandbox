@@ -519,6 +519,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(160, 64, 32, 32)
                                 ),
+
+                                // [2] Devourer
+                                new(
+                                    associatedType: typeof(Devourer),
+                                    name: Localization_Elements.Solid_Immovable_Devourer_Name,
+                                    description: Localization_Elements.Solid_Immovable_Devourer_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(256, 96, 32, 32)
+                                ),
                             ]
                         ),
                     ]

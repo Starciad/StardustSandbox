@@ -44,5 +44,6 @@
         Freezer,
         Ash,
         AntiCorruption,
+        Devourer,
     }
 }

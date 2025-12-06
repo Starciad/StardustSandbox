@@ -19,9 +19,9 @@ namespace StardustSandbox.Elements.Solids.Movables
 
             ExplosionResidues =
             [
-                new(ElementIndex.Fire, 80),
-                new(ElementIndex.Smoke, 90),
-                new(ElementIndex.Stone, 90)
+                ElementIndex.Fire,
+                ElementIndex.Smoke,
+                ElementIndex.Stone,
             ]
         };
 

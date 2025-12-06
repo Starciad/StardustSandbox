@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Explosions
 {
@@ -18,11 +18,14 @@ namespace StardustSandbox.Explosions
         internal bool AffectsSolids { get; private set; }
         internal bool AffectsGases { get; private set; }
 
-        internal IEnumerable<ExplosionResidue> ExplosionResidues { get; private set; }
+        internal Layer Layer { get; private set; }
 
-        internal void Build(Point position, ExplosionBuilder builder)
+        internal ElementIndex[] ExplosionResidues { get; private set; }
+
+        internal void Build(Point position, Layer layer, ExplosionBuilder builder)
         {
             this.Position = position;
+            this.Layer = layer;
 
             this.Radius = builder.Radius;
             this.Power = builder.Power;

@@ -56,17 +56,17 @@ namespace StardustSandbox.Serialization.Saving.Data
 
         }
 
-        public SlotLayerData(SlotLayer worldSlotLayer)
+        public SlotLayerData(SlotLayer slotLayer)
         {
-            this.ElementIndex = worldSlotLayer.Element.Index;
-            this.Temperature = worldSlotLayer.Temperature;
-            this.States = worldSlotLayer.States;
-            this.ColorModifier = worldSlotLayer.ColorModifier;
-            this.StepCycleFlag = worldSlotLayer.StepCycleFlag;
+            this.ElementIndex = slotLayer.Element.Index;
+            this.Temperature = slotLayer.Temperature;
+            this.States = slotLayer.States;
+            this.ColorModifier = slotLayer.ColorModifier;
+            this.StepCycleFlag = slotLayer.StepCycleFlag;
 
-            if (worldSlotLayer.StoredElement != null)
+            if (slotLayer.StoredElement != null)
             {
-                this.StoredElementIndex = worldSlotLayer.StoredElement.Index;
+                this.StoredElementIndex = slotLayer.StoredElement.Index;
             }
         }
     }

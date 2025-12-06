@@ -357,4 +357,10 @@
   <data name="Gas.AntiCorruption.Description" xml:space="preserve">
     <value>A gaseous antidote that attempts, by all means, to contain the destruction caused by corruption and restore the environment to its original state.</value>
   </data>
+  <data name="Solid.Immovable.Devourer.Name" xml:space="preserve">
+    <value>Devourer</value>
+  </data>
+  <data name="Solid.Immovable.Devourer.Description" xml:space="preserve">
+    <value>It will try to consume everything around it. When it has nothing left to feed on, it will explode.</value>
+  </data>
 </root>

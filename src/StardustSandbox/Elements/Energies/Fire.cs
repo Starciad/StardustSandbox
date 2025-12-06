@@ -66,13 +66,13 @@ namespace StardustSandbox.Elements.Energies
             }
         }
 
-        private static void IgniteElement(in ElementContext context, Slot slot, SlotLayer worldSlotLayer, Layer layer)
+        private static void IgniteElement(in ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
         {
             // Increase neighboring temperature by fire's heat value
-            context.SetElementTemperature(worldSlotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
+            context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
 
             // Check if the element is flammable
-            if (worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
+            if (slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
@@ -85,7 +85,7 @@ namespace StardustSandbox.Elements.Energies
                 }
 
                 // Attempt combustion based on flammabilityResistance
-                if (SSRandom.Chance(combustionChance, 100.0f + worldSlotLayer.Element.DefaultFlammabilityResistance))
+                if (SSRandom.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
                 {
                     context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
                 }

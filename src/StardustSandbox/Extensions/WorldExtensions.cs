@@ -48,13 +48,13 @@ namespace StardustSandbox.Extensions
                     else
                     {
                         // This color represents the currently selected element
-                        Slot worldSlot = world.GetSlot(worldPosition);
+                        Slot slot = world.GetSlot(worldPosition);
 
-                        if (!worldSlot.Foreground.HasState(ElementStates.IsEmpty))
+                        if (!slot.Foreground.HasState(ElementStates.IsEmpty))
                         {
                             data[index] = world.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
                         }
-                        else if (!worldSlot.Background.HasState(ElementStates.IsEmpty))
+                        else if (!slot.Background.HasState(ElementStates.IsEmpty))
                         {
                             data[index] = world.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
                         }

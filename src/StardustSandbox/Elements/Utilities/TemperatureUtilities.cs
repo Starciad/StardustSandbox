@@ -17,20 +17,20 @@ namespace StardustSandbox.Elements.Utilities
                     continue;
                 }
 
-                SlotLayer worldSlotLayer = neighbors.GetSlotLayer(i, context.Layer);
+                SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.Layer);
 
-                if (worldSlotLayer.Element == null || !worldSlotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                if (slotLayer.Element == null || !slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }
 
-                ApplyTemperature(context, neighbors.GetSlot(i).Position, worldSlotLayer, temperatureModifierMode);
+                ApplyTemperature(context, neighbors.GetSlot(i).Position, slotLayer, temperatureModifierMode);
             }
         }
 
-        private static void ApplyTemperature(in ElementContext context, Point targetPosition, SlotLayer worldSlotLayer, TemperatureModifierMode temperatureModifierMode)
+        private static void ApplyTemperature(in ElementContext context, Point targetPosition, SlotLayer slotLayer, TemperatureModifierMode temperatureModifierMode)
         {
-            float result = worldSlotLayer.Temperature;
+            float result = slotLayer.Temperature;
 
             switch (temperatureModifierMode)
             {

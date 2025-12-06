@@ -10,19 +10,19 @@ namespace StardustSandbox.Tools
     {
         internal override void Execute(IToolContext context)
         {
-            if (!context.World.TryGetSlot(context.Position, out Slot worldSlot))
+            if (!context.World.TryGetSlot(context.Position, out Slot slot))
             {
                 return;
             }
 
-            SlotLayer worldSlotLayer = worldSlot.GetLayer(context.Layer);
+            SlotLayer slotLayer = slot.GetLayer(context.Layer);
 
-            if (worldSlotLayer.HasState(ElementStates.IsEmpty))
+            if (slotLayer.HasState(ElementStates.IsEmpty))
             {
                 return;
             }
 
-            context.World.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(worldSlotLayer.Temperature + ToolConstants.DEFAULT_HEAT_VALUE));
+            context.World.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_HEAT_VALUE));
         }
     }
 }

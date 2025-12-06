@@ -529,6 +529,18 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.Crimson,
                     DefaultDensity = 0.5f,
                 },
+                new Elements.Solids.Immovables.Devourer()
+                {
+                    Index = ElementIndex.Devourer,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(288, 320),
+                    ReferenceColor = AAP64ColorPalette.Coal,
+                    DefaultTemperature = 35.0f,
+                    DefaultDensity = 3.5f,
+                    DefaultExplosionResistance = 1.5f,
+                }
             ];
 
             isLoaded = true;

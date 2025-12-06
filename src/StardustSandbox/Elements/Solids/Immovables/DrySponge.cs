@@ -14,14 +14,14 @@ namespace StardustSandbox.Elements.Solids.Immovables
         {
             foreach (Point position in ShapePointGenerator.GenerateSquarePoints(context.Slot.Position, 1))
             {
-                if (!context.TryGetSlot(position, out Slot worldSlot))
+                if (!context.TryGetSlot(position, out Slot slot))
                 {
                     continue;
                 }
 
-                SlotLayer worldSlotLayer = worldSlot.GetLayer(context.Layer);
+                SlotLayer slotLayer = slot.GetLayer(context.Layer);
 
-                switch (worldSlotLayer.Element)
+                switch (slotLayer.Element)
                 {
                     case Water:
                     case Saltwater:

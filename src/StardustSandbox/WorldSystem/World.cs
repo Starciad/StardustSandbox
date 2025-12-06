@@ -10,11 +10,11 @@ using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Explosions;
+using StardustSandbox.Extensions;
 using StardustSandbox.Inputs.Game;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
-using StardustSandbox.Randomness;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem.Chunking;
@@ -104,10 +104,10 @@ namespace StardustSandbox.WorldSystem
 
             NotifyChunk(position);
 
-            Slot worldSlot = this[position.X, position.Y];
-            worldSlot.Instantiate(position, layer, value);
+            Slot slot = this[position.X, position.Y];
+            slot.Instantiate(position, layer, value);
 
-            this.worldElementContext.UpdateInformation(position, layer, worldSlot);
+            this.worldElementContext.UpdateInformation(position, layer, slot);
             value.SetContext(this.worldElementContext);
             value.Instantiate();
 
@@ -176,13 +176,13 @@ namespace StardustSandbox.WorldSystem
 
             NotifyChunk(position);
 
-            Slot worldSlot = this[position.X, position.Y];
-            SlotLayer worldSlotLayer = worldSlot.GetLayer(layer);
+            Slot slot = this[position.X, position.Y];
+            SlotLayer slotLayer = slot.GetLayer(layer);
 
-            this.worldElementContext.UpdateInformation(position, layer, worldSlot);
-            worldSlotLayer.Element.SetContext(this.worldElementContext);
-            worldSlotLayer.Element.Destroy();
-            worldSlotLayer.Destroy();
+            this.worldElementContext.UpdateInformation(position, layer, slot);
+            slotLayer.Element.SetContext(this.worldElementContext);
+            slotLayer.Element.Destroy();
+            slotLayer.Destroy();
 
             return true;
         }
@@ -219,15 +219,15 @@ namespace StardustSandbox.WorldSystem
                 return false;
             }
 
-            SlotLayer worldSlotLayer = this[position.X, position.Y].GetLayer(layer);
+            SlotLayer slotLayer = this[position.X, position.Y].GetLayer(layer);
 
-            if (worldSlotLayer.HasState(ElementStates.IsEmpty))
+            if (slotLayer.HasState(ElementStates.IsEmpty))
             {
                 value = null;
                 return false;
             }
 
-            value = worldSlotLayer.Element;
+            value = slotLayer.Element;
             return true;
         }
 
@@ -565,7 +565,7 @@ namespace StardustSandbox.WorldSystem
 
         #region EXPLOSIONS
 
-        internal bool TryInstantiateExplosion(Point position, ExplosionBuilder explosionBuilder)
+        internal bool TryInstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
         {
             if (!InsideTheWorldDimensions(position) && this.instantiatedExplosions.Count >= ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT)
             {
@@ -576,15 +576,15 @@ namespace StardustSandbox.WorldSystem
                 ? (Explosion)pooledObject
                 : new();
 
-            explosion.Build(position, explosionBuilder);
+            explosion.Build(position, layer, explosionBuilder);
             this.instantiatedExplosions.Enqueue(explosion);
 
             return true;
         }
 
-        internal void InstantiateExplosion(Point position, ExplosionBuilder explosionBuilder)
+        internal void InstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
         {
-            _ = TryInstantiateExplosion(position, explosionBuilder);
+            _ = TryInstantiateExplosion(position, layer, explosionBuilder);
         }
 
         private void HandleExplosions()
@@ -596,41 +596,32 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void InstantiateExplosionResidue(Point position, IEnumerable<ExplosionResidue> explosionResidues)
-        {
-            foreach (ExplosionResidue residue in explosionResidues)
-            {
-                Layer targetLayer = SSRandom.Chance(50) ? Layer.Foreground : Layer.Background;
-
-                if (SSRandom.Chance(residue.CreationChance))
-                {
-                    InstantiateElement(position, targetLayer, residue.Index);
-                }
-            }
-        }
-
         private void HandleExplosion(Explosion explosion)
         {
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(explosion.Position, explosion.Radius))
             {
-                if (!TryGetSlot(point, out Slot worldSlot))
+                if (!InsideTheWorldDimensions(point))
                 {
                     continue;
                 }
 
-                TryAffectPoint(worldSlot, point, explosion);
-                InstantiateExplosionResidue(point, explosion.ExplosionResidues);
+                if (TryGetSlot(point, out Slot slot))
+                {
+                    TryAffectPoint(slot, point, explosion);
+                }
+
+                InstantiateElement(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
             }
         }
 
-        private void TryAffectSlotLayer(SlotLayer worldSlotLayer, Layer layer, Point targetPosition, Explosion explosion)
+        private void TryAffectSlotLayer(SlotLayer slotLayer, Layer layer, Point targetPosition, Explosion explosion)
         {
-            if (worldSlotLayer.HasState(ElementStates.IsEmpty))
+            if (slotLayer.HasState(ElementStates.IsEmpty))
             {
                 return;
             }
 
-            Element element = worldSlotLayer.Element;
+            Element element = slotLayer.Element;
 
             if (element.Characteristics.HasFlag(ElementCharacteristics.IsExplosionImmune))
             {
@@ -639,7 +630,7 @@ namespace StardustSandbox.WorldSystem
 
             if (element.DefaultExplosionResistance >= explosion.Power)
             {
-                worldSlotLayer.SetTemperatureValue(worldSlotLayer.Temperature + explosion.Heat);
+                slotLayer.SetTemperatureValue(slotLayer.Temperature + explosion.Heat);
             }
             else
             {
@@ -647,10 +638,10 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void TryAffectPoint(Slot worldSlot, Point targetPosition, Explosion explosion)
+        private void TryAffectPoint(Slot slot, Point targetPosition, Explosion explosion)
         {
-            TryAffectSlotLayer(worldSlot.GetLayer(Layer.Foreground), Layer.Foreground, targetPosition, explosion);
-            TryAffectSlotLayer(worldSlot.GetLayer(Layer.Background), Layer.Background, targetPosition, explosion);
+            TryAffectSlotLayer(slot.GetLayer(Layer.Foreground), Layer.Foreground, targetPosition, explosion);
+            TryAffectSlotLayer(slot.GetLayer(Layer.Background), Layer.Background, targetPosition, explosion);
         }
 
         #endregion
@@ -765,12 +756,12 @@ namespace StardustSandbox.WorldSystem
         {
             InstantiateElement(position, layer, slotLayerData.ElementIndex);
 
-            Slot worldSlot = GetSlot(position);
+            Slot slot = GetSlot(position);
 
-            worldSlot.SetTemperatureValue(layer, slotLayerData.Temperature);
-            worldSlot.SetState(layer, ElementStates.FreeFalling);
-            worldSlot.SetColorModifier(layer, slotLayerData.ColorModifier);
-            worldSlot.SetStoredElement(layer, ElementDatabase.GetElement(slotLayerData.StoredElementIndex));
+            slot.SetTemperatureValue(layer, slotLayerData.Temperature);
+            slot.SetState(layer, ElementStates.FreeFalling);
+            slot.SetColorModifier(layer, slotLayerData.ColorModifier);
+            slot.SetStoredElement(layer, ElementDatabase.GetElement(slotLayerData.StoredElementIndex));
         }
 
         #endregion

@@ -1,4 +1,6 @@
-﻿namespace StardustSandbox.Explosions
+﻿using StardustSandbox.Enums.Elements;
+
+namespace StardustSandbox.Explosions
 {
     internal sealed class ExplosionBuilder
     {
@@ -10,6 +12,6 @@
         internal bool AffectsSolids { get; init; }
         internal bool AffectsGases { get; init; }
 
-        internal ExplosionResidue[] ExplosionResidues { get; init; }
+        internal ElementIndex[] ExplosionResidues { get; init; }
     }
 }
