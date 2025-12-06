@@ -9,8 +9,8 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            if (CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(Layer.Foreground, neighbors) &&
-                CorruptionUtilities.CheckIfNeighboringElementsAreCorrupted(Layer.Background, neighbors))
+            if (CorruptionUtility.CheckIfNeighboringElementsAreCorrupted(Layer.Foreground, neighbors) &&
+                CorruptionUtility.CheckIfNeighboringElementsAreCorrupted(Layer.Background, neighbors))
             {
                 return;
             }

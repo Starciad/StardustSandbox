@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Elements.Utilities
 {
-    internal static class CorruptionUtilities
+    internal static class CorruptionUtility
     {
         private readonly struct SlotTarget(Slot slot, Layer layer)
         {

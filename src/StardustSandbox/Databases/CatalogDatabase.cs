@@ -490,6 +490,46 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(160, 96, 32, 32)
                                 ),
+
+                                // [2] Upward Pusher
+                                new(
+                                    associatedType: typeof(UpwardPusher),
+                                    name: Localization_Elements.Solid_Immovable_UpwardPusher_Name,
+                                    description: Localization_Elements.Solid_Immovable_UpwardPusher_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(288, 96, 32, 32)
+                                ),
+
+                                // [3] Rightward Pusher
+                                new(
+                                    associatedType: typeof(RightwardPusher),
+                                    name: Localization_Elements.Solid_Immovable_RightwardPusher_Name,
+                                    description: Localization_Elements.Solid_Immovable_RightwardPusher_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(320, 96, 32, 32)
+                                ),
+
+                                // [4] Downward Pusher
+                                new(
+                                    associatedType: typeof(DownwardPusher),
+                                    name: Localization_Elements.Solid_Immovable_DownwardPusher_Name,
+                                    description: Localization_Elements.Solid_Immovable_DownwardPusher_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(288, 128, 32, 32)
+                                ),
+
+                                // [5] Leftward Pusher
+                                new(
+                                    associatedType: typeof(LeftwardPusher),
+                                    name: Localization_Elements.Solid_Immovable_LeftwardPusher_Name,
+                                    description: Localization_Elements.Solid_Immovable_LeftwardPusher_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(320, 128, 32, 32)
+                                ),
                             ]
                         ),
 

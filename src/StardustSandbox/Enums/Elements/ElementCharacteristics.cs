@@ -3,7 +3,7 @@
 namespace StardustSandbox.Enums.Elements
 {
     [Flags]
-    internal enum ElementCharacteristics : byte
+    internal enum ElementCharacteristics : short
     {
         None = 0,
         AffectsNeighbors = 1 << 1,
@@ -13,5 +13,6 @@ namespace StardustSandbox.Enums.Elements
         IsExplosionImmune = 1 << 5,
         IsCorruptible = 1 << 6,
         IsCorruption = 1 << 7,
+        IsPushable = 1 << 8
     }
 }

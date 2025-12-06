@@ -79,7 +79,7 @@ namespace StardustSandbox.Elements.Liquids
             float rightDistance = context.Slot.Position.Distance(right);
 
             Point targetPosition = leftDistance == rightDistance
-                ? SSRandom.Chance(50) ? left : right
+                ? SSRandom.RandomBool() ? left : right
                 : leftDistance > rightDistance ? left : right;
 
             if (context.IsEmptySlotLayer(targetPosition, context.Layer))

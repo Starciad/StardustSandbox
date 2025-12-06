@@ -124,7 +124,8 @@ namespace StardustSandbox.WorldSystem
             if (!InsideTheWorldDimensions(oldPosition) ||
                 !InsideTheWorldDimensions(newPosition) ||
                  IsEmptySlotLayer(oldPosition, layer) ||
-                !IsEmptySlotLayer(newPosition, layer))
+                !IsEmptySlotLayer(newPosition, layer) ||
+                oldPosition == newPosition)
             {
                 return false;
             }
@@ -144,7 +145,8 @@ namespace StardustSandbox.WorldSystem
             if (!InsideTheWorldDimensions(element1Position) ||
                 !InsideTheWorldDimensions(element2Position) ||
                 IsEmptySlotLayer(element1Position, layer) ||
-                IsEmptySlotLayer(element2Position, layer))
+                IsEmptySlotLayer(element2Position, layer) ||
+                element1Position == element2Position)
             {
                 return false;
             }

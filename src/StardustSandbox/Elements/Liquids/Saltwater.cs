@@ -53,7 +53,7 @@ namespace StardustSandbox.Elements.Liquids
 
             if (currentValue >= 110.0f)
             {
-                if (SSRandom.Chance(50))
+                if (SSRandom.RandomBool())
                 {
                     context.ReplaceElement(ElementIndex.Steam);
                 }

@@ -363,4 +363,28 @@
   <data name="Solid.Immovable.Devourer.Description" xml:space="preserve">
     <value>It will try to consume everything around it. When it has nothing left to feed on, it will explode.</value>
   </data>
+  <data name="Solid.Immovable.UpwardPusher.Name" xml:space="preserve">
+    <value>Upward Pusher</value>
+  </data>
+  <data name="Solid.Immovable.RightwardPusher.Name" xml:space="preserve">
+    <value>Rightward Pusher</value>
+  </data>
+  <data name="Solid.Immovable.LeftwardPusher.Name" xml:space="preserve">
+    <value>Leftward Pusher</value>
+  </data>
+  <data name="Solid.Immovable.DownwardPusher.Name" xml:space="preserve">
+    <value>Downward Pusher</value>
+  </data>
+  <data name="Solid.Immovable.UpwardPusher.Description" xml:space="preserve">
+    <value>It moves neighboring elements upward.</value>
+  </data>
+  <data name="Solid.Immovable.DownwardPusher.Description" xml:space="preserve">
+    <value>It shifts neighboring elements down.</value>
+  </data>
+  <data name="Solid.Immovable.LeftwardPusher.Description" xml:space="preserve">
+    <value>Shifts neighboring elements to the left.</value>
+  </data>
+  <data name="Solid.Immovable.RightwardPusher.Description" xml:space="preserve">
+    <value>Shifts neighboring elements to the right.</value>
+  </data>
 </root>

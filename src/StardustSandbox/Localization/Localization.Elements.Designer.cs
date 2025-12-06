@@ -313,6 +313,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It shifts neighboring elements down..
+        /// </summary>
+        internal static string Solid_Immovable_DownwardPusher_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DownwardPusher.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Downward Pusher.
+        /// </summary>
+        internal static string Solid_Immovable_DownwardPusher_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DownwardPusher.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Dry sponge that absorbs liquids and is very flammable..
         /// </summary>
         internal static string Solid_Immovable_DrySponge_Description {
@@ -439,6 +457,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Shifts neighboring elements to the left..
+        /// </summary>
+        internal static string Solid_Immovable_LeftwardPusher_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.LeftwardPusher.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Leftward Pusher.
+        /// </summary>
+        internal static string Solid_Immovable_LeftwardPusher_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.LeftwardPusher.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Decorative and functional block, flammable, used in mobile constructions..
         /// </summary>
         internal static string Solid_Immovable_MountingBlock_Description {
@@ -475,6 +511,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Shifts neighboring elements to the right..
+        /// </summary>
+        internal static string Solid_Immovable_RightwardPusher_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.RightwardPusher.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Rightward Pusher.
+        /// </summary>
+        internal static string Solid_Immovable_RightwardPusher_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.RightwardPusher.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Natural, flammable leaf, used for decoration..
         /// </summary>
         internal static string Solid_Immovable_TreeLeaf_Description {
@@ -489,6 +543,24 @@ namespace StardustSandbox.Localization {
         internal static string Solid_Immovable_TreeLeaf_Name {
             get {
                 return ResourceManager.GetString("Solid.Immovable.TreeLeaf.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It moves neighboring elements upward..
+        /// </summary>
+        internal static string Solid_Immovable_UpwardPusher_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.UpwardPusher.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Upward Pusher.
+        /// </summary>
+        internal static string Solid_Immovable_UpwardPusher_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.UpwardPusher.Name", resourceCulture);
             }
         }
         

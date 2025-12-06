@@ -45,5 +45,11 @@
         Ash,
         AntiCorruption,
         Devourer,
+        UpwardPusher,
+        RightwardPusher,
+        DownwardPusher,
+        LeftwardPusher,
+
+        Length,
     }
 }
