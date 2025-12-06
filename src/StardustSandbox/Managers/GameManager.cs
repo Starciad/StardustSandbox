@@ -49,6 +49,9 @@ namespace StardustSandbox.Managers
             this.world.Time.Reset();
             this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
+            this.world.CanUpdate = true;
+            this.world.CanDraw = true;
+
             SSCamera.Position = new(0f, -(this.world.Information.Size.Y * WorldConstants.GRID_SIZE));
 
             this.inputController.Pen.Tool = PenTool.Pencil;

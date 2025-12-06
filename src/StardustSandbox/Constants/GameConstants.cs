@@ -6,7 +6,8 @@ namespace StardustSandbox.Constants
     {
         internal static Version VERSION => new(1, 2, 2, 0);
 
-        internal const string TITLE = "StardustSandbox";
+        internal const string ID = "stardust_sandbox";
+        internal const string TITLE = "Stardust Sandbox";
         internal const string AUTHOR = "Davi \"Starciad\" Fernandes";
         internal const ushort YEAR = 2025;
 

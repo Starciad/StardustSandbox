@@ -16,12 +16,14 @@ namespace StardustSandbox
 {
     internal static class Program
     {
-        private static SSGame game;
+        private static StardustSandboxGame game;
 
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+
+            Parameters.Start(args);
 
 #if DEBUG
             InitializeEnvironment();

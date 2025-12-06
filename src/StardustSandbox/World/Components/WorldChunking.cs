@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Interfaces;
 using StardustSandbox.World.Chunking;
 
@@ -50,6 +54,23 @@ namespace StardustSandbox.World.Components
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
                     this.chunks[x, y].Update();
+                }
+            }
+        }
+
+        internal void Draw(SpriteBatch spriteBatch)
+        {
+            for (int x = 0; x < this.worldChunkWidth; x++)
+            {
+                for (int y = 0; y < this.worldChunkHeight; y++)
+                {
+                    Chunk chunk = this.chunks[x, y];
+
+                    Vector2 position = new(chunk.Position.X, chunk.Position.Y);
+                    Vector2 scale = new(WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE);
+                    Color color = chunk.ShouldUpdate ? AAP64ColorPalette.Crimson : AAP64ColorPalette.White;
+
+                    spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                 }
             }
         }

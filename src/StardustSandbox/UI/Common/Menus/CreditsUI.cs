@@ -355,8 +355,8 @@ namespace StardustSandbox.UI.Common.Menus
             this.ambientManager.CelestialBodyHandler.IsActive = false;
             this.ambientManager.SkyHandler.IsActive = false;
 
-            this.world.IsActive = false;
-            this.world.IsVisible = false;
+            this.world.CanUpdate = false;
+            this.world.CanDraw = false;
 
             SongEngine.Play(SongIndex.V01_EndlessRebirth);
 

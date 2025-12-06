@@ -22,7 +22,7 @@ using System;
 
 namespace StardustSandbox
 {
-    internal sealed class SSGame : Game
+    internal sealed class StardustSandboxGame : Game
     {
         // Rendering
         private SpriteBatch spriteBatch;
@@ -44,7 +44,7 @@ namespace StardustSandbox
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
-        internal SSGame()
+        internal StardustSandboxGame()
         {
             // Graphics
             this.videoManager = new(new GraphicsDeviceManager(this)
@@ -143,10 +143,22 @@ namespace StardustSandbox
 
         protected override void BeginRun()
         {
-            this.uiManager.OpenGUI(UIIndex.MainMenu);
+            if (Parameters.CreateException)
+            {
+                throw new Exception("This is a test exception created by the --create-exception parameter.");
+            }
 
             this.gameManager.RemoveState(GameStates.IsPaused);
             this.gameManager.RemoveState(GameStates.IsSimulationPaused);
+
+            if (Parameters.SkipIntro)
+            {
+                this.gameManager.StartGame();
+            }
+            else
+            {
+                this.uiManager.OpenGUI(UIIndex.MainMenu);
+            }
         }
 
         protected override void Update(GameTime gameTime)

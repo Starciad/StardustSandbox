@@ -8,7 +8,7 @@ namespace StardustSandbox.IO
 {
     internal static class SSDirectory
     {
-        internal static string Root => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), GameConstants.TITLE);
+        internal static string Root => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), GameConstants.ID);
         internal static string Local => AppDomain.CurrentDomain.BaseDirectory;
 
         internal static string Logs => Path.Combine(Local, IOConstants.LOCAL_LOGS_DIRECTORY);

@@ -33,15 +33,12 @@ namespace StardustSandbox.World
         internal Simulation Simulation => this.simulation;
         internal Time Time => this.time;
 
-        internal bool IsActive { get => this.isActive; set => this.isActive = value; }
-        internal bool IsVisible { get => this.isVisible; set => this.isVisible = value; }
+        internal bool CanUpdate { get; set; }
+        internal bool CanDraw { get; set; }
 
         private SaveFile currentlySelectedWorldSaveFile;
 
         private Slot[,] slots;
-
-        private bool isActive;
-        private bool isVisible;
 
         private readonly Information information;
         private readonly Simulation simulation;
@@ -61,7 +58,7 @@ namespace StardustSandbox.World
         private readonly GameManager gameManager;
         private readonly ElementNeighbors elementNeighbors;
 
-        internal Slot this[int x, int y]
+        private Slot this[int x, int y]
         {
             get => this.slots[x, y];
             set => this.slots[x, y] = value;
@@ -664,7 +661,7 @@ namespace StardustSandbox.World
 
         internal void Update(in GameTime gameTime)
         {
-            if (!this.IsActive)
+            if (!this.CanUpdate)
             {
                 return;
             }
@@ -687,9 +684,14 @@ namespace StardustSandbox.World
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            if (!this.IsVisible)
+            if (!this.CanDraw)
             {
                 return;
+            }
+
+            if (Parameters.ShowChunks)
+            {
+                this.chunking.Draw(spriteBatch);
             }
 
             this.rendering.Draw(spriteBatch);
@@ -710,8 +712,8 @@ namespace StardustSandbox.World
 
         internal void StartNew(Point size)
         {
-            this.IsActive = true;
-            this.IsVisible = true;
+            this.CanUpdate = true;
+            this.CanDraw = true;
 
             if (this.information.Size != size)
             {

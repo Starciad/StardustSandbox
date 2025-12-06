@@ -246,7 +246,8 @@ namespace StardustSandbox.UI.Common.Menus
                 this.buttonAnimationOffsets[i] = Convert.ToSingle(SSRandom.GetDouble() * MathF.PI * 2.0f);
             }
 
-            this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
+            this.world.CanDraw = false;
+            this.world.CanUpdate = false;
 
             this.gameManager.SetSimulationSpeed(SimulationSpeed.Normal);
             this.gameManager.RemoveState(GameStates.IsPaused);
@@ -265,7 +266,7 @@ namespace StardustSandbox.UI.Common.Menus
         protected override void OnClosed()
         {
             this.world.Clear();
-            this.world.IsVisible = false;
+            this.world.CanDraw = false;
         }
 
         #endregion
