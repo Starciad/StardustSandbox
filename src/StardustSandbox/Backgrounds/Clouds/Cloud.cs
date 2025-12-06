@@ -21,12 +21,16 @@ namespace StardustSandbox.Backgrounds.Clouds
         private Vector2 position;
         private float speed;
         private float opacity;
+        private Color color;
 
         public void Reset()
         {
             this.position = new Vector2(-(WorldConstants.GRID_SIZE * 5), SSRandom.Range(0, WorldConstants.GRID_SIZE * 10));
             this.speed = SSRandom.Range(10, 50);
             this.opacity = Convert.ToSingle((SSRandom.GetDouble() * 0.5) + 0.5);
+
+            this.color = Color.White;
+            this.color.A = Convert.ToByte(255 * this.opacity);
         }
 
         internal Cloud()
@@ -49,7 +53,7 @@ namespace StardustSandbox.Backgrounds.Clouds
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoClouds), this.position, this.textureRectangle, Color.White * this.opacity, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoClouds), this.position, this.textureRectangle, this.color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
         internal void SetTextureRectangle(Rectangle rectangle)

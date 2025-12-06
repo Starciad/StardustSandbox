@@ -17,33 +17,12 @@ namespace StardustSandbox.Managers
 
         internal Viewport Viewport => this.GraphicsDevice.Viewport;
 
-        internal RenderTarget2D ScreenRenderTarget => this.screenRenderTarget;
-        internal RenderTarget2D UIRenderTarget => this.uiRenderTarget;
-        internal RenderTarget2D BackgroundRenderTarget => this.backgroundRenderTarget;
-        internal RenderTarget2D WorldRenderTarget => this.worldRenderTarget;
-
         private readonly GraphicsDeviceManager graphicsDeviceManager;
-
-        private RenderTarget2D backgroundRenderTarget;
-        private RenderTarget2D screenRenderTarget;
-        private RenderTarget2D uiRenderTarget;
-        private RenderTarget2D worldRenderTarget;
 
         internal VideoManager(GraphicsDeviceManager graphicsDeviceManager)
         {
             this.graphicsDeviceManager = graphicsDeviceManager;
             ApplySettings();
-        }
-
-        internal void Initialize()
-        {
-            int width = ScreenConstants.SCREEN_WIDTH;
-            int height = ScreenConstants.SCREEN_HEIGHT;
-
-            this.screenRenderTarget = new(this.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents, false);
-            this.uiRenderTarget = new(this.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents, false);
-            this.backgroundRenderTarget = new(this.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents, false);
-            this.worldRenderTarget = new(this.GraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents, false);
         }
 
         internal void ApplySettings()
@@ -103,14 +82,6 @@ namespace StardustSandbox.Managers
             );
 
             return adjustedScreen;
-        }
-
-        internal void Unload()
-        {
-            this.screenRenderTarget.Dispose();
-            this.uiRenderTarget.Dispose();
-            this.backgroundRenderTarget.Dispose();
-            this.worldRenderTarget.Dispose();
         }
     }
 }

@@ -17,17 +17,17 @@ using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
-using StardustSandbox.World.Chunking;
-using StardustSandbox.World.Components;
-using StardustSandbox.World.Status;
+using StardustSandbox.WorldSystem.Chunking;
+using StardustSandbox.WorldSystem.Components;
+using StardustSandbox.WorldSystem.Status;
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StardustSandbox.World
+namespace StardustSandbox.WorldSystem
 {
-    internal sealed class GameWorld
+    internal sealed class World
     {
         internal Information Information => this.information;
         internal Simulation Simulation => this.simulation;
@@ -64,7 +64,7 @@ namespace StardustSandbox.World
             set => this.slots[x, y] = value;
         }
 
-        internal GameWorld(InputController inputController, GameManager gameManager)
+        internal World(InputController inputController, GameManager gameManager)
         {
             this.gameManager = gameManager;
 

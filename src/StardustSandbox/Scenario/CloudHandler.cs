@@ -11,7 +11,7 @@ using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
-using StardustSandbox.World.Status;
+using StardustSandbox.WorldSystem.Status;
 
 using System.Collections.Generic;
 
@@ -19,8 +19,6 @@ namespace StardustSandbox.Scenario
 {
     internal sealed class CloudHandler(GameManager gameManager, Simulation simulation) : IResettable
     {
-        internal bool IsActive { get; set; } = true;
-
         private static readonly Rectangle[] cloudRectangles = [
             new(0, 0, 160, 64),
             new(160, 0, 96, 32),
@@ -37,8 +35,7 @@ namespace StardustSandbox.Scenario
 
         internal void Update(in GameTime gameTime)
         {
-            if (!this.IsActive ||
-                this.gameManager.HasState(GameStates.IsSimulationPaused) ||
+            if (this.gameManager.HasState(GameStates.IsSimulationPaused) ||
                 this.gameManager.HasState(GameStates.IsCriticalMenuOpen))
             {
                 return;
@@ -70,11 +67,6 @@ namespace StardustSandbox.Scenario
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            if (!this.IsActive)
-            {
-                return;
-            }
-
             for (int i = 0; i < this.activeClouds.Count; i++)
             {
                 Cloud cloud = this.activeClouds[i];

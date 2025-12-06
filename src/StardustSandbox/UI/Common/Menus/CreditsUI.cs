@@ -13,7 +13,7 @@ using StardustSandbox.Extensions;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -54,7 +54,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly CreditSection[] creditSections;
 
-        private readonly GameWorld world;
+        private readonly World world;
 
         private readonly AmbientManager ambientManager;
         private readonly InputManager inputManager;
@@ -68,7 +68,7 @@ namespace StardustSandbox.UI.Common.Menus
             UIIndex index,
             InputManager inputManager,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.ambientManager = ambientManager;
@@ -351,9 +351,6 @@ namespace StardustSandbox.UI.Common.Menus
         protected override void OnOpened()
         {
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
-            this.ambientManager.CloudHandler.IsActive = false;
-            this.ambientManager.CelestialBodyHandler.IsActive = false;
-            this.ambientManager.SkyHandler.IsActive = false;
 
             this.world.CanUpdate = false;
             this.world.CanDraw = false;

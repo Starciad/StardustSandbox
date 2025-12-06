@@ -1,13 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.World;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Interfaces.Tools
 {
     internal interface IToolContext
     {
-        GameWorld World { get; }
+        World World { get; }
         Point Position { get; }
         Layer Layer { get; }
 

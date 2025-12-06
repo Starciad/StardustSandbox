@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements
 {

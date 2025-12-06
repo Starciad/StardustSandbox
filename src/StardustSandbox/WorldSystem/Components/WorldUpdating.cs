@@ -6,16 +6,16 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
-using StardustSandbox.World.Chunking;
+using StardustSandbox.WorldSystem.Chunking;
 
-namespace StardustSandbox.World.Components
+namespace StardustSandbox.WorldSystem.Components
 {
-    internal sealed class WorldUpdating(GameWorld world) : IResettable
+    internal sealed class WorldUpdating(World world) : IResettable
     {
         private UpdateCycleFlag stepCycleFlag;
 
         private readonly ElementContext elementUpdateContext = new(world);
-        private readonly GameWorld world = world;
+        private readonly World world = world;
 
         public void Reset()
         {

@@ -5,7 +5,7 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
 using StardustSandbox.Mathematics;
 
-namespace StardustSandbox.World
+namespace StardustSandbox.WorldSystem
 {
     public sealed class SlotLayer
     {

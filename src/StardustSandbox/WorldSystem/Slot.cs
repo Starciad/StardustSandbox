@@ -5,7 +5,7 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
 
-namespace StardustSandbox.World
+namespace StardustSandbox.WorldSystem
 {
     public sealed class Slot : IPoolableObject
     {

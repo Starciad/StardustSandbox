@@ -4,7 +4,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Energies
 {

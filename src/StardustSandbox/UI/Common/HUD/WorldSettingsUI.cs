@@ -14,7 +14,7 @@ using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -42,7 +42,7 @@ namespace StardustSandbox.UI.Common.HUD
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.confirmUI = confirmUI;

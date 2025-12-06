@@ -8,7 +8,7 @@ using StardustSandbox.Interfaces.Tools;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Tools;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Inputs.Game.Handlers
 {
@@ -27,9 +27,9 @@ namespace StardustSandbox.Inputs.Game.Handlers
 
         private readonly InputManager inputManager;
 
-        private readonly GameWorld world;
+        private readonly World world;
 
-        internal WorldHandler(InputManager inputManager, Player player, Pen pen, GameWorld world)
+        internal WorldHandler(InputManager inputManager, Player player, Pen pen, World world)
         {
             this.world = world;
 

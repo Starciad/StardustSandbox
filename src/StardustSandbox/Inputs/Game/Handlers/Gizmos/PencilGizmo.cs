@@ -5,7 +5,7 @@ using StardustSandbox.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.Inputs.Game.Simulation;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
 {
     internal sealed class PencilGizmo : Gizmo
     {
-        internal PencilGizmo(Pen pen, GameWorld world, WorldHandler worldHandler) : base(pen, world, worldHandler)
+        internal PencilGizmo(Pen pen, World world, WorldHandler worldHandler) : base(pen, world, worldHandler)
         {
 
         }

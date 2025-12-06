@@ -5,7 +5,7 @@ using StardustSandbox.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.Inputs.Game.Simulation;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
-        internal FloodFillGizmo(Pen pen, GameWorld world, WorldHandler worldHandler) : base(pen, world, worldHandler)
+        internal FloodFillGizmo(Pen pen, World world, WorldHandler worldHandler) : base(pen, world, worldHandler)
         {
 
         }

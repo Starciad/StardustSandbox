@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
 

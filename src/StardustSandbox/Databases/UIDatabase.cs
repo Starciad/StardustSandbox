@@ -9,7 +9,7 @@ using StardustSandbox.UI.Common.HUD;
 using StardustSandbox.UI.Common.Menus;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -30,7 +30,7 @@ namespace StardustSandbox.Databases
             InputManager inputManager,
             UIManager uiManager,
             VideoManager videoManager,
-            GameWorld world
+            World world
         )
         {
             if (isLoaded)

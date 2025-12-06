@@ -6,11 +6,11 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Interfaces;
-using StardustSandbox.World.Chunking;
+using StardustSandbox.WorldSystem.Chunking;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.World.Components
+namespace StardustSandbox.WorldSystem.Components
 {
     internal sealed class WorldChunking : IResettable
     {
@@ -19,7 +19,7 @@ namespace StardustSandbox.World.Components
 
         private Chunk[,] chunks;
 
-        private readonly GameWorld world;
+        private readonly World world;
 
         public void Reset()
         {
@@ -40,7 +40,7 @@ namespace StardustSandbox.World.Components
             }
         }
 
-        internal WorldChunking(GameWorld world)
+        internal WorldChunking(World world)
         {
             this.world = world;
 

@@ -5,7 +5,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Mathematics;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 

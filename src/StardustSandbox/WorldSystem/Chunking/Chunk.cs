@@ -2,7 +2,7 @@
 
 using StardustSandbox.Constants;
 
-namespace StardustSandbox.World.Chunking
+namespace StardustSandbox.WorldSystem.Chunking
 {
     internal sealed class Chunk(Point position)
     {

@@ -2,7 +2,7 @@
 
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Utilities
 {

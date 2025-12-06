@@ -2,17 +2,17 @@
 
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Tools;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Tools
 {
-    internal sealed class ToolContext(GameWorld world) : IToolContext
+    internal sealed class ToolContext(World world) : IToolContext
     {
-        internal GameWorld World => world;
+        internal World World => world;
         internal Point Position => this.position;
         internal Layer Layer => this.layer;
 
-        GameWorld IToolContext.World => this.World;
+        World IToolContext.World => this.World;
         Point IToolContext.Position => this.Position;
         Layer IToolContext.Layer => this.Layer;
 

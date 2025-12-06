@@ -2,7 +2,7 @@
 
 using StardustSandbox.Interfaces;
 using StardustSandbox.Scenario;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Managers
 {
@@ -25,7 +25,7 @@ namespace StardustSandbox.Managers
             this.cloudHandler.Reset();
         }
 
-        internal void Initialize(GameManager gameManager, GameWorld world)
+        internal void Initialize(GameManager gameManager, World world)
         {
             this.backgroundHandler = new();
             this.cloudHandler = new(gameManager, world.Simulation);

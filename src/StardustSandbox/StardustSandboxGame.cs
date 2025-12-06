@@ -3,12 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Camera;
-using StardustSandbox.Colors;
-using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
-using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Inputs.Game;
@@ -16,7 +12,7 @@ using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -32,7 +28,7 @@ namespace StardustSandbox
         private VolumeSettings volumeSettings;
 
         // Core
-        private readonly GameWorld world;
+        private readonly World world;
         private readonly InputController inputController;
 
         // Managers
@@ -40,7 +36,7 @@ namespace StardustSandbox
         private readonly CursorManager cursorManager;
         private readonly GameManager gameManager;
         private readonly InputManager inputManager;
-        private readonly ShaderManager shaderManager;
+        private readonly EffectsManager effectsManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
@@ -90,7 +86,7 @@ namespace StardustSandbox
 
             this.gameManager = new();
             this.inputManager = new();
-            this.shaderManager = new();
+            this.effectsManager = new();
             this.uiManager = new();
             this.cursorManager = new();
             this.ambientManager = new();
@@ -98,8 +94,6 @@ namespace StardustSandbox
             // Core
             this.world = new(this.inputController, this.gameManager);
         }
-
-        #region ROUTINE
 
         protected override void Initialize()
         {
@@ -127,14 +121,16 @@ namespace StardustSandbox
 
             // Managers
             this.gameManager.Initialize(this.ambientManager, this.inputController, this.uiManager, this.world);
-            this.videoManager.Initialize();
-            this.shaderManager.Initialize();
+            this.effectsManager.Initialize();
             this.inputManager.Initialize(this.videoManager);
             this.cursorManager.Initialize(this.inputManager);
             this.ambientManager.Initialize(this.gameManager, this.world);
 
             // Controllers
             this.inputController.Initialize(this.gameManager, this.inputManager, this.world);
+
+            // Renderer
+            GameRenderer.Initialize(this.videoManager);
 
             // ============================= //
 
@@ -172,8 +168,13 @@ namespace StardustSandbox
             this.inputController.Update();
 
             // Managers
+            this.effectsManager.Update(
+                gameTime,
+                this.ambientManager.SkyHandler.GetSkyGradientByTime(this.world.Time.CurrentTime),
+                this.world.Time.CurrentTime
+            );
+
             this.gameManager.Update();
-            this.shaderManager.Update(gameTime);
             this.inputManager.Update();
             this.uiManager.Update(gameTime);
             this.cursorManager.Update();
@@ -190,161 +191,27 @@ namespace StardustSandbox
 
         protected override void Draw(GameTime gameTime)
         {
-            #region RENDERING (ELEMENTS)
-            DrawAmbient();
-            DrawWorld();
-            DrawGUI();
-            #endregion
-
-            #region RENDERING (SCREEN)
-            this.GraphicsDevice.SetRenderTarget(this.videoManager.ScreenRenderTarget);
-            this.GraphicsDevice.Clear(AAP64ColorPalette.DarkGray);
-
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.spriteBatch.Draw(this.videoManager.BackgroundRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this.spriteBatch.Draw(this.videoManager.WorldRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            DrawCursorPenActionArea();
-            this.spriteBatch.Draw(this.videoManager.UIRenderTarget, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this.spriteBatch.End();
-            #endregion
-
-            #region RENDERING (FINAL)
-            this.GraphicsDevice.SetRenderTarget(null);
-            this.GraphicsDevice.Clear(AAP64ColorPalette.DarkGray);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.spriteBatch.Draw(this.videoManager.ScreenRenderTarget, this.videoManager.AdjustRenderTargetOnScreen(this.videoManager.ScreenRenderTarget), Color.White);
-            this.cursorManager.Draw(this.spriteBatch);
-            this.spriteBatch.End();
-            #endregion
-
+            GameRenderer.Draw(
+                this.ambientManager,
+                this.gameplaySettings.PreviewAreaColor,
+                this.cursorManager,
+                this.inputController,
+                this.inputManager,
+                this.spriteBatch,
+                this.uiManager,
+                this.videoManager,
+                this.world
+            );
             base.Draw(gameTime);
         }
 
         protected override void UnloadContent()
         {
             AssetDatabase.Unload();
-            this.videoManager.Unload();
+            GameRenderer.Unload();
 
             base.UnloadContent();
         }
-
-        #endregion
-
-        #region RENDERING
-
-        private void DrawAmbient()
-        {
-            this.GraphicsDevice.SetRenderTarget(this.videoManager.BackgroundRenderTarget);
-            this.GraphicsDevice.Clear(this.ambientManager.BackgroundHandler.SolidColor);
-
-            DrawAmbientSky();
-            DrawAmbientDetails();
-            DrawAmbientBackground();
-        }
-
-        private void DrawAmbientSky()
-        {
-            if (!this.ambientManager.SkyHandler.IsActive)
-            {
-                return;
-            }
-
-            GradientColorMap skyGradientColorMap = this.ambientManager.SkyHandler.GetSkyGradientByTime(this.world.Time.CurrentTime);
-            float interpolation = skyGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
-
-            Effect skyEffect = this.ambientManager.SkyHandler.GradientTransitionEffect;
-            skyEffect.Parameters["StartColor1"].SetValue(skyGradientColorMap.Color1.Start.ToVector4());
-            skyEffect.Parameters["StartColor2"].SetValue(skyGradientColorMap.Color2.Start.ToVector4());
-            skyEffect.Parameters["EndColor1"].SetValue(skyGradientColorMap.Color1.End.ToVector4());
-            skyEffect.Parameters["EndColor2"].SetValue(skyGradientColorMap.Color2.End.ToVector4());
-            skyEffect.Parameters["TimeNormalized"].SetValue(interpolation);
-
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, skyEffect, null);
-            this.spriteBatch.Draw(this.ambientManager.SkyHandler.SkyTexture, Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            this.spriteBatch.End();
-        }
-
-        private void DrawAmbientDetails()
-        {
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.ambientManager.CelestialBodyHandler.Draw(this.spriteBatch);
-            this.spriteBatch.End();
-        }
-
-        private void DrawAmbientBackground()
-        {
-            Effect backgroundEffect = null;
-
-            if (this.ambientManager.BackgroundHandler.SelectedBackground.IsAffectedByLighting)
-            {
-                GradientColorMap backgroundGradientColorMap = this.ambientManager.SkyHandler.GetBackgroundGradientByTime(this.world.Time.CurrentTime);
-                float interpolation = backgroundGradientColorMap.GetInterpolationFactor(this.world.Time.CurrentTime);
-
-                backgroundEffect = this.ambientManager.SkyHandler.GradientTransitionEffect;
-                backgroundEffect.Parameters["StartColor1"].SetValue(backgroundGradientColorMap.Color1.Start.ToVector4());
-                backgroundEffect.Parameters["StartColor2"].SetValue(backgroundGradientColorMap.Color2.Start.ToVector4());
-                backgroundEffect.Parameters["EndColor1"].SetValue(backgroundGradientColorMap.Color1.End.ToVector4());
-                backgroundEffect.Parameters["EndColor2"].SetValue(backgroundGradientColorMap.Color2.End.ToVector4());
-                backgroundEffect.Parameters["TimeNormalized"].SetValue(interpolation);
-            }
-
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, backgroundEffect, null);
-            this.ambientManager.CloudHandler.Draw(this.spriteBatch);
-            this.ambientManager.BackgroundHandler.Draw(this.spriteBatch);
-            this.spriteBatch.End();
-        }
-
-        private void DrawWorld()
-        {
-            this.GraphicsDevice.SetRenderTarget(this.videoManager.WorldRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, SSCamera.GetViewMatrix());
-            this.world.Draw(this.spriteBatch);
-            this.spriteBatch.End();
-        }
-
-        private void DrawGUI()
-        {
-            this.GraphicsDevice.SetRenderTarget(this.videoManager.UIRenderTarget);
-            this.GraphicsDevice.Clear(Color.Transparent);
-            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-            this.uiManager.Draw(this.spriteBatch);
-            this.spriteBatch.End();
-        }
-
-        private void DrawCursorPenActionArea()
-        {
-            PenTool penTool = this.inputController.Pen.Tool;
-
-            if (penTool == PenTool.Visualization || penTool == PenTool.Fill)
-            {
-                return;
-            }
-
-            Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
-            Vector2 worldMousePosition = SSCamera.ScreenToWorld(mousePosition);
-
-            Point alignedPosition = new(
-                (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
-                (int)Math.Floor(worldMousePosition.Y / WorldConstants.GRID_SIZE)
-            );
-
-            foreach (Point point in this.inputController.Pen.GetShapePoints(alignedPosition))
-            {
-                Vector2 worldPosition = new(
-                    point.X * WorldConstants.GRID_SIZE,
-                    point.Y * WorldConstants.GRID_SIZE
-                );
-
-                Vector2 screenPosition = SSCamera.WorldToScreen(worldPosition);
-
-                this.spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), screenPosition, new(110, 0, 32, 32), this.gameplaySettings.PreviewAreaColor, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            }
-        }
-
-        #endregion
-
-        #region EVENTS
 
         // Event occurs when the game window returns to focus.
         protected override void OnActivated(object sender, EventArgs args)
@@ -367,8 +234,6 @@ namespace StardustSandbox
         {
             base.OnExiting(sender, args);
         }
-
-        #endregion
 
         internal void Quit()
         {

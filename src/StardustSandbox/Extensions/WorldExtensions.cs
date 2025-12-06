@@ -5,7 +5,7 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -13,7 +13,7 @@ namespace StardustSandbox.Extensions
 {
     internal static class WorldExtensions
     {
-        internal static Texture2D CreateThumbnail(this GameWorld world, GraphicsDevice graphicsDevice)
+        internal static Texture2D CreateThumbnail(this World world, GraphicsDevice graphicsDevice)
         {
             // Thumbnail dimensions
             int thumbnailWidth = WorldConstants.WORLD_THUMBNAIL_SIZE.X;

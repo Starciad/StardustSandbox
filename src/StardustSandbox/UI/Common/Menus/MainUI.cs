@@ -18,7 +18,7 @@ using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -39,7 +39,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly AmbientManager ambientManager;
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
-        private readonly GameWorld world;
+        private readonly World world;
 
         private const float animationSpeed = 2.0f;
         private const float animationAmplitude = 10.0f;
@@ -52,7 +52,7 @@ namespace StardustSandbox.UI.Common.Menus
             GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.ambientManager = ambientManager;
@@ -231,9 +231,6 @@ namespace StardustSandbox.UI.Common.Menus
         protected override void OnOpened()
         {
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
-            this.ambientManager.CloudHandler.IsActive = true;
-            this.ambientManager.CelestialBodyHandler.IsActive = true;
-            this.ambientManager.SkyHandler.IsActive = true;
 
             this.inputController.Pen.Tool = PenTool.Visualization;
             this.inputController.Disable();

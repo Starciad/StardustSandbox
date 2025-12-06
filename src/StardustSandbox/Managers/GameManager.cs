@@ -9,7 +9,7 @@ using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Inputs.Game;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Managers
 {
@@ -20,9 +20,9 @@ namespace StardustSandbox.Managers
         private AmbientManager ambientManager;
         private InputController inputController;
         private UIManager uiManager;
-        private GameWorld world;
+        private World world;
 
-        internal void Initialize(AmbientManager ambientManager, InputController inputController, UIManager uiManager, GameWorld world)
+        internal void Initialize(AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
             this.ambientManager = ambientManager;
             this.inputController = inputController;
@@ -42,9 +42,6 @@ namespace StardustSandbox.Managers
             this.uiManager.OpenGUI(UIIndex.Hud);
 
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
-            this.ambientManager.SkyHandler.IsActive = true;
-            this.ambientManager.CelestialBodyHandler.IsActive = true;
-            this.ambientManager.CloudHandler.IsActive = true;
 
             this.world.Time.Reset();
             this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);

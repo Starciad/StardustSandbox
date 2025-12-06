@@ -3,11 +3,11 @@
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Explosions;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements
 {
-    internal sealed class ElementContext(GameWorld world)
+    internal sealed class ElementContext(World world)
     {
         internal Slot Slot => this.worldSlot;
         internal SlotLayer SlotLayer => this.worldSlot.GetLayer(this.Layer);
@@ -16,7 +16,7 @@ namespace StardustSandbox.Elements
 
         private Slot worldSlot;
 
-        private readonly GameWorld world = world;
+        private readonly World world = world;
 
         internal void UpdateInformation(Point position, Layer layer, Slot worldSlot)
         {

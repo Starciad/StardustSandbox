@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Constants;
-using StardustSandbox.World.Status;
+using StardustSandbox.WorldSystem.Status;
 
 using System;
 

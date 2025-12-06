@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors;
 using StardustSandbox.Colors.Palettes;
-using StardustSandbox.Databases;
-using StardustSandbox.Enums.Assets;
 
 using System;
 
@@ -12,13 +9,6 @@ namespace StardustSandbox.Scenario
 {
     internal sealed class SkyHandler
     {
-        internal bool IsActive { get; set; } = true;
-        internal Texture2D SkyTexture => this.skyTexture;
-        internal Effect GradientTransitionEffect => this.gradientTransitionEffect;
-
-        private readonly Texture2D skyTexture = AssetDatabase.GetTexture(TextureIndex.BackgroundSky);
-        private readonly Effect gradientTransitionEffect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
-
         private readonly GradientColorMap[] skyGradientColorMap = [
             new()
             {

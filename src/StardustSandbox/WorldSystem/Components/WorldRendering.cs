@@ -14,13 +14,13 @@ using StardustSandbox.Inputs.Game;
 
 using System;
 
-namespace StardustSandbox.World.Components
+namespace StardustSandbox.WorldSystem.Components
 {
-    internal sealed class WorldRendering(InputController inputController, GameWorld world)
+    internal sealed class WorldRendering(InputController inputController, World world)
     {
         private readonly ElementContext elementRenderingContext = new(world);
         private readonly InputController inputController = inputController;
-        private readonly GameWorld world = world;
+        private readonly World world = world;
 
         internal void Draw(SpriteBatch spriteBatch)
         {

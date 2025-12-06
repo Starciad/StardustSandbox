@@ -7,7 +7,7 @@ using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Inputs.Game.Handlers;
 using StardustSandbox.Inputs.Game.Simulation;
 using StardustSandbox.Managers;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Inputs.Game
 {
@@ -53,7 +53,7 @@ namespace StardustSandbox.Inputs.Game
             worldMouseActionMap.AddAction("Erase_Item", new(this.inputManager, MouseButton.Right)).OnPerformed += _ => this.worldHandler.Modify(WorldModificationType.Removing);
         }
 
-        internal void Initialize(GameManager gameManager, InputManager inputManager, GameWorld world)
+        internal void Initialize(GameManager gameManager, InputManager inputManager, World world)
         {
             this.simulationHandler = new(gameManager);
             this.worldHandler = new(inputManager, this.player, this.pen, world);

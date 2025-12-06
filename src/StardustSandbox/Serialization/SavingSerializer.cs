@@ -11,7 +11,7 @@ using StardustSandbox.Extensions;
 using StardustSandbox.IO;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace StardustSandbox.Serialization
         private static readonly MessagePackSerializerOptions MapOptions =
             MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
 
-        internal static void Serialize(GameWorld world, GraphicsDevice graphicsDevice)
+        internal static void Serialize(World world, GraphicsDevice graphicsDevice)
         {
             string filename = Path.Combine(SSDirectory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
 
@@ -38,7 +38,7 @@ namespace StardustSandbox.Serialization
             saveFileMemoryStream.WriteTo(outputSaveFile);
         }
 
-        internal static SaveFile CreateWorldSaveFile(string filename, GameWorld world, GraphicsDevice graphicsDevice)
+        internal static SaveFile CreateWorldSaveFile(string filename, World world, GraphicsDevice graphicsDevice)
         {
             return new()
             {
@@ -123,7 +123,7 @@ namespace StardustSandbox.Serialization
             }
         }
 
-        private static ElementIndex[] GetAllWorldDistinctElements(GameWorld world)
+        private static ElementIndex[] GetAllWorldDistinctElements(World world)
         {
             HashSet<ElementIndex> distinctElements = [];
 
@@ -171,7 +171,7 @@ namespace StardustSandbox.Serialization
             return [.. distinctElements];
         }
 
-        private static SlotData[] CreateSlotsData(GameWorld world, Point worldSize)
+        private static SlotData[] CreateSlotsData(World world, Point worldSize)
         {
             List<SlotData> slots = [];
 

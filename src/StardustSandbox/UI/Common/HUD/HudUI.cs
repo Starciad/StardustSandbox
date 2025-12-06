@@ -19,7 +19,7 @@ using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -47,7 +47,7 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly InputController inputController;
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
-        private readonly GameWorld world;
+        private readonly World world;
 
         private readonly Rectangle[] speedIconRectangles = [
             new(192, 128, 32, 32),
@@ -67,7 +67,7 @@ namespace StardustSandbox.UI.Common.HUD
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.gameManager = gameManager;
@@ -169,7 +169,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             root.AddChild(this.tooltipBox);
 
-            BuildSimulationPause(root);
+            BuildSimulationPausedOverlay(root);
         }
 
         private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, CardinalDirection alignment, Action<Container> buildContent)
@@ -338,13 +338,14 @@ namespace StardustSandbox.UI.Common.HUD
             return CreateButtonSlot(margin, button.Texture, button.TextureSourceRectangle);
         }
 
-        private void BuildSimulationPause(Container root)
+        private void BuildSimulationPausedOverlay(Container root)
         {
             Color backgroundColor = AAP64ColorPalette.DarkGray;
             backgroundColor.A = 120;
 
             this.simulationPausedBackground = new()
             {
+                CanDraw = false,
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = backgroundColor,

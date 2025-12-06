@@ -17,7 +17,7 @@ using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -33,7 +33,7 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo[] menuButtonInfos, fieldButtonInfos, footerButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos, fieldButtonSlotInfos, footerButtonSlotInfos;
 
-        private readonly GameWorld world;
+        private readonly World world;
         private readonly TextInputUI textInputUI;
 
         private readonly TextInputSettings nameInputBuilder, descriptionInputBuilder;
@@ -50,7 +50,7 @@ namespace StardustSandbox.UI.Common.HUD
             TextInputUI textInputUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.gameManager = gameManager;

@@ -11,7 +11,7 @@ using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -27,14 +27,14 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
-        private readonly GameWorld world;
+        private readonly World world;
 
         internal EnvironmentSettingsUI(
             GameManager gameManager,
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.gameManager = gameManager;

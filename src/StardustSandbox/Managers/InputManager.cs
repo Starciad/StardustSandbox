@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using System;
-
 namespace StardustSandbox.Managers
 {
     internal sealed class InputManager
@@ -35,36 +33,17 @@ namespace StardustSandbox.Managers
 
         internal Vector2 GetScaledMousePosition()
         {
-            return CalculateScaledMousePosition(this.mouseState, this.videoManager);
+            return GameRenderer.CalculateScaledMousePosition(this.mouseState.Position.ToVector2(), this.videoManager);
         }
 
         internal Vector2 GetScaledPreviousMousePosition()
         {
-            return CalculateScaledMousePosition(this.previousMouseState, this.videoManager);
+            return GameRenderer.CalculateScaledMousePosition(this.previousMouseState.Position.ToVector2(), this.videoManager);
         }
 
         internal int GetDeltaScrollWheel()
         {
             return this.previousMouseState.ScrollWheelValue - this.mouseState.ScrollWheelValue;
-        }
-
-        private static Vector2 CalculateScaledMousePosition(MouseState mouseState, VideoManager videoManager)
-        {
-            // Gets the adjusted rectangle of the render target on the screen
-            Rectangle adjustedScreen = videoManager.AdjustRenderTargetOnScreen(videoManager.ScreenRenderTarget);
-
-            // Calculates the scale used for the adjustment
-            float scale = adjustedScreen.Width / (float)videoManager.ScreenRenderTarget.Width;
-
-            // Adjusts the mouse position to the render target space
-            float mouseX = (mouseState.X - adjustedScreen.X) / scale;
-            float mouseY = (mouseState.Y - adjustedScreen.Y) / scale;
-
-            // Ensures the value does not exceed the render target bounds
-            mouseX = Math.Clamp(mouseX, 0, videoManager.ScreenRenderTarget.Width - 1);
-            mouseY = Math.Clamp(mouseY, 0, videoManager.ScreenRenderTarget.Height - 1);
-
-            return new Vector2(mouseX, mouseY);
         }
     }
 }

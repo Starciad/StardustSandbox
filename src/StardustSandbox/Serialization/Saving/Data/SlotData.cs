@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Serialization.Saving.Data
 {
@@ -38,7 +39,7 @@ namespace StardustSandbox.Serialization.Saving.Data
 
         }
 
-        public SlotData(World.Slot slot)
+        public SlotData(Slot slot)
         {
             this.Position = slot.Position;
 

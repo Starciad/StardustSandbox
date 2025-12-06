@@ -12,7 +12,7 @@ using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -34,13 +34,13 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
-        private readonly GameWorld world;
+        private readonly World world;
 
         internal WorldDetailsUI(
             GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
-            GameWorld world
+            World world
         ) : base(index)
         {
             this.gameManager = gameManager;

@@ -5,23 +5,21 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Simulation;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 
 namespace StardustSandbox.Scenario
 {
-    internal sealed class CelestialBodyHandler(TimeHandler timeHandler, GameWorld world)
+    internal sealed class CelestialBodyHandler(TimeHandler timeHandler, World world)
     {
-        internal bool IsActive { get; set; }
-
         private float positionX;
         private float positionY;
         private float rotation;
         private float angle;
 
         private readonly TimeHandler timeHandler = timeHandler;
-        private readonly GameWorld world = world;
+        private readonly World world = world;
 
         internal void Update()
         {

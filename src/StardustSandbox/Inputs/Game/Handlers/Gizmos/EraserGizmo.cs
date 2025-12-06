@@ -3,7 +3,7 @@
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.Inputs.Game.Simulation;
-using StardustSandbox.World;
+using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
 {
     internal sealed class EraserGizmo : Gizmo
     {
-        internal EraserGizmo(Pen pen, GameWorld world, WorldHandler worldHandler) : base(pen, world, worldHandler)
+        internal EraserGizmo(Pen pen, World world, WorldHandler worldHandler) : base(pen, world, worldHandler)
         {
 
         }

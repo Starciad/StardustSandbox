@@ -4,7 +4,7 @@ using StardustSandbox.Interfaces;
 
 using System;
 
-namespace StardustSandbox.World.Status
+namespace StardustSandbox.WorldSystem.Status
 {
     internal sealed class Information : IResettable
     {

@@ -3,6 +3,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Serialization.Saving.Data
 {
@@ -55,7 +56,7 @@ namespace StardustSandbox.Serialization.Saving.Data
 
         }
 
-        public SlotLayerData(World.SlotLayer worldSlotLayer)
+        public SlotLayerData(SlotLayer worldSlotLayer)
         {
             this.ElementIndex = worldSlotLayer.Element.Index;
             this.Temperature = worldSlotLayer.Temperature;
