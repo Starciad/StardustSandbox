@@ -79,7 +79,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Anti Corruption.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A gaseous antidote that attempts, by all means, to contain the destruction caused by corruption and restore the environment to its original state..
         /// </summary>
         internal static string Gas_AntiCorruption_Description {
             get {
