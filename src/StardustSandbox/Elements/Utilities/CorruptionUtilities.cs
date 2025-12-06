@@ -91,8 +91,6 @@ namespace StardustSandbox.Elements.Utilities
                 ? slotTarget.Slot.Foreground.Element
                 : slotTarget.Slot.Background.Element;
 
-            context.SetStoredElement(targetElement);
-
             switch (targetElement.Category)
             {
                 case ElementCategory.MovableSolid:
@@ -111,12 +109,12 @@ namespace StardustSandbox.Elements.Utilities
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
                     break;
 
-                case ElementCategory.None:
-                case ElementCategory.Energy:
                 default:
                     context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
             }
+
+            context.SetStoredElement(slotTarget.Slot.Position, slotTarget.Layer, targetElement);
         }
     }
 }

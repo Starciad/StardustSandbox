@@ -44,29 +44,30 @@ namespace StardustSandbox.Elements.Gases
                 Point oldPosition = context.Slot.Position;
                 Point newPosition = corruptionNeighborSlot.Position;
 
+                context.SwappingElements(oldPosition, newPosition, context.Layer);
+
                 if (currentStoredElement == null)
                 {
-                    context.SwappingElements(newPosition);
                     context.ReplaceElement(oldPosition, ElementIndex.AntiCorruption);
                 }
                 else
                 {
-                    context.SwappingElements(newPosition);
                     context.ReplaceElement(oldPosition, currentStoredElement);
                 }
 
                 context.SetStoredElement(newPosition, neighborStoredElement);
             }
+            else if (context.SlotLayer.StoredElement != null)
+            {
+                context.ReplaceElement(context.SlotLayer.StoredElement);
+            }
+            else if (SSRandom.Chance(15))
+            {
+                context.DestroyElement();
+            }
             else
             {
-                if (SSRandom.Chance(15))
-                {
-                    context.DestroyElement();
-                }
-                else
-                {
-                    context.NotifyChunk();
-                }
+                context.NotifyChunk();
             }
         }
     }
