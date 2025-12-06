@@ -19,31 +19,16 @@ namespace StardustSandbox.Elements.Utilities
                     continue;
                 }
 
-                Point targetPosition = neighbors.GetSlot(i).Position;
-
-                switch (direction)
+                Point displacement = direction switch
                 {
-                    case CardinalDirection.North:
-                        targetPosition += new Point(0, -1);
-                        break;
+                    CardinalDirection.North => new(0, -1),
+                    CardinalDirection.South => new(0, 1),
+                    CardinalDirection.East => new(1, 0),
+                    CardinalDirection.West => new(-1, 0),
+                    _ => Point.Zero,
+                };
 
-                    case CardinalDirection.South:
-                        targetPosition += new Point(0, 1);
-                        break;
-
-                    case CardinalDirection.East:
-                        targetPosition += new Point(1, 0);
-                        break;
-
-                    case CardinalDirection.West:
-                        targetPosition += new Point(-1, 0);
-                        break;
-
-                    default:
-                        break;
-                }
-
-                context.UpdateElementPosition(neighbors.GetSlot(i).Position, targetPosition);
+                context.UpdateElementPosition(neighbors.GetSlot(i).Position, neighbors.GetSlot(i).Position + displacement);
             }
 
         }
