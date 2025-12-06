@@ -43,5 +43,6 @@
         Heater,
         Freezer,
         Ash,
+        AntiCorruption,
     }
 }

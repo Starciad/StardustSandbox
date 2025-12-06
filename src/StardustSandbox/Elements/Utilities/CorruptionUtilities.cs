@@ -91,6 +91,8 @@ namespace StardustSandbox.Elements.Utilities
                 ? slotTarget.Slot.Foreground.Element
                 : slotTarget.Slot.Background.Element;
 
+            context.SetStoredElement(targetElement);
+
             switch (targetElement.Category)
             {
                 case ElementCategory.MovableSolid:

@@ -264,6 +264,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(288, 32, 32, 32)
                                 ),
+
+                                // [3] Anti-Corruption
+                                new(
+                                    associatedType: typeof(AntiCorruption),
+                                    name: Localization_Elements.Gas_AntiCorruption_Name,
+                                    description: Localization_Elements.Gas_AntiCorruption_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(224, 96, 32, 32)
+                                ),
                             ]
                         ),
 

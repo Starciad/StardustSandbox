@@ -351,4 +351,10 @@
   <data name="Solid.Movable.Ash.Description" xml:space="preserve">
     <value>Pó cinza escuro, lembra restos de madeira ou materiais queimados.</value>
   </data>
+  <data name="Gas.AntiCorruption.Name" xml:space="preserve">
+    <value>Anticorrupção</value>
+  </data>
+  <data name="Gas.AntiCorruption.Description" xml:space="preserve">
+    <value>Anticorrupção</value>
+  </data>
 </root>

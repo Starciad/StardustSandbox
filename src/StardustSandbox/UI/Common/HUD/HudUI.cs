@@ -34,7 +34,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Image topToolbarBackground, leftToolbarBackground, rightToolbarBackground;
         private Image topDrawerButton, leftDrawerButton, rightDrawerButton;
         private Image toolbarSearchButton, toolbarCurrentlySelectedToolBackground, toolbarCurrentlySelectedToolIcon;
-        private Image simulationPauseBackground;
+        private Image simulationPausedBackground;
 
         private readonly TooltipBox tooltipBox;
 
@@ -166,7 +166,7 @@ namespace StardustSandbox.UI.Common.HUD
             BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), CardinalDirection.South);
             BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), CardinalDirection.East);
             BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), CardinalDirection.West);
-            
+
             root.AddChild(this.tooltipBox);
 
             BuildSimulationPause(root);
@@ -343,7 +343,7 @@ namespace StardustSandbox.UI.Common.HUD
             Color backgroundColor = AAP64ColorPalette.DarkGray;
             backgroundColor.A = 120;
 
-            this.simulationPauseBackground = new()
+            this.simulationPausedBackground = new()
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
@@ -360,13 +360,13 @@ namespace StardustSandbox.UI.Common.HUD
                 TextContent = Localization_GUIs.HUD_SimulationPaused,
             };
 
-            this.simulationPauseBackground.Scale = new(
+            this.simulationPausedBackground.Scale = new(
                 (pauseLabel.Size.X / 2.0f) + 225.0f,
                 (pauseLabel.Size.Y / 2.0f) + 70.0f
             );
 
-            this.simulationPauseBackground.AddChild(pauseLabel);
-            root.AddChild(this.simulationPauseBackground);
+            this.simulationPausedBackground.AddChild(pauseLabel);
+            root.AddChild(this.simulationPausedBackground);
         }
 
         #endregion
@@ -409,7 +409,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             UpdateDrawerButtons();
 
-            this.simulationPauseBackground.CanDraw = this.gameManager.HasState(GameStates.IsSimulationPaused);
+            this.simulationPausedBackground.CanDraw = this.gameManager.HasState(GameStates.IsSimulationPaused);
 
             base.Update(gameTime);
         }

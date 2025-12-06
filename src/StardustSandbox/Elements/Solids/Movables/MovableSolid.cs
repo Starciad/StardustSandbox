@@ -51,17 +51,26 @@ namespace StardustSandbox.Elements.Solids.Movables
 
             if (context.TryGetElement(position, context.Layer, out Element value))
             {
-                if (value.Category == ElementCategory.Liquid)
+                switch (value.Category)
                 {
-                    if (this.DefaultDensity > value.DefaultDensity && context.TrySwappingElements(position))
-                    {
-                        return true;
-                    }
-                }
+                    case ElementCategory.Liquid:
+                        if (this.DefaultDensity > value.DefaultDensity && context.TrySwappingElements(position))
+                        {
+                            return true;
+                        }
 
-                if (value.Category == ElementCategory.Gas && context.TrySwappingElements(position))
-                {
-                    return true;
+                        break;
+
+                    case ElementCategory.Gas:
+                        if (context.TrySwappingElements(position))
+                        {
+                            return true;
+                        }
+
+                        break;
+
+                    default:
+                        break;
                 }
             }
 

@@ -7,14 +7,14 @@ namespace StardustSandbox.Extensions
 {
     internal static class IEnumerableExtensions
     {
-        internal static T GetRandomItem<T>(this IEnumerable<T> enumerable)
+        internal static T GetRandomItem<T>(this IEnumerable<T> source)
         {
-            if (enumerable == null)
+            if (source == null)
             {
                 throw new ArgumentException("The collection cannot be null.");
             }
 
-            using IEnumerator<T> enumerator = enumerable.GetEnumerator();
+            using IEnumerator<T> enumerator = source.GetEnumerator();
 
             if (!enumerator.MoveNext())
             {

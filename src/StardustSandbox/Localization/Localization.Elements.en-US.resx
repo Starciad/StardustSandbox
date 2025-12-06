@@ -351,4 +351,10 @@
   <data name="Solid.Movable.Ash.Description" xml:space="preserve">
     <value>Dark gray powder, looks like remains of wood or burnt materials.</value>
   </data>
+  <data name="Gas.AntiCorruption.Name" xml:space="preserve">
+    <value>Anti-Corruption</value>
+  </data>
+  <data name="Gas.AntiCorruption.Description" xml:space="preserve">
+    <value>Anti-Corruption</value>
+  </data>
 </root>

@@ -61,7 +61,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A manifestation of heat and energy, consuming flammable materials rapidly and spreading destruction with intense speed..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Intense heat that quickly burns flammable materials and spreads destruction..
         /// </summary>
         internal static string Energy_Fire_Description {
             get {
@@ -79,7 +79,25 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A gaseous version of corruption, it spreads through the air and contaminates everything within its reach, making the environment inhospitable..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Anti Corruption.
+        /// </summary>
+        internal static string Gas_AntiCorruption_Description {
+            get {
+                return ResourceManager.GetString("Gas.AntiCorruption.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Anti Corruption.
+        /// </summary>
+        internal static string Gas_AntiCorruption_Name {
+            get {
+                return ResourceManager.GetString("Gas.AntiCorruption.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gaseous corruption that spreads and contaminates the environment, making it inhospitable..
         /// </summary>
         internal static string Gas_Corruption_Description {
             get {
@@ -97,7 +115,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A byproduct of combustion, it rises slowly, obscuring the air and indicating the presence of fire or burning..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Smoke from burning, rises slowly and darkens the air, showing fire is present..
         /// </summary>
         internal static string Gas_Smoke_Description {
             get {
@@ -115,7 +133,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Hot water vapor that rises rapidly and disperses into the air..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hot water vapor that rises quickly and spreads in the air..
         /// </summary>
         internal static string Gas_Steam_Description {
             get {
@@ -133,7 +151,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A highly corrosive liquid that dissolves various materials on contact with extreme speed..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Corrosive liquid that quickly dissolves many materials on contact..
         /// </summary>
         internal static string Liquid_Acid_Description {
             get {
@@ -151,7 +169,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Highly contaminating liquid substance, flowing freely and corrupting all matter with which it interacts..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Contaminating liquid that flows and corrupts everything it touches..
         /// </summary>
         internal static string Liquid_Corruption_Description {
             get {
@@ -169,7 +187,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Molten rock that incinerates almost everything on contact. It cools in the element that originated it if exposed to lower temperatures..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Molten rock that burns almost everything it touches. It cools and hardens when exposed to cold..
         /// </summary>
         internal static string Liquid_Lava_Description {
             get {
@@ -187,7 +205,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A dark and thick, highly flammable liquid. It has a relatively low density..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dark, thick, very flammable liquid with low density..
         /// </summary>
         internal static string Liquid_Oil_Description {
             get {
@@ -205,7 +223,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A slightly blue and translucent liquid with particles of salt floating in its composition..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Light blue liquid with floating salt particles..
         /// </summary>
         internal static string Liquid_Saltwater_Description {
             get {
@@ -223,7 +241,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Essential and fluid liquid, with dynamic behavior. It can be frozen or evaporated. It can put out fires along the way..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Essential liquid that can freeze, evaporate, and put out fires..
         /// </summary>
         internal static string Liquid_Water_Description {
             get {
@@ -241,7 +259,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a An element that, upon contact with a neighboring element, will generate it infinitely until the cloner is destroyed or removed..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Infinitely generates the neighboring element until removed..
         /// </summary>
         internal static string Solid_Immovable_Clone_Description {
             get {
@@ -259,7 +277,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Crystallized and dense form of corruption. Immobile and permanent, it creates irreversible contaminated zones..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Crystallized, immobile corruption that creates permanent contaminated areas..
         /// </summary>
         internal static string Solid_Immovable_Corruption_Description {
             get {
@@ -277,7 +295,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A dry sponge that can absorb liquids around it. It is highly flammable..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry sponge that absorbs liquids and is very flammable..
         /// </summary>
         internal static string Solid_Immovable_DrySponge_Description {
             get {
@@ -295,7 +313,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A specialized device that consistently cools all nearby elements..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Device that cools all nearby elements..
         /// </summary>
         internal static string Solid_Immovable_Freezer_Description {
             get {
@@ -313,7 +331,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A transparent yet fragile material, shattering on impact or disintegrating under high temperatures..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Transparent and fragile material, breaks with heat or impact..
         /// </summary>
         internal static string Solid_Immovable_Glass_Description {
             get {
@@ -331,7 +349,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A bright yellow, soft, and malleable metal..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Bright yellow, soft, and malleable metal..
         /// </summary>
         internal static string Solid_Immovable_Gold_Description {
             get {
@@ -349,7 +367,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A specialized device that consistently heats all nearby elements..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Device that heats all nearby elements..
         /// </summary>
         internal static string Solid_Immovable_Heater_Description {
             get {
@@ -367,7 +385,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A strong, iron-based element. It withstands fire but melts into lava under extreme heat..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Strong metal, resists fire but melts in lava..
         /// </summary>
         internal static string Solid_Immovable_Iron_Description {
             get {
@@ -385,7 +403,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A lantern that is sturdy and fixed. A decorative object..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fixed, sturdy lamp used for decoration..
         /// </summary>
         internal static string Solid_Immovable_Lamp_Description {
             get {
@@ -403,7 +421,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Functional and decorative block, available in vibrant colors. Flammable, it adds dynamism and aesthetics to mobile constructions..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Decorative and functional block, flammable, used in mobile constructions..
         /// </summary>
         internal static string Solid_Immovable_MountingBlock_Description {
             get {
@@ -421,7 +439,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Strong and durable block, ideal for fortified constructions, especially due to its fire resistance..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Durable block, ideal for fire-resistant constructions..
         /// </summary>
         internal static string Solid_Immovable_RedBrick_Description {
             get {
@@ -439,7 +457,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Natural and flammable foliage, common in forest areas. It can be used to decorate and enrich the natural scenery..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Natural, flammable leaf, used for decoration..
         /// </summary>
         internal static string Solid_Immovable_TreeLeaf_Description {
             get {
@@ -457,7 +475,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a An element that absorbs and destroys everything it touches..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Absorbs and destroys everything it touches..
         /// </summary>
         internal static string Solid_Immovable_Void_Description {
             get {
@@ -475,7 +493,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a An impenetrable, solid barrier. Resistant to natural forces and unaffected by other elements..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Solid, impenetrable, and stable barrier..
         /// </summary>
         internal static string Solid_Immovable_Wall_Description {
             get {
@@ -493,7 +511,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A wet sponge. Its density is slightly greater than a dry sponge, making it difficult to ignite in this state. If dry sponges are placed below, it will always reposition itself to the lowest point. It can be dried by heating..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet sponge, denser and harder to burn. Dries with heat and moves down if dry sponges are below..
         /// </summary>
         internal static string Solid_Immovable_WetSponge_Description {
             get {
@@ -511,7 +529,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A natural, flammable material often used in constructions. Burns easily when in contact with fire..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Natural, very flammable material, common in constructions..
         /// </summary>
         internal static string Solid_Immovable_Wood_Description {
             get {
@@ -529,7 +547,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A dark gray, slightly grainy powder that resembles the remains of wood or other burnt materials..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dark gray powder, looks like remains of wood or burnt materials..
         /// </summary>
         internal static string Solid_Movable_Ash_Description {
             get {
@@ -547,7 +565,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A not-so-powerful bomb that explodes upon colliding with neighboring elements..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Low-power bomb that explodes when hitting other elements..
         /// </summary>
         internal static string Solid_Movable_Bomb_Description {
             get {
@@ -565,7 +583,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a An unstable substance that spreads and infects corruptible materials, causing unstoppable destruction across the world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Substance that spreads, contaminates, and destroys the environment continuously..
         /// </summary>
         internal static string Solid_Movable_Corruption_Description {
             get {
@@ -583,7 +601,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry soil, the foundation for vegetation. Turns into mud when exposed to water..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry, unstable soil, base for vegetation. Turns into mud when in contact with water..
         /// </summary>
         internal static string Solid_Movable_Dirt_Description {
             get {
@@ -601,7 +619,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a An explosive that causes a massive explosion with a large destruction radius, affecting extensive areas and creating significant debris and secondary effects. It only explodes when exposed to high temperatures or comes into contact with hot elements like lava or fire..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Large-radius explosive, only explodes with heat or contact with lava/fire..
         /// </summary>
         internal static string Solid_Movable_Dynamite_Description {
             get {
@@ -619,7 +637,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry grass, very flammable, burns fast and leaves ash..
         /// </summary>
         internal static string Solid_Movable_Grass_Description {
             get {
@@ -637,7 +655,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Frozen water in solid form. Slippery and melts back into water when exposed to heat..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Solid, slippery water, melts easily with heat..
         /// </summary>
         internal static string Solid_Movable_Ice_Description {
             get {
@@ -655,7 +673,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense mixture of dirt and water. When heated, it dries up and turns back into dirt..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mix of dirt and water, turns into dry dirt when heated..
         /// </summary>
         internal static string Solid_Movable_Mud_Description {
             get {
@@ -673,7 +691,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A white, crystalline powder formed by small, shiny grains. Dissolves when it comes into contact with water..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a White, crystalline powder that dissolves in water..
         /// </summary>
         internal static string Solid_Movable_Salt_Description {
             get {
@@ -691,7 +709,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Fine, loose grains that flow and accumulate easily. Under extreme heat, it fuses into glass..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mineral grains that flow and pile up. Become glass with extreme heat..
         /// </summary>
         internal static string Solid_Movable_Sand_Description {
             get {
@@ -709,7 +727,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Accumulated ice crystals in light flakes. Melts into water when exposed to heat..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Snowflakes that melt into water with heat..
         /// </summary>
         internal static string Solid_Movable_Snow_Description {
             get {
@@ -727,7 +745,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense and durable rock. Melts into lava under extreme heat and crumbles into sand after prolonged water exposure..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Rock that resists impacts, melts into lava with extreme heat or turns into sand with erosion..
         /// </summary>
         internal static string Solid_Movable_Stone_Description {
             get {
@@ -745,7 +763,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Performs a moderate explosion with great destructive power, primarily affecting solids and leaving remnants of smoke and fire. It only explodes when exposed to high temperatures or comes into contact with hot elements like lava or fire..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Moderate explosive, destroys solids and leaves smoke/fire. Only explodes with heat or contact with lava/fire..
         /// </summary>
         internal static string Solid_Movable_TNT_Description {
             get {

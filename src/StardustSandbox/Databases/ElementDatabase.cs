@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 
@@ -517,6 +518,16 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = 40.0f,
                     DefaultDensity = 0.35f,
                     DefaultExplosionResistance = 0.0f,
+                },
+                new Elements.Gases.AntiCorruption()
+                {
+                    Index = ElementIndex.AntiCorruption,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 0),
+                    ReferenceColor = AAP64ColorPalette.Crimson,
+                    DefaultDensity = 0.5f,
                 },
             ];
 

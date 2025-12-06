@@ -297,7 +297,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildItemCatalogSlots()
         {
-            Vector2 margin = new(48.0f, 148.0f);
+            Vector2 margin = new(68.0f, 168.0f);
 
             int index = 0;
 
@@ -330,11 +330,12 @@ namespace StardustSandbox.UI.Common.HUD
 
                     // Spacing
                     margin.X += 80.0f;
+
                     this.itemButtonSlotInfos[index] = new(background, icon);
                     index++;
                 }
 
-                margin.X = 96.0f;
+                margin.X = 68.0f;
                 margin.Y += 80.0f;
             }
         }
