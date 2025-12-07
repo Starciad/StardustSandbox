@@ -169,7 +169,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Hot water vapor that rises quickly and spreads in the air..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hot water vapor that rises rapidly and disperses in the air. At high altitudes, it can turn into clouds..
         /// </summary>
         internal static string Gas_Steam_Description {
             get {

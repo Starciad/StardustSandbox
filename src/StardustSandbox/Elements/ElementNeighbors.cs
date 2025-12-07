@@ -46,7 +46,7 @@ namespace StardustSandbox.Elements
             return this.slots[index] != null;
         }
 
-        internal int CountNeighborsByElementIndex(ElementIndex elementInt, Layer layer)
+        internal int CountNeighborsByElementIndex(ElementIndex elementIndex, Layer layer)
         {
             int count = 0;
 
@@ -54,7 +54,7 @@ namespace StardustSandbox.Elements
             {
                 Slot slot = this.slots[i];
 
-                if (slot != null && slot.GetLayer(layer).Element.Index == elementInt)
+                if (slot != null && slot.GetLayer(layer).Element.Index == elementIndex)
                 {
                     count++;
                 }

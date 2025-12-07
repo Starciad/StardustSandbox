@@ -199,7 +199,7 @@
     <value>Smoke from burning, rises slowly and darkens the air, showing fire is present.</value>
   </data>
   <data name="Gas.Steam.Description" xml:space="preserve">
-    <value>Hot water vapor that rises quickly and spreads in the air.</value>
+    <value>Hot water vapor that rises rapidly and disperses in the air. At high altitudes, it can turn into clouds.</value>
   </data>
   <data name="Liquid.Acid.Description" xml:space="preserve">
     <value>Corrosive liquid that quickly dissolves many materials on contact.</value>

@@ -199,7 +199,7 @@
     <value>Fumaça da queima, sobe devagar e escurece o ar, sinalizando fogo.</value>
   </data>
   <data name="Gas.Steam.Description" xml:space="preserve">
-    <value>Vapor de água quente que sobe rápido e se dispersa no ar.</value>
+    <value>Vapor de água quente que sobe rápido e se dispersa no ar. Em altitudes altas, pode se transformar em nuvens.</value>
   </data>
   <data name="Liquid.Acid.Description" xml:space="preserve">
     <value>Líquido corrosivo que dissolve vários materiais ao menor contato.</value>
