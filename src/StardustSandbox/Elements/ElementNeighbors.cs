@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.World;
+﻿using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem;
 
@@ -24,11 +23,6 @@ namespace StardustSandbox.Elements
         internal Slot GetSlot(int index)
         {
             return this.slots[index];
-        }
-
-        internal Slot GetSlot(CardinalDirection direction)
-        {
-            return this.slots[(int)direction];
         }
 
         internal SlotLayer GetSlotLayer(int index, Layer layer)

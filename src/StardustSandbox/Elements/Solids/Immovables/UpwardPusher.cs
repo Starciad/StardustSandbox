@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.Elements.Utilities;
-using StardustSandbox.Enums.Directions;
 
 namespace StardustSandbox.Elements.Solids.Immovables
 {
@@ -7,7 +6,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            PusherUtility.Push(in context, in neighbors, CardinalDirection.North);
+            PusherUtility.PushingNeighborsUp(in context, in neighbors);
         }
     }
 }

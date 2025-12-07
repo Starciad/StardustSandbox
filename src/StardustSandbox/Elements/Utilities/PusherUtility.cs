@@ -1,15 +1,65 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Randomness;
+
+using System;
 
 namespace StardustSandbox.Elements.Utilities
 {
     internal static class PusherUtility
     {
-        internal static void Push(in ElementContext context, in ElementNeighbors neighbors, CardinalDirection direction)
+        private delegate Point DirectionSelector(Point neighborPosition);
+
+        internal static void PushingNeighborsUp(in ElementContext context, in ElementNeighbors neighbors)
         {
-            // Find pushable neighbors
+            PushNeighbors(context, neighbors,
+                frontDirection: p => new Point(p.X, p.Y - 1),
+                leftDirection: p => new Point(p.X - 1, p.Y),
+                rightDirection: p => new Point(p.X + 1, p.Y),
+                isBehind: (neighbor, pusher) => neighbor.X == pusher.X && (neighbor.Y - 1) == pusher.Y
+            );
+        }
+
+        internal static void PushingNeighborsRight(in ElementContext context, in ElementNeighbors neighbors)
+        {
+            PushNeighbors(context, neighbors,
+                frontDirection: p => new Point(p.X + 1, p.Y),
+                leftDirection: p => new Point(p.X, p.Y - 1),
+                rightDirection: p => new Point(p.X, p.Y + 1),
+                isBehind: (neighbor, pusher) => neighbor.Y == pusher.Y && (neighbor.X + 1) == pusher.X
+            );
+        }
+
+        internal static void PushingNeighborsDown(in ElementContext context, in ElementNeighbors neighbors)
+        {
+            PushNeighbors(context, neighbors,
+                frontDirection: p => new Point(p.X, p.Y + 1),
+                leftDirection: p => new Point(p.X - 1, p.Y),
+                rightDirection: p => new Point(p.X + 1, p.Y),
+                isBehind: (neighbor, pusher) => neighbor.X == pusher.X && (neighbor.Y + 1) == pusher.Y
+            );
+        }
+
+        internal static void PushingNeighborsLeft(in ElementContext context, in ElementNeighbors neighbors)
+        {
+            PushNeighbors(context, neighbors,
+                frontDirection: p => new Point(p.X - 1, p.Y),
+                leftDirection: p => new Point(p.X, p.Y - 1),
+                rightDirection: p => new Point(p.X, p.Y + 1),
+                isBehind: (neighbor, pusher) => neighbor.Y == pusher.Y && (neighbor.X - 1) == pusher.X
+            );
+        }
+
+        private static void PushNeighbors(
+            in ElementContext context,
+            in ElementNeighbors neighbors,
+            DirectionSelector frontDirection,
+            DirectionSelector leftDirection,
+            DirectionSelector rightDirection,
+            Func<Point, Point, bool> isBehind
+        )
+        {
             for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.HasNeighbor(i) ||
@@ -19,18 +69,39 @@ namespace StardustSandbox.Elements.Utilities
                     continue;
                 }
 
-                Point displacement = direction switch
+                Point pusherPosition = context.Position;
+                Point currentNeighborPosition = neighbors.GetSlot(i).Position;
+                Point targetNeighborPosition = currentNeighborPosition;
+
+                Point leftPosition = leftDirection(currentNeighborPosition);
+                Point rightPosition = rightDirection(currentNeighborPosition);
+                Point upPosition = frontDirection(currentNeighborPosition);
+
+                bool leftEmpty = context.IsEmptySlotLayer(leftPosition);
+                bool rightEmpty = context.IsEmptySlotLayer(rightPosition);
+
+                if (isBehind(currentNeighborPosition, pusherPosition))
                 {
-                    CardinalDirection.North => new(0, -1),
-                    CardinalDirection.South => new(0, 1),
-                    CardinalDirection.East => new(1, 0),
-                    CardinalDirection.West => new(-1, 0),
-                    _ => Point.Zero,
-                };
+                    if (leftEmpty && rightEmpty)
+                    {
+                        targetNeighborPosition = SSRandom.RandomBool() ? leftPosition : rightPosition;
+                    }
+                    else if (leftEmpty)
+                    {
+                        targetNeighborPosition = leftPosition;
+                    }
+                    else if (rightEmpty)
+                    {
+                        targetNeighborPosition = rightPosition;
+                    }
+                }
+                else
+                {
+                    targetNeighborPosition = upPosition;
+                }
 
-                context.UpdateElementPosition(neighbors.GetSlot(i).Position, neighbors.GetSlot(i).Position + displacement);
+                context.UpdateElementPosition(currentNeighborPosition, targetNeighborPosition);
             }
-
         }
     }
 }
