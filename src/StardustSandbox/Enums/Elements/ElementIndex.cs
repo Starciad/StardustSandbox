@@ -49,6 +49,8 @@
         RightwardPusher,
         DownwardPusher,
         LeftwardPusher,
+        Cloud,
+        ChargedCloud,
 
         Length,
     }

@@ -10,14 +10,13 @@ namespace StardustSandbox.Elements.Gases
 {
     internal abstract class Gas : Element
     {
-        private readonly List<Point> emptyPositionsCache = [];
-        private readonly List<Point> validPositionsCache = [];
+        private static readonly List<Point> availablePositions = [];
 
         private void EvaluateNeighboringPosition(in ElementContext context, Point position)
         {
             if (context.IsEmptySlotLayer(position, context.Layer))
             {
-                this.emptyPositionsCache.Add(position);
+                availablePositions.Add(position);
             }
             else if (context.TryGetSlot(position, out Slot value))
             {
@@ -26,9 +25,9 @@ namespace StardustSandbox.Elements.Gases
                 if (slotLayer.Element.Category == ElementCategory.Gas ||
                     slotLayer.Element.Category == ElementCategory.Liquid)
                 {
-                    if ((slotLayer.Element.Index == this.Index && slotLayer.Temperature > context.SlotLayer.Temperature) || slotLayer.Element.DefaultDensity < this.DefaultDensity)
+                    if ((slotLayer.Element.Index == this.Index && slotLayer.Temperature > context.SlotLayer.Temperature) || this.DefaultDensity > slotLayer.Element.DefaultDensity)
                     {
-                        this.validPositionsCache.Add(position);
+                        availablePositions.Add(position);
                     }
                 }
             }
@@ -36,8 +35,7 @@ namespace StardustSandbox.Elements.Gases
 
         protected override void OnStep(in ElementContext context)
         {
-            this.emptyPositionsCache.Clear();
-            this.validPositionsCache.Clear();
+            availablePositions.Clear();
 
             int centerX = context.Slot.Position.X;
             int centerY = context.Slot.Position.Y;
@@ -55,14 +53,20 @@ namespace StardustSandbox.Elements.Gases
                 }
             }
 
-            if (this.emptyPositionsCache.Count > 0)
+            if (availablePositions.Count == 0)
             {
-                context.SetPosition(this.emptyPositionsCache.GetRandomItem());
+                return;
             }
-            else if (this.validPositionsCache.Count > 0)
+
+            Point targetPosition = availablePositions.GetRandomItem();
+
+            if (context.IsEmptySlotLayer(targetPosition))
             {
-                Point targetPosition = this.validPositionsCache.GetRandomItem();
-                _ = context.TrySwappingElements(targetPosition);
+                context.SetPosition(targetPosition);
+            }
+            else
+            {
+                context.SwappingElements(targetPosition);
             }
         }
     }

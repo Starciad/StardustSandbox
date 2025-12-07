@@ -387,4 +387,16 @@
   <data name="Solid.Immovable.RightwardPusher.Description" xml:space="preserve">
     <value>Shifts neighboring elements to the right.</value>
   </data>
+  <data name="Gas.Cloud.Name" xml:space="preserve">
+    <value>Cloud</value>
+  </data>
+  <data name="Gas.ChargedCloud.Name" xml:space="preserve">
+    <value>Charged Cloud</value>
+  </data>
+  <data name="Gas.Cloud.Description" xml:space="preserve">
+    <value>A light mass of condensed vapor formed when steam gathers near the top of the map. It can merge with other clouds, setting the stage for precipitation.</value>
+  </data>
+  <data name="Gas.ChargedCloud.Description" xml:space="preserve">
+    <value>A dense, saturated cloud formed from the clustering of multiple clouds. When concentrated enough, it releases water or snow depending on temperature.</value>
+  </data>
 </root>

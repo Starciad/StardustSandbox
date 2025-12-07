@@ -387,4 +387,16 @@
   <data name="Solid.Immovable.RightwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para a direita.</value>
   </data>
+  <data name="Gas.Cloud.Name" xml:space="preserve">
+    <value>Nuvem</value>
+  </data>
+  <data name="Gas.ChargedCloud.Name" xml:space="preserve">
+    <value>Nuvem Carregada</value>
+  </data>
+  <data name="Gas.Cloud.Description" xml:space="preserve">
+    <value>Massa leve de vapor condensado formada quando o vapor se acumula no topo do mapa. Pode se unir a outras nuvens, preparando o caminho para a precipitação.</value>
+  </data>
+  <data name="Gas.ChargedCloud.Description" xml:space="preserve">
+    <value>Nuvem densa e saturada resultante do agrupamento de várias nuvens. Quando suficientemente concentrada, libera água ou neve conforme a temperatura.</value>
+  </data>
 </root>

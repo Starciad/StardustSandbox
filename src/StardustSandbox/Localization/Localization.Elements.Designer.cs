@@ -97,6 +97,42 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dense, saturated cloud formed from the clustering of multiple clouds. When concentrated enough, it releases water or snow depending on temperature..
+        /// </summary>
+        internal static string Gas_ChargedCloud_Description {
+            get {
+                return ResourceManager.GetString("Gas.ChargedCloud.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Charged Cloud.
+        /// </summary>
+        internal static string Gas_ChargedCloud_Name {
+            get {
+                return ResourceManager.GetString("Gas.ChargedCloud.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cloud.
+        /// </summary>
+        internal static string Gas_Cloud_Description {
+            get {
+                return ResourceManager.GetString("Gas.Cloud.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cloud.
+        /// </summary>
+        internal static string Gas_Cloud_Name {
+            get {
+                return ResourceManager.GetString("Gas.Cloud.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Gaseous corruption that spreads and contaminates the environment, making it inhospitable..
         /// </summary>
         internal static string Gas_Corruption_Description {

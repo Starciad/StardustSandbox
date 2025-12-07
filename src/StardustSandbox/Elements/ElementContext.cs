@@ -26,6 +26,15 @@ namespace StardustSandbox.Elements
             this.slot = slot;
         }
 
+        #region WORLD
+
+        internal Point GetWorldSize()
+        {
+            return this.world.Information.Size;
+        }
+
+        #endregion
+
         #region ELEMENTS
 
         internal bool TrySetPosition(Point newPosition, Layer layer)

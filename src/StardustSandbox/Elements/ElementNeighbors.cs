@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Enums.World;
+﻿using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem;
 
@@ -8,6 +9,14 @@ namespace StardustSandbox.Elements
     {
         internal int Length => this.slots.Length;
 
+        // [0] Northwest
+        // [1] North
+        // [2] Northeast
+        // [3] East
+        // [4] Southeast
+        // [5] South
+        // [6] Southwest
+        // [7] West
         private readonly Slot[] slots;
 
         internal ElementNeighbors()
@@ -35,6 +44,23 @@ namespace StardustSandbox.Elements
         internal bool HasNeighbor(int index)
         {
             return this.slots[index] != null;
+        }
+
+        internal int CountNeighborsByElementIndex(ElementIndex elementInt, Layer layer)
+        {
+            int count = 0;
+
+            for (int i = 0; i < this.Length; i++)
+            {
+                Slot slot = this.slots[i];
+
+                if (slot != null && slot.GetLayer(layer).Element.Index == elementInt)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         public void Reset()

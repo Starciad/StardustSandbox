@@ -73,10 +73,11 @@ namespace StardustSandbox.Elements.Utilities
                 Point currentNeighborPosition = neighbors.GetSlot(i).Position;
                 Point targetNeighborPosition = currentNeighborPosition;
 
+                Point frontPosition = frontDirection(currentNeighborPosition);
                 Point leftPosition = leftDirection(currentNeighborPosition);
                 Point rightPosition = rightDirection(currentNeighborPosition);
-                Point upPosition = frontDirection(currentNeighborPosition);
 
+                bool frontEmpty = context.IsEmptySlotLayer(frontPosition);
                 bool leftEmpty = context.IsEmptySlotLayer(leftPosition);
                 bool rightEmpty = context.IsEmptySlotLayer(rightPosition);
 
@@ -95,9 +96,9 @@ namespace StardustSandbox.Elements.Utilities
                         targetNeighborPosition = rightPosition;
                     }
                 }
-                else
+                else if (frontEmpty)
                 {
-                    targetNeighborPosition = upPosition;
+                    targetNeighborPosition = frontPosition;
                 }
 
                 context.UpdateElementPosition(currentNeighborPosition, targetNeighborPosition);

@@ -1,24 +1,30 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
+using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
 
 namespace StardustSandbox.Elements.Gases
 {
     internal sealed class Steam : Gas
     {
-        protected override void OnBeforeStep(in ElementContext context)
+        protected override void OnStep(in ElementContext context)
         {
-            if (SSRandom.Chance(60))
+            if (SSRandom.Chance(40))
             {
-                return;
+                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
             }
-
-            Point topPosition = new(context.Slot.Position.X, context.Slot.Position.Y - 1);
-
-            if (context.IsEmptySlotLayer(topPosition, context.Layer))
+            else
             {
-                context.SetPosition(topPosition);
+                base.OnStep(context);
+            }
+        }
+
+        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        {
+            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 25.0f) &&
+                neighbors.CountNeighborsByElementIndex(ElementIndex.Steam, context.Layer) >= 5 &&
+                SSRandom.Chance(10))
+            {
+                context.ReplaceElement(ElementIndex.Cloud);
             }
         }
 

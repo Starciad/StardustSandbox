@@ -274,6 +274,26 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(224, 96, 32, 32)
                                 ),
+
+                                // [4] Cloud
+                                new(
+                                    associatedType: typeof(Cloud),
+                                    name: Localization_Elements.Gas_Cloud_Name,
+                                    description: Localization_Elements.Gas_Cloud_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(0, 128, 32, 32)
+                                ),
+
+                                // [5] Charged Cloud
+                                new(
+                                    associatedType: typeof(ChargedCloud),
+                                    name: Localization_Elements.Gas_ChargedCloud_Name,
+                                    description: Localization_Elements.Gas_ChargedCloud_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(32, 128, 32, 32)
+                                ),
                             ]
                         ),
 
