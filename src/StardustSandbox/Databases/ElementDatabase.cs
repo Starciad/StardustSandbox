@@ -840,7 +840,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 320),
+                    TextureOriginOffset = new(640, 0),
                     ReferenceColor = AAP64ColorPalette.Gunmetal,
                     WetWoolIndex = ElementIndex.WetBlueWool,
                     DefaultTemperature = 20.0f,
@@ -858,7 +858,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 352),
+                    TextureOriginOffset = new(640, 32),
                     ReferenceColor = AAP64ColorPalette.Violet,
                     WetWoolIndex = ElementIndex.WetVioletWool,
                     DefaultTemperature = 20.0f,
@@ -876,7 +876,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 384),
+                    TextureOriginOffset = new(640, 64),
                     ReferenceColor = AAP64ColorPalette.Brown,
                     WetWoolIndex = ElementIndex.WetBrownWool,
                     DefaultTemperature = 20.0f,
@@ -892,7 +892,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 96),
+                    TextureOriginOffset = new(640, 96),
                     ReferenceColor = AAP64ColorPalette.DarkGray.Darken(50),
                     DryWoolIndex = ElementIndex.DryBlackWool,
                     DefaultTemperature = 20.0f,
@@ -907,7 +907,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 128),
+                    TextureOriginOffset = new(640, 128),
                     ReferenceColor = AAP64ColorPalette.White.Darken(50),
                     DryWoolIndex = ElementIndex.DryWhiteWool,
                     DefaultTemperature = 20.0f,
@@ -922,7 +922,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 160),
+                    TextureOriginOffset = new(640, 160),
                     ReferenceColor = AAP64ColorPalette.Crimson.Darken(50),
                     DryWoolIndex = ElementIndex.DryRedWool,
                     DefaultTemperature = 20.0f,
@@ -937,7 +937,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 192),
+                    TextureOriginOffset = new(640, 192),
                     ReferenceColor = AAP64ColorPalette.Orange.Darken(50),
                     DryWoolIndex = ElementIndex.DryOrangeWool,
                     DefaultTemperature = 20.0f,
@@ -952,7 +952,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 224),
+                    TextureOriginOffset = new(640, 224),
                     ReferenceColor = AAP64ColorPalette.Gold.Darken(50),
                     DryWoolIndex = ElementIndex.DryYellowWool,
                     DefaultTemperature = 20.0f,
@@ -967,7 +967,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 256),
+                    TextureOriginOffset = new(640, 256),
                     ReferenceColor = AAP64ColorPalette.ForestGreen.Darken(50),
                     DryWoolIndex = ElementIndex.DryGreenWool,
                     DefaultTemperature = 20.0f,
@@ -982,7 +982,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 288),
+                    TextureOriginOffset = new(640, 288),
                     ReferenceColor = AAP64ColorPalette.Cyan.Darken(50),
                     DryWoolIndex = ElementIndex.DryCyanWool,
                     DefaultTemperature = 20.0f,
@@ -997,7 +997,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 320),
+                    TextureOriginOffset = new(800, 0),
                     ReferenceColor = AAP64ColorPalette.Gunmetal.Darken(50),
                     DryWoolIndex = ElementIndex.DryBlueWool,
                     DefaultTemperature = 20.0f,
@@ -1012,7 +1012,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 352),
+                    TextureOriginOffset = new(800, 32),
                     ReferenceColor = AAP64ColorPalette.Violet.Darken(50),
                     DryWoolIndex = ElementIndex.DryVioletWool,
                     DefaultTemperature = 20.0f,
@@ -1027,7 +1027,7 @@ namespace StardustSandbox.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 384),
+                    TextureOriginOffset = new(800, 64),
                     ReferenceColor = AAP64ColorPalette.Brown.Darken(50),
                     DryWoolIndex = ElementIndex.DryBrownWool,
                     DefaultTemperature = 20.0f,

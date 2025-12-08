@@ -434,7 +434,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryBlackWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(128, 64, 32, 32)
+                                    sourceRectangle: new(0, 160, 32, 32)
                                 ),
 
                                 // [13] Dry White Wool
@@ -444,7 +444,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryWhiteWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(160, 64, 32, 32)
+                                    sourceRectangle: new(32, 160, 32, 32)
                                 ),
 
                                 // [14] Dry Red Wool
@@ -454,7 +454,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryRedWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(192, 64, 32, 32)
+                                    sourceRectangle: new(64, 160, 32, 32)
                                 ),
 
                                 // [15] Dry Orange Wool
@@ -464,7 +464,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryOrangeWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(224, 64, 32, 32)
+                                    sourceRectangle: new(96, 160, 32, 32)
                                 ),
 
                                 // [16] Dry Yellow Wool
@@ -474,7 +474,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryYellowWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(256, 64, 32, 32)
+                                    sourceRectangle: new(128, 160, 32, 32)
                                 ),
 
                                 // [17] Dry Green Wool
@@ -484,7 +484,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryGreenWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(288, 64, 32, 32)
+                                    sourceRectangle: new(0, 192, 32, 32)
                                 ),
 
                                 // [18] Dry Cyan Wool
@@ -494,7 +494,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryCyanWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(320, 64, 32, 32)
+                                    sourceRectangle: new(32, 192, 32, 32)
                                 ),
 
                                 // [19] Dry Blue Wool
@@ -504,7 +504,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryBlueWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(352, 64, 32, 32)
+                                    sourceRectangle: new(64, 192, 32, 32)
                                 ),
 
                                 // [20] Dry Violet Wool
@@ -514,7 +514,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryVioletWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(384, 64, 32, 32)
+                                    sourceRectangle: new(96, 192, 32, 32)
                                 ),
 
                                 // [21] Dry Brown Wool
@@ -524,7 +524,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_DryBrownWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(416, 64, 32, 32)
+                                    sourceRectangle: new(128, 192, 32, 32)
                                 ),
 
                                 // [22] Wet Black Wool
@@ -534,7 +534,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetBlackWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(448, 64, 32, 32)
+                                    sourceRectangle: new(0, 224, 32, 32)
                                 ),
 
                                 // [23] Wet White Wool
@@ -544,7 +544,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetWhiteWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(480, 64, 32, 32)
+                                    sourceRectangle: new(32, 224, 32, 32)
                                 ),
 
                                 // [24] Wet Red Wool
@@ -554,7 +554,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetRedWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(512, 64, 32, 32)
+                                    sourceRectangle: new(64, 224, 32, 32)
                                 ),
 
                                 // [25] Wet Orange Wool
@@ -564,7 +564,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetOrangeWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(544, 64, 32, 32)
+                                    sourceRectangle: new(96, 224, 32, 32)
                                 ),
 
                                 // [26] Wet Yellow Wool
@@ -574,7 +574,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetYellowWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(576, 64, 32, 32)
+                                    sourceRectangle: new(128, 224, 32, 32)
                                 ),
 
                                 // [27] Wet Green Wool
@@ -584,7 +584,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetGreenWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(608, 64, 32, 32)
+                                    sourceRectangle: new(0, 256, 32, 32)
                                 ),
 
                                 // [28] Wet Cyan Wool
@@ -594,7 +594,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetCyanWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(640, 64, 32, 32)
+                                    sourceRectangle: new(32, 256, 32, 32)
                                 ),
 
                                 // [29] Wet Blue Wool
@@ -604,7 +604,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetBlueWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(672, 64, 32, 32)
+                                    sourceRectangle: new(64, 256, 32, 32)
                                 ),
 
                                 // [30] Wet Violet Wool
@@ -614,7 +614,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetVioletWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(704, 64, 32, 32)
+                                    sourceRectangle: new(96, 256, 32, 32)
                                 ),
 
                                 // [31] Wet Brown Wool
@@ -624,7 +624,7 @@ namespace StardustSandbox.Databases
                                     description: Localization_Elements.Solid_Immovable_WetBrownWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(736, 64, 32, 32)
+                                    sourceRectangle: new(128, 256, 32, 32)
                                 ),
                             ]
                         ),

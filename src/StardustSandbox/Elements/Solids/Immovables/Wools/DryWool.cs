@@ -35,5 +35,13 @@ namespace StardustSandbox.Elements.Solids.Immovables.Wools
                 context.ReplaceElement(this.WetWoolIndex);
             }
         }
+
+        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        {
+            if (currentValue >= 580.0f)
+            {
+                context.ReplaceElement(ElementIndex.Fire);
+            }
+        }
     }
 }
