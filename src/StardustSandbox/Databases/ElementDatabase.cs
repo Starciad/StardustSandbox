@@ -4,6 +4,7 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Extensions;
 
 using System;
 
@@ -448,7 +449,7 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 1.03f,
                     DefaultExplosionResistance = 0.2f,
                 },
-                new Elements.Solids.Movables.Bomb()
+                new Elements.Solids.Movables.Explosives.Bomb()
                 {
                     Index = ElementIndex.Bomb,
                     Category = ElementCategory.MovableSolid,
@@ -463,7 +464,7 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 3.5f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Solids.Movables.Dynamite()
+                new Elements.Solids.Movables.Explosives.Dynamite()
                 {
                     Index = ElementIndex.Dynamite,
                     Category = ElementCategory.MovableSolid,
@@ -478,7 +479,7 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 2.4f,
                     DefaultExplosionResistance = 0.5f,
                 },
-                new Elements.Solids.Movables.Tnt()
+                new Elements.Solids.Movables.Explosives.Tnt()
                 {
                     Index = ElementIndex.Tnt,
                     Category = ElementCategory.MovableSolid,
@@ -607,7 +608,7 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 3.5f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.UpwardPusher()
+                new Elements.Solids.Immovables.Pushers.UpwardPusher()
                 {
                     Index = ElementIndex.UpwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -617,7 +618,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.Rust,
                     DefaultDensity = 2.0f,
                 },
-                new Elements.Solids.Immovables.RightwardPusher()
+                new Elements.Solids.Immovables.Pushers.RightwardPusher()
                 {
                     Index = ElementIndex.RightwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -627,7 +628,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.Rust,
                     DefaultDensity = 2.0f,
                 },
-                new Elements.Solids.Immovables.DownwardPusher()
+                new Elements.Solids.Immovables.Pushers.DownwardPusher()
                 {
                     Index = ElementIndex.DownwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -637,7 +638,7 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.Rust,
                     DefaultDensity = 2.0f,
                 },
-                new Elements.Solids.Immovables.LeftwardPusher()
+                new Elements.Solids.Immovables.Pushers.LeftwardPusher()
                 {
                     Index = ElementIndex.LeftwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -702,7 +703,337 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.White,
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
-                }
+                },
+                new Elements.Solids.Immovables.Wools.DryBlackWool()
+                {
+                    Index = ElementIndex.DryBlackWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 96),
+                    ReferenceColor = AAP64ColorPalette.DarkGray,
+                    WetWoolIndex = ElementIndex.WetBlackWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryWhiteWool()
+                {
+                    Index = ElementIndex.DryWhiteWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 128),
+                    ReferenceColor = AAP64ColorPalette.White,
+                    WetWoolIndex = ElementIndex.WetWhiteWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryRedWool()
+                {
+                    Index = ElementIndex.DryRedWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 160),
+                    ReferenceColor = AAP64ColorPalette.Crimson,
+                    WetWoolIndex = ElementIndex.WetRedWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryOrangeWool()
+                {
+                    Index = ElementIndex.DryOrangeWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 192),
+                    ReferenceColor = AAP64ColorPalette.Orange,
+                    WetWoolIndex = ElementIndex.WetOrangeWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryYellowWool()
+                {
+                    Index = ElementIndex.DryYellowWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 224),
+                    ReferenceColor = AAP64ColorPalette.Gold,
+                    WetWoolIndex = ElementIndex.WetYellowWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryGreenWool()
+                {
+                    Index = ElementIndex.DryGreenWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 256),
+                    ReferenceColor = AAP64ColorPalette.ForestGreen,
+                    WetWoolIndex = ElementIndex.WetGreenWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryCyanWool()
+                {
+                    Index = ElementIndex.DryCyanWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 288),
+                    ReferenceColor = AAP64ColorPalette.Cyan,
+                    WetWoolIndex = ElementIndex.WetCyanWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryBlueWool()
+                {
+                    Index = ElementIndex.DryBlueWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 320),
+                    ReferenceColor = AAP64ColorPalette.Gunmetal,
+                    WetWoolIndex = ElementIndex.WetBlueWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryVioletWool()
+                {
+                    Index = ElementIndex.DryVioletWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 352),
+                    ReferenceColor = AAP64ColorPalette.Violet,
+                    WetWoolIndex = ElementIndex.WetVioletWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.DryBrownWool()
+                {
+                    Index = ElementIndex.DryBrownWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 384),
+                    ReferenceColor = AAP64ColorPalette.Brown,
+                    WetWoolIndex = ElementIndex.WetBrownWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 35.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetBlackWool()
+                {
+                    Index = ElementIndex.WetBlackWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 96),
+                    ReferenceColor = AAP64ColorPalette.DarkGray.Darken(50),
+                    DryWoolIndex = ElementIndex.DryBlackWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetWhiteWool()
+                {
+                    Index = ElementIndex.WetWhiteWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 128),
+                    ReferenceColor = AAP64ColorPalette.White.Darken(50),
+                    DryWoolIndex = ElementIndex.DryWhiteWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetRedWool()
+                {
+                    Index = ElementIndex.WetRedWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 160),
+                    ReferenceColor = AAP64ColorPalette.Crimson.Darken(50),
+                    DryWoolIndex = ElementIndex.DryRedWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetOrangeWool()
+                {
+                    Index = ElementIndex.WetOrangeWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 192),
+                    ReferenceColor = AAP64ColorPalette.Orange.Darken(50),
+                    DryWoolIndex = ElementIndex.DryOrangeWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetYellowWool()
+                {
+                    Index = ElementIndex.WetYellowWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 224),
+                    ReferenceColor = AAP64ColorPalette.Gold.Darken(50),
+                    DryWoolIndex = ElementIndex.DryYellowWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetGreenWool()
+                {
+                    Index = ElementIndex.WetGreenWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 256),
+                    ReferenceColor = AAP64ColorPalette.ForestGreen.Darken(50),
+                    DryWoolIndex = ElementIndex.DryGreenWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetCyanWool()
+                {
+                    Index = ElementIndex.WetCyanWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 288),
+                    ReferenceColor = AAP64ColorPalette.Cyan.Darken(50),
+                    DryWoolIndex = ElementIndex.DryCyanWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetBlueWool()
+                {
+                    Index = ElementIndex.WetBlueWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 320),
+                    ReferenceColor = AAP64ColorPalette.Gunmetal.Darken(50),
+                    DryWoolIndex = ElementIndex.DryBlueWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetVioletWool()
+                {
+                    Index = ElementIndex.WetVioletWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 352),
+                    ReferenceColor = AAP64ColorPalette.Violet.Darken(50),
+                    DryWoolIndex = ElementIndex.DryVioletWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Immovables.Wools.WetBrownWool()
+                {
+                    Index = ElementIndex.WetBrownWool,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(480, 384),
+                    ReferenceColor = AAP64ColorPalette.Brown.Darken(50),
+                    DryWoolIndex = ElementIndex.DryBrownWool,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.6f,
+                    DefaultExplosionResistance = 1.5f,
+                },
             ];
 
             isLoaded = true;

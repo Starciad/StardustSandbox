@@ -3,7 +3,10 @@ using StardustSandbox.Elements.Energies;
 using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Elements.Solids.Immovables;
+using StardustSandbox.Elements.Solids.Immovables.Pushers;
+using StardustSandbox.Elements.Solids.Immovables.Wools;
 using StardustSandbox.Elements.Solids.Movables;
+using StardustSandbox.Elements.Solids.Movables.Explosives;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.Localization;
@@ -422,6 +425,206 @@ namespace StardustSandbox.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(96, 96, 32, 32)
+                                ),
+
+                                // [12] Dry Black Wool
+                                new(
+                                    associatedType: typeof(DryBlackWool),
+                                    name: Localization_Elements.Solid_Immovable_DryBlackWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryBlackWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(128, 64, 32, 32)
+                                ),
+
+                                // [13] Dry White Wool
+                                new(
+                                    associatedType: typeof(DryWhiteWool),
+                                    name: Localization_Elements.Solid_Immovable_DryWhiteWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryWhiteWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(160, 64, 32, 32)
+                                ),
+
+                                // [14] Dry Red Wool
+                                new(
+                                    associatedType: typeof(DryRedWool),
+                                    name: Localization_Elements.Solid_Immovable_DryRedWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryRedWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(192, 64, 32, 32)
+                                ),
+
+                                // [15] Dry Orange Wool
+                                new(
+                                    associatedType: typeof(DryOrangeWool),
+                                    name: Localization_Elements.Solid_Immovable_DryOrangeWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryOrangeWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(224, 64, 32, 32)
+                                ),
+
+                                // [16] Dry Yellow Wool
+                                new(
+                                    associatedType: typeof(DryYellowWool),
+                                    name: Localization_Elements.Solid_Immovable_DryYellowWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryYellowWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(256, 64, 32, 32)
+                                ),
+
+                                // [17] Dry Green Wool
+                                new(
+                                    associatedType: typeof(DryGreenWool),
+                                    name: Localization_Elements.Solid_Immovable_DryGreenWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryGreenWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(288, 64, 32, 32)
+                                ),
+
+                                // [18] Dry Cyan Wool
+                                new(
+                                    associatedType: typeof(DryCyanWool),
+                                    name: Localization_Elements.Solid_Immovable_DryCyanWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryCyanWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(320, 64, 32, 32)
+                                ),
+
+                                // [19] Dry Blue Wool
+                                new(
+                                    associatedType: typeof(DryBlueWool),
+                                    name: Localization_Elements.Solid_Immovable_DryBlueWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryBlueWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(352, 64, 32, 32)
+                                ),
+
+                                // [20] Dry Violet Wool
+                                new(
+                                    associatedType: typeof(DryVioletWool),
+                                    name: Localization_Elements.Solid_Immovable_DryVioletWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryVioletWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(384, 64, 32, 32)
+                                ),
+
+                                // [21] Dry Brown Wool
+                                new(
+                                    associatedType: typeof(DryBrownWool),
+                                    name: Localization_Elements.Solid_Immovable_DryBrownWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryBrownWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(416, 64, 32, 32)
+                                ),
+
+                                // [22] Wet Black Wool
+                                new(
+                                    associatedType: typeof(WetBlackWool),
+                                    name: Localization_Elements.Solid_Immovable_WetBlackWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetBlackWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(448, 64, 32, 32)
+                                ),
+
+                                // [23] Wet White Wool
+                                new(
+                                    associatedType: typeof(WetWhiteWool),
+                                    name: Localization_Elements.Solid_Immovable_WetWhiteWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetWhiteWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(480, 64, 32, 32)
+                                ),
+
+                                // [24] Wet Red Wool
+                                new(
+                                    associatedType: typeof(WetRedWool),
+                                    name: Localization_Elements.Solid_Immovable_WetRedWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetRedWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(512, 64, 32, 32)
+                                ),
+
+                                // [25] Wet Orange Wool
+                                new(
+                                    associatedType: typeof(WetOrangeWool),
+                                    name: Localization_Elements.Solid_Immovable_WetOrangeWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetOrangeWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(544, 64, 32, 32)
+                                ),
+
+                                // [26] Wet Yellow Wool
+                                new(
+                                    associatedType: typeof(WetYellowWool),
+                                    name: Localization_Elements.Solid_Immovable_WetYellowWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetYellowWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(576, 64, 32, 32)
+                                ),
+
+                                // [27] Wet Green Wool
+                                new(
+                                    associatedType: typeof(WetGreenWool),
+                                    name: Localization_Elements.Solid_Immovable_WetGreenWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetGreenWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(608, 64, 32, 32)
+                                ),
+
+                                // [28] Wet Cyan Wool
+                                new(
+                                    associatedType: typeof(WetCyanWool),
+                                    name: Localization_Elements.Solid_Immovable_WetCyanWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetCyanWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(640, 64, 32, 32)
+                                ),
+
+                                // [29] Wet Blue Wool
+                                new(
+                                    associatedType: typeof(WetBlueWool),
+                                    name: Localization_Elements.Solid_Immovable_WetBlueWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetBlueWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(672, 64, 32, 32)
+                                ),
+
+                                // [30] Wet Violet Wool
+                                new(
+                                    associatedType: typeof(WetVioletWool),
+                                    name: Localization_Elements.Solid_Immovable_WetVioletWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetVioletWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(704, 64, 32, 32)
+                                ),
+
+                                // [31] Wet Brown Wool
+                                new(
+                                    associatedType: typeof(WetBrownWool),
+                                    name: Localization_Elements.Solid_Immovable_WetBrownWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetBrownWool_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(736, 64, 32, 32)
                                 ),
                             ]
                         ),

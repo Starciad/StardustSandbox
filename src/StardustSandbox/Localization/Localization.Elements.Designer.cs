@@ -385,6 +385,132 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryBlackWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryBlackWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryBlackWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryBlackWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryBlueWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryBlueWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryBlueWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryBlueWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryBrownWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryBrownWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryBrownWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryBrownWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryCyanWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryCyanWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryCyanWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryCyanWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryGreenWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryGreenWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryGreenWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryGreenWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryOrangeWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryOrangeWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryOrangeWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryOrangeWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryRedWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryRedWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryRedWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryRedWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Dry sponge that absorbs liquids and is very flammable..
         /// </summary>
         internal static string Solid_Immovable_DrySponge_Description {
@@ -399,6 +525,60 @@ namespace StardustSandbox.Localization {
         internal static string Solid_Immovable_DrySponge_Name {
             get {
                 return ResourceManager.GetString("Solid.Immovable.DrySponge.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryVioletWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryVioletWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryVioletWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryVioletWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryWhiteWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryWhiteWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryWhiteWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryWhiteWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryYellowWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryYellowWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_DryYellowWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.DryYellowWool.Name", resourceCulture);
             }
         }
         
@@ -655,6 +835,132 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetBlackWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetBlackWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetBlackWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetBlackWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetBlueWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetBlueWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetBlueWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetBlueWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetBrownWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetBrownWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetBrownWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetBrownWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetCyanWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetCyanWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetCyanWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetCyanWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetGreenWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetGreenWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetGreenWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetGreenWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetOrangeWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetOrangeWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetOrangeWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetOrangeWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetRedWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetRedWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetRedWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetRedWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Wet sponge, denser and harder to burn. Dries with heat and moves down if dry sponges are below..
         /// </summary>
         internal static string Solid_Immovable_WetSponge_Description {
@@ -669,6 +975,60 @@ namespace StardustSandbox.Localization {
         internal static string Solid_Immovable_WetSponge_Name {
             get {
                 return ResourceManager.GetString("Solid.Immovable.WetSponge.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetVioletWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetVioletWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetVioletWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetVioletWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetWhiteWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetWhiteWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetWhiteWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetWhiteWool.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetYellowWool_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetYellowWool.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_WetYellowWool_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.WetYellowWool.Name", resourceCulture);
             }
         }
         

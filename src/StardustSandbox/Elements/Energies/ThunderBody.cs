@@ -63,6 +63,7 @@ namespace StardustSandbox.Elements.Energies
                         {
                             continue;
                         }
+
                         break;
 
                     default:

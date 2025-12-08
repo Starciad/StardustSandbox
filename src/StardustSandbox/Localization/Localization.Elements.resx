@@ -405,4 +405,124 @@
   <data name="Energy.Thunder.Description" xml:space="preserve">
     <value>Thunder</value>
   </data>
+  <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryBlackWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryCyanWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryCyanWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetCyanWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetCyanWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

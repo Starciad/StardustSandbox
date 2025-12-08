@@ -54,6 +54,28 @@
         ThunderHead,
         ThunderBody,
 
+        DryBlackWool,
+        DryWhiteWool,
+        DryRedWool,
+        DryOrangeWool,
+        DryYellowWool,
+        DryGreenWool,
+        DryCyanWool,
+        DryBlueWool,
+        DryVioletWool,
+        DryBrownWool,
+
+        WetBlackWool,
+        WetWhiteWool,
+        WetRedWool,
+        WetOrangeWool,
+        WetYellowWool,
+        WetGreenWool,
+        WetCyanWool,
+        WetBlueWool,
+        WetVioletWool,
+        WetBrownWool,
+
         Length,
     }
 }

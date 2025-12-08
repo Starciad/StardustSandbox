@@ -2,7 +2,7 @@
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
 
-namespace StardustSandbox.Elements.Solids.Movables
+namespace StardustSandbox.Elements.Solids.Movables.Explosives
 {
     internal sealed class Bomb : MovableSolid
     {

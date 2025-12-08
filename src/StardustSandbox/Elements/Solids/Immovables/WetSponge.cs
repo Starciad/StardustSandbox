@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Elements.Utilities;
-using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Immovables
@@ -10,16 +8,13 @@ namespace StardustSandbox.Elements.Solids.Immovables
     {
         protected override void OnStep(in ElementContext context)
         {
-            foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
-            {
-                if (!context.TryGetElement(belowPosition, context.Layer, out Element element))
-                {
-                    return;
-                }
+            Point belowPosition = new(context.Slot.Position.X, context.Slot.Position.Y + 1);
 
-                switch (element)
+            if (context.TryGetElement(belowPosition, context.Layer, out Element element))
+            {
+                switch (element.Index)
                 {
-                    case DrySponge:
+                    case ElementIndex.DrySponge:
                         context.SwappingElements(context.Position, belowPosition);
                         break;
 
