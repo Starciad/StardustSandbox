@@ -13,6 +13,7 @@ using StardustSandbox.Extensions;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
@@ -84,7 +85,9 @@ namespace StardustSandbox.UI.Common.HUD
             this.footerButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, () =>
                 {
-                    SavingSerializer.Serialize(this.world, this.graphicsDevice);
+                    SaveFile saveFile = SavingSerializer.Serialize(this.world, this.graphicsDevice);
+
+                    this.world.SetSaveFile(saveFile);
                     this.uiManager.CloseGUI();
                 }),
             ];

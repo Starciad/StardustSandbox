@@ -25,20 +25,23 @@ namespace StardustSandbox.Serialization
         private static readonly MessagePackSerializerOptions MapOptions =
             MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
 
-        internal static void Serialize(World world, GraphicsDevice graphicsDevice)
+        internal static SaveFile Serialize(World world, GraphicsDevice graphicsDevice)
         {
             string filename = Path.Combine(SSDirectory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
 
             using MemoryStream saveFileMemoryStream = new();
             using FileStream outputSaveFile = new(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
 
-            WriteZipFile(CreateWorldSaveFile(filename, world, graphicsDevice), saveFileMemoryStream);
+            SaveFile saveFile = CreateSaveFile(filename, world, graphicsDevice);
+            WriteZipFile(saveFile, saveFileMemoryStream);
 
             _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
             saveFileMemoryStream.WriteTo(outputSaveFile);
+
+            return saveFile;
         }
 
-        internal static SaveFile CreateWorldSaveFile(string filename, World world, GraphicsDevice graphicsDevice)
+        internal static SaveFile CreateSaveFile(string filename, World world, GraphicsDevice graphicsDevice)
         {
             return new()
             {

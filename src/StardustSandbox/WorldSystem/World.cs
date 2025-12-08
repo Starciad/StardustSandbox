@@ -36,7 +36,7 @@ namespace StardustSandbox.WorldSystem
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
-        private SaveFile currentlySelectedWorldSaveFile;
+        private SaveFile currentlySelectedSaveFile;
 
         private Slot[,] slots;
 
@@ -84,7 +84,7 @@ namespace StardustSandbox.WorldSystem
 
         public void Reset()
         {
-            this.currentlySelectedWorldSaveFile = null;
+            this.currentlySelectedSaveFile = null;
 
             this.information.Reset();
             this.chunking.Reset();
@@ -696,8 +696,6 @@ namespace StardustSandbox.WorldSystem
 
         #region UTILITIES
 
-        #region Start New
-
         internal void StartNew()
         {
             StartNew(this.information.Size);
@@ -716,11 +714,12 @@ namespace StardustSandbox.WorldSystem
             Reset();
         }
 
-        #endregion
+        internal void SetSaveFile(SaveFile saveFile)
+        {
+            this.currentlySelectedSaveFile = saveFile;
+        }
 
-        #region Load From World File
-
-        internal void LoadFromWorldSaveFile(SaveFile saveFile)
+        internal void LoadFromSaveFile(SaveFile saveFile)
         {
             this.gameManager.SetState(GameStates.IsSimulationPaused);
 
@@ -728,7 +727,7 @@ namespace StardustSandbox.WorldSystem
             StartNew(saveFile.Properties.Size);
 
             // Cache
-            this.currentlySelectedWorldSaveFile = saveFile;
+            SetSaveFile(saveFile);
 
             // Metadata
             this.information.Identifier = saveFile.Metadata.Identifier;
@@ -761,12 +760,10 @@ namespace StardustSandbox.WorldSystem
             Slot slot = GetSlot(position);
 
             slot.SetTemperatureValue(layer, slotLayerData.Temperature);
-            slot.SetState(layer, ElementStates.FreeFalling);
+            slot.SetState(layer, ElementStates.IsFalling);
             slot.SetColorModifier(layer, slotLayerData.ColorModifier);
             slot.SetStoredElement(layer, ElementDatabase.GetElement(slotLayerData.StoredElementIndex));
         }
-
-        #endregion
 
         internal void Resize(Point size)
         {
@@ -780,9 +777,9 @@ namespace StardustSandbox.WorldSystem
 
         internal void Reload()
         {
-            if (this.currentlySelectedWorldSaveFile != null)
+            if (this.currentlySelectedSaveFile != null)
             {
-                LoadFromWorldSaveFile(this.currentlySelectedWorldSaveFile);
+                LoadFromSaveFile(this.currentlySelectedSaveFile);
             }
             else
             {
