@@ -248,7 +248,9 @@ namespace StardustSandbox.Elements
 
         private static void DrawSingleElementRoutine(in ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
-            Color colorModifier = context.Slot.GetLayer(context.Layer).ColorModifier;
+            SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+
+            Color colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
 
             if (context.Layer == Layer.Background)
             {
