@@ -28,8 +28,8 @@ namespace StardustSandbox.Elements.Gases
 
         protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
         {
-            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 15.0f) &&
-                neighbors.CountNeighborsByElementIndex(ElementIndex.ChargedCloud, context.Layer) >= 3 &&
+            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 10.0f) &&
+                neighbors.CountNeighborsByElementIndex(ElementIndex.ChargedCloud, context.Layer) >= 5 &&
                 SSRandom.Chance(1))
             {
                 if (context.SlotLayer.Temperature < 0.0f)
@@ -37,6 +37,7 @@ namespace StardustSandbox.Elements.Gases
                     if (SSRandom.Chance(65))
                     {
                         context.ReplaceElement(ElementIndex.Snow);
+                        context.SetElementTemperature(-55.0f);
                     }
                     else
                     {
@@ -46,6 +47,7 @@ namespace StardustSandbox.Elements.Gases
                 else
                 {
                     context.ReplaceElement(ElementIndex.Water);
+                    context.SetElementTemperature(2.5f);
                 }
             }
         }

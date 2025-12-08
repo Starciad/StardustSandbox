@@ -1,6 +1,7 @@
 ﻿using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Energies
 {
@@ -37,17 +38,35 @@ namespace StardustSandbox.Elements.Energies
                     continue;
                 }
 
-                Element element = neighbors.GetSlotLayer(i, context.Layer).Element;
+                SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.Layer);
+                Element element = slotLayer.Element;
 
-                if (element.Index == ElementIndex.ThunderHead ||
-                    element.Index == ElementIndex.ThunderBody ||
-                    element.Index == ElementIndex.Clone ||
-                    element.Index == ElementIndex.Void ||
-                    element.Index == ElementIndex.Wall ||
-                    element.Index == ElementIndex.Fire ||
-                    element.Index == ElementIndex.Smoke)
+                if (element.Category == ElementCategory.Gas)
                 {
                     continue;
+                }
+
+                switch (element.Index)
+                {
+                    case ElementIndex.ThunderBody:
+                    case ElementIndex.ThunderHead:
+                    case ElementIndex.Clone:
+                    case ElementIndex.Void:
+                    case ElementIndex.Wall:
+                    case ElementIndex.Fire:
+                        continue;
+
+                    case ElementIndex.Water:
+                    case ElementIndex.Snow:
+                    case ElementIndex.Ice:
+                        if (slotLayer.States.HasFlag(ElementStates.IsFalling))
+                        {
+                            continue;
+                        }
+                        break;
+
+                    default:
+                        break;
                 }
 
                 context.InstantiateExplosion(explosionBuilder);

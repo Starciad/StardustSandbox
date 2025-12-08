@@ -10,19 +10,19 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         protected override void OnStep(in ElementContext context)
         {
-            if (context.SlotLayer.HasState(ElementStates.FreeFalling))
+            if (context.SlotLayer.HasState(ElementStates.IsFalling))
             {
                 foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
                 {
                     if (TrySetPosition(context, belowPosition))
                     {
                         ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                        context.SetElementState(belowPosition, ElementStates.FreeFalling);
+                        context.SetElementState(belowPosition, ElementStates.IsFalling);
                         return;
                     }
                 }
 
-                context.RemoveElementState(ElementStates.FreeFalling);
+                context.RemoveElementState(ElementStates.IsFalling);
             }
             else
             {
@@ -31,12 +31,12 @@ namespace StardustSandbox.Elements.Solids.Movables
                 if (TrySetPosition(context, belowPosition))
                 {
                     ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                    context.SetElementState(belowPosition, ElementStates.FreeFalling);
+                    context.SetElementState(belowPosition, ElementStates.IsFalling);
                     return;
                 }
                 else
                 {
-                    context.RemoveElementState(ElementStates.FreeFalling);
+                    context.RemoveElementState(ElementStates.IsFalling);
                     return;
                 }
             }

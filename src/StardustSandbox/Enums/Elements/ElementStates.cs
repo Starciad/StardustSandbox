@@ -7,6 +7,6 @@ namespace StardustSandbox.Enums.Elements
     {
         None = 0,
         IsEmpty = 1 << 0,
-        FreeFalling = 1 << 1,
+        IsFalling = 1 << 1,
     }
 }

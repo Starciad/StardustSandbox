@@ -61,7 +61,7 @@ namespace StardustSandbox.UI.Common.Menus
                     this.uiManager.OpenGUI(UIIndex.Hud);
 
                     this.gameManager.StartGame();
-                    this.world.LoadFromWorldSaveFile(this.saveFile);
+                    this.world.LoadFromSaveFile(this.saveFile);
                 }),
             ];
 
@@ -231,7 +231,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UTILITIES
 
-        internal void SetWorldSaveFile(SaveFile saveFile)
+        internal void SetSaveFile(SaveFile saveFile)
         {
             this.saveFile = saveFile;
             UpdateDisplay(saveFile);

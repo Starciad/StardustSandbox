@@ -258,7 +258,7 @@ namespace StardustSandbox.Randomness
         /// Returns a random boolean value.
         /// </summary>
         /// <returns><c>true</c> or <c>false</c> with equal probability.</returns>
-        internal static bool RandomBool()
+        internal static bool GetBool()
         {
             return random.Next(2) == 0;
         }

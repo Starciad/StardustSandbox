@@ -27,7 +27,7 @@ namespace StardustSandbox.Elements.Liquids
                     if (TrySwappingElements(context, belowPosition, belowLayer))
                     {
                         ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                        context.SetElementState(belowPosition, context.Layer, ElementStates.FreeFalling);
+                        context.SetElementState(belowPosition, context.Layer, ElementStates.IsFalling);
                         return;
                     }
 
@@ -37,7 +37,7 @@ namespace StardustSandbox.Elements.Liquids
 
             UpdateHorizontalPosition(context);
 
-            context.RemoveElementState(ElementStates.FreeFalling);
+            context.RemoveElementState(ElementStates.IsFalling);
         }
 
         private bool TrySwappingElements(in ElementContext context, Point position, SlotLayer belowLayer)
@@ -79,7 +79,7 @@ namespace StardustSandbox.Elements.Liquids
             float rightDistance = context.Slot.Position.Distance(right);
 
             Point targetPosition = leftDistance == rightDistance
-                ? SSRandom.RandomBool() ? left : right
+                ? SSRandom.GetBool() ? left : right
                 : leftDistance > rightDistance ? left : right;
 
             if (context.IsEmptySlotLayer(targetPosition, context.Layer))

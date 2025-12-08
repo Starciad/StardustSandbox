@@ -4,8 +4,6 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
 
-using System;
-
 namespace StardustSandbox.Explosions
 {
     internal class Explosion : IPoolableObject

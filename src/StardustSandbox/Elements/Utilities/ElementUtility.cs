@@ -12,7 +12,7 @@ namespace StardustSandbox.Elements.Utilities
     {
         internal static IEnumerable<Point> GetRandomSidePositions(Point targetPosition, Direction direction)
         {
-            int rDirection = SSRandom.RandomBool() ? 1 : -1;
+            int rDirection = SSRandom.GetBool() ? 1 : -1;
 
             switch (direction)
             {
@@ -50,8 +50,8 @@ namespace StardustSandbox.Elements.Utilities
 
         internal static void NotifyFreeFallingFromAdjacentNeighbors(in ElementContext context, Point position)
         {
-            context.SetElementState(new(position.X - 1, position.Y), context.Layer, ElementStates.FreeFalling);
-            context.SetElementState(new(position.X + 1, position.Y), context.Layer, ElementStates.FreeFalling);
+            context.SetElementState(new(position.X - 1, position.Y), context.Layer, ElementStates.IsFalling);
+            context.SetElementState(new(position.X + 1, position.Y), context.Layer, ElementStates.IsFalling);
         }
     }
 }

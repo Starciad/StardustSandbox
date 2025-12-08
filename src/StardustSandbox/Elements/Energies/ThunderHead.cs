@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -10,12 +10,12 @@ namespace StardustSandbox.Elements.Energies
 {
     internal sealed class ThunderHead : Energy
     {
-        private static void CreateBodyLine(in ElementContext context, Point start, Point end)
+        private static bool TryCreateBodyLine(in ElementContext context, Point start, Point end)
         {
             if (start == end)
             {
                 context.InstantiateElement(end, ElementIndex.ThunderBody);
-                return;
+                return true;
             }
 
             int matrixX1 = start.X;
@@ -57,52 +57,73 @@ namespace StardustSandbox.Elements.Energies
                 int currentY = matrixY1 + (yIncrease * yModifier);
                 int currentX = matrixX1 + (xIncrease * xModifier);
 
-                context.InstantiateElement(new(currentX, currentY), ElementIndex.ThunderBody);
+                Point position = new(currentX, currentY);
+
+                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.Layer).HasState(ElementStates.IsEmpty))
+                {
+                    if (slot.GetLayer(context.Layer).Element.Category == ElementCategory.Gas)
+                    {
+                        continue;
+                    }
+
+                    switch (slot.GetLayer(context.Layer).Element.Index)
+                    {
+                        case ElementIndex.Water:
+                        case ElementIndex.Ice:
+                        case ElementIndex.Snow:
+                            if (slot.HasState(context.Layer, ElementStates.IsFalling))
+                            {
+                                continue;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                // Attempt to instantiate element
+                if (!context.TryInstantiateElement(position, ElementIndex.ThunderBody))
+                {
+                    return false;
+                }
             }
+
+            return true;
         }
 
-        private static void CreateBranchedThunder(in ElementContext context, Point origin, int length, int depth, int maxDepth)
+        private static void CreateBranchedThunderBranch(in ElementContext context, Point origin, int length, int angle)
         {
-            if (length <= 0 || depth > maxDepth)
+            float rad = MathF.PI * angle / 180.0f;
+            int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
+            int dy = (int)MathF.Round((MathF.Cos(rad) * length) + SSRandom.Range(2, 4));
+
+            Point endPoint = new(
+                origin.X + dx,
+                origin.Y + dy
+            );
+
+            if (!TryCreateBodyLine(context, origin, endPoint))
             {
                 return;
             }
 
-            int[] angles = [SSRandom.Range(-30, -10), SSRandom.Range(10, 30)];
+            CreateBranchedThunder(context, endPoint);
+        }
 
-            for (int i = 0; i < angles.Length; i++)
-            {
-                int angle = angles[i];
+        private static void CreateBranchedThunder(in ElementContext context, Point origin)
+        {
+            int length = SSRandom.Range(3, 6);
 
-                float rad = MathF.PI * angle / 180.0f;
-                int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
-                int dy = (int)MathF.Round((MathF.Cos(rad) * length) + SSRandom.Range(2, 4));
-
-                Point endPoint = new(
-                    origin.X + dx,
-                    origin.Y + dy
-                );
-
-                CreateBodyLine(context, origin, endPoint);
-
-                CreateBranchedThunder(
-                    context,
-                    endPoint,
-                    (int)(length * SSRandom.Range(0.5f, 0.7f)),
-                    depth + 1,
-                    maxDepth
-                );
-            }
+            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(-30, -10));
+            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(10, 30));
         }
 
         protected override void OnInstantiated(in ElementContext context)
         {
             Point origin = context.Position;
 
-            int initialLength = SSRandom.Range(3, 6);
-            int maxDepth = SSRandom.Range(4, 6);
-
-            CreateBranchedThunder(context, origin, initialLength, 1, maxDepth);
+            CreateBranchedThunder(context, origin);
         }
 
         protected override void OnAfterStep(in ElementContext context)

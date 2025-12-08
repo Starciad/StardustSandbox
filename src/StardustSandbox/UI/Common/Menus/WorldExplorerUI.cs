@@ -364,7 +364,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
-                    this.worldDetailsMenuUI.SetWorldSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
+                    this.worldDetailsMenuUI.SetSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
                     this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
                 }
 

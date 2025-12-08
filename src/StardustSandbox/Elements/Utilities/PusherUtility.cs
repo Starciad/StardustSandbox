@@ -85,7 +85,7 @@ namespace StardustSandbox.Elements.Utilities
                 {
                     if (leftEmpty && rightEmpty)
                     {
-                        targetNeighborPosition = SSRandom.RandomBool() ? leftPosition : rightPosition;
+                        targetNeighborPosition = SSRandom.GetBool() ? leftPosition : rightPosition;
                     }
                     else if (leftEmpty)
                     {
