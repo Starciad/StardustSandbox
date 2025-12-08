@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Colors.Palettes;
+using StardustSandbox.Constants;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 
@@ -678,6 +679,30 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.2f,
                     DefaultExplosionResistance = 0.7f,
                 },
+                new Elements.Energies.ThunderHead()
+                {
+                    Index = ElementIndex.ThunderHead,
+                    Category = ElementCategory.Energy,
+                    Characteristics = ElementCharacteristics.None,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(448, 320),
+                    ReferenceColor = AAP64ColorPalette.White,
+                    DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
+                    DefaultDensity = 0.0f,
+                },
+                new Elements.Energies.ThunderBody()
+                {
+                    Index = ElementIndex.ThunderBody,
+                    Category = ElementCategory.Energy,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsExplosionImmune,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(448, 320),
+                    ReferenceColor = AAP64ColorPalette.White,
+                    DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
+                    DefaultDensity = 0.0f,
+                }
             ];
 
             isLoaded = true;

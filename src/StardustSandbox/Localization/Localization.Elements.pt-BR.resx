@@ -399,4 +399,10 @@
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
     <value>Nuvem densa e saturada resultante do agrupamento de várias nuvens. Quando suficientemente concentrada, libera água ou neve conforme a temperatura.</value>
   </data>
+  <data name="Energy.Thunder.Name" xml:space="preserve">
+    <value>Raio</value>
+  </data>
+  <data name="Energy.Thunder.Description" xml:space="preserve">
+    <value>Raio</value>
+  </data>
 </root>

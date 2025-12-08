@@ -51,6 +51,8 @@
         LeftwardPusher,
         Cloud,
         ChargedCloud,
+        ThunderHead,
+        ThunderBody,
 
         Length,
     }

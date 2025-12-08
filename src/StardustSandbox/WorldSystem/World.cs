@@ -600,7 +600,7 @@ namespace StardustSandbox.WorldSystem
 
         private void HandleExplosion(Explosion explosion)
         {
-            foreach (Point point in ShapePointGenerator.GenerateCirclePoints(explosion.Position, explosion.Radius))
+            foreach (Point point in ShapePointGenerator.GenerateCirclePoints(explosion.Position, Convert.ToInt32(explosion.Radius)))
             {
                 if (!InsideTheWorldDimensions(point))
                 {

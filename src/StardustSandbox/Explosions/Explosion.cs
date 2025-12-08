@@ -4,15 +4,17 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
 
+using System;
+
 namespace StardustSandbox.Explosions
 {
     internal class Explosion : IPoolableObject
     {
         internal Point Position { get; private set; }
 
-        internal byte Radius { get; private set; }
+        internal float Radius { get; private set; }
         internal float Power { get; private set; }
-        internal short Heat { get; private set; }
+        internal float Heat { get; private set; }
 
         internal bool AffectsWater { get; private set; }
         internal bool AffectsSolids { get; private set; }
@@ -42,15 +44,15 @@ namespace StardustSandbox.Explosions
         {
             this.Position = Point.Zero;
 
-            this.Radius = 0;
-            this.Power = 0f;
-            this.Heat = 0;
+            this.Radius = 0.0f;
+            this.Power = 0.0f;
+            this.Heat = 0.0f;
 
             this.AffectsWater = false;
             this.AffectsSolids = false;
             this.AffectsGases = false;
 
-            this.ExplosionResidues = null;
+            this.ExplosionResidues = [];
         }
     }
 }

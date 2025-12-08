@@ -8,9 +8,9 @@ namespace StardustSandbox.Elements.Solids.Movables
     {
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
-            Radius = 4,
+            Radius = 4.0f,
             Power = 2.5f,
-            Heat = 180,
+            Heat = 180.0f,
 
             AffectsWater = false,
             AffectsSolids = true,

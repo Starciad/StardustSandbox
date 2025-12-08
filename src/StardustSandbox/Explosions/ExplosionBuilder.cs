@@ -4,9 +4,9 @@ namespace StardustSandbox.Explosions
 {
     internal sealed class ExplosionBuilder
     {
-        internal byte Radius { get; init; }
+        internal float Radius { get; init; }
         internal float Power { get; init; }
-        internal short Heat { get; init; }
+        internal float Heat { get; init; }
 
         internal bool AffectsWater { get; init; }
         internal bool AffectsSolids { get; init; }

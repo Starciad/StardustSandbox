@@ -441,7 +441,17 @@ namespace StardustSandbox.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(64, 64, 32, 32)
-                                )
+                                ),
+
+                                // [1] Thunder
+                                new(
+                                    associatedType: typeof(ThunderHead),
+                                    name: Localization_Elements.Energy_Thunder_Name,
+                                    description: Localization_Elements.Energy_Thunder_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(64, 128, 32, 32)
+                                ),
                             ]
                         ),
 
