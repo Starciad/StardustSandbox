@@ -94,7 +94,8 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 if (layer.HasState(ElementStates.IsEmpty) ||
                     layer.Element.Index == ElementIndex.Clone ||
                     layer.Element.Index == ElementIndex.Wall ||
-                    layer.Element.Index == ElementIndex.Void)
+                    layer.Element.Index == ElementIndex.Void ||
+                    layer.Element.Index == ElementIndex.ThunderBody)
                 {
                     continue;
                 }

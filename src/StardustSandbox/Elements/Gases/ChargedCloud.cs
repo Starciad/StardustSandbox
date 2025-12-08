@@ -34,7 +34,14 @@ namespace StardustSandbox.Elements.Gases
             {
                 if (context.SlotLayer.Temperature < 0.0f)
                 {
-                    context.ReplaceElement(ElementIndex.Snow);
+                    if (SSRandom.Chance(65))
+                    {
+                        context.ReplaceElement(ElementIndex.Snow);
+                    }
+                    else
+                    {
+                        context.ReplaceElement(ElementIndex.ThunderHead);
+                    }
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
 
 using System;
@@ -60,16 +61,48 @@ namespace StardustSandbox.Elements.Energies
             }
         }
 
+        private static void CreateBranchedThunder(in ElementContext context, Point origin, int length, int depth, int maxDepth)
+        {
+            if (length <= 0 || depth > maxDepth)
+            {
+                return;
+            }
+
+            int[] angles = [SSRandom.Range(-30, -10), SSRandom.Range(10, 30)];
+
+            for (int i = 0; i < angles.Length; i++)
+            {
+                int angle = angles[i];
+
+                float rad = MathF.PI * angle / 180.0f;
+                int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
+                int dy = (int)MathF.Round((MathF.Cos(rad) * length) + SSRandom.Range(2, 4));
+
+                Point endPoint = new(
+                    origin.X + dx,
+                    origin.Y + dy
+                );
+
+                CreateBodyLine(context, origin, endPoint);
+
+                CreateBranchedThunder(
+                    context,
+                    endPoint,
+                    (int)(length * SSRandom.Range(0.5f, 0.7f)),
+                    depth + 1,
+                    maxDepth
+                );
+            }
+        }
+
         protected override void OnInstantiated(in ElementContext context)
         {
             Point origin = context.Position;
 
-            Point endPoint = new(
-                origin.X + SSRandom.Range(-3, 3),
-                origin.Y + SSRandom.Range(6, 12)
-            );
+            int initialLength = SSRandom.Range(3, 6);
+            int maxDepth = SSRandom.Range(4, 6);
 
-            CreateBodyLine(context, origin, endPoint);
+            CreateBranchedThunder(context, origin, initialLength, 1, maxDepth);
         }
 
         protected override void OnAfterStep(in ElementContext context)

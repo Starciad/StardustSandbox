@@ -8,7 +8,7 @@ namespace StardustSandbox.Elements.Energies
     {
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
-            Radius = 3.0f,
+            Radius = 2.0f,
             Power = 5.0f,
             Heat = TemperatureConstants.MAX_CELSIUS_VALUE,
 
@@ -40,7 +40,12 @@ namespace StardustSandbox.Elements.Energies
                 Element element = neighbors.GetSlotLayer(i, context.Layer).Element;
 
                 if (element.Index == ElementIndex.ThunderHead ||
-                    element.Index == ElementIndex.ThunderBody)
+                    element.Index == ElementIndex.ThunderBody ||
+                    element.Index == ElementIndex.Clone ||
+                    element.Index == ElementIndex.Void ||
+                    element.Index == ElementIndex.Wall ||
+                    element.Index == ElementIndex.Fire ||
+                    element.Index == ElementIndex.Smoke)
                 {
                     continue;
                 }
