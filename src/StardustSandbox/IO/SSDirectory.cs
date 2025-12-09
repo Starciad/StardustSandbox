@@ -33,7 +33,11 @@ namespace StardustSandbox.IO
                 throw new ArgumentException("The specified path is invalid or nonexistent.", nameof(directoryPath));
             }
 
+#if SS_WINDOWS
             StartOpenDirectoryProcess("explorer.exe", string.Concat("\"", directoryPath, "\""));
+#elif SS_LINUX
+            StartOpenDirectoryProcess("xdg-open", string.Concat("\"", directoryPath, "\""));
+#endif
         }
 
         private static void StartOpenDirectoryProcess(string fileName, string arguments)

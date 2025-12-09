@@ -5,7 +5,10 @@ using StardustSandbox.Serialization.Settings;
 
 using System;
 using System.Threading;
+
+#if SS_WINDOWS
 using System.Windows.Forms;
+#endif
 
 #if !DEBUG
 using StardustSandbox.Constants;
@@ -21,7 +24,9 @@ namespace StardustSandbox
         [STAThread]
         private static void Main(string[] args)
         {
+#if SS_WINDOWS
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+#endif
 
             Parameters.Start(args);
 
@@ -80,10 +85,12 @@ namespace StardustSandbox
             logString.AppendLine();
             logString.AppendLine($"Exception: {value.Message}");
 
+#if SS_WINDOWS
             MessageBox.Show(logString.ToString(),
                             $"{GameConstants.GetTitleAndVersionString()} - Fatal Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
+#endif
         }
 #endif
 

@@ -20,6 +20,7 @@
 		<PublishSelfContained>true</PublishSelfContained>
 		<PublishSingleFile>false</PublishSingleFile>
 		<PublishAot>false</PublishAot>
+		<DefineConstants>SS_WINDOWS</DefineConstants>
 	</PropertyGroup>
 
 	<!-- SYSTEM -->

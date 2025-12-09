@@ -19,6 +19,7 @@
 		<PublishSelfContained>true</PublishSelfContained>
 		<PublishSingleFile>false</PublishSingleFile>
 		<PublishAot>false</PublishAot>
+		<DefineConstants>SS_LINUX</DefineConstants>
 	</PropertyGroup>
 
 	<!-- SYSTEM -->
