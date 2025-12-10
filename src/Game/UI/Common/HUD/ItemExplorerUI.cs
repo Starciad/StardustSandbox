@@ -169,7 +169,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Image background = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                    SourceRectangle = new(320, 141, 32, 32),
+                    SourceRectangle = new(320, 140, 32, 32),
                     Alignment = CardinalDirection.Northeast,
                     Scale = new(2.0f),
                     Size = new(32.0f),
@@ -212,7 +212,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Image background = new()
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                    SourceRectangle = new(320, 141, 32, 32),
+                    SourceRectangle = new(320, 140, 32, 32),
                     Alignment = CardinalDirection.Northwest,
                     Scale = new(2.0f),
                     Size = new(32.0f),
@@ -267,7 +267,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(320, 141, 32, 32),
+                        SourceRectangle = new(320, 140, 32, 32),
                         Alignment = positionAnchor,
                         Scale = new(2.0f),
                         Size = new(32.0f),
@@ -308,7 +308,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Image background = new()
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(320, 141, 32, 32),
+                        SourceRectangle = new(320, 140, 32, 32),
                         Alignment = CardinalDirection.Northwest,
                         Scale = new(2.0f),
                         Size = new(32.0f),
