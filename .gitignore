@@ -401,3 +401,5 @@ FodyWeavers.xsd
 src/StardustSandbox/assets/*
 !src/StardustSandbox/assets/assets.mgcb
 !src/StardustSandbox/assets/effects/
+
+src/[Pp]ublish/*
