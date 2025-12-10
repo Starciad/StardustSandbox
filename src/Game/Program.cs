@@ -8,6 +8,8 @@ using System.Threading;
 
 #if SS_WINDOWS
 using System.Windows.Forms;
+#elif SS_LINUX
+using System.Diagnostics;
 #endif
 
 #if !DEBUG
@@ -90,6 +92,17 @@ namespace StardustSandbox
                             $"{GameConstants.GetTitleAndVersionString()} - Fatal Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
+#elif SS_LINUX
+            using Process process = new()
+            {
+                StartInfo = new()
+                {
+                    FileName = "zenity",
+                    Arguments = $"--error --title=\"{GameConstants.GetTitleAndVersionString()} - Fatal Error\" --text=\"{logString.ToString().Replace("\"", "\\\"")}\"",
+                }
+            };
+
+            _ = process.Start();
 #endif
         }
 #endif
