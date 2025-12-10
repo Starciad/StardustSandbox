@@ -11,13 +11,10 @@ namespace StardustSandbox.Managers
         internal BackgroundHandler BackgroundHandler => this.backgroundHandler;
         internal CelestialBodyHandler CelestialBodyHandler => this.celestialBodyHandler;
         internal CloudHandler CloudHandler => this.cloudHandler;
-        internal SkyHandler SkyHandler => this.skyHandler;
-        internal TimeHandler TimeHandler => this.timeHandler;
 
         private BackgroundHandler backgroundHandler;
         private CelestialBodyHandler celestialBodyHandler;
         private CloudHandler cloudHandler;
-        private SkyHandler skyHandler;
         private TimeHandler timeHandler;
 
         public void Reset()
@@ -29,7 +26,6 @@ namespace StardustSandbox.Managers
         {
             this.backgroundHandler = new();
             this.cloudHandler = new(gameManager, world.Simulation);
-            this.skyHandler = new();
             this.timeHandler = new(world.Time);
             this.celestialBodyHandler = new(this.timeHandler, world);
         }

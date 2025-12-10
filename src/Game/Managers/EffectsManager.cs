@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors;
+using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 
@@ -34,17 +35,17 @@ namespace StardustSandbox.Managers
 
             Effect effect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
 
-            effect.Parameters["StartColor1"].SetValue(gradientColorMap.Color1.Start.ToVector4());
-            effect.Parameters["StartColor2"].SetValue(gradientColorMap.Color2.Start.ToVector4());
-            effect.Parameters["EndColor1"].SetValue(gradientColorMap.Color1.End.ToVector4());
-            effect.Parameters["EndColor2"].SetValue(gradientColorMap.Color2.End.ToVector4());
+            effect.Parameters["StartColor1"].SetValue(gradientColorMap.GradientStartColor.Start.ToVector4());
+            effect.Parameters["StartColor2"].SetValue(gradientColorMap.GradientEndColor.Start.ToVector4());
+            effect.Parameters["EndColor1"].SetValue(gradientColorMap.GradientStartColor.End.ToVector4());
+            effect.Parameters["EndColor2"].SetValue(gradientColorMap.GradientEndColor.End.ToVector4());
             effect.Parameters["TimeNormalized"].SetValue(interpolation);
         }
 
-        internal void Update(in GameTime gameTime, GradientColorMap gradientColorMap, TimeSpan worldTimeSpan)
+        internal void Update(in GameTime gameTime, TimeSpan currentTime)
         {
             UpdateTime(gameTime);
-            UpdateGradientTransitionEffect(gradientColorMap, worldTimeSpan);
+            UpdateGradientTransitionEffect(GradientConstants.GetBackgroundGradientByTime(currentTime), currentTime);
         }
     }
 }

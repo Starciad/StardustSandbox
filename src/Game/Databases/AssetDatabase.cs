@@ -57,7 +57,6 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "ocean")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "sky")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "celestial_bodies")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "clouds")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "characters", "starciad")),

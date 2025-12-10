@@ -15,7 +15,6 @@
         #region Backgrounds
 
         BackgroundOcean,
-        BackgroundSky,
 
         #endregion
 

@@ -45,7 +45,7 @@ namespace StardustSandbox
             // Graphics
             this.videoManager = new(new GraphicsDeviceManager(this)
             {
-                GraphicsProfile = GraphicsProfile.HiDef,
+                GraphicsProfile = GraphicsProfile.Reach,
                 PreferredBackBufferFormat = SurfaceFormat.Color,
                 PreferredBackBufferWidth = 1280,
                 PreferredBackBufferHeight = 720,
@@ -168,12 +168,7 @@ namespace StardustSandbox
             this.inputController.Update();
 
             // Managers
-            this.effectsManager.Update(
-                gameTime,
-                this.ambientManager.SkyHandler.GetSkyGradientByTime(this.world.Time.CurrentTime),
-                this.world.Time.CurrentTime
-            );
-
+            this.effectsManager.Update(gameTime, this.world.Time.CurrentTime );
             this.gameManager.Update();
             this.inputManager.Update();
             this.uiManager.Update(gameTime);

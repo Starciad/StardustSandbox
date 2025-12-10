@@ -9,8 +9,7 @@ namespace StardustSandbox.Scenario
 {
     internal sealed class BackgroundHandler
     {
-        internal Color SolidColor { get; set; } = new(64, 116, 155);
-        internal Background SelectedBackground => this.selectedBackground;
+        internal bool IsAffectedByLighting => this.selectedBackground.IsAffectedByLighting;
 
         private Background selectedBackground;
 

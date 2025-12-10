@@ -74,21 +74,26 @@ namespace StardustSandbox.Backgrounds
 
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
-            spriteBatch.Draw(texture, this.layerPosition, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            void DrawLayer(Vector2 position)
+            {
+                spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            }
+
+            DrawLayer(this.layerPosition);
 
             if (!this.lockX)
             {
-                spriteBatch.Draw(texture, this.horizontalLayerPosition, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                DrawLayer(this.horizontalLayerPosition);
             }
 
             if (!this.lockY)
             {
-                spriteBatch.Draw(texture, this.verticalLayerPosition, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                DrawLayer(this.verticalLayerPosition);
             }
 
             if (!this.lockX && !this.lockY)
             {
-                spriteBatch.Draw(texture, this.diagonalLayerPosition, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                DrawLayer(this.diagonalLayerPosition);
             }
         }
     }

@@ -136,8 +136,8 @@ namespace StardustSandbox
             graphicsDevice.Clear(Color.Transparent);
 
             // Sky
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BackgroundSky), Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Opaque, null, null, null, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, new Vector2(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT), SpriteEffects.None, 0f);
             spriteBatch.End();
 
             // Celestial Bodies
@@ -146,18 +146,20 @@ namespace StardustSandbox
             spriteBatch.End();
 
             // Background
-            spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                SamplerState.PointClamp,
-                DepthStencilState.Default,
-                RasterizerState.CullNone,
-                ambientManager.BackgroundHandler.SelectedBackground.IsAffectedByLighting ? AssetDatabase.GetEffect(EffectIndex.GradientTransition) : null,
-                null
-            );
-            ambientManager.CloudHandler.Draw(spriteBatch);
-            ambientManager.BackgroundHandler.Draw(spriteBatch);
-            spriteBatch.End();
+            if (ambientManager.BackgroundHandler.IsAffectedByLighting)
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
+                ambientManager.CloudHandler.Draw(spriteBatch);
+                ambientManager.BackgroundHandler.Draw(spriteBatch);
+                spriteBatch.End();
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+                ambientManager.CloudHandler.Draw(spriteBatch);
+                ambientManager.BackgroundHandler.Draw(spriteBatch);
+                spriteBatch.End();
+            }
         }
 
         private static void DrawWorld(SpriteBatch spriteBatch, World world)

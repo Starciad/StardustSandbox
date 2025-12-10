@@ -6,10 +6,10 @@ namespace StardustSandbox.Colors
 {
     internal sealed class GradientColorMap
     {
-        internal (Color Start, Color End) Color1 { get; set; }
-        internal (Color Start, Color End) Color2 { get; set; }
-        internal TimeSpan StartTime { get; set; }
-        internal TimeSpan EndTime { get; set; }
+        internal GradientColor GradientStartColor { get; init; }
+        internal GradientColor GradientEndColor { get; init; }
+        internal TimeSpan StartTime { get; init; }
+        internal TimeSpan EndTime { get; init; }
 
         internal float GetInterpolationFactor(TimeSpan currentTime)
         {
