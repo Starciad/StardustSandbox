@@ -6,16 +6,14 @@
 Clear-Host
 
 # Configuration
-$gameName      = 'StardustSandbox'
-$gameVersion   = 'v0.0.0.0'
-$outputDir     = '..\Publish'
-$beauty2Dir    = 'libraries'
-$beauty2Ignore = 'SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;'
-$beauty2Hiddens = 'StardustSandbox.dll;hostfxr;hostpolicy;*.deps.json;*.runtimeconfig*.json;'
+$gameName = 'StardustSandbox'
+$gameVersion = 'v1.2.2.0'
+$outputDir = '..\Publish'
 
 # Project definitions
 $projects = @(
-    @{ Name='windowsdx'; Path='..\StardustSandbox\StardustSandbox.csproj'; Runtimes=@('win-x64') }
+    @{ Name='Windows'; Path='..\Game\SS.Windows.csproj' },
+    @{ Name='Linux'; Path='..\Game\SS.Linux.csproj' }
 )
 
 # Clean output directory
@@ -27,12 +25,11 @@ if (Test-Path $outputDir) {
 function Publish-Project {
     param (
         [string]$projectName,
-        [string]$projectPath,
-        [string]$runtime
+        [string]$projectPath
     )
 
-    $publishDir = Join-Path $outputDir "$gameName.$gameVersion.$projectName.$runtime"
-    dotnet publish $projectPath -c Release -r $runtime --output $publishDir
+    $publishDir = Join-Path $outputDir "$gameName.$projectName.$gameVersion"
+    dotnet publish $projectPath -c Release --output $publishDir
     
 	if ($LASTEXITCODE -ne 0) {
         return
@@ -41,15 +38,13 @@ function Publish-Project {
 
 # Execute publishes
 foreach ($proj in $projects) {
-    foreach ($rt in $proj.Runtimes) {
-        Publish-Project -projectName $proj.Name -projectPath $proj.Path -runtime $rt
-    }
+    Publish-Project -projectName $proj.Name -projectPath $proj.Path
 }
 
 # Copy assets and remove unwanted subdirs
-$assetsSource      = '..\StardustSandbox\assets'
+$assetsSource      = '..\Game\assets'
 $licenseFile       = '..\..\LICENSE-ASSETS.txt'
-$assetsDestination = Join-Path $outputDir "$gameName.$gameVersion.assets\assets"
+$assetsDestination = Join-Path $outputDir "$gameName.Assets.$gameVersion\assets"
 $subdirsToRemove   = @('bin','obj')
 
 Copy-Item -Path $assetsSource -Destination $assetsDestination -Recurse -Force
