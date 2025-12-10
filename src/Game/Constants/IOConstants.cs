@@ -100,7 +100,7 @@ namespace StardustSandbox.Constants
         #region FILE
 
         // Versions
-        internal static Version SAVE_FILE_VERSION => new(3, 0, 0, 0);
+        internal static Version SAVE_FILE_VERSION => new("3.0.0.0");
 
         // Settings
         internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
