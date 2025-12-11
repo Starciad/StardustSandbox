@@ -19,5 +19,10 @@ namespace StardustSandbox.Localization
             this.region = region;
             this.cultureInfo = new(this.Name);
         }
+
+        public override string ToString()
+        {
+            return this.cultureInfo.NativeName;
+        }
     }
 }

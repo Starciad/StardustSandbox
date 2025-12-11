@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Mathematics.Primitives;
 
 using System.Xml.Serialization;
 
@@ -29,14 +30,14 @@ namespace StardustSandbox.Serialization.Settings
         public bool Borderless { get; set; }
 
         [XmlIgnore]
-        public Point Resolution
+        public Resolution Resolution
         {
             get => new(this.Width, this.Height);
 
             set
             {
-                this.Width = value.X;
-                this.Height = value.Y;
+                this.Width = value.Width;
+                this.Height = value.Height;
             }
         }
 
@@ -52,24 +53,24 @@ namespace StardustSandbox.Serialization.Settings
 
         public void UpdateResolution(GraphicsDevice graphicsDevice)
         {
-            Point monitorResolution = new(
+            Resolution monitorResolution = new(
                 graphicsDevice.Adapter.CurrentDisplayMode.Width,
                 graphicsDevice.Adapter.CurrentDisplayMode.Height
             );
 
-            Point autoResolution = GetAutoResolution(monitorResolution);
+            Resolution autoResolution = GetAutoResolution(monitorResolution);
 
-            this.Width = autoResolution.X;
-            this.Height = autoResolution.Y;
+            this.Width = autoResolution.Width;
+            this.Height = autoResolution.Height;
         }
 
-        private static Point GetAutoResolution(Point monitorResolution)
+        private static Resolution GetAutoResolution(Resolution monitorResolution)
         {
             for (int i = ScreenConstants.RESOLUTIONS.Length - 1; i >= 0; i--)
             {
-                Point resolution = ScreenConstants.RESOLUTIONS[i];
+                Resolution resolution = ScreenConstants.RESOLUTIONS[i];
 
-                if (resolution.X <= monitorResolution.X && resolution.Y <= monitorResolution.Y)
+                if (resolution.Width <= monitorResolution.Width && resolution.Height <= monitorResolution.Height)
                 {
                     return resolution;
                 }

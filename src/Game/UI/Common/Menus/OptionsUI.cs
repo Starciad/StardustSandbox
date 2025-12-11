@@ -10,6 +10,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Mathematics.Primitives;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI.Common.Menus.Options;
@@ -129,7 +130,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.root = new([
                 new(Localization_GUIs.Menu_Options_Section_General_Name, Localization_GUIs.Menu_Options_Section_General_Description,
                 [
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_General_Option_Language_Name, Localization_GUIs.Menu_Options_Section_General_Option_Language_Description, Array.ConvertAll(LocalizationConstants.AVAILABLE_GAME_CULTURES, x => x.Name))
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_General_Option_Language_Name, Localization_GUIs.Menu_Options_Section_General_Option_Language_Description, Array.ConvertAll<GameCulture, object>(LocalizationConstants.AVAILABLE_GAME_CULTURES, x => x))
                 ]),
                 new(Localization_GUIs.Menu_Options_Section_Gameplay_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Description,
                 [
@@ -145,7 +146,7 @@ namespace StardustSandbox.UI.Common.Menus
                 new(Localization_GUIs.Menu_Options_Section_Video_Name, Localization_GUIs.Menu_Options_Section_Video_Description,
                 [
                     new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Description, Array.ConvertAll<float, object>(ScreenConstants.FRAMERATES, x => x)),
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Point, object>(ScreenConstants.RESOLUTIONS, x => x)),
+                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Resolution, object>(ScreenConstants.RESOLUTIONS, x => x)),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
                     new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description)
@@ -184,7 +185,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             Section videoSection = this.root.Sections[(byte)SectionIndex.Video];
             this.videoSettings.Framerate = Convert.ToSingle(videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue());
-            this.videoSettings.Resolution = (Point)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue();
+            this.videoSettings.Resolution = (Resolution)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue();
             this.videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].GetValue());
             this.videoSettings.VSync = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.VSync].GetValue());
             this.videoSettings.Borderless = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].GetValue());
@@ -201,7 +202,7 @@ namespace StardustSandbox.UI.Common.Menus
         private void SyncSettingElements()
         {
             Section generalSection = this.root.Sections[(byte)SectionIndex.General];
-            generalSection.Options[(byte)GeneralSectionOptionIndex.Language].SetValue(this.generalSettings.GameCulture.Name);
+            generalSection.Options[(byte)GeneralSectionOptionIndex.Language].SetValue(this.generalSettings.GameCulture);
 
             Section gameplaySection = this.root.Sections[(byte)SectionIndex.Gameplay];
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].SetValue(new Color(this.gameplaySettings.PreviewAreaColor, 255));
@@ -538,7 +539,29 @@ namespace StardustSandbox.UI.Common.Menus
 
                     if (Interaction.OnMouseLeftClick(label))
                     {
-                        HandleOptionInteractivity(option);
+                        if (option is ButtonOption buttonOption)
+                        {
+                            buttonOption.OnClickCallback?.Invoke();
+                        }
+                        else if (option is ColorOption colorOption)
+                        {
+                            HandleColorOption(colorOption);
+                        }
+                        else if (option is SelectorOption selectorOption)
+                        {
+                            selectorOption.Next();
+                        }
+                        else if (option is ToggleOption toggleOption)
+                        {
+                            toggleOption.Toggle();
+                        }
+                    }
+                    else if (Interaction.OnMouseRightClick(label))
+                    {
+                        if (option is SelectorOption selectorOption)
+                        {
+                            selectorOption.Previous();
+                        }
                     }
 
                     UpdateOptionSync(option, label);
@@ -608,26 +631,6 @@ namespace StardustSandbox.UI.Common.Menus
         private static void UpdateToggleOption(ToggleOption toggleOption, Image toggleStateElement)
         {
             toggleStateElement.SourceRectangle = toggleOption.State ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
-        }
-
-        private void HandleOptionInteractivity(Option option)
-        {
-            if (option is ButtonOption buttonOption)
-            {
-                buttonOption.OnClickCallback?.Invoke();
-            }
-            else if (option is ColorOption colorOption)
-            {
-                HandleColorOption(colorOption);
-            }
-            else if (option is SelectorOption selectorOption)
-            {
-                selectorOption.Next();
-            }
-            else if (option is ToggleOption toggleOption)
-            {
-                toggleOption.Toggle();
-            }
         }
 
         private void HandleColorOption(ColorOption colorOption)

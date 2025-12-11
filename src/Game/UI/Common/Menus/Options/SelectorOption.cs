@@ -6,7 +6,7 @@ namespace StardustSandbox.UI.Common.Menus.Options
     {
         internal object[] PossibleValues => possibleValues;
 
-        private uint selectedValueIndex;
+        private int selectedValueIndex;
 
         internal override object GetValue()
         {
@@ -15,18 +15,18 @@ namespace StardustSandbox.UI.Common.Menus.Options
 
         internal override void SetValue(object value)
         {
-            this.selectedValueIndex = (uint)Array.IndexOf(this.PossibleValues, value);
+            this.selectedValueIndex = Array.IndexOf(this.PossibleValues, value);
         }
 
         internal void Next()
         {
-            this.selectedValueIndex = (this.selectedValueIndex + 1) % (uint)this.PossibleValues.Length;
+            this.selectedValueIndex = (this.selectedValueIndex + 1) % this.PossibleValues.Length;
         }
 
         internal void Previous()
         {
             this.selectedValueIndex = this.selectedValueIndex == 0
-                ? (uint)(this.PossibleValues.Length - 1)
+                ? this.PossibleValues.Length - 1
                 : this.selectedValueIndex - 1;
         }
     }

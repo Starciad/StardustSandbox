@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Mathematics.Primitives;
+
 namespace StardustSandbox.Constants
 {
     internal static class ScreenConstants
@@ -12,15 +14,15 @@ namespace StardustSandbox.Constants
         internal static Point SCREEN_DIMENSIONS => new(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // 16:9 Aspect Ratio
-        internal static Point[] RESOLUTIONS =>
+        internal static Resolution[] RESOLUTIONS =>
         [
-            new Point(0640, 0360), // [00] - nHD
-            new Point(0854, 0480), // [01] - FWVGA
-            new Point(0960, 0540), // [02] - qHD
-            new Point(1280, 0720), // [03] - SD / HD ready (720p) [DEFAULT]
-            new Point(1366, 0768), // [04] - WXGA
-            new Point(1600, 0900), // [05] - HD+
-            new Point(1920, 1080), // [06] - FHD / Full HD (1080p)
+            new(640, 360), // [00] - nHD
+            new(854, 480), // [01] - FWVGA
+            new(960, 540), // [02] - qHD
+            new(1280, 720), // [03] - SD / HD ready (720p) [DEFAULT]
+            new(1366, 768), // [04] - WXGA
+            new(1600, 0900), // [05] - HD+
+            new(1920, 1080), // [06] - FHD / Full HD (1080p)
         ];
 
         internal static float[] FRAMERATES =>
