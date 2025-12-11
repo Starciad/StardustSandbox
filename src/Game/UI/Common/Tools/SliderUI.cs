@@ -203,7 +203,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void UpdateSliderButtonPosition()
         {
-            float percentage = (float)(this.currentValue - this.minimumValue) / (float)(this.maximumValue - this.minimumValue);
+            float percentage = (this.currentValue - this.minimumValue) / (float)(this.maximumValue - this.minimumValue);
             float buttonX = percentage * this.sliderBackground.Size.X;
             this.sliderButton.Margin = new(buttonX - (this.sliderButton.Size.X / 2), 0.0f);
         }

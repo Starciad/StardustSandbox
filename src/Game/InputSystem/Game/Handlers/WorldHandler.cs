@@ -2,7 +2,6 @@
 
 using StardustSandbox.Camera;
 using StardustSandbox.Enums.Inputs.Game;
-using StardustSandbox.InputSystem;
 using StardustSandbox.InputSystem.Game.Handlers.Gizmos;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.Interfaces.Tools;

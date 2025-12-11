@@ -12,7 +12,6 @@ using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
-using StardustSandbox.UI;
 using StardustSandbox.WorldSystem;
 
 using System;

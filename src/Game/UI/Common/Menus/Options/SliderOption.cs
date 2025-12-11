@@ -6,7 +6,7 @@ namespace StardustSandbox.UI.Common.Menus.Options
     {
         internal int MinimumValue => minimumValue;
         internal int MaximumValue => maximumValue;
-        
+
         private int currentValue;
 
         internal override object GetValue()

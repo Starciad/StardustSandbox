@@ -7,6 +7,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
@@ -20,7 +21,6 @@ using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.UI.Common.Menus
 {
@@ -63,6 +63,8 @@ namespace StardustSandbox.UI.Common.Menus
         private Label titleLabel;
         private Image background;
 
+        private Image scrollbarUpButton, scrollbarDownButton, scrollbarSliderButton;
+
         private Container scrollableContainer;
 
         private readonly ColorPickerSettings colorPickerSettings;
@@ -82,6 +84,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly CursorManager cursorManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
+        private readonly GameManager gameManager;
 
         private readonly SectionUI[] sectionUIs;
 
@@ -94,6 +97,7 @@ namespace StardustSandbox.UI.Common.Menus
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
+            GameManager gameManager,
             UIIndex index,
             MessageUI messageUI,
             SliderUI sliderUI,
@@ -104,6 +108,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.colorPickerUI = colorPickerUI;
             this.cursorManager = cursorManager;
+            this.gameManager = gameManager;
             this.sliderUI = sliderUI;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -247,7 +252,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
-                Size = new(698.0f, ScreenConstants.SCREEN_HEIGHT),
+                Size = new(730.0f, 720.0f),
             };
 
             rootContainer.AddChild(this.background);
@@ -263,6 +268,8 @@ namespace StardustSandbox.UI.Common.Menus
             BuildTitle(ref scrollableContainerMarginY);
             BuildSections(ref scrollableContainerMarginY);
             BuildSystemButtons(ref scrollableContainerMarginY);
+
+            BuildScrollBar();
 
             rootContainer.AddChild(this.scrollableContainer);
             rootContainer.AddChild(this.tooltipBox);
@@ -407,6 +414,37 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
+        private void BuildScrollBar()
+        {
+            this.scrollbarUpButton = new()
+            {
+                Alignment = CardinalDirection.Northeast,
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                SourceRectangle = new(388, 50, 34, 32),
+                Size = new(34.0f, 32.0f),
+            };
+
+            this.scrollbarDownButton = new()
+            {
+                Alignment = CardinalDirection.Southeast,
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                SourceRectangle = new(388, 206, 34, 32),
+                Size = new(34.0f, 32.0f),
+            };
+
+            this.scrollbarSliderButton = new()
+            {
+                Alignment = CardinalDirection.Northeast,
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                SourceRectangle = new(388, 80, 34, 128),
+                Size = new(34.0f, 128.0f),
+            };
+
+            this.background.AddChild(this.scrollbarUpButton);
+            this.background.AddChild(this.scrollbarDownButton);
+            this.background.AddChild(this.scrollbarSliderButton);
+        }
+
         private static Label CreateOptionButtonLabelElement(string text)
         {
             return new Label
@@ -421,6 +459,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.tooltipBox.CanDraw = false;
             UpdateScrollableContainer();
+            UpdateScrollbar();
             UpdateSystemButtons();
             UpdateSectionLabels();
             UpdateSectionOptions();
@@ -449,6 +488,34 @@ namespace StardustSandbox.UI.Common.Menus
             float bottomLimit = this.scrollableContainer.Children.Count * 48.0f * -1;
 
             this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, topLimit));
+        }
+
+        private void UpdateScrollbar()
+        {
+            if (Interaction.OnMouseLeftClick(this.scrollbarUpButton))
+            {
+                float marginY = this.scrollableContainer.Margin.Y + 52.0f;
+                float bottomLimit = this.scrollableContainer.Children.Count * 48.0f * -1;
+                this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
+            }
+            else if (Interaction.OnMouseLeftClick(this.scrollbarDownButton))
+            {
+                float marginY = this.scrollableContainer.Margin.Y - 52.0f;
+                float bottomLimit = this.scrollableContainer.Children.Count * 48.0f * -1;
+                this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
+            }
+
+            float scrollableHeight = this.scrollableContainer.Children.Count * 48.0f;
+            float backgroundHeight = this.background.Size.Y;
+            float scrollableMarginY = this.scrollableContainer.Margin.Y;
+
+            float sliderMinY = this.scrollbarUpButton.Size.Y;
+            float sliderMaxY = backgroundHeight - this.scrollbarSliderButton.Size.Y - this.scrollbarDownButton.Size.Y;
+            float sliderY = -scrollableMarginY / scrollableHeight * sliderMaxY;
+
+            sliderY = float.Clamp(sliderY, sliderMinY, sliderMaxY);
+
+            this.scrollbarSliderButton.Margin = new(this.scrollbarSliderButton.Margin.X, sliderY);
         }
 
         private void UpdateSystemButtons()
@@ -598,7 +665,13 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
+            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
             SyncSettingElements();
+        }
+
+        protected override void OnClosed()
+        {
+            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

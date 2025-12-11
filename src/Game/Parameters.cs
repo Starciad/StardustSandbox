@@ -151,7 +151,7 @@ namespace StardustSandbox
                     {
                         CreateException = true;
                     }
-                )
+                ),
             ];
         }
 
