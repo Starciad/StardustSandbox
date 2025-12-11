@@ -167,7 +167,7 @@ namespace StardustSandbox.UI.Common.Menus
         private void SaveSettings()
         {
             Section generalSection = this.root.Sections[(byte)SectionIndex.General];
-            GameCulture gameCulture = LocalizationConstants.GetGameCulture(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
+            GameCulture gameCulture = LocalizationConstants.GetGameCultureFromNativeName(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
             this.generalSettings.Language = gameCulture.Language;
             this.generalSettings.Region = gameCulture.Region;
             SettingsSerializer.SaveSettings(this.generalSettings);

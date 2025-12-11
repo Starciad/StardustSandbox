@@ -16,10 +16,10 @@ namespace StardustSandbox.Serialization.Settings
         public string Region { get; set; }
 
         [XmlIgnore]
-        public GameCulture GameCulture => LocalizationConstants.GetGameCulture(this.Name);
+        public string Name => string.Concat(this.Language, '-', this.Region);
 
         [XmlIgnore]
-        public string Name => string.Concat(this.Language, '-', this.Region);
+        public GameCulture GameCulture => LocalizationConstants.GetGameCulture(this.Name);
 
         public GeneralSettings()
         {

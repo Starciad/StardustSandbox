@@ -15,6 +15,11 @@ namespace StardustSandbox.Constants
             new("pt", "BR"),
         ];
 
+        internal static GameCulture GetGameCultureFromNativeName(string nativeName)
+        {
+            return Array.Find(gameCultures, x => x.CultureInfo.NativeName.Equals(nativeName, StringComparison.OrdinalIgnoreCase)) ?? DEFAULT_GAME_CULTURE;
+        }
+
         internal static GameCulture GetGameCulture(string name)
         {
             return Array.Find(gameCultures, x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
