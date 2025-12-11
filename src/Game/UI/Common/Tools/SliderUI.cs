@@ -43,8 +43,8 @@ namespace StardustSandbox.UI.Common.Tools
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    this.settings?.OnSendCallback?.Invoke(new(this.currentValue));
                     uiManager.CloseGUI();
+                    this.settings?.OnSendCallback?.Invoke(new(this.currentValue));
                 }),
             ];
 
@@ -61,6 +61,8 @@ namespace StardustSandbox.UI.Common.Tools
             this.currentValue = settings.CurrentValue;
             this.minimumValue = settings.MinimumValue;
             this.maximumValue = settings.MaximumValue;
+
+            UpdateSliderButtonPosition();
         }
 
         protected override void OnBuild(Container root)

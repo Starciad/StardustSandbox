@@ -560,47 +560,27 @@ namespace StardustSandbox.UI.Common.Menus
         {
             if (option is ColorOption colorOption)
             {
-                UpdateColorOption(colorOption, element.GetData("color_slot") as ColorSlotInfo);
+                ((ColorSlotInfo)element.GetData("color_slot")).Background.Color = colorOption.CurrentColor;
             }
             else if (option is SelectorOption selectorOption)
             {
-                UpdateSelectorOption(selectorOption, element as Label);
+                ((Label)element).TextContent = string.Concat(selectorOption.Name, ": ", selectorOption.GetValue());
             }
-            else if (option is SliderOption valueOption)
+            else if (option is SliderOption sliderOption)
             {
-                UpdateValueOption(valueOption, element as Label);
+                ((Label)element).TextContent = string.Concat(sliderOption.Name, ": ", sliderOption.GetValue());
             }
             else if (option is ToggleOption toggleOption)
             {
-                UpdateToggleOption(toggleOption, element.GetData("toogle_preview") as Image);
+                ((Image)element.GetData("toogle_preview")).SourceRectangle = toggleOption.State ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
             }
-        }
-
-        private static void UpdateColorOption(ColorOption colorOption, ColorSlotInfo colorSlot)
-        {
-            colorSlot.Background.Color = colorOption.CurrentColor;
-        }
-
-        private static void UpdateSelectorOption(SelectorOption selectorOption, Label label)
-        {
-            label.TextContent = selectorOption.Name + ": " + selectorOption.GetValue();
-        }
-
-        private static void UpdateValueOption(SliderOption valueOption, Label label)
-        {
-            label.TextContent = valueOption.Name + ": " + valueOption.CurrentValue.ToString("D" + valueOption.MaximumValue.ToString().Length);
-        }
-
-        private static void UpdateToggleOption(ToggleOption toggleOption, Image toggleStateElement)
-        {
-            toggleStateElement.SourceRectangle = toggleOption.State ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
         }
 
         private void HandleSliderOption(SliderOption sliderOption)
         {
             this.sliderSettings.MinimumValue = sliderOption.MinimumValue;
             this.sliderSettings.MaximumValue = sliderOption.MaximumValue;
-            this.sliderSettings.CurrentValue = sliderOption.CurrentValue;
+            this.sliderSettings.CurrentValue = Convert.ToInt32(sliderOption.GetValue());
             this.sliderSettings.Synopsis = sliderOption.Description;
             this.sliderSettings.OnSendCallback = result => sliderOption.SetValue(result.Value);
 

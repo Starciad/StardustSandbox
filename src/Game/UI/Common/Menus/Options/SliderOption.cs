@@ -6,8 +6,7 @@ namespace StardustSandbox.UI.Common.Menus.Options
     {
         internal int MinimumValue => minimumValue;
         internal int MaximumValue => maximumValue;
-        internal int CurrentValue => this.currentValue;
-
+        
         private int currentValue;
 
         internal override object GetValue()
@@ -18,20 +17,6 @@ namespace StardustSandbox.UI.Common.Menus.Options
         internal override void SetValue(object value)
         {
             this.currentValue = int.Clamp(Convert.ToInt32(value), this.MinimumValue, this.MaximumValue);
-        }
-
-        internal void Increment()
-        {
-            this.currentValue = this.currentValue == this.MaximumValue
-                ? this.MinimumValue
-                : this.currentValue + 1;
-        }
-
-        internal void Decrement()
-        {
-            this.currentValue = this.currentValue == this.MinimumValue
-                ? this.MaximumValue
-                : this.currentValue - 1;
         }
     }
 }
