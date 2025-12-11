@@ -255,6 +255,16 @@ namespace StardustSandbox.UI
             return OnMouseUp(MouseButton.Right, element);
         }
 
+        internal static bool OnMouseScrollUp()
+        {
+            return inputManager.GetDeltaScrollWheel() > 0;
+        }
+
+        internal static bool OnMouseScrollDown()
+        {
+            return inputManager.GetDeltaScrollWheel() < 0;
+        }
+
         /// <summary>
         /// Determines if the mouse position is within the specified area.
         /// </summary>

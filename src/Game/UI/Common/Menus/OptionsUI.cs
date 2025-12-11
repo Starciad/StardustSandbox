@@ -53,15 +53,16 @@ namespace StardustSandbox.UI.Common.Menus
 
         private struct SectionUI
         {
-            internal Container Container;
-            internal Label[] ContentLabels;
+            internal Label Title;
+            internal Label[] Options;
         }
 
-        private int selectedSectionIndex;
         private bool restartMessageAppeared;
 
         private Label titleLabel;
         private Image background;
+
+        private Container scrollableContainer;
 
         private readonly Root root;
         private readonly ColorPickerSettings colorPickerSettings;
@@ -71,9 +72,8 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly string titleName = Localization_GUIs.Menu_Options_Title;
 
         private readonly List<PlusMinusButtonInfo> plusMinusButtons = [];
-        private readonly Label[] systemButtonLabels;
         private readonly ButtonInfo[] systemButtonInfos;
-        private readonly Label[] sectionButtonLabels;
+        private readonly Label[] systemButtonLabels;
         private readonly TooltipBox tooltipBox;
 
         private readonly CursorManager cursorManager;
@@ -112,7 +112,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.cursorSettings = SettingsSerializer.LoadSettings<CursorSettings>();
 
             this.systemButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, () =>
                 {
                     SaveSettings();
@@ -124,6 +123,7 @@ namespace StardustSandbox.UI.Common.Menus
                         this.restartMessageAppeared = true;
                     }
                 }),
+                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
             ];
 
             this.root = new([
@@ -159,9 +159,8 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
             ]);
 
-            this.systemButtonLabels = new Label[this.systemButtonInfos.Length];
             this.sectionUIs = new SectionUI[this.root.Sections.Length];
-            this.sectionButtonLabels = new Label[this.root.Sections.Length];
+            this.systemButtonLabels = new Label[this.systemButtonInfos.Length];
         }
 
         private void SaveSettings()
@@ -237,107 +236,86 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnBuild(Container rootContainer)
         {
-            BuildPanelBackground(rootContainer);
-            BuildTitle();
-            BuildSectionButtons();
-            BuildSystemButtons();
-            BuildSections(rootContainer);
-
-            rootContainer.AddChild(this.tooltipBox);
-
-            SelectSection(0);
-        }
-
-        private void BuildPanelBackground(Container rootContainer)
-        {
             this.background = new()
             {
                 Alignment = CardinalDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
-                Size = new(1084.0f, 540.0f),
+                Size = new(698.0f, ScreenConstants.SCREEN_HEIGHT),
             };
 
             rootContainer.AddChild(this.background);
-        }
 
-        private void BuildTitle()
-        {
-            this.titleLabel = new()
+            this.scrollableContainer = new()
             {
-                Scale = new(0.15f),
-                Margin = new(0.0f, -38.0f),
-                Alignment = CardinalDirection.North,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = this.titleName,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 4.4f,
-                BorderThickness = 4.4f,
+                Alignment = CardinalDirection.Center,
+                Size = this.background.Size,
             };
 
-            this.background.AddChild(this.titleLabel);
+            float scrollableContainerMarginY = 0.0f;
+
+            BuildTitle(ref scrollableContainerMarginY);
+            BuildSections(ref scrollableContainerMarginY);
+            BuildSystemButtons(ref scrollableContainerMarginY);
+
+            rootContainer.AddChild(this.scrollableContainer);
+            rootContainer.AddChild(this.tooltipBox);
         }
 
-        private void BuildSectionButtons()
+        private void BuildTitle(ref float scrollableContainerMarginY)
         {
-            float marginY = 48.0f;
+            scrollableContainerMarginY += 32.0f;
 
-            for (int i = 0; i < this.root.Sections.Length; i++)
+            this.titleLabel = new()
             {
-                Section section = this.root.Sections[i];
+                Margin = new(0.0f, scrollableContainerMarginY),
+                Alignment = CardinalDirection.North,
+                Scale = new(0.15f),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = this.titleName,
+            };
 
-                Label label = CreateButtonLabelElement(section.Name);
-                label.Alignment = CardinalDirection.North;
-                label.Margin = new(-335.0f, marginY);
-
-                this.background.AddChild(label);
-                this.sectionButtonLabels[i] = label;
-                marginY += 48.0f;
-            }
+            this.scrollableContainer.AddChild(this.titleLabel);
         }
 
-        private void BuildSystemButtons()
-        {
-            float marginY = -38.0f;
-
-            for (int i = 0; i < this.systemButtonInfos.Length; i++)
-            {
-                Label label = CreateButtonLabelElement(this.systemButtonInfos[i].Name);
-
-                label.Alignment = CardinalDirection.South;
-                label.Margin = new(-335.0f, marginY);
-
-                this.background.AddChild(label);
-                this.systemButtonLabels[i] = label;
-
-                marginY -= 48.0f;
-            }
-        }
-
-        private void BuildSections(Container root)
+        private void BuildSections(ref float scrollableContainerMarginY)
         {
             for (int i = 0; i < this.root.Sections.Length; i++)
             {
                 Section section = this.root.Sections[i];
                 Label[] contentBuffer = new Label[section.Options.Length];
 
-                Container container = new()
+                scrollableContainerMarginY += 80.0f;
+
+                Label sectionLabel = new()
                 {
-                    CanDraw = false,
-                    CanUpdate = false,
-                    Alignment = CardinalDirection.Northeast,
-                    Margin = new(-96.0f, 80.0f),
-                    Size = new(642.0f, 476.0f),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    Alignment = CardinalDirection.North,
+                    Scale = new(0.11f),
+                    Margin = new(0.0f, scrollableContainerMarginY),
+                    TextContent = section.Name,
                 };
 
-                Vector2 margin = new(0.0f, 64.0f);
+                this.scrollableContainer.AddChild(sectionLabel);
 
-                for (byte j = 0; j < section.Options.Length; j++)
+                scrollableContainerMarginY += 32.0f;
+
+                for (int j = 0; j < section.Options.Length; j++)
                 {
-                    Option option = section.Options[j];
-                    Label label = CreateOptionElement(option);
+                    scrollableContainerMarginY += 64.0f;
 
-                    label.Margin = margin;
+                    Option option = section.Options[j];
+                    Label label = option switch
+                    {
+                        ButtonOption => CreateOptionButtonLabelElement(option.Name),
+                        SelectorOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
+                        ValueOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
+                        ColorOption => CreateOptionButtonLabelElement(option.Name + ": "),
+                        ToggleOption => CreateOptionButtonLabelElement(option.Name + ": "),
+                        _ => null,
+                    };
+
+                    label.AddData("option", option);
+                    label.Margin = new(32.0f, scrollableContainerMarginY);
 
                     if (option is ColorOption)
                     {
@@ -352,14 +330,11 @@ namespace StardustSandbox.UI.Common.Menus
                         BuildTogglePreview(label);
                     }
 
-                    container.AddChild(label);
-
-                    margin.Y += 48.0f;
+                    this.scrollableContainer.AddChild(label);
                     contentBuffer[j] = label;
                 }
 
-                this.sectionUIs[i] = new SectionUI { Container = container, ContentLabels = contentBuffer };
-                root.AddChild(container);
+                this.sectionUIs[i] = new SectionUI { Title = sectionLabel, Options = contentBuffer };
             }
         }
 
@@ -439,18 +414,25 @@ namespace StardustSandbox.UI.Common.Menus
             label.AddData("toogle_preview", togglePreviewImageElement);
         }
 
-        private static Label CreateButtonLabelElement(string text)
+        private void BuildSystemButtons(ref float scrollableContainerMarginY)
         {
-            return new Label
+            scrollableContainerMarginY += 32.0f;
+
+            for (int i = 0; i < this.systemButtonInfos.Length; i++)
             {
-                Scale = new(0.11f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-                TextContent = text
-            };
+                scrollableContainerMarginY += 64.0f;
+
+                Label label = new()
+                {
+                    Margin = new(32.0f, scrollableContainerMarginY),
+                    Scale = new(0.11f),
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    TextContent = this.systemButtonInfos[i].Name
+                };
+
+                this.systemButtonLabels[i] = label;
+                this.scrollableContainer.AddChild(label);
+            }
         }
 
         private static Label CreateOptionButtonLabelElement(string text)
@@ -459,63 +441,42 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.12f),
                 SpriteFontIndex = SpriteFontIndex.DigitalDisco,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
                 TextContent = text
             };
-        }
-
-        private static Label CreateOptionElement(Option option)
-        {
-            Label label = option switch
-            {
-                ButtonOption => CreateOptionButtonLabelElement(option.Name),
-                SelectorOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
-                ValueOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
-                ColorOption => CreateOptionButtonLabelElement(option.Name + ": "),
-                ToggleOption => CreateOptionButtonLabelElement(option.Name + ": "),
-                _ => null,
-            };
-
-            label.AddData("option", option);
-            return label;
         }
 
         internal override void Update(in GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
-            UpdateSectionButtons();
+            UpdateScrollableContainer();
             UpdateSystemButtons();
+            UpdateSectionLabels();
             UpdateSectionOptions();
             base.Update(gameTime);
         }
 
-        private void UpdateSectionButtons()
+        private void UpdateScrollableContainer()
         {
-            for (int i = 0; i < this.sectionButtonLabels.Length; i++)
+            if (!Interaction.OnMouseOver(this.background))
             {
-                Label label = this.sectionButtonLabels[i];
-
-                if (Interaction.OnMouseLeftClick(label))
-                {
-                    SelectSection(i);
-                }
-
-                bool onMouseOver = Interaction.OnMouseOver(label);
-                if (onMouseOver)
-                {
-                    this.tooltipBox.CanDraw = true;
-                    Section section = this.root.Sections[i];
-                    TooltipBoxContent.SetTitle(section.Name);
-                    TooltipBoxContent.SetDescription(section.Description);
-                }
-
-                label.Color = this.selectedSectionIndex.Equals(i)
-                    ? AAP64ColorPalette.LemonYellow
-                    : onMouseOver ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                return;
             }
+
+            float marginY = this.scrollableContainer.Margin.Y;
+
+            if (Interaction.OnMouseScrollUp())
+            {
+                marginY -= 32.0f;
+            }
+            else if (Interaction.OnMouseScrollDown())
+            {
+                marginY += 32.0f;
+            }
+
+            float topLimit = 0.0f;
+            float bottomLimit = this.scrollableContainer.Children.Count * 48.0f * -1;
+
+            this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, topLimit));
         }
 
         private void UpdateSystemButtons()
@@ -544,31 +505,55 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        private void UpdateSectionOptions()
+        private void UpdateSectionLabels()
         {
-            Label[] contentLabels = this.sectionUIs[this.selectedSectionIndex].ContentLabels;
-            for (int i = 0; i < contentLabels.Length; i++)
+            for (int i = 0; i < this.sectionUIs.Length; i++)
             {
-                Label label = contentLabels[i];
-                Option option = (Option)label.GetData("option");
+                Label sectionLabel = this.sectionUIs[i].Title;
 
-                if (Interaction.OnMouseLeftClick(label))
+                if (Interaction.OnMouseOver(sectionLabel))
                 {
-                    HandleOptionInteractivity(option);
-                }
-
-                UpdateOptionSync(option, label);
-
-                if (Interaction.OnMouseOver(label))
-                {
-                    label.Color = AAP64ColorPalette.LemonYellow;
                     this.tooltipBox.CanDraw = true;
-                    TooltipBoxContent.SetTitle(option.Name);
-                    TooltipBoxContent.SetDescription(option.Description);
+                    TooltipBoxContent.SetTitle(this.root.Sections[i].Name);
+                    TooltipBoxContent.SetDescription(this.root.Sections[i].Description);
+                    sectionLabel.Color = AAP64ColorPalette.LemonYellow;
                 }
                 else
                 {
-                    label.Color = AAP64ColorPalette.White;
+                    sectionLabel.Color = AAP64ColorPalette.White;
+                }
+            }
+        }
+
+        private void UpdateSectionOptions()
+        {
+            for (int i = 0; i < this.sectionUIs.Length; i++)
+            {
+                Label[] contentLabels = this.sectionUIs[i].Options;
+
+                for (int j = 0; j < contentLabels.Length; j++)
+                {
+                    Label label = contentLabels[j];
+                    Option option = (Option)label.GetData("option");
+
+                    if (Interaction.OnMouseLeftClick(label))
+                    {
+                        HandleOptionInteractivity(option);
+                    }
+
+                    UpdateOptionSync(option, label);
+
+                    if (Interaction.OnMouseOver(label))
+                    {
+                        label.Color = AAP64ColorPalette.LemonYellow;
+                        this.tooltipBox.CanDraw = true;
+                        TooltipBoxContent.SetTitle(option.Name);
+                        TooltipBoxContent.SetDescription(option.Description);
+                    }
+                    else
+                    {
+                        label.Color = AAP64ColorPalette.White;
+                    }
                 }
             }
 
@@ -650,19 +635,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.colorPickerSettings.OnSelectCallback = result => colorOption.SetValue(result.SelectedColor);
             this.colorPickerUI.Configure(this.colorPickerSettings);
             this.uiManager.OpenGUI(UIIndex.ColorPicker);
-        }
-
-        private void SelectSection(int sectionIndex)
-        {
-            this.selectedSectionIndex = sectionIndex;
-
-            for (int i = 0; i < this.sectionUIs.Length; i++)
-            {
-                SectionUI sectionUI = this.sectionUIs[i];
-                bool isSelected = sectionIndex == i;
-                sectionUI.Container.CanDraw = isSelected;
-                sectionUI.Container.CanUpdate = isSelected;
-            }
         }
 
         protected override void OnOpened()

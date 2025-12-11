@@ -23,8 +23,11 @@ namespace StardustSandbox.UI.Elements
             get => this.parent;
             set
             {
-                this.parent = value;
-                RepositionRelativeToParent();
+                if (this.parent != value)
+                {
+                    this.parent = value;
+                    RepositionRelativeToParent();
+                }
             }
         }
         internal Vector2 Position
@@ -32,8 +35,11 @@ namespace StardustSandbox.UI.Elements
             get => this.position;
             set
             {
-                this.position = value;
-                RepositionChildren();
+                if (this.position != value)
+                {
+                    this.position = value;
+                    RepositionChildren();
+                }
             }
         }
         internal virtual Vector2 Size
@@ -41,8 +47,11 @@ namespace StardustSandbox.UI.Elements
             get => this.rawSize * this.scale;
             set
             {
-                this.rawSize = value;
-                RepositionRelativeToParent();
+                if (this.rawSize != value)
+                {
+                    this.rawSize = value;
+                    RepositionRelativeToParent();
+                }
             }
         }
         internal Vector2 Margin
@@ -50,8 +59,11 @@ namespace StardustSandbox.UI.Elements
             get => this.margin;
             set
             {
-                this.margin = value;
-                RepositionRelativeToParent();
+                if (this.margin != value)
+                {
+                    this.margin = value;
+                    RepositionRelativeToParent();
+                }
             }
         }
         internal Vector2 Scale
@@ -59,8 +71,11 @@ namespace StardustSandbox.UI.Elements
             get => this.scale;
             set
             {
-                this.scale = value;
-                RepositionRelativeToParent();
+                if (this.scale != value)
+                {
+                    this.scale = value;
+                    RepositionRelativeToParent();
+                }
             }
         }
         internal CardinalDirection Alignment
@@ -68,8 +83,11 @@ namespace StardustSandbox.UI.Elements
             get => this.alignment;
             set
             {
-                this.alignment = value;
-                RepositionRelativeToParent();
+                if (this.alignment != value)
+                {
+                    this.alignment = value;
+                    RepositionRelativeToParent();
+                }
             }
         }
 

@@ -168,7 +168,7 @@ namespace StardustSandbox
             this.inputController.Update();
 
             // Managers
-            this.effectsManager.Update(gameTime, this.world.Time.CurrentTime );
+            this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);
             this.gameManager.Update();
             this.inputManager.Update();
             this.uiManager.Update(gameTime);
