@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
+using StardustSandbox.InputSystem;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 
@@ -21,29 +22,26 @@ namespace StardustSandbox.Managers
         private Vector2 backgroundPosition;
         private Color backgroundColor;
 
-        private InputManager inputManager;
-
         private Texture2D cursorTexture;
 
         private static readonly Rectangle[] cursorClipAreas = [
-            new(new Point(0, 0), new Point(36, 36)),
-            new(new Point(0, 36), new Point(36, 36)),
+            new(0, 0, 36, 36),
+            new(0, 36, 36, 36),
         ];
 
-        internal void Initialize(InputManager inputManager)
+        internal void Initialize()
         {
             this.cursorTexture = AssetDatabase.GetTexture(TextureIndex.Cursors);
-            this.inputManager = inputManager;
 
             ApplySettings();
         }
 
         internal void Update()
         {
-            Vector2 pos = this.inputManager.MouseState.Position.ToVector2();
+            Vector2 position = Input.MouseState.Position.ToVector2();
 
-            this.backgroundPosition = pos;
-            this.position = pos;
+            this.backgroundPosition = position;
+            this.position = position;
         }
 
         internal void Draw(SpriteBatch spriteBatch)

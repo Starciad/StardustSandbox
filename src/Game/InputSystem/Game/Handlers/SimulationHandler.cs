@@ -1,7 +1,7 @@
 ﻿using StardustSandbox.Enums.States;
 using StardustSandbox.Managers;
 
-namespace StardustSandbox.Inputs.Game.Handlers
+namespace StardustSandbox.InputSystem.Game.Handlers
 {
     internal sealed class SimulationHandler(GameManager gameManager)
     {

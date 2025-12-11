@@ -2,15 +2,15 @@
 
 using StardustSandbox.Camera;
 using StardustSandbox.Enums.Inputs.Game;
-using StardustSandbox.Inputs.Game.Handlers.Gizmos;
-using StardustSandbox.Inputs.Game.Simulation;
+using StardustSandbox.InputSystem;
+using StardustSandbox.InputSystem.Game.Handlers.Gizmos;
+using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.Interfaces.Tools;
-using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Tools;
 using StardustSandbox.WorldSystem;
 
-namespace StardustSandbox.Inputs.Game.Handlers
+namespace StardustSandbox.InputSystem.Game.Handlers
 {
     internal sealed class WorldHandler
     {
@@ -25,15 +25,11 @@ namespace StardustSandbox.Inputs.Game.Handlers
         private readonly FloodFillGizmo floodFillGizmo;
         private readonly ReplaceGizmo replaceGizmo;
 
-        private readonly InputManager inputManager;
-
         private readonly World world;
 
-        internal WorldHandler(InputManager inputManager, Player player, Pen pen, World world)
+        internal WorldHandler(Player player, Pen pen, World world)
         {
             this.world = world;
-
-            this.inputManager = inputManager;
 
             this.ToolContext = new ToolContext(world);
 
@@ -59,7 +55,7 @@ namespace StardustSandbox.Inputs.Game.Handlers
                 return;
             }
 
-            Point mousePosition = GetWorldGridPositionFromMouse(this.inputManager).ToPoint();
+            Point mousePosition = GetWorldGridPositionFromMouse().ToPoint();
 
             switch (this.pen.Tool)
             {
@@ -95,9 +91,9 @@ namespace StardustSandbox.Inputs.Game.Handlers
             return this.player.CanModifyEnvironment && this.player.SelectedItem != null;
         }
 
-        private static Vector2 GetWorldGridPositionFromMouse(InputManager inputManager)
+        private static Vector2 GetWorldGridPositionFromMouse()
         {
-            return WorldMath.ToWorldPosition(ConvertScreenToWorld(inputManager.GetScaledMousePosition()));
+            return WorldMath.ToWorldPosition(ConvertScreenToWorld(Input.GetScaledMousePosition()));
         }
 
         private static Vector2 ConvertScreenToWorld(Vector2 screenPosition)

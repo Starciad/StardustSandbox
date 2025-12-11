@@ -6,6 +6,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.InputSystem;
 using StardustSandbox.Managers;
 
 using System;
@@ -41,15 +42,13 @@ namespace StardustSandbox.UI.Elements
         private readonly Text description;
 
         private readonly CursorManager cursorManager;
-        private readonly InputManager inputManager;
 
-        internal TooltipBox(CursorManager cursorManager, InputManager inputManager)
+        internal TooltipBox(CursorManager cursorManager)
         {
             this.CanDraw = true;
             this.CanUpdate = true;
 
             this.cursorManager = cursorManager;
-            this.inputManager = inputManager;
 
             this.Margin = new(60f);
 
@@ -131,7 +130,7 @@ namespace StardustSandbox.UI.Elements
         {
             Vector2 spacing = this.cursorManager.Scale * 16.0f;
 
-            Vector2 mousePosition = this.inputManager.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
             Vector2 newPosition = mousePosition + this.Margin + spacing;
 
             if ((newPosition.X + this.background.Size.X) > ScreenConstants.SCREEN_WIDTH)

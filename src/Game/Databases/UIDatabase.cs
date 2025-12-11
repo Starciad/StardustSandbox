@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Enums.UI;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
 using StardustSandbox.UI;
 using StardustSandbox.UI.Common.HUD;
@@ -27,7 +28,6 @@ namespace StardustSandbox.Databases
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
             InputController inputController,
-            InputManager inputManager,
             UIManager uiManager,
             VideoManager videoManager,
             World world
@@ -40,7 +40,7 @@ namespace StardustSandbox.Databases
 
             #region Elements
 
-            TooltipBox tooltipBox = new(cursorManager, inputManager)
+            TooltipBox tooltipBox = new(cursorManager)
             {
                 MinimumSize = new(500f, 0f),
             };
@@ -76,6 +76,12 @@ namespace StardustSandbox.Databases
                 uiManager
             );
 
+            SliderUI sliderUI = new(
+                gameManager,
+                UIIndex.Slider,
+                uiManager
+            );
+
             #endregion
 
             #region UIs
@@ -83,7 +89,6 @@ namespace StardustSandbox.Databases
             CreditsUI creditsUI = new(
                 ambientManager,
                 UIIndex.CreditsMenu,
-                inputManager,
                 uiManager,
                 world
             );
@@ -135,6 +140,7 @@ namespace StardustSandbox.Databases
                 cursorManager,
                 UIIndex.OptionsMenu,
                 messageUI,
+                sliderUI,
                 tooltipBox,
                 uiManager,
                 videoManager
@@ -199,6 +205,7 @@ namespace StardustSandbox.Databases
                 confirmUI,
                 colorPickerUI,
                 textInputUI,
+                sliderUI,
 
                 mainUI,
                 playUI,

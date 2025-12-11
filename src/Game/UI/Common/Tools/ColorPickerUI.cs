@@ -7,7 +7,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
@@ -314,8 +314,6 @@ namespace StardustSandbox.UI.Common.Tools
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -327,7 +325,5 @@ namespace StardustSandbox.UI.Common.Tools
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
             this.inputController.Activate();
         }
-
-        #endregion
     }
 }

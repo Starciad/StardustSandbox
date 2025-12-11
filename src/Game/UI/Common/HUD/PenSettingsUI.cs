@@ -9,7 +9,7 @@ using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.World;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;

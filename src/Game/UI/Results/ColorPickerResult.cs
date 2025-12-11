@@ -2,13 +2,8 @@
 
 namespace StardustSandbox.UI.Results
 {
-    internal sealed class ColorPickerResult
+    internal readonly struct ColorPickerResult(Color selectedColor)
     {
-        internal Color SelectedColor { get; }
-
-        internal ColorPickerResult(Color selectedColor)
-        {
-            this.SelectedColor = selectedColor;
-        }
+        internal Color SelectedColor => selectedColor;
     }
 }

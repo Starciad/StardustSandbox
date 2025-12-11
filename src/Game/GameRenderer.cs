@@ -7,7 +7,8 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Inputs.Game;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
 using StardustSandbox.WorldSystem;
 
@@ -71,7 +72,6 @@ namespace StardustSandbox
             Color cursorPreviewAreaColor,
             CursorManager cursorManager,
             InputController inputController,
-            InputManager inputManager,
             SpriteBatch spriteBatch,
             UIManager uiManager,
             VideoManager videoManager,
@@ -93,7 +93,7 @@ namespace StardustSandbox
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
             spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
-            DrawCursorPenActionArea(spriteBatch, inputController, inputManager, cursorPreviewAreaColor);
+            DrawCursorPenActionArea(spriteBatch, inputController, cursorPreviewAreaColor);
             spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.End();
 
@@ -182,7 +182,7 @@ namespace StardustSandbox
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController, InputManager inputManager, Color previewAreaColor)
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController, Color previewAreaColor)
         {
             PenTool penTool = inputController.Pen.Tool;
 
@@ -191,7 +191,7 @@ namespace StardustSandbox
                 return;
             }
 
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
             Vector2 worldMousePosition = SSCamera.ScreenToWorld(mousePosition);
 
             Point alignedPosition = new(

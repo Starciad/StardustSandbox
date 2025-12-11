@@ -4,17 +4,18 @@ using StardustSandbox.Databases;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
-using StardustSandbox.Inputs.Game.Simulation;
+using StardustSandbox.InputSystem.Game.Handlers;
+using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
+namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 {
-    internal sealed class ReplaceGizmo : Gizmo
+    internal sealed class PencilGizmo : Gizmo
     {
-        internal ReplaceGizmo(Pen pen, World world, WorldHandler worldHandler) : base(pen, world, worldHandler)
+        internal PencilGizmo(Pen pen, World world, WorldHandler worldHandler) : base(pen, world, worldHandler)
         {
 
         }
@@ -29,7 +30,24 @@ namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            ReplaceElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
+                            DrawElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
+                            break;
+
+                        case WorldModificationType.Removing:
+                            EraseElements(targetPoints);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    break;
+
+                case ItemContentType.Tool:
+                    switch (worldModificationType)
+                    {
+                        case WorldModificationType.Adding:
+                            ExecuteTool(itemAssociateType, targetPoints);
                             break;
 
                         case WorldModificationType.Removing:
@@ -50,11 +68,11 @@ namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
         // ============================================ //
         // Elements
 
-        private void ReplaceElements(Element element, IEnumerable<Point> positions)
+        private void DrawElements(Element element, IEnumerable<Point> positions)
         {
             foreach (Point position in positions)
             {
-                this.World.ReplaceElement(position, this.Pen.Layer, element);
+                this.World.InstantiateElement(position, this.Pen.Layer, element);
             }
         }
 
@@ -63,6 +81,18 @@ namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
             foreach (Point position in positions)
             {
                 this.World.RemoveElement(position, this.Pen.Layer);
+            }
+        }
+
+        // ============================================ //
+        // Tools
+
+        private void ExecuteTool(Type toolType, IEnumerable<Point> positions)
+        {
+            foreach (Point position in positions)
+            {
+                this.WorldHandler.ToolContext.Update(position, this.Pen.Layer);
+                ToolDatabase.GetTool(toolType).Execute(this.WorldHandler.ToolContext);
             }
         }
     }

@@ -10,6 +10,7 @@ using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
+using StardustSandbox.InputSystem;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
@@ -57,7 +58,6 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly World world;
 
         private readonly AmbientManager ambientManager;
-        private readonly InputManager inputManager;
         private readonly UIManager uiManager;
 
         private const float SPEED = 0.05f;
@@ -66,13 +66,11 @@ namespace StardustSandbox.UI.Common.Menus
         internal CreditsUI(
             AmbientManager ambientManager,
             UIIndex index,
-            InputManager inputManager,
             UIManager uiManager,
             World world
         ) : base(index)
         {
             this.ambientManager = ambientManager;
-            this.inputManager = inputManager;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -329,8 +327,8 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateUserInput()
         {
-            if (this.inputManager.MouseState.LeftButton == ButtonState.Pressed ||
-                this.inputManager.KeyboardState.GetPressedKeyCount() > 0)
+            if (Input.MouseState.LeftButton == ButtonState.Pressed ||
+                Input.KeyboardState.GetPressedKeyCount() > 0)
             {
                 this.uiManager.CloseGUI();
             }

@@ -7,7 +7,8 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
@@ -35,7 +36,6 @@ namespace StardustSandbox
         private readonly AmbientManager ambientManager;
         private readonly CursorManager cursorManager;
         private readonly GameManager gameManager;
-        private readonly InputManager inputManager;
         private readonly EffectsManager effectsManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
@@ -85,7 +85,6 @@ namespace StardustSandbox
             this.inputController = new();
 
             this.gameManager = new();
-            this.inputManager = new();
             this.effectsManager = new();
             this.uiManager = new();
             this.cursorManager = new();
@@ -109,25 +108,24 @@ namespace StardustSandbox
 
         protected override void LoadContent()
         {
-            Interaction.Initialize(this.inputManager);
+            Input.Initialize(this.videoManager);
 
             // Databases
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
             ElementDatabase.Load();
             CatalogDatabase.Load();
-            UIDatabase.Load(this.ambientManager, this.cursorManager, this.gameManager, this.Window, this.GraphicsDevice, this.inputController, this.inputManager, this.uiManager, this.videoManager, this.world);
+            UIDatabase.Load(this.ambientManager, this.cursorManager, this.gameManager, this.Window, this.GraphicsDevice, this.inputController, this.uiManager, this.videoManager, this.world);
             BackgroundDatabase.Load();
             ToolDatabase.Load();
 
             // Managers
             this.gameManager.Initialize(this.ambientManager, this.inputController, this.uiManager, this.world);
             this.effectsManager.Initialize();
-            this.inputManager.Initialize(this.videoManager);
-            this.cursorManager.Initialize(this.inputManager);
+            this.cursorManager.Initialize();
             this.ambientManager.Initialize(this.gameManager, this.world);
 
             // Controllers
-            this.inputController.Initialize(this.gameManager, this.inputManager, this.world);
+            this.inputController.Initialize(this.gameManager, this.world);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);
@@ -164,13 +162,14 @@ namespace StardustSandbox
                 return;
             }
 
+            Input.Update();
+
             // Controllers
             this.inputController.Update();
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);
             this.gameManager.Update();
-            this.inputManager.Update();
             this.uiManager.Update(gameTime);
             this.cursorManager.Update();
 
@@ -191,12 +190,12 @@ namespace StardustSandbox
                 this.gameplaySettings.PreviewAreaColor,
                 this.cursorManager,
                 this.inputController,
-                this.inputManager,
                 this.spriteBatch,
                 this.uiManager,
                 this.videoManager,
                 this.world
             );
+
             base.Draw(gameTime);
         }
 

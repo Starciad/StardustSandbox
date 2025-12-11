@@ -8,7 +8,7 @@ using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Managers

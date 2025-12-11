@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Enums.Inputs;
-using StardustSandbox.Managers;
 
-namespace StardustSandbox.Inputs
+namespace StardustSandbox.InputSystem
 {
     internal sealed class InputAction
     {
@@ -27,25 +26,21 @@ namespace StardustSandbox.Inputs
 
         private readonly Keys[] keys;
         private readonly MouseButton[] mouseButtons;
-        private readonly InputManager inputManager;
 
-        internal InputAction(InputManager inputManager, params Keys[] keys)
+        internal InputAction(params Keys[] keys)
         {
-            this.inputManager = inputManager;
             this.keys = keys;
             this.mouseButtons = [];
         }
 
-        internal InputAction(InputManager inputManager, params MouseButton[] mouseButtons)
+        internal InputAction(params MouseButton[] mouseButtons)
         {
-            this.inputManager = inputManager;
             this.keys = [];
             this.mouseButtons = mouseButtons;
         }
 
-        internal InputAction(InputManager inputManager, Keys[] keys, MouseButton[] mouseButtons)
+        internal InputAction(Keys[] keys, MouseButton[] mouseButtons)
         {
-            this.inputManager = inputManager;
             this.keys = keys;
             this.mouseButtons = mouseButtons;
         }
@@ -114,20 +109,20 @@ namespace StardustSandbox.Inputs
         // Keyboard State
         private bool GetKeyboardStartedState(Keys key)
         {
-            return !this.inputManager.PreviousKeyboardState.IsKeyDown(key) &&
-                    this.inputManager.KeyboardState.IsKeyDown(key) &&
+            return !Input.PreviousKeyboardState.IsKeyDown(key) &&
+                    Input.KeyboardState.IsKeyDown(key) &&
                    !this.started && !this.performed && this.canceled;
         }
         private bool GetKeyboardPerformedState(Keys key)
         {
-            return this.inputManager.PreviousKeyboardState.IsKeyDown(key) &&
-                   this.inputManager.KeyboardState.IsKeyDown(key) &&
+            return Input.PreviousKeyboardState.IsKeyDown(key) &&
+                   Input.KeyboardState.IsKeyDown(key) &&
                    this.started && !this.canceled;
         }
         private bool GetKeyboardCanceledState(Keys key)
         {
-            return this.inputManager.PreviousKeyboardState.IsKeyDown(key) &&
-                  !this.inputManager.KeyboardState.IsKeyDown(key) &&
+            return Input.PreviousKeyboardState.IsKeyDown(key) &&
+                  !Input.KeyboardState.IsKeyDown(key) &&
                    this.started && this.performed && !this.canceled;
         }
 
@@ -152,16 +147,16 @@ namespace StardustSandbox.Inputs
             switch (mouseButton)
             {
                 case MouseButton.Left:
-                    previousState = this.inputManager.PreviousMouseState.LeftButton;
-                    currentState = this.inputManager.MouseState.LeftButton;
+                    previousState = Input.PreviousMouseState.LeftButton;
+                    currentState = Input.MouseState.LeftButton;
                     break;
                 case MouseButton.Middle:
-                    previousState = this.inputManager.PreviousMouseState.MiddleButton;
-                    currentState = this.inputManager.MouseState.MiddleButton;
+                    previousState = Input.PreviousMouseState.MiddleButton;
+                    currentState = Input.MouseState.MiddleButton;
                     break;
                 case MouseButton.Right:
-                    previousState = this.inputManager.PreviousMouseState.RightButton;
-                    currentState = this.inputManager.MouseState.RightButton;
+                    previousState = Input.PreviousMouseState.RightButton;
+                    currentState = Input.MouseState.RightButton;
                     break;
                 default:
                     return false;

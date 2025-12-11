@@ -9,7 +9,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
@@ -30,7 +30,7 @@ namespace StardustSandbox.UI.Common.Tools
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
         private Vector2 characterCountElementPosition = Vector2.Zero;
 
-        private TextInputSettings inputSettings;
+        private TextInputSettings settings;
 
         private Image userInputBackground;
 
@@ -65,29 +65,29 @@ namespace StardustSandbox.UI.Common.Tools
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    this.inputSettings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
+                    this.settings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
 
-                    if (this.inputSettings != null)
+                    if (this.settings != null)
                     {
                         TextValidationState validationState = new();
-                        TextArgumentResult argumentResult = new(this.userInputStringBuilder.ToString());
+                        TextInputResult argumentResult = new(this.userInputStringBuilder.ToString());
 
-                        this.inputSettings.OnValidationCallback?.Invoke(validationState, argumentResult);
+                        this.settings.OnValidationCallback?.Invoke(validationState, argumentResult);
 
                         if (validationState.Status == ValidationStatus.Failure)
                         {
-                            this.messageUI.SetContent(validationState.Message);
-                            this.uiManager.OpenGUI(UIIndex.Message);
+                            messageUI.SetContent(validationState.Message);
+                            uiManager.OpenGUI(UIIndex.Message);
                             return;
                         }
 
-                        this.inputSettings.OnSendCallback?.Invoke(argumentResult);
+                        this.settings.OnSendCallback?.Invoke(argumentResult);
                     }
 
-                    this.uiManager.CloseGUI();
+                    uiManager.CloseGUI();
                 }),
             ];
 
@@ -96,12 +96,8 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal void Configure(TextInputSettings settings)
         {
-            this.inputSettings = settings;
-            ApplySettings(settings);
-        }
+            this.settings = settings;
 
-        private void ApplySettings(TextInputSettings settings)
-        {
             // Setting Synopsis
             this.synopsis.TextContent = settings.Synopsis;
 
@@ -121,8 +117,6 @@ namespace StardustSandbox.UI.Common.Tools
             // Count
             this.characterCount.CanDraw = settings.MaxCharacters != 0;
         }
-
-        #region BUILDER
 
         protected override void OnBuild(Container root)
         {
@@ -222,8 +216,6 @@ namespace StardustSandbox.UI.Common.Tools
                 this.menuButtonLabels[i] = label;
             }
         }
-
-        #endregion
 
         internal override void Update(in GameTime gameTime)
         {
@@ -396,7 +388,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void HandleSpaceKey()
         {
-            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters || !this.inputSettings.AllowSpaces)
+            if (this.userInputStringBuilder.Length >= this.settings.MaxCharacters || !this.settings.AllowSpaces)
             {
                 return;
             }
@@ -411,7 +403,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void AddCharacter(char character)
         {
-            if (this.userInputStringBuilder.Length >= this.inputSettings.MaxCharacters)
+            if (this.userInputStringBuilder.Length >= this.settings.MaxCharacters)
             {
                 return;
             }
@@ -421,7 +413,7 @@ namespace StardustSandbox.UI.Common.Tools
                 return;
             }
 
-            switch (this.inputSettings.InputRestriction)
+            switch (this.settings.InputRestriction)
             {
                 case InputRestriction.None:
                     break;
@@ -468,7 +460,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             if (this.characterCount.CanDraw)
             {
-                this.characterCount.TextContent = string.Concat(this.userInputStringBuilder.Length, '/', this.inputSettings.MaxCharacters);
+                this.characterCount.TextContent = string.Concat(this.userInputStringBuilder.Length, '/', this.settings.MaxCharacters);
             }
 
             UpdateCursorPosition();
@@ -478,7 +470,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             _ = this.userInputStringBuilder.Insert(this.cursorPosition, '|');
 
-            switch (this.inputSettings.InputMode)
+            switch (this.settings.InputMode)
             {
                 case InputMode.Normal:
                     this.userInput.TextContent = this.userInputStringBuilder.ToString();

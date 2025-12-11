@@ -73,6 +73,7 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "world_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "buttons")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "size_slider")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "slider_input_ornament")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "text_input_ornament")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "elements")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "keys")),

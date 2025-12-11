@@ -8,6 +8,7 @@
         Confirm,
         ColorPicker,
         TextInput,
+        Slider,
 
         MainMenu,
         PlayMenu,

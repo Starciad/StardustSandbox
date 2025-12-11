@@ -8,7 +8,7 @@ using StardustSandbox.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Inputs.Game.Simulation
+namespace StardustSandbox.InputSystem.Game.Simulation
 {
     internal sealed class Pen
     {

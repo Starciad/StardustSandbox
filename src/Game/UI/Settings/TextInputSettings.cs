@@ -14,8 +14,8 @@ namespace StardustSandbox.UI.Settings
         internal InputMode InputMode { get; set; }
         internal InputRestriction InputRestriction { get; set; }
         internal uint MaxCharacters { get; set; }
-        internal Action<TextValidationState, TextArgumentResult> OnValidationCallback { get; set; }
-        internal Action<TextArgumentResult> OnSendCallback { get; set; }
+        internal Action<TextValidationState, TextInputResult> OnValidationCallback { get; set; }
+        internal Action<TextInputResult> OnSendCallback { get; set; }
 
         internal TextInputSettings()
         {

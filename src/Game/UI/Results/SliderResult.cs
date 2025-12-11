@@ -1,12 +1,7 @@
 ﻿namespace StardustSandbox.UI.Results
 {
-    internal sealed class SliderResult
+    internal readonly struct SliderResult(int value)
     {
-        internal float Value { get; }
-
-        internal SliderResult(float value)
-        {
-            this.Value = value;
-        }
+        internal readonly int Value => value;
     }
 }

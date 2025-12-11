@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace StardustSandbox.Inputs
+namespace StardustSandbox.InputSystem
 {
     internal sealed class InputActionMap(InputActionMapHandler handler, bool active)
     {

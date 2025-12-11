@@ -2,12 +2,13 @@
 
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
-using StardustSandbox.Inputs.Game.Simulation;
+using StardustSandbox.InputSystem.Game.Handlers;
+using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Inputs.Game.Handlers.Gizmos
+namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 {
     internal sealed class VisualizationGizmo : Gizmo
     {

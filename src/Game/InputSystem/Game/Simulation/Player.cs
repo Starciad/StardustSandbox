@@ -1,6 +1,6 @@
 ﻿using StardustSandbox.Catalog;
 
-namespace StardustSandbox.Inputs.Game.Simulation
+namespace StardustSandbox.InputSystem.Game.Simulation
 {
     internal sealed class Player
     {

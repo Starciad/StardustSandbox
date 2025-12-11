@@ -11,7 +11,7 @@ using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Explosions;
 using StardustSandbox.Extensions;
-using StardustSandbox.Inputs.Game;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;

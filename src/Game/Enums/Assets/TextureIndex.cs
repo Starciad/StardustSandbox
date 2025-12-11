@@ -51,6 +51,7 @@
         UIBackgroundWorldSettings,
         UIButtons,
         UISizeSlider,
+        UISliderInputOrnament,
         UITextInputOrnament,
 
         #endregion

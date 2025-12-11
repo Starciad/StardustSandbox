@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Enums.Inputs;
-using StardustSandbox.Managers;
+using StardustSandbox.InputSystem;
 using StardustSandbox.UI.Elements;
 
 using System;
@@ -11,32 +11,15 @@ namespace StardustSandbox.UI
 {
     internal static class Interaction
     {
-        private static InputManager inputManager;
-
-        private static bool isInitialized = false;
-
-        internal static void Initialize(InputManager inputManager)
-        {
-            if (isInitialized)
-            {
-                throw new InvalidOperationException($"{nameof(Interaction)} system has already been initialized.");
-            }
-
-            Interaction.inputManager = inputManager ?? throw new ArgumentNullException(nameof(inputManager));
-            isInitialized = true;
-        }
-
         /// <summary>
         /// Checks if the specified mouse button was clicked within the given area.
         /// </summary>
         internal static bool OnMouseClick(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
         {
-            EnsureInitialized();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
 
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
-
-            return GetButtonState(button, inputManager.MouseState) == ButtonState.Released &&
-                   GetButtonState(button, inputManager.PreviousMouseState) == ButtonState.Pressed &&
+            return GetButtonState(button, Input.MouseState) == ButtonState.Released &&
+                   GetButtonState(button, Input.PreviousMouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
@@ -53,11 +36,9 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseDown(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
         {
-            EnsureInitialized();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
 
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
-
-            return GetButtonState(button, inputManager.MouseState) == ButtonState.Pressed &&
+            return GetButtonState(button, Input.MouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
@@ -74,12 +55,10 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseUp(MouseButton button, Vector2 targetPosition, Vector2 areaSize)
         {
-            EnsureInitialized();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
 
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
-
-            return GetButtonState(button, inputManager.MouseState) == ButtonState.Released &&
-                   GetButtonState(button, inputManager.PreviousMouseState) == ButtonState.Pressed &&
+            return GetButtonState(button, Input.MouseState) == ButtonState.Released &&
+                   GetButtonState(button, Input.PreviousMouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
 
@@ -96,10 +75,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseEnter(Vector2 targetPosition, Vector2 areaSize)
         {
-            EnsureInitialized();
-
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
-            Vector2 previousMousePosition = inputManager.GetScaledPreviousMousePosition();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 previousMousePosition = Input.GetScaledPreviousMousePosition();
 
             bool mouseWasOutside = !IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
             bool mouseIsInside = IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -120,9 +97,7 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseOver(Vector2 targetPosition, Vector2 areaSize)
         {
-            EnsureInitialized();
-
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
 
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
@@ -140,10 +115,8 @@ namespace StardustSandbox.UI
         /// </summary>
         internal static bool OnMouseLeave(Vector2 targetPosition, Vector2 areaSize)
         {
-            EnsureInitialized();
-
-            Vector2 mousePosition = inputManager.GetScaledMousePosition();
-            Vector2 previousMousePosition = inputManager.GetScaledPreviousMousePosition();
+            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 previousMousePosition = Input.GetScaledPreviousMousePosition();
 
             bool mouseWasInside = IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
             bool mouseIsOutside = !IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -257,12 +230,12 @@ namespace StardustSandbox.UI
 
         internal static bool OnMouseScrollUp()
         {
-            return inputManager.GetDeltaScrollWheel() > 0;
+            return Input.GetDeltaScrollWheel() > 0;
         }
 
         internal static bool OnMouseScrollDown()
         {
-            return inputManager.GetDeltaScrollWheel() < 0;
+            return Input.GetDeltaScrollWheel() < 0;
         }
 
         /// <summary>
@@ -279,17 +252,6 @@ namespace StardustSandbox.UI
             bool withinVerticalBounds = mousePosition.Y >= top && mousePosition.Y <= bottom;
 
             return withinHorizontalBounds && withinVerticalBounds;
-        }
-
-        /// <summary>
-        /// Ensures the interaction system is initialized.
-        /// </summary>
-        private static void EnsureInitialized()
-        {
-            if (!isInitialized || inputManager is null)
-            {
-                throw new InvalidOperationException($"{nameof(Interaction)} system is not initialized.");
-            }
         }
 
         /// <summary>
