@@ -164,7 +164,7 @@ namespace StardustSandbox.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(0, 288),
                     ReferenceColor = new Color(255, 120, 60),
-                    DefaultTemperature = 1000.0f,
+                    DefaultTemperature = 1500.0f,
                     DefaultDensity = 2.7f,
                     DefaultExplosionResistance = 0.4f,
                 },
@@ -1033,6 +1033,20 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
+                },
+                new Elements.Solids.Movables.FertileSoil()
+                {
+                    Index = ElementIndex.FertileSoil,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 96),
+                    ReferenceColor = AAP64ColorPalette.Burgundy,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.4f,
+                    DefaultExplosionResistance = 0.4f,
                 },
             ];
 

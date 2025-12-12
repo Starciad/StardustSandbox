@@ -400,10 +400,10 @@
     <value>A dense, saturated cloud formed from the clustering of multiple clouds. When concentrated enough, it releases water or snow depending on temperature.</value>
   </data>
   <data name="Energy.Lightning.Name" xml:space="preserve">
-    <value>Lightning</value>
+    <value />
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
-    <value>Lightning</value>
+    <value />
   </data>
   <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
     <value />
@@ -523,6 +523,12 @@
     <value />
   </data>
   <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Movable.FertileSoil.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
     <value />
   </data>
 </root>

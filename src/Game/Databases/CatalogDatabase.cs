@@ -158,6 +158,16 @@ namespace StardustSandbox.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(192, 96, 32, 32)
+                                ),
+
+                                // [10] Fertile Soil
+                                new(
+                                    associatedType: typeof(FertileSoil),
+                                    name: Localization_Elements.Solid_Movable_FertileSoil_Name,
+                                    description: Localization_Elements.Solid_Movable_FertileSoil_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(96, 128, 32, 32)
                                 )
                             ]
                         ),

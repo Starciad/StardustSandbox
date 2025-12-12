@@ -14,10 +14,10 @@ namespace StardustSandbox.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Lava:
-                    case Fire:
+                    case ElementIndex.Lava:
+                    case ElementIndex.Fire:
                         context.ReplaceElement(ElementIndex.Fire);
                         break;
 

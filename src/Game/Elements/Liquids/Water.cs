@@ -16,6 +16,7 @@ namespace StardustSandbox.Elements.Liquids
 
                 switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
+                    case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Mud);
                         context.DestroyElement();

@@ -15,13 +15,13 @@ namespace StardustSandbox.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Oil:
-                    case Wood:
-                    case TreeLeaf:
-                    case DrySponge:
-                    case Grass:
+                    case ElementIndex.Oil:
+                    case ElementIndex.Wood:
+                    case ElementIndex.TreeLeaf:
+                    case ElementIndex.DrySponge:
+                    case ElementIndex.Grass:
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Fire);
                         break;
 

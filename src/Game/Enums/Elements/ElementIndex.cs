@@ -76,6 +76,8 @@
         WetVioletWool,
         WetBrownWool,
 
+        FertileSoil,
+
         Length,
     }
 }

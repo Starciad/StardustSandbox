@@ -79,7 +79,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Lightning.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
         internal static string Energy_Lightning_Description {
             get {
@@ -88,7 +88,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Lightning.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
         internal static string Energy_Lightning_Name {
             get {
@@ -1137,6 +1137,24 @@ namespace StardustSandbox.Localization {
         internal static string Solid_Movable_Dynamite_Name {
             get {
                 return ResourceManager.GetString("Solid.Movable.Dynamite.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_FertileSoil_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.FertileSoil.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_FertileSoil_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.FertileSoil.Name", resourceCulture);
             }
         }
         
