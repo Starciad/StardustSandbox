@@ -105,30 +105,30 @@ namespace StardustSandbox.Elements
             {
                 // Sprite Piece 1 (Northwest Pivot)
                 case 0:
-                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
-                    blobInfos[1] = new(new Point(position.X - 1, position.Y - 1), (byte)BlobCardinalDirection.Northwest);
-                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
+                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobDirection.West);
+                    blobInfos[1] = new(new Point(position.X - 1, position.Y - 1), (byte)BlobDirection.Northwest);
+                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobDirection.North);
                     break;
 
                 // Sprite Piece 2 (Northeast Pivot)
                 case 1:
-                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
-                    blobInfos[1] = new(new Point(position.X + 1, position.Y - 1), (byte)BlobCardinalDirection.Northeast);
-                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
+                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobDirection.East);
+                    blobInfos[1] = new(new Point(position.X + 1, position.Y - 1), (byte)BlobDirection.Northeast);
+                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobDirection.North);
                     break;
 
                 // Sprite Piece 3 (Southwest Pivot)
                 case 2:
-                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
-                    blobInfos[1] = new(new Point(position.X - 1, position.Y + 1), (byte)BlobCardinalDirection.Southwest);
-                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
+                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobDirection.West);
+                    blobInfos[1] = new(new Point(position.X - 1, position.Y + 1), (byte)BlobDirection.Southwest);
+                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobDirection.South);
                     break;
 
                 // Sprite Piece 4 (Southeast Pivot)
                 case 3:
-                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
-                    blobInfos[1] = new(new Point(position.X + 1, position.Y + 1), (byte)BlobCardinalDirection.Southeast);
-                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
+                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobDirection.East);
+                    blobInfos[1] = new(new Point(position.X + 1, position.Y + 1), (byte)BlobDirection.Southeast);
+                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobDirection.South);
                     break;
 
                 default:

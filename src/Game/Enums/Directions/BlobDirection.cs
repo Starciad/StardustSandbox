@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Enums.Directions
 {
-    internal enum BlobCardinalDirection : byte
+    internal enum BlobDirection : byte
     {
         North = 1,
         Northeast = 2,

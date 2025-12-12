@@ -55,7 +55,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.2f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = Localization_GUIs.Menu_Play_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -81,7 +81,7 @@ namespace StardustSandbox.UI.Common.Menus
                     Scale = new(0.15f),
                     Margin = new(0.0f, marginY),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

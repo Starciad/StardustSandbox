@@ -144,7 +144,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             root.AddChild(this.synopsis);
@@ -158,7 +158,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Scale = new(0.085f),
                 TextAreaSize = new(1000.0f, 1000.0f),
                 Margin = new(0.0f, -32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             this.userInputBackground = new()
@@ -167,7 +167,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Scale = new(1.5f),
                 Size = new(632.0f, 50.0f),
                 Margin = new(0.0f, 64.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             root.AddChild(this.userInput);
@@ -181,7 +181,7 @@ namespace StardustSandbox.UI.Common.Tools
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Scale = new(0.08f),
                 Margin = new(-212.0f, -16.0f),
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
             };
 
             root.AddChild(this.characterCount);
@@ -200,7 +200,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.South,
+                    Alignment = UIDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

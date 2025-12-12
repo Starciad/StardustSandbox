@@ -27,6 +27,7 @@ namespace StardustSandbox.Elements.Liquids
                         {
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
                         }
+
                         context.DestroyElement();
                         return;
 

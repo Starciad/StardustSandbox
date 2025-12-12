@@ -166,7 +166,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
                 TextContent = Localization_GUIs.Tools_ColorPicker_Title,
             };
 
@@ -244,7 +244,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.South,
+                    Alignment = UIDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

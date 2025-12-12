@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Enums.Directions
 {
-    internal enum CardinalDirection : byte
+    internal enum UIDirection : byte
     {
         /// <summary>
         /// (.)

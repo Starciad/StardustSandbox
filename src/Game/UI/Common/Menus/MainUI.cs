@@ -112,7 +112,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Margin = new(-32.0f, -32.0f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
-                Alignment = CardinalDirection.Southeast,
+                Alignment = UIDirection.Southeast,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = $"Ver. {GameConstants.VERSION}",
             };
@@ -122,7 +122,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Margin = new(0.0f, -32.0f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
-                Alignment = CardinalDirection.South,
+                Alignment = UIDirection.South,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
@@ -139,7 +139,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(1.5f),
                 Size = new(292.0f, 112.0f),
                 Margin = new(0.0f, 32.0f),
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             this.background.AddChild(this.gameTitle);
@@ -158,7 +158,7 @@ namespace StardustSandbox.UI.Common.Menus
                     Scale = new(0.15f),
                     Color = AAP64ColorPalette.White,
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     TextContent = info.Name,
 

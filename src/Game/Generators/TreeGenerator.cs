@@ -34,7 +34,7 @@ namespace StardustSandbox.Generators
             {
                 for (int x = -leavesRadius; x <= leavesRadius; x++)
                 {
-                    if (x * x + y * y <= leavesRadius * leavesRadius)
+                    if ((x * x) + (y * y) <= leavesRadius * leavesRadius)
                     {
                         Point position = new(origin.X + x, leavesStartY + y);
 

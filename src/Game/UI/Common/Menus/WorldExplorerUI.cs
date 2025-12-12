@@ -132,7 +132,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 Margin = new(32.0f, 0.0f),
                 TextContent = Localization_GUIs.Menu_WorldExplorer_Title,
 
@@ -155,7 +155,7 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = CardinalDirection.East,
+                    Alignment = UIDirection.East,
                     Margin = new(marginX, 0.0f),
                     Scale = new(2.0f),
                     Size = new(32.0f),
@@ -163,7 +163,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image buttonIconElement = new()
                 {
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
                     Scale = new(1.5f),
@@ -187,14 +187,14 @@ namespace StardustSandbox.UI.Common.Menus
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
             };
 
             Label pageIndexTitleLabel = new()
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = Localization_GUIs.Menu_WorldExplorer_Label_CurrentPage,
                 Margin = new(0.0f, -18.0f),
 
@@ -208,7 +208,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = "1 / 1",
                 Margin = new(0.0f, pageIndexTitleLabel.Size.Y),
 
@@ -222,7 +222,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 TextContent = Localization_Statements.Previous,
                 Margin = new(32.0f, 0.0f),
 
@@ -236,7 +236,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
                 TextContent = Localization_Statements.Next,
                 Margin = new(-32.0f, 0.0f),
 
@@ -285,7 +285,7 @@ namespace StardustSandbox.UI.Common.Menus
                     {
                         Scale = new(5.1f),
                         Size = WorldConstants.WORLD_THUMBNAIL_SIZE.ToVector2(),
-                        Alignment = CardinalDirection.West,
+                        Alignment = UIDirection.West,
                         Margin = new(11.5f, 0.0f),
                     };
 

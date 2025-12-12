@@ -79,6 +79,7 @@
         FertileSoil,
         Seed,
         Sapling,
+        Moss,
 
         Length,
     }

@@ -1081,7 +1081,23 @@ namespace StardustSandbox.Databases
                     DefaultFlammabilityResistance = 15.0f,
                     DefaultDensity = 0.3f,
                     DefaultExplosionResistance = 0.5f,
-                }
+                },
+                new Elements.Solids.Immovables.Moss()
+                {
+                    Index = ElementIndex.Moss,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 128),
+                    ReferenceColor = AAP64ColorPalette.MossGreen,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.4f,
+                    DefaultExplosionResistance = 0.3f,
+                },
             ];
 
             isLoaded = true;

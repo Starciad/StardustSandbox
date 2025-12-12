@@ -91,7 +91,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
                 Size = new(1084.0f, 540.0f),
             };
@@ -127,8 +127,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -162,8 +162,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.timeStateButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.timeStateSectionTitle.AddChild(slot.Background);
@@ -198,8 +198,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.timeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.timeSectionTitle.AddChild(slot.Background);

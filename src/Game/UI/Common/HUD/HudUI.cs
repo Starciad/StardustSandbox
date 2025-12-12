@@ -158,21 +158,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnBuild(Container root)
         {
-            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), CardinalDirection.Northwest, BuildTopToolbarContent);
-            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), CardinalDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, CardinalDirection.North, true));
-            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), CardinalDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, CardinalDirection.North, true));
-            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, CardinalDirection.South, false);
-            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, CardinalDirection.South, false);
-            BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), CardinalDirection.South);
-            BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), CardinalDirection.East);
-            BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), CardinalDirection.West);
+            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
+            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, UIDirection.North, true));
+            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, UIDirection.North, true));
+            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, UIDirection.South, false);
+            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, UIDirection.South, false);
+            BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), UIDirection.South);
+            BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), UIDirection.East);
+            BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), UIDirection.West);
 
             root.AddChild(this.tooltipBox);
 
             BuildSimulationPausedOverlay(root);
         }
 
-        private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, CardinalDirection alignment, Action<Container> buildContent)
+        private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, UIDirection alignment, Action<Container> buildContent)
         {
             container = new() { Size = size, Alignment = alignment };
             root.AddChild(container);
@@ -195,7 +195,7 @@ namespace StardustSandbox.UI.Common.HUD
             CreateTopToolbarSearchSlot();
         }
 
-        private static void BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, SlotInfo[] slots, CardinalDirection alignment, bool isTop)
+        private static void BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, SlotInfo[] slots, UIDirection alignment, bool isTop)
         {
             float marginY = isTop ? 32.0f : -32.0f;
             float direction = isTop ? 1.0f : -1.0f;
@@ -211,7 +211,7 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        private static void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, CardinalDirection alignment)
+        private static void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)
         {
             drawerButton = new()
             {
@@ -233,7 +233,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 Size = new(32.0f),
                 Margin = new(32.0f, 0.0f),
             };
@@ -242,7 +242,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(64, 32, 32, 32),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Scale = new(2.0f),
                 Size = new(32.0f),
             };
@@ -265,7 +265,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Item curentItem = items[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 0.0f), curentItem);
 
-                slot.Background.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Center;
 
                 if (!slot.Background.ContainsData(UIConstants.DATA_ITEM))
                 {
@@ -286,7 +286,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
                 Size = new(32.0f),
                 Margin = new(-32.0f, 0.0f),
             };
@@ -295,7 +295,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(0, 0, 32, 32),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Scale = new(2.0f),
                 Size = new(32.0f),
             };
@@ -322,7 +322,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SourceRectangle = iconTextureRectangle,
                 Scale = new(1.5f),
                 Size = new(32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             return new(background, icon);
@@ -349,7 +349,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = backgroundColor,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             Label pauseLabel = new()
@@ -357,7 +357,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.VcrOsdMono1001,
                 Color = AAP64ColorPalette.White,
                 Scale = new(0.08f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = Localization_GUIs.HUD_SimulationPaused,
             };
 

@@ -1,6 +1,4 @@
-﻿using StardustSandbox.Elements.Solids.Immovables;
-using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Liquids
 {

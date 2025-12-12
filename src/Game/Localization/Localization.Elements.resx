@@ -543,4 +543,10 @@
   <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Solid.Immovable.Moss.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

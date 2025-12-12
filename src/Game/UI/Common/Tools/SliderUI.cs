@@ -90,7 +90,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             root.AddChild(this.synopsis);
@@ -103,7 +103,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Texture = AssetDatabase.GetTexture(TextureIndex.UISliderInputOrnament),
                 SourceRectangle = new(0, 0, 630, 32),
                 Size = new(630.0f, 32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             this.sliderButton = new()
@@ -118,7 +118,7 @@ namespace StardustSandbox.UI.Common.Tools
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.125f),
                 Margin = new(0.0f, 48.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = this.currentValue.ToString(),
             };
 
@@ -141,7 +141,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.South,
+                    Alignment = UIDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

@@ -53,7 +53,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             root.AddChild(this.message);
@@ -66,7 +66,7 @@ namespace StardustSandbox.UI.Common.Tools
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.13f),
                 Margin = new(0.0f, -96.0f),
-                Alignment = CardinalDirection.South,
+                Alignment = UIDirection.South,
                 TextContent = Localization_Statements.Continue,
 
                 BorderColor = AAP64ColorPalette.DarkGray,

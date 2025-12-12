@@ -56,7 +56,7 @@ namespace StardustSandbox.UI.Elements
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
                 Color = AAP64ColorPalette.DarkPurple,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Size = new(48f),
 
                 TileSize = new(16),

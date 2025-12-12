@@ -235,7 +235,7 @@ namespace StardustSandbox.UI.Common.Menus
                         Scale = new(0.25f),
                         SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                         Margin = margin,
-                        Alignment = CardinalDirection.South,
+                        Alignment = UIDirection.South,
                         TextContent = creditSection.Title
                     };
 
@@ -255,7 +255,7 @@ namespace StardustSandbox.UI.Common.Menus
                             Scale = new(0.2f),
                             SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                             Margin = margin + content.Margin,
-                            Alignment = CardinalDirection.South,
+                            Alignment = UIDirection.South,
                             TextContent = content.Text
                         };
 
@@ -273,7 +273,7 @@ namespace StardustSandbox.UI.Common.Menus
                             Scale = new(0.15f),
                             SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                             Margin = margin + content.Margin,
-                            Alignment = CardinalDirection.South,
+                            Alignment = UIDirection.South,
                             TextContent = content.Text
                         };
 
@@ -292,7 +292,7 @@ namespace StardustSandbox.UI.Common.Menus
                             Scale = content.TextureScale,
                             Size = content.Texture.GetSize().ToVector2(),
                             Texture = content.Texture,
-                            Alignment = CardinalDirection.South,
+                            Alignment = UIDirection.South,
                             Margin = margin + content.Margin
                         };
 

@@ -709,6 +709,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_Moss_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Moss.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_Moss_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Moss.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Decorative and functional block, flammable, used in mobile constructions..
         /// </summary>
         internal static string Solid_Immovable_MountingBlock_Description {

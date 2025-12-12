@@ -75,7 +75,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Scale = new(0.1f),
                 Margin = new(0.0f, 64.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -90,7 +90,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Margin = new(0.0f, -32.0f),
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             root.AddChild(shadow);
@@ -113,7 +113,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.South,
+                    Alignment = UIDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

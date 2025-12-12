@@ -167,7 +167,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSaveSettings),
                 Size = new(1084.0f, 540.0f),
             };
@@ -203,8 +203,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -230,7 +230,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.titleInputField = new()
             {
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
@@ -243,7 +243,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
             };
 
             this.background.AddChild(this.nameSectionTitle);
@@ -265,7 +265,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.descriptionInputField = new()
             {
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
@@ -278,7 +278,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
             };
 
             this.titleInputField.AddChild(this.descriptionSectionTitle);
@@ -295,13 +295,13 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(-176.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Northeast,
+                Alignment = UIDirection.Northeast,
                 TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Thumbnail_Title
             };
 
             this.thumbnailPreviewElement = new()
             {
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
                 Scale = new(12.5f),
                 Margin = new(0.0f, 8.0f),
             };
@@ -325,7 +325,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
                     Margin = new(marginX, -32.0f),
-                    Alignment = CardinalDirection.Southwest,
+                    Alignment = UIDirection.Southwest,
                 };
 
                 Label label = new()
@@ -333,7 +333,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

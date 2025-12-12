@@ -544,4 +544,10 @@
   <data name="Solid.Movable.Sapling.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Solid.Immovable.Moss.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Solid.Immovable.Moss.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

@@ -1,6 +1,4 @@
-﻿using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
 
 namespace StardustSandbox.Elements.Liquids
@@ -30,6 +28,7 @@ namespace StardustSandbox.Elements.Liquids
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
                             context.DestroyElement();
                         }
+
                         return;
 
                     case ElementIndex.Fire:

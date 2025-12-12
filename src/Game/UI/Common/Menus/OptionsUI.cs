@@ -250,7 +250,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
                 Size = new(730.0f, 720.0f),
             };
@@ -259,7 +259,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.scrollableContainer = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Size = this.background.Size,
             };
 
@@ -282,7 +282,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.titleLabel = new()
             {
                 Margin = new(0.0f, scrollableContainerMarginY),
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = this.titleName,
@@ -303,7 +303,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Label sectionLabel = new()
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.North,
+                    Alignment = UIDirection.North,
                     Scale = new(0.11f),
                     Margin = new(0.0f, scrollableContainerMarginY),
                     TextContent = section.Name,
@@ -353,7 +353,7 @@ namespace StardustSandbox.UI.Common.Menus
             ColorSlotInfo colorSlot = new(
                 new()
                 {
-                    Alignment = CardinalDirection.East,
+                    Alignment = UIDirection.East,
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
@@ -363,7 +363,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 new()
                 {
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 22, 40, 22),
                     Scale = new(1.5f),
@@ -381,7 +381,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Image togglePreviewImageElement = new()
             {
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
@@ -418,7 +418,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.scrollbarUpButton = new()
             {
-                Alignment = CardinalDirection.Northeast,
+                Alignment = UIDirection.Northeast,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(388, 50, 34, 32),
                 Size = new(34.0f, 32.0f),
@@ -426,7 +426,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.scrollbarDownButton = new()
             {
-                Alignment = CardinalDirection.Southeast,
+                Alignment = UIDirection.Southeast,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(388, 206, 34, 32),
                 Size = new(34.0f, 32.0f),
@@ -434,7 +434,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.scrollbarSliderButton = new()
             {
-                Alignment = CardinalDirection.Northeast,
+                Alignment = UIDirection.Northeast,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(388, 80, 34, 128),
                 Size = new(34.0f, 128.0f),

@@ -145,7 +145,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings),
                 Size = new(1084.0f, 540.0f),
             };
@@ -181,8 +181,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -213,7 +213,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Size = new(326.0f, 38.0f),
                 Scale = new(2.0f),
                 Margin = new(0.0f, 48.0f),
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
             };
 
             this.background.AddChild(this.brushSectionTitle);
@@ -241,8 +241,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.toolButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.toolsSectionTitle.AddChild(slot.Background);
@@ -277,8 +277,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.layerButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.layerSectionTitle.AddChild(slot.Background);
@@ -313,8 +313,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.shapeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.shapeSectionTitle.AddChild(slot.Background);

@@ -110,7 +110,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 Margin = new(32.0f, 0.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -157,7 +157,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.075f),
                 Margin = new(-8.0f),
-                Alignment = CardinalDirection.Southeast,
+                Alignment = UIDirection.Southeast,
                 TextContent = DateTime.Now.ToString(),
             };
 
@@ -171,7 +171,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.075f),
                 Margin = new(0.0f, this.worldCreationTimestamp.Size.Y + (64.0f * -1.0f)),
-                Alignment = CardinalDirection.Northeast,
+                Alignment = UIDirection.Northeast,
             };
 
             this.worldCreationTimestamp.AddChild(this.worldVersion);
@@ -190,7 +190,7 @@ namespace StardustSandbox.UI.Common.Menus
                     Scale = new(0.12f),
                     Margin = new(32.0f, marginY),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.Southwest,
+                    Alignment = UIDirection.Southwest,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

@@ -69,7 +69,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundInformation),
                 Size = new(1084.0f, 540.0f),
             };
@@ -106,8 +106,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.buttonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -131,7 +131,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.1f),
-                    Alignment = CardinalDirection.Northwest,
+                    Alignment = UIDirection.Northwest,
                     Margin = new(32.0f, marginY),
                     Color = AAP64ColorPalette.White,
                     TextContent = string.Concat("Info ", i)

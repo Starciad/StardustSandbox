@@ -132,7 +132,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084.0f, 607.0f),
                 Margin = new(0.0f, 32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             root.AddChild(shadow);
@@ -170,7 +170,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = CardinalDirection.Northeast,
+                    Alignment = UIDirection.Northeast,
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = new(marginX, -72.0f),
@@ -180,7 +180,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 };
@@ -213,7 +213,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = CardinalDirection.Northwest,
+                    Alignment = UIDirection.Northwest,
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = margin
@@ -223,7 +223,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = category.Texture,
                     SourceRectangle = category.SourceRectangle,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 };
@@ -253,14 +253,14 @@ namespace StardustSandbox.UI.Common.HUD
             Vector2 margin;
 
             margin = new(-80.0f, 32.0f);
-            BuildSlots(CardinalDirection.Northwest);
+            BuildSlots(UIDirection.Northwest);
 
             margin = new(80.0f, 32.0f);
-            BuildSlots(CardinalDirection.Northeast);
+            BuildSlots(UIDirection.Northeast);
 
             // =============================== //
 
-            void BuildSlots(CardinalDirection positionAnchor)
+            void BuildSlots(UIDirection positionAnchor)
             {
                 for (int i = 0; i < sideCounts; i++)
                 {
@@ -278,7 +278,7 @@ namespace StardustSandbox.UI.Common.HUD
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
                         SourceRectangle = new(0, 0, 32, 32),
-                        Alignment = CardinalDirection.Center,
+                        Alignment = UIDirection.Center,
                         Scale = new(1.5f),
                         Size = new(32.0f)
                     };
@@ -309,7 +309,7 @@ namespace StardustSandbox.UI.Common.HUD
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
-                        Alignment = CardinalDirection.Northwest,
+                        Alignment = UIDirection.Northwest,
                         Scale = new(2.0f),
                         Size = new(32.0f),
                         Margin = margin
@@ -317,7 +317,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                     Image icon = new()
                     {
-                        Alignment = CardinalDirection.Center,
+                        Alignment = UIDirection.Center,
                         Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
                         SourceRectangle = new(0, 0, 32, 32),
                         Scale = new(1.5f),
@@ -346,7 +346,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.South,
+                Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
 
@@ -372,7 +372,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = this.paginationButtonInfos[i].Texture,
                     SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Size = new(32.0f)
                 };
 
@@ -387,11 +387,11 @@ namespace StardustSandbox.UI.Common.HUD
             }
 
             SlotInfo left = this.paginationButtonSlotInfos[0];
-            left.Background.Alignment = CardinalDirection.Southwest;
+            left.Background.Alignment = UIDirection.Southwest;
             left.Background.Margin = new(9.0f, -9.0f);
 
             SlotInfo right = this.paginationButtonSlotInfos[1];
-            right.Background.Alignment = CardinalDirection.Southeast;
+            right.Background.Alignment = UIDirection.Southeast;
             right.Background.Margin = new(-9.0f);
 
             foreach (SlotInfo slot in this.paginationButtonSlotInfos)

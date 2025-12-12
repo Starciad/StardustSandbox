@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Elements.Energies;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Liquids
 {

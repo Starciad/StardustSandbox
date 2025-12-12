@@ -97,7 +97,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
                 Size = new(542.0f, 540.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             root.AddChild(shadow);
@@ -110,7 +110,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
                 Margin = new(0.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
                 TextContent = Localization_GUIs.HUD_Complements_Pause_Title,
@@ -139,7 +139,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.North,
+                    Alignment = UIDirection.North,
                 };
 
                 Label label = new()
@@ -147,7 +147,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

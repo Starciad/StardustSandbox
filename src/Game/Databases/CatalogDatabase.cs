@@ -841,6 +841,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(160, 128, 32, 32)
                                 ),
+
+                                // [2] Moss
+                                new(
+                                    associatedType: typeof(Moss),
+                                    name: Localization_Elements.Solid_Immovable_Moss_Name,
+                                    description: Localization_Elements.Solid_Immovable_Moss_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(192, 128, 32, 32)
+                                ),
                             ]
                         ),
                     ]

@@ -78,7 +78,7 @@ namespace StardustSandbox.UI.Elements
                 }
             }
         }
-        internal CardinalDirection Alignment
+        internal UIDirection Alignment
         {
             get => this.alignment;
             set
@@ -97,7 +97,7 @@ namespace StardustSandbox.UI.Elements
         private Vector2 rawSize;
         private Vector2 margin;
         private Vector2 scale;
-        private CardinalDirection alignment;
+        private UIDirection alignment;
 
         private readonly List<UIElement> children = [];
         private readonly Queue<UIElement> childrenToAdd = new();
@@ -107,7 +107,7 @@ namespace StardustSandbox.UI.Elements
 
         internal UIElement()
         {
-            this.alignment = CardinalDirection.Northwest;
+            this.alignment = UIDirection.Northwest;
 
             this.position = Vector2.Zero;
             this.rawSize = Vector2.Zero;
@@ -189,46 +189,46 @@ namespace StardustSandbox.UI.Elements
 
         #region Positioning
 
-        private static Vector2 GetAnchoredPosition(FloatRectangle rect1, FloatRectangle rect2, CardinalDirection anchor, Vector2 margin)
+        private static Vector2 GetAnchoredPosition(FloatRectangle rect1, FloatRectangle rect2, UIDirection anchor, Vector2 margin)
         {
             float x = rect2.Location.X;
             float y = rect2.Location.Y;
 
             switch (anchor)
             {
-                case CardinalDirection.Center:
+                case UIDirection.Center:
                     x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
-                case CardinalDirection.North:
+                case UIDirection.North:
                     x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += 0f;
                     break;
-                case CardinalDirection.Northeast:
+                case UIDirection.Northeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += 0f;
                     break;
-                case CardinalDirection.East:
+                case UIDirection.East:
                     x += rect2.Size.X - rect1.Size.X;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
-                case CardinalDirection.Southeast:
+                case UIDirection.Southeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case CardinalDirection.South:
+                case UIDirection.South:
                     x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case CardinalDirection.Southwest:
+                case UIDirection.Southwest:
                     x += 0f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case CardinalDirection.West:
+                case UIDirection.West:
                     x += 0f;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
-                case CardinalDirection.Northwest:
+                case UIDirection.Northwest:
                 default:
                     x += 0f;
                     y += 0f;
