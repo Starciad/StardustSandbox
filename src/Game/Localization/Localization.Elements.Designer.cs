@@ -1249,6 +1249,42 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_Sapling_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Sapling.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_Sapling_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Sapling.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_Seed_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Seed.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_Seed_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Seed.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Snowflakes that melt into water with heat..
         /// </summary>
         internal static string Solid_Movable_Snow_Description {

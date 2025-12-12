@@ -183,4 +183,10 @@
   <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
     <value>Special elements that automate tasks and help with different creations.</value>
   </data>
+  <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

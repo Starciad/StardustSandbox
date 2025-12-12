@@ -814,6 +814,35 @@ namespace StardustSandbox.Databases
                                 ),
                             ]
                         ),
+
+                        // [8] Vegetation
+                        new(
+                            name: Localization_Catalog.Subcategory_Elements_Vegetation_Name,
+                            description: Localization_Catalog.Subcategory_Elements_Vegetation_Description,
+                            textureIndex: TextureIndex.IconElements,
+                            sourceRectangle: new(160, 128, 32, 32),
+                            [
+                                // [0] Seed
+                                new(
+                                    associatedType: typeof(Seed),
+                                    name: Localization_Elements.Solid_Movable_Seed_Name,
+                                    description: Localization_Elements.Solid_Movable_Seed_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(128, 128, 32, 32)
+                                ),
+
+                                // [1] Sapling
+                                new(
+                                    associatedType: typeof(Sapling),
+                                    name: Localization_Elements.Solid_Movable_Sapling_Name,
+                                    description: Localization_Elements.Solid_Movable_Sapling_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(160, 128, 32, 32)
+                                ),
+                            ]
+                        ),
                     ]
                 ),
 

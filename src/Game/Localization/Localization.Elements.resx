@@ -531,4 +531,16 @@
   <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Solid.Movable.Seed.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Movable.Seed.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Movable.Sapling.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

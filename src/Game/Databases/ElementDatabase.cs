@@ -1048,6 +1048,40 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 1.4f,
                     DefaultExplosionResistance = 0.4f,
                 },
+                new Elements.Solids.Movables.Seed()
+                {
+                    Index = ElementIndex.Seed,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(480, 320),
+                    ReferenceColor = AAP64ColorPalette.DarkGreen,
+                    DefaultTemperature = 25.0f,
+                    DefaultFlammabilityResistance = 5.0f,
+                    DefaultDensity = 0.05f,
+                    DefaultExplosionResistance = 0.2f,
+                },
+                new Elements.Solids.Movables.Sapling()
+                {
+                    Index = ElementIndex.Sapling,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(512, 320),
+                    ReferenceColor = AAP64ColorPalette.DarkTeal,
+                    DefaultTemperature = 25.0f,
+                    DefaultFlammabilityResistance = 15.0f,
+                    DefaultDensity = 0.3f,
+                    DefaultExplosionResistance = 0.5f,
+                }
             ];
 
             isLoaded = true;

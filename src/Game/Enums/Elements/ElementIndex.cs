@@ -77,6 +77,8 @@
         WetBrownWool,
 
         FertileSoil,
+        Seed,
+        Sapling,
 
         Length,
     }
