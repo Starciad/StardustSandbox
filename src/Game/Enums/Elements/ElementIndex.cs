@@ -51,8 +51,8 @@
         LeftwardPusher,
         Cloud,
         ChargedCloud,
-        ThunderHead,
-        ThunderBody,
+        LightningHead,
+        LightningBody,
 
         DryBlackWool,
         DryWhiteWool,

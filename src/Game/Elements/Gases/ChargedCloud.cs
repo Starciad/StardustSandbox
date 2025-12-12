@@ -41,7 +41,7 @@ namespace StardustSandbox.Elements.Gases
                     }
                     else
                     {
-                        context.ReplaceElement(ElementIndex.ThunderHead);
+                        context.ReplaceElement(ElementIndex.LightningHead);
                     }
                 }
                 else

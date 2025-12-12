@@ -658,7 +658,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Thunder
                                 new(
-                                    associatedType: typeof(ThunderHead),
+                                    associatedType: typeof(LightningHead),
                                     name: Localization_Elements.Energy_Lightning_Name,
                                     description: Localization_Elements.Energy_Lightning_Description,
                                     contentType: ItemContentType.Element,

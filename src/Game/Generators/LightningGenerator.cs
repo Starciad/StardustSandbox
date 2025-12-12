@@ -1,20 +1,53 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Elements.Energies
+namespace StardustSandbox.Generators
 {
-    internal sealed class ThunderHead : Energy
+    internal static class LightningGenerator
     {
+        internal static void Start(in ElementContext context, Point origin)
+        {
+            CreateBranchedThunder(context, origin);
+        }
+
+        private static void CreateBranchedThunder(in ElementContext context, Point origin)
+        {
+            int length = SSRandom.Range(3, 6);
+
+            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(-30, -10));
+            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(10, 30));
+        }
+
+        private static void CreateBranchedThunderBranch(in ElementContext context, Point origin, int length, int angle)
+        {
+            float rad = MathF.PI * angle / 180.0f;
+            int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
+            int dy = (int)MathF.Round((MathF.Cos(rad) * length) + SSRandom.Range(2, 4));
+
+            Point endPoint = new(
+                origin.X + dx,
+                origin.Y + dy
+            );
+
+            if (!TryCreateBodyLine(context, origin, endPoint))
+            {
+                return;
+            }
+
+            CreateBranchedThunder(context, endPoint);
+        }
+
         private static bool TryCreateBodyLine(in ElementContext context, Point start, Point end)
         {
             if (start == end)
             {
-                context.InstantiateElement(end, ElementIndex.ThunderBody);
+                context.InstantiateElement(end, ElementIndex.LightningBody);
                 return true;
             }
 
@@ -84,52 +117,13 @@ namespace StardustSandbox.Elements.Energies
                 }
 
                 // Attempt to instantiate element
-                if (!context.TryInstantiateElement(position, ElementIndex.ThunderBody))
+                if (!context.TryInstantiateElement(position, ElementIndex.LightningBody))
                 {
                     return false;
                 }
             }
 
             return true;
-        }
-
-        private static void CreateBranchedThunderBranch(in ElementContext context, Point origin, int length, int angle)
-        {
-            float rad = MathF.PI * angle / 180.0f;
-            int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
-            int dy = (int)MathF.Round((MathF.Cos(rad) * length) + SSRandom.Range(2, 4));
-
-            Point endPoint = new(
-                origin.X + dx,
-                origin.Y + dy
-            );
-
-            if (!TryCreateBodyLine(context, origin, endPoint))
-            {
-                return;
-            }
-
-            CreateBranchedThunder(context, endPoint);
-        }
-
-        private static void CreateBranchedThunder(in ElementContext context, Point origin)
-        {
-            int length = SSRandom.Range(3, 6);
-
-            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(-30, -10));
-            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(10, 30));
-        }
-
-        protected override void OnInstantiated(in ElementContext context)
-        {
-            Point origin = context.Position;
-
-            CreateBranchedThunder(context, origin);
-        }
-
-        protected override void OnAfterStep(in ElementContext context)
-        {
-            context.RemoveElement();
         }
     }
 }

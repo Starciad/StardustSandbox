@@ -5,7 +5,7 @@ using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Energies
 {
-    internal sealed class ThunderBody : Energy
+    internal sealed class LightningBody : Energy
     {
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
@@ -48,8 +48,8 @@ namespace StardustSandbox.Elements.Energies
 
                 switch (element.Index)
                 {
-                    case ElementIndex.ThunderBody:
-                    case ElementIndex.ThunderHead:
+                    case ElementIndex.LightningBody:
+                    case ElementIndex.LightningHead:
                     case ElementIndex.Clone:
                     case ElementIndex.Void:
                     case ElementIndex.Wall:

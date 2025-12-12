@@ -680,9 +680,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.2f,
                     DefaultExplosionResistance = 0.7f,
                 },
-                new Elements.Energies.ThunderHead()
+                new Elements.Energies.LightningHead()
                 {
-                    Index = ElementIndex.ThunderHead,
+                    Index = ElementIndex.LightningHead,
                     Category = ElementCategory.Energy,
                     Characteristics = ElementCharacteristics.None,
                     RenderingType = ElementRenderingType.Single,
@@ -691,9 +691,9 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
                 },
-                new Elements.Energies.ThunderBody()
+                new Elements.Energies.LightningBody()
                 {
-                    Index = ElementIndex.ThunderBody,
+                    Index = ElementIndex.LightningBody,
                     Category = ElementCategory.Energy,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
