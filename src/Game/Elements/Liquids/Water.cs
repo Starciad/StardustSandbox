@@ -1,6 +1,4 @@
-﻿using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Randomness;
 
 namespace StardustSandbox.Elements.Liquids
@@ -16,23 +14,22 @@ namespace StardustSandbox.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Dirt:
-                        context.DestroyElement();
+                    case ElementIndex.Dirt:
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Mud);
-                        break;
+                        context.DestroyElement();
+                        return;
 
-                    case Stone:
+                    case ElementIndex.Stone:
                         if (SSRandom.Range(0, 150) == 0)
                         {
-                            context.DestroyElement();
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
                         }
+                        context.DestroyElement();
+                        return;
 
-                        break;
-
-                    case Fire:
+                    case ElementIndex.Fire:
                         context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
                         break;
 
@@ -47,13 +44,10 @@ namespace StardustSandbox.Elements.Liquids
             if (currentValue <= 0.0f)
             {
                 context.ReplaceElement(ElementIndex.Ice);
-                return;
             }
-
-            if (currentValue >= 100.0f)
+            else if (currentValue >= 100.0f)
             {
                 context.ReplaceElement(ElementIndex.Steam);
-                return;
             }
         }
     }

@@ -19,18 +19,17 @@ namespace StardustSandbox.Elements.Liquids
                 switch (neighbors.GetSlotLayer(i, context.Layer).Element)
                 {
                     case Dirt:
-                        context.DestroyElement();
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Mud);
-                        break;
+                        context.DestroyElement();
+                        return;
 
                     case Stone:
                         if (SSRandom.Range(0, 150) == 0)
                         {
-                            context.DestroyElement();
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
+                            context.DestroyElement();
                         }
-
-                        break;
+                        return;
 
                     case Fire:
                         context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
@@ -48,10 +47,8 @@ namespace StardustSandbox.Elements.Liquids
             {
                 context.ReplaceElement(ElementIndex.Ice);
                 context.SetStoredElement(ElementIndex.Saltwater);
-                return;
             }
-
-            if (currentValue >= 110.0f)
+            else if (currentValue >= 110.0f)
             {
                 if (SSRandom.GetBool())
                 {
@@ -61,8 +58,6 @@ namespace StardustSandbox.Elements.Liquids
                 {
                     context.ReplaceElement(ElementIndex.Saltwater);
                 }
-
-                return;
             }
         }
     }
