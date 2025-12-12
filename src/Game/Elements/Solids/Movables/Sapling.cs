@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Enums.Elements;
+using StardustSandbox.Generators;
 using StardustSandbox.Randomness;
 
 namespace StardustSandbox.Elements.Solids.Movables
@@ -32,9 +33,10 @@ namespace StardustSandbox.Elements.Solids.Movables
                 }
             }
 
-            if (hasWater && hasFertileSoil && SSRandom.Chance(25, 500))
+            if (hasWater && hasFertileSoil && SSRandom.Chance(25, 350))
             {
-                context.ReplaceElement(ElementIndex.Wood);
+                context.DestroyElement();
+                TreeGenerator.Start(context, context.Position, SSRandom.Range(5, 8), 1, 2);
             }
         }
 
