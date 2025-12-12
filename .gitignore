@@ -397,10 +397,10 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# Publish Output
+src/[Pp]ublish/*
+
 # Game
 src/StardustSandbox/assets/*
 !src/StardustSandbox/assets/assets.mgcb
 !src/StardustSandbox/assets/effects/
-
-# Publish Output
-src/[Pp]ublish/*
