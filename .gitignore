@@ -401,6 +401,6 @@ FodyWeavers.xsd
 src/[Pp]ublish/*
 
 # Game
-src/StardustSandbox/assets/*
-!src/StardustSandbox/assets/assets.mgcb
-!src/StardustSandbox/assets/effects/
+src/Game/assets/*
+!src/Game/assets/assets.mgcb
+!src/Game/assets/effects/
