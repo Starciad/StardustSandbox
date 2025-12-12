@@ -79,20 +79,20 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Thunder.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lightning.
         /// </summary>
-        internal static string Energy_Thunder_Description {
+        internal static string Energy_Lightning_Description {
             get {
-                return ResourceManager.GetString("Energy.Thunder.Description", resourceCulture);
+                return ResourceManager.GetString("Energy.Lightning.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Thunder.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lightning.
         /// </summary>
-        internal static string Energy_Thunder_Name {
+        internal static string Energy_Lightning_Name {
             get {
-                return ResourceManager.GetString("Energy.Thunder.Name", resourceCulture);
+                return ResourceManager.GetString("Energy.Lightning.Name", resourceCulture);
             }
         }
         

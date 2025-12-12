@@ -399,10 +399,10 @@
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
     <value>Nuvem densa e saturada resultante do agrupamento de várias nuvens. Quando suficientemente concentrada, libera água ou neve conforme a temperatura.</value>
   </data>
-  <data name="Energy.Thunder.Name" xml:space="preserve">
+  <data name="Energy.Lightning.Name" xml:space="preserve">
     <value>Raio</value>
   </data>
-  <data name="Energy.Thunder.Description" xml:space="preserve">
+  <data name="Energy.Lightning.Description" xml:space="preserve">
     <value>Raio</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

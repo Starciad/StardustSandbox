@@ -399,11 +399,11 @@
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
     <value>A dense, saturated cloud formed from the clustering of multiple clouds. When concentrated enough, it releases water or snow depending on temperature.</value>
   </data>
-  <data name="Energy.Thunder.Name" xml:space="preserve">
-    <value>Thunder</value>
+  <data name="Energy.Lightning.Name" xml:space="preserve">
+    <value>Lightning</value>
   </data>
-  <data name="Energy.Thunder.Description" xml:space="preserve">
-    <value>Thunder</value>
+  <data name="Energy.Lightning.Description" xml:space="preserve">
+    <value>Lightning</value>
   </data>
   <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
     <value />
