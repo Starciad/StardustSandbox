@@ -468,11 +468,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateScrollableContainer()
         {
-            if (!Interaction.OnMouseOver(this.background))
-            {
-                return;
-            }
-
             float marginY = this.scrollableContainer.Margin.Y;
 
             if (Interaction.OnMouseScrollUp())
