@@ -1,16 +1,17 @@
-﻿using StardustSandbox.Elements.Solids.Immovables;
+﻿using StardustSandbox.Elements.Energies;
+using StardustSandbox.Elements.Liquids;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
 
 namespace StardustSandbox.Elements.Solids.Movables.Explosives
 {
-    internal sealed class Bomb : MovableSolid
+    internal sealed class Gunpowder : MovableSolid
     {
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
             Radius = 4.0f,
-            Power = 2.5f,
-            Heat = 180.0f,
+            Power = 3.0f,
+            Heat = 300.0f,
 
             AffectsWater = false,
             AffectsSolids = true,
@@ -39,18 +40,12 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
 
                 switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case ElementIndex.Bomb:
-                    case ElementIndex.Wall:
-                    case ElementIndex.Clone:
-                    case ElementIndex.Void:
-                    case ElementIndex.DownwardPusher:
-                    case ElementIndex.UpwardPusher:
-                    case ElementIndex.RightwardPusher:
-                    case ElementIndex.LeftwardPusher:
+                    case ElementIndex.Fire:
+                    case ElementIndex.Lava:
+                        context.DestroyElement();
                         break;
 
                     default:
-                        context.DestroyElement();
                         break;
                 }
             }
@@ -58,7 +53,7 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
 
         protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
         {
-            if (currentValue > 100.0f)
+            if (currentValue >= 300.0f)
             {
                 context.DestroyElement();
             }

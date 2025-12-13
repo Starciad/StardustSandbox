@@ -53,7 +53,6 @@ namespace StardustSandbox.Elements.Solids.Immovables
                         {
                             _ = eligiblePositions.Add(context.Position + eligibleSpreadPositions[i][j]);
                         }
-
                         break;
 
                     default:

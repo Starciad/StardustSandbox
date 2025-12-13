@@ -1,4 +1,4 @@
-﻿using StardustSandbox.Elements.Liquids;
+﻿using StardustSandbox.Enums.Elements;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
@@ -13,11 +13,11 @@ namespace StardustSandbox.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Water:
-                    case Saltwater:
-                    case Lava:
+                    case ElementIndex.Water:
+                    case ElementIndex.Saltwater:
+                    case ElementIndex.Lava:
                         context.DestroyElement();
                         break;
 

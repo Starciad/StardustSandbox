@@ -9,20 +9,23 @@ namespace StardustSandbox.Elements.Solids.Immovables
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.HasNeighbor(i) || neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.IsEmpty))
                 {
                     continue;
                 }
 
-                SlotLayer neighborSlotLayer = neighbors.GetSlotLayer(i, context.Layer);
-
-                if (!neighborSlotLayer.HasState(ElementStates.IsEmpty) &&
-                     neighborSlotLayer.Element.Index != ElementIndex.Wall &&
-                     neighborSlotLayer.Element.Index != ElementIndex.Void &&
-                     neighborSlotLayer.Element.Index != ElementIndex.Clone)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
+                    case ElementIndex.Wall:
+                    case ElementIndex.Void:
+                    case ElementIndex.Clone:
+                        continue;
+
+                    default:
+                        break;
                 }
+
+                context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
             }
         }
     }

@@ -38,10 +38,10 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Fire:
-                    case Lava:
+                    case ElementIndex.Fire:
+                    case ElementIndex.Lava:
                         context.DestroyElement();
                         break;
 

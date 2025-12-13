@@ -84,24 +84,25 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.HasNeighbor(i) || neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.IsEmpty))
                 {
                     continue;
                 }
 
-                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
-
-                if (layer.HasState(ElementStates.IsEmpty) ||
-                    layer.Element.Index == ElementIndex.Clone ||
-                    layer.Element.Index == ElementIndex.Wall ||
-                    layer.Element.Index == ElementIndex.Void ||
-                    layer.Element.Index == ElementIndex.LightningBody ||
-                    layer.Element.Index == ElementIndex.LightningHead)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    continue;
+                    case ElementIndex.Clone:
+                    case ElementIndex.Wall:
+                    case ElementIndex.Void:
+                    case ElementIndex.LightningBody:
+                    case ElementIndex.LightningHead:
+                        continue;
+
+                    default:
+                        break;
                 }
 
-                layerBuffer.Add(layer);
+                layerBuffer.Add(neighbors.GetSlotLayer(i, context.Layer));
             }
 
             if (layerBuffer.Count == 0)
