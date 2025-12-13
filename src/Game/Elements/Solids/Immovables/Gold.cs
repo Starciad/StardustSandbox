@@ -4,7 +4,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class Gold : ImmovableSolid
     {
-        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
         {
             if (currentValue > 1060.0f)
             {

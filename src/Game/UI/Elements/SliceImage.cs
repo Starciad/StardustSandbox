@@ -150,7 +150,7 @@ namespace StardustSandbox.UI.Elements
             this.slices[(byte)UIDirection.Northwest].SetScale(Vector2.One);
         }
 
-        protected override void OnDraw(SpriteBatch spriteBatch)
+        protected override void OnDraw(in SpriteBatch spriteBatch)
         {
             if (!this.HasTexture)
             {

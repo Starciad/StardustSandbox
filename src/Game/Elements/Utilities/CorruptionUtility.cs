@@ -11,13 +11,13 @@ namespace StardustSandbox.Elements.Utilities
     {
         private readonly struct SlotTarget(Slot slot, Layer layer)
         {
-            internal Slot Slot => slot;
-            internal Layer Layer => layer;
+            internal readonly Slot Slot => slot;
+            internal readonly Layer Layer => layer;
         }
 
         private static readonly List<SlotTarget> targets = [];
 
-        internal static bool CheckIfNeighboringElementsAreCorrupted(Layer layer, in ElementNeighbors neighbors)
+        internal static bool CheckIfNeighboringElementsAreCorrupted(in Layer layer, in ElementNeighbors neighbors)
         {
             int count = 0;
             int corruptNeighboringElements = 0;
@@ -85,7 +85,7 @@ namespace StardustSandbox.Elements.Utilities
             InfectSlotLayer(context, targets.GetRandomItem());
         }
 
-        private static void InfectSlotLayer(in ElementContext context, SlotTarget slotTarget)
+        private static void InfectSlotLayer(in ElementContext context, in SlotTarget slotTarget)
         {
             Element targetElement = slotTarget.Layer == Layer.Foreground
                 ? slotTarget.Slot.Foreground.Element

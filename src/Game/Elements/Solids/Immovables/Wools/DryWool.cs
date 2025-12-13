@@ -36,7 +36,7 @@ namespace StardustSandbox.Elements.Solids.Immovables.Wools
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
         {
             if (currentValue >= 580.0f)
             {

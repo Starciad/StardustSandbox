@@ -54,7 +54,7 @@ namespace StardustSandbox.Elements
         protected virtual void OnAfterStep(in ElementContext context) { return; }
         protected virtual void OnDestroyed(in ElementContext context) { return; }
         protected virtual void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors) { return; }
-        protected virtual void OnTemperatureChanged(in ElementContext context, float currentValue) { return; }
+        protected virtual void OnTemperatureChanged(in ElementContext context, in float currentValue) { return; }
 
         #endregion
 
@@ -62,12 +62,12 @@ namespace StardustSandbox.Elements
 
         internal void Instantiate()
         {
-            OnInstantiated(this.context);
+            OnInstantiated(in this.context);
         }
 
         internal void Destroy()
         {
-            OnDestroyed(this.context);
+            OnDestroyed(in this.context);
         }
 
         internal void Steps(in GameTime gameTime)
@@ -81,18 +81,18 @@ namespace StardustSandbox.Elements
 
                 if (hasTemperature)
                 {
-                    UpdateTemperature(gameTime, neighbors);
+                    UpdateTemperature(in gameTime, in neighbors);
                 }
 
                 if (affectsNeighbors)
                 {
-                    OnNeighbors(this.context, neighbors);
+                    OnNeighbors(in this.context, in neighbors);
                 }
             }
 
-            OnBeforeStep(this.context);
-            OnStep(this.context);
-            OnAfterStep(this.context);
+            OnBeforeStep(in this.context);
+            OnStep(in this.context);
+            OnAfterStep(in this.context);
         }
 
         // Updated temperature transfer using Fourier's law of thermal conduction
@@ -153,7 +153,7 @@ namespace StardustSandbox.Elements
 
         #endregion
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             ElementRenderer.Draw(this.context, this, spriteBatch, this.TextureOriginOffset);
         }

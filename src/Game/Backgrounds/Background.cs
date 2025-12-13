@@ -28,7 +28,7 @@ namespace StardustSandbox.Backgrounds
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             for (int i = 0; i < this.layerCount; i++)
             {

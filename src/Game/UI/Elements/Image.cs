@@ -45,7 +45,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnDraw(SpriteBatch spriteBatch)
+        protected override void OnDraw(in SpriteBatch spriteBatch)
         {
             if (this.HasTexture)
             {

@@ -216,7 +216,7 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(in ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
+        private static void DrawBlobElementRoutine(in ElementContext context, Element element, in SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
 
@@ -246,7 +246,7 @@ namespace StardustSandbox.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(in ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset)
+        private static void DrawSingleElementRoutine(in ElementContext context, in SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
 
@@ -270,7 +270,7 @@ namespace StardustSandbox.Elements
             );
         }
 
-        internal static void Draw(in ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
+        internal static void Draw(in ElementContext context, Element element, in SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             // Handle blob tiles separately.
             switch (element.RenderingType)

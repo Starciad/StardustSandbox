@@ -58,7 +58,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             for (int x = 0; x < this.worldChunkWidth; x++)
             {
@@ -75,7 +75,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        internal bool TryGetChunkUpdateState(Point position, out bool result)
+        internal bool TryGetChunkUpdateState(in Point position, out bool result)
         {
             result = false;
             Point targetPosition = ToChunkCoordinateSystem(position);
@@ -123,7 +123,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        internal bool TryNotifyChunk(Point position)
+        internal bool TryNotifyChunk(in Point position)
         {
             Point targetPosition = ToChunkCoordinateSystem(position);
 
@@ -137,7 +137,7 @@ namespace StardustSandbox.WorldSystem.Components
 
             return false;
         }
-        private void TryNotifyNeighboringChunks(Point ePos, Point cPos)
+        private void TryNotifyNeighboringChunks(in Point ePos, in Point cPos)
         {
             if (ePos.X % WorldConstants.CHUNK_SCALE == 0 && IsWithinChunkBoundaries(new(cPos.X - 1, cPos.Y)))
             {
@@ -160,13 +160,13 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        private bool IsWithinChunkBoundaries(Point position)
+        private bool IsWithinChunkBoundaries(in Point position)
         {
             return position.X >= 0 && position.X < this.worldChunkWidth &&
                    position.Y >= 0 && position.Y < this.worldChunkHeight;
         }
 
-        internal static Point ToChunkCoordinateSystem(Point position)
+        internal static Point ToChunkCoordinateSystem(in Point position)
         {
             return new(position.X / WorldConstants.CHUNK_SCALE, position.Y / WorldConstants.CHUNK_SCALE);
         }

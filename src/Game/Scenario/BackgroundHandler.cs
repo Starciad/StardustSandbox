@@ -18,7 +18,7 @@ namespace StardustSandbox.Scenario
             this.selectedBackground.Update(gameTime);
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             this.selectedBackground.Draw(spriteBatch);
         }

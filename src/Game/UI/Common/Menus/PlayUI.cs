@@ -35,7 +35,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(in Container root)
         {
             BuildTitle(root);
             BuildMenuButtons(root);

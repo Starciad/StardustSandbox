@@ -22,7 +22,7 @@ namespace StardustSandbox.WorldSystem.Components
         private readonly InputController inputController = inputController;
         private readonly World world = world;
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             Vector2 topLeftWorld = SSCamera.ScreenToWorld(new Vector2(0, 0));
             Vector2 bottomRightWorld = SSCamera.ScreenToWorld(new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
@@ -59,7 +59,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, Layer layer, Slot value, Element element)
+        private void DrawSlotLayer(in SpriteBatch spriteBatch, in Point position, in Layer layer, in Slot value, in Element element)
         {
             this.elementRenderingContext.UpdateInformation(position, layer, value);
 

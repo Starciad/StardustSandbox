@@ -94,17 +94,17 @@ namespace StardustSandbox.Databases
             pixelTexture.Dispose();
         }
 
-        internal static Texture2D GetTexture(TextureIndex index)
+        internal static Texture2D GetTexture(in TextureIndex index)
         {
             return textures[(int)index];
         }
 
-        internal static SpriteFont GetSpriteFont(SpriteFontIndex index)
+        internal static SpriteFont GetSpriteFont(in SpriteFontIndex index)
         {
             return fonts[(int)index];
         }
 
-        internal static Song GetSong(SongIndex index)
+        internal static Song GetSong(in SongIndex index)
         {
             return songs[(int)index];
         }
@@ -114,7 +114,7 @@ namespace StardustSandbox.Databases
             return effects;
         }
 
-        internal static Effect GetEffect(EffectIndex index)
+        internal static Effect GetEffect(in EffectIndex index)
         {
             return effects[(int)index];
         }

@@ -246,7 +246,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.cursorManager.ApplySettings();
         }
 
-        protected override void OnBuild(Container rootContainer)
+        protected override void OnBuild(in Container rootContainer)
         {
             this.background = new()
             {

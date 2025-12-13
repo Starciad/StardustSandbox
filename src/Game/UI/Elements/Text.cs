@@ -100,7 +100,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
+        private void DrawBorders(in SpriteBatch spriteBatch, Vector2 position)
         {
             if (this.BorderDirections == LabelBorderDirection.None)
             {
@@ -123,7 +123,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        protected override void OnDraw(SpriteBatch spriteBatch)
+        protected override void OnDraw(in SpriteBatch spriteBatch)
         {
             if (!string.IsNullOrEmpty(this.textContent))
             {

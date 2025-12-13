@@ -101,7 +101,7 @@ namespace StardustSandbox.UI.Elements
             UpdatePosition();
         }
 
-        protected override void OnDraw(SpriteBatch spriteBatch)
+        protected override void OnDraw(in SpriteBatch spriteBatch)
         {
             return;
         }

@@ -19,13 +19,13 @@ namespace StardustSandbox.Tools
         private Point position;
         private Layer layer;
 
-        internal void Update(Point position, Layer layer)
+        internal void Update(in Point position, in Layer layer)
         {
             this.position = position;
             this.layer = layer;
         }
 
-        void IToolContext.Update(Point position, Layer layer)
+        void IToolContext.Update(in Point position, in Layer layer)
         {
             Update(position, layer);
         }

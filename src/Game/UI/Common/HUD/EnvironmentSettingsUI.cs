@@ -68,7 +68,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region BUILDER
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(in Container root)
         {
             BuildBackground(root);
             BuildTitle();

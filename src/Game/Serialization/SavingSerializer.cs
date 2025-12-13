@@ -135,7 +135,7 @@ namespace StardustSandbox.Serialization
                 _ = distinctElements.Add(index);
             }
 
-            void ProcessSlot(Point position, Layer layer)
+            void ProcessSlot(in Point position, in Layer layer)
             {
                 if (!world.TryGetSlot(position, out Slot slot))
                 {

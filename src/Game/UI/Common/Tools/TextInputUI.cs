@@ -118,7 +118,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.characterCount.CanDraw = settings.MaxCharacters != 0;
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(in Container root)
         {
             // Shadow
             root.AddChild(new Image()

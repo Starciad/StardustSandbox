@@ -60,7 +60,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region BUILDER
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(in Container root)
         {
             Image shadow = new()
             {

@@ -168,7 +168,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {
@@ -185,11 +185,11 @@ namespace StardustSandbox.UI.Elements
 
         protected abstract void OnInitialize();
         protected abstract void OnUpdate(in GameTime gameTime);
-        protected abstract void OnDraw(SpriteBatch spriteBatch);
+        protected abstract void OnDraw(in SpriteBatch spriteBatch);
 
         #region Positioning
 
-        private static Vector2 GetAnchoredPosition(FloatRectangle rect1, FloatRectangle rect2, UIDirection anchor, Vector2 margin)
+        private static Vector2 GetAnchoredPosition(in FloatRectangle rect1, in FloatRectangle rect2, in UIDirection anchor, in Vector2 margin)
         {
             float x = rect2.Location.X;
             float y = rect2.Location.Y;
@@ -242,13 +242,13 @@ namespace StardustSandbox.UI.Elements
             return new Vector2(x + margin.X, y + margin.Y);
         }
 
-        private void RepositionRelativeToElement(FloatRectangle targetRectangle)
+        private void RepositionRelativeToElement(in FloatRectangle targetRectangle)
         {
             this.position = GetAnchoredPosition(this.SelfFloatRectangle, targetRectangle, this.Alignment, this.Margin);
             RepositionChildren();
         }
 
-        private void RepositionRelativeToElement(UIElement targetElement)
+        private void RepositionRelativeToElement(in UIElement targetElement)
         {
             RepositionRelativeToElement(targetElement.SelfFloatRectangle);
         }
@@ -282,7 +282,7 @@ namespace StardustSandbox.UI.Elements
 
         #region Hierarchy Management
 
-        internal void AddChild(UIElement element)
+        internal void AddChild(in UIElement element)
         {
             if (element == null)
             {
@@ -292,7 +292,7 @@ namespace StardustSandbox.UI.Elements
             this.childrenToAdd.Enqueue(element);
         }
 
-        internal void RemoveChild(UIElement element)
+        internal void RemoveChild(in UIElement element)
         {
             if (element == null)
             {
@@ -314,27 +314,27 @@ namespace StardustSandbox.UI.Elements
 
         #region Data
 
-        internal bool ContainsData(string name)
+        internal bool ContainsData(in string name)
         {
             return this.data.ContainsKey(name);
         }
 
-        internal void AddData(string name, object value)
+        internal void AddData(in string name, in object value)
         {
             this.data.Add(name, value);
         }
 
-        internal object GetData(string name)
+        internal object GetData(in string name)
         {
             return this.data[name];
         }
 
-        internal void UpdateData(string name, object value)
+        internal void UpdateData(in string name, in object value)
         {
             this.data[name] = value;
         }
 
-        internal void RemoveData(string name)
+        internal void RemoveData(in string name)
         {
             _ = this.data.Remove(name);
         }

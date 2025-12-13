@@ -53,7 +53,7 @@ namespace StardustSandbox.WorldSystem.Components
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void UpdateSlotLayerTarget(in GameTime gameTime, Point position, Layer layer, Slot slot)
+        private void UpdateSlotLayerTarget(in GameTime gameTime, in Point position, in Layer layer, in Slot slot)
         {
             SlotLayer slotLayer = slot.GetLayer(layer);
             Element element = slotLayer.Element;

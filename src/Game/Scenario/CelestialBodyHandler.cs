@@ -34,7 +34,7 @@ namespace StardustSandbox.Scenario
             this.rotation = this.angle - (MathF.PI / 2);
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             // Determine the current day period
             DayPeriod dayPeriod = this.world.Time.GetCurrentDayPeriod();

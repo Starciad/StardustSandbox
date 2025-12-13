@@ -35,7 +35,7 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             if (this.currentUI != null && this.currentUI.IsActive)
             {

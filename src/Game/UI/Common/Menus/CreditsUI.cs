@@ -213,7 +213,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(in Container root)
         {
             this.rootContainer = root;
 

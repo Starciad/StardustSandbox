@@ -65,7 +65,7 @@ namespace StardustSandbox.Scenario
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(in SpriteBatch spriteBatch)
         {
             for (int i = 0; i < this.activeClouds.Count; i++)
             {

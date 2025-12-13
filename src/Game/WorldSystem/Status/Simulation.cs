@@ -28,7 +28,7 @@ namespace StardustSandbox.WorldSystem.Status
             this.accumulatedTimeSeconds += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
         }
 
-        internal void SetSpeed(SimulationSpeed speed)
+        internal void SetSpeed(in SimulationSpeed speed)
         {
             this.currentSpeed = speed;
             this.delayThresholdSeconds = speed switch
