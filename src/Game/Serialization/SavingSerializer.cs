@@ -174,7 +174,7 @@ namespace StardustSandbox.Serialization
             return [.. distinctElements];
         }
 
-        private static SlotData[] CreateSlotsData(World world, Point worldSize)
+        private static SlotData[] CreateSlotsData(World world, in Point worldSize)
         {
             List<SlotData> slots = [];
 
