@@ -12,19 +12,13 @@ namespace StardustSandbox.Elements.Utilities
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
+                    neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }
 
-                SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.Layer);
-
-                if (slotLayer.Element == null || !slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
-                {
-                    continue;
-                }
-
-                ApplyTemperature(context, neighbors.GetSlot(i).Position, slotLayer, temperatureModifierMode);
+                ApplyTemperature(context, neighbors.GetSlot(i).Position, neighbors.GetSlotLayer(i, context.Layer), temperatureModifierMode);
             }
         }
 

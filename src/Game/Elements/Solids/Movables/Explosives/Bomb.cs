@@ -32,7 +32,7 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }

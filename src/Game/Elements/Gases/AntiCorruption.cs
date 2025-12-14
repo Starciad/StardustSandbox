@@ -19,15 +19,14 @@ namespace StardustSandbox.Elements.Gases
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
                 Slot slot = neighbors.GetSlot(i);
-                SlotLayer slotLayer = slot.GetLayer(context.Layer);
-
-                if (!slotLayer.HasState(ElementStates.IsEmpty) && slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
+                
+                if (slot.GetLayer(context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
                 {
                     cachedCorruptionNeighborSlots.Add(slot);
                 }

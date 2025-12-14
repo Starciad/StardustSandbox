@@ -3,6 +3,8 @@ using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.Elements
 {
     internal sealed class ElementNeighbors : IResettable
@@ -61,6 +63,13 @@ namespace StardustSandbox.Elements
             }
 
             return count;
+        }
+
+        internal bool IsNeighborLayerOccupied(int index, Layer layer)
+        {
+            return HasNeighbor(index) &&
+                   !GetSlotLayer(index, layer).HasState(ElementStates.IsEmpty) &&
+                   GetSlotLayer(index, layer).Element != null;
         }
 
         public void Reset()

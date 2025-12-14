@@ -9,7 +9,7 @@ namespace StardustSandbox.Elements.Liquids
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i) || neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.IsEmpty))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
