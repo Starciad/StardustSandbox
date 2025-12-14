@@ -760,7 +760,7 @@ namespace StardustSandbox.WorldSystem
             Slot slot = GetSlot(position);
 
             slot.SetTemperatureValue(layer, slotLayerData.Temperature);
-            slot.SetState(layer, ElementStates.IsFalling);
+            slot.SetState(layer, slotLayerData.States);
             slot.SetColorModifier(layer, slotLayerData.ColorModifier);
             slot.SetStoredElement(layer, ElementDatabase.GetElement(slotLayerData.StoredElementIndex));
         }
