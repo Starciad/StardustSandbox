@@ -9,7 +9,7 @@ namespace StardustSandbox.Elements.Liquids
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.HasNeighbor(i) || neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.IsEmpty))
                 {
                     continue;
                 }
@@ -26,9 +26,8 @@ namespace StardustSandbox.Elements.Liquids
                         if (SSRandom.Range(0, 150) == 0)
                         {
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
+                            context.DestroyElement();
                         }
-
-                        context.DestroyElement();
                         return;
 
                     case ElementIndex.Fire:

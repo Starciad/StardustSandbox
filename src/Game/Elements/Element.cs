@@ -105,44 +105,42 @@ namespace StardustSandbox.Elements
             float totalHeatTransfer = 0.0f;
             int validNeighborCount = 0;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            float CalculateHeatTransfer(SlotLayer slotLayer)
             {
-                // Foreground layer
-                if (neighbors.HasNeighbor(i))
+                if (!slotLayer.HasState(ElementStates.IsEmpty) && slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
-                    SlotLayer neighborForeground = neighbors.GetSlotLayer(i, Layer.Foreground);
-
-                    if (!neighborForeground.HasState(ElementStates.IsEmpty) && neighborForeground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
-                    {
-                        float neighborTemp = neighborForeground.Temperature;
-                        float heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
-
-                        totalHeatTransfer += heatTransfer;
-                        validNeighborCount++;
-                    }
+                    float neighborTemp = slotLayer.Temperature;
+                    return TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
                 }
 
-                // Background layer
+                return 0.0f;
+            }
+
+            for (int i = 0; i < neighbors.Length; i++)
+            {
                 if (neighbors.HasNeighbor(i))
                 {
-                    SlotLayer neighborBackground = neighbors.GetSlotLayer(i, Layer.Background);
+                    float fgHeat = CalculateHeatTransfer(neighbors.GetSlotLayer(i, Layer.Foreground));
 
-                    if (!neighborBackground.HasState(ElementStates.IsEmpty) && neighborBackground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                    if (fgHeat != 0.0f)
                     {
-                        float neighborTemp = neighborBackground.Temperature;
-                        float heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+                        totalHeatTransfer += fgHeat;
+                        validNeighborCount++;
+                    }
 
-                        totalHeatTransfer += heatTransfer;
+                    float bgHeat = CalculateHeatTransfer(neighbors.GetSlotLayer(i, Layer.Background));
+
+                    if (bgHeat != 0.0f)
+                    {
+                        totalHeatTransfer += bgHeat;
                         validNeighborCount++;
                     }
                 }
             }
 
-            // Update temperature based on total heat transfer
             float newTemperature = currentTemperature + totalHeatTransfer;
             this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
 
-            // Equilibrium check (optional: can be tuned for stability)
             if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
                 this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
