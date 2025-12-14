@@ -25,7 +25,7 @@ namespace StardustSandbox.Elements.Gases
                 }
 
                 Slot slot = neighbors.GetSlot(i);
-                
+
                 if (slot.GetLayer(context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
                 {
                     cachedCorruptionNeighborSlots.Add(slot);

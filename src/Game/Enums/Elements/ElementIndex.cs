@@ -80,6 +80,7 @@
         Seed,
         Sapling,
         Moss,
+        Gunpowder,
 
         Length,
     }

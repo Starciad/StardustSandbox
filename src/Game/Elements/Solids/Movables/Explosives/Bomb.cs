@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Elements.Solids.Immovables;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
 
 namespace StardustSandbox.Elements.Solids.Movables.Explosives

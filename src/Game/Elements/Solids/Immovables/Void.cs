@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.Enums.Elements;
-using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Solids.Immovables
 {

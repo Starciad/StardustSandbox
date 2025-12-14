@@ -1098,6 +1098,23 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.4f,
                     DefaultExplosionResistance = 0.3f,
                 },
+                new Elements.Solids.Movables.Explosives.Gunpowder()
+                {
+                    Index = ElementIndex.Gunpowder,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 160),
+                    ReferenceColor = AAP64ColorPalette.Graphite,
+                    DefaultTemperature = 22.0f,
+                    DefaultFlammabilityResistance = 5.0f,
+                    DefaultDensity = 0.9f,
+                    DefaultExplosionResistance = 0.1f,
+                },
             ];
 
             isLoaded = true;

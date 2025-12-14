@@ -3,8 +3,6 @@ using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.Elements
 {
     internal sealed class ElementNeighbors : IResettable

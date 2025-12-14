@@ -704,6 +704,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(0, 96, 32, 32)
                                 ),
+
+                                // [3] Gunpowder
+                                new(
+                                    associatedType: typeof(Gunpowder),
+                                    name: Localization_Elements.Solid_Movable_Gunpowder_Name,
+                                    description: Localization_Elements.Solid_Movable_Gunpowder_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(224, 128, 32, 32)
+                                ),
                             ]
                         ),
 

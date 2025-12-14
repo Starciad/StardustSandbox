@@ -1195,6 +1195,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_Gunpowder_Description {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Gunpowder.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Movable_Gunpowder_Name {
+            get {
+                return ResourceManager.GetString("Solid.Movable.Gunpowder.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Solid, slippery water, melts easily with heat..
         /// </summary>
         internal static string Solid_Movable_Ice_Description {

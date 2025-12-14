@@ -550,4 +550,10 @@
   <data name="Solid.Immovable.Moss.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Solid.Movable.Gunpowder.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Solid.Movable.Gunpowder.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

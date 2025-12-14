@@ -549,4 +549,10 @@
   <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Solid.Movable.Gunpowder.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

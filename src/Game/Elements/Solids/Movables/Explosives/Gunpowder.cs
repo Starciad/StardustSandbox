@@ -1,6 +1,4 @@
-﻿using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
 
 namespace StardustSandbox.Elements.Solids.Movables.Explosives
@@ -43,7 +41,12 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
                     case ElementIndex.Fire:
                     case ElementIndex.Lava:
                         context.DestroyElement();
-                        break;
+                        return;
+
+                    case ElementIndex.Water:
+                    case ElementIndex.Saltwater:
+                        context.RemoveElement();
+                        return;
 
                     default:
                         break;
