@@ -67,7 +67,7 @@ namespace StardustSandbox.Constants
             new()
             {
                 StartTime = new(20, 0, 0), // Evening
-                EndTime = new(23, 59, 59), // Midnight
+                EndTime = new(24, 0, 0), // End of day (24:00:00)
                 GradientStartColor = new(AAP64ColorPalette.DarkTeal, AAP64ColorPalette.NavyBlue),
                 GradientEndColor = new(AAP64ColorPalette.DarkPurple, AAP64ColorPalette.NavyBlue),
             },
@@ -78,7 +78,7 @@ namespace StardustSandbox.Constants
             return Array.Find(backgroundGradientColorMap, x =>
             {
                 return currentTime >= x.StartTime && currentTime < x.EndTime;
-            });
+            }) ?? backgroundGradientColorMap[^1];
         }
     }
 }
