@@ -1115,6 +1115,23 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.9f,
                     DefaultExplosionResistance = 0.1f,
                 },
+                new Elements.Gases.LiquefiedPetroleumGas()
+                {
+                    Index = ElementIndex.LiquefiedPetroleumGas,
+                    Category = ElementCategory.Gas,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 192),
+                    ReferenceColor = AAP64ColorPalette.Amber,
+                    DefaultTemperature = -42.0f,
+                    DefaultFlammabilityResistance = 1.0f,
+                    DefaultDensity = 0.25f,
+                    DefaultExplosionResistance = 0.2f,
+                }
             ];
 
             isLoaded = true;

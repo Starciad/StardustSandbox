@@ -556,4 +556,10 @@
   <data name="Solid.Movable.Gunpowder.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Gas.LiquefiedPetroleumGas.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

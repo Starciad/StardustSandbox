@@ -307,6 +307,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(32, 128, 32, 32)
                                 ),
+
+                                // [6] Liquefied Petroleum Gas
+                                new(
+                                    associatedType: typeof(LiquefiedPetroleumGas),
+                                    name: Localization_Elements.Gas_LiquefiedPetroleumGas_Name,
+                                    description: Localization_Elements.Gas_LiquefiedPetroleumGas_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(256, 128, 32, 32)
+                                ),
                             ]
                         ),
 

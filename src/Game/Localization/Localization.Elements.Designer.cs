@@ -169,6 +169,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Gas_LiquefiedPetroleumGas_Description {
+            get {
+                return ResourceManager.GetString("Gas.LiquefiedPetroleumGas.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Gas_LiquefiedPetroleumGas_Name {
+            get {
+                return ResourceManager.GetString("Gas.LiquefiedPetroleumGas.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Smoke from burning, rises slowly and darkens the air, showing fire is present..
         /// </summary>
         internal static string Gas_Smoke_Description {

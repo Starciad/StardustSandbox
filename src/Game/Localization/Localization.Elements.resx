@@ -555,4 +555,10 @@
   <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Gas.LiquefiedPetroleumGas.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

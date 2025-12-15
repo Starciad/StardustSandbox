@@ -81,6 +81,7 @@
         Sapling,
         Moss,
         Gunpowder,
+        LiquefiedPetroleumGas,
 
         Length,
     }
