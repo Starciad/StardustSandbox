@@ -2,6 +2,7 @@
 using StardustSandbox.Elements.Energies;
 using StardustSandbox.Elements.Gases;
 using StardustSandbox.Elements.Liquids;
+using StardustSandbox.Elements.Liquids.Paints;
 using StardustSandbox.Elements.Solids.Immovables;
 using StardustSandbox.Elements.Solids.Immovables.Pushers;
 using StardustSandbox.Elements.Solids.Immovables.Wools;
@@ -237,7 +238,107 @@ namespace StardustSandbox.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(256, 64, 32, 32)
-                                )
+                                ),
+
+                                // [6] Black Paint
+                                new(
+                                    associatedType: typeof(BlackPaint),
+                                    name: Localization_Elements.Liquid_BlackPaint_Name,
+                                    description: Localization_Elements.Liquid_BlackPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(192, 160, 32, 32)
+                                ),
+
+                                // [7] White Paint
+                                new(
+                                    associatedType: typeof(WhitePaint),
+                                    name: Localization_Elements.Liquid_WhitePaint_Name,
+                                    description: Localization_Elements.Liquid_WhitePaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(224, 160, 32, 32)
+                                ),
+
+                                // [8] Red Paint
+                                new(
+                                    associatedType: typeof(RedPaint),
+                                    name: Localization_Elements.Liquid_RedPaint_Name,
+                                    description: Localization_Elements.Liquid_RedPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(256, 160, 32, 32)
+                                ),
+
+                                // [9] Orange Paint
+                                new(
+                                    associatedType: typeof(OrangePaint),
+                                    name: Localization_Elements.Liquid_OrangePaint_Name,
+                                    description: Localization_Elements.Liquid_OrangePaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(288, 160, 32, 32)
+                                ),
+
+                                // [10] Yellow Paint
+                                new(
+                                    associatedType: typeof(YellowPaint),
+                                    name: Localization_Elements.Liquid_YellowPaint_Name,
+                                    description: Localization_Elements.Liquid_YellowPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(320, 160, 32, 32)
+                                ),
+
+                                // [11] Green Paint
+                                new(
+                                    associatedType: typeof(GreenPaint),
+                                    name: Localization_Elements.Liquid_GreenPaint_Name,
+                                    description: Localization_Elements.Liquid_GreenPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(192, 192, 32, 32)
+                                ),
+
+                                // [12] Blue Paint
+                                new(
+                                    associatedType: typeof(BluePaint),
+                                    name: Localization_Elements.Liquid_BluePaint_Name,
+                                    description: Localization_Elements.Liquid_BluePaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(224, 192, 32, 32)
+                                ),
+
+                                // [13] Gray Paint
+                                new(
+                                    associatedType: typeof(GrayPaint),
+                                    name: Localization_Elements.Liquid_GrayPaint_Name,
+                                    description: Localization_Elements.Liquid_GrayPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(256, 192, 32, 32)
+                                ),
+
+                                // [14] Violet Paint
+                                new(
+                                    associatedType: typeof(VioletPaint),
+                                    name: Localization_Elements.Liquid_VioletPaint_Name,
+                                    description: Localization_Elements.Liquid_VioletPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(288, 192, 32, 32)
+                                ),
+
+                                // [15] Brown Paint
+                                new(
+                                    associatedType: typeof(BrownPaint),
+                                    name: Localization_Elements.Liquid_BrownPaint_Name,
+                                    description: Localization_Elements.Liquid_BrownPaint_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(320, 192, 32, 32)
+                                ),
                             ]
                         ),
 
@@ -507,11 +608,11 @@ namespace StardustSandbox.Databases
                                     sourceRectangle: new(0, 192, 32, 32)
                                 ),
 
-                                // [18] Dry Cyan Wool
+                                // [18] Dry Gray Wool
                                 new(
-                                    associatedType: typeof(DryCyanWool),
-                                    name: Localization_Elements.Solid_Immovable_DryCyanWool_Name,
-                                    description: Localization_Elements.Solid_Immovable_DryCyanWool_Description,
+                                    associatedType: typeof(DryGrayWool),
+                                    name: Localization_Elements.Solid_Immovable_DryGrayWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_DryGrayWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(32, 192, 32, 32)
@@ -607,11 +708,11 @@ namespace StardustSandbox.Databases
                                     sourceRectangle: new(0, 256, 32, 32)
                                 ),
 
-                                // [28] Wet Cyan Wool
+                                // [28] Wet Gray Wool
                                 new(
-                                    associatedType: typeof(WetCyanWool),
-                                    name: Localization_Elements.Solid_Immovable_WetCyanWool_Name,
-                                    description: Localization_Elements.Solid_Immovable_WetCyanWool_Description,
+                                    associatedType: typeof(WetGrayWool),
+                                    name: Localization_Elements.Solid_Immovable_WetGrayWool_Name,
+                                    description: Localization_Elements.Solid_Immovable_WetGrayWool_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(32, 256, 32, 32)

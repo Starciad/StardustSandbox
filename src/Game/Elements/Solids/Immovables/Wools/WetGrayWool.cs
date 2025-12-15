@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Elements.Solids.Immovables.Wools
 {
-    internal sealed class DryCyanWool : DryWool
+    internal sealed class WetGrayWool : WetWool
     {
 
     }

@@ -442,10 +442,10 @@
   <data name="Solid.Immovable.DryGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Solid.Immovable.DryCyanWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Solid.Immovable.DryGrayWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Solid.Immovable.DryCyanWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Solid.Immovable.DryGrayWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
   <data name="Solid.Immovable.DryBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
@@ -502,10 +502,10 @@
   <data name="Solid.Immovable.WetGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Solid.Immovable.WetCyanWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Solid.Immovable.WetGrayWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="Solid.Immovable.WetCyanWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="Solid.Immovable.WetGrayWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
   <data name="Solid.Immovable.WetBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
@@ -566,6 +566,66 @@
     <value />
   </data>
   <data name="Solid.Immovable.Obsidian.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.BlackPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.BlackPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.WhitePaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.WhitePaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.RedPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.RedPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.OrangePaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.OrangePaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.YellowPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.YellowPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.GreenPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.GreenPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.BluePaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.BluePaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.GrayPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.GrayPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.VioletPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.VioletPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.BrownPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Liquid.BrownPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

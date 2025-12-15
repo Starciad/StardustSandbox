@@ -23,6 +23,8 @@ namespace StardustSandbox.Databases
             }
 
             elements = [
+                #region Elements Pack 1
+
                 new Elements.Solids.Movables.Dirt()
                 {
                     Index = ElementIndex.Dirt,
@@ -584,6 +586,11 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.35f,
                     DefaultExplosionResistance = 0.0f,
                 },
+
+                #endregion
+
+                #region Elements Pack 2
+
                 new Elements.Gases.AntiCorruption()
                 {
                     Index = ElementIndex.AntiCorruption,
@@ -608,6 +615,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 3.5f,
                     DefaultExplosionResistance = 1.5f,
                 },
+
+                #region Pushers
+
                 new Elements.Solids.Immovables.Pushers.UpwardPusher()
                 {
                     Index = ElementIndex.UpwardPusher,
@@ -648,6 +658,9 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.Rust,
                     DefaultDensity = 2.0f,
                 },
+
+                #endregion
+
                 new Elements.Gases.Cloud()
                 {
                     Index = ElementIndex.Cloud,
@@ -704,6 +717,9 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
                 },
+
+                #region Wools
+
                 new Elements.Solids.Immovables.Wools.DryBlackWool()
                 {
                     Index = ElementIndex.DryBlackWool,
@@ -812,9 +828,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryCyanWool()
+                new Elements.Solids.Immovables.Wools.DryGrayWool()
                 {
-                    Index = ElementIndex.DryCyanWool,
+                    Index = ElementIndex.DryGrayWool,
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
@@ -824,7 +840,7 @@ namespace StardustSandbox.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 288),
                     ReferenceColor = AAP64ColorPalette.Cyan,
-                    WetWoolIndex = ElementIndex.WetCyanWool,
+                    WetWoolIndex = ElementIndex.WetGrayWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -974,9 +990,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetCyanWool()
+                new Elements.Solids.Immovables.Wools.WetGrayWool()
                 {
-                    Index = ElementIndex.WetCyanWool,
+                    Index = ElementIndex.WetGrayWool,
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
@@ -984,7 +1000,7 @@ namespace StardustSandbox.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 288),
                     ReferenceColor = AAP64ColorPalette.Cyan.Darken(50),
-                    DryWoolIndex = ElementIndex.DryCyanWool,
+                    DryWoolIndex = ElementIndex.DryGrayWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1034,6 +1050,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
+
+                #endregion
+
                 new Elements.Solids.Movables.FertileSoil()
                 {
                     Index = ElementIndex.FertileSoil,
@@ -1145,6 +1164,183 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = 35.0f,
                     DefaultDensity = 2.4f,
                 },
+
+                #region Paints
+
+                new Elements.Liquids.Paints.BlackPaint()
+                {
+                    Index = ElementIndex.BlackPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 256),
+                    ReferenceColor = AAP64ColorPalette.DarkGray,
+                    DyeingColor = AAP64ColorPalette.DarkGray,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.WhitePaint()
+                {
+                    Index = ElementIndex.WhitePaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 288),
+                    ReferenceColor = AAP64ColorPalette.White,
+                    DyeingColor = AAP64ColorPalette.White,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.RedPaint()
+                {
+                    Index = ElementIndex.RedPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 0),
+                    ReferenceColor = AAP64ColorPalette.Crimson,
+                    DyeingColor = AAP64ColorPalette.Crimson,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.OrangePaint()
+                {
+                    Index = ElementIndex.OrangePaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 32),
+                    ReferenceColor = AAP64ColorPalette.Orange,
+                    DyeingColor = AAP64ColorPalette.Orange,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.YellowPaint()
+                {
+                    Index = ElementIndex.YellowPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 64),
+                    ReferenceColor = AAP64ColorPalette.Gold,
+                    DyeingColor = AAP64ColorPalette.Gold,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.GreenPaint()
+                {
+                    Index = ElementIndex.GreenPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 96),
+                    ReferenceColor = AAP64ColorPalette.ForestGreen,
+                    DyeingColor = AAP64ColorPalette.ForestGreen,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.BluePaint()
+                {
+                    Index = ElementIndex.BluePaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 128),
+                    ReferenceColor = AAP64ColorPalette.Gunmetal,
+                    DyeingColor = AAP64ColorPalette.Gunmetal,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.GrayPaint()
+                {
+                    Index = ElementIndex.GrayPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 160),
+                    ReferenceColor = AAP64ColorPalette.Cyan,
+                    DyeingColor = AAP64ColorPalette.Cyan,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.VioletPaint()
+                {
+                    Index = ElementIndex.VioletPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 192),
+                    ReferenceColor = AAP64ColorPalette.Violet,
+                    DyeingColor = AAP64ColorPalette.Violet,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.BrownPaint()
+                {
+                    Index = ElementIndex.BrownPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 224),
+                    ReferenceColor = AAP64ColorPalette.Brown,
+                    DyeingColor = AAP64ColorPalette.Brown,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+
+                #endregion
+
+                #endregion
             ];
 
             isLoaded = true;

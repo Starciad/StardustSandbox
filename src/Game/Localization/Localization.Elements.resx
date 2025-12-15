@@ -441,10 +441,10 @@
   <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
     <value />
   </data>
-  <data name="Solid.Immovable.DryCyanWool.Name" xml:space="preserve">
+  <data name="Solid.Immovable.DryGrayWool.Name" xml:space="preserve">
     <value />
   </data>
-  <data name="Solid.Immovable.DryCyanWool.Description" xml:space="preserve">
+  <data name="Solid.Immovable.DryGrayWool.Description" xml:space="preserve">
     <value />
   </data>
   <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
@@ -501,10 +501,10 @@
   <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
     <value />
   </data>
-  <data name="Solid.Immovable.WetCyanWool.Name" xml:space="preserve">
+  <data name="Solid.Immovable.WetGrayWool.Name" xml:space="preserve">
     <value />
   </data>
-  <data name="Solid.Immovable.WetCyanWool.Description" xml:space="preserve">
+  <data name="Solid.Immovable.WetGrayWool.Description" xml:space="preserve">
     <value />
   </data>
   <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
@@ -565,6 +565,66 @@
     <value />
   </data>
   <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.BlackPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.BlackPaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.WhitePaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.WhitePaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.RedPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.RedPaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.OrangePaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.OrangePaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.YellowPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.YellowPaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.GreenPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.GreenPaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.BluePaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.BluePaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.GrayPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.GrayPaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.VioletPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.VioletPaint.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.BrownPaint.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.BrownPaint.Description" xml:space="preserve">
     <value />
   </data>
 </root>

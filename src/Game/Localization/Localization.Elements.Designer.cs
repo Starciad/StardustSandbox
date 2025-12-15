@@ -241,6 +241,60 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_BlackPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.BlackPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_BlackPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.BlackPaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_BluePaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.BluePaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_BluePaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.BluePaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_BrownPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.BrownPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_BrownPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.BrownPaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Contaminating liquid that flows and corrupts everything it touches..
         /// </summary>
         internal static string Liquid_Corruption_Description {
@@ -255,6 +309,42 @@ namespace StardustSandbox.Localization {
         internal static string Liquid_Corruption_Name {
             get {
                 return ResourceManager.GetString("Liquid.Corruption.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_GrayPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.GrayPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_GrayPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.GrayPaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_GreenPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.GreenPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_GreenPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.GreenPaint.Name", resourceCulture);
             }
         }
         
@@ -295,6 +385,42 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_OrangePaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.OrangePaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_OrangePaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.OrangePaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_RedPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.RedPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_RedPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.RedPaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Light blue liquid with floating salt particles..
         /// </summary>
         internal static string Liquid_Saltwater_Description {
@@ -313,6 +439,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_VioletPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.VioletPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_VioletPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.VioletPaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Essential liquid that can freeze, evaporate, and put out fires..
         /// </summary>
         internal static string Liquid_Water_Description {
@@ -327,6 +471,42 @@ namespace StardustSandbox.Localization {
         internal static string Liquid_Water_Name {
             get {
                 return ResourceManager.GetString("Liquid.Water.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_WhitePaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.WhitePaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_WhitePaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.WhitePaint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_YellowPaint_Description {
+            get {
+                return ResourceManager.GetString("Liquid.YellowPaint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_YellowPaint_Name {
+            get {
+                return ResourceManager.GetString("Liquid.YellowPaint.Name", resourceCulture);
             }
         }
         
@@ -459,18 +639,18 @@ namespace StardustSandbox.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
-        internal static string Solid_Immovable_DryCyanWool_Description {
+        internal static string Solid_Immovable_DryGrayWool_Description {
             get {
-                return ResourceManager.GetString("Solid.Immovable.DryCyanWool.Description", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.DryGrayWool.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
-        internal static string Solid_Immovable_DryCyanWool_Name {
+        internal static string Solid_Immovable_DryGrayWool_Name {
             get {
-                return ResourceManager.GetString("Solid.Immovable.DryCyanWool.Name", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.DryGrayWool.Name", resourceCulture);
             }
         }
         
@@ -945,18 +1125,18 @@ namespace StardustSandbox.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
-        internal static string Solid_Immovable_WetCyanWool_Description {
+        internal static string Solid_Immovable_WetGrayWool_Description {
             get {
-                return ResourceManager.GetString("Solid.Immovable.WetCyanWool.Description", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.WetGrayWool.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a .
         /// </summary>
-        internal static string Solid_Immovable_WetCyanWool_Name {
+        internal static string Solid_Immovable_WetGrayWool_Name {
             get {
-                return ResourceManager.GetString("Solid.Immovable.WetCyanWool.Name", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.WetGrayWool.Name", resourceCulture);
             }
         }
         
