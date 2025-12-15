@@ -129,4 +129,65 @@
   <data name="Environment.Heat.Name" xml:space="preserve">
     <value>Heat Tool</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Inks.Black.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Black.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Blue.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Blue.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Brown.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Brown.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Gray.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Gray.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Green.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Green.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Orange.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Orange.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Red.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Red.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Violet.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Violet.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.White.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.White.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Yellow.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Inks.Yellow.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

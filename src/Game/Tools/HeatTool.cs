@@ -1,6 +1,5 @@
 ﻿using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Interfaces.Tools;
 using StardustSandbox.Mathematics;
 using StardustSandbox.WorldSystem;
 
@@ -8,7 +7,7 @@ namespace StardustSandbox.Tools
 {
     internal sealed class HeatTool : Tool
     {
-        internal override void Execute(IToolContext context)
+        internal override void Execute(ToolContext context)
         {
             if (!context.World.TryGetSlot(context.Position, out Slot slot))
             {

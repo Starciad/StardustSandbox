@@ -12,6 +12,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.Localization;
 using StardustSandbox.Tools;
+using StardustSandbox.Tools.Inks;
 
 using System;
 
@@ -1019,6 +1020,115 @@ namespace StardustSandbox.Databases
                                     contentType: ItemContentType.Tool,
                                     textureIndex: TextureIndex.IconTools,
                                     sourceRectangle: new(32, 0, 32, 32)
+                                ),
+                            ]
+                        ),
+
+                        // [1] Inks
+                        new(
+                            name: Localization_Catalog.Subcategory_Tools_Inks_Name,
+                            description: Localization_Catalog.Subcategory_Tools_Inks_Description,
+                            textureIndex: TextureIndex.IconUI,
+                            sourceRectangle: new(32, 192, 32, 32),
+                            [
+                                // [0] Black Ink Tool
+                                new(
+                                    associatedType: typeof(BlackInkTool),
+                                    name: Localization_Tools.Inks_Black_Name,
+                                    description: Localization_Tools.Inks_Black_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(64, 0, 32, 32)
+                                ),
+
+                                // [1] White Ink Tool
+                                new(
+                                    associatedType: typeof(WhiteInkTool),
+                                    name: Localization_Tools.Inks_White_Name,
+                                    description: Localization_Tools.Inks_White_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(96, 0, 32, 32)
+                                ),
+
+                                // [2] Red Ink Tool
+                                new(
+                                    associatedType: typeof(RedInkTool),
+                                    name: Localization_Tools.Inks_Red_Name,
+                                    description: Localization_Tools.Inks_Red_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(128, 0, 32, 32)
+                                ),
+
+                                // [3] Orange Ink Tool
+                                new(
+                                    associatedType: typeof(OrangeInkTool),
+                                    name: Localization_Tools.Inks_Orange_Name,
+                                    description: Localization_Tools.Inks_Orange_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(160, 0, 32, 32)
+                                ),
+
+                                // [4] Yellow Ink Tool
+                                new(
+                                    associatedType: typeof(YellowInkTool),
+                                    name: Localization_Tools.Inks_Yellow_Name,
+                                    description: Localization_Tools.Inks_Yellow_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(192, 0, 32, 32)
+                                ),
+
+                                // [5] Green Ink Tool
+                                new(
+                                    associatedType: typeof(GreenInkTool),
+                                    name: Localization_Tools.Inks_Green_Name,
+                                    description: Localization_Tools.Inks_Green_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(224, 0, 32, 32)
+                                ),
+
+                                // [6] Blue Ink Tool
+                                new(
+                                    associatedType: typeof(BlueInkTool),
+                                    name: Localization_Tools.Inks_Blue_Name,
+                                    description: Localization_Tools.Inks_Blue_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(256, 0, 32, 32)
+                                ),
+
+                                // [7] Gray Ink Tool
+                                new(
+                                    associatedType: typeof(GrayInkTool),
+                                    name: Localization_Tools.Inks_Gray_Name,
+                                    description: Localization_Tools.Inks_Gray_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(288, 0, 32, 32)
+                                ),
+
+                                // [8] Violet Ink Tool
+                                new(
+                                    associatedType: typeof(VioletInkTool),
+                                    name: Localization_Tools.Inks_Violet_Name,
+                                    description: Localization_Tools.Inks_Violet_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(320, 0, 32, 32)
+                                ),
+
+                                // [9] Brown Ink Tool
+                                new(
+                                    associatedType: typeof(BrownInkTool),
+                                    name: Localization_Tools.Inks_Brown_Name,
+                                    description: Localization_Tools.Inks_Brown_Description,
+                                    contentType: ItemContentType.Tool,
+                                    textureIndex: TextureIndex.IconTools,
+                                    sourceRectangle: new(352, 0, 32, 32)
                                 ),
                             ]
                         ),

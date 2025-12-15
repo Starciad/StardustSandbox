@@ -129,4 +129,64 @@
   <data name="Environment.Heat.Name" xml:space="preserve">
     <value>Heat Tool</value>
   </data>
+  <data name="Inks.Black.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Black.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Blue.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Blue.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Brown.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Brown.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Gray.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Gray.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Green.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Green.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Orange.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Orange.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Red.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Red.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Violet.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Violet.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.White.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.White.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Yellow.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Inks.Yellow.Name" xml:space="preserve">
+    <value />
+  </data>
 </root>

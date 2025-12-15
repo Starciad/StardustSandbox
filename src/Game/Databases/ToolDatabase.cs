@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Tools;
+﻿using StardustSandbox.Enums.Tools;
+using StardustSandbox.Tools;
 
 using System;
 
@@ -17,8 +18,15 @@ namespace StardustSandbox.Databases
             }
 
             tools = [
-                new HeatTool(),
+                new HeatTool()
+                {
+                    Index = ToolIndex.HeatTool
+                },
+
                 new FreezeTool()
+                {
+                    Index = ToolIndex.FreezeTool,
+                },
             ];
 
             isLoaded = true;

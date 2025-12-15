@@ -1,9 +1,11 @@
-﻿using StardustSandbox.Interfaces.Tools;
+﻿using StardustSandbox.Enums.Tools;
 
 namespace StardustSandbox.Tools
 {
     internal abstract class Tool
     {
-        internal abstract void Execute(IToolContext context);
+        internal required ToolIndex Index { get; init; }
+
+        internal abstract void Execute(ToolContext context);
     }
 }

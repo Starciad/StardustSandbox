@@ -275,5 +275,23 @@ namespace StardustSandbox.Localization {
                 return ResourceManager.GetString("Subcategory.Tools.Environment.Name", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Subcategory_Tools_Inks_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Tools.Inks.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Subcategory_Tools_Inks_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Tools.Inks.Name", resourceCulture);
+            }
+        }
     }
 }

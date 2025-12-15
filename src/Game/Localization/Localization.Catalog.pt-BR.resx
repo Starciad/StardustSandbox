@@ -190,4 +190,10 @@
   <data name="Subcategory.Elements.Vegetation.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Subcategory.Tools.Inks.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Subcategory.Tools.Inks.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>
