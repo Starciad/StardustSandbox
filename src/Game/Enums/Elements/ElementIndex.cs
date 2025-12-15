@@ -82,6 +82,7 @@
         Moss,
         Gunpowder,
         LiquefiedPetroleumGas,
+        Obsidian,
 
         Length,
     }

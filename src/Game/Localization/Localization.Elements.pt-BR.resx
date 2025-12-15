@@ -562,4 +562,10 @@
   <data name="Gas.LiquefiedPetroleumGas.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Solid.Immovable.Obsidian.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Solid.Immovable.Obsidian.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

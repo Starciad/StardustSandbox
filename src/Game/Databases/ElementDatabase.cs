@@ -1131,7 +1131,20 @@ namespace StardustSandbox.Databases
                     DefaultFlammabilityResistance = 1.0f,
                     DefaultDensity = 0.25f,
                     DefaultExplosionResistance = 0.2f,
-                }
+                },
+                new Elements.Solids.Immovables.Obsidian()
+                {
+                    Index = ElementIndex.Obsidian,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsExplosionImmune,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 224),
+                    ReferenceColor = AAP64ColorPalette.DarkGray,
+                    DefaultTemperature = 35.0f,
+                    DefaultDensity = 2.4f,
+                },
             ];
 
             isLoaded = true;

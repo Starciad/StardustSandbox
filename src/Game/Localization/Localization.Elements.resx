@@ -561,4 +561,10 @@
   <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Solid.Immovable.Obsidian.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

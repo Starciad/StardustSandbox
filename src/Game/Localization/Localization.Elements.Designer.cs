@@ -763,6 +763,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_Obsidian_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Obsidian.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Solid_Immovable_Obsidian_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Obsidian.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Durable block, ideal for fire-resistant constructions..
         /// </summary>
         internal static string Solid_Immovable_RedBrick_Description {

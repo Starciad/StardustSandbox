@@ -646,6 +646,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(128, 256, 32, 32)
                                 ),
+
+                                // [32] Obsidian
+                                new(
+                                    associatedType: typeof(Obsidian),
+                                    name: Localization_Elements.Solid_Immovable_Obsidian_Name,
+                                    description: Localization_Elements.Solid_Immovable_Obsidian_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(160, 160, 32, 32)
+                                ),
                             ]
                         ),
 
