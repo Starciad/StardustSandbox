@@ -2,8 +2,10 @@
 
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
+using StardustSandbox.Enums.Tools;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
@@ -19,7 +21,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             IEnumerable<Point> targetPoints = this.Pen.GetShapePoints(position);
 
@@ -29,7 +31,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            DrawElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
+                            DrawElements(ElementDatabase.GetElement((ElementIndex)contentIndex), targetPoints);
                             break;
 
                         case WorldModificationType.Removing:
@@ -39,14 +41,13 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                         default:
                             break;
                     }
-
                     break;
 
                 case ItemContentType.Tool:
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            ExecuteTool(itemAssociateType, targetPoints);
+                            ExecuteTool((ToolIndex)contentIndex, targetPoints);
                             break;
 
                         case WorldModificationType.Removing:
@@ -56,7 +57,6 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                         default:
                             break;
                     }
-
                     break;
 
                 default:
@@ -86,12 +86,12 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         // ============================================ //
         // Tools
 
-        private void ExecuteTool(Type toolType, IEnumerable<Point> positions)
+        private void ExecuteTool(ToolIndex toolIndex, IEnumerable<Point> positions)
         {
             foreach (Point position in positions)
             {
                 this.WorldHandler.ToolContext.Update(position, this.Pen.Layer);
-                ToolDatabase.GetTool(toolType).Execute(this.WorldHandler.ToolContext);
+                ToolDatabase.GetTool(toolIndex).Execute(this.WorldHandler.ToolContext);
             }
         }
     }

@@ -32,9 +32,9 @@ namespace StardustSandbox.Databases
             isLoaded = true;
         }
 
-        internal static Tool GetTool(Type toolType)
+        internal static Tool GetTool(ToolIndex toolIndex)
         {
-            return Array.Find(tools, x => x.GetType() == toolType);
+            return tools[(int)toolIndex];
         }
     }
 }

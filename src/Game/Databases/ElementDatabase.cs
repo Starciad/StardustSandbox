@@ -1350,10 +1350,5 @@ namespace StardustSandbox.Databases
         {
             return elements[(int)value];
         }
-
-        internal static Element GetElement(Type type)
-        {
-            return Array.Find(elements, x => x.GetType() == type);
-        }
     }
 }

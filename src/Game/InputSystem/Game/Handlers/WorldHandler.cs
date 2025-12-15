@@ -4,7 +4,6 @@ using StardustSandbox.Camera;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem.Game.Handlers.Gizmos;
 using StardustSandbox.InputSystem.Game.Simulation;
-using StardustSandbox.Interfaces.Tools;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Tools;
 using StardustSandbox.WorldSystem;
@@ -13,7 +12,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers
 {
     internal sealed class WorldHandler
     {
-        internal IToolContext ToolContext { get; private set; }
+        internal ToolContext ToolContext { get; private set; }
 
         private readonly Player player;
         private readonly Pen pen;
@@ -30,7 +29,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers
         {
             this.world = world;
 
-            this.ToolContext = new ToolContext(world);
+            this.ToolContext = new(world);
 
             this.player = player;
             this.pen = pen;
@@ -59,23 +58,23 @@ namespace StardustSandbox.InputSystem.Game.Handlers
             switch (this.pen.Tool)
             {
                 case PenTool.Visualization:
-                    this.visualizationGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.AssociatedType, mousePosition);
+                    this.visualizationGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Pencil:
-                    this.pencilGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.AssociatedType, mousePosition);
+                    this.pencilGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Eraser:
-                    this.eraserGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.AssociatedType, mousePosition);
+                    this.eraserGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Fill:
-                    this.floodFillGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.AssociatedType, mousePosition);
+                    this.floodFillGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Replace:
-                    this.replaceGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.AssociatedType, mousePosition);
+                    this.replaceGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 default:

@@ -2,6 +2,7 @@
 
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -30,7 +31,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             switch (contentType)
             {
@@ -38,11 +39,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            FloodFillElements(ElementDatabase.GetElement(itemAssociateType), position, false);
+                            FloodFillElements(ElementDatabase.GetElement((ElementIndex)contentIndex), position, false);
                             break;
 
                         case WorldModificationType.Removing:
-                            FloodFillElements(ElementDatabase.GetElement(itemAssociateType), position, true);
+                            FloodFillElements(ElementDatabase.GetElement((ElementIndex)contentIndex), position, true);
                             break;
 
                         default:

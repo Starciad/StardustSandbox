@@ -22,6 +22,6 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             this.WorldHandler = worldHandler;
         }
 
-        internal abstract void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position);
+        internal abstract void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position);
     }
 }

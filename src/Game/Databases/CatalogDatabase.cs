@@ -1,18 +1,9 @@
 ﻿using StardustSandbox.Catalog;
-using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Gases;
-using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Elements.Liquids.Paints;
-using StardustSandbox.Elements.Solids.Immovables;
-using StardustSandbox.Elements.Solids.Immovables.Pushers;
-using StardustSandbox.Elements.Solids.Immovables.Wools;
-using StardustSandbox.Elements.Solids.Movables;
-using StardustSandbox.Elements.Solids.Movables.Explosives;
 using StardustSandbox.Enums.Assets;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Items;
+using StardustSandbox.Enums.Tools;
 using StardustSandbox.Localization;
-using StardustSandbox.Tools;
-using StardustSandbox.Tools.Inks;
 
 using System;
 
@@ -64,7 +55,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Dirt
                                 new(
-                                    associatedType: typeof(Dirt),
+                                    contentIndex: (int)ElementIndex.Dirt,
                                     name: Localization_Elements.Solid_Movable_Dirt_Name,
                                     description: Localization_Elements.Solid_Movable_Dirt_Description,
                                     contentType: ItemContentType.Element,
@@ -74,7 +65,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Mud
                                 new(
-                                    associatedType: typeof(Mud),
+                                    contentIndex: (int)ElementIndex.Mud,
                                     name: Localization_Elements.Solid_Movable_Mud_Name,
                                     description: Localization_Elements.Solid_Movable_Mud_Description,
                                     contentType: ItemContentType.Element,
@@ -84,7 +75,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Stone
                                 new(
-                                    associatedType: typeof(Stone),
+                                    contentIndex: (int)ElementIndex.Stone,
                                     name: Localization_Elements.Solid_Movable_Stone_Name,
                                     description: Localization_Elements.Solid_Movable_Stone_Description,
                                     contentType: ItemContentType.Element,
@@ -94,7 +85,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Grass
                                 new(
-                                    associatedType: typeof(Grass),
+                                    contentIndex: (int)ElementIndex.Grass,
                                     name: Localization_Elements.Solid_Movable_Grass_Name,
                                     description: Localization_Elements.Solid_Movable_Grass_Description,
                                     contentType: ItemContentType.Element,
@@ -104,7 +95,7 @@ namespace StardustSandbox.Databases
 
                                 // [4] Ice
                                 new(
-                                    associatedType: typeof(Ice),
+                                    contentIndex: (int)ElementIndex.Ice,
                                     name: Localization_Elements.Solid_Movable_Ice_Name,
                                     description: Localization_Elements.Solid_Movable_Ice_Description,
                                     contentType: ItemContentType.Element,
@@ -114,7 +105,7 @@ namespace StardustSandbox.Databases
 
                                 // [5] Sand
                                 new(
-                                    associatedType: typeof(Sand),
+                                    contentIndex: (int)ElementIndex.Sand,
                                     name: Localization_Elements.Solid_Movable_Sand_Name,
                                     description: Localization_Elements.Solid_Movable_Sand_Description,
                                     contentType: ItemContentType.Element,
@@ -124,7 +115,7 @@ namespace StardustSandbox.Databases
 
                                 // [6] Snow
                                 new(
-                                    associatedType: typeof(Snow),
+                                    contentIndex: (int)ElementIndex.Snow,
                                     name: Localization_Elements.Solid_Movable_Snow_Name,
                                     description: Localization_Elements.Solid_Movable_Snow_Description,
                                     contentType: ItemContentType.Element,
@@ -134,7 +125,7 @@ namespace StardustSandbox.Databases
 
                                 // [7] Corruption
                                 new(
-                                    associatedType: typeof(MovableCorruption),
+                                    contentIndex: (int)ElementIndex.MovableCorruption,
                                     name: Localization_Elements.Solid_Movable_Corruption_Name,
                                     description: Localization_Elements.Solid_Movable_Corruption_Description,
                                     contentType: ItemContentType.Element,
@@ -144,7 +135,7 @@ namespace StardustSandbox.Databases
 
                                 // [8] Salt
                                 new(
-                                    associatedType: typeof(Salt),
+                                    contentIndex: (int)ElementIndex.Salt,
                                     name: Localization_Elements.Solid_Movable_Salt_Name,
                                     description: Localization_Elements.Solid_Movable_Salt_Description,
                                     contentType: ItemContentType.Element,
@@ -154,7 +145,7 @@ namespace StardustSandbox.Databases
 
                                 // [9] Ash
                                 new(
-                                    associatedType: typeof(Ash),
+                                    contentIndex: (int)ElementIndex.Ash,
                                     name: Localization_Elements.Solid_Movable_Ash_Name,
                                     description: Localization_Elements.Solid_Movable_Ash_Description,
                                     contentType: ItemContentType.Element,
@@ -164,7 +155,7 @@ namespace StardustSandbox.Databases
 
                                 // [10] Fertile Soil
                                 new(
-                                    associatedType: typeof(FertileSoil),
+                                    contentIndex: (int)ElementIndex.FertileSoil,
                                     name: Localization_Elements.Solid_Movable_FertileSoil_Name,
                                     description: Localization_Elements.Solid_Movable_FertileSoil_Description,
                                     contentType: ItemContentType.Element,
@@ -183,7 +174,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Water
                                 new(
-                                    associatedType: typeof(Water),
+                                    contentIndex: (int)ElementIndex.Water,
                                     name: Localization_Elements.Liquid_Water_Name,
                                     description: Localization_Elements.Liquid_Water_Description,
                                     contentType: ItemContentType.Element,
@@ -193,7 +184,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Lava
                                 new(
-                                    associatedType: typeof(Lava),
+                                    contentIndex: (int)ElementIndex.Lava,
                                     name: Localization_Elements.Liquid_Lava_Name,
                                     description: Localization_Elements.Liquid_Lava_Description,
                                     contentType: ItemContentType.Element,
@@ -203,7 +194,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Acid
                                 new(
-                                    associatedType: typeof(Acid),
+                                    contentIndex: (int)ElementIndex.Acid,
                                     name: Localization_Elements.Liquid_Acid_Name,
                                     description: Localization_Elements.Liquid_Acid_Description,
                                     contentType: ItemContentType.Element,
@@ -213,7 +204,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Corruption
                                 new(
-                                    associatedType: typeof(LiquidCorruption),
+                                    contentIndex: (int)ElementIndex.LiquidCorruption,
                                     name: Localization_Elements.Liquid_Corruption_Name,
                                     description: Localization_Elements.Liquid_Corruption_Description,
                                     contentType: ItemContentType.Element,
@@ -223,7 +214,7 @@ namespace StardustSandbox.Databases
 
                                 // [4] Oil
                                 new(
-                                    associatedType: typeof(Oil),
+                                    contentIndex: (int)ElementIndex.Oil,
                                     name: Localization_Elements.Liquid_Oil_Name,
                                     description: Localization_Elements.Liquid_Oil_Description,
                                     contentType: ItemContentType.Element,
@@ -233,7 +224,7 @@ namespace StardustSandbox.Databases
 
                                 // [5] Saltwater
                                 new(
-                                    associatedType: typeof(Saltwater),
+                                    contentIndex: (int)ElementIndex.Saltwater,
                                     name: Localization_Elements.Liquid_Saltwater_Name,
                                     description: Localization_Elements.Liquid_Saltwater_Description,
                                     contentType: ItemContentType.Element,
@@ -243,7 +234,7 @@ namespace StardustSandbox.Databases
 
                                 // [6] Black Paint
                                 new(
-                                    associatedType: typeof(BlackPaint),
+                                    contentIndex: (int)ElementIndex.BlackPaint,
                                     name: Localization_Elements.Liquid_BlackPaint_Name,
                                     description: Localization_Elements.Liquid_BlackPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -253,7 +244,7 @@ namespace StardustSandbox.Databases
 
                                 // [7] White Paint
                                 new(
-                                    associatedType: typeof(WhitePaint),
+                                    contentIndex: (int)ElementIndex.WhitePaint,
                                     name: Localization_Elements.Liquid_WhitePaint_Name,
                                     description: Localization_Elements.Liquid_WhitePaint_Description,
                                     contentType: ItemContentType.Element,
@@ -263,7 +254,7 @@ namespace StardustSandbox.Databases
 
                                 // [8] Red Paint
                                 new(
-                                    associatedType: typeof(RedPaint),
+                                    contentIndex: (int)ElementIndex.RedPaint,
                                     name: Localization_Elements.Liquid_RedPaint_Name,
                                     description: Localization_Elements.Liquid_RedPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -273,7 +264,7 @@ namespace StardustSandbox.Databases
 
                                 // [9] Orange Paint
                                 new(
-                                    associatedType: typeof(OrangePaint),
+                                    contentIndex: (int)ElementIndex.OrangePaint,
                                     name: Localization_Elements.Liquid_OrangePaint_Name,
                                     description: Localization_Elements.Liquid_OrangePaint_Description,
                                     contentType: ItemContentType.Element,
@@ -283,7 +274,7 @@ namespace StardustSandbox.Databases
 
                                 // [10] Yellow Paint
                                 new(
-                                    associatedType: typeof(YellowPaint),
+                                    contentIndex: (int)ElementIndex.YellowPaint,
                                     name: Localization_Elements.Liquid_YellowPaint_Name,
                                     description: Localization_Elements.Liquid_YellowPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -293,7 +284,7 @@ namespace StardustSandbox.Databases
 
                                 // [11] Green Paint
                                 new(
-                                    associatedType: typeof(GreenPaint),
+                                    contentIndex: (int)ElementIndex.GreenPaint,
                                     name: Localization_Elements.Liquid_GreenPaint_Name,
                                     description: Localization_Elements.Liquid_GreenPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -303,7 +294,7 @@ namespace StardustSandbox.Databases
 
                                 // [12] Blue Paint
                                 new(
-                                    associatedType: typeof(BluePaint),
+                                    contentIndex: (int)ElementIndex.BluePaint,
                                     name: Localization_Elements.Liquid_BluePaint_Name,
                                     description: Localization_Elements.Liquid_BluePaint_Description,
                                     contentType: ItemContentType.Element,
@@ -313,7 +304,7 @@ namespace StardustSandbox.Databases
 
                                 // [13] Gray Paint
                                 new(
-                                    associatedType: typeof(GrayPaint),
+                                    contentIndex: (int)ElementIndex.GrayPaint,
                                     name: Localization_Elements.Liquid_GrayPaint_Name,
                                     description: Localization_Elements.Liquid_GrayPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -323,7 +314,7 @@ namespace StardustSandbox.Databases
 
                                 // [14] Violet Paint
                                 new(
-                                    associatedType: typeof(VioletPaint),
+                                    contentIndex: (int)ElementIndex.VioletPaint,
                                     name: Localization_Elements.Liquid_VioletPaint_Name,
                                     description: Localization_Elements.Liquid_VioletPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -333,7 +324,7 @@ namespace StardustSandbox.Databases
 
                                 // [15] Brown Paint
                                 new(
-                                    associatedType: typeof(BrownPaint),
+                                    contentIndex: (int)ElementIndex.BrownPaint,
                                     name: Localization_Elements.Liquid_BrownPaint_Name,
                                     description: Localization_Elements.Liquid_BrownPaint_Description,
                                     contentType: ItemContentType.Element,
@@ -352,7 +343,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Corruption
                                 new(
-                                    associatedType: typeof(GasCorruption),
+                                    contentIndex: (int)ElementIndex.GasCorruption,
                                     name: Localization_Elements.Gas_Corruption_Name,
                                     description: Localization_Elements.Gas_Corruption_Description,
                                     contentType: ItemContentType.Element,
@@ -362,7 +353,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Steam
                                 new(
-                                    associatedType: typeof(Steam),
+                                    contentIndex: (int)ElementIndex.Steam,
                                     name: Localization_Elements.Gas_Steam_Name,
                                     description: Localization_Elements.Gas_Steam_Description,
                                     contentType: ItemContentType.Element,
@@ -372,7 +363,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Smoke
                                 new(
-                                    associatedType: typeof(Smoke),
+                                    contentIndex: (int)ElementIndex.Smoke,
                                     name: Localization_Elements.Gas_Smoke_Name,
                                     description: Localization_Elements.Gas_Smoke_Description,
                                     contentType: ItemContentType.Element,
@@ -382,7 +373,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Anti-Corruption
                                 new(
-                                    associatedType: typeof(AntiCorruption),
+                                    contentIndex: (int)ElementIndex.AntiCorruption,
                                     name: Localization_Elements.Gas_AntiCorruption_Name,
                                     description: Localization_Elements.Gas_AntiCorruption_Description,
                                     contentType: ItemContentType.Element,
@@ -392,7 +383,7 @@ namespace StardustSandbox.Databases
 
                                 // [4] Cloud
                                 new(
-                                    associatedType: typeof(Cloud),
+                                    contentIndex: (int)ElementIndex.Cloud,
                                     name: Localization_Elements.Gas_Cloud_Name,
                                     description: Localization_Elements.Gas_Cloud_Description,
                                     contentType: ItemContentType.Element,
@@ -402,7 +393,7 @@ namespace StardustSandbox.Databases
 
                                 // [5] Charged Cloud
                                 new(
-                                    associatedType: typeof(ChargedCloud),
+                                    contentIndex: (int)ElementIndex.ChargedCloud,
                                     name: Localization_Elements.Gas_ChargedCloud_Name,
                                     description: Localization_Elements.Gas_ChargedCloud_Description,
                                     contentType: ItemContentType.Element,
@@ -412,7 +403,7 @@ namespace StardustSandbox.Databases
 
                                 // [6] Liquefied Petroleum Gas
                                 new(
-                                    associatedType: typeof(LiquefiedPetroleumGas),
+                                    contentIndex: (int)ElementIndex.LiquefiedPetroleumGas,
                                     name: Localization_Elements.Gas_LiquefiedPetroleumGas_Name,
                                     description: Localization_Elements.Gas_LiquefiedPetroleumGas_Description,
                                     contentType: ItemContentType.Element,
@@ -431,7 +422,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Glass
                                 new(
-                                    associatedType: typeof(Glass),
+                                    contentIndex: (int)ElementIndex.Glass,
                                     name: Localization_Elements.Solid_Immovable_Glass_Name,
                                     description: Localization_Elements.Solid_Immovable_Glass_Description,
                                     contentType: ItemContentType.Element,
@@ -441,7 +432,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Iron
                                 new(
-                                    associatedType: typeof(Iron),
+                                    contentIndex: (int)ElementIndex.Iron,
                                     name: Localization_Elements.Solid_Immovable_Iron_Name,
                                     description: Localization_Elements.Solid_Immovable_Iron_Description,
                                     contentType: ItemContentType.Element,
@@ -451,7 +442,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Wall
                                 new(
-                                    associatedType: typeof(Wall),
+                                    contentIndex: (int)ElementIndex.Wall,
                                     name: Localization_Elements.Solid_Immovable_Wall_Name,
                                     description: Localization_Elements.Solid_Immovable_Wall_Description,
                                     contentType: ItemContentType.Element,
@@ -461,7 +452,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Wood
                                 new(
-                                    associatedType: typeof(Wood),
+                                    contentIndex: (int)ElementIndex.Wood,
                                     name: Localization_Elements.Solid_Immovable_Wood_Name,
                                     description: Localization_Elements.Solid_Immovable_Wood_Description,
                                     contentType: ItemContentType.Element,
@@ -471,7 +462,7 @@ namespace StardustSandbox.Databases
 
                                 // [4] Corruption
                                 new(
-                                    associatedType: typeof(ImmovableCorruption),
+                                    contentIndex: (int)ElementIndex.ImmovableCorruption,
                                     name: Localization_Elements.Solid_Immovable_Corruption_Name,
                                     description: Localization_Elements.Solid_Immovable_Corruption_Description,
                                     contentType: ItemContentType.Element,
@@ -481,7 +472,7 @@ namespace StardustSandbox.Databases
 
                                 // [5] Red Brick
                                 new(
-                                    associatedType: typeof(RedBrick),
+                                    contentIndex: (int)ElementIndex.RedBrick,
                                     name: Localization_Elements.Solid_Immovable_RedBrick_Name,
                                     description: Localization_Elements.Solid_Immovable_RedBrick_Description,
                                     contentType: ItemContentType.Element,
@@ -491,7 +482,7 @@ namespace StardustSandbox.Databases
 
                                 // [6] Tree Leaf
                                 new(
-                                    associatedType: typeof(TreeLeaf),
+                                    contentIndex: (int)ElementIndex.TreeLeaf,
                                     name: Localization_Elements.Solid_Immovable_TreeLeaf_Name,
                                     description: Localization_Elements.Solid_Immovable_TreeLeaf_Description,
                                     contentType: ItemContentType.Element,
@@ -501,7 +492,7 @@ namespace StardustSandbox.Databases
 
                                 // [7] Mounting Block
                                 new(
-                                    associatedType: typeof(MountingBlock),
+                                    contentIndex: (int)ElementIndex.MountingBlock,
                                     name: Localization_Elements.Solid_Immovable_MountingBlock_Name,
                                     description: Localization_Elements.Solid_Immovable_MountingBlock_Description,
                                     contentType: ItemContentType.Element,
@@ -511,7 +502,7 @@ namespace StardustSandbox.Databases
 
                                 // [8] Lamp
                                 new(
-                                    associatedType: typeof(Lamp),
+                                    contentIndex: (int)ElementIndex.Lamp,
                                     name: Localization_Elements.Solid_Immovable_Lamp_Name,
                                     description: Localization_Elements.Solid_Immovable_Lamp_Description,
                                     contentType: ItemContentType.Element,
@@ -521,7 +512,7 @@ namespace StardustSandbox.Databases
 
                                 // [9] Dry Sponge
                                 new(
-                                    associatedType: typeof(DrySponge),
+                                    contentIndex: (int)ElementIndex.DrySponge,
                                     name: Localization_Elements.Solid_Immovable_DrySponge_Name,
                                     description: Localization_Elements.Solid_Immovable_DrySponge_Description,
                                     contentType: ItemContentType.Element,
@@ -531,7 +522,7 @@ namespace StardustSandbox.Databases
 
                                 // [10] Wet Sponge
                                 new(
-                                    associatedType: typeof(WetSponge),
+                                    contentIndex: (int)ElementIndex.WetSponge,
                                     name: Localization_Elements.Solid_Immovable_WetSponge_Name,
                                     description: Localization_Elements.Solid_Immovable_WetSponge_Description,
                                     contentType: ItemContentType.Element,
@@ -541,7 +532,7 @@ namespace StardustSandbox.Databases
 
                                 // [11] Gold
                                 new(
-                                    associatedType: typeof(Gold),
+                                    contentIndex: (int)ElementIndex.Gold,
                                     name: Localization_Elements.Solid_Immovable_Gold_Name,
                                     description: Localization_Elements.Solid_Immovable_Gold_Description,
                                     contentType: ItemContentType.Element,
@@ -551,7 +542,7 @@ namespace StardustSandbox.Databases
 
                                 // [12] Dry Black Wool
                                 new(
-                                    associatedType: typeof(DryBlackWool),
+                                    contentIndex: (int)ElementIndex.DryBlackWool,
                                     name: Localization_Elements.Solid_Immovable_DryBlackWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryBlackWool_Description,
                                     contentType: ItemContentType.Element,
@@ -561,7 +552,7 @@ namespace StardustSandbox.Databases
 
                                 // [13] Dry White Wool
                                 new(
-                                    associatedType: typeof(DryWhiteWool),
+                                    contentIndex: (int)ElementIndex.DryWhiteWool,
                                     name: Localization_Elements.Solid_Immovable_DryWhiteWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryWhiteWool_Description,
                                     contentType: ItemContentType.Element,
@@ -571,7 +562,7 @@ namespace StardustSandbox.Databases
 
                                 // [14] Dry Red Wool
                                 new(
-                                    associatedType: typeof(DryRedWool),
+                                    contentIndex: (int)ElementIndex.DryRedWool,
                                     name: Localization_Elements.Solid_Immovable_DryRedWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryRedWool_Description,
                                     contentType: ItemContentType.Element,
@@ -581,7 +572,7 @@ namespace StardustSandbox.Databases
 
                                 // [15] Dry Orange Wool
                                 new(
-                                    associatedType: typeof(DryOrangeWool),
+                                    contentIndex: (int)ElementIndex.DryOrangeWool,
                                     name: Localization_Elements.Solid_Immovable_DryOrangeWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryOrangeWool_Description,
                                     contentType: ItemContentType.Element,
@@ -591,7 +582,7 @@ namespace StardustSandbox.Databases
 
                                 // [16] Dry Yellow Wool
                                 new(
-                                    associatedType: typeof(DryYellowWool),
+                                    contentIndex: (int)ElementIndex.DryYellowWool,
                                     name: Localization_Elements.Solid_Immovable_DryYellowWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryYellowWool_Description,
                                     contentType: ItemContentType.Element,
@@ -601,7 +592,7 @@ namespace StardustSandbox.Databases
 
                                 // [17] Dry Green Wool
                                 new(
-                                    associatedType: typeof(DryGreenWool),
+                                    contentIndex: (int)ElementIndex.DryGreenWool,
                                     name: Localization_Elements.Solid_Immovable_DryGreenWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryGreenWool_Description,
                                     contentType: ItemContentType.Element,
@@ -611,7 +602,7 @@ namespace StardustSandbox.Databases
 
                                 // [18] Dry Gray Wool
                                 new(
-                                    associatedType: typeof(DryGrayWool),
+                                    contentIndex: (int)ElementIndex.DryGrayWool,
                                     name: Localization_Elements.Solid_Immovable_DryGrayWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryGrayWool_Description,
                                     contentType: ItemContentType.Element,
@@ -621,7 +612,7 @@ namespace StardustSandbox.Databases
 
                                 // [19] Dry Blue Wool
                                 new(
-                                    associatedType: typeof(DryBlueWool),
+                                    contentIndex: (int)ElementIndex.DryBlueWool,
                                     name: Localization_Elements.Solid_Immovable_DryBlueWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryBlueWool_Description,
                                     contentType: ItemContentType.Element,
@@ -631,7 +622,7 @@ namespace StardustSandbox.Databases
 
                                 // [20] Dry Violet Wool
                                 new(
-                                    associatedType: typeof(DryVioletWool),
+                                    contentIndex: (int)ElementIndex.DryVioletWool,
                                     name: Localization_Elements.Solid_Immovable_DryVioletWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryVioletWool_Description,
                                     contentType: ItemContentType.Element,
@@ -641,7 +632,7 @@ namespace StardustSandbox.Databases
 
                                 // [21] Dry Brown Wool
                                 new(
-                                    associatedType: typeof(DryBrownWool),
+                                    contentIndex: (int)ElementIndex.DryBrownWool,
                                     name: Localization_Elements.Solid_Immovable_DryBrownWool_Name,
                                     description: Localization_Elements.Solid_Immovable_DryBrownWool_Description,
                                     contentType: ItemContentType.Element,
@@ -651,7 +642,7 @@ namespace StardustSandbox.Databases
 
                                 // [22] Wet Black Wool
                                 new(
-                                    associatedType: typeof(WetBlackWool),
+                                    contentIndex: (int)ElementIndex.WetBlackWool,
                                     name: Localization_Elements.Solid_Immovable_WetBlackWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetBlackWool_Description,
                                     contentType: ItemContentType.Element,
@@ -661,7 +652,7 @@ namespace StardustSandbox.Databases
 
                                 // [23] Wet White Wool
                                 new(
-                                    associatedType: typeof(WetWhiteWool),
+                                    contentIndex: (int)ElementIndex.WetWhiteWool,
                                     name: Localization_Elements.Solid_Immovable_WetWhiteWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetWhiteWool_Description,
                                     contentType: ItemContentType.Element,
@@ -671,7 +662,7 @@ namespace StardustSandbox.Databases
 
                                 // [24] Wet Red Wool
                                 new(
-                                    associatedType: typeof(WetRedWool),
+                                    contentIndex: (int)ElementIndex.WetRedWool,
                                     name: Localization_Elements.Solid_Immovable_WetRedWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetRedWool_Description,
                                     contentType: ItemContentType.Element,
@@ -681,7 +672,7 @@ namespace StardustSandbox.Databases
 
                                 // [25] Wet Orange Wool
                                 new(
-                                    associatedType: typeof(WetOrangeWool),
+                                    contentIndex: (int)ElementIndex.WetOrangeWool,
                                     name: Localization_Elements.Solid_Immovable_WetOrangeWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetOrangeWool_Description,
                                     contentType: ItemContentType.Element,
@@ -691,7 +682,7 @@ namespace StardustSandbox.Databases
 
                                 // [26] Wet Yellow Wool
                                 new(
-                                    associatedType: typeof(WetYellowWool),
+                                    contentIndex: (int)ElementIndex.WetYellowWool,
                                     name: Localization_Elements.Solid_Immovable_WetYellowWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetYellowWool_Description,
                                     contentType: ItemContentType.Element,
@@ -701,7 +692,7 @@ namespace StardustSandbox.Databases
 
                                 // [27] Wet Green Wool
                                 new(
-                                    associatedType: typeof(WetGreenWool),
+                                    contentIndex: (int)ElementIndex.WetGreenWool,
                                     name: Localization_Elements.Solid_Immovable_WetGreenWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetGreenWool_Description,
                                     contentType: ItemContentType.Element,
@@ -711,7 +702,7 @@ namespace StardustSandbox.Databases
 
                                 // [28] Wet Gray Wool
                                 new(
-                                    associatedType: typeof(WetGrayWool),
+                                    contentIndex: (int)ElementIndex.WetGrayWool,
                                     name: Localization_Elements.Solid_Immovable_WetGrayWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetGrayWool_Description,
                                     contentType: ItemContentType.Element,
@@ -721,7 +712,7 @@ namespace StardustSandbox.Databases
 
                                 // [29] Wet Blue Wool
                                 new(
-                                    associatedType: typeof(WetBlueWool),
+                                    contentIndex: (int)ElementIndex.WetBlueWool,
                                     name: Localization_Elements.Solid_Immovable_WetBlueWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetBlueWool_Description,
                                     contentType: ItemContentType.Element,
@@ -731,7 +722,7 @@ namespace StardustSandbox.Databases
 
                                 // [30] Wet Violet Wool
                                 new(
-                                    associatedType: typeof(WetVioletWool),
+                                    contentIndex: (int)ElementIndex.WetVioletWool,
                                     name: Localization_Elements.Solid_Immovable_WetVioletWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetVioletWool_Description,
                                     contentType: ItemContentType.Element,
@@ -741,7 +732,7 @@ namespace StardustSandbox.Databases
 
                                 // [31] Wet Brown Wool
                                 new(
-                                    associatedType: typeof(WetBrownWool),
+                                    contentIndex: (int)ElementIndex.WetBrownWool,
                                     name: Localization_Elements.Solid_Immovable_WetBrownWool_Name,
                                     description: Localization_Elements.Solid_Immovable_WetBrownWool_Description,
                                     contentType: ItemContentType.Element,
@@ -751,7 +742,7 @@ namespace StardustSandbox.Databases
 
                                 // [32] Obsidian
                                 new(
-                                    associatedType: typeof(Obsidian),
+                                    contentIndex: (int)ElementIndex.Obsidian,
                                     name: Localization_Elements.Solid_Immovable_Obsidian_Name,
                                     description: Localization_Elements.Solid_Immovable_Obsidian_Description,
                                     contentType: ItemContentType.Element,
@@ -770,7 +761,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Fire
                                 new(
-                                    associatedType: typeof(Fire),
+                                    contentIndex: (int)ElementIndex.Fire,
                                     name: Localization_Elements.Energy_Fire_Name,
                                     description: Localization_Elements.Energy_Fire_Description,
                                     contentType: ItemContentType.Element,
@@ -780,7 +771,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Thunder
                                 new(
-                                    associatedType: typeof(LightningHead),
+                                    contentIndex: (int)ElementIndex.LightningHead,
                                     name: Localization_Elements.Energy_Lightning_Name,
                                     description: Localization_Elements.Energy_Lightning_Description,
                                     contentType: ItemContentType.Element,
@@ -799,7 +790,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Bomb
                                 new(
-                                    associatedType: typeof(Bomb),
+                                    contentIndex: (int)ElementIndex.Bomb,
                                     name: Localization_Elements.Solid_Movable_Bomb_Name,
                                     description: Localization_Elements.Solid_Movable_Bomb_Description,
                                     contentType: ItemContentType.Element,
@@ -809,7 +800,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Dynamite
                                 new(
-                                    associatedType: typeof(Dynamite),
+                                    contentIndex: (int)ElementIndex.Dynamite,
                                     name: Localization_Elements.Solid_Movable_Dynamite_Name,
                                     description: Localization_Elements.Solid_Movable_Dynamite_Description,
                                     contentType: ItemContentType.Element,
@@ -819,7 +810,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] TNT
                                 new(
-                                    associatedType: typeof(Tnt),
+                                    contentIndex: (int)ElementIndex.Tnt,
                                     name: Localization_Elements.Solid_Movable_TNT_Name,
                                     description: Localization_Elements.Solid_Movable_TNT_Description,
                                     contentType: ItemContentType.Element,
@@ -829,7 +820,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Gunpowder
                                 new(
-                                    associatedType: typeof(Gunpowder),
+                                    contentIndex: (int)ElementIndex.Gunpowder,
                                     name: Localization_Elements.Solid_Movable_Gunpowder_Name,
                                     description: Localization_Elements.Solid_Movable_Gunpowder_Description,
                                     contentType: ItemContentType.Element,
@@ -848,7 +839,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Heater
                                 new(
-                                    associatedType: typeof(Heater),
+                                    contentIndex: (int)ElementIndex.Heater,
                                     name: Localization_Elements.Solid_Immovable_Heater_Name,
                                     description: Localization_Elements.Solid_Immovable_Heater_Description,
                                     contentType: ItemContentType.Element,
@@ -858,7 +849,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Freezer
                                 new(
-                                    associatedType: typeof(Freezer),
+                                    contentIndex: (int)ElementIndex.Freezer,
                                     name: Localization_Elements.Solid_Immovable_Freezer_Name,
                                     description: Localization_Elements.Solid_Immovable_Freezer_Description,
                                     contentType: ItemContentType.Element,
@@ -868,7 +859,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Upward Pusher
                                 new(
-                                    associatedType: typeof(UpwardPusher),
+                                    contentIndex: (int)ElementIndex.UpwardPusher,
                                     name: Localization_Elements.Solid_Immovable_UpwardPusher_Name,
                                     description: Localization_Elements.Solid_Immovable_UpwardPusher_Description,
                                     contentType: ItemContentType.Element,
@@ -878,7 +869,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Rightward Pusher
                                 new(
-                                    associatedType: typeof(RightwardPusher),
+                                    contentIndex: (int)ElementIndex.RightwardPusher,
                                     name: Localization_Elements.Solid_Immovable_RightwardPusher_Name,
                                     description: Localization_Elements.Solid_Immovable_RightwardPusher_Description,
                                     contentType: ItemContentType.Element,
@@ -888,7 +879,7 @@ namespace StardustSandbox.Databases
 
                                 // [4] Downward Pusher
                                 new(
-                                    associatedType: typeof(DownwardPusher),
+                                    contentIndex: (int)ElementIndex.DownwardPusher,
                                     name: Localization_Elements.Solid_Immovable_DownwardPusher_Name,
                                     description: Localization_Elements.Solid_Immovable_DownwardPusher_Description,
                                     contentType: ItemContentType.Element,
@@ -898,7 +889,7 @@ namespace StardustSandbox.Databases
 
                                 // [5] Leftward Pusher
                                 new(
-                                    associatedType: typeof(LeftwardPusher),
+                                    contentIndex: (int)ElementIndex.LeftwardPusher,
                                     name: Localization_Elements.Solid_Immovable_LeftwardPusher_Name,
                                     description: Localization_Elements.Solid_Immovable_LeftwardPusher_Description,
                                     contentType: ItemContentType.Element,
@@ -917,7 +908,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Void
                                 new(
-                                    associatedType: typeof(Elements.Solids.Immovables.Void),
+                                    contentIndex: (int)ElementIndex.Void,
                                     name: Localization_Elements.Solid_Immovable_Void_Name,
                                     description: Localization_Elements.Solid_Immovable_Void_Description,
                                     contentType: ItemContentType.Element,
@@ -927,7 +918,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Clone
                                 new(
-                                    associatedType: typeof(Clone),
+                                    contentIndex: (int)ElementIndex.Clone,
                                     name: Localization_Elements.Solid_Immovable_Clone_Name,
                                     description: Localization_Elements.Solid_Immovable_Clone_Description,
                                     contentType: ItemContentType.Element,
@@ -937,7 +928,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Devourer
                                 new(
-                                    associatedType: typeof(Devourer),
+                                    contentIndex: (int)ElementIndex.Devourer,
                                     name: Localization_Elements.Solid_Immovable_Devourer_Name,
                                     description: Localization_Elements.Solid_Immovable_Devourer_Description,
                                     contentType: ItemContentType.Element,
@@ -956,7 +947,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Seed
                                 new(
-                                    associatedType: typeof(Seed),
+                                    contentIndex: (int)ElementIndex.Seed,
                                     name: Localization_Elements.Solid_Movable_Seed_Name,
                                     description: Localization_Elements.Solid_Movable_Seed_Description,
                                     contentType: ItemContentType.Element,
@@ -966,7 +957,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Sapling
                                 new(
-                                    associatedType: typeof(Sapling),
+                                    contentIndex: (int)ElementIndex.Sapling,
                                     name: Localization_Elements.Solid_Movable_Sapling_Name,
                                     description: Localization_Elements.Solid_Movable_Sapling_Description,
                                     contentType: ItemContentType.Element,
@@ -976,7 +967,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Moss
                                 new(
-                                    associatedType: typeof(Moss),
+                                    contentIndex: (int)ElementIndex.Moss,
                                     name: Localization_Elements.Solid_Immovable_Moss_Name,
                                     description: Localization_Elements.Solid_Immovable_Moss_Description,
                                     contentType: ItemContentType.Element,
@@ -1004,7 +995,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Heat Tool
                                 new(
-                                    associatedType: typeof(HeatTool),
+                                    contentIndex: (int)ToolIndex.HeatTool,
                                     name: Localization_Tools.Environment_Heat_Name,
                                     description: Localization_Tools.Environment_Heat_Description,
                                     contentType: ItemContentType.Tool,
@@ -1014,7 +1005,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] Freeze Tool
                                 new(
-                                    associatedType: typeof(FreezeTool),
+                                    contentIndex: (int)ToolIndex.FreezeTool,
                                     name: Localization_Tools.Environment_Freeze_Name,
                                     description: Localization_Tools.Environment_Freeze_Description,
                                     contentType: ItemContentType.Tool,
@@ -1033,7 +1024,7 @@ namespace StardustSandbox.Databases
                             [
                                 // [0] Black Ink Tool
                                 new(
-                                    associatedType: typeof(BlackInkTool),
+                                    contentIndex: (int)ToolIndex.BlackInkTool,
                                     name: Localization_Tools.Inks_Black_Name,
                                     description: Localization_Tools.Inks_Black_Description,
                                     contentType: ItemContentType.Tool,
@@ -1043,7 +1034,7 @@ namespace StardustSandbox.Databases
 
                                 // [1] White Ink Tool
                                 new(
-                                    associatedType: typeof(WhiteInkTool),
+                                    contentIndex: (int)ToolIndex.WhiteInkTool,
                                     name: Localization_Tools.Inks_White_Name,
                                     description: Localization_Tools.Inks_White_Description,
                                     contentType: ItemContentType.Tool,
@@ -1053,7 +1044,7 @@ namespace StardustSandbox.Databases
 
                                 // [2] Red Ink Tool
                                 new(
-                                    associatedType: typeof(RedInkTool),
+                                    contentIndex: (int)ToolIndex.RedInkTool,
                                     name: Localization_Tools.Inks_Red_Name,
                                     description: Localization_Tools.Inks_Red_Description,
                                     contentType: ItemContentType.Tool,
@@ -1063,7 +1054,7 @@ namespace StardustSandbox.Databases
 
                                 // [3] Orange Ink Tool
                                 new(
-                                    associatedType: typeof(OrangeInkTool),
+                                    contentIndex: (int)ToolIndex.OrangeInkTool,
                                     name: Localization_Tools.Inks_Orange_Name,
                                     description: Localization_Tools.Inks_Orange_Description,
                                     contentType: ItemContentType.Tool,
@@ -1073,7 +1064,7 @@ namespace StardustSandbox.Databases
 
                                 // [4] Yellow Ink Tool
                                 new(
-                                    associatedType: typeof(YellowInkTool),
+                                    contentIndex: (int)ToolIndex.YellowInkTool,
                                     name: Localization_Tools.Inks_Yellow_Name,
                                     description: Localization_Tools.Inks_Yellow_Description,
                                     contentType: ItemContentType.Tool,
@@ -1083,7 +1074,7 @@ namespace StardustSandbox.Databases
 
                                 // [5] Green Ink Tool
                                 new(
-                                    associatedType: typeof(GreenInkTool),
+                                    contentIndex: (int)ToolIndex.GreenInkTool,
                                     name: Localization_Tools.Inks_Green_Name,
                                     description: Localization_Tools.Inks_Green_Description,
                                     contentType: ItemContentType.Tool,
@@ -1093,7 +1084,7 @@ namespace StardustSandbox.Databases
 
                                 // [6] Blue Ink Tool
                                 new(
-                                    associatedType: typeof(BlueInkTool),
+                                    contentIndex: (int)ToolIndex.BlueInkTool,
                                     name: Localization_Tools.Inks_Blue_Name,
                                     description: Localization_Tools.Inks_Blue_Description,
                                     contentType: ItemContentType.Tool,
@@ -1103,7 +1094,7 @@ namespace StardustSandbox.Databases
 
                                 // [7] Gray Ink Tool
                                 new(
-                                    associatedType: typeof(GrayInkTool),
+                                    contentIndex: (int)ToolIndex.GrayInkTool,
                                     name: Localization_Tools.Inks_Gray_Name,
                                     description: Localization_Tools.Inks_Gray_Description,
                                     contentType: ItemContentType.Tool,
@@ -1113,7 +1104,7 @@ namespace StardustSandbox.Databases
 
                                 // [8] Violet Ink Tool
                                 new(
-                                    associatedType: typeof(VioletInkTool),
+                                    contentIndex: (int)ToolIndex.VioletInkTool,
                                     name: Localization_Tools.Inks_Violet_Name,
                                     description: Localization_Tools.Inks_Violet_Description,
                                     contentType: ItemContentType.Tool,
@@ -1123,7 +1114,7 @@ namespace StardustSandbox.Databases
 
                                 // [9] Brown Ink Tool
                                 new(
-                                    associatedType: typeof(BrownInkTool),
+                                    contentIndex: (int)ToolIndex.BrownInkTool,
                                     name: Localization_Tools.Inks_Brown_Name,
                                     description: Localization_Tools.Inks_Brown_Description,
                                     contentType: ItemContentType.Tool,
