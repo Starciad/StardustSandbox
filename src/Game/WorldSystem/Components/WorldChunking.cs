@@ -58,7 +58,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
         }
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             for (int x = 0; x < this.worldChunkWidth; x++)
             {

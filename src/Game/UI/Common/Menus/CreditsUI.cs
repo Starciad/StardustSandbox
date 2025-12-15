@@ -213,7 +213,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             this.rootContainer = root;
 
@@ -312,7 +312,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateUserInput();
             CheckIfTheCreditsHaveFinished();

@@ -151,7 +151,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (!this.CanUpdate)
             {
@@ -168,7 +168,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {
@@ -184,8 +184,8 @@ namespace StardustSandbox.UI.Elements
         }
 
         protected abstract void OnInitialize();
-        protected abstract void OnUpdate(in GameTime gameTime);
-        protected abstract void OnDraw(in SpriteBatch spriteBatch);
+        protected abstract void OnUpdate(GameTime gameTime);
+        protected abstract void OnDraw(SpriteBatch spriteBatch);
 
         #region Positioning
 

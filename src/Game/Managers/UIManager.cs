@@ -27,7 +27,7 @@ namespace StardustSandbox.Managers
             this.currentUI = null;
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (this.currentUI != null && this.currentUI.IsActive)
             {
@@ -35,7 +35,7 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             if (this.currentUI != null && this.currentUI.IsActive)
             {

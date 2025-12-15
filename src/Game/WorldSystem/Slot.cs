@@ -39,7 +39,7 @@ namespace StardustSandbox.WorldSystem
             this.position = position;
         }
 
-        internal void Instantiate(in Point position, in Layer layer, in Element value)
+        internal void Instantiate(in Point position, in Layer layer, Element value)
         {
             this.position = position;
             GetLayer(layer).Instantiate(value);
@@ -65,7 +65,7 @@ namespace StardustSandbox.WorldSystem
             GetLayer(layer).SetColorModifier(value);
         }
 
-        internal void SetStoredElement(in Layer layer, in Element value)
+        internal void SetStoredElement(in Layer layer, Element value)
         {
             GetLayer(layer).SetStoredElement(value);
         }

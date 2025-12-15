@@ -92,7 +92,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(in GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.title.TextContent = TooltipBoxContent.Title;
             this.description.TextContent = TooltipBoxContent.Description;
@@ -101,7 +101,7 @@ namespace StardustSandbox.UI.Elements
             UpdatePosition();
         }
 
-        protected override void OnDraw(in SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
             return;
         }

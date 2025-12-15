@@ -31,12 +31,12 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static readonly List<Slot> cachedNeighborSlots = [];
 
-        protected override void OnDestroyed(in ElementContext context)
+        protected override void OnDestroyed(ElementContext context)
         {
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             cachedNeighborSlots.Clear();
 

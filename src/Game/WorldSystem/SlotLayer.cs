@@ -28,7 +28,7 @@ namespace StardustSandbox.WorldSystem
             Reset();
         }
 
-        internal void Instantiate(in Element value)
+        internal void Instantiate(Element value)
         {
             ClearStates();
 
@@ -76,7 +76,7 @@ namespace StardustSandbox.WorldSystem
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        internal void SetStoredElement(in Element value)
+        internal void SetStoredElement(Element value)
         {
             this.storedElement = value;
         }

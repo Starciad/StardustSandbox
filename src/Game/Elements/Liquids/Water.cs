@@ -5,7 +5,7 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Water : Liquid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
@@ -41,7 +41,7 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue <= 0.0f)
             {

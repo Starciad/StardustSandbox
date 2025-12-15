@@ -7,7 +7,7 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class LiquidCorruption : Liquid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             if (CorruptionUtility.CheckIfNeighboringElementsAreCorrupted(Layer.Foreground, neighbors) &&
                 CorruptionUtility.CheckIfNeighboringElementsAreCorrupted(Layer.Background, neighbors))

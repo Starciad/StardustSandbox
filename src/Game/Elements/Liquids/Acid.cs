@@ -5,7 +5,7 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Acid : Liquid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {

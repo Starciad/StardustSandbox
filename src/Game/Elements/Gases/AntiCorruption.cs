@@ -13,7 +13,7 @@ namespace StardustSandbox.Elements.Gases
     {
         private static readonly List<Slot> cachedCorruptionNeighborSlots = [];
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             cachedCorruptionNeighborSlots.Clear();
 

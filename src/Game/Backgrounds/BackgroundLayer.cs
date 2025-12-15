@@ -30,7 +30,7 @@ namespace StardustSandbox.Backgrounds
             this.lockY = lockY;
         }
 
-        internal void Update(in GameTime gameTime, in int textureWidth, in int textureHeight)
+        internal void Update(GameTime gameTime, in int textureWidth, in int textureHeight)
         {
             float elapsedSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
             Vector2 cameraPosition = SSCamera.Position;
@@ -72,9 +72,9 @@ namespace StardustSandbox.Backgrounds
             this.diagonalLayerPosition.Y = this.verticalLayerPosition.Y;
         }
 
-        internal void Draw(in SpriteBatch spriteBatch, in Texture2D texture)
+        internal void Draw(SpriteBatch spriteBatch, in Texture2D texture)
         {
-            void DrawLayer(in SpriteBatch spriteBatch, in Texture2D texture, in Vector2 position)
+            void DrawLayer(SpriteBatch spriteBatch, in Texture2D texture, in Vector2 position)
             {
                 spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             }

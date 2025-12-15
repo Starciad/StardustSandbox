@@ -6,7 +6,7 @@ namespace StardustSandbox.Elements.Solids.Immovables.Wools
     {
         internal required ElementIndex WetWoolIndex { get; init; }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             bool shouldBecomeWet = false;
 
@@ -36,7 +36,7 @@ namespace StardustSandbox.Elements.Solids.Immovables.Wools
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue >= 580.0f)
             {

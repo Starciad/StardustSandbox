@@ -6,7 +6,7 @@ namespace StardustSandbox.Elements.Gases
 {
     internal sealed class Steam : Gas
     {
-        protected override void OnStep(in ElementContext context)
+        protected override void OnStep(ElementContext context)
         {
             if (SSRandom.Chance(40))
             {
@@ -18,7 +18,7 @@ namespace StardustSandbox.Elements.Gases
             }
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 15.0f) &&
                 neighbors.CountNeighborsByElementIndex(ElementIndex.Steam, context.Layer) >= 5 &&
@@ -28,7 +28,7 @@ namespace StardustSandbox.Elements.Gases
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue < 35.0f)
             {

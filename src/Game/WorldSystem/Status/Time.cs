@@ -23,7 +23,7 @@ namespace StardustSandbox.WorldSystem.Status
             this.currentTime = TimeConstants.DAY_START_TIMESPAN;
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (this.IsFrozen)
             {

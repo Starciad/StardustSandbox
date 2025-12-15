@@ -70,7 +70,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             BuildBackground(root);
             BuildHeader(root);
@@ -210,7 +210,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.worldButtonLabels.Length; i++)
             {

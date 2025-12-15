@@ -11,12 +11,12 @@ namespace StardustSandbox.Generators
 {
     internal static class LightningGenerator
     {
-        internal static void Start(in ElementContext context, Point origin)
+        internal static void Start(ElementContext context, Point origin)
         {
             CreateBranchedThunder(context, origin);
         }
 
-        private static void CreateBranchedThunder(in ElementContext context, Point origin)
+        private static void CreateBranchedThunder(ElementContext context, Point origin)
         {
             int length = SSRandom.Range(3, 6);
 
@@ -24,7 +24,7 @@ namespace StardustSandbox.Generators
             CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(10, 30));
         }
 
-        private static void CreateBranchedThunderBranch(in ElementContext context, Point origin, int length, int angle)
+        private static void CreateBranchedThunderBranch(ElementContext context, Point origin, int length, int angle)
         {
             float rad = MathF.PI * angle / 180.0f;
             int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
@@ -43,7 +43,7 @@ namespace StardustSandbox.Generators
             CreateBranchedThunder(context, endPoint);
         }
 
-        private static bool TryCreateBodyLine(in ElementContext context, Point start, Point end)
+        private static bool TryCreateBodyLine(ElementContext context, Point start, Point end)
         {
             if (start == end)
             {

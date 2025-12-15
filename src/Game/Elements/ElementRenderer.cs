@@ -68,12 +68,12 @@ namespace StardustSandbox.Elements
             spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
         }
 
-        private static void UpdateSpriteSlice(in ElementContext context, Element element, int index, Point position)
+        private static void UpdateSpriteSlice(ElementContext context, Element element, int index, Point position)
         {
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, element, index, position));
         }
 
-        private static byte GetBlobValueFromTargetPositions(in ElementContext context, Element element, int index, Point position)
+        private static byte GetBlobValueFromTargetPositions(ElementContext context, Element element, int index, Point position)
         {
             byte result = 0;
 
@@ -216,7 +216,7 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(in ElementContext context, Element element, in SpriteBatch spriteBatch, Point textureOriginOffset)
+        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
 
@@ -246,7 +246,7 @@ namespace StardustSandbox.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(in ElementContext context, in SpriteBatch spriteBatch, Point textureOriginOffset)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
 
@@ -270,7 +270,7 @@ namespace StardustSandbox.Elements
             );
         }
 
-        internal static void Draw(in ElementContext context, Element element, in SpriteBatch spriteBatch, Point textureOriginOffset)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
         {
             // Handle blob tiles separately.
             switch (element.RenderingType)

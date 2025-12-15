@@ -5,7 +5,7 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Seed : MovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             bool hasWater = false, hasFertileSoil = false;
 
@@ -38,7 +38,7 @@ namespace StardustSandbox.Elements.Solids.Movables
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue >= 75.0f)
             {

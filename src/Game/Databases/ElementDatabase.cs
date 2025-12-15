@@ -1150,9 +1150,9 @@ namespace StardustSandbox.Databases
             isLoaded = true;
         }
 
-        internal static Element GetElement(in ElementIndex index)
+        internal static Element GetElement(in ElementIndex value)
         {
-            return elements[(int)index];
+            return elements[(int)value];
         }
 
         internal static Element GetElement(Type type)

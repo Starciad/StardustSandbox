@@ -30,7 +30,7 @@ namespace StardustSandbox.Managers
             this.celestialBodyHandler = new(this.timeHandler, world);
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             this.timeHandler.Update();
             this.backgroundHandler.Update(gameTime);

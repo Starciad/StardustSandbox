@@ -45,12 +45,12 @@ namespace StardustSandbox.UI
             this.isInitialized = true;
         }
 
-        internal virtual void Update(in GameTime gameTime)
+        internal virtual void Update(GameTime gameTime)
         {
             this.root.Update(gameTime);
         }
 
-        internal virtual void Draw(in SpriteBatch spriteBatch)
+        internal virtual void Draw(SpriteBatch spriteBatch)
         {
             this.root.Draw(spriteBatch);
         }
@@ -67,7 +67,7 @@ namespace StardustSandbox.UI
             OnClosed();
         }
 
-        protected abstract void OnBuild(in Container root);
+        protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
 

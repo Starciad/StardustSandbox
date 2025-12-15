@@ -246,7 +246,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.cursorManager.ApplySettings();
         }
 
-        protected override void OnBuild(in Container rootContainer)
+        protected override void OnBuild(Container root)
         {
             this.background = new()
             {
@@ -255,7 +255,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Size = new(730.0f, 720.0f),
             };
 
-            rootContainer.AddChild(this.background);
+            root.AddChild(this.background);
 
             this.scrollableContainer = new()
             {
@@ -271,8 +271,8 @@ namespace StardustSandbox.UI.Common.Menus
 
             BuildScrollBar();
 
-            rootContainer.AddChild(this.scrollableContainer);
-            rootContainer.AddChild(this.tooltipBox);
+            root.AddChild(this.scrollableContainer);
+            root.AddChild(this.tooltipBox);
         }
 
         private void BuildTitle(ref float scrollableContainerMarginY)
@@ -455,7 +455,7 @@ namespace StardustSandbox.UI.Common.Menus
             };
         }
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
             UpdateScrollableContainer();

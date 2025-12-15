@@ -33,7 +33,7 @@ namespace StardustSandbox.Scenario
         private readonly GameManager gameManager = gameManager;
         private readonly Simulation simulation = simulation;
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (this.gameManager.HasState(GameStates.IsSimulationPaused) ||
                 this.gameManager.HasState(GameStates.IsCriticalMenuOpen))
@@ -65,7 +65,7 @@ namespace StardustSandbox.Scenario
             }
         }
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < this.activeClouds.Count; i++)
             {

@@ -24,7 +24,7 @@ namespace StardustSandbox.Elements
             this.slots = new Slot[8];
         }
 
-        internal void SetNeighbor(in int index, in Slot slot)
+        internal void SetNeighbor(in int index, Slot slot)
         {
             this.slots[index] = slot;
         }

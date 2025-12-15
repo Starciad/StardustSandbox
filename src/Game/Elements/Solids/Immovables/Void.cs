@@ -4,7 +4,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class Void : ImmovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {

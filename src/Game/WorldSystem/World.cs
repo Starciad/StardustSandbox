@@ -95,7 +95,7 @@ namespace StardustSandbox.WorldSystem
 
         #region ELEMENTS
 
-        internal bool TryInstantiateElement(in Point position, in Layer layer, in Element value)
+        internal bool TryInstantiateElement(in Point position, in Layer layer, Element value)
         {
             if (!InsideTheWorldDimensions(position) || !IsEmptySlotLayer(position, layer))
             {
@@ -114,9 +114,9 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TryInstantiateElement(in Point position, in Layer layer, in ElementIndex index)
+        internal bool TryInstantiateElement(in Point position, in Layer layer, in ElementIndex value)
         {
-            return TryInstantiateElement(position, layer, ElementDatabase.GetElement(index));
+            return TryInstantiateElement(position, layer, ElementDatabase.GetElement(value));
         }
 
         internal bool TryUpdateElementPosition(in Point oldPosition, in Point newPosition, in Layer layer)
@@ -203,12 +203,12 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TryReplaceElement(in Point position, in Layer layer, in ElementIndex index)
+        internal bool TryReplaceElement(in Point position, in Layer layer, in ElementIndex value)
         {
-            return TryRemoveElement(position, layer) && TryInstantiateElement(position, layer, index);
+            return TryRemoveElement(position, layer) && TryInstantiateElement(position, layer, value);
         }
 
-        internal bool TryReplaceElement(in Point position, in Layer layer, in Element value)
+        internal bool TryReplaceElement(in Point position, in Layer layer, Element value)
         {
             return TryRemoveElement(position, layer) && TryInstantiateElement(position, layer, value);
         }
@@ -276,19 +276,19 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal bool TrySetStoredElement(in Point position, in Layer layer, in ElementIndex index)
+        internal bool TrySetStoredElement(in Point position, in Layer layer, in ElementIndex value)
         {
-            return TrySetStoredElement(position, layer, ElementDatabase.GetElement(index));
+            return TrySetStoredElement(position, layer, ElementDatabase.GetElement(value));
         }
 
-        internal bool TrySetStoredElement(in Point position, in Layer layer, in Element element)
+        internal bool TrySetStoredElement(in Point position, in Layer layer, Element value)
         {
             if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(layer).SetStoredElement(element);
+            this[position.X, position.Y].GetLayer(layer).SetStoredElement(value);
 
             return true;
         }
@@ -349,12 +349,12 @@ namespace StardustSandbox.WorldSystem
             return true;
         }
 
-        internal void InstantiateElement(in Point position, in Layer layer, in ElementIndex index)
+        internal void InstantiateElement(in Point position, in Layer layer, in ElementIndex value)
         {
-            InstantiateElement(position, layer, ElementDatabase.GetElement(index));
+            InstantiateElement(position, layer, ElementDatabase.GetElement(value));
         }
 
-        internal void InstantiateElement(in Point position, in Layer layer, in Element value)
+        internal void InstantiateElement(in Point position, in Layer layer, Element value)
         {
             _ = TryInstantiateElement(position, layer, value);
         }
@@ -379,12 +379,12 @@ namespace StardustSandbox.WorldSystem
             _ = TryRemoveElement(position, layer);
         }
 
-        internal void ReplaceElement(in Point position, in Layer layer, in ElementIndex index)
+        internal void ReplaceElement(in Point position, in Layer layer, in ElementIndex value)
         {
-            _ = TryReplaceElement(position, layer, index);
+            _ = TryReplaceElement(position, layer, value);
         }
 
-        internal void ReplaceElement(in Point position, in Layer layer, in Element value)
+        internal void ReplaceElement(in Point position, in Layer layer, Element value)
         {
             _ = TryReplaceElement(position, layer, value);
         }
@@ -441,14 +441,14 @@ namespace StardustSandbox.WorldSystem
             _ = TrySetElementColorModifier(position, layer, value);
         }
 
-        internal void SetStoredElement(in Point position, in Layer layer, in ElementIndex index)
+        internal void SetStoredElement(in Point position, in Layer layer, in ElementIndex value)
         {
-            SetStoredElement(position, layer, ElementDatabase.GetElement(index));
+            SetStoredElement(position, layer, ElementDatabase.GetElement(value));
         }
 
-        internal void SetStoredElement(in Point position, in Layer layer, in Element element)
+        internal void SetStoredElement(in Point position, in Layer layer, Element value)
         {
-            _ = TrySetStoredElement(position, layer, element);
+            _ = TrySetStoredElement(position, layer, value);
         }
 
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)
@@ -598,7 +598,7 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void HandleExplosion(in Explosion explosion)
+        private void HandleExplosion(Explosion explosion)
         {
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(explosion.Position, Convert.ToInt32(explosion.Radius)))
             {
@@ -616,7 +616,7 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void TryAffectSlotLayer(in SlotLayer slotLayer, in Layer layer, in Point targetPosition, in Explosion explosion)
+        private void TryAffectSlotLayer(SlotLayer slotLayer, in Layer layer, in Point targetPosition, Explosion explosion)
         {
             if (slotLayer.HasState(ElementStates.IsEmpty))
             {
@@ -640,7 +640,7 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void TryAffectPoint(in Slot slot, in Point targetPosition, in Explosion explosion)
+        private void TryAffectPoint(Slot slot, in Point targetPosition, Explosion explosion)
         {
             TryAffectSlotLayer(slot.GetLayer(Layer.Foreground), Layer.Foreground, targetPosition, explosion);
             TryAffectSlotLayer(slot.GetLayer(Layer.Background), Layer.Background, targetPosition, explosion);
@@ -652,7 +652,7 @@ namespace StardustSandbox.WorldSystem
 
         #region Update
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (!this.CanUpdate)
             {
@@ -675,7 +675,7 @@ namespace StardustSandbox.WorldSystem
 
         #region Draw
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {
@@ -714,12 +714,12 @@ namespace StardustSandbox.WorldSystem
             Reset();
         }
 
-        internal void SetSaveFile(in SaveFile saveFile)
+        internal void SetSaveFile(SaveFile saveFile)
         {
             this.currentlySelectedSaveFile = saveFile;
         }
 
-        internal void LoadFromSaveFile(in SaveFile saveFile)
+        internal void LoadFromSaveFile(SaveFile saveFile)
         {
             this.gameManager.SetState(GameStates.IsSimulationPaused);
 
@@ -753,7 +753,7 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        private void LoadSlotLayerData(in Layer layer, in Point position, in SlotLayerData slotLayerData)
+        private void LoadSlotLayerData(in Layer layer, in Point position, SlotLayerData slotLayerData)
         {
             InstantiateElement(position, layer, slotLayerData.ElementIndex);
 

@@ -12,7 +12,7 @@ namespace StardustSandbox.Elements.Gases
     {
         private static readonly List<Point> availablePositions = [];
 
-        private void EvaluateNeighboringPosition(in ElementContext context, Point position)
+        private void EvaluateNeighboringPosition(ElementContext context, Point position)
         {
             if (context.IsEmptySlotLayer(position, context.Layer))
             {
@@ -33,7 +33,7 @@ namespace StardustSandbox.Elements.Gases
             }
         }
 
-        protected override void OnStep(in ElementContext context)
+        protected override void OnStep(ElementContext context)
         {
             availablePositions.Clear();
 

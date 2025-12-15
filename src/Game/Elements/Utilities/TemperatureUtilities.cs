@@ -8,7 +8,7 @@ namespace StardustSandbox.Elements.Utilities
 {
     internal static class TemperatureUtilities
     {
-        internal static void ModifyNeighborsTemperature(in ElementContext context, in ElementNeighbors neighbors, in TemperatureModifierMode temperatureModifierMode)
+        internal static void ModifyNeighborsTemperature(ElementContext context, ElementNeighbors neighbors, in TemperatureModifierMode temperatureModifierMode)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
@@ -22,7 +22,7 @@ namespace StardustSandbox.Elements.Utilities
             }
         }
 
-        private static void ApplyTemperature(in ElementContext context, in Point targetPosition, in SlotLayer slotLayer, in TemperatureModifierMode temperatureModifierMode)
+        private static void ApplyTemperature(ElementContext context, in Point targetPosition, SlotLayer slotLayer, in TemperatureModifierMode temperatureModifierMode)
         {
             float result = slotLayer.Temperature;
 

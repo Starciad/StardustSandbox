@@ -22,12 +22,12 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
             ]
         };
 
-        protected override void OnDestroyed(in ElementContext context)
+        protected override void OnDestroyed(ElementContext context)
         {
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
@@ -49,7 +49,7 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue > 120.0f)
             {

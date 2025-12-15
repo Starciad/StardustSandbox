@@ -22,7 +22,7 @@ namespace StardustSandbox.Explosions
 
         internal ElementIndex[] ExplosionResidues { get; private set; }
 
-        internal void Build(in Point position, in Layer layer, ExplosionBuilder builder)
+        internal void Build(in Point position, in Layer layer, in ExplosionBuilder builder)
         {
             this.Position = position;
             this.Layer = layer;

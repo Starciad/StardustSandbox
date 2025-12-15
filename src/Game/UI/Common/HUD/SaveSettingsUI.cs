@@ -142,7 +142,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             BuildBackground(root);
             BuildTitle();
@@ -379,7 +379,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 

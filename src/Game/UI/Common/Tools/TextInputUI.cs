@@ -118,7 +118,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.characterCount.CanDraw = settings.MaxCharacters != 0;
         }
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             // Shadow
             root.AddChild(new Image()
@@ -217,7 +217,7 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateMenuButtons();
             UpdateElementPositionAccordingToUserInput();

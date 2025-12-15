@@ -21,7 +21,7 @@ namespace StardustSandbox.Managers
             this.effectsLength = this.effects.Length;
         }
 
-        private void UpdateTime(in GameTime gameTime)
+        private void UpdateTime(GameTime gameTime)
         {
             for (int i = 0; i < this.effectsLength; i++)
             {
@@ -42,7 +42,7 @@ namespace StardustSandbox.Managers
             effect.Parameters["TimeNormalized"].SetValue(interpolation);
         }
 
-        internal void Update(in GameTime gameTime, TimeSpan currentTime)
+        internal void Update(GameTime gameTime, TimeSpan currentTime)
         {
             UpdateTime(gameTime);
             UpdateGradientTransitionEffect(GradientConstants.GetBackgroundGradientByTime(currentTime), currentTime);

@@ -75,7 +75,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             BuildMainPanel(root);
             BuildDecorations();
@@ -178,7 +178,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateAnimations(gameTime);
             UpdateButtons();
@@ -186,7 +186,7 @@ namespace StardustSandbox.UI.Common.Menus
             base.Update(gameTime);
         }
 
-        private void UpdateAnimations(in GameTime gameTime)
+        private void UpdateAnimations(GameTime gameTime)
         {
             float elapsedTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 

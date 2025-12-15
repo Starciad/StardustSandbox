@@ -23,7 +23,7 @@ namespace StardustSandbox.WorldSystem.Status
             this.accumulatedTimeSeconds = 0.0f;
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             this.accumulatedTimeSeconds += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
         }

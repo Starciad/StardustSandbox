@@ -60,7 +60,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             Image shadow = new()
             {
@@ -132,7 +132,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #endregion
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.buttonInfos.Length; i++)
             {

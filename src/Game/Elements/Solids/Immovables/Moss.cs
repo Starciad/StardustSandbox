@@ -25,7 +25,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
         private static readonly HashSet<Point> eligiblePositions = [];
         private static readonly List<Point> availablePositions = [];
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             eligiblePositions.Clear();
             availablePositions.Clear();
@@ -82,7 +82,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             context.InstantiateElement(availablePositions.GetRandomItem(), context.Layer, ElementIndex.Moss);
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue >= 100.0f)
             {

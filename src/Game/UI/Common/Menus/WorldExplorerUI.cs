@@ -106,7 +106,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             BuildHeader(root);
             BuildFooter(root);
@@ -324,7 +324,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             // HEADER
             for (int i = 0; i < this.headerButtonImages.Length; i++)

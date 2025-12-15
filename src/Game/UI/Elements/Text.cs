@@ -95,12 +95,12 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(in GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             return;
         }
 
-        private void DrawBorders(in SpriteBatch spriteBatch, Vector2 position)
+        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
         {
             if (this.BorderDirections == LabelBorderDirection.None)
             {
@@ -123,7 +123,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        protected override void OnDraw(in SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
             if (!string.IsNullOrEmpty(this.textContent))
             {

@@ -16,12 +16,12 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(in GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             return;
         }
 
-        protected override void OnDraw(in SpriteBatch spriteBatch)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
             return;
         }

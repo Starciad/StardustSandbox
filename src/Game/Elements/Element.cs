@@ -41,20 +41,20 @@ namespace StardustSandbox.Elements
             this.DefaultExplosionResistance = 0.5f;
         }
 
-        internal void SetContext(in ElementContext context)
+        internal void SetContext(ElementContext context)
         {
             this.context = context;
         }
 
         #region Virtual Methods
 
-        protected virtual void OnInstantiated(in ElementContext context) { return; }
-        protected virtual void OnBeforeStep(in ElementContext context) { return; }
-        protected virtual void OnStep(in ElementContext context) { return; }
-        protected virtual void OnAfterStep(in ElementContext context) { return; }
-        protected virtual void OnDestroyed(in ElementContext context) { return; }
-        protected virtual void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors) { return; }
-        protected virtual void OnTemperatureChanged(in ElementContext context, in float currentValue) { return; }
+        protected virtual void OnInstantiated(ElementContext context) { return; }
+        protected virtual void OnBeforeStep(ElementContext context) { return; }
+        protected virtual void OnStep(ElementContext context) { return; }
+        protected virtual void OnAfterStep(ElementContext context) { return; }
+        protected virtual void OnDestroyed(ElementContext context) { return; }
+        protected virtual void OnNeighbors(ElementContext context, ElementNeighbors neighbors) { return; }
+        protected virtual void OnTemperatureChanged(ElementContext context, in float currentValue) { return; }
 
         #endregion
 
@@ -62,15 +62,15 @@ namespace StardustSandbox.Elements
 
         internal void Instantiate()
         {
-            OnInstantiated(in this.context);
+            OnInstantiated(this.context);
         }
 
         internal void Destroy()
         {
-            OnDestroyed(in this.context);
+            OnDestroyed(this.context);
         }
 
-        internal void Steps(in GameTime gameTime)
+        internal void Steps(GameTime gameTime)
         {
             bool hasTemperature = this.Characteristics.HasFlag(ElementCharacteristics.HasTemperature);
             bool affectsNeighbors = this.Characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
@@ -81,23 +81,23 @@ namespace StardustSandbox.Elements
 
                 if (hasTemperature)
                 {
-                    UpdateTemperature(in gameTime, in neighbors);
+                    UpdateTemperature(gameTime, neighbors);
                 }
 
                 if (affectsNeighbors)
                 {
-                    OnNeighbors(in this.context, in neighbors);
+                    OnNeighbors(this.context, neighbors);
                 }
             }
 
-            OnBeforeStep(in this.context);
-            OnStep(in this.context);
-            OnAfterStep(in this.context);
+            OnBeforeStep(this.context);
+            OnStep(this.context);
+            OnAfterStep(this.context);
         }
 
         // Updated temperature transfer using Fourier's law of thermal conduction
         // Fourier's law: Q = -k * A * (dT/dx) * dt
-        private void UpdateTemperature(in GameTime gameTime, in ElementNeighbors neighbors)
+        private void UpdateTemperature(GameTime gameTime, ElementNeighbors neighbors)
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
@@ -151,7 +151,7 @@ namespace StardustSandbox.Elements
 
         #endregion
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             ElementRenderer.Draw(this.context, this, spriteBatch, this.TextureOriginOffset);
         }

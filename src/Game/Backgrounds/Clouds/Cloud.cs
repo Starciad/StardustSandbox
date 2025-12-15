@@ -38,7 +38,7 @@ namespace StardustSandbox.Backgrounds.Clouds
             Reset();
         }
 
-        internal void Update(in GameTime gameTime, SimulationSpeed simulationSpeed)
+        internal void Update(GameTime gameTime, SimulationSpeed simulationSpeed)
         {
             float multiplier = simulationSpeed switch
             {
@@ -51,7 +51,7 @@ namespace StardustSandbox.Backgrounds.Clouds
             this.position.X += Convert.ToSingle(this.speed * multiplier * gameTime.ElapsedGameTime.TotalSeconds);
         }
 
-        internal void Draw(in SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoClouds), this.position, this.textureRectangle, this.color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }

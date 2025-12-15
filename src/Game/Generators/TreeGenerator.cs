@@ -7,7 +7,7 @@ namespace StardustSandbox.Generators
 {
     internal static class TreeGenerator
     {
-        internal static void Start(in ElementContext context, Point origin, int height, int trunkWidth, int leavesRadius)
+        internal static void Start(ElementContext context, Point origin, int height, int trunkWidth, int leavesRadius)
         {
             // Generate trunk
             for (int y = 0; y < height; y++)

@@ -35,7 +35,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             BuildTitle(root);
             BuildMenuButtons(root);
@@ -107,7 +107,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {

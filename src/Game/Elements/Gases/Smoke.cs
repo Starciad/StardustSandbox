@@ -6,7 +6,7 @@ namespace StardustSandbox.Elements.Gases
 {
     internal sealed class Smoke : Gas
     {
-        protected override void OnBeforeStep(in ElementContext context)
+        protected override void OnBeforeStep(ElementContext context)
         {
             if (SSRandom.Chance(75))
             {

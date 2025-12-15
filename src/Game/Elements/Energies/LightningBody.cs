@@ -24,12 +24,12 @@ namespace StardustSandbox.Elements.Energies
             ]
         };
 
-        protected override void OnAfterStep(in ElementContext context)
+        protected override void OnAfterStep(ElementContext context)
         {
             context.RemoveElement();
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {

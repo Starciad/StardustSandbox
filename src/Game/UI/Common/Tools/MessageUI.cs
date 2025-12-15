@@ -24,7 +24,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region BUILDER
 
-        protected override void OnBuild(in Container root)
+        protected override void OnBuild(Container root)
         {
             BuildBackground(root);
             BuildMessage(root);
@@ -82,7 +82,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
             {
