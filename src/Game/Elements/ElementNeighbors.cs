@@ -52,9 +52,7 @@ namespace StardustSandbox.Elements
 
             for (int i = 0; i < this.Length; i++)
             {
-                Slot slot = this.slots[i];
-
-                if (slot != null && slot.GetLayer(layer).Element.Index == elementIndex)
+                if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).Element.Index == elementIndex)
                 {
                     count++;
                 }
