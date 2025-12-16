@@ -3,9 +3,9 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Mathematics;
 using StardustSandbox.WorldSystem;
 
-namespace StardustSandbox.Tools
+namespace StardustSandbox.Tools.Environment
 {
-    internal sealed class HeatTool : Tool
+    internal sealed class FreezeTool : Tool
     {
         internal override void Execute(ToolContext context)
         {
@@ -21,7 +21,7 @@ namespace StardustSandbox.Tools
                 return;
             }
 
-            context.World.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_HEAT_VALUE));
+            context.World.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_FREEZE_VALUE));
         }
     }
 }
