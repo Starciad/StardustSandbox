@@ -13,7 +13,7 @@ namespace StardustSandbox.Elements.Utilities
             for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                    !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }
