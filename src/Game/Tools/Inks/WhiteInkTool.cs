@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Tools.Inks
 {
-    internal sealed class WhiteInkTool
+    internal sealed class WhiteInkTool : InkTool
     {
 
     }
