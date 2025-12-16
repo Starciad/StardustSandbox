@@ -209,7 +209,7 @@ namespace StardustSandbox.UI.Common.HUD
             uint limitOfElementsOnTheMap = (uint)(worldSize.X * worldSize.Y * 2);
             uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);
 
-            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize);
+            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize.X, 'x', worldSize.Y);
             this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
             this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
             this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
