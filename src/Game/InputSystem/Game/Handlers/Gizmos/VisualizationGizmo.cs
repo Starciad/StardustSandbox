@@ -5,8 +5,6 @@ using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 {
     internal sealed class VisualizationGizmo : Gizmo

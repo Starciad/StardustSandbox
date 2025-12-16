@@ -8,7 +8,6 @@ using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos

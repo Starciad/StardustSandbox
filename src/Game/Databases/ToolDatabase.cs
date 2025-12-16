@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.Colors.Palettes;
+﻿using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Enums.Tools;
 using StardustSandbox.Tools;
 using StardustSandbox.Tools.Inks;

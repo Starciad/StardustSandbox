@@ -9,7 +9,6 @@ using StardustSandbox.Enums.Tools;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
@@ -41,6 +40,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                         default:
                             break;
                     }
+
                     break;
 
                 case ItemContentType.Tool:
@@ -57,6 +57,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                         default:
                             break;
                     }
+
                     break;
 
                 default:
