@@ -331,6 +331,16 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(320, 192, 32, 32)
                                 ),
+
+                                // [16] Mercury
+                                new(
+                                    contentIndex: (int)ElementIndex.Mercury,
+                                    name: Localization_Elements.Liquid_Mercury_Name,
+                                    description: Localization_Elements.Liquid_Mercury_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(160, 192, 32, 32)
+                                ),
                             ]
                         ),
 

@@ -1340,6 +1340,23 @@ namespace StardustSandbox.Databases
 
                 #endregion
 
+                new Elements.Liquids.Mercury()
+                {
+                    Index = ElementIndex.Mercury,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 256),
+                    ReferenceColor = AAP64ColorPalette.Slate,
+                    DefaultTemperature = 10.0f,
+                    DefaultDensity = 13.5f,
+                    DefaultExplosionResistance = 0.5f,
+                    DefaultDispersionRate = 3,
+                },
+
                 #endregion
             ];
 

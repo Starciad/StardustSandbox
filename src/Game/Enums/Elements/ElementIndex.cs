@@ -96,5 +96,7 @@
         GrayPaint = 83,
         VioletPaint = 84,
         BrownPaint = 85,
+
+        Mercury = 86,
     }
 }

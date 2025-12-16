@@ -367,6 +367,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_Mercury_Description {
+            get {
+                return ResourceManager.GetString("Liquid.Mercury.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Liquid_Mercury_Name {
+            get {
+                return ResourceManager.GetString("Liquid.Mercury.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Dark, thick, very flammable liquid with low density..
         /// </summary>
         internal static string Liquid_Oil_Description {

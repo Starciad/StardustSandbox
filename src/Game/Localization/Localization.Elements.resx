@@ -627,4 +627,10 @@
   <data name="Liquid.BrownPaint.Description" xml:space="preserve">
     <value />
   </data>
+  <data name="Liquid.Mercury.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Liquid.Mercury.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>
