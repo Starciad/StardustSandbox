@@ -1,0 +1,3 @@
+[submodule "src/Game/assets"]
+	path = src/Game/assets
+	url = https://github.com/Starciad/StardustSandbox.Assets.git
