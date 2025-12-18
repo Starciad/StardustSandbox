@@ -23,8 +23,6 @@ namespace StardustSandbox.Databases
             }
 
             elements = [
-                #region Elements Pack 1
-
                 new Elements.Solids.Movables.Dirt()
                 {
                     Index = ElementIndex.Dirt,
@@ -205,7 +203,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(160, 64),
                     ReferenceColor = new Color(180, 180, 200),
@@ -427,7 +426,8 @@ namespace StardustSandbox.Databases
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(320, 160),
                     ReferenceColor = new Color(230, 230, 255),
@@ -442,7 +442,8 @@ namespace StardustSandbox.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(320, 192),
                     ReferenceColor = new Color(160, 200, 255),
@@ -520,7 +521,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(320, 256),
                     ReferenceColor = new Color(200, 220, 120),
@@ -534,7 +536,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(192, 320),
                     ReferenceColor = new Color(255, 215, 80),
@@ -586,11 +589,6 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.35f,
                     DefaultExplosionResistance = 0.0f,
                 },
-
-                #endregion
-
-                #region Elements Pack 2
-
                 new Elements.Gases.AntiCorruption()
                 {
                     Index = ElementIndex.AntiCorruption,
@@ -615,9 +613,6 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 3.5f,
                     DefaultExplosionResistance = 1.5f,
                 },
-
-                #region Pushers
-
                 new Elements.Solids.Immovables.Pushers.UpwardPusher()
                 {
                     Index = ElementIndex.UpwardPusher,
@@ -658,9 +653,6 @@ namespace StardustSandbox.Databases
                     ReferenceColor = AAP64ColorPalette.Rust,
                     DefaultDensity = 2.0f,
                 },
-
-                #endregion
-
                 new Elements.Gases.Cloud()
                 {
                     Index = ElementIndex.Cloud,
@@ -684,7 +676,8 @@ namespace StardustSandbox.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 64),
                     ReferenceColor = AAP64ColorPalette.Slate,
@@ -717,9 +710,6 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
                 },
-
-                #region Wools
-
                 new Elements.Solids.Immovables.Wools.DryBlackWool()
                 {
                     Index = ElementIndex.DryBlackWool,
@@ -906,7 +896,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 96),
                     ReferenceColor = AAP64ColorPalette.DarkGray.Darken(50),
@@ -921,7 +912,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 128),
                     ReferenceColor = AAP64ColorPalette.White.Darken(50),
@@ -936,7 +928,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 160),
                     ReferenceColor = AAP64ColorPalette.Crimson.Darken(50),
@@ -951,7 +944,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 192),
                     ReferenceColor = AAP64ColorPalette.Orange.Darken(50),
@@ -966,7 +960,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 224),
                     ReferenceColor = AAP64ColorPalette.Gold.Darken(50),
@@ -981,7 +976,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 256),
                     ReferenceColor = AAP64ColorPalette.ForestGreen.Darken(50),
@@ -996,7 +992,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 288),
                     ReferenceColor = AAP64ColorPalette.Cyan.Darken(50),
@@ -1011,7 +1008,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 0),
                     ReferenceColor = AAP64ColorPalette.Gunmetal.Darken(50),
@@ -1026,7 +1024,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 32),
                     ReferenceColor = AAP64ColorPalette.Violet.Darken(50),
@@ -1041,7 +1040,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 64),
                     ReferenceColor = AAP64ColorPalette.Brown.Darken(50),
@@ -1050,9 +1050,6 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-
-                #endregion
-
                 new Elements.Solids.Movables.FertileSoil()
                 {
                     Index = ElementIndex.FertileSoil,
@@ -1164,9 +1161,6 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = 35.0f,
                     DefaultDensity = 2.4f,
                 },
-
-                #region Paints
-
                 new Elements.Liquids.Paints.BlackPaint()
                 {
                     Index = ElementIndex.BlackPaint,
@@ -1337,9 +1331,6 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-
-                #endregion
-
                 new Elements.Liquids.Mercury()
                 {
                     Index = ElementIndex.Mercury,
@@ -1356,8 +1347,6 @@ namespace StardustSandbox.Databases
                     DefaultExplosionResistance = 0.5f,
                     DefaultDispersionRate = 3,
                 },
-
-                #endregion
             ];
 
             isLoaded = true;
