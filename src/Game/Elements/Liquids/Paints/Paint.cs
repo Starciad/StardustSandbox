@@ -12,7 +12,8 @@ namespace StardustSandbox.Elements.Liquids.Paints
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
+                    neighbors.GetSlotLayer(i, context.Layer).Element.Index == this.Index)
                 {
                     continue;
                 }
