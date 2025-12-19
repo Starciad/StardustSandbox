@@ -18,6 +18,9 @@ namespace StardustSandbox.WorldSystem.Components
 {
     internal sealed class WorldRendering(InputController inputController, World world)
     {
+        internal bool DrawForegroundElements { get; set; } = true;
+        internal bool DrawBackgroundElements { get; set; } = true;
+
         private readonly ElementContext elementRenderingContext = new(world);
         private readonly InputController inputController = inputController;
         private readonly World world = world;
@@ -45,12 +48,12 @@ namespace StardustSandbox.WorldSystem.Components
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
                     {
-                        if (!value.Background.HasState(ElementStates.IsEmpty))
+                        if (this.DrawBackgroundElements && !value.Background.HasState(ElementStates.IsEmpty))
                         {
                             DrawSlotLayer(spriteBatch, value.Position, Layer.Background, value, value.GetLayer(Layer.Background).Element);
                         }
 
-                        if (!value.Foreground.HasState(ElementStates.IsEmpty))
+                        if (this.DrawForegroundElements && !value.Foreground.HasState(ElementStates.IsEmpty))
                         {
                             DrawSlotLayer(spriteBatch, value.Position, Layer.Foreground, value, value.GetLayer(Layer.Foreground).Element);
                         }
@@ -62,9 +65,8 @@ namespace StardustSandbox.WorldSystem.Components
         private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Slot slot, Element element)
         {
             this.elementRenderingContext.UpdateInformation(position, layer, slot);
-
-            element.SetContext(this.elementRenderingContext);
-            element.Draw(spriteBatch);
+            
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, element.TextureOriginOffset);
         }
     }
 }

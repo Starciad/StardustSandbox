@@ -159,7 +159,8 @@ namespace StardustSandbox.Databases
                 inputController,
                 hudUI,
                 tooltipBox,
-                uiManager
+                uiManager,
+                world
             );
 
             PlayUI playUI = new(

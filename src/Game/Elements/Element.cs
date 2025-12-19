@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
@@ -150,10 +149,5 @@ namespace StardustSandbox.Elements
         }
 
         #endregion
-
-        internal void Draw(SpriteBatch spriteBatch)
-        {
-            ElementRenderer.Draw(this.context, this, spriteBatch, this.TextureOriginOffset);
-        }
     }
 }

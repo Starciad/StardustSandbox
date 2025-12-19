@@ -50,7 +50,7 @@ namespace StardustSandbox.UI.Elements
             get => this.textContent;
             set
             {
-                if (!this.textContent.Equals(value))
+                if (!string.IsNullOrWhiteSpace(value) && !this.textContent.Equals(value))
                 {
                     WrapContent(value);
 

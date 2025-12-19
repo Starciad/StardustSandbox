@@ -33,6 +33,8 @@ namespace StardustSandbox.WorldSystem
         internal Simulation Simulation => this.simulation;
         internal Time Time => this.time;
 
+        internal WorldRendering Rendering => this.rendering;
+
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
