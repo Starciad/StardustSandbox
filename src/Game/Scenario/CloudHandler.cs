@@ -11,7 +11,7 @@ using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
-using StardustSandbox.WorldSystem.Status;
+using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
 

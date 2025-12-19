@@ -18,9 +18,6 @@
         // Buttons
         internal const byte ELEMENT_BUTTONS_LENGTH = 13;
 
-        // Information
-        internal const byte HUD_INFORMATION_AMOUNT = 5;
-
         // Item Explorer
         internal const byte HUD_ITEM_EXPLORER_ITEMS_PER_ROW = 12;
         internal const byte HUD_ITEM_EXPLORER_ITEMS_PER_COLUMN = 4;

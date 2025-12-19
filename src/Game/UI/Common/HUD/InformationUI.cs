@@ -44,7 +44,7 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
-            this.infoLabels = new Label[UIConstants.HUD_INFORMATION_AMOUNT];
+            this.infoLabels = new Label[6];
         }
 
         #region BUILDER
@@ -214,6 +214,15 @@ namespace StardustSandbox.UI.Common.HUD
             this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
             this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
             this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+
+            if (this.world.Temperature.CanApplyTemperature)
+            {
+                this.infoLabels[5].TextContent = string.Concat("Temperature", ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C");    
+            }
+            else
+            {
+                this.infoLabels[5].TextContent = string.Concat("Temperature", ": ", "Global temperature is disabled at this time.");                
+            }
         }
 
         protected override void OnClosed()

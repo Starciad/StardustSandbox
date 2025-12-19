@@ -11,6 +11,7 @@ using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -47,7 +48,7 @@ namespace StardustSandbox.UI.Common.HUD
             private readonly TimeSpan startTime;
             private readonly TimeSpan endTime;
 
-            internal Section(string title, TimeSpan startTime, TimeSpan endTime)
+            internal Section(string title, TimeSpan startTime, TimeSpan endTime, World world)
             {
                 this.title = title;
                 this.startTime = startTime;
@@ -55,12 +56,41 @@ namespace StardustSandbox.UI.Common.HUD
 
                 this.buttonInfos =
                 [
-                    new(TextureIndex.IconUI, new(224, 192, 32, 32), "None", "No temperature effect.", () => this.Index = TemperatureIndex.None),
-                    new(TextureIndex.IconUI, new(0, 224, 32, 32), "Very Cold", "Extremely cold temperature effect.", () => this.Index = TemperatureIndex.VeryCold),
-                    new(TextureIndex.IconUI, new(32, 224, 32, 32), "Cold", "Mildly cold temperature effect.", () => this.Index = TemperatureIndex.Cold),
-                    new(TextureIndex.IconUI, new(64, 224, 32, 32), "Normal", "Normal temperature effect.", () => this.Index = TemperatureIndex.Normal),
-                    new(TextureIndex.IconUI, new(96, 224, 32, 32), "Hot", "Mildly hot temperature effect.", () => this.Index = TemperatureIndex.Hot),
-                    new(TextureIndex.IconUI, new(128, 224, 32, 32), "Very Hot", "Extremely hot temperature effect.", () => this.Index = TemperatureIndex.VeryHot),
+                    new(TextureIndex.IconUI, new(224, 192, 32, 32), "None", "No temperature effect.", () => 
+                    {
+                        this.Index = TemperatureIndex.None;
+                        world.Temperature.SetTemperatureValue(this.StartTime, 0.0f, false);
+                    }),
+
+                    new(TextureIndex.IconUI, new(0, 224, 32, 32), "Very Cold", "Extremely cold temperature effect.", () =>
+                    {
+                        this.Index = TemperatureIndex.VeryCold;
+                        world.Temperature.SetTemperatureValue(this.StartTime, -60.0f, true);
+                    }),
+
+                    new(TextureIndex.IconUI, new(32, 224, 32, 32), "Cold", "Mildly cold temperature effect.", () =>
+                    {
+                        this.Index = TemperatureIndex.Cold;
+                        world.Temperature.SetTemperatureValue(this.StartTime, -20.0f, true);
+                    }),
+
+                    new(TextureIndex.IconUI, new(64, 224, 32, 32), "Normal", "Normal temperature effect.", () =>
+                    {
+                        this.Index = TemperatureIndex.Normal;
+                        world.Temperature.SetTemperatureValue(this.StartTime, 25.0f, true);
+                    }),
+
+                    new(TextureIndex.IconUI, new(96, 224, 32, 32), "Hot", "Mildly hot temperature effect.", () =>
+                    {
+                        this.Index = TemperatureIndex.Hot;
+                        world.Temperature.SetTemperatureValue(this.StartTime, 60.0f, true);
+                    }),
+
+                    new(TextureIndex.IconUI, new(128, 224, 32, 32), "Very Hot", "Extremely hot temperature effect.", () =>
+                    {
+                        this.Index = TemperatureIndex.VeryHot;
+                        world.Temperature.SetTemperatureValue(this.StartTime, 90.0f, true);
+                    }),
                 ];
 
                 this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
@@ -93,29 +123,32 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly Section[] sections;
 
         private readonly GameManager gameManager;
+        private readonly World world;
 
         internal TemperatureSettingsUI(
             GameManager gameManager,
             UIIndex index,
             TooltipBox tooltipBox,
-            UIManager uiManager
+            UIManager uiManager,
+            World world
         ) : base(index)
         {
             this.gameManager = gameManager;
             this.tooltipBox = tooltipBox;
+            this.world = world;
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI);
 
             this.sections =
             [
-                new("Late Night", new(0, 0, 0), new(3, 0, 0)),
-                new("Early Morning", new(3, 0, 0), new(6, 0, 0)),
-                new("Dawn", new(6, 0, 0), new(8, 0, 0)),
-                new("Morning", new(8, 0, 0), new(12, 0, 0)),
-                new("Early Afternoon", new(12, 0, 0), new(15, 0, 0)),
-                new("Afternoon", new(15, 0, 0), new(18, 0, 0)),
-                new("Evening", new(18, 0, 0), new(20, 0, 0)),
-                new("Night", new(20, 0, 0), new(24, 0, 0)),
+                new("Late Night", new(0, 0, 0), new(3, 0, 0), world),
+                new("Early Morning", new(3, 0, 0), new(6, 0, 0), world),
+                new("Dawn", new(6, 0, 0), new(8, 0, 0), world),
+                new("Morning", new(8, 0, 0), new(12, 0, 0), world),
+                new("Early Afternoon", new(12, 0, 0), new(15, 0, 0), world),
+                new("Afternoon", new(15, 0, 0), new(18, 0, 0), world),
+                new("Evening", new(18, 0, 0), new(20, 0, 0), world),
+                new("Night", new(20, 0, 0), new(24, 0, 0), world),
             ];
         }
 
@@ -193,7 +226,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Label sectionTitle = new()
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Scale = new(0.08f),
+                    Scale = new(0.1f),
                     Margin = new(32.0f, 80.0f + (i * 112.0f)),
                     TextContent = string.Format("{0} ({1:00}:{2:00} - {3:00}:{4:00})",
                         section.Title,
@@ -209,8 +242,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 if (i > (this.sections.Length / 2) - 1)
                 {
-                    // sectionTitle.Margin.X += 540.0f;
-                    sectionTitle.Margin = new(540.0f + 32.0f, 80.0f + ((i - (this.sections.Length / 2)) * 112.0f));
+                    sectionTitle.Margin = new(556.0f + 32.0f, 80.0f + ((i - (this.sections.Length / 2)) * 112.0f));
                 }
 
                 for (int j = 0; j < section.ButtonSlotInfos.Length; j++)

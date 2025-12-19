@@ -33,6 +33,16 @@ namespace StardustSandbox.Elements
             return this.world.Information.Size;
         }
 
+        internal float GetWorldTemperature()
+        {
+            return this.world.Temperature.CurrentTemperature;
+        }
+
+        internal bool CanApplyWorldTemperature()
+        {
+            return this.world.Temperature.CanApplyTemperature;
+        }
+
         #endregion
 
         #region ELEMENTS

@@ -6,7 +6,7 @@ using StardustSandbox.Interfaces;
 
 using System;
 
-namespace StardustSandbox.WorldSystem.Status
+namespace StardustSandbox.WorldSystem
 {
     internal sealed class Simulation : IResettable
     {

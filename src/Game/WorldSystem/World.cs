@@ -12,6 +12,7 @@ using StardustSandbox.Enums.World;
 using StardustSandbox.Explosions;
 using StardustSandbox.Extensions;
 using StardustSandbox.InputSystem.Game;
+using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
@@ -19,7 +20,6 @@ using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem.Chunking;
 using StardustSandbox.WorldSystem.Components;
-using StardustSandbox.WorldSystem.Status;
 
 using System;
 using System.Collections.Generic;
@@ -27,10 +27,11 @@ using System.Threading.Tasks;
 
 namespace StardustSandbox.WorldSystem
 {
-    internal sealed class World
+    internal sealed class World : IResettable
     {
         internal Information Information => this.information;
         internal Simulation Simulation => this.simulation;
+        internal Temperature Temperature => this.temperature;
         internal Time Time => this.time;
 
         internal WorldRendering Rendering => this.rendering;
@@ -44,6 +45,7 @@ namespace StardustSandbox.WorldSystem
 
         private readonly Information information;
         private readonly Simulation simulation;
+        private readonly Temperature temperature;
         private readonly Time time;
 
         private readonly WorldChunking chunking;
@@ -71,8 +73,9 @@ namespace StardustSandbox.WorldSystem
             this.gameManager = gameManager;
 
             this.information = new();
-            this.time = new();
             this.simulation = new();
+            this.time = new();
+            this.temperature = new(this.time);
 
             this.worldSlotsPool = new();
 
@@ -681,6 +684,7 @@ namespace StardustSandbox.WorldSystem
 
             this.time.Update(gameTime);
             this.simulation.Update(gameTime);
+            this.temperature.Update();
 
             if (this.simulation.CanContinueExecution())
             {

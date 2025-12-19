@@ -121,7 +121,8 @@ namespace StardustSandbox.Databases
                 gameManager,
                 UIIndex.TemperatureSettings,
                 tooltipBox,
-                uiManager
+                uiManager,
+                world
             );
 
             ItemExplorerUI itemExplorerUI = new(
