@@ -33,13 +33,13 @@ namespace StardustSandbox.Elements.Liquids
         {
             if (currentValue <= 500.0f)
             {
-                if (context.SlotLayer.StoredElement == null)
+                if (context.GetStoredElement() == null)
                 {
                     context.ReplaceElement(ElementIndex.Stone);
                 }
                 else
                 {
-                    context.ReplaceElement(context.SlotLayer.StoredElement);
+                    context.ReplaceElement(context.GetStoredElement());
                 }
 
                 context.SetElementTemperature(500.0f);

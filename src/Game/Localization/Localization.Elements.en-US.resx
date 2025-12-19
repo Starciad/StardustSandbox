@@ -634,4 +634,10 @@
   <data name="Liquid.Mercury.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Energy.Spark.Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Energy.Spark.Description" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -227,6 +227,19 @@ namespace StardustSandbox.Elements
             return TrySetStoredElement(this.Position, value);
         }
 
+        internal bool TryGetStoredElement(in Point position, in Layer layer, out Element value)
+        {
+            return this.world.TryGetStoredElement(position, layer, out value);
+        }
+        internal bool TryGetStoredElement(in Point position, out Element value)
+        {
+            return TryGetStoredElement(position, this.Layer, out value);
+        }
+        internal bool TryGetStoredElement(out Element value)
+        {
+            return TryGetStoredElement(this.Position, out value);
+        }
+
         internal bool TryHasElementState(in Point position, in Layer layer, in ElementStates state, out bool value)
         {
             return this.world.TryHasElementState(position, layer, state, out value);
@@ -448,6 +461,19 @@ namespace StardustSandbox.Elements
         internal void SetStoredElement(Element value)
         {
             SetStoredElement(this.Position, value);
+        }
+
+        internal Element GetStoredElement(in Point position, in Layer layer)
+        {
+            return this.world.GetStoredElement(position, layer);
+        }
+        internal Element GetStoredElement(in Point position)
+        {
+            return GetStoredElement(position, this.Layer);
+        }
+        internal Element GetStoredElement()
+        {
+            return GetStoredElement(this.Position);
         }
 
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)

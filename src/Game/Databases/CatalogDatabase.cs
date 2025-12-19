@@ -779,7 +779,7 @@ namespace StardustSandbox.Databases
                                     sourceRectangle: new(64, 64, 32, 32)
                                 ),
 
-                                // [1] Thunder
+                                // [1] Lightning
                                 new(
                                     contentIndex: (int)ElementIndex.LightningHead,
                                     name: Localization_Elements.Energy_Lightning_Name,
@@ -787,6 +787,16 @@ namespace StardustSandbox.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(64, 128, 32, 32)
+                                ),
+
+                                // [2] Spark
+                                new(
+                                    contentIndex: (int)ElementIndex.Spark,
+                                    name: Localization_Elements.Energy_Spark_Name,
+                                    description: Localization_Elements.Energy_Spark_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(0, 0, 32, 32)
                                 ),
                             ]
                         ),

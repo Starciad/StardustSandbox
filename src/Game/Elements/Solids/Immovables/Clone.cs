@@ -31,12 +31,12 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static void TryInstantiateStoredElement(ElementContext context)
         {
-            if (context.SlotLayer.StoredElement == null || !TryGetValidPosition(context, out Point validPositon))
+            if (context.GetStoredElement() == null || !TryGetValidPosition(context, out Point validPositon))
             {
                 return;
             }
 
-            context.InstantiateElement(validPositon, context.Layer, context.SlotLayer.StoredElement);
+            context.InstantiateElement(validPositon, context.Layer, context.GetStoredElement());
         }
 
         private static void TryAddEmptyPosition(ElementContext context, Point position)
@@ -77,7 +77,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.SlotLayer.StoredElement != null)
+            if (context.GetStoredElement() != null)
             {
                 return;
             }

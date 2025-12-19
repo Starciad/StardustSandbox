@@ -37,7 +37,7 @@ namespace StardustSandbox.Elements.Gases
                 Slot corruptionNeighborSlot = cachedCorruptionNeighborSlots.GetRandomItem();
                 SlotLayer neighborCorruptionSlotLayer = corruptionNeighborSlot.GetLayer(context.Layer);
 
-                Element currentStoredElement = context.SlotLayer.StoredElement;
+                Element currentStoredElement = context.GetStoredElement();
                 Element neighborStoredElement = neighborCorruptionSlotLayer.StoredElement;
 
                 Point oldPosition = context.Slot.Position;
@@ -56,9 +56,9 @@ namespace StardustSandbox.Elements.Gases
 
                 context.SetStoredElement(newPosition, neighborStoredElement);
             }
-            else if (context.SlotLayer.StoredElement != null)
+            else if (context.GetStoredElement() != null)
             {
-                context.ReplaceElement(context.SlotLayer.StoredElement);
+                context.ReplaceElement(context.GetStoredElement());
             }
             else if (SSRandom.Chance(15))
             {

@@ -289,7 +289,19 @@ namespace StardustSandbox.WorldSystem
             }
 
             this[position.X, position.Y].GetLayer(layer).SetStoredElement(value);
+            return true;
+        }
 
+        internal bool TryGetStoredElement(in Point position, in Layer layer, out Element value)
+        {
+            value = null;
+
+            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            value = this[position.X, position.Y].GetLayer(layer).StoredElement;
             return true;
         }
 
@@ -449,6 +461,12 @@ namespace StardustSandbox.WorldSystem
         internal void SetStoredElement(in Point position, in Layer layer, Element value)
         {
             _ = TrySetStoredElement(position, layer, value);
+        }
+
+        internal Element GetStoredElement(in Point position, in Layer layer)
+        {
+            _ = TryGetStoredElement(position, layer, out Element value);
+            return value;
         }
 
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)

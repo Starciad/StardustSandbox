@@ -98,5 +98,6 @@
         BrownPaint = 85,
 
         Mercury = 86,
+        Spark = 87,
     }
 }

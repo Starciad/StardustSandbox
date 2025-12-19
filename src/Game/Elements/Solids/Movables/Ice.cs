@@ -8,13 +8,13 @@ namespace StardustSandbox.Elements.Solids.Movables
         {
             if (currentValue >= 0.0f)
             {
-                if (context.SlotLayer.StoredElement == null)
+                if (context.GetStoredElement() == null)
                 {
                     context.ReplaceElement(ElementIndex.Water);
                 }
                 else
                 {
-                    context.ReplaceElement(context.SlotLayer.StoredElement);
+                    context.ReplaceElement(context.GetStoredElement());
                 }
 
                 context.SetElementTemperature(13.0f);
