@@ -788,16 +788,6 @@ namespace StardustSandbox.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(64, 128, 32, 32)
                                 ),
-
-                                // [2] Spark
-                                new(
-                                    contentIndex: (int)ElementIndex.Spark,
-                                    name: Localization_Elements.Energy_Spark_Name,
-                                    description: Localization_Elements.Energy_Spark_Description,
-                                    contentType: ItemContentType.Element,
-                                    textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(0, 0, 32, 32)
-                                ),
                             ]
                         ),
 

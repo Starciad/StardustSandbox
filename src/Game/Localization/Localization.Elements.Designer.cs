@@ -97,24 +97,6 @@ namespace StardustSandbox.Localization {
         }
 
         /// <summary>
-        ///  Consulta uma cadeia de caracteres localizada semelhante a .
-        /// </summary>
-        internal static string Energy_Spark_Name {
-            get {
-                return ResourceManager.GetString("Energy.Spark.Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///  Consulta uma cadeia de caracteres localizada semelhante a .
-        /// </summary>
-        internal static string Energy_Spark_Description {
-            get {
-                return ResourceManager.GetString("Energy.Spark.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A gaseous antidote that attempts, by all means, to contain the destruction caused by corruption and restore the environment to its original state..
         /// </summary>
         internal static string Gas_AntiCorruption_Description {

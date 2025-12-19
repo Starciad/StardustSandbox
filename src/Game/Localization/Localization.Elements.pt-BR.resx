@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,525 +119,378 @@
   </resheader>
   <data name="Solid.Movable.Dirt.Name" xml:space="preserve">
     <value>Terra</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Mud.Name" xml:space="preserve">
     <value>Lama</value>
+    <comment/>
   </data>
   <data name="Liquid.Water.Name" xml:space="preserve">
     <value>Água</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Stone.Name" xml:space="preserve">
     <value>Pedra</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Grass.Name" xml:space="preserve">
     <value>Grama</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Ice.Name" xml:space="preserve">
     <value>Gelo</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Sand.Name" xml:space="preserve">
     <value>Areia</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Snow.Name" xml:space="preserve">
     <value>Neve</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Corruption.Name" xml:space="preserve">
     <value>Corrupção (móvel)</value>
+    <comment/>
   </data>
   <data name="Liquid.Lava.Name" xml:space="preserve">
     <value>Lava</value>
+    <comment/>
   </data>
   <data name="Liquid.Acid.Name" xml:space="preserve">
     <value>Ácido</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Glass.Name" xml:space="preserve">
     <value>Vidro</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Iron.Name" xml:space="preserve">
     <value>Ferro</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Wall.Name" xml:space="preserve">
     <value>Parede</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Wood.Name" xml:space="preserve">
     <value>Madeira</value>
+    <comment/>
   </data>
   <data name="Gas.Corruption.Name" xml:space="preserve">
     <value>Corrupção (gás)</value>
+    <comment/>
   </data>
   <data name="Liquid.Corruption.Name" xml:space="preserve">
     <value>Corrupção (líquida)</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Corruption.Name" xml:space="preserve">
     <value>Corrupção (imóvel)</value>
+    <comment/>
   </data>
   <data name="Gas.Steam.Name" xml:space="preserve">
     <value>Vapor</value>
+    <comment/>
   </data>
   <data name="Gas.Smoke.Name" xml:space="preserve">
     <value>Fumaça</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.RedBrick.Name" xml:space="preserve">
     <value>Tijolo Vermelho</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.TreeLeaf.Name" xml:space="preserve">
     <value>Folha de Árvore</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.MountingBlock.Name" xml:space="preserve">
     <value>Bloco de Montar</value>
+    <comment/>
   </data>
   <data name="Energy.Fire.Name" xml:space="preserve">
     <value>Fogo</value>
+    <comment/>
   </data>
   <data name="Energy.Fire.Description" xml:space="preserve">
     <value>Calor intenso que consome materiais inflamáveis rapidamente, espalhando destruição e fumaça.</value>
+    <comment/>
   </data>
   <data name="Gas.Corruption.Description" xml:space="preserve">
     <value>Forma gasosa que se espalha e contamina o ambiente, tornando-o inóspito.</value>
+    <comment/>
   </data>
   <data name="Gas.Smoke.Description" xml:space="preserve">
     <value>Fumaça da queima, sobe devagar e escurece o ar, sinalizando fogo.</value>
+    <comment/>
   </data>
   <data name="Gas.Steam.Description" xml:space="preserve">
     <value>Vapor de água quente que sobe rápido e se dispersa no ar. Em altitudes altas, pode se transformar em nuvens.</value>
+    <comment/>
   </data>
   <data name="Liquid.Acid.Description" xml:space="preserve">
     <value>Líquido corrosivo que dissolve vários materiais ao menor contato.</value>
+    <comment/>
   </data>
   <data name="Liquid.Corruption.Description" xml:space="preserve">
     <value>Líquido contaminante que flui e corrompe tudo o que toca.</value>
+    <comment/>
   </data>
   <data name="Liquid.Lava.Description" xml:space="preserve">
     <value>Rocha derretida que queima quase tudo ao tocar. Esfria e solidifica em contato com frio.</value>
+    <comment/>
   </data>
   <data name="Liquid.Water.Description" xml:space="preserve">
     <value>Líquido essencial, pode congelar, evaporar e apagar incêndios.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Corruption.Description" xml:space="preserve">
     <value>Corrupção cristalizada, imóvel e permanente, cria áreas contaminadas.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Glass.Description" xml:space="preserve">
     <value>Material transparente e frágil, quebra com calor ou impacto.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Iron.Description" xml:space="preserve">
     <value>Metal resistente ao fogo, mas derrete em lava.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.MountingBlock.Description" xml:space="preserve">
     <value>Bloco decorativo e funcional, inflamável, usado em construções.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.RedBrick.Description" xml:space="preserve">
     <value>Bloco durável, ideal para construções resistentes ao fogo.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
     <value>Folha natural e inflamável, usada para decoração.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Wall.Description" xml:space="preserve">
     <value>Estrutura sólida, impenetrável e estável.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Wood.Description" xml:space="preserve">
     <value>Material orgânico, muito inflamável, comum em construções.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Corruption.Description" xml:space="preserve">
     <value>Substância que se espalha, contamina e destrói o ambiente continuamente.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Dirt.Description" xml:space="preserve">
     <value>Terra seca e instável, base para vegetação. Vira lama ao contato com água.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Grass.Description" xml:space="preserve">
     <value>Grama seca, muito inflamável, queima rápido e deixa cinzas.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Ice.Description" xml:space="preserve">
     <value>Água sólida e escorregadia, derrete fácil com calor.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Mud.Description" xml:space="preserve">
     <value>Mistura de terra e água, vira terra seca ao ser aquecida.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Sand.Description" xml:space="preserve">
     <value>Grãos minerais que fluem e se acumulam. Viram vidro com calor extremo.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Snow.Description" xml:space="preserve">
     <value>Flocos de gelo que derretem e viram água com calor.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Rocha resistente a impactos, derrete em lava com calor extremo ou vira areia com erosão.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
     <value>Lâmpada</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
     <value>Lâmpada fixa e resistente, usada para decoração.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sal</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Salt.Description" xml:space="preserve">
     <value>Pó branco cristalino que se dissolve em água.</value>
+    <comment/>
   </data>
   <data name="Liquid.Oil.Name" xml:space="preserve">
     <value>Petróleo</value>
+    <comment/>
   </data>
   <data name="Liquid.Oil.Description" xml:space="preserve">
     <value>Líquido escuro, espesso e muito inflamável, de baixa densidade.</value>
+    <comment/>
   </data>
   <data name="Liquid.Saltwater.Name" xml:space="preserve">
     <value>Água Salgada</value>
+    <comment/>
   </data>
   <data name="Liquid.Saltwater.Description" xml:space="preserve">
     <value>Líquido azul claro com partículas de sal flutuando.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.DrySponge.Name" xml:space="preserve">
     <value>Esponja (seca)</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.DrySponge.Description" xml:space="preserve">
     <value>Esponja seca que absorve líquidos e é muito inflamável.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.WetSponge.Name" xml:space="preserve">
     <value>Esponja (molhada)</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.WetSponge.Description" xml:space="preserve">
     <value>Esponja molhada, mais densa e difícil de queimar. Seca com calor e desce se houver esponjas secas abaixo.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Gold.Name" xml:space="preserve">
     <value>Ouro</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Gold.Description" xml:space="preserve">
     <value>Metal amarelo brilhante, macio e maleável.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Heater.Name" xml:space="preserve">
     <value>Aquecedor</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Heater.Description" xml:space="preserve">
     <value>Dispositivo que aquece todos os elementos próximos.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Freezer.Name" xml:space="preserve">
     <value>Congelador</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Freezer.Description" xml:space="preserve">
     <value>Dispositivo que resfria todos os elementos próximos.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Bomb.Name" xml:space="preserve">
     <value>Bomba</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Bomb.Description" xml:space="preserve">
     <value>Bomba de baixa potência que explode ao colidir com outros elementos.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Dynamite.Name" xml:space="preserve">
     <value>Dinamite</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Dynamite.Description" xml:space="preserve">
     <value>Explosivo de grande raio, só explode com calor ou contato com lava/fogo.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.TNT.Name" xml:space="preserve">
     <value>TNT</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.TNT.Description" xml:space="preserve">
     <value>Explosivo moderado, destrói sólidos e deixa fumaça/fogo. Só explode com calor ou contato com lava/fogo.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Void.Name" xml:space="preserve">
     <value>Vazio</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Void.Description" xml:space="preserve">
     <value>Absorve e destrói tudo o que toca.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Clone.Name" xml:space="preserve">
     <value>Clonador</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Clone.Description" xml:space="preserve">
     <value>Gera infinitamente o elemento vizinho até ser removido.</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Ash.Name" xml:space="preserve">
     <value>Cinzas</value>
+    <comment/>
   </data>
   <data name="Solid.Movable.Ash.Description" xml:space="preserve">
     <value>Pó cinza escuro, lembra restos de madeira ou materiais queimados.</value>
+    <comment/>
   </data>
   <data name="Gas.AntiCorruption.Name" xml:space="preserve">
     <value>Anticorrupção</value>
+    <comment/>
   </data>
   <data name="Gas.AntiCorruption.Description" xml:space="preserve">
     <value>Um antídoto gasoso que tenta, por todos os meios, conter a destruição causada pela corrupção e restaurar o meio ambiente ao seu estado original.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Devourer.Name" xml:space="preserve">
     <value>Devorador</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.Devourer.Description" xml:space="preserve">
     <value>Tentará consumir tudo ao seu redor. Quando não tiver mais nada para se alimentar, explodirá.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.UpwardPusher.Name" xml:space="preserve">
     <value>Empurrador Superior</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.RightwardPusher.Name" xml:space="preserve">
     <value>Empurrador Direito</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.LeftwardPusher.Name" xml:space="preserve">
     <value>Empurrador Esquerdo</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.DownwardPusher.Name" xml:space="preserve">
     <value>Empurrador Inferior</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.UpwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para cima.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.DownwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para baixo.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.LeftwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para a esquerda.</value>
+    <comment/>
   </data>
   <data name="Solid.Immovable.RightwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para a direita.</value>
+    <comment/>
   </data>
   <data name="Gas.Cloud.Name" xml:space="preserve">
     <value>Nuvem</value>
+    <comment/>
   </data>
   <data name="Gas.ChargedCloud.Name" xml:space="preserve">
     <value>Nuvem Carregada</value>
+    <comment/>
   </data>
   <data name="Gas.Cloud.Description" xml:space="preserve">
     <value>Massa leve de vapor condensado formada quando o vapor se acumula no topo do mapa. Pode se unir a outras nuvens, preparando o caminho para a precipitação.</value>
+    <comment/>
   </data>
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
     <value>Nuvem densa e saturada resultante do agrupamento de várias nuvens. Quando suficientemente concentrada, libera água ou neve conforme a temperatura.</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Energy.Lightning.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Energy.Lightning.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlackWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlackWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryWhiteWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryWhiteWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryRedWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryRedWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryOrangeWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryOrangeWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryYellowWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryYellowWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryGreenWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryGrayWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryGrayWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlueWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryVioletWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryVioletWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBrownWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBrownWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlackWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlackWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetWhiteWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetWhiteWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetRedWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetRedWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetOrangeWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetOrangeWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetYellowWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetYellowWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetGreenWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetGrayWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetGrayWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlueWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetVioletWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetVioletWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBrownWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBrownWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.FertileSoil.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.FertileSoil.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.Seed.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.Seed.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.Sapling.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.Sapling.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.Moss.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.Moss.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.Gunpowder.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Movable.Gunpowder.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Gas.LiquefiedPetroleumGas.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Gas.LiquefiedPetroleumGas.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.Obsidian.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.Obsidian.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.BlackPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.BlackPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.WhitePaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.WhitePaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.RedPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.RedPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.OrangePaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.OrangePaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.YellowPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.YellowPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.GreenPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.GreenPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.BluePaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.BluePaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.GrayPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.GrayPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.VioletPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.VioletPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.BrownPaint.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.BrownPaint.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.Mercury.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Liquid.Mercury.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Energy.Spark.Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Energy.Spark.Description" xml:space="preserve">
-    <value />
+    <comment/>
   </data>
 </root>

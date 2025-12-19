@@ -1347,22 +1347,6 @@ namespace StardustSandbox.Databases
                     DefaultExplosionResistance = 0.5f,
                     DefaultDispersionRate = 3,
                 },
-                new Elements.Energies.Spark()
-                {
-                    Index = ElementIndex.Spark,
-                    Category = ElementCategory.Energy,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(0, 0),
-                    ReferenceColor = AAP64ColorPalette.Gold,
-                    DefaultTemperature = 1000.0f,
-                    DefaultDensity = 0.0f,
-                    DefaultExplosionResistance = 0.0f,
-                    DefaultDispersionRate = 10,
-                }
             ];
 
             isLoaded = true;
