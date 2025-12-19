@@ -117,6 +117,13 @@ namespace StardustSandbox.Databases
                 world
             );
 
+            TemperatureSettingsUI temperatureSettingsUI = new(
+                gameManager,
+                UIIndex.TemperatureSettings,
+                tooltipBox,
+                uiManager
+            );
+
             ItemExplorerUI itemExplorerUI = new(
                 gameManager,
                 UIIndex.ItemExplorer,
@@ -221,6 +228,7 @@ namespace StardustSandbox.Databases
                 saveSettingsUI,
                 worldSettingsUI,
                 informationUI,
+                temperatureSettingsUI,
 
                 worldDetailsUI,
                 worldsExplorerUI,

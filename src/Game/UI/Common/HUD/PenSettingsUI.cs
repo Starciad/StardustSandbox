@@ -60,7 +60,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.layerButtonSelectedIndex = 0;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
             ];
 
             this.toolButtonInfos = [

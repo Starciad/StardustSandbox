@@ -23,6 +23,7 @@
         SaveSettings,
         WorldSettings,
         Information,
+        TemperatureSettings,
 
         WorldDetailsMenu,
         WorldExplorerMenu,

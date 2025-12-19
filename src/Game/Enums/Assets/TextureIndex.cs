@@ -48,6 +48,7 @@
         UIBackgroundPause,
         UIBackgroundPenSettings,
         UIBackgroundSaveSettings,
+        UIBackgroundTemperatureSettings,
         UIBackgroundWorldSettings,
         UIButtons,
         UISizeSlider,

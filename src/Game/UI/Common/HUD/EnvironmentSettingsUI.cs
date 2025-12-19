@@ -44,6 +44,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconTools, new(32, 0, 32, 32), "Temperatures", "Open the temperature settings menu.", () => this.uiManager.OpenGUI(UIIndex.TemperatureSettings)),
             ];
 
             this.timeStateButtonInfos = [
@@ -217,24 +218,24 @@ namespace StardustSandbox.UI.Common.HUD
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
-            Image background = new()
-            {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(2.0f),
-                Size = new(32.0f),
-                Margin = margin,
-            };
+            return new(
+                background: new()
+                {
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    SourceRectangle = new(320, 140, 32, 32),
+                    Scale = new(2.0f),
+                    Size = new(32.0f),
+                    Margin = margin,
+                },
 
-            Image icon = new()
-            {
-                Texture = button.Texture,
-                SourceRectangle = button.TextureSourceRectangle,
-                Scale = new(1.5f),
-                Size = new(32.0f)
-            };
-
-            return new(background, icon);
+                icon: new()
+                {
+                    Texture = button.Texture,
+                    SourceRectangle = button.TextureSourceRectangle,
+                    Scale = new(1.5f),
+                    Size = new(32.0f)
+                }
+            );
         }
 
         #endregion
@@ -344,8 +345,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -355,7 +354,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }
