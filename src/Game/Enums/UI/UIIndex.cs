@@ -9,6 +9,7 @@
         ColorPicker,
         TextInput,
         Slider,
+        KeySelector,
 
         MainMenu,
         PlayMenu,

@@ -68,7 +68,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly Root root;
 
-        private readonly ColorPickerUI colorPickerUI;
+        private readonly ColorPickerUI colorPicker;
         private readonly SliderUI sliderUI;
 
         private readonly string titleName = Localization_GUIs.Menu_Options_Title;
@@ -81,6 +81,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
         private readonly GameManager gameManager;
+        private readonly KeySelectorUI keySelector;
 
         private readonly SectionUI[] sectionUIs;
 
@@ -89,6 +90,7 @@ namespace StardustSandbox.UI.Common.Menus
             CursorManager cursorManager,
             GameManager gameManager,
             UIIndex index,
+            KeySelectorUI keySelectorUI,
             MessageUI messageUI,
             SliderUI sliderUI,
             TooltipBox tooltipBox,
@@ -96,9 +98,10 @@ namespace StardustSandbox.UI.Common.Menus
             VideoManager videoManager
         ) : base(index)
         {
-            this.colorPickerUI = colorPickerUI;
+            this.colorPicker = colorPickerUI;
             this.cursorManager = cursorManager;
             this.gameManager = gameManager;
+            this.keySelector = keySelectorUI;
             this.sliderUI = sliderUI;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -372,7 +375,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                     Label label = option switch
                     {
-                        KeyOption => CreateOptionButtonLabelElement(option.Name + ": "),
+                        KeyOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
                         SelectorOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
                         SliderOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
                         ColorOption => CreateOptionButtonLabelElement(option.Name + ": "),
@@ -640,6 +643,10 @@ namespace StardustSandbox.UI.Common.Menus
                         {
                             toggle.Toggle();
                         }
+                        else if (option is KeyOption key)
+                        {
+                            HandleKeyOption(key);
+                        }
                     }
                     else if (Interaction.OnMouseRightClick(label))
                     {
@@ -684,6 +691,10 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 ((Image)element.GetData("toogle_preview")).SourceRectangle = Convert.ToBoolean(toggleOption.GetValue()) ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
             }
+            else if (option is KeyOption keyOption)
+            {
+                ((Label)element).TextContent = string.Concat(keyOption.Name, ": ", keyOption.GetValue());
+            }
         }
 
         private void HandleSliderOption(SliderOption sliderOption)
@@ -694,7 +705,7 @@ namespace StardustSandbox.UI.Common.Menus
                 MaximumValue = sliderOption.MaximumValue,
                 CurrentValue = Convert.ToInt32(sliderOption.GetValue()),
                 Synopsis = sliderOption.Description,
-                OnSendCallback = result => sliderOption.SetValue(result.Value),
+                OnSendCallback = result => sliderOption.SetValue(result),
             });
 
             this.uiManager.OpenGUI(UIIndex.Slider);
@@ -702,12 +713,23 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void HandleColorOption(ColorOption colorOption)
         {
-            this.colorPickerUI.Configure(new()
+            this.colorPicker.Configure(new()
             {
-                OnSelectCallback = result => colorOption.SetValue(result.SelectedColor),
+                OnSelectCallback = result => colorOption.SetValue(result),
             });
 
             this.uiManager.OpenGUI(UIIndex.ColorPicker);
+        }
+
+        private void HandleKeyOption(KeyOption keyOption)
+        {
+            this.keySelector.Configure(new()
+            {
+                Synopsis = keyOption.Description,
+                OnSelectedKey = result => keyOption.SetValue(result),
+            });
+
+            this.uiManager.OpenGUI(UIIndex.KeySelector);
         }
 
         protected override void OnOpened()

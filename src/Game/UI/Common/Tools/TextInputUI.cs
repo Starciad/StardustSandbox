@@ -14,7 +14,6 @@ using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Results;
 using StardustSandbox.UI.Settings;
 using StardustSandbox.UI.States;
 
@@ -64,13 +63,13 @@ namespace StardustSandbox.UI.Common.Tools
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    this.settings.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
+                    string content = this.userInputStringBuilder.ToString();
 
-                    TextInputResult argumentResult = new(this.userInputStringBuilder.ToString());
+                    this.settings.OnSendCallback?.Invoke(new(content));
 
                     if (this.settings.OnValidationCallback != null)
                     {
-                        TextValidationState validationState = this.settings.OnValidationCallback.Invoke(argumentResult);
+                        TextValidationState validationState = this.settings.OnValidationCallback.Invoke(content);
 
                         if (validationState.Status == ValidationStatus.Failure)
                         {
@@ -80,7 +79,7 @@ namespace StardustSandbox.UI.Common.Tools
                         }
                     }
 
-                    this.settings.OnSendCallback?.Invoke(argumentResult);
+                    this.settings.OnSendCallback?.Invoke(content);
 
                     uiManager.CloseGUI();
                 }),

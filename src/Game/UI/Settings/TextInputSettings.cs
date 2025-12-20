@@ -1,5 +1,4 @@
 ﻿using StardustSandbox.Enums.UI.Tools;
-using StardustSandbox.UI.Results;
 using StardustSandbox.UI.States;
 
 using System;
@@ -14,8 +13,8 @@ namespace StardustSandbox.UI.Settings
         internal readonly InputMode InputMode { get; init; }
         internal readonly InputRestriction InputRestriction { get; init; }
         internal readonly uint MaxCharacters { get; init; }
-        internal readonly Func<TextInputResult, TextValidationState> OnValidationCallback { get; init; }
-        internal readonly Action<TextInputResult> OnSendCallback { get; init; }
+        internal readonly Func<string, TextValidationState> OnValidationCallback { get; init; }
+        internal readonly Action<string> OnSendCallback { get; init; }
 
         public TextInputSettings()
         {

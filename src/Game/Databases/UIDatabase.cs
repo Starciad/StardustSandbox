@@ -51,7 +51,6 @@ namespace StardustSandbox.Databases
             ColorPickerUI colorPickerUI = new(
                 gameManager,
                 UIIndex.ColorPicker,
-                inputController,
                 tooltipBox,
                 uiManager
             );
@@ -80,6 +79,14 @@ namespace StardustSandbox.Databases
             SliderUI sliderUI = new(
                 gameManager,
                 UIIndex.Slider,
+                uiManager
+            );
+
+            KeySelectorUI keySelectorUI = new(
+                gameManager,
+                gameWindow,
+                UIIndex.KeySelector,
+                inputController,
                 uiManager
             );
 
@@ -149,6 +156,7 @@ namespace StardustSandbox.Databases
                 cursorManager,
                 gameManager,
                 UIIndex.OptionsMenu,
+                keySelectorUI,
                 messageUI,
                 sliderUI,
                 tooltipBox,
@@ -218,6 +226,7 @@ namespace StardustSandbox.Databases
                 colorPickerUI,
                 textInputUI,
                 sliderUI,
+                keySelectorUI,
 
                 mainUI,
                 playUI,

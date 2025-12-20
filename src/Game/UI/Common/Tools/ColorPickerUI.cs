@@ -125,7 +125,7 @@ namespace StardustSandbox.UI.Common.Tools
         private void SelectColorButtonAction(Color color)
         {
             this.uiManager.CloseGUI();
-            this.colorPickerSettings.OnSelectCallback?.Invoke(new(color));
+            this.colorPickerSettings.OnSelectCallback?.Invoke(color);
         }
 
         #region BUILDER

@@ -1,6 +1,4 @@
-﻿using StardustSandbox.UI.Results;
-
-using System;
+﻿using System;
 
 namespace StardustSandbox.UI.Settings
 {
@@ -10,6 +8,6 @@ namespace StardustSandbox.UI.Settings
         internal readonly int MinimumValue { get; init; }
         internal readonly int MaximumValue { get; init; }
         internal readonly int CurrentValue { get; init; }
-        internal readonly Action<SliderResult> OnSendCallback { get; init; }
+        internal readonly Action<int> OnSendCallback { get; init; }
     }
 }

@@ -76,13 +76,13 @@ namespace StardustSandbox.UI.Common.HUD
 
                         OnValidationCallback = (result) =>
                         {
-                            return string.IsNullOrWhiteSpace(result.Content)
+                            return string.IsNullOrWhiteSpace(result)
                                 ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty)
                                 : new(ValidationStatus.Success); },
 
                         OnSendCallback = result =>
                         {
-                            world.Information.Name = result.Content;
+                            world.Information.Name = result;
                         },
                     });
 
@@ -99,13 +99,14 @@ namespace StardustSandbox.UI.Common.HUD
 
                         OnValidationCallback = (result) =>
                         {
-                            return string.IsNullOrWhiteSpace(result.Content)
+                            return string.IsNullOrWhiteSpace(result)
                                 ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty)
-                                : new(ValidationStatus.Success); },
+                                : new(ValidationStatus.Success);
+                        },
 
                         OnSendCallback = (result) =>
                         {
-                            world.Information.Description = result.Content;
+                            world.Information.Description = result;
                         },
                     });
 
