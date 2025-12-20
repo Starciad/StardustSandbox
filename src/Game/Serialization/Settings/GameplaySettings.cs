@@ -11,6 +11,9 @@ namespace StardustSandbox.Serialization.Settings
     [XmlRoot("GameplaySettings")]
     public readonly struct GameplaySettings : ISettingsModule
     {
+        [XmlElement("ShowPreviewArea", typeof(bool))]
+        public readonly bool ShowPreviewArea { get; init; }
+
         [XmlElement("PreviewAreaColorR", typeof(byte))]
         public readonly byte PreviewAreaColorR { get; init; }
 
@@ -48,10 +51,11 @@ namespace StardustSandbox.Serialization.Settings
 
         public GameplaySettings()
         {
+            this.ShowPreviewArea = true;
             this.PreviewAreaColor = AAP64ColorPalette.White;
             this.PreviewAreaColorA = 25;
             this.ShowGrid = true;
-            this.GridOpacity = 124;
+            this.GridOpacity = 96;
             this.ShowTemperatureColorVariations = true;
         }
     }

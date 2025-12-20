@@ -8,6 +8,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements
@@ -216,11 +217,15 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset)
+        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            Color colorModifier = slotLayer.ColorModifier;
 
-            Color colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            if (gameplaySettings.ShowTemperatureColorVariations)
+            {
+                colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            }
 
             if (context.Layer == Layer.Background)
             {
@@ -246,11 +251,15 @@ namespace StardustSandbox.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            Color colorModifier = slotLayer.ColorModifier;
 
-            Color colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            if (gameplaySettings.ShowTemperatureColorVariations)
+            {
+                colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            }
 
             if (context.Layer == Layer.Background)
             {
@@ -270,17 +279,17 @@ namespace StardustSandbox.Elements
             );
         }
 
-        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             // Handle blob tiles separately.
             switch (element.RenderingType)
             {
                 case ElementRenderingType.Single:
-                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset);
+                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
                     break;
 
                 case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element, spriteBatch, textureOriginOffset);
+                    DrawBlobElementRoutine(context, element, spriteBatch, textureOriginOffset, gameplaySettings);
                     break;
 
                 default:

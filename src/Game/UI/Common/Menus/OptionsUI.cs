@@ -29,7 +29,7 @@ namespace StardustSandbox.UI.Common.Menus
     {
         private enum SectionIndex : byte { General, Gameplay, Volume, Video, Control, Cursor }
         private enum GeneralSectionOptionIndex : byte { Language }
-        private enum GameplaySectionOptionIndex : byte { PreviewAreaColor, PreviewAreaOpacity, ShowGrid, GridOpacity, ShowTemperatureColorVariations }
+        private enum GameplaySectionOptionIndex : byte { ShowPreviewArea, PreviewAreaColor, PreviewAreaOpacity, ShowGrid, GridOpacity, ShowTemperatureColorVariations }
         private enum VolumeSectionOptionIndex : byte { MasterVolume, MusicVolume, SFXVolume }
         private enum VideoSectionOptionIndex : byte { Framerate, Resolution, Fullscreen, VSync, Borderless }
         private enum ControlSectionOptionIndex : byte { MoveCameraUp, MoveCameraRight, MoveCameraDown, MoveCameraLeft, TogglePause, ClearWorld }
@@ -129,6 +129,7 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
                 new(Localization_GUIs.Menu_Options_Section_Gameplay_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Description,
                 [
+                    new ToggleOption("Show Preview Area", "Description"),
                     new ColorOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Description),
                     new SliderOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Description, byte.MinValue, byte.MaxValue),
                     new ToggleOption("Show Grid", "Description"),
@@ -151,12 +152,12 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
                 new("Controls", "Description",
                 [
-                    new KeyOption("MoveCameraUp", "Description"),
-                    new KeyOption("MoveCameraRight", "Description"),
-                    new KeyOption("MoveCameraDown", "Description"),
-                    new KeyOption("MoveCameraLeft", "Description"),
-                    new KeyOption("TogglePause", "Description"),
-                    new KeyOption("ClearWorld", "Description"),
+                    new KeyOption("Move Camera Up", "Description"),
+                    new KeyOption("Move Camera Right", "Description"),
+                    new KeyOption("Move Camera Down", "Description"),
+                    new KeyOption("Move Camera Left", "Description"),
+                    new KeyOption("Toggle Pause", "Description"),
+                    new KeyOption("Clear World", "Description"),
                 ]),
                 new(Localization_GUIs.Menu_Options_Section_Cursor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Description,
                 [
@@ -190,6 +191,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             SettingsSerializer.SaveSettings<GameplaySettings>(new()
             {
+                ShowPreviewArea = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowPreviewArea].GetValue()),
                 PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue(),
                 PreviewAreaColorA = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].GetValue()),
                 ShowGrid = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowGrid].GetValue()),
@@ -260,6 +262,7 @@ namespace StardustSandbox.UI.Common.Menus
             cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].SetValue(cursorSettings.Alpha);
             cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].SetValue(cursorSettings.Scale);
 
+            gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowPreviewArea].SetValue(gameplaySettings.ShowPreviewArea);
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].SetValue(new Color(gameplaySettings.PreviewAreaColor, 255));
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].SetValue(gameplaySettings.PreviewAreaColorA);
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowGrid].SetValue(gameplaySettings.ShowGrid);
