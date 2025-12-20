@@ -21,8 +21,9 @@ namespace StardustSandbox.Serialization
             { typeof(CursorSettings), () => new CursorSettings() },
             { typeof(GameplaySettings), () => new GameplaySettings() },
             { typeof(GeneralSettings), () => new GeneralSettings() },
-            { typeof(VolumeSettings), () => new VolumeSettings() },
+            { typeof(StatusSettings), () => new StatusSettings() },
             { typeof(VideoSettings), () => new VideoSettings() },
+            { typeof(VolumeSettings), () => new VolumeSettings() },
         };
 
         private static readonly Dictionary<Type, string> settingsFileMap = new()
@@ -31,8 +32,9 @@ namespace StardustSandbox.Serialization
             { typeof(CursorSettings), IOConstants.CURSOR_SETTINGS_FILE },
             { typeof(GameplaySettings), IOConstants.GAMEPLAY_SETTINGS_FILE },
             { typeof(GeneralSettings), IOConstants.GENERAL_SETTINGS_FILE },
-            { typeof(VolumeSettings), IOConstants.VOLUME_SETTINGS_FILE },
+            { typeof(StatusSettings), IOConstants.STATUS_SETTINGS_FILE },
             { typeof(VideoSettings), IOConstants.VIDEO_SETTINGS_FILE },
+            { typeof(VolumeSettings), IOConstants.VOLUME_SETTINGS_FILE },
         };
 
         private static readonly Dictionary<Type, XmlSerializer> serializers = new()
@@ -41,8 +43,9 @@ namespace StardustSandbox.Serialization
             { typeof(GameplaySettings), new(typeof(GameplaySettings))},
             { typeof(GeneralSettings), new(typeof(GeneralSettings))},
             { typeof(CursorSettings), new(typeof(CursorSettings))},
-            { typeof(VolumeSettings), new(typeof(VolumeSettings))},
+            { typeof(StatusSettings), new(typeof(StatusSettings))},
             { typeof(VideoSettings), new(typeof(VideoSettings))},
+            { typeof(VolumeSettings), new(typeof(VolumeSettings))},
         };
 
         internal static void Initialize()

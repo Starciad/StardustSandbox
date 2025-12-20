@@ -10,6 +10,8 @@ using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
@@ -30,16 +32,17 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo[] menuButtonInfos, sizeButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
-        private readonly ConfirmSettings changeWorldSizeConfirmSettings;
-
         private readonly ConfirmUI confirmUI;
         private readonly GameManager gameManager;
+        private readonly MessageUI messageUI;
         private readonly UIManager uiManager;
+        private readonly World world;
 
         internal WorldSettingsUI(
             ConfirmUI confirmUI,
             GameManager gameManager,
             UIIndex index,
+            MessageUI messageUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
@@ -47,23 +50,10 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.confirmUI = confirmUI;
             this.gameManager = gameManager;
+            this.messageUI = messageUI;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
-
-            this.changeWorldSizeConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_World_Resize_Title,
-                Message = Localization_Messages.Confirm_World_Resize_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        world.StartNew(this.worldTargetSize);
-                    }
-
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            };
+            this.world = world;
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
@@ -87,8 +77,38 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager.CloseGUI();
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
             this.worldTargetSize = size;
-            this.confirmUI.Configure(this.changeWorldSizeConfirmSettings);
-            this.uiManager.OpenGUI(this.confirmUI.Index);
+
+            this.confirmUI.Configure(new()
+            {
+                Caption = Localization_Messages.Confirm_World_Resize_Title,
+                Message = Localization_Messages.Confirm_World_Resize_Description,
+                OnConfirmCallback = status =>
+                {
+                    if (status == ConfirmStatus.Confirmed)
+                    {
+                        world.StartNew(this.worldTargetSize);
+
+                        StatusSettings statusSettings = SettingsSerializer.LoadSettings<StatusSettings>();
+
+                        if (!statusSettings.TheMovementTutorialWasDisplayed)
+                        {
+                            ControlSettings controlSettings = SettingsSerializer.LoadSettings<ControlSettings>();
+
+                            this.messageUI.SetContent(string.Format("Hey! Your world is much bigger now! Use {0}, {1}, {2} and {3} to move your camera!", controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
+                            this.uiManager.OpenGUI(UIIndex.Message);
+
+                            SettingsSerializer.SaveSettings<StatusSettings>(new(statusSettings)
+                            {
+                                TheMovementTutorialWasDisplayed = true,
+                            });
+                        }
+                    }
+
+                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                },
+            });
+
+            this.uiManager.OpenGUI(UIIndex.Confirm);
         }
 
         #region BUILDER

@@ -60,8 +60,6 @@ namespace StardustSandbox.UI.Common.Menus
             internal Label[] Options;
         }
 
-        private bool restartMessageAppeared;
-
         private Label titleLabel;
         private Image background;
 
@@ -112,11 +110,18 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     SaveSettings();
                     ApplySettings();
-                    if (!this.restartMessageAppeared)
+
+                    StatusSettings statusSettings = SettingsSerializer.LoadSettings<StatusSettings>();
+
+                    if (!statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed)
                     {
                         messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
                         uiManager.OpenGUI(UIIndex.Message);
-                        this.restartMessageAppeared = true;
+
+                        SettingsSerializer.SaveSettings<StatusSettings>(new(statusSettings)
+                        {
+                            TheRestartAfterSavingSettingsWarningWasDisplayed = true,
+                        });
                     }
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),

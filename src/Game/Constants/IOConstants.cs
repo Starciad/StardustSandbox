@@ -107,6 +107,7 @@ namespace StardustSandbox.Constants
         internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";
         internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings.xml";
         internal const string GENERAL_SETTINGS_FILE = "general_settings.xml";
+        internal const string STATUS_SETTINGS_FILE = "status_settings.xml";
         internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
         internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
 

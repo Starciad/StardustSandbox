@@ -206,6 +206,7 @@ namespace StardustSandbox.Databases
                 confirmUI,
                 gameManager,
                 UIIndex.WorldSettings,
+                messageUI,
                 tooltipBox,
                 uiManager,
                 world
