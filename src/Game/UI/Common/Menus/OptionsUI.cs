@@ -187,13 +187,13 @@ namespace StardustSandbox.UI.Common.Menus
             Section cursorSection = this.root.Sections[(byte)SectionIndex.Cursor];
 
             GameCulture gameCulture = LocalizationConstants.GetGameCultureFromNativeName(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
-            
+
             SettingsSerializer.SaveSettings<GeneralSettings>(new()
             {
                 Language = gameCulture.Language,
                 Region = gameCulture.Region,
             });
-            
+
             SettingsSerializer.SaveSettings<GameplaySettings>(new()
             {
                 PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue(),
@@ -265,7 +265,7 @@ namespace StardustSandbox.UI.Common.Menus
             cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].SetValue(new Color(cursorSettings.BackgroundColor, 255));
             cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].SetValue(cursorSettings.Alpha);
             cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].SetValue(cursorSettings.Scale);
-            
+
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].SetValue(new Color(gameplaySettings.PreviewAreaColor, 255));
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].SetValue(gameplaySettings.PreviewAreaColorA);
             gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowGrid].SetValue(gameplaySettings.ShowGrid);

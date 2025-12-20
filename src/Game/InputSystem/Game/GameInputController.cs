@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Camera;
 using StardustSandbox.Enums.Inputs;

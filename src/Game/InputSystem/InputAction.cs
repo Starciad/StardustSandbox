@@ -54,21 +54,21 @@ namespace StardustSandbox.InputSystem
                 // Started
                 if (GetKeyboardStartedState(this.key))
                 {
-                    this.capturedKey = key;
+                    this.capturedKey = this.key;
                     UpdateStarting();
                 }
 
                 // Performed
-                if (GetKeyboardPerformedState(key))
+                if (GetKeyboardPerformedState(this.key))
                 {
-                    this.capturedKey = key;
+                    this.capturedKey = this.key;
                     UpdatePerformed();
                 }
 
                 // Canceled
-                if (GetKeyboardCanceledState(key))
+                if (GetKeyboardCanceledState(this.key))
                 {
-                    this.capturedKey = key;
+                    this.capturedKey = this.key;
                     UpdateCanceled();
                 }
             }
@@ -77,26 +77,26 @@ namespace StardustSandbox.InputSystem
             if (this.mouseButton != MouseButton.None)
             {
                 // Started
-                if (GetMouseStartedState(mouseButton) &&
+                if (GetMouseStartedState(this.mouseButton) &&
                     !this.started && !this.performed && this.canceled)
                 {
-                    this.capturedMouseButton = mouseButton;
+                    this.capturedMouseButton = this.mouseButton;
                     UpdateStarting();
                 }
 
                 // Performed
-                if (GetMousePerformedState(mouseButton) &&
+                if (GetMousePerformedState(this.mouseButton) &&
                     this.started && !this.canceled)
                 {
-                    this.capturedMouseButton = mouseButton;
+                    this.capturedMouseButton = this.mouseButton;
                     UpdatePerformed();
                 }
 
                 // Canceled
-                if (GetMouseCanceledState(mouseButton) &&
+                if (GetMouseCanceledState(this.mouseButton) &&
                     this.started && this.performed && !this.canceled)
                 {
-                    this.capturedMouseButton = mouseButton;
+                    this.capturedMouseButton = this.mouseButton;
                     UpdateCanceled();
                 }
             }
@@ -175,7 +175,7 @@ namespace StardustSandbox.InputSystem
 
         private void UpdateStarting()
         {
-            OnStarted?.Invoke(new(InputCallbackState.Started, this.capturedMouseButton, this.capturedKey));
+            this.OnStarted?.Invoke(new(InputCallbackState.Started, this.capturedMouseButton, this.capturedKey));
 
             this.started = true;
             this.canceled = false;
@@ -183,14 +183,14 @@ namespace StardustSandbox.InputSystem
 
         private void UpdatePerformed()
         {
-            OnPerformed?.Invoke(new(InputCallbackState.Performed, this.capturedMouseButton, this.capturedKey));
+            this.OnPerformed?.Invoke(new(InputCallbackState.Performed, this.capturedMouseButton, this.capturedKey));
 
             this.performed = true;
         }
 
         private void UpdateCanceled()
         {
-            OnCanceled?.Invoke(new(InputCallbackState.Canceled, this.capturedMouseButton, this.capturedKey));
+            this.OnCanceled?.Invoke(new(InputCallbackState.Canceled, this.capturedMouseButton, this.capturedKey));
 
             this.started = false;
             this.performed = false;
