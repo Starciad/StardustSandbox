@@ -7,6 +7,8 @@ using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem.Game.Handlers;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.InputSystem.Game
@@ -29,44 +31,78 @@ namespace StardustSandbox.InputSystem.Game
             this.player = new();
         }
 
-        private void BuildKeyboardInputs()
-        {
-            InputActionMap cameraKeyboardActionMap = this.actionHandler.AddActionMap("Camera_Keyboard", true);
-            InputActionMap simulationKeyboardActionMap = this.actionHandler.AddActionMap("Simulation_Keyboard", true);
-            InputActionMap worldKeyboardActionMap = this.actionHandler.AddActionMap("World_Keyboard", true);
-
-            cameraKeyboardActionMap.AddAction("Move_Camera_Up", new InputAction(Keys.W, Keys.Up)).OnPerformed += _ => SSCamera.Move(new Vector2(0, this.player.MovementSpeed));
-            cameraKeyboardActionMap.AddAction("Move_Camera_Right", new InputAction(Keys.D, Keys.Right)).OnPerformed += _ => SSCamera.Move(new Vector2(this.player.MovementSpeed, 0));
-            cameraKeyboardActionMap.AddAction("Move_Camera_Down", new InputAction(Keys.S, Keys.Down)).OnPerformed += _ => SSCamera.Move(new Vector2(0, -this.player.MovementSpeed));
-            cameraKeyboardActionMap.AddAction("Move_Camera_Left", new InputAction(Keys.A, Keys.Left)).OnPerformed += _ => SSCamera.Move(new Vector2(-this.player.MovementSpeed, 0));
-
-            simulationKeyboardActionMap.AddAction("Toggle_Pause", new(Keys.Space)).OnStarted += _ => this.simulationHandler.TogglePause();
-
-            worldKeyboardActionMap.AddAction("Clear_World", new(Keys.R)).OnStarted += _ => this.worldHandler.Clear();
-        }
-
-        private void BuildMouseInputs()
-        {
-            InputActionMap worldMouseActionMap = this.actionHandler.AddActionMap("World_Mouse", true);
-            worldMouseActionMap.AddAction("Place_Item", new(MouseButton.Left)).OnPerformed += _ => this.worldHandler.Modify(WorldModificationType.Adding);
-            worldMouseActionMap.AddAction("Erase_Item", new(MouseButton.Right)).OnPerformed += _ => this.worldHandler.Modify(WorldModificationType.Removing);
-        }
-
         internal void Initialize(GameManager gameManager, World world)
         {
             this.simulationHandler = new(gameManager);
             this.worldHandler = new(this.player, this.pen, world);
 
-            this.actionHandler = new();
+            ControlSettings controlSettings = SettingsSerializer.LoadSettings<ControlSettings>();
 
-            BuildKeyboardInputs();
-            BuildMouseInputs();
+            this.actionHandler = new([
+                #region Keyboard
+
+                // Camera
+                new([
+                    new([controlSettings.MoveCameraUp])
+                    {
+                        OnPerformed = _ => SSCamera.Move(new Vector2(0, this.player.MovementSpeed)),
+                    },
+
+                    new([controlSettings.MoveCameraRight])
+                    {
+                        OnPerformed = _ => SSCamera.Move(new Vector2(this.player.MovementSpeed, 0)),
+                    },
+
+                    new([controlSettings.MoveCameraDown])
+                    {
+                        OnPerformed = _ => SSCamera.Move(new Vector2(0, -this.player.MovementSpeed)),
+                    },
+
+                    new([controlSettings.MoveCameraLeft])
+                    {
+                        OnPerformed = _ => SSCamera.Move(new Vector2(-this.player.MovementSpeed, 0)),
+                    },
+                ]),
+
+                // Simulation
+                new([
+                    new([controlSettings.TogglePause])
+                    {
+                        OnStarted = _ => this.simulationHandler.TogglePause(),
+                    },
+                ]),
+                
+                // World
+                new([
+                    new([controlSettings.ClearWorld])
+                    {
+                        OnStarted = _ => this.worldHandler.Clear(),
+                    },
+                ]),
+
+                #endregion
+
+                #region Mouse
+
+                new([
+                    new([MouseButton.Left])
+                    {
+                        OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Adding),
+                    },
+
+                    new([MouseButton.Right])
+                    {
+                        OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Removing),
+                    },
+                ]),
+
+                #endregion
+            ]);
         }
 
         internal void Update()
         {
             UpdatePlaceAreaSize();
-
             this.actionHandler.Update();
         }
 

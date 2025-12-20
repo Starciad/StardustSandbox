@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StardustSandbox.UI.Common.Menus.Options
+namespace StardustSandbox.UI.Options
 {
     internal sealed class SliderOption(string name, string description, int minimumValue, int maximumValue) : Option(name, description)
     {

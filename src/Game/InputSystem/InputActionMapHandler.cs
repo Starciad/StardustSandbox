@@ -1,47 +1,40 @@
-﻿using System.Collections.Generic;
-
-namespace StardustSandbox.InputSystem
+﻿namespace StardustSandbox.InputSystem
 {
     internal sealed class InputActionMapHandler
     {
-        private readonly Dictionary<string, InputActionMap> maps = [];
+        private readonly InputActionMap[] maps;
+
+        internal InputActionMapHandler(InputActionMap[] maps)
+        {
+            this.maps = maps;
+        }
 
         internal void Update()
         {
-            foreach (InputActionMap actionMap in this.maps.Values)
+            for (int i = 0; i < this.maps.Length; i++)
             {
-                if (actionMap.Active)
+                if (!this.maps[i].IsActive)
                 {
-                    actionMap.Update();
+                    continue;
                 }
+
+                this.maps[i].Update();
             }
-        }
-
-        internal InputActionMap AddActionMap(string name, bool active)
-        {
-            InputActionMap map = new(this, active);
-
-            return this.maps.TryAdd(name, map) ? map : default;
-        }
-
-        internal InputActionMap GetActionMap(string name)
-        {
-            return this.maps[name];
         }
 
         internal void ActivateAll()
         {
-            foreach (InputActionMap actionMap in this.maps.Values)
+            for (int i = 0; i < this.maps.Length; i++)
             {
-                actionMap.SetActive(true);
+                this.maps[i].IsActive = true;
             }
         }
 
         internal void DisableAll()
         {
-            foreach (InputActionMap actionMap in this.maps.Values)
+            for (int i = 0; i < this.maps.Length; i++)
             {
-                actionMap.SetActive(false);
+                this.maps[i].IsActive = false;
             }
         }
     }

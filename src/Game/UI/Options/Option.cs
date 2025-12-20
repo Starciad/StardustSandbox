@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.UI.Common.Menus.Options
+﻿namespace StardustSandbox.UI.Options
 {
     internal abstract class Option(string name, string description)
     {

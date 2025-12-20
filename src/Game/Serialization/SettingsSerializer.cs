@@ -17,29 +17,32 @@ namespace StardustSandbox.Serialization
 
         private static readonly Dictionary<Type, Func<object>> defaultSettingsFactory = new()
         {
-            { typeof(VideoSettings), () => new VideoSettings() },
-            { typeof(VolumeSettings), () => new VolumeSettings() },
+            { typeof(ControlSettings), () => new ControlSettings() },
             { typeof(CursorSettings), () => new CursorSettings() },
-            { typeof(GeneralSettings), () => new GeneralSettings() },
             { typeof(GameplaySettings), () => new GameplaySettings() },
+            { typeof(GeneralSettings), () => new GeneralSettings() },
+            { typeof(VolumeSettings), () => new VolumeSettings() },
+            { typeof(VideoSettings), () => new VideoSettings() },
         };
 
         private static readonly Dictionary<Type, string> settingsFileMap = new()
         {
-            { typeof(VideoSettings), IOConstants.VIDEO_SETTINGS_FILE },
-            { typeof(VolumeSettings), IOConstants.VOLUME_SETTINGS_FILE },
+            { typeof(ControlSettings), IOConstants.CONTROL_SETTINGS_FILE },
             { typeof(CursorSettings), IOConstants.CURSOR_SETTINGS_FILE },
-            { typeof(GeneralSettings), IOConstants.GENERAL_SETTINGS_FILE },
             { typeof(GameplaySettings), IOConstants.GAMEPLAY_SETTINGS_FILE },
+            { typeof(GeneralSettings), IOConstants.GENERAL_SETTINGS_FILE },
+            { typeof(VolumeSettings), IOConstants.VOLUME_SETTINGS_FILE },
+            { typeof(VideoSettings), IOConstants.VIDEO_SETTINGS_FILE },
         };
 
         private static readonly Dictionary<Type, XmlSerializer> serializers = new()
         {
-            { typeof(VideoSettings), new(typeof(VideoSettings))},
-            { typeof(VolumeSettings), new(typeof(VolumeSettings))},
-            { typeof(CursorSettings), new(typeof(CursorSettings))},
-            { typeof(GeneralSettings), new(typeof(GeneralSettings))},
+            { typeof(ControlSettings), new(typeof(ControlSettings)) },
             { typeof(GameplaySettings), new(typeof(GameplaySettings))},
+            { typeof(GeneralSettings), new(typeof(GeneralSettings))},
+            { typeof(CursorSettings), new(typeof(CursorSettings))},
+            { typeof(VolumeSettings), new(typeof(VolumeSettings))},
+            { typeof(VideoSettings), new(typeof(VideoSettings))},
         };
 
         internal static void Initialize()
@@ -52,7 +55,7 @@ namespace StardustSandbox.Serialization
             CreateWarningFile();
         }
 
-        internal static void SaveSettings<T>(T settings) where T : SettingsModule
+        internal static void SaveSettings<T>(T settings) where T : ISettingsModule
         {
             if (!settingsFileMap.TryGetValue(typeof(T), out string fileName))
             {
@@ -63,7 +66,7 @@ namespace StardustSandbox.Serialization
             Serialize(settings, fileName);
         }
 
-        internal static T LoadSettings<T>() where T : SettingsModule, new()
+        internal static T LoadSettings<T>() where T : ISettingsModule, new()
         {
             if (settingsCache.TryGetValue(typeof(T), out object cachedValue))
             {
@@ -81,14 +84,14 @@ namespace StardustSandbox.Serialization
             return settings;
         }
 
-        internal static void UpdateSettings<T>(Func<T, T> updateCallback) where T : SettingsModule, new()
+        internal static void UpdateSettings<T>(Func<T, T> updateCallback) where T : ISettingsModule, new()
         {
             T settings = LoadSettings<T>();
             T updatedSettings = updateCallback(settings);
             SaveSettings(updatedSettings);
         }
 
-        internal static void ResetSettings<T>() where T : SettingsModule
+        internal static void ResetSettings<T>() where T : ISettingsModule
         {
             if (!settingsFileMap.TryGetValue(typeof(T), out string fileName) || !defaultSettingsFactory.TryGetValue(typeof(T), out Func<object> createDefault))
             {
@@ -188,19 +191,19 @@ namespace StardustSandbox.Serialization
             serializers[value.GetType()].Serialize(fileStream, value);
         }
 
-        private static T Deserialize<T>(string fileName) where T : SettingsModule
+        private static T Deserialize<T>(string fileName) where T : ISettingsModule
         {
             return (T)Deserialize(typeof(T), fileName);
         }
 
-        private static SettingsModule Deserialize(Type type, string fileName)
+        private static ISettingsModule Deserialize(Type type, string fileName)
         {
             string filePath = Path.Combine(SSDirectory.Settings, fileName);
 
             if (File.Exists(filePath))
             {
                 using FileStream fileStream = File.OpenRead(filePath);
-                return (SettingsModule)serializers[type].Deserialize(fileStream);
+                return (ISettingsModule)serializers[type].Deserialize(fileStream);
             }
 
             return default;

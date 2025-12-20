@@ -1,9 +1,10 @@
 ﻿namespace StardustSandbox.Enums.Inputs
 {
-    internal enum MouseButton : sbyte
+    public enum MouseButton : byte
     {
-        Left = -1,
-        Middle = 0,
-        Right = 1
+        None = 0,
+        Left = 1,
+        Middle = 2,
+        Right = 3
     }
 }

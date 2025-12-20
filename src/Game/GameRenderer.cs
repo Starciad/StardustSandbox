@@ -68,14 +68,14 @@ namespace StardustSandbox
         }
 
         internal static void Draw(
-            in AmbientManager ambientManager,
+            AmbientManager ambientManager,
             in Color cursorPreviewAreaColor,
             in CursorManager cursorManager,
-            in InputController inputController,
+            InputController inputController,
             SpriteBatch spriteBatch,
-            in UIManager uiManager,
+            UIManager uiManager,
             in VideoManager videoManager,
-            in World world
+            World world
         )
         {
             if (!isInitialized || isUnloaded)
@@ -123,14 +123,11 @@ namespace StardustSandbox
 
         private static void DisposeRenderTarget(ref RenderTarget2D renderTarget)
         {
-            if (renderTarget is not null)
-            {
-                renderTarget.Dispose();
-                renderTarget = null;
-            }
+            renderTarget?.Dispose();
+            renderTarget = null;
         }
 
-        private static void DrawAmbient(SpriteBatch spriteBatch, in AmbientManager ambientManager)
+        private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
         {
             graphicsDevice.SetRenderTarget(backgroundRenderTarget2D);
             graphicsDevice.Clear(Color.Transparent);
@@ -162,7 +159,7 @@ namespace StardustSandbox
             }
         }
 
-        private static void DrawWorld(SpriteBatch spriteBatch, in World world)
+        private static void DrawWorld(SpriteBatch spriteBatch, World world)
         {
             graphicsDevice.SetRenderTarget(worldRenderTarget2D);
             graphicsDevice.Clear(Color.Transparent);
@@ -172,7 +169,7 @@ namespace StardustSandbox
             spriteBatch.End();
         }
 
-        private static void DrawGUI(SpriteBatch spriteBatch, in UIManager uiManager)
+        private static void DrawGUI(SpriteBatch spriteBatch, UIManager uiManager)
         {
             graphicsDevice.SetRenderTarget(uiRenderTarget2D);
             graphicsDevice.Clear(Color.Transparent);
@@ -182,7 +179,7 @@ namespace StardustSandbox
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, in InputController inputController, in Color previewAreaColor)
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController, in Color previewAreaColor)
         {
             PenTool penTool = inputController.Pen.Tool;
 

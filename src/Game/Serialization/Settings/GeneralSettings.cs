@@ -1,25 +1,24 @@
 ﻿using StardustSandbox.Constants;
 using StardustSandbox.Localization;
 
+using System;
 using System.Globalization;
 using System.Xml.Serialization;
 
 namespace StardustSandbox.Serialization.Settings
 {
+    [Serializable]
     [XmlRoot("GeneralSettings")]
-    public sealed class GeneralSettings : SettingsModule
+    public readonly struct GeneralSettings : ISettingsModule
     {
         [XmlElement("Language", typeof(string))]
-        public string Language { get; set; }
+        public readonly string Language { get; init; }
 
         [XmlElement("Region", typeof(string))]
-        public string Region { get; set; }
+        public readonly string Region { get; init; }
 
         [XmlIgnore]
-        public string Name => string.Concat(this.Language, '-', this.Region);
-
-        [XmlIgnore]
-        public GameCulture GameCulture => LocalizationConstants.GetGameCulture(this.Name);
+        public readonly string Name => string.Concat(this.Language, '-', this.Region);
 
         public GeneralSettings()
         {
@@ -34,7 +33,12 @@ namespace StardustSandbox.Serialization.Settings
             this.Region = gameCulture.Region;
         }
 
-        public static bool TryGetAvailableGameCulture(out GameCulture value)
+        public readonly GameCulture GetGameCulture()
+        {
+            return LocalizationConstants.GetGameCulture(this.Name) ?? LocalizationConstants.DEFAULT_GAME_CULTURE;
+        }
+
+        private static bool TryGetAvailableGameCulture(out GameCulture value)
         {
             value = LocalizationConstants.GetGameCulture(CultureInfo.CurrentCulture.Name);
 

@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace StardustSandbox.UI.Common.Menus.Options
+namespace StardustSandbox.UI.Options
 {
     internal sealed class ToggleOption(string name, string description) : Option(name, description)
     {
-        internal bool State => this.state;
-
         private bool state;
 
         internal override object GetValue()

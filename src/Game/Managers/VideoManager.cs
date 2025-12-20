@@ -29,10 +29,7 @@ namespace StardustSandbox.Managers
         {
             VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
 
-            if (this.GameWindow != null)
-            {
-                this.GameWindow.IsBorderless = videoSettings.Borderless;
-            }
+            _ = this.GameWindow?.IsBorderless = videoSettings.Borderless;
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
@@ -47,7 +44,6 @@ namespace StardustSandbox.Managers
 
             this.graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
             this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
-            this.graphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             this.graphicsDeviceManager.ApplyChanges();
         }
 

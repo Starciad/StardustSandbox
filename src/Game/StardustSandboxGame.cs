@@ -62,8 +62,7 @@ namespace StardustSandbox
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                videoSettings.UpdateResolution(this.GraphicsDevice);
-                SettingsSerializer.SaveSettings(videoSettings);
+                SettingsSerializer.SaveSettings(videoSettings.UpdateResolution(this.GraphicsDevice));
             }
 
             // Initialize Content

@@ -31,13 +31,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private sealed class Section
         {
-            internal string Title => title;
-            internal TimeSpan StartTime => startTime;
-            internal TimeSpan EndTime => endTime;
-            internal TemperatureIndex Index { get => index; set => index = value; }
+            internal string Title => this.title;
+            internal TimeSpan StartTime => this.startTime;
+            internal TimeSpan EndTime => this.endTime;
+            internal TemperatureIndex Index { get => this.index; set => this.index = value; }
 
-            internal SlotInfo[] ButtonSlotInfos => buttonSlotInfos;
-            internal ButtonInfo[] ButtonInfos => buttonInfos;
+            internal SlotInfo[] ButtonSlotInfos => this.buttonSlotInfos;
+            internal ButtonInfo[] ButtonInfos => this.buttonInfos;
 
             private TemperatureIndex index;
 
@@ -56,7 +56,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 this.buttonInfos =
                 [
-                    new(TextureIndex.IconUI, new(224, 192, 32, 32), "None", "No temperature effect.", () => 
+                    new(TextureIndex.IconUI, new(224, 192, 32, 32), "None", "No temperature effect.", () =>
                     {
                         this.Index = TemperatureIndex.None;
                         world.Temperature.SetTemperatureValue(this.StartTime, 0.0f, false);
@@ -222,7 +222,7 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.sections.Length; i++)
             {
                 Section section = this.sections[i];
-                
+
                 Label sectionTitle = new()
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
@@ -297,7 +297,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
-            
+
             if (Interaction.OnMouseOver(this.exitButtonSlotInfo.Background))
             {
                 this.tooltipBox.CanDraw = true;
@@ -338,13 +338,9 @@ namespace StardustSandbox.UI.Common.HUD
 
                         buttonSlot.Background.Color = AAP64ColorPalette.HoverColor;
                     }
-                    else if ((int)section.Index == j)
-                    {
-                        buttonSlot.Background.Color = AAP64ColorPalette.Graphite;
-                    }
                     else
                     {
-                        buttonSlot.Background.Color = AAP64ColorPalette.White;
+                        buttonSlot.Background.Color = (int)section.Index == j ? AAP64ColorPalette.Graphite : AAP64ColorPalette.White;
                     }
                 }
             }

@@ -1,7 +1,6 @@
 using StardustSandbox.Mathematics;
 
 using System;
-using System.Diagnostics;
 
 namespace StardustSandbox.WorldSystem
 {
@@ -13,13 +12,13 @@ namespace StardustSandbox.WorldSystem
             internal TimeSpan EndTime => endTime;
             internal float Temperature
             {
-                get => temperature;
-                set => temperature = TemperatureMath.Clamp(value);
+                get => this.temperature;
+                set => this.temperature = TemperatureMath.Clamp(value);
             }
             internal bool CanApplyTemperature
             {
-                get => canApplyTemperature;
-                set => canApplyTemperature = value;
+                get => this.canApplyTemperature;
+                set => this.canApplyTemperature = value;
             }
 
             private float temperature = 30.0f;
@@ -63,7 +62,7 @@ namespace StardustSandbox.WorldSystem
         internal void SetTemperatureValue(TimeSpan time, float temperature, bool canApplyTemperature)
         {
             TemperatureRange range = GetTemperatureRangeByTime(time);
-            
+
             range.Temperature = temperature;
             range.CanApplyTemperature = canApplyTemperature;
         }

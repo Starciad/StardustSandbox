@@ -2,19 +2,42 @@
 
 using StardustSandbox.Colors.Palettes;
 
+using System;
 using System.Xml.Serialization;
 
 namespace StardustSandbox.Serialization.Settings
 {
+    [Serializable]
     [XmlRoot("GameplaySettings")]
-    public sealed class GameplaySettings : SettingsModule
+    public readonly struct GameplaySettings : ISettingsModule
     {
+        [XmlElement("PreviewAreaColorR", typeof(byte))]
+        public readonly byte PreviewAreaColorR { get; init; }
+
+        [XmlElement("PreviewAreaColorG", typeof(byte))]
+        public readonly byte PreviewAreaColorG { get; init; }
+
+        [XmlElement("PreviewAreaColorB", typeof(byte))]
+        public readonly byte PreviewAreaColorB { get; init; }
+
+        [XmlElement("PreviewAreaColorA", typeof(byte))]
+        public readonly byte PreviewAreaColorA { get; init; }
+
+        [XmlElement("ShowGrid", typeof(bool))]
+        public readonly bool ShowGrid { get; init; }
+
+        [XmlElement("GridOpacity", typeof(byte))]
+        public readonly byte GridOpacity { get; init; }
+
+        [XmlElement("ShowTemperatureColorVariations", typeof(bool))]
+        public readonly bool ShowTemperatureColorVariations { get; init; }
+
         [XmlIgnore]
         public Color PreviewAreaColor
         {
-            get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
+            readonly get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
 
-            set
+            init
             {
                 this.PreviewAreaColorR = value.R;
                 this.PreviewAreaColorG = value.G;
@@ -23,22 +46,13 @@ namespace StardustSandbox.Serialization.Settings
             }
         }
 
-        [XmlElement("PreviewAreaColorR", typeof(byte))]
-        public byte PreviewAreaColorR { get; set; }
-
-        [XmlElement("PreviewAreaColorG", typeof(byte))]
-        public byte PreviewAreaColorG { get; set; }
-
-        [XmlElement("PreviewAreaColorB", typeof(byte))]
-        public byte PreviewAreaColorB { get; set; }
-
-        [XmlElement("PreviewAreaColorA", typeof(byte))]
-        public byte PreviewAreaColorA { get; set; }
-
         public GameplaySettings()
         {
             this.PreviewAreaColor = AAP64ColorPalette.White;
             this.PreviewAreaColorA = 25;
+            this.ShowGrid = true;
+            this.GridOpacity = 124;
+            this.ShowTemperatureColorVariations = true;
         }
     }
 }

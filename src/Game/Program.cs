@@ -61,7 +61,7 @@ namespace StardustSandbox
             SSDirectory.Initialize();
             SettingsSerializer.Initialize();
 
-            GameCulture gameCulture = SettingsSerializer.LoadSettings<GeneralSettings>().GameCulture;
+            GameCulture gameCulture = SettingsSerializer.LoadSettings<GeneralSettings>().GetGameCulture();
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;

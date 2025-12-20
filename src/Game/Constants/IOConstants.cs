@@ -103,12 +103,12 @@ namespace StardustSandbox.Constants
         internal static Version SAVE_FILE_VERSION => new("3.0.0.0");
 
         // Settings
+        internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";
+        internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";
+        internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings.xml";
+        internal const string GENERAL_SETTINGS_FILE = "general_settings.xml";
         internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
         internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
-        internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";
-        internal const string GENERAL_SETTINGS_FILE = "general_settings.xml";
-        internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings.xml";
-        internal const string GRAPHICS_SETTINGS_FILE = "graphics_settings.xml";
 
         // Save
         internal const string SAVE_FILE_EXTENSION = ".sf";

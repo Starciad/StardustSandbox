@@ -379,10 +379,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
 
-            if (this.pageIndexLabel != null)
-            {
-                this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
-            }
+            _ = this.pageIndexLabel?.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
         }
 
         private void ChangeWorldsCatalog()
