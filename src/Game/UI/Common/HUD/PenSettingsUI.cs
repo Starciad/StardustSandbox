@@ -36,7 +36,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly InputController inputController;
         private readonly GameManager gameManager;
-        private readonly UIManager uiManager;
         private readonly World world;
 
         internal PenSettingsUI(
@@ -53,7 +52,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.gameManager = gameManager;
             this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
             this.world = world;
 
             this.toolButtonSelectedIndex = 0;

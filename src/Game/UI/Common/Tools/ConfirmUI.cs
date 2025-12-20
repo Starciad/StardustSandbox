@@ -54,7 +54,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.buttonLabels = new Label[this.buttonInfos.Length];
         }
 
-        internal void Configure(ConfirmSettings settings)
+        internal void Configure(in ConfirmSettings settings)
         {
             this.confirmSettings = settings;
 

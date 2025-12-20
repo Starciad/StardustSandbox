@@ -13,7 +13,6 @@ using StardustSandbox.Managers;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -26,7 +25,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] menuButtonSlotInfos;
 
         private readonly ConfirmUI confirmUI;
-        private readonly ConfirmSettings exitConfirmSettings;
 
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
@@ -42,20 +40,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.gameManager = gameManager;
             this.uiManager = uiManager;
 
-            this.exitConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_Simulation_Exit_Title,
-                Message = Localization_Messages.Confirm_Simulation_Exit_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        uiManager.Reset();
-                        uiManager.OpenGUI(UIIndex.MainMenu);
-                    }
-                }
-            };
-
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
@@ -65,7 +49,19 @@ namespace StardustSandbox.UI.Common.HUD
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
                 {
-                    this.confirmUI.Configure(this.exitConfirmSettings);
+                    this.confirmUI.Configure(new()
+                    {
+                        Caption = Localization_Messages.Confirm_Simulation_Exit_Title,
+                        Message = Localization_Messages.Confirm_Simulation_Exit_Description,
+                        OnConfirmCallback = status =>
+                        {
+                            if (status == ConfirmStatus.Confirmed)
+                            {
+                                uiManager.Reset();
+                                uiManager.OpenGUI(UIIndex.MainMenu);
+                            }
+                        }
+                    });
                     this.uiManager.OpenGUI(UIIndex.Confirm);
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
                 }),

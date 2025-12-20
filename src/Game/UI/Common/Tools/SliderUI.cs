@@ -51,7 +51,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        internal void Configure(SliderSettings settings)
+        internal void Configure(in SliderSettings settings)
         {
             this.settings = settings;
 

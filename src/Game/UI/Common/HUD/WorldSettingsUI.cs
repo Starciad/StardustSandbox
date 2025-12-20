@@ -15,7 +15,6 @@ using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
@@ -86,7 +85,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     if (status == ConfirmStatus.Confirmed)
                     {
-                        world.StartNew(this.worldTargetSize);
+                        this.world.StartNew(this.worldTargetSize);
 
                         StatusSettings statusSettings = SettingsSerializer.LoadSettings<StatusSettings>();
 
@@ -104,7 +103,7 @@ namespace StardustSandbox.UI.Common.HUD
                         }
                     }
 
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                    this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
                 },
             });
 

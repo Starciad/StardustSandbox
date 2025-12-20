@@ -46,7 +46,7 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly GameManager gameManager;
         private readonly GameWindow gameWindow;
         private readonly InputController inputController;
-        
+
         internal TextInputUI(
             GameManager gameManager,
             GameWindow gameWindow,

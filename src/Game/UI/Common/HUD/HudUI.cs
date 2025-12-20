@@ -18,7 +18,6 @@ using StardustSandbox.Managers;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -42,7 +41,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] leftPanelTopButtonSlotInfos, leftPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos;
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
-        private readonly ConfirmSettings reloadSimulationConfirmSettings, eraseEverythingConfirmSettings;
         private readonly GameManager gameManager;
         private readonly InputController inputController;
         private readonly ConfirmUI guiConfirm;
@@ -77,36 +75,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.tooltipBox = tooltipBox;
             this.world = world;
 
-            this.reloadSimulationConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_Simulation_Reload_Title,
-                Message = Localization_Messages.Confirm_Simulation_Reload_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        this.world.Reload();
-                    }
-
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            };
-
-            this.eraseEverythingConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_Simulation_EraseEverything_Title,
-                Message = Localization_Messages.Confirm_Simulation_EraseEverything_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        this.world.Reset();
-                    }
-
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            };
-
             SelectItemSlot(0, 0, 0, 0);
 
             this.leftPanelTopButtonInfos = [
@@ -137,13 +105,39 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_Button_EraseEverything_Name, Localization_GUIs.HUD_Button_EraseEverything_Description, () =>
                 {
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-                    this.guiConfirm.Configure(this.eraseEverythingConfirmSettings);
+                    this.guiConfirm.Configure(new()
+                    {
+                        Caption = Localization_Messages.Confirm_Simulation_EraseEverything_Title,
+                        Message = Localization_Messages.Confirm_Simulation_EraseEverything_Description,
+                        OnConfirmCallback = status =>
+                        {
+                            if (status == ConfirmStatus.Confirmed)
+                            {
+                                this.world.Reset();
+                            }
+
+                            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                        },
+                    });
                     this.uiManager.OpenGUI(this.guiConfirm.Index);
                 }),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_Button_ReloadSimulation_Name, Localization_GUIs.HUD_Button_ReloadSimulation_Description, () =>
                 {
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-                    this.guiConfirm.Configure(this.reloadSimulationConfirmSettings);
+                    this.guiConfirm.Configure(new()
+                    {
+                        Caption = Localization_Messages.Confirm_Simulation_Reload_Title,
+                        Message = Localization_Messages.Confirm_Simulation_Reload_Description,
+                        OnConfirmCallback = status =>
+                        {
+                            if (status == ConfirmStatus.Confirmed)
+                            {
+                                this.world.Reload();
+                            }
+
+                            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                        },
+                    });
                     this.uiManager.OpenGUI(this.guiConfirm.Index);
                 }),
             ];

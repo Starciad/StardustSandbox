@@ -7,7 +7,6 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
-using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
@@ -30,19 +29,16 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
         private readonly GameManager gameManager;
-        private readonly InputController inputController;
         private readonly UIManager uiManager;
 
         internal ColorPickerUI(
             GameManager gameManager,
             UIIndex index,
-            InputController inputController,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base(index)
         {
             this.gameManager = gameManager;
-            this.inputController = inputController;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
@@ -121,7 +117,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.colorButtonSlotInfos = new ColorSlotInfo[this.colorButtonInfos.Length];
         }
 
-        internal void Configure(ColorPickerSettings settings)
+        internal void Configure(in ColorPickerSettings settings)
         {
             this.colorPickerSettings = settings;
         }

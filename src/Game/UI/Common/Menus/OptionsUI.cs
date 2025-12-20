@@ -19,7 +19,6 @@ using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Options;
-using StardustSandbox.UI.Settings;
 
 using System;
 

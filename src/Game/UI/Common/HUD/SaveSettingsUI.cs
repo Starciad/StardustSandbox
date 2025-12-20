@@ -17,7 +17,6 @@ using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
@@ -77,14 +76,10 @@ namespace StardustSandbox.UI.Common.HUD
 
                         OnValidationCallback = (result) =>
                         {
-                            if (string.IsNullOrWhiteSpace(result.Content))
-                            {
-                                return new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty);
-                            }
+                            return string.IsNullOrWhiteSpace(result.Content)
+                                ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty)
+                                : new(ValidationStatus.Success); },
 
-                            return new(ValidationStatus.Success);
-                        },
-                        
                         OnSendCallback = result =>
                         {
                             world.Information.Name = result.Content;
@@ -104,13 +99,9 @@ namespace StardustSandbox.UI.Common.HUD
 
                         OnValidationCallback = (result) =>
                         {
-                            if (string.IsNullOrWhiteSpace(result.Content))
-                            {
-                                return new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty);
-                            }
-
-                            return new(ValidationStatus.Success);
-                        },
+                            return string.IsNullOrWhiteSpace(result.Content)
+                                ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty)
+                                : new(ValidationStatus.Success); },
 
                         OnSendCallback = (result) =>
                         {
