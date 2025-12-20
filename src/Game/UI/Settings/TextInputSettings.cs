@@ -6,18 +6,18 @@ using System;
 
 namespace StardustSandbox.UI.Settings
 {
-    internal sealed class TextInputSettings
+    internal readonly struct TextInputSettings
     {
-        internal string Synopsis { get; set; }
-        internal string Content { get; set; }
-        internal bool AllowSpaces { get; set; }
-        internal InputMode InputMode { get; set; }
-        internal InputRestriction InputRestriction { get; set; }
-        internal uint MaxCharacters { get; set; }
-        internal Action<TextValidationState, TextInputResult> OnValidationCallback { get; set; }
-        internal Action<TextInputResult> OnSendCallback { get; set; }
+        internal readonly string Synopsis { get; init; }
+        internal readonly string Content { get; init; }
+        internal readonly bool AllowSpaces { get; init; }
+        internal readonly InputMode InputMode { get; init; }
+        internal readonly InputRestriction InputRestriction { get; init; }
+        internal readonly uint MaxCharacters { get; init; }
+        internal readonly Func<TextInputResult, TextValidationState> OnValidationCallback { get; init; }
+        internal readonly Action<TextInputResult> OnSendCallback { get; init; }
 
-        internal TextInputSettings()
+        public TextInputSettings()
         {
             this.AllowSpaces = true;
         }

@@ -37,8 +37,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly World world;
         private readonly TextInputUI textInputUI;
 
-        private readonly TextInputSettings nameInputBuilder, descriptionInputBuilder;
-
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
@@ -68,16 +66,58 @@ namespace StardustSandbox.UI.Common.HUD
             this.fieldButtonInfos = [
                 new(TextureIndex.None, null, "Name Field", string.Empty, () =>
                 {
-                    this.nameInputBuilder.Content = this.world.Information.Name;
+                    this.textInputUI.Configure(new()
+                    {
+                        Synopsis = Localization_Messages.Input_World_Name,
+                        InputMode = InputMode.Normal,
+                        InputRestriction = InputRestriction.Alphanumeric,
+                        MaxCharacters = 50,
 
-                    this.textInputUI.Configure(this.nameInputBuilder);
+                        Content = this.world.Information.Name,
+
+                        OnValidationCallback = (result) =>
+                        {
+                            if (string.IsNullOrWhiteSpace(result.Content))
+                            {
+                                return new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty);
+                            }
+
+                            return new(ValidationStatus.Success);
+                        },
+                        
+                        OnSendCallback = result =>
+                        {
+                            world.Information.Name = result.Content;
+                        },
+                    });
+
                     this.uiManager.OpenGUI(UIIndex.TextInput);
                 }),
                 new(TextureIndex.None, null, "Description Field", string.Empty, () =>
                 {
-                    this.descriptionInputBuilder.Content = this.world.Information.Description;
+                    this.textInputUI.Configure(new()
+                    {
+                        Synopsis = Localization_Messages.Input_World_Description,
+                        InputMode = InputMode.Normal,
+                        MaxCharacters = 500,
+                        Content = this.world.Information.Description,
 
-                    this.textInputUI.Configure(this.descriptionInputBuilder);
+                        OnValidationCallback = (result) =>
+                        {
+                            if (string.IsNullOrWhiteSpace(result.Content))
+                            {
+                                return new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty);
+                            }
+
+                            return new(ValidationStatus.Success);
+                        },
+
+                        OnSendCallback = (result) =>
+                        {
+                            world.Information.Description = result.Content;
+                        },
+                    });
+
                     this.uiManager.OpenGUI(UIIndex.TextInput);
                 })
             ];
@@ -95,49 +135,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
             this.fieldButtonSlotInfos = new SlotInfo[this.fieldButtonInfos.Length];
             this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
-
-            this.nameInputBuilder = new()
-            {
-                Synopsis = Localization_Messages.Input_World_Name,
-                InputMode = InputMode.Normal,
-                InputRestriction = InputRestriction.Alphanumeric,
-                MaxCharacters = 50,
-
-                OnValidationCallback = (validationState, result) =>
-                {
-                    if (string.IsNullOrWhiteSpace(result.Content))
-                    {
-                        validationState.Status = ValidationStatus.Failure;
-                        validationState.Message = Localization_Messages.Input_World_Name_Validation_Empty;
-                    }
-                },
-
-                OnSendCallback = result =>
-                {
-                    world.Information.Name = result.Content;
-                },
-            };
-
-            this.descriptionInputBuilder = new()
-            {
-                Synopsis = Localization_Messages.Input_World_Description,
-                InputMode = InputMode.Normal,
-                MaxCharacters = 500,
-
-                OnValidationCallback = (validationState, result) =>
-                {
-                    if (string.IsNullOrWhiteSpace(result.Content))
-                    {
-                        validationState.Status = ValidationStatus.Failure;
-                        validationState.Message = Localization_Messages.Input_World_Description_Validation_Empty;
-                    }
-                },
-
-                OnSendCallback = (result) =>
-                {
-                    world.Information.Description = result.Content;
-                },
-            };
         }
 
         #region BUILDER

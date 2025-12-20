@@ -69,9 +69,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         private Container scrollableContainer;
 
-        private readonly ColorPickerSettings colorPickerSettings;
-        private readonly SliderSettings sliderSettings;
-
         private readonly Root root;
 
         private readonly ColorPickerUI colorPickerUI;
@@ -109,9 +106,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.videoManager = videoManager;
-
-            this.colorPickerSettings = new();
-            this.sliderSettings = new();
 
             this.systemButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, () =>
@@ -687,21 +681,25 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void HandleSliderOption(SliderOption sliderOption)
         {
-            this.sliderSettings.MinimumValue = sliderOption.MinimumValue;
-            this.sliderSettings.MaximumValue = sliderOption.MaximumValue;
-            this.sliderSettings.CurrentValue = Convert.ToInt32(sliderOption.GetValue());
-            this.sliderSettings.Synopsis = sliderOption.Description;
-            this.sliderSettings.OnSendCallback = result => sliderOption.SetValue(result.Value);
+            this.sliderUI.Configure(new()
+            {
+                MinimumValue = sliderOption.MinimumValue,
+                MaximumValue = sliderOption.MaximumValue,
+                CurrentValue = Convert.ToInt32(sliderOption.GetValue()),
+                Synopsis = sliderOption.Description,
+                OnSendCallback = result => sliderOption.SetValue(result.Value),
+            });
 
-            this.sliderUI.Configure(this.sliderSettings);
             this.uiManager.OpenGUI(UIIndex.Slider);
         }
 
         private void HandleColorOption(ColorOption colorOption)
         {
-            this.colorPickerSettings.OnSelectCallback = result => colorOption.SetValue(result.SelectedColor);
+            this.colorPickerUI.Configure(new()
+            {
+                OnSelectCallback = result => colorOption.SetValue(result.SelectedColor),
+            });
 
-            this.colorPickerUI.Configure(this.colorPickerSettings);
             this.uiManager.OpenGUI(UIIndex.ColorPicker);
         }
 

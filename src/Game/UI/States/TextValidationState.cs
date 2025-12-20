@@ -2,15 +2,21 @@
 
 namespace StardustSandbox.UI.States
 {
-    internal sealed class TextValidationState
+    internal struct TextValidationState
     {
-        internal ValidationStatus Status { get; set; }
-        internal string Message { get; set; }
+        internal ValidationStatus Status { get; private set; }
+        internal string Message { get; private set; }
 
-        internal TextValidationState()
+        public TextValidationState(ValidationStatus status)
         {
-            this.Status = ValidationStatus.Success;
+            this.Status = status;
             this.Message = string.Empty;
+        }
+
+        public TextValidationState(ValidationStatus status, string message)
+        {
+            this.Status = status;
+            this.Message = message;
         }
     }
 }

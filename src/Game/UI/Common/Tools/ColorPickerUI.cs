@@ -129,7 +129,7 @@ namespace StardustSandbox.UI.Common.Tools
         private void SelectColorButtonAction(Color color)
         {
             this.uiManager.CloseGUI();
-            this.colorPickerSettings?.OnSelectCallback?.Invoke(new(color));
+            this.colorPickerSettings.OnSelectCallback?.Invoke(new(color));
         }
 
         #region BUILDER
@@ -317,13 +317,11 @@ namespace StardustSandbox.UI.Common.Tools
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-            this.inputController.Disable();
         }
 
         protected override void OnClosed()
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-            this.inputController.Activate();
         }
     }
 }

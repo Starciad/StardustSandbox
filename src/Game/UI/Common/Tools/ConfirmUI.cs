@@ -5,6 +5,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.Localization;
@@ -25,25 +26,28 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly Label[] buttonLabels;
         private readonly ButtonInfo[] buttonInfos;
 
+        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         internal ConfirmUI(
+            GameManager gameManager,
             UIIndex index,
             UIManager uiManager
         ) : base(index)
         {
+            this.gameManager = gameManager;
             this.uiManager = uiManager;
 
             this.buttonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
                     this.uiManager.CloseGUI();
-                    this.confirmSettings?.OnConfirmCallback?.Invoke(ConfirmStatus.Cancelled);
+                    this.confirmSettings.OnConfirmCallback?.Invoke(ConfirmStatus.Cancelled);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, () =>
                 {
                     this.uiManager.CloseGUI();
-                    this.confirmSettings?.OnConfirmCallback?.Invoke(ConfirmStatus.Confirmed);
+                    this.confirmSettings.OnConfirmCallback?.Invoke(ConfirmStatus.Confirmed);
                 }),
             ];
 
@@ -147,6 +151,16 @@ namespace StardustSandbox.UI.Common.Tools
             }
 
             base.Update(gameTime);
+        }
+
+        protected override void OnOpened()
+        {
+            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+        }
+
+        protected override void OnClosed()
+        {
+            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

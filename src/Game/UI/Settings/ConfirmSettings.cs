@@ -4,10 +4,10 @@ using System;
 
 namespace StardustSandbox.UI.Settings
 {
-    internal sealed class ConfirmSettings
+    internal readonly struct ConfirmSettings
     {
-        internal string Caption { get; set; }
-        internal string Message { get; set; }
-        internal Action<ConfirmStatus> OnConfirmCallback { get; set; }
+        internal readonly string Caption { get; init; }
+        internal readonly string Message { get; init; }
+        internal readonly Action<ConfirmStatus> OnConfirmCallback { get; init; }
     }
 }

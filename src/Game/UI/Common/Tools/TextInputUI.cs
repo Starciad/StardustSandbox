@@ -46,9 +46,7 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly GameManager gameManager;
         private readonly GameWindow gameWindow;
         private readonly InputController inputController;
-        private readonly MessageUI messageUI;
-        private readonly UIManager uiManager;
-
+        
         internal TextInputUI(
             GameManager gameManager,
             GameWindow gameWindow,
@@ -61,21 +59,18 @@ namespace StardustSandbox.UI.Common.Tools
             this.gameManager = gameManager;
             this.gameWindow = gameWindow;
             this.inputController = inputController;
-            this.messageUI = messageUI;
-            this.uiManager = uiManager;
 
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    this.settings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
+                    this.settings.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
 
-                    if (this.settings != null)
+                    TextInputResult argumentResult = new(this.userInputStringBuilder.ToString());
+
+                    if (this.settings.OnValidationCallback != null)
                     {
-                        TextValidationState validationState = new();
-                        TextInputResult argumentResult = new(this.userInputStringBuilder.ToString());
-
-                        this.settings.OnValidationCallback?.Invoke(validationState, argumentResult);
+                        TextValidationState validationState = this.settings.OnValidationCallback.Invoke(argumentResult);
 
                         if (validationState.Status == ValidationStatus.Failure)
                         {
@@ -83,9 +78,9 @@ namespace StardustSandbox.UI.Common.Tools
                             uiManager.OpenGUI(UIIndex.Message);
                             return;
                         }
-
-                        this.settings.OnSendCallback?.Invoke(argumentResult);
                     }
+
+                    this.settings.OnSendCallback?.Invoke(argumentResult);
 
                     uiManager.CloseGUI();
                 }),

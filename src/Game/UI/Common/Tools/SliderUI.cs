@@ -44,7 +44,7 @@ namespace StardustSandbox.UI.Common.Tools
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
                     uiManager.CloseGUI();
-                    this.settings?.OnSendCallback?.Invoke(new(this.currentValue));
+                    this.settings.OnSendCallback?.Invoke(new(this.currentValue));
                 }),
             ];
 

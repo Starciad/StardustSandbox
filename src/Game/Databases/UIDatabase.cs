@@ -57,11 +57,13 @@ namespace StardustSandbox.Databases
             );
 
             ConfirmUI confirmUI = new(
+                gameManager,
                 UIIndex.Confirm,
                 uiManager
             );
 
             MessageUI messageUI = new(
+                gameManager,
                 UIIndex.Message,
                 uiManager
             );

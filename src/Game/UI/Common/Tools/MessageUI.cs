@@ -5,6 +5,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
@@ -13,6 +14,7 @@ using StardustSandbox.UI.Elements;
 namespace StardustSandbox.UI.Common.Tools
 {
     internal sealed class MessageUI(
+        GameManager gameManager,
         UIIndex index,
         UIManager uiManager
     ) : UIBase(index)
@@ -100,5 +102,15 @@ namespace StardustSandbox.UI.Common.Tools
         }
 
         #endregion
+
+        protected override void OnOpened()
+        {
+            gameManager.SetState(GameStates.IsCriticalMenuOpen);
+        }
+
+        protected override void OnClosed()
+        {
+            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+        }
     }
 }

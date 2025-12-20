@@ -4,8 +4,8 @@ using System;
 
 namespace StardustSandbox.UI.Settings
 {
-    internal sealed class ColorPickerSettings
+    internal readonly struct ColorPickerSettings
     {
-        internal Action<ColorPickerResult> OnSelectCallback { get; set; }
+        internal readonly Action<ColorPickerResult> OnSelectCallback { get; init; }
     }
 }
