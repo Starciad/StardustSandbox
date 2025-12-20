@@ -28,25 +28,19 @@ namespace StardustSandbox.InputSystem
         internal delegate void Performed(CallbackContext context);
         internal delegate void Canceled(CallbackContext context);
 
-        private readonly Keys[] keys;
-        private readonly MouseButton[] mouseButtons;
+        private readonly Keys key;
+        private readonly MouseButton mouseButton;
 
-        internal InputAction(Keys[] keys)
+        internal InputAction(Keys value)
         {
-            this.keys = keys;
-            this.mouseButtons = [];
+            this.key = value;
+            this.mouseButton = MouseButton.None;
         }
 
-        internal InputAction(MouseButton[] mouseButtons)
+        internal InputAction(MouseButton value)
         {
-            this.keys = [];
-            this.mouseButtons = mouseButtons;
-        }
-
-        internal InputAction(Keys[] keys, MouseButton[] mouseButtons)
-        {
-            this.keys = keys;
-            this.mouseButtons = mouseButtons;
+            this.key = Keys.None;
+            this.mouseButton = value;
         }
 
         internal void Update()
@@ -54,12 +48,11 @@ namespace StardustSandbox.InputSystem
             this.capturedKey = Keys.None;
             this.capturedMouseButton = MouseButton.None;
 
-            for (int i = 0; i < this.keys.Length; i++)
+            // Keyboard State
+            if (this.key != Keys.None)
             {
-                Keys key = this.keys[i];
-
                 // Started
-                if (GetKeyboardStartedState(key))
+                if (GetKeyboardStartedState(this.key))
                 {
                     this.capturedKey = key;
                     UpdateStarting();
@@ -80,10 +73,9 @@ namespace StardustSandbox.InputSystem
                 }
             }
 
-            for (int i = 0; i < this.mouseButtons.Length; i++)
+            // Mouse State
+            if (this.mouseButton != MouseButton.None)
             {
-                MouseButton mouseButton = this.mouseButtons[i];
-
                 // Started
                 if (GetMouseStartedState(mouseButton) &&
                     !this.started && !this.performed && this.canceled)

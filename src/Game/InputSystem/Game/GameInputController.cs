@@ -43,22 +43,22 @@ namespace StardustSandbox.InputSystem.Game
 
                 // Camera
                 new([
-                    new([controlSettings.MoveCameraUp])
+                    new(controlSettings.MoveCameraUp)
                     {
                         OnPerformed = _ => SSCamera.Move(new Vector2(0, this.player.MovementSpeed)),
                     },
 
-                    new([controlSettings.MoveCameraRight])
+                    new(controlSettings.MoveCameraRight)
                     {
                         OnPerformed = _ => SSCamera.Move(new Vector2(this.player.MovementSpeed, 0)),
                     },
 
-                    new([controlSettings.MoveCameraDown])
+                    new(controlSettings.MoveCameraDown)
                     {
                         OnPerformed = _ => SSCamera.Move(new Vector2(0, -this.player.MovementSpeed)),
                     },
 
-                    new([controlSettings.MoveCameraLeft])
+                    new(controlSettings.MoveCameraLeft)
                     {
                         OnPerformed = _ => SSCamera.Move(new Vector2(-this.player.MovementSpeed, 0)),
                     },
@@ -66,7 +66,7 @@ namespace StardustSandbox.InputSystem.Game
 
                 // Simulation
                 new([
-                    new([controlSettings.TogglePause])
+                    new(controlSettings.TogglePause)
                     {
                         OnStarted = _ => this.simulationHandler.TogglePause(),
                     },
@@ -74,7 +74,7 @@ namespace StardustSandbox.InputSystem.Game
                 
                 // World
                 new([
-                    new([controlSettings.ClearWorld])
+                    new(controlSettings.ClearWorld)
                     {
                         OnStarted = _ => this.worldHandler.Clear(),
                     },
@@ -85,12 +85,12 @@ namespace StardustSandbox.InputSystem.Game
                 #region Mouse
 
                 new([
-                    new([MouseButton.Left])
+                    new(MouseButton.Left)
                     {
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Adding),
                     },
 
-                    new([MouseButton.Right])
+                    new(MouseButton.Right)
                     {
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Removing),
                     },
