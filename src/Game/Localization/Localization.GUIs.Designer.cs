@@ -19,7 +19,7 @@ namespace StardustSandbox.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_GUIs {
@@ -282,222 +282,6 @@ namespace StardustSandbox.Localization {
         internal static string HUD_Button_WorldSettings_Name {
             get {
                 return ResourceManager.GetString("HUD.Button.WorldSettings.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to afternoon (03:00 PM)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Afternoon.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Afternoon.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dawn (06:00 AM)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dawn.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dawn.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dusk (06:00 PM)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dusk.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Dusk.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to evening (09:00 PM)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Evening.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Evening.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to midnight (00:00)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Midnight.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Midnight.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to morning (09:00 AM)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Morning.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Morning.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to noon (12:00 PM)..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Noon.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Button.Noon.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Time.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_Time_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.Time.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Disable the time progression, freezing the current time..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Disable.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable the time progression, resuming the natural time flow..
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.TimeState.Button.Enable.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a State.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Section_TimeState_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Section.TimeState.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment Settings.
-        /// </summary>
-        internal static string HUD_Complements_EnvironmentSettings_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.EnvironmentSettings.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Elements.
-        /// </summary>
-        internal static string HUD_Complements_Information_Field_BackgroundElements {
-            get {
-                return ResourceManager.GetString("HUD.Complements.Information.Field.BackgroundElements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground Elements.
-        /// </summary>
-        internal static string HUD_Complements_Information_Field_ForegroundElements {
-            get {
-                return ResourceManager.GetString("HUD.Complements.Information.Field.ForegroundElements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Information.
-        /// </summary>
-        internal static string HUD_Complements_Information_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.Information.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Item Explorer.
-        /// </summary>
-        internal static string HUD_Complements_ItemExplorer_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.ItemExplorer.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause.
-        /// </summary>
-        internal static string HUD_Complements_Pause_Title {
-            get {
-                return ResourceManager.GetString("HUD.Complements.Pause.Title", resourceCulture);
             }
         }
         
@@ -826,6 +610,222 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to afternoon (03:00 PM)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Afternoon_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Afternoon.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Afternoon.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Afternoon_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Afternoon.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dawn (06:00 AM)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Dawn_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Dawn.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dawn.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Dawn_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Dawn.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dusk (06:00 PM)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Dusk_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Dusk.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dusk.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Dusk_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Dusk.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to evening (09:00 PM)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Evening_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Evening.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Evening.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Evening_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Evening.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to midnight (00:00)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Midnight_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Midnight.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Midnight.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Midnight_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Midnight.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to morning (09:00 AM)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Morning_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Morning.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Morning.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Morning_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Morning.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to noon (12:00 PM)..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Noon_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Noon.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Noon.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Button_Noon_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Button.Noon.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Time.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_Time_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.Time.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Disable the time progression, freezing the current time..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_TimeState_Button_Disable_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.TimeState.Button.Disable.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable the time progression, resuming the natural time flow..
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_TimeState_Button_Enable_Description {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.TimeState.Button.Enable.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a State.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Section_TimeState_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Section.TimeState.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Environment Settings.
+        /// </summary>
+        internal static string HUD_EnvironmentSettings_Title {
+            get {
+                return ResourceManager.GetString("HUD.EnvironmentSettings.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Elements.
+        /// </summary>
+        internal static string HUD_Information_Field_BackgroundElements {
+            get {
+                return ResourceManager.GetString("HUD.Information.Field.BackgroundElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground Elements.
+        /// </summary>
+        internal static string HUD_Information_Field_ForegroundElements {
+            get {
+                return ResourceManager.GetString("HUD.Information.Field.ForegroundElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Information.
+        /// </summary>
+        internal static string HUD_Information_Title {
+            get {
+                return ResourceManager.GetString("HUD.Information.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item Explorer.
+        /// </summary>
+        internal static string HUD_ItemExplorer_Title {
+            get {
+                return ResourceManager.GetString("HUD.ItemExplorer.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause.
+        /// </summary>
+        internal static string HUD_Pause_Title {
+            get {
+                return ResourceManager.GetString("HUD.Pause.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Simulation Paused.
         /// </summary>
         internal static string HUD_SimulationPaused {
@@ -997,6 +997,168 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_ClearWorld_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.ClearWorld.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_ClearWorld_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.ClearWorld.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraDown_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraDown.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraDown_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraDown.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraLeft_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraLeft.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraLeft_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraLeft.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraRight_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraRight.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraRight_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraRight.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraUp_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraUp.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_MoveCameraUp_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.MoveCameraUp.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_TogglePause_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.TogglePause.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Controls_TogglePause_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Controls.TogglePause.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the background color of the cursor..
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_BackgroundColor_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.BackgroundColor.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Color.
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_BackgroundColor_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.BackgroundColor.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the color of the cursor..
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_Color_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Color.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Color.
+        /// </summary>
+        internal static string Menu_Options_Section_Cursor_Color_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Color.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Customize the appearance and behavior of the mouse cursor..
         /// </summary>
         internal static string Menu_Options_Section_Cursor_Description {
@@ -1015,74 +1177,38 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the background color of the cursor..
-        /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_BackgroundColor_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.BackgroundColor.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Background Color.
-        /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_BackgroundColor_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.BackgroundColor.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the color of the cursor..
-        /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_Color_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Color.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Color.
-        /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_Color_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Color.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Set the transparency level of the cursor..
         /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_Opacity_Description {
+        internal static string Menu_Options_Section_Cursor_Opacity_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Opacity.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Opacity.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Opacity.
         /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_Opacity_Name {
+        internal static string Menu_Options_Section_Cursor_Opacity_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Opacity.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Opacity.Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust the size of the cursor..
         /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_Scale_Description {
+        internal static string Menu_Options_Section_Cursor_Scale_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Scale.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Scale.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Scale.
         /// </summary>
-        internal static string Menu_Options_Section_Cursor_Option_Scale_Name {
+        internal static string Menu_Options_Section_Cursor_Scale_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Cursor.Option.Scale.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Cursor.Scale.Name", resourceCulture);
             }
         }
         
@@ -1092,6 +1218,24 @@ namespace StardustSandbox.Localization {
         internal static string Menu_Options_Section_Gameplay_Description {
             get {
                 return ResourceManager.GetString("Menu.Options.Section.Gameplay.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_GridOpacity_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.GridOpacity.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_GridOpacity_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.GridOpacity.Name", resourceCulture);
             }
         }
         
@@ -1107,36 +1251,90 @@ namespace StardustSandbox.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Choose the color for the preview area displayed during gameplay..
         /// </summary>
-        internal static string Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Description {
+        internal static string Menu_Options_Section_Gameplay_PreviewAreaColor_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.PreviewAreaColor.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Preview Area Color.
         /// </summary>
-        internal static string Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Name {
+        internal static string Menu_Options_Section_Gameplay_PreviewAreaColor_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Option.PreviewAreaColor.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.PreviewAreaColor.Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Set the transparency level of the preview area..
         /// </summary>
-        internal static string Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Description {
+        internal static string Menu_Options_Section_Gameplay_PreviewAreaOpacity_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.PreviewAreaOpacity.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Preview Area Opacity.
         /// </summary>
-        internal static string Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Name {
+        internal static string Menu_Options_Section_Gameplay_PreviewAreaOpacity_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Gameplay.Option.PreviewAreaOpacity.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.PreviewAreaOpacity.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_ShowGrid_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.ShowGrid.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_ShowGrid_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.ShowGrid.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_ShowPreviewArea_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.ShowPreviewArea.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_ShowPreviewArea_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.ShowPreviewArea.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_ShowTemperatureColorVariations_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.ShowTemperatureColorVariations.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Menu_Options_Section_Gameplay_ShowTemperatureColorVariations_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Gameplay.ShowTemperatureColorVariations.Name", resourceCulture);
             }
         }
         
@@ -1150,6 +1348,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Select the language for the game interface..
+        /// </summary>
+        internal static string Menu_Options_Section_General_Language_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.General.Language.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
+        /// </summary>
+        internal static string Menu_Options_Section_General_Language_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.General.Language.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a General.
         /// </summary>
         internal static string Menu_Options_Section_General_Name {
@@ -1159,20 +1375,20 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Select the language for the game interface..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable borderless windowed mode..
         /// </summary>
-        internal static string Menu_Options_Section_General_Option_Language_Description {
+        internal static string Menu_Options_Section_Video_Borderless_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.General.Option.Language.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Borderless.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Language.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Borderless.
         /// </summary>
-        internal static string Menu_Options_Section_General_Option_Language_Name {
+        internal static string Menu_Options_Section_Video_Borderless_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.General.Option.Language.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Borderless.Name", resourceCulture);
             }
         }
         
@@ -1186,6 +1402,42 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Frame Rate is how many images the game shows per second. Higher rates make motion smoother..
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Framerate_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Framerate.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Frame Rate.
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Framerate_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Framerate.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable or disable fullscreen mode..
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Fullscreen_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Fullscreen.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fullscreen.
+        /// </summary>
+        internal static string Menu_Options_Section_Video_Fullscreen_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Video.Fullscreen.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Video.
         /// </summary>
         internal static string Menu_Options_Section_Video_Name {
@@ -1195,92 +1447,38 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable borderless windowed mode..
-        /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Borderless_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Borderless.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Borderless.
-        /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Borderless_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Borderless.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Frame Rate is how many images the game shows per second. Higher rates make motion smoother..
-        /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Framerate_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Framerate.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Frame Rate.
-        /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Framerate_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Framerate.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable or disable fullscreen mode..
-        /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Fullscreen_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Fullscreen.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Fullscreen.
-        /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Fullscreen_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Fullscreen.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Select the screen resolution for the game..
         /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Resolution_Description {
+        internal static string Menu_Options_Section_Video_Resolution_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Resolution.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Resolution.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Resolution.
         /// </summary>
-        internal static string Menu_Options_Section_Video_Option_Resolution_Name {
+        internal static string Menu_Options_Section_Video_Resolution_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.Resolution.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.Resolution.Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Turn vertical synchronization on or off to avoid screen tearing..
         /// </summary>
-        internal static string Menu_Options_Section_Video_Option_VSync_Description {
+        internal static string Menu_Options_Section_Video_VSync_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.VSync.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.VSync.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a VSync.
         /// </summary>
-        internal static string Menu_Options_Section_Video_Option_VSync_Name {
+        internal static string Menu_Options_Section_Video_VSync_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Video.Option.VSync.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Video.VSync.Name", resourceCulture);
             }
         }
         
@@ -1294,6 +1492,42 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust the overall game volume..
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_MasterVolume_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.MasterVolume.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Master Volume.
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_MasterVolume_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.MasterVolume.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the volume for background music..
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_MusicVolume_Description {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.MusicVolume.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Music Volume.
+        /// </summary>
+        internal static string Menu_Options_Section_Volume_MusicVolume_Name {
+            get {
+                return ResourceManager.GetString("Menu.Options.Section.Volume.MusicVolume.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Volume.
         /// </summary>
         internal static string Menu_Options_Section_Volume_Name {
@@ -1303,56 +1537,20 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust the overall game volume..
-        /// </summary>
-        internal static string Menu_Options_Section_Volume_Option_MasterVolume_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.MasterVolume.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Master Volume.
-        /// </summary>
-        internal static string Menu_Options_Section_Volume_Option_MasterVolume_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.MasterVolume.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the volume for background music..
-        /// </summary>
-        internal static string Menu_Options_Section_Volume_Option_MusicVolume_Description {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.MusicVolume.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Music Volume.
-        /// </summary>
-        internal static string Menu_Options_Section_Volume_Option_MusicVolume_Name {
-            get {
-                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.MusicVolume.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust the sound effects volume..
         /// </summary>
-        internal static string Menu_Options_Section_Volume_Option_SFXVolume_Description {
+        internal static string Menu_Options_Section_Volume_SFXVolume_Description {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.SFXVolume.Description", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Volume.SFXVolume.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a SFX Volume.
         /// </summary>
-        internal static string Menu_Options_Section_Volume_Option_SFXVolume_Name {
+        internal static string Menu_Options_Section_Volume_SFXVolume_Name {
             get {
-                return ResourceManager.GetString("Menu.Options.Section.Volume.Option.SFXVolume.Name", resourceCulture);
+                return ResourceManager.GetString("Menu.Options.Section.Volume.SFXVolume.Name", resourceCulture);
             }
         }
         
