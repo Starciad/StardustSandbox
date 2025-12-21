@@ -119,8 +119,8 @@
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
-		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.4.1" />
-		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4.1" />
+		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.4" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
 		<PackageReference Include="MessagePack" Version="3.1.4" />
 		<PackageReference Include="MessagePack.Annotations" Version="3.1.4" />
 		<PackageReference Include="MessagePackAnalyzer" Version="3.1.4">

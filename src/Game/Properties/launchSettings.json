@@ -1,6 +1,10 @@
 {
   "profiles": {
-    "StardustSandbox (WindowsDX)": {
+    "StardustSandbox (Linux)": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    },
+    "StardustSandbox (Windows)": {
       "commandName": "Project",
       "hotReloadEnabled": false
     }

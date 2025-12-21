@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
-using SharpDX.Multimedia;
-
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
@@ -10,6 +8,10 @@ using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 
 using System;
+
+#if SS_WINDOWS
+using SharpDX.Multimedia;
+#endif
 
 namespace StardustSandbox.Audio
 {
@@ -27,7 +29,10 @@ namespace StardustSandbox.Audio
             }
 
             SoundEffect.MasterVolume = SettingsSerializer.Load<VolumeSettings>().MasterVolume;
+
+#if SS_WINDOWS
             SoundEffect.Speakers = Speakers.Stereo;
+#endif
 
             isInitialized = true;
         }
