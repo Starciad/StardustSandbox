@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -92,6 +93,8 @@ namespace StardustSandbox.UI.Common.HUD
                         if (!statusSettings.TheMovementTutorialWasDisplayed)
                         {
                             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+
+                            SoundEngine.Play(SoundEffectIndex.GUI_Message);
 
                             this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
                             this.uiManager.OpenGUI(UIIndex.Message);

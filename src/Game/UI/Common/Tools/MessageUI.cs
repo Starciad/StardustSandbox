@@ -105,7 +105,6 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnOpened()
         {
-            SoundEngine.Play(SoundEffectIndex.GUI_Message);
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
         }
 

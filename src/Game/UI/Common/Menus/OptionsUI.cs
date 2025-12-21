@@ -236,6 +236,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                     if (!statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed)
                     {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Message);
+
                         messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
                         uiManager.OpenGUI(UIIndex.Message);
 

@@ -211,8 +211,6 @@ namespace StardustSandbox.UI.Common.Menus
             ];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             this.rootContainer = root;
@@ -308,10 +306,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #endregion
-
-        #region UPDATING
-
         internal override void Update(GameTime gameTime)
         {
             UpdateUserInput();
@@ -342,10 +336,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #endregion
-
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
@@ -359,7 +349,5 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.lastElement ??= this.rootContainer.Children[^1];
         }
-
-        #endregion
     }
 }

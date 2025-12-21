@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -12,6 +13,7 @@ using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Randomness;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Settings;
@@ -60,7 +62,11 @@ namespace StardustSandbox.UI.Common.Tools
             this.inputController = inputController;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    uiManager.CloseGUI();
+                }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
                     string content = this.userInputStringBuilder.ToString();
@@ -73,12 +79,14 @@ namespace StardustSandbox.UI.Common.Tools
 
                         if (validationState.Status == ValidationStatus.Failure)
                         {
+                            SoundEngine.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
                             uiManager.OpenGUI(UIIndex.Message);
                             return;
                         }
                     }
 
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.settings.OnSendCallback?.Invoke(content);
 
                     uiManager.CloseGUI();
@@ -228,6 +236,7 @@ namespace StardustSandbox.UI.Common.Tools
                 if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -275,25 +284,33 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region INPUT EVENTS
 
+        private static void PlayTypingSound()
+        {
+            SoundEngine.Play((SoundEffectIndex)SSRandom.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+        }
+
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
         {
-            if (IsSpecialKey(inputKeyEventArgs.Key, out Action specialKeyAction))
+            if (!IsSpecialKey(inputKeyEventArgs.Key, out Action specialKeyAction))
             {
-                specialKeyAction?.Invoke();
-                UpdateDisplayedText();
+                return;
             }
+
+            PlayTypingSound();
+            specialKeyAction?.Invoke();
+
+            UpdateDisplayedText();
         }
 
         private void OnTextInput(object sender, TextInputEventArgs textInputEventArgs)
         {
-            if (IsTextSpecialKey(textInputEventArgs.Key, out Action specialKeyAction))
+            if (IsSpecialKey(textInputEventArgs.Key, out Action specialKeyAction))
             {
-                specialKeyAction?.Invoke();
+                return;
             }
-            else
-            {
-                AddCharacter(textInputEventArgs.Character);
-            }
+
+            PlayTypingSound();
+            AddCharacter(textInputEventArgs.Character);
 
             UpdateDisplayedText();
         }
@@ -311,16 +328,6 @@ namespace StardustSandbox.UI.Common.Tools
                 Keys.Home => HandleHomeKey,
                 Keys.End => HandleEndKey,
                 Keys.Space => HandleSpaceKey,
-                _ => null,
-            };
-
-            return action != null;
-        }
-
-        private bool IsTextSpecialKey(Keys key, out Action action)
-        {
-            action = key switch
-            {
                 Keys.Back => HandleBackspaceKey,
                 _ => null,
             };

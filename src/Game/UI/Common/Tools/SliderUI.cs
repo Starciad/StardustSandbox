@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -40,9 +41,14 @@ namespace StardustSandbox.UI.Common.Tools
             this.gameManager = gameManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Returning);
+                    uiManager.CloseGUI();
+                }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseGUI();
                     this.settings.OnSendCallback?.Invoke(this.currentValue);
                 }),
@@ -176,6 +182,7 @@ namespace StardustSandbox.UI.Common.Tools
                 if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
