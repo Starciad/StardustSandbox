@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Catalog;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
@@ -258,8 +259,6 @@ namespace StardustSandbox.UI.Common.HUD
             margin = new(80.0f, 32.0f);
             BuildSlots(UIDirection.Northeast);
 
-            // =============================== //
-
             void BuildSlots(UIDirection positionAnchor)
             {
                 for (int i = 0; i < sideCounts; i++)
@@ -424,9 +423,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -458,9 +464,16 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Category category = (Category)categorySlot.Background.GetData(UIConstants.DATA_CATEGORY);
 
+                if (Interaction.OnMouseEnter(categorySlot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(categorySlot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SelectItemCatalog(category, category.Subcategories[0], 0);
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(categorySlot.Background))
@@ -470,6 +483,8 @@ namespace StardustSandbox.UI.Common.HUD
                     TooltipBoxContent.SetTitle(category.Name);
                     TooltipBoxContent.SetDescription(category.Description);
                 }
+
+                categorySlot.Background.Color = this.selectedCategory == category ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
             }
         }
 
@@ -486,9 +501,16 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Subcategory subcategory = (Subcategory)subcategorySlot.Background.GetData(UIConstants.DATA_SUBCATEGORY);
 
+                if (Interaction.OnMouseEnter(subcategorySlot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(subcategorySlot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SelectItemCatalog(subcategory.ParentCategory, subcategory, 0);
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(subcategorySlot.Background))
@@ -498,6 +520,8 @@ namespace StardustSandbox.UI.Common.HUD
                     TooltipBoxContent.SetTitle(subcategory.Name);
                     TooltipBoxContent.SetDescription(subcategory.Description);
                 }
+
+                subcategorySlot.Background.Color = this.selectedSubcategory == this.selectedCategory.Subcategories[i] ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
             }
         }
 
@@ -514,10 +538,17 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.hudUI.AddItemToToolbar(item);
                     this.uiManager.CloseGUI();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -542,9 +573,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.paginationButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -647,8 +685,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -659,7 +695,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }

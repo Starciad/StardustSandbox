@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -291,8 +292,14 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateExitButton()
         {
+            if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
+
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -322,9 +329,16 @@ namespace StardustSandbox.UI.Common.HUD
                     SlotInfo buttonSlot = section.ButtonSlotInfos[j];
                     ButtonInfo buttonInfo = section.ButtonInfos[j];
 
+                    if (Interaction.OnMouseEnter(buttonSlot.Background))
+                    {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    }
+
                     if (Interaction.OnMouseLeftClick(buttonSlot.Background))
                     {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                         buttonInfo.ClickAction?.Invoke();
+                        break;
                     }
 
                     if (Interaction.OnMouseOver(buttonSlot.Background))

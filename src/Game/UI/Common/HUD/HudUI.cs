@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Catalog;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
@@ -464,30 +465,9 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarToolPreview()
         {
-            if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
+            if (Interaction.OnMouseEnter(this.toolbarCurrentlySelectedToolIcon))
             {
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
-                {
-                    PenTool.Visualization => PenTool.Pencil,
-                    PenTool.Pencil => PenTool.Eraser,
-                    PenTool.Eraser => PenTool.Fill,
-                    PenTool.Fill => PenTool.Replace,
-                    PenTool.Replace => PenTool.Visualization,
-                    _ => PenTool.Visualization,
-                };
-            }
-
-            if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
-            {
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
-                {
-                    PenTool.Visualization => PenTool.Replace,
-                    PenTool.Pencil => PenTool.Visualization,
-                    PenTool.Eraser => PenTool.Pencil,
-                    PenTool.Fill => PenTool.Eraser,
-                    PenTool.Replace => PenTool.Fill,
-                    _ => PenTool.Visualization,
-                };
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarCurrentlySelectedToolIcon))
@@ -527,23 +507,43 @@ namespace StardustSandbox.UI.Common.HUD
                         break;
                 }
 
-                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
-                    this.toolbarCurrentlySelectedToolBackground.Scale,
-                    new(2.65f),
-                    0.2f
-                );
-
+                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(this.toolbarCurrentlySelectedToolBackground.Scale, new(2.65f), 0.2f);
                 this.toolbarCurrentlySelectedToolBackground.Color = AAP64ColorPalette.Graphite;
             }
             else
             {
-                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
-                    this.toolbarCurrentlySelectedToolBackground.Scale,
-                    new(2.45f),
-                    0.2f
-                );
-
+                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(this.toolbarCurrentlySelectedToolBackground.Scale, new(2.45f), 0.2f);
                 this.toolbarCurrentlySelectedToolBackground.Color = AAP64ColorPalette.White;
+            }
+
+            if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
+                {
+                    PenTool.Visualization => PenTool.Pencil,
+                    PenTool.Pencil => PenTool.Eraser,
+                    PenTool.Eraser => PenTool.Fill,
+                    PenTool.Fill => PenTool.Replace,
+                    PenTool.Replace => PenTool.Visualization,
+                    _ => PenTool.Visualization,
+                };
+            }
+
+            if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
+                {
+                    PenTool.Visualization => PenTool.Replace,
+                    PenTool.Pencil => PenTool.Visualization,
+                    PenTool.Eraser => PenTool.Pencil,
+                    PenTool.Fill => PenTool.Eraser,
+                    PenTool.Replace => PenTool.Fill,
+                    _ => PenTool.Visualization,
+                };
             }
         }
 
@@ -554,20 +554,23 @@ namespace StardustSandbox.UI.Common.HUD
                 SlotInfo slot = this.toolbarSlots[i];
                 bool isOver = Interaction.OnMouseOver(slot.Background);
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SelectItemSlot(i, (Item)slot.Background.GetData(UIConstants.DATA_ITEM));
+                    break;
                 }
 
                 if (isOver)
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    slot.Background.Scale = Vector2.Lerp(
-                        slot.Background.Scale,
-                        new(2.2f),
-                        0.2f
-                    );
+                    slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.2f), 0.2f);
 
                     Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
 
@@ -576,11 +579,7 @@ namespace StardustSandbox.UI.Common.HUD
                 }
                 else
                 {
-                    slot.Background.Scale = Vector2.Lerp(
-                        slot.Background.Scale,
-                        new(2.0f),
-                        0.2f
-                    );
+                    slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.0f), 0.2f);
                 }
 
                 slot.Background.Color = this.slotSelectedIndex == i
@@ -593,34 +592,30 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarSearchButton()
         {
-            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
+            if (Interaction.OnMouseEnter(this.toolbarSearchButton))
             {
-                this.uiManager.OpenGUI(UIIndex.ItemExplorer);
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarSearchButton))
             {
                 this.toolbarSearchButton.Color = AAP64ColorPalette.Graphite;
                 this.tooltipBox.CanDraw = true;
-
-                this.toolbarSearchButton.Scale = Vector2.Lerp(
-                    this.toolbarSearchButton.Scale,
-                    new(2.65f),
-                    0.2f
-                );
+                this.toolbarSearchButton.Scale = Vector2.Lerp(this.toolbarSearchButton.Scale, new(2.65f), 0.2f);
 
                 TooltipBoxContent.SetTitle(Localization_GUIs.HUD_ItemExplorer_Name);
                 TooltipBoxContent.SetDescription(Localization_GUIs.HUD_ItemExplorer_Description);
             }
             else
             {
-                this.toolbarSearchButton.Scale = Vector2.Lerp(
-                    this.toolbarSearchButton.Scale,
-                    new(2.45f),
-                    0.2f
-                );
-
+                this.toolbarSearchButton.Scale = Vector2.Lerp(this.toolbarSearchButton.Scale, new(2.45f), 0.2f);
                 this.toolbarSearchButton.Color = AAP64ColorPalette.White;
+            }
+
+            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                this.uiManager.OpenGUI(UIIndex.ItemExplorer);
             }
         }
 
@@ -636,9 +631,9 @@ namespace StardustSandbox.UI.Common.HUD
                 SlotInfo slot = slots[i];
                 ButtonInfo button = buttons[i];
 
-                if (Interaction.OnMouseLeftClick(slot.Background))
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    button.ClickAction?.Invoke();
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -657,25 +652,35 @@ namespace StardustSandbox.UI.Common.HUD
                     slot.Background.Color = AAP64ColorPalette.White;
                     slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.0f), 0.2f);
                 }
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    button.ClickAction?.Invoke();
+                    break;
+                }
+            }
+        }
+
+        private static void UpdateDrawerButton(Image image, ref bool expanded)
+        {
+            if (Interaction.OnMouseEnter(image))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
+
+            if (Interaction.OnMouseLeftClick(image))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                expanded = !expanded;
             }
         }
 
         private void UpdateDrawerButtons()
         {
-            if (Interaction.OnMouseLeftClick(this.topDrawerButton))
-            {
-                this.isTopToolbarExpanded = !this.isTopToolbarExpanded;
-            }
-
-            if (Interaction.OnMouseLeftClick(this.leftDrawerButton))
-            {
-                this.isLeftToolbarExpanded = !this.isLeftToolbarExpanded;
-            }
-
-            if (Interaction.OnMouseLeftClick(this.rightDrawerButton))
-            {
-                this.isRightToolbarExpanded = !this.isRightToolbarExpanded;
-            }
+            UpdateDrawerButton(this.topDrawerButton, ref this.isTopToolbarExpanded);
+            UpdateDrawerButton(this.leftDrawerButton, ref this.isLeftToolbarExpanded);
+            UpdateDrawerButton(this.rightDrawerButton, ref this.isRightToolbarExpanded);
         }
 
         #endregion

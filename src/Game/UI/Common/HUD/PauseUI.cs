@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -163,8 +164,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region UPDATING
-
         internal override void Update(GameTime gameTime)
         {
             UpdateMenuButtons();
@@ -178,18 +177,21 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
-
-        #endregion
-
-        #region EVENTS
 
         protected override void OnOpened()
         {
@@ -200,7 +202,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }

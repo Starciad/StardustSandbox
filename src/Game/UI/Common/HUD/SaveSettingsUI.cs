@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -63,8 +64,11 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.fieldButtonInfos = [
-                new(TextureIndex.None, null, "Name Field", string.Empty, () =>
+                // Name Field
+                new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
                     this.textInputUI.Configure(new()
                     {
                         Synopsis = Localization_Messages.Input_World_Name,
@@ -88,8 +92,12 @@ namespace StardustSandbox.UI.Common.HUD
 
                     this.uiManager.OpenGUI(UIIndex.TextInput);
                 }),
-                new(TextureIndex.None, null, "Description Field", string.Empty, () =>
+
+                // Description Field
+                new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
                     this.textInputUI.Configure(new()
                     {
                         Synopsis = Localization_Messages.Input_World_Description,
@@ -117,6 +125,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.footerButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
                     SaveFile saveFile = SavingSerializer.Serialize(this.world, this.graphicsDevice);
 
                     this.world.SetSaveFile(saveFile);
@@ -385,9 +394,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -412,6 +428,12 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.fieldButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    break;
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     this.fieldButtonInfos[i].ClickAction?.Invoke();
@@ -427,9 +449,15 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.footerButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     this.footerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -459,8 +487,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             if (string.IsNullOrWhiteSpace(this.world.Information.Name))
@@ -483,7 +509,5 @@ namespace StardustSandbox.UI.Common.HUD
             this.worldThumbnailTexture.Dispose();
             this.worldThumbnailTexture = null;
         }
-
-        #endregion
     }
 }

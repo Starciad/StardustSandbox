@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -361,8 +362,6 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        // =============================================================== //
-
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
             Image background = new()
@@ -409,9 +408,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -432,6 +438,11 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateBrushSizeSlider()
         {
+            if (Interaction.OnMouseEnter(this.brushSizeSlider))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
+
             for (int i = 0; i < this.brushSizeSliderSourceRectangles.Length; i++)
             {
                 Vector2 position = new(
@@ -439,18 +450,18 @@ namespace StardustSandbox.UI.Common.HUD
                     this.brushSizeSlider.Position.Y
                 );
 
+                if (Interaction.OnMouseLeftDown(position, new(64.0f)))
+                {
+                    this.inputController.Pen.Size = (sbyte)i;
+                    break;
+                }
+
                 if (Interaction.OnMouseOver(position, new(64.0f)))
                 {
                     this.tooltipBox.CanDraw = true;
 
                     TooltipBoxContent.SetTitle(Localization_GUIs.PenSettings_BrushSize_Slider_Name);
                     TooltipBoxContent.SetDescription(string.Format(Localization_GUIs.PenSettings_BrushSize_Slider_Description, i + 1));
-                }
-
-                if (Interaction.OnMouseLeftDown(position, new(64.0f)))
-                {
-                    this.inputController.Pen.Size = (sbyte)i;
-                    break;
                 }
             }
         }
@@ -461,9 +472,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.toolButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.toolButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -487,9 +505,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.layerButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -510,9 +535,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.layerVisibilitySlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerVisibility[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -544,9 +576,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.shapeButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.shapeButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -580,8 +619,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -591,7 +628,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }

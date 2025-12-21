@@ -267,14 +267,7 @@ namespace StardustSandbox.UI.Common.Tools
                 return;
             }
 
-            if (Interaction.OnMouseOver(this.exitButtonLabel))
-            {
-                this.exitButtonLabel.Color = AAP64ColorPalette.HoverColor;
-            }
-            else
-            {
-                this.exitButtonLabel.Color = AAP64ColorPalette.White;
-            }
+            this.exitButtonLabel.Color = Interaction.OnMouseOver(this.exitButtonLabel) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
         }
 
         private void UpdateColorButtons()

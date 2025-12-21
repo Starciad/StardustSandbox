@@ -7,7 +7,6 @@ using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
-using StardustSandbox.Elements;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -24,8 +23,6 @@ using StardustSandbox.UI.Options;
 
 using System;
 using System.Collections.Generic;
-
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace StardustSandbox.UI.Common.Menus
 {
