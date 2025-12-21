@@ -130,63 +130,63 @@
     <value>Heat Tool</value>
   </data>
   <data name="Inks.Black.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements black.</value>
   </data>
   <data name="Inks.Black.Name" xml:space="preserve">
-    <value />
+    <value>Black Ink</value>
   </data>
   <data name="Inks.Blue.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements blue.</value>
   </data>
   <data name="Inks.Blue.Name" xml:space="preserve">
-    <value />
+    <value>Blue Ink</value>
   </data>
   <data name="Inks.Brown.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements brown.</value>
   </data>
   <data name="Inks.Brown.Name" xml:space="preserve">
-    <value />
+    <value>Brown Ink</value>
   </data>
   <data name="Inks.Gray.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements gray.</value>
   </data>
   <data name="Inks.Gray.Name" xml:space="preserve">
-    <value />
+    <value>Gray Ink</value>
   </data>
   <data name="Inks.Green.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements green.</value>
   </data>
   <data name="Inks.Green.Name" xml:space="preserve">
-    <value />
+    <value>Green Ink</value>
   </data>
   <data name="Inks.Orange.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements orange.</value>
   </data>
   <data name="Inks.Orange.Name" xml:space="preserve">
-    <value />
+    <value>Orange Ink</value>
   </data>
   <data name="Inks.Red.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements red.</value>
   </data>
   <data name="Inks.Red.Name" xml:space="preserve">
-    <value />
+    <value>Red Ink</value>
   </data>
   <data name="Inks.Violet.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements violet.</value>
   </data>
   <data name="Inks.Violet.Name" xml:space="preserve">
-    <value />
+    <value>Violet Ink</value>
   </data>
   <data name="Inks.White.Description" xml:space="preserve">
-    <value />
+    <value>Painting the elements white will restore their original colors.</value>
   </data>
   <data name="Inks.White.Name" xml:space="preserve">
-    <value />
+    <value>White Ink</value>
   </data>
   <data name="Inks.Yellow.Description" xml:space="preserve">
-    <value />
+    <value>It allows you to dye the elements yellow.</value>
   </data>
   <data name="Inks.Yellow.Name" xml:space="preserve">
-    <value />
+    <value>Yellow Ink</value>
   </data>
 </root>

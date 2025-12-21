@@ -119,378 +119,518 @@
   </resheader>
   <data name="Solid.Movable.Dirt.Name" xml:space="preserve">
     <value>Terra</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Mud.Name" xml:space="preserve">
     <value>Lama</value>
-    <comment/>
   </data>
   <data name="Liquid.Water.Name" xml:space="preserve">
     <value>Água</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Stone.Name" xml:space="preserve">
     <value>Pedra</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Grass.Name" xml:space="preserve">
     <value>Grama</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Ice.Name" xml:space="preserve">
     <value>Gelo</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Sand.Name" xml:space="preserve">
     <value>Areia</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Snow.Name" xml:space="preserve">
     <value>Neve</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Corruption.Name" xml:space="preserve">
     <value>Corrupção (móvel)</value>
-    <comment/>
   </data>
   <data name="Liquid.Lava.Name" xml:space="preserve">
     <value>Lava</value>
-    <comment/>
   </data>
   <data name="Liquid.Acid.Name" xml:space="preserve">
     <value>Ácido</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Glass.Name" xml:space="preserve">
     <value>Vidro</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Iron.Name" xml:space="preserve">
     <value>Ferro</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Wall.Name" xml:space="preserve">
     <value>Parede</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Wood.Name" xml:space="preserve">
     <value>Madeira</value>
-    <comment/>
   </data>
   <data name="Gas.Corruption.Name" xml:space="preserve">
     <value>Corrupção (gás)</value>
-    <comment/>
   </data>
   <data name="Liquid.Corruption.Name" xml:space="preserve">
     <value>Corrupção (líquida)</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Corruption.Name" xml:space="preserve">
     <value>Corrupção (imóvel)</value>
-    <comment/>
   </data>
   <data name="Gas.Steam.Name" xml:space="preserve">
     <value>Vapor</value>
-    <comment/>
   </data>
   <data name="Gas.Smoke.Name" xml:space="preserve">
     <value>Fumaça</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.RedBrick.Name" xml:space="preserve">
     <value>Tijolo Vermelho</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.TreeLeaf.Name" xml:space="preserve">
     <value>Folha de Árvore</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.MountingBlock.Name" xml:space="preserve">
     <value>Bloco de Montar</value>
-    <comment/>
   </data>
   <data name="Energy.Fire.Name" xml:space="preserve">
     <value>Fogo</value>
-    <comment/>
   </data>
   <data name="Energy.Fire.Description" xml:space="preserve">
     <value>Calor intenso que consome materiais inflamáveis rapidamente, espalhando destruição e fumaça.</value>
-    <comment/>
   </data>
   <data name="Gas.Corruption.Description" xml:space="preserve">
     <value>Forma gasosa que se espalha e contamina o ambiente, tornando-o inóspito.</value>
-    <comment/>
   </data>
   <data name="Gas.Smoke.Description" xml:space="preserve">
     <value>Fumaça da queima, sobe devagar e escurece o ar, sinalizando fogo.</value>
-    <comment/>
   </data>
   <data name="Gas.Steam.Description" xml:space="preserve">
     <value>Vapor de água quente que sobe rápido e se dispersa no ar. Em altitudes altas, pode se transformar em nuvens.</value>
-    <comment/>
   </data>
   <data name="Liquid.Acid.Description" xml:space="preserve">
     <value>Líquido corrosivo que dissolve vários materiais ao menor contato.</value>
-    <comment/>
   </data>
   <data name="Liquid.Corruption.Description" xml:space="preserve">
     <value>Líquido contaminante que flui e corrompe tudo o que toca.</value>
-    <comment/>
   </data>
   <data name="Liquid.Lava.Description" xml:space="preserve">
     <value>Rocha derretida que queima quase tudo ao tocar. Esfria e solidifica em contato com frio.</value>
-    <comment/>
   </data>
   <data name="Liquid.Water.Description" xml:space="preserve">
     <value>Líquido essencial, pode congelar, evaporar e apagar incêndios.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Corruption.Description" xml:space="preserve">
     <value>Corrupção cristalizada, imóvel e permanente, cria áreas contaminadas.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Glass.Description" xml:space="preserve">
     <value>Material transparente e frágil, quebra com calor ou impacto.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Iron.Description" xml:space="preserve">
     <value>Metal resistente ao fogo, mas derrete em lava.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.MountingBlock.Description" xml:space="preserve">
     <value>Bloco decorativo e funcional, inflamável, usado em construções.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.RedBrick.Description" xml:space="preserve">
     <value>Bloco durável, ideal para construções resistentes ao fogo.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
     <value>Folha natural e inflamável, usada para decoração.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Wall.Description" xml:space="preserve">
     <value>Estrutura sólida, impenetrável e estável.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Wood.Description" xml:space="preserve">
     <value>Material orgânico, muito inflamável, comum em construções.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Corruption.Description" xml:space="preserve">
     <value>Substância que se espalha, contamina e destrói o ambiente continuamente.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Dirt.Description" xml:space="preserve">
     <value>Terra seca e instável, base para vegetação. Vira lama ao contato com água.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Grass.Description" xml:space="preserve">
     <value>Grama seca, muito inflamável, queima rápido e deixa cinzas.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Ice.Description" xml:space="preserve">
     <value>Água sólida e escorregadia, derrete fácil com calor.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Mud.Description" xml:space="preserve">
     <value>Mistura de terra e água, vira terra seca ao ser aquecida.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Sand.Description" xml:space="preserve">
     <value>Grãos minerais que fluem e se acumulam. Viram vidro com calor extremo.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Snow.Description" xml:space="preserve">
     <value>Flocos de gelo que derretem e viram água com calor.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Rocha resistente a impactos, derrete em lava com calor extremo ou vira areia com erosão.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
     <value>Lâmpada</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
     <value>Lâmpada fixa e resistente, usada para decoração.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sal</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Salt.Description" xml:space="preserve">
     <value>Pó branco cristalino que se dissolve em água.</value>
-    <comment/>
   </data>
   <data name="Liquid.Oil.Name" xml:space="preserve">
     <value>Petróleo</value>
-    <comment/>
   </data>
   <data name="Liquid.Oil.Description" xml:space="preserve">
     <value>Líquido escuro, espesso e muito inflamável, de baixa densidade.</value>
-    <comment/>
   </data>
   <data name="Liquid.Saltwater.Name" xml:space="preserve">
     <value>Água Salgada</value>
-    <comment/>
   </data>
   <data name="Liquid.Saltwater.Description" xml:space="preserve">
     <value>Líquido azul claro com partículas de sal flutuando.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.DrySponge.Name" xml:space="preserve">
     <value>Esponja (seca)</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.DrySponge.Description" xml:space="preserve">
     <value>Esponja seca que absorve líquidos e é muito inflamável.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.WetSponge.Name" xml:space="preserve">
     <value>Esponja (molhada)</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.WetSponge.Description" xml:space="preserve">
     <value>Esponja molhada, mais densa e difícil de queimar. Seca com calor e desce se houver esponjas secas abaixo.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Gold.Name" xml:space="preserve">
     <value>Ouro</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Gold.Description" xml:space="preserve">
     <value>Metal amarelo brilhante, macio e maleável.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Heater.Name" xml:space="preserve">
     <value>Aquecedor</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Heater.Description" xml:space="preserve">
     <value>Dispositivo que aquece todos os elementos próximos.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Freezer.Name" xml:space="preserve">
     <value>Congelador</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Freezer.Description" xml:space="preserve">
     <value>Dispositivo que resfria todos os elementos próximos.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Bomb.Name" xml:space="preserve">
     <value>Bomba</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Bomb.Description" xml:space="preserve">
     <value>Bomba de baixa potência que explode ao colidir com outros elementos.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Dynamite.Name" xml:space="preserve">
     <value>Dinamite</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Dynamite.Description" xml:space="preserve">
     <value>Explosivo de grande raio, só explode com calor ou contato com lava/fogo.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.TNT.Name" xml:space="preserve">
     <value>TNT</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.TNT.Description" xml:space="preserve">
     <value>Explosivo moderado, destrói sólidos e deixa fumaça/fogo. Só explode com calor ou contato com lava/fogo.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Void.Name" xml:space="preserve">
     <value>Vazio</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Void.Description" xml:space="preserve">
     <value>Absorve e destrói tudo o que toca.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Clone.Name" xml:space="preserve">
     <value>Clonador</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Clone.Description" xml:space="preserve">
     <value>Gera infinitamente o elemento vizinho até ser removido.</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Ash.Name" xml:space="preserve">
     <value>Cinzas</value>
-    <comment/>
   </data>
   <data name="Solid.Movable.Ash.Description" xml:space="preserve">
     <value>Pó cinza escuro, lembra restos de madeira ou materiais queimados.</value>
-    <comment/>
   </data>
   <data name="Gas.AntiCorruption.Name" xml:space="preserve">
     <value>Anticorrupção</value>
-    <comment/>
   </data>
   <data name="Gas.AntiCorruption.Description" xml:space="preserve">
     <value>Um antídoto gasoso que tenta, por todos os meios, conter a destruição causada pela corrupção e restaurar o meio ambiente ao seu estado original.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Devourer.Name" xml:space="preserve">
     <value>Devorador</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.Devourer.Description" xml:space="preserve">
     <value>Tentará consumir tudo ao seu redor. Quando não tiver mais nada para se alimentar, explodirá.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.UpwardPusher.Name" xml:space="preserve">
     <value>Empurrador Superior</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.RightwardPusher.Name" xml:space="preserve">
     <value>Empurrador Direito</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.LeftwardPusher.Name" xml:space="preserve">
     <value>Empurrador Esquerdo</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.DownwardPusher.Name" xml:space="preserve">
     <value>Empurrador Inferior</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.UpwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para cima.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.DownwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para baixo.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.LeftwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para a esquerda.</value>
-    <comment/>
   </data>
   <data name="Solid.Immovable.RightwardPusher.Description" xml:space="preserve">
     <value>Desloca elementos vizinhos para a direita.</value>
-    <comment/>
   </data>
   <data name="Gas.Cloud.Name" xml:space="preserve">
     <value>Nuvem</value>
-    <comment/>
   </data>
   <data name="Gas.ChargedCloud.Name" xml:space="preserve">
     <value>Nuvem Carregada</value>
-    <comment/>
   </data>
   <data name="Gas.Cloud.Description" xml:space="preserve">
     <value>Massa leve de vapor condensado formada quando o vapor se acumula no topo do mapa. Pode se unir a outras nuvens, preparando o caminho para a precipitação.</value>
-    <comment/>
   </data>
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
     <value>Nuvem densa e saturada resultante do agrupamento de várias nuvens. Quando suficientemente concentrada, libera água ou neve conforme a temperatura.</value>
-    <comment/>
+  </data>
+  <data name="Energy.Lightning.Name" xml:space="preserve">
+    <value>Relâmpago</value>
+  </data>
+  <data name="Energy.Lightning.Description" xml:space="preserve">
+    <value>Descarga elétrica violenta que viaja através do ar, queimando e destruindo tudo em seu caminho.</value>
+  </data>
+  <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
+    <value>Lã Preta (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryBlackWool.Description" xml:space="preserve">
+    <value>Lã preta seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Name" xml:space="preserve">
+    <value>Lã Branca (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Description" xml:space="preserve">
+    <value>Lã branca seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Name" xml:space="preserve">
+    <value>Lã Vermelha (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Description" xml:space="preserve">
+    <value>Lã vermelha seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Name" xml:space="preserve">
+    <value>Lã Laranja (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Description" xml:space="preserve">
+    <value>Lã laranja seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Name" xml:space="preserve">
+    <value>Lã Amarela (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Description" xml:space="preserve">
+    <value>Lã amarela seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Name" xml:space="preserve">
+    <value>Lã Verde (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
+    <value>Lã verde seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
+    <value>Lã Azul (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Description" xml:space="preserve">
+    <value>Lã azul seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryGrayWool.Name" xml:space="preserve">
+    <value>Lã Cinza (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryGrayWool.Description" xml:space="preserve">
+    <value>Lã cinza seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Name" xml:space="preserve">
+    <value>Lã Violeta (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Description" xml:space="preserve">
+    <value>Lã violeta seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Name" xml:space="preserve">
+    <value>Lã Marrom (seca)</value>
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Description" xml:space="preserve">
+    <value>Lã marrom seca, macia e inflamável.</value>
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Name" xml:space="preserve">
+    <value>Lã Preta (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Description" xml:space="preserve">
+    <value>Lã preta molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Name" xml:space="preserve">
+    <value>Lã Branca (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Description" xml:space="preserve">
+    <value>Lã branca molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Name" xml:space="preserve">
+    <value>Lã Vermelha (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Description" xml:space="preserve">
+    <value>Lã vermelha molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Name" xml:space="preserve">
+    <value>Lã Laranja (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Description" xml:space="preserve">
+    <value>Lã laranja molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Name" xml:space="preserve">
+    <value>Lã Amarela (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Description" xml:space="preserve">
+    <value>Lã amarela molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Name" xml:space="preserve">
+    <value>Lã Verde (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
+    <value>Lã verde molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
+    <value>Lã Azul (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Description" xml:space="preserve">
+    <value>Lã azul molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetGrayWool.Name" xml:space="preserve">
+    <value>Lã Cinza (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetGrayWool.Description" xml:space="preserve">
+    <value>Lã cinza molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Name" xml:space="preserve">
+    <value>Lã Violeta (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Description" xml:space="preserve">
+    <value>Lã violeta molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Name" xml:space="preserve">
+    <value>Lã Marrom (molhada)</value>
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
+    <value>Lã marrom molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Name" xml:space="preserve">
+    <value>Solo Fértil</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
+    <value>Solo rico em nutrientes que promove o crescimento de plantas e sementes.</value>
+  </data>
+  <data name="Solid.Movable.Seed.Name" xml:space="preserve">
+    <value>Semente</value>
+  </data>
+  <data name="Solid.Movable.Seed.Description" xml:space="preserve">
+    <value>Pequena semente que germina em solo fértil para dar origem a mudas.</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Name" xml:space="preserve">
+    <value>Muda</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
+    <value>Jovem planta em crescimento, desenvolve-se com tempo e condições adequadas.</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Name" xml:space="preserve">
+    <value>Musgo</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
+    <value>Planta baixa e verde que cobre superfícies úmidas.</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Name" xml:space="preserve">
+    <value>Pólvora</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
+    <value>Pó explosivo sensível ao calor e fogo, explode com grande força ao contato.</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Name" xml:space="preserve">
+    <value>Gás Liquefeito de Petróleo</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
+    <value>Gás derivado do petróleo, muito inflamável e explosivo ao aquecer.</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Name" xml:space="preserve">
+    <value>Obsidiana</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
+    <value>Rocha vulcânica preta e brilhante, extremamente dura e resistente.</value>
+  </data>
+  <data name="Liquid.BlackPaint.Name" xml:space="preserve">
+    <value>Tinta Preta</value>
+  </data>
+  <data name="Liquid.BlackPaint.Description" xml:space="preserve">
+    <value>Tinta preta que flui e deixa um rastro escuro onde passa.</value>
+  </data>
+  <data name="Liquid.WhitePaint.Name" xml:space="preserve">
+    <value>Tinta Branca</value>
+  </data>
+  <data name="Liquid.WhitePaint.Description" xml:space="preserve">
+    <value>Tinta branca que flui e deixa um rastro claro onde passa.</value>
+  </data>
+  <data name="Liquid.RedPaint.Name" xml:space="preserve">
+    <value>Tinta Vermelha</value>
+  </data>
+  <data name="Liquid.RedPaint.Description" xml:space="preserve">
+    <value>Tinta vermelha que flui e deixa um rastro vermelho onde passa.</value>
+  </data>
+  <data name="Liquid.OrangePaint.Name" xml:space="preserve">
+    <value>Tinta Laranja</value>
+  </data>
+  <data name="Liquid.OrangePaint.Description" xml:space="preserve">
+    <value>Tinta laranja que flui e deixa um rastro laranja onde passa.</value>
+  </data>
+  <data name="Liquid.YellowPaint.Name" xml:space="preserve">
+    <value>Tinta Amarela</value>
+  </data>
+  <data name="Liquid.YellowPaint.Description" xml:space="preserve">
+    <value>Tinta amarela que flui e deixa um rastro amarelo onde passa.</value>
+  </data>
+  <data name="Liquid.GreenPaint.Name" xml:space="preserve">
+    <value>Tinta Verde</value>
+  </data>
+  <data name="Liquid.GreenPaint.Description" xml:space="preserve">
+    <value>Tinta verde que flui e deixa um rastro verde onde passa.</value>
+  </data>
+  <data name="Liquid.BluePaint.Name" xml:space="preserve">
+    <value>Tinta Azul</value>
+  </data>
+  <data name="Liquid.BluePaint.Description" xml:space="preserve">
+    <value>Tinta azul que flui e deixa um rastro azul onde passa.</value>
+  </data>
+  <data name="Liquid.GrayPaint.Name" xml:space="preserve">
+    <value>Tinta Cinza</value>
+  </data>
+  <data name="Liquid.GrayPaint.Description" xml:space="preserve">
+    <value>Tinta cinza que flui e deixa um rastro cinza onde passa.</value>
+  </data>
+  <data name="Liquid.VioletPaint.Name" xml:space="preserve">
+    <value>Tinta Violeta</value>
+  </data>
+  <data name="Liquid.VioletPaint.Description" xml:space="preserve">
+    <value>Tinta violeta que flui e deixa um rastro violeta onde passa.</value>
+  </data>
+  <data name="Liquid.BrownPaint.Name" xml:space="preserve">
+    <value>Tinta Marrom</value>
+  </data>
+  <data name="Liquid.BrownPaint.Description" xml:space="preserve">
+    <value>Tinta marrom que flui e deixa um rastro marrom onde passa.</value>
+  </data>
+  <data name="Liquid.Mercury.Name" xml:space="preserve">
+    <value>Mercúrio</value>
+  </data>
+  <data name="Liquid.Mercury.Description" xml:space="preserve">
+    <value>Líquido metálico denso e brilhante, além de ser tóxico.</value>
   </data>
 </root>

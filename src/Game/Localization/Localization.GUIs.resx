@@ -333,50 +333,8 @@
   <data name="EnvironmentSettings.TimeState.Title" xml:space="preserve">
     <value>State</value>
   </data>
-  <data name="EnvironmentSettings.Time.Title" xml:space="preserve">
+  <data name="EnvironmentSettings.TimeOfDay.Title" xml:space="preserve">
     <value>Time</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Midnight.Title" xml:space="preserve">
-    <value>Midnight</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Dawn.Title" xml:space="preserve">
-    <value>Dawn</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Morning.Title" xml:space="preserve">
-    <value>Morning</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Noon.Title" xml:space="preserve">
-    <value>Noon</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Afternoon.Title" xml:space="preserve">
-    <value>Afternoon</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Dusk.Title" xml:space="preserve">
-    <value>Dusk</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Evening.Title" xml:space="preserve">
-    <value>Evening</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Afternoon.Description" xml:space="preserve">
-    <value>Jump to afternoon (03:00 PM).</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Dawn.Description" xml:space="preserve">
-    <value>Jump to dawn (06:00 AM).</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Dusk.Description" xml:space="preserve">
-    <value>Jump to dusk (06:00 PM).</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Evening.Description" xml:space="preserve">
-    <value>Jump to evening (09:00 PM).</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Midnight.Description" xml:space="preserve">
-    <value>Jump to midnight (00:00).</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Morning.Description" xml:space="preserve">
-    <value>Jump to morning (09:00 AM).</value>
-  </data>
-  <data name="EnvironmentSettings.Time.Noon.Description" xml:space="preserve">
-    <value>Jump to noon (12:00 PM).</value>
   </data>
   <data name="EnvironmentSettings.TimeState.Disable.Description" xml:space="preserve">
     <value>Disable the time progression, freezing the current time.</value>
@@ -562,70 +520,70 @@
     <value>Frame Rate</value>
   </data>
   <data name="Options.Gameplay.ShowPreviewArea.Name" xml:space="preserve">
-    <value />
+    <value>Show Preview Area</value>
   </data>
   <data name="Options.Gameplay.ShowPreviewArea.Description" xml:space="preserve">
-    <value />
+    <value>Configure whether or not the mouse preview area for element placement should be displayed.</value>
   </data>
   <data name="Options.Gameplay.ShowGrid.Name" xml:space="preserve">
-    <value />
+    <value>Show Grid</value>
   </data>
   <data name="Options.Gameplay.ShowGrid.Description" xml:space="preserve">
-    <value />
+    <value>Configure whether or not the world grid should be displayed.</value>
   </data>
   <data name="Options.Gameplay.GridOpacity.Name" xml:space="preserve">
-    <value />
+    <value>Grid Opacity</value>
   </data>
   <data name="Options.Gameplay.GridOpacity.Description" xml:space="preserve">
-    <value />
+    <value>Configure the opacity level of the world grid.</value>
   </data>
   <data name="Options.Gameplay.ShowTemperatureColorVariations.Name" xml:space="preserve">
-    <value />
+    <value>Temperature Color</value>
   </data>
   <data name="Options.Gameplay.ShowTemperatureColorVariations.Description" xml:space="preserve">
-    <value />
+    <value>Determine whether or not the elements should have color changes associated with their current temperatures.</value>
   </data>
   <data name="Options.Controls.Name" xml:space="preserve">
-    <value />
+    <value>Controls</value>
   </data>
   <data name="Options.Controls.Description" xml:space="preserve">
-    <value />
+    <value>Configure the keys and buttons associated with the game controls.</value>
   </data>
   <data name="Options.Controls.MoveCameraUp.Name" xml:space="preserve">
-    <value />
+    <value>Up</value>
   </data>
   <data name="Options.Controls.MoveCameraUp.Description" xml:space="preserve">
-    <value />
+    <value>Press a key on the keyboard to move upwards.</value>
   </data>
   <data name="Options.Controls.MoveCameraRight.Name" xml:space="preserve">
-    <value />
+    <value>Right</value>
   </data>
   <data name="Options.Controls.MoveCameraRight.Description" xml:space="preserve">
-    <value />
+    <value>Press a key on the keyboard to move to the right.</value>
   </data>
   <data name="Options.Controls.MoveCameraDown.Name" xml:space="preserve">
-    <value />
+    <value>Down</value>
   </data>
   <data name="Options.Controls.MoveCameraDown.Description" xml:space="preserve">
-    <value />
+    <value>Press a key on the keyboard to move down.</value>
   </data>
   <data name="Options.Controls.MoveCameraLeft.Name" xml:space="preserve">
-    <value />
+    <value>Left</value>
   </data>
   <data name="Options.Controls.MoveCameraLeft.Description" xml:space="preserve">
-    <value />
+    <value>Press a key on the keyboard to move left.</value>
   </data>
   <data name="Options.Controls.TogglePause.Name" xml:space="preserve">
-    <value />
+    <value>Pause</value>
   </data>
   <data name="Options.Controls.TogglePause.Description" xml:space="preserve">
-    <value />
+    <value>Type a shortcut key to pause the world.</value>
   </data>
   <data name="Options.Controls.ClearWorld.Name" xml:space="preserve">
-    <value />
+    <value>Clear World</value>
   </data>
   <data name="Options.Controls.ClearWorld.Description" xml:space="preserve">
-    <value />
+    <value>Type a shortcut key to clear the world.</value>
   </data>
   <data name="Save.Name.Title" xml:space="preserve">
     <value>Name</value>
@@ -634,27 +592,132 @@
     <value>Simulation Paused</value>
   </data>
   <data name="EnvironmentSettings.TemperatureEditor.Name" xml:space="preserve">
-    <value />
+    <value>Temperatures</value>
   </data>
   <data name="EnvironmentSettings.TemperatureEditor.Description" xml:space="preserve">
-    <value />
+    <value>Change the world's temperatures.</value>
   </data>
   <data name="TemperatureSettings.Name" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PenSettings.LayerVisibility.Name" xml:space="preserve">
-    <value />
+    <value>Temperature Settings</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideForegroundLayer.Name" xml:space="preserve">
-    <value />
+    <value>Foreground (Show/Hide)</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideForegroundLayer.Description" xml:space="preserve">
-    <value />
+    <value>Choose whether you want to hide or show the foreground layer.</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideBackgroundLayer.Name" xml:space="preserve">
-    <value />
+    <value>Background (Show/Hide)</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideBackgroundLayer.Description" xml:space="preserve">
-    <value />
+    <value>Choose whether you want to hide or show the background layer.</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.None.Name" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.None.Description" xml:space="preserve">
+    <value>No temperature effect.</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.VeryCold.Name" xml:space="preserve">
+    <value>Very Cold</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.VeryCold.Description" xml:space="preserve">
+    <value>Extremely cold temperature effect.</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.Cold.Name" xml:space="preserve">
+    <value>Cold</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.Cold.Description" xml:space="preserve">
+    <value>Mildly cold temperature effect.</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.Normal.Name" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.Normal.Description" xml:space="preserve">
+    <value>Normal temperature effect.</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.Hot.Name" xml:space="preserve">
+    <value>Hot</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.Hot.Description" xml:space="preserve">
+    <value>Mildly hot temperature effect.</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.VeryHot.Name" xml:space="preserve">
+    <value>Very Hot</value>
+  </data>
+  <data name="TemperatureSettings.Temperature.VeryHot.Description" xml:space="preserve">
+    <value>Extremely hot temperature effect.</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.LateNight" xml:space="preserve">
+    <value>Late Night</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.EarlyMorning" xml:space="preserve">
+    <value>Early Morning</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.Dawn" xml:space="preserve">
+    <value>Dawn</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.Morning" xml:space="preserve">
+    <value>Morning</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.EarlyAfternoon" xml:space="preserve">
+    <value>Early Afternoon</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.Afternoon" xml:space="preserve">
+    <value>Afternoon</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.Evening" xml:space="preserve">
+    <value>Evening</value>
+  </data>
+  <data name="TemperatureSettings.TimeOfDay.Night" xml:space="preserve">
+    <value>Night</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.LateNight.Name" xml:space="preserve">
+    <value>Late Night</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.LateNight.Description" xml:space="preserve">
+    <value>Set the time to 00:00 AM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.EarlyMorning.Name" xml:space="preserve">
+    <value>Early Morning</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.EarlyMorning.Description" xml:space="preserve">
+    <value>Set the time to 03:00 AM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Dawn.Name" xml:space="preserve">
+    <value>Dawn</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Dawn.Description" xml:space="preserve">
+    <value>Set the time to 06:00 AM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Morning.Name" xml:space="preserve">
+    <value>Morning</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Morning.Description" xml:space="preserve">
+    <value>Set the time to 08:00 AM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.EarlyAfternoon.Name" xml:space="preserve">
+    <value>Early Afternoon</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.EarlyAfternoon.Description" xml:space="preserve">
+    <value>Set the time to 12:00 PM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Afternoon.Name" xml:space="preserve">
+    <value>Afternoon</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Afternoon.Description" xml:space="preserve">
+    <value>Set the time to 03:00 PM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Evening.Name" xml:space="preserve">
+    <value>Evening</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Evening.Description" xml:space="preserve">
+    <value>Set the time to 06:00 PM.</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Night.Name" xml:space="preserve">
+    <value>Night</value>
+  </data>
+  <data name="EnvironmentSettings.TimeOfDay.Night.Description" xml:space="preserve">
+    <value>Set the time to 08:00 PM.</value>
   </data>
 </root>

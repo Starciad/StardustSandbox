@@ -259,7 +259,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Temperature.
         /// </summary>
         internal static string Temperature {
             get {

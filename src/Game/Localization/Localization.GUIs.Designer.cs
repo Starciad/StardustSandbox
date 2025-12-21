@@ -178,7 +178,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change the world&apos;s temperatures..
         /// </summary>
         internal static string EnvironmentSettings_TemperatureEditor_Description {
             get {
@@ -187,7 +187,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Temperatures.
         /// </summary>
         internal static string EnvironmentSettings_TemperatureEditor_Name {
             get {
@@ -196,137 +196,155 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to afternoon (03:00 PM)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 03:00 PM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Afternoon_Description {
+        internal static string EnvironmentSettings_TimeOfDay_Afternoon_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Afternoon.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Afternoon.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Afternoon.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Afternoon_Title {
+        internal static string EnvironmentSettings_TimeOfDay_Afternoon_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Afternoon.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Afternoon.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dawn (06:00 AM)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 06:00 AM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Dawn_Description {
+        internal static string EnvironmentSettings_TimeOfDay_Dawn_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Dawn.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Dawn.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Dawn.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Dawn_Title {
+        internal static string EnvironmentSettings_TimeOfDay_Dawn_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Dawn.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Dawn.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to dusk (06:00 PM)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 12:00 PM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Dusk_Description {
+        internal static string EnvironmentSettings_TimeOfDay_EarlyAfternoon_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Dusk.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.EarlyAfternoon.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Dusk.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Early Afternoon.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Dusk_Title {
+        internal static string EnvironmentSettings_TimeOfDay_EarlyAfternoon_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Dusk.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.EarlyAfternoon.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to evening (09:00 PM)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 03:00 AM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Evening_Description {
+        internal static string EnvironmentSettings_TimeOfDay_EarlyMorning_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Evening.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.EarlyMorning.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Early Morning.
+        /// </summary>
+        internal static string EnvironmentSettings_TimeOfDay_EarlyMorning_Name {
+            get {
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.EarlyMorning.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 06:00 PM..
+        /// </summary>
+        internal static string EnvironmentSettings_TimeOfDay_Evening_Description {
+            get {
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Evening.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Evening.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Evening_Title {
+        internal static string EnvironmentSettings_TimeOfDay_Evening_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Evening.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Evening.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to midnight (00:00)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 00:00 AM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Midnight_Description {
+        internal static string EnvironmentSettings_TimeOfDay_LateNight_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Midnight.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.LateNight.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Midnight.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Late Night.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Midnight_Title {
+        internal static string EnvironmentSettings_TimeOfDay_LateNight_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Midnight.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.LateNight.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to morning (09:00 AM)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 08:00 AM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Morning_Description {
+        internal static string EnvironmentSettings_TimeOfDay_Morning_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Morning.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Morning.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Morning.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Morning_Title {
+        internal static string EnvironmentSettings_TimeOfDay_Morning_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Morning.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Morning.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Jump to noon (12:00 PM)..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Set the time to 08:00 PM..
         /// </summary>
-        internal static string EnvironmentSettings_Time_Noon_Description {
+        internal static string EnvironmentSettings_TimeOfDay_Night_Description {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Noon.Description", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Night.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Noon.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Night.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Noon_Title {
+        internal static string EnvironmentSettings_TimeOfDay_Night_Name {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Noon.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Night.Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Time.
         /// </summary>
-        internal static string EnvironmentSettings_Time_Title {
+        internal static string EnvironmentSettings_TimeOfDay_Title {
             get {
-                return ResourceManager.GetString("EnvironmentSettings.Time.Title", resourceCulture);
+                return ResourceManager.GetString("EnvironmentSettings.TimeOfDay.Title", resourceCulture);
             }
         }
         
@@ -673,7 +691,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to clear the world..
         /// </summary>
         internal static string Options_Controls_ClearWorld_Description {
             get {
@@ -682,7 +700,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Clear World.
         /// </summary>
         internal static string Options_Controls_ClearWorld_Name {
             get {
@@ -691,7 +709,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Configure the keys and buttons associated with the game controls..
         /// </summary>
         internal static string Options_Controls_Description {
             get {
@@ -700,7 +718,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Press a key on the keyboard to move down..
         /// </summary>
         internal static string Options_Controls_MoveCameraDown_Description {
             get {
@@ -709,7 +727,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Down.
         /// </summary>
         internal static string Options_Controls_MoveCameraDown_Name {
             get {
@@ -718,7 +736,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Press a key on the keyboard to move left..
         /// </summary>
         internal static string Options_Controls_MoveCameraLeft_Description {
             get {
@@ -727,7 +745,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Left.
         /// </summary>
         internal static string Options_Controls_MoveCameraLeft_Name {
             get {
@@ -736,7 +754,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Press a key on the keyboard to move to the right..
         /// </summary>
         internal static string Options_Controls_MoveCameraRight_Description {
             get {
@@ -745,7 +763,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Right.
         /// </summary>
         internal static string Options_Controls_MoveCameraRight_Name {
             get {
@@ -754,7 +772,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Press a key on the keyboard to move upwards..
         /// </summary>
         internal static string Options_Controls_MoveCameraUp_Description {
             get {
@@ -763,7 +781,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Up.
         /// </summary>
         internal static string Options_Controls_MoveCameraUp_Name {
             get {
@@ -772,7 +790,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Controls.
         /// </summary>
         internal static string Options_Controls_Name {
             get {
@@ -781,7 +799,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to pause the world..
         /// </summary>
         internal static string Options_Controls_TogglePause_Description {
             get {
@@ -790,7 +808,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pause.
         /// </summary>
         internal static string Options_Controls_TogglePause_Name {
             get {
@@ -898,7 +916,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Configure the opacity level of the world grid..
         /// </summary>
         internal static string Options_Gameplay_GridOpacity_Description {
             get {
@@ -907,7 +925,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Grid Opacity.
         /// </summary>
         internal static string Options_Gameplay_GridOpacity_Name {
             get {
@@ -961,7 +979,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Configure whether or not the world grid should be displayed..
         /// </summary>
         internal static string Options_Gameplay_ShowGrid_Description {
             get {
@@ -970,7 +988,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Show Grid.
         /// </summary>
         internal static string Options_Gameplay_ShowGrid_Name {
             get {
@@ -979,7 +997,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Configure whether or not the mouse preview area for element placement should be displayed..
         /// </summary>
         internal static string Options_Gameplay_ShowPreviewArea_Description {
             get {
@@ -988,7 +1006,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Show Preview Area.
         /// </summary>
         internal static string Options_Gameplay_ShowPreviewArea_Name {
             get {
@@ -997,7 +1015,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Determine whether or not the elements should have color changes associated with their current temperatures..
         /// </summary>
         internal static string Options_Gameplay_ShowTemperatureColorVariations_Description {
             get {
@@ -1006,7 +1024,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Temperature Color.
         /// </summary>
         internal static string Options_Gameplay_ShowTemperatureColorVariations_Name {
             get {
@@ -1330,16 +1348,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
-        /// </summary>
-        internal static string PenSettings_LayerVisibility_Name {
-            get {
-                return ResourceManager.GetString("PenSettings.LayerVisibility.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Choose whether you want to hide or show the background layer..
         /// </summary>
         internal static string PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Description {
             get {
@@ -1348,7 +1357,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background (Show/Hide).
         /// </summary>
         internal static string PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Name {
             get {
@@ -1357,7 +1366,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Choose whether you want to hide or show the foreground layer..
         /// </summary>
         internal static string PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Description {
             get {
@@ -1366,7 +1375,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground (Show/Hide).
         /// </summary>
         internal static string PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Name {
             get {
@@ -1510,11 +1519,191 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Temperature Settings.
         /// </summary>
         internal static string TemperatureSettings_Name {
             get {
                 return ResourceManager.GetString("TemperatureSettings.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mildly cold temperature effect..
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_Cold_Description {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.Cold.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cold.
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_Cold_Name {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.Cold.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mildly hot temperature effect..
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_Hot_Description {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.Hot.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hot.
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_Hot_Name {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.Hot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a No temperature effect..
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_None_Description {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.None.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a None.
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_None_Name {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.None.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Normal temperature effect..
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_Normal_Description {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.Normal.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Normal.
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_Normal_Name {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.Normal.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Extremely cold temperature effect..
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_VeryCold_Description {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.VeryCold.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Very Cold.
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_VeryCold_Name {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.VeryCold.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Extremely hot temperature effect..
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_VeryHot_Description {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.VeryHot.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Very Hot.
+        /// </summary>
+        internal static string TemperatureSettings_Temperature_VeryHot_Name {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.Temperature.VeryHot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Afternoon.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_Afternoon {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.Afternoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dawn.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_Dawn {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.Dawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Early Afternoon.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_EarlyAfternoon {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.EarlyAfternoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Early Morning.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_EarlyMorning {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.EarlyMorning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Evening.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_Evening {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.Evening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Late Night.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_LateNight {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.LateNight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Morning.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_Morning {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.Morning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Night.
+        /// </summary>
+        internal static string TemperatureSettings_TimeOfDay_Night {
+            get {
+                return ResourceManager.GetString("TemperatureSettings.TimeOfDay.Night", resourceCulture);
             }
         }
         

@@ -183,17 +183,16 @@
   <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
     <value>Elementos especiais que automatizam tarefas e auxiliam em diversas criações.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Subcategory.Elements.Vegetation.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
+    <value>Vegetação</value>
   </data>
-  <data name="Subcategory.Elements.Vegetation.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
+    <value>Elementos naturais que trazem vida ao mundo.</value>
   </data>
-  <data name="Subcategory.Tools.Inks.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
+    <value>Tintas</value>
   </data>
-  <data name="Subcategory.Tools.Inks.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
+    <value>Ferramentas que concedem a habilidade de tingir elementos do mundo.</value>
   </data>
 </root>

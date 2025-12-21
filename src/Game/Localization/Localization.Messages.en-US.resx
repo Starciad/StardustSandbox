@@ -142,7 +142,7 @@
     <value>Change world size? Progress will be lost</value>
   </data>
   <data name="Information.NoTemperature" xml:space="preserve">
-    <value>Global temperature is disabled at this time.</value>
+    <value>No temperature is being applied.</value>
   </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Enter a description for the world.</value>

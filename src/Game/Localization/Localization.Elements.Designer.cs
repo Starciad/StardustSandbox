@@ -19,7 +19,7 @@ namespace StardustSandbox.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_Elements {
@@ -79,7 +79,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A violent electrical discharge that travels through the air, burning and destroying everything in its path..
         /// </summary>
         internal static string Energy_Lightning_Description {
             get {
@@ -88,14 +88,14 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lightning.
         /// </summary>
         internal static string Energy_Lightning_Name {
             get {
                 return ResourceManager.GetString("Energy.Lightning.Name", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A gaseous antidote that attempts, by all means, to contain the destruction caused by corruption and restore the environment to its original state..
         /// </summary>
@@ -169,7 +169,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gas derived from petroleum, highly flammable and explosive when heated..
         /// </summary>
         internal static string Gas_LiquefiedPetroleumGas_Description {
             get {
@@ -178,7 +178,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Liquefied Petroleum Gas.
         /// </summary>
         internal static string Gas_LiquefiedPetroleumGas_Name {
             get {
@@ -241,7 +241,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Black paint that flows and leaves a dark trail where it passes..
         /// </summary>
         internal static string Liquid_BlackPaint_Description {
             get {
@@ -250,7 +250,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Black Paint.
         /// </summary>
         internal static string Liquid_BlackPaint_Name {
             get {
@@ -259,7 +259,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Blue paint that flows and leaves a blue trail where it passes..
         /// </summary>
         internal static string Liquid_BluePaint_Description {
             get {
@@ -268,7 +268,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Blue Paint.
         /// </summary>
         internal static string Liquid_BluePaint_Name {
             get {
@@ -277,7 +277,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Brown paint that flows and leaves a brown trail where it passes..
         /// </summary>
         internal static string Liquid_BrownPaint_Description {
             get {
@@ -286,7 +286,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Brown Paint.
         /// </summary>
         internal static string Liquid_BrownPaint_Name {
             get {
@@ -313,7 +313,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gray paint that flows and leaves a gray trail where it passes..
         /// </summary>
         internal static string Liquid_GrayPaint_Description {
             get {
@@ -322,7 +322,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gray Paint.
         /// </summary>
         internal static string Liquid_GrayPaint_Name {
             get {
@@ -331,7 +331,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Green paint that flows and leaves a green trail where it passes..
         /// </summary>
         internal static string Liquid_GreenPaint_Description {
             get {
@@ -340,7 +340,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Green Paint.
         /// </summary>
         internal static string Liquid_GreenPaint_Name {
             get {
@@ -367,7 +367,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dense, shiny metallic liquid, also toxic..
         /// </summary>
         internal static string Liquid_Mercury_Description {
             get {
@@ -376,7 +376,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mercury.
         /// </summary>
         internal static string Liquid_Mercury_Name {
             get {
@@ -403,7 +403,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Orange paint that flows and leaves an orange trail where it passes..
         /// </summary>
         internal static string Liquid_OrangePaint_Description {
             get {
@@ -412,7 +412,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Orange Paint.
         /// </summary>
         internal static string Liquid_OrangePaint_Name {
             get {
@@ -421,7 +421,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Red paint that flows and leaves a red trail where it passes..
         /// </summary>
         internal static string Liquid_RedPaint_Description {
             get {
@@ -430,7 +430,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Red Paint.
         /// </summary>
         internal static string Liquid_RedPaint_Name {
             get {
@@ -457,7 +457,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Violet paint that flows and leaves a violet trail where it passes..
         /// </summary>
         internal static string Liquid_VioletPaint_Description {
             get {
@@ -466,7 +466,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Violet Paint.
         /// </summary>
         internal static string Liquid_VioletPaint_Name {
             get {
@@ -493,7 +493,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a White paint that flows and leaves a light trail where it passes..
         /// </summary>
         internal static string Liquid_WhitePaint_Description {
             get {
@@ -502,7 +502,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a White Paint.
         /// </summary>
         internal static string Liquid_WhitePaint_Name {
             get {
@@ -511,7 +511,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Yellow paint that flows and leaves a yellow trail where it passes..
         /// </summary>
         internal static string Liquid_YellowPaint_Description {
             get {
@@ -520,7 +520,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Yellow Paint.
         /// </summary>
         internal static string Liquid_YellowPaint_Name {
             get {
@@ -601,7 +601,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry black wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryBlackWool_Description {
             get {
@@ -610,7 +610,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Black Wool.
         /// </summary>
         internal static string Solid_Immovable_DryBlackWool_Name {
             get {
@@ -619,7 +619,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry blue wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryBlueWool_Description {
             get {
@@ -628,7 +628,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Blue Wool.
         /// </summary>
         internal static string Solid_Immovable_DryBlueWool_Name {
             get {
@@ -637,7 +637,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry brown wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryBrownWool_Description {
             get {
@@ -646,7 +646,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Brown Wool.
         /// </summary>
         internal static string Solid_Immovable_DryBrownWool_Name {
             get {
@@ -655,7 +655,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry gray wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryGrayWool_Description {
             get {
@@ -664,7 +664,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Gray Wool.
         /// </summary>
         internal static string Solid_Immovable_DryGrayWool_Name {
             get {
@@ -673,7 +673,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry green wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryGreenWool_Description {
             get {
@@ -682,7 +682,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Green Wool.
         /// </summary>
         internal static string Solid_Immovable_DryGreenWool_Name {
             get {
@@ -691,7 +691,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry orange wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryOrangeWool_Description {
             get {
@@ -700,7 +700,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Orange Wool.
         /// </summary>
         internal static string Solid_Immovable_DryOrangeWool_Name {
             get {
@@ -709,7 +709,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry red wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryRedWool_Description {
             get {
@@ -718,7 +718,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Red Wool.
         /// </summary>
         internal static string Solid_Immovable_DryRedWool_Name {
             get {
@@ -745,7 +745,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry violet wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryVioletWool_Description {
             get {
@@ -754,7 +754,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Violet Wool.
         /// </summary>
         internal static string Solid_Immovable_DryVioletWool_Name {
             get {
@@ -763,7 +763,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry white wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryWhiteWool_Description {
             get {
@@ -772,7 +772,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry White Wool.
         /// </summary>
         internal static string Solid_Immovable_DryWhiteWool_Name {
             get {
@@ -781,7 +781,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry yellow wool, soft and flammable..
         /// </summary>
         internal static string Solid_Immovable_DryYellowWool_Description {
             get {
@@ -790,7 +790,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Dry Yellow Wool.
         /// </summary>
         internal static string Solid_Immovable_DryYellowWool_Name {
             get {
@@ -925,7 +925,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Low green plant that covers damp surfaces..
         /// </summary>
         internal static string Solid_Immovable_Moss_Description {
             get {
@@ -934,7 +934,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Moss.
         /// </summary>
         internal static string Solid_Immovable_Moss_Name {
             get {
@@ -961,7 +961,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Black, shiny volcanic rock, extremely hard and durable..
         /// </summary>
         internal static string Solid_Immovable_Obsidian_Description {
             get {
@@ -970,7 +970,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Obsidian.
         /// </summary>
         internal static string Solid_Immovable_Obsidian_Name {
             get {
@@ -1087,7 +1087,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet black wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetBlackWool_Description {
             get {
@@ -1096,7 +1096,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Black Wool.
         /// </summary>
         internal static string Solid_Immovable_WetBlackWool_Name {
             get {
@@ -1105,7 +1105,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet blue wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetBlueWool_Description {
             get {
@@ -1114,7 +1114,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Blue Wool.
         /// </summary>
         internal static string Solid_Immovable_WetBlueWool_Name {
             get {
@@ -1123,7 +1123,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet brown wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetBrownWool_Description {
             get {
@@ -1132,7 +1132,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Brown Wool.
         /// </summary>
         internal static string Solid_Immovable_WetBrownWool_Name {
             get {
@@ -1141,7 +1141,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet gray wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetGrayWool_Description {
             get {
@@ -1150,7 +1150,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Gray Wool.
         /// </summary>
         internal static string Solid_Immovable_WetGrayWool_Name {
             get {
@@ -1159,7 +1159,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet green wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetGreenWool_Description {
             get {
@@ -1168,7 +1168,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Green Wool.
         /// </summary>
         internal static string Solid_Immovable_WetGreenWool_Name {
             get {
@@ -1177,7 +1177,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet orange wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetOrangeWool_Description {
             get {
@@ -1186,7 +1186,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Orange Wool.
         /// </summary>
         internal static string Solid_Immovable_WetOrangeWool_Name {
             get {
@@ -1195,7 +1195,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet red wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetRedWool_Description {
             get {
@@ -1204,7 +1204,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Red Wool.
         /// </summary>
         internal static string Solid_Immovable_WetRedWool_Name {
             get {
@@ -1231,7 +1231,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet violet wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetVioletWool_Description {
             get {
@@ -1240,7 +1240,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Violet Wool.
         /// </summary>
         internal static string Solid_Immovable_WetVioletWool_Name {
             get {
@@ -1249,7 +1249,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet white wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetWhiteWool_Description {
             get {
@@ -1258,7 +1258,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet White Wool.
         /// </summary>
         internal static string Solid_Immovable_WetWhiteWool_Name {
             get {
@@ -1267,7 +1267,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet yellow wool, denser and harder to burn..
         /// </summary>
         internal static string Solid_Immovable_WetYellowWool_Description {
             get {
@@ -1276,7 +1276,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Wet Yellow Wool.
         /// </summary>
         internal static string Solid_Immovable_WetYellowWool_Name {
             get {
@@ -1393,7 +1393,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nutrient-rich soil that promotes the growth of plants and seeds..
         /// </summary>
         internal static string Solid_Movable_FertileSoil_Description {
             get {
@@ -1402,7 +1402,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fertile Soil.
         /// </summary>
         internal static string Solid_Movable_FertileSoil_Name {
             get {
@@ -1429,7 +1429,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Explosive powder sensitive to heat and fire, explodes with great force upon contact..
         /// </summary>
         internal static string Solid_Movable_Gunpowder_Description {
             get {
@@ -1438,7 +1438,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gunpowder.
         /// </summary>
         internal static string Solid_Movable_Gunpowder_Name {
             get {
@@ -1519,7 +1519,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Young plant in growth, develops with time and suitable conditions..
         /// </summary>
         internal static string Solid_Movable_Sapling_Description {
             get {
@@ -1528,7 +1528,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Seedling.
         /// </summary>
         internal static string Solid_Movable_Sapling_Name {
             get {
@@ -1537,7 +1537,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Small seed that germinates in fertile soil to give rise to seedlings..
         /// </summary>
         internal static string Solid_Movable_Seed_Description {
             get {
@@ -1546,7 +1546,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Seed.
         /// </summary>
         internal static string Solid_Movable_Seed_Name {
             get {

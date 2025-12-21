@@ -54,13 +54,14 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.timeButtonInfos = [
-                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Midnight_Title, Localization_GUIs.EnvironmentSettings_Time_Midnight_Description, () => this.world.Time.SetTime(new(0, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(32, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Dawn_Title, Localization_GUIs.EnvironmentSettings_Time_Dawn_Description, () => this.world.Time.SetTime(new(6, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(64, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Morning_Title, Localization_GUIs.EnvironmentSettings_Time_Morning_Description, () => this.world.Time.SetTime(new(9, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(96, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Noon_Title, Localization_GUIs.EnvironmentSettings_Time_Noon_Description, () => this.world.Time.SetTime(new(12, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(128, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Afternoon_Title, Localization_GUIs.EnvironmentSettings_Time_Afternoon_Description, () => this.world.Time.SetTime(new(15, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(160, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Dusk_Title, Localization_GUIs.EnvironmentSettings_Time_Dusk_Description, () => this.world.Time.SetTime(new(18, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(192, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Evening_Title, Localization_GUIs.EnvironmentSettings_Time_Evening_Description, () => this.world.Time.SetTime(new(21, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_LateNight_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_LateNight_Description, () => this.world.Time.SetTime(new(0, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_EarlyMorning_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_EarlyMorning_Description, () => this.world.Time.SetTime(new(3, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Dawn_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Dawn_Description, () => this.world.Time.SetTime(new(6, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Morning_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Morning_Description, () => this.world.Time.SetTime(new(8, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_EarlyAfternoon_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_EarlyAfternoon_Description, () => this.world.Time.SetTime(new(12, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Afternoon_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Afternoon_Description, () => this.world.Time.SetTime(new(15, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Evening_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Evening_Description, () => this.world.Time.SetTime(new(18, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Night_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Night_Description, () => this.world.Time.SetTime(new(20, 0, 0))),
             ];
 
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
@@ -187,7 +188,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(this.timeStateButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.EnvironmentSettings_Time_Title
+                TextContent = Localization_GUIs.EnvironmentSettings_TimeOfDay_Title
             };
 
             this.timeStateSectionTitle.AddChild(this.timeSectionTitle);

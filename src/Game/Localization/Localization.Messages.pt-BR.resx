@@ -141,6 +141,9 @@
   <data name="Confirm.World.Resize.Title" xml:space="preserve">
     <value>Mudar Tamanho do Mundo - Progresso Será Perdido</value>
   </data>
+  <data name="Information.NoTemperature" xml:space="preserve">
+    <value>Nenhuma temperatura está sendo aplicada.</value>
+  </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Digite a descrição do mundo.</value>
   </data>

@@ -183,17 +183,16 @@
   <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
     <value>Special elements that automate tasks and help with different creations.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Subcategory.Elements.Vegetation.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
+    <value>Vegetation</value>
   </data>
-  <data name="Subcategory.Elements.Vegetation.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
+    <value>Natural elements that bring life to the world.</value>
   </data>
-  <data name="Subcategory.Tools.Inks.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
+    <value>Inks</value>
   </data>
-  <data name="Subcategory.Tools.Inks.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
+    <value>Tools that grant you the ability to dye elements of the world.</value>
   </data>
 </root>

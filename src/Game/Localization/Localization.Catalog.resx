@@ -184,15 +184,15 @@
     <value>Special elements that automate tasks and help with different creations.</value>
   </data>
   <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
-    <value />
+    <value>Vegetation</value>
   </data>
   <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
-    <value />
+    <value>Natural elements that bring life to the world.</value>
   </data>
   <data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
-    <value />
+    <value>Inks</value>
   </data>
   <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
-    <value />
+    <value>Tools that grant you the ability to dye elements of the world.</value>
   </data>
 </root>

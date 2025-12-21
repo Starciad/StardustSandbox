@@ -133,7 +133,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Global temperature is disabled at this time..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a No temperature is being applied..
         /// </summary>
         internal static string Information_NoTemperature {
             get {
