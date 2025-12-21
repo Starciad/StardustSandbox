@@ -56,7 +56,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.2f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.Center,
-                TextContent = Localization_GUIs.Menu_Play_Title,
+                TextContent = Localization_GUIs.Play_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,

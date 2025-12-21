@@ -59,12 +59,12 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.sizeButtonInfos = [
-                new(TextureIndex.IconUI, new(0, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
-                new(TextureIndex.IconUI, new(32, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
-                new(TextureIndex.IconUI, new(64, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
-                new(TextureIndex.IconUI, new(96, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[3]); }),
-                new(TextureIndex.IconUI, new(128, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[4]); }),
-                new(TextureIndex.IconUI, new(160, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
+                new(TextureIndex.IconUI, new(0, 128, 32, 32), Localization_GUIs.WorldSettings_Size_Small_Name, Localization_GUIs.WorldSettings_Size_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
+                new(TextureIndex.IconUI, new(32, 128, 32, 32), Localization_GUIs.WorldSettings_Size_MediumSmall_Name, Localization_GUIs.WorldSettings_Size_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
+                new(TextureIndex.IconUI, new(64, 128, 32, 32), Localization_GUIs.WorldSettings_Size_Medium_Name, Localization_GUIs.WorldSettings_Size_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
+                new(TextureIndex.IconUI, new(96, 128, 32, 32), Localization_GUIs.WorldSettings_Size_MediumLarge_Name, Localization_GUIs.WorldSettings_Size_MediumLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[3]); }),
+                new(TextureIndex.IconUI, new(128, 128, 32, 32), Localization_GUIs.WorldSettings_Size_Large_Name, Localization_GUIs.WorldSettings_Size_Large_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[4]); }),
+                new(TextureIndex.IconUI, new(160, 128, 32, 32), Localization_GUIs.WorldSettings_Size_VeryLarge_Name, Localization_GUIs.WorldSettings_Size_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
             ];
 
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
@@ -93,7 +93,7 @@ namespace StardustSandbox.UI.Common.HUD
                         {
                             ControlSettings controlSettings = SettingsSerializer.LoadSettings<ControlSettings>();
 
-                            this.messageUI.SetContent(string.Format("Hey! Your world is much bigger now! Use {0}, {1}, {2} and {3} to move your camera!", controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
+                            this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
                             this.uiManager.OpenGUI(UIIndex.Message);
 
                             SettingsSerializer.SaveSettings<StatusSettings>(new(statusSettings)
@@ -150,7 +150,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Title,
+                TextContent = Localization_GUIs.WorldSettings_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -192,7 +192,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Title
+                TextContent = Localization_GUIs.WorldSettings_Size_Title
             };
 
             this.background.AddChild(this.sizeSectionTitle);

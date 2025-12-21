@@ -78,15 +78,15 @@ namespace StardustSandbox.UI.Common.HUD
             SelectItemSlot(0, 0, 0, 0);
 
             this.leftPanelTopButtonInfos = [
-                new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_Button_EnvironmentSettings_Name, Localization_GUIs.HUD_Button_EnvironmentSettings_Description, () => this.uiManager.OpenGUI(UIIndex.EnvironmentSettings)),
-                new(TextureIndex.IconUI, new(32, 0, 32, 32), Localization_GUIs.HUD_Button_PenSettings_Name, Localization_GUIs.HUD_Button_PenSettings_Description, () => this.uiManager.OpenGUI(UIIndex.PenSettings)),
-                new(TextureIndex.IconUI, new(160, 0, 32, 32), Localization_GUIs.HUD_Button_WorldSettings_Name, Localization_GUIs.HUD_Button_WorldSettings_Description, () => this.uiManager.OpenGUI(UIIndex.WorldSettings)),
-                new(TextureIndex.IconUI, new(128, 64, 32, 32), Localization_GUIs.HUD_Button_Information_Name, Localization_GUIs.HUD_Button_Information_Description, () => this.uiManager.OpenGUI(UIIndex.Information)),
+                new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_EnvironmentSettings_Name, Localization_GUIs.HUD_EnvironmentSettings_Description, () => this.uiManager.OpenGUI(UIIndex.EnvironmentSettings)),
+                new(TextureIndex.IconUI, new(32, 0, 32, 32), Localization_GUIs.HUD_PenSettings_Name, Localization_GUIs.HUD_PenSettings_Description, () => this.uiManager.OpenGUI(UIIndex.PenSettings)),
+                new(TextureIndex.IconUI, new(160, 0, 32, 32), Localization_GUIs.HUD_WorldSettings_Name, Localization_GUIs.HUD_WorldSettings_Description, () => this.uiManager.OpenGUI(UIIndex.WorldSettings)),
+                new(TextureIndex.IconUI, new(128, 64, 32, 32), Localization_GUIs.HUD_Information_Name, Localization_GUIs.HUD_Information_Description, () => this.uiManager.OpenGUI(UIIndex.Information)),
             ];
 
             this.leftPanelBottomButtonInfos = [
-                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_Button_PauseSimulation_Name, Localization_GUIs.HUD_Button_PauseSimulation_Description, () => this.gameManager.ToggleState(GameStates.IsSimulationPaused)),
-                new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Button_Speed_Name, Localization_GUIs.HUD_Button_Speed_Description, () =>
+                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => this.gameManager.ToggleState(GameStates.IsSimulationPaused)),
+                new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Speed_Name, Localization_GUIs.HUD_Speed_Description, () =>
                 {
                     this.gameManager.SetSimulationSpeed(
                         this.world.Simulation.CurrentSpeed == SimulationSpeed.Normal ? SimulationSpeed.Fast :
@@ -97,12 +97,12 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.rightPanelTopButtonInfos = [
-                new(TextureIndex.IconUI, new(32, 192, 32, 32), Localization_GUIs.HUD_Button_GameMenu_Name, Localization_GUIs.HUD_Button_GameMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Pause)),
-                new(TextureIndex.IconUI, new(64, 192, 32, 32), Localization_GUIs.HUD_Button_SaveMenu_Name, Localization_GUIs.HUD_Button_SaveMenu_Description, () => this.uiManager.OpenGUI(UIIndex.SaveSettings)),
+                new(TextureIndex.IconUI, new(32, 192, 32, 32), Localization_GUIs.HUD_GameMenu_Name, Localization_GUIs.HUD_GameMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Pause)),
+                new(TextureIndex.IconUI, new(64, 192, 32, 32), Localization_GUIs.HUD_SaveMenu_Name, Localization_GUIs.HUD_SaveMenu_Description, () => this.uiManager.OpenGUI(UIIndex.SaveSettings)),
             ];
 
             this.rightPanelBottomButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_Button_EraseEverything_Name, Localization_GUIs.HUD_Button_EraseEverything_Description, () =>
+                new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_EraseEverything_Name, Localization_GUIs.HUD_EraseEverything_Description, () =>
                 {
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
                     this.guiConfirm.Configure(new()
@@ -121,7 +121,7 @@ namespace StardustSandbox.UI.Common.HUD
                     });
                     this.uiManager.OpenGUI(this.guiConfirm.Index);
                 }),
-                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_Button_ReloadSimulation_Name, Localization_GUIs.HUD_Button_ReloadSimulation_Description, () =>
+                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
                     this.guiConfirm.Configure(new()
@@ -609,8 +609,8 @@ namespace StardustSandbox.UI.Common.HUD
                     0.2f
                 );
 
-                TooltipBoxContent.SetTitle(Localization_GUIs.HUD_Button_ItemExplorer_Name);
-                TooltipBoxContent.SetDescription(Localization_GUIs.HUD_Button_ItemExplorer_Description);
+                TooltipBoxContent.SetTitle(Localization_GUIs.HUD_ItemExplorer_Name);
+                TooltipBoxContent.SetDescription(Localization_GUIs.HUD_ItemExplorer_Description);
             }
             else
             {

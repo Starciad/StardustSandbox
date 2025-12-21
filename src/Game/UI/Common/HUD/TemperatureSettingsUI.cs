@@ -123,7 +123,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly Section[] sections;
 
         private readonly GameManager gameManager;
-        private readonly World world;
 
         internal TemperatureSettingsUI(
             GameManager gameManager,
@@ -135,7 +134,6 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager = gameManager;
             this.tooltipBox = tooltipBox;
-            this.world = world;
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI);
 
@@ -190,7 +188,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = "Temperature Settings",
+                TextContent = Localization_GUIs.TemperatureSettings_Name,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,

@@ -86,7 +86,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
-                TextContent = Localization_GUIs.HUD_Complements_Information_Title,
+                TextContent = Localization_GUIs.Information_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -212,12 +212,12 @@ namespace StardustSandbox.UI.Common.HUD
             this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize.X, 'x', worldSize.Y);
             this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
             this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
-            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
-            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
 
             this.infoLabels[5].TextContent = this.world.Temperature.CanApplyTemperature
-                ? string.Concat("Temperature", ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")
-                : string.Concat("Temperature", ": ", "Global temperature is disabled at this time.");
+                ? string.Concat(Localization_Statements.Temperature, ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")
+                : string.Concat(Localization_Statements.Temperature, ": ", Localization_Messages.Information_NoTemperature);
         }
 
         protected override void OnClosed()

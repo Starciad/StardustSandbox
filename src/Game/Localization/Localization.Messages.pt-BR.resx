@@ -159,4 +159,7 @@
   <data name="Settings.RestartRequired" xml:space="preserve">
     <value>Algumas configurações, como idioma, só valem após reiniciar o jogo.</value>
   </data>
+  <data name="Tutorial.Move" xml:space="preserve">
+    <value>Ei! Seu mundo está muito maior agora! Use {0}, {1}, {2} e {3} para mover sua câmera!</value>
+  </data>
 </root>

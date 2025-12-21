@@ -210,4 +210,7 @@
   <data name="Play" xml:space="preserve">
     <value>Play</value>
   </data>
+  <data name="Temperature" xml:space="preserve">
+    <value />
+  </data>
 </root>

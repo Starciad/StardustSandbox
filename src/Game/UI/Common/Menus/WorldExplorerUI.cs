@@ -63,7 +63,7 @@ namespace StardustSandbox.UI.Common.Menus
                     UpdatePagination();
                     ChangeWorldsCatalog();
                 }),
-                new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.Menu_WorldExplorer_Button_OpenInDirectory_Name, string.Empty, () =>
+                new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>
                 {
                     SSDirectory.OpenDirectoryInFileExplorer(SSDirectory.Worlds);
                 }),
@@ -134,7 +134,7 @@ namespace StardustSandbox.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.West,
                 Margin = new(32.0f, 0.0f),
-                TextContent = Localization_GUIs.Menu_WorldExplorer_Title,
+                TextContent = Localization_GUIs.WorldExplorer_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -195,7 +195,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.Center,
-                TextContent = Localization_GUIs.Menu_WorldExplorer_Label_CurrentPage,
+                TextContent = Localization_GUIs.WorldExplorer_CurrentPage,
                 Margin = new(0.0f, -18.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,

@@ -147,7 +147,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.12f),
                 Margin = new(32.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
-                TextContent = Localization_GUIs.HUD_Complements_ItemExplorer_Title,
+                TextContent = Localization_GUIs.ItemExplorer_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,

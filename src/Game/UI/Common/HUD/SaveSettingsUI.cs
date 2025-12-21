@@ -115,7 +115,7 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.footerButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, () =>
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.SaveSettings_Save_Description, () =>
                 {
                     SaveFile saveFile = SavingSerializer.Serialize(this.world, this.graphicsDevice);
 
@@ -172,7 +172,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Title,
+                TextContent = Localization_GUIs.SaveSettings_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -214,7 +214,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Name_Title,
+                TextContent = Localization_GUIs.SaveSettings_Name_Title,
             };
 
             this.titleInputField = new()
@@ -249,7 +249,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Description_Title,
+                TextContent = Localization_GUIs.SaveSettings_Description_Title,
             };
 
             this.descriptionInputField = new()
@@ -285,7 +285,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(-176.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.Northeast,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Thumbnail_Title
+                TextContent = Localization_GUIs.SaveSettings_Thumbnail_Title
             };
 
             this.thumbnailPreviewElement = new()

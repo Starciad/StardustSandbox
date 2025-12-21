@@ -71,7 +71,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly ColorPickerUI colorPicker;
         private readonly SliderUI sliderUI;
 
-        private readonly string titleName = Localization_GUIs.Menu_Options_Title;
+        private readonly string titleName = Localization_GUIs.Options_Title;
 
         private readonly ButtonInfo[] systemButtonInfos;
         private readonly Label[] systemButtonLabels;
@@ -108,7 +108,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.videoManager = videoManager;
 
             this.systemButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Menu_Options_Button_Save_Description, () =>
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Options_Save_Description, () =>
                 {
                     SaveSettings();
                     ApplySettings();
@@ -130,48 +130,48 @@ namespace StardustSandbox.UI.Common.Menus
             ];
 
             this.root = new([
-                new(Localization_GUIs.Menu_Options_Section_General_Name, Localization_GUIs.Menu_Options_Section_General_Description,
+                new(Localization_GUIs.Options_General_Name, Localization_GUIs.Options_General_Description,
                 [
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_General_Option_Language_Name, Localization_GUIs.Menu_Options_Section_General_Option_Language_Description, Array.ConvertAll<GameCulture, object>(LocalizationConstants.AVAILABLE_GAME_CULTURES, x => x)),
+                    new SelectorOption(Localization_GUIs.Options_General_Language_Name, Localization_GUIs.Options_General_Language_Description, Array.ConvertAll<GameCulture, object>(LocalizationConstants.AVAILABLE_GAME_CULTURES, x => x)),
                 ]),
-                new(Localization_GUIs.Menu_Options_Section_Gameplay_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Description,
+                new(Localization_GUIs.Options_Gameplay_Name, Localization_GUIs.Options_Gameplay_Description,
                 [
-                    new ToggleOption("Show Preview Area", "Description"),
-                    new ColorOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaColor_Description),
-                    new SliderOption(Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Name, Localization_GUIs.Menu_Options_Section_Gameplay_Option_PreviewAreaOpacity_Description, byte.MinValue, byte.MaxValue),
-                    new ToggleOption("Show Grid", "Description"),
-                    new SliderOption("Grid Opacity", "Description", byte.MinValue, byte.MaxValue),
-                    new ToggleOption("Temperature Color Variations", "Description"),
+                    new ToggleOption(Localization_GUIs.Options_Gameplay_ShowPreviewArea_Name, Localization_GUIs.Options_Gameplay_ShowPreviewArea_Description),
+                    new ColorOption(Localization_GUIs.Options_Gameplay_PreviewAreaColor_Name, Localization_GUIs.Options_Gameplay_PreviewAreaColor_Description),
+                    new SliderOption(Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Name, Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description, byte.MinValue, byte.MaxValue),
+                    new ToggleOption(Localization_GUIs.Options_Gameplay_ShowGrid_Name, Localization_GUIs.Options_Gameplay_ShowGrid_Description),
+                    new SliderOption(Localization_GUIs.Options_Gameplay_GridOpacity_Name, Localization_GUIs.Options_Gameplay_GridOpacity_Description, byte.MinValue, byte.MaxValue),
+                    new ToggleOption(Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Name, Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Description),
                 ]),
-                new(Localization_GUIs.Menu_Options_Section_Volume_Name, Localization_GUIs.Menu_Options_Section_Volume_Description,
+                new(Localization_GUIs.Options_Volume_Name, Localization_GUIs.Options_Volume_Description,
                 [
-                    new SliderOption(Localization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_MasterVolume_Description, 0, 100),
-                    new SliderOption(Localization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_MusicVolume_Description, 0, 100),
-                    new SliderOption(Localization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Name, Localization_GUIs.Menu_Options_Section_Volume_Option_SFXVolume_Description, 0, 100),
+                    new SliderOption(Localization_GUIs.Options_Volume_MasterVolume_Name, Localization_GUIs.Options_Volume_MasterVolume_Description, 0, 100),
+                    new SliderOption(Localization_GUIs.Options_Volume_MusicVolume_Name, Localization_GUIs.Options_Volume_MusicVolume_Description, 0, 100),
+                    new SliderOption(Localization_GUIs.Options_Volume_SFXVolume_Name, Localization_GUIs.Options_Volume_SFXVolume_Description, 0, 100),
                 ]),
-                new(Localization_GUIs.Menu_Options_Section_Video_Name, Localization_GUIs.Menu_Options_Section_Video_Description,
+                new(Localization_GUIs.Options_Video_Name, Localization_GUIs.Options_Video_Description,
                 [
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Framerate_Description, Array.ConvertAll<float, object>(ScreenConstants.FRAMERATES, x => x)),
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Resolution_Description, Array.ConvertAll<Resolution, object>(ScreenConstants.RESOLUTIONS, x => x)),
-                    new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Fullscreen_Description),
-                    new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Name, Localization_GUIs.Menu_Options_Section_Video_Option_VSync_Description),
-                    new ToggleOption(Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Name, Localization_GUIs.Menu_Options_Section_Video_Option_Borderless_Description),
+                    new SelectorOption(Localization_GUIs.Options_Video_Framerate_Name, Localization_GUIs.Options_Video_Framerate_Description, Array.ConvertAll<float, object>(ScreenConstants.FRAMERATES, x => x)),
+                    new SelectorOption(Localization_GUIs.Options_Video_Resolution_Name, Localization_GUIs.Options_Video_Resolution_Description, Array.ConvertAll<Resolution, object>(ScreenConstants.RESOLUTIONS, x => x)),
+                    new ToggleOption(Localization_GUIs.Options_Video_Fullscreen_Name, Localization_GUIs.Options_Video_Fullscreen_Description),
+                    new ToggleOption(Localization_GUIs.Options_Video_VSync_Name, Localization_GUIs.Options_Video_VSync_Description),
+                    new ToggleOption(Localization_GUIs.Options_Video_Borderless_Name, Localization_GUIs.Options_Video_Borderless_Description),
                 ]),
-                new("Controls", "Description",
+                new(Localization_GUIs.Options_Controls_Name, Localization_GUIs.Options_Controls_Description,
                 [
-                    new KeyOption("Move Camera Up", "Description"),
-                    new KeyOption("Move Camera Right", "Description"),
-                    new KeyOption("Move Camera Down", "Description"),
-                    new KeyOption("Move Camera Left", "Description"),
-                    new KeyOption("Toggle Pause", "Description"),
-                    new KeyOption("Clear World", "Description"),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraUp_Name, Localization_GUIs.Options_Controls_MoveCameraUp_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraRight_Name, Localization_GUIs.Options_Controls_MoveCameraRight_Name),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraDown_Name, Localization_GUIs.Options_Controls_MoveCameraDown_Name),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraLeft_Name, Localization_GUIs.Options_Controls_MoveCameraLeft_Name),
+                    new KeyOption(Localization_GUIs.Options_Controls_TogglePause_Name, Localization_GUIs.Options_Controls_TogglePause_Name),
+                    new KeyOption(Localization_GUIs.Options_Controls_ClearWorld_Name, Localization_GUIs.Options_Controls_ClearWorld_Name),
                 ]),
-                new(Localization_GUIs.Menu_Options_Section_Cursor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Description,
+                new(Localization_GUIs.Options_Cursor_Name, Localization_GUIs.Options_Cursor_Description,
                 [
-                    new ColorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Color_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Color_Description),
-                    new ColorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_BackgroundColor_Description),
-                    new SelectorOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Scale_Description, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
-                    new SliderOption(Localization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Name, Localization_GUIs.Menu_Options_Section_Cursor_Option_Opacity_Description, byte.MinValue, byte.MaxValue)
+                    new ColorOption(Localization_GUIs.Options_Cursor_Color_Name, Localization_GUIs.Options_Cursor_Color_Description),
+                    new ColorOption(Localization_GUIs.Options_Cursor_BackgroundColor_Name, Localization_GUIs.Options_Cursor_BackgroundColor_Description),
+                    new SelectorOption(Localization_GUIs.Options_Cursor_Scale_Name, Localization_GUIs.Options_Cursor_Scale_Description, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
+                    new SliderOption(Localization_GUIs.Options_Cursor_Opacity_Name, Localization_GUIs.Options_Cursor_Opacity_Description, byte.MinValue, byte.MaxValue)
                 ]),
             ]);
 

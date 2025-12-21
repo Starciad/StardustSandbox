@@ -62,11 +62,11 @@ namespace StardustSandbox.UI.Common.Menus
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, () => this.gameManager.StartGame()),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, () => this.uiManager.OpenGUI(UIIndex.PlayMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, () => this.uiManager.OpenGUI(UIIndex.OptionsMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Credits, string.Empty, () => this.uiManager.OpenGUI(UIIndex.CreditsMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, Program.Quit)
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => this.gameManager.StartGame()),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenGUI(UIIndex.PlayMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () => this.uiManager.OpenGUI(UIIndex.OptionsMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenGUI(UIIndex.CreditsMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, Program.Quit)
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];

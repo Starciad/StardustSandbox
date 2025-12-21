@@ -109,7 +109,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Alignment = UIDirection.North,
                 Margin = new(0.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
-                TextContent = Localization_GUIs.HUD_Complements_Pause_Title,
+                TextContent = Localization_GUIs.Pause_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,

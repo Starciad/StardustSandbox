@@ -44,22 +44,22 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
-                new(TextureIndex.IconTools, new(32, 0, 32, 32), "Temperatures", "Open the temperature settings menu.", () => this.uiManager.OpenGUI(UIIndex.TemperatureSettings)),
+                new(TextureIndex.IconTools, new(32, 0, 32, 32), Localization_GUIs.EnvironmentSettings_TemperatureEditor_Name, Localization_GUIs.EnvironmentSettings_TemperatureEditor_Description, () => this.uiManager.OpenGUI(UIIndex.TemperatureSettings)),
             ];
 
             this.timeStateButtonInfos = [
-                new ButtonInfo(TextureIndex.IconUI, new(160, 64, 32, 32), Localization_Statements.Disable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Disable_Description, () => { this.world.Time.IsFrozen = true; }),
-                new ButtonInfo(TextureIndex.IconUI, new(192, 64, 32, 32), Localization_Statements.Enable, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Button_Enable_Description, () => { this.world.Time.IsFrozen = false; }),
+                new ButtonInfo(TextureIndex.IconUI, new(160, 64, 32, 32), Localization_Statements.Disable, Localization_GUIs.EnvironmentSettings_TimeState_Disable_Description, () => { this.world.Time.IsFrozen = true; }),
+                new ButtonInfo(TextureIndex.IconUI, new(192, 64, 32, 32), Localization_Statements.Enable, Localization_GUIs.EnvironmentSettings_TimeState_Enable_Description, () => { this.world.Time.IsFrozen = false; }),
             ];
 
             this.timeButtonInfos = [
-                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Midnight_Description, () => this.world.Time.SetTime(new(0, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(32, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dawn_Description, () => this.world.Time.SetTime(new(6, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(64, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Morning_Description, () => this.world.Time.SetTime(new(9, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(96, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Noon_Description, () => this.world.Time.SetTime(new(12, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(128, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Afternoon_Description, () => this.world.Time.SetTime(new(15, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(160, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Dusk_Description, () => this.world.Time.SetTime(new(18, 0, 0))),
-                new ButtonInfo(TextureIndex.IconUI, new(192, 96, 32, 32), Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Title, Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Button_Evening_Description, () => this.world.Time.SetTime(new(21, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(0, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Midnight_Title, Localization_GUIs.EnvironmentSettings_Time_Midnight_Description, () => this.world.Time.SetTime(new(0, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(32, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Dawn_Title, Localization_GUIs.EnvironmentSettings_Time_Dawn_Description, () => this.world.Time.SetTime(new(6, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(64, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Morning_Title, Localization_GUIs.EnvironmentSettings_Time_Morning_Description, () => this.world.Time.SetTime(new(9, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(96, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Noon_Title, Localization_GUIs.EnvironmentSettings_Time_Noon_Description, () => this.world.Time.SetTime(new(12, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(128, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Afternoon_Title, Localization_GUIs.EnvironmentSettings_Time_Afternoon_Description, () => this.world.Time.SetTime(new(15, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(160, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Dusk_Title, Localization_GUIs.EnvironmentSettings_Time_Dusk_Description, () => this.world.Time.SetTime(new(18, 0, 0))),
+                new ButtonInfo(TextureIndex.IconUI, new(192, 96, 32, 32), Localization_GUIs.EnvironmentSettings_Time_Evening_Title, Localization_GUIs.EnvironmentSettings_Time_Evening_Description, () => this.world.Time.SetTime(new(21, 0, 0))),
             ];
 
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
@@ -108,7 +108,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Title,
+                TextContent = Localization_GUIs.EnvironmentSettings_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -150,7 +150,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_TimeState_Title
+                TextContent = Localization_GUIs.EnvironmentSettings_TimeState_Title
             };
 
             this.background.AddChild(this.timeStateSectionTitle);
@@ -186,7 +186,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(this.timeStateButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_EnvironmentSettings_Section_Time_Title
+                TextContent = Localization_GUIs.EnvironmentSettings_Time_Title
             };
 
             this.timeStateSectionTitle.AddChild(this.timeSectionTitle);
