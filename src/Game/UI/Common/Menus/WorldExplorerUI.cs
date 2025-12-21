@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -258,8 +259,6 @@ namespace StardustSandbox.UI.Common.Menus
             root.AddChild(background);
         }
 
-        // ========================================================================== //
-
         private void BuildingWorldDisplaySlots()
         {
             Vector2 margin = new(32.0f, 118.0f);
@@ -326,33 +325,59 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal override void Update(GameTime gameTime)
         {
-            // HEADER
+            UpdateHeaderButtons();
+            UpdateSlotButtons();
+            UpdateFooterButtons();
+
+            base.Update(gameTime);
+        }
+
+        private void UpdateHeaderButtons()
+        {
             for (int i = 0; i < this.headerButtonImages.Length; i++)
             {
                 Image buttonBackgroundElement = this.headerButtonImages[i];
 
+                if (Interaction.OnMouseEnter(buttonBackgroundElement))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(buttonBackgroundElement))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.headerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 buttonBackgroundElement.Color = Interaction.OnMouseOver(buttonBackgroundElement) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
+        }
 
-            // FOOTER
+        private void UpdateFooterButtons()
+        {
             for (int i = 0; i < this.footerButtonLabels.Length; i++)
             {
                 Label label = this.footerButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.footerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
+        }
 
-            // SLOTS
+        private void UpdateSlotButtons()
+        {
             for (int i = 0; i < this.itemSlotInfos.Length; i++)
             {
                 SlotInfo slotInfoElement = this.itemSlotInfos[i];
@@ -362,16 +387,21 @@ namespace StardustSandbox.UI.Common.Menus
                     break;
                 }
 
+                if (Interaction.OnMouseEnter(slotInfoElement.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.worldDetailsMenuUI.SetSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
                     this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
+                    break;
                 }
 
                 slotInfoElement.Background.Color = Interaction.OnMouseOver(slotInfoElement.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
-
-            base.Update(gameTime);
         }
 
         private void UpdatePagination()

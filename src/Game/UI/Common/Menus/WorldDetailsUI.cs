@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -48,9 +49,14 @@ namespace StardustSandbox.UI.Common.Menus
             this.world = world;
 
             this.worldButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.uiManager.CloseGUI();
+                }),
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SavingSerializer.DeleteSavedFile(this.saveFile);
                     this.uiManager.CloseGUI();
                 }),
@@ -62,6 +68,8 @@ namespace StardustSandbox.UI.Common.Menus
 
                     this.gameManager.StartGame();
                     this.world.LoadFromSaveFile(this.saveFile);
+
+                    SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
             ];
 
@@ -216,9 +224,15 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label slotInfoElement = this.worldButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(slotInfoElement))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slotInfoElement))
                 {
                     this.worldButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 slotInfoElement.Color = Interaction.OnMouseOver(slotInfoElement) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
