@@ -27,7 +27,7 @@ namespace StardustSandbox.Managers
 
         internal void ApplySettings()
         {
-            VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
 
             _ = this.GameWindow?.IsBorderless = videoSettings.Borderless;
 

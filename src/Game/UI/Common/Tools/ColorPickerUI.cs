@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -18,14 +19,15 @@ namespace StardustSandbox.UI.Common.Tools
     internal sealed class ColorPickerUI : UIBase
     {
         private ColorPickerSettings colorPickerSettings;
+
         private Text captionElement;
+        private Label exitButtonLabel;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly ButtonInfo[] menuButtonInfos;
+        private readonly ButtonInfo exitButtonInfo;
         private readonly ColorButtonInfo[] colorButtonInfos;
 
-        private readonly Label[] menuButtonLabels;
         private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
         private readonly GameManager gameManager;
@@ -42,9 +44,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
-            this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI),
-            ];
+            this.exitButtonInfo = new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI);
 
             this.colorButtonInfos = [
                 new(Localization_Colors.DarkGray, AAP64ColorPalette.DarkGray),
@@ -113,7 +113,6 @@ namespace StardustSandbox.UI.Common.Tools
                 new(Localization_Colors.DarkTaupe, AAP64ColorPalette.DarkTaupe),
             ];
 
-            this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
             this.colorButtonSlotInfos = new ColorSlotInfo[this.colorButtonInfos.Length];
         }
 
@@ -122,20 +121,18 @@ namespace StardustSandbox.UI.Common.Tools
             this.colorPickerSettings = settings;
         }
 
-        private void SelectColorButtonAction(Color color)
+        private void SelectColorButtonAction(in Color color)
         {
             this.uiManager.CloseGUI();
             this.colorPickerSettings.OnSelectCallback?.Invoke(color);
         }
-
-        #region BUILDER
 
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
             BuildCaption(root);
             BuildColorButtons(root);
-            BuildMenuButtons(root);
+            BuildExitButton(root);
 
             root.AddChild(this.tooltipBox);
         }
@@ -227,62 +224,56 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        private void BuildMenuButtons(Container root)
+        private void BuildExitButton(Container root)
         {
-            float marginY = -48.0f;
-
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
+            this.exitButtonLabel = new()
             {
-                ButtonInfo button = this.menuButtonInfos[i];
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Scale = new(0.125f),
+                Margin = new(0.0f, -48.0f),
+                Alignment = UIDirection.South,
+                TextContent = this.exitButtonInfo.Name,
 
-                Label label = new()
-                {
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Scale = new(0.125f),
-                    Margin = new(0.0f, marginY),
-                    Alignment = UIDirection.South,
-                    TextContent = button.Name,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
+            };
 
-                    BorderColor = AAP64ColorPalette.DarkGray,
-                    BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2.0f,
-                    BorderThickness = 2.0f,
-                };
-
-                marginY -= 72;
-
-                root.AddChild(label);
-
-                this.menuButtonLabels[i] = label;
-            }
+            root.AddChild(this.exitButtonLabel);
         }
-
-        #endregion
-
-        #region UPDATING
 
         internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
-            UpdateMenuButtons();
+            UpdateExitButton();
             UpdateColorButtons();
 
             base.Update(gameTime);
         }
 
-        private void UpdateMenuButtons()
+        private void UpdateExitButton()
         {
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
+            if (Interaction.OnMouseEnter(this.exitButtonLabel))
             {
-                Label label = this.menuButtonLabels[i];
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
 
-                if (Interaction.OnMouseLeftClick(label))
-                {
-                    this.menuButtonInfos[i].ClickAction?.Invoke();
-                }
+            if (Interaction.OnMouseLeftClick(this.exitButtonLabel))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                this.exitButtonInfo.ClickAction?.Invoke();
+                return;
+            }
 
-                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            if (Interaction.OnMouseOver(this.exitButtonLabel))
+            {
+                this.exitButtonLabel.Color = AAP64ColorPalette.HoverColor;
+            }
+            else
+            {
+                this.exitButtonLabel.Color = AAP64ColorPalette.White;
             }
         }
 
@@ -293,9 +284,16 @@ namespace StardustSandbox.UI.Common.Tools
                 ColorSlotInfo colorSlot = this.colorButtonSlotInfos[i];
                 ColorButtonInfo colorButton = this.colorButtonInfos[i];
 
+                if (Interaction.OnMouseEnter(colorSlot.Border))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(colorSlot.Border))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     SelectColorButtonAction(colorButton.Color);
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(colorSlot.Border))
@@ -304,11 +302,15 @@ namespace StardustSandbox.UI.Common.Tools
 
                     TooltipBoxContent.SetTitle(colorButton.Name);
                     TooltipBoxContent.SetDescription(string.Empty);
+
+                    colorSlot.Border.Color = AAP64ColorPalette.HoverColor;
+                }
+                else
+                {
+                    colorSlot.Border.Color = AAP64ColorPalette.White;
                 }
             }
         }
-
-        #endregion
 
         protected override void OnOpened()
         {

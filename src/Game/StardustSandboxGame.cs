@@ -54,11 +54,11 @@ namespace StardustSandbox
             });
 
             // Load Settings
-            VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                SettingsSerializer.SaveSettings(videoSettings.UpdateResolution(this.GraphicsDevice));
+                SettingsSerializer.Save(videoSettings.UpdateResolution(this.GraphicsDevice));
             }
 
             // Initialize Content

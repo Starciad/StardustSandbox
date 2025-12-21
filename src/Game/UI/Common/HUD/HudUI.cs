@@ -98,7 +98,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.rightPanelTopButtonInfos = [
                 new(TextureIndex.IconUI, new(32, 192, 32, 32), Localization_GUIs.HUD_GameMenu_Name, Localization_GUIs.HUD_GameMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Pause)),
-                new(TextureIndex.IconUI, new(64, 192, 32, 32), Localization_GUIs.HUD_SaveMenu_Name, Localization_GUIs.HUD_SaveMenu_Description, () => this.uiManager.OpenGUI(UIIndex.SaveSettings)),
+                new(TextureIndex.IconUI, new(64, 192, 32, 32), Localization_GUIs.HUD_SaveMenu_Name, Localization_GUIs.HUD_SaveMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Save)),
             ];
 
             this.rightPanelBottomButtonInfos = [

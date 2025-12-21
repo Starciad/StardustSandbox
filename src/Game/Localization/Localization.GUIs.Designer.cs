@@ -1467,45 +1467,45 @@ namespace StardustSandbox.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Description.
         /// </summary>
-        internal static string SaveSettings_Description_Title {
+        internal static string Save_Description_Title {
             get {
-                return ResourceManager.GetString("SaveSettings.Description.Title", resourceCulture);
+                return ResourceManager.GetString("Save.Description.Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Name.
         /// </summary>
-        internal static string SaveSettings_Name_Title {
+        internal static string Save_Name_Title {
             get {
-                return ResourceManager.GetString("SaveSettings.Name.Title", resourceCulture);
+                return ResourceManager.GetString("Save.Name.Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Save the world to a file. Overwrites if the name already exists..
         /// </summary>
-        internal static string SaveSettings_Save_Description {
+        internal static string Save_Save_Description {
             get {
-                return ResourceManager.GetString("SaveSettings.Save.Description", resourceCulture);
+                return ResourceManager.GetString("Save.Save.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Thumbnail.
         /// </summary>
-        internal static string SaveSettings_Thumbnail_Title {
+        internal static string Save_Thumbnail_Title {
             get {
-                return ResourceManager.GetString("SaveSettings.Thumbnail.Title", resourceCulture);
+                return ResourceManager.GetString("Save.Thumbnail.Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Save Settings.
         /// </summary>
-        internal static string SaveSettings_Title {
+        internal static string Save_Title {
             get {
-                return ResourceManager.GetString("SaveSettings.Title", resourceCulture);
+                return ResourceManager.GetString("Save.Title", resourceCulture);
             }
         }
         

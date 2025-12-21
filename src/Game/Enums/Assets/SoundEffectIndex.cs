@@ -10,6 +10,7 @@
         GUI_Click,
         GUI_Error,
         GUI_Hover,
+        GUI_Message,
         GUI_Pause_Ended,
         GUI_Pause_Started,
         GUI_Rejected,

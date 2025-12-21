@@ -52,7 +52,7 @@ namespace StardustSandbox.Managers
 
         internal void ApplySettings()
         {
-            CursorSettings cursorSettings = SettingsSerializer.LoadSettings<CursorSettings>();
+            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
 
             this.color = cursorSettings.Color;
             this.backgroundColor = cursorSettings.BackgroundColor;

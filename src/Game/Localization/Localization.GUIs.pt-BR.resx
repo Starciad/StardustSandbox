@@ -300,16 +300,16 @@
   <data name="Button.Exit.Description" xml:space="preserve">
     <value>Fecha o menu.</value>
   </data>
-  <data name="SaveSettings.Title" xml:space="preserve">
+  <data name="Save.Title" xml:space="preserve">
     <value>Configurações de Salvamento</value>
   </data>
-  <data name="SaveSettings.Description.Title" xml:space="preserve">
+  <data name="Save.Description.Title" xml:space="preserve">
     <value>Descrição</value>
   </data>
-  <data name="SaveSettings.Thumbnail.Title" xml:space="preserve">
+  <data name="Save.Thumbnail.Title" xml:space="preserve">
     <value>Miniatura</value>
   </data>
-  <data name="SaveSettings.Save.Description" xml:space="preserve">
+  <data name="Save.Save.Description" xml:space="preserve">
     <value>Salva o mundo em um arquivo. Se o nome já existir, sobrescreve o arquivo.</value>
   </data>
   <data name="HUD.Information.Name" xml:space="preserve">
@@ -561,7 +561,7 @@
   <data name="Options.Video.Framerate.Name" xml:space="preserve">
     <value>Taxa de Quadros</value>
   </data>
-  <data name="SaveSettings.Name.Title" xml:space="preserve">
+  <data name="Save.Name.Title" xml:space="preserve">
     <value>Nome</value>
   </data>
   <data name="HUD.SimulationPaused" xml:space="preserve">

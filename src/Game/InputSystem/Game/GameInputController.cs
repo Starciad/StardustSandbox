@@ -35,7 +35,7 @@ namespace StardustSandbox.InputSystem.Game
             this.simulationHandler = new(gameManager);
             this.worldHandler = new(this.player, this.pen, world);
 
-            ControlSettings controlSettings = SettingsSerializer.LoadSettings<ControlSettings>();
+            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 
             this.actionHandler = new([
                 #region Keyboard

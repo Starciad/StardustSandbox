@@ -3,7 +3,6 @@ using StardustSandbox.IO;
 using StardustSandbox.Serialization.Settings;
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -13,142 +12,106 @@ namespace StardustSandbox.Serialization
 {
     internal static class SettingsSerializer
     {
-        private static readonly ConcurrentDictionary<Type, object> settingsCache = [];
-
-        private static readonly Dictionary<Type, Func<object>> defaultSettingsFactory = new()
+        private interface ISettingsDescriptor
         {
-            { typeof(ControlSettings), () => new ControlSettings() },
-            { typeof(CursorSettings), () => new CursorSettings() },
-            { typeof(GameplaySettings), () => new GameplaySettings() },
-            { typeof(GeneralSettings), () => new GeneralSettings() },
-            { typeof(StatusSettings), () => new StatusSettings() },
-            { typeof(VideoSettings), () => new VideoSettings() },
-            { typeof(VolumeSettings), () => new VolumeSettings() },
-        };
+            Type SettingsType { get; }
+            void LoadOrCreate();
+        }
 
-        private static readonly Dictionary<Type, string> settingsFileMap = new()
+        private sealed class SettingsDescriptor<T> : ISettingsDescriptor where T : ISettingsModule, new()
         {
-            { typeof(ControlSettings), IOConstants.CONTROL_SETTINGS_FILE },
-            { typeof(CursorSettings), IOConstants.CURSOR_SETTINGS_FILE },
-            { typeof(GameplaySettings), IOConstants.GAMEPLAY_SETTINGS_FILE },
-            { typeof(GeneralSettings), IOConstants.GENERAL_SETTINGS_FILE },
-            { typeof(StatusSettings), IOConstants.STATUS_SETTINGS_FILE },
-            { typeof(VideoSettings), IOConstants.VIDEO_SETTINGS_FILE },
-            { typeof(VolumeSettings), IOConstants.VOLUME_SETTINGS_FILE },
-        };
+            public Type SettingsType => typeof(T);
+            internal T Value => this.cache;
 
-        private static readonly Dictionary<Type, XmlSerializer> serializers = new()
+            private T cache;
+
+            private readonly string fileName;
+            private readonly XmlSerializer serializer;
+
+            internal SettingsDescriptor(string fileName)
+            {
+                this.fileName = fileName;
+                this.serializer = new(typeof(T));
+            }
+
+            public void LoadOrCreate()
+            {
+                string filePath = Path.Combine(SSDirectory.Settings, this.fileName);
+
+                if (!File.Exists(filePath))
+                {
+                    CreateAndSaveDefault(filePath);
+                    return;
+                }
+
+                try
+                {
+                    using FileStream stream = File.OpenRead(filePath);
+                    this.cache = (T)this.serializer.Deserialize(stream);
+                }
+                catch
+                {
+                    File.Delete(filePath);
+                    CreateAndSaveDefault(filePath);
+                }
+            }
+
+            internal void Save(T value)
+            {
+                using FileStream stream = new(Path.Combine(SSDirectory.Settings, this.fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                this.cache = value;
+                this.serializer.Serialize(stream, value);
+            }
+
+            private void CreateAndSaveDefault(string filePath)
+            {
+                this.cache = new T();
+
+                using FileStream stream = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+                this.serializer.Serialize(stream, this.cache);
+            }
+        }
+
+        private static readonly Dictionary<Type, ISettingsDescriptor> descriptors = new()
         {
-            { typeof(ControlSettings), new(typeof(ControlSettings)) },
-            { typeof(GameplaySettings), new(typeof(GameplaySettings))},
-            { typeof(GeneralSettings), new(typeof(GeneralSettings))},
-            { typeof(CursorSettings), new(typeof(CursorSettings))},
-            { typeof(StatusSettings), new(typeof(StatusSettings))},
-            { typeof(VideoSettings), new(typeof(VideoSettings))},
-            { typeof(VolumeSettings), new(typeof(VolumeSettings))},
+            [typeof(ControlSettings)] = new SettingsDescriptor<ControlSettings>(IOConstants.CONTROL_SETTINGS_FILE),
+            [typeof(CursorSettings)] = new SettingsDescriptor<CursorSettings>(IOConstants.CURSOR_SETTINGS_FILE),
+            [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
+            [typeof(GeneralSettings)] = new SettingsDescriptor<GeneralSettings>(IOConstants.GENERAL_SETTINGS_FILE),
+            [typeof(StatusSettings)] = new SettingsDescriptor<StatusSettings>(IOConstants.STATUS_SETTINGS_FILE),
+            [typeof(VideoSettings)] = new SettingsDescriptor<VideoSettings>(IOConstants.VIDEO_SETTINGS_FILE),
+            [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };
 
         internal static void Initialize()
         {
-            foreach (Type type in settingsFileMap.Keys)
+            _ = Directory.CreateDirectory(SSDirectory.Settings);
+
+            foreach (ISettingsDescriptor descriptor in descriptors.Values)
             {
-                EnsureSettingsFileExists(type);
+                descriptor.LoadOrCreate();
             }
 
             CreateWarningFile();
         }
 
-        internal static void SaveSettings<T>(T settings) where T : ISettingsModule
+        internal static T Load<T>() where T : ISettingsModule, new()
         {
-            if (!settingsFileMap.TryGetValue(typeof(T), out string fileName))
-            {
-                throw new InvalidOperationException($"Unknown settings type: {typeof(T).Name}");
-            }
-
-            settingsCache[typeof(T)] = settings;
-            Serialize(settings, fileName);
+            return GetDescriptor<T>().Value;
         }
 
-        internal static T LoadSettings<T>() where T : ISettingsModule, new()
+        internal static void Save<T>(T value) where T : ISettingsModule, new()
         {
-            if (settingsCache.TryGetValue(typeof(T), out object cachedValue))
-            {
-                return (T)cachedValue;
-            }
-
-            if (!settingsFileMap.TryGetValue(typeof(T), out string fileName))
-            {
-                throw new InvalidOperationException($"Unknown settings type: {typeof(T).Name}");
-            }
-
-            T settings = Deserialize<T>(fileName) ?? new T();
-            settingsCache[typeof(T)] = settings;
-
-            return settings;
+            GetDescriptor<T>().Save(value);
         }
 
-        internal static void UpdateSettings<T>(Func<T, T> updateCallback) where T : ISettingsModule, new()
+        private static SettingsDescriptor<T> GetDescriptor<T>() where T : ISettingsModule, new()
         {
-            T settings = LoadSettings<T>();
-            T updatedSettings = updateCallback(settings);
-            SaveSettings(updatedSettings);
-        }
-
-        internal static void ResetSettings<T>() where T : ISettingsModule
-        {
-            if (!settingsFileMap.TryGetValue(typeof(T), out string fileName) || !defaultSettingsFactory.TryGetValue(typeof(T), out Func<object> createDefault))
-            {
-                throw new InvalidOperationException($"Unknown settings type: {typeof(T).Name}");
-            }
-
-            T defaultSettings = (T)createDefault();
-            settingsCache[typeof(T)] = defaultSettings;
-
-            Serialize(defaultSettings, fileName);
-        }
-
-        // ======================================================= //
-
-        private static void EnsureSettingsFileExists(Type type)
-        {
-            if (!settingsFileMap.TryGetValue(type, out string fileName))
-            {
-                return;
-            }
-
-            string filePath = Path.Combine(SSDirectory.Settings, fileName);
-
-            if (File.Exists(filePath))
-            {
-                HandleExistingFile(type, filePath);
-            }
-            else
-            {
-                CreateDefaultSettings(type, fileName);
-            }
-        }
-
-        private static void HandleExistingFile(Type type, string filePath)
-        {
-            try
-            {
-                _ = Deserialize(type, filePath);
-            }
-            catch (Exception)
-            {
-                File.Delete(filePath);
-                CreateDefaultSettings(type, Path.GetFileName(filePath));
-            }
-        }
-
-        private static void CreateDefaultSettings(Type type, string fileName)
-        {
-            if (defaultSettingsFactory.TryGetValue(type, out Func<object> createDefault))
-            {
-                object defaultSettings = createDefault();
-                settingsCache[type] = defaultSettings;
-                Serialize(defaultSettings, fileName);
-            }
+            return !descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw)
+                ? throw new InvalidOperationException($"Settings type not registered: {typeof(T).FullName}")
+                : (SettingsDescriptor<T>)raw;
         }
 
         private static void CreateWarningFile()
@@ -164,12 +127,12 @@ namespace StardustSandbox.Serialization
 
             _ = builder.AppendLine(new string('=', 64));
             _ = builder.AppendLine();
-            _ = builder.AppendLine(string.Concat(new string(' ', 12), "(c) ", GameConstants.YEAR, ' ', GameConstants.AUTHOR));
+            _ = builder.AppendLine($"            (c) {GameConstants.YEAR} {GameConstants.AUTHOR}");
             _ = builder.AppendLine();
             _ = builder.AppendLine(new string('=', 64));
             _ = builder.AppendLine();
             _ = builder.AppendLine("WARNING: MODIFYING SETTINGS OUTSIDE THE GAME");
-            _ = builder.AppendLine(string.Concat(new string('_', 64)));
+            _ = builder.AppendLine(new string('_', 64));
             _ = builder.AppendLine();
             _ = builder.AppendLine("Modifying configuration files outside the official game environment");
             _ = builder.AppendLine("can lead to unexpected behavior, including crashes, corrupted data,");
@@ -186,30 +149,6 @@ namespace StardustSandbox.Serialization
             _ = builder.AppendLine("Backup your settings regularly to avoid losing important data.");
 
             File.WriteAllText(filePath, builder.ToString());
-        }
-
-        private static void Serialize<T>(T value, string fileName)
-        {
-            using FileStream fileStream = new(Path.Combine(SSDirectory.Settings, fileName), FileMode.Create, FileAccess.Write);
-            serializers[value.GetType()].Serialize(fileStream, value);
-        }
-
-        private static T Deserialize<T>(string fileName) where T : ISettingsModule
-        {
-            return (T)Deserialize(typeof(T), fileName);
-        }
-
-        private static ISettingsModule Deserialize(Type type, string fileName)
-        {
-            string filePath = Path.Combine(SSDirectory.Settings, fileName);
-
-            if (File.Exists(filePath))
-            {
-                using FileStream fileStream = File.OpenRead(filePath);
-                return (ISettingsModule)serializers[type].Deserialize(fileStream);
-            }
-
-            return default;
         }
     }
 }

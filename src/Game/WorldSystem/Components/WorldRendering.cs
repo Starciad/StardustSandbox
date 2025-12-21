@@ -37,7 +37,7 @@ namespace StardustSandbox.WorldSystem.Components
             int maxTileX = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
             int maxTileY = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
 
-            GameplaySettings gameplaySettings = SettingsSerializer.LoadSettings<GameplaySettings>();
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
             for (int y = minTileY; y < maxTileY; y++)
             {

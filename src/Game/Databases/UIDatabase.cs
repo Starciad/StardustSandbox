@@ -186,10 +186,10 @@ namespace StardustSandbox.Databases
                 uiManager
             );
 
-            SaveSettingsUI saveSettingsUI = new(
+            SaveUI saveSettingsUI = new(
                 gameManager,
                 graphicsDevice,
-                UIIndex.SaveSettings,
+                UIIndex.Save,
                 textInputUI,
                 tooltipBox,
                 uiManager,

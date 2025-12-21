@@ -229,22 +229,24 @@ namespace StardustSandbox.UI.Common.Menus
             this.systemButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Options_Save_Description, () =>
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-
-                    SaveSettings();
+                    Save();
                     ApplySettings();
 
-                    StatusSettings statusSettings = SettingsSerializer.LoadSettings<StatusSettings>();
+                    StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
 
                     if (!statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed)
                     {
                         messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
                         uiManager.OpenGUI(UIIndex.Message);
 
-                        SettingsSerializer.SaveSettings<StatusSettings>(new(statusSettings)
+                        SettingsSerializer.Save<StatusSettings>(new(statusSettings)
                         {
                             TheRestartAfterSavingSettingsWarningWasDisplayed = true,
                         });
+                    }
+                    else
+                    {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     }
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, () =>
@@ -304,7 +306,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.systemButtonLabels = new Label[this.systemButtonInfos.Length];
         }
 
-        private void SaveSettings()
+        private void Save()
         {
             Section generalSection = this.root.Sections[(byte)SectionIndex.General];
             Section gameplaySection = this.root.Sections[(byte)SectionIndex.Gameplay];
@@ -315,13 +317,13 @@ namespace StardustSandbox.UI.Common.Menus
 
             GameCulture gameCulture = LocalizationConstants.GetGameCultureFromNativeName(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
 
-            SettingsSerializer.SaveSettings<GeneralSettings>(new()
+            SettingsSerializer.Save<GeneralSettings>(new()
             {
                 Language = gameCulture.Language,
                 Region = gameCulture.Region,
             });
 
-            SettingsSerializer.SaveSettings<GameplaySettings>(new()
+            SettingsSerializer.Save<GameplaySettings>(new()
             {
                 ShowPreviewArea = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowPreviewArea].GetValue()),
                 PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue(),
@@ -331,14 +333,14 @@ namespace StardustSandbox.UI.Common.Menus
                 ShowTemperatureColorVariations = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowTemperatureColorVariations].GetValue()),
             });
 
-            SettingsSerializer.SaveSettings<VolumeSettings>(new()
+            SettingsSerializer.Save<VolumeSettings>(new()
             {
                 MasterVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MasterVolume].GetValue()) / 100.0f,
                 MusicVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MusicVolume].GetValue()) / 100.0f,
                 SFXVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.SFXVolume].GetValue()) / 100.0f,
             });
 
-            SettingsSerializer.SaveSettings<VideoSettings>(new()
+            SettingsSerializer.Save<VideoSettings>(new()
             {
                 Framerate = Convert.ToSingle(videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue()),
                 Resolution = (Resolution)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue(),
@@ -347,7 +349,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Borderless = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].GetValue()),
             });
 
-            SettingsSerializer.SaveSettings<ControlSettings>(new()
+            SettingsSerializer.Save<ControlSettings>(new()
             {
                 MoveCameraUp = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraUp].GetValue(),
                 MoveCameraRight = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraRight].GetValue(),
@@ -357,7 +359,7 @@ namespace StardustSandbox.UI.Common.Menus
                 ClearWorld = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.ClearWorld].GetValue(),
             });
 
-            SettingsSerializer.SaveSettings<CursorSettings>(new()
+            SettingsSerializer.Save<CursorSettings>(new()
             {
                 Color = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.Color].GetValue(),
                 BackgroundColor = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].GetValue(),
@@ -368,12 +370,12 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void SyncSettingElements()
         {
-            ControlSettings controlSettings = SettingsSerializer.LoadSettings<ControlSettings>();
-            CursorSettings cursorSettings = SettingsSerializer.LoadSettings<CursorSettings>();
-            GameplaySettings gameplaySettings = SettingsSerializer.LoadSettings<GameplaySettings>();
-            GeneralSettings generalSettings = SettingsSerializer.LoadSettings<GeneralSettings>();
-            VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
-            VolumeSettings volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
+            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+            GeneralSettings generalSettings = SettingsSerializer.Load<GeneralSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
+            VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
             Section controlSection = this.root.Sections[(byte)SectionIndex.Control];
             Section cursorSection = this.root.Sections[(byte)SectionIndex.Cursor];
@@ -416,7 +418,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void ApplySettings()
         {
-            VolumeSettings volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
+            VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
             MediaPlayer.Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
             SoundEffect.MasterVolume = volumeSettings.MasterVolume;

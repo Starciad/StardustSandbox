@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -61,8 +62,6 @@ namespace StardustSandbox.UI.Common.Tools
             this.caption.TextContent = settings.Caption;
             this.message.TextContent = settings.Message;
         }
-
-        #region BUILDER
 
         protected override void OnBuild(Container root)
         {
@@ -134,17 +133,22 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        #endregion
-
         internal override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 Label label = this.buttonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;

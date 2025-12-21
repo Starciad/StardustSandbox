@@ -47,7 +47,7 @@
         UIBackgroundOptions,
         UIBackgroundPause,
         UIBackgroundPenSettings,
-        UIBackgroundSaveSettings,
+        UIBackgroundSave,
         UIBackgroundTemperatureSettings,
         UIBackgroundWorldSettings,
         UIButtons,

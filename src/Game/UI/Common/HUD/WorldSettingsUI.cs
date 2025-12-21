@@ -87,16 +87,16 @@ namespace StardustSandbox.UI.Common.HUD
                     {
                         this.world.StartNew(this.worldTargetSize);
 
-                        StatusSettings statusSettings = SettingsSerializer.LoadSettings<StatusSettings>();
+                        StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
 
                         if (!statusSettings.TheMovementTutorialWasDisplayed)
                         {
-                            ControlSettings controlSettings = SettingsSerializer.LoadSettings<ControlSettings>();
+                            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 
                             this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
                             this.uiManager.OpenGUI(UIIndex.Message);
 
-                            SettingsSerializer.SaveSettings<StatusSettings>(new(statusSettings)
+                            SettingsSerializer.Save<StatusSettings>(new(statusSettings)
                             {
                                 TheMovementTutorialWasDisplayed = true,
                             });

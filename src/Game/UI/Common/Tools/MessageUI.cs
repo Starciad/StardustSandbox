@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -13,18 +14,23 @@ using StardustSandbox.UI.Elements;
 
 namespace StardustSandbox.UI.Common.Tools
 {
-    internal sealed class MessageUI(
-        GameManager gameManager,
-        UIIndex index,
-        UIManager uiManager
-    ) : UIBase(index)
+    internal sealed class MessageUI : UIBase
     {
         private Text message;
         private Label continueButtonLabel;
 
-        private readonly UIManager uiManager = uiManager;
+        private readonly UIManager uiManager;
+        private readonly GameManager gameManager;
 
-        #region BUILDER
+        internal MessageUI(
+            GameManager gameManager,
+            UIIndex index,
+            UIManager uiManager
+        ) : base(index)
+        {
+            this.gameManager = gameManager;
+            this.uiManager = uiManager;
+        }
 
         protected override void OnBuild(Container root)
         {
@@ -80,10 +86,6 @@ namespace StardustSandbox.UI.Common.Tools
             root.AddChild(this.continueButtonLabel);
         }
 
-        #endregion
-
-        #region UPDATING
-
         internal override void Update(GameTime gameTime)
         {
             if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
@@ -101,16 +103,15 @@ namespace StardustSandbox.UI.Common.Tools
             this.message.TextContent = text;
         }
 
-        #endregion
-
         protected override void OnOpened()
         {
-            gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            SoundEngine.Play(SoundEffectIndex.GUI_Message);
+            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

@@ -59,6 +59,7 @@ namespace StardustSandbox.Databases
                 contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "click")),
                 contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "error")),
                 contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "hover")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "message")),
                 contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_ended")),
                 contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_started")),
                 contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "rejected")),

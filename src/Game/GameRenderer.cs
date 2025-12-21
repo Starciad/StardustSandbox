@@ -182,7 +182,7 @@ namespace StardustSandbox
 
         private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController)
         {
-            GameplaySettings gameplaySettings = SettingsSerializer.LoadSettings<GameplaySettings>();
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
             PenTool penTool = inputController.Pen.Tool;
 

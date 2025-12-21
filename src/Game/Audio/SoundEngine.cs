@@ -26,7 +26,7 @@ namespace StardustSandbox.Audio
                 throw new InvalidOperationException($"{nameof(SoundEngine)} is already initialized.");
             }
 
-            SoundEffect.MasterVolume = SettingsSerializer.LoadSettings<VolumeSettings>().MasterVolume;
+            SoundEffect.MasterVolume = SettingsSerializer.Load<VolumeSettings>().MasterVolume;
             SoundEffect.Speakers = Speakers.Stereo;
 
             isInitialized = true;
@@ -67,7 +67,7 @@ namespace StardustSandbox.Audio
 
         internal static void Play(SoundEffectIndex index)
         {
-            Play(index, SettingsSerializer.LoadSettings<VolumeSettings>().SFXVolume, 0.0f, 0.0f);
+            Play(index, SettingsSerializer.Load<VolumeSettings>().SFXVolume, 0.0f, 0.0f);
         }
     }
 }

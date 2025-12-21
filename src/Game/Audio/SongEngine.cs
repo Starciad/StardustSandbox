@@ -51,7 +51,7 @@ namespace StardustSandbox.Audio
                 throw new System.InvalidOperationException($"{nameof(SongEngine)} is already initialized.");
             }
 
-            VolumeSettings volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
+            VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
             Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
 

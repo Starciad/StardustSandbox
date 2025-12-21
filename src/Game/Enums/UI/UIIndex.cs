@@ -21,7 +21,7 @@
         ItemExplorer,
         PenSettings,
         EnvironmentSettings,
-        SaveSettings,
+        Save,
         WorldSettings,
         Information,
         TemperatureSettings,

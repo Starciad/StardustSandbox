@@ -21,7 +21,7 @@ using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
 {
-    internal sealed class SaveSettingsUI : UIBase
+    internal sealed class SaveUI : UIBase
     {
         private Texture2D worldThumbnailTexture;
 
@@ -41,7 +41,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly GraphicsDevice graphicsDevice;
 
-        internal SaveSettingsUI(
+        internal SaveUI(
             GameManager gameManager,
             GraphicsDevice graphicsDevice,
             UIIndex index,
@@ -115,7 +115,7 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.footerButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.SaveSettings_Save_Description, () =>
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     SaveFile saveFile = SavingSerializer.Serialize(this.world, this.graphicsDevice);
 
@@ -157,7 +157,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSaveSettings),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSave),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -172,7 +172,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.SaveSettings_Title,
+                TextContent = Localization_GUIs.Save_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -214,7 +214,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.SaveSettings_Name_Title,
+                TextContent = Localization_GUIs.Save_Name_Title,
             };
 
             this.titleInputField = new()
@@ -249,7 +249,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.SaveSettings_Description_Title,
+                TextContent = Localization_GUIs.Save_Description_Title,
             };
 
             this.descriptionInputField = new()
@@ -285,7 +285,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(-176.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.Northeast,
-                TextContent = Localization_GUIs.SaveSettings_Thumbnail_Title
+                TextContent = Localization_GUIs.Save_Thumbnail_Title
             };
 
             this.thumbnailPreviewElement = new()
