@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Elements;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -21,6 +23,9 @@ using StardustSandbox.UI.Information;
 using StardustSandbox.UI.Options;
 
 using System;
+using System.Collections.Generic;
+
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace StardustSandbox.UI.Common.Menus
 {
@@ -53,10 +58,10 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        private struct SectionUI
+        private sealed class SectionUI(Label title, Label[] options)
         {
-            internal Label Title;
-            internal Label[] Options;
+            internal Label Title => title;
+            internal Label[] Options => options;
         }
 
         private Label titleLabel;
@@ -85,6 +90,10 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly SectionUI[] sectionUIs;
 
+        private readonly Dictionary<Type, Func<Option, Label>> optionBuilders;
+        private readonly Dictionary<Type, Action<Option>> optionHandlers;
+        private readonly Dictionary<Type, Action<Option, UIElement>> optionSyncHandlers;
+
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
@@ -107,9 +116,121 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
             this.videoManager = videoManager;
 
+            this.optionBuilders = new()
+            {
+                [typeof(ColorOption)] = option =>
+                {
+                    Label label = CreateOptionButtonLabelElement(option.Name + ": ");
+                    BuildColorPreview(label);
+
+                    return label;
+                },
+
+                [typeof(KeyOption)] = option =>
+                {
+                    return CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue());
+                },
+
+                [typeof(SelectorOption)] = option =>
+                {
+                    return CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue());
+                },
+
+                [typeof(SliderOption)] = option =>
+                {
+                    return CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue());
+                },
+
+                [typeof(ToggleOption)] = option =>
+                {
+                    Label label = CreateOptionButtonLabelElement(option.Name + ": ");
+                    BuildTogglePreview(label);
+
+                    return label;
+                },
+            };
+
+            this.optionHandlers = new()
+            {
+                [typeof(ColorOption)] = option =>
+                {
+                    this.colorPicker.Configure(new()
+                    {
+                        OnSelectCallback = result => option.SetValue(result),
+                    });
+
+                    this.uiManager.OpenGUI(UIIndex.ColorPicker);
+                },
+
+                [typeof(KeyOption)] = option =>
+                {
+                    this.keySelector.Configure(new()
+                    {
+                        Synopsis = option.Description,
+                        OnSelectedKey = result => option.SetValue(result),
+                    });
+
+                    this.uiManager.OpenGUI(UIIndex.KeySelector);
+                },
+
+                [typeof(SelectorOption)] = option =>
+                {
+                    ((SelectorOption)option).Next();
+                },
+
+                [typeof(SliderOption)] = option =>
+                {
+                    this.sliderUI.Configure(new()
+                    {
+                        MinimumValue = ((SliderOption)option).MinimumValue,
+                        MaximumValue = ((SliderOption)option).MaximumValue,
+                        CurrentValue = Convert.ToInt32(option.GetValue()),
+                        Synopsis = option.Description,
+                        OnSendCallback = result => option.SetValue(result),
+                    });
+
+                    this.uiManager.OpenGUI(UIIndex.Slider);
+                },
+
+                [typeof(ToggleOption)] = option =>
+                {
+                    ((ToggleOption)option).Toggle();
+                },
+            };
+
+            this.optionSyncHandlers = new()
+            {
+                [typeof(ColorOption)] = (option, element) =>
+                {
+                    ((ColorSlotInfo)element.GetData("color_slot")).Background.Color = (Color)option.GetValue();
+                },
+
+                [typeof(KeyOption)] = (option, element) =>
+                {
+                    ((Label)element).TextContent = string.Concat(option.Name, ": ", option.GetValue());
+                },
+
+                [typeof(SelectorOption)] = (option, element) =>
+                {
+                    ((Label)element).TextContent = string.Concat(option.Name, ": ", option.GetValue());
+                },
+
+                [typeof(SliderOption)] = (option, element) =>
+                {
+                    ((Label)element).TextContent = string.Concat(option.Name, ": ", option.GetValue());
+                },
+
+                [typeof(ToggleOption)] = (option, element) =>
+                {
+                    ((Image)element.GetData("toogle_preview")).SourceRectangle = (bool)option.GetValue() ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
+                },
+            };
+
             this.systemButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Options_Save_Description, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+
                     SaveSettings();
                     ApplySettings();
 
@@ -126,7 +247,11 @@ namespace StardustSandbox.UI.Common.Menus
                         });
                     }
                 }),
-                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    uiManager.CloseGUI();
+                }),
             ];
 
             this.root = new([
@@ -294,7 +419,7 @@ namespace StardustSandbox.UI.Common.Menus
             VolumeSettings volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
 
             MediaPlayer.Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
-            SoundEffect.MasterVolume = volumeSettings.SFXVolume * volumeSettings.MasterVolume;
+            SoundEffect.MasterVolume = volumeSettings.MasterVolume;
 
             this.videoManager.ApplySettings();
             this.cursorManager.ApplySettings();
@@ -372,34 +497,16 @@ namespace StardustSandbox.UI.Common.Menus
                     scrollableContainerMarginY += 64.0f;
 
                     Option option = section.Options[j];
-
-                    Label label = option switch
-                    {
-                        KeyOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
-                        SelectorOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
-                        SliderOption => CreateOptionButtonLabelElement(option.Name + ": " + option.GetValue()),
-                        ColorOption => CreateOptionButtonLabelElement(option.Name + ": "),
-                        ToggleOption => CreateOptionButtonLabelElement(option.Name + ": "),
-                        _ => null,
-                    };
+                    Label label = this.optionBuilders[option.GetType()]?.Invoke(option);
 
                     label.AddData("option", option);
                     label.Margin = new(32.0f, scrollableContainerMarginY);
-
-                    if (option is ColorOption)
-                    {
-                        BuildColorPreview(label);
-                    }
-                    else if (option is ToggleOption)
-                    {
-                        BuildTogglePreview(label);
-                    }
 
                     this.scrollableContainer.AddChild(label);
                     contentBuffer[j] = label;
                 }
 
-                this.sectionUIs[i] = new SectionUI { Title = sectionLabel, Options = contentBuffer };
+                this.sectionUIs[i] = new(sectionLabel, contentBuffer);
             }
         }
 
@@ -575,9 +682,15 @@ namespace StardustSandbox.UI.Common.Menus
                 Label label = this.systemButtonLabels[i];
                 ButtonInfo button = this.systemButtonInfos[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
                     button.ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(label))
@@ -625,38 +738,19 @@ namespace StardustSandbox.UI.Common.Menus
                     Label label = contentLabels[j];
                     Option option = (Option)label.GetData("option");
 
-                    if (Interaction.OnMouseLeftClick(label))
+                    if (Interaction.OnMouseEnter(label))
                     {
-                        if (option is SliderOption slider)
-                        {
-                            HandleSliderOption(slider);
-                        }
-                        else if (option is ColorOption color)
-                        {
-                            HandleColorOption(color);
-                        }
-                        else if (option is SelectorOption selector)
-                        {
-                            selector.Next();
-                        }
-                        else if (option is ToggleOption toggle)
-                        {
-                            toggle.Toggle();
-                        }
-                        else if (option is KeyOption key)
-                        {
-                            HandleKeyOption(key);
-                        }
-                    }
-                    else if (Interaction.OnMouseRightClick(label))
-                    {
-                        if (option is SelectorOption selector)
-                        {
-                            selector.Previous();
-                        }
+                        SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                     }
 
-                    UpdateOptionSync(option, label);
+                    if (Interaction.OnMouseLeftClick(label))
+                    {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                        this.optionHandlers[option.GetType()]?.Invoke(option);
+                        break;
+                    }
+
+                    this.optionSyncHandlers[option.GetType()]?.Invoke(option, label);
 
                     if (Interaction.OnMouseOver(label))
                     {
@@ -671,65 +765,6 @@ namespace StardustSandbox.UI.Common.Menus
                     }
                 }
             }
-        }
-
-        private static void UpdateOptionSync(Option option, UIElement element)
-        {
-            if (option is ColorOption colorOption)
-            {
-                ((ColorSlotInfo)element.GetData("color_slot")).Background.Color = (Color)Convert.ChangeType(colorOption.GetValue(), typeof(Color));
-            }
-            else if (option is SelectorOption selectorOption)
-            {
-                ((Label)element).TextContent = string.Concat(selectorOption.Name, ": ", selectorOption.GetValue());
-            }
-            else if (option is SliderOption sliderOption)
-            {
-                ((Label)element).TextContent = string.Concat(sliderOption.Name, ": ", sliderOption.GetValue());
-            }
-            else if (option is ToggleOption toggleOption)
-            {
-                ((Image)element.GetData("toogle_preview")).SourceRectangle = Convert.ToBoolean(toggleOption.GetValue()) ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
-            }
-            else if (option is KeyOption keyOption)
-            {
-                ((Label)element).TextContent = string.Concat(keyOption.Name, ": ", keyOption.GetValue());
-            }
-        }
-
-        private void HandleSliderOption(SliderOption sliderOption)
-        {
-            this.sliderUI.Configure(new()
-            {
-                MinimumValue = sliderOption.MinimumValue,
-                MaximumValue = sliderOption.MaximumValue,
-                CurrentValue = Convert.ToInt32(sliderOption.GetValue()),
-                Synopsis = sliderOption.Description,
-                OnSendCallback = result => sliderOption.SetValue(result),
-            });
-
-            this.uiManager.OpenGUI(UIIndex.Slider);
-        }
-
-        private void HandleColorOption(ColorOption colorOption)
-        {
-            this.colorPicker.Configure(new()
-            {
-                OnSelectCallback = result => colorOption.SetValue(result),
-            });
-
-            this.uiManager.OpenGUI(UIIndex.ColorPicker);
-        }
-
-        private void HandleKeyOption(KeyOption keyOption)
-        {
-            this.keySelector.Configure(new()
-            {
-                Synopsis = keyOption.Description,
-                OnSelectedKey = result => keyOption.SetValue(result),
-            });
-
-            this.uiManager.OpenGUI(UIIndex.KeySelector);
         }
 
         protected override void OnOpened()

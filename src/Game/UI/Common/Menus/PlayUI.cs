@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -113,9 +114,16 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label label = this.menuButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
