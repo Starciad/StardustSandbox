@@ -92,9 +92,8 @@ namespace StardustSandbox
         {
             SSCamera.Initialize(this.videoManager);
 
-            VolumeSettings volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
-
-            SongEngine.Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
+            SongEngine.Initialize();
+            SoundEngine.Initialize();
 
             base.Initialize();
         }

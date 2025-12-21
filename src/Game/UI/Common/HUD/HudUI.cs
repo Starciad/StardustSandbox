@@ -119,7 +119,7 @@ namespace StardustSandbox.UI.Common.HUD
                             gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
                         },
                     });
-                    this.uiManager.OpenGUI(this.guiConfirm.Index);
+                    this.uiManager.OpenGUI(UIIndex.Confirm);
                 }),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
@@ -138,7 +138,7 @@ namespace StardustSandbox.UI.Common.HUD
                             gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
                         },
                     });
-                    this.uiManager.OpenGUI(this.guiConfirm.Index);
+                    this.uiManager.OpenGUI(UIIndex.Confirm);
                 }),
             ];
 

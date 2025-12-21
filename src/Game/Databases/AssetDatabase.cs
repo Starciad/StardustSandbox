@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -19,6 +20,7 @@ namespace StardustSandbox.Databases
         private static Texture2D[] textures;
         private static SpriteFont[] fonts;
         private static Song[] songs;
+        private static SoundEffect[] soundEffects;
         private static Effect[] effects;
 
         internal static void Load(ContentManager contentManager, GraphicsDevice graphicsDevice)
@@ -50,6 +52,24 @@ namespace StardustSandbox.Databases
             songs = [
                 contentManager.Load<Song>(Path.Combine("songs", "volume_01", "01_canvas_of_silence")),
                 contentManager.Load<Song>(Path.Combine("songs", "volume_01", "02_endless_rebirth")),
+            ];
+
+            soundEffects = [
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "accepted")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "click")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "error")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "hover")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_ended")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_started")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "rejected")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "returning")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_1")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_2")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_3")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_4")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_5")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "world_loaded")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "world_saved")),
             ];
 
             textures = [
@@ -118,6 +138,11 @@ namespace StardustSandbox.Databases
         internal static Effect GetEffect(in EffectIndex index)
         {
             return effects[(int)index];
+        }
+
+        internal static SoundEffect GetSoundEffect(SoundEffectIndex index)
+        {
+            return soundEffects[(int)index];
         }
     }
 }

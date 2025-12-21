@@ -2,6 +2,8 @@
 
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 
 namespace StardustSandbox.Audio
 {
@@ -39,6 +41,22 @@ namespace StardustSandbox.Audio
         }
 
         internal static MediaState State => MediaPlayer.State;
+
+        private static bool isInitialized = false;
+
+        internal static void Initialize()
+        {
+            if (isInitialized)
+            {
+                throw new System.InvalidOperationException($"{nameof(SongEngine)} is already initialized.");
+            }
+
+            VolumeSettings volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
+
+            Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
+
+            isInitialized = true;
+        }
 
         internal static void Play(SongIndex songIndex)
         {

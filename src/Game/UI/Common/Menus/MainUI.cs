@@ -214,8 +214,14 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label label = this.menuButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -225,8 +231,6 @@ namespace StardustSandbox.UI.Common.Menus
         }
 
         #endregion
-
-        #region EVENTS
 
         protected override void OnOpened()
         {
@@ -265,7 +269,5 @@ namespace StardustSandbox.UI.Common.Menus
             this.world.Clear();
             this.world.CanDraw = false;
         }
-
-        #endregion
     }
 }
