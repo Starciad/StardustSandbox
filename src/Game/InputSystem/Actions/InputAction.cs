@@ -2,7 +2,7 @@
 
 using StardustSandbox.Enums.Inputs;
 
-namespace StardustSandbox.InputSystem
+namespace StardustSandbox.InputSystem.Actions
 {
     internal sealed class InputAction
     {

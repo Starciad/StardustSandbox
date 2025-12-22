@@ -259,5 +259,6 @@
 		<Message Text="Creating extra empty directories in the publish directory." Importance="High" />
 
 		<MakeDir Directories="$(PublishDir)logs" Condition="'$(PublishDir)' != ''" />
+		<MakeDir Directories="$(PublishDir)screenshots" Condition="'$(PublishDir)' != ''" />
 	</Target>
 </Project>

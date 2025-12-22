@@ -1,23 +1,20 @@
 ﻿using MessagePack;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class ManifestData
     {
         [Key("FormatVersion")]
-        public Version FormatVersion { get; set; }
-
-        [Key("ComponentVersions")]
-        public Dictionary<string, Version> ComponentVersions { get; set; }
+        public byte FormatVersion { get; init; }
 
         [Key("GameVersion")]
-        public Version GameVersion { get; set; }
+        public Version Version { get; init; }
 
         [Key("CreationTimestamp")]
-        public DateTime CreationTimestamp { get; set; }
+        public DateTime CreationTimestamp { get; init; }
     }
 }

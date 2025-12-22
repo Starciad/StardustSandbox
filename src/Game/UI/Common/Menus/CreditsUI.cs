@@ -205,7 +205,7 @@ namespace StardustSandbox.UI.Common.Menus
                     {
                         ContentType = CreditContentType.Image,
                         Texture = AssetDatabase.GetTexture(TextureIndex.CharacterStarciad),
-                        Margin = new(0.0f, AssetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height / 2.0f),
+                        Margin = new(0.0f, AssetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height),
                     },
                 ]),
             ];

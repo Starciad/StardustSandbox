@@ -5,34 +5,37 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class SlotData
     {
+        [Key("PositionX")]
+        public int PositionX { get; init; }
+
+        [Key("PositionY")]
+        public int PositionY { get; init; }
+
+        [Key("ForegroundLayer")]
+        public SlotLayerData ForegroundLayer { get; init; }
+
+        [Key("BackgroundLayer")]
+        public SlotLayerData BackgroundLayer { get; init; }
+
         [IgnoreMember]
         public Point Position
         {
             get => new(this.PositionX, this.PositionY);
 
-            set
+            init
             {
                 this.PositionX = value.X;
                 this.PositionY = value.Y;
             }
         }
-
-        [Key("PositionX")]
-        public int PositionX { get; set; }
-
-        [Key("PositionY")]
-        public int PositionY { get; set; }
-
-        [Key("ForegroundLayer")]
-        public SlotLayerData ForegroundLayer { get; set; }
-
-        [Key("BackgroundLayer")]
-        public SlotLayerData BackgroundLayer { get; set; }
 
         public SlotData()
         {

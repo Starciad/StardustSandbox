@@ -1,11 +1,15 @@
 ﻿using MessagePack;
 
+using System;
+using System.Collections.Generic;
+
 namespace StardustSandbox.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class ContentData
     {
         [Key("Slots")]
-        public SlotData[] Slots { get; set; }
+        public IEnumerable<SlotData> Slots { get; init; }
     }
 }

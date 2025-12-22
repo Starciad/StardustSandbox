@@ -58,7 +58,7 @@ namespace StardustSandbox.Serialization
 
             internal void Save(T value)
             {
-                using FileStream stream = new(Path.Combine(SSDirectory.Settings, this.fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+                using FileStream stream = new(Path.Combine(SSDirectory.Settings, this.fileName), FileMode.Create, FileAccess.Write);
 
                 this.cache = value;
                 this.serializer.Serialize(stream, value);
@@ -68,7 +68,7 @@ namespace StardustSandbox.Serialization
             {
                 this.cache = new T();
 
-                using FileStream stream = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                using FileStream stream = new(filePath, FileMode.Create, FileAccess.Write);
 
                 this.serializer.Serialize(stream, this.cache);
             }

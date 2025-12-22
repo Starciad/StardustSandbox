@@ -5,17 +5,47 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class SlotLayerData
     {
+        [Key("ElementIndex")]
+        public ElementIndex ElementIndex { get; init; }
+
+        [Key("Temperature")]
+        public float Temperature { get; init; }
+
+        [Key("States")]
+        public ElementStates States { get; init; }
+
+        [Key("ColorModifierR")]
+        public byte ColorModifierR { get; init; }
+
+        [Key("ColorModifierG")]
+        public byte ColorModifierG { get; init; }
+
+        [Key("ColorModifierB")]
+        public byte ColorModifierB { get; init; }
+
+        [Key("ColorModifierA")]
+        public byte ColorModifierA { get; init; }
+
+        [Key("StepCycleFlag")]
+        public UpdateCycleFlag StepCycleFlag { get; init; }
+
+        [Key("StoredElementIndex")]
+        public ElementIndex StoredElementIndex { get; init; }
+
         [IgnoreMember]
         public Color ColorModifier
         {
             get => new(this.ColorModifierR, this.ColorModifierG, this.ColorModifierB, this.ColorModifierA);
 
-            set
+            init
             {
                 this.ColorModifierR = value.R;
                 this.ColorModifierG = value.G;
@@ -23,34 +53,6 @@ namespace StardustSandbox.Serialization.Saving.Data
                 this.ColorModifierA = value.A;
             }
         }
-
-        [Key("ElementIndex")]
-        public ElementIndex ElementIndex { get; set; }
-
-        [Key("Temperature")]
-        public float Temperature { get; set; }
-
-        [Key("States")]
-        public ElementStates States { get; set; }
-
-        [Key("ColorModifierR")]
-        public byte ColorModifierR { get; set; }
-
-        [Key("ColorModifierG")]
-        public byte ColorModifierG { get; set; }
-
-        [Key("ColorModifierB")]
-        public byte ColorModifierB { get; set; }
-
-        [Key("ColorModifierA")]
-        public byte ColorModifierA { get; set; }
-
-        [Key("StepCycleFlag")]
-        public UpdateCycleFlag StepCycleFlag { get; set; }
-
-        [Key("StoredElementIndex")]
-        public ElementIndex StoredElementIndex { get; set; }
-
         public SlotLayerData()
         {
 

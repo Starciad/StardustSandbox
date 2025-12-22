@@ -1,4 +1,4 @@
-﻿namespace StardustSandbox.InputSystem
+﻿namespace StardustSandbox.InputSystem.Actions
 {
     internal sealed class InputActionMapHandler
     {
@@ -22,7 +22,7 @@
             }
         }
 
-        internal void ActivateAll()
+        internal void Activate()
         {
             for (int i = 0; i < this.maps.Length; i++)
             {
@@ -30,7 +30,7 @@
             }
         }
 
-        internal void DisableAll()
+        internal void Disable()
         {
             for (int i = 0; i < this.maps.Length; i++)
             {

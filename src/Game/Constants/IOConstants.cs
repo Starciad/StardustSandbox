@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StardustSandbox.Constants
+﻿namespace StardustSandbox.Constants
 {
     internal static class IOConstants
     {
@@ -9,6 +7,7 @@ namespace StardustSandbox.Constants
         #region LOCAL
 
         internal const string LOCAL_LOGS_DIRECTORY = "logs";
+        internal const string LOCAL_SCREENSHOTS_DIRECTORY = "screenshots";
 
         #endregion
 
@@ -100,7 +99,7 @@ namespace StardustSandbox.Constants
         #region FILE
 
         // Versions
-        internal static Version SAVE_FILE_VERSION => new("3.0.0.0");
+        internal const byte SAVE_FILE_VERSION = 3;
 
         // Settings
         internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";
@@ -114,12 +113,18 @@ namespace StardustSandbox.Constants
         // Save
         internal const string SAVE_FILE_EXTENSION = ".sf";
         internal const string SAVE_FILE_DATA = "data.bin";
-        internal const string SAVE_FILE_THUMBNAIL = "thumbnail.png";
+
+        internal const string SAVE_ENTRY_THUMBNAIL = "thumbnail.bin";
+        internal const string SAVE_ENTRY_METADATA = "metadata.bin";
+        internal const string SAVE_ENTRY_MANIFEST = "manifest.bin";
+        internal const string SAVE_ENTRY_PROPERTIES = "properties.bin";
+        internal const string SAVE_ENTRY_RESOURCES = "resources.bin";
+        internal const string SAVE_ENTRY_ENVIRONMENT = "environment.bin";
+        internal const string SAVE_ENTRY_CONTENT = "content.bin";
 
         // Others
         internal const string WARNING = "WARNING.txt";
 
         #endregion
-
     }
 }

@@ -7,6 +7,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
 using StardustSandbox.IO;
@@ -27,10 +28,10 @@ namespace StardustSandbox.UI.Common.Menus
         private int currentPage = 0;
         private int totalPages = 1;
 
-        private List<SaveFile> savedWorldFilesLoaded;
         private Image headerBackground;
         private Label pageIndexLabel;
 
+        private readonly List<SaveFile> loadedSaveFiles = [];
         private readonly ButtonInfo[] headerButtonInfos, footerButtonInfos;
 
         private readonly Image[] headerButtonImages;
@@ -59,7 +60,7 @@ namespace StardustSandbox.UI.Common.Menus
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseGUI),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, () =>
                 {
-                    LoadAllLocalSavedWorlds();
+                    LoadAllSaveFiles();
                     this.currentPage = 0;
                     UpdatePagination();
                     ChangeWorldsCatalog();
@@ -103,6 +104,16 @@ namespace StardustSandbox.UI.Common.Menus
             this.footerButtonLabels = new Label[this.footerButtonInfos.Length];
 
             UpdatePagination();
+        }
+
+        private void LoadAllSaveFiles()
+        {
+            this.loadedSaveFiles.Clear();
+
+            foreach (SaveFile saveFile in SavingSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
+            {
+                this.loadedSaveFiles.Add(saveFile);
+            }
         }
 
         #region BUILDER
@@ -354,6 +365,34 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
+        private void UpdateSlotButtons()
+        {
+            for (int i = 0; i < this.itemSlotInfos.Length; i++)
+            {
+                SlotInfo slotInfoElement = this.itemSlotInfos[i];
+
+                if (!this.itemSlotInfos[i].Background.CanDraw)
+                {
+                    break;
+                }
+
+                if (Interaction.OnMouseEnter(slotInfoElement.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, this.loadedSaveFiles[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i].Metadata.Name);
+                    this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
+                    break;
+                }
+
+                slotInfoElement.Background.Color = Interaction.OnMouseOver(slotInfoElement.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+            }
+        }
+
         private void UpdateFooterButtons()
         {
             for (int i = 0; i < this.footerButtonLabels.Length; i++)
@@ -376,37 +415,9 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        private void UpdateSlotButtons()
-        {
-            for (int i = 0; i < this.itemSlotInfos.Length; i++)
-            {
-                SlotInfo slotInfoElement = this.itemSlotInfos[i];
-
-                if (!this.itemSlotInfos[i].Background.CanDraw)
-                {
-                    break;
-                }
-
-                if (Interaction.OnMouseEnter(slotInfoElement.Background))
-                {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
-                }
-
-                if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
-                {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    this.worldDetailsMenuUI.SetSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
-                    this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
-                    break;
-                }
-
-                slotInfoElement.Background.Color = Interaction.OnMouseOver(slotInfoElement.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
-            }
-        }
-
         private void UpdatePagination()
         {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
+            this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.loadedSaveFiles?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
 
             _ = this.pageIndexLabel?.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
@@ -421,13 +432,14 @@ namespace StardustSandbox.UI.Common.Menus
                 SlotInfo slotInfoElement = this.itemSlotInfos[i];
                 int worldIndex = startIndex + i;
 
-                if (worldIndex < this.savedWorldFilesLoaded?.Count)
+                if (worldIndex < this.loadedSaveFiles?.Count)
                 {
-                    SaveFile saveFile = this.savedWorldFilesLoaded[worldIndex];
+                    SaveFile saveFile = this.loadedSaveFiles[worldIndex];
 
                     slotInfoElement.Background.CanDraw = true;
 
-                    slotInfoElement.Icon.Texture = saveFile.ThumbnailTexture;
+                    slotInfoElement.Icon.Texture?.Dispose();
+                    slotInfoElement.Icon.Texture = saveFile.ThumbnailTextureData.ToTexture2D(this.graphicsDevice);
                     slotInfoElement.Label.TextContent = saveFile.Metadata.Name.Truncate(10);
                 }
                 else
@@ -449,12 +461,12 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnClosed()
         {
-            this.savedWorldFilesLoaded.Clear();
-        }
+            this.loadedSaveFiles.Clear();
 
-        private void LoadAllLocalSavedWorlds()
-        {
-            this.savedWorldFilesLoaded = [.. SavingSerializer.LoadAllSavedWorldData(this.graphicsDevice)];
+            for (int i = 0; i < this.itemSlotInfos.Length; i++)
+            {
+                this.itemSlotInfos[i].Icon.Texture?.Dispose();
+            }
         }
     }
 }

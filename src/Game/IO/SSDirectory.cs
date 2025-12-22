@@ -12,6 +12,7 @@ namespace StardustSandbox.IO
         internal static string Local => AppDomain.CurrentDomain.BaseDirectory;
 
         internal static string Logs => Path.Combine(Local, IOConstants.LOCAL_LOGS_DIRECTORY);
+        internal static string Screenshots => Path.Combine(Local, IOConstants.LOCAL_SCREENSHOTS_DIRECTORY);
         internal static string Settings => Path.Combine(Root, IOConstants.APPDATA_SETTINGS_DIRECTORY);
         internal static string Worlds => Path.Combine(Root, IOConstants.APPDATA_WORLDS_DIRECTORY);
 
@@ -19,6 +20,7 @@ namespace StardustSandbox.IO
         {
             // Local
             _ = Directory.CreateDirectory(Logs);
+            _ = Directory.CreateDirectory(Screenshots);
 
             // AppData
             _ = Directory.CreateDirectory(Root);
