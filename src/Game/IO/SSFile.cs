@@ -1,4 +1,7 @@
-﻿using StardustSandbox.Constants;
+﻿using Microsoft.Xna.Framework.Graphics;
+
+using StardustSandbox.Constants;
+using StardustSandbox.Extensions;
 
 using System;
 using System.Diagnostics;
@@ -14,95 +17,85 @@ namespace StardustSandbox.IO
 {
     internal static class SSFile
     {
-        internal static string WriteException(Exception exception)
+        internal static string WriteRenderTarget2D(RenderTarget2D value)
         {
-            ArgumentNullException.ThrowIfNull(exception);
+            _ = Directory.CreateDirectory(SSDirectory.Screenshots);
 
-            try
-            {
-                _ = Directory.CreateDirectory(SSDirectory.Logs);
+            DateTime nowLocal = DateTime.Now;
 
-                DateTime nowLocal = DateTime.Now;
-                DateTime nowUtc = nowLocal.ToUniversalTime();
-                string fileStamp = nowLocal.ToString("yyyy_MM_dd_HH_mm_ss");
-                string logFileName = string.Concat(GameConstants.ID, "_detailed_log_", fileStamp, ".txt").ToLowerInvariant();
-                string logFilePath = Path.Combine(SSDirectory.Logs, logFileName);
+            string fileStamp = nowLocal.ToString("yyyy_MM_dd_HH_mm_ss");
+            string screenshotFileName = string.Concat(GameConstants.ID, "_screenshot_", fileStamp, ".png").ToLowerInvariant();
+            string screenshotFilePath = Path.Combine(SSDirectory.Screenshots, screenshotFileName);
 
-                StringBuilder sb = new(32_768);
+            value.FlattenAlpha();
 
-                // Top-level "how to read" and summary
-                _ = sb.AppendLine("############################################################");
-                _ = sb.AppendLine($"  {GameConstants.TITLE} - Diagnostic Log");
-                _ = sb.AppendLine($"  Generated: {nowLocal:yyyy-MM-dd HH:mm:ss.fff} (local) | {nowUtc:yyyy-MM-dd HH:mm:ss.fff}Z (UTC)");
-                _ = sb.AppendLine("############################################################");
-                _ = sb.AppendLine();
-                _ = sb.AppendLine("GUIDE: Sections below contain environment metadata, process/runtime info, assemblies, disk,");
-                _ = sb.AppendLine("       network state, threadpool/thread info, GC/memory stats and a fully expanded");
-                _ = sb.AppendLine("       exception report (including AggregateException children and ex.Data entries).");
-                _ = sb.AppendLine("       Sensitive environment values are redacted by default.");
-                _ = sb.AppendLine();
-                _ = sb.AppendLine("SUMMARY:");
-                _ = sb.AppendLine($"  Exception type : {exception.GetType().FullName}");
-                _ = sb.AppendLine($"  Message        : {exception.Message}");
-                _ = sb.AppendLine($"  Primary site   : {exception.TargetSite?.ToString() ?? "<unknown>"}");
-                _ = sb.AppendLine();
-                _ = sb.AppendLine(new string('=', 80));
-                _ = sb.AppendLine();
+            using FileStream fs = new(screenshotFilePath, FileMode.Create, FileAccess.Write);
+            value.SaveAsPng(fs, value.Width, value.Height);
 
-                // Process and runtime
-                AppendProcessRuntimeBlock(sb);
+            return screenshotFilePath;
+        }
 
-                // OS, time, culture, timezone
-                AppendSystemBlock(sb, nowLocal, nowUtc);
+        internal static string WriteException(Exception value)
+        {
+            ArgumentNullException.ThrowIfNull(value);
 
-                // Threadpool and threads
-                AppendThreadBlock(sb);
+            _ = Directory.CreateDirectory(SSDirectory.Logs);
 
-                // Memory and GC
-                AppendMemoryBlock(sb);
+            DateTime nowLocal = DateTime.Now;
+            DateTime nowUtc = nowLocal.ToUniversalTime();
+            string fileStamp = nowLocal.ToString("yyyy_MM_dd_HH_mm_ss");
+            string logFileName = string.Concat(GameConstants.ID, "_detailed_log_", fileStamp, ".txt").ToLowerInvariant();
+            string logFilePath = Path.Combine(SSDirectory.Logs, logFileName);
 
-                // Drives / disk
-                AppendDiskBlock(sb);
+            StringBuilder sb = new(32_768);
 
-                // Loaded assemblies with file version and informational version if available
-                AppendAssembliesBlock(sb);
+            // Top-level "how to read" and summary
+            _ = sb.AppendLine("############################################################");
+            _ = sb.AppendLine($"  {GameConstants.TITLE} - Diagnostic Log");
+            _ = sb.AppendLine($"  Generated: {nowLocal:yyyy-MM-dd HH:mm:ss.fff} (local) | {nowUtc:yyyy-MM-dd HH:mm:ss.fff}Z (UTC)");
+            _ = sb.AppendLine("############################################################");
+            _ = sb.AppendLine();
+            _ = sb.AppendLine("GUIDE: Sections below contain environment metadata, process/runtime info, assemblies, disk,");
+            _ = sb.AppendLine("       network state, threadpool/thread info, GC/memory stats and a fully expanded");
+            _ = sb.AppendLine("       exception report (including AggregateException children and ex.Data entries).");
+            _ = sb.AppendLine("       Sensitive environment values are redacted by default.");
+            _ = sb.AppendLine();
+            _ = sb.AppendLine("SUMMARY:");
+            _ = sb.AppendLine($"  Exception type : {value.GetType().FullName}");
+            _ = sb.AppendLine($"  Message        : {value.Message}");
+            _ = sb.AppendLine($"  Primary site   : {value.TargetSite?.ToString() ?? "<unknown>"}");
+            _ = sb.AppendLine();
+            _ = sb.AppendLine(new string('=', 80));
+            _ = sb.AppendLine();
 
-                // Exception details (expands inner chains, AggregateException, ex.Data)
-                _ = sb.AppendLine(new string('-', 80));
-                _ = sb.AppendLine("DETAILED EXCEPTION REPORT:");
-                _ = sb.AppendLine(new string('-', 80));
-                _ = sb.AppendLine(FormatExceptionDetailed(exception));
+            // Process and runtime
+            AppendProcessRuntimeBlock(sb);
 
-                // Write file
-                File.WriteAllText(logFilePath, sb.ToString(), Encoding.UTF8);
+            // OS, time, culture, timezone
+            AppendSystemBlock(sb, nowLocal, nowUtc);
 
-                return logFilePath;
-            }
-            catch (Exception writeEx)
-            {
-                // Fallback to temp folder. Avoid throwing from logging routine.
-                try
-                {
-                    string fallbackName = string.Concat(GameConstants.ID, "_detailed_log_fallback_", DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"), ".txt").ToLowerInvariant();
-                    string fallbackPath = Path.Combine(Path.GetTempPath(), fallbackName);
+            // Threadpool and threads
+            AppendThreadBlock(sb);
 
-                    StringBuilder fb = new(8192);
-                    _ = fb.AppendLine("Primary logging failed.");
-                    _ = fb.AppendLine($"Attempted logs path: {SSDirectory.Logs}");
-                    _ = fb.AppendLine($"Fallback path: {fallbackPath}");
-                    _ = fb.AppendLine($"Write exception: {writeEx}");
-                    _ = fb.AppendLine();
-                    _ = fb.AppendLine("Original exception:");
-                    _ = fb.AppendLine(exception.ToString());
+            // Memory and GC
+            AppendMemoryBlock(sb);
 
-                    File.WriteAllText(fallbackPath, fb.ToString(), Encoding.UTF8);
-                    return fallbackPath;
-                }
-                catch
-                {
-                    return null;
-                }
-            }
+            // Drives / disk
+            AppendDiskBlock(sb);
+
+            // Loaded assemblies with file version and informational version if available
+            AppendAssembliesBlock(sb);
+
+            // Exception details (expands inner chains, AggregateException, ex.Data)
+            _ = sb.AppendLine(new string('-', 80));
+            _ = sb.AppendLine("DETAILED EXCEPTION REPORT:");
+            _ = sb.AppendLine(new string('-', 80));
+            _ = sb.AppendLine(FormatExceptionDetailed(value));
+
+            // Write file
+            File.WriteAllText(logFilePath, sb.ToString(), Encoding.UTF8);
+
+            return logFilePath;
         }
 
         #region Blocks

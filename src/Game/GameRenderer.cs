@@ -9,6 +9,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem;
 using StardustSandbox.InputSystem.Game;
+using StardustSandbox.IO;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
@@ -24,13 +25,36 @@ namespace StardustSandbox
 
         private static bool isInitialized;
         private static bool isUnloaded;
+        private static bool hasScreenshotRequest;
 
         private static RenderTarget2D screenRenderTarget2D;
         private static RenderTarget2D backgroundRenderTarget2D;
         private static RenderTarget2D uiRenderTarget2D;
         private static RenderTarget2D worldRenderTarget2D;
+        private static RenderTarget2D screenshotRenderTarget2D;
 
         private static GraphicsDevice graphicsDevice;
+
+        private static RenderTarget2D CreateRenderTarget(int width, int height)
+        {
+            return new RenderTarget2D(
+                graphicsDevice,
+                width,
+                height,
+                false,
+                SurfaceFormat.Color,
+                DepthFormat.None,
+                0,
+                RenderTargetUsage.DiscardContents,
+                false
+            );
+        }
+
+        private static void DisposeRenderTarget(ref RenderTarget2D renderTarget)
+        {
+            renderTarget?.Dispose();
+            renderTarget = null;
+        }
 
         internal static void Initialize(VideoManager videoManager)
         {
@@ -48,6 +72,7 @@ namespace StardustSandbox
             uiRenderTarget2D = CreateRenderTarget(width, height);
             backgroundRenderTarget2D = CreateRenderTarget(width, height);
             worldRenderTarget2D = CreateRenderTarget(width, height);
+            screenshotRenderTarget2D = CreateRenderTarget(width, height);
 
             isInitialized = true;
             isUnloaded = false;
@@ -64,6 +89,7 @@ namespace StardustSandbox
             DisposeRenderTarget(ref uiRenderTarget2D);
             DisposeRenderTarget(ref backgroundRenderTarget2D);
             DisposeRenderTarget(ref worldRenderTarget2D);
+            DisposeRenderTarget(ref screenshotRenderTarget2D);
 
             isUnloaded = true;
             isInitialized = false;
@@ -98,6 +124,22 @@ namespace StardustSandbox
             spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.End();
 
+            if (hasScreenshotRequest)
+            {
+                graphicsDevice.SetRenderTarget(screenshotRenderTarget2D);
+                graphicsDevice.Clear(Color.Transparent);
+
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+                spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
+                spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
+                DrawCursorPenActionArea(spriteBatch, inputController);
+                spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
+                spriteBatch.End();
+
+                _ = SSFile.WriteRenderTarget2D(screenRenderTarget2D);
+                hasScreenshotRequest = false;
+            }
+
             graphicsDevice.SetRenderTarget(null);
             graphicsDevice.Clear(Color.Transparent);
 
@@ -105,27 +147,7 @@ namespace StardustSandbox
             spriteBatch.Draw(screenRenderTarget2D, videoManager.AdjustRenderTargetOnScreen(screenRenderTarget2D), Color.White);
             cursorManager.Draw(spriteBatch);
             spriteBatch.End();
-        }
 
-        private static RenderTarget2D CreateRenderTarget(int width, int height)
-        {
-            return new RenderTarget2D(
-                graphicsDevice,
-                width,
-                height,
-                false,
-                SurfaceFormat.Color,
-                DepthFormat.None,
-                0,
-                RenderTargetUsage.DiscardContents,
-                false
-            );
-        }
-
-        private static void DisposeRenderTarget(ref RenderTarget2D renderTarget)
-        {
-            renderTarget?.Dispose();
-            renderTarget = null;
         }
 
         private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
@@ -134,7 +156,7 @@ namespace StardustSandbox
             graphicsDevice.Clear(Color.Transparent);
 
             // Sky
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Opaque, null, null, null, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
             spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, new Vector2(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT), SpriteEffects.None, 0f);
             spriteBatch.End();
 
@@ -235,6 +257,11 @@ namespace StardustSandbox
             mouseY = Math.Clamp(mouseY, 0, ScreenRenderTarget2D.Height - 1);
 
             return new Vector2(mouseX, mouseY);
+        }
+
+        internal static void RequestScreenshot()
+        {
+            hasScreenshotRequest = true;
         }
     }
 }

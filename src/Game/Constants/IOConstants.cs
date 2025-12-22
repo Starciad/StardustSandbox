@@ -9,6 +9,7 @@ namespace StardustSandbox.Constants
         #region LOCAL
 
         internal const string LOCAL_LOGS_DIRECTORY = "logs";
+        internal const string LOCAL_SCREENSHOTS_DIRECTORY = "screenshots";
 
         #endregion
 

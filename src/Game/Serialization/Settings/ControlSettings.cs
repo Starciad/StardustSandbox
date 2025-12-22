@@ -27,6 +27,9 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("ClearWorld", typeof(Keys))]
         public readonly Keys ClearWorld { get; init; }
 
+        [XmlElement("Screenshot", typeof(Keys))]
+        public readonly Keys Screenshot { get; init; }
+
         public ControlSettings()
         {
             this.MoveCameraUp = Keys.W;
@@ -36,6 +39,8 @@ namespace StardustSandbox.Serialization.Settings
 
             this.TogglePause = Keys.Space;
             this.ClearWorld = Keys.R;
+
+            this.Screenshot = Keys.F12;
         }
     }
 }

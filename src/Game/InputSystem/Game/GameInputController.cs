@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Camera;
+using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
+using StardustSandbox.InputSystem.Actions;
 using StardustSandbox.InputSystem.Game.Handlers;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.Managers;
@@ -19,7 +22,9 @@ namespace StardustSandbox.InputSystem.Game
 
         private SimulationHandler simulationHandler;
         private WorldHandler worldHandler;
-        private InputActionMapHandler actionHandler;
+
+        private InputActionMapHandler systemInputHandler;
+        private InputActionMapHandler gameplayInputHandler;
 
         private readonly Pen pen;
         private readonly Player player;
@@ -37,7 +42,24 @@ namespace StardustSandbox.InputSystem.Game
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 
-            this.actionHandler = new([
+            this.systemInputHandler = new([
+                #region Keyboard
+
+                new([
+                    new(controlSettings.Screenshot)
+                    {
+                        OnStarted = _ =>
+                        {
+                            SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                            GameRenderer.RequestScreenshot();
+                        },
+                    },
+                ]),
+
+                #endregion
+            ]);
+
+            this.gameplayInputHandler = new([
                 #region Keyboard
 
                 // Camera
@@ -102,7 +124,9 @@ namespace StardustSandbox.InputSystem.Game
         internal void Update()
         {
             UpdatePlaceAreaSize();
-            this.actionHandler.Update();
+
+            this.systemInputHandler.Update();
+            this.gameplayInputHandler.Update();
         }
 
         private void UpdatePlaceAreaSize()
@@ -119,12 +143,12 @@ namespace StardustSandbox.InputSystem.Game
 
         internal void Activate()
         {
-            this.actionHandler.ActivateAll();
+            this.gameplayInputHandler.Activate();
         }
 
         internal void Disable()
         {
-            this.actionHandler.DisableAll();
+            this.gameplayInputHandler.Disable();
         }
     }
 }
