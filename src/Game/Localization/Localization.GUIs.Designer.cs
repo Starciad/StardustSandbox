@@ -799,6 +799,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to capture the screen content and save it to a local image file..
+        /// </summary>
+        internal static string Options_Controls_Screenshot_Description {
+            get {
+                return ResourceManager.GetString("Options.Controls.Screenshot.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Screenshot.
+        /// </summary>
+        internal static string Options_Controls_Screenshot_Name {
+            get {
+                return ResourceManager.GetString("Options.Controls.Screenshot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to pause the world..
         /// </summary>
         internal static string Options_Controls_TogglePause_Description {

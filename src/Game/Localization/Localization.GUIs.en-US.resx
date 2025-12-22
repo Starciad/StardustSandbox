@@ -720,4 +720,10 @@
   <data name="EnvironmentSettings.TimeOfDay.Night.Description" xml:space="preserve">
     <value>Set the time to 08:00 PM.</value>
   </data>
+  <data name="Options.Controls.Screenshot.Name" xml:space="preserve">
+    <value>Screenshot</value>
+  </data>
+  <data name="Options.Controls.Screenshot.Description" xml:space="preserve">
+    <value>Type a shortcut key to capture the screen content and save it to a local image file.</value>
+  </data>
 </root>

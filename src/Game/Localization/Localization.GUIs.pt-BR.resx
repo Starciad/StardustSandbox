@@ -720,4 +720,10 @@
   <data name="EnvironmentSettings.TimeOfDay.Night.Description" xml:space="preserve">
     <value>Defina a hora para 20h00.</value>
   </data>
+  <data name="Options.Controls.Screenshot.Name" xml:space="preserve">
+    <value>Captura de Tela</value>
+  </data>
+  <data name="Options.Controls.Screenshot.Description" xml:space="preserve">
+    <value>Digite uma tecla de atalho para capturar o conteúdo da tela e salvá-lo em um arquivo de imagem local.</value>
+  </data>
 </root>
