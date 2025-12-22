@@ -62,8 +62,8 @@
         DryOrangeWool = 52,
         DryYellowWool = 53,
         DryGreenWool = 54,
-        DryBlueWool = 55,
-        DryGrayWool = 56,
+        DryGrayWool = 55,
+        DryBlueWool = 56,
         DryVioletWool = 57,
         DryBrownWool = 58,
 
@@ -73,8 +73,8 @@
         WetOrangeWool = 62,
         WetYellowWool = 63,
         WetGreenWool = 64,
-        WetBlueWool = 65,
-        WetGrayWool = 66,
+        WetGrayWool = 65,
+        WetBlueWool = 66,
         WetVioletWool = 67,
         WetBrownWool = 68,
 
