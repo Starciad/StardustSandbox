@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.IO;
@@ -22,233 +23,195 @@ namespace StardustSandbox.Serialization
 {
     internal static class SavingSerializer
     {
-        private static readonly MessagePackSerializerOptions MapOptions =
-            MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
+        private static readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
 
-        internal static SaveFile Serialize(World world, GraphicsDevice graphicsDevice)
+        internal static void Save(World world, GraphicsDevice graphicsDevice)
         {
             string filename = Path.Combine(SSDirectory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
 
-            using MemoryStream saveFileMemoryStream = new();
-            using FileStream outputSaveFile = new(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
-
-            SaveFile saveFile = CreateSaveFile(filename, world, graphicsDevice);
-            WriteZipFile(saveFile, saveFileMemoryStream);
-
-            _ = saveFileMemoryStream.Seek(0, SeekOrigin.Begin);
-            saveFileMemoryStream.WriteTo(outputSaveFile);
-
-            return saveFile;
-        }
-
-        internal static SaveFile CreateSaveFile(string filename, World world, GraphicsDevice graphicsDevice)
-        {
-            return new()
+            if (File.Exists(filename))
             {
-                ThumbnailTexture = world.CreateThumbnail(graphicsDevice),
+                File.Delete(filename);
+            }
 
-                Metadata = new()
-                {
-                    Filename = filename,
-                    Identifier = world.Information.Identifier,
-                    Name = world.Information.Name,
-                    Description = world.Information.Description,
-                },
+            using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
+            using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-                Manifest = new()
-                {
-                    FormatVersion = IOConstants.SAVE_FILE_VERSION,
-                    GameVersion = GameConstants.VERSION,
-                    CreationTimestamp = DateTime.Now,
-                },
-
-                Properties = new()
-                {
-                    Width = world.Information.Size.X,
-                    Height = world.Information.Size.Y,
-                },
-
-                Resources = new()
-                {
-                    Elements = GetAllWorldDistinctElements(world),
-                },
-
-                Environment = new()
-                {
-                    Time = new()
-                    {
-                        CurrentTime = world.Time.CurrentTime,
-                        IsFrozen = world.Time.IsFrozen,
-                    }
-                },
-
-                Content = new()
-                {
-                    Slots = CreateSlotsData(world, world.Information.Size),
-                },
-            };
+            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(world.CreateThumbnail(graphicsDevice)));
+            Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata(world));
+            Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
+            Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties(world));
+            Write(zip, IOConstants.SAVE_ENTRY_RESOURCES, CreateResources(world));
+            Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT, CreateEnvironment(world));
+            Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent(world));
         }
 
-        internal static SaveFile LoadSaveFile(string name, GraphicsDevice graphicsDevice)
+        internal static SaveFile Load(string name, LoadFlags flags)
         {
             string filename = Path.Combine(SSDirectory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
-            using FileStream inputSaveFile = new(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using ZipArchive saveFileZipArchive = new(inputSaveFile, ZipArchiveMode.Read);
+            using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
+            using ZipArchive zip = new(fs, ZipArchiveMode.Read);
 
-            SaveFile saveFile = ReadZipFile(saveFileZipArchive, graphicsDevice);
-
-            saveFile.Metadata.Filename = filename;
-
-            return saveFile;
+            return new()
+            {
+                ThumbnailTextureData = flags.HasFlag(LoadFlags.Thumbnail) ? LoadPart<Texture2DData>(zip, IOConstants.SAVE_ENTRY_THUMBNAIL) : null,
+                Metadata = flags.HasFlag(LoadFlags.Metadata) ? LoadPart<Metadata>(zip, IOConstants.SAVE_ENTRY_METADATA) : null,
+                Manifest = flags.HasFlag(LoadFlags.Manifest) ? LoadPart<ManifestData>(zip, IOConstants.SAVE_ENTRY_MANIFEST) : null,
+                Properties = flags.HasFlag(LoadFlags.Properties) ? LoadPart<PropertyData>(zip, IOConstants.SAVE_ENTRY_PROPERTIES) : null,
+                Resources = flags.HasFlag(LoadFlags.Resources) ? LoadPart<ResourceData>(zip, IOConstants.SAVE_ENTRY_RESOURCES) : null,
+                Environment = flags.HasFlag(LoadFlags.Environment) ? LoadPart<EnvironmentData>(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT) : null,
+                Content = flags.HasFlag(LoadFlags.Content) ? LoadPart<ContentData>(zip, IOConstants.SAVE_ENTRY_CONTENT) : null
+            };
         }
 
-        internal static SaveFile[] LoadAllSavedWorldData(GraphicsDevice graphicsDevice)
+        internal static IEnumerable<SaveFile> LoadAll(LoadFlags flags)
         {
-            string[] filenames = Directory.GetFiles(SSDirectory.Worlds, string.Concat('*', IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly);
-            int length = filenames.Length;
-
-            SaveFile[] saveFiles = new SaveFile[length];
-
-            for (int i = 0; i < length; i++)
+            foreach (string filename in Directory.EnumerateFiles(SSDirectory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
             {
-                saveFiles[i] = LoadSaveFile(Path.GetFileNameWithoutExtension(filenames[i]), graphicsDevice);
-            }
-
-            return saveFiles;
-        }
-
-        internal static void DeleteSavedFile(SaveFile saveFile)
-        {
-            if (File.Exists(saveFile.Metadata.Filename))
-            {
-                File.Delete(saveFile.Metadata.Filename);
+                yield return Load(Path.GetFileNameWithoutExtension(filename), flags);
             }
         }
 
-        private static ElementIndex[] GetAllWorldDistinctElements(World world)
+        internal static void Delete(string name)
         {
-            HashSet<ElementIndex> distinctElements = [];
+            string filename = Path.Combine(SSDirectory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
-            void TryAddElementIdentifier(ElementIndex index)
+            if (File.Exists(filename))
             {
-                _ = distinctElements.Add(index);
+                File.Delete(filename);
             }
+        }
 
-            void ProcessSlot(in Point position, in Layer layer)
+        private static void Write<T>(ZipArchive zip, string entryName, T data)
+        {
+            ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.Optimal);
+
+            using Stream stream = entry.Open();
+            MessagePackSerializer.Serialize(stream, data, options);
+        }
+
+        private static T LoadPart<T>(ZipArchive zip, string entryName)
+        {
+            ZipArchiveEntry entry = zip.GetEntry(entryName);
+            using Stream stream = entry.Open();
+
+            T value = MessagePackSerializer.Deserialize<T>(stream, options);
+
+            return value;
+        }
+
+        private static Metadata CreateMetadata(World world)
+        {
+            return new()
             {
-                if (!world.TryGetSlot(position, out Slot slot))
-                {
-                    return;
-                }
+                Name = world.Information.Name,
+                Description = world.Information.Description
+            };
+        }
 
-                SlotLayer slotLayer = slot.GetLayer(layer);
+        private static ManifestData CreateManifest()
+        {
+            return new()
+            {
+                FormatVersion = IOConstants.SAVE_FILE_VERSION,
+                Version = GameConstants.VERSION,
+                CreationTimestamp = DateTime.Now
+            };
+        }
 
-                if (slotLayer.HasState(ElementStates.IsEmpty))
-                {
-                    return;
-                }
+        private static PropertyData CreateProperties(World world)
+        {
+            return new()
+            {
+                Width = world.Information.Size.X,
+                Height = world.Information.Size.Y
+            };
+        }
 
-                TryAddElementIdentifier(slotLayer.Element.Index);
+        private static ResourceData CreateResources(World world)
+        {
+            return new()
+            {
+                Elements = GetAllWorldDistinctElements(world)
+            };
+        }
 
-                if (slotLayer.StoredElement != null)
-                {
-                    TryAddElementIdentifier(slotLayer.StoredElement.Index);
-                }
-            }
+        private static EnvironmentData CreateEnvironment(World world)
+        {
+            return new()
+            {
+                CurrentTime = world.Time.CurrentTime,
+                IsFrozen = world.Time.IsFrozen
+            };
+        }
+
+        private static ContentData CreateContent(World world)
+        {
+            return new()
+            {
+                Slots = CreateSlotsData(world, world.Information.Size)
+            };
+        }
+
+        private static HashSet<ElementIndex> GetAllWorldDistinctElements(World world)
+        {
+            HashSet<ElementIndex> elements = [];
 
             for (int y = 0; y < world.Information.Size.Y; y++)
             {
                 for (int x = 0; x < world.Information.Size.X; x++)
                 {
-                    Point position = new(x, y);
+                    Point point = new(x, y);
 
-                    if (!world.IsEmptySlot(position))
+                    if (!world.TryGetSlot(point, out Slot slot))
                     {
-                        ProcessSlot(position, Layer.Foreground);
-                        ProcessSlot(position, Layer.Background);
+                        continue;
                     }
+
+                    ProcessLayer(slot.GetLayer(Layer.Foreground));
+                    ProcessLayer(slot.GetLayer(Layer.Background));
                 }
             }
 
-            return [.. distinctElements];
+            return elements;
+
+            void ProcessLayer(SlotLayer layer)
+            {
+                if (layer.HasState(ElementStates.IsEmpty))
+                {
+                    return;
+                }
+
+                _ = elements.Add(layer.Element.Index);
+
+                if (layer.StoredElement != null)
+                {
+                    _ = elements.Add(layer.StoredElement.Index);
+                }
+            }
         }
 
-        private static SlotData[] CreateSlotsData(World world, in Point worldSize)
+        private static List<SlotData> CreateSlotsData(World world, in Point size)
         {
             List<SlotData> slots = [];
 
-            for (int y = 0; y < worldSize.Y; y++)
+            for (int y = 0; y < size.Y; y++)
             {
-                for (int x = 0; x < worldSize.X; x++)
+                for (int x = 0; x < size.X; x++)
                 {
-                    Point position = new(x, y);
+                    Point point = new(x, y);
 
-                    if (!world.IsEmptySlot(position))
+                    if (world.IsEmptySlot(point))
                     {
-                        slots.Add(new(world.GetSlot(position)));
+                        continue;
                     }
+
+                    slots.Add(new SlotData(world.GetSlot(point)));
                 }
             }
 
-            return [.. slots];
-        }
-
-        private static void WriteZipFile(SaveFile saveFile, MemoryStream memoryStream)
-        {
-            using ZipArchive saveFileZipArchive = new(memoryStream, ZipArchiveMode.Create, true);
-
-            // Write thumbnail
-            using (Stream entryStream = saveFileZipArchive.CreateEntry(IOConstants.SAVE_FILE_THUMBNAIL).Open())
-            {
-                saveFile.ThumbnailTexture.SaveAsPng(entryStream, saveFile.ThumbnailTexture.Width, saveFile.ThumbnailTexture.Height);
-            }
-
-            // Write save file data
-            using (Stream entryStream = saveFileZipArchive.CreateEntry(IOConstants.SAVE_FILE_DATA).Open())
-            {
-                MessagePackSerializer.Serialize(entryStream, saveFile, MapOptions);
-            }
-        }
-
-        private static SaveFile ReadZipFile(ZipArchive zipArchive, GraphicsDevice graphicsDevice)
-        {
-            SaveFile saveFile = null;
-            Texture2D thumbnailTexture = null;
-
-            foreach (ZipArchiveEntry entry in zipArchive.Entries)
-            {
-                switch (entry.FullName)
-                {
-                    case IOConstants.SAVE_FILE_THUMBNAIL:
-                        using (Stream stream = entry.Open())
-                        {
-                            thumbnailTexture = Texture2D.FromStream(graphicsDevice, stream);
-                        }
-
-                        break;
-
-                    case IOConstants.SAVE_FILE_DATA:
-                        using (Stream stream = entry.Open())
-                        {
-                            saveFile = MessagePackSerializer.Deserialize<SaveFile>(stream, MessagePackSerializerOptions.Standard);
-                        }
-
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            saveFile ??= new();
-
-            if (thumbnailTexture != null)
-            {
-                saveFile.ThumbnailTexture = thumbnailTexture;
-            }
-
-            return saveFile;
+            return slots;
         }
     }
 }

@@ -1,20 +1,17 @@
 ﻿using MessagePack;
 
+using System;
+
 namespace StardustSandbox.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class Metadata
     {
-        [IgnoreMember]
-        public string Filename { get; set; }
-
-        [Key("Identifier")]
-        public string Identifier { get; set; }
-
         [Key("Name")]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
         [Key("Description")]
-        public string Description { get; set; }
+        public string Description { get; init; }
     }
 }

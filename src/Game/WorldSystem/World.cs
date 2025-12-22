@@ -6,6 +6,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.World;
@@ -16,6 +17,7 @@ using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
+using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem.Chunking;
@@ -39,7 +41,7 @@ namespace StardustSandbox.WorldSystem
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
-        private SaveFile currentlySelectedSaveFile;
+        private string currentlySelectedSaveFile;
 
         private Slot[,] slots;
 
@@ -738,29 +740,30 @@ namespace StardustSandbox.WorldSystem
             Reset();
         }
 
-        internal void SetSaveFile(SaveFile saveFile)
+        internal void SetSaveFile(string name)
         {
-            this.currentlySelectedSaveFile = saveFile;
+            this.currentlySelectedSaveFile = name;
         }
 
-        internal void LoadFromSaveFile(SaveFile saveFile)
+        internal void LoadFromSaveFile(string name)
         {
+            SaveFile saveFile = SavingSerializer.Load(name, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
+
             this.gameManager.SetState(GameStates.IsSimulationPaused);
 
             // World
             StartNew(saveFile.Properties.Size);
 
             // Cache
-            SetSaveFile(saveFile);
+            SetSaveFile(saveFile.Metadata.Name);
 
             // Metadata
-            this.information.Identifier = saveFile.Metadata.Identifier;
             this.information.Name = saveFile.Metadata.Name;
             this.information.Description = saveFile.Metadata.Description;
 
             // Time
-            this.time.SetTime(saveFile.Environment.Time.CurrentTime);
-            this.time.IsFrozen = saveFile.Environment.Time.IsFrozen;
+            this.time.SetTime(saveFile.Environment.CurrentTime);
+            this.time.IsFrozen = saveFile.Environment.IsFrozen;
 
             // Allocate Slots
             foreach (SlotData slotData in saveFile.Content.Slots)

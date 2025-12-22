@@ -14,7 +14,6 @@ using StardustSandbox.Extensions;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
-using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
@@ -126,9 +125,9 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
-                    SaveFile saveFile = SavingSerializer.Serialize(this.world, this.graphicsDevice);
+                    SavingSerializer.Save(this.world, this.graphicsDevice);
 
-                    this.world.SetSaveFile(saveFile);
+                    this.world.SetSaveFile(this.world.Information.Name);
                     this.uiManager.CloseGUI();
                 }),
             ];

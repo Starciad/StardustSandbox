@@ -7,8 +7,6 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.Extensions
 {
     internal static class WorldExtensions

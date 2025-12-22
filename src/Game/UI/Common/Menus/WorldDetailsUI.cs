@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
@@ -6,6 +7,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
@@ -57,7 +59,7 @@ namespace StardustSandbox.UI.Common.Menus
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    SavingSerializer.DeleteSavedFile(this.saveFile);
+                    SavingSerializer.Delete(this.saveFile.Metadata.Name);
                     this.uiManager.CloseGUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
@@ -67,7 +69,7 @@ namespace StardustSandbox.UI.Common.Menus
                     this.uiManager.OpenGUI(UIIndex.Hud);
 
                     this.gameManager.StartGame();
-                    this.world.LoadFromSaveFile(this.saveFile);
+                    this.world.LoadFromSaveFile(this.saveFile.Metadata.Name);
 
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
@@ -245,15 +247,16 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UTILITIES
 
-        internal void SetSaveFile(SaveFile saveFile)
+        internal void SetSaveFile(GraphicsDevice graphicsDevice, string saveFilename)
         {
-            this.saveFile = saveFile;
-            UpdateDisplay(saveFile);
+            this.saveFile = SavingSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
+            UpdateDisplay(graphicsDevice, this.saveFile);
         }
 
-        private void UpdateDisplay(SaveFile saveFile)
+        private void UpdateDisplay(GraphicsDevice graphicsDevice, SaveFile saveFile)
         {
-            this.worldThumbnail.Texture = saveFile.ThumbnailTexture;
+            this.worldThumbnail.Texture = saveFile.ThumbnailTextureData.ToTexture2D(graphicsDevice);
+
             this.worldTitle.TextContent = saveFile.Metadata.Name;
             this.worldDescription.TextContent = saveFile.Metadata.Description;
             this.worldVersion.TextContent = string.Concat('v', saveFile.Manifest.FormatVersion);
@@ -261,5 +264,10 @@ namespace StardustSandbox.UI.Common.Menus
         }
 
         #endregion
+
+        protected override void OnClosed()
+        {
+            this.worldThumbnail.Texture?.Dispose();
+        }
     }
 }

@@ -1,11 +1,17 @@
 ﻿using MessagePack;
 
+using System;
+
 namespace StardustSandbox.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class EnvironmentData
     {
-        [Key("Time")]
-        public TimeData Time { get; set; }
+        [Key("CurrentTime")]
+        public TimeSpan CurrentTime { get; init; }
+
+        [Key("IsFrozen")]
+        public bool IsFrozen { get; init; }
     }
 }
