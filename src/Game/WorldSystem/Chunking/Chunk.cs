@@ -24,7 +24,7 @@ namespace StardustSandbox.WorldSystem.Chunking
             SetCooldown(WorldConstants.CHUNK_DEFAULT_COOLDOWN);
         }
 
-        internal void SetCooldown(byte value)
+        internal void SetCooldown(in byte value)
         {
             this.activeCooldown = value;
         }

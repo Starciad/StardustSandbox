@@ -19,7 +19,7 @@ namespace StardustSandbox.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_Catalog {
@@ -61,7 +61,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Collection of all the elements that can be used for the most varied activities, ranging from simpler compounds to complex and more varied components..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a All elements used in different activities, from simple to complex..
         /// </summary>
         internal static string Category_Elements_Description {
             get {
@@ -79,7 +79,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Set of all the tools that add extra functionality and enable more types of changes in the world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools that add extra features and allow new changes in the world..
         /// </summary>
         internal static string Category_Tools_Description {
             get {
@@ -97,7 +97,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Forces of nature in their purest and most dynamic forms. Unpredictable and powerful, they shape and transform their surroundings with intensity, igniting change wherever they go..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pure, dynamic forces of nature. Unpredictable and strong, they quickly change their surroundings..
         /// </summary>
         internal static string Subcategory_Elements_Energies_Description {
             get {
@@ -115,7 +115,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Destructive elements designed to cause powerful reactions. They release energy in the form of heat, shockwaves, and debris upon activation, often impacting their surroundings with a high level of destruction..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Explosives are made to cause strong reactions, releasing energy, heat, and debris with high destructive power..
         /// </summary>
         internal static string Subcategory_Elements_Explosives_Description {
             get {
@@ -133,7 +133,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Elusive and ever-shifting, gases drift through the air, expanding without boundaries. Invisible or visible, they can be harmless, suffocating, or even destructive, always moving, always present..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gases move freely in the air, visible or not, and can be harmless, suffocating, or destructive..
         /// </summary>
         internal static string Subcategory_Elements_Gases_Description {
             get {
@@ -151,7 +151,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Fluid and adaptable, liquids carve their path through the world. Whether calm or chaotic, they flow, fill, and transform, essential to life but also capable of overwhelming destruction..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Liquids are adaptable and essential for life. They flow, fill spaces, and can be calm or destructive..
         /// </summary>
         internal static string Subcategory_Elements_Liquids_Description {
             get {
@@ -169,7 +169,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Elements with the power to gather and disperse. They shift, settle, and adapt to their environment, demonstrating that even the smallest elements can have a significant impact..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Powders can gather or spread, adapting to the environment and showing that small things can have a big impact..
         /// </summary>
         internal static string Subcategory_Elements_Powders_Description {
             get {
@@ -187,7 +187,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The anchors of the world, unyielding and steadfast. Solids provide structure and strength, standing firm against the forces of nature, embodying permanence and resilience..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Solids are strong and stable, giving structure and resisting natural forces..
         /// </summary>
         internal static string Subcategory_Elements_Solids_Description {
             get {
@@ -205,7 +205,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Unique and highly specialized elements that do not conform to the typical behaviors of powders, liquids, gases or solids. These elements serve specific and often transformative purposes..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Unique elements with special functions, different from powders, liquids, gases, or solids..
         /// </summary>
         internal static string Subcategory_Elements_Specials_Description {
             get {
@@ -223,7 +223,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Set of special elements that perform automated functions to facilitate certain tasks. A large compilation of all the artifacts that can help in the most diverse creations..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Special elements that automate tasks and help with different creations..
         /// </summary>
         internal static string Subcategory_Elements_Technologies_Description {
             get {
@@ -241,7 +241,25 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools that provide the ability to interact with and modify the environment..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Natural elements that bring life to the world..
+        /// </summary>
+        internal static string Subcategory_Elements_Vegetation_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Vegetation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Vegetation.
+        /// </summary>
+        internal static string Subcategory_Elements_Vegetation_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Elements.Vegetation.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools to interact with and change the environment..
         /// </summary>
         internal static string Subcategory_Tools_Environment_Description {
             get {
@@ -255,6 +273,24 @@ namespace StardustSandbox.Localization {
         internal static string Subcategory_Tools_Environment_Name {
             get {
                 return ResourceManager.GetString("Subcategory.Tools.Environment.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tools that grant you the ability to dye elements of the world..
+        /// </summary>
+        internal static string Subcategory_Tools_Inks_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Tools.Inks.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Inks.
+        /// </summary>
+        internal static string Subcategory_Tools_Inks_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Tools.Inks.Name", resourceCulture);
             }
         }
     }

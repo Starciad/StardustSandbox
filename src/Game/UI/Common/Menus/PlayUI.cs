@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -55,8 +56,8 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.2f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Center,
-                TextContent = Localization_GUIs.Menu_Play_Title,
+                Alignment = UIDirection.Center,
+                TextContent = Localization_GUIs.Play_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -81,7 +82,7 @@ namespace StardustSandbox.UI.Common.Menus
                     Scale = new(0.15f),
                     Margin = new(0.0f, marginY),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
@@ -107,15 +108,22 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 Label label = this.menuButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;

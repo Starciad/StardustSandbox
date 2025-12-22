@@ -64,7 +64,7 @@ namespace StardustSandbox.Collections
         /// <param name="value">
         /// The <see cref="IPoolableObject"/> to enqueue.
         /// </param>
-        internal void Enqueue(IPoolableObject value)
+        internal void Enqueue(in IPoolableObject value)
         {
             this.pool.Enqueue(value);
         }

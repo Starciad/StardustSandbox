@@ -23,10 +23,6 @@ namespace StardustSandbox
         // Rendering
         private SpriteBatch spriteBatch;
 
-        // Settings
-        private GameplaySettings gameplaySettings;
-        private VolumeSettings volumeSettings;
-
         // Core
         private readonly World world;
         private readonly InputController inputController;
@@ -58,12 +54,11 @@ namespace StardustSandbox
             });
 
             // Load Settings
-            VideoSettings videoSettings = SettingsSerializer.LoadSettings<VideoSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                videoSettings.UpdateResolution(this.GraphicsDevice);
-                SettingsSerializer.SaveSettings(videoSettings);
+                SettingsSerializer.Save(videoSettings.UpdateResolution(this.GraphicsDevice));
             }
 
             // Initialize Content
@@ -97,10 +92,8 @@ namespace StardustSandbox
         {
             SSCamera.Initialize(this.videoManager);
 
-            this.gameplaySettings = SettingsSerializer.LoadSettings<GameplaySettings>();
-            this.volumeSettings = SettingsSerializer.LoadSettings<VolumeSettings>();
-
-            SongEngine.Volume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
+            SongEngine.Initialize();
+            SoundEngine.Initialize();
 
             base.Initialize();
         }
@@ -186,7 +179,6 @@ namespace StardustSandbox
         {
             GameRenderer.Draw(
                 this.ambientManager,
-                this.gameplaySettings.PreviewAreaColor,
                 this.cursorManager,
                 this.inputController,
                 this.spriteBatch,

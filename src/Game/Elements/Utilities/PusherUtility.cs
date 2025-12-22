@@ -11,7 +11,7 @@ namespace StardustSandbox.Elements.Utilities
     {
         private delegate Point DirectionSelector(Point neighborPosition);
 
-        internal static void PushingNeighborsUp(in ElementContext context, in ElementNeighbors neighbors)
+        internal static void PushingNeighborsUp(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
                 frontDirection: p => new Point(p.X, p.Y - 1),
@@ -21,7 +21,7 @@ namespace StardustSandbox.Elements.Utilities
             );
         }
 
-        internal static void PushingNeighborsRight(in ElementContext context, in ElementNeighbors neighbors)
+        internal static void PushingNeighborsRight(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
                 frontDirection: p => new Point(p.X + 1, p.Y),
@@ -31,7 +31,7 @@ namespace StardustSandbox.Elements.Utilities
             );
         }
 
-        internal static void PushingNeighborsDown(in ElementContext context, in ElementNeighbors neighbors)
+        internal static void PushingNeighborsDown(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
                 frontDirection: p => new Point(p.X, p.Y + 1),
@@ -41,7 +41,7 @@ namespace StardustSandbox.Elements.Utilities
             );
         }
 
-        internal static void PushingNeighborsLeft(in ElementContext context, in ElementNeighbors neighbors)
+        internal static void PushingNeighborsLeft(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
                 frontDirection: p => new Point(p.X - 1, p.Y),
@@ -52,8 +52,8 @@ namespace StardustSandbox.Elements.Utilities
         }
 
         private static void PushNeighbors(
-            in ElementContext context,
-            in ElementNeighbors neighbors,
+            ElementContext context,
+            ElementNeighbors neighbors,
             DirectionSelector frontDirection,
             DirectionSelector leftDirection,
             DirectionSelector rightDirection,
@@ -62,8 +62,7 @@ namespace StardustSandbox.Elements.Utilities
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i) ||
-                    neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.IsEmpty) ||
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
                     !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsPushable))
                 {
                     continue;

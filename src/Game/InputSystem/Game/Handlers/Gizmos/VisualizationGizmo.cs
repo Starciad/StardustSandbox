@@ -5,8 +5,6 @@ using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 {
     internal sealed class VisualizationGizmo : Gizmo
@@ -16,7 +14,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             return;
         }

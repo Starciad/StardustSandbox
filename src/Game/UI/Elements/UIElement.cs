@@ -78,7 +78,7 @@ namespace StardustSandbox.UI.Elements
                 }
             }
         }
-        internal CardinalDirection Alignment
+        internal UIDirection Alignment
         {
             get => this.alignment;
             set
@@ -97,7 +97,7 @@ namespace StardustSandbox.UI.Elements
         private Vector2 rawSize;
         private Vector2 margin;
         private Vector2 scale;
-        private CardinalDirection alignment;
+        private UIDirection alignment;
 
         private readonly List<UIElement> children = [];
         private readonly Queue<UIElement> childrenToAdd = new();
@@ -107,7 +107,7 @@ namespace StardustSandbox.UI.Elements
 
         internal UIElement()
         {
-            this.alignment = CardinalDirection.Northwest;
+            this.alignment = UIDirection.Northwest;
 
             this.position = Vector2.Zero;
             this.rawSize = Vector2.Zero;
@@ -151,7 +151,7 @@ namespace StardustSandbox.UI.Elements
             }
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (!this.CanUpdate)
             {
@@ -184,51 +184,51 @@ namespace StardustSandbox.UI.Elements
         }
 
         protected abstract void OnInitialize();
-        protected abstract void OnUpdate(in GameTime gameTime);
+        protected abstract void OnUpdate(GameTime gameTime);
         protected abstract void OnDraw(SpriteBatch spriteBatch);
 
         #region Positioning
 
-        private static Vector2 GetAnchoredPosition(FloatRectangle rect1, FloatRectangle rect2, CardinalDirection anchor, Vector2 margin)
+        private static Vector2 GetAnchoredPosition(in FloatRectangle rect1, in FloatRectangle rect2, in UIDirection anchor, in Vector2 margin)
         {
             float x = rect2.Location.X;
             float y = rect2.Location.Y;
 
             switch (anchor)
             {
-                case CardinalDirection.Center:
+                case UIDirection.Center:
                     x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
-                case CardinalDirection.North:
+                case UIDirection.North:
                     x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += 0f;
                     break;
-                case CardinalDirection.Northeast:
+                case UIDirection.Northeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += 0f;
                     break;
-                case CardinalDirection.East:
+                case UIDirection.East:
                     x += rect2.Size.X - rect1.Size.X;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
-                case CardinalDirection.Southeast:
+                case UIDirection.Southeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case CardinalDirection.South:
+                case UIDirection.South:
                     x += (rect2.Size.X - rect1.Size.X) / 2f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case CardinalDirection.Southwest:
+                case UIDirection.Southwest:
                     x += 0f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case CardinalDirection.West:
+                case UIDirection.West:
                     x += 0f;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2f;
                     break;
-                case CardinalDirection.Northwest:
+                case UIDirection.Northwest:
                 default:
                     x += 0f;
                     y += 0f;
@@ -242,13 +242,13 @@ namespace StardustSandbox.UI.Elements
             return new Vector2(x + margin.X, y + margin.Y);
         }
 
-        private void RepositionRelativeToElement(FloatRectangle targetRectangle)
+        private void RepositionRelativeToElement(in FloatRectangle targetRectangle)
         {
             this.position = GetAnchoredPosition(this.SelfFloatRectangle, targetRectangle, this.Alignment, this.Margin);
             RepositionChildren();
         }
 
-        private void RepositionRelativeToElement(UIElement targetElement)
+        private void RepositionRelativeToElement(in UIElement targetElement)
         {
             RepositionRelativeToElement(targetElement.SelfFloatRectangle);
         }
@@ -282,7 +282,7 @@ namespace StardustSandbox.UI.Elements
 
         #region Hierarchy Management
 
-        internal void AddChild(UIElement element)
+        internal void AddChild(in UIElement element)
         {
             if (element == null)
             {
@@ -292,7 +292,7 @@ namespace StardustSandbox.UI.Elements
             this.childrenToAdd.Enqueue(element);
         }
 
-        internal void RemoveChild(UIElement element)
+        internal void RemoveChild(in UIElement element)
         {
             if (element == null)
             {
@@ -314,27 +314,27 @@ namespace StardustSandbox.UI.Elements
 
         #region Data
 
-        internal bool ContainsData(string name)
+        internal bool ContainsData(in string name)
         {
             return this.data.ContainsKey(name);
         }
 
-        internal void AddData(string name, object value)
+        internal void AddData(in string name, in object value)
         {
             this.data.Add(name, value);
         }
 
-        internal object GetData(string name)
+        internal object GetData(in string name)
         {
             return this.data[name];
         }
 
-        internal void UpdateData(string name, object value)
+        internal void UpdateData(in string name, in object value)
         {
             this.data[name] = value;
         }
 
-        internal void RemoveData(string name)
+        internal void RemoveData(in string name)
         {
             _ = this.data.Remove(name);
         }

@@ -19,7 +19,7 @@ namespace StardustSandbox.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_Messages {
@@ -61,7 +61,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a You are about to erase all content from the world. This includes elements, items, and any other data. The world will be restored to an empty state. This action is irreversible. Are you sure you want to continue?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This will erase everything in the world, including elements and items, and reset it to empty. This cannot be undone. Continue?.
         /// </summary>
         internal static string Confirm_Simulation_EraseEverything_Description {
             get {
@@ -70,7 +70,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Do you really want to erase all content in the world?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erase all world content?.
         /// </summary>
         internal static string Confirm_Simulation_EraseEverything_Title {
             get {
@@ -79,7 +79,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a If you exit now, all progress will be lost unless your creation has been saved. Make sure to save before exiting to avoid losing your work. Do you want to continue?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a If you exit now, unsaved progress will be lost. Save your work before leaving. Continue?.
         /// </summary>
         internal static string Confirm_Simulation_Exit_Description {
             get {
@@ -88,7 +88,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Are you sure you want to exit?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Exit the simulation?.
         /// </summary>
         internal static string Confirm_Simulation_Exit_Title {
             get {
@@ -97,7 +97,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a You are about to reload a simulation. This will restore the world to the initial state of the loaded file. If no file was loaded, the world will be completely reset. This action is irreversible. Do you wish to continue?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This will reload the simulation and reset the world to the file&apos;s initial state. If no file is loaded, the world will be cleared. This cannot be undone. Continue?.
         /// </summary>
         internal static string Confirm_Simulation_Reload_Description {
             get {
@@ -106,7 +106,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Do you really want to restart the world?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Restart the world?.
         /// </summary>
         internal static string Confirm_Simulation_Reload_Title {
             get {
@@ -115,7 +115,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a To change the size of the world, all current content will need to be deleted. This will result in the loss of all progress unless the information has been saved. Make sure to save before proceeding. Do you really want to change the size of the world?.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Changing the world size will delete all current content. Save your progress before continuing. Proceed with size change?.
         /// </summary>
         internal static string Confirm_World_Resize_Description {
             get {
@@ -124,7 +124,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a World Size Change - Progress Will Be Lost.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Change world size? Progress will be lost.
         /// </summary>
         internal static string Confirm_World_Resize_Title {
             get {
@@ -133,7 +133,16 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Enter the description that the world will have..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a No temperature is being applied..
+        /// </summary>
+        internal static string Information_NoTemperature {
+            get {
+                return ResourceManager.GetString("Information.NoTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enter a description for the world..
         /// </summary>
         internal static string Input_World_Description {
             get {
@@ -142,7 +151,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The world description cannot be empty. Please provide a description for your world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The world description can&apos;t be empty. Please add one..
         /// </summary>
         internal static string Input_World_Description_Validation_Empty {
             get {
@@ -151,7 +160,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Enter the name the world will have..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enter a name for the world..
         /// </summary>
         internal static string Input_World_Name {
             get {
@@ -160,7 +169,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The world name cannot be empty. Please enter a name with at least one character..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The world name can&apos;t be empty. Please enter at least one character..
         /// </summary>
         internal static string Input_World_Name_Validation_Empty {
             get {
@@ -169,7 +178,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a No description provided..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a No description..
         /// </summary>
         internal static string NoDescription {
             get {
@@ -178,11 +187,20 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Some settings, such as the game language, will only be applied after restarting the game..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Some settings, like language, only apply after restarting the game..
         /// </summary>
         internal static string Settings_RestartRequired {
             get {
                 return ResourceManager.GetString("Settings.RestartRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hey! Your world is much bigger now! Use {0}, {1}, {2} and {3} to move your camera!.
+        /// </summary>
+        internal static string Tutorial_Move {
+            get {
+                return ResourceManager.GetString("Tutorial.Move", resourceCulture);
             }
         }
     }

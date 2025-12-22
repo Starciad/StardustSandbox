@@ -2,12 +2,12 @@
 
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
@@ -19,7 +19,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             IEnumerable<Point> targetPoints = this.Pen.GetShapePoints(position);
 
@@ -29,7 +29,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            ReplaceElements(ElementDatabase.GetElement(itemAssociateType), targetPoints);
+                            ReplaceElements(ElementDatabase.GetElement((ElementIndex)contentIndex), targetPoints);
                             break;
 
                         case WorldModificationType.Removing:

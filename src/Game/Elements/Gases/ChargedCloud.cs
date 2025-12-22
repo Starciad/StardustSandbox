@@ -6,7 +6,7 @@ namespace StardustSandbox.Elements.Gases
 {
     internal sealed class ChargedCloud : Gas
     {
-        protected override void OnBeforeStep(in ElementContext context)
+        protected override void OnBeforeStep(ElementContext context)
         {
             if (SSRandom.Chance(35))
             {
@@ -14,7 +14,7 @@ namespace StardustSandbox.Elements.Gases
             }
         }
 
-        protected override void OnStep(in ElementContext context)
+        protected override void OnStep(ElementContext context)
         {
             if (SSRandom.Chance(10))
             {
@@ -26,7 +26,7 @@ namespace StardustSandbox.Elements.Gases
             }
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 10.0f) &&
                 neighbors.CountNeighborsByElementIndex(ElementIndex.ChargedCloud, context.Layer) >= 5 &&
@@ -41,7 +41,7 @@ namespace StardustSandbox.Elements.Gases
                     }
                     else
                     {
-                        context.ReplaceElement(ElementIndex.ThunderHead);
+                        context.ReplaceElement(ElementIndex.LightningHead);
                     }
                 }
                 else

@@ -5,6 +5,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
@@ -12,17 +13,23 @@ using StardustSandbox.UI.Elements;
 
 namespace StardustSandbox.UI.Common.Tools
 {
-    internal sealed class MessageUI(
-        UIIndex index,
-        UIManager uiManager
-    ) : UIBase(index)
+    internal sealed class MessageUI : UIBase
     {
         private Text message;
         private Label continueButtonLabel;
 
-        private readonly UIManager uiManager = uiManager;
+        private readonly UIManager uiManager;
+        private readonly GameManager gameManager;
 
-        #region BUILDER
+        internal MessageUI(
+            GameManager gameManager,
+            UIIndex index,
+            UIManager uiManager
+        ) : base(index)
+        {
+            this.gameManager = gameManager;
+            this.uiManager = uiManager;
+        }
 
         protected override void OnBuild(Container root)
         {
@@ -53,7 +60,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             root.AddChild(this.message);
@@ -66,7 +73,7 @@ namespace StardustSandbox.UI.Common.Tools
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.13f),
                 Margin = new(0.0f, -96.0f),
-                Alignment = CardinalDirection.South,
+                Alignment = UIDirection.South,
                 TextContent = Localization_Statements.Continue,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -78,11 +85,7 @@ namespace StardustSandbox.UI.Common.Tools
             root.AddChild(this.continueButtonLabel);
         }
 
-        #endregion
-
-        #region UPDATING
-
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
             {
@@ -99,6 +102,14 @@ namespace StardustSandbox.UI.Common.Tools
             this.message.TextContent = text;
         }
 
-        #endregion
+        protected override void OnOpened()
+        {
+            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+        }
+
+        protected override void OnClosed()
+        {
+            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+        }
     }
 }

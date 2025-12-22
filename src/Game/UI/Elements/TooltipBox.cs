@@ -56,7 +56,7 @@ namespace StardustSandbox.UI.Elements
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
                 Color = AAP64ColorPalette.DarkPurple,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Size = new(48f),
 
                 TileSize = new(16),
@@ -92,7 +92,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(in GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.title.TextContent = TooltipBoxContent.Title;
             this.description.TextContent = TooltipBoxContent.Description;

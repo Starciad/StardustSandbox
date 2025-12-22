@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -44,7 +45,7 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
-            this.infoLabels = new Label[UIConstants.HUD_INFORMATION_AMOUNT];
+            this.infoLabels = new Label[6];
         }
 
         #region BUILDER
@@ -69,7 +70,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundInformation),
                 Size = new(1084.0f, 540.0f),
             };
@@ -86,7 +87,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
-                TextContent = Localization_GUIs.HUD_Complements_Information_Title,
+                TextContent = Localization_GUIs.Information_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -106,8 +107,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.buttonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -131,10 +132,15 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.1f),
-                    Alignment = CardinalDirection.Northwest,
+                    Alignment = UIDirection.Northwest,
                     Margin = new(32.0f, marginY),
                     Color = AAP64ColorPalette.White,
-                    TextContent = string.Concat("Info ", i)
+                    TextContent = string.Concat("Info ", i),
+
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
                 };
 
                 this.background.AddChild(label);
@@ -146,8 +152,6 @@ namespace StardustSandbox.UI.Common.HUD
                 marginY += label.Size.Y + 8.0f;
             }
         }
-
-        // =============================================================== //
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
@@ -173,9 +177,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region UPDATE
-
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateMenuButtons();
             base.Update(gameTime);
@@ -187,16 +189,21 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.buttonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
-
-        #endregion
 
         #region EVENTS
 
@@ -209,11 +216,15 @@ namespace StardustSandbox.UI.Common.HUD
             uint limitOfElementsOnTheMap = (uint)(worldSize.X * worldSize.Y * 2);
             uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);
 
-            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize);
+            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize.X, 'x', worldSize.Y);
             this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
             this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
-            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
-            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.HUD_Complements_Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+
+            this.infoLabels[5].TextContent = this.world.Temperature.CanApplyTemperature
+                ? string.Concat(Localization_Statements.Temperature, ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")
+                : string.Concat(Localization_Statements.Temperature, ": ", Localization_Messages.Information_NoTemperature);
         }
 
         protected override void OnClosed()

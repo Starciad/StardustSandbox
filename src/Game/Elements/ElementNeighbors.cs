@@ -24,43 +24,48 @@ namespace StardustSandbox.Elements
             this.slots = new Slot[8];
         }
 
-        internal void SetNeighbor(int index, Slot slot)
+        internal void SetNeighbor(in int index, Slot slot)
         {
             this.slots[index] = slot;
         }
 
-        internal Slot GetSlot(int index)
+        internal Slot GetSlot(in int index)
         {
             return this.slots[index];
         }
 
-        internal SlotLayer GetSlotLayer(int index, Layer layer)
+        internal SlotLayer GetSlotLayer(in int index, in Layer layer)
         {
             Slot slot = GetSlot(index);
 
             return slot?.GetLayer(layer);
         }
 
-        internal bool HasNeighbor(int index)
+        internal bool HasNeighbor(in int index)
         {
             return this.slots[index] != null;
         }
 
-        internal int CountNeighborsByElementIndex(ElementIndex elementIndex, Layer layer)
+        internal int CountNeighborsByElementIndex(in ElementIndex elementIndex, in Layer layer)
         {
             int count = 0;
 
             for (int i = 0; i < this.Length; i++)
             {
-                Slot slot = this.slots[i];
-
-                if (slot != null && slot.GetLayer(layer).Element.Index == elementIndex)
+                if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).Element.Index == elementIndex)
                 {
                     count++;
                 }
             }
 
             return count;
+        }
+
+        internal bool IsNeighborLayerOccupied(int index, Layer layer)
+        {
+            return HasNeighbor(index) &&
+                   !GetSlotLayer(index, layer).HasState(ElementStates.IsEmpty) &&
+                   GetSlotLayer(index, layer).Element != null;
         }
 
         public void Reset()

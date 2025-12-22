@@ -51,7 +51,7 @@ namespace StardustSandbox.WorldSystem
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
-        internal void Copy(SlotLayer valueToCopy)
+        internal void Copy(in SlotLayer valueToCopy)
         {
             this.element = valueToCopy.element;
             this.storedElement = valueToCopy.storedElement;
@@ -61,12 +61,12 @@ namespace StardustSandbox.WorldSystem
             this.stepCycleFlag = valueToCopy.stepCycleFlag;
         }
 
-        internal void SetTemperatureValue(float value)
+        internal void SetTemperatureValue(in float value)
         {
             this.temperature = TemperatureMath.Clamp(value);
         }
 
-        internal void SetColorModifier(Color value)
+        internal void SetColorModifier(in Color value)
         {
             this.colorModifier = value;
         }
@@ -86,17 +86,17 @@ namespace StardustSandbox.WorldSystem
             Destroy();
         }
 
-        internal bool HasState(ElementStates value)
+        internal bool HasState(in ElementStates value)
         {
             return this.states.HasFlag(value);
         }
 
-        internal void SetState(ElementStates value)
+        internal void SetState(in ElementStates value)
         {
             this.states |= value;
         }
 
-        internal void RemoveState(ElementStates value)
+        internal void RemoveState(in ElementStates value)
         {
             this.states &= ~value;
         }
@@ -106,7 +106,7 @@ namespace StardustSandbox.WorldSystem
             this.states = ElementStates.None;
         }
 
-        internal void ToggleState(ElementStates value)
+        internal void ToggleState(in ElementStates value)
         {
             this.states ^= value;
         }

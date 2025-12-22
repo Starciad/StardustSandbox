@@ -5,17 +5,18 @@ namespace StardustSandbox.Elements.Liquids
 {
     internal sealed class Water : Liquid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
                 switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
+                    case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Mud);
                         context.DestroyElement();
@@ -25,9 +26,11 @@ namespace StardustSandbox.Elements.Liquids
                         if (SSRandom.Range(0, 150) == 0)
                         {
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
+                            context.DestroyElement();
+                            return;
                         }
-                        context.DestroyElement();
-                        return;
+
+                        break;
 
                     case ElementIndex.Fire:
                         context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
@@ -39,7 +42,7 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue <= 0.0f)
             {

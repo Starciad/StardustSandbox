@@ -7,7 +7,7 @@ Clear-Host
 
 # Configuration
 $gameName = 'StardustSandbox'
-$gameVersion = 'v1.2.2.0'
+$gameVersion = 'v2.0.0.0'
 $outputDir = '..\Publish'
 
 # Project definitions
@@ -41,18 +41,11 @@ foreach ($proj in $projects) {
     Publish-Project -projectName $proj.Name -projectPath $proj.Path
 }
 
-# Copy assets and remove unwanted subdirs
-$assetsSource      = '..\Game\assets'
-$licenseFile       = '..\..\LICENSE-ASSETS.txt'
+# Post-publish: Clone assets repository
+$repoUrl           = 'https://github.com/Starciad/StardustSandbox.Assets.git'
 $assetsDestination = Join-Path $outputDir "$gameName.Assets.$gameVersion\assets"
-$subdirsToRemove   = @('bin','obj')
 
-Copy-Item -Path $assetsSource -Destination $assetsDestination -Recurse -Force
-Copy-Item -Path $licenseFile -Destination $assetsDestination -Force
-
-foreach ($sub in $subdirsToRemove) {
-    $path = Join-Path $assetsDestination $sub
-    if (Test-Path $path) {
-        Remove-Item $path -Recurse -Force
-    }
+# Clone assets repository if not present
+if (-not (Test-Path $assetsDestination)) {
+    git clone $repoUrl $assetsDestination
 }

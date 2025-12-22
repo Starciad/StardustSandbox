@@ -3,37 +3,39 @@
 using StardustSandbox.Constants;
 using StardustSandbox.Mathematics.Primitives;
 
+using System;
 using System.Xml.Serialization;
 
 namespace StardustSandbox.Serialization.Settings
 {
+    [Serializable]
     [XmlRoot("VideoSettings")]
-    public sealed class VideoSettings : SettingsModule
+    public readonly struct VideoSettings : ISettingsModule
     {
         [XmlElement("Framerate", typeof(float))]
-        public float Framerate { get; set; }
+        public readonly float Framerate { get; init; }
 
         [XmlElement("Width", typeof(int))]
-        public int Width { get; set; }
+        public readonly int Width { get; init; }
 
         [XmlElement("Height", typeof(int))]
-        public int Height { get; set; }
+        public readonly int Height { get; init; }
 
         [XmlElement("FullScreen", typeof(bool))]
-        public bool FullScreen { get; set; }
+        public readonly bool FullScreen { get; init; }
 
         [XmlElement("VSync", typeof(bool))]
-        public bool VSync { get; set; }
+        public readonly bool VSync { get; init; }
 
         [XmlElement("Borderless", typeof(bool))]
-        public bool Borderless { get; set; }
+        public readonly bool Borderless { get; init; }
 
         [XmlIgnore]
         public Resolution Resolution
         {
-            get => new(this.Width, this.Height);
+            readonly get => new(this.Width, this.Height);
 
-            set
+            init
             {
                 this.Width = value.Width;
                 this.Height = value.Height;
@@ -50,7 +52,7 @@ namespace StardustSandbox.Serialization.Settings
             this.Borderless = false;
         }
 
-        public void UpdateResolution(GraphicsDevice graphicsDevice)
+        public VideoSettings UpdateResolution(GraphicsDevice graphicsDevice)
         {
             Resolution monitorResolution = new(
                 graphicsDevice.Adapter.CurrentDisplayMode.Width,
@@ -59,8 +61,15 @@ namespace StardustSandbox.Serialization.Settings
 
             Resolution autoResolution = GetAutoResolution(monitorResolution);
 
-            this.Width = autoResolution.Width;
-            this.Height = autoResolution.Height;
+            return new()
+            {
+                Framerate = this.Framerate,
+                Width = autoResolution.Width,
+                Height = autoResolution.Height,
+                FullScreen = this.FullScreen,
+                VSync = this.VSync,
+                Borderless = this.Borderless
+            };
         }
 
         private static Resolution GetAutoResolution(Resolution monitorResolution)

@@ -141,6 +141,9 @@
   <data name="Confirm.World.Resize.Title" xml:space="preserve">
     <value>Change world size? Progress will be lost</value>
   </data>
+  <data name="Information.NoTemperature" xml:space="preserve">
+    <value>No temperature is being applied.</value>
+  </data>
   <data name="Input.World.Description" xml:space="preserve">
     <value>Enter a description for the world.</value>
   </data>
@@ -158,5 +161,8 @@
   </data>
   <data name="Settings.RestartRequired" xml:space="preserve">
     <value>Some settings, like language, only apply after restarting the game.</value>
+  </data>
+  <data name="Tutorial.Move" xml:space="preserve">
+    <value>Hey! Your world is much bigger now! Use {0}, {1}, {2} and {3} to move your camera!</value>
   </data>
 </root>

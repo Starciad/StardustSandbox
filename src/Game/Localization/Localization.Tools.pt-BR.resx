@@ -129,4 +129,64 @@
   <data name="Environment.Heat.Name" xml:space="preserve">
     <value>Aquecimento</value>
   </data>
+  <data name="Inks.Black.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de preto.</value>
+  </data>
+  <data name="Inks.Black.Name" xml:space="preserve">
+    <value>Tinta Preta</value>
+  </data>
+  <data name="Inks.Blue.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de azul.</value>
+  </data>
+  <data name="Inks.Blue.Name" xml:space="preserve">
+    <value>Tinta Azul</value>
+  </data>
+  <data name="Inks.Brown.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de marrom.</value>
+  </data>
+  <data name="Inks.Brown.Name" xml:space="preserve">
+    <value>Tinta Marrom</value>
+  </data>
+  <data name="Inks.Gray.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de cinza.</value>
+  </data>
+  <data name="Inks.Gray.Name" xml:space="preserve">
+    <value>Tinta Cinza</value>
+  </data>
+  <data name="Inks.Green.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de verde.</value>
+  </data>
+  <data name="Inks.Green.Name" xml:space="preserve">
+    <value>Tinta Verde</value>
+  </data>
+  <data name="Inks.Orange.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de laranja.</value>
+  </data>
+  <data name="Inks.Orange.Name" xml:space="preserve">
+    <value>Tinta Laranja</value>
+  </data>
+  <data name="Inks.Red.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de vermelho.</value>
+  </data>
+  <data name="Inks.Red.Name" xml:space="preserve">
+    <value>Tinta Vermelha</value>
+  </data>
+  <data name="Inks.Violet.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de violeta.</value>
+  </data>
+  <data name="Inks.Violet.Name" xml:space="preserve">
+    <value>Tinta Violeta</value>
+  </data>
+  <data name="Inks.White.Description" xml:space="preserve">
+    <value>Ao tingir um elemento de branco, todas as suas cores originais serão restauradas.</value>
+  </data>
+  <data name="Inks.White.Name" xml:space="preserve">
+    <value>Tinta Branca</value>
+  </data>
+  <data name="Inks.Yellow.Description" xml:space="preserve">
+    <value>Permite tingir os elementos de amarelo.</value>
+  </data>
+  <data name="Inks.Yellow.Name" xml:space="preserve">
+    <value>Tinta Amarela</value>
+  </data>
 </root>

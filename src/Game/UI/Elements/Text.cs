@@ -50,7 +50,7 @@ namespace StardustSandbox.UI.Elements
             get => this.textContent;
             set
             {
-                if (!this.textContent.Equals(value))
+                if (!string.IsNullOrWhiteSpace(value) && !this.textContent.Equals(value))
                 {
                     WrapContent(value);
 
@@ -95,7 +95,7 @@ namespace StardustSandbox.UI.Elements
             return;
         }
 
-        protected override void OnUpdate(in GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             return;
         }

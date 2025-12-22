@@ -13,21 +13,20 @@ namespace StardustSandbox.Elements.Gases
     {
         private static readonly List<Slot> cachedCorruptionNeighborSlots = [];
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             cachedCorruptionNeighborSlots.Clear();
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
                 Slot slot = neighbors.GetSlot(i);
-                SlotLayer slotLayer = slot.GetLayer(context.Layer);
 
-                if (!slotLayer.HasState(ElementStates.IsEmpty) && slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
+                if (slot.GetLayer(context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
                 {
                     cachedCorruptionNeighborSlots.Add(slot);
                 }
@@ -38,7 +37,7 @@ namespace StardustSandbox.Elements.Gases
                 Slot corruptionNeighborSlot = cachedCorruptionNeighborSlots.GetRandomItem();
                 SlotLayer neighborCorruptionSlotLayer = corruptionNeighborSlot.GetLayer(context.Layer);
 
-                Element currentStoredElement = context.SlotLayer.StoredElement;
+                Element currentStoredElement = context.GetStoredElement();
                 Element neighborStoredElement = neighborCorruptionSlotLayer.StoredElement;
 
                 Point oldPosition = context.Slot.Position;
@@ -57,9 +56,9 @@ namespace StardustSandbox.Elements.Gases
 
                 context.SetStoredElement(newPosition, neighborStoredElement);
             }
-            else if (context.SlotLayer.StoredElement != null)
+            else if (context.GetStoredElement() != null)
             {
-                context.ReplaceElement(context.SlotLayer.StoredElement);
+                context.ReplaceElement(context.GetStoredElement());
             }
             else if (SSRandom.Chance(15))
             {

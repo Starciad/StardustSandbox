@@ -10,6 +10,8 @@ using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -69,7 +71,6 @@ namespace StardustSandbox
 
         internal static void Draw(
             AmbientManager ambientManager,
-            Color cursorPreviewAreaColor,
             CursorManager cursorManager,
             InputController inputController,
             SpriteBatch spriteBatch,
@@ -93,7 +94,7 @@ namespace StardustSandbox
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
             spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
-            DrawCursorPenActionArea(spriteBatch, inputController, cursorPreviewAreaColor);
+            DrawCursorPenActionArea(spriteBatch, inputController);
             spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.End();
 
@@ -123,11 +124,8 @@ namespace StardustSandbox
 
         private static void DisposeRenderTarget(ref RenderTarget2D renderTarget)
         {
-            if (renderTarget is not null)
-            {
-                renderTarget.Dispose();
-                renderTarget = null;
-            }
+            renderTarget?.Dispose();
+            renderTarget = null;
         }
 
         private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
@@ -182,11 +180,13 @@ namespace StardustSandbox
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController, Color previewAreaColor)
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController)
         {
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+
             PenTool penTool = inputController.Pen.Tool;
 
-            if (penTool is PenTool.Visualization or PenTool.Fill)
+            if (!gameplaySettings.ShowPreviewArea || penTool is PenTool.Visualization or PenTool.Fill)
             {
                 return;
             }
@@ -212,7 +212,7 @@ namespace StardustSandbox
                     AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
                     screenPosition,
                     new Rectangle(110, 0, 32, 32),
-                    previewAreaColor,
+                    gameplaySettings.PreviewAreaColor,
                     0f,
                     Vector2.Zero,
                     Vector2.One,
@@ -222,7 +222,7 @@ namespace StardustSandbox
             }
         }
 
-        internal static Vector2 CalculateScaledMousePosition(Vector2 mousePosition, VideoManager videoManager)
+        internal static Vector2 CalculateScaledMousePosition(in Vector2 mousePosition, VideoManager videoManager)
         {
             Rectangle adjustedScreen = videoManager.AdjustRenderTargetOnScreen(ScreenRenderTarget2D);
 

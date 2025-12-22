@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -10,10 +11,11 @@ using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
@@ -30,16 +32,17 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo[] menuButtonInfos, sizeButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
-        private readonly ConfirmSettings changeWorldSizeConfirmSettings;
-
         private readonly ConfirmUI confirmUI;
         private readonly GameManager gameManager;
+        private readonly MessageUI messageUI;
         private readonly UIManager uiManager;
+        private readonly World world;
 
         internal WorldSettingsUI(
             ConfirmUI confirmUI,
             GameManager gameManager,
             UIIndex index,
+            MessageUI messageUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
@@ -47,35 +50,22 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.confirmUI = confirmUI;
             this.gameManager = gameManager;
+            this.messageUI = messageUI;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
-
-            this.changeWorldSizeConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_World_Resize_Title,
-                Message = Localization_Messages.Confirm_World_Resize_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        world.StartNew(this.worldTargetSize);
-                    }
-
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            };
+            this.world = world;
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
             ];
 
             this.sizeButtonInfos = [
-                new(TextureIndex.IconUI, new(0, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
-                new(TextureIndex.IconUI, new(32, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
-                new(TextureIndex.IconUI, new(64, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
-                new(TextureIndex.IconUI, new(96, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_MediumLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[3]); }),
-                new(TextureIndex.IconUI, new(128, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_Large_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[4]); }),
-                new(TextureIndex.IconUI, new(160, 128, 32, 32), Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Name, Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Button_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
+                new(TextureIndex.IconUI, new(0, 128, 32, 32), Localization_GUIs.WorldSettings_Size_Small_Name, Localization_GUIs.WorldSettings_Size_Small_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[0]); }),
+                new(TextureIndex.IconUI, new(32, 128, 32, 32), Localization_GUIs.WorldSettings_Size_MediumSmall_Name, Localization_GUIs.WorldSettings_Size_MediumSmall_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[1]); }),
+                new(TextureIndex.IconUI, new(64, 128, 32, 32), Localization_GUIs.WorldSettings_Size_Medium_Name, Localization_GUIs.WorldSettings_Size_Medium_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[2]); }),
+                new(TextureIndex.IconUI, new(96, 128, 32, 32), Localization_GUIs.WorldSettings_Size_MediumLarge_Name, Localization_GUIs.WorldSettings_Size_MediumLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[3]); }),
+                new(TextureIndex.IconUI, new(128, 128, 32, 32), Localization_GUIs.WorldSettings_Size_Large_Name, Localization_GUIs.WorldSettings_Size_Large_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[4]); }),
+                new(TextureIndex.IconUI, new(160, 128, 32, 32), Localization_GUIs.WorldSettings_Size_VeryLarge_Name, Localization_GUIs.WorldSettings_Size_VeryLarge_Description, () => { SetWorldSizeButtonAction(WorldConstants.WORLD_SIZES_TEMPLATE[5]); }),
             ];
 
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
@@ -87,8 +77,40 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager.CloseGUI();
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
             this.worldTargetSize = size;
-            this.confirmUI.Configure(this.changeWorldSizeConfirmSettings);
-            this.uiManager.OpenGUI(this.confirmUI.Index);
+
+            this.confirmUI.Configure(new()
+            {
+                Caption = Localization_Messages.Confirm_World_Resize_Title,
+                Message = Localization_Messages.Confirm_World_Resize_Description,
+                OnConfirmCallback = status =>
+                {
+                    if (status == ConfirmStatus.Confirmed)
+                    {
+                        this.world.StartNew(this.worldTargetSize);
+
+                        StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
+
+                        if (!statusSettings.TheMovementTutorialWasDisplayed)
+                        {
+                            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+
+                            SoundEngine.Play(SoundEffectIndex.GUI_Message);
+
+                            this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
+                            this.uiManager.OpenGUI(UIIndex.Message);
+
+                            SettingsSerializer.Save<StatusSettings>(new(statusSettings)
+                            {
+                                TheMovementTutorialWasDisplayed = true,
+                            });
+                        }
+                    }
+
+                    this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                },
+            });
+
+            this.uiManager.OpenGUI(UIIndex.Confirm);
         }
 
         #region BUILDER
@@ -115,7 +137,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundWorldSettings),
                 Size = new(1084.0f, 540.0f),
             };
@@ -131,7 +153,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Title,
+                TextContent = Localization_GUIs.WorldSettings_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -151,8 +173,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -173,7 +195,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                TextContent = Localization_GUIs.HUD_Complements_WorldSettings_Section_Size_Title
+                TextContent = Localization_GUIs.WorldSettings_Size_Title
             };
 
             this.background.AddChild(this.sizeSectionTitle);
@@ -186,8 +208,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.sizeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.sizeSectionTitle.AddChild(slot.Background);
@@ -229,7 +251,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -245,9 +267,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -260,9 +289,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.sizeButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.sizeButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -283,8 +319,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -294,7 +328,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }

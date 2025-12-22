@@ -41,7 +41,7 @@ namespace StardustSandbox.Databases
             isLoaded = true;
         }
 
-        internal static Background GetBackground(BackgroundIndex index)
+        internal static Background GetBackground(in BackgroundIndex index)
         {
             return backgrounds[(int)index];
         }

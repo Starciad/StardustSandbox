@@ -5,7 +5,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class Heater : ImmovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             TemperatureUtilities.ModifyNeighborsTemperature(context, neighbors, TemperatureModifierMode.Warming);
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Catalog;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
@@ -132,7 +133,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084.0f, 607.0f),
                 Margin = new(0.0f, 32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             root.AddChild(shadow);
@@ -147,7 +148,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.12f),
                 Margin = new(32.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
-                TextContent = Localization_GUIs.HUD_Complements_ItemExplorer_Title,
+                TextContent = Localization_GUIs.ItemExplorer_Title,
 
                 BorderDirections = LabelBorderDirection.All,
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -170,7 +171,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = CardinalDirection.Northeast,
+                    Alignment = UIDirection.Northeast,
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = new(marginX, -72.0f),
@@ -180,7 +181,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 };
@@ -213,7 +214,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = CardinalDirection.Northwest,
+                    Alignment = UIDirection.Northwest,
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = margin
@@ -223,7 +224,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = category.Texture,
                     SourceRectangle = category.SourceRectangle,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 };
@@ -253,14 +254,12 @@ namespace StardustSandbox.UI.Common.HUD
             Vector2 margin;
 
             margin = new(-80.0f, 32.0f);
-            BuildSlots(CardinalDirection.Northwest);
+            BuildSlots(UIDirection.Northwest);
 
             margin = new(80.0f, 32.0f);
-            BuildSlots(CardinalDirection.Northeast);
+            BuildSlots(UIDirection.Northeast);
 
-            // =============================== //
-
-            void BuildSlots(CardinalDirection positionAnchor)
+            void BuildSlots(UIDirection positionAnchor)
             {
                 for (int i = 0; i < sideCounts; i++)
                 {
@@ -278,7 +277,7 @@ namespace StardustSandbox.UI.Common.HUD
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
                         SourceRectangle = new(0, 0, 32, 32),
-                        Alignment = CardinalDirection.Center,
+                        Alignment = UIDirection.Center,
                         Scale = new(1.5f),
                         Size = new(32.0f)
                     };
@@ -309,7 +308,7 @@ namespace StardustSandbox.UI.Common.HUD
                     {
                         Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
-                        Alignment = CardinalDirection.Northwest,
+                        Alignment = UIDirection.Northwest,
                         Scale = new(2.0f),
                         Size = new(32.0f),
                         Margin = margin
@@ -317,7 +316,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                     Image icon = new()
                     {
-                        Alignment = CardinalDirection.Center,
+                        Alignment = UIDirection.Center,
                         Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
                         SourceRectangle = new(0, 0, 32, 32),
                         Scale = new(1.5f),
@@ -346,7 +345,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.South,
+                Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
 
@@ -372,7 +371,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Texture = this.paginationButtonInfos[i].Texture,
                     SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Size = new(32.0f)
                 };
 
@@ -387,11 +386,11 @@ namespace StardustSandbox.UI.Common.HUD
             }
 
             SlotInfo left = this.paginationButtonSlotInfos[0];
-            left.Background.Alignment = CardinalDirection.Southwest;
+            left.Background.Alignment = UIDirection.Southwest;
             left.Background.Margin = new(9.0f, -9.0f);
 
             SlotInfo right = this.paginationButtonSlotInfos[1];
-            right.Background.Alignment = CardinalDirection.Southeast;
+            right.Background.Alignment = UIDirection.Southeast;
             right.Background.Margin = new(-9.0f);
 
             foreach (SlotInfo slot in this.paginationButtonSlotInfos)
@@ -405,7 +404,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -424,9 +423,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -458,9 +464,16 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Category category = (Category)categorySlot.Background.GetData(UIConstants.DATA_CATEGORY);
 
+                if (Interaction.OnMouseEnter(categorySlot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(categorySlot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SelectItemCatalog(category, category.Subcategories[0], 0);
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(categorySlot.Background))
@@ -470,6 +483,8 @@ namespace StardustSandbox.UI.Common.HUD
                     TooltipBoxContent.SetTitle(category.Name);
                     TooltipBoxContent.SetDescription(category.Description);
                 }
+
+                categorySlot.Background.Color = this.selectedCategory == category ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
             }
         }
 
@@ -486,9 +501,16 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Subcategory subcategory = (Subcategory)subcategorySlot.Background.GetData(UIConstants.DATA_SUBCATEGORY);
 
+                if (Interaction.OnMouseEnter(subcategorySlot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(subcategorySlot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SelectItemCatalog(subcategory.ParentCategory, subcategory, 0);
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(subcategorySlot.Background))
@@ -498,6 +520,8 @@ namespace StardustSandbox.UI.Common.HUD
                     TooltipBoxContent.SetTitle(subcategory.Name);
                     TooltipBoxContent.SetDescription(subcategory.Description);
                 }
+
+                subcategorySlot.Background.Color = this.selectedSubcategory == this.selectedCategory.Subcategories[i] ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
             }
         }
 
@@ -514,10 +538,17 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.hudUI.AddItemToToolbar(item);
                     this.uiManager.CloseGUI();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -542,9 +573,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.paginationButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -647,8 +685,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -659,7 +695,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }

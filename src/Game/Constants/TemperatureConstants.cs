@@ -10,6 +10,7 @@ namespace StardustSandbox.Constants
     {
         // Constants for simulation (can be tuned for realism)
         internal const float THERMAL_CONDUCTIVITY = 0.5f; // k, arbitrary unit
+        internal const float WORLD_THERMAL_CONDUCTIVITY = 1.5f; // k, arbitrary unit
         internal const float AREA = 1.0f; // contact area, arbitrary unit
         internal const float DISTANCE = 1.0f; // distance between centers, arbitrary unit
 

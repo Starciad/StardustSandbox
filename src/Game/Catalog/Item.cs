@@ -9,9 +9,9 @@ using System;
 
 namespace StardustSandbox.Catalog
 {
-    internal sealed class Item(Type associatedType, string name, string description, ItemContentType contentType, TextureIndex textureIndex, Rectangle? sourceRectangle)
+    internal sealed class Item(int contentIndex, string name, string description, ItemContentType contentType, TextureIndex textureIndex, Rectangle? sourceRectangle)
     {
-        internal Type AssociatedType => associatedType;
+        internal int ContentIndex => contentIndex;
         internal string Name => name;
         internal string Description => description;
         internal ItemContentType ContentType => contentType;

@@ -399,131 +399,238 @@
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
     <value>A dense, saturated cloud formed from the clustering of multiple clouds. When concentrated enough, it releases water or snow depending on temperature.</value>
   </data>
+  <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
+    <value>Dry Black Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryBlackWool.Description" xml:space="preserve">
+    <value>Dry black wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Name" xml:space="preserve">
+    <value>Dry White Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Description" xml:space="preserve">
+    <value>Dry white wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Name" xml:space="preserve">
+    <value>Dry Red Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Description" xml:space="preserve">
+    <value>Dry red wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Name" xml:space="preserve">
+    <value>Dry Orange Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Description" xml:space="preserve">
+    <value>Dry orange wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Name" xml:space="preserve">
+    <value>Dry Yellow Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Description" xml:space="preserve">
+    <value>Dry yellow wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Name" xml:space="preserve">
+    <value>Dry Green Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
+    <value>Dry green wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
+    <value>Dry Blue Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Description" xml:space="preserve">
+    <value>Dry blue wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryGrayWool.Name" xml:space="preserve">
+    <value>Dry Gray Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryGrayWool.Description" xml:space="preserve">
+    <value>Dry gray wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Name" xml:space="preserve">
+    <value>Dry Violet Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Description" xml:space="preserve">
+    <value>Dry violet wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Name" xml:space="preserve">
+    <value>Dry Brown Wool</value>
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Description" xml:space="preserve">
+    <value>Dry brown wool, soft and flammable.</value>
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Name" xml:space="preserve">
+    <value>Wet Black Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Description" xml:space="preserve">
+    <value>Wet black wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Name" xml:space="preserve">
+    <value>Wet White Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Description" xml:space="preserve">
+    <value>Wet white wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Name" xml:space="preserve">
+    <value>Wet Red Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Description" xml:space="preserve">
+    <value>Wet red wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Name" xml:space="preserve">
+    <value>Wet Orange Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Description" xml:space="preserve">
+    <value>Wet orange wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Name" xml:space="preserve">
+    <value>Wet Yellow Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Description" xml:space="preserve">
+    <value>Wet yellow wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Name" xml:space="preserve">
+    <value>Wet Green Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
+    <value>Wet green wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
+    <value>Wet Blue Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Description" xml:space="preserve">
+    <value>Wet blue wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetGrayWool.Name" xml:space="preserve">
+    <value>Wet Gray Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetGrayWool.Description" xml:space="preserve">
+    <value>Wet gray wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Name" xml:space="preserve">
+    <value>Wet Violet Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Description" xml:space="preserve">
+    <value>Wet violet wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Name" xml:space="preserve">
+    <value>Wet Brown Wool</value>
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
+    <value>Wet brown wool, denser and harder to burn.</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Name" xml:space="preserve">
+    <value>Fertile Soil</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
+    <value>Nutrient-rich soil that promotes the growth of plants and seeds.</value>
+  </data>
+  <data name="Solid.Movable.Seed.Name" xml:space="preserve">
+    <value>Seed</value>
+  </data>
+  <data name="Solid.Movable.Seed.Description" xml:space="preserve">
+    <value>Small seed that germinates in fertile soil to give rise to seedlings.</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Name" xml:space="preserve">
+    <value>Seedling</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
+    <value>Young plant in growth, develops with time and suitable conditions.</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Name" xml:space="preserve">
+    <value>Moss</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
+    <value>Low green plant that covers damp surfaces.</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Name" xml:space="preserve">
+    <value>Gunpowder</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
+    <value>Explosive powder sensitive to heat and fire, explodes with great force upon contact.</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Name" xml:space="preserve">
+    <value>Liquefied Petroleum Gas</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
+    <value>Gas derived from petroleum, highly flammable and explosive when heated.</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Name" xml:space="preserve">
+    <value>Obsidian</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
+    <value>Black, shiny volcanic rock, extremely hard and durable.</value>
+  </data>
+  <data name="Liquid.BlackPaint.Name" xml:space="preserve">
+    <value>Black Paint</value>
+  </data>
+  <data name="Liquid.BlackPaint.Description" xml:space="preserve">
+    <value>Black paint that flows and leaves a dark trail where it passes.</value>
+  </data>
+  <data name="Liquid.WhitePaint.Name" xml:space="preserve">
+    <value>White Paint</value>
+  </data>
+  <data name="Liquid.WhitePaint.Description" xml:space="preserve">
+    <value>White paint that flows and leaves a light trail where it passes.</value>
+  </data>
+  <data name="Liquid.RedPaint.Name" xml:space="preserve">
+    <value>Red Paint</value>
+  </data>
+  <data name="Liquid.RedPaint.Description" xml:space="preserve">
+    <value>Red paint that flows and leaves a red trail where it passes.</value>
+  </data>
+  <data name="Liquid.OrangePaint.Name" xml:space="preserve">
+    <value>Orange Paint</value>
+  </data>
+  <data name="Liquid.OrangePaint.Description" xml:space="preserve">
+    <value>Orange paint that flows and leaves an orange trail where it passes.</value>
+  </data>
+  <data name="Liquid.YellowPaint.Name" xml:space="preserve">
+    <value>Yellow Paint</value>
+  </data>
+  <data name="Liquid.YellowPaint.Description" xml:space="preserve">
+    <value>Yellow paint that flows and leaves a yellow trail where it passes.</value>
+  </data>
+  <data name="Liquid.GreenPaint.Name" xml:space="preserve">
+    <value>Green Paint</value>
+  </data>
+  <data name="Liquid.GreenPaint.Description" xml:space="preserve">
+    <value>Green paint that flows and leaves a green trail where it passes.</value>
+  </data>
+  <data name="Liquid.BluePaint.Name" xml:space="preserve">
+    <value>Blue Paint</value>
+  </data>
+  <data name="Liquid.BluePaint.Description" xml:space="preserve">
+    <value>Blue paint that flows and leaves a blue trail where it passes.</value>
+  </data>
+  <data name="Liquid.GrayPaint.Name" xml:space="preserve">
+    <value>Gray Paint</value>
+  </data>
+  <data name="Liquid.GrayPaint.Description" xml:space="preserve">
+    <value>Gray paint that flows and leaves a gray trail where it passes.</value>
+  </data>
+  <data name="Liquid.VioletPaint.Name" xml:space="preserve">
+    <value>Violet Paint</value>
+  </data>
+  <data name="Liquid.VioletPaint.Description" xml:space="preserve">
+    <value>Violet paint that flows and leaves a violet trail where it passes.</value>
+  </data>
+  <data name="Liquid.BrownPaint.Name" xml:space="preserve">
+    <value>Brown Paint</value>
+  </data>
+  <data name="Liquid.BrownPaint.Description" xml:space="preserve">
+    <value>Brown paint that flows and leaves a brown trail where it passes.</value>
+  </data>
+  <data name="Liquid.Mercury.Name" xml:space="preserve">
+    <value>Mercury</value>
+  </data>
+  <data name="Liquid.Mercury.Description" xml:space="preserve">
+    <value>Dense, shiny metallic liquid, also toxic.</value>
+  </data>
   <data name="Energy.Lightning.Name" xml:space="preserve">
     <value>Lightning</value>
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
-    <value>Lightning</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Solid.Immovable.DryBlackWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlackWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryWhiteWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryWhiteWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryRedWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryRedWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryOrangeWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryOrangeWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryYellowWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryYellowWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryGreenWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryCyanWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryCyanWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBlueWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryVioletWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryVioletWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBrownWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.DryBrownWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlackWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlackWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetWhiteWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetWhiteWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetRedWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetRedWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetOrangeWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetOrangeWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetYellowWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetYellowWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetGreenWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetCyanWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetCyanWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBlueWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetVioletWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetVioletWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBrownWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Solid.Immovable.WetBrownWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+    <value>A violent electrical discharge that travels through the air, burning and destroying everything in its path.</value>
   </data>
 </root>

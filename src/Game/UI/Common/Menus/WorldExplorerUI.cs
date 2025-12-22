@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -63,7 +64,7 @@ namespace StardustSandbox.UI.Common.Menus
                     UpdatePagination();
                     ChangeWorldsCatalog();
                 }),
-                new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.Menu_WorldExplorer_Button_OpenInDirectory_Name, string.Empty, () =>
+                new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>
                 {
                     SSDirectory.OpenDirectoryInFileExplorer(SSDirectory.Worlds);
                 }),
@@ -132,9 +133,9 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 Margin = new(32.0f, 0.0f),
-                TextContent = Localization_GUIs.Menu_WorldExplorer_Title,
+                TextContent = Localization_GUIs.WorldExplorer_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -155,7 +156,7 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = CardinalDirection.East,
+                    Alignment = UIDirection.East,
                     Margin = new(marginX, 0.0f),
                     Scale = new(2.0f),
                     Size = new(32.0f),
@@ -163,7 +164,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image buttonIconElement = new()
                 {
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     Texture = button.Texture,
                     SourceRectangle = button.TextureSourceRectangle,
                     Scale = new(1.5f),
@@ -187,15 +188,15 @@ namespace StardustSandbox.UI.Common.Menus
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
             };
 
             Label pageIndexTitleLabel = new()
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Center,
-                TextContent = Localization_GUIs.Menu_WorldExplorer_Label_CurrentPage,
+                Alignment = UIDirection.Center,
+                TextContent = Localization_GUIs.WorldExplorer_CurrentPage,
                 Margin = new(0.0f, -18.0f),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -208,7 +209,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.1f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = "1 / 1",
                 Margin = new(0.0f, pageIndexTitleLabel.Size.Y),
 
@@ -222,7 +223,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 TextContent = Localization_Statements.Previous,
                 Margin = new(32.0f, 0.0f),
 
@@ -236,7 +237,7 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
                 TextContent = Localization_Statements.Next,
                 Margin = new(-32.0f, 0.0f),
 
@@ -257,8 +258,6 @@ namespace StardustSandbox.UI.Common.Menus
 
             root.AddChild(background);
         }
-
-        // ========================================================================== //
 
         private void BuildingWorldDisplaySlots()
         {
@@ -285,7 +284,7 @@ namespace StardustSandbox.UI.Common.Menus
                     {
                         Scale = new(5.1f),
                         Size = WorldConstants.WORLD_THUMBNAIL_SIZE.ToVector2(),
-                        Alignment = CardinalDirection.West,
+                        Alignment = UIDirection.West,
                         Margin = new(11.5f, 0.0f),
                     };
 
@@ -324,35 +323,61 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
-            // HEADER
+            UpdateHeaderButtons();
+            UpdateSlotButtons();
+            UpdateFooterButtons();
+
+            base.Update(gameTime);
+        }
+
+        private void UpdateHeaderButtons()
+        {
             for (int i = 0; i < this.headerButtonImages.Length; i++)
             {
                 Image buttonBackgroundElement = this.headerButtonImages[i];
 
+                if (Interaction.OnMouseEnter(buttonBackgroundElement))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(buttonBackgroundElement))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.headerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 buttonBackgroundElement.Color = Interaction.OnMouseOver(buttonBackgroundElement) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
+        }
 
-            // FOOTER
+        private void UpdateFooterButtons()
+        {
             for (int i = 0; i < this.footerButtonLabels.Length; i++)
             {
                 Label label = this.footerButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.footerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
+        }
 
-            // SLOTS
+        private void UpdateSlotButtons()
+        {
             for (int i = 0; i < this.itemSlotInfos.Length; i++)
             {
                 SlotInfo slotInfoElement = this.itemSlotInfos[i];
@@ -362,16 +387,21 @@ namespace StardustSandbox.UI.Common.Menus
                     break;
                 }
 
+                if (Interaction.OnMouseEnter(slotInfoElement.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.worldDetailsMenuUI.SetSaveFile(this.savedWorldFilesLoaded[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i]);
                     this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
+                    break;
                 }
 
                 slotInfoElement.Background.Color = Interaction.OnMouseOver(slotInfoElement.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
-
-            base.Update(gameTime);
         }
 
         private void UpdatePagination()
@@ -379,10 +409,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.savedWorldFilesLoaded?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
 
-            if (this.pageIndexLabel != null)
-            {
-                this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
-            }
+            _ = this.pageIndexLabel?.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
         }
 
         private void ChangeWorldsCatalog()

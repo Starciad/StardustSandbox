@@ -38,7 +38,7 @@ namespace StardustSandbox.Backgrounds.Clouds
             Reset();
         }
 
-        internal void Update(in GameTime gameTime, SimulationSpeed simulationSpeed)
+        internal void Update(GameTime gameTime, SimulationSpeed simulationSpeed)
         {
             float multiplier = simulationSpeed switch
             {

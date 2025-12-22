@@ -5,7 +5,7 @@ namespace StardustSandbox.Elements.Solids.Movables
 {
     internal sealed class Grass : MovableSolid
     {
-        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue > 200.0f)
             {

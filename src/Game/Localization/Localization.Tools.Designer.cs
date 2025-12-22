@@ -19,7 +19,7 @@ namespace StardustSandbox.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_Tools {
@@ -61,7 +61,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a This tool grants the ability to decrease the temperature of a certain area of ​​the world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use this tool to lower the temperature in an area of the world..
         /// </summary>
         internal static string Environment_Freeze_Description {
             get {
@@ -79,7 +79,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a This tool grants the ability to increase the temperature of a certain area of ​​the world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use this tool to raise the temperature in an area of the world..
         /// </summary>
         internal static string Environment_Heat_Description {
             get {
@@ -93,6 +93,186 @@ namespace StardustSandbox.Localization {
         internal static string Environment_Heat_Name {
             get {
                 return ResourceManager.GetString("Environment.Heat.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements black..
+        /// </summary>
+        internal static string Inks_Black_Description {
+            get {
+                return ResourceManager.GetString("Inks.Black.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Black Ink.
+        /// </summary>
+        internal static string Inks_Black_Name {
+            get {
+                return ResourceManager.GetString("Inks.Black.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements blue..
+        /// </summary>
+        internal static string Inks_Blue_Description {
+            get {
+                return ResourceManager.GetString("Inks.Blue.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Blue Ink.
+        /// </summary>
+        internal static string Inks_Blue_Name {
+            get {
+                return ResourceManager.GetString("Inks.Blue.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements brown..
+        /// </summary>
+        internal static string Inks_Brown_Description {
+            get {
+                return ResourceManager.GetString("Inks.Brown.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Brown Ink.
+        /// </summary>
+        internal static string Inks_Brown_Name {
+            get {
+                return ResourceManager.GetString("Inks.Brown.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements gray..
+        /// </summary>
+        internal static string Inks_Gray_Description {
+            get {
+                return ResourceManager.GetString("Inks.Gray.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Gray Ink.
+        /// </summary>
+        internal static string Inks_Gray_Name {
+            get {
+                return ResourceManager.GetString("Inks.Gray.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements green..
+        /// </summary>
+        internal static string Inks_Green_Description {
+            get {
+                return ResourceManager.GetString("Inks.Green.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Green Ink.
+        /// </summary>
+        internal static string Inks_Green_Name {
+            get {
+                return ResourceManager.GetString("Inks.Green.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements orange..
+        /// </summary>
+        internal static string Inks_Orange_Description {
+            get {
+                return ResourceManager.GetString("Inks.Orange.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Orange Ink.
+        /// </summary>
+        internal static string Inks_Orange_Name {
+            get {
+                return ResourceManager.GetString("Inks.Orange.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements red..
+        /// </summary>
+        internal static string Inks_Red_Description {
+            get {
+                return ResourceManager.GetString("Inks.Red.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Red Ink.
+        /// </summary>
+        internal static string Inks_Red_Name {
+            get {
+                return ResourceManager.GetString("Inks.Red.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements violet..
+        /// </summary>
+        internal static string Inks_Violet_Description {
+            get {
+                return ResourceManager.GetString("Inks.Violet.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Violet Ink.
+        /// </summary>
+        internal static string Inks_Violet_Name {
+            get {
+                return ResourceManager.GetString("Inks.Violet.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Painting the elements white will restore their original colors..
+        /// </summary>
+        internal static string Inks_White_Description {
+            get {
+                return ResourceManager.GetString("Inks.White.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a White Ink.
+        /// </summary>
+        internal static string Inks_White_Name {
+            get {
+                return ResourceManager.GetString("Inks.White.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a It allows you to dye the elements yellow..
+        /// </summary>
+        internal static string Inks_Yellow_Description {
+            get {
+                return ResourceManager.GetString("Inks.Yellow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Yellow Ink.
+        /// </summary>
+        internal static string Inks_Yellow_Name {
+            get {
+                return ResourceManager.GetString("Inks.Yellow.Name", resourceCulture);
             }
         }
     }

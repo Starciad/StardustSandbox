@@ -62,11 +62,11 @@ namespace StardustSandbox.UI.Common.Menus
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Create, string.Empty, () => this.gameManager.StartGame()),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Play, string.Empty, () => this.uiManager.OpenGUI(UIIndex.PlayMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Options, string.Empty, () => this.uiManager.OpenGUI(UIIndex.OptionsMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Credits, string.Empty, () => this.uiManager.OpenGUI(UIIndex.CreditsMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Menu_Main_Button_Quit, string.Empty, Program.Quit)
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => this.gameManager.StartGame()),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenGUI(UIIndex.PlayMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () => this.uiManager.OpenGUI(UIIndex.OptionsMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenGUI(UIIndex.CreditsMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, Program.Quit)
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
@@ -112,7 +112,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Margin = new(-32.0f, -32.0f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
-                Alignment = CardinalDirection.Southeast,
+                Alignment = UIDirection.Southeast,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = $"Ver. {GameConstants.VERSION}",
             };
@@ -122,7 +122,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Margin = new(0.0f, -32.0f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
-                Alignment = CardinalDirection.South,
+                Alignment = UIDirection.South,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
@@ -139,7 +139,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Scale = new(1.5f),
                 Size = new(292.0f, 112.0f),
                 Margin = new(0.0f, 32.0f),
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             this.background.AddChild(this.gameTitle);
@@ -158,7 +158,7 @@ namespace StardustSandbox.UI.Common.Menus
                     Scale = new(0.15f),
                     Color = AAP64ColorPalette.White,
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     TextContent = info.Name,
 
@@ -178,7 +178,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateAnimations(gameTime);
             UpdateButtons();
@@ -186,7 +186,7 @@ namespace StardustSandbox.UI.Common.Menus
             base.Update(gameTime);
         }
 
-        private void UpdateAnimations(in GameTime gameTime)
+        private void UpdateAnimations(GameTime gameTime)
         {
             float elapsedTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
@@ -214,8 +214,14 @@ namespace StardustSandbox.UI.Common.Menus
             {
                 Label label = this.menuButtonLabels[i];
 
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(label))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -225,8 +231,6 @@ namespace StardustSandbox.UI.Common.Menus
         }
 
         #endregion
-
-        #region EVENTS
 
         protected override void OnOpened()
         {
@@ -265,7 +269,5 @@ namespace StardustSandbox.UI.Common.Menus
             this.world.Clear();
             this.world.CanDraw = false;
         }
-
-        #endregion
     }
 }

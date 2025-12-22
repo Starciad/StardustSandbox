@@ -9,6 +9,7 @@
         ColorPicker,
         TextInput,
         Slider,
+        KeySelector,
 
         MainMenu,
         PlayMenu,
@@ -20,9 +21,10 @@
         ItemExplorer,
         PenSettings,
         EnvironmentSettings,
-        SaveSettings,
+        Save,
         WorldSettings,
         Information,
+        TemperatureSettings,
 
         WorldDetailsMenu,
         WorldExplorerMenu,

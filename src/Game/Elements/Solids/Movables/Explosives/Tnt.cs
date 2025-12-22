@@ -1,6 +1,4 @@
-﻿using StardustSandbox.Elements.Energies;
-using StardustSandbox.Elements.Liquids;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
 
 namespace StardustSandbox.Elements.Solids.Movables.Explosives
@@ -24,24 +22,24 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
             ]
         };
 
-        protected override void OnDestroyed(in ElementContext context)
+        protected override void OnDestroyed(ElementContext context)
         {
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Fire:
-                    case Lava:
+                    case ElementIndex.Fire:
+                    case ElementIndex.Lava:
                         context.DestroyElement();
                         break;
 
@@ -51,7 +49,7 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue > 120.0f)
             {

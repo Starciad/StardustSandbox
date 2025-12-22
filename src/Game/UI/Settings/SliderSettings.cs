@@ -1,15 +1,13 @@
-﻿using StardustSandbox.UI.Results;
-
-using System;
+﻿using System;
 
 namespace StardustSandbox.UI.Settings
 {
-    internal sealed class SliderSettings
+    internal readonly struct SliderSettings
     {
-        internal string Synopsis { get; set; }
-        internal int MinimumValue { get; set; }
-        internal int MaximumValue { get; set; }
-        internal int CurrentValue { get; set; }
-        internal Action<SliderResult> OnSendCallback { get; set; }
+        internal readonly string Synopsis { get; init; }
+        internal readonly int MinimumValue { get; init; }
+        internal readonly int MaximumValue { get; init; }
+        internal readonly int CurrentValue { get; init; }
+        internal readonly Action<int> OnSendCallback { get; init; }
     }
 }

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -400,130 +400,237 @@
     <value>Nuvem densa e saturada resultante do agrupamento de várias nuvens. Quando suficientemente concentrada, libera água ou neve conforme a temperatura.</value>
   </data>
   <data name="Energy.Lightning.Name" xml:space="preserve">
-    <value>Raio</value>
+    <value>Relâmpago</value>
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
-    <value>Raio</value>
+    <value>Descarga elétrica violenta que viaja através do ar, queimando e destruindo tudo em seu caminho.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Solid.Immovable.DryBlackWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
+    <value>Lã Preta (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryBlackWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryBlackWool.Description" xml:space="preserve">
+    <value>Lã preta seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryWhiteWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryWhiteWool.Name" xml:space="preserve">
+    <value>Lã Branca (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryWhiteWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryWhiteWool.Description" xml:space="preserve">
+    <value>Lã branca seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryRedWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryRedWool.Name" xml:space="preserve">
+    <value>Lã Vermelha (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryRedWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryRedWool.Description" xml:space="preserve">
+    <value>Lã vermelha seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryOrangeWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryOrangeWool.Name" xml:space="preserve">
+    <value>Lã Laranja (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryOrangeWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryOrangeWool.Description" xml:space="preserve">
+    <value>Lã laranja seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryYellowWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryYellowWool.Name" xml:space="preserve">
+    <value>Lã Amarela (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryYellowWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryYellowWool.Description" xml:space="preserve">
+    <value>Lã amarela seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryGreenWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryGreenWool.Name" xml:space="preserve">
+    <value>Lã Verde (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
+    <value>Lã verde seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryCyanWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
+    <value>Lã Azul (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryCyanWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryBlueWool.Description" xml:space="preserve">
+    <value>Lã azul seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryGrayWool.Name" xml:space="preserve">
+    <value>Lã Cinza (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryBlueWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryGrayWool.Description" xml:space="preserve">
+    <value>Lã cinza seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryVioletWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryVioletWool.Name" xml:space="preserve">
+    <value>Lã Violeta (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryVioletWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryVioletWool.Description" xml:space="preserve">
+    <value>Lã violeta seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.DryBrownWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryBrownWool.Name" xml:space="preserve">
+    <value>Lã Marrom (seca)</value>
   </data>
-  <data name="Solid.Immovable.DryBrownWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.DryBrownWool.Description" xml:space="preserve">
+    <value>Lã marrom seca, macia e inflamável.</value>
   </data>
-  <data name="Solid.Immovable.WetBlackWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetBlackWool.Name" xml:space="preserve">
+    <value>Lã Preta (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetBlackWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetBlackWool.Description" xml:space="preserve">
+    <value>Lã preta molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetWhiteWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetWhiteWool.Name" xml:space="preserve">
+    <value>Lã Branca (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetWhiteWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetWhiteWool.Description" xml:space="preserve">
+    <value>Lã branca molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetRedWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetRedWool.Name" xml:space="preserve">
+    <value>Lã Vermelha (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetRedWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetRedWool.Description" xml:space="preserve">
+    <value>Lã vermelha molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetOrangeWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetOrangeWool.Name" xml:space="preserve">
+    <value>Lã Laranja (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetOrangeWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetOrangeWool.Description" xml:space="preserve">
+    <value>Lã laranja molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetYellowWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetYellowWool.Name" xml:space="preserve">
+    <value>Lã Amarela (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetYellowWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetYellowWool.Description" xml:space="preserve">
+    <value>Lã amarela molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetGreenWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetGreenWool.Name" xml:space="preserve">
+    <value>Lã Verde (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetGreenWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
+    <value>Lã verde molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetCyanWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
+    <value>Lã Azul (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetCyanWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetBlueWool.Description" xml:space="preserve">
+    <value>Lã azul molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetBlueWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetGrayWool.Name" xml:space="preserve">
+    <value>Lã Cinza (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetBlueWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetGrayWool.Description" xml:space="preserve">
+    <value>Lã cinza molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetVioletWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetVioletWool.Name" xml:space="preserve">
+    <value>Lã Violeta (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetVioletWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetVioletWool.Description" xml:space="preserve">
+    <value>Lã violeta molhada, mais densa e difícil de queimar.</value>
   </data>
-  <data name="Solid.Immovable.WetBrownWool.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetBrownWool.Name" xml:space="preserve">
+    <value>Lã Marrom (molhada)</value>
   </data>
-  <data name="Solid.Immovable.WetBrownWool.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
+    <value>Lã marrom molhada, mais densa e difícil de queimar.</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Name" xml:space="preserve">
+    <value>Solo Fértil</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
+    <value>Solo rico em nutrientes que promove o crescimento de plantas e sementes.</value>
+  </data>
+  <data name="Solid.Movable.Seed.Name" xml:space="preserve">
+    <value>Semente</value>
+  </data>
+  <data name="Solid.Movable.Seed.Description" xml:space="preserve">
+    <value>Pequena semente que germina em solo fértil para dar origem a mudas.</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Name" xml:space="preserve">
+    <value>Muda</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
+    <value>Jovem planta em crescimento, desenvolve-se com tempo e condições adequadas.</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Name" xml:space="preserve">
+    <value>Musgo</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
+    <value>Planta baixa e verde que cobre superfícies úmidas.</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Name" xml:space="preserve">
+    <value>Pólvora</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
+    <value>Pó explosivo sensível ao calor e fogo, explode com grande força ao contato.</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Name" xml:space="preserve">
+    <value>Gás Liquefeito de Petróleo</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
+    <value>Gás derivado do petróleo, muito inflamável e explosivo ao aquecer.</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Name" xml:space="preserve">
+    <value>Obsidiana</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
+    <value>Rocha vulcânica preta e brilhante, extremamente dura e resistente.</value>
+  </data>
+  <data name="Liquid.BlackPaint.Name" xml:space="preserve">
+    <value>Tinta Preta</value>
+  </data>
+  <data name="Liquid.BlackPaint.Description" xml:space="preserve">
+    <value>Tinta preta que flui e deixa um rastro escuro onde passa.</value>
+  </data>
+  <data name="Liquid.WhitePaint.Name" xml:space="preserve">
+    <value>Tinta Branca</value>
+  </data>
+  <data name="Liquid.WhitePaint.Description" xml:space="preserve">
+    <value>Tinta branca que flui e deixa um rastro claro onde passa.</value>
+  </data>
+  <data name="Liquid.RedPaint.Name" xml:space="preserve">
+    <value>Tinta Vermelha</value>
+  </data>
+  <data name="Liquid.RedPaint.Description" xml:space="preserve">
+    <value>Tinta vermelha que flui e deixa um rastro vermelho onde passa.</value>
+  </data>
+  <data name="Liquid.OrangePaint.Name" xml:space="preserve">
+    <value>Tinta Laranja</value>
+  </data>
+  <data name="Liquid.OrangePaint.Description" xml:space="preserve">
+    <value>Tinta laranja que flui e deixa um rastro laranja onde passa.</value>
+  </data>
+  <data name="Liquid.YellowPaint.Name" xml:space="preserve">
+    <value>Tinta Amarela</value>
+  </data>
+  <data name="Liquid.YellowPaint.Description" xml:space="preserve">
+    <value>Tinta amarela que flui e deixa um rastro amarelo onde passa.</value>
+  </data>
+  <data name="Liquid.GreenPaint.Name" xml:space="preserve">
+    <value>Tinta Verde</value>
+  </data>
+  <data name="Liquid.GreenPaint.Description" xml:space="preserve">
+    <value>Tinta verde que flui e deixa um rastro verde onde passa.</value>
+  </data>
+  <data name="Liquid.BluePaint.Name" xml:space="preserve">
+    <value>Tinta Azul</value>
+  </data>
+  <data name="Liquid.BluePaint.Description" xml:space="preserve">
+    <value>Tinta azul que flui e deixa um rastro azul onde passa.</value>
+  </data>
+  <data name="Liquid.GrayPaint.Name" xml:space="preserve">
+    <value>Tinta Cinza</value>
+  </data>
+  <data name="Liquid.GrayPaint.Description" xml:space="preserve">
+    <value>Tinta cinza que flui e deixa um rastro cinza onde passa.</value>
+  </data>
+  <data name="Liquid.VioletPaint.Name" xml:space="preserve">
+    <value>Tinta Violeta</value>
+  </data>
+  <data name="Liquid.VioletPaint.Description" xml:space="preserve">
+    <value>Tinta violeta que flui e deixa um rastro violeta onde passa.</value>
+  </data>
+  <data name="Liquid.BrownPaint.Name" xml:space="preserve">
+    <value>Tinta Marrom</value>
+  </data>
+  <data name="Liquid.BrownPaint.Description" xml:space="preserve">
+    <value>Tinta marrom que flui e deixa um rastro marrom onde passa.</value>
+  </data>
+  <data name="Liquid.Mercury.Name" xml:space="preserve">
+    <value>Mercúrio</value>
+  </data>
+  <data name="Liquid.Mercury.Description" xml:space="preserve">
+    <value>Líquido metálico denso e brilhante, além de ser tóxico.</value>
   </data>
 </root>

@@ -5,7 +5,6 @@ using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
 using StardustSandbox.WorldSystem;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
@@ -17,7 +16,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(WorldModificationType worldModificationType, ItemContentType contentType, Type itemAssociateType, Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             IEnumerable<Point> targetPoints = this.Pen.GetShapePoints(position);
 

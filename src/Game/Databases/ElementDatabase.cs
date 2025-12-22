@@ -164,7 +164,7 @@ namespace StardustSandbox.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(0, 288),
                     ReferenceColor = new Color(255, 120, 60),
-                    DefaultTemperature = 1000.0f,
+                    DefaultTemperature = 1500.0f,
                     DefaultDensity = 2.7f,
                     DefaultExplosionResistance = 0.4f,
                 },
@@ -203,7 +203,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(160, 64),
                     ReferenceColor = new Color(180, 180, 200),
@@ -425,7 +426,8 @@ namespace StardustSandbox.Databases
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(320, 160),
                     ReferenceColor = new Color(230, 230, 255),
@@ -440,7 +442,8 @@ namespace StardustSandbox.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(320, 192),
                     ReferenceColor = new Color(160, 200, 255),
@@ -518,7 +521,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(320, 256),
                     ReferenceColor = new Color(200, 220, 120),
@@ -532,7 +536,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(192, 320),
                     ReferenceColor = new Color(255, 215, 80),
@@ -671,7 +676,8 @@ namespace StardustSandbox.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 64),
                     ReferenceColor = AAP64ColorPalette.Slate,
@@ -680,9 +686,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.2f,
                     DefaultExplosionResistance = 0.7f,
                 },
-                new Elements.Energies.ThunderHead()
+                new Elements.Energies.LightningHead()
                 {
-                    Index = ElementIndex.ThunderHead,
+                    Index = ElementIndex.LightningHead,
                     Category = ElementCategory.Energy,
                     Characteristics = ElementCharacteristics.None,
                     RenderingType = ElementRenderingType.Single,
@@ -691,9 +697,9 @@ namespace StardustSandbox.Databases
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
                 },
-                new Elements.Energies.ThunderBody()
+                new Elements.Energies.LightningBody()
                 {
-                    Index = ElementIndex.ThunderBody,
+                    Index = ElementIndex.LightningBody,
                     Category = ElementCategory.Energy,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
@@ -812,9 +818,9 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryCyanWool()
+                new Elements.Solids.Immovables.Wools.DryGrayWool()
                 {
-                    Index = ElementIndex.DryCyanWool,
+                    Index = ElementIndex.DryGrayWool,
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
@@ -824,7 +830,7 @@ namespace StardustSandbox.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 288),
                     ReferenceColor = AAP64ColorPalette.Cyan,
-                    WetWoolIndex = ElementIndex.WetCyanWool,
+                    WetWoolIndex = ElementIndex.WetGrayWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -890,7 +896,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 96),
                     ReferenceColor = AAP64ColorPalette.DarkGray.Darken(50),
@@ -905,7 +912,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 128),
                     ReferenceColor = AAP64ColorPalette.White.Darken(50),
@@ -920,7 +928,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 160),
                     ReferenceColor = AAP64ColorPalette.Crimson.Darken(50),
@@ -935,7 +944,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 192),
                     ReferenceColor = AAP64ColorPalette.Orange.Darken(50),
@@ -950,7 +960,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 224),
                     ReferenceColor = AAP64ColorPalette.Gold.Darken(50),
@@ -965,7 +976,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 256),
                     ReferenceColor = AAP64ColorPalette.ForestGreen.Darken(50),
@@ -974,17 +986,18 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetCyanWool()
+                new Elements.Solids.Immovables.Wools.WetGrayWool()
                 {
-                    Index = ElementIndex.WetCyanWool,
+                    Index = ElementIndex.WetGrayWool,
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 288),
                     ReferenceColor = AAP64ColorPalette.Cyan.Darken(50),
-                    DryWoolIndex = ElementIndex.DryCyanWool,
+                    DryWoolIndex = ElementIndex.DryGrayWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -995,7 +1008,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 0),
                     ReferenceColor = AAP64ColorPalette.Gunmetal.Darken(50),
@@ -1010,7 +1024,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 32),
                     ReferenceColor = AAP64ColorPalette.Violet.Darken(50),
@@ -1025,7 +1040,8 @@ namespace StardustSandbox.Databases
                     Category = ElementCategory.ImmovableSolid,
                     Characteristics = ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 64),
                     ReferenceColor = AAP64ColorPalette.Brown.Darken(50),
@@ -1034,19 +1050,311 @@ namespace StardustSandbox.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
+                new Elements.Solids.Movables.FertileSoil()
+                {
+                    Index = ElementIndex.FertileSoil,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 96),
+                    ReferenceColor = AAP64ColorPalette.Burgundy,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.4f,
+                    DefaultExplosionResistance = 0.4f,
+                },
+                new Elements.Solids.Movables.Seed()
+                {
+                    Index = ElementIndex.Seed,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(480, 320),
+                    ReferenceColor = AAP64ColorPalette.DarkGreen,
+                    DefaultTemperature = 25.0f,
+                    DefaultFlammabilityResistance = 5.0f,
+                    DefaultDensity = 0.05f,
+                    DefaultExplosionResistance = 0.2f,
+                },
+                new Elements.Solids.Movables.Sapling()
+                {
+                    Index = ElementIndex.Sapling,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(512, 320),
+                    ReferenceColor = AAP64ColorPalette.DarkTeal,
+                    DefaultTemperature = 25.0f,
+                    DefaultFlammabilityResistance = 15.0f,
+                    DefaultDensity = 0.3f,
+                    DefaultExplosionResistance = 0.5f,
+                },
+                new Elements.Solids.Immovables.Moss()
+                {
+                    Index = ElementIndex.Moss,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 128),
+                    ReferenceColor = AAP64ColorPalette.MossGreen,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 0.4f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Solids.Movables.Explosives.Gunpowder()
+                {
+                    Index = ElementIndex.Gunpowder,
+                    Category = ElementCategory.MovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 160),
+                    ReferenceColor = AAP64ColorPalette.Graphite,
+                    DefaultTemperature = 22.0f,
+                    DefaultFlammabilityResistance = 5.0f,
+                    DefaultDensity = 0.9f,
+                    DefaultExplosionResistance = 0.1f,
+                },
+                new Elements.Gases.LiquefiedPetroleumGas()
+                {
+                    Index = ElementIndex.LiquefiedPetroleumGas,
+                    Category = ElementCategory.Gas,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsFlammable |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 192),
+                    ReferenceColor = AAP64ColorPalette.Amber,
+                    DefaultTemperature = -42.0f,
+                    DefaultFlammabilityResistance = 1.0f,
+                    DefaultDensity = 0.25f,
+                    DefaultExplosionResistance = 0.2f,
+                },
+                new Elements.Solids.Immovables.Obsidian()
+                {
+                    Index = ElementIndex.Obsidian,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsExplosionImmune,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 224),
+                    ReferenceColor = AAP64ColorPalette.DarkGray,
+                    DefaultTemperature = 35.0f,
+                    DefaultDensity = 2.4f,
+                },
+                new Elements.Liquids.Paints.BlackPaint()
+                {
+                    Index = ElementIndex.BlackPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 256),
+                    ReferenceColor = AAP64ColorPalette.DarkGray,
+                    DyeingColor = AAP64ColorPalette.DarkGray,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.WhitePaint()
+                {
+                    Index = ElementIndex.WhitePaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(800, 288),
+                    ReferenceColor = AAP64ColorPalette.White,
+                    DyeingColor = AAP64ColorPalette.White,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.RedPaint()
+                {
+                    Index = ElementIndex.RedPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 0),
+                    ReferenceColor = AAP64ColorPalette.Crimson,
+                    DyeingColor = AAP64ColorPalette.Crimson,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.OrangePaint()
+                {
+                    Index = ElementIndex.OrangePaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 32),
+                    ReferenceColor = AAP64ColorPalette.Orange,
+                    DyeingColor = AAP64ColorPalette.Orange,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.YellowPaint()
+                {
+                    Index = ElementIndex.YellowPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 64),
+                    ReferenceColor = AAP64ColorPalette.Gold,
+                    DyeingColor = AAP64ColorPalette.Gold,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.GreenPaint()
+                {
+                    Index = ElementIndex.GreenPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 96),
+                    ReferenceColor = AAP64ColorPalette.ForestGreen,
+                    DyeingColor = AAP64ColorPalette.ForestGreen,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.BluePaint()
+                {
+                    Index = ElementIndex.BluePaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 128),
+                    ReferenceColor = AAP64ColorPalette.Gunmetal,
+                    DyeingColor = AAP64ColorPalette.Gunmetal,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.GrayPaint()
+                {
+                    Index = ElementIndex.GrayPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 160),
+                    ReferenceColor = AAP64ColorPalette.Cyan,
+                    DyeingColor = AAP64ColorPalette.Cyan,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.VioletPaint()
+                {
+                    Index = ElementIndex.VioletPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 192),
+                    ReferenceColor = AAP64ColorPalette.Violet,
+                    DyeingColor = AAP64ColorPalette.Violet,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Paints.BrownPaint()
+                {
+                    Index = ElementIndex.BrownPaint,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsFlammable,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 224),
+                    ReferenceColor = AAP64ColorPalette.Brown,
+                    DyeingColor = AAP64ColorPalette.Brown,
+                    DefaultTemperature = 20.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 0.3f,
+                },
+                new Elements.Liquids.Mercury()
+                {
+                    Index = ElementIndex.Mercury,
+                    Category = ElementCategory.Liquid,
+                    Characteristics = ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsConductive,
+                    RenderingType = ElementRenderingType.Blob,
+                    TextureOriginOffset = new(960, 256),
+                    ReferenceColor = AAP64ColorPalette.Slate,
+                    DefaultTemperature = 10.0f,
+                    DefaultDensity = 13.5f,
+                    DefaultExplosionResistance = 0.5f,
+                    DefaultDispersionRate = 3,
+                },
             ];
 
             isLoaded = true;
         }
 
-        internal static Element GetElement(ElementIndex index)
+        internal static Element GetElement(in ElementIndex value)
         {
-            return elements[(int)index];
-        }
-
-        internal static Element GetElement(Type type)
-        {
-            return Array.Find(elements, x => x.GetType() == type);
+            return elements[(int)value];
         }
     }
 }

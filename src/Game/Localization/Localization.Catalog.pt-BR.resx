@@ -183,4 +183,16 @@
   <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
     <value>Elementos especiais que automatizam tarefas e auxiliam em diversas criações.</value>
   </data>
+  <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
+    <value>Vegetação</value>
+  </data>
+  <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
+    <value>Elementos naturais que trazem vida ao mundo.</value>
+  </data>
+  <data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
+    <value>Tintas</value>
+  </data>
+  <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
+    <value>Ferramentas que concedem a habilidade de tingir elementos do mundo.</value>
+  </data>
 </root>

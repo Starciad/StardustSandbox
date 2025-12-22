@@ -1,35 +1,26 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace StardustSandbox.Serialization.Settings
 {
+    [Serializable]
     [XmlRoot("VolumeSettings")]
-    public sealed class VolumeSettings : SettingsModule
+    public readonly struct VolumeSettings : ISettingsModule
     {
         [XmlElement("MasterVolume", typeof(float))]
-        public float MasterVolume { get; set; }
+        public readonly float MasterVolume { get; init; }
 
         [XmlElement("MusicVolume", typeof(float))]
-        public float MusicVolume
-        {
-            get => this.musicVolume;
-            set => this.musicVolume = value;
-        }
+        public readonly float MusicVolume { get; init; }
 
         [XmlElement("SFXVolume", typeof(float))]
-        public float SFXVolume
-        {
-            get => this.sfxVolume;
-            set => this.sfxVolume = value;
-        }
-
-        private float musicVolume;
-        private float sfxVolume;
+        public readonly float SFXVolume { get; init; }
 
         public VolumeSettings()
         {
             this.MasterVolume = 1f;
-            this.musicVolume = 0.5f;
-            this.sfxVolume = 0.5f;
+            this.MusicVolume = 0.5f;
+            this.SFXVolume = 0.5f;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace StardustSandbox.Elements.Solids.Immovables.Pushers
 {
     internal sealed class DownwardPusher : ImmovableSolid
     {
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             PusherUtility.PushingNeighborsDown(context, neighbors);
         }

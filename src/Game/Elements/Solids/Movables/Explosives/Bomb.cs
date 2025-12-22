@@ -1,5 +1,4 @@
-﻿using StardustSandbox.Elements.Solids.Immovables;
-using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Elements;
 using StardustSandbox.Explosions;
 
 namespace StardustSandbox.Elements.Solids.Movables.Explosives
@@ -23,26 +22,30 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
             ]
         };
 
-        protected override void OnDestroyed(in ElementContext context)
+        protected override void OnDestroyed(ElementContext context)
         {
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    case Bomb:
-                    case Wall:
-                    case Clone:
-                    case Void:
+                    case ElementIndex.Bomb:
+                    case ElementIndex.Wall:
+                    case ElementIndex.Clone:
+                    case ElementIndex.Void:
+                    case ElementIndex.DownwardPusher:
+                    case ElementIndex.UpwardPusher:
+                    case ElementIndex.RightwardPusher:
+                    case ElementIndex.LeftwardPusher:
                         break;
 
                     default:
@@ -52,7 +55,7 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
             }
         }
 
-        protected override void OnTemperatureChanged(in ElementContext context, float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
             if (currentValue > 100.0f)
             {

@@ -11,6 +11,8 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.World;
 using StardustSandbox.InputSystem.Game;
+using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Settings;
 
 using System;
 
@@ -18,6 +20,9 @@ namespace StardustSandbox.WorldSystem.Components
 {
     internal sealed class WorldRendering(InputController inputController, World world)
     {
+        internal bool DrawForegroundElements { get; set; } = true;
+        internal bool DrawBackgroundElements { get; set; } = true;
+
         private readonly ElementContext elementRenderingContext = new(world);
         private readonly InputController inputController = inputController;
         private readonly World world = world;
@@ -32,39 +37,40 @@ namespace StardustSandbox.WorldSystem.Components
             int maxTileX = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
             int maxTileY = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
 
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+
             for (int y = minTileY; y < maxTileY; y++)
             {
                 for (int x = minTileX; x < maxTileX; x++)
                 {
                     Vector2 targetPosition = new(x, y);
 
-                    if (this.inputController.Pen.Tool != PenTool.Visualization)
+                    if (gameplaySettings.ShowGrid && this.inputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new Color(AAP64ColorPalette.White, 124), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new Color(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
                     {
-                        if (!value.Background.HasState(ElementStates.IsEmpty))
+                        if (this.DrawBackgroundElements && !value.Background.HasState(ElementStates.IsEmpty))
                         {
-                            DrawSlotLayer(spriteBatch, value.Position, Layer.Background, value, value.GetLayer(Layer.Background).Element);
+                            DrawSlotLayer(spriteBatch, value.Position, Layer.Background, value, value.GetLayer(Layer.Background).Element, gameplaySettings);
                         }
 
-                        if (!value.Foreground.HasState(ElementStates.IsEmpty))
+                        if (this.DrawForegroundElements && !value.Foreground.HasState(ElementStates.IsEmpty))
                         {
-                            DrawSlotLayer(spriteBatch, value.Position, Layer.Foreground, value, value.GetLayer(Layer.Foreground).Element);
+                            DrawSlotLayer(spriteBatch, value.Position, Layer.Foreground, value, value.GetLayer(Layer.Foreground).Element, gameplaySettings);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, Layer layer, Slot value, Element element)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Slot slot, Element element, in GameplaySettings gameplaySettings)
         {
-            this.elementRenderingContext.UpdateInformation(position, layer, value);
+            this.elementRenderingContext.UpdateInformation(position, layer, slot);
 
-            element.SetContext(this.elementRenderingContext);
-            element.Draw(spriteBatch);
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, element.TextureOriginOffset, gameplaySettings);
         }
     }
 }

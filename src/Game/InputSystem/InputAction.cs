@@ -6,104 +6,100 @@ namespace StardustSandbox.InputSystem
 {
     internal sealed class InputAction
     {
-        internal InputActionMap ActionMap => this.actionMap;
+        internal readonly struct CallbackContext(InputCallbackState state, MouseButton capturedMouseButton, Keys capturedKey)
+        {
+            internal readonly InputCallbackState State => state;
+            internal readonly MouseButton CapturedMouseButton => capturedMouseButton;
+            internal readonly Keys CapturedKey => capturedKey;
+        }
 
-        private InputActionMap actionMap;
-
-        private CallbackContext callback;
+        internal Started OnStarted { get; init; }
+        internal Performed OnPerformed { get; init; }
+        internal Canceled OnCanceled { get; init; }
 
         private bool started = false;
         private bool performed = false;
         private bool canceled = true;
 
-        internal event Started OnStarted;
-        internal event Performed OnPerformed;
-        internal event Canceled OnCanceled;
+        private Keys capturedKey;
+        private MouseButton capturedMouseButton;
 
         internal delegate void Started(CallbackContext context);
         internal delegate void Performed(CallbackContext context);
         internal delegate void Canceled(CallbackContext context);
 
-        private readonly Keys[] keys;
-        private readonly MouseButton[] mouseButtons;
+        private readonly Keys key;
+        private readonly MouseButton mouseButton;
 
-        internal InputAction(params Keys[] keys)
+        internal InputAction(Keys value)
         {
-            this.keys = keys;
-            this.mouseButtons = [];
+            this.key = value;
+            this.mouseButton = MouseButton.None;
         }
 
-        internal InputAction(params MouseButton[] mouseButtons)
+        internal InputAction(MouseButton value)
         {
-            this.keys = [];
-            this.mouseButtons = mouseButtons;
-        }
-
-        internal InputAction(Keys[] keys, MouseButton[] mouseButtons)
-        {
-            this.keys = keys;
-            this.mouseButtons = mouseButtons;
+            this.key = Keys.None;
+            this.mouseButton = value;
         }
 
         internal void Update()
         {
-            this.callback = new();
+            this.capturedKey = Keys.None;
+            this.capturedMouseButton = MouseButton.None;
 
-            foreach (Keys key in this.keys)
+            // Keyboard State
+            if (this.key != Keys.None)
             {
                 // Started
-                if (GetKeyboardStartedState(key))
+                if (GetKeyboardStartedState(this.key))
                 {
-                    this.callback.CapturedKey = key;
+                    this.capturedKey = this.key;
                     UpdateStarting();
                 }
 
                 // Performed
-                if (GetKeyboardPerformedState(key))
+                if (GetKeyboardPerformedState(this.key))
                 {
-                    this.callback.CapturedKey = key;
+                    this.capturedKey = this.key;
                     UpdatePerformed();
                 }
 
                 // Canceled
-                if (GetKeyboardCanceledState(key))
+                if (GetKeyboardCanceledState(this.key))
                 {
-                    this.callback.CapturedKey = key;
+                    this.capturedKey = this.key;
                     UpdateCanceled();
                 }
             }
 
-            foreach (MouseButton mouseButton in this.mouseButtons)
+            // Mouse State
+            if (this.mouseButton != MouseButton.None)
             {
                 // Started
-                if (GetMouseStartedState(mouseButton) &&
+                if (GetMouseStartedState(this.mouseButton) &&
                     !this.started && !this.performed && this.canceled)
                 {
-                    this.callback.CapturedMouseButton = mouseButton;
+                    this.capturedMouseButton = this.mouseButton;
                     UpdateStarting();
                 }
 
                 // Performed
-                if (GetMousePerformedState(mouseButton) &&
+                if (GetMousePerformedState(this.mouseButton) &&
                     this.started && !this.canceled)
                 {
-                    this.callback.CapturedMouseButton = mouseButton;
+                    this.capturedMouseButton = this.mouseButton;
                     UpdatePerformed();
                 }
 
                 // Canceled
-                if (GetMouseCanceledState(mouseButton) &&
+                if (GetMouseCanceledState(this.mouseButton) &&
                     this.started && this.performed && !this.canceled)
                 {
-                    this.callback.CapturedMouseButton = mouseButton;
+                    this.capturedMouseButton = this.mouseButton;
                     UpdateCanceled();
                 }
             }
-        }
-
-        internal void SetActionMap(InputActionMap map)
-        {
-            this.actionMap = map;
         }
 
         // Keyboard State
@@ -113,12 +109,14 @@ namespace StardustSandbox.InputSystem
                     Input.KeyboardState.IsKeyDown(key) &&
                    !this.started && !this.performed && this.canceled;
         }
+
         private bool GetKeyboardPerformedState(Keys key)
         {
             return Input.PreviousKeyboardState.IsKeyDown(key) &&
                    Input.KeyboardState.IsKeyDown(key) &&
                    this.started && !this.canceled;
         }
+
         private bool GetKeyboardCanceledState(Keys key)
         {
             return Input.PreviousKeyboardState.IsKeyDown(key) &&
@@ -127,20 +125,22 @@ namespace StardustSandbox.InputSystem
         }
 
         // Mouse State
-        private bool GetMouseStartedState(MouseButton mouseButton)
+        private static bool GetMouseStartedState(MouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Pressed);
         }
-        private bool GetMousePerformedState(MouseButton mouseButton)
+
+        private static bool GetMousePerformedState(MouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Pressed);
         }
-        private bool GetMouseCanceledState(MouseButton mouseButton)
+
+        private static bool GetMouseCanceledState(MouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Released);
         }
 
-        private bool GetMouseState(MouseButton mouseButton, ButtonState desiredState)
+        private static bool GetMouseState(MouseButton mouseButton, ButtonState desiredState)
         {
             ButtonState previousState, currentState;
 
@@ -150,59 +150,51 @@ namespace StardustSandbox.InputSystem
                     previousState = Input.PreviousMouseState.LeftButton;
                     currentState = Input.MouseState.LeftButton;
                     break;
+
                 case MouseButton.Middle:
                     previousState = Input.PreviousMouseState.MiddleButton;
                     currentState = Input.MouseState.MiddleButton;
                     break;
+
                 case MouseButton.Right:
                     previousState = Input.PreviousMouseState.RightButton;
                     currentState = Input.MouseState.RightButton;
                     break;
+
                 default:
                     return false;
             }
 
             return CheckMouseState(previousState, currentState, desiredState);
         }
+
         private static bool CheckMouseState(ButtonState previousState, ButtonState currentState, ButtonState desiredState)
         {
             return previousState == ButtonState.Pressed && currentState == desiredState;
         }
 
-        // Update
         private void UpdateStarting()
         {
-            this.callback.State = InputCallbackState.Started;
-
-            OnStarted?.Invoke(this.callback);
+            this.OnStarted?.Invoke(new(InputCallbackState.Started, this.capturedMouseButton, this.capturedKey));
 
             this.started = true;
             this.canceled = false;
         }
+
         private void UpdatePerformed()
         {
-            this.callback.State = InputCallbackState.Performed;
-
-            OnPerformed?.Invoke(this.callback);
+            this.OnPerformed?.Invoke(new(InputCallbackState.Performed, this.capturedMouseButton, this.capturedKey));
 
             this.performed = true;
         }
+
         private void UpdateCanceled()
         {
-            this.callback.State = InputCallbackState.Canceled;
-
-            OnCanceled?.Invoke(this.callback);
+            this.OnCanceled?.Invoke(new(InputCallbackState.Canceled, this.capturedMouseButton, this.capturedKey));
 
             this.started = false;
             this.performed = false;
             this.canceled = true;
-        }
-
-        internal struct CallbackContext
-        {
-            internal InputCallbackState State { get; set; }
-            internal MouseButton CapturedMouseButton { get; set; }
-            internal Keys CapturedKey { get; set; }
         }
     }
 }

@@ -11,7 +11,7 @@ using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
-using StardustSandbox.WorldSystem.Status;
+using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
 
@@ -33,7 +33,7 @@ namespace StardustSandbox.Scenario
         private readonly GameManager gameManager = gameManager;
         private readonly Simulation simulation = simulation;
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             if (this.gameManager.HasState(GameStates.IsSimulationPaused) ||
                 this.gameManager.HasState(GameStates.IsCriticalMenuOpen))

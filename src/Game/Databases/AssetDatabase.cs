@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -19,6 +20,7 @@ namespace StardustSandbox.Databases
         private static Texture2D[] textures;
         private static SpriteFont[] fonts;
         private static Song[] songs;
+        private static SoundEffect[] soundEffects;
         private static Effect[] effects;
 
         internal static void Load(ContentManager contentManager, GraphicsDevice graphicsDevice)
@@ -52,6 +54,25 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Song>(Path.Combine("songs", "volume_01", "02_endless_rebirth")),
             ];
 
+            soundEffects = [
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "accepted")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "click")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "error")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "hover")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "message")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_ended")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_started")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "rejected")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "returning")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_1")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_2")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_3")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_4")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_5")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "world_loaded")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "world_saved")),
+            ];
+
             textures = [
                 pixelTexture,
                 contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
@@ -70,6 +91,7 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "pause")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "pen_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "save_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "temperature_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "world_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "buttons")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "size_slider")),
@@ -94,17 +116,17 @@ namespace StardustSandbox.Databases
             pixelTexture.Dispose();
         }
 
-        internal static Texture2D GetTexture(TextureIndex index)
+        internal static Texture2D GetTexture(in TextureIndex index)
         {
             return textures[(int)index];
         }
 
-        internal static SpriteFont GetSpriteFont(SpriteFontIndex index)
+        internal static SpriteFont GetSpriteFont(in SpriteFontIndex index)
         {
             return fonts[(int)index];
         }
 
-        internal static Song GetSong(SongIndex index)
+        internal static Song GetSong(in SongIndex index)
         {
             return songs[(int)index];
         }
@@ -114,9 +136,14 @@ namespace StardustSandbox.Databases
             return effects;
         }
 
-        internal static Effect GetEffect(EffectIndex index)
+        internal static Effect GetEffect(in EffectIndex index)
         {
             return effects[(int)index];
+        }
+
+        internal static SoundEffect GetSoundEffect(SoundEffectIndex index)
+        {
+            return soundEffects[(int)index];
         }
     }
 }

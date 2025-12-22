@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -14,6 +15,7 @@ using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -28,14 +30,14 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly Rectangle[] brushSizeSliderSourceRectangles;
 
-        private readonly ButtonInfo[] menuButtonInfos, toolButtonInfos, layerButtonInfos, shapeButtonInfos;
-        private readonly SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, shapeButtonSlotInfos;
+        private readonly ButtonInfo[] menuButtonInfos, toolButtonInfos, layerButtonInfos, layerVisibility, shapeButtonInfos;
+        private readonly SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, layerVisibilitySlotInfos, shapeButtonSlotInfos;
 
         private readonly HudUI hudUI;
 
         private readonly InputController inputController;
         private readonly GameManager gameManager;
-        private readonly UIManager uiManager;
+        private readonly World world;
 
         internal PenSettingsUI(
             GameManager gameManager,
@@ -43,20 +45,21 @@ namespace StardustSandbox.UI.Common.HUD
             InputController inputController,
             HudUI hudUI,
             TooltipBox tooltipBox,
-            UIManager uiManager
+            UIManager uiManager,
+            World world
         ) : base(index)
         {
             this.inputController = inputController;
             this.gameManager = gameManager;
             this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
+            this.world = world;
 
             this.toolButtonSelectedIndex = 0;
             this.layerButtonSelectedIndex = 0;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI),
             ];
 
             this.toolButtonInfos = [
@@ -89,19 +92,25 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.layerButtonInfos = [
-                new(TextureIndex.IconUI, new(192, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Front_Description, () => this.inputController.Pen.Layer = Layer.Foreground),
-                new(TextureIndex.IconUI, new(224, 32, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Button_Back_Description, () => this.inputController.Pen.Layer = Layer.Background),
+                new(TextureIndex.IconUI, new(192, 32, 32, 32), Localization_GUIs.PenSettings_Layer_Front_Name, Localization_GUIs.PenSettings_Layer_Front_Description, () => this.inputController.Pen.Layer = Layer.Foreground),
+                new(TextureIndex.IconUI, new(224, 32, 32, 32), Localization_GUIs.PenSettings_Layer_Back_Name, Localization_GUIs.PenSettings_Layer_Back_Description, () => this.inputController.Pen.Layer = Layer.Background),
+            ];
+
+            this.layerVisibility = [
+                new(TextureIndex.IconUI, new(), Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Name, Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Description, () => world.Rendering.DrawForegroundElements = !world.Rendering.DrawForegroundElements),
+                new(TextureIndex.IconUI, new(), Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Name, Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Description, () => world.Rendering.DrawBackgroundElements = !world.Rendering.DrawBackgroundElements),
             ];
 
             this.shapeButtonInfos = [
-                new(TextureIndex.IconUI, new(32, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Circle_Description, () => this.inputController.Pen.Shape = PenShape.Circle),
-                new(TextureIndex.IconUI, new(00, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Square_Description, () => this.inputController.Pen.Shape = PenShape.Square),
-                new(TextureIndex.IconUI, new(64, 64, 32, 32), Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Name, Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Button_Triangle_Description, () => this.inputController.Pen.Shape = PenShape.Triangle),
+                new(TextureIndex.IconUI, new(32, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Circle_Name, Localization_GUIs.PenSettings_Shape_Circle_Description, () => this.inputController.Pen.Shape = PenShape.Circle),
+                new(TextureIndex.IconUI, new(00, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Square_Name, Localization_GUIs.PenSettings_Shape_Square_Description, () => this.inputController.Pen.Shape = PenShape.Square),
+                new(TextureIndex.IconUI, new(64, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Triangle_Name, Localization_GUIs.PenSettings_Shape_Triangle_Description, () => this.inputController.Pen.Shape = PenShape.Triangle),
             ];
 
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
             this.toolButtonSlotInfos = new SlotInfo[this.toolButtonInfos.Length];
             this.layerButtonSlotInfos = new SlotInfo[this.layerButtonInfos.Length];
+            this.layerVisibilitySlotInfos = new SlotInfo[this.layerVisibility.Length];
             this.shapeButtonSlotInfos = new SlotInfo[this.shapeButtonInfos.Length];
 
             this.brushSizeSliderSourceRectangles = [
@@ -145,7 +154,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings),
                 Size = new(1084.0f, 540.0f),
             };
@@ -161,7 +170,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Title,
+                TextContent = Localization_GUIs.PenSettings_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -181,8 +190,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -203,7 +212,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Title,
+                TextContent = Localization_GUIs.PenSettings_BrushSize_Title,
             };
 
             this.brushSizeSlider = new()
@@ -213,7 +222,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Size = new(326.0f, 38.0f),
                 Scale = new(2.0f),
                 Margin = new(0.0f, 48.0f),
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
             };
 
             this.background.AddChild(this.brushSectionTitle);
@@ -228,7 +237,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(0.0f, 144.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_Tool_Title
+                TextContent = Localization_GUIs.PenSettings_Tool_Title
             };
 
             this.brushSectionTitle.AddChild(this.toolsSectionTitle);
@@ -241,8 +250,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.toolButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.toolsSectionTitle.AddChild(slot.Background);
@@ -264,21 +273,23 @@ namespace StardustSandbox.UI.Common.HUD
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Margin = new(this.toolButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
-                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_Layer_Title,
+                TextContent = Localization_GUIs.PenSettings_Layer_Title,
             };
 
             this.toolsSectionTitle.AddChild(this.layerSectionTitle);
 
             // Buttons
             float marginX = 0.0f;
+            float marginY = 52.0f;
 
+            // Layer Buttons
             for (int i = 0; i < this.layerButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.layerButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(marginX, marginY), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.layerSectionTitle.AddChild(slot.Background);
@@ -286,6 +297,29 @@ namespace StardustSandbox.UI.Common.HUD
 
                 // Save
                 this.layerButtonSlotInfos[i] = slot;
+
+                // Spacing
+                marginX += 80.0f;
+            }
+
+            marginY += 80.0f;
+            marginX = 0.0f;
+
+            // Layer Visibility Buttons
+            for (int i = 0; i < this.layerVisibility.Length; i++)
+            {
+                ButtonInfo button = this.layerVisibility[i];
+                SlotInfo slot = CreateButtonSlot(new(marginX, marginY), button);
+
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
+
+                // Update
+                this.layerSectionTitle.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+
+                // Save
+                this.layerVisibilitySlotInfos[i] = slot;
 
                 // Spacing
                 marginX += 80.0f;
@@ -300,7 +334,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Margin = new(this.layerButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
-                TextContent = Localization_GUIs.HUD_Complements_PenSettings_Section_Shape_Title
+                TextContent = Localization_GUIs.PenSettings_Shape_Title
             };
 
             this.layerSectionTitle.AddChild(this.shapeSectionTitle);
@@ -313,8 +347,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.shapeButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Southwest;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.shapeSectionTitle.AddChild(slot.Background);
@@ -327,8 +361,6 @@ namespace StardustSandbox.UI.Common.HUD
                 marginX += 80.0f;
             }
         }
-
-        // =============================================================== //
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
@@ -356,7 +388,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -376,9 +408,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -399,6 +438,11 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateBrushSizeSlider()
         {
+            if (Interaction.OnMouseEnter(this.brushSizeSlider))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
+
             for (int i = 0; i < this.brushSizeSliderSourceRectangles.Length; i++)
             {
                 Vector2 position = new(
@@ -406,18 +450,18 @@ namespace StardustSandbox.UI.Common.HUD
                     this.brushSizeSlider.Position.Y
                 );
 
-                if (Interaction.OnMouseOver(position, new(64.0f)))
-                {
-                    this.tooltipBox.CanDraw = true;
-
-                    TooltipBoxContent.SetTitle(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Name);
-                    TooltipBoxContent.SetDescription(string.Format(Localization_GUIs.HUD_Complements_PenSettings_Section_BrushSize_Button_Slider_Description, i + 1));
-                }
-
                 if (Interaction.OnMouseLeftDown(position, new(64.0f)))
                 {
                     this.inputController.Pen.Size = (sbyte)i;
                     break;
+                }
+
+                if (Interaction.OnMouseOver(position, new(64.0f)))
+                {
+                    this.tooltipBox.CanDraw = true;
+
+                    TooltipBoxContent.SetTitle(Localization_GUIs.PenSettings_BrushSize_Slider_Name);
+                    TooltipBoxContent.SetDescription(string.Format(Localization_GUIs.PenSettings_BrushSize_Slider_Description, i + 1));
                 }
             }
         }
@@ -428,9 +472,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.toolButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.toolButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -449,13 +500,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateLayerButtons()
         {
+            // Update Layer Buttons
             for (int i = 0; i < this.layerButtonInfos.Length; i++)
             {
                 SlotInfo slot = this.layerButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -470,6 +529,45 @@ namespace StardustSandbox.UI.Common.HUD
 
                 slot.Background.Color = this.layerButtonSelectedIndex == i ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
+
+            // Update Layer Visibility Buttons
+            for (int i = 0; i < this.layerVisibility.Length; i++)
+            {
+                SlotInfo slot = this.layerVisibilitySlotInfos[i];
+
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                    this.layerVisibility[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                bool isOver = Interaction.OnMouseOver(slot.Background);
+
+                if (isOver)
+                {
+                    this.tooltipBox.CanDraw = true;
+
+                    TooltipBoxContent.SetTitle(this.layerVisibility[i].Name);
+                    TooltipBoxContent.SetDescription(this.layerVisibility[i].Description);
+                }
+
+                slot.Background.Color = isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            }
+
+            // Update Layer Visibility Icons
+            this.layerVisibilitySlotInfos[0].Icon.SourceRectangle = this.world.Rendering.DrawForegroundElements
+                ? new(192, 32, 32, 32)
+                : new(192, 192, 32, 32);
+
+            this.layerVisibilitySlotInfos[1].Icon.SourceRectangle = this.world.Rendering.DrawBackgroundElements
+                ? new(224, 32, 32, 32)
+                : new(192, 192, 32, 32);
         }
 
         private void UpdateShapeButtons()
@@ -478,9 +576,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.shapeButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.shapeButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 bool isOver = Interaction.OnMouseOver(slot.Background);
@@ -514,8 +619,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
@@ -525,7 +628,5 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }

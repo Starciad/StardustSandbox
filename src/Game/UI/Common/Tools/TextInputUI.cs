@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -12,9 +13,9 @@ using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Randomness;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Results;
 using StardustSandbox.UI.Settings;
 using StardustSandbox.UI.States;
 
@@ -46,8 +47,6 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly GameManager gameManager;
         private readonly GameWindow gameWindow;
         private readonly InputController inputController;
-        private readonly MessageUI messageUI;
-        private readonly UIManager uiManager;
 
         internal TextInputUI(
             GameManager gameManager,
@@ -61,31 +60,34 @@ namespace StardustSandbox.UI.Common.Tools
             this.gameManager = gameManager;
             this.gameWindow = gameWindow;
             this.inputController = inputController;
-            this.messageUI = messageUI;
-            this.uiManager = uiManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    uiManager.CloseGUI();
+                }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    this.settings?.OnSendCallback?.Invoke(new(this.userInputStringBuilder.ToString()));
+                    string content = this.userInputStringBuilder.ToString();
 
-                    if (this.settings != null)
+                    this.settings.OnSendCallback?.Invoke(new(content));
+
+                    if (this.settings.OnValidationCallback != null)
                     {
-                        TextValidationState validationState = new();
-                        TextInputResult argumentResult = new(this.userInputStringBuilder.ToString());
-
-                        this.settings.OnValidationCallback?.Invoke(validationState, argumentResult);
+                        TextValidationState validationState = this.settings.OnValidationCallback.Invoke(content);
 
                         if (validationState.Status == ValidationStatus.Failure)
                         {
+                            SoundEngine.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
                             uiManager.OpenGUI(UIIndex.Message);
                             return;
                         }
-
-                        this.settings.OnSendCallback?.Invoke(argumentResult);
                     }
+
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                    this.settings.OnSendCallback?.Invoke(content);
 
                     uiManager.CloseGUI();
                 }),
@@ -144,7 +146,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             root.AddChild(this.synopsis);
@@ -158,7 +160,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Scale = new(0.085f),
                 TextAreaSize = new(1000.0f, 1000.0f),
                 Margin = new(0.0f, -32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             this.userInputBackground = new()
@@ -167,7 +169,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Scale = new(1.5f),
                 Size = new(632.0f, 50.0f),
                 Margin = new(0.0f, 64.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             root.AddChild(this.userInput);
@@ -181,7 +183,7 @@ namespace StardustSandbox.UI.Common.Tools
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Scale = new(0.08f),
                 Margin = new(-212.0f, -16.0f),
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
             };
 
             root.AddChild(this.characterCount);
@@ -200,7 +202,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.South,
+                    Alignment = UIDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
@@ -217,7 +219,7 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateMenuButtons();
             UpdateElementPositionAccordingToUserInput();
@@ -234,6 +236,7 @@ namespace StardustSandbox.UI.Common.Tools
                 if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -281,25 +284,33 @@ namespace StardustSandbox.UI.Common.Tools
 
         #region INPUT EVENTS
 
+        private static void PlayTypingSound()
+        {
+            SoundEngine.Play((SoundEffectIndex)SSRandom.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+        }
+
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
         {
-            if (IsSpecialKey(inputKeyEventArgs.Key, out Action specialKeyAction))
+            if (!IsSpecialKey(inputKeyEventArgs.Key, out Action specialKeyAction))
             {
-                specialKeyAction?.Invoke();
-                UpdateDisplayedText();
+                return;
             }
+
+            PlayTypingSound();
+            specialKeyAction?.Invoke();
+
+            UpdateDisplayedText();
         }
 
         private void OnTextInput(object sender, TextInputEventArgs textInputEventArgs)
         {
-            if (IsTextSpecialKey(textInputEventArgs.Key, out Action specialKeyAction))
+            if (IsSpecialKey(textInputEventArgs.Key, out Action specialKeyAction))
             {
-                specialKeyAction?.Invoke();
+                return;
             }
-            else
-            {
-                AddCharacter(textInputEventArgs.Character);
-            }
+
+            PlayTypingSound();
+            AddCharacter(textInputEventArgs.Character);
 
             UpdateDisplayedText();
         }
@@ -317,16 +328,6 @@ namespace StardustSandbox.UI.Common.Tools
                 Keys.Home => HandleHomeKey,
                 Keys.End => HandleEndKey,
                 Keys.Space => HandleSpaceKey,
-                _ => null,
-            };
-
-            return action != null;
-        }
-
-        private bool IsTextSpecialKey(Keys key, out Action action)
-        {
-            action = key switch
-            {
                 Keys.Back => HandleBackspaceKey,
                 _ => null,
             };

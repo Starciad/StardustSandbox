@@ -1,11 +1,11 @@
-﻿using StardustSandbox.UI.Results;
+﻿using Microsoft.Xna.Framework;
 
 using System;
 
 namespace StardustSandbox.UI.Settings
 {
-    internal sealed class ColorPickerSettings
+    internal readonly struct ColorPickerSettings
     {
-        internal Action<ColorPickerResult> OnSelectCallback { get; set; }
+        internal readonly Action<Color> OnSelectCallback { get; init; }
     }
 }

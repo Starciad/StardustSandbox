@@ -24,7 +24,7 @@ namespace StardustSandbox.WorldSystem
         private readonly SlotLayer foreground = new();
         private readonly SlotLayer background = new();
 
-        internal SlotLayer GetLayer(Layer layer)
+        internal SlotLayer GetLayer(in Layer layer)
         {
             return layer switch
             {
@@ -34,68 +34,68 @@ namespace StardustSandbox.WorldSystem
             };
         }
 
-        internal void SetPosition(Point position)
+        internal void SetPosition(in Point position)
         {
             this.position = position;
         }
 
-        internal void Instantiate(Point position, Layer layer, Element value)
+        internal void Instantiate(in Point position, in Layer layer, Element value)
         {
             this.position = position;
             GetLayer(layer).Instantiate(value);
         }
 
-        internal void Destroy(Layer layer)
+        internal void Destroy(in Layer layer)
         {
             GetLayer(layer).Destroy();
         }
 
-        internal void Copy(Layer layer, SlotLayer valueToCopy)
+        internal void Copy(in Layer layer, in SlotLayer valueToCopy)
         {
             GetLayer(layer).Copy(valueToCopy);
         }
 
-        internal void SetTemperatureValue(Layer layer, float value)
+        internal void SetTemperatureValue(in Layer layer, in float value)
         {
             GetLayer(layer).SetTemperatureValue(value);
         }
 
-        internal void SetColorModifier(Layer layer, Color value)
+        internal void SetColorModifier(in Layer layer, in Color value)
         {
             GetLayer(layer).SetColorModifier(value);
         }
 
-        internal void SetStoredElement(Layer layer, Element value)
+        internal void SetStoredElement(in Layer layer, Element value)
         {
             GetLayer(layer).SetStoredElement(value);
         }
 
-        internal bool HasState(Layer layer, ElementStates value)
+        internal bool HasState(in Layer layer, in ElementStates value)
         {
             return GetLayer(layer).HasState(value);
         }
 
-        internal void SetState(Layer layer, ElementStates value)
+        internal void SetState(in Layer layer, in ElementStates value)
         {
             GetLayer(layer).SetState(value);
         }
 
-        internal void RemoveState(Layer layer, ElementStates value)
+        internal void RemoveState(in Layer layer, in ElementStates value)
         {
             GetLayer(layer).RemoveState(value);
         }
 
-        internal void ClearStates(Layer layer)
+        internal void ClearStates(in Layer layer)
         {
             GetLayer(layer).ClearStates();
         }
 
-        internal void ToggleState(Layer layer, ElementStates value)
+        internal void ToggleState(in Layer layer, in ElementStates value)
         {
             GetLayer(layer).ToggleState(value);
         }
 
-        internal void Reset(Layer layer)
+        internal void Reset(in Layer layer)
         {
             GetLayer(layer).Reset();
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -40,18 +41,23 @@ namespace StardustSandbox.UI.Common.Tools
             this.gameManager = gameManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Returning);
+                    uiManager.CloseGUI();
+                }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseGUI();
-                    this.settings?.OnSendCallback?.Invoke(new(this.currentValue));
+                    this.settings.OnSendCallback?.Invoke(this.currentValue);
                 }),
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        internal void Configure(SliderSettings settings)
+        internal void Configure(in SliderSettings settings)
         {
             this.settings = settings;
 
@@ -90,7 +96,7 @@ namespace StardustSandbox.UI.Common.Tools
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.North,
+                Alignment = UIDirection.North,
             };
 
             root.AddChild(this.synopsis);
@@ -103,7 +109,7 @@ namespace StardustSandbox.UI.Common.Tools
                 Texture = AssetDatabase.GetTexture(TextureIndex.UISliderInputOrnament),
                 SourceRectangle = new(0, 0, 630, 32),
                 Size = new(630.0f, 32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             this.sliderButton = new()
@@ -118,7 +124,7 @@ namespace StardustSandbox.UI.Common.Tools
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.125f),
                 Margin = new(0.0f, 48.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = this.currentValue.ToString(),
             };
 
@@ -141,7 +147,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, marginY),
-                    Alignment = CardinalDirection.South,
+                    Alignment = UIDirection.South,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
@@ -158,7 +164,7 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateMenuButtons();
             UpdateSliderButton();
@@ -176,6 +182,7 @@ namespace StardustSandbox.UI.Common.Tools
                 if (Interaction.OnMouseLeftClick(label))
                 {
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;

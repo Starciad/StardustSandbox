@@ -13,6 +13,7 @@ namespace StardustSandbox.Enums.Elements
         IsExplosionImmune = 1 << 5,
         IsCorruptible = 1 << 6,
         IsCorruption = 1 << 7,
-        IsPushable = 1 << 8
+        IsPushable = 1 << 8,
+        IsConductive = 1 << 9,
     }
 }

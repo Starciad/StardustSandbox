@@ -135,7 +135,7 @@ namespace StardustSandbox.Serialization
                 _ = distinctElements.Add(index);
             }
 
-            void ProcessSlot(Point position, Layer layer)
+            void ProcessSlot(in Point position, in Layer layer)
             {
                 if (!world.TryGetSlot(position, out Slot slot))
                 {
@@ -174,7 +174,7 @@ namespace StardustSandbox.Serialization
             return [.. distinctElements];
         }
 
-        private static SlotData[] CreateSlotsData(World world, Point worldSize)
+        private static SlotData[] CreateSlotsData(World world, in Point worldSize)
         {
             List<SlotData> slots = [];
 

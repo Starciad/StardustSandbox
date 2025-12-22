@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Elements;
@@ -41,20 +40,20 @@ namespace StardustSandbox.Elements
             this.DefaultExplosionResistance = 0.5f;
         }
 
-        internal void SetContext(in ElementContext context)
+        internal void SetContext(ElementContext context)
         {
             this.context = context;
         }
 
         #region Virtual Methods
 
-        protected virtual void OnInstantiated(in ElementContext context) { return; }
-        protected virtual void OnBeforeStep(in ElementContext context) { return; }
-        protected virtual void OnStep(in ElementContext context) { return; }
-        protected virtual void OnAfterStep(in ElementContext context) { return; }
-        protected virtual void OnDestroyed(in ElementContext context) { return; }
-        protected virtual void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors) { return; }
-        protected virtual void OnTemperatureChanged(in ElementContext context, float currentValue) { return; }
+        protected virtual void OnInstantiated(ElementContext context) { return; }
+        protected virtual void OnBeforeStep(ElementContext context) { return; }
+        protected virtual void OnStep(ElementContext context) { return; }
+        protected virtual void OnAfterStep(ElementContext context) { return; }
+        protected virtual void OnDestroyed(ElementContext context) { return; }
+        protected virtual void OnNeighbors(ElementContext context, ElementNeighbors neighbors) { return; }
+        protected virtual void OnTemperatureChanged(ElementContext context, in float currentValue) { return; }
 
         #endregion
 
@@ -70,7 +69,7 @@ namespace StardustSandbox.Elements
             OnDestroyed(this.context);
         }
 
-        internal void Steps(in GameTime gameTime)
+        internal void Steps(GameTime gameTime)
         {
             bool hasTemperature = this.Characteristics.HasFlag(ElementCharacteristics.HasTemperature);
             bool affectsNeighbors = this.Characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
@@ -97,7 +96,7 @@ namespace StardustSandbox.Elements
 
         // Updated temperature transfer using Fourier's law of thermal conduction
         // Fourier's law: Q = -k * A * (dT/dx) * dt
-        private void UpdateTemperature(in GameTime gameTime, in ElementNeighbors neighbors)
+        private void UpdateTemperature(GameTime gameTime, ElementNeighbors neighbors)
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
@@ -105,44 +104,50 @@ namespace StardustSandbox.Elements
             float totalHeatTransfer = 0.0f;
             int validNeighborCount = 0;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            float CalculateHeatTransfer(SlotLayer slotLayer)
             {
-                // Foreground layer
-                if (neighbors.HasNeighbor(i))
+                if (!slotLayer.HasState(ElementStates.IsEmpty) && slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
                 {
-                    SlotLayer neighborForeground = neighbors.GetSlotLayer(i, Layer.Foreground);
-
-                    if (!neighborForeground.HasState(ElementStates.IsEmpty) && neighborForeground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
-                    {
-                        float neighborTemp = neighborForeground.Temperature;
-                        float heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
-
-                        totalHeatTransfer += heatTransfer;
-                        validNeighborCount++;
-                    }
+                    float neighborTemp = slotLayer.Temperature;
+                    return TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
                 }
 
-                // Background layer
+                return 0.0f;
+            }
+
+            for (int i = 0; i < neighbors.Length; i++)
+            {
                 if (neighbors.HasNeighbor(i))
                 {
-                    SlotLayer neighborBackground = neighbors.GetSlotLayer(i, Layer.Background);
+                    float fgHeat = CalculateHeatTransfer(neighbors.GetSlotLayer(i, Layer.Foreground));
 
-                    if (!neighborBackground.HasState(ElementStates.IsEmpty) && neighborBackground.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                    if (fgHeat != 0.0f)
                     {
-                        float neighborTemp = neighborBackground.Temperature;
-                        float heatTransfer = TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+                        totalHeatTransfer += fgHeat;
+                        validNeighborCount++;
+                    }
 
-                        totalHeatTransfer += heatTransfer;
+                    float bgHeat = CalculateHeatTransfer(neighbors.GetSlotLayer(i, Layer.Background));
+
+                    if (bgHeat != 0.0f)
+                    {
+                        totalHeatTransfer += bgHeat;
                         validNeighborCount++;
                     }
                 }
             }
 
-            // Update temperature based on total heat transfer
+            if (this.context.CanApplyWorldTemperature())
+            {
+                float worldTemp = this.context.GetWorldTemperature();
+                float worldHeatTransfer = TemperatureConstants.WORLD_THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (worldTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
+
+                totalHeatTransfer += worldHeatTransfer;
+            }
+
             float newTemperature = currentTemperature + totalHeatTransfer;
             this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
 
-            // Equilibrium check (optional: can be tuned for stability)
             if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
                 this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
@@ -152,10 +157,5 @@ namespace StardustSandbox.Elements
         }
 
         #endregion
-
-        internal void Draw(SpriteBatch spriteBatch)
-        {
-            ElementRenderer.Draw(this.context, this, spriteBatch, this.TextureOriginOffset);
-        }
     }
 }

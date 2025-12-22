@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
@@ -17,12 +18,11 @@ using StardustSandbox.Serialization.Saving;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.UI.Common.HUD
 {
-    internal sealed class SaveSettingsUI : UIBase
+    internal sealed class SaveUI : UIBase
     {
         private Texture2D worldThumbnailTexture;
 
@@ -37,14 +37,12 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly World world;
         private readonly TextInputUI textInputUI;
 
-        private readonly TextInputSettings nameInputBuilder, descriptionInputBuilder;
-
         private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         private readonly GraphicsDevice graphicsDevice;
 
-        internal SaveSettingsUI(
+        internal SaveUI(
             GameManager gameManager,
             GraphicsDevice graphicsDevice,
             UIIndex index,
@@ -66,25 +64,68 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.fieldButtonInfos = [
-                new(TextureIndex.None, null, "Name Field", string.Empty, () =>
+                // Name Field
+                new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
-                    this.nameInputBuilder.Content = this.world.Information.Name;
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
 
-                    this.textInputUI.Configure(this.nameInputBuilder);
+                    this.textInputUI.Configure(new()
+                    {
+                        Synopsis = Localization_Messages.Input_World_Name,
+                        InputMode = InputMode.Normal,
+                        InputRestriction = InputRestriction.Alphanumeric,
+                        MaxCharacters = 50,
+
+                        Content = this.world.Information.Name,
+
+                        OnValidationCallback = (result) =>
+                        {
+                            return string.IsNullOrWhiteSpace(result)
+                                ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty)
+                                : new(ValidationStatus.Success); },
+
+                        OnSendCallback = result =>
+                        {
+                            world.Information.Name = result;
+                        },
+                    });
+
                     this.uiManager.OpenGUI(UIIndex.TextInput);
                 }),
-                new(TextureIndex.None, null, "Description Field", string.Empty, () =>
-                {
-                    this.descriptionInputBuilder.Content = this.world.Information.Description;
 
-                    this.textInputUI.Configure(this.descriptionInputBuilder);
+                // Description Field
+                new(TextureIndex.None, null, string.Empty, string.Empty, () =>
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
+                    this.textInputUI.Configure(new()
+                    {
+                        Synopsis = Localization_Messages.Input_World_Description,
+                        InputMode = InputMode.Normal,
+                        MaxCharacters = 500,
+                        Content = this.world.Information.Description,
+
+                        OnValidationCallback = (result) =>
+                        {
+                            return string.IsNullOrWhiteSpace(result)
+                                ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty)
+                                : new(ValidationStatus.Success);
+                        },
+
+                        OnSendCallback = (result) =>
+                        {
+                            world.Information.Description = result;
+                        },
+                    });
+
                     this.uiManager.OpenGUI(UIIndex.TextInput);
                 })
             ];
 
             this.footerButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.HUD_Complements_SaveSettings_Button_Save_Description, () =>
+                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
                     SaveFile saveFile = SavingSerializer.Serialize(this.world, this.graphicsDevice);
 
                     this.world.SetSaveFile(saveFile);
@@ -95,49 +136,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
             this.fieldButtonSlotInfos = new SlotInfo[this.fieldButtonInfos.Length];
             this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
-
-            this.nameInputBuilder = new()
-            {
-                Synopsis = Localization_Messages.Input_World_Name,
-                InputMode = InputMode.Normal,
-                InputRestriction = InputRestriction.Alphanumeric,
-                MaxCharacters = 50,
-
-                OnValidationCallback = (validationState, result) =>
-                {
-                    if (string.IsNullOrWhiteSpace(result.Content))
-                    {
-                        validationState.Status = ValidationStatus.Failure;
-                        validationState.Message = Localization_Messages.Input_World_Name_Validation_Empty;
-                    }
-                },
-
-                OnSendCallback = result =>
-                {
-                    world.Information.Name = result.Content;
-                },
-            };
-
-            this.descriptionInputBuilder = new()
-            {
-                Synopsis = Localization_Messages.Input_World_Description,
-                InputMode = InputMode.Normal,
-                MaxCharacters = 500,
-
-                OnValidationCallback = (validationState, result) =>
-                {
-                    if (string.IsNullOrWhiteSpace(result.Content))
-                    {
-                        validationState.Status = ValidationStatus.Failure;
-                        validationState.Message = Localization_Messages.Input_World_Description_Validation_Empty;
-                    }
-                },
-
-                OnSendCallback = (result) =>
-                {
-                    world.Information.Description = result.Content;
-                },
-            };
         }
 
         #region BUILDER
@@ -167,8 +165,8 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Alignment = CardinalDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSaveSettings),
+                Alignment = UIDirection.Center,
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSave),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -183,7 +181,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Title,
+                TextContent = Localization_GUIs.Save_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -203,8 +201,8 @@ namespace StardustSandbox.UI.Common.HUD
                 ButtonInfo button = this.menuButtonInfos[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
 
-                slot.Background.Alignment = CardinalDirection.Northeast;
-                slot.Icon.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Northeast;
+                slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
                 this.background.AddChild(slot.Background);
@@ -225,12 +223,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Name_Title,
+                TextContent = Localization_GUIs.Save_Name_Title,
             };
 
             this.titleInputField = new()
             {
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
@@ -243,7 +241,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
             };
 
             this.background.AddChild(this.nameSectionTitle);
@@ -260,12 +258,12 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Description_Title,
+                TextContent = Localization_GUIs.Save_Description_Title,
             };
 
             this.descriptionInputField = new()
             {
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
@@ -278,7 +276,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
                 SpriteFontIndex = SpriteFontIndex.PixelOperator,
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
             };
 
             this.titleInputField.AddChild(this.descriptionSectionTitle);
@@ -295,13 +293,13 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(-176.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = CardinalDirection.Northeast,
-                TextContent = Localization_GUIs.HUD_Complements_SaveSettings_Section_Thumbnail_Title
+                Alignment = UIDirection.Northeast,
+                TextContent = Localization_GUIs.Save_Thumbnail_Title
             };
 
             this.thumbnailPreviewElement = new()
             {
-                Alignment = CardinalDirection.Southwest,
+                Alignment = UIDirection.Southwest,
                 Scale = new(12.5f),
                 Margin = new(0.0f, 8.0f),
             };
@@ -325,7 +323,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
                     Margin = new(marginX, -32.0f),
-                    Alignment = CardinalDirection.Southwest,
+                    Alignment = UIDirection.Southwest,
                 };
 
                 Label label = new()
@@ -333,7 +331,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    Alignment = CardinalDirection.Center,
+                    Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
@@ -379,7 +377,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATING
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -396,9 +394,16 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.menuButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -423,6 +428,12 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.fieldButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    break;
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     this.fieldButtonInfos[i].ClickAction?.Invoke();
@@ -438,9 +449,15 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 SlotInfo slot = this.footerButtonSlotInfos[i];
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     this.footerButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -470,8 +487,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             if (string.IsNullOrWhiteSpace(this.world.Information.Name))
@@ -494,7 +509,5 @@ namespace StardustSandbox.UI.Common.HUD
             this.worldThumbnailTexture.Dispose();
             this.worldThumbnailTexture = null;
         }
-
-        #endregion
     }
 }

@@ -13,33 +13,33 @@ namespace StardustSandbox.Elements.Solids.Immovables
         private static readonly List<Point> positionBuffer = [];
         private static readonly List<SlotLayer> layerBuffer = [];
 
-        protected override void OnBeforeStep(in ElementContext context)
+        protected override void OnBeforeStep(ElementContext context)
         {
             positionBuffer.Clear();
             layerBuffer.Clear();
         }
 
-        protected override void OnAfterStep(in ElementContext context)
+        protected override void OnAfterStep(ElementContext context)
         {
             TryInstantiateStoredElement(context);
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             TryDefineStoredElement(context, neighbors);
         }
 
-        private static void TryInstantiateStoredElement(in ElementContext context)
+        private static void TryInstantiateStoredElement(ElementContext context)
         {
-            if (context.SlotLayer.StoredElement == null || !TryGetValidPosition(context, out Point validPositon))
+            if (context.GetStoredElement() == null || !TryGetValidPosition(context, out Point validPositon))
             {
                 return;
             }
 
-            context.InstantiateElement(validPositon, context.Layer, context.SlotLayer.StoredElement);
+            context.InstantiateElement(validPositon, context.Layer, context.GetStoredElement());
         }
 
-        private static void TryAddEmptyPosition(in ElementContext context, Point position)
+        private static void TryAddEmptyPosition(ElementContext context, Point position)
         {
             if (context.IsEmptySlotLayer(position, context.Layer))
             {
@@ -47,7 +47,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
             }
         }
 
-        private static bool TryGetValidPosition(in ElementContext context, out Point validPosition)
+        private static bool TryGetValidPosition(ElementContext context, out Point validPosition)
         {
             int centerX = context.Slot.Position.X;
             int centerY = context.Slot.Position.Y;
@@ -75,33 +75,34 @@ namespace StardustSandbox.Elements.Solids.Immovables
             return true;
         }
 
-        private static void TryDefineStoredElement(in ElementContext context, in ElementNeighbors neighbors)
+        private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.SlotLayer.StoredElement != null)
+            if (context.GetStoredElement() != null)
             {
                 return;
             }
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
-
-                if (layer.HasState(ElementStates.IsEmpty) ||
-                    layer.Element.Index == ElementIndex.Clone ||
-                    layer.Element.Index == ElementIndex.Wall ||
-                    layer.Element.Index == ElementIndex.Void ||
-                    layer.Element.Index == ElementIndex.ThunderBody ||
-                    layer.Element.Index == ElementIndex.ThunderHead)
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    continue;
+                    case ElementIndex.Clone:
+                    case ElementIndex.Wall:
+                    case ElementIndex.Void:
+                    case ElementIndex.LightningBody:
+                    case ElementIndex.LightningHead:
+                        continue;
+
+                    default:
+                        break;
                 }
 
-                layerBuffer.Add(layer);
+                layerBuffer.Add(neighbors.GetSlotLayer(i, context.Layer));
             }
 
             if (layerBuffer.Count == 0)

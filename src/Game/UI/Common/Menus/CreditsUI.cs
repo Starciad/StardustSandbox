@@ -88,7 +88,7 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
 
                 // Creator
-                new(Localization_GUIs.Menu_Credits_Title_Creator,
+                new(Localization_GUIs.Credits_Title_Creator,
                 [
                     new()
                     {
@@ -97,9 +97,9 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
 
                 // Roles
-                new(Localization_GUIs.Menu_Credits_Title_Roles, [
+                new(Localization_GUIs.Credits_Title_Roles, [
                     new() {
-                        Text = Localization_GUIs.Menu_Credits_Title_Programming,
+                        Text = Localization_GUIs.Credits_Title_Programming,
                         ContentType = CreditContentType.Title,
                     },
 
@@ -109,7 +109,7 @@ namespace StardustSandbox.UI.Common.Menus
                     },
 
                     new() {
-                        Text = Localization_GUIs.Menu_Credits_Title_Artists,
+                        Text = Localization_GUIs.Credits_Title_Artists,
                         ContentType = CreditContentType.Title,
                     },
 
@@ -119,7 +119,7 @@ namespace StardustSandbox.UI.Common.Menus
                     },
 
                     new() {
-                        Text = Localization_GUIs.Menu_Credits_Title_Composers,
+                        Text = Localization_GUIs.Credits_Title_Composers,
                         ContentType = CreditContentType.Title,
                     },
 
@@ -130,9 +130,9 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
 
                 // Contributors
-                new(Localization_GUIs.Menu_Credits_Title_Contributors, [
+                new(Localization_GUIs.Credits_Title_Contributors, [
                     new() {
-                        Text = Localization_GUIs.Menu_Credits_Title_Programming,
+                        Text = Localization_GUIs.Credits_Title_Programming,
                         ContentType = CreditContentType.Title,
                     },
 
@@ -141,7 +141,7 @@ namespace StardustSandbox.UI.Common.Menus
                     },
 
                     new() {
-                        Text = Localization_GUIs.Menu_Credits_Title_Artists,
+                        Text = Localization_GUIs.Credits_Title_Artists,
                         ContentType = CreditContentType.Title,
                     },
 
@@ -151,7 +151,7 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
 
                 // Testers
-                new(Localization_GUIs.Menu_Credits_Title_Testers, [
+                new(Localization_GUIs.Credits_Title_Testers, [
                     new() {
                         Text = "Igor S. Zizinio",
                     },
@@ -170,15 +170,15 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
 
                 // Special Thanks
-                new(Localization_GUIs.Menu_Credits_Title_SpecialThanks, [
+                new(Localization_GUIs.Credits_Title_SpecialThanks, [
                     new()
                     {
-                        Text = Localization_GUIs.Menu_Credits_People_Parents,
+                        Text = Localization_GUIs.Credits_People_Parents,
                     },
                 ]),
 
                 // Tools
-                new(Localization_GUIs.Menu_Credits_Title_Tools, [
+                new(Localization_GUIs.Credits_Title_Tools, [
                     new()
                     {
                         ContentType = CreditContentType.Image,
@@ -195,10 +195,10 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
 
                 // Finalization
-                new(Localization_GUIs.Menu_Credits_Message_Finalization, [
+                new(Localization_GUIs.Credits_Message_Finalization, [
                     new()
                     {
-                        Text = Localization_GUIs.Menu_Credits_Message_ThankPlayer,
+                        Text = Localization_GUIs.Credits_Message_ThankPlayer,
                     },
 
                     new()
@@ -210,8 +210,6 @@ namespace StardustSandbox.UI.Common.Menus
                 ]),
             ];
         }
-
-        #region BUILDER
 
         protected override void OnBuild(Container root)
         {
@@ -235,7 +233,7 @@ namespace StardustSandbox.UI.Common.Menus
                         Scale = new(0.25f),
                         SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                         Margin = margin,
-                        Alignment = CardinalDirection.South,
+                        Alignment = UIDirection.South,
                         TextContent = creditSection.Title
                     };
 
@@ -255,7 +253,7 @@ namespace StardustSandbox.UI.Common.Menus
                             Scale = new(0.2f),
                             SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                             Margin = margin + content.Margin,
-                            Alignment = CardinalDirection.South,
+                            Alignment = UIDirection.South,
                             TextContent = content.Text
                         };
 
@@ -273,7 +271,7 @@ namespace StardustSandbox.UI.Common.Menus
                             Scale = new(0.15f),
                             SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                             Margin = margin + content.Margin,
-                            Alignment = CardinalDirection.South,
+                            Alignment = UIDirection.South,
                             TextContent = content.Text
                         };
 
@@ -292,7 +290,7 @@ namespace StardustSandbox.UI.Common.Menus
                             Scale = content.TextureScale,
                             Size = content.Texture.GetSize().ToVector2(),
                             Texture = content.Texture,
-                            Alignment = CardinalDirection.South,
+                            Alignment = UIDirection.South,
                             Margin = margin + content.Margin
                         };
 
@@ -308,11 +306,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #endregion
-
-        #region UPDATING
-
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             UpdateUserInput();
             CheckIfTheCreditsHaveFinished();
@@ -342,10 +336,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #endregion
-
-        #region EVENTS
-
         protected override void OnOpened()
         {
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
@@ -359,7 +349,5 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.lastElement ??= this.rootContainer.Children[^1];
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Audio;
 using StardustSandbox.Catalog;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
@@ -18,7 +19,6 @@ using StardustSandbox.Managers;
 using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
-using StardustSandbox.UI.Settings;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -42,7 +42,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] leftPanelTopButtonSlotInfos, leftPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos;
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
-        private readonly ConfirmSettings reloadSimulationConfirmSettings, eraseEverythingConfirmSettings;
         private readonly GameManager gameManager;
         private readonly InputController inputController;
         private readonly ConfirmUI guiConfirm;
@@ -77,48 +76,18 @@ namespace StardustSandbox.UI.Common.HUD
             this.tooltipBox = tooltipBox;
             this.world = world;
 
-            this.reloadSimulationConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_Simulation_Reload_Title,
-                Message = Localization_Messages.Confirm_Simulation_Reload_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        this.world.Reload();
-                    }
-
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            };
-
-            this.eraseEverythingConfirmSettings = new()
-            {
-                Caption = Localization_Messages.Confirm_Simulation_EraseEverything_Title,
-                Message = Localization_Messages.Confirm_Simulation_EraseEverything_Description,
-                OnConfirmCallback = status =>
-                {
-                    if (status == ConfirmStatus.Confirmed)
-                    {
-                        this.world.Reset();
-                    }
-
-                    gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            };
-
             SelectItemSlot(0, 0, 0, 0);
 
             this.leftPanelTopButtonInfos = [
-                new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_Button_EnvironmentSettings_Name, Localization_GUIs.HUD_Button_EnvironmentSettings_Description, () => this.uiManager.OpenGUI(UIIndex.EnvironmentSettings)),
-                new(TextureIndex.IconUI, new(32, 0, 32, 32), Localization_GUIs.HUD_Button_PenSettings_Name, Localization_GUIs.HUD_Button_PenSettings_Description, () => this.uiManager.OpenGUI(UIIndex.PenSettings)),
-                new(TextureIndex.IconUI, new(160, 0, 32, 32), Localization_GUIs.HUD_Button_WorldSettings_Name, Localization_GUIs.HUD_Button_WorldSettings_Description, () => this.uiManager.OpenGUI(UIIndex.WorldSettings)),
-                new(TextureIndex.IconUI, new(128, 64, 32, 32), Localization_GUIs.HUD_Button_Information_Name, Localization_GUIs.HUD_Button_Information_Description, () => this.uiManager.OpenGUI(UIIndex.Information)),
+                new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_EnvironmentSettings_Name, Localization_GUIs.HUD_EnvironmentSettings_Description, () => this.uiManager.OpenGUI(UIIndex.EnvironmentSettings)),
+                new(TextureIndex.IconUI, new(32, 0, 32, 32), Localization_GUIs.HUD_PenSettings_Name, Localization_GUIs.HUD_PenSettings_Description, () => this.uiManager.OpenGUI(UIIndex.PenSettings)),
+                new(TextureIndex.IconUI, new(160, 0, 32, 32), Localization_GUIs.HUD_WorldSettings_Name, Localization_GUIs.HUD_WorldSettings_Description, () => this.uiManager.OpenGUI(UIIndex.WorldSettings)),
+                new(TextureIndex.IconUI, new(128, 64, 32, 32), Localization_GUIs.HUD_Information_Name, Localization_GUIs.HUD_Information_Description, () => this.uiManager.OpenGUI(UIIndex.Information)),
             ];
 
             this.leftPanelBottomButtonInfos = [
-                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_Button_PauseSimulation_Name, Localization_GUIs.HUD_Button_PauseSimulation_Description, () => this.gameManager.ToggleState(GameStates.IsSimulationPaused)),
-                new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Button_Speed_Name, Localization_GUIs.HUD_Button_Speed_Description, () =>
+                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => this.gameManager.ToggleState(GameStates.IsSimulationPaused)),
+                new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Speed_Name, Localization_GUIs.HUD_Speed_Description, () =>
                 {
                     this.gameManager.SetSimulationSpeed(
                         this.world.Simulation.CurrentSpeed == SimulationSpeed.Normal ? SimulationSpeed.Fast :
@@ -129,22 +98,48 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.rightPanelTopButtonInfos = [
-                new(TextureIndex.IconUI, new(32, 192, 32, 32), Localization_GUIs.HUD_Button_GameMenu_Name, Localization_GUIs.HUD_Button_GameMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Pause)),
-                new(TextureIndex.IconUI, new(64, 192, 32, 32), Localization_GUIs.HUD_Button_SaveMenu_Name, Localization_GUIs.HUD_Button_SaveMenu_Description, () => this.uiManager.OpenGUI(UIIndex.SaveSettings)),
+                new(TextureIndex.IconUI, new(32, 192, 32, 32), Localization_GUIs.HUD_GameMenu_Name, Localization_GUIs.HUD_GameMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Pause)),
+                new(TextureIndex.IconUI, new(64, 192, 32, 32), Localization_GUIs.HUD_SaveMenu_Name, Localization_GUIs.HUD_SaveMenu_Description, () => this.uiManager.OpenGUI(UIIndex.Save)),
             ];
 
             this.rightPanelBottomButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_Button_EraseEverything_Name, Localization_GUIs.HUD_Button_EraseEverything_Description, () =>
+                new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_EraseEverything_Name, Localization_GUIs.HUD_EraseEverything_Description, () =>
                 {
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-                    this.guiConfirm.Configure(this.eraseEverythingConfirmSettings);
-                    this.uiManager.OpenGUI(this.guiConfirm.Index);
+                    this.guiConfirm.Configure(new()
+                    {
+                        Caption = Localization_Messages.Confirm_Simulation_EraseEverything_Title,
+                        Message = Localization_Messages.Confirm_Simulation_EraseEverything_Description,
+                        OnConfirmCallback = status =>
+                        {
+                            if (status == ConfirmStatus.Confirmed)
+                            {
+                                this.world.Reset();
+                            }
+
+                            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                        },
+                    });
+                    this.uiManager.OpenGUI(UIIndex.Confirm);
                 }),
-                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_Button_ReloadSimulation_Name, Localization_GUIs.HUD_Button_ReloadSimulation_Description, () =>
+                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
                     this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
-                    this.guiConfirm.Configure(this.reloadSimulationConfirmSettings);
-                    this.uiManager.OpenGUI(this.guiConfirm.Index);
+                    this.guiConfirm.Configure(new()
+                    {
+                        Caption = Localization_Messages.Confirm_Simulation_Reload_Title,
+                        Message = Localization_Messages.Confirm_Simulation_Reload_Description,
+                        OnConfirmCallback = status =>
+                        {
+                            if (status == ConfirmStatus.Confirmed)
+                            {
+                                this.world.Reload();
+                            }
+
+                            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                        },
+                    });
+                    this.uiManager.OpenGUI(UIIndex.Confirm);
                 }),
             ];
 
@@ -158,21 +153,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnBuild(Container root)
         {
-            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), CardinalDirection.Northwest, BuildTopToolbarContent);
-            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), CardinalDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, CardinalDirection.North, true));
-            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), CardinalDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, CardinalDirection.North, true));
-            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, CardinalDirection.South, false);
-            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, CardinalDirection.South, false);
-            BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), CardinalDirection.South);
-            BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), CardinalDirection.East);
-            BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), CardinalDirection.West);
+            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
+            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, UIDirection.North, true));
+            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, UIDirection.North, true));
+            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, UIDirection.South, false);
+            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, UIDirection.South, false);
+            BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), UIDirection.South);
+            BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), UIDirection.East);
+            BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), UIDirection.West);
 
             root.AddChild(this.tooltipBox);
 
             BuildSimulationPausedOverlay(root);
         }
 
-        private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, CardinalDirection alignment, Action<Container> buildContent)
+        private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, UIDirection alignment, Action<Container> buildContent)
         {
             container = new() { Size = size, Alignment = alignment };
             root.AddChild(container);
@@ -195,7 +190,7 @@ namespace StardustSandbox.UI.Common.HUD
             CreateTopToolbarSearchSlot();
         }
 
-        private static void BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, SlotInfo[] slots, CardinalDirection alignment, bool isTop)
+        private static void BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, SlotInfo[] slots, UIDirection alignment, bool isTop)
         {
             float marginY = isTop ? 32.0f : -32.0f;
             float direction = isTop ? 1.0f : -1.0f;
@@ -211,7 +206,7 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        private static void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, CardinalDirection alignment)
+        private static void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)
         {
             drawerButton = new()
             {
@@ -233,7 +228,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
-                Alignment = CardinalDirection.West,
+                Alignment = UIDirection.West,
                 Size = new(32.0f),
                 Margin = new(32.0f, 0.0f),
             };
@@ -242,7 +237,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(64, 32, 32, 32),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Scale = new(2.0f),
                 Size = new(32.0f),
             };
@@ -265,7 +260,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Item curentItem = items[i];
                 SlotInfo slot = CreateButtonSlot(new(marginX, 0.0f), curentItem);
 
-                slot.Background.Alignment = CardinalDirection.Center;
+                slot.Background.Alignment = UIDirection.Center;
 
                 if (!slot.Background.ContainsData(UIConstants.DATA_ITEM))
                 {
@@ -286,7 +281,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
-                Alignment = CardinalDirection.East,
+                Alignment = UIDirection.East,
                 Size = new(32.0f),
                 Margin = new(-32.0f, 0.0f),
             };
@@ -295,7 +290,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(0, 0, 32, 32),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 Scale = new(2.0f),
                 Size = new(32.0f),
             };
@@ -322,7 +317,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SourceRectangle = iconTextureRectangle,
                 Scale = new(1.5f),
                 Size = new(32.0f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             return new(background, icon);
@@ -349,7 +344,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = backgroundColor,
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
             };
 
             Label pauseLabel = new()
@@ -357,7 +352,7 @@ namespace StardustSandbox.UI.Common.HUD
                 SpriteFontIndex = SpriteFontIndex.VcrOsdMono1001,
                 Color = AAP64ColorPalette.White,
                 Scale = new(0.08f),
-                Alignment = CardinalDirection.Center,
+                Alignment = UIDirection.Center,
                 TextContent = Localization_GUIs.HUD_SimulationPaused,
             };
 
@@ -374,7 +369,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATE
 
-        internal override void Update(in GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -470,30 +465,9 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarToolPreview()
         {
-            if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
+            if (Interaction.OnMouseEnter(this.toolbarCurrentlySelectedToolIcon))
             {
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
-                {
-                    PenTool.Visualization => PenTool.Pencil,
-                    PenTool.Pencil => PenTool.Eraser,
-                    PenTool.Eraser => PenTool.Fill,
-                    PenTool.Fill => PenTool.Replace,
-                    PenTool.Replace => PenTool.Visualization,
-                    _ => PenTool.Visualization,
-                };
-            }
-
-            if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
-            {
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
-                {
-                    PenTool.Visualization => PenTool.Replace,
-                    PenTool.Pencil => PenTool.Visualization,
-                    PenTool.Eraser => PenTool.Pencil,
-                    PenTool.Fill => PenTool.Eraser,
-                    PenTool.Replace => PenTool.Fill,
-                    _ => PenTool.Visualization,
-                };
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarCurrentlySelectedToolIcon))
@@ -533,23 +507,43 @@ namespace StardustSandbox.UI.Common.HUD
                         break;
                 }
 
-                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
-                    this.toolbarCurrentlySelectedToolBackground.Scale,
-                    new(2.65f),
-                    0.2f
-                );
-
+                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(this.toolbarCurrentlySelectedToolBackground.Scale, new(2.65f), 0.2f);
                 this.toolbarCurrentlySelectedToolBackground.Color = AAP64ColorPalette.Graphite;
             }
             else
             {
-                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(
-                    this.toolbarCurrentlySelectedToolBackground.Scale,
-                    new(2.45f),
-                    0.2f
-                );
-
+                this.toolbarCurrentlySelectedToolBackground.Scale = Vector2.Lerp(this.toolbarCurrentlySelectedToolBackground.Scale, new(2.45f), 0.2f);
                 this.toolbarCurrentlySelectedToolBackground.Color = AAP64ColorPalette.White;
+            }
+
+            if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
+                {
+                    PenTool.Visualization => PenTool.Pencil,
+                    PenTool.Pencil => PenTool.Eraser,
+                    PenTool.Eraser => PenTool.Fill,
+                    PenTool.Fill => PenTool.Replace,
+                    PenTool.Replace => PenTool.Visualization,
+                    _ => PenTool.Visualization,
+                };
+            }
+
+            if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
+                {
+                    PenTool.Visualization => PenTool.Replace,
+                    PenTool.Pencil => PenTool.Visualization,
+                    PenTool.Eraser => PenTool.Pencil,
+                    PenTool.Fill => PenTool.Eraser,
+                    PenTool.Replace => PenTool.Fill,
+                    _ => PenTool.Visualization,
+                };
             }
         }
 
@@ -560,20 +554,23 @@ namespace StardustSandbox.UI.Common.HUD
                 SlotInfo slot = this.toolbarSlots[i];
                 bool isOver = Interaction.OnMouseOver(slot.Background);
 
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SelectItemSlot(i, (Item)slot.Background.GetData(UIConstants.DATA_ITEM));
+                    break;
                 }
 
                 if (isOver)
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    slot.Background.Scale = Vector2.Lerp(
-                        slot.Background.Scale,
-                        new(2.2f),
-                        0.2f
-                    );
+                    slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.2f), 0.2f);
 
                     Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
 
@@ -582,11 +579,7 @@ namespace StardustSandbox.UI.Common.HUD
                 }
                 else
                 {
-                    slot.Background.Scale = Vector2.Lerp(
-                        slot.Background.Scale,
-                        new(2.0f),
-                        0.2f
-                    );
+                    slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.0f), 0.2f);
                 }
 
                 slot.Background.Color = this.slotSelectedIndex == i
@@ -599,34 +592,30 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateTopToolbarSearchButton()
         {
-            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
+            if (Interaction.OnMouseEnter(this.toolbarSearchButton))
             {
-                this.uiManager.OpenGUI(UIIndex.ItemExplorer);
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarSearchButton))
             {
                 this.toolbarSearchButton.Color = AAP64ColorPalette.Graphite;
                 this.tooltipBox.CanDraw = true;
+                this.toolbarSearchButton.Scale = Vector2.Lerp(this.toolbarSearchButton.Scale, new(2.65f), 0.2f);
 
-                this.toolbarSearchButton.Scale = Vector2.Lerp(
-                    this.toolbarSearchButton.Scale,
-                    new(2.65f),
-                    0.2f
-                );
-
-                TooltipBoxContent.SetTitle(Localization_GUIs.HUD_Button_ItemExplorer_Name);
-                TooltipBoxContent.SetDescription(Localization_GUIs.HUD_Button_ItemExplorer_Description);
+                TooltipBoxContent.SetTitle(Localization_GUIs.HUD_ItemExplorer_Name);
+                TooltipBoxContent.SetDescription(Localization_GUIs.HUD_ItemExplorer_Description);
             }
             else
             {
-                this.toolbarSearchButton.Scale = Vector2.Lerp(
-                    this.toolbarSearchButton.Scale,
-                    new(2.45f),
-                    0.2f
-                );
-
+                this.toolbarSearchButton.Scale = Vector2.Lerp(this.toolbarSearchButton.Scale, new(2.45f), 0.2f);
                 this.toolbarSearchButton.Color = AAP64ColorPalette.White;
+            }
+
+            if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                this.uiManager.OpenGUI(UIIndex.ItemExplorer);
             }
         }
 
@@ -642,9 +631,9 @@ namespace StardustSandbox.UI.Common.HUD
                 SlotInfo slot = slots[i];
                 ButtonInfo button = buttons[i];
 
-                if (Interaction.OnMouseLeftClick(slot.Background))
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    button.ClickAction?.Invoke();
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -663,25 +652,35 @@ namespace StardustSandbox.UI.Common.HUD
                     slot.Background.Color = AAP64ColorPalette.White;
                     slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.0f), 0.2f);
                 }
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    button.ClickAction?.Invoke();
+                    break;
+                }
+            }
+        }
+
+        private static void UpdateDrawerButton(Image image, ref bool expanded)
+        {
+            if (Interaction.OnMouseEnter(image))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
+
+            if (Interaction.OnMouseLeftClick(image))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                expanded = !expanded;
             }
         }
 
         private void UpdateDrawerButtons()
         {
-            if (Interaction.OnMouseLeftClick(this.topDrawerButton))
-            {
-                this.isTopToolbarExpanded = !this.isTopToolbarExpanded;
-            }
-
-            if (Interaction.OnMouseLeftClick(this.leftDrawerButton))
-            {
-                this.isLeftToolbarExpanded = !this.isLeftToolbarExpanded;
-            }
-
-            if (Interaction.OnMouseLeftClick(this.rightDrawerButton))
-            {
-                this.isRightToolbarExpanded = !this.isRightToolbarExpanded;
-            }
+            UpdateDrawerButton(this.topDrawerButton, ref this.isTopToolbarExpanded);
+            UpdateDrawerButton(this.leftDrawerButton, ref this.isLeftToolbarExpanded);
+            UpdateDrawerButton(this.rightDrawerButton, ref this.isRightToolbarExpanded);
         }
 
         #endregion

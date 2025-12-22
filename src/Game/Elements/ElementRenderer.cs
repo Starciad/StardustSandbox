@@ -8,6 +8,7 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
+using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements
@@ -26,39 +27,39 @@ namespace StardustSandbox.Elements
 
         private static readonly Rectangle[] spriteKeyPoints = [
             // Full 0, 1, 2, 3
-            new Rectangle(location: new Point(00, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(16, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(00, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(16, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(00, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(16, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(00, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(16, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
 
             // Corner 4, 5, 6, 7
-            new Rectangle(location: new Point(32, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(48, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(32, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(48, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(32, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(48, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(32, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(48, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
 
             // Vertical Edge 8, 9, 10, 11
-            new Rectangle(location: new Point(64, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(80, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(64, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(80, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(64, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(80, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(64, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(80, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
 
             // Horizontal Border 12, 13, 14, 15
-            new Rectangle(location: new Point(096, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(112, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(096, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(112, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(096, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(112, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(096, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(112, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
 
             // Gaps 16, 17, 18, 19
-            new Rectangle(location: new Point(128, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(144, 00), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(128, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
-            new Rectangle(location: new Point(144, 16), size: new Point(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(128, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(144, 00), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(128, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
+            new Rectangle(location: new(144, 16), size: new(ElementConstants.SPRITE_SLICE_SIZE)),
         ];
 
         #region BLOB RENDERING
 
-        private static void UpdateSpritePositions(Point position)
+        private static void UpdateSpritePositions(in Point position)
         {
             float xOffset = ElementConstants.SPRITE_X_OFFSET, yOffset = ElementConstants.SPRITE_Y_OFFSET;
 
@@ -68,12 +69,12 @@ namespace StardustSandbox.Elements
             spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
         }
 
-        private static void UpdateSpriteSlice(in ElementContext context, Element element, int index, Point position)
+        private static void UpdateSpriteSlice(ElementContext context, Element element, in int index, in Point position)
         {
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, element, index, position));
         }
 
-        private static byte GetBlobValueFromTargetPositions(in ElementContext context, Element element, int index, Point position)
+        private static byte GetBlobValueFromTargetPositions(ElementContext context, Element element, in int index, in Point position)
         {
             byte result = 0;
 
@@ -99,36 +100,36 @@ namespace StardustSandbox.Elements
             return result;
         }
 
-        private static void GetTargetPositionsFromIndex(int index, Point position)
+        private static void GetTargetPositionsFromIndex(in int index, in Point position)
         {
             switch (index)
             {
                 // Sprite Piece 1 (Northwest Pivot)
                 case 0:
-                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
-                    blobInfos[1] = new(new Point(position.X - 1, position.Y - 1), (byte)BlobCardinalDirection.Northwest);
-                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
+                    blobInfos[0] = new(new(position.X - 1, position.Y), (byte)BlobDirection.West);
+                    blobInfos[1] = new(new(position.X - 1, position.Y - 1), (byte)BlobDirection.Northwest);
+                    blobInfos[2] = new(new(position.X, position.Y - 1), (byte)BlobDirection.North);
                     break;
 
                 // Sprite Piece 2 (Northeast Pivot)
                 case 1:
-                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
-                    blobInfos[1] = new(new Point(position.X + 1, position.Y - 1), (byte)BlobCardinalDirection.Northeast);
-                    blobInfos[2] = new(new Point(position.X, position.Y - 1), (byte)BlobCardinalDirection.North);
+                    blobInfos[0] = new(new(position.X + 1, position.Y), (byte)BlobDirection.East);
+                    blobInfos[1] = new(new(position.X + 1, position.Y - 1), (byte)BlobDirection.Northeast);
+                    blobInfos[2] = new(new(position.X, position.Y - 1), (byte)BlobDirection.North);
                     break;
 
                 // Sprite Piece 3 (Southwest Pivot)
                 case 2:
-                    blobInfos[0] = new(new Point(position.X - 1, position.Y), (byte)BlobCardinalDirection.West);
-                    blobInfos[1] = new(new Point(position.X - 1, position.Y + 1), (byte)BlobCardinalDirection.Southwest);
-                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
+                    blobInfos[0] = new(new(position.X - 1, position.Y), (byte)BlobDirection.West);
+                    blobInfos[1] = new(new(position.X - 1, position.Y + 1), (byte)BlobDirection.Southwest);
+                    blobInfos[2] = new(new(position.X, position.Y + 1), (byte)BlobDirection.South);
                     break;
 
                 // Sprite Piece 4 (Southeast Pivot)
                 case 3:
-                    blobInfos[0] = new(new Point(position.X + 1, position.Y), (byte)BlobCardinalDirection.East);
-                    blobInfos[1] = new(new Point(position.X + 1, position.Y + 1), (byte)BlobCardinalDirection.Southeast);
-                    blobInfos[2] = new(new Point(position.X, position.Y + 1), (byte)BlobCardinalDirection.South);
+                    blobInfos[0] = new(new(position.X + 1, position.Y), (byte)BlobDirection.East);
+                    blobInfos[1] = new(new(position.X + 1, position.Y + 1), (byte)BlobDirection.Southeast);
+                    blobInfos[2] = new(new(position.X, position.Y + 1), (byte)BlobDirection.South);
                     break;
 
                 default:
@@ -139,7 +140,7 @@ namespace StardustSandbox.Elements
             }
         }
 
-        private static void SetChunkSpriteFromIndexAndBlobValue(int index, byte blobValue)
+        private static void SetChunkSpriteFromIndexAndBlobValue(in int index, in byte blobValue)
         {
             switch (index)
             {
@@ -216,11 +217,15 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(in ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
+        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            Color colorModifier = slotLayer.ColorModifier;
 
-            Color colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            if (gameplaySettings.ShowTemperatureColorVariations)
+            {
+                colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            }
 
             if (context.Layer == Layer.Background)
             {
@@ -246,11 +251,15 @@ namespace StardustSandbox.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(in ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            Color colorModifier = slotLayer.ColorModifier;
 
-            Color colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            if (gameplaySettings.ShowTemperatureColorVariations)
+            {
+                colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
+            }
 
             if (context.Layer == Layer.Background)
             {
@@ -270,17 +279,17 @@ namespace StardustSandbox.Elements
             );
         }
 
-        internal static void Draw(in ElementContext context, Element element, SpriteBatch spriteBatch, Point textureOriginOffset)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             // Handle blob tiles separately.
             switch (element.RenderingType)
             {
                 case ElementRenderingType.Single:
-                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset);
+                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
                     break;
 
                 case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element, spriteBatch, textureOriginOffset);
+                    DrawBlobElementRoutine(context, element, spriteBatch, textureOriginOffset, gameplaySettings);
                     break;
 
                 default:

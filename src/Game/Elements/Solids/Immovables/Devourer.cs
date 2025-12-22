@@ -31,34 +31,35 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static readonly List<Slot> cachedNeighborSlots = [];
 
-        protected override void OnDestroyed(in ElementContext context)
+        protected override void OnDestroyed(ElementContext context)
         {
             context.InstantiateExplosion(explosionBuilder);
         }
 
-        protected override void OnNeighbors(in ElementContext context, in ElementNeighbors neighbors)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             cachedNeighborSlots.Clear();
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                Slot slot = neighbors.GetSlot(i);
-                SlotLayer slotLayer = slot.GetLayer(context.Layer);
-
-                if (!slotLayer.HasState(ElementStates.IsEmpty) &&
-                    slotLayer.Element.Index != ElementIndex.Devourer &&
-                    slotLayer.Element.Index != ElementIndex.Void &&
-                    slotLayer.Element.Index != ElementIndex.Clone &&
-                    slotLayer.Element.Index != ElementIndex.Wall
-                )
+                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
                 {
-                    cachedNeighborSlots.Add(slot);
+                    case ElementIndex.Devourer:
+                    case ElementIndex.Void:
+                    case ElementIndex.Clone:
+                    case ElementIndex.Wall:
+                        continue;
+
+                    default:
+                        break;
                 }
+
+                cachedNeighborSlots.Add(neighbors.GetSlot(i));
             }
 
             if (cachedNeighborSlots.Count > 0)

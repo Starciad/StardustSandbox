@@ -22,7 +22,7 @@ namespace StardustSandbox.WorldSystem.Components
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
-        internal void Update(in GameTime gameTime)
+        internal void Update(GameTime gameTime)
         {
             foreach (Chunk worldChunk in this.world.GetActiveChunks())
             {
@@ -53,7 +53,7 @@ namespace StardustSandbox.WorldSystem.Components
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        private void UpdateSlotLayerTarget(in GameTime gameTime, Point position, Layer layer, Slot slot)
+        private void UpdateSlotLayerTarget(GameTime gameTime, in Point position, in Layer layer, Slot slot)
         {
             SlotLayer slotLayer = slot.GetLayer(layer);
             Element element = slotLayer.Element;
