@@ -53,6 +53,8 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Song>(Path.Combine("songs", "volume_01", "01_canvas_of_silence")),
                 contentManager.Load<Song>(Path.Combine("songs", "volume_01", "02_endless_rebirth")),
                 contentManager.Load<Song>(Path.Combine("songs", "volume_01", "03_lonely_heart")),
+                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "04_building_something_for_you")),
+                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "05_thoughts_from_a_distant_place")),
             ];
 
             soundEffects = [

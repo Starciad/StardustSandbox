@@ -242,9 +242,9 @@ namespace StardustSandbox.UI.Common.Menus
                 this.buttonAnimationOffsets[i] = Convert.ToSingle(SSRandom.GetDouble() * MathF.PI * 2.0f);
             }
 
-            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_CanvasOfSilence)
+            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_T01_CanvasOfSilence)
             {
-                SongEngine.Play(SongIndex.V01_CanvasOfSilence);
+                SongEngine.Play(SongIndex.V01_T01_CanvasOfSilence);
             }
         }
 

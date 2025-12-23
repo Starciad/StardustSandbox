@@ -6,9 +6,9 @@ namespace StardustSandbox.Constants
     {
         internal static readonly SongIndex[] GAMEPLAY_SONGS =
         [
-            SongIndex.V01_CanvasOfSilence,
-            SongIndex.V01_EndlessRebirth,
-            SongIndex.V01_LonelyHeart,
+            SongIndex.V01_T03_LonelyHeart,
+            SongIndex.V01_T04_BuildingSomethingForYou,
+            SongIndex.V01_T05_ThoughtsFromADistantPlace,
         ];
     }
 }
