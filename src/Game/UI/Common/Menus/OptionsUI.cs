@@ -419,8 +419,8 @@ namespace StardustSandbox.UI.Common.Menus
         {
             VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
-            MediaPlayer.Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
-            SoundEffect.MasterVolume = volumeSettings.MasterVolume;
+            SongEngine.ApplyVolumeSettings(volumeSettings);
+            SoundEngine.ApplyVolumeSettings(volumeSettings);
 
             this.videoManager.ApplySettings();
             this.cursorManager.ApplySettings();

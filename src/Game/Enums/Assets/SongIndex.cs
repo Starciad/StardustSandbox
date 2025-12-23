@@ -7,5 +7,6 @@
         // Volume 01
         V01_CanvasOfSilence,
         V01_EndlessRebirth,
+        V01_LonelyHeart,
     }
 }

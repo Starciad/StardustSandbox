@@ -46,7 +46,7 @@ namespace StardustSandbox
 
             world.CanDraw = false;
             world.CanUpdate = false;
-            world.Simulation.SetSpeed(SimulationSpeed.Normal);
+            world.SetSpeed(SimulationSpeed.Normal);
 
             RemoveState(GameStates.IsPaused);
             RemoveState(GameStates.IsSimulationPaused);

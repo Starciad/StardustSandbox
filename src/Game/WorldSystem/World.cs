@@ -818,28 +818,8 @@ namespace StardustSandbox.WorldSystem
 
         internal void SetSpeed(in SimulationSpeed speed)
         {
-            switch (speed)
-            {
-                case SimulationSpeed.Normal:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.Normal);
-                    break;
-
-                case SimulationSpeed.Fast:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_FAST_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.Fast);
-                    break;
-
-                case SimulationSpeed.VeryFast:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.VeryFast);
-                    break;
-
-                default:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.Normal);
-                    break;
-            }
+            this.time.SetSpeed(speed);
+            this.simulation.SetSpeed(speed);
         }
 
         #region Clear
