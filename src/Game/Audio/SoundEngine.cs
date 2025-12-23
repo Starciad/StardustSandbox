@@ -36,7 +36,7 @@ namespace StardustSandbox.Audio
 
             isInitialized = true;
         }
-        
+
         internal static void ApplyVolumeSettings(in VolumeSettings volumeSettings)
         {
             SoundEffect.MasterVolume = volumeSettings.MasterVolume;

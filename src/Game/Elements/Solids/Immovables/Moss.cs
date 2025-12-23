@@ -59,6 +59,16 @@ namespace StardustSandbox.Elements.Solids.Immovables
                     case ElementIndex.WetBlueWool:
                     case ElementIndex.WetVioletWool:
                     case ElementIndex.WetBrownWool:
+                    case ElementIndex.BlackPaint:
+                    case ElementIndex.WhitePaint:
+                    case ElementIndex.RedPaint:
+                    case ElementIndex.OrangePaint:
+                    case ElementIndex.YellowPaint:
+                    case ElementIndex.GreenPaint:
+                    case ElementIndex.BluePaint:
+                    case ElementIndex.GrayPaint:
+                    case ElementIndex.VioletPaint:
+                    case ElementIndex.BrownPaint:
                         // For each valid neighbor, add the two eligible positions.
                         for (int j = 0; j < 2; j++)
                         {
