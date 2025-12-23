@@ -39,18 +39,15 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly HudUI hudUI;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         internal ItemExplorerUI(
-            GameManager gameManager,
             UIIndex index,
             HudUI hudUI,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
 
             this.selectedCategory = CatalogDatabase.GetCategory(0);
@@ -687,13 +684,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.currentPage);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

@@ -9,6 +9,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.UI;
+using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
@@ -34,19 +35,18 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly Label[] worldButtonLabels;
         private readonly ButtonInfo[] worldButtonInfos;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         private readonly World world;
 
         internal WorldDetailsUI(
-            GameManager gameManager,
+            AmbientManager ambientManager,
             UIIndex index,
+            InputController inputController,
             UIManager uiManager,
             World world
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -68,7 +68,7 @@ namespace StardustSandbox.UI.Common.Menus
                     this.uiManager.OpenGUI(UIIndex.MainMenu);
                     this.uiManager.OpenGUI(UIIndex.Hud);
 
-                    this.gameManager.StartGame();
+                    GameHandler.StartGame(ambientManager, inputController, uiManager, world);
                     this.world.LoadFromSaveFile(this.saveFile.Metadata.Name);
 
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);

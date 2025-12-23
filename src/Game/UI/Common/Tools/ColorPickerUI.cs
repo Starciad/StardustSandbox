@@ -30,17 +30,14 @@ namespace StardustSandbox.UI.Common.Tools
 
         private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         internal ColorPickerUI(
-            GameManager gameManager,
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
@@ -307,12 +304,12 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

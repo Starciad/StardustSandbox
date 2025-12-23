@@ -37,7 +37,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly InputController inputController;
         private readonly AmbientManager ambientManager;
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
         private readonly World world;
 
@@ -49,7 +48,6 @@ namespace StardustSandbox.UI.Common.Menus
         internal MainUI(
             AmbientManager ambientManager,
             InputController inputController,
-            GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
             World world
@@ -57,12 +55,11 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.ambientManager = ambientManager;
             this.inputController = inputController;
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => this.gameManager.StartGame()),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(ambientManager, inputController, uiManager, world)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenGUI(UIIndex.PlayMenu)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () => this.uiManager.OpenGUI(UIIndex.OptionsMenu)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenGUI(UIIndex.CreditsMenu)),
@@ -250,10 +247,11 @@ namespace StardustSandbox.UI.Common.Menus
             this.world.CanDraw = false;
             this.world.CanUpdate = false;
 
-            this.gameManager.SetSimulationSpeed(SimulationSpeed.Normal);
-            this.gameManager.RemoveState(GameStates.IsPaused);
-            this.gameManager.RemoveState(GameStates.IsSimulationPaused);
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.world.Simulation.SetSpeed(SimulationSpeed.Normal);
+
+            GameHandler.RemoveState(GameStates.IsPaused);
+            GameHandler.RemoveState(GameStates.IsSimulationPaused);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
 
             this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
             this.world.Time.IsFrozen = false;

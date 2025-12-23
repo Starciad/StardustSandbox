@@ -9,7 +9,6 @@ using StardustSandbox.Enums.States;
 using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
-using StardustSandbox.Managers;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
 
@@ -17,7 +16,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Scenario
 {
-    internal sealed class CloudHandler(GameManager gameManager, Simulation simulation) : IResettable
+    internal sealed class CloudHandler(Simulation simulation) : IResettable
     {
         private static readonly Rectangle[] cloudRectangles = [
             new(0, 0, 160, 64),
@@ -30,13 +29,12 @@ namespace StardustSandbox.Scenario
         private readonly List<Cloud> activeClouds = new(BackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly ObjectPool cloudPool = new();
 
-        private readonly GameManager gameManager = gameManager;
         private readonly Simulation simulation = simulation;
 
         internal void Update(GameTime gameTime)
         {
-            if (this.gameManager.HasState(GameStates.IsSimulationPaused) ||
-                this.gameManager.HasState(GameStates.IsCriticalMenuOpen))
+            if (GameHandler.HasState(GameStates.IsSimulationPaused) ||
+                GameHandler.HasState(GameStates.IsCriticalMenuOpen))
             {
                 return;
             }

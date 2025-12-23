@@ -15,7 +15,6 @@ using StardustSandbox.Extensions;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
-using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
@@ -61,7 +60,6 @@ namespace StardustSandbox.WorldSystem
 
         private readonly Queue<Explosion> instantiatedExplosions = new(ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT);
 
-        private readonly GameManager gameManager;
         private readonly ElementNeighbors elementNeighbors;
 
         private Slot this[int x, int y]
@@ -70,10 +68,8 @@ namespace StardustSandbox.WorldSystem
             set => this.slots[x, y] = value;
         }
 
-        internal World(InputController inputController, GameManager gameManager)
+        internal World(InputController inputController)
         {
-            this.gameManager = gameManager;
-
             this.information = new();
             this.simulation = new();
             this.time = new();
@@ -749,7 +745,7 @@ namespace StardustSandbox.WorldSystem
         {
             SaveFile saveFile = SavingSerializer.Load(name, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
 
-            this.gameManager.SetState(GameStates.IsSimulationPaused);
+            GameHandler.SetState(GameStates.IsSimulationPaused);
 
             // World
             StartNew(saveFile.Properties.Size);

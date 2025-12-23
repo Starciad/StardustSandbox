@@ -30,16 +30,11 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
-        private readonly GameManager gameManager;
-
         internal SliderUI(
-            GameManager gameManager,
             UIIndex index,
             UIManager uiManager
         ) : base(index)
         {
-            this.gameManager = gameManager;
-
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
@@ -217,12 +212,12 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

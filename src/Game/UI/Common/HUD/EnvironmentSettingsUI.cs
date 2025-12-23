@@ -26,19 +26,16 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] menuButtonSlotInfos, timeStateButtonSlotInfos, timeButtonSlotInfos;
         private readonly ButtonInfo[] menuButtonInfos, timeStateButtonInfos, timeButtonInfos;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal EnvironmentSettingsUI(
-            GameManager gameManager,
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.world = world;
@@ -370,12 +367,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

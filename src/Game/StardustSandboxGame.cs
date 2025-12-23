@@ -30,7 +30,6 @@ namespace StardustSandbox
         // Managers
         private readonly AmbientManager ambientManager;
         private readonly CursorManager cursorManager;
-        private readonly GameManager gameManager;
         private readonly EffectsManager effectsManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
@@ -78,14 +77,13 @@ namespace StardustSandbox
             // Managers
             this.inputController = new();
 
-            this.gameManager = new();
             this.effectsManager = new();
             this.uiManager = new();
             this.cursorManager = new();
             this.ambientManager = new();
 
             // Core
-            this.world = new(this.inputController, this.gameManager);
+            this.world = new(this.inputController);
         }
 
         protected override void Initialize()
@@ -106,18 +104,17 @@ namespace StardustSandbox
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
             ElementDatabase.Load();
             CatalogDatabase.Load();
-            UIDatabase.Load(this.ambientManager, this.cursorManager, this.gameManager, this.Window, this.GraphicsDevice, this.inputController, this.uiManager, this.videoManager, this.world);
+            UIDatabase.Load(this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this.uiManager, this.videoManager, this.world);
             BackgroundDatabase.Load();
             ToolDatabase.Load();
 
             // Managers
-            this.gameManager.Initialize(this.ambientManager, this.inputController, this.uiManager, this.world);
             this.effectsManager.Initialize();
             this.cursorManager.Initialize();
-            this.ambientManager.Initialize(this.gameManager, this.world);
+            this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.inputController.Initialize(this.gameManager, this.world);
+            this.inputController.Initialize(this.world);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);
@@ -134,12 +131,12 @@ namespace StardustSandbox
                 throw new Exception("This is a test exception created by the --create-exception parameter.");
             }
 
-            this.gameManager.RemoveState(GameStates.IsPaused);
-            this.gameManager.RemoveState(GameStates.IsSimulationPaused);
+            GameHandler.RemoveState(GameStates.IsPaused);
+            GameHandler.RemoveState(GameStates.IsSimulationPaused);
 
             if (Parameters.SkipIntro)
             {
-                this.gameManager.StartGame();
+                GameHandler.StartGame(this.ambientManager, this.inputController, this.uiManager, this.world);
             }
             else
             {
@@ -149,23 +146,23 @@ namespace StardustSandbox
 
         protected override void Update(GameTime gameTime)
         {
-            if (!this.gameManager.HasState(GameStates.IsFocused) || this.gameManager.HasState(GameStates.IsPaused))
+            if (!GameHandler.HasState(GameStates.IsFocused) || GameHandler.HasState(GameStates.IsPaused))
             {
                 return;
             }
 
             Input.Update();
+            SSCamera.Update(this.world);
 
             // Controllers
             this.inputController.Update();
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);
-            this.gameManager.Update();
             this.uiManager.Update(gameTime);
             this.cursorManager.Update();
 
-            if (!this.gameManager.HasState(GameStates.IsSimulationPaused) && !this.gameManager.HasState(GameStates.IsCriticalMenuOpen))
+            if (!GameHandler.HasState(GameStates.IsSimulationPaused) && !GameHandler.HasState(GameStates.IsCriticalMenuOpen))
             {
                 this.world.Update(gameTime);
             }
@@ -202,7 +199,7 @@ namespace StardustSandbox
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
-            this.gameManager.SetState(GameStates.IsFocused);
+            GameHandler.SetState(GameStates.IsFocused);
             SongEngine.Resume();
         }
 
@@ -210,7 +207,7 @@ namespace StardustSandbox
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
-            this.gameManager.RemoveState(GameStates.IsFocused);
+            GameHandler.RemoveState(GameStates.IsFocused);
             SongEngine.Pause();
         }
 

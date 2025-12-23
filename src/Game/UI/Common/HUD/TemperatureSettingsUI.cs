@@ -123,17 +123,13 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo exitButtonInfo;
         private readonly Section[] sections;
 
-        private readonly GameManager gameManager;
-
         internal TemperatureSettingsUI(
-            GameManager gameManager,
             UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.tooltipBox = tooltipBox;
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseGUI);
@@ -360,12 +356,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

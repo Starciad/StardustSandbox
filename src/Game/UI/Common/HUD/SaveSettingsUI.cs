@@ -36,13 +36,11 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly World world;
         private readonly TextInputUI textInputUI;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         private readonly GraphicsDevice graphicsDevice;
 
         internal SaveUI(
-            GameManager gameManager,
             GraphicsDevice graphicsDevice,
             UIIndex index,
             TextInputUI textInputUI,
@@ -51,7 +49,6 @@ namespace StardustSandbox.UI.Common.HUD
             World world
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.graphicsDevice = graphicsDevice;
             this.textInputUI = textInputUI;
             this.tooltipBox = tooltipBox;
@@ -498,13 +495,13 @@ namespace StardustSandbox.UI.Common.HUD
                 this.world.Information.Description = Localization_Messages.NoDescription;
             }
 
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             UpdateInfos();
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
             this.worldThumbnailTexture.Dispose();
             this.worldThumbnailTexture = null;
         }

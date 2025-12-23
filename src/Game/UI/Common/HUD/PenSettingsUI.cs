@@ -36,11 +36,9 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly HudUI hudUI;
 
         private readonly InputController inputController;
-        private readonly GameManager gameManager;
         private readonly World world;
 
         internal PenSettingsUI(
-            GameManager gameManager,
             UIIndex index,
             InputController inputController,
             HudUI hudUI,
@@ -50,7 +48,6 @@ namespace StardustSandbox.UI.Common.HUD
         ) : base(index)
         {
             this.inputController = inputController;
-            this.gameManager = gameManager;
             this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
             this.world = world;
@@ -621,12 +618,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
