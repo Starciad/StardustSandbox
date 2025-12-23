@@ -16,16 +16,16 @@ Crafted in C# with the MonoGame framework, Stardust Sandbox lets you:
 
 ## 🔨 System Requirements
 
-- **OS**: Windows and Linux  
-- **DirectX**: 9.0c or later  
-- **OpenGL**: 2.0 or later
-- **RAM**: ≥ 500 MB  
-- **Disk Space**: ≥ 100 MB free  
-- **Architecture**: 64-bit  
+- **OS**: Windows or Linux  
+- **DirectX**: 9.0c or later (Windows)  
+- **OpenGL**: 2.0 or later (Linux)  
+- **RAM**: ≥ 300 MB  
+- **Disk Space**: ≥ 500 MB free  
+- **Architecture**: x64 (64 bits)  
 
 ### Notes for the Linux Version
 
-The Linux version uses some system applications, therefore the following programs must be installed in your environment:
+The Linux version uses some dependencies, therefore the following programs must be installed in your environment:
 
 - `xdg-utils`: Used to open paths in the file explorer or URLs in the browser;
 - `zenity`: Used to create GTK dialog boxes for displaying certain information.
@@ -33,7 +33,7 @@ The Linux version uses some system applications, therefore the following program
 Remember to also grant some permissions to the project executable using `chmod` for a trouble-free experience:
 
 ```bash
-    chmod +rwx ./StardustSandbox
+chmod +rwx ./StardustSandbox
 ```
 
 ## 📩 Download
@@ -42,10 +42,11 @@ Get the latest build on [Itch.io](https://starciad.itch.io/stardust-sandbox).
 
 ## 🔗 Connect
 
-- **YouTube:** [@starciad](https://www.youtube.com/@starciad)
+- **YouTube**: [@starciad](https://www.youtube.com/@starciad)
 
 ## 🧵 More Resources
 
+- [Assets](https://github.com/Starciad/StardustSandbox.Assets.git)
 - [Changelog](CHANGELOG.md)  
 - [F.A.Q.](FAQ.md)  
 - [Contributing](CONTRIBUTING.md)  
