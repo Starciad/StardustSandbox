@@ -1,99 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+		Microsoft ResX Schema
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+
   <xsd:schema id="root"
     xmlns=""
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -112,621 +93,621 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2.0</value>
+    <value>1.3</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Main.Create" xml:space="preserve">
-    <value>Create</value>
+    <value>Erstellen</value>
   </data>
   <data name="Main.Options" xml:space="preserve">
-    <value>Options</value>
+    <value>Optionen</value>
   </data>
   <data name="Main.Credits" xml:space="preserve">
-    <value>Credits</value>
+    <value>Abspann</value>
   </data>
   <data name="Main.Quit" xml:space="preserve">
-    <value>Quit</value>
+    <value>Beenden</value>
   </data>
   <data name="Options.Title" xml:space="preserve">
-    <value>OPTIONS</value>
+    <value>OPTIONEN</value>
   </data>
   <data name="Options.General.Name" xml:space="preserve">
-    <value>General</value>
+    <value>Allgemein</value>
   </data>
   <data name="HUD.ItemExplorer.Name" xml:space="preserve">
-    <value>Item Explorer</value>
+    <value>Gegenstands-Explorer</value>
   </data>
   <data name="HUD.ItemExplorer.Description" xml:space="preserve">
-    <value>Browse and learn about all game elements, their features, and interactions.</value>
+    <value>Greifen Sie auf alle Spielelemente zu und erkunden Sie diese, und erfahren Sie mehr über ihre Eigenschaften und Interaktionen.</value>
   </data>
   <data name="Options.Video.Name" xml:space="preserve">
     <value>Video</value>
   </data>
   <data name="Credits.Title.Creator" xml:space="preserve">
-    <value>Creator</value>
+    <value>Entwickler</value>
   </data>
   <data name="Credits.Title.Roles" xml:space="preserve">
-    <value>Roles</value>
+    <value>Rollen</value>
   </data>
   <data name="Credits.Title.Programming" xml:space="preserve">
-    <value>Programming</value>
+    <value>Programmierer</value>
   </data>
   <data name="Credits.Title.Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Künstler</value>
   </data>
   <data name="Credits.Title.Composers" xml:space="preserve">
-    <value>Composers</value>
+    <value>Komponisten</value>
   </data>
   <data name="Credits.Title.Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>Werkzeuge</value>
   </data>
   <data name="Credits.Message.Finalization" xml:space="preserve">
-    <value>And that's the end...</value>
+    <value>Und das ist das Ende...</value>
   </data>
   <data name="Credits.Message.ThankPlayer" xml:space="preserve">
-    <value>Thanks for Playing!</value>
+    <value>Danke fürs Spielen!</value>
   </data>
   <data name="Credits.People.Parents" xml:space="preserve">
-    <value>To my parents.</value>
+    <value>Für meine Eltern.</value>
   </data>
   <data name="Credits.Title.Contributors" xml:space="preserve">
-    <value>Contributors</value>
+    <value>Mitwirkende</value>
   </data>
   <data name="Credits.Title.SpecialThanks" xml:space="preserve">
-    <value>Special Thanks</value>
+    <value>Besondere Danksagungen</value>
   </data>
   <data name="Options.Video.Resolution.Name" xml:space="preserve">
-    <value>Resolution</value>
+    <value>Auflösung</value>
   </data>
   <data name="Options.Video.Fullscreen.Name" xml:space="preserve">
-    <value>Fullscreen</value>
+    <value>Vollbild</value>
   </data>
   <data name="Options.Video.VSync.Name" xml:space="preserve">
     <value>VSync</value>
   </data>
   <data name="Options.Video.Borderless.Name" xml:space="preserve">
-    <value>Borderless</value>
+    <value>Randlos</value>
   </data>
   <data name="Main.Play" xml:space="preserve">
-    <value>Play</value>
+    <value>Spielen</value>
   </data>
   <data name="HUD.EnvironmentSettings.Name" xml:space="preserve">
-    <value>Environment Settings</value>
+    <value>Umgebungseinstellungen</value>
   </data>
   <data name="HUD.PenSettings.Name" xml:space="preserve">
-    <value>Pen Settings</value>
+    <value>Stifteinstellungen</value>
   </data>
   <data name="HUD.WorldSettings.Name" xml:space="preserve">
-    <value>World Settings</value>
+    <value>Welteinstellungen</value>
   </data>
   <data name="HUD.PauseSimulation.Name" xml:space="preserve">
-    <value>Pause/Resume Simulation</value>
+    <value>Simulation pausieren/fortsetzen</value>
   </data>
   <data name="HUD.GameMenu.Name" xml:space="preserve">
-    <value>Game Menu</value>
+    <value>Spielmenü</value>
   </data>
   <data name="HUD.SaveMenu.Name" xml:space="preserve">
-    <value>Save Menu</value>
+    <value>Speichermenü</value>
   </data>
   <data name="HUD.EraseEverything.Name" xml:space="preserve">
-    <value>Erase Everything</value>
+    <value>Alles löschen</value>
   </data>
   <data name="HUD.ReloadSimulation.Name" xml:space="preserve">
-    <value>Reload Simulation</value>
+    <value>Simulation neu laden</value>
   </data>
   <data name="HUD.Eraser.Name" xml:space="preserve">
-    <value>Eraser</value>
+    <value>Radierer</value>
   </data>
   <data name="HUD.EraseEverything.Description" xml:space="preserve">
-    <value>Removes everything from the map and resets it to empty.</value>
+    <value>Entfernt alles von der Karte und setzt es in einen leeren Zustand zurück.</value>
   </data>
   <data name="HUD.GameMenu.Description" xml:space="preserve">
-    <value>Open the main menu for settings and options.</value>
+    <value>Öffnet das Hauptmenü, um auf Einstellungen und Optionen zuzugreifen.</value>
   </data>
   <data name="HUD.PauseSimulation.Description" xml:space="preserve">
-    <value>Pause or resume the simulation.</value>
+    <value>Pausiert oder setzt die Simulation fort.</value>
   </data>
   <data name="HUD.PenSettings.Description" xml:space="preserve">
-    <value>Change pen settings and how it works on the canvas.</value>
+    <value>Ändert die Interaktion des Stifts mit der Welt.</value>
   </data>
   <data name="HUD.ReloadSimulation.Description" xml:space="preserve">
-    <value>Reload the last simulation or clear the map if none is loaded.</value>
+    <value>Startet die Simulation neu oder löscht die Karte, wenn keine Simulation geladen ist.</value>
   </data>
   <data name="HUD.SaveMenu.Description" xml:space="preserve">
-    <value>Open the menu to save or manage worlds and simulations.</value>
+    <value>Öffnet das Menü zum Speichern von Simulationen und Welten.</value>
   </data>
   <data name="HUD.WorldSettings.Description" xml:space="preserve">
-    <value>Change world settings.</value>
+    <value>Passt die Welteinstellungen an.</value>
   </data>
   <data name="HUD.EnvironmentSettings.Description" xml:space="preserve">
-    <value>Change environment settings like weather and temperature.</value>
+    <value>Ändert Klima, Temperatur und andere Umweltfaktoren.</value>
   </data>
   <data name="HUD.Eraser.Description" xml:space="preserve">
-    <value>Switch the pen to eraser mode to remove content.</value>
+    <value>Verwandelt den Stift in einen Radierer, um Inhalte aus der Welt zu entfernen.</value>
   </data>
   <data name="PenSettings.Layer.Front.Name" xml:space="preserve">
-    <value>Foreground</value>
+    <value>Vordere Schicht</value>
   </data>
   <data name="PenSettings.Layer.Back.Name" xml:space="preserve">
-    <value>Background Layer</value>
+    <value>Hintere Schicht</value>
   </data>
   <data name="PenSettings.Shape.Circle.Name" xml:space="preserve">
-    <value>Circle Shape</value>
+    <value>Kreisform</value>
   </data>
   <data name="PenSettings.Shape.Square.Name" xml:space="preserve">
-    <value>Square Shape</value>
+    <value>Quadratform</value>
   </data>
   <data name="PenSettings.Shape.Triangle.Name" xml:space="preserve">
-    <value>Triangle Shape</value>
+    <value>Dreiecksform</value>
   </data>
   <data name="PenSettings.Title" xml:space="preserve">
-    <value>Pen Settings</value>
+    <value>Stifteinstellungen</value>
   </data>
   <data name="PenSettings.BrushSize.Title" xml:space="preserve">
-    <value>Brush Size</value>
+    <value>Pinselgröße</value>
   </data>
   <data name="PenSettings.BrushSize.Slider.Name" xml:space="preserve">
-    <value>Brush Size</value>
+    <value>Pinselgröße</value>
   </data>
   <data name="PenSettings.BrushSize.Slider.Description" xml:space="preserve">
-    <value>Brush size is set to {0}.</value>
+    <value>Die Pinselgröße ist auf {0} eingestellt.</value>
   </data>
   <data name="PenSettings.Tool.Title" xml:space="preserve">
-    <value>Tool</value>
+    <value>Werkzeug</value>
   </data>
   <data name="PenSettings.Layer.Title" xml:space="preserve">
-    <value>Layer</value>
+    <value>Schicht</value>
   </data>
   <data name="PenSettings.Shape.Title" xml:space="preserve">
-    <value>Shape</value>
+    <value>Form</value>
   </data>
   <data name="PenSettings.Layer.Back.Description" xml:space="preserve">
-    <value>Place items on the back layer.</value>
+    <value>Positioniert Gegenstände in der hinteren Schicht der Welt.</value>
   </data>
   <data name="PenSettings.Layer.Front.Description" xml:space="preserve">
-    <value>Place items on the front layer.</value>
+    <value>Positioniert Gegenstände in der vorderen Schicht der Welt.</value>
   </data>
   <data name="PenSettings.Shape.Circle.Description" xml:space="preserve">
-    <value>Set pen shape to circle.</value>
+    <value>Legt die Stiftform als Kreis fest.</value>
   </data>
   <data name="PenSettings.Shape.Square.Description" xml:space="preserve">
-    <value>Set pen shape to square.</value>
+    <value>Legt die Stiftform als Quadrat fest.</value>
   </data>
   <data name="PenSettings.Shape.Triangle.Description" xml:space="preserve">
-    <value>Set pen shape to triangle.</value>
+    <value>Legt die Stiftform als Dreieck fest.</value>
   </data>
   <data name="Button.Exit.Description" xml:space="preserve">
-    <value>Close the current menu.</value>
+    <value>Schließt das Menü.</value>
   </data>
   <data name="Save.Title" xml:space="preserve">
-    <value>Save Settings</value>
+    <value>Speichereinstellungen</value>
   </data>
   <data name="Save.Description.Title" xml:space="preserve">
-    <value>Description</value>
+    <value>Beschreibung</value>
   </data>
   <data name="Save.Thumbnail.Title" xml:space="preserve">
-    <value>Thumbnail</value>
+    <value>Miniaturbild</value>
   </data>
   <data name="Save.Save.Description" xml:space="preserve">
-    <value>Save the world to a file. Overwrites if the name already exists.</value>
+    <value>Speichert die Welt in einer Datei. Wenn der Name bereits vorhanden ist, wird die Datei überschrieben.</value>
   </data>
   <data name="HUD.Information.Name" xml:space="preserve">
-    <value>Information</value>
+    <value>Informationen</value>
   </data>
   <data name="HUD.Information.Description" xml:space="preserve">
-    <value>See information and stats about your world.</value>
+    <value>Zeigt Informationen und Statistiken der Welt an.</value>
   </data>
   <data name="Information.Title" xml:space="preserve">
-    <value>Information</value>
+    <value>Informationen</value>
   </data>
   <data name="Information.Field.ForegroundElements" xml:space="preserve">
-    <value>Foreground Elements</value>
+    <value>Elemente im Vordergrund</value>
   </data>
   <data name="Information.Field.BackgroundElements" xml:space="preserve">
-    <value>Background Elements</value>
+    <value>Elemente im Hintergrund</value>
   </data>
   <data name="EnvironmentSettings.Title" xml:space="preserve">
-    <value>Environment Settings</value>
+    <value>Umgebungseinstellungen</value>
   </data>
   <data name="EnvironmentSettings.TimeState.Title" xml:space="preserve">
-    <value>State</value>
+    <value>Status</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Title" xml:space="preserve">
-    <value>Time</value>
+    <value>Tageszeit</value>
   </data>
   <data name="EnvironmentSettings.TimeState.Disable.Description" xml:space="preserve">
-    <value>Disable the time progression, freezing the current time.</value>
+    <value>Deaktiviert den Zeitfortschritt und friert die aktuelle Zeit ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeState.Enable.Description" xml:space="preserve">
-    <value>Enable the time progression, resuming the natural time flow.</value>
+    <value>Aktiviert den Zeitfortschritt und setzt den natürlichen Zeitfluss fort.</value>
   </data>
   <data name="WorldSettings.Size.Small.Name" xml:space="preserve">
-    <value>Small</value>
+    <value>Klein</value>
   </data>
   <data name="WorldSettings.Size.MediumSmall.Name" xml:space="preserve">
-    <value>Medium Small</value>
+    <value>Mittelklein</value>
   </data>
   <data name="WorldSettings.Size.Medium.Name" xml:space="preserve">
-    <value>Medium</value>
+    <value>Mittel</value>
   </data>
   <data name="WorldSettings.Size.MediumLarge.Name" xml:space="preserve">
-    <value>Medium Large</value>
+    <value>Mittelgroß</value>
   </data>
   <data name="WorldSettings.Size.Large.Name" xml:space="preserve">
-    <value>Large</value>
+    <value>Groß</value>
   </data>
   <data name="WorldSettings.Size.VeryLarge.Name" xml:space="preserve">
-    <value>Very Large</value>
+    <value>Sehr groß</value>
   </data>
   <data name="WorldSettings.Size.Large.Description" xml:space="preserve">
-    <value>The size of the world will have the dimensions 240x138 - Designed for expansive gameplay areas. May impact performance on lower-end systems.</value>
+    <value>Die Weltgröße beträgt 240x138 - Entwickelt für ausgedehnte Spielbereiche. Kann die Leistung auf Systemen mit geringerer Leistung beeinträchtigen.</value>
   </data>
   <data name="WorldSettings.Size.MediumLarge.Description" xml:space="preserve">
-    <value>The size of the world will have the dimensions 160x92 - Provides ample space for exploration.</value>
+    <value>Die Weltgröße beträgt 160x92 - Bietet viel Platz zum Erkunden.</value>
   </data>
   <data name="WorldSettings.Size.Small.Description" xml:space="preserve">
-    <value>The size of the world will have the dimensions 40x23 - Fits entirely within the player's camera.</value>
+    <value>Die Weltgröße beträgt 40x23 - Passt vollständig in die Spielerkamera.</value>
   </data>
   <data name="WorldSettings.Size.VeryLarge.Description" xml:space="preserve">
-    <value>The size of the world will have the dimensions 320x184 - Best for epic-scale worlds. May impact performance on lower-end systems.</value>
+    <value>Die Weltgröße beträgt 320x184 - Ideal für Welten im epischen Maßstab. Kann die Leistung auf Systemen mit geringerer Leistung beeinträchtigen.</value>
   </data>
   <data name="WorldSettings.Size.Title" xml:space="preserve">
-    <value>Sizes</value>
+    <value>Größen</value>
   </data>
   <data name="WorldSettings.Title" xml:space="preserve">
-    <value>World Settings</value>
+    <value>Welteinstellungen</value>
   </data>
   <data name="WorldSettings.Size.MediumSmall.Description" xml:space="preserve">
-    <value>The size of the world will have the dimensions 80x46 - Allows limited free movement.</value>
+    <value>Die Weltgröße beträgt 80x46 - Ermöglicht begrenzte Bewegungsfreiheit.</value>
   </data>
   <data name="WorldSettings.Size.Medium.Description" xml:space="preserve">
-    <value>The size of the world will have the dimensions 120x69 - Balanced for most gameplay scenarios.</value>
+    <value>Die Weltgröße beträgt 120x69 - Ausgewogen für die meisten Spielszenarien.</value>
   </data>
   <data name="ItemExplorer.Title" xml:space="preserve">
-    <value>Item Explorer</value>
+    <value>Gegenstands-Explorer</value>
   </data>
   <data name="HUD.Speed.Name" xml:space="preserve">
-    <value>Simulation Speed</value>
+    <value>Simulationsgeschwindigkeit</value>
   </data>
   <data name="HUD.Speed.Description" xml:space="preserve">
-    <value>Change simulation speed. Higher speeds may slow performance.</value>
+    <value>Ändert die Geschwindigkeit der Simulation. Höhere Geschwindigkeiten können die Leistung beeinträchtigen.</value>
   </data>
   <data name="Pause.Title" xml:space="preserve">
     <value>Pause</value>
   </data>
   <data name="Credits.Title.Testers" xml:space="preserve">
-    <value>Testers</value>
+    <value>Tester</value>
   </data>
   <data name="Options.Gameplay.Name" xml:space="preserve">
-    <value>Gameplay</value>
+    <value>Spielweise</value>
   </data>
   <data name="Options.Volume.Name" xml:space="preserve">
-    <value>Volume</value>
+    <value>Lautstärke</value>
   </data>
   <data name="Options.Cursor.Name" xml:space="preserve">
     <value>Cursor</value>
   </data>
   <data name="Options.General.Language.Name" xml:space="preserve">
-    <value>Language</value>
+    <value>Sprache</value>
   </data>
   <data name="Options.Gameplay.PreviewAreaColor.Name" xml:space="preserve">
-    <value>Preview Area Color</value>
+    <value>Bereichsfarbe</value>
   </data>
   <data name="Options.Gameplay.PreviewAreaOpacity.Name" xml:space="preserve">
-    <value>Preview Area Opacity</value>
+    <value>Bereichsdeckkraft</value>
   </data>
   <data name="Options.Volume.MasterVolume.Name" xml:space="preserve">
-    <value>Master Volume</value>
+    <value>Gesamtlautstärke</value>
   </data>
   <data name="Options.Volume.MusicVolume.Name" xml:space="preserve">
-    <value>Music Volume</value>
+    <value>Musiklautstärke</value>
   </data>
   <data name="Options.Volume.SFXVolume.Name" xml:space="preserve">
-    <value>SFX Volume</value>
+    <value>SFX-Lautstärke</value>
   </data>
   <data name="Options.Cursor.Color.Name" xml:space="preserve">
-    <value>Color</value>
+    <value>Farbe</value>
   </data>
   <data name="Options.Cursor.BackgroundColor.Name" xml:space="preserve">
-    <value>Background Color</value>
+    <value>Hintergrundfarbe</value>
   </data>
   <data name="Options.Cursor.Scale.Name" xml:space="preserve">
-    <value>Scale</value>
+    <value>Skalierung</value>
   </data>
   <data name="Options.Cursor.Opacity.Name" xml:space="preserve">
-    <value>Opacity</value>
+    <value>Deckkraft</value>
   </data>
   <data name="Options.General.Description" xml:space="preserve">
-    <value>Basic game settings, including language and accessibility.</value>
+    <value>Grundlegende Spieleinstellungen, einschließlich Sprache und Barrierefreiheit.</value>
   </data>
   <data name="Options.Gameplay.Description" xml:space="preserve">
-    <value>Adjust gameplay-related preferences.</value>
+    <value>Passen Sie Einstellungen im Zusammenhang mit der Spielweise an.</value>
   </data>
   <data name="Options.Volume.Description" xml:space="preserve">
-    <value>Control audio levels for different categories.</value>
+    <value>Steuern Sie die Audiopegel für verschiedene Kategorien.</value>
   </data>
   <data name="Options.Video.Description" xml:space="preserve">
-    <value>Modify video-related settings, including resolution and display modes.</value>
+    <value>Ändern Sie Einstellungen im Zusammenhang mit dem Video.</value>
   </data>
   <data name="Options.Cursor.Description" xml:space="preserve">
-    <value>Customize the appearance and behavior of the mouse cursor.</value>
+    <value>Passen Sie das Aussehen und Verhalten des Mauscursors an.</value>
   </data>
   <data name="Options.Volume.SFXVolume.Description" xml:space="preserve">
-    <value>Adjust the sound effects volume.</value>
+    <value>Passen Sie die Lautstärke der Soundeffekte an.</value>
   </data>
   <data name="Options.Volume.MusicVolume.Description" xml:space="preserve">
-    <value>Set the volume for background music.</value>
+    <value>Stellen Sie die Lautstärke der Hintergrundmusik ein.</value>
   </data>
   <data name="Options.Volume.MasterVolume.Description" xml:space="preserve">
-    <value>Adjust the overall game volume.</value>
+    <value>Passen Sie die Gesamtlautstärke des Spiels an.</value>
   </data>
   <data name="Options.Video.VSync.Description" xml:space="preserve">
-    <value>Turn vertical synchronization on or off to avoid screen tearing.</value>
+    <value>Aktivieren oder deaktivieren Sie die vertikale Synchronisation, um Bildschirmrisse zu vermeiden.</value>
   </data>
   <data name="Options.Video.Resolution.Description" xml:space="preserve">
-    <value>Select the screen resolution for the game.</value>
+    <value>Wählen Sie die Bildschirmauflösung für das Spiel.</value>
   </data>
   <data name="Options.Video.Fullscreen.Description" xml:space="preserve">
-    <value>Enable or disable fullscreen mode.</value>
+    <value>Aktivieren oder deaktivieren Sie den Vollbildmodus.</value>
   </data>
   <data name="Options.Video.Borderless.Description" xml:space="preserve">
-    <value>Enable borderless windowed mode.</value>
+    <value>Aktivieren Sie den rahmenlosen Fenstermodus.</value>
   </data>
   <data name="Options.Cursor.Scale.Description" xml:space="preserve">
-    <value>Adjust the size of the cursor.</value>
+    <value>Passen Sie die Cursorgröße an.</value>
   </data>
   <data name="Options.Cursor.Opacity.Description" xml:space="preserve">
-    <value>Set the transparency level of the cursor.</value>
+    <value>Stellen Sie die Transparenzstufe des Cursors ein.</value>
   </data>
   <data name="Options.Cursor.Color.Description" xml:space="preserve">
-    <value>Set the color of the cursor.</value>
+    <value>Legen Sie die Farbe des Cursors fest.</value>
   </data>
   <data name="Options.Cursor.BackgroundColor.Description" xml:space="preserve">
-    <value>Set the background color of the cursor.</value>
+    <value>Legen Sie die Hintergrundfarbe des Cursors fest.</value>
   </data>
   <data name="Options.Gameplay.PreviewAreaOpacity.Description" xml:space="preserve">
-    <value>Set the transparency level of the preview area.</value>
+    <value>Stellen Sie die Transparenzstufe des Vorschaubereichs ein.</value>
   </data>
   <data name="Options.Gameplay.PreviewAreaColor.Description" xml:space="preserve">
-    <value>Choose the color for the preview area displayed during gameplay.</value>
+    <value>Wählen Sie die Farbe für den während des Spiels angezeigten Vorschaubereich.</value>
   </data>
   <data name="Options.General.Language.Description" xml:space="preserve">
-    <value>Select the language for the game interface.</value>
+    <value>Wählen Sie die Sprache für die Spieloberfläche.</value>
   </data>
   <data name="Options.Save.Description" xml:space="preserve">
-    <value>Saves and applies all modified options.</value>
+    <value>Speichert und wendet alle geänderten Optionen an.</value>
   </data>
   <data name="Tools.ColorPicker.Title" xml:space="preserve">
-    <value>Color Picker</value>
+    <value>Farbwähler</value>
   </data>
   <data name="Play.Title" xml:space="preserve">
-    <value>Play</value>
+    <value>Spielen</value>
   </data>
   <data name="WorldExplorer.Title" xml:space="preserve">
-    <value>World Explorer</value>
+    <value>Welt-Explorer</value>
   </data>
   <data name="WorldExplorer.OpenInDirectory.Name" xml:space="preserve">
-    <value>Open Directory in Explorer</value>
+    <value>Verzeichnis im Explorer öffnen</value>
   </data>
   <data name="WorldExplorer.CurrentPage" xml:space="preserve">
-    <value>Current Page</value>
+    <value>Aktuelle Seite</value>
   </data>
   <data name="Options.Video.Framerate.Description" xml:space="preserve">
-    <value>Frame Rate is how many images the game shows per second. Higher rates make motion smoother.</value>
+    <value>Die Bildrate gibt an, wie viele Bilder das Spiel pro Sekunde anzeigt. Höhere Bildraten führen zu flüssigerer Bewegung.</value>
   </data>
   <data name="Options.Video.Framerate.Name" xml:space="preserve">
-    <value>Frame Rate</value>
+    <value>Bildrate</value>
   </data>
   <data name="Options.Gameplay.ShowPreviewArea.Name" xml:space="preserve">
-    <value>Show Preview Area</value>
+    <value>Vorschau anzeigen</value>
   </data>
   <data name="Options.Gameplay.ShowPreviewArea.Description" xml:space="preserve">
-    <value>Configure whether or not the mouse preview area for element placement should be displayed.</value>
+    <value>Konfigurieren Sie, ob der Vorschaubereich des Cursors zur Positionierung von Elementen angezeigt werden soll.</value>
   </data>
   <data name="Options.Gameplay.ShowGrid.Name" xml:space="preserve">
-    <value>Show Grid</value>
+    <value>Gitter anzeigen</value>
   </data>
   <data name="Options.Gameplay.ShowGrid.Description" xml:space="preserve">
-    <value>Configure whether or not the world grid should be displayed.</value>
+    <value>Konfigurieren Sie, ob das Weltgitter angezeigt werden soll.</value>
   </data>
   <data name="Options.Gameplay.GridOpacity.Name" xml:space="preserve">
-    <value>Grid Opacity</value>
+    <value>Gitterdeckkraft</value>
   </data>
   <data name="Options.Gameplay.GridOpacity.Description" xml:space="preserve">
-    <value>Configure the opacity level of the world grid.</value>
+    <value>Konfigurieren Sie die Deckkraftstufe des Weltgitters.</value>
   </data>
   <data name="Options.Gameplay.ShowTemperatureColorVariations.Name" xml:space="preserve">
-    <value>Temperature Color</value>
+    <value>Temperaturfarbe</value>
   </data>
   <data name="Options.Gameplay.ShowTemperatureColorVariations.Description" xml:space="preserve">
-    <value>Determine whether or not the elements should have color changes associated with their current temperatures.</value>
+    <value>Bestimmen Sie, ob Elemente Farbänderungen im Zusammenhang mit ihrer aktuellen Temperatur aufweisen sollen.</value>
   </data>
   <data name="Options.Controls.Name" xml:space="preserve">
-    <value>Controls</value>
+    <value>Steuerung</value>
   </data>
   <data name="Options.Controls.Description" xml:space="preserve">
-    <value>Configure the keys and buttons associated with the game controls.</value>
+    <value>Konfigurieren Sie die Tasten und Schaltflächen für die Spielsteuerung.</value>
   </data>
   <data name="Options.Controls.MoveCameraUp.Name" xml:space="preserve">
-    <value>Up</value>
+    <value>Oben</value>
   </data>
   <data name="Options.Controls.MoveCameraUp.Description" xml:space="preserve">
-    <value>Press a key on the keyboard to move upwards.</value>
+    <value>Drücken Sie eine Taste auf der Tastatur, um nach oben zu bewegen.</value>
   </data>
   <data name="Options.Controls.MoveCameraRight.Name" xml:space="preserve">
-    <value>Right</value>
+    <value>Rechts</value>
   </data>
   <data name="Options.Controls.MoveCameraRight.Description" xml:space="preserve">
-    <value>Press a key on the keyboard to move to the right.</value>
+    <value>Drücken Sie eine Taste auf der Tastatur, um nach rechts zu bewegen.</value>
   </data>
   <data name="Options.Controls.MoveCameraDown.Name" xml:space="preserve">
-    <value>Down</value>
+    <value>Unten</value>
   </data>
   <data name="Options.Controls.MoveCameraDown.Description" xml:space="preserve">
-    <value>Press a key on the keyboard to move down.</value>
+    <value>Drücken Sie eine Taste auf der Tastatur, um nach unten zu bewegen.</value>
   </data>
   <data name="Options.Controls.MoveCameraLeft.Name" xml:space="preserve">
-    <value>Left</value>
+    <value>Links</value>
   </data>
   <data name="Options.Controls.MoveCameraLeft.Description" xml:space="preserve">
-    <value>Press a key on the keyboard to move left.</value>
+    <value>Drücken Sie eine Taste auf der Tastatur, um nach links zu bewegen.</value>
   </data>
   <data name="Options.Controls.TogglePause.Name" xml:space="preserve">
     <value>Pause</value>
   </data>
   <data name="Options.Controls.TogglePause.Description" xml:space="preserve">
-    <value>Type a shortcut key to pause the world.</value>
+    <value>Geben Sie eine Tastenkombination ein, um die Welt zu pausieren.</value>
   </data>
   <data name="Options.Controls.ClearWorld.Name" xml:space="preserve">
-    <value>Clear World</value>
+    <value>Welt löschen</value>
   </data>
   <data name="Options.Controls.ClearWorld.Description" xml:space="preserve">
-    <value>Type a shortcut key to clear the world.</value>
+    <value>Geben Sie eine Tastenkombination ein, um die Welt zu löschen.</value>
   </data>
   <data name="Save.Name.Title" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="HUD.SimulationPaused" xml:space="preserve">
-    <value>Simulation Paused</value>
+    <value>Simulation pausiert</value>
   </data>
   <data name="EnvironmentSettings.TemperatureEditor.Name" xml:space="preserve">
-    <value>Temperatures</value>
+    <value>Temperaturen</value>
   </data>
   <data name="EnvironmentSettings.TemperatureEditor.Description" xml:space="preserve">
-    <value>Change the world's temperatures.</value>
+    <value>Ändern Sie die Temperaturen der Welt.</value>
   </data>
   <data name="TemperatureSettings.Name" xml:space="preserve">
-    <value>Temperature Settings</value>
+    <value>Temperatureinstellungen</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideForegroundLayer.Name" xml:space="preserve">
-    <value>Foreground (Show/Hide)</value>
+    <value>Vordergrund (anzeigen/ausblenden)</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideForegroundLayer.Description" xml:space="preserve">
-    <value>Choose whether you want to hide or show the foreground layer.</value>
+    <value>Wählen Sie, ob Sie die Vordergrundschicht ausblenden oder anzeigen möchten.</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideBackgroundLayer.Name" xml:space="preserve">
-    <value>Background (Show/Hide)</value>
+    <value>Hintergrund (anzeigen/ausblenden)</value>
   </data>
   <data name="PenSettings.LayerVisibility.ShowOrHideBackgroundLayer.Description" xml:space="preserve">
-    <value>Choose whether you want to hide or show the background layer.</value>
+    <value>Wählen Sie, ob Sie die Hintergrundschicht ausblenden oder anzeigen möchten.</value>
   </data>
   <data name="TemperatureSettings.Temperature.None.Name" xml:space="preserve">
-    <value>None</value>
+    <value>Keine</value>
   </data>
   <data name="TemperatureSettings.Temperature.None.Description" xml:space="preserve">
-    <value>No temperature effect.</value>
+    <value>Keine Temperaturwirkung.</value>
   </data>
   <data name="TemperatureSettings.Temperature.VeryCold.Name" xml:space="preserve">
-    <value>Very Cold</value>
+    <value>Sehr kalt</value>
   </data>
   <data name="TemperatureSettings.Temperature.VeryCold.Description" xml:space="preserve">
-    <value>Extremely cold temperature effect.</value>
+    <value>Extrem kalte Temperaturwirkung.</value>
   </data>
   <data name="TemperatureSettings.Temperature.Cold.Name" xml:space="preserve">
-    <value>Cold</value>
+    <value>Kalt</value>
   </data>
   <data name="TemperatureSettings.Temperature.Cold.Description" xml:space="preserve">
-    <value>Mildly cold temperature effect.</value>
+    <value>Leicht kalte Temperaturwirkung.</value>
   </data>
   <data name="TemperatureSettings.Temperature.Normal.Name" xml:space="preserve">
     <value>Normal</value>
   </data>
   <data name="TemperatureSettings.Temperature.Normal.Description" xml:space="preserve">
-    <value>Normal temperature effect.</value>
+    <value>Normale Temperaturwirkung.</value>
   </data>
   <data name="TemperatureSettings.Temperature.Hot.Name" xml:space="preserve">
-    <value>Hot</value>
+    <value>Heiß</value>
   </data>
   <data name="TemperatureSettings.Temperature.Hot.Description" xml:space="preserve">
-    <value>Mildly hot temperature effect.</value>
+    <value>Mäßig warme Temperaturwirkung.</value>
   </data>
   <data name="TemperatureSettings.Temperature.VeryHot.Name" xml:space="preserve">
-    <value>Very Hot</value>
+    <value>Sehr heiß</value>
   </data>
   <data name="TemperatureSettings.Temperature.VeryHot.Description" xml:space="preserve">
-    <value>Extremely hot temperature effect.</value>
+    <value>Extrem hohe Temperaturwirkung.</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.LateNight" xml:space="preserve">
-    <value>Late Night</value>
+    <value>Späte Nacht</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.EarlyMorning" xml:space="preserve">
-    <value>Early Morning</value>
+    <value>Früher Morgen</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.Dawn" xml:space="preserve">
-    <value>Dawn</value>
+    <value>Morgenröte</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.Morning" xml:space="preserve">
-    <value>Morning</value>
+    <value>Morgen</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.EarlyAfternoon" xml:space="preserve">
-    <value>Early Afternoon</value>
+    <value>Frühes Nachmittag</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.Afternoon" xml:space="preserve">
-    <value>Afternoon</value>
+    <value>Nachmittag</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.Evening" xml:space="preserve">
-    <value>Evening</value>
+    <value>Abend</value>
   </data>
   <data name="TemperatureSettings.TimeOfDay.Night" xml:space="preserve">
-    <value>Night</value>
+    <value>Nacht</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.LateNight.Name" xml:space="preserve">
-    <value>Late Night</value>
+    <value>Späte Nacht</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.LateNight.Description" xml:space="preserve">
-    <value>Set the time to 00:00 AM.</value>
+    <value>Stellen Sie die Uhrzeit auf 00:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.EarlyMorning.Name" xml:space="preserve">
-    <value>Early Morning</value>
+    <value>Früher Morgen</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.EarlyMorning.Description" xml:space="preserve">
-    <value>Set the time to 03:00 AM.</value>
+    <value>Stellen Sie die Uhrzeit auf 03:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Dawn.Name" xml:space="preserve">
-    <value>Dawn</value>
+    <value>Morgenröte</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Dawn.Description" xml:space="preserve">
-    <value>Set the time to 06:00 AM.</value>
+    <value>Stellen Sie die Uhrzeit auf 06:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Morning.Name" xml:space="preserve">
-    <value>Morning</value>
+    <value>Morgen</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Morning.Description" xml:space="preserve">
-    <value>Set the time to 08:00 AM.</value>
+    <value>Stellen Sie die Uhrzeit auf 08:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.EarlyAfternoon.Name" xml:space="preserve">
-    <value>Early Afternoon</value>
+    <value>Frühes Nachmittag</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.EarlyAfternoon.Description" xml:space="preserve">
-    <value>Set the time to 12:00 PM.</value>
+    <value>Stellen Sie die Uhrzeit auf 12:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Afternoon.Name" xml:space="preserve">
-    <value>Afternoon</value>
+    <value>Nachmittag</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Afternoon.Description" xml:space="preserve">
-    <value>Set the time to 03:00 PM.</value>
+    <value>Stellen Sie die Uhrzeit auf 15:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Evening.Name" xml:space="preserve">
-    <value>Evening</value>
+    <value>Abend</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Evening.Description" xml:space="preserve">
-    <value>Set the time to 06:00 PM.</value>
+    <value>Stellen Sie die Uhrzeit auf 18:00 ein.</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Night.Name" xml:space="preserve">
-    <value>Night</value>
+    <value>Nacht</value>
   </data>
   <data name="EnvironmentSettings.TimeOfDay.Night.Description" xml:space="preserve">
-    <value>Set the time to 08:00 PM.</value>
+    <value>Stellen Sie die Uhrzeit auf 20:00 ein.</value>
   </data>
   <data name="Options.Controls.Screenshot.Name" xml:space="preserve">
     <value>Screenshot</value>
   </data>
   <data name="Options.Controls.Screenshot.Description" xml:space="preserve">
-    <value>Type a shortcut key to capture the screen content and save it to a local image file.</value>
+    <value>Geben Sie eine Tastenkombination ein, um den Bildschirminhalt zu erfassen und in einer lokalen Bilddatei zu speichern.</value>
   </data>
 </root>
