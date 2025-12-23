@@ -36,5 +36,29 @@ namespace StardustSandbox.Extensions
 
             return current;
         }
+
+        internal static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentException("The collection cannot be null.");
+            }
+
+            List<T> list = [.. source];
+            int count = list.Count;
+
+            if (count <= 1)
+            {
+                return list;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                int j = SSRandom.Range(i, count - 1);
+                (list[j], list[i]) = (list[i], list[j]);
+            }
+
+            return list;
+        }
     }
 }

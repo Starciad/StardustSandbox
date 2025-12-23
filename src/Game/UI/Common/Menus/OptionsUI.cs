@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
@@ -82,7 +80,6 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly CursorManager cursorManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
-        private readonly GameManager gameManager;
         private readonly KeySelectorUI keySelector;
 
         private readonly SectionUI[] sectionUIs;
@@ -94,7 +91,6 @@ namespace StardustSandbox.UI.Common.Menus
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
-            GameManager gameManager,
             UIIndex index,
             KeySelectorUI keySelectorUI,
             MessageUI messageUI,
@@ -106,7 +102,6 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.colorPicker = colorPickerUI;
             this.cursorManager = cursorManager;
-            this.gameManager = gameManager;
             this.keySelector = keySelectorUI;
             this.sliderUI = sliderUI;
             this.tooltipBox = tooltipBox;
@@ -422,8 +417,8 @@ namespace StardustSandbox.UI.Common.Menus
         {
             VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
-            MediaPlayer.Volume = volumeSettings.MusicVolume * volumeSettings.MasterVolume;
-            SoundEffect.MasterVolume = volumeSettings.MasterVolume;
+            SongEngine.ApplyVolumeSettings(volumeSettings);
+            SoundEngine.ApplyVolumeSettings(volumeSettings);
 
             this.videoManager.ApplySettings();
             this.cursorManager.ApplySettings();
@@ -773,13 +768,13 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             SyncSettingElements();
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

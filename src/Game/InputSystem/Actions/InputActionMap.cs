@@ -2,13 +2,13 @@
 {
     internal sealed class InputActionMap
     {
-        internal bool IsActive { get; set; }
+        internal bool IsActivated { get; set; }
 
         private readonly InputAction[] actions;
 
         internal InputActionMap(InputAction[] actions)
         {
-            this.IsActive = true;
+            this.IsActivated = true;
             this.actions = actions;
         }
 

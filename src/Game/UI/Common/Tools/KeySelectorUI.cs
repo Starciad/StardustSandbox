@@ -21,20 +21,17 @@ namespace StardustSandbox.UI.Common.Tools
 
         private Text message;
 
-        private readonly GameManager gameManager;
         private readonly GameWindow gameWindow;
         private readonly InputController inputController;
         private readonly UIManager uiManager;
 
         internal KeySelectorUI(
-            GameManager gameManager,
             GameWindow gameWindow,
             UIIndex index,
             InputController inputController,
             UIManager uiManager
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.gameWindow = gameWindow;
             this.inputController = inputController;
             this.uiManager = uiManager;
@@ -82,7 +79,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             this.inputController.Disable();
 
             this.gameWindow.KeyDown += OnKeyDown;
@@ -90,8 +87,8 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-            this.inputController.Activate();
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.inputController.Enable();
 
             this.gameWindow.KeyDown -= OnKeyDown;
         }

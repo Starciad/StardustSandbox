@@ -42,7 +42,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] leftPanelTopButtonSlotInfos, leftPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos;
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
-        private readonly GameManager gameManager;
         private readonly InputController inputController;
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
@@ -60,7 +59,6 @@ namespace StardustSandbox.UI.Common.HUD
         ];
 
         internal HudUI(
-            GameManager gameManager,
             InputController inputController,
             ConfirmUI confirmUI,
             UIIndex index,
@@ -69,7 +67,6 @@ namespace StardustSandbox.UI.Common.HUD
             World world
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.inputController = inputController;
             this.guiConfirm = confirmUI;
             this.uiManager = uiManager;
@@ -86,10 +83,10 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.leftPanelBottomButtonInfos = [
-                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => this.gameManager.ToggleState(GameStates.IsSimulationPaused)),
+                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => GameHandler.ToggleState(GameStates.IsSimulationPaused)),
                 new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Speed_Name, Localization_GUIs.HUD_Speed_Description, () =>
                 {
-                    this.gameManager.SetSimulationSpeed(
+                    world.SetSpeed(
                         this.world.Simulation.CurrentSpeed == SimulationSpeed.Normal ? SimulationSpeed.Fast :
                         this.world.Simulation.CurrentSpeed == SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
                         SimulationSpeed.Normal
@@ -105,7 +102,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.rightPanelBottomButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_EraseEverything_Name, Localization_GUIs.HUD_EraseEverything_Description, () =>
                 {
-                    this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                     this.guiConfirm.Configure(new()
                     {
                         Caption = Localization_Messages.Confirm_Simulation_EraseEverything_Title,
@@ -117,14 +114,14 @@ namespace StardustSandbox.UI.Common.HUD
                                 this.world.Reset();
                             }
 
-                            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
                         },
                     });
                     this.uiManager.OpenGUI(UIIndex.Confirm);
                 }),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
-                    this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                     this.guiConfirm.Configure(new()
                     {
                         Caption = Localization_Messages.Confirm_Simulation_Reload_Title,
@@ -136,7 +133,7 @@ namespace StardustSandbox.UI.Common.HUD
                                 this.world.Reload();
                             }
 
-                            gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
                         },
                     });
                     this.uiManager.OpenGUI(UIIndex.Confirm);
@@ -405,7 +402,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             UpdateDrawerButtons();
 
-            this.simulationPausedBackground.CanDraw = this.gameManager.HasState(GameStates.IsSimulationPaused);
+            this.simulationPausedBackground.CanDraw = GameHandler.HasState(GameStates.IsSimulationPaused);
 
             base.Update(gameTime);
         }
@@ -427,7 +424,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateSimulationControlIcons()
         {
-            this.leftPanelBottomButtonSlotInfos[0].Icon.SourceRectangle = this.gameManager.HasState(GameStates.IsSimulationPaused)
+            this.leftPanelBottomButtonSlotInfos[0].Icon.SourceRectangle = GameHandler.HasState(GameStates.IsSimulationPaused)
                 ? this.pauseAndResumeRectangles[1] // Resume
                 : this.pauseAndResumeRectangles[0]; // Pause
 

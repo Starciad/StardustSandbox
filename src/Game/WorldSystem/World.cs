@@ -15,7 +15,6 @@ using StardustSandbox.Extensions;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
-using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
@@ -61,7 +60,6 @@ namespace StardustSandbox.WorldSystem
 
         private readonly Queue<Explosion> instantiatedExplosions = new(ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT);
 
-        private readonly GameManager gameManager;
         private readonly ElementNeighbors elementNeighbors;
 
         private Slot this[int x, int y]
@@ -70,10 +68,8 @@ namespace StardustSandbox.WorldSystem
             set => this.slots[x, y] = value;
         }
 
-        internal World(InputController inputController, GameManager gameManager)
+        internal World(InputController inputController)
         {
-            this.gameManager = gameManager;
-
             this.information = new();
             this.simulation = new();
             this.time = new();
@@ -749,7 +745,7 @@ namespace StardustSandbox.WorldSystem
         {
             SaveFile saveFile = SavingSerializer.Load(name, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
 
-            this.gameManager.SetState(GameStates.IsSimulationPaused);
+            GameHandler.SetState(GameStates.IsSimulationPaused);
 
             // World
             StartNew(saveFile.Properties.Size);
@@ -822,28 +818,8 @@ namespace StardustSandbox.WorldSystem
 
         internal void SetSpeed(in SimulationSpeed speed)
         {
-            switch (speed)
-            {
-                case SimulationSpeed.Normal:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.Normal);
-                    break;
-
-                case SimulationSpeed.Fast:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_FAST_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.Fast);
-                    break;
-
-                case SimulationSpeed.VeryFast:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.VeryFast);
-                    break;
-
-                default:
-                    this.time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_SECONDS_PER_FRAMES;
-                    this.simulation.SetSpeed(SimulationSpeed.Normal);
-                    break;
-            }
+            this.time.SetSpeed(speed);
+            this.simulation.SetSpeed(speed);
         }
 
         #region Clear

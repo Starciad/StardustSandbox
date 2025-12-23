@@ -33,14 +33,12 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
         private readonly ConfirmUI confirmUI;
-        private readonly GameManager gameManager;
         private readonly MessageUI messageUI;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal WorldSettingsUI(
             ConfirmUI confirmUI,
-            GameManager gameManager,
             UIIndex index,
             MessageUI messageUI,
             TooltipBox tooltipBox,
@@ -49,7 +47,6 @@ namespace StardustSandbox.UI.Common.HUD
         ) : base(index)
         {
             this.confirmUI = confirmUI;
-            this.gameManager = gameManager;
             this.messageUI = messageUI;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -75,7 +72,7 @@ namespace StardustSandbox.UI.Common.HUD
         private void SetWorldSizeButtonAction(Point size)
         {
             this.uiManager.CloseGUI();
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             this.worldTargetSize = size;
 
             this.confirmUI.Configure(new()
@@ -106,7 +103,7 @@ namespace StardustSandbox.UI.Common.HUD
                         }
                     }
 
-                    this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+                    GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
                 },
             });
 
@@ -321,12 +318,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

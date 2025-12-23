@@ -23,7 +23,6 @@ namespace StardustSandbox.Databases
         internal static void Load(
             AmbientManager ambientManager,
             CursorManager cursorManager,
-            GameManager gameManager,
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
             InputController inputController,
@@ -49,26 +48,22 @@ namespace StardustSandbox.Databases
             #region Tools
 
             ColorPickerUI colorPickerUI = new(
-                gameManager,
                 UIIndex.ColorPicker,
                 tooltipBox,
                 uiManager
             );
 
             ConfirmUI confirmUI = new(
-                gameManager,
                 UIIndex.Confirm,
                 uiManager
             );
 
             MessageUI messageUI = new(
-                gameManager,
                 UIIndex.Message,
                 uiManager
             );
 
             TextInputUI textInputUI = new(
-                gameManager,
                 gameWindow,
                 UIIndex.TextInput,
                 inputController,
@@ -77,13 +72,11 @@ namespace StardustSandbox.Databases
             );
 
             SliderUI sliderUI = new(
-                gameManager,
                 UIIndex.Slider,
                 uiManager
             );
 
             KeySelectorUI keySelectorUI = new(
-                gameManager,
                 gameWindow,
                 UIIndex.KeySelector,
                 inputController,
@@ -102,7 +95,6 @@ namespace StardustSandbox.Databases
             );
 
             EnvironmentSettingsUI environmentSettingsUI = new(
-                gameManager,
                 UIIndex.EnvironmentSettings,
                 tooltipBox,
                 uiManager,
@@ -110,7 +102,6 @@ namespace StardustSandbox.Databases
             );
 
             HudUI hudUI = new(
-                gameManager,
                 inputController,
                 confirmUI,
                 UIIndex.Hud,
@@ -120,14 +111,12 @@ namespace StardustSandbox.Databases
             );
 
             InformationUI informationUI = new(
-                gameManager,
                 UIIndex.Information,
                 uiManager,
                 world
             );
 
             TemperatureSettingsUI temperatureSettingsUI = new(
-                gameManager,
                 UIIndex.TemperatureSettings,
                 tooltipBox,
                 uiManager,
@@ -135,7 +124,6 @@ namespace StardustSandbox.Databases
             );
 
             ItemExplorerUI itemExplorerUI = new(
-                gameManager,
                 UIIndex.ItemExplorer,
                 hudUI,
                 tooltipBox,
@@ -145,7 +133,6 @@ namespace StardustSandbox.Databases
             MainUI mainUI = new(
                 ambientManager,
                 inputController,
-                gameManager,
                 UIIndex.MainMenu,
                 uiManager,
                 world
@@ -154,7 +141,6 @@ namespace StardustSandbox.Databases
             OptionsUI optionsUI = new(
                 colorPickerUI,
                 cursorManager,
-                gameManager,
                 UIIndex.OptionsMenu,
                 keySelectorUI,
                 messageUI,
@@ -166,13 +152,11 @@ namespace StardustSandbox.Databases
 
             PauseUI pauseUI = new(
                 confirmUI,
-                gameManager,
                 UIIndex.Pause,
                 uiManager
             );
 
             PenSettingsUI penSettingsUI = new(
-                gameManager,
                 UIIndex.PenSettings,
                 inputController,
                 hudUI,
@@ -187,7 +171,6 @@ namespace StardustSandbox.Databases
             );
 
             SaveUI saveSettingsUI = new(
-                gameManager,
                 graphicsDevice,
                 UIIndex.Save,
                 textInputUI,
@@ -197,8 +180,9 @@ namespace StardustSandbox.Databases
             );
 
             WorldDetailsUI worldDetailsUI = new(
-                gameManager,
+                ambientManager,
                 UIIndex.WorldDetailsMenu,
+                inputController,
                 uiManager,
                 world
             );
@@ -212,7 +196,6 @@ namespace StardustSandbox.Databases
 
             WorldSettingsUI worldSettingsUI = new(
                 confirmUI,
-                gameManager,
                 UIIndex.WorldSettings,
                 messageUI,
                 tooltipBox,

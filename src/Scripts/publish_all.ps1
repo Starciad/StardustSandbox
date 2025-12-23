@@ -40,12 +40,3 @@ function Publish-Project {
 foreach ($proj in $projects) {
     Publish-Project -projectName $proj.Name -projectPath $proj.Path
 }
-
-# Post-publish: Clone assets repository
-$repoUrl           = 'https://github.com/Starciad/StardustSandbox.Assets.git'
-$assetsDestination = Join-Path $outputDir "$gameName.Assets.$gameVersion\assets"
-
-# Clone assets repository if not present
-if (-not (Test-Path $assetsDestination)) {
-    git clone $repoUrl $assetsDestination
-}

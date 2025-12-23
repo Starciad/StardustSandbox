@@ -30,6 +30,20 @@ namespace StardustSandbox.Elements.Liquids
                     case ElementIndex.DryBlueWool:
                     case ElementIndex.DryVioletWool:
                     case ElementIndex.DryBrownWool:
+                    case ElementIndex.LiquefiedPetroleumGas:
+                    case ElementIndex.BlackPaint:
+                    case ElementIndex.WhitePaint:
+                    case ElementIndex.RedPaint:
+                    case ElementIndex.OrangePaint:
+                    case ElementIndex.YellowPaint:
+                    case ElementIndex.GreenPaint:
+                    case ElementIndex.BluePaint:
+                    case ElementIndex.GrayPaint:
+                    case ElementIndex.VioletPaint:
+                    case ElementIndex.BrownPaint:
+                    case ElementIndex.Moss:
+                    case ElementIndex.Seed:
+                    case ElementIndex.Sapling:
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Fire);
                         break;
 

@@ -25,18 +25,15 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] buttonSlotInfos;
         private readonly ButtonInfo[] buttonInfos;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal InformationUI(
-            GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
             World world
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -209,7 +206,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
             Point worldSize = this.world.Information.Size;
 
@@ -229,7 +226,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
 
         #endregion

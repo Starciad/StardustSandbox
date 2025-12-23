@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Constants;
 using StardustSandbox.Managers;
+using StardustSandbox.WorldSystem;
 
 using System;
 
@@ -91,6 +93,11 @@ namespace StardustSandbox.Camera
             isInitialized = true;
         }
 
+        internal static void Update(World world)
+        {
+            ClampCameraInTheWorld(world);
+        }
+
         internal static void Move(Vector2 direction)
         {
             Position += Vector2.Transform(direction, Matrix.CreateRotationZ(-Rotation));
@@ -161,6 +168,28 @@ namespace StardustSandbox.Camera
 
             return screenBottomRight.X >= 0 && screenTopLeft.X < videoManager.Viewport.Width &&
                    screenBottomRight.Y >= 0 && screenTopLeft.Y < videoManager.Viewport.Height;
+        }
+
+        private static void ClampCameraInTheWorld(World world)
+        {
+            int totalWorldWidth = world.Information.Size.X * WorldConstants.GRID_SIZE;
+            int totalWorldHeight = world.Information.Size.Y * WorldConstants.GRID_SIZE;
+
+            float visibleWidth = ScreenConstants.SCREEN_WIDTH;
+            float visibleHeight = ScreenConstants.SCREEN_HEIGHT;
+
+            float worldLeftLimit = 0f;
+            float worldRightLimit = totalWorldWidth - visibleWidth;
+
+            float worldBottomLimit = (totalWorldHeight - visibleHeight) * -1;
+            float worldTopLimit = 0f;
+
+            Vector2 cameraPosition = SSCamera.Position;
+
+            cameraPosition.X = MathHelper.Clamp(cameraPosition.X, worldLeftLimit, worldRightLimit);
+            cameraPosition.Y = MathHelper.Clamp(cameraPosition.Y, worldBottomLimit, worldTopLimit);
+
+            SSCamera.Position = cameraPosition;
         }
     }
 }

@@ -10,9 +10,7 @@ namespace StardustSandbox.WorldSystem
 {
     internal sealed class Simulation : IResettable
     {
-        internal SimulationSpeed CurrentSpeed => this.currentSpeed;
-
-        private SimulationSpeed currentSpeed = SimulationSpeed.Normal;
+        internal SimulationSpeed CurrentSpeed { get; private set; } = SimulationSpeed.Normal;
 
         private float delayThresholdSeconds = SimulationConstants.NORMAL_SPEED_DELAY_SECONDS;
         private float accumulatedTimeSeconds;
@@ -30,7 +28,7 @@ namespace StardustSandbox.WorldSystem
 
         internal void SetSpeed(in SimulationSpeed speed)
         {
-            this.currentSpeed = speed;
+            this.CurrentSpeed = speed;
             this.delayThresholdSeconds = speed switch
             {
                 SimulationSpeed.Normal => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS,

@@ -28,13 +28,18 @@ namespace StardustSandbox.Audio
                 throw new InvalidOperationException($"{nameof(SoundEngine)} is already initialized.");
             }
 
-            SoundEffect.MasterVolume = SettingsSerializer.Load<VolumeSettings>().MasterVolume;
+            ApplyVolumeSettings(SettingsSerializer.Load<VolumeSettings>());
 
 #if SS_WINDOWS
             SoundEffect.Speakers = Speakers.Stereo;
 #endif
 
             isInitialized = true;
+        }
+
+        internal static void ApplyVolumeSettings(in VolumeSettings volumeSettings)
+        {
+            SoundEffect.MasterVolume = volumeSettings.MasterVolume;
         }
 
         private static void RegisterInstance(SoundEffectInstance instance)

@@ -5,10 +5,10 @@ using StardustSandbox.Camera;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
+using StardustSandbox.Enums.States;
 using StardustSandbox.InputSystem.Actions;
 using StardustSandbox.InputSystem.Game.Handlers;
 using StardustSandbox.InputSystem.Game.Simulation;
-using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
@@ -20,7 +20,6 @@ namespace StardustSandbox.InputSystem.Game
         internal Pen Pen => this.pen;
         internal Player Player => this.player;
 
-        private SimulationHandler simulationHandler;
         private WorldHandler worldHandler;
 
         private InputActionMapHandler systemInputHandler;
@@ -35,9 +34,8 @@ namespace StardustSandbox.InputSystem.Game
             this.player = new();
         }
 
-        internal void Initialize(GameManager gameManager, World world)
+        internal void Initialize(World world)
         {
-            this.simulationHandler = new(gameManager);
             this.worldHandler = new(this.player, this.pen, world);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
@@ -89,7 +87,7 @@ namespace StardustSandbox.InputSystem.Game
                 new([
                     new(controlSettings.TogglePause)
                     {
-                        OnStarted = _ => this.simulationHandler.TogglePause(),
+                        OnStarted = _ => GameHandler.ToggleState(GameStates.IsSimulationPaused),
                     },
                 ]),
                 
@@ -141,9 +139,9 @@ namespace StardustSandbox.InputSystem.Game
             }
         }
 
-        internal void Activate()
+        internal void Enable()
         {
-            this.gameplayInputHandler.Activate();
+            this.gameplayInputHandler.Enable();
         }
 
         internal void Disable()

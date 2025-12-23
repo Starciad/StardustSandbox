@@ -8,9 +8,6 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.Inputs.Game;
-using StardustSandbox.Enums.Simulation;
-using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
@@ -37,7 +34,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly InputController inputController;
         private readonly AmbientManager ambientManager;
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
         private readonly World world;
 
@@ -49,7 +45,6 @@ namespace StardustSandbox.UI.Common.Menus
         internal MainUI(
             AmbientManager ambientManager,
             InputController inputController,
-            GameManager gameManager,
             UIIndex index,
             UIManager uiManager,
             World world
@@ -57,12 +52,11 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.ambientManager = ambientManager;
             this.inputController = inputController;
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => this.gameManager.StartGame()),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(ambientManager, inputController, uiManager, world)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenGUI(UIIndex.PlayMenu)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () => this.uiManager.OpenGUI(UIIndex.OptionsMenu)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenGUI(UIIndex.CreditsMenu)),
@@ -234,11 +228,9 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
+            GameHandler.StopGame(this.inputController, this.world);
+
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
-
-            this.inputController.Pen.Tool = PenTool.Visualization;
-            this.inputController.Disable();
-
             this.gameTitle.Margin = Vector2.Zero;
 
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
@@ -247,20 +239,9 @@ namespace StardustSandbox.UI.Common.Menus
                 this.buttonAnimationOffsets[i] = Convert.ToSingle(SSRandom.GetDouble() * MathF.PI * 2.0f);
             }
 
-            this.world.CanDraw = false;
-            this.world.CanUpdate = false;
-
-            this.gameManager.SetSimulationSpeed(SimulationSpeed.Normal);
-            this.gameManager.RemoveState(GameStates.IsPaused);
-            this.gameManager.RemoveState(GameStates.IsSimulationPaused);
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
-
-            this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
-            this.world.Time.IsFrozen = false;
-
-            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_CanvasOfSilence)
+            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_T01_CanvasOfSilence)
             {
-                SongEngine.Play(SongIndex.V01_CanvasOfSilence);
+                SongEngine.Play(SongIndex.V01_T01_CanvasOfSilence);
             }
         }
 

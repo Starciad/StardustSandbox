@@ -54,5 +54,16 @@ namespace StardustSandbox.WorldSystem
         {
             this.currentTime = value;
         }
+
+        internal void SetSpeed(SimulationSpeed speed)
+        {
+            this.InGameSecondsPerRealSecond = speed switch
+            {
+                SimulationSpeed.Normal => TimeConstants.DEFAULT_SECONDS_PER_FRAMES,
+                SimulationSpeed.Fast => TimeConstants.DEFAULT_FAST_SECONDS_PER_FRAMES,
+                SimulationSpeed.VeryFast => TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES,
+                _ => TimeConstants.DEFAULT_SECONDS_PER_FRAMES,
+            };
+        }
     }
 }

@@ -19,15 +19,12 @@ namespace StardustSandbox.UI.Common.Tools
         private Label continueButtonLabel;
 
         private readonly UIManager uiManager;
-        private readonly GameManager gameManager;
 
         internal MessageUI(
-            GameManager gameManager,
             UIIndex index,
             UIManager uiManager
         ) : base(index)
         {
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
         }
 
@@ -104,12 +101,12 @@ namespace StardustSandbox.UI.Common.Tools
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

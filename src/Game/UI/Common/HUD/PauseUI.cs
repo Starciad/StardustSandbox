@@ -27,18 +27,15 @@ namespace StardustSandbox.UI.Common.HUD
 
         private readonly ConfirmUI confirmUI;
 
-        private readonly GameManager gameManager;
         private readonly UIManager uiManager;
 
         internal PauseUI(
             ConfirmUI confirmUI,
-            GameManager gameManager,
             UIIndex index,
             UIManager uiManager
         ) : base(index)
         {
             this.confirmUI = confirmUI;
-            this.gameManager = gameManager;
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
@@ -46,7 +43,7 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
                 {
                     this.uiManager.OpenGUI(UIIndex.OptionsMenu);
-                    this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
                 {
@@ -64,7 +61,7 @@ namespace StardustSandbox.UI.Common.HUD
                         }
                     });
                     this.uiManager.OpenGUI(UIIndex.Confirm);
-                    this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
             ];
 
@@ -195,12 +192,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.gameManager.SetState(GameStates.IsCriticalMenuOpen);
+            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            this.gameManager.RemoveState(GameStates.IsCriticalMenuOpen);
+            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
