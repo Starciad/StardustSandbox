@@ -98,6 +98,7 @@ namespace StardustSandbox
 
         protected override void LoadContent()
         {
+            // Input
             Input.Initialize(this.videoManager);
 
             // Databases
@@ -118,9 +119,6 @@ namespace StardustSandbox
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);
-
-            // ============================= //
-
             this.spriteBatch = new(this.GraphicsDevice);
         }
 
