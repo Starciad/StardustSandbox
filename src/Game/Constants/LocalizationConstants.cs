@@ -13,6 +13,9 @@ namespace StardustSandbox.Constants
         [
             new("en", "US"),
             new("pt", "BR"),
+            new("es", "ES"),
+            new("fr", "FR"),
+            new("de", "DE"),
         ];
 
         internal static GameCulture GetGameCultureFromNativeName(string nativeName)

@@ -1,99 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+		Microsoft ResX Schema
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+
   <xsd:schema id="root"
     xmlns=""
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -112,528 +93,528 @@
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
-    <value>2.0</value>
+    <value>1.3</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Solid.Movable.Dirt.Name" xml:space="preserve">
-    <value>Dirt</value>
+    <value>Terre</value>
   </data>
   <data name="Solid.Movable.Mud.Name" xml:space="preserve">
-    <value>Mud</value>
+    <value>Boue</value>
   </data>
   <data name="Liquid.Water.Name" xml:space="preserve">
-    <value>Water</value>
+    <value>Eau</value>
   </data>
   <data name="Solid.Movable.Stone.Name" xml:space="preserve">
-    <value>Stone</value>
+    <value>Pierre</value>
   </data>
   <data name="Solid.Movable.Grass.Name" xml:space="preserve">
-    <value>Grass</value>
+    <value>Herbe</value>
   </data>
   <data name="Solid.Movable.Ice.Name" xml:space="preserve">
-    <value>Ice</value>
+    <value>Glace</value>
   </data>
   <data name="Solid.Movable.Sand.Name" xml:space="preserve">
-    <value>Sand</value>
+    <value>Sable</value>
   </data>
   <data name="Solid.Movable.Snow.Name" xml:space="preserve">
-    <value>Snow</value>
+    <value>Neige</value>
   </data>
   <data name="Solid.Movable.Corruption.Name" xml:space="preserve">
-    <value>Corruption (movable)</value>
+    <value>Corruption (mobile)</value>
   </data>
   <data name="Liquid.Lava.Name" xml:space="preserve">
-    <value>Lava</value>
+    <value>Lave</value>
   </data>
   <data name="Liquid.Acid.Name" xml:space="preserve">
-    <value>Acid</value>
+    <value>Acide</value>
   </data>
   <data name="Solid.Immovable.Glass.Name" xml:space="preserve">
-    <value>Glass</value>
+    <value>Verre</value>
   </data>
   <data name="Solid.Immovable.Iron.Name" xml:space="preserve">
-    <value>Iron</value>
+    <value>Fer</value>
   </data>
   <data name="Solid.Immovable.Wall.Name" xml:space="preserve">
-    <value>Wall</value>
+    <value>Mur</value>
   </data>
   <data name="Solid.Immovable.Wood.Name" xml:space="preserve">
-    <value>Wood</value>
+    <value>Bois</value>
   </data>
   <data name="Gas.Corruption.Name" xml:space="preserve">
-    <value>Corruption (gas)</value>
+    <value>Corruption (gaz)</value>
   </data>
   <data name="Liquid.Corruption.Name" xml:space="preserve">
-    <value>Corruption (liquid)</value>
+    <value>Corruption (liquide)</value>
   </data>
   <data name="Solid.Immovable.Corruption.Name" xml:space="preserve">
-    <value>Corruption (immovable)</value>
+    <value>Corruption (immobile)</value>
   </data>
   <data name="Gas.Steam.Name" xml:space="preserve">
-    <value>Steam</value>
+    <value>Vapeur</value>
   </data>
   <data name="Gas.Smoke.Name" xml:space="preserve">
-    <value>Smoke</value>
+    <value>Fumée</value>
   </data>
   <data name="Solid.Immovable.RedBrick.Name" xml:space="preserve">
-    <value>Red Brick</value>
+    <value>Brique Rouge</value>
   </data>
   <data name="Solid.Immovable.TreeLeaf.Name" xml:space="preserve">
-    <value>Tree Leaf</value>
+    <value>Feuille d'Arbre</value>
   </data>
   <data name="Solid.Immovable.MountingBlock.Name" xml:space="preserve">
-    <value>Mounting Block</value>
+    <value>Bloc de Montage</value>
   </data>
   <data name="Energy.Fire.Name" xml:space="preserve">
-    <value>Fire</value>
+    <value>Feu</value>
   </data>
   <data name="Energy.Fire.Description" xml:space="preserve">
-    <value>Intense heat that quickly burns flammable materials and spreads destruction.</value>
+    <value>Chaleur intense qui consume rapidement les matériaux inflammables, propageant la destruction et la fumée.</value>
   </data>
   <data name="Gas.Corruption.Description" xml:space="preserve">
-    <value>Gaseous corruption that spreads and contaminates the environment, making it inhospitable.</value>
+    <value>Forme gazeuse qui se propage et contamine l'environnement, le rendant inhospitalier.</value>
   </data>
   <data name="Gas.Smoke.Description" xml:space="preserve">
-    <value>Smoke from burning, rises slowly and darkens the air, showing fire is present.</value>
+    <value>Fumée de combustion, monte lentement et obscurcit l'air, signalant un feu.</value>
   </data>
   <data name="Gas.Steam.Description" xml:space="preserve">
-    <value>Hot water vapor that rises rapidly and disperses in the air. At high altitudes, it can turn into clouds.</value>
+    <value>Vapeur d'eau chaude qui monte rapidement et se disperse dans l'air. À des altitudes élevées, elle peut se transformer en nuages.</value>
   </data>
   <data name="Liquid.Acid.Description" xml:space="preserve">
-    <value>Corrosive liquid that quickly dissolves many materials on contact.</value>
+    <value>Liquide corrosif qui dissout divers matériaux au moindre contact.</value>
   </data>
   <data name="Liquid.Corruption.Description" xml:space="preserve">
-    <value>Contaminating liquid that flows and corrupts everything it touches.</value>
+    <value>Liquide contaminant qui s'écoule et corrompt tout ce qu'il touche.</value>
   </data>
   <data name="Liquid.Lava.Description" xml:space="preserve">
-    <value>Molten rock that burns almost everything it touches. It cools and hardens when exposed to cold.</value>
+    <value>Roche fondue qui brûle presque tout au toucher. Refroidit et se solidifie au contact du froid.</value>
   </data>
   <data name="Liquid.Water.Description" xml:space="preserve">
-    <value>Essential liquid that can freeze, evaporate, and put out fires.</value>
+    <value>Liquide essentiel, peut geler, s'évaporer et éteindre les incendies.</value>
   </data>
   <data name="Solid.Immovable.Corruption.Description" xml:space="preserve">
-    <value>Crystallized, immobile corruption that creates permanent contaminated areas.</value>
+    <value>Corruption cristallisée, immobile et permanente, crée des zones contaminées.</value>
   </data>
   <data name="Solid.Immovable.Glass.Description" xml:space="preserve">
-    <value>Transparent and fragile material, breaks with heat or impact.</value>
+    <value>Matériau transparent et fragile, se casse avec la chaleur ou l'impact.</value>
   </data>
   <data name="Solid.Immovable.Iron.Description" xml:space="preserve">
-    <value>Strong metal, resists fire but melts in lava.</value>
+    <value>Métal résistant au feu, mais fond dans la lave.</value>
   </data>
   <data name="Solid.Immovable.MountingBlock.Description" xml:space="preserve">
-    <value>Decorative and functional block, flammable, used in mobile constructions.</value>
+    <value>Bloc décoratif et fonctionnel, inflammable, utilisé dans les constructions.</value>
   </data>
   <data name="Solid.Immovable.RedBrick.Description" xml:space="preserve">
-    <value>Durable block, ideal for fire-resistant constructions.</value>
+    <value>Bloc durable, idéal pour les constructions résistantes au feu.</value>
   </data>
   <data name="Solid.Immovable.TreeLeaf.Description" xml:space="preserve">
-    <value>Natural, flammable leaf, used for decoration.</value>
+    <value>Feuille naturelle et inflammable, utilisée pour la décoration.</value>
   </data>
   <data name="Solid.Immovable.Wall.Description" xml:space="preserve">
-    <value>Solid, impenetrable, and stable barrier.</value>
+    <value>Structure solide, impénétrable et stable.</value>
   </data>
   <data name="Solid.Immovable.Wood.Description" xml:space="preserve">
-    <value>Natural, very flammable material, common in constructions.</value>
+    <value>Matériau organique, très inflammable, commun dans les constructions.</value>
   </data>
   <data name="Solid.Movable.Corruption.Description" xml:space="preserve">
-    <value>Substance that spreads, contaminates, and destroys the environment continuously.</value>
+    <value>Substance qui se propage, contamine et détruit continuellement l'environnement.</value>
   </data>
   <data name="Solid.Movable.Dirt.Description" xml:space="preserve">
-    <value>Dry, unstable soil, base for vegetation. Turns into mud when in contact with water.</value>
+    <value>Terre sèche et instable, base de la végétation. Devient boueuse au contact de l'eau.</value>
   </data>
   <data name="Solid.Movable.Grass.Description" xml:space="preserve">
-    <value>Dry grass, very flammable, burns fast and leaves ash.</value>
+    <value>Herbe sèche, très inflammable, brûle rapidement et laisse des cendres.</value>
   </data>
   <data name="Solid.Movable.Ice.Description" xml:space="preserve">
-    <value>Solid, slippery water, melts easily with heat.</value>
+    <value>Eau solide et glissante, fond facilement avec la chaleur.</value>
   </data>
   <data name="Solid.Movable.Mud.Description" xml:space="preserve">
-    <value>Mix of dirt and water, turns into dry dirt when heated.</value>
+    <value>Mélange de terre et d'eau, devient terre sèche lorsqu'elle est chauffée.</value>
   </data>
   <data name="Solid.Movable.Sand.Description" xml:space="preserve">
-    <value>Mineral grains that flow and pile up. Become glass with extreme heat.</value>
+    <value>Grains minéraux qui s'écoulent et s'accumulent. Devient du verre avec une chaleur extrême.</value>
   </data>
   <data name="Solid.Movable.Snow.Description" xml:space="preserve">
-    <value>Snowflakes that melt into water with heat.</value>
+    <value>Flocons de glace qui fondent et deviennent de l'eau avec la chaleur.</value>
   </data>
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
-    <value>Rock that resists impacts, melts into lava with extreme heat or turns into sand with erosion.</value>
+    <value>Roche résistante aux chocs, fond dans la lave avec une chaleur extrême ou devient du sable par érosion.</value>
   </data>
   <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
-    <value>Lamp</value>
+    <value>Lampe</value>
   </data>
   <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
-    <value>Fixed, sturdy lamp used for decoration.</value>
+    <value>Lampe fixe et résistante, utilisée pour la décoration.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
-    <value>Salt</value>
+    <value>Sel</value>
   </data>
   <data name="Solid.Movable.Salt.Description" xml:space="preserve">
-    <value>White, crystalline powder that dissolves in water.</value>
+    <value>Poudre blanche cristalline qui se dissout dans l'eau.</value>
   </data>
   <data name="Liquid.Oil.Name" xml:space="preserve">
-    <value>Oil</value>
+    <value>Pétrole</value>
   </data>
   <data name="Liquid.Oil.Description" xml:space="preserve">
-    <value>Dark, thick, very flammable liquid with low density.</value>
+    <value>Liquide sombre, épais et très inflammable, de faible densité.</value>
   </data>
   <data name="Liquid.Saltwater.Name" xml:space="preserve">
-    <value>Saltwater</value>
+    <value>Eau Salée</value>
   </data>
   <data name="Liquid.Saltwater.Description" xml:space="preserve">
-    <value>Light blue liquid with floating salt particles.</value>
+    <value>Liquide bleu clair avec des particules de sel flottantes.</value>
   </data>
   <data name="Solid.Immovable.DrySponge.Name" xml:space="preserve">
-    <value>Sponge (dry)</value>
+    <value>Éponge (sèche)</value>
   </data>
   <data name="Solid.Immovable.DrySponge.Description" xml:space="preserve">
-    <value>Dry sponge that absorbs liquids and is very flammable.</value>
+    <value>Éponge sèche qui absorbe les liquides et est très inflammable.</value>
   </data>
   <data name="Solid.Immovable.WetSponge.Name" xml:space="preserve">
-    <value>Sponge (wet)</value>
+    <value>Éponge (mouillée)</value>
   </data>
   <data name="Solid.Immovable.WetSponge.Description" xml:space="preserve">
-    <value>Wet sponge, denser and harder to burn. Dries with heat and moves down if dry sponges are below.</value>
+    <value>Éponge mouillée, plus dense et difficile à brûler. Sèche avec la chaleur et coule s'il y a des éponges sèches en dessous.</value>
   </data>
   <data name="Solid.Immovable.Gold.Name" xml:space="preserve">
-    <value>Gold</value>
+    <value>Or</value>
   </data>
   <data name="Solid.Immovable.Gold.Description" xml:space="preserve">
-    <value>Bright yellow, soft, and malleable metal.</value>
+    <value>Métal jaune brillant, doux et malléable.</value>
   </data>
   <data name="Solid.Immovable.Heater.Name" xml:space="preserve">
-    <value>Heater</value>
+    <value>Chauffeur</value>
   </data>
   <data name="Solid.Immovable.Heater.Description" xml:space="preserve">
-    <value>Device that heats all nearby elements.</value>
+    <value>Appareil qui chauffe tous les éléments à proximité.</value>
   </data>
   <data name="Solid.Immovable.Freezer.Name" xml:space="preserve">
-    <value>Freezer</value>
+    <value>Congélateur</value>
   </data>
   <data name="Solid.Immovable.Freezer.Description" xml:space="preserve">
-    <value>Device that cools all nearby elements.</value>
+    <value>Appareil qui refroidit tous les éléments à proximité.</value>
   </data>
   <data name="Solid.Movable.Bomb.Name" xml:space="preserve">
-    <value>Bomb</value>
+    <value>Bombe</value>
   </data>
   <data name="Solid.Movable.Bomb.Description" xml:space="preserve">
-    <value>Low-power bomb that explodes when hitting other elements.</value>
+    <value>Bombe de faible puissance qui explose en heurtant d'autres éléments.</value>
   </data>
   <data name="Solid.Movable.Dynamite.Name" xml:space="preserve">
     <value>Dynamite</value>
   </data>
   <data name="Solid.Movable.Dynamite.Description" xml:space="preserve">
-    <value>Large-radius explosive, only explodes with heat or contact with lava/fire.</value>
+    <value>Explosif à large rayon, explose seulement avec la chaleur ou au contact de la lave/du feu.</value>
   </data>
   <data name="Solid.Movable.TNT.Name" xml:space="preserve">
     <value>TNT</value>
   </data>
   <data name="Solid.Movable.TNT.Description" xml:space="preserve">
-    <value>Moderate explosive, destroys solids and leaves smoke/fire. Only explodes with heat or contact with lava/fire.</value>
+    <value>Explosif modéré, détruit les solides et laisse de la fumée/du feu. Explose seulement avec la chaleur ou au contact de la lave/du feu.</value>
   </data>
   <data name="Solid.Immovable.Void.Name" xml:space="preserve">
-    <value>Void</value>
+    <value>Vide</value>
   </data>
   <data name="Solid.Immovable.Void.Description" xml:space="preserve">
-    <value>Absorbs and destroys everything it touches.</value>
+    <value>Absorbe et détruit tout ce qu'il touche.</value>
   </data>
   <data name="Solid.Immovable.Clone.Name" xml:space="preserve">
-    <value>Clone</value>
+    <value>Clonneur</value>
   </data>
   <data name="Solid.Immovable.Clone.Description" xml:space="preserve">
-    <value>Infinitely generates the neighboring element until removed.</value>
+    <value>Génère infiniment l'élément voisin jusqu'à ce qu'il soit retiré.</value>
   </data>
   <data name="Solid.Movable.Ash.Name" xml:space="preserve">
-    <value>Ash</value>
+    <value>Cendres</value>
   </data>
   <data name="Solid.Movable.Ash.Description" xml:space="preserve">
-    <value>Dark gray powder, looks like remains of wood or burnt materials.</value>
+    <value>Poudre gris foncé, rappelle les restes de bois ou de matériaux brûlés.</value>
   </data>
   <data name="Gas.AntiCorruption.Name" xml:space="preserve">
-    <value>Anti Corruption</value>
+    <value>Anticorruption</value>
   </data>
   <data name="Gas.AntiCorruption.Description" xml:space="preserve">
-    <value>A gaseous antidote that attempts, by all means, to contain the destruction caused by corruption and restore the environment to its original state.</value>
+    <value>Un antidote gazeux qui tente, par tous les moyens, de contenir la destruction causée par la corruption et de restaurer l'environnement à son état d'origine.</value>
   </data>
   <data name="Solid.Immovable.Devourer.Name" xml:space="preserve">
-    <value>Devourer</value>
+    <value>Dévorateur</value>
   </data>
   <data name="Solid.Immovable.Devourer.Description" xml:space="preserve">
-    <value>It will try to consume everything around it. When it has nothing left to feed on, it will explode.</value>
+    <value>Tentera de consommer tout ce qui l'entoure. Quand il n'y a plus rien à manger, il explosera.</value>
   </data>
   <data name="Solid.Immovable.UpwardPusher.Name" xml:space="preserve">
-    <value>Upward Pusher</value>
+    <value>Pousseur Supérieur</value>
   </data>
   <data name="Solid.Immovable.RightwardPusher.Name" xml:space="preserve">
-    <value>Rightward Pusher</value>
+    <value>Pousseur Droit</value>
   </data>
   <data name="Solid.Immovable.LeftwardPusher.Name" xml:space="preserve">
-    <value>Leftward Pusher</value>
+    <value>Pousseur Gauche</value>
   </data>
   <data name="Solid.Immovable.DownwardPusher.Name" xml:space="preserve">
-    <value>Downward Pusher</value>
+    <value>Pousseur Inférieur</value>
   </data>
   <data name="Solid.Immovable.UpwardPusher.Description" xml:space="preserve">
-    <value>It moves neighboring elements upward.</value>
+    <value>Déplace les éléments voisins vers le haut.</value>
   </data>
   <data name="Solid.Immovable.DownwardPusher.Description" xml:space="preserve">
-    <value>It shifts neighboring elements down.</value>
+    <value>Déplace les éléments voisins vers le bas.</value>
   </data>
   <data name="Solid.Immovable.LeftwardPusher.Description" xml:space="preserve">
-    <value>Shifts neighboring elements to the left.</value>
+    <value>Déplace les éléments voisins vers la gauche.</value>
   </data>
   <data name="Solid.Immovable.RightwardPusher.Description" xml:space="preserve">
-    <value>Shifts neighboring elements to the right.</value>
+    <value>Déplace les éléments voisins vers la droite.</value>
   </data>
   <data name="Gas.Cloud.Name" xml:space="preserve">
-    <value>Cloud</value>
+    <value>Nuage</value>
   </data>
   <data name="Gas.ChargedCloud.Name" xml:space="preserve">
-    <value>Charged Cloud</value>
+    <value>Nuage Chargé</value>
   </data>
   <data name="Gas.Cloud.Description" xml:space="preserve">
-    <value>Cloud</value>
+    <value>Masse légère de vapeur condensée formée lorsque la vapeur s'accumule au sommet de la carte. Peut fusionner avec d'autres nuages, préparant le chemin pour la précipitation.</value>
   </data>
   <data name="Gas.ChargedCloud.Description" xml:space="preserve">
-    <value>A dense, saturated cloud formed from the clustering of multiple clouds. When concentrated enough, it releases water or snow depending on temperature.</value>
-  </data>
-  <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
-    <value>Dry Black Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryBlackWool.Description" xml:space="preserve">
-    <value>Dry black wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryWhiteWool.Name" xml:space="preserve">
-    <value>Dry White Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryWhiteWool.Description" xml:space="preserve">
-    <value>Dry white wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryRedWool.Name" xml:space="preserve">
-    <value>Dry Red Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryRedWool.Description" xml:space="preserve">
-    <value>Dry red wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryOrangeWool.Name" xml:space="preserve">
-    <value>Dry Orange Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryOrangeWool.Description" xml:space="preserve">
-    <value>Dry orange wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryYellowWool.Name" xml:space="preserve">
-    <value>Dry Yellow Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryYellowWool.Description" xml:space="preserve">
-    <value>Dry yellow wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryGreenWool.Name" xml:space="preserve">
-    <value>Dry Green Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
-    <value>Dry green wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
-    <value>Dry Blue Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryBlueWool.Description" xml:space="preserve">
-    <value>Dry blue wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryGrayWool.Name" xml:space="preserve">
-    <value>Dry Gray Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryGrayWool.Description" xml:space="preserve">
-    <value>Dry gray wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryVioletWool.Name" xml:space="preserve">
-    <value>Dry Violet Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryVioletWool.Description" xml:space="preserve">
-    <value>Dry violet wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.DryBrownWool.Name" xml:space="preserve">
-    <value>Dry Brown Wool</value>
-  </data>
-  <data name="Solid.Immovable.DryBrownWool.Description" xml:space="preserve">
-    <value>Dry brown wool, soft and flammable.</value>
-  </data>
-  <data name="Solid.Immovable.WetBlackWool.Name" xml:space="preserve">
-    <value>Wet Black Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetBlackWool.Description" xml:space="preserve">
-    <value>Wet black wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetWhiteWool.Name" xml:space="preserve">
-    <value>Wet White Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetWhiteWool.Description" xml:space="preserve">
-    <value>Wet white wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetRedWool.Name" xml:space="preserve">
-    <value>Wet Red Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetRedWool.Description" xml:space="preserve">
-    <value>Wet red wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetOrangeWool.Name" xml:space="preserve">
-    <value>Wet Orange Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetOrangeWool.Description" xml:space="preserve">
-    <value>Wet orange wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetYellowWool.Name" xml:space="preserve">
-    <value>Wet Yellow Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetYellowWool.Description" xml:space="preserve">
-    <value>Wet yellow wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetGreenWool.Name" xml:space="preserve">
-    <value>Wet Green Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
-    <value>Wet green wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
-    <value>Wet Blue Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetBlueWool.Description" xml:space="preserve">
-    <value>Wet blue wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetGrayWool.Name" xml:space="preserve">
-    <value>Wet Gray Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetGrayWool.Description" xml:space="preserve">
-    <value>Wet gray wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetVioletWool.Name" xml:space="preserve">
-    <value>Wet Violet Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetVioletWool.Description" xml:space="preserve">
-    <value>Wet violet wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Immovable.WetBrownWool.Name" xml:space="preserve">
-    <value>Wet Brown Wool</value>
-  </data>
-  <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
-    <value>Wet brown wool, denser and harder to burn.</value>
-  </data>
-  <data name="Solid.Movable.FertileSoil.Name" xml:space="preserve">
-    <value>Fertile Soil</value>
-  </data>
-  <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
-    <value>Nutrient-rich soil that promotes the growth of plants and seeds.</value>
-  </data>
-  <data name="Solid.Movable.Seed.Name" xml:space="preserve">
-    <value>Seed</value>
-  </data>
-  <data name="Solid.Movable.Seed.Description" xml:space="preserve">
-    <value>Small seed that germinates in fertile soil to give rise to seedlings.</value>
-  </data>
-  <data name="Solid.Movable.Sapling.Name" xml:space="preserve">
-    <value>Seedling</value>
-  </data>
-  <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
-    <value>Young plant in growth, develops with time and suitable conditions.</value>
-  </data>
-  <data name="Solid.Immovable.Moss.Name" xml:space="preserve">
-    <value>Moss</value>
-  </data>
-  <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
-    <value>Low green plant that covers damp surfaces.</value>
-  </data>
-  <data name="Solid.Movable.Gunpowder.Name" xml:space="preserve">
-    <value>Gunpowder</value>
-  </data>
-  <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
-    <value>Explosive powder sensitive to heat and fire, explodes with great force upon contact.</value>
-  </data>
-  <data name="Gas.LiquefiedPetroleumGas.Name" xml:space="preserve">
-    <value>Liquefied Petroleum Gas</value>
-  </data>
-  <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
-    <value>Gas derived from petroleum, highly flammable and explosive when heated.</value>
-  </data>
-  <data name="Solid.Immovable.Obsidian.Name" xml:space="preserve">
-    <value>Obsidian</value>
-  </data>
-  <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
-    <value>Black, shiny volcanic rock, extremely hard and durable.</value>
-  </data>
-  <data name="Liquid.BlackPaint.Name" xml:space="preserve">
-    <value>Black Paint</value>
-  </data>
-  <data name="Liquid.BlackPaint.Description" xml:space="preserve">
-    <value>Black paint that flows and leaves a dark trail where it passes.</value>
-  </data>
-  <data name="Liquid.WhitePaint.Name" xml:space="preserve">
-    <value>White Paint</value>
-  </data>
-  <data name="Liquid.WhitePaint.Description" xml:space="preserve">
-    <value>White paint that flows and leaves a light trail where it passes.</value>
-  </data>
-  <data name="Liquid.RedPaint.Name" xml:space="preserve">
-    <value>Red Paint</value>
-  </data>
-  <data name="Liquid.RedPaint.Description" xml:space="preserve">
-    <value>Red paint that flows and leaves a red trail where it passes.</value>
-  </data>
-  <data name="Liquid.OrangePaint.Name" xml:space="preserve">
-    <value>Orange Paint</value>
-  </data>
-  <data name="Liquid.OrangePaint.Description" xml:space="preserve">
-    <value>Orange paint that flows and leaves an orange trail where it passes.</value>
-  </data>
-  <data name="Liquid.YellowPaint.Name" xml:space="preserve">
-    <value>Yellow Paint</value>
-  </data>
-  <data name="Liquid.YellowPaint.Description" xml:space="preserve">
-    <value>Yellow paint that flows and leaves a yellow trail where it passes.</value>
-  </data>
-  <data name="Liquid.GreenPaint.Name" xml:space="preserve">
-    <value>Green Paint</value>
-  </data>
-  <data name="Liquid.GreenPaint.Description" xml:space="preserve">
-    <value>Green paint that flows and leaves a green trail where it passes.</value>
-  </data>
-  <data name="Liquid.BluePaint.Name" xml:space="preserve">
-    <value>Blue Paint</value>
-  </data>
-  <data name="Liquid.BluePaint.Description" xml:space="preserve">
-    <value>Blue paint that flows and leaves a blue trail where it passes.</value>
-  </data>
-  <data name="Liquid.GrayPaint.Name" xml:space="preserve">
-    <value>Gray Paint</value>
-  </data>
-  <data name="Liquid.GrayPaint.Description" xml:space="preserve">
-    <value>Gray paint that flows and leaves a gray trail where it passes.</value>
-  </data>
-  <data name="Liquid.VioletPaint.Name" xml:space="preserve">
-    <value>Violet Paint</value>
-  </data>
-  <data name="Liquid.VioletPaint.Description" xml:space="preserve">
-    <value>Violet paint that flows and leaves a violet trail where it passes.</value>
-  </data>
-  <data name="Liquid.BrownPaint.Name" xml:space="preserve">
-    <value>Brown Paint</value>
-  </data>
-  <data name="Liquid.BrownPaint.Description" xml:space="preserve">
-    <value>Brown paint that flows and leaves a brown trail where it passes.</value>
-  </data>
-  <data name="Liquid.Mercury.Name" xml:space="preserve">
-    <value>Mercury</value>
-  </data>
-  <data name="Liquid.Mercury.Description" xml:space="preserve">
-    <value>Dense, shiny metallic liquid.</value>
+    <value>Nuage dense et saturé résultant du regroupement de plusieurs nuages. Quand suffisamment concentré, libère l'eau ou la neige selon la température.</value>
   </data>
   <data name="Energy.Lightning.Name" xml:space="preserve">
-    <value>Lightning</value>
+    <value>Éclair</value>
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
-    <value>A violent electrical discharge that travels through the air, burning and destroying everything in its path.</value>
+    <value>Décharge électrique violente qui se propage dans l'air, brûlant et détruisant tout sur son passage.</value>
+  </data>
+  <data name="Solid.Immovable.DryBlackWool.Name" xml:space="preserve">
+    <value>Laine Noire (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryBlackWool.Description" xml:space="preserve">
+    <value>Laine noire sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Name" xml:space="preserve">
+    <value>Laine Blanche (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryWhiteWool.Description" xml:space="preserve">
+    <value>Laine blanche sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Name" xml:space="preserve">
+    <value>Laine Rouge (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryRedWool.Description" xml:space="preserve">
+    <value>Laine rouge sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Name" xml:space="preserve">
+    <value>Laine Orange (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryOrangeWool.Description" xml:space="preserve">
+    <value>Laine orange sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Name" xml:space="preserve">
+    <value>Laine Jaune (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryYellowWool.Description" xml:space="preserve">
+    <value>Laine jaune sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Name" xml:space="preserve">
+    <value>Laine Verte (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryGreenWool.Description" xml:space="preserve">
+    <value>Laine verte sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Name" xml:space="preserve">
+    <value>Laine Bleue (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryBlueWool.Description" xml:space="preserve">
+    <value>Laine bleue sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryGrayWool.Name" xml:space="preserve">
+    <value>Laine Grise (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryGrayWool.Description" xml:space="preserve">
+    <value>Laine grise sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Name" xml:space="preserve">
+    <value>Laine Violette (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryVioletWool.Description" xml:space="preserve">
+    <value>Laine violette sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Name" xml:space="preserve">
+    <value>Laine Marron (sèche)</value>
+  </data>
+  <data name="Solid.Immovable.DryBrownWool.Description" xml:space="preserve">
+    <value>Laine marron sèche, douce et inflammable.</value>
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Name" xml:space="preserve">
+    <value>Laine Noire (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetBlackWool.Description" xml:space="preserve">
+    <value>Laine noire mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Name" xml:space="preserve">
+    <value>Laine Blanche (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetWhiteWool.Description" xml:space="preserve">
+    <value>Laine blanche mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Name" xml:space="preserve">
+    <value>Laine Rouge (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetRedWool.Description" xml:space="preserve">
+    <value>Laine rouge mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Name" xml:space="preserve">
+    <value>Laine Orange (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetOrangeWool.Description" xml:space="preserve">
+    <value>Laine orange mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Name" xml:space="preserve">
+    <value>Laine Jaune (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetYellowWool.Description" xml:space="preserve">
+    <value>Laine jaune mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Name" xml:space="preserve">
+    <value>Laine Verte (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetGreenWool.Description" xml:space="preserve">
+    <value>Laine verte mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Name" xml:space="preserve">
+    <value>Laine Bleue (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetBlueWool.Description" xml:space="preserve">
+    <value>Laine bleue mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetGrayWool.Name" xml:space="preserve">
+    <value>Laine Grise (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetGrayWool.Description" xml:space="preserve">
+    <value>Laine grise mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Name" xml:space="preserve">
+    <value>Laine Violette (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetVioletWool.Description" xml:space="preserve">
+    <value>Laine violette mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Name" xml:space="preserve">
+    <value>Laine Marron (mouillée)</value>
+  </data>
+  <data name="Solid.Immovable.WetBrownWool.Description" xml:space="preserve">
+    <value>Laine marron mouillée, plus dense et difficile à brûler.</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Name" xml:space="preserve">
+    <value>Sol Fertile</value>
+  </data>
+  <data name="Solid.Movable.FertileSoil.Description" xml:space="preserve">
+    <value>Sol riche en nutriments qui favorise la croissance des plantes et des graines.</value>
+  </data>
+  <data name="Solid.Movable.Seed.Name" xml:space="preserve">
+    <value>Graine</value>
+  </data>
+  <data name="Solid.Movable.Seed.Description" xml:space="preserve">
+    <value>Petite graine qui germe dans un sol fertile pour donner naissance à des semis.</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Name" xml:space="preserve">
+    <value>Semis</value>
+  </data>
+  <data name="Solid.Movable.Sapling.Description" xml:space="preserve">
+    <value>Jeune plante en croissance, se développe avec le temps et les conditions appropriées.</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Name" xml:space="preserve">
+    <value>Mousse</value>
+  </data>
+  <data name="Solid.Immovable.Moss.Description" xml:space="preserve">
+    <value>Plante basse et verte qui couvre les surfaces humides.</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Name" xml:space="preserve">
+    <value>Poudre à Canon</value>
+  </data>
+  <data name="Solid.Movable.Gunpowder.Description" xml:space="preserve">
+    <value>Poudre explosive sensible à la chaleur et au feu, explose avec une grande force au contact.</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Name" xml:space="preserve">
+    <value>Gaz de Pétrole Liquéfié</value>
+  </data>
+  <data name="Gas.LiquefiedPetroleumGas.Description" xml:space="preserve">
+    <value>Gaz dérivé du pétrole, très inflammable et explosif en chauffant.</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Name" xml:space="preserve">
+    <value>Obsidienne</value>
+  </data>
+  <data name="Solid.Immovable.Obsidian.Description" xml:space="preserve">
+    <value>Roche volcanique noire et brillante, extrêmement dure et résistante.</value>
+  </data>
+  <data name="Liquid.BlackPaint.Name" xml:space="preserve">
+    <value>Peinture Noire</value>
+  </data>
+  <data name="Liquid.BlackPaint.Description" xml:space="preserve">
+    <value>Peinture noire qui s'écoule et laisse une trace sombre où elle passe.</value>
+  </data>
+  <data name="Liquid.WhitePaint.Name" xml:space="preserve">
+    <value>Peinture Blanche</value>
+  </data>
+  <data name="Liquid.WhitePaint.Description" xml:space="preserve">
+    <value>Peinture blanche qui s'écoule et laisse une trace claire où elle passe.</value>
+  </data>
+  <data name="Liquid.RedPaint.Name" xml:space="preserve">
+    <value>Peinture Rouge</value>
+  </data>
+  <data name="Liquid.RedPaint.Description" xml:space="preserve">
+    <value>Peinture rouge qui s'écoule et laisse une trace rouge où elle passe.</value>
+  </data>
+  <data name="Liquid.OrangePaint.Name" xml:space="preserve">
+    <value>Peinture Orange</value>
+  </data>
+  <data name="Liquid.OrangePaint.Description" xml:space="preserve">
+    <value>Peinture orange qui s'écoule et laisse une trace orange où elle passe.</value>
+  </data>
+  <data name="Liquid.YellowPaint.Name" xml:space="preserve">
+    <value>Peinture Jaune</value>
+  </data>
+  <data name="Liquid.YellowPaint.Description" xml:space="preserve">
+    <value>Peinture jaune qui s'écoule et laisse une trace jaune où elle passe.</value>
+  </data>
+  <data name="Liquid.GreenPaint.Name" xml:space="preserve">
+    <value>Peinture Verte</value>
+  </data>
+  <data name="Liquid.GreenPaint.Description" xml:space="preserve">
+    <value>Peinture verte qui s'écoule et laisse une trace verte où elle passe.</value>
+  </data>
+  <data name="Liquid.BluePaint.Name" xml:space="preserve">
+    <value>Peinture Bleue</value>
+  </data>
+  <data name="Liquid.BluePaint.Description" xml:space="preserve">
+    <value>Peinture bleue qui s'écoule et laisse une trace bleue où elle passe.</value>
+  </data>
+  <data name="Liquid.GrayPaint.Name" xml:space="preserve">
+    <value>Peinture Grise</value>
+  </data>
+  <data name="Liquid.GrayPaint.Description" xml:space="preserve">
+    <value>Peinture grise qui s'écoule et laisse une trace grise où elle passe.</value>
+  </data>
+  <data name="Liquid.VioletPaint.Name" xml:space="preserve">
+    <value>Peinture Violette</value>
+  </data>
+  <data name="Liquid.VioletPaint.Description" xml:space="preserve">
+    <value>Peinture violette qui s'écoule et laisse une trace violette où elle passe.</value>
+  </data>
+  <data name="Liquid.BrownPaint.Name" xml:space="preserve">
+    <value>Peinture Marron</value>
+  </data>
+  <data name="Liquid.BrownPaint.Description" xml:space="preserve">
+    <value>Peinture marron qui s'écoule et laisse une trace marron où elle passe.</value>
+  </data>
+  <data name="Liquid.Mercury.Name" xml:space="preserve">
+    <value>Mercure</value>
+  </data>
+  <data name="Liquid.Mercury.Description" xml:space="preserve">
+    <value>Liquide métallique dense et brillant.</value>
   </data>
 </root>
