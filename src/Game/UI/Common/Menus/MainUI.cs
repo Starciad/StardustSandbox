@@ -231,11 +231,9 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
+            GameHandler.StopGame(this.inputController, this.world);
+
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
-
-            this.inputController.Pen.Tool = PenTool.Visualization;
-            this.inputController.Disable();
-
             this.gameTitle.Margin = Vector2.Zero;
 
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
@@ -243,18 +241,6 @@ namespace StardustSandbox.UI.Common.Menus
                 this.menuButtonLabels[i].Margin = Vector2.Zero;
                 this.buttonAnimationOffsets[i] = Convert.ToSingle(SSRandom.GetDouble() * MathF.PI * 2.0f);
             }
-
-            this.world.CanDraw = false;
-            this.world.CanUpdate = false;
-
-            this.world.Simulation.SetSpeed(SimulationSpeed.Normal);
-
-            GameHandler.RemoveState(GameStates.IsPaused);
-            GameHandler.RemoveState(GameStates.IsSimulationPaused);
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-
-            this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
-            this.world.Time.IsFrozen = false;
 
             if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_CanvasOfSilence)
             {

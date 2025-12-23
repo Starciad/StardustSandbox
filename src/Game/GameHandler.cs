@@ -3,6 +3,7 @@ using StardustSandbox.Camera;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Inputs.Game;
+using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem.Game;
@@ -18,6 +19,7 @@ namespace StardustSandbox
         internal static void StartGame(AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
             SongEngine.Stop();
+            SongEngine.StartGameplayMusicCycle();
 
             uiManager.OpenGUI(UIIndex.Hud);
 
@@ -32,7 +34,26 @@ namespace StardustSandbox
             SSCamera.Position = new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE));
 
             inputController.Pen.Tool = PenTool.Pencil;
-            inputController.Activate();
+            inputController.Enable();
+        }
+
+        internal static void StopGame(InputController inputController, World world)
+        {
+            SongEngine.StopGameplayMusicCycle();
+
+            inputController.Pen.Tool = PenTool.Visualization;
+            inputController.Disable();
+
+            world.CanDraw = false;
+            world.CanUpdate = false;
+            world.Simulation.SetSpeed(SimulationSpeed.Normal);
+
+            RemoveState(GameStates.IsPaused);
+            RemoveState(GameStates.IsSimulationPaused);
+            RemoveState(GameStates.IsCriticalMenuOpen);
+
+            world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
+            world.Time.IsFrozen = false;
         }
 
         internal static bool HasState(GameStates value)

@@ -139,9 +139,9 @@ namespace StardustSandbox.InputSystem.Game
             }
         }
 
-        internal void Activate()
+        internal void Enable()
         {
-            this.gameplayInputHandler.Activate();
+            this.gameplayInputHandler.Enable();
         }
 
         internal void Disable()

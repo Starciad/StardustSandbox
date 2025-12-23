@@ -88,7 +88,7 @@ namespace StardustSandbox.UI.Common.Tools
         protected override void OnClosed()
         {
             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-            this.inputController.Activate();
+            this.inputController.Enable();
 
             this.gameWindow.KeyDown -= OnKeyDown;
         }

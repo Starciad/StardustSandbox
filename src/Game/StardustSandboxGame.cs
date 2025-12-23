@@ -150,10 +150,10 @@ namespace StardustSandbox
             }
 
             Input.Update();
-            SSCamera.Update(this.world);
 
             // Controllers
             this.inputController.Update();
+            SSCamera.Update(this.world);
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);

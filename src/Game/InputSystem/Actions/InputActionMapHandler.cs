@@ -13,7 +13,7 @@
         {
             for (int i = 0; i < this.maps.Length; i++)
             {
-                if (!this.maps[i].IsActive)
+                if (!this.maps[i].IsActivated)
                 {
                     continue;
                 }
@@ -22,11 +22,11 @@
             }
         }
 
-        internal void Activate()
+        internal void Enable()
         {
             for (int i = 0; i < this.maps.Length; i++)
             {
-                this.maps[i].IsActive = true;
+                this.maps[i].IsActivated = true;
             }
         }
 
@@ -34,7 +34,7 @@
         {
             for (int i = 0; i < this.maps.Length; i++)
             {
-                this.maps[i].IsActive = false;
+                this.maps[i].IsActivated = false;
             }
         }
     }
