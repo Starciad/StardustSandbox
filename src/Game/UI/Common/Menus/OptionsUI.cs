@@ -415,13 +415,15 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void ApplySettings()
         {
+            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
             VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
             SongEngine.ApplyVolumeSettings(volumeSettings);
             SoundEngine.ApplyVolumeSettings(volumeSettings);
 
-            this.videoManager.ApplySettings();
-            this.cursorManager.ApplySettings();
+            this.videoManager.ApplySettings(videoSettings);
+            this.cursorManager.ApplySettings(cursorSettings);
         }
 
         protected override void OnBuild(Container root)

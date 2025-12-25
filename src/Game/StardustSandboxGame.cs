@@ -42,8 +42,8 @@ namespace StardustSandbox
             {
                 GraphicsProfile = GraphicsProfile.Reach,
                 PreferredBackBufferFormat = SurfaceFormat.Color,
-                PreferredBackBufferWidth = 1280,
-                PreferredBackBufferHeight = 720,
+                PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH,
+                PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT,
                 SynchronizeWithVerticalRetrace = true,
                 HardwareModeSwitch = true,
                 IsFullScreen = false,
@@ -58,7 +58,8 @@ namespace StardustSandbox
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                SettingsSerializer.Save(videoSettings.UpdateResolution(this.GraphicsDevice));
+                videoSettings = videoSettings.UpdateResolution(this.videoManager.GraphicsDevice);
+                SettingsSerializer.Save(videoSettings);
             }
 
             // Initialize Content
@@ -71,7 +72,7 @@ namespace StardustSandbox
             this.videoManager.SetGameWindow(this.Window);
 
             // Configure game settings
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0 / videoSettings.Framerate);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / videoSettings.Framerate);
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
@@ -85,6 +86,9 @@ namespace StardustSandbox
 
             // Core
             this.world = new(this.inputController);
+
+            // Apply video settings
+            this.videoManager.ApplySettings(videoSettings);
         }
 
         protected override void Initialize()
