@@ -24,7 +24,7 @@ namespace StardustSandbox.Elements.Utilities
 
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                if (!neighbors.IsNeighborLayerOccupied(i, layer))
                 {
                     continue;
                 }
