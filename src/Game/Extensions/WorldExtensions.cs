@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Enums.Elements;
+using StardustSandbox.Databases;
 using StardustSandbox.Enums.World;
 using StardustSandbox.WorldSystem;
 
@@ -48,13 +48,13 @@ namespace StardustSandbox.Extensions
                         // This color represents the currently selected element
                         Slot slot = world.GetSlot(worldPosition);
 
-                        if (!slot.Foreground.HasState(ElementStates.IsEmpty))
+                        if (!slot.Foreground.IsEmpty)
                         {
-                            data[index] = world.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
+                            data[index] = ElementDatabase.GetElement(world.GetElement(worldPosition, Layer.Foreground)).ReferenceColor.Vary(5);
                         }
-                        else if (!slot.Background.HasState(ElementStates.IsEmpty))
+                        else if (!slot.Background.IsEmpty)
                         {
-                            data[index] = world.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                            data[index] = ElementDatabase.GetElement(world.GetElement(worldPosition, Layer.Background)).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
                         }
                     }
                 }

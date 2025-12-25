@@ -92,14 +92,14 @@ namespace StardustSandbox.Generators
 
                 Point position = new(currentX, currentY);
 
-                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.Layer).HasState(ElementStates.IsEmpty))
+                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.Layer).IsEmpty)
                 {
-                    if (slot.GetLayer(context.Layer).Element.Category == ElementCategory.Gas)
+                    if (slot.GetLayer(context.Layer).Element.Category is ElementCategory.Gas)
                     {
                         continue;
                     }
 
-                    switch (slot.GetLayer(context.Layer).Element.Index)
+                    switch (slot.GetLayer(context.Layer).ElementIndex)
                     {
                         case ElementIndex.Water:
                         case ElementIndex.Ice:

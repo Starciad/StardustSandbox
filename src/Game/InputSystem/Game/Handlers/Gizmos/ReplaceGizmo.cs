@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Databases;
-using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
@@ -29,7 +27,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            ReplaceElements(ElementDatabase.GetElement((ElementIndex)contentIndex), targetPoints);
+                            ReplaceElements((ElementIndex)contentIndex, targetPoints);
                             break;
 
                         case WorldModificationType.Removing:
@@ -50,11 +48,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         // ============================================ //
         // Elements
 
-        private void ReplaceElements(Element element, IEnumerable<Point> positions)
+        private void ReplaceElements(ElementIndex elementIndex, IEnumerable<Point> positions)
         {
             foreach (Point position in positions)
             {
-                this.World.ReplaceElement(position, this.Pen.Layer, element);
+                this.World.ReplaceElement(position, this.Pen.Layer, elementIndex);
             }
         }
 

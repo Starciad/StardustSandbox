@@ -39,14 +39,13 @@ namespace StardustSandbox.Elements.Energies
                 }
 
                 SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.Layer);
-                Element element = slotLayer.Element;
 
-                if (element.Category == ElementCategory.Gas)
+                if (slotLayer.Element.Category is ElementCategory.Gas)
                 {
                     continue;
                 }
 
-                switch (element.Index)
+                switch (slotLayer.ElementIndex)
                 {
                     case ElementIndex.LightningBody:
                     case ElementIndex.LightningHead:
@@ -59,7 +58,7 @@ namespace StardustSandbox.Elements.Energies
                     case ElementIndex.Water:
                     case ElementIndex.Snow:
                     case ElementIndex.Ice:
-                        if (slotLayer.States.HasFlag(ElementStates.IsFalling))
+                        if (slotLayer.HasState(ElementStates.IsFalling))
                         {
                             continue;
                         }

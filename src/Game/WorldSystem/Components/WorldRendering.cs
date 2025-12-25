@@ -7,7 +7,6 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Assets;
-using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.World;
 using StardustSandbox.InputSystem.Game;
@@ -52,12 +51,12 @@ namespace StardustSandbox.WorldSystem.Components
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
                     {
-                        if (this.DrawBackgroundElements && !value.Background.HasState(ElementStates.IsEmpty))
+                        if (this.DrawBackgroundElements && !value.Background.IsEmpty)
                         {
                             DrawSlotLayer(spriteBatch, value.Position, Layer.Background, value, value.GetLayer(Layer.Background).Element, gameplaySettings);
                         }
 
-                        if (this.DrawForegroundElements && !value.Foreground.HasState(ElementStates.IsEmpty))
+                        if (this.DrawForegroundElements && !value.Foreground.IsEmpty)
                         {
                             DrawSlotLayer(spriteBatch, value.Position, Layer.Foreground, value, value.GetLayer(Layer.Foreground).Element, gameplaySettings);
                         }

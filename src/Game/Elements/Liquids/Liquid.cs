@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Databases;
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
-using StardustSandbox.Extensions;
 using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
 
@@ -42,12 +42,16 @@ namespace StardustSandbox.Elements.Liquids
 
         private bool TrySwappingElements(ElementContext context, Point position, SlotLayer belowLayer)
         {
-            if (belowLayer.Element.Category == ElementCategory.Gas)
+            if (belowLayer.IsEmpty)
+            {
+                return false;
+            }
+            else if (belowLayer.Element.Category is ElementCategory.Gas)
             {
                 context.SwappingElements(position);
                 return true;
             }
-            else if (belowLayer.Element.Category == ElementCategory.Liquid && belowLayer.Element.DefaultDensity < this.DefaultDensity)
+            else if (belowLayer.Element.Category is ElementCategory.Liquid && belowLayer.Element.DefaultDensity < this.DefaultDensity)
             {
                 context.SwappingElements(position);
                 return true;
@@ -60,8 +64,8 @@ namespace StardustSandbox.Elements.Liquids
 
         private void TryPerformConvection(ElementContext context, Point position, SlotLayer belowLayer)
         {
-            if (belowLayer.HasState(ElementStates.IsEmpty) ||
-                belowLayer.Element.GetType() != GetType() ||
+            if (belowLayer.IsEmpty ||
+                belowLayer.ElementIndex.GetType() != GetType() ||
                 belowLayer.Temperature <= context.SlotLayer.Temperature)
             {
                 return;
@@ -72,15 +76,32 @@ namespace StardustSandbox.Elements.Liquids
 
         private void UpdateHorizontalPosition(ElementContext context)
         {
-            Point left = GetDispersionPosition(context, -1);
-            Point right = GetDispersionPosition(context, 1);
+            // Determine maximum possible dispersion steps in both directions
+            int leftMax = GetMaxDispersionSteps(context, -1);
+            int rightMax = GetMaxDispersionSteps(context, 1);
 
-            float leftDistance = context.Slot.Position.Distance(left);
-            float rightDistance = context.Slot.Position.Distance(right);
+            // No horizontal movement possible
+            if (leftMax == 0 && rightMax == 0)
+            {
+                return;
+            }
 
-            Point targetPosition = leftDistance == rightDistance
-                ? SSRandom.GetBool() ? left : right
-                : leftDistance > rightDistance ? left : right;
+            // Choose direction: prefer the side that offers the greater maximum movement.
+            // If equal, choose randomly.
+            int chosenDirection = leftMax == rightMax ? SSRandom.GetBool() ? -1 : 1 : leftMax > rightMax ? -1 : 1;
+
+            int chosenMax = chosenDirection == -1 ? leftMax : rightMax;
+
+            // Pick a random distance between 1 and chosenMax (inclusive) to avoid predictability
+            int distanceToMove = SSRandom.Range(1, chosenMax);
+
+            // Compute target position moving exactly distanceToMove (or fewer if blocked unexpectedly)
+            Point targetPosition = GetHorizontalDispersionPosition(context, chosenDirection, distanceToMove);
+
+            if (targetPosition == context.Slot.Position)
+            {
+                return;
+            }
 
             if (context.IsEmptySlotLayer(targetPosition, context.Layer))
             {
@@ -92,24 +113,65 @@ namespace StardustSandbox.Elements.Liquids
             }
         }
 
-        private Point GetDispersionPosition(ElementContext context, int direction)
+        private int GetMaxDispersionSteps(ElementContext context, in int direction)
+        {
+            Point checkPos = context.Slot.Position;
+            int steps = 0;
+
+            while (steps < this.DefaultDispersionRate)
+            {
+                Point nextPosition = new(checkPos.X + direction, checkPos.Y);
+
+                if (!context.TryGetElement(nextPosition, context.Layer, out ElementIndex index))
+                {
+                    // No element entry found -> treat as traversable
+                    steps++;
+                    checkPos = nextPosition;
+                    continue;
+                }
+
+                // If the next position is an empty slot layer or contains a liquid/gas element, it is traversable
+                if (context.IsEmptySlotLayer(nextPosition, context.Layer) ||
+                    (index is not ElementIndex.None && ElementDatabase.GetElement(index).Category is ElementCategory.Liquid or ElementCategory.Gas))
+                {
+                    steps++;
+                    checkPos = nextPosition;
+                    continue;
+                }
+
+                // Blocked by a non-traversable element
+                break;
+            }
+
+            return steps;
+        }
+
+        private static Point GetHorizontalDispersionPosition(ElementContext context, in int direction, in int stepsToMove)
         {
             Point dispersionPosition = context.Slot.Position;
+            int steps = 0;
 
-            for (int i = 0; i < this.DefaultDispersionRate; i++)
+            while (steps < stepsToMove)
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
-                Element nextElement = context.GetElement(nextPosition, context.Layer);
-
-                if (context.IsEmptySlotLayer(nextPosition, context.Layer) || (nextElement != null && (nextElement.Category == ElementCategory.Liquid || nextElement.Category == ElementCategory.Gas)))
+                if (!context.TryGetElement(nextPosition, context.Layer, out ElementIndex index))
                 {
                     dispersionPosition = nextPosition;
+                    steps++;
+                    continue;
                 }
-                else
+
+                // Can disperse to the next position
+                if (context.IsEmptySlotLayer(nextPosition, context.Layer) || (index is not ElementIndex.None && ElementDatabase.GetElement(index).Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
-                    break;
+                    dispersionPosition = nextPosition;
+                    steps++;
+                    continue;
                 }
+
+                // Blocked
+                break;
             }
 
             return dispersionPosition;

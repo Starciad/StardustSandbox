@@ -47,7 +47,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Devourer:
                     case ElementIndex.Void:

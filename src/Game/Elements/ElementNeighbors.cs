@@ -52,7 +52,7 @@ namespace StardustSandbox.Elements
 
             for (int i = 0; i < this.Length; i++)
             {
-                if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).Element.Index == elementIndex)
+                if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).ElementIndex == elementIndex)
                 {
                     count++;
                 }
@@ -63,9 +63,7 @@ namespace StardustSandbox.Elements
 
         internal bool IsNeighborLayerOccupied(int index, Layer layer)
         {
-            return HasNeighbor(index) &&
-                   !GetSlotLayer(index, layer).HasState(ElementStates.IsEmpty) &&
-                   GetSlotLayer(index, layer).Element != null;
+            return HasNeighbor(index) && !GetSlotLayer(index, layer).IsEmpty;
         }
 
         public void Reset()

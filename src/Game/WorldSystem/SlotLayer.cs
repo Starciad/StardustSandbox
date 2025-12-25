@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Databases;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Extensions;
@@ -9,15 +10,21 @@ namespace StardustSandbox.WorldSystem
 {
     public sealed class SlotLayer
     {
-        internal Element Element => this.element;
-        internal Element StoredElement => this.storedElement;
+        internal bool IsEmpty => this.elementIndex == ElementIndex.None;
+        internal bool HasStoredElement => this.storedElementIndex != ElementIndex.None;
+
+        internal Element Element => ElementDatabase.GetElement(this.elementIndex);
+        internal Element StoredElement => ElementDatabase.GetElement(this.storedElementIndex);
+
+        internal ElementIndex ElementIndex => this.elementIndex;
+        internal ElementIndex StoredElementIndex => this.storedElementIndex;
         internal ElementStates States => this.states;
         internal float Temperature => this.temperature;
         internal Color ColorModifier => this.colorModifier;
         internal UpdateCycleFlag StepCycleFlag => this.stepCycleFlag;
 
-        private Element element;
-        private Element storedElement;
+        private ElementIndex elementIndex;
+        private ElementIndex storedElementIndex;
         private ElementStates states;
         private float temperature;
         private Color colorModifier;
@@ -28,13 +35,14 @@ namespace StardustSandbox.WorldSystem
             Reset();
         }
 
-        internal void Instantiate(Element value)
+        internal void Instantiate(in ElementIndex index)
         {
             ClearStates();
 
-            this.element = value;
-            this.storedElement = null;
-            this.temperature = value.DefaultTemperature;
+            this.elementIndex = index;
+            this.storedElementIndex = ElementIndex.None;
+
+            this.temperature = this.Element.DefaultTemperature;
             this.colorModifier = Color.White;
             this.stepCycleFlag = UpdateCycleFlag.None;
         }
@@ -42,10 +50,10 @@ namespace StardustSandbox.WorldSystem
         internal void Destroy()
         {
             ClearStates();
-            SetState(ElementStates.IsEmpty);
 
-            this.element = null;
-            this.storedElement = null;
+            this.elementIndex = ElementIndex.None;
+            this.storedElementIndex = ElementIndex.None;
+
             this.temperature = 0;
             this.colorModifier = Color.White;
             this.stepCycleFlag = UpdateCycleFlag.None;
@@ -53,8 +61,8 @@ namespace StardustSandbox.WorldSystem
 
         internal void Copy(in SlotLayer valueToCopy)
         {
-            this.element = valueToCopy.element;
-            this.storedElement = valueToCopy.storedElement;
+            this.elementIndex = valueToCopy.elementIndex;
+            this.storedElementIndex = valueToCopy.storedElementIndex;
             this.states = valueToCopy.states;
             this.temperature = valueToCopy.temperature;
             this.colorModifier = valueToCopy.colorModifier;
@@ -76,9 +84,9 @@ namespace StardustSandbox.WorldSystem
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
-        internal void SetStoredElement(Element value)
+        internal void SetStoredElement(in ElementIndex index)
         {
-            this.storedElement = value;
+            this.storedElementIndex = index;
         }
 
         public void Reset()

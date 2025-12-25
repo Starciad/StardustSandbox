@@ -31,7 +31,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static void TryInstantiateStoredElement(ElementContext context)
         {
-            if (context.GetStoredElement() == null || !TryGetValidPosition(context, out Point validPositon))
+            if (context.GetStoredElement() is not ElementIndex.None || !TryGetValidPosition(context, out Point validPositon))
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.GetStoredElement() != null)
+            if (context.GetStoredElement() is not ElementIndex.None)
             {
                 return;
             }
@@ -89,7 +89,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Clone:
                     case ElementIndex.Wall:
@@ -110,7 +110,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 return;
             }
 
-            context.SetStoredElement(layerBuffer.GetRandomItem().Element);
+            context.SetStoredElement(layerBuffer.GetRandomItem().ElementIndex);
         }
     }
 }

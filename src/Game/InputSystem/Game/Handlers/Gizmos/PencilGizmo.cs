@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Databases;
-using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
@@ -30,7 +29,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            DrawElements(ElementDatabase.GetElement((ElementIndex)contentIndex), targetPoints);
+                            DrawElements((ElementIndex)contentIndex, targetPoints);
                             break;
 
                         case WorldModificationType.Removing:
@@ -68,11 +67,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         // ============================================ //
         // Elements
 
-        private void DrawElements(Element element, IEnumerable<Point> positions)
+        private void DrawElements(ElementIndex elementIndex, IEnumerable<Point> positions)
         {
             foreach (Point position in positions)
             {
-                this.World.InstantiateElement(position, this.Pen.Layer, element);
+                this.World.InstantiateElement(position, this.Pen.Layer, elementIndex);
             }
         }
 

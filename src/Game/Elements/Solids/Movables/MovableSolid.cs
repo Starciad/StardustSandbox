@@ -3,6 +3,7 @@
 using StardustSandbox.Elements.Utilities;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Solids.Movables
 {
@@ -49,12 +50,12 @@ namespace StardustSandbox.Elements.Solids.Movables
                 return true;
             }
 
-            if (context.TryGetElement(position, context.Layer, out Element value))
+            if (context.TryGetSlotLayer(position, out SlotLayer slotLayer))
             {
-                switch (value.Category)
+                switch (slotLayer.Element.Category)
                 {
                     case ElementCategory.Liquid:
-                        if (this.DefaultDensity > value.DefaultDensity && context.TrySwappingElements(position))
+                        if (this.DefaultDensity > slotLayer.Element.DefaultDensity && context.TrySwappingElements(position))
                         {
                             return true;
                         }

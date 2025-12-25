@@ -69,12 +69,12 @@ namespace StardustSandbox.Elements
             spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
         }
 
-        private static void UpdateSpriteSlice(ElementContext context, Element element, in int index, in Point position)
+        private static void UpdateSpriteSlice(ElementContext context, in ElementIndex elementIndex, in int index, in Point position)
         {
-            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, element, index, position));
+            SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, elementIndex, index, position));
         }
 
-        private static byte GetBlobValueFromTargetPositions(ElementContext context, Element element, in int index, in Point position)
+        private static byte GetBlobValueFromTargetPositions(ElementContext context, in ElementIndex elementIndex, in int index, in Point position)
         {
             byte result = 0;
 
@@ -84,10 +84,10 @@ namespace StardustSandbox.Elements
             for (int i = 0; i < blobInfos.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(blobInfos[i].Position, context.Layer, out Element value))
+                if (context.TryGetElement(blobInfos[i].Position, context.Layer, out ElementIndex targetElement))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
-                    if (value != element)
+                    if (targetElement != elementIndex)
                     {
                         continue;
                     }
@@ -217,7 +217,7 @@ namespace StardustSandbox.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
+        private static void DrawBlobElementRoutine(ElementContext context, in ElementIndex elementIndex, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -236,7 +236,7 @@ namespace StardustSandbox.Elements
 
             for (int i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
-                UpdateSpriteSlice(context, element, i, context.Slot.Position);
+                UpdateSpriteSlice(context, elementIndex, i, context.Slot.Position);
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.Elements),
                     spritePositions[i],
@@ -289,7 +289,7 @@ namespace StardustSandbox.Elements
                     break;
 
                 case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element, spriteBatch, textureOriginOffset, gameplaySettings);
+                    DrawBlobElementRoutine(context, element.Index, spriteBatch, textureOriginOffset, gameplaySettings);
                     break;
 
                 default:
