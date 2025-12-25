@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Camera;
@@ -198,7 +199,7 @@ namespace StardustSandbox
         {
             base.OnActivated(sender, args);
             GameHandler.SetState(GameStates.IsFocused);
-            SongEngine.Resume();
+            MediaPlayer.Resume();
         }
 
         // Event occurs when the game window stops having focus.
@@ -206,7 +207,7 @@ namespace StardustSandbox
         {
             base.OnDeactivated(sender, args);
             GameHandler.RemoveState(GameStates.IsFocused);
-            SongEngine.Pause();
+            MediaPlayer.Pause();
         }
 
         // Event occurs when the game process is finished.

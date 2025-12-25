@@ -236,12 +236,12 @@ namespace StardustSandbox.UI.Common.Menus
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 this.menuButtonLabels[i].Margin = Vector2.Zero;
-                this.buttonAnimationOffsets[i] = Convert.ToSingle(SSRandom.GetDouble() * MathF.PI * 2.0f);
+                this.buttonAnimationOffsets[i] = SSRandom.GetFloat() * MathF.PI * 2.0f;
             }
 
-            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.V01_T01_CanvasOfSilence)
+            if (SongEngine.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.Volume_01_Track_01)
             {
-                SongEngine.Play(SongIndex.V01_T01_CanvasOfSilence);
+                SongEngine.Play(SongIndex.Volume_01_Track_01);
             }
         }
 

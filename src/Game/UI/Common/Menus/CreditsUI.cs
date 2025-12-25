@@ -343,7 +343,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.world.CanUpdate = false;
             this.world.CanDraw = false;
 
-            SongEngine.Play(SongIndex.V01_T02_EndlessRebirth);
+            SongEngine.Play(SongIndex.Volume_01_Track_02);
 
             this.rootContainer.Margin = new(0.0f, ScreenConstants.SCREEN_HEIGHT / 2.0f);
 

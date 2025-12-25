@@ -5,10 +5,11 @@
         None = -1,
 
         // Volume 01
-        V01_T01_CanvasOfSilence,
-        V01_T02_EndlessRebirth,
-        V01_T03_LonelyHeart,
-        V01_T04_BuildingSomethingForYou,
-        V01_T05_ThoughtsFromADistantPlace
+        Volume_01_Track_01,
+        Volume_01_Track_02,
+        Volume_01_Track_03,
+        Volume_01_Track_04,
+        Volume_01_Track_05,
+        Volume_01_Track_06
     }
 }

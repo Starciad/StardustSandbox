@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Audio;
+﻿using Microsoft.Xna.Framework.Media;
+
+using StardustSandbox.Audio;
 using StardustSandbox.Camera;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Backgrounds;
@@ -18,7 +20,7 @@ namespace StardustSandbox
 
         internal static void StartGame(AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
-            SongEngine.Stop();
+            MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
 
             uiManager.OpenGUI(UIIndex.Hud);
