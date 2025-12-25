@@ -36,7 +36,7 @@ namespace StardustSandbox.Elements.Solids.Movables.Explosives
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Fire:
                     case ElementIndex.Lava:

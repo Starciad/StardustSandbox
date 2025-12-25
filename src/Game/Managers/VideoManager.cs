@@ -22,13 +22,11 @@ namespace StardustSandbox.Managers
         internal VideoManager(GraphicsDeviceManager graphicsDeviceManager)
         {
             this.graphicsDeviceManager = graphicsDeviceManager;
-            ApplySettings();
+            ApplySettings(SettingsSerializer.Load<VideoSettings>());
         }
 
-        internal void ApplySettings()
+        internal void ApplySettings(in VideoSettings videoSettings)
         {
-            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
-
             _ = this.GameWindow?.IsBorderless = videoSettings.Borderless;
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)

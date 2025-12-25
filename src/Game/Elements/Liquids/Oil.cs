@@ -13,7 +13,7 @@ namespace StardustSandbox.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Lava:
                     case ElementIndex.Fire:

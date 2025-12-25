@@ -37,12 +37,12 @@ namespace StardustSandbox.WorldSystem.Components
                             continue;
                         }
 
-                        if (!slot.Foreground.HasState(ElementStates.IsEmpty))
+                        if (!slot.Foreground.IsEmpty)
                         {
                             UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
                         }
 
-                        if (!slot.Background.HasState(ElementStates.IsEmpty))
+                        if (!slot.Background.IsEmpty)
                         {
                             UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
                         }
@@ -56,15 +56,14 @@ namespace StardustSandbox.WorldSystem.Components
         private void UpdateSlotLayerTarget(GameTime gameTime, in Point position, in Layer layer, Slot slot)
         {
             SlotLayer slotLayer = slot.GetLayer(layer);
-            Element element = slotLayer.Element;
 
-            if (slotLayer == null || element == null)
+            if (slotLayer.IsEmpty)
             {
                 return;
             }
 
             this.elementUpdateContext.UpdateInformation(position, layer, slot);
-            element.SetContext(this.elementUpdateContext);
+            slotLayer.Element.SetContext(this.elementUpdateContext);
 
             if (slotLayer.StepCycleFlag == this.stepCycleFlag)
             {
@@ -72,7 +71,7 @@ namespace StardustSandbox.WorldSystem.Components
             }
 
             slotLayer.NextStepCycle();
-            element.Steps(gameTime);
+            slotLayer.Element.Steps(gameTime);
         }
     }
 }

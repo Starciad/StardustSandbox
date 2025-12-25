@@ -2,7 +2,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -46,12 +45,12 @@ namespace StardustSandbox.Serialization.Saving.Data
         {
             this.Position = slot.Position;
 
-            if (!slot.Foreground.HasState(ElementStates.IsEmpty))
+            if (!slot.Foreground.IsEmpty)
             {
                 this.ForegroundLayer = new(slot.Foreground);
             }
 
-            if (!slot.Background.HasState(ElementStates.IsEmpty))
+            if (!slot.Background.IsEmpty)
             {
                 this.BackgroundLayer = new(slot.Background);
             }

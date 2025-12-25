@@ -13,7 +13,7 @@ namespace StardustSandbox.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).Element.Index)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:

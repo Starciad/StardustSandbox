@@ -32,8 +32,7 @@ namespace StardustSandbox.Managers
         internal void Initialize()
         {
             this.cursorTexture = AssetDatabase.GetTexture(TextureIndex.Cursors);
-
-            ApplySettings();
+            ApplySettings(SettingsSerializer.Load<CursorSettings>());
         }
 
         internal void Update()
@@ -50,10 +49,8 @@ namespace StardustSandbox.Managers
             spriteBatch.Draw(this.cursorTexture, this.position, cursorClipAreas[0], this.color, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
         }
 
-        internal void ApplySettings()
+        internal void ApplySettings(in CursorSettings cursorSettings)
         {
-            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
-
             this.color = cursorSettings.Color;
             this.backgroundColor = cursorSettings.BackgroundColor;
             this.scale = new(cursorSettings.Scale);

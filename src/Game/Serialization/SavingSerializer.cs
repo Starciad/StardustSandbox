@@ -178,16 +178,16 @@ namespace StardustSandbox.Serialization
 
             void ProcessLayer(SlotLayer layer)
             {
-                if (layer.HasState(ElementStates.IsEmpty))
+                if (layer.IsEmpty)
                 {
                     return;
                 }
 
-                _ = elements.Add(layer.Element.Index);
+                _ = elements.Add(layer.ElementIndex);
 
-                if (layer.StoredElement != null)
+                if (layer.StoredElementIndex is not ElementIndex.None)
                 {
-                    _ = elements.Add(layer.StoredElement.Index);
+                    _ = elements.Add(layer.StoredElementIndex);
                 }
             }
         }

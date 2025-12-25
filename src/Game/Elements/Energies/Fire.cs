@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Databases;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Randomness;
@@ -36,9 +37,10 @@ namespace StardustSandbox.Elements.Energies
             }
             else
             {
-                Element targetElement = context.GetElement(targetPosition, context.Layer);
+                ElementIndex targetElementIndex = context.GetElement(targetPosition, context.Layer);
+                Element targetElement = ElementDatabase.GetElement(targetElementIndex);
 
-                if (targetElement != null && (targetElement.Category == ElementCategory.MovableSolid || targetElement.Category == ElementCategory.Liquid || targetElement.Category == ElementCategory.Gas))
+                if (targetElementIndex is not ElementIndex.None && (targetElement.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     context.SwappingElements(targetPosition);
                 }
@@ -54,12 +56,12 @@ namespace StardustSandbox.Elements.Energies
                     continue;
                 }
 
-                if (!neighbors.GetSlotLayer(i, Layer.Foreground).HasState(ElementStates.IsEmpty))
+                if (!neighbors.GetSlotLayer(i, Layer.Foreground).IsEmpty)
                 {
                     IgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Foreground), Layer.Foreground);
                 }
 
-                if (!neighbors.GetSlotLayer(i, Layer.Background).HasState(ElementStates.IsEmpty))
+                if (!neighbors.GetSlotLayer(i, Layer.Background).IsEmpty)
                 {
                     IgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Background), Layer.Background);
                 }

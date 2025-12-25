@@ -8,7 +8,7 @@ namespace StardustSandbox.Elements.Solids.Movables
         {
             if (currentValue >= 0.0f)
             {
-                if (context.GetStoredElement() == null)
+                if (context.GetStoredElement() is ElementIndex.None)
                 {
                     context.ReplaceElement(ElementIndex.Water);
                 }

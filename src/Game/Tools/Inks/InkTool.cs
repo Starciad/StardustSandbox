@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Tools.Inks
@@ -12,7 +11,7 @@ namespace StardustSandbox.Tools.Inks
         internal override void Execute(ToolContext context)
         {
             if (!context.World.TryGetSlot(context.Position, out Slot slot) ||
-                slot.GetLayer(context.Layer).HasState(ElementStates.IsEmpty))
+                slot.GetLayer(context.Layer).IsEmpty)
             {
                 return;
             }

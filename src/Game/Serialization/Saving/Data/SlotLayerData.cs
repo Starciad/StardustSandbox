@@ -16,6 +16,9 @@ namespace StardustSandbox.Serialization.Saving.Data
         [Key("ElementIndex")]
         public ElementIndex ElementIndex { get; init; }
 
+        [Key("StoredElementIndex")]
+        public ElementIndex StoredElementIndex { get; init; }
+
         [Key("Temperature")]
         public float Temperature { get; init; }
 
@@ -37,9 +40,6 @@ namespace StardustSandbox.Serialization.Saving.Data
         [Key("StepCycleFlag")]
         public UpdateCycleFlag StepCycleFlag { get; init; }
 
-        [Key("StoredElementIndex")]
-        public ElementIndex StoredElementIndex { get; init; }
-
         [IgnoreMember]
         public Color ColorModifier
         {
@@ -53,6 +53,7 @@ namespace StardustSandbox.Serialization.Saving.Data
                 this.ColorModifierA = value.A;
             }
         }
+
         public SlotLayerData()
         {
 
@@ -60,15 +61,15 @@ namespace StardustSandbox.Serialization.Saving.Data
 
         public SlotLayerData(SlotLayer slotLayer)
         {
-            this.ElementIndex = slotLayer.Element.Index;
+            this.ElementIndex = slotLayer.ElementIndex;
             this.Temperature = slotLayer.Temperature;
             this.States = slotLayer.States;
             this.ColorModifier = slotLayer.ColorModifier;
             this.StepCycleFlag = slotLayer.StepCycleFlag;
 
-            if (slotLayer.StoredElement != null)
+            if (slotLayer.StoredElementIndex != ElementIndex.None)
             {
-                this.StoredElementIndex = slotLayer.StoredElement.Index;
+                this.StoredElementIndex = slotLayer.StoredElementIndex;
             }
         }
     }

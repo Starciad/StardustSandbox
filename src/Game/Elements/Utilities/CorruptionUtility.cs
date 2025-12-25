@@ -87,7 +87,7 @@ namespace StardustSandbox.Elements.Utilities
 
         private static void InfectSlotLayer(ElementContext context, in SlotTarget slotTarget)
         {
-            Element targetElement = slotTarget.Layer == Layer.Foreground
+            Element targetElement = slotTarget.Layer is Layer.Foreground
                 ? slotTarget.Slot.Foreground.Element
                 : slotTarget.Slot.Background.Element;
 
@@ -114,7 +114,7 @@ namespace StardustSandbox.Elements.Utilities
                     break;
             }
 
-            context.SetStoredElement(slotTarget.Slot.Position, slotTarget.Layer, targetElement);
+            context.SetStoredElement(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
         }
     }
 }

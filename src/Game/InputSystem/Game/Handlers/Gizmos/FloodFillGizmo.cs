@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Databases;
-using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
@@ -38,11 +36,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            FloodFillElements(ElementDatabase.GetElement((ElementIndex)contentIndex), position, false);
+                            FloodFillElements((ElementIndex)contentIndex, position, false);
                             break;
 
                         case WorldModificationType.Removing:
-                            FloodFillElements(ElementDatabase.GetElement((ElementIndex)contentIndex), position, true);
+                            FloodFillElements((ElementIndex)contentIndex, position, true);
                             break;
 
                         default:
@@ -59,9 +57,9 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         // ============================================ //
         // Elements
 
-        private void FloodFillElements(Element element, Point position, bool isErasing)
+        private void FloodFillElements(ElementIndex elementIndex, Point position, bool isErasing)
         {
-            if (!IsValidStart(position, element, isErasing))
+            if (!IsValidStart(position, elementIndex, isErasing))
             {
                 return;
             }
@@ -73,7 +71,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             _ = this.floodFillVisited.Add(position);
 
             // Determines the initial target
-            Element targetElement = this.World.IsEmptySlotLayer(position, this.Pen.Layer) ? null : this.World.GetElement(position, this.Pen.Layer);
+            ElementIndex targetElement = this.World.IsEmptySlotLayer(position, this.Pen.Layer) ? ElementIndex.None : this.World.GetElement(position, this.Pen.Layer);
 
             while (this.floodFillQueue.Count > 0)
             {
@@ -82,7 +80,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                 // Determines action based on context
                 if (ShouldProcessPosition(current, targetElement, isErasing))
                 {
-                    ProcessPosition(current, element, isErasing);
+                    ProcessPosition(current, elementIndex, isErasing);
                 }
 
                 // Add neighbors to the floodFillQueue
@@ -97,50 +95,50 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             }
         }
 
-        private bool IsValidStart(Point position, Element element, bool isErasing)
+        private bool IsValidStart(Point position, ElementIndex elementIndex, bool isErasing)
         {
             return isErasing
                 ? !this.World.IsEmptySlotLayer(position, this.Pen.Layer)
-                : this.World.IsEmptySlotLayer(position, this.Pen.Layer) || this.World.GetElement(position, this.Pen.Layer) != element;
+                : this.World.IsEmptySlotLayer(position, this.Pen.Layer) || this.World.GetElement(position, this.Pen.Layer) != elementIndex;
         }
 
-        private bool IsValidNeighbor(Point neighborPosition, Element targetElement, bool isErasing)
+        private bool IsValidNeighbor(Point neighborPosition, ElementIndex targetElementIndex, bool isErasing)
         {
             if (isErasing)
             {
                 // Valid neighborPosition to delete: must contain the same target element
-                return !this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.GetElement(neighborPosition, this.Pen.Layer) == targetElement;
+                return !this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.GetElement(neighborPosition, this.Pen.Layer) == targetElementIndex;
             }
 
-            if (targetElement == null)
+            if (targetElementIndex is ElementIndex.None)
             {
                 // Valid neighborPosition to fill empty area
                 return this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer);
             }
 
             // Valid neighborPosition to replace: must contain the same target element
-            return !this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.GetElement(neighborPosition, this.Pen.Layer) == targetElement;
+            return !this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.GetElement(neighborPosition, this.Pen.Layer) == targetElementIndex;
         }
 
-        private bool ShouldProcessPosition(Point position, Element targetElement, bool isErasing)
+        private bool ShouldProcessPosition(Point position, ElementIndex targetElementIndex, bool isErasing)
         {
             if (isErasing)
             {
                 // Erase: The slot must contain the same target element
-                return !this.World.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.GetElement(position, this.Pen.Layer) == targetElement;
+                return !this.World.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.GetElement(position, this.Pen.Layer) == targetElementIndex;
             }
 
-            if (targetElement == null)
+            if (targetElementIndex is ElementIndex.None)
             {
                 // Fill empty areas
                 return this.World.IsEmptySlotLayer(position, this.Pen.Layer);
             }
 
             // Replace elements that match the target
-            return !this.World.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.GetElement(position, this.Pen.Layer) == targetElement;
+            return !this.World.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.GetElement(position, this.Pen.Layer) == targetElementIndex;
         }
 
-        private void ProcessPosition(Point position, Element element, bool isErasing)
+        private void ProcessPosition(Point position, ElementIndex index, bool isErasing)
         {
             if (isErasing)
             {
@@ -148,11 +146,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             }
             else if (this.World.IsEmptySlotLayer(position, this.Pen.Layer))
             {
-                this.World.InstantiateElement(position, this.Pen.Layer, element); // Insert new element
+                this.World.InstantiateElement(position, this.Pen.Layer, index); // Insert new element
             }
             else
             {
-                this.World.ReplaceElement(position, this.Pen.Layer, element); // Replace the element
+                this.World.ReplaceElement(position, this.Pen.Layer, index); // Replace the element
             }
         }
 

@@ -331,5 +331,10 @@ namespace StardustSandbox.Randomness
         {
             return (double)random.NextDouble();
         }
+
+        internal static float GetFloat()
+        {
+            return Convert.ToSingle(random.NextDouble());
+        }
     }
 }

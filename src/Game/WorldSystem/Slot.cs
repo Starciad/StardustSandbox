@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
@@ -11,8 +10,8 @@ namespace StardustSandbox.WorldSystem
     {
         internal bool IsEmpty => this.IsBackgroundEmpty && this.IsForegroundEmpty;
 
-        internal bool IsForegroundEmpty => this.Foreground.HasState(ElementStates.IsEmpty);
-        internal bool IsBackgroundEmpty => this.Background.HasState(ElementStates.IsEmpty);
+        internal bool IsForegroundEmpty => this.Foreground.IsEmpty;
+        internal bool IsBackgroundEmpty => this.Background.IsEmpty;
 
         internal Point Position => this.position;
 
@@ -39,10 +38,9 @@ namespace StardustSandbox.WorldSystem
             this.position = position;
         }
 
-        internal void Instantiate(in Point position, in Layer layer, Element value)
+        internal void Instantiate(in Layer layer, in ElementIndex index)
         {
-            this.position = position;
-            GetLayer(layer).Instantiate(value);
+            GetLayer(layer).Instantiate(index);
         }
 
         internal void Destroy(in Layer layer)
@@ -65,9 +63,9 @@ namespace StardustSandbox.WorldSystem
             GetLayer(layer).SetColorModifier(value);
         }
 
-        internal void SetStoredElement(in Layer layer, Element value)
+        internal void SetStoredElement(in Layer layer, in ElementIndex index)
         {
-            GetLayer(layer).SetStoredElement(value);
+            GetLayer(layer).SetStoredElement(index);
         }
 
         internal bool HasState(in Layer layer, in ElementStates value)

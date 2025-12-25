@@ -1,5 +1,6 @@
 ﻿using StardustSandbox.IO;
 using StardustSandbox.Localization;
+using StardustSandbox.Net;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 
@@ -26,6 +27,9 @@ namespace StardustSandbox
         [STAThread]
         private static void Main(string[] args)
         {
+            HttpClientProvider.Initialize();
+            UpdateChecker.StartCheck();
+
 #if SS_WINDOWS
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 #endif
@@ -54,6 +58,8 @@ namespace StardustSandbox
                 }
             }
 #endif
+
+            HttpClientProvider.Dispose();
         }
 
         private static void InitializeEnvironment()

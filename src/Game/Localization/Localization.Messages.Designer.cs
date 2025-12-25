@@ -178,6 +178,15 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a New update available!.
+        /// </summary>
+        internal static string IsUpdateAvailable {
+            get {
+                return ResourceManager.GetString("IsUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a No description..
         /// </summary>
         internal static string NoDescription {
