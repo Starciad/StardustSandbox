@@ -12,6 +12,7 @@ using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.Net;
 using StardustSandbox.Randomness;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
@@ -24,6 +25,7 @@ namespace StardustSandbox.UI.Common.Menus
     internal sealed class MainUI : UIBase
     {
         private Image background, gameTitle;
+        private Label updateLabel;
 
         private float animationTime;
 
@@ -99,8 +101,22 @@ namespace StardustSandbox.UI.Common.Menus
             });
         }
 
-        private static void BuildInfos(Container root)
+        private void BuildInfos(Container root)
         {
+            this.updateLabel = new()
+            {
+                Margin = new(-16.0f, 16.0f),
+                Scale = new(0.075f),
+                Alignment = UIDirection.Northeast,
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = Localization_Messages.IsUpdateAvailable,
+
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderDirections = LabelBorderDirection.All,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
+            };
+
             Label versionLabel = new()
             {
                 Margin = new(-32.0f, -32.0f),
@@ -121,6 +137,7 @@ namespace StardustSandbox.UI.Common.Menus
                 TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
 
+            root.AddChild(this.updateLabel);
             root.AddChild(versionLabel);
             root.AddChild(copyrightLabel);
         }
@@ -175,7 +192,8 @@ namespace StardustSandbox.UI.Common.Menus
         internal override void Update(GameTime gameTime)
         {
             UpdateAnimations(gameTime);
-            UpdateButtons();
+            UpdateMenuButtons();
+            UpdateUpdateButton();
 
             base.Update(gameTime);
         }
@@ -202,7 +220,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        private void UpdateButtons()
+        private void UpdateMenuButtons()
         {
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
@@ -221,6 +239,25 @@ namespace StardustSandbox.UI.Common.Menus
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateUpdateButton()
+        {
+            if (UpdateChecker.IsUpdateAvailable)
+            {
+                this.updateLabel.CanDraw = true;
+                this.updateLabel.Color = Interaction.OnMouseOver(this.updateLabel) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+
+                if (Interaction.OnMouseLeftClick(this.updateLabel))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    UpdateChecker.OpenItchPage();
+                }
+            }
+            else
+            {
+                this.updateLabel.CanDraw = false;
             }
         }
 
