@@ -37,10 +37,14 @@ namespace StardustSandbox.Elements.Energies
             }
             else
             {
-                ElementIndex targetElementIndex = context.GetElement(targetPosition, context.Layer);
-                Element targetElement = ElementDatabase.GetElement(targetElementIndex);
+                if (!context.TryGetElement(targetPosition, context.Layer, out ElementIndex index))
+                {
+                    return;
+                }
 
-                if (targetElementIndex is not ElementIndex.None && (targetElement.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
+                Element targetElement = ElementDatabase.GetElement(index);
+
+                if (index is not ElementIndex.None && (targetElement.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     context.SwappingElements(targetPosition);
                 }
