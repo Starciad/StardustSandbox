@@ -31,7 +31,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
 
         private static void TryInstantiateStoredElement(ElementContext context)
         {
-            if (context.GetStoredElement() is not ElementIndex.None || !TryGetValidPosition(context, out Point validPositon))
+            if (context.GetStoredElement() is ElementIndex.None || !TryGetValidPosition(context, out Point validPositon))
             {
                 return;
             }
