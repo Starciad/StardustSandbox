@@ -58,13 +58,5 @@ namespace StardustSandbox.Net
             isUpdateAvailable = false;
             latestVersion = null;
         }
-
-        internal static void OpenItchPage()
-        {
-            _ = Process.Start(new ProcessStartInfo(NetConstants.ITCH_URL)
-            {
-                UseShellExecute = true,
-            });
-        }
     }
 }

@@ -252,7 +252,7 @@ namespace StardustSandbox.UI.Common.Menus
                 if (Interaction.OnMouseLeftClick(this.updateLabel))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    UpdateChecker.OpenItchPage();
+                    BrowserUtility.OpenUrl(NetConstants.ITCH_URL);
                 }
             }
             else
