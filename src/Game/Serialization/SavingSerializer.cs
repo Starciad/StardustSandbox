@@ -23,7 +23,11 @@ namespace StardustSandbox.Serialization
 {
     internal static class SavingSerializer
     {
-        private static readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard.WithResolver(ContractlessStandardResolver.Instance);
+        private static readonly MessagePackSerializerOptions options =
+            MessagePackSerializerOptions.Standard
+                .WithResolver(StandardResolver.Instance)
+                .WithSecurity(MessagePackSecurity.UntrustedData)
+                .WithCompression(MessagePackCompression.Lz4BlockArray);
 
         internal static void Save(World world, GraphicsDevice graphicsDevice)
         {
@@ -85,7 +89,7 @@ namespace StardustSandbox.Serialization
 
         private static void Write<T>(ZipArchive zip, string entryName, T data)
         {
-            ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.Optimal);
+            ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.SmallestSize);
 
             using Stream stream = entry.Open();
             MessagePackSerializer.Serialize(stream, data, options);
