@@ -9,6 +9,7 @@ using StardustSandbox.Enums.States;
 using StardustSandbox.InputSystem.Actions;
 using StardustSandbox.InputSystem.Game.Handlers;
 using StardustSandbox.InputSystem.Game.Simulation;
+using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
@@ -34,9 +35,9 @@ namespace StardustSandbox.InputSystem.Game
             this.player = new();
         }
 
-        internal void Initialize(World world)
+        internal void Initialize(ActorManager actorManager, World world)
         {
-            this.worldHandler = new(this.player, this.pen, world);
+            this.worldHandler = new(actorManager, this.pen, this.player, world);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 

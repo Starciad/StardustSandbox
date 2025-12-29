@@ -4,6 +4,7 @@ using StardustSandbox.Camera;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem.Game.Handlers.Gizmos;
 using StardustSandbox.InputSystem.Game.Simulation;
+using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
 using StardustSandbox.Tools;
 using StardustSandbox.WorldSystem;
@@ -25,7 +26,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers
 
         private readonly World world;
 
-        internal WorldHandler(Player player, Pen pen, World world)
+        internal WorldHandler(ActorManager actorManager, Pen pen, Player player, World world)
         {
             this.world = world;
 
@@ -34,11 +35,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers
             this.player = player;
             this.pen = pen;
 
-            this.visualizationGizmo = new(pen, world, this);
-            this.pencilGizmo = new(pen, world, this);
-            this.eraserGizmo = new(pen, world, this);
-            this.floodFillGizmo = new(pen, world, this);
-            this.replaceGizmo = new(pen, world, this);
+            this.visualizationGizmo = new(actorManager, pen, world, this);
+            this.pencilGizmo = new(actorManager, pen, world, this);
+            this.eraserGizmo = new(actorManager, pen, world, this);
+            this.floodFillGizmo = new(actorManager, pen, world, this);
+            this.replaceGizmo = new(actorManager, pen, world, this);
         }
 
         internal void Clear()

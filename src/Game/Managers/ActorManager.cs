@@ -22,9 +22,12 @@ namespace StardustSandbox.Managers
         private readonly Queue<Actor> actorsToAdd = [];
         private readonly Queue<Actor> actorsToRemove = [];
 
-        internal void Create(ActorIndex index)
+        internal Actor Create(ActorIndex index)
         {
-            this.actorsToAdd.Enqueue(ActorDatabase.GetDescriptor(index).Create());
+            Actor actor = ActorDatabase.GetDescriptor(index).Create();
+
+            this.actorsToAdd.Enqueue(actor);
+            return actor;
         }
 
         internal void Destroy(Actor actor)
@@ -165,7 +168,7 @@ namespace StardustSandbox.Managers
             }
         }
 
-        public byte[][] SerializeAll()
+        public byte[][] Serialize()
         {
             byte[][] result = new byte[this.instantiatedActorCount][];
 
@@ -177,7 +180,7 @@ namespace StardustSandbox.Managers
             return result;
         }
 
-        public void DeserializeAll(byte[][] data)
+        public void Deserialize(byte[][] data)
         {
             DestroyAll();
 

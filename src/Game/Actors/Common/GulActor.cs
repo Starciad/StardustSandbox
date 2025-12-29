@@ -39,7 +39,7 @@ namespace StardustSandbox.Actors.Common
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ActorGul), new(this.positionX, this.positionY), null, Color.White, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ActorGul), new(this.positionX, this.positionY), new(0, 0, 32, 32), Color.White, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
         }
 
         internal override ActorData Serialize()

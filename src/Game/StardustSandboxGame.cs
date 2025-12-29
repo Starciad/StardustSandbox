@@ -122,7 +122,7 @@ namespace StardustSandbox
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.inputController.Initialize(this.world);
+            this.inputController.Initialize(this.actorManager, this.world);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);

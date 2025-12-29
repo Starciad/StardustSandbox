@@ -826,19 +826,38 @@ namespace StardustSandbox.WorldSystem
 
         internal bool IsCollideAt(Rectangle rectangle, Layer layer)
         {
-            for (int y = rectangle.Top; y < rectangle.Bottom; y++)
+            if (rectangle.IsEmpty)
             {
-                for (int x = rectangle.Left; x < rectangle.Right; x++)
+                return false;
+            }
+
+            const double size = SpriteConstants.SPRITE_SCALE;
+
+            int startX = (int)Math.Floor(rectangle.Left / size);
+            int endX = (int)Math.Floor((rectangle.Right - 1) / size);
+            int startY = (int)Math.Floor(rectangle.Top / size);
+            int endY = (int)Math.Floor((rectangle.Bottom - 1) / size);
+
+            if (endX < 0 || endY < 0 || startX > this.Information.Size.X - 1 || startY > this.Information.Size.Y - 1)
+            {
+                return false;
+            }
+
+            startX = Math.Max(0, startX);
+            startY = Math.Max(0, startY);
+            endX = Convert.ToInt32(Math.Min(this.Information.Size.X - 1, endX));
+            endY = Convert.ToInt32(Math.Min(this.Information.Size.Y - 1, endY));
+
+            for (int y = startY; y <= endY; y++)
+            {
+                for (int x = startX; x <= endX; x++)
                 {
-                    if (!IsWithinBounds(x, y))
+                    if (this[x, y].GetLayer(layer).ElementIndex is ElementIndex.None)
                     {
                         continue;
                     }
 
-                    if (!IsEmptySlotLayer(new(x, y), layer))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 

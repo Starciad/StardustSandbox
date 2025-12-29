@@ -4,6 +4,7 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
+using StardustSandbox.Managers;
 using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
-        internal FloodFillGizmo(Pen pen, World world, WorldHandler worldHandler) : base(pen, world, worldHandler)
+        internal FloodFillGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
         {
 
         }
@@ -71,7 +72,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             _ = this.floodFillVisited.Add(position);
 
             // Determines the initial target
-            ElementIndex targetElement = this.World.IsEmptySlotLayer(position, this.Pen.Layer) ? ElementIndex.None : this.World.GetElement(position, this.Pen.Layer);
+            ElementIndex targetElement = this.world.IsEmptySlotLayer(position, this.pen.Layer) ? ElementIndex.None : this.world.GetElement(position, this.pen.Layer);
 
             while (this.floodFillQueue.Count > 0)
             {
@@ -98,8 +99,8 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         private bool IsValidStart(Point position, ElementIndex elementIndex, bool isErasing)
         {
             return isErasing
-                ? !this.World.IsEmptySlotLayer(position, this.Pen.Layer)
-                : this.World.IsEmptySlotLayer(position, this.Pen.Layer) || this.World.GetElement(position, this.Pen.Layer) != elementIndex;
+                ? !this.world.IsEmptySlotLayer(position, this.pen.Layer)
+                : this.world.IsEmptySlotLayer(position, this.pen.Layer) || this.world.GetElement(position, this.pen.Layer) != elementIndex;
         }
 
         private bool IsValidNeighbor(Point neighborPosition, ElementIndex targetElementIndex, bool isErasing)
@@ -107,17 +108,17 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             if (isErasing)
             {
                 // Valid neighborPosition to delete: must contain the same target element
-                return !this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.GetElement(neighborPosition, this.Pen.Layer) == targetElementIndex;
+                return !this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer) && this.world.GetElement(neighborPosition, this.pen.Layer) == targetElementIndex;
             }
 
             if (targetElementIndex is ElementIndex.None)
             {
                 // Valid neighborPosition to fill empty area
-                return this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer);
+                return this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer);
             }
 
             // Valid neighborPosition to replace: must contain the same target element
-            return !this.World.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.GetElement(neighborPosition, this.Pen.Layer) == targetElementIndex;
+            return !this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer) && this.world.GetElement(neighborPosition, this.pen.Layer) == targetElementIndex;
         }
 
         private bool ShouldProcessPosition(Point position, ElementIndex targetElementIndex, bool isErasing)
@@ -125,32 +126,32 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             if (isErasing)
             {
                 // Erase: The slot must contain the same target element
-                return !this.World.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.GetElement(position, this.Pen.Layer) == targetElementIndex;
+                return !this.world.IsEmptySlotLayer(position, this.pen.Layer) && this.world.GetElement(position, this.pen.Layer) == targetElementIndex;
             }
 
             if (targetElementIndex is ElementIndex.None)
             {
                 // Fill empty areas
-                return this.World.IsEmptySlotLayer(position, this.Pen.Layer);
+                return this.world.IsEmptySlotLayer(position, this.pen.Layer);
             }
 
             // Replace elements that match the target
-            return !this.World.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.GetElement(position, this.Pen.Layer) == targetElementIndex;
+            return !this.world.IsEmptySlotLayer(position, this.pen.Layer) && this.world.GetElement(position, this.pen.Layer) == targetElementIndex;
         }
 
         private void ProcessPosition(Point position, ElementIndex index, bool isErasing)
         {
             if (isErasing)
             {
-                _ = this.World.TryRemoveElement(position, this.Pen.Layer); // Remove the element
+                _ = this.world.TryRemoveElement(position, this.pen.Layer); // Remove the element
             }
-            else if (this.World.IsEmptySlotLayer(position, this.Pen.Layer))
+            else if (this.world.IsEmptySlotLayer(position, this.pen.Layer))
             {
-                this.World.InstantiateElement(position, this.Pen.Layer, index); // Insert new element
+                this.world.InstantiateElement(position, this.pen.Layer, index); // Insert new element
             }
             else
             {
-                this.World.ReplaceElement(position, this.Pen.Layer, index); // Replace the element
+                this.world.ReplaceElement(position, this.pen.Layer, index); // Replace the element
             }
         }
 
@@ -159,7 +160,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             foreach (Point offset in offsets)
             {
                 Point neighborPosition = new(position.X + offset.X, position.Y + offset.Y);
-                if (this.World.IsWithinBounds(neighborPosition))
+                if (this.world.IsWithinBounds(neighborPosition))
                 {
                     yield return neighborPosition;
                 }
