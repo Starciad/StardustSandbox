@@ -37,6 +37,7 @@ namespace StardustSandbox.WorldSystem
 
         internal WorldRendering Rendering => this.rendering;
 
+        internal bool IsActive => this.CanUpdate || this.CanDraw;
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
@@ -100,7 +101,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryInstantiateElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            if (!InsideTheWorldDimensions(position) || !IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || !IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -124,8 +125,8 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryUpdateElementPosition(in Point oldPosition, in Point newPosition, in Layer layer)
         {
-            if (!InsideTheWorldDimensions(oldPosition) ||
-                !InsideTheWorldDimensions(newPosition) ||
+            if (!IsWithinBounds(oldPosition) ||
+                !IsWithinBounds(newPosition) ||
                  IsEmptySlotLayer(oldPosition, layer) ||
                 !IsEmptySlotLayer(newPosition, layer) ||
                 oldPosition == newPosition)
@@ -145,8 +146,8 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TrySwappingElements(in Point element1Position, in Point element2Position, in Layer layer)
         {
-            if (!InsideTheWorldDimensions(element1Position) ||
-                !InsideTheWorldDimensions(element2Position) ||
+            if (!IsWithinBounds(element1Position) ||
+                !IsWithinBounds(element2Position) ||
                 IsEmptySlotLayer(element1Position, layer) ||
                 IsEmptySlotLayer(element2Position, layer) ||
                 element1Position == element2Position)
@@ -174,7 +175,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryDestroyElement(in Point position, in Layer layer)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -194,7 +195,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryRemoveElement(in Point position, in Layer layer)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -215,7 +216,7 @@ namespace StardustSandbox.WorldSystem
         {
             index = ElementIndex.None;
 
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -235,7 +236,7 @@ namespace StardustSandbox.WorldSystem
         {
             value = null;
 
-            if (!InsideTheWorldDimensions(position) || IsEmptySlot(position))
+            if (!IsWithinBounds(position) || IsEmptySlot(position))
             {
                 return false;
             }
@@ -248,7 +249,7 @@ namespace StardustSandbox.WorldSystem
         {
             slotLayer = null;
 
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -259,7 +260,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TrySetElementTemperature(in Point position, in Layer layerType, in float value)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layerType))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layerType))
             {
                 return false;
             }
@@ -277,7 +278,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TrySetElementColorModifier(in Point position, in Layer layer, in Color value)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -289,7 +290,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TrySetStoredElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -302,7 +303,7 @@ namespace StardustSandbox.WorldSystem
         {
             index = ElementIndex.None;
 
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -315,7 +316,7 @@ namespace StardustSandbox.WorldSystem
         {
             value = false;
 
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -326,7 +327,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TrySetElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -337,7 +338,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryRemoveElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -348,7 +349,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryClearElementStates(in Point position, in Layer layer)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -359,7 +360,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryToggleElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            if (!InsideTheWorldDimensions(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
@@ -433,7 +434,7 @@ namespace StardustSandbox.WorldSystem
 
                     Point neighborPosition = position + new Point(dx, dy);
 
-                    if (!InsideTheWorldDimensions(neighborPosition))
+                    if (!IsWithinBounds(neighborPosition))
                     {
                         continue;
                     }
@@ -495,12 +496,12 @@ namespace StardustSandbox.WorldSystem
 
         internal bool IsEmptySlot(in Point position)
         {
-            return !InsideTheWorldDimensions(position) || this[position.X, position.Y].IsEmpty;
+            return !IsWithinBounds(position) || this[position.X, position.Y].IsEmpty;
         }
 
         internal bool IsEmptySlotLayer(in Point position, in Layer layer)
         {
-            return !InsideTheWorldDimensions(position) || this[position.X, position.Y].GetLayer(layer).IsEmpty;
+            return !IsWithinBounds(position) || this[position.X, position.Y].GetLayer(layer).IsEmpty;
         }
 
         internal uint GetTotalElementCount()
@@ -585,7 +586,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryInstantiateExplosion(in Point position, in Layer layer, in ExplosionBuilder explosionBuilder)
         {
-            if (!InsideTheWorldDimensions(position) && this.instantiatedExplosions.Count >= ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT)
+            if (!IsWithinBounds(position) && this.instantiatedExplosions.Count >= ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT)
             {
                 return false;
             }
@@ -618,7 +619,7 @@ namespace StardustSandbox.WorldSystem
         {
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(explosion.Position, Convert.ToInt32(explosion.Radius)))
             {
-                if (!InsideTheWorldDimensions(point))
+                if (!IsWithinBounds(point))
                 {
                     continue;
                 }
@@ -803,10 +804,24 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
-        internal bool InsideTheWorldDimensions(in Point position)
+        internal bool IsWithinHorizontalBounds(in int x)
         {
-            return position.X >= 0 && position.X < this.information.Size.X &&
-                   position.Y >= 0 && position.Y < this.information.Size.Y;
+            return x >= 0 && x < this.information.Size.X;
+        }
+
+        internal bool IsWithinVerticalBounds(in int y)
+        {
+            return y >= 0 && y < this.information.Size.Y;
+        }
+
+        internal bool IsWithinBounds(in int x, in int y)
+        {
+            return IsWithinHorizontalBounds(x) && IsWithinVerticalBounds(y);
+        }
+
+        internal bool IsWithinBounds(in Point position)
+        {
+            return IsWithinBounds(position.X, position.Y);
         }
 
         internal void SetSpeed(in SimulationSpeed speed)

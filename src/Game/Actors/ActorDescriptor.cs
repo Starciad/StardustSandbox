@@ -1,0 +1,57 @@
+﻿using MessagePack;
+
+using StardustSandbox.Collections;
+using StardustSandbox.Enums.Actors;
+using StardustSandbox.Interfaces.Actors;
+using StardustSandbox.Interfaces.Collections;
+
+using System;
+
+namespace StardustSandbox.Actors
+{
+    internal sealed class ActorDescriptor<T> : IActorDescriptor where T : Actor, new()
+    {
+        public ActorIndex Index { get; }
+
+        private readonly Func<T> factory;
+        private readonly ObjectPool pool;
+
+        internal ActorDescriptor(ActorIndex index, Func<T> factory)
+        {
+            this.Index = index;
+            this.factory = factory;
+            this.pool = new();
+        }
+
+        public Actor Create()
+        {
+            T actor;
+
+            if (this.pool.TryDequeue(out IPoolableObject value))
+            {
+                actor = (T)value;
+            }
+            else
+            {
+                actor = this.factory();
+            }
+
+            return actor;
+        }
+
+        public void Recycle(Actor actor)
+        {
+            this.pool.Enqueue(actor);
+        }
+
+        public byte[] Serialize(Actor actor)
+        {
+            return MessagePackSerializer.Serialize(actor);
+        }
+
+        public Actor Deserialize(byte[] data)
+        {
+            return MessagePackSerializer.Deserialize<T>(data);
+        }
+    }
+}

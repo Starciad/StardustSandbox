@@ -159,7 +159,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             foreach (Point offset in offsets)
             {
                 Point neighborPosition = new(position.X + offset.X, position.Y + offset.Y);
-                if (this.World.InsideTheWorldDimensions(neighborPosition))
+                if (this.World.IsWithinBounds(neighborPosition))
                 {
                     yield return neighborPosition;
                 }
