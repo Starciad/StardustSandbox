@@ -9,8 +9,5 @@ namespace StardustSandbox.Interfaces.Actors
 
         Actor Create();
         void Recycle(Actor actor);
-
-        byte[] Serialize(Actor actor);
-        Actor Deserialize(byte[] data);
     }
 }

@@ -4,8 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Actors;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
-using StardustSandbox.Interfaces.Actors;
-using StardustSandbox.WorldSystem;
+using StardustSandbox.Serialization;
 
 using System;
 using System.Collections.Generic;
@@ -22,13 +21,6 @@ namespace StardustSandbox.Managers
         private readonly List<Actor> instantiatedActors = [];
         private readonly Queue<Actor> actorsToAdd = [];
         private readonly Queue<Actor> actorsToRemove = [];
-
-        private readonly World world;
-
-        internal ActorManager(World world)
-        {
-            this.world = world;
-        }
 
         internal void Create(ActorIndex index)
         {
@@ -61,11 +53,10 @@ namespace StardustSandbox.Managers
             return false;
         }
 
-        private static bool Intersects(Rectangle rect1, Rectangle rect2, out ActorCollisionDirection collisionDirection, out int xIntersectionPosition, out int yIntersectionPosition)
+        private static bool Intersects(Rectangle rect1, Rectangle rect2, out ActorCollisionDirection collisionDirection, out Point intersectionPoint)
         {
             collisionDirection = ActorCollisionDirection.None;
-            xIntersectionPosition = 0;
-            yIntersectionPosition = 0;
+            intersectionPoint = Point.Zero;
 
             // Check for intersection
             if (rect1.Intersects(rect2))
@@ -80,8 +71,8 @@ namespace StardustSandbox.Managers
                 int intersectHeight = intersectBottom - intersectTop;
 
                 // Central position of the intersection
-                xIntersectionPosition = intersectLeft + (intersectWidth / 2);
-                yIntersectionPosition = intersectTop + (intersectHeight / 2);
+                intersectionPoint.X = intersectLeft + (intersectWidth / 2);
+                intersectionPoint.Y = intersectTop + (intersectHeight / 2);
 
                 // Calculates the distances to each side
                 int fromTop = Math.Abs(rect1.Bottom - rect2.Top);
@@ -108,6 +99,8 @@ namespace StardustSandbox.Managers
             {
                 this.instantiatedActorCount++;
                 this.instantiatedActors.Add(actor);
+
+                actor.OnCreated();
             }
 
             // Remove queued actors
@@ -117,6 +110,8 @@ namespace StardustSandbox.Managers
                 _ = this.instantiatedActors.Remove(actor);
 
                 ActorDatabase.GetDescriptor(actor.Index).Recycle(actor);
+
+                actor.OnDestroyed();
             }
         }
 
@@ -133,20 +128,6 @@ namespace StardustSandbox.Managers
                     continue;
                 }
 
-                // Check if the actor is off-screen and trigger the appropriate event
-                if (!this.world.IsActive)
-                {
-                    if (!this.world.IsWithinHorizontalBounds(currentActor.SelfRectangle, out WorldExitDirection direction, out int distance))
-                    {
-                        currentActor.OnExitedWorldBounds(direction, distance);
-                    }
-
-                    if (!this.world.IsWithinVerticalBounds(currentActor.SelfRectangle, out direction, out distance))
-                    {
-                        currentActor.OnExitedWorldBounds(direction, distance);
-                    }
-                }
-
                 // Check for collisions with other actors
                 if (currentActor.CollideWithActors)
                 {
@@ -157,9 +138,9 @@ namespace StardustSandbox.Managers
                             continue;
                         }
 
-                        if (Intersects(currentActor.SelfRectangle, otherActor.SelfRectangle, out ActorCollisionDirection collisionDirection, out int xIntersectionPosition, out int yIntersectionPosition))
+                        if (Intersects(currentActor.SelfRectangle, otherActor.SelfRectangle, out ActorCollisionDirection collisionDirection, out Point intersectionPoint))
                         {
-                            currentActor.OnActorCollisionOccurred(otherActor, new ActorCollisionContext(collisionDirection, xIntersectionPosition, yIntersectionPosition));
+                            currentActor.OnActorCollisionOccurred(otherActor, new(collisionDirection, intersectionPoint));
                         }
                     }
                 }
@@ -184,43 +165,25 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal byte[][] Serialize()
+        public byte[][] SerializeAll()
         {
-            byte[][] data = new byte[this.instantiatedActorCount][];
+            byte[][] result = new byte[this.instantiatedActorCount][];
 
             for (int i = 0; i < this.instantiatedActorCount; i++)
             {
-                Actor actor = this.instantiatedActors[i];
-
-                IActorDescriptor descriptor = ActorDatabase.GetDescriptor(actor.Index);
-                
-                byte[] actorData = descriptor.Serialize(actor);
-                byte[] buffer = new byte[4 + actorData.Length];
-
-                BitConverter.GetBytes((int)actor.Index).CopyTo(buffer, 0);
-                actorData.CopyTo(buffer, 4);
-
-                data[i] = buffer;
+                result[i] = ActorSerializer.Serialize(this.instantiatedActors[i]);
             }
 
-            return data;
+            return result;
         }
 
-        internal void Deserialize(byte[][] data)
+        public void DeserializeAll(byte[][] data)
         {
             DestroyAll();
 
-            foreach (byte[] entry in data)
+            for (int i = 0; i < data.Length; i++)
             {
-                ActorIndex index = (ActorIndex)BitConverter.ToInt32(entry, 0);
-
-                byte[] payload = new byte[entry.Length - 4];
-                Buffer.BlockCopy(entry, 4, payload, 0, payload.Length);
-
-                IActorDescriptor descriptor = ActorDatabase.GetDescriptor(index);
-                Actor actor = descriptor.Deserialize(payload);
-
-                this.actorsToAdd.Enqueue(actor);
+                this.actorsToAdd.Enqueue(ActorSerializer.Deserialize(data[i]));
             }
         }
     }

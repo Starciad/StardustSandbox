@@ -11,5 +11,8 @@ namespace StardustSandbox.Serialization.Saving.Data
     {
         [Key("Slots")]
         public IEnumerable<SlotData> Slots { get; init; }
+
+        [Key("Actors")]
+        public IEnumerable<ActorData> Actors { get; init; }
     }
 }

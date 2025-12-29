@@ -1,6 +1,4 @@
-﻿using MessagePack;
-
-using StardustSandbox.Collections;
+﻿using StardustSandbox.Collections;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Interfaces.Actors;
 using StardustSandbox.Interfaces.Collections;
@@ -25,16 +23,7 @@ namespace StardustSandbox.Actors
 
         public Actor Create()
         {
-            T actor;
-
-            if (this.pool.TryDequeue(out IPoolableObject value))
-            {
-                actor = (T)value;
-            }
-            else
-            {
-                actor = this.factory();
-            }
+            T actor = this.pool.TryDequeue(out IPoolableObject value) ? (T)value : this.factory();
 
             return actor;
         }
@@ -42,16 +31,6 @@ namespace StardustSandbox.Actors
         public void Recycle(Actor actor)
         {
             this.pool.Enqueue(actor);
-        }
-
-        public byte[] Serialize(Actor actor)
-        {
-            return MessagePackSerializer.Serialize(actor);
-        }
-
-        public Actor Deserialize(byte[] data)
-        {
-            return MessagePackSerializer.Deserialize<T>(data);
         }
     }
 }

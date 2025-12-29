@@ -121,11 +121,6 @@
 		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
 		<PackageReference Include="MessagePack" Version="3.1.4" />
-		<PackageReference Include="MessagePack.Annotations" Version="3.1.4" />
-		<PackageReference Include="MessagePackAnalyzer" Version="3.1.4">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="nulastudio.NetBeauty" Version="2.1.5.0" />
 	</ItemGroup>
 

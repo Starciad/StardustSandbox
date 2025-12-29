@@ -1,10 +1,12 @@
-﻿using MessagePack;
-
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Actors.Collision;
 using StardustSandbox.Enums.Actors;
+using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
+using StardustSandbox.Managers;
+using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -98,8 +100,12 @@ namespace StardustSandbox.Actors
         }
 
         public abstract void Reset();
+        internal abstract void Initialize();
         internal abstract void Update(GameTime gameTime);
         internal abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+
+        internal abstract ActorData Serialize();
+        internal abstract void Deserialize(ActorData data);
 
         internal void MoveHorizontally(double amount)
         {
@@ -122,9 +128,9 @@ namespace StardustSandbox.Actors
                 nextRect.X = this.positionX + sign;
                 nextRect.Y = this.positionY;
 
-                if (this.collideWithElements && this.world.IsCollideAt(nextRect, sign, 0))
+                if (this.collideWithElements && this.world.IsCollideAt(nextRect, Layer.Foreground))
                 {
-                    OnTerrainCollisionOccurred(new(TerrainCollisionType.Tile, TerrainCollisionOrientation.Horizontally));
+                    OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Horizontally));
                     stopFlag = true;
                 }
 
@@ -159,9 +165,9 @@ namespace StardustSandbox.Actors
                 nextRect.Y = this.positionY + sign;
                 nextRect.X = this.positionX;
 
-                if (this.collideWithElements && this.world.IsCollideAt(nextRect, 0, sign))
+                if (this.collideWithElements && this.world.IsCollideAt(nextRect, Layer.Foreground))
                 {
-                    OnTerrainCollisionOccurred(new(TerrainCollisionType.Tile, TerrainCollisionOrientation.Vertically));
+                    OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Vertically));
                     stopFlag = true;
                 }
 
@@ -177,9 +183,7 @@ namespace StardustSandbox.Actors
 
         internal virtual void OnCreated() { return; }
         internal virtual void OnDestroyed() { return; }
-        internal virtual void OnRemoved() { return; }
         internal virtual void OnActorCollisionOccurred(Actor collider, in ActorCollisionContext context) { return; }
         internal virtual void OnTerrainCollisionOccurred(in TerrainCollisionContext context) { return; }
-        internal virtual void OnExitedWorldBounds(WorldExitDirection direction, int distance) { return; }
     }
 }

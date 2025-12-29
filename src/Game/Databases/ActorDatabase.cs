@@ -24,12 +24,7 @@ namespace StardustSandbox.Databases
 
         internal static IActorDescriptor GetDescriptor(ActorIndex index)
         {
-            if (!isLoaded)
-            {
-                throw new InvalidOperationException($"{nameof(ActorDatabase)} has not been loaded.");
-            }
-
-            return descriptors[(byte)index];
+            return !isLoaded ? throw new InvalidOperationException($"{nameof(ActorDatabase)} has not been loaded.") : descriptors[(byte)index];
         }
     }
 }

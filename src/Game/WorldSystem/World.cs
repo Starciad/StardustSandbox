@@ -824,6 +824,27 @@ namespace StardustSandbox.WorldSystem
             return IsWithinBounds(position.X, position.Y);
         }
 
+        internal bool IsCollideAt(Rectangle rectangle, Layer layer)
+        {
+            for (int y = rectangle.Top; y < rectangle.Bottom; y++)
+            {
+                for (int x = rectangle.Left; x < rectangle.Right; x++)
+                {
+                    if (!IsWithinBounds(x, y))
+                    {
+                        continue;
+                    }
+
+                    if (!IsEmptySlotLayer(new(x, y), layer))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         internal void SetSpeed(in SimulationSpeed speed)
         {
             this.time.SetSpeed(speed);
