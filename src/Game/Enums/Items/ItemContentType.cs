@@ -4,5 +4,6 @@
     {
         Element = 0,
         Tool = 1,
+        Actor = 2,
     }
 }

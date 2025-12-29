@@ -150,7 +150,7 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             foreach (Actor actor in this.instantiatedActors)
             {
@@ -161,7 +161,7 @@ namespace StardustSandbox.Managers
                 }
 
                 // Draw the actor
-                actor.Draw(gameTime, spriteBatch);
+                actor.Draw(spriteBatch);
             }
         }
 

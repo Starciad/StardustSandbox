@@ -117,82 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Subcategory.Elements.Powders.Name" xml:space="preserve">
-    <value>Powders</value>
+  <data name="Gul.Description" xml:space="preserve">
+    <value />
   </data>
-  <data name="Subcategory.Elements.Liquids.Name" xml:space="preserve">
-    <value>Liquids</value>
-  </data>
-  <data name="Subcategory.Elements.Gases.Name" xml:space="preserve">
-    <value>Gases</value>
-  </data>
-  <data name="Subcategory.Elements.Solids.Name" xml:space="preserve">
-    <value>Solids</value>
-  </data>
-  <data name="Subcategory.Elements.Energies.Name" xml:space="preserve">
-    <value>Energies</value>
-  </data>
-  <data name="Subcategory.Elements.Energies.Description" xml:space="preserve">
-    <value>Pure, dynamic forces of nature. Unpredictable and strong, they quickly change their surroundings.</value>
-  </data>
-  <data name="Subcategory.Elements.Gases.Description" xml:space="preserve">
-    <value>Gases move freely in the air, visible or not, and can be harmless, suffocating, or destructive.</value>
-  </data>
-  <data name="Subcategory.Elements.Liquids.Description" xml:space="preserve">
-    <value>Liquids are adaptable and essential for life. They flow, fill spaces, and can be calm or destructive.</value>
-  </data>
-  <data name="Subcategory.Elements.Powders.Description" xml:space="preserve">
-    <value>Powders can gather or spread, adapting to the environment and showing that small things can have a big impact.</value>
-  </data>
-  <data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
-    <value>Solids are strong and stable, giving structure and resisting natural forces.</value>
-  </data>
-  <data name="Category.Elements.Name" xml:space="preserve">
-    <value>Elements</value>
-  </data>
-  <data name="Category.Elements.Description" xml:space="preserve">
-    <value>All elements used in different activities, from simple to complex.</value>
-  </data>
-  <data name="Subcategory.Elements.Explosives.Name" xml:space="preserve">
-    <value>Explosives</value>
-  </data>
-  <data name="Subcategory.Elements.Explosives.Description" xml:space="preserve">
-    <value>Explosives are made to cause strong reactions, releasing energy, heat, and debris with high destructive power.</value>
-  </data>
-  <data name="Subcategory.Elements.Specials.Name" xml:space="preserve">
-    <value>Specials</value>
-  </data>
-  <data name="Subcategory.Elements.Specials.Description" xml:space="preserve">
-    <value>Unique elements with special functions, different from powders, liquids, gases, or solids.</value>
-  </data>
-  <data name="Category.Tools.Name" xml:space="preserve">
-    <value>Tools</value>
-  </data>
-  <data name="Category.Tools.Description" xml:space="preserve">
-    <value>Tools that add extra features and allow new changes in the world.</value>
-  </data>
-  <data name="Subcategory.Tools.Environment.Name" xml:space="preserve">
-    <value>Environment</value>
-  </data>
-  <data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
-    <value>Tools to interact with and change the environment.</value>
-  </data>
-  <data name="Subcategory.Elements.Technologies.Name" xml:space="preserve">
-    <value>Technologies</value>
-  </data>
-  <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
-    <value>Special elements that automate tasks and help with different creations.</value>
-  </data>
-  <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
-    <value>Vegetation</value>
-  </data>
-  <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
-    <value>Natural elements that bring life to the world.</value>
-  </data>
-  <data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
-    <value>Inks</value>
-  </data>
-  <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
-    <value>Tools that grant you the ability to dye elements of the world.</value>
+  <data name="Gul.Name" xml:space="preserve">
+    <value>Gul</value>
   </data>
 </root>

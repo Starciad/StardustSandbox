@@ -12,7 +12,7 @@ namespace StardustSandbox.Serialization.Saving.Data
         [Key("Index")]
         public required ActorIndex Index { get; init; }
 
-        [Key("Data")]
-        public IReadOnlyDictionary<string, object> Data { get; init; }
+        [Key("Content")]
+        public IReadOnlyDictionary<string, object> Content { get; init; }
     }
 }

@@ -162,7 +162,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSave),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundSave),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -225,7 +225,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.titleInputField = new()
             {
                 Alignment = UIDirection.Southwest,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
                 Size = new(163.0f, 38.0f),
@@ -260,7 +260,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.descriptionInputField = new()
             {
                 Alignment = UIDirection.Southwest,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
                 Size = new(163.0f, 38.0f),
@@ -314,7 +314,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
@@ -351,7 +351,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.0f),
                 Size = new(32.0f),

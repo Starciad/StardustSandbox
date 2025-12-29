@@ -150,9 +150,9 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnBuild(Container root)
         {
-            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
-            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, UIDirection.North, true));
-            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, UIDirection.North, true));
+            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.GUIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
+            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.GUIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, UIDirection.North, true));
+            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.GUIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, UIDirection.North, true));
             BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, UIDirection.South, false);
             BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, UIDirection.South, false);
             BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), UIDirection.South);
@@ -207,7 +207,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             drawerButton = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = srcRect,
                 Size = size,
                 Margin = margin,
@@ -222,7 +222,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image slotSearchBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.West,
@@ -275,7 +275,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image slotSearchBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.East,
@@ -301,7 +301,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.0f),
                 Size = new(32.0f),

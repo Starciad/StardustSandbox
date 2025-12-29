@@ -190,7 +190,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                         SourceRectangle = new(386, 0, 40, 22),
                         Scale = new(2.0f),
                         Size = textureSize,
@@ -200,7 +200,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                     Image borderElement = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                         SourceRectangle = new(386, 22, 40, 22),
                         Scale = new(2.0f),
                         Size = textureSize,

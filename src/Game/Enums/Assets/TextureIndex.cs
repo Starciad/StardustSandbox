@@ -12,6 +12,12 @@
 
         #endregion
 
+        #region Actors
+
+        ActorGul,
+
+        #endregion
+
         #region Backgrounds
 
         BackgroundOcean,
@@ -37,23 +43,23 @@
 
         #endregion
 
-        #region UI
+        #region GUI
 
-        UIBackgroundEnvironmentSettings,
-        UIBackgroundHudHorizontalToolbar,
-        UIBackgroundHudVerticalToolbar,
-        UIBackgroundInformation,
-        UIBackgroundItemExplorer,
-        UIBackgroundOptions,
-        UIBackgroundPause,
-        UIBackgroundPenSettings,
-        UIBackgroundSave,
-        UIBackgroundTemperatureSettings,
-        UIBackgroundWorldSettings,
-        UIButtons,
-        UISizeSlider,
-        UISliderInputOrnament,
-        UITextInputOrnament,
+        GUIBackgroundEnvironmentSettings,
+        GUIBackgroundHudHorizontalToolbar,
+        GUIBackgroundHudVerticalToolbar,
+        GUIBackgroundInformation,
+        GUIBackgroundItemExplorer,
+        GUIBackgroundOptions,
+        GUIBackgroundPause,
+        GUIBackgroundPenSettings,
+        GUIBackgroundSave,
+        GUIBackgroundTemperatureSettings,
+        GUIBackgroundWorldSettings,
+        GUIButtons,
+        GUISizeSlider,
+        GUISliderInputOrnament,
+        GUITextInputOrnament,
 
         #endregion
 

@@ -102,7 +102,7 @@ namespace StardustSandbox.Actors
         public abstract void Reset();
         internal abstract void Initialize();
         internal abstract void Update(GameTime gameTime);
-        internal abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        internal abstract void Draw(SpriteBatch spriteBatch);
 
         internal abstract ActorData Serialize();
         internal abstract void Deserialize(ActorData data);

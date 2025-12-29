@@ -96,6 +96,7 @@ namespace StardustSandbox
         }
 
         internal static void Draw(
+            ActorManager actorManager,
             AmbientManager ambientManager,
             CursorManager cursorManager,
             InputController inputController,
@@ -111,7 +112,7 @@ namespace StardustSandbox
             }
 
             DrawAmbient(spriteBatch, ambientManager);
-            DrawWorld(spriteBatch, world);
+            DrawWorld(spriteBatch, actorManager, world);
             DrawGUI(spriteBatch, uiManager);
 
             graphicsDevice.SetRenderTarget(screenRenderTarget2D);
@@ -182,12 +183,13 @@ namespace StardustSandbox
             }
         }
 
-        private static void DrawWorld(SpriteBatch spriteBatch, World world)
+        private static void DrawWorld(SpriteBatch spriteBatch, ActorManager actorManager, World world)
         {
             graphicsDevice.SetRenderTarget(worldRenderTarget2D);
             graphicsDevice.Clear(Color.Transparent);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, SSCamera.GetViewMatrix());
+            actorManager.Draw(spriteBatch);
             world.Draw(spriteBatch);
             spriteBatch.End();
         }

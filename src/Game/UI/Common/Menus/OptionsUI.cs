@@ -431,7 +431,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundOptions),
                 Size = new(730.0f, 720.0f),
             };
 
@@ -517,7 +517,7 @@ namespace StardustSandbox.UI.Common.Menus
                 new()
                 {
                     Alignment = UIDirection.East,
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
@@ -527,7 +527,7 @@ namespace StardustSandbox.UI.Common.Menus
                 new()
                 {
                     Alignment = UIDirection.Center,
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                     SourceRectangle = new(386, 22, 40, 22),
                     Scale = new(1.5f),
                     Size = new(40.0f, 22.0f),
@@ -545,7 +545,7 @@ namespace StardustSandbox.UI.Common.Menus
             Image togglePreviewImageElement = new()
             {
                 Alignment = UIDirection.East,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(352, 140, 32, 32),
                 Scale = new(1.25f),
                 Size = new(32.0f),
@@ -582,7 +582,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.scrollbarUpButton = new()
             {
                 Alignment = UIDirection.Northeast,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(388, 50, 34, 32),
                 Size = new(34.0f, 32.0f),
             };
@@ -590,7 +590,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.scrollbarDownButton = new()
             {
                 Alignment = UIDirection.Southeast,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(388, 206, 34, 32),
                 Size = new(34.0f, 32.0f),
             };
@@ -598,7 +598,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.scrollbarSliderButton = new()
             {
                 Alignment = UIDirection.Northeast,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                 SourceRectangle = new(388, 80, 34, 128),
                 Size = new(34.0f, 128.0f),
             };

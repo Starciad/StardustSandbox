@@ -59,10 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root"
-    xmlns=""
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -197,5 +194,17 @@
   </data>
   <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
     <value>Tools that grant you the ability to dye elements of the world.</value>
+  </data>
+  <data name="Category.Actors.Name" xml:space="preserve">
+    <value>Actors</value>
+  </data>
+  <data name="Category.Actors.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Subcategory.Actors.Creatures.Name" xml:space="preserve">
+    <value>Creatures</value>
+  </data>
+  <data name="Subcategory.Actors.Creatures.Description" xml:space="preserve">
+    <value />
   </data>
 </root>

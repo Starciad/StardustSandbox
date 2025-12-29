@@ -89,7 +89,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundPause),
                 Size = new(542.0f, 540.0f),
                 Alignment = UIDirection.Center,
             };
@@ -128,7 +128,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),

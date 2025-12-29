@@ -61,6 +61,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Category_Actors_Description {
+            get {
+                return ResourceManager.GetString("Category.Actors.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Actors.
+        /// </summary>
+        internal static string Category_Actors_Name {
+            get {
+                return ResourceManager.GetString("Category.Actors.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a All elements used in different activities, from simple to complex..
         /// </summary>
         internal static string Category_Elements_Description {
@@ -93,6 +111,24 @@ namespace StardustSandbox.Localization {
         internal static string Category_Tools_Name {
             get {
                 return ResourceManager.GetString("Category.Tools.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Subcategory_Actors_Creatures_Description {
+            get {
+                return ResourceManager.GetString("Subcategory.Actors.Creatures.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Creatures.
+        /// </summary>
+        internal static string Subcategory_Actors_Creatures_Name {
+            get {
+                return ResourceManager.GetString("Subcategory.Actors.Creatures.Name", resourceCulture);
             }
         }
         

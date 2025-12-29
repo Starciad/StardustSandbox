@@ -138,6 +138,11 @@
 
 	<!-- RESOURCES (DESIGNERS) -->
 	<ItemGroup>
+		<Compile Update="Localization\Localization.Actors.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Localization.Actors.resx</DependentUpon>
+		</Compile>
 		<Compile Update="Localization\Localization.Catalog.Designer.cs">
 			<DependentUpon>Localization.Catalog.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
@@ -182,6 +187,10 @@
 
 	<!-- RESOURCES (RESX) -->
 	<ItemGroup>
+		<EmbeddedResource Update="Localization\Localization.Actors.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Localization.Actors.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Localization\Localization.Catalog.resx">
 			<LastGenOutput>Localization.Catalog.Designer.cs</LastGenOutput>
 			<Generator>ResXFileCodeGenerator</Generator>

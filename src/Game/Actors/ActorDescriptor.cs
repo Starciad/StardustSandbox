@@ -7,7 +7,7 @@ using System;
 
 namespace StardustSandbox.Actors
 {
-    internal sealed class ActorDescriptor<T> : IActorDescriptor where T : Actor, new()
+    internal sealed class ActorDescriptor<T> : IActorDescriptor where T : Actor
     {
         public ActorIndex Index { get; }
 

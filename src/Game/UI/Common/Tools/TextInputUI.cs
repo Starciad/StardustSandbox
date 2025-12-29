@@ -162,7 +162,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             this.userInputBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
+                Texture = AssetDatabase.GetTexture(TextureIndex.GUITextInputOrnament),
                 Scale = new(1.5f),
                 Size = new(632.0f, 50.0f),
                 Margin = new(0.0f, 64.0f),

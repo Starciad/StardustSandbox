@@ -1,182 +1,198 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-
-	<xsd:schema id="root"
-		xmlns=""
-		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-		xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="Subcategory.Elements.Powders.Name" xml:space="preserve">
-		<value>Poudres</value>
-	</data>
-	<data name="Subcategory.Elements.Liquids.Name" xml:space="preserve">
-		<value>Liquides</value>
-	</data>
-	<data name="Subcategory.Elements.Gases.Name" xml:space="preserve">
-		<value>Gaz</value>
-	</data>
-	<data name="Subcategory.Elements.Solids.Name" xml:space="preserve">
-		<value>Solides</value>
-	</data>
-	<data name="Subcategory.Elements.Energies.Name" xml:space="preserve">
-		<value>Énergies</value>
-	</data>
-	<data name="Subcategory.Elements.Energies.Description" xml:space="preserve">
-		<value>Forces naturelles pures et dynamiques, imprévisibles et intenses, qui transforment l'environnement rapidement.</value>
-	</data>
-	<data name="Subcategory.Elements.Gases.Description" xml:space="preserve">
-		<value>Circulent librement dans l'air, pouvant être visibles ou non, inoffensifs, étouffants ou destructeurs.</value>
-	</data>
-	<data name="Subcategory.Elements.Liquids.Description" xml:space="preserve">
-		<value>Fluides adaptables, essentiels à la vie, qui s'écoulent, remplissent les espaces et peuvent être sereins ou destructeurs.</value>
-	</data>
-	<data name="Subcategory.Elements.Powders.Description" xml:space="preserve">
-		<value>Peuvent se regrouper ou se disperser, en s'adaptant à l'environnement et montrant que les petits éléments causent de grands impacts.</value>
-	</data>
-	<data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
-		<value>Fermes et résistantes, elles offrent une structure et restent inertes face aux forces de la nature.</value>
-	</data>
-	<data name="Category.Elements.Name" xml:space="preserve">
-		<value>Éléments</value>
-	</data>
-	<data name="Category.Elements.Description" xml:space="preserve">
-		<value>Tous les éléments utilisés dans différentes activités, des plus simples aux plus complexes.</value>
-	</data>
-	<data name="Subcategory.Elements.Explosives.Name" xml:space="preserve">
-		<value>Explosifs</value>
-	</data>
-	<data name="Subcategory.Elements.Explosives.Description" xml:space="preserve">
-		<value>Éléments créés pour provoquer des réactions puissantes, libérant de l'énergie, de la chaleur et des débris, avec un haut potentiel destructeur.</value>
-	</data>
-	<data name="Subcategory.Elements.Specials.Name" xml:space="preserve">
-		<value>Spéciaux</value>
-	</data>
-	<data name="Subcategory.Elements.Specials.Description" xml:space="preserve">
-		<value>Éléments uniques, en dehors des normes communes, créés pour des fonctions spécifiques et transformatrices.</value>
-	</data>
-	<data name="Category.Tools.Name" xml:space="preserve">
-		<value>Outils</value>
-	</data>
-	<data name="Category.Tools.Description" xml:space="preserve">
-		<value>Outils qui ajoutent des fonctions supplémentaires et permettent de nouvelles modifications du monde.</value>
-	</data>
-	<data name="Subcategory.Tools.Environment.Name" xml:space="preserve">
-		<value>Environnement</value>
-	</data>
-	<data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
-		<value>Outils pour interagir et modifier l'environnement.</value>
-	</data>
-	<data name="Subcategory.Elements.Technologies.Name" xml:space="preserve">
-		<value>Technologies</value>
-	</data>
-	<data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
-		<value>Éléments spéciaux qui automatisent les tâches et aident à diverses créations.</value>
-	</data>
-	<data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
-		<value>Végétation</value>
-	</data>
-	<data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
-		<value>Éléments naturels qui apportent la vie au monde.</value>
-	</data>
-	<data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
-		<value>Encres</value>
-	</data>
-	<data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
-		<value>Outils qui confèrent la capacité de teindre les éléments du monde.</value>
-	</data>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Subcategory.Elements.Powders.Name" xml:space="preserve">
+    <value>Poudres</value>
+  </data>
+  <data name="Subcategory.Elements.Liquids.Name" xml:space="preserve">
+    <value>Liquides</value>
+  </data>
+  <data name="Subcategory.Elements.Gases.Name" xml:space="preserve">
+    <value>Gaz</value>
+  </data>
+  <data name="Subcategory.Elements.Solids.Name" xml:space="preserve">
+    <value>Solides</value>
+  </data>
+  <data name="Subcategory.Elements.Energies.Name" xml:space="preserve">
+    <value>Énergies</value>
+  </data>
+  <data name="Subcategory.Elements.Energies.Description" xml:space="preserve">
+    <value>Forces naturelles pures et dynamiques, imprévisibles et intenses, qui transforment l'environnement rapidement.</value>
+  </data>
+  <data name="Subcategory.Elements.Gases.Description" xml:space="preserve">
+    <value>Circulent librement dans l'air, pouvant être visibles ou non, inoffensifs, étouffants ou destructeurs.</value>
+  </data>
+  <data name="Subcategory.Elements.Liquids.Description" xml:space="preserve">
+    <value>Fluides adaptables, essentiels à la vie, qui s'écoulent, remplissent les espaces et peuvent être sereins ou destructeurs.</value>
+  </data>
+  <data name="Subcategory.Elements.Powders.Description" xml:space="preserve">
+    <value>Peuvent se regrouper ou se disperser, en s'adaptant à l'environnement et montrant que les petits éléments causent de grands impacts.</value>
+  </data>
+  <data name="Subcategory.Elements.Solids.Description" xml:space="preserve">
+    <value>Fermes et résistantes, elles offrent une structure et restent inertes face aux forces de la nature.</value>
+  </data>
+  <data name="Category.Elements.Name" xml:space="preserve">
+    <value>Éléments</value>
+  </data>
+  <data name="Category.Elements.Description" xml:space="preserve">
+    <value>Tous les éléments utilisés dans différentes activités, des plus simples aux plus complexes.</value>
+  </data>
+  <data name="Subcategory.Elements.Explosives.Name" xml:space="preserve">
+    <value>Explosifs</value>
+  </data>
+  <data name="Subcategory.Elements.Explosives.Description" xml:space="preserve">
+    <value>Éléments créés pour provoquer des réactions puissantes, libérant de l'énergie, de la chaleur et des débris, avec un haut potentiel destructeur.</value>
+  </data>
+  <data name="Subcategory.Elements.Specials.Name" xml:space="preserve">
+    <value>Spéciaux</value>
+  </data>
+  <data name="Subcategory.Elements.Specials.Description" xml:space="preserve">
+    <value>Éléments uniques, en dehors des normes communes, créés pour des fonctions spécifiques et transformatrices.</value>
+  </data>
+  <data name="Category.Tools.Name" xml:space="preserve">
+    <value>Outils</value>
+  </data>
+  <data name="Category.Tools.Description" xml:space="preserve">
+    <value>Outils qui ajoutent des fonctions supplémentaires et permettent de nouvelles modifications du monde.</value>
+  </data>
+  <data name="Subcategory.Tools.Environment.Name" xml:space="preserve">
+    <value>Environnement</value>
+  </data>
+  <data name="Subcategory.Tools.Environment.Description" xml:space="preserve">
+    <value>Outils pour interagir et modifier l'environnement.</value>
+  </data>
+  <data name="Subcategory.Elements.Technologies.Name" xml:space="preserve">
+    <value>Technologies</value>
+  </data>
+  <data name="Subcategory.Elements.Technologies.Description" xml:space="preserve">
+    <value>Éléments spéciaux qui automatisent les tâches et aident à diverses créations.</value>
+  </data>
+  <data name="Subcategory.Elements.Vegetation.Name" xml:space="preserve">
+    <value>Végétation</value>
+  </data>
+  <data name="Subcategory.Elements.Vegetation.Description" xml:space="preserve">
+    <value>Éléments naturels qui apportent la vie au monde.</value>
+  </data>
+  <data name="Subcategory.Tools.Inks.Name" xml:space="preserve">
+    <value>Encres</value>
+  </data>
+  <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
+    <value>Outils qui confèrent la capacité de teindre les éléments du monde.</value>
+  </data>
 </root>

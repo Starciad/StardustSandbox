@@ -1,4 +1,5 @@
 ﻿using StardustSandbox.Catalog;
+using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Items;
@@ -1134,7 +1135,35 @@ namespace StardustSandbox.Databases
                             ]
                         ),
                     ]
-                )
+                ),
+
+                // [2] Actors
+                new(
+                    Localization_Catalog.Category_Actors_Name,
+                    Localization_Catalog.Category_Actors_Description,
+                    TextureIndex.ActorGul,
+                    sourceRectangle: new(0, 0, 32, 32),
+                    [
+                        // [0] Creatures
+                        new(
+                            name: Localization_Catalog.Subcategory_Actors_Creatures_Name,
+                            description: Localization_Catalog.Subcategory_Actors_Creatures_Description,
+                            textureIndex: TextureIndex.ActorGul,
+                            sourceRectangle: new(0, 0, 32, 32),
+                            [
+                                // [0] Gul
+                                new(
+                                    contentIndex: (int)ActorIndex.Gul,
+                                    name: Localization_Actors.Gul_Name,
+                                    description: Localization_Actors.Gul_Description,
+                                    contentType: ItemContentType.Actor,
+                                    textureIndex: TextureIndex.ActorGul,
+                                    sourceRectangle: new(0, 0, 32, 32)
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
             ];
         }
 

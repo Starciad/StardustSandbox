@@ -165,7 +165,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image buttonBackgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.East,
                     Margin = new(marginX, 0.0f),
@@ -285,7 +285,7 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
                         SourceRectangle = new(0, 0, 386, 140),
                         Size = new(386.0f, 140.0f),
                         Margin = margin

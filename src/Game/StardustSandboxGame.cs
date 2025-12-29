@@ -29,6 +29,7 @@ namespace StardustSandbox
         private readonly InputController inputController;
 
         // Managers
+        private readonly ActorManager actorManager;
         private readonly AmbientManager ambientManager;
         private readonly CursorManager cursorManager;
         private readonly EffectsManager effectsManager;
@@ -78,11 +79,11 @@ namespace StardustSandbox
 
             // Managers
             this.inputController = new();
-
             this.effectsManager = new();
             this.uiManager = new();
             this.cursorManager = new();
             this.ambientManager = new();
+            this.actorManager = new();
 
             // Core
             this.world = new(this.inputController);
@@ -113,6 +114,7 @@ namespace StardustSandbox
             UIDatabase.Load(this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this.uiManager, this.videoManager, this.world);
             BackgroundDatabase.Load();
             ToolDatabase.Load();
+            ActorDatabase.Load(this.actorManager, this.world);
 
             // Managers
             this.effectsManager.Initialize();
@@ -168,6 +170,7 @@ namespace StardustSandbox
             if (!GameHandler.HasState(GameStates.IsSimulationPaused) && !GameHandler.HasState(GameStates.IsCriticalMenuOpen))
             {
                 this.world.Update(gameTime);
+                this.actorManager.Update(gameTime);
             }
 
             this.ambientManager.Update(gameTime);
@@ -178,6 +181,7 @@ namespace StardustSandbox
         protected override void Draw(GameTime gameTime)
         {
             GameRenderer.Draw(
+                this.actorManager,
                 this.ambientManager,
                 this.cursorManager,
                 this.inputController,
