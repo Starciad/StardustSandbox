@@ -14,9 +14,7 @@ namespace StardustSandbox.Managers
     internal sealed class ActorManager
     {
         internal IEnumerable<Actor> InstantiatedActors => this.instantiatedActors;
-        internal int InstantiatedActorCount => this.instantiatedActorCount;
-
-        private int instantiatedActorCount;
+        internal int InstantiatedActorCount => this.instantiatedActors.Count;
 
         private readonly List<Actor> instantiatedActors = [];
         private readonly Queue<Actor> actorsToAdd = [];
@@ -25,13 +23,13 @@ namespace StardustSandbox.Managers
         internal Actor Create(ActorIndex index)
         {
             Actor actor = ActorDatabase.GetDescriptor(index).Create();
-
             this.actorsToAdd.Enqueue(actor);
             return actor;
         }
 
         internal void Destroy(Actor actor)
         {
+            ActorDatabase.GetDescriptor(actor.Index).Recycle(actor);
             this.actorsToRemove.Enqueue(actor);
         }
 
@@ -39,7 +37,7 @@ namespace StardustSandbox.Managers
         {
             foreach (Actor actor in this.instantiatedActors)
             {
-                this.actorsToRemove.Enqueue(actor);
+                Destroy(actor);
             }
         }
 
@@ -95,32 +93,15 @@ namespace StardustSandbox.Managers
             return false;
         }
 
-        private void FlushPendingChanges()
+        internal void Update(GameTime gameTime)
         {
             // Add queued actors
             while (this.actorsToAdd.TryDequeue(out Actor actor))
             {
-                this.instantiatedActorCount++;
                 this.instantiatedActors.Add(actor);
 
                 actor.OnCreated();
             }
-
-            // Remove queued actors
-            while (this.actorsToRemove.TryDequeue(out Actor actor))
-            {
-                this.instantiatedActorCount--;
-                _ = this.instantiatedActors.Remove(actor);
-
-                ActorDatabase.GetDescriptor(actor.Index).Recycle(actor);
-
-                actor.OnDestroyed();
-            }
-        }
-
-        internal void Update(GameTime gameTime)
-        {
-            FlushPendingChanges();
 
             // Update each instantiated actor
             foreach (Actor currentActor in this.instantiatedActors)
@@ -151,6 +132,14 @@ namespace StardustSandbox.Managers
                 // Update the actor
                 currentActor.Update(gameTime);
             }
+
+            // Remove queued actors
+            while (this.actorsToRemove.TryDequeue(out Actor actor))
+            {
+                _ = this.instantiatedActors.Remove(actor);
+
+                actor.OnDestroyed();
+            }
         }
 
         internal void Draw(SpriteBatch spriteBatch)
@@ -170,9 +159,9 @@ namespace StardustSandbox.Managers
 
         public byte[][] Serialize()
         {
-            byte[][] result = new byte[this.instantiatedActorCount][];
+            byte[][] result = new byte[this.InstantiatedActorCount][];
 
-            for (int i = 0; i < this.instantiatedActorCount; i++)
+            for (int i = 0, count = InstantiatedActorCount; i < count; i++)
             {
                 result[i] = ActorSerializer.Serialize(this.instantiatedActors[i]);
             }

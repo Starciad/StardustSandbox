@@ -10,6 +10,8 @@ namespace StardustSandbox.Collections
     /// </summary>
     internal sealed class ObjectPool
     {
+        internal Queue<IPoolableObject> Pool => this.pool;
+
         /// <summary>
         /// Gets the current number of objects available in the pool.
         /// </summary>
