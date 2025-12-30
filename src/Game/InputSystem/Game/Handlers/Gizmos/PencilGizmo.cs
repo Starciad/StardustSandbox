@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Actors;
-using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Elements;
@@ -123,10 +122,10 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                Actor actor = this.actorManager.Create(actorIndex);
-
-                actor.PositionX = position.X * SpriteConstants.SPRITE_DEFAULT_WIDTH;
-                actor.PositionY = position.Y * SpriteConstants.SPRITE_DEFAULT_HEIGHT;
+                if (this.actorManager.TryCreate(actorIndex, out Actor actor))
+                {
+                    actor.Position = position;
+                }
             }
         }
 
@@ -134,11 +133,9 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                Rectangle targetRectangle = new(position.X * SpriteConstants.SPRITE_DEFAULT_WIDTH, position.Y * SpriteConstants.SPRITE_DEFAULT_HEIGHT, SpriteConstants.SPRITE_DEFAULT_WIDTH, SpriteConstants.SPRITE_DEFAULT_HEIGHT);
-
                 foreach (Actor actor in this.actorManager.InstantiatedActors)
                 {
-                    if (targetRectangle.Intersects(actor.SelfRectangle))
+                    if (actor.Position == position)
                     {
                         this.actorManager.Destroy(actor);
                     }

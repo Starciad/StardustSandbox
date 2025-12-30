@@ -13,6 +13,7 @@ using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace StardustSandbox.Managers
 {
@@ -23,7 +24,6 @@ namespace StardustSandbox.Managers
 
         private string currentlySelectedSaveFile;
 
-        private SimulationSpeed currentSpeed;
         private float accumulatedTimeSeconds;
         private float delayThresholdSeconds;
 
@@ -38,16 +38,18 @@ namespace StardustSandbox.Managers
             this.world = world;
         }
 
-        internal Actor Create(ActorIndex index)
+        internal bool TryCreate(ActorIndex index, out Actor actor)
         {
             if (this.TotalActorCount >= ActorConstants.MAX_SIMULTANEOUS_ACTORS)
             {
-                return null;
+                actor = null;
+                return false;
             }
 
-            Actor actor = ActorDatabase.GetDescriptor(index).Create();
+            actor = ActorDatabase.GetDescriptor(index).Create();
             this.actorsToAdd.Enqueue(actor);
-            return actor;
+
+            return true;
         }
 
         internal void Destroy(Actor actor)
@@ -69,81 +71,29 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal bool IsCollideAt(Rectangle collisionRect)
-        {
-            foreach (Actor actor in this.instantiatedActors)
-            {
-                if (collisionRect.Intersects(actor.SelfRectangle))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool Intersects(Rectangle rect1, Rectangle rect2, out ActorCollisionDirection collisionDirection, out Point intersectionPoint)
-        {
-            collisionDirection = ActorCollisionDirection.None;
-            intersectionPoint = Point.Zero;
-
-            // Check for intersection
-            if (rect1.Intersects(rect2))
-            {
-                // Calculates intersection areas
-                int intersectLeft = Math.Max(rect1.Left, rect2.Left);
-                int intersectRight = Math.Min(rect1.Right, rect2.Right);
-                int intersectTop = Math.Max(rect1.Top, rect2.Top);
-                int intersectBottom = Math.Min(rect1.Bottom, rect2.Bottom);
-
-                int intersectWidth = intersectRight - intersectLeft;
-                int intersectHeight = intersectBottom - intersectTop;
-
-                // Central position of the intersection
-                intersectionPoint.X = intersectLeft + (intersectWidth / 2);
-                intersectionPoint.Y = intersectTop + (intersectHeight / 2);
-
-                // Calculates the distances to each side
-                int fromTop = Math.Abs(rect1.Bottom - rect2.Top);
-                int fromBottom = Math.Abs(rect1.Top - rect2.Bottom);
-                int fromLeft = Math.Abs(rect1.Right - rect2.Left);
-                int fromRight = Math.Abs(rect1.Left - rect2.Right);
-
-                // Determines the direction of collision (least penetration)
-                int minDist = Math.Min(Math.Min(fromTop, fromBottom), Math.Min(fromLeft, fromRight));
-                collisionDirection = minDist == fromTop
-                    ? ActorCollisionDirection.Bottom
-                    : minDist == fromBottom ? ActorCollisionDirection.Top : minDist == fromLeft ? ActorCollisionDirection.Right : ActorCollisionDirection.Left;
-
-                return true;
-            }
-
-            return false;
-        }
-
         private bool IsActorWithinWorldBounds(Actor actor)
         {
-            Rectangle rect = actor.SelfRectangle;
+            int left = actor.Position.X;
+            int right = actor.Position.X + actor.Size.X;
+            int top = actor.Position.Y;
+            int bottom = actor.Position.Y + actor.Size.Y;
 
-            int worldWidth = this.world.Information.Size.X * SpriteConstants.SPRITE_SCALE;
-            int worldHeight = this.world.Information.Size.Y * SpriteConstants.SPRITE_SCALE;
-
-            if (rect.Right < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            if (right < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
             {
                 return false; // West
             }
 
-            if (rect.Left > worldWidth + ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            if (left > this.world.Information.Size.X + ActorConstants.WORLD_BOUNDS_TOLERANCE)
             {
                 return false; // East
             }
 
-            if (rect.Bottom < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            if (bottom < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
             {
                 return false; // North
             }
 
-            if (rect.Top > worldHeight + ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            if (top > this.world.Information.Size.Y + ActorConstants.WORLD_BOUNDS_TOLERANCE)
             {
                 return false; // South
             }
@@ -181,23 +131,6 @@ namespace StardustSandbox.Managers
                     continue;
                 }
 
-                // Check for collisions with other actors
-                if (currentActor.CollideWithActors)
-                {
-                    foreach (Actor otherActor in this.instantiatedActors)
-                    {
-                        if (currentActor == otherActor || !otherActor.CollideWithActors)
-                        {
-                            continue;
-                        }
-
-                        if (Intersects(currentActor.SelfRectangle, otherActor.SelfRectangle, out ActorCollisionDirection collisionDirection, out Point intersectionPoint))
-                        {
-                            currentActor.OnActorCollisionOccurred(otherActor, new(collisionDirection, intersectionPoint));
-                        }
-                    }
-                }
-
                 // Update the actor
                 currentActor.Update(gameTime);
 
@@ -211,11 +144,10 @@ namespace StardustSandbox.Managers
 
         internal void Update(GameTime gameTime)
         {
+            Debug.WriteLine($"[ActorManager] Total Actors: {this.TotalActorCount}");
             FlushPendingChanges();
 
-            float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
-
-            this.accumulatedTimeSeconds += deltaTime;
+            this.accumulatedTimeSeconds += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
             if (this.accumulatedTimeSeconds >= this.delayThresholdSeconds)
             {
@@ -314,13 +246,12 @@ namespace StardustSandbox.Managers
 
         internal void SetSpeed(SimulationSpeed speed)
         {
-            this.currentSpeed = speed;
             this.delayThresholdSeconds = speed switch
             {
-                SimulationSpeed.Normal => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS / 2.0f,
-                SimulationSpeed.Fast => SimulationConstants.FAST_SPEED_DELAY_SECONDS / 2.0f,
-                SimulationSpeed.VeryFast => SimulationConstants.VERY_FAST_SPEED_DELAY_SECONDS / 2.0f,
-                _ => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS / 2.0f,
+                SimulationSpeed.Normal => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS,
+                SimulationSpeed.Fast => SimulationConstants.FAST_SPEED_DELAY_SECONDS,
+                SimulationSpeed.VeryFast => SimulationConstants.VERY_FAST_SPEED_DELAY_SECONDS,
+                _ => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS,
             };
         }
     }

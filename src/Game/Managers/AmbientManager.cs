@@ -25,7 +25,7 @@ namespace StardustSandbox.Managers
         internal void Initialize(World world)
         {
             this.backgroundHandler = new();
-            this.cloudHandler = new(world.Simulation);
+            this.cloudHandler = new();
             this.timeHandler = new(world.Time);
             this.celestialBodyHandler = new(this.timeHandler, world);
         }

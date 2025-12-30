@@ -16,9 +16,11 @@ namespace StardustSandbox
 {
     internal static class GameHandler
     {
+        internal static SimulationSpeed SimulationSpeed { get; private set; }
+
         private static GameStates states;
 
-        internal static void StartGame(AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
+        internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
             MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
@@ -27,11 +29,13 @@ namespace StardustSandbox
 
             ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 
-            world.Time.Reset();
             world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
 
+            world.Time.Reset();
             world.CanUpdate = true;
             world.CanDraw = true;
+
+            SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
             SSCamera.Position = new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE));
 
@@ -61,6 +65,8 @@ namespace StardustSandbox
 
         internal static void SetSpeed(in SimulationSpeed speed, ActorManager actorManager, World world)
         {
+            SimulationSpeed = speed;
+
             world.SetSpeed(speed);
             actorManager.SetSpeed(speed);
         }

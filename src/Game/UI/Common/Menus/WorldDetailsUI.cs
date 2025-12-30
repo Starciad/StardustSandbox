@@ -62,7 +62,7 @@ namespace StardustSandbox.UI.Common.Menus
                     uiManager.OpenGUI(UIIndex.MainMenu);
                     uiManager.OpenGUI(UIIndex.Hud);
 
-                    GameHandler.StartGame(ambientManager, inputController, uiManager, world);
+                    GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world);
 
                     world.LoadFromSaveFile(this.saveFile.Metadata.Name);
                     actorManager.LoadFromSaveFile(this.saveFile.Metadata.Name);

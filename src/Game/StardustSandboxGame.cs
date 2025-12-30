@@ -143,7 +143,7 @@ namespace StardustSandbox
 
             if (Parameters.SkipIntro)
             {
-                GameHandler.StartGame(this.ambientManager, this.inputController, this.uiManager, this.world);
+                GameHandler.StartGame(this.actorManager, this.ambientManager, this.inputController, this.uiManager, this.world);
             }
             else
             {

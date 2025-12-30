@@ -1,4 +1,6 @@
-﻿using StardustSandbox.Actors;
+﻿using Microsoft.Xna.Framework;
+
+using StardustSandbox.Actors;
 using StardustSandbox.Actors.Common;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Interfaces.Actors;
@@ -24,19 +26,11 @@ namespace StardustSandbox.Databases
             descriptors = [
                 new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
                 {
-                    Width = 32,
-                    Height = 32,
+                    Position = Point.Zero,
+                    Size = new(1),
 
                     CanDraw = true,
                     CanUpdate = true,
-
-                    CollideWithActors = true,
-                    CollideWithElements = true,
-
-                    IsSolid = true,
-
-                    PositionX = 0,
-                    PositionY = 0,
                 }),
             ];
 

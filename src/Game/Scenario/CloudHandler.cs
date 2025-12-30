@@ -10,13 +10,12 @@ using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Randomness;
-using StardustSandbox.WorldSystem;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Scenario
 {
-    internal sealed class CloudHandler(Simulation simulation) : IResettable
+    internal sealed class CloudHandler : IResettable
     {
         private static readonly Rectangle[] cloudRectangles = [
             new(0, 0, 160, 64),
@@ -28,8 +27,6 @@ namespace StardustSandbox.Scenario
 
         private readonly List<Cloud> activeClouds = new(BackgroundConstants.ACTIVE_CLOUDS_LIMIT);
         private readonly ObjectPool cloudPool = new();
-
-        private readonly Simulation simulation = simulation;
 
         internal void Update(GameTime gameTime)
         {
@@ -54,7 +51,7 @@ namespace StardustSandbox.Scenario
                     continue;
                 }
 
-                cloud.Update(gameTime, this.simulation.CurrentSpeed);
+                cloud.Update(gameTime, GameHandler.SimulationSpeed);
             }
 
             if (SSRandom.Chance(BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING, BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING_TOTAL))

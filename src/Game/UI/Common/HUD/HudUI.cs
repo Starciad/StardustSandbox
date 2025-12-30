@@ -45,7 +45,6 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly InputController inputController;
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
-        private readonly World world;
 
         private readonly Rectangle[] speedIconRectangles = [
             new(192, 128, 32, 32),
@@ -72,7 +71,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.guiConfirm = confirmUI;
             this.uiManager = uiManager;
             this.tooltipBox = tooltipBox;
-            this.world = world;
 
             SelectItemSlot(0, 0, 0, 0);
 
@@ -88,8 +86,8 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Speed_Name, Localization_GUIs.HUD_Speed_Description, () =>
                 {
                     SimulationSpeed speed =
-                        this.world.Simulation.CurrentSpeed is SimulationSpeed.Normal ? SimulationSpeed.Fast :
-                        this.world.Simulation.CurrentSpeed is SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
+                        GameHandler.SimulationSpeed is SimulationSpeed.Normal ? SimulationSpeed.Fast :
+                        GameHandler.SimulationSpeed is SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
                         SimulationSpeed.Normal;
 
                     GameHandler.SetSpeed(speed, actorManager, world);
@@ -432,7 +430,7 @@ namespace StardustSandbox.UI.Common.HUD
                 ? this.pauseAndResumeRectangles[1] // Resume
                 : this.pauseAndResumeRectangles[0]; // Pause
 
-            this.leftPanelBottomButtonSlotInfos[1].Icon.SourceRectangle = this.world.Simulation.CurrentSpeed switch
+            this.leftPanelBottomButtonSlotInfos[1].Icon.SourceRectangle = GameHandler.SimulationSpeed switch
             {
                 SimulationSpeed.Fast => this.speedIconRectangles[1],
                 SimulationSpeed.VeryFast => this.speedIconRectangles[2],

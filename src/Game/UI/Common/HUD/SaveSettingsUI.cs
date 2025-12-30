@@ -73,7 +73,7 @@ namespace StardustSandbox.UI.Common.HUD
                         InputRestriction = InputRestriction.Alphanumeric,
                         MaxCharacters = 50,
 
-                        Content = this.world.Information.Name,
+                        Content = world.Information.Name,
 
                         OnValidationCallback = (result) =>
                         {
@@ -100,7 +100,7 @@ namespace StardustSandbox.UI.Common.HUD
                         Synopsis = Localization_Messages.Input_World_Description,
                         InputMode = InputMode.Normal,
                         MaxCharacters = 500,
-                        Content = this.world.Information.Description,
+                        Content = world.Information.Description,
 
                         OnValidationCallback = (result) =>
                         {
@@ -123,9 +123,9 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
-                    SavingSerializer.Save(actorManager, this.world, this.graphicsDevice);
+                    SavingSerializer.Save(actorManager, world, this.graphicsDevice);
 
-                    this.world.SetSaveFile(this.world.Information.Name);
+                    world.SetSaveFile(world.Information.Name);
                     this.uiManager.CloseGUI();
                 }),
             ];
