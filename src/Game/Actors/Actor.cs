@@ -18,76 +18,23 @@ namespace StardustSandbox.Actors
 {
     internal abstract class Actor : IPoolableObject
     {
-        internal Rectangle SelfRectangle => new(this.positionX, this.positionY, this.width, this.height);
+        internal ActorIndex Index { get; }
+        internal Rectangle SelfRectangle => new(this.PositionX, this.PositionY, this.Width, this.Height);
 
-        internal bool CanUpdate { get => this.canUpdate; set => this.canUpdate = value; }
-        internal bool CanDraw { get => this.canDraw; set => this.canDraw = value; }
+        internal bool CanUpdate { get; set; }
+        internal bool CanDraw { get; set; }
+        internal bool Destroyed { get; set; }
 
-        internal bool CollideWithActors { get => this.collideWithActors; set => this.collideWithActors = value; }
-        internal bool CollideWithElements { get => this.collideWithElements; set => this.collideWithElements = value; }
+        internal bool CollideWithActors { get; set; }
+        internal bool CollideWithElements { get; set; }
 
-        internal ActorIndex Index => this.index;
+        internal int PositionX { get; set; }
+        internal int PositionY { get; set; }
 
-        internal int PositionX
-        {
-            get => this.positionX;
-            set => this.positionX = value;
-        }
+        internal int Width { get; set; }
+        internal int Height { get; set; }
 
-        internal int PositionY
-        {
-            get => this.positionY;
-            set => this.positionY = value;
-        }
-
-        internal int Width
-        {
-            get => this.width;
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Width cannot be negative.");
-                }
-
-                this.width = value;
-            }
-        }
-
-        internal int Height
-        {
-            get => this.height;
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "Height cannot be negative.");
-                }
-
-                this.height = value;
-            }
-        }
-
-        internal bool IsSolid
-        {
-            get => this.isSolid;
-            set => this.isSolid = value;
-        }
-
-        protected readonly ActorIndex index;
-        protected int positionX;
-        protected int positionY;
-        protected int width;
-        protected int height;
-
-        protected bool canUpdate = true;
-        protected bool canDraw = true;
-
-        protected bool isSolid = false;
-
-        protected bool collideWithActors = true;
-        protected bool collideWithSolids = true;
-        protected bool collideWithElements = true;
+        internal bool IsSolid { get; set; }
 
         private double remainderX;
         private double remainderY;
@@ -97,13 +44,12 @@ namespace StardustSandbox.Actors
 
         internal Actor(ActorIndex index, ActorManager actorManager, World world)
         {
-            this.index = index;
+            this.Index = index;
             this.actorManager = actorManager;
             this.world = world;
         }
 
         public abstract void Reset();
-        internal abstract void Initialize();
         internal abstract void Update(GameTime gameTime);
         internal abstract void Draw(SpriteBatch spriteBatch);
 
@@ -172,10 +118,10 @@ namespace StardustSandbox.Actors
 
             while (motion != 0)
             {
-                nextRect.X = this.positionX + sign;
-                nextRect.Y = this.positionY;
+                nextRect.X = this.PositionX + sign;
+                nextRect.Y = this.PositionY;
 
-                if (this.collideWithElements && IsCollidingWithElements(nextRect, this.world))
+                if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
                     OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Horizontally));
                     stopFlag = true;
@@ -186,7 +132,7 @@ namespace StardustSandbox.Actors
                     break;
                 }
 
-                this.positionX += sign;
+                this.PositionX += sign;
                 motion -= sign;
             }
         }
@@ -209,10 +155,10 @@ namespace StardustSandbox.Actors
 
             while (motion != 0)
             {
-                nextRect.Y = this.positionY + sign;
-                nextRect.X = this.positionX;
+                nextRect.Y = this.PositionY + sign;
+                nextRect.X = this.PositionX;
 
-                if (this.collideWithElements && IsCollidingWithElements(nextRect, this.world))
+                if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
                     OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Vertically));
                     stopFlag = true;
@@ -223,7 +169,7 @@ namespace StardustSandbox.Actors
                     break;
                 }
 
-                this.positionY += sign;
+                this.PositionY += sign;
                 motion -= sign;
             }
         }

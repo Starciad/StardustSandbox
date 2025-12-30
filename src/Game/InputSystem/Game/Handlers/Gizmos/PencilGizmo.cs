@@ -75,11 +75,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                             break;
 
                         case WorldModificationType.Removing:
-                            if (inputState is InputState.Started)
-                            {
-                                EraseActors(this.pen.GetShapePoints(position));
-                            }
-                                
+                            EraseActors(this.pen.GetShapePoints(position));
                             break;
 
                         default:

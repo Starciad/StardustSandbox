@@ -189,8 +189,8 @@ namespace StardustSandbox
             graphicsDevice.Clear(Color.Transparent);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, SSCamera.GetViewMatrix());
-            actorManager.Draw(spriteBatch);
             world.Draw(spriteBatch);
+            actorManager.Draw(spriteBatch);
             spriteBatch.End();
         }
 

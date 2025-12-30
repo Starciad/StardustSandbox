@@ -29,7 +29,12 @@ namespace StardustSandbox.Managers
 
         internal void Destroy(Actor actor)
         {
-            ActorDatabase.GetDescriptor(actor.Index).Recycle(actor);
+            if (actor.Destroyed)
+            {
+                return;
+            }
+
+            ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
             this.actorsToRemove.Enqueue(actor);
         }
 
@@ -144,10 +149,15 @@ namespace StardustSandbox.Managers
 
         internal void Draw(SpriteBatch spriteBatch)
         {
+            foreach (Actor actor in this.actorsToAdd)
+            {
+                actor.Draw(spriteBatch);
+            }
+
             foreach (Actor actor in this.instantiatedActors)
             {
-                // Skip non-drawable actors
-                if (!actor.CanDraw)
+                // Skip non-drawable and destroyed actors
+                if (!actor.CanDraw || actor.Destroyed)
                 {
                     continue;
                 }

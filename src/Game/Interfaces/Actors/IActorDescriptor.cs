@@ -8,6 +8,6 @@ namespace StardustSandbox.Interfaces.Actors
         ActorIndex Index { get; }
 
         Actor Create();
-        void Recycle(Actor actor);
+        void Destroy(Actor actor);
     }
 }
