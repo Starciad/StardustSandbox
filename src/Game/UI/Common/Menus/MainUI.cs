@@ -34,6 +34,7 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
+        private readonly ActorManager actorManager;
         private readonly InputController inputController;
         private readonly AmbientManager ambientManager;
         private readonly UIManager uiManager;
@@ -45,6 +46,7 @@ namespace StardustSandbox.UI.Common.Menus
         private const float buttonAnimationAmplitude = 5.0f;
 
         internal MainUI(
+            ActorManager actorManager,
             AmbientManager ambientManager,
             InputController inputController,
             UIIndex index,
@@ -52,6 +54,7 @@ namespace StardustSandbox.UI.Common.Menus
             World world
         ) : base(index)
         {
+            this.actorManager = actorManager;
             this.ambientManager = ambientManager;
             this.inputController = inputController;
             this.uiManager = uiManager;
@@ -265,7 +268,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         protected override void OnOpened()
         {
-            GameHandler.StopGame(this.inputController, this.world);
+            GameHandler.StopGame(this.actorManager, this.inputController, this.world);
 
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
             this.gameTitle.Margin = Vector2.Zero;

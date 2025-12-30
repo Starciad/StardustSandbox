@@ -665,8 +665,6 @@ namespace StardustSandbox.WorldSystem
 
         #region ROUTINE
 
-        #region Update
-
         internal void Update(GameTime gameTime)
         {
             if (!this.CanUpdate)
@@ -687,10 +685,6 @@ namespace StardustSandbox.WorldSystem
             HandleExplosions();
         }
 
-        #endregion
-
-        #region Draw
-
         internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
@@ -705,8 +699,6 @@ namespace StardustSandbox.WorldSystem
 
             this.rendering.Draw(spriteBatch);
         }
-
-        #endregion
 
         #endregion
 

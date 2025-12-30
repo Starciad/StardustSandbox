@@ -39,7 +39,7 @@ namespace StardustSandbox
             inputController.Enable();
         }
 
-        internal static void StopGame(InputController inputController, World world)
+        internal static void StopGame(ActorManager actorManager, InputController inputController, World world)
         {
             SongEngine.StopGameplayMusicCycle();
 
@@ -48,7 +48,8 @@ namespace StardustSandbox
 
             world.CanDraw = false;
             world.CanUpdate = false;
-            world.SetSpeed(SimulationSpeed.Normal);
+
+            SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
             RemoveState(GameStates.IsPaused);
             RemoveState(GameStates.IsSimulationPaused);
@@ -56,6 +57,12 @@ namespace StardustSandbox
 
             world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
             world.Time.IsFrozen = false;
+        }
+
+        internal static void SetSpeed(in SimulationSpeed speed, ActorManager actorManager, World world)
+        {
+            world.SetSpeed(speed);
+            actorManager.SetSpeed(speed);
         }
 
         internal static bool HasState(GameStates value)

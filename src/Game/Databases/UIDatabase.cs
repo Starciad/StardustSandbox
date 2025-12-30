@@ -133,6 +133,7 @@ namespace StardustSandbox.Databases
             );
 
             MainUI mainUI = new(
+                actorManager,
                 ambientManager,
                 inputController,
                 UIIndex.MainMenu,

@@ -87,11 +87,12 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => GameHandler.ToggleState(GameStates.IsSimulationPaused)),
                 new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Speed_Name, Localization_GUIs.HUD_Speed_Description, () =>
                 {
-                    world.SetSpeed(
-                        this.world.Simulation.CurrentSpeed == SimulationSpeed.Normal ? SimulationSpeed.Fast :
-                        this.world.Simulation.CurrentSpeed == SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
-                        SimulationSpeed.Normal
-                    );
+                    SimulationSpeed speed =
+                        this.world.Simulation.CurrentSpeed is SimulationSpeed.Normal ? SimulationSpeed.Fast :
+                        this.world.Simulation.CurrentSpeed is SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
+                        SimulationSpeed.Normal;
+
+                    GameHandler.SetSpeed(speed, actorManager, world);
                 }),
             ];
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Actors.Collision;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Assets;
@@ -16,8 +17,8 @@ namespace StardustSandbox.Actors.Common
 {
     internal sealed class GulActor : Actor
     {
+        private Vector2 direction;
         private float speed;
-        private float directionAngle;
 
         internal GulActor(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
         {
@@ -29,21 +30,38 @@ namespace StardustSandbox.Actors.Common
 
         }
 
+        internal override void OnElementCollisionOccurred(in ElementCollisionContext context)
+        {
+            switch (context.Orientation)
+            {
+                case ElementCollisionOrientation.None:
+                    break;
+
+                case ElementCollisionOrientation.Horizontally:
+                    this.direction.X *= -1.0f;
+                    break;
+
+                case ElementCollisionOrientation.Vertically:
+                    this.direction.Y *= -1.0f;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         internal override void OnCreated()
         {
-            this.speed = SSRandom.Range(20, 40);
-            this.directionAngle = SSRandom.Range(0, 360) * MathF.PI / 180.0f;
+            this.speed = SSRandom.Range(40, 80);
+            this.direction = new(SSRandom.Range(-1.0f, 1.0f), SSRandom.Range(-1.0f, 1.0f));
         }
 
         internal override void Update(GameTime gameTime)
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            float velocityX = MathF.Cos(this.directionAngle) * this.speed;
-            float velocityY = MathF.Sin(this.directionAngle) * this.speed;
-
-            MoveHorizontally(velocityX * deltaTime);
-            MoveVertically(velocityY * deltaTime);
+            MoveHorizontally(this.direction.X * this.speed * deltaTime);
+            MoveVertically(this.direction.Y * this.speed * deltaTime);
         }
 
         internal override void Draw(SpriteBatch spriteBatch)

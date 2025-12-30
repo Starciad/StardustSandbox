@@ -114,7 +114,6 @@ namespace StardustSandbox.Actors
             sbyte sign = (sbyte)Math.Sign(motion);
 
             Rectangle nextRect = this.SelfRectangle;
-            bool stopFlag = false;
 
             while (motion != 0)
             {
@@ -124,11 +123,6 @@ namespace StardustSandbox.Actors
                 if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
                     OnElementCollisionOccurred(new(ElementCollisionOrientation.Horizontally));
-                    stopFlag = true;
-                }
-
-                if (stopFlag)
-                {
                     break;
                 }
 
@@ -151,7 +145,6 @@ namespace StardustSandbox.Actors
             sbyte sign = (sbyte)Math.Sign(motion);
 
             Rectangle nextRect = this.SelfRectangle;
-            bool stopFlag = false;
 
             while (motion != 0)
             {
@@ -161,11 +154,6 @@ namespace StardustSandbox.Actors
                 if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
                     OnElementCollisionOccurred(new(ElementCollisionOrientation.Vertically));
-                    stopFlag = true;
-                }
-
-                if (stopFlag)
-                {
                     break;
                 }
 

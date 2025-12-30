@@ -6,6 +6,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Serialization;
+using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Serialization;
 using StardustSandbox.WorldSystem;
@@ -21,6 +22,10 @@ namespace StardustSandbox.Managers
         internal int TotalActorCount => this.instantiatedActors.Count + this.actorsToAdd.Count - this.actorsToRemove.Count;
 
         private string currentlySelectedSaveFile;
+
+        private SimulationSpeed currentSpeed;
+        private float accumulatedTimeSeconds;
+        private float delayThresholdSeconds;
 
         private readonly List<Actor> instantiatedActors = [];
         private readonly Queue<Actor> actorsToAdd = [];
@@ -146,7 +151,7 @@ namespace StardustSandbox.Managers
             return true;
         }
 
-        internal void Update(GameTime gameTime)
+        private void FlushPendingChanges()
         {
             // Add queued actors
             while (this.actorsToAdd.TryDequeue(out Actor actor))
@@ -156,6 +161,17 @@ namespace StardustSandbox.Managers
                 actor.OnCreated();
             }
 
+            // Remove queued actors
+            while (this.actorsToRemove.TryDequeue(out Actor actor))
+            {
+                _ = this.instantiatedActors.Remove(actor);
+
+                actor.OnDestroyed();
+            }
+        }
+
+        private void UpdateActors(GameTime gameTime)
+        {
             // Update each instantiated actor
             foreach (Actor currentActor in this.instantiatedActors)
             {
@@ -191,13 +207,20 @@ namespace StardustSandbox.Managers
                     Destroy(currentActor);
                 }
             }
+        }
 
-            // Remove queued actors
-            while (this.actorsToRemove.TryDequeue(out Actor actor))
+        internal void Update(GameTime gameTime)
+        {
+            FlushPendingChanges();
+
+            float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
+
+            this.accumulatedTimeSeconds += deltaTime;
+
+            if (this.accumulatedTimeSeconds >= this.delayThresholdSeconds)
             {
-                _ = this.instantiatedActors.Remove(actor);
-
-                actor.OnDestroyed();
+                this.accumulatedTimeSeconds = 0.0f;
+                UpdateActors(gameTime);
             }
         }
 
@@ -287,6 +310,18 @@ namespace StardustSandbox.Managers
         {
             this.currentlySelectedSaveFile = null;
             DestroyAll();
+        }
+
+        internal void SetSpeed(SimulationSpeed speed)
+        {
+            this.currentSpeed = speed;
+            this.delayThresholdSeconds = speed switch
+            {
+                SimulationSpeed.Normal => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS / 2.0f,
+                SimulationSpeed.Fast => SimulationConstants.FAST_SPEED_DELAY_SECONDS / 2.0f,
+                SimulationSpeed.VeryFast => SimulationConstants.VERY_FAST_SPEED_DELAY_SECONDS / 2.0f,
+                _ => SimulationConstants.NORMAL_SPEED_DELAY_SECONDS / 2.0f,
+            };
         }
     }
 }
