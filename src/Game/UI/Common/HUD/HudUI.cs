@@ -59,6 +59,7 @@ namespace StardustSandbox.UI.Common.HUD
         ];
 
         internal HudUI(
+            ActorManager actorManager,
             InputController inputController,
             ConfirmUI confirmUI,
             UIIndex index,
@@ -111,7 +112,8 @@ namespace StardustSandbox.UI.Common.HUD
                         {
                             if (status == ConfirmStatus.Confirmed)
                             {
-                                this.world.Reset();
+                                world.Reset();
+                                actorManager.Reset();
                             }
 
                             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
@@ -130,7 +132,8 @@ namespace StardustSandbox.UI.Common.HUD
                         {
                             if (status == ConfirmStatus.Confirmed)
                             {
-                                this.world.Reload();
+                                world.Reload();
+                                actorManager.Reload();
                             }
 
                             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);

@@ -41,6 +41,7 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly GraphicsDevice graphicsDevice;
 
         internal SaveUI(
+            ActorManager actorManager,
             GraphicsDevice graphicsDevice,
             UIIndex index,
             TextInputUI textInputUI,
@@ -122,7 +123,7 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
-                    SavingSerializer.Save(this.world, this.graphicsDevice);
+                    SavingSerializer.Save(actorManager, this.world, this.graphicsDevice);
 
                     this.world.SetSaveFile(this.world.Information.Name);
                     this.uiManager.CloseGUI();

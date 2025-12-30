@@ -10,6 +10,7 @@ using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.IO;
+using StardustSandbox.Managers;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem;
@@ -31,7 +32,7 @@ namespace StardustSandbox.Serialization
                 .WithSecurity(MessagePackSecurity.UntrustedData)
                 .WithCompression(MessagePackCompression.Lz4BlockArray);
 
-        internal static void Save(World world, GraphicsDevice graphicsDevice)
+        internal static void Save(ActorManager actorManager, World world, GraphicsDevice graphicsDevice)
         {
             string filename = Path.Combine(SSDirectory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
 
@@ -47,9 +48,8 @@ namespace StardustSandbox.Serialization
             Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata(world));
             Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
             Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties(world));
-            Write(zip, IOConstants.SAVE_ENTRY_RESOURCES, CreateResources(world));
             Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT, CreateEnvironment(world));
-            Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent(world));
+            Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent(actorManager, world));
         }
 
         internal static SaveFile Load(string name, LoadFlags flags)
@@ -65,7 +65,6 @@ namespace StardustSandbox.Serialization
                 Metadata = flags.HasFlag(LoadFlags.Metadata) ? LoadPart<Metadata>(zip, IOConstants.SAVE_ENTRY_METADATA) : null,
                 Manifest = flags.HasFlag(LoadFlags.Manifest) ? LoadPart<ManifestData>(zip, IOConstants.SAVE_ENTRY_MANIFEST) : null,
                 Properties = flags.HasFlag(LoadFlags.Properties) ? LoadPart<PropertyData>(zip, IOConstants.SAVE_ENTRY_PROPERTIES) : null,
-                Resources = flags.HasFlag(LoadFlags.Resources) ? LoadPart<ResourceData>(zip, IOConstants.SAVE_ENTRY_RESOURCES) : null,
                 Environment = flags.HasFlag(LoadFlags.Environment) ? LoadPart<EnvironmentData>(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT) : null,
                 Content = flags.HasFlag(LoadFlags.Content) ? LoadPart<ContentData>(zip, IOConstants.SAVE_ENTRY_CONTENT) : null
             };
@@ -135,14 +134,6 @@ namespace StardustSandbox.Serialization
             };
         }
 
-        private static ResourceData CreateResources(World world)
-        {
-            return new()
-            {
-                Elements = GetAllWorldDistinctElements(world)
-            };
-        }
-
         private static EnvironmentData CreateEnvironment(World world)
         {
             return new()
@@ -152,53 +143,16 @@ namespace StardustSandbox.Serialization
             };
         }
 
-        private static ContentData CreateContent(World world)
+        private static ContentData CreateContent(ActorManager actorManager, World world)
         {
             return new()
             {
-                Slots = CreateSlotsData(world, world.Information.Size)
+                Slots = CreateSlotData(world, world.Information.Size),
+                Actors = actorManager.Serialize(),
             };
         }
 
-        private static HashSet<ElementIndex> GetAllWorldDistinctElements(World world)
-        {
-            HashSet<ElementIndex> elements = [];
-
-            for (int y = 0; y < world.Information.Size.Y; y++)
-            {
-                for (int x = 0; x < world.Information.Size.X; x++)
-                {
-                    Point point = new(x, y);
-
-                    if (!world.TryGetSlot(point, out Slot slot))
-                    {
-                        continue;
-                    }
-
-                    ProcessLayer(slot.GetLayer(Layer.Foreground));
-                    ProcessLayer(slot.GetLayer(Layer.Background));
-                }
-            }
-
-            return elements;
-
-            void ProcessLayer(SlotLayer layer)
-            {
-                if (layer.IsEmpty)
-                {
-                    return;
-                }
-
-                _ = elements.Add(layer.ElementIndex);
-
-                if (layer.StoredElementIndex is not ElementIndex.None)
-                {
-                    _ = elements.Add(layer.StoredElementIndex);
-                }
-            }
-        }
-
-        private static List<SlotData> CreateSlotsData(World world, in Point size)
+        private static SlotData[] CreateSlotData(World world, in Point size)
         {
             List<SlotData> slots = [];
 
@@ -217,7 +171,7 @@ namespace StardustSandbox.Serialization
                 }
             }
 
-            return slots;
+            return [.. slots];
         }
     }
 }

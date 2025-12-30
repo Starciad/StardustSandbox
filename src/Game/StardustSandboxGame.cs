@@ -83,10 +83,12 @@ namespace StardustSandbox
             this.uiManager = new();
             this.cursorManager = new();
             this.ambientManager = new();
-            this.actorManager = new();
 
             // Core
             this.world = new(this.inputController);
+
+            // Actor Manager
+            this.actorManager = new(this.world);
 
             // Apply video settings
             this.videoManager.ApplySettings(videoSettings);
@@ -111,7 +113,7 @@ namespace StardustSandbox
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
             ElementDatabase.Load();
             CatalogDatabase.Load();
-            UIDatabase.Load(this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this.uiManager, this.videoManager, this.world);
+            UIDatabase.Load(this.actorManager, this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this.uiManager, this.videoManager, this.world);
             BackgroundDatabase.Load();
             ToolDatabase.Load();
             ActorDatabase.Load(this.actorManager, this.world);

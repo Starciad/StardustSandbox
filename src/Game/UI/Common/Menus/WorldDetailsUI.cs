@@ -35,11 +35,8 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly Label[] worldButtonLabels;
         private readonly ButtonInfo[] worldButtonInfos;
 
-        private readonly UIManager uiManager;
-
-        private readonly World world;
-
         internal WorldDetailsUI(
+            ActorManager actorManager,
             AmbientManager ambientManager,
             UIIndex index,
             InputController inputController,
@@ -47,29 +44,28 @@ namespace StardustSandbox.UI.Common.Menus
             World world
         ) : base(index)
         {
-            this.uiManager = uiManager;
-            this.world = world;
-
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    this.uiManager.CloseGUI();
+                    uiManager.CloseGUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SavingSerializer.Delete(this.saveFile.Metadata.Name);
-                    this.uiManager.CloseGUI();
+                    uiManager.CloseGUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
                 {
-                    this.uiManager.Reset();
-                    this.uiManager.OpenGUI(UIIndex.MainMenu);
-                    this.uiManager.OpenGUI(UIIndex.Hud);
+                    uiManager.Reset();
+                    uiManager.OpenGUI(UIIndex.MainMenu);
+                    uiManager.OpenGUI(UIIndex.Hud);
 
                     GameHandler.StartGame(ambientManager, inputController, uiManager, world);
-                    this.world.LoadFromSaveFile(this.saveFile.Metadata.Name);
+
+                    world.LoadFromSaveFile(this.saveFile.Metadata.Name);
+                    actorManager.LoadFromSaveFile(this.saveFile.Metadata.Name);
 
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),

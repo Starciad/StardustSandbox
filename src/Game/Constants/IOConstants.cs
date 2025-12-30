@@ -118,7 +118,6 @@
         internal const string SAVE_ENTRY_METADATA = "metadata.bin";
         internal const string SAVE_ENTRY_MANIFEST = "manifest.bin";
         internal const string SAVE_ENTRY_PROPERTIES = "properties.bin";
-        internal const string SAVE_ENTRY_RESOURCES = "resources.bin";
         internal const string SAVE_ENTRY_ENVIRONMENT = "environment.bin";
         internal const string SAVE_ENTRY_CONTENT = "content.bin";
 

@@ -8,7 +8,6 @@ namespace StardustSandbox.Serialization.Saving
         public Metadata Metadata { get; init; }
         public ManifestData Manifest { get; init; }
         public PropertyData Properties { get; init; }
-        public ResourceData Resources { get; init; }
         public EnvironmentData Environment { get; init; }
         public ContentData Content { get; init; }
     }

@@ -1,7 +1,6 @@
 ﻿using MessagePack;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.Serialization.Saving.Data
 {
@@ -10,9 +9,9 @@ namespace StardustSandbox.Serialization.Saving.Data
     public sealed class ContentData
     {
         [Key("Slots")]
-        public IEnumerable<SlotData> Slots { get; init; }
+        public SlotData[] Slots { get; init; }
 
         [Key("Actors")]
-        public IEnumerable<ActorData> Actors { get; init; }
+        public byte[][] Actors { get; init; }
     }
 }

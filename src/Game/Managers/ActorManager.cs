@@ -2,26 +2,44 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Actors;
+using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
+using StardustSandbox.Enums.Serialization;
+using StardustSandbox.Interfaces;
 using StardustSandbox.Serialization;
+using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Managers
 {
-    internal sealed class ActorManager
+    internal sealed class ActorManager : IResettable
     {
         internal IEnumerable<Actor> InstantiatedActors => this.instantiatedActors;
-        internal int InstantiatedActorCount => this.instantiatedActors.Count;
+        internal int TotalActorCount => this.instantiatedActors.Count + this.actorsToAdd.Count - this.actorsToRemove.Count;
+
+        private string currentlySelectedSaveFile;
 
         private readonly List<Actor> instantiatedActors = [];
         private readonly Queue<Actor> actorsToAdd = [];
         private readonly Queue<Actor> actorsToRemove = [];
 
+        private readonly World world;
+
+        internal ActorManager(World world)
+        {
+            this.world = world;
+        }
+
         internal Actor Create(ActorIndex index)
         {
+            if (this.TotalActorCount >= ActorConstants.MAX_SIMULTANEOUS_ACTORS)
+            {
+                return null;
+            }
+
             Actor actor = ActorDatabase.GetDescriptor(index).Create();
             this.actorsToAdd.Enqueue(actor);
             return actor;
@@ -98,6 +116,36 @@ namespace StardustSandbox.Managers
             return false;
         }
 
+        private bool IsActorWithinWorldBounds(Actor actor)
+        {
+            Rectangle rect = actor.SelfRectangle;
+
+            int worldWidth = this.world.Information.Size.X * SpriteConstants.SPRITE_SCALE;
+            int worldHeight = this.world.Information.Size.Y * SpriteConstants.SPRITE_SCALE;
+
+            if (rect.Right < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            {
+                return false; // West
+            }
+
+            if (rect.Left > worldWidth + ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            {
+                return false; // East
+            }
+
+            if (rect.Bottom < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            {
+                return false; // North
+            }
+
+            if (rect.Top > worldHeight + ActorConstants.WORLD_BOUNDS_TOLERANCE)
+            {
+                return false; // South
+            }
+
+            return true;
+        }
+
         internal void Update(GameTime gameTime)
         {
             // Add queued actors
@@ -136,6 +184,12 @@ namespace StardustSandbox.Managers
 
                 // Update the actor
                 currentActor.Update(gameTime);
+
+                // Destroy actor if it leaves world bounds
+                if (!IsActorWithinWorldBounds(currentActor))
+                {
+                    Destroy(currentActor);
+                }
             }
 
             // Remove queued actors
@@ -167,26 +221,72 @@ namespace StardustSandbox.Managers
             }
         }
 
-        public byte[][] Serialize()
+        private IEnumerable<Actor> GetSerializableActors()
         {
-            byte[][] result = new byte[this.InstantiatedActorCount][];
+            HashSet<Actor> removingActors = [.. this.actorsToRemove];
 
-            for (int i = 0, count = InstantiatedActorCount; i < count; i++)
+            foreach (Actor actor in this.instantiatedActors)
             {
-                result[i] = ActorSerializer.Serialize(this.instantiatedActors[i]);
+                if (!removingActors.Contains(actor))
+                {
+                    yield return actor;
+                }
             }
 
-            return result;
+            foreach (Actor actor in this.actorsToAdd)
+            {
+                yield return actor;
+            }
+        }
+
+        public byte[][] Serialize()
+        {
+            List<byte[]> result = [];
+
+            foreach (Actor actor in GetSerializableActors())
+            {
+                result.Add(ActorSerializer.Serialize(actor));
+            }
+
+            return [.. result];
         }
 
         public void Deserialize(byte[][] data)
         {
             DestroyAll();
 
+            this.actorsToAdd.Clear();
+            this.actorsToRemove.Clear();
+
             for (int i = 0; i < data.Length; i++)
             {
-                this.actorsToAdd.Enqueue(ActorSerializer.Deserialize(data[i]));
+                Actor actor = ActorSerializer.Deserialize(data[i]);
+                this.actorsToAdd.Enqueue(actor);
             }
+        }
+
+        internal void LoadFromSaveFile(string name)
+        {
+            this.currentlySelectedSaveFile = name;
+            Deserialize(SavingSerializer.Load(name, LoadFlags.Content).Content.Actors);
+        }
+
+        internal void Reload()
+        {
+            if (!string.IsNullOrEmpty(this.currentlySelectedSaveFile))
+            {
+                LoadFromSaveFile(this.currentlySelectedSaveFile);
+            }
+            else
+            {
+                DestroyAll();
+            }
+        }
+
+        public void Reset()
+        {
+            this.currentlySelectedSaveFile = null;
+            DestroyAll();
         }
     }
 }

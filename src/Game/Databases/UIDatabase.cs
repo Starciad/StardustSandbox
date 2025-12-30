@@ -21,6 +21,7 @@ namespace StardustSandbox.Databases
         private static bool isLoaded;
 
         internal static void Load(
+            ActorManager actorManager,
             AmbientManager ambientManager,
             CursorManager cursorManager,
             GameWindow gameWindow,
@@ -102,6 +103,7 @@ namespace StardustSandbox.Databases
             );
 
             HudUI hudUI = new(
+                actorManager,
                 inputController,
                 confirmUI,
                 UIIndex.Hud,
@@ -171,6 +173,7 @@ namespace StardustSandbox.Databases
             );
 
             SaveUI saveSettingsUI = new(
+                actorManager,
                 graphicsDevice,
                 UIIndex.Save,
                 textInputUI,
@@ -180,6 +183,7 @@ namespace StardustSandbox.Databases
             );
 
             WorldDetailsUI worldDetailsUI = new(
+                actorManager,
                 ambientManager,
                 UIIndex.WorldDetailsMenu,
                 inputController,

@@ -10,10 +10,9 @@ namespace StardustSandbox.Enums.Serialization
         Metadata = 1 << 1,
         Manifest = 1 << 2,
         Properties = 1 << 3,
-        Resources = 1 << 4,
-        Environment = 1 << 5,
-        Content = 1 << 6,
+        Environment = 1 << 4,
+        Content = 1 << 5,
 
-        All = Thumbnail | Metadata | Manifest | Properties | Resources | Environment | Content
+        All = Thumbnail | Metadata | Manifest | Properties | Environment | Content
     }
 }
