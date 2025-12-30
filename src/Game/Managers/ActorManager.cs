@@ -144,7 +144,6 @@ namespace StardustSandbox.Managers
 
         internal void Update(GameTime gameTime)
         {
-            Debug.WriteLine($"[ActorManager] Total Actors: {this.TotalActorCount}");
             FlushPendingChanges();
 
             this.accumulatedTimeSeconds += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
