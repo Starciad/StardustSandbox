@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Actors.Collision;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
@@ -56,7 +55,7 @@ namespace StardustSandbox.Actors
         internal abstract ActorData Serialize();
         internal abstract void Deserialize(ActorData data);
 
-        private static bool IsCollidingWithElements(Rectangle rectangle, World world)
+        private static bool CollectElementCollisions(Rectangle rectangle, World world)
         {
             if (rectangle.IsEmpty)
             {
@@ -81,23 +80,24 @@ namespace StardustSandbox.Actors
             endX = Convert.ToInt32(Math.Min(world.Information.Size.X - 1, endX));
             endY = Convert.ToInt32(Math.Min(world.Information.Size.Y - 1, endY));
 
+            ElementCollisionBuffer.Clear();
+
             for (int y = startY; y <= endY; y++)
             {
                 for (int x = startX; x <= endX; x++)
                 {
-                    if (!world.TryGetElement(new(x, y), Layer.Foreground, out ElementIndex index))
+                    Point tilePoint = new(x, y);
+
+                    if (!world.TryGetElement(tilePoint, Layer.Foreground, out ElementIndex elementIndex))
                     {
                         continue;
                     }
 
-                    if (ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid)
-                    {
-                        return true;
-                    }
+                    _ = ElementCollisionBuffer.TryAdd(new(elementIndex, tilePoint));
                 }
             }
 
-            return false;
+            return ElementCollisionBuffer.Count > 0;
         }
 
         internal void MoveHorizontally(double amount)
@@ -120,10 +120,14 @@ namespace StardustSandbox.Actors
                 nextRect.X = this.PositionX + sign;
                 nextRect.Y = this.PositionY;
 
-                if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
+                if (this.CollideWithElements && CollectElementCollisions(nextRect, this.world))
                 {
-                    OnElementCollisionOccurred(new(ElementCollisionOrientation.Horizontally));
-                    break;
+                    if (OnElementCollisionOccurred(new(ElementCollisionOrientation.Horizontally, ElementCollisionBuffer.AsArraySegment())))
+                    {
+                        break;
+                    }
+
+                    // If the actor chooses not to block, allow the movement into the next cell
                 }
 
                 this.PositionX += sign;
@@ -151,10 +155,14 @@ namespace StardustSandbox.Actors
                 nextRect.Y = this.PositionY + sign;
                 nextRect.X = this.PositionX;
 
-                if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
+                if (this.CollideWithElements && CollectElementCollisions(nextRect, this.world))
                 {
-                    OnElementCollisionOccurred(new(ElementCollisionOrientation.Vertically));
-                    break;
+                    if (OnElementCollisionOccurred(new(ElementCollisionOrientation.Vertically, ElementCollisionBuffer.AsArraySegment())))
+                    {
+                        break;
+                    }
+
+                    // If the actor chooses not to block, allow the movement into the next cell
                 }
 
                 this.PositionY += sign;
@@ -164,7 +172,11 @@ namespace StardustSandbox.Actors
 
         internal virtual void OnCreated() { return; }
         internal virtual void OnDestroyed() { return; }
+
+        internal virtual bool OnElementCollisionOccurred(in ElementCollisionContext context)
+        {
+            return context.Any();
+        }
         internal virtual void OnActorCollisionOccurred(Actor collider, in ActorCollisionContext context) { return; }
-        internal virtual void OnElementCollisionOccurred(in ElementCollisionContext context) { return; }
     }
 }

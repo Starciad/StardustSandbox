@@ -30,23 +30,23 @@ namespace StardustSandbox.Actors.Common
 
         }
 
-        internal override void OnElementCollisionOccurred(in ElementCollisionContext context)
+        internal override bool OnElementCollisionOccurred(in ElementCollisionContext context)
         {
             switch (context.Orientation)
             {
                 case ElementCollisionOrientation.None:
-                    break;
+                    return false;
 
                 case ElementCollisionOrientation.Horizontally:
                     this.direction.X *= -1.0f;
-                    break;
+                    return true;
 
                 case ElementCollisionOrientation.Vertically:
                     this.direction.Y *= -1.0f;
-                    break;
+                    return true;
 
                 default:
-                    break;
+                    return false;
             }
         }
 
