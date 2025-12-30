@@ -123,7 +123,7 @@ namespace StardustSandbox.Actors
 
                 if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
-                    OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Horizontally));
+                    OnElementCollisionOccurred(new(ElementCollisionOrientation.Horizontally));
                     stopFlag = true;
                 }
 
@@ -160,7 +160,7 @@ namespace StardustSandbox.Actors
 
                 if (this.CollideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
-                    OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Vertically));
+                    OnElementCollisionOccurred(new(ElementCollisionOrientation.Vertically));
                     stopFlag = true;
                 }
 
@@ -177,6 +177,6 @@ namespace StardustSandbox.Actors
         internal virtual void OnCreated() { return; }
         internal virtual void OnDestroyed() { return; }
         internal virtual void OnActorCollisionOccurred(Actor collider, in ActorCollisionContext context) { return; }
-        internal virtual void OnTerrainCollisionOccurred(in TerrainCollisionContext context) { return; }
+        internal virtual void OnElementCollisionOccurred(in ElementCollisionContext context) { return; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Enums.Actors
 {
-    internal enum TerrainCollisionOrientation : byte
+    internal enum ElementCollisionOrientation : byte
     {
         None = 0,
         Horizontally = 1,
