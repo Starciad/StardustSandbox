@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -18,7 +19,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             IEnumerable<Point> targetPoints = this.pen.GetShapePoints(position);
 
@@ -46,7 +47,6 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             }
         }
 
-        // ============================================ //
         // Elements
 
         private void ReplaceElements(ElementIndex elementIndex, IEnumerable<Point> positions)

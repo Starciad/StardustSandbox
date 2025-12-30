@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -15,7 +16,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             return;
         }

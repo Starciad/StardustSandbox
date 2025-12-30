@@ -6,6 +6,7 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.Enums.Tools;
@@ -24,7 +25,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             switch (contentType)
             {
@@ -66,10 +67,15 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            DrawActor((ActorIndex)contentIndex, this.pen.GetShapePoints(position));
+                            if (inputState is InputState.Started)
+                            {
+                                DrawActor((ActorIndex)contentIndex, this.pen.GetShapePoints(position));
+                            }
+
                             break;
 
                         case WorldModificationType.Removing:
+                            EraseActors(this.pen.GetShapePoints(position));
                             break;
 
                         default:
@@ -84,7 +90,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         }
 
         // Elements
-        
+
         private void DrawElements(ElementIndex elementIndex, IEnumerable<Point> positions)
         {
             foreach (Point position in positions)
@@ -122,6 +128,22 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
                 actor.PositionX = position.X * SpriteConstants.SPRITE_DEFAULT_WIDTH;
                 actor.PositionY = position.Y * SpriteConstants.SPRITE_DEFAULT_HEIGHT;
+            }
+        }
+
+        private void EraseActors(IEnumerable<Point> positions)
+        {
+            foreach (Point position in positions)
+            {
+                Rectangle targetRectangle = new(position.X * SpriteConstants.SPRITE_DEFAULT_WIDTH, position.Y * SpriteConstants.SPRITE_DEFAULT_HEIGHT, SpriteConstants.SPRITE_DEFAULT_WIDTH, SpriteConstants.SPRITE_DEFAULT_HEIGHT);
+
+                foreach (Actor actor in this.actorManager.InstantiatedActors)
+                {
+                    if (targetRectangle.Intersects(actor.SelfRectangle))
+                    {
+                        this.actorManager.Destroy(actor);
+                    }
+                }
             }
         }
     }

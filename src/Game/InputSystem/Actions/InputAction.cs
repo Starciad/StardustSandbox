@@ -6,9 +6,9 @@ namespace StardustSandbox.InputSystem.Actions
 {
     internal sealed class InputAction
     {
-        internal readonly struct CallbackContext(InputCallbackState state, MouseButton capturedMouseButton, Keys capturedKey)
+        internal readonly struct CallbackContext(InputState state, MouseButton capturedMouseButton, Keys capturedKey)
         {
-            internal readonly InputCallbackState State => state;
+            internal readonly InputState State => state;
             internal readonly MouseButton CapturedMouseButton => capturedMouseButton;
             internal readonly Keys CapturedKey => capturedKey;
         }
@@ -175,7 +175,7 @@ namespace StardustSandbox.InputSystem.Actions
 
         private void UpdateStarting()
         {
-            this.OnStarted?.Invoke(new(InputCallbackState.Started, this.capturedMouseButton, this.capturedKey));
+            this.OnStarted?.Invoke(new(InputState.Started, this.capturedMouseButton, this.capturedKey));
 
             this.started = true;
             this.canceled = false;
@@ -183,14 +183,14 @@ namespace StardustSandbox.InputSystem.Actions
 
         private void UpdatePerformed()
         {
-            this.OnPerformed?.Invoke(new(InputCallbackState.Performed, this.capturedMouseButton, this.capturedKey));
+            this.OnPerformed?.Invoke(new(InputState.Performed, this.capturedMouseButton, this.capturedKey));
 
             this.performed = true;
         }
 
         private void UpdateCanceled()
         {
-            this.OnCanceled?.Invoke(new(InputCallbackState.Canceled, this.capturedMouseButton, this.capturedKey));
+            this.OnCanceled?.Invoke(new(InputState.Canceled, this.capturedMouseButton, this.capturedKey));
 
             this.started = false;
             this.performed = false;

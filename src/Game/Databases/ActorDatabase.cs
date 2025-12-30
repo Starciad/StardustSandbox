@@ -22,7 +22,22 @@ namespace StardustSandbox.Databases
             }
 
             descriptors = [
-                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)),
+                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
+                {
+                    Width = 32,
+                    Height = 32,
+
+                    CanDraw = true,
+                    CanUpdate = true,
+
+                    CollideWithActors = true,
+                    CollideWithElements = true,
+
+                    IsSolid = true,
+
+                    PositionX = 0,
+                    PositionY = 0,
+                }),
             ];
 
             isLoaded = true;

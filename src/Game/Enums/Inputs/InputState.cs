@@ -1,6 +1,6 @@
 ﻿namespace StardustSandbox.Enums.Inputs
 {
-    internal enum InputCallbackState : byte
+    internal enum InputState : byte
     {
         Started = 0,
         Performed = 1,

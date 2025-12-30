@@ -2,7 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Actors.Collision;
+using StardustSandbox.Constants;
+using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces.Collections;
 using StardustSandbox.Managers;
@@ -107,6 +110,50 @@ namespace StardustSandbox.Actors
         internal abstract ActorData Serialize();
         internal abstract void Deserialize(ActorData data);
 
+        private static bool IsCollidingWithElements(Rectangle rectangle, World world)
+        {
+            if (rectangle.IsEmpty)
+            {
+                return false;
+            }
+
+            int startX = (int)Math.Floor(rectangle.Left / (float)SpriteConstants.SPRITE_SCALE);
+            int endX = (int)Math.Floor((rectangle.Right - 1) / (float)SpriteConstants.SPRITE_SCALE);
+            int startY = (int)Math.Floor(rectangle.Top / (float)SpriteConstants.SPRITE_SCALE);
+            int endY = (int)Math.Floor((rectangle.Bottom - 1) / (float)SpriteConstants.SPRITE_SCALE);
+
+            if (endX < 0 ||
+                endY < 0 ||
+                startX > world.Information.Size.X - 1 ||
+                startY > world.Information.Size.Y - 1)
+            {
+                return false;
+            }
+
+            startX = Math.Max(0, startX);
+            startY = Math.Max(0, startY);
+            endX = Convert.ToInt32(Math.Min(world.Information.Size.X - 1, endX));
+            endY = Convert.ToInt32(Math.Min(world.Information.Size.Y - 1, endY));
+
+            for (int y = startY; y <= endY; y++)
+            {
+                for (int x = startX; x <= endX; x++)
+                {
+                    if (!world.TryGetElement(new(x, y), Layer.Foreground, out ElementIndex index))
+                    {
+                        continue;
+                    }
+
+                    if (ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         internal void MoveHorizontally(double amount)
         {
             this.remainderX += amount;
@@ -128,7 +175,7 @@ namespace StardustSandbox.Actors
                 nextRect.X = this.positionX + sign;
                 nextRect.Y = this.positionY;
 
-                if (this.collideWithElements && this.world.IsCollideAt(nextRect, Layer.Foreground))
+                if (this.collideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
                     OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Horizontally));
                     stopFlag = true;
@@ -165,7 +212,7 @@ namespace StardustSandbox.Actors
                 nextRect.Y = this.positionY + sign;
                 nextRect.X = this.positionX;
 
-                if (this.collideWithElements && this.world.IsCollideAt(nextRect, Layer.Foreground))
+                if (this.collideWithElements && IsCollidingWithElements(nextRect, this.world))
                 {
                     OnTerrainCollisionOccurred(new(TerrainCollisionOrientation.Vertically));
                     stopFlag = true;

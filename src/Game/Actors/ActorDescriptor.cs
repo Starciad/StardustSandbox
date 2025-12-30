@@ -23,9 +23,7 @@ namespace StardustSandbox.Actors
 
         public Actor Create()
         {
-            T actor = this.pool.TryDequeue(out IPoolableObject value) ? (T)value : this.factory();
-
-            return actor;
+            return this.pool.TryDequeue(out IPoolableObject value) ? (T)value : this.factory();
         }
 
         public void Recycle(Actor actor)

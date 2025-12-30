@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Actors;
+using StardustSandbox.Constants;
+using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -18,7 +20,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
         {
             switch (contentType)
             {
@@ -47,9 +49,11 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
+                Rectangle targetRectangle = new(position.X * SpriteConstants.SPRITE_DEFAULT_WIDTH, position.Y * SpriteConstants.SPRITE_DEFAULT_HEIGHT, SpriteConstants.SPRITE_DEFAULT_WIDTH, SpriteConstants.SPRITE_DEFAULT_HEIGHT);
+
                 foreach (Actor actor in this.actorManager.InstantiatedActors)
                 {
-                    if (actor.SelfRectangle.Contains(position))
+                    if (targetRectangle.Intersects(actor.SelfRectangle))
                     {
                         this.actorManager.Destroy(actor);
                     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
 using StardustSandbox.Camera;
+using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem.Game.Handlers.Gizmos;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -47,7 +48,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers
             this.world.Clear();
         }
 
-        internal void Modify(WorldModificationType worldModificationType)
+        internal void Modify(in WorldModificationType worldModificationType, in InputState inputState)
         {
             if (!CanModifyWorld())
             {
@@ -59,23 +60,23 @@ namespace StardustSandbox.InputSystem.Game.Handlers
             switch (this.pen.Tool)
             {
                 case PenTool.Visualization:
-                    this.visualizationGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
+                    this.visualizationGizmo.Execute(worldModificationType, inputState, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Pencil:
-                    this.pencilGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
+                    this.pencilGizmo.Execute(worldModificationType, inputState, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Eraser:
-                    this.eraserGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
+                    this.eraserGizmo.Execute(worldModificationType, inputState, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Fill:
-                    this.floodFillGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
+                    this.floodFillGizmo.Execute(worldModificationType, inputState, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 case PenTool.Replace:
-                    this.replaceGizmo.Execute(worldModificationType, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
+                    this.replaceGizmo.Execute(worldModificationType, inputState, this.player.SelectedItem.ContentType, this.player.SelectedItem.ContentIndex, mousePosition);
                     break;
 
                 default:

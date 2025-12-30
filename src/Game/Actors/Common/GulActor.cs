@@ -46,7 +46,7 @@ namespace StardustSandbox.Actors.Common
         {
             return new()
             {
-                Index = Index,
+                Index = this.Index,
                 Content = new Dictionary<string, object>()
                 {
 

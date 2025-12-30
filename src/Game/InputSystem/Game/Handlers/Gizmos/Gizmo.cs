@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
+using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Items;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -23,6 +24,6 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
             this.worldHandler = worldHandler;
         }
 
-        internal abstract void Execute(in WorldModificationType worldModificationType, in ItemContentType contentType, in int contentIndex, in Point position);
+        internal abstract void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position);
     }
 }
