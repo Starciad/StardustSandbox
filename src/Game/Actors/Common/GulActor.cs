@@ -31,7 +31,6 @@ namespace StardustSandbox.Actors.Common
         private ElementIndex grabbedElementIndex;
 
         private Point collectedElementPosition;
-        private Point placedElementPosition;
 
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
@@ -106,7 +105,6 @@ namespace StardustSandbox.Actors.Common
             this.grabbedElementIndex = ElementIndex.None;
 
             this.collectedElementPosition = Point.Zero;
-            this.placedElementPosition = Point.Zero;
         }
 
         internal override void Update(GameTime gameTime)
@@ -176,7 +174,6 @@ namespace StardustSandbox.Actors.Common
                         this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
 
                         this.grabbedElementIndex = ElementIndex.None;
-                        this.placedElementPosition = position;
                     }
                 }
             }
