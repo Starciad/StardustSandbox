@@ -30,8 +30,6 @@ namespace StardustSandbox.Actors.Common
         private FaceDirection direction;
         private ElementIndex grabbedElementIndex;
 
-        private Point collectedElementPosition;
-
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
         private bool IsFalling => !this.IsGrounded;
@@ -103,8 +101,6 @@ namespace StardustSandbox.Actors.Common
         {
             this.direction = SSRandom.GetBool() ? FaceDirection.Left : FaceDirection.Right;
             this.grabbedElementIndex = ElementIndex.None;
-
-            this.collectedElementPosition = Point.Zero;
         }
 
         internal override void Update(GameTime gameTime)
@@ -154,30 +150,21 @@ namespace StardustSandbox.Actors.Common
                 else
                 {
                     // Try to place the element
-                    if (!TryPlaceElement())
+                    SetFrontPositions(point =>
+                        !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                        this.actorManager.HasEntityAtPosition(point)
+                    );
+
+                    if (possiblePositions.Count > 0)
                     {
-                        this.collectedElementPosition = this.Position;
-                        TurnAround();
+                        Point position = possiblePositions.GetRandomItem();
+                        this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
+                        this.grabbedElementIndex = ElementIndex.None;
+                        return;
                     }
+
+                    TurnAround();
                 }
-            }
-
-            bool TryPlaceElement()
-            {
-                SetFrontPositions(point =>
-                    !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                    this.actorManager.HasEntityAtPosition(point)
-                );
-
-                if (possiblePositions.Count > 0)
-                {
-                    Point position = possiblePositions.GetRandomItem();
-                    this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
-                    this.grabbedElementIndex = ElementIndex.None;
-                    return true;
-                }
-
-                return false;
             }
         }
 
@@ -212,7 +199,6 @@ namespace StardustSandbox.Actors.Common
 
                     this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
                     this.world.RemoveElement(position, Layer.Foreground);
-                    this.collectedElementPosition = position;
 
                     TurnAround();
                 }
@@ -309,6 +295,7 @@ namespace StardustSandbox.Actors.Common
                 {
                     ["PositionX"] = this.Position.X,
                     ["PositionY"] = this.Position.Y,
+                    ["GrabbedElementIndex"] = this.grabbedElementIndex,
                 },
             };
         }
@@ -323,6 +310,11 @@ namespace StardustSandbox.Actors.Common
             if (data.Content.TryGetValue("PositionY", out object positionYObj) && positionYObj is int positionY)
             {
                 this.Position = new(this.Position.X, positionY);
+            }
+
+            if (data.Content.TryGetValue("GrabbedElementIndex", out object grabbedElementIndexObj) && grabbedElementIndexObj is ElementIndex grabbedElementIndex)
+            {
+                this.grabbedElementIndex = grabbedElementIndex;
             }
         }
     }
