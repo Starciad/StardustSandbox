@@ -14,6 +14,7 @@ using StardustSandbox.Randomness;
 using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Actors.Common
@@ -143,24 +144,46 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateGrabbedElementBehavior()
         {
-            /*
-             * This behavior includes:
-             * 
-             * 1. Move away from the location where you collected the element.
-             * 2. Try to position the element in another location, avoiding placing it on top of other entities.
-             */
+            // Move away from collected position
+            if (SSRandom.Chance(10))
+            {
+                if (this.Position.X < this.collectedElementPosition.X)
+                {
+                    this.direction = FaceDirection.Left;
+                }
+                else if (this.Position.X > this.collectedElementPosition.X)
+                {
+                    this.direction = FaceDirection.Right;
+                }
+                
+                SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+
+                if (possiblePositions.Count > 0)
+                {
+                    this.Position = possiblePositions.GetRandomItem();
+                }
+                else
+                {
+                    // Try to place the element
+                    SetFrontPositions(point =>
+                        !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                        this.actorManager.HasEntityAtPosition(point)
+                    );
+
+                    if (possiblePositions.Count > 0)
+                    {
+                        Point position = possiblePositions.GetRandomItem();
+                        this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
+
+                        this.grabbedElementIndex = ElementIndex.None;
+                        this.placedElementPosition = position;
+                    }
+                }
+            }
         }
 
         private void UpdateNormalBehavior()
         {
-            /*
-             * This behavior includes:
-             *
-             * 1. Observing the surroundings
-             * 2. Walking in any direction
-             * 3. Collecting an item
-             */
-
             // Idle
             if (SSRandom.Chance(5))
             {
@@ -171,21 +194,56 @@ namespace StardustSandbox.Actors.Common
             // Walking
             if (SSRandom.Chance(10))
             {
-                possiblePositions.Clear();
-                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
-                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
-                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
-                _ = possiblePositions.RemoveWhere(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+                Walk();
+                return;
+            }
+
+            // Grabbing an element
+            if (SSRandom.Chance(4))
+            {
+                SetFrontPositions(point =>
+                    this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                    !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)
+                ));
 
                 if (possiblePositions.Count > 0)
                 {
-                    this.Position = possiblePositions.GetRandomItem();
+                    Point position = possiblePositions.GetRandomItem();
+
+                    this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
+                    this.world.RemoveElement(position, Layer.Foreground);
+                    this.collectedElementPosition = position;
                 }
                 else
                 {
-                    TurnAround();
+                    Walk();
                 }
+
+                return;
             }
+        }
+
+        private void Walk()
+        {
+            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+
+            if (possiblePositions.Count > 0)
+            {
+                this.Position = possiblePositions.GetRandomItem();
+            }
+            else
+            {
+                TurnAround();
+            }
+        }
+
+        private void SetFrontPositions(Predicate<Point> removeMatch)
+        {
+            possiblePositions.Clear();
+            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
+            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
+            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
+            possiblePositions.RemoveWhere(removeMatch);
         }
 
         private void TurnAround()
