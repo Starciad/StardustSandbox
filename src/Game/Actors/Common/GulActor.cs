@@ -145,15 +145,6 @@ namespace StardustSandbox.Actors.Common
             // Move away from collected position
             if (SSRandom.Chance(10))
             {
-                if (this.Position.X < this.collectedElementPosition.X)
-                {
-                    this.direction = FaceDirection.Left;
-                }
-                else if (this.Position.X > this.collectedElementPosition.X)
-                {
-                    this.direction = FaceDirection.Right;
-                }
-                
                 SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
 
                 if (possiblePositions.Count > 0)
@@ -163,19 +154,30 @@ namespace StardustSandbox.Actors.Common
                 else
                 {
                     // Try to place the element
-                    SetFrontPositions(point =>
-                        !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                        this.actorManager.HasEntityAtPosition(point)
-                    );
-
-                    if (possiblePositions.Count > 0)
+                    if (!TryPlaceElement())
                     {
-                        Point position = possiblePositions.GetRandomItem();
-                        this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
-
-                        this.grabbedElementIndex = ElementIndex.None;
+                        this.collectedElementPosition = this.Position;
+                        TurnAround();
                     }
                 }
+            }
+
+            bool TryPlaceElement()
+            {
+                SetFrontPositions(point =>
+                    !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                    this.actorManager.HasEntityAtPosition(point)
+                );
+
+                if (possiblePositions.Count > 0)
+                {
+                    Point position = possiblePositions.GetRandomItem();
+                    this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
+                    this.grabbedElementIndex = ElementIndex.None;
+                    return true;
+                }
+
+                return false;
             }
         }
 
@@ -200,8 +202,9 @@ namespace StardustSandbox.Actors.Common
             {
                 SetFrontPositions(point =>
                     this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                    !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)
-                ));
+                    !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)) ||
+                    HasEntityAbove(point)
+                );
 
                 if (possiblePositions.Count > 0)
                 {
@@ -210,6 +213,8 @@ namespace StardustSandbox.Actors.Common
                     this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
                     this.world.RemoveElement(position, Layer.Foreground);
                     this.collectedElementPosition = position;
+
+                    TurnAround();
                 }
                 else
                 {
@@ -240,12 +245,17 @@ namespace StardustSandbox.Actors.Common
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
-            possiblePositions.RemoveWhere(removeMatch);
+            _ = possiblePositions.RemoveWhere(removeMatch);
         }
 
         private void TurnAround()
         {
             this.direction = this.direction == FaceDirection.Left ? FaceDirection.Right : FaceDirection.Left;
+        }
+
+        private bool HasEntityAbove(Point position)
+        {
+            return this.actorManager.HasEntityAtPosition(new(position.X, position.Y - 1));
         }
 
         private bool HasGroundBelow(Point position)
