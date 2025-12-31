@@ -10,12 +10,10 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.Managers;
-using StardustSandbox.Mathematics;
 using StardustSandbox.Randomness;
 using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Actors.Common
@@ -30,11 +28,14 @@ namespace StardustSandbox.Actors.Common
 
         private FaceDirection direction;
         private ElementIndex grabbedElementIndex;
-        private bool isGrounded;
+
+        private Point collectedElementPosition;
+        private Point placedElementPosition;
 
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
-        private bool IsFalling => !this.isGrounded;
+        private bool IsFalling => !this.IsGrounded;
+        private bool IsGrounded => HasGroundBelow(this.Position);
 
         private static readonly HashSet<ElementIndex> grabbableElements =
         [
@@ -91,6 +92,8 @@ namespace StardustSandbox.Actors.Common
             ElementIndex.Obsidian,
         ];
 
+        private static readonly HashSet<Point> possiblePositions = [];
+
         internal GulActor(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
         {
             Reset();
@@ -99,8 +102,10 @@ namespace StardustSandbox.Actors.Common
         public override void Reset()
         {
             this.direction = SSRandom.GetBool() ? FaceDirection.Left : FaceDirection.Right;
-            this.isGrounded = false;
             this.grabbedElementIndex = ElementIndex.None;
+
+            this.collectedElementPosition = Point.Zero;
+            this.placedElementPosition = Point.Zero;
         }
 
         internal override void Update(GameTime gameTime)
@@ -111,9 +116,6 @@ namespace StardustSandbox.Actors.Common
                 this.actorManager.Destroy(this);
                 return;
             }
-
-            // Check grounded (world y grows downward)
-            this.isGrounded = !this.world.IsEmptySlotLayer(new(this.Position.X, this.Position.Y + 1), Layer.Foreground);
 
             if (this.IsFalling)
             {
@@ -129,7 +131,71 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateBehavior()
         {
+            if (this.IsGrabbingElement)
+            {
+                UpdateGrabbedElementBehavior();
+            }
+            else
+            {
+                UpdateNormalBehavior();
+            }
+        }
 
+        private void UpdateGrabbedElementBehavior()
+        {
+            /*
+             * This behavior includes:
+             * 
+             * 1. Move away from the location where you collected the element.
+             * 2. Try to position the element in another location, avoiding placing it on top of other entities.
+             */
+        }
+
+        private void UpdateNormalBehavior()
+        {
+            /*
+             * This behavior includes:
+             *
+             * 1. Observing the surroundings
+             * 2. Walking in any direction
+             * 3. Collecting an item
+             */
+
+            // Idle
+            if (SSRandom.Chance(5))
+            {
+                TurnAround();
+                return;
+            }
+
+            // Walking
+            if (SSRandom.Chance(10))
+            {
+                possiblePositions.Clear();
+                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
+                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
+                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
+                _ = possiblePositions.RemoveWhere(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+
+                if (possiblePositions.Count > 0)
+                {
+                    this.Position = possiblePositions.GetRandomItem();
+                }
+                else
+                {
+                    TurnAround();
+                }
+            }
+        }
+
+        private void TurnAround()
+        {
+            this.direction = this.direction == FaceDirection.Left ? FaceDirection.Right : FaceDirection.Left;
+        }
+
+        private bool HasGroundBelow(Point position)
+        {
+            return !this.world.IsEmptySlotLayer(new(position.X, position.Y + 1), Layer.Foreground);
         }
 
         internal override void Draw(SpriteBatch spriteBatch)
@@ -147,20 +213,18 @@ namespace StardustSandbox.Actors.Common
 
             if (this.IsGrabbingElement)
             {
-                Point textureOriginOffset = this.GrabbedElement.RenderingType switch
-                {
-                    ElementRenderingType.Single => Point.Zero,
-                    ElementRenderingType.Blob => new(32, 0),
-                    _ => Point.Zero,
-                } + this.GrabbedElement.TextureOriginOffset;
-
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.Elements),
                     new(
-                        this.Position.X * SpriteConstants.SPRITE_SCALE + (this.direction is FaceDirection.Right ? 12.0f * (float)this.direction : 4.0f),
-                        this.Position.Y * SpriteConstants.SPRITE_SCALE + 16.0f
+                        (this.Position.X * SpriteConstants.SPRITE_SCALE) + (this.direction is FaceDirection.Right ? 12.0f * (float)this.direction : 4.0f),
+                        (this.Position.Y * SpriteConstants.SPRITE_SCALE) + 16.0f
                     ),
-                    new(textureOriginOffset, new(SpriteConstants.SPRITE_SCALE)),
+                    new(this.GrabbedElement.RenderingType switch
+                    {
+                        ElementRenderingType.Single => Point.Zero,
+                        ElementRenderingType.Blob => new(32, 0),
+                        _ => Point.Zero,
+                    } + this.GrabbedElement.TextureOriginOffset, new(SpriteConstants.SPRITE_SCALE)),
                     Color.White,
                     0.0f,
                     Vector2.Zero,
