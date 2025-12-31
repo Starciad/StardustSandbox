@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
+using StardustSandbox.Elements;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Elements;
@@ -27,19 +28,15 @@ namespace StardustSandbox.Actors.Common
             Right = 1,
         }
 
-        private enum State : byte
-        {
-            Idle,
-            Walking
-        }
-
         private FaceDirection direction;
-        private State state;
-        private ElementIndex storedElement;
-
+        private ElementIndex grabbedElementIndex;
         private bool isGrounded;
 
-        private static readonly HashSet<ElementIndex> pickupableElements =
+        private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
+        private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
+        private bool IsFalling => !this.isGrounded;
+
+        private static readonly HashSet<ElementIndex> grabbableElements =
         [
             ElementIndex.Dirt,
             ElementIndex.Mud,
@@ -102,9 +99,8 @@ namespace StardustSandbox.Actors.Common
         public override void Reset()
         {
             this.direction = SSRandom.GetBool() ? FaceDirection.Left : FaceDirection.Right;
-            this.state = State.Idle;
             this.isGrounded = false;
-            this.storedElement = ElementIndex.None;
+            this.grabbedElementIndex = ElementIndex.None;
         }
 
         internal override void Update(GameTime gameTime)
@@ -119,166 +115,28 @@ namespace StardustSandbox.Actors.Common
             // Check grounded (world y grows downward)
             this.isGrounded = !this.world.IsEmptySlotLayer(new(this.Position.X, this.Position.Y + 1), Layer.Foreground);
 
-            // Apply gravity if not grounded
-            if (!this.isGrounded)
+            if (this.IsFalling)
             {
+                // Apply gravity
                 this.Position = new(this.Position.X, this.Position.Y + 1);
-                return;
             }
-
-            // Try to use inventory to build
-            if (this.storedElement != ElementIndex.None && SSRandom.Chance(35))
+            else
             {
-                PlaceStoredElement();
-                return;
-            }
-
-            // State machine
-            UpdateState();
-        }
-
-        private void UpdateState()
-        {
-            if (!this.isGrounded)
-            {
-                return;
-            }
-
-            switch (this.state)
-            {
-                case State.Idle:
-                    UpdateIdleState();
-                    break;
-
-                case State.Walking:
-                    UpdateWalkState();
-                    break;
-
-                default:
-                    break;
+                // Perform behavior only when grounded
+                UpdateBehavior();
             }
         }
 
-        private void UpdateIdleState()
+        private void UpdateBehavior()
         {
-            if (SSRandom.Chance(10, 350))
-            {
-                this.state = State.Walking;
-                return;
-            }
 
-            if (SSRandom.Chance(5, 100))
-            {
-                this.direction = (FaceDirection)(-(sbyte)this.direction);
-            }
-        }
-
-        private void UpdateWalkState()
-        {
-            if (SSRandom.Chance(10, 350))
-            {
-                this.state = State.Idle;
-                return;
-            }
-
-            if (SSRandom.Chance(10, 100))
-            {
-                Point forward = new(this.Position.X + (sbyte)this.direction, this.Position.Y);
-                Point below = new(this.Position.X, this.Position.Y + 1);
-                Point above = new(this.Position.X, this.Position.Y - 1);
-
-                // If forward is empty, simply move
-                if (this.world.IsEmptySlotLayer(forward, Layer.Foreground))
-                {
-                    this.Position = forward;
-                    return;
-                }
-
-                if (SSRandom.GetBool())
-                {
-                    // Try to collect element in front, above, or below
-                    switch (SSRandom.Range(0, 2))
-                    {
-                        case 0:
-                            CollectAt(forward);
-                            break;
-
-                        case 1:
-                            CollectAt(above);
-                            break;
-
-                        case 2:
-                            CollectAt(below);
-                            break;
-
-                        default:
-                            CollectAt(forward);
-                            break;
-                    }
-                }
-                else
-                {
-                    // Attempt to climb: if forward is occupied but the element above forward is empty, move on top of it
-                    Point aboveForward = new(forward.X, forward.Y - 1);
-
-                    if (this.world.IsWithinBounds(aboveForward) && this.world.IsEmptySlotLayer(aboveForward, Layer.Foreground))
-                    {
-                        // Ensure we have space above our current position as well (not strictly necessary for 1x1, but safer)
-                        Point aboveCurrent = new(this.Position.X, this.Position.Y - 1);
-
-                        if (this.world.IsWithinBounds(aboveCurrent) && this.world.IsEmptySlotLayer(aboveCurrent, Layer.Foreground))
-                        {
-                            // Move to the top of the forward block
-                            this.Position = aboveForward;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void CollectAt(Point slot)
-        {
-            // If no element, nothing to collect
-            if (!this.world.TryGetElement(slot, Layer.Foreground, out ElementIndex elementIndex))
-            {
-                return;
-            }
-
-            // Determine if element is collectible
-            if (!pickupableElements.Contains(elementIndex))
-            {
-                return;
-            }
-
-            // Remove the element from the world and store it
-            this.world.RemoveElement(slot, Layer.Foreground);
-            this.storedElement = elementIndex;
-        }
-
-        private void PlaceStoredElement()
-        {
-            Point forward = new(this.Position.X + (sbyte)this.direction, this.Position.Y);
-
-            if (this.storedElement is ElementIndex.None || this.actorManager.HasEntityAtPosition(forward))
-            {
-                return;
-            }
-
-            if (this.world.IsEmptySlotLayer(forward, Layer.Foreground))
-            {
-                this.world.InstantiateElement(forward, Layer.Foreground, this.storedElement);
-                this.storedElement = ElementIndex.None;
-            }
         }
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
                 AssetDatabase.GetTexture(TextureIndex.ActorGul),
-                new Rectangle(this.Position.X * SpriteConstants.SPRITE_SCALE,
-                              this.Position.Y * SpriteConstants.SPRITE_SCALE,
-                              SpriteConstants.SPRITE_SCALE,
-                              SpriteConstants.SPRITE_SCALE),
+                new Rectangle(this.Position.X * SpriteConstants.SPRITE_SCALE, this.Position.Y * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
                 new Rectangle(0, this.direction == FaceDirection.Right ? 0 : 32, 32, 32),
                 Color.White,
                 0.0f,
@@ -286,6 +144,31 @@ namespace StardustSandbox.Actors.Common
                 SpriteEffects.None,
                 0.0f
             );
+
+            if (this.IsGrabbingElement)
+            {
+                Point textureOriginOffset = this.GrabbedElement.RenderingType switch
+                {
+                    ElementRenderingType.Single => Point.Zero,
+                    ElementRenderingType.Blob => new(32, 0),
+                    _ => Point.Zero,
+                } + this.GrabbedElement.TextureOriginOffset;
+
+                spriteBatch.Draw(
+                    AssetDatabase.GetTexture(TextureIndex.Elements),
+                    new(
+                        this.Position.X * SpriteConstants.SPRITE_SCALE + (this.direction is FaceDirection.Right ? 12.0f * (float)this.direction : 4.0f),
+                        this.Position.Y * SpriteConstants.SPRITE_SCALE + 16.0f
+                    ),
+                    new(textureOriginOffset, new(SpriteConstants.SPRITE_SCALE)),
+                    Color.White,
+                    0.0f,
+                    Vector2.Zero,
+                    new Vector2(0.5f),
+                    SpriteEffects.None,
+                    0.0f
+                );
+            }
         }
 
         internal override ActorData Serialize()
