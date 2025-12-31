@@ -37,7 +37,6 @@ namespace StardustSandbox.WorldSystem
 
         internal WorldRendering Rendering => this.rendering;
 
-        internal bool IsActive => this.CanUpdate || this.CanDraw;
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 

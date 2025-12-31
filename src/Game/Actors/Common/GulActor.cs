@@ -4,6 +4,15 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
+using StardustSandbox.Elements.Energies;
+using StardustSandbox.Elements.Gases;
+using StardustSandbox.Elements.Liquids;
+using StardustSandbox.Elements.Liquids.Paints;
+using StardustSandbox.Elements.Solids.Immovables;
+using StardustSandbox.Elements.Solids.Immovables.Pushers;
+using StardustSandbox.Elements.Solids.Immovables.Wools;
+using StardustSandbox.Elements.Solids.Movables;
+using StardustSandbox.Elements.Solids.Movables.Explosives;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Elements;
@@ -44,11 +53,9 @@ namespace StardustSandbox.Actors.Common
             ElementIndex.Ice,
             ElementIndex.Sand,
             ElementIndex.Snow,
-            ElementIndex.MovableCorruption,
             ElementIndex.Glass,
             ElementIndex.Iron,
             ElementIndex.Wood,
-            ElementIndex.ImmovableCorruption,
             ElementIndex.RedBrick,
             ElementIndex.TreeLeaf,
             ElementIndex.MountingBlock,
@@ -90,6 +97,37 @@ namespace StardustSandbox.Actors.Common
             ElementIndex.Obsidian,
         ];
 
+        private static readonly HashSet<ElementIndex> mortalElements =
+        [
+            ElementIndex.Water,
+            ElementIndex.MovableCorruption,
+            ElementIndex.Lava,
+            ElementIndex.Acid,
+            ElementIndex.GasCorruption,
+            ElementIndex.LiquidCorruption,
+            ElementIndex.ImmovableCorruption,
+            ElementIndex.Smoke,
+            ElementIndex.Fire,
+            ElementIndex.Void,
+            ElementIndex.Clone,
+            ElementIndex.Oil,
+            ElementIndex.Salt,
+            ElementIndex.Saltwater,
+            ElementIndex.Devourer,
+            ElementIndex.LiquefiedPetroleumGas,
+            ElementIndex.BlackPaint,
+            ElementIndex.WhitePaint,
+            ElementIndex.RedPaint,
+            ElementIndex.OrangePaint,
+            ElementIndex.YellowPaint,
+            ElementIndex.GreenPaint,
+            ElementIndex.BluePaint,
+            ElementIndex.GrayPaint,
+            ElementIndex.VioletPaint,
+            ElementIndex.BrownPaint,
+            ElementIndex.Mercury,
+        ];
+
         private static readonly HashSet<Point> possiblePositions = [];
 
         internal GulActor(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
@@ -103,10 +141,45 @@ namespace StardustSandbox.Actors.Common
             this.grabbedElementIndex = ElementIndex.None;
         }
 
+        private bool IsBeingSuffocated()
+        {
+            return !this.world.IsEmptySlotLayer(this.Position, Layer.Foreground);
+        }
+
+        private bool IsOnTopMortalElement()
+        {
+            if (this.world.TryGetElement(this.Position, Layer.Foreground, out ElementIndex index))
+            {
+                return mortalElements.Contains(index);
+            }
+
+            return false;
+        }
+
+        private void TurnAround()
+        {
+            this.direction = this.direction == FaceDirection.Left ? FaceDirection.Right : FaceDirection.Left;
+        }
+
+        private bool HasEntityAbove(Point position)
+        {
+            return this.actorManager.HasEntityAtPosition(new(position.X, position.Y - 1));
+        }
+
+        private bool HasGroundBelow(Point position)
+        {
+            if (this.world.TryGetElement(new(position.X, position.Y + 1), Layer.Foreground, out ElementIndex index) && ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         internal override void Update(GameTime gameTime)
         {
             // If spawned inside a non-empty slot, destroy immediately
-            if (!this.world.IsEmptySlotLayer(this.Position, Layer.Foreground))
+            if (IsBeingSuffocated() || IsOnTopMortalElement())
             {
                 this.actorManager.Destroy(this);
                 return;
@@ -138,33 +211,38 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateGrabbedElementBehavior()
         {
-            // Move away from collected position
-            if (SSRandom.Chance(10))
+            if (!SSRandom.Chance(10))
             {
-                SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+                return;
+            }
+
+            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+
+            if (possiblePositions.Count > 0)
+            {
+                this.Position = possiblePositions.GetRandomItem();
+
+                // Try to place the element
+                if (!SSRandom.Chance(10))
+                {
+                    return;
+                }
+
+                SetFrontPositions(point =>
+                    !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                    this.actorManager.HasEntityAtPosition(point)
+                );
 
                 if (possiblePositions.Count > 0)
                 {
-                    this.Position = possiblePositions.GetRandomItem();
+                    Point position = possiblePositions.GetRandomItem();
+                    this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
+                    this.grabbedElementIndex = ElementIndex.None;
                 }
-                else
-                {
-                    // Try to place the element
-                    SetFrontPositions(point =>
-                        !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                        this.actorManager.HasEntityAtPosition(point)
-                    );
-
-                    if (possiblePositions.Count > 0)
-                    {
-                        Point position = possiblePositions.GetRandomItem();
-                        this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
-                        this.grabbedElementIndex = ElementIndex.None;
-                        return;
-                    }
-
-                    TurnAround();
-                }
+            }
+            else
+            {
+                TurnAround();
             }
         }
 
@@ -185,7 +263,7 @@ namespace StardustSandbox.Actors.Common
             }
 
             // Grabbing an element
-            if (SSRandom.Chance(4))
+            if (SSRandom.Chance(2))
             {
                 SetFrontPositions(point =>
                     this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
@@ -232,21 +310,6 @@ namespace StardustSandbox.Actors.Common
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
             _ = possiblePositions.RemoveWhere(removeMatch);
-        }
-
-        private void TurnAround()
-        {
-            this.direction = this.direction == FaceDirection.Left ? FaceDirection.Right : FaceDirection.Left;
-        }
-
-        private bool HasEntityAbove(Point position)
-        {
-            return this.actorManager.HasEntityAtPosition(new(position.X, position.Y - 1));
-        }
-
-        private bool HasGroundBelow(Point position)
-        {
-            return !this.world.IsEmptySlotLayer(new(position.X, position.Y + 1), Layer.Foreground);
         }
 
         internal override void Draw(SpriteBatch spriteBatch)

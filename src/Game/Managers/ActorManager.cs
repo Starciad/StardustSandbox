@@ -23,6 +23,9 @@ namespace StardustSandbox.Managers
         internal IEnumerable<Actor> InstantiatedActors => this.instantiatedActors;
         internal int TotalActorCount => this.instantiatedActors.Count + this.actorsToAdd.Count - this.actorsToRemove.Count;
 
+        internal bool CanUpdate { get; set; }
+        internal bool CanDraw { get; set; }
+
         private string currentlySelectedSaveFile;
 
         private float accumulatedTimeSeconds;
@@ -169,6 +172,11 @@ namespace StardustSandbox.Managers
         {
             FlushPendingChanges();
 
+            if (!this.CanUpdate)
+            {
+                return;
+            }
+
             this.accumulatedTimeSeconds += Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
             if (this.accumulatedTimeSeconds >= this.delayThresholdSeconds)
@@ -180,6 +188,11 @@ namespace StardustSandbox.Managers
 
         internal void Draw(SpriteBatch spriteBatch)
         {
+            if (!this.CanDraw)
+            {
+                return;
+            }
+
             foreach (Actor actor in this.actorsToAdd)
             {
                 actor.Draw(spriteBatch);
@@ -230,6 +243,11 @@ namespace StardustSandbox.Managers
 
         public void Deserialize(byte[][] data)
         {
+            if (data == null)
+            {
+                return;
+            }
+
             DestroyAll();
 
             this.actorsToAdd.Clear();

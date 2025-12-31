@@ -30,10 +30,14 @@ namespace StardustSandbox
             ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 
             world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
-
             world.Time.Reset();
+
             world.CanUpdate = true;
             world.CanDraw = true;
+
+            actorManager.Reset();
+            actorManager.CanDraw = true;
+            actorManager.CanUpdate = true;
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
@@ -52,6 +56,9 @@ namespace StardustSandbox
 
             world.CanDraw = false;
             world.CanUpdate = false;
+
+            actorManager.CanDraw = false;
+            actorManager.CanUpdate = false;
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
