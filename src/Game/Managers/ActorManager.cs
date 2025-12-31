@@ -5,6 +5,7 @@ using StardustSandbox.Actors;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
@@ -99,6 +100,28 @@ namespace StardustSandbox.Managers
             }
 
             return true;
+        }
+
+        internal bool HasEntityAtPosition(Point position)
+        {
+            Rectangle queryRect = new(position, new(1, 1));
+
+            foreach (Actor actor in this.instantiatedActors)
+            {
+                if (actor.Destroyed)
+                {
+                    continue;
+                }
+
+                Rectangle actorRect = new(actor.Position, actor.Size);
+
+                if (actorRect.Intersects(queryRect))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void FlushPendingChanges()

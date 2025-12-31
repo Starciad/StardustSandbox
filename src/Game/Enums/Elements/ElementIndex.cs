@@ -45,17 +45,14 @@
         Ash = 38,
         AntiCorruption = 39,
         Devourer = 40,
-
         UpwardPusher = 41,
         RightwardPusher = 42,
         DownwardPusher = 43,
         LeftwardPusher = 44,
-
         Cloud = 45,
         ChargedCloud = 46,
         LightningHead = 47,
         LightningBody = 48,
-
         DryBlackWool = 49,
         DryWhiteWool = 50,
         DryRedWool = 51,
@@ -66,7 +63,6 @@
         DryBlueWool = 56,
         DryVioletWool = 57,
         DryBrownWool = 58,
-
         WetBlackWool = 59,
         WetWhiteWool = 60,
         WetRedWool = 61,
@@ -77,7 +73,6 @@
         WetBlueWool = 66,
         WetVioletWool = 67,
         WetBrownWool = 68,
-
         FertileSoil = 69,
         Seed = 70,
         Sapling = 71,
@@ -85,7 +80,6 @@
         Gunpowder = 73,
         LiquefiedPetroleumGas = 74,
         Obsidian = 75,
-
         BlackPaint = 76,
         WhitePaint = 77,
         RedPaint = 78,
@@ -96,7 +90,6 @@
         GrayPaint = 83,
         VioletPaint = 84,
         BrownPaint = 85,
-
         Mercury = 86,
     }
 }
