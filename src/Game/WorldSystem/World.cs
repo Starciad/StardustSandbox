@@ -87,7 +87,7 @@ namespace StardustSandbox.WorldSystem
 
         public void Reset()
         {
-            this.currentlySelectedSaveFile = null;
+            SetSaveFile(string.Empty);
 
             this.information.Reset();
             this.chunking.Reset();

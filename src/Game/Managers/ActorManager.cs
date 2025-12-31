@@ -5,7 +5,6 @@ using StardustSandbox.Actors;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Actors;
-using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
@@ -14,7 +13,6 @@ using StardustSandbox.WorldSystem;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace StardustSandbox.Managers
 {
@@ -52,7 +50,6 @@ namespace StardustSandbox.Managers
 
             actor = ActorDatabase.GetDescriptor(index).Create();
             this.actorsToAdd.Enqueue(actor);
-
             return true;
         }
 
@@ -67,11 +64,41 @@ namespace StardustSandbox.Managers
             this.actorsToRemove.Enqueue(actor);
         }
 
-        internal void DestroyAll()
+        private void FlushPendingChanges()
         {
+            // Add queued actors
+            while (this.actorsToAdd.TryDequeue(out Actor actor))
+            {
+                this.instantiatedActors.Add(actor);
+                actor.OnCreated();
+            }
+
+            // Remove queued actors
+            while (this.actorsToRemove.TryDequeue(out Actor actor))
+            {
+                _ = this.instantiatedActors.Remove(actor);
+                actor.OnDestroyed();
+            }
+        }
+
+        private void Clear()
+        {
+            // Add queued actors
+            while (this.actorsToAdd.TryDequeue(out Actor actor))
+            {
+                this.instantiatedActors.Add(actor);
+            }
+
+            // Remove all instantiated actors
             foreach (Actor actor in this.instantiatedActors)
             {
                 Destroy(actor);
+            }
+
+            // Remove queued actors
+            while (this.actorsToRemove.TryDequeue(out Actor actor))
+            {
+                _ = this.instantiatedActors.Remove(actor);
             }
         }
 
@@ -127,32 +154,13 @@ namespace StardustSandbox.Managers
             return false;
         }
 
-        private void FlushPendingChanges()
-        {
-            // Add queued actors
-            while (this.actorsToAdd.TryDequeue(out Actor actor))
-            {
-                this.instantiatedActors.Add(actor);
-
-                actor.OnCreated();
-            }
-
-            // Remove queued actors
-            while (this.actorsToRemove.TryDequeue(out Actor actor))
-            {
-                _ = this.instantiatedActors.Remove(actor);
-
-                actor.OnDestroyed();
-            }
-        }
-
         private void UpdateActors(GameTime gameTime)
         {
             // Update each instantiated actor
             foreach (Actor currentActor in this.instantiatedActors)
             {
                 // Skip non-updatable actors
-                if (!currentActor.CanUpdate)
+                if (!currentActor.CanUpdate || currentActor.Destroyed)
                 {
                     continue;
                 }
@@ -248,10 +256,7 @@ namespace StardustSandbox.Managers
                 return;
             }
 
-            DestroyAll();
-
-            this.actorsToAdd.Clear();
-            this.actorsToRemove.Clear();
+            Clear();
 
             for (int i = 0; i < data.Length; i++)
             {
@@ -260,9 +265,14 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal void LoadFromSaveFile(string name)
+        internal void SetSaveFile(string name)
         {
             this.currentlySelectedSaveFile = name;
+        }
+
+        internal void LoadFromSaveFile(string name)
+        {
+            SetSaveFile(name);
             Deserialize(SavingSerializer.Load(name, LoadFlags.Content).Content.Actors);
         }
 
@@ -274,14 +284,14 @@ namespace StardustSandbox.Managers
             }
             else
             {
-                DestroyAll();
+                Clear();
             }
         }
 
         public void Reset()
         {
-            this.currentlySelectedSaveFile = null;
-            DestroyAll();
+            SetSaveFile(string.Empty);
+            Clear();
         }
 
         internal void SetSpeed(SimulationSpeed speed)

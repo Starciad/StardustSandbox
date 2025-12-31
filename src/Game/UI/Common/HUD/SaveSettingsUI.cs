@@ -120,12 +120,15 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.footerButtonInfos = [
+                // Save Button
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
                     SavingSerializer.Save(actorManager, world, this.graphicsDevice);
 
                     world.SetSaveFile(world.Information.Name);
+                    actorManager.SetSaveFile(world.Information.Name);
+
                     this.uiManager.CloseGUI();
                 }),
             ];
