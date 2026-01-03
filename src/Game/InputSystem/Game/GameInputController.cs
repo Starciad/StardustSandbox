@@ -95,7 +95,7 @@ namespace StardustSandbox.InputSystem.Game
 
                     new(controlSettings.GenerateWorld)
                     {
-                        OnStarted = _ => WorldGenerator.Start(world, WorldGenerationPreset.Plain),
+                        OnStarted = _ => WorldGenerator.Start(actorManager, world, WorldGenerationPreset.Plain),
                     },
                 ]),
                 
