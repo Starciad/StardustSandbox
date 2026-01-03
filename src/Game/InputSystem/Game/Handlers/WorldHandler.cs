@@ -43,11 +43,6 @@ namespace StardustSandbox.InputSystem.Game.Handlers
             this.replaceGizmo = new(actorManager, pen, world, this);
         }
 
-        internal void Clear()
-        {
-            this.world.Clear();
-        }
-
         internal void Modify(in WorldModificationType worldModificationType, in InputState inputState)
         {
             if (!CanModifyWorld())
@@ -83,8 +78,6 @@ namespace StardustSandbox.InputSystem.Game.Handlers
                     break;
             }
         }
-
-        // ================================== //
 
         private bool CanModifyWorld()
         {

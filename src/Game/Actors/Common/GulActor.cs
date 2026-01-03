@@ -141,7 +141,7 @@ namespace StardustSandbox.Actors.Common
 
         private bool IsOnTopMortalElement()
         {
-            return this.world.TryGetElement(this.Position, Layer.Foreground, out ElementIndex index) && mortalElements.Contains(index);
+            return this.world.TryGetElement(new(this.Position.X, this.Position.Y + 1), Layer.Foreground, out ElementIndex index) && mortalElements.Contains(index);
         }
 
         private void TurnAround()
@@ -159,18 +159,24 @@ namespace StardustSandbox.Actors.Common
             return this.world.TryGetElement(new(position.X, position.Y + 1), Layer.Foreground, out ElementIndex index) && ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid;
         }
 
-        private void SetFrontPositions(Predicate<Point> removeMatch)
+        private void SetFrontPositions(bool hasDeepPoint, Predicate<Point> removeMatch)
         {
             possiblePositions.Clear();
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
+
+            if (hasDeepPoint)
+            {
+                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 2));
+            }
+
             _ = possiblePositions.RemoveWhere(removeMatch);
         }
 
         private bool TryWalk()
         {
-            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+            SetFrontPositions(false, point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
 
             if (possiblePositions.Count > 0)
             {
@@ -183,7 +189,7 @@ namespace StardustSandbox.Actors.Common
 
         private bool TryGrabElement()
         {
-            SetFrontPositions(point =>
+            SetFrontPositions(false, point =>
                 this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
                 !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)) ||
                 HasEntityAbove(point)
@@ -204,7 +210,7 @@ namespace StardustSandbox.Actors.Common
 
         private bool TryPlaceElement()
         {
-            SetFrontPositions(point =>
+            SetFrontPositions(true, point =>
                 !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
                 this.actorManager.HasEntityAtPosition(point) ||
                 point == this.positionElementPositioned
@@ -233,6 +239,7 @@ namespace StardustSandbox.Actors.Common
                 return;
             }
 
+            // Falling behavior
             if (this.IsFalling)
             {
                 // Apply gravity
@@ -247,6 +254,7 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateBehavior()
         {
+            // Different behavior based on whether grabbing an element
             if (this.IsGrabbingElement)
             {
                 UpdateGrabbedElementBehavior();
@@ -259,31 +267,23 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateGrabbedElementBehavior()
         {
-            if (SSRandom.Chance(15) && !TryWalk())
+            // 15% chance to act each update
+            // Try to walk or place element
+            if (SSRandom.Chance(15) && !TryWalk() && !TryPlaceElement())
             {
-                if (!TryPlaceElement())
-                {
-                    TurnAround();
-                }
+                // Turn around if unable to walk or place element
+                TurnAround();
             }
         }
 
         private void UpdateNormalBehavior()
         {
-            // Idle
-            if (SSRandom.Chance(10, 150))
+            // 15% chance to act each update
+            // Try to walk or grab element
+            if (SSRandom.Chance(15) && !TryWalk() && !TryGrabElement())
             {
+                // Turn around if unable to walk or grab element
                 TurnAround();
-            }
-            // Walking
-            else if (SSRandom.Chance(15))
-            {
-                _ = TryWalk();
-            }
-            // Grabbing
-            else if (SSRandom.Chance(12))
-            {
-                _ = TryGrabElement();
             }
         }
 

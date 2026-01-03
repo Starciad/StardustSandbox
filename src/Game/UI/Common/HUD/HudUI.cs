@@ -111,8 +111,7 @@ namespace StardustSandbox.UI.Common.HUD
                         {
                             if (status == ConfirmStatus.Confirmed)
                             {
-                                world.Reset();
-                                actorManager.Reset();
+                                GameHandler.Reset(actorManager, world);
                             }
 
                             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);

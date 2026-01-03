@@ -29,13 +29,12 @@ namespace StardustSandbox
 
             ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 
+            Reset(actorManager, world);
             world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
-            world.Time.Reset();
 
             world.CanUpdate = true;
             world.CanDraw = true;
 
-            actorManager.Reset();
             actorManager.CanDraw = true;
             actorManager.CanUpdate = true;
 
@@ -76,6 +75,13 @@ namespace StardustSandbox
 
             world.SetSpeed(speed);
             actorManager.SetSpeed(speed);
+        }
+
+        internal static void Reset(ActorManager actorManager, World world)
+        {
+            actorManager.Reset();
+            world.Reset();
+
         }
 
         internal static bool HasState(GameStates value)

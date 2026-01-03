@@ -103,7 +103,7 @@ namespace StardustSandbox.InputSystem.Game
                 new([
                     new(controlSettings.ClearWorld)
                     {
-                        OnStarted = _ => this.worldHandler.Clear(),
+                        OnStarted = _ => GameHandler.Reset(actorManager, world),
                     },
                 ]),
 

@@ -86,8 +86,8 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     if (status == ConfirmStatus.Confirmed)
                     {
+                        GameHandler.Reset(this.actorManager, this.world);
                         this.world.StartNew(this.worldTargetSize);
-                        this.actorManager.Reset();
 
                         StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
 

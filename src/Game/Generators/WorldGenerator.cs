@@ -26,8 +26,7 @@ namespace StardustSandbox.Generators
             int width = world.Information.Size.X;
             int height = world.Information.Size.Y;
 
-            actorManager.Reset();
-            world.StartNew();
+            GameHandler.Reset(actorManager, world);
 
             Range amplitudeRange;
             WorldGenerationFlags flags;
@@ -81,7 +80,7 @@ namespace StardustSandbox.Generators
             {
                 int startTerrainIndex = generationPositionY;
                 int movablePointerY = startTerrainIndex;
-                
+
                 int depthLevel = 0;
                 int depthLevelLimit = height - startTerrainIndex;
 
