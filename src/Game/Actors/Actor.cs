@@ -18,7 +18,7 @@ namespace StardustSandbox.Actors
 
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
-        internal bool Destroyed { get; set; }
+        internal ActorState State { get; set; }
 
         protected readonly ActorManager actorManager;
         protected readonly World world;

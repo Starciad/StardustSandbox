@@ -24,14 +24,13 @@ namespace StardustSandbox.Actors
         public Actor Create()
         {
             Actor actor = this.pool.TryDequeue(out IPoolableObject value) ? (T)value : this.factory();
-            actor.Destroyed = false;
-
+            actor.State = ActorState.Pending;
             return actor;
         }
 
         public void Destroy(Actor actor)
         {
-            actor.Destroyed = true;
+            actor.State = ActorState.Destroying;
             this.pool.Enqueue(actor);
         }
     }

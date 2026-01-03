@@ -18,8 +18,7 @@ namespace StardustSandbox.Managers
 {
     internal sealed class ActorManager : IResettable
     {
-        internal IEnumerable<Actor> InstantiatedActors => this.instantiatedActors;
-        internal int TotalActorCount => this.instantiatedActors.Count + this.actorsToAdd.Count - this.actorsToRemove.Count;
+        internal int TotalActorCount { get; private set; }
 
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
@@ -40,6 +39,35 @@ namespace StardustSandbox.Managers
             this.world = world;
         }
 
+        private IEnumerable<Actor> EnumerateAllActors()
+        {
+            foreach (Actor actor in this.actorsToAdd)
+            {
+                yield return actor;
+            }
+
+            foreach (Actor actor in this.instantiatedActors)
+            {
+                yield return actor;
+            }
+
+            foreach (Actor actor in this.actorsToRemove)
+            {
+                yield return actor;
+            }
+        }
+
+        internal IEnumerable<Actor> GetActors()
+        {
+            foreach (Actor actor in EnumerateAllActors())
+            {
+                if (actor.State is not ActorState.Destroying)
+                {
+                    yield return actor;
+                }
+            }
+        }
+
         internal bool TryCreate(ActorIndex index, out Actor actor)
         {
             if (this.TotalActorCount >= ActorConstants.MAX_SIMULTANEOUS_ACTORS)
@@ -50,30 +78,41 @@ namespace StardustSandbox.Managers
 
             actor = ActorDatabase.GetDescriptor(index).Create();
             this.actorsToAdd.Enqueue(actor);
+            this.TotalActorCount++;
+
             return true;
         }
 
         internal void Destroy(Actor actor)
         {
-            if (actor.Destroyed)
+            if (actor.State is ActorState.Destroying)
             {
                 return;
             }
 
             ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
             this.actorsToRemove.Enqueue(actor);
+            this.TotalActorCount--;
         }
 
         private void FlushPendingChanges()
         {
-            // Add queued actors
+            FlushAdditions();
+            FlushRemovals();
+        }
+
+        private void FlushAdditions()
+        {
             while (this.actorsToAdd.TryDequeue(out Actor actor))
             {
                 this.instantiatedActors.Add(actor);
+                actor.State = ActorState.Active;
                 actor.OnCreated();
             }
+        }
 
-            // Remove queued actors
+        private void FlushRemovals()
+        {
             while (this.actorsToRemove.TryDequeue(out Actor actor))
             {
                 _ = this.instantiatedActors.Remove(actor);
@@ -83,23 +122,27 @@ namespace StardustSandbox.Managers
 
         private void Clear()
         {
-            // Add queued actors
-            while (this.actorsToAdd.TryDequeue(out Actor actor))
+            HashSet<Actor> visited = [];
+
+            foreach (Actor actor in EnumerateAllActors())
             {
-                this.instantiatedActors.Add(actor);
+                if (!visited.Add(actor))
+                {
+                    continue;
+                }
+
+                if (actor.State is not ActorState.Destroying)
+                {
+                    ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
+                    actor.OnDestroyed();
+                }
             }
 
-            // Remove all instantiated actors
-            foreach (Actor actor in this.instantiatedActors)
-            {
-                Destroy(actor);
-            }
+            this.actorsToAdd.Clear();
+            this.actorsToRemove.Clear();
+            this.instantiatedActors.Clear();
 
-            // Remove queued actors
-            while (this.actorsToRemove.TryDequeue(out Actor actor))
-            {
-                _ = this.instantiatedActors.Remove(actor);
-            }
+            this.TotalActorCount = 0;
         }
 
         private bool IsActorWithinWorldBounds(Actor actor)
@@ -138,7 +181,7 @@ namespace StardustSandbox.Managers
 
             foreach (Actor actor in this.instantiatedActors)
             {
-                if (actor.Destroyed)
+                if (actor.State is ActorState.Destroying)
                 {
                     continue;
                 }
@@ -157,10 +200,10 @@ namespace StardustSandbox.Managers
         private void UpdateActors(GameTime gameTime)
         {
             // Update each instantiated actor
-            foreach (Actor currentActor in this.instantiatedActors)
+            foreach (Actor currentActor in GetActors())
             {
                 // Skip non-updatable actors
-                if (!currentActor.CanUpdate || currentActor.Destroyed)
+                if (!currentActor.CanUpdate || currentActor.State is not ActorState.Active)
                 {
                     continue;
                 }
@@ -201,15 +244,10 @@ namespace StardustSandbox.Managers
                 return;
             }
 
-            foreach (Actor actor in this.actorsToAdd)
-            {
-                actor.Draw(spriteBatch);
-            }
-
-            foreach (Actor actor in this.instantiatedActors)
+            foreach (Actor actor in GetActors())
             {
                 // Skip non-drawable and destroyed actors
-                if (!actor.CanDraw || actor.Destroyed)
+                if (!actor.CanDraw || actor.State is not ActorState.Active)
                 {
                     continue;
                 }
@@ -219,29 +257,11 @@ namespace StardustSandbox.Managers
             }
         }
 
-        private IEnumerable<Actor> GetSerializableActors()
-        {
-            HashSet<Actor> removingActors = [.. this.actorsToRemove];
-
-            foreach (Actor actor in this.instantiatedActors)
-            {
-                if (!removingActors.Contains(actor))
-                {
-                    yield return actor;
-                }
-            }
-
-            foreach (Actor actor in this.actorsToAdd)
-            {
-                yield return actor;
-            }
-        }
-
         public byte[][] Serialize()
         {
             List<byte[]> result = [];
 
-            foreach (Actor actor in GetSerializableActors())
+            foreach (Actor actor in GetActors())
             {
                 result.Add(ActorSerializer.Serialize(actor));
             }
@@ -262,6 +282,7 @@ namespace StardustSandbox.Managers
             {
                 Actor actor = ActorSerializer.Deserialize(data[i]);
                 this.actorsToAdd.Enqueue(actor);
+                this.TotalActorCount++;
             }
         }
 
@@ -281,11 +302,10 @@ namespace StardustSandbox.Managers
             if (!string.IsNullOrEmpty(this.currentlySelectedSaveFile))
             {
                 LoadFromSaveFile(this.currentlySelectedSaveFile);
+                return;
             }
-            else
-            {
-                Clear();
-            }
+
+            Clear();
         }
 
         public void Reset()

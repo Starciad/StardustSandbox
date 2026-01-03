@@ -157,6 +157,70 @@ namespace StardustSandbox.Actors.Common
             return this.world.TryGetElement(new(position.X, position.Y + 1), Layer.Foreground, out ElementIndex index) && ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid;
         }
 
+        private void SetFrontPositions(Predicate<Point> removeMatch)
+        {
+            possiblePositions.Clear();
+            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
+            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
+            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
+            _ = possiblePositions.RemoveWhere(removeMatch);
+        }
+
+        private bool TryWalk()
+        {
+            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+
+            if (possiblePositions.Count > 0)
+            {
+                this.Position = possiblePositions.GetRandomItem();
+                return true;
+            }
+            else
+            {
+                TurnAround();
+                return false;
+            }
+        }
+
+        private bool TryGrabElement()
+        {
+            SetFrontPositions(point =>
+                this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)) ||
+                HasEntityAbove(point)
+            );
+
+            if (possiblePositions.Count > 0)
+            {
+                Point position = possiblePositions.GetRandomItem();
+                this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
+                this.world.RemoveElement(position, Layer.Foreground);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool TryPlaceElement()
+        {
+            SetFrontPositions(point =>
+                !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
+                this.actorManager.HasEntityAtPosition(point)
+            );
+
+            if (possiblePositions.Count > 0)
+            {
+                Point position = possiblePositions.GetRandomItem();
+                this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
+                this.grabbedElementIndex = ElementIndex.None;
+
+                return true;
+            }
+
+            return false;
+        }
+
         internal override void Update(GameTime gameTime)
         {
             // If spawned inside a non-empty slot, destroy immediately
@@ -197,115 +261,42 @@ namespace StardustSandbox.Actors.Common
                 return;
             }
 
-            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
-
-            if (possiblePositions.Count > 0)
+            // Try to walk and place the element
+            if (SSRandom.GetBool() && TryWalk())
             {
-                this.Position = possiblePositions.GetRandomItem();
-
-                if (SSRandom.Chance(35))
-                {
-                    TryPlaceElement();
-                }
+                _ = TryPlaceElement();
             }
-            else
+            else if (SSRandom.GetBool())
             {
-                TurnAround();
-
-                if (SSRandom.Chance(35))
-                {
-                    TryPlaceElement();
-                }
-            }
-
-            void TryPlaceElement()
-            {
-                SetFrontPositions(point =>
-                    !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                    this.actorManager.HasEntityAtPosition(point)
-                );
-
-                if (possiblePositions.Count > 0)
-                {
-                    Point position = possiblePositions.GetRandomItem();
-                    this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
-                    this.grabbedElementIndex = ElementIndex.None;
-                }
+                _ = TryPlaceElement();
             }
         }
 
         private void UpdateNormalBehavior()
         {
             // Idle
-            if (SSRandom.Chance(5))
+            if (SSRandom.Chance(10, 150))
             {
                 TurnAround();
-                return;
             }
-
             // Walking
-            if (SSRandom.Chance(10))
+            else if (SSRandom.Chance(10) && TryWalk())
             {
-                Walk();
-                return;
+                _ = TryGrabElement();
             }
-
-            // Grabbing an element
-            if (SSRandom.Chance(2))
+            // Grabbing
+            else if (SSRandom.GetBool())
             {
-                SetFrontPositions(point =>
-                    this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                    !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)) ||
-                    HasEntityAbove(point)
-                );
-
-                if (possiblePositions.Count > 0)
-                {
-                    Point position = possiblePositions.GetRandomItem();
-
-                    this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
-                    this.world.RemoveElement(position, Layer.Foreground);
-
-                    TurnAround();
-                }
-                else
-                {
-                    Walk();
-                }
-
-                return;
+                _ = TryGrabElement();
             }
-        }
-
-        private void Walk()
-        {
-            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
-
-            if (possiblePositions.Count > 0)
-            {
-                this.Position = possiblePositions.GetRandomItem();
-            }
-            else
-            {
-                TurnAround();
-            }
-        }
-
-        private void SetFrontPositions(Predicate<Point> removeMatch)
-        {
-            possiblePositions.Clear();
-            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
-            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
-            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
-            _ = possiblePositions.RemoveWhere(removeMatch);
         }
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
                 AssetDatabase.GetTexture(TextureIndex.ActorGul),
-                new Rectangle(this.Position.X * SpriteConstants.SPRITE_SCALE, this.Position.Y * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
-                new Rectangle(0, this.direction == FaceDirection.Right ? 0 : 32, 32, 32),
+                new(this.Position.X * SpriteConstants.SPRITE_SCALE, this.Position.Y * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
+                new(0, this.direction == FaceDirection.Right ? 0 : 32, 32, 32),
                 Color.White,
                 0.0f,
                 Vector2.Zero,

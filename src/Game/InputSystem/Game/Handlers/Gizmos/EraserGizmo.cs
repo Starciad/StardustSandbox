@@ -48,7 +48,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                foreach (Actor actor in this.actorManager.InstantiatedActors)
+                foreach (Actor actor in this.actorManager.GetActors())
                 {
                     if (actor.Position == position)
                     {
