@@ -131,6 +131,7 @@ namespace StardustSandbox.Actors.Common
         {
             this.direction = SSRandom.GetBool() ? Direction.Left : Direction.Right;
             this.grabbedElementIndex = ElementIndex.None;
+            this.positionElementPositioned = new(-1);
         }
 
         private bool IsBeingSuffocated()
