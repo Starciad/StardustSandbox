@@ -4,6 +4,6 @@
     {
         Pending = 0,
         Active = 1,
-        Destroying = 2
+        Destroyed = 2
     }
 }

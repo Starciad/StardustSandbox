@@ -25,15 +25,18 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly SlotInfo[] buttonSlotInfos;
         private readonly ButtonInfo[] buttonInfos;
 
+        private readonly ActorManager actorManager;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal InformationUI(
+            ActorManager actorManager,
             UIIndex index,
             UIManager uiManager,
             World world
         ) : base(index)
         {
+            this.actorManager = actorManager;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -42,7 +45,7 @@ namespace StardustSandbox.UI.Common.HUD
             ];
 
             this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
-            this.infoLabels = new Label[6];
+            this.infoLabels = new Label[7];
         }
 
         #region BUILDER
@@ -222,6 +225,8 @@ namespace StardustSandbox.UI.Common.HUD
             this.infoLabels[5].TextContent = this.world.Temperature.CanApplyTemperature
                 ? string.Concat(Localization_Statements.Temperature, ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")
                 : string.Concat(Localization_Statements.Temperature, ": ", Localization_Messages.Information_NoTemperature);
+
+            this.infoLabels[6].TextContent = string.Concat(Localization_Statements.Entities, ": ", this.actorManager.TotalActorCount, '/', ActorConstants.MAX_SIMULTANEOUS_ACTORS);
         }
 
         protected override void OnClosed()

@@ -21,14 +21,15 @@ namespace StardustSandbox.Actors.Common
 {
     internal sealed class GulActor : Actor
     {
-        private enum FaceDirection : sbyte
+        private enum Direction : sbyte
         {
             Left = -1,
             Right = 1,
         }
 
-        private FaceDirection direction;
+        private Direction direction;
         private ElementIndex grabbedElementIndex;
+        private Point positionElementPositioned;
 
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
@@ -128,7 +129,7 @@ namespace StardustSandbox.Actors.Common
 
         public override void Reset()
         {
-            this.direction = SSRandom.GetBool() ? FaceDirection.Left : FaceDirection.Right;
+            this.direction = SSRandom.GetBool() ? Direction.Left : Direction.Right;
             this.grabbedElementIndex = ElementIndex.None;
         }
 
@@ -144,7 +145,7 @@ namespace StardustSandbox.Actors.Common
 
         private void TurnAround()
         {
-            this.direction = this.direction == FaceDirection.Left ? FaceDirection.Right : FaceDirection.Left;
+            this.direction = this.direction == Direction.Left ? Direction.Right : Direction.Left;
         }
 
         private bool HasEntityAbove(Point position)
@@ -175,11 +176,8 @@ namespace StardustSandbox.Actors.Common
                 this.Position = possiblePositions.GetRandomItem();
                 return true;
             }
-            else
-            {
-                TurnAround();
-                return false;
-            }
+
+            return false;
         }
 
         private bool TryGrabElement()
@@ -193,6 +191,7 @@ namespace StardustSandbox.Actors.Common
             if (possiblePositions.Count > 0)
             {
                 Point position = possiblePositions.GetRandomItem();
+
                 this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
                 this.world.RemoveElement(position, Layer.Foreground);
 
@@ -206,14 +205,17 @@ namespace StardustSandbox.Actors.Common
         {
             SetFrontPositions(point =>
                 !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                this.actorManager.HasEntityAtPosition(point)
+                this.actorManager.HasEntityAtPosition(point) ||
+                point == this.positionElementPositioned
             );
 
             if (possiblePositions.Count > 0)
             {
                 Point position = possiblePositions.GetRandomItem();
+
                 this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
                 this.grabbedElementIndex = ElementIndex.None;
+                this.positionElementPositioned = position;
 
                 return true;
             }
@@ -256,19 +258,12 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateGrabbedElementBehavior()
         {
-            if (SSRandom.Chance(80))
+            if (SSRandom.Chance(15) && !TryWalk())
             {
-                return;
-            }
-
-            // Try to walk and place the element
-            if (SSRandom.GetBool() && TryWalk())
-            {
-                _ = TryPlaceElement();
-            }
-            else if (SSRandom.GetBool())
-            {
-                _ = TryPlaceElement();
+                if (!TryPlaceElement())
+                {
+                    TurnAround();
+                }
             }
         }
 
@@ -280,12 +275,12 @@ namespace StardustSandbox.Actors.Common
                 TurnAround();
             }
             // Walking
-            else if (SSRandom.Chance(10) && TryWalk())
+            else if (SSRandom.Chance(15))
             {
-                _ = TryGrabElement();
+                _ = TryWalk();
             }
             // Grabbing
-            else if (SSRandom.GetBool())
+            else if (SSRandom.Chance(12))
             {
                 _ = TryGrabElement();
             }
@@ -296,7 +291,7 @@ namespace StardustSandbox.Actors.Common
             spriteBatch.Draw(
                 AssetDatabase.GetTexture(TextureIndex.ActorGul),
                 new(this.Position.X * SpriteConstants.SPRITE_SCALE, this.Position.Y * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
-                new(0, this.direction == FaceDirection.Right ? 0 : 32, 32, 32),
+                new(0, this.direction == Direction.Right ? 0 : 32, 32, 32),
                 Color.White,
                 0.0f,
                 Vector2.Zero,
@@ -309,7 +304,7 @@ namespace StardustSandbox.Actors.Common
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.Elements),
                     new(
-                        (this.Position.X * SpriteConstants.SPRITE_SCALE) + (this.direction is FaceDirection.Right ? 12.0f * (float)this.direction : 4.0f),
+                        (this.Position.X * SpriteConstants.SPRITE_SCALE) + (this.direction is Direction.Right ? 12.0f * (float)this.direction : 4.0f),
                         (this.Position.Y * SpriteConstants.SPRITE_SCALE) + 16.0f
                     ),
                     new(this.GrabbedElement.RenderingType switch

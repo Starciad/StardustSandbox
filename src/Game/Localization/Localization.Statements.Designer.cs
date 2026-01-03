@@ -124,6 +124,15 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Entities.
+        /// </summary>
+        internal static string Entities {
+            get {
+                return ResourceManager.GetString("Entities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Exit.
         /// </summary>
         internal static string Exit {

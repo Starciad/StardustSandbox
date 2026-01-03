@@ -18,10 +18,12 @@ namespace StardustSandbox.Managers
 {
     internal sealed class ActorManager : IResettable
     {
-        internal int TotalActorCount { get; private set; }
+        internal int TotalActorCount => this.totalActorCount;
 
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
+
+        private int totalActorCount;
 
         private string currentlySelectedSaveFile;
 
@@ -61,7 +63,7 @@ namespace StardustSandbox.Managers
         {
             foreach (Actor actor in EnumerateAllActors())
             {
-                if (actor.State is not ActorState.Destroying)
+                if (actor.State is not ActorState.Destroyed)
                 {
                     yield return actor;
                 }
@@ -70,7 +72,7 @@ namespace StardustSandbox.Managers
 
         internal bool TryCreate(ActorIndex index, out Actor actor)
         {
-            if (this.TotalActorCount >= ActorConstants.MAX_SIMULTANEOUS_ACTORS)
+            if (this.totalActorCount >= ActorConstants.MAX_SIMULTANEOUS_ACTORS)
             {
                 actor = null;
                 return false;
@@ -78,21 +80,21 @@ namespace StardustSandbox.Managers
 
             actor = ActorDatabase.GetDescriptor(index).Create();
             this.actorsToAdd.Enqueue(actor);
-            this.TotalActorCount++;
+            this.totalActorCount++;
 
             return true;
         }
 
         internal void Destroy(Actor actor)
         {
-            if (actor.State is ActorState.Destroying)
+            if (actor.State is ActorState.Destroyed)
             {
                 return;
             }
 
             ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
             this.actorsToRemove.Enqueue(actor);
-            this.TotalActorCount--;
+            this.totalActorCount--;
         }
 
         private void FlushPendingChanges()
@@ -131,7 +133,7 @@ namespace StardustSandbox.Managers
                     continue;
                 }
 
-                if (actor.State is not ActorState.Destroying)
+                if (actor.State is not ActorState.Destroyed)
                 {
                     ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
                     actor.OnDestroyed();
@@ -142,7 +144,7 @@ namespace StardustSandbox.Managers
             this.actorsToRemove.Clear();
             this.instantiatedActors.Clear();
 
-            this.TotalActorCount = 0;
+            this.totalActorCount = 0;
         }
 
         private bool IsActorWithinWorldBounds(Actor actor)
@@ -181,7 +183,7 @@ namespace StardustSandbox.Managers
 
             foreach (Actor actor in this.instantiatedActors)
             {
-                if (actor.State is ActorState.Destroying)
+                if (actor.State is ActorState.Destroyed)
                 {
                     continue;
                 }
@@ -247,7 +249,7 @@ namespace StardustSandbox.Managers
             foreach (Actor actor in GetActors())
             {
                 // Skip non-drawable and destroyed actors
-                if (!actor.CanDraw || actor.State is not ActorState.Active)
+                if (!actor.CanDraw || actor.State is ActorState.Destroyed)
                 {
                     continue;
                 }
@@ -282,7 +284,7 @@ namespace StardustSandbox.Managers
             {
                 Actor actor = ActorSerializer.Deserialize(data[i]);
                 this.actorsToAdd.Enqueue(actor);
-                this.TotalActorCount++;
+                this.totalActorCount++;
             }
         }
 

@@ -30,7 +30,7 @@ namespace StardustSandbox.Actors
 
         public void Destroy(Actor actor)
         {
-            actor.State = ActorState.Destroying;
+            actor.State = ActorState.Destroyed;
             this.pool.Enqueue(actor);
         }
     }
