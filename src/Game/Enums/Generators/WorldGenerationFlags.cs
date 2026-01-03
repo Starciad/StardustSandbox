@@ -7,5 +7,6 @@ namespace StardustSandbox.Enums.Generators
     {
         None = 0,
         HasTrees = 1 << 0,
+        HasCaves = 1 << 1,
     }
 }

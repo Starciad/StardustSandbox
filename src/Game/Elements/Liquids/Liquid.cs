@@ -65,7 +65,7 @@ namespace StardustSandbox.Elements.Liquids
         private void TryPerformConvection(ElementContext context, Point position, SlotLayer belowLayer)
         {
             if (belowLayer.IsEmpty ||
-                belowLayer.ElementIndex.GetType() != GetType() ||
+                belowLayer.ElementIndex != this.Index ||
                 belowLayer.Temperature <= context.SlotLayer.Temperature)
             {
                 return;

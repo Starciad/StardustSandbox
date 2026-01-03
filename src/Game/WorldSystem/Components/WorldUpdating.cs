@@ -57,11 +57,6 @@ namespace StardustSandbox.WorldSystem.Components
         {
             SlotLayer slotLayer = slot.GetLayer(layer);
 
-            if (slotLayer.IsEmpty)
-            {
-                return;
-            }
-
             this.elementUpdateContext.UpdateInformation(position, layer, slot);
             slotLayer.Element.SetContext(this.elementUpdateContext);
 
