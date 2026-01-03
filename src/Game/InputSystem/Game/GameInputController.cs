@@ -6,6 +6,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.States;
+using StardustSandbox.Generators;
 using StardustSandbox.InputSystem.Actions;
 using StardustSandbox.InputSystem.Game.Handlers;
 using StardustSandbox.InputSystem.Game.Simulation;
@@ -89,6 +90,11 @@ namespace StardustSandbox.InputSystem.Game
                     new(controlSettings.TogglePause)
                     {
                         OnStarted = _ => GameHandler.ToggleState(GameStates.IsSimulationPaused),
+                    },
+
+                    new(controlSettings.GenerateWorld)
+                    {
+                        OnStarted = _ => WorldGenerator.Start(world),
                     },
                 ]),
                 

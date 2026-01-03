@@ -30,6 +30,9 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("Screenshot", typeof(Keys))]
         public readonly Keys Screenshot { get; init; }
 
+        [XmlElement("GenerateWorld", typeof(Keys))]
+        public readonly Keys GenerateWorld { get; init; }
+
         public ControlSettings()
         {
             this.MoveCameraUp = Keys.W;
@@ -41,6 +44,7 @@ namespace StardustSandbox.Serialization.Settings
             this.ClearWorld = Keys.R;
 
             this.Screenshot = Keys.F12;
+            this.GenerateWorld = Keys.G;
         }
     }
 }
