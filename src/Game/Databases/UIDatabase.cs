@@ -115,6 +115,7 @@ namespace StardustSandbox.Databases
             InformationUI informationUI = new(
                 actorManager,
                 UIIndex.Information,
+                tooltipBox,
                 uiManager,
                 world
             );

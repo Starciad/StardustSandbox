@@ -26,17 +26,20 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo[] buttonInfos;
 
         private readonly ActorManager actorManager;
+        private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal InformationUI(
             ActorManager actorManager,
             UIIndex index,
+            TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base(index)
         {
             this.actorManager = actorManager;
+            this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -56,6 +59,8 @@ namespace StardustSandbox.UI.Common.HUD
             BuildTitle();
             BuildMenuButtons();
             BuildInfoFields();
+
+            root.AddChild(this.tooltipBox);
         }
 
         private void BuildBackground(Container root)
@@ -179,6 +184,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         internal override void Update(GameTime gameTime)
         {
+            this.tooltipBox.CanDraw = false;
             UpdateMenuButtons();
             base.Update(gameTime);
         }
@@ -194,14 +200,26 @@ namespace StardustSandbox.UI.Common.HUD
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
+                if (Interaction.OnMouseOver(slot.Background))
+                {
+                    this.tooltipBox.CanDraw = true;
+
+                    TooltipBoxContent.SetTitle(this.buttonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.buttonInfos[i].Description);
+
+                    slot.Background.Color = AAP64ColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.Background.Color = AAP64ColorPalette.White;
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
                     break;
                 }
-
-                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

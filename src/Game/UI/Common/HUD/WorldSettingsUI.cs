@@ -269,14 +269,26 @@ namespace StardustSandbox.UI.Common.HUD
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
+                if (Interaction.OnMouseOver(slot.Background))
+                {
+                    this.tooltipBox.CanDraw = true;
+
+                    TooltipBoxContent.SetTitle(this.menuButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.menuButtonInfos[i].Description);
+
+                    slot.Background.Color = AAP64ColorPalette.HoverColor;
+                }
+                else
+                {
+                    slot.Background.Color = AAP64ColorPalette.White;
+                }
+
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
-
-                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
