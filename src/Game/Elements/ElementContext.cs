@@ -9,6 +9,7 @@ namespace StardustSandbox.Elements
 {
     internal sealed class ElementContext(World world)
     {
+        internal World World => this.world;
         internal Slot Slot => this.slot;
         internal SlotLayer SlotLayer => this.slot.GetLayer(this.Layer);
         internal Point Position => this.slot.Position;
@@ -25,25 +26,6 @@ namespace StardustSandbox.Elements
             this.Layer = layer;
             this.slot = slot;
         }
-
-        #region WORLD
-
-        internal Point GetWorldSize()
-        {
-            return this.world.Information.Size;
-        }
-
-        internal float GetWorldTemperature()
-        {
-            return this.world.Temperature.CurrentTemperature;
-        }
-
-        internal bool CanApplyWorldTemperature()
-        {
-            return this.world.Temperature.CanApplyTemperature;
-        }
-
-        #endregion
 
         #region ELEMENTS
 

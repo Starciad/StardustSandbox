@@ -32,12 +32,14 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly ButtonInfo[] menuButtonInfos, sizeButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
+        private readonly ActorManager actorManager;
         private readonly ConfirmUI confirmUI;
         private readonly MessageUI messageUI;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal WorldSettingsUI(
+            ActorManager actorManager,
             ConfirmUI confirmUI,
             UIIndex index,
             MessageUI messageUI,
@@ -46,6 +48,7 @@ namespace StardustSandbox.UI.Common.HUD
             World world
         ) : base(index)
         {
+            this.actorManager = actorManager;
             this.confirmUI = confirmUI;
             this.messageUI = messageUI;
             this.tooltipBox = tooltipBox;
@@ -84,6 +87,7 @@ namespace StardustSandbox.UI.Common.HUD
                     if (status == ConfirmStatus.Confirmed)
                     {
                         this.world.StartNew(this.worldTargetSize);
+                        this.actorManager.Reset();
 
                         StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
 

@@ -36,7 +36,7 @@ namespace StardustSandbox.Elements.Solids.Movables
             if (hasWater && hasFertileSoil && SSRandom.Chance(25, 350))
             {
                 context.DestroyElement();
-                TreeGenerator.Start(context, context.Position, SSRandom.Range(5, 8), 1, 2);
+                TreeGenerator.Start(context.World, context.Position, SSRandom.Range(5, 8), 1, 2);
             }
         }
 

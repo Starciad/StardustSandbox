@@ -202,6 +202,7 @@ namespace StardustSandbox.Databases
             );
 
             WorldSettingsUI worldSettingsUI = new(
+                actorManager,
                 confirmUI,
                 UIIndex.WorldSettings,
                 messageUI,

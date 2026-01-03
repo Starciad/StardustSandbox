@@ -3,6 +3,7 @@
 using StardustSandbox.Audio;
 using StardustSandbox.Camera;
 using StardustSandbox.Enums.Assets;
+using StardustSandbox.Enums.Generators;
 using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.States;
@@ -94,7 +95,7 @@ namespace StardustSandbox.InputSystem.Game
 
                     new(controlSettings.GenerateWorld)
                     {
-                        OnStarted = _ => WorldGenerator.Start(world),
+                        OnStarted = _ => WorldGenerator.Start(world, WorldGenerationPreset.Plain),
                     },
                 ]),
                 

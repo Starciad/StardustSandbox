@@ -28,7 +28,7 @@ namespace StardustSandbox.Elements.Gases
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 10.0f) &&
+            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.World.Information.Size.Y, 10.0f) &&
                 neighbors.CountNeighborsByElementIndex(ElementIndex.ChargedCloud, context.Layer) >= 5 &&
                 SSRandom.Chance(1))
             {

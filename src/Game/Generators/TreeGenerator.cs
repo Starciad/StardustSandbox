@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 
-using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
+using StardustSandbox.Enums.World;
+using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Generators
 {
     internal static class TreeGenerator
     {
-        internal static void Start(ElementContext context, Point origin, int height, int trunkWidth, int leavesRadius)
+        internal static void Start(World world, in Point origin, in int height, in int trunkWidth, in int leavesRadius)
         {
             // Generate trunk
             for (int y = 0; y < height; y++)
@@ -16,13 +17,13 @@ namespace StardustSandbox.Generators
                 {
                     Point position = new(origin.X + x, origin.Y - y);
 
-                    if (context.IsEmptySlotLayer(position))
+                    if (world.IsEmptySlotLayer(position, Layer.Foreground))
                     {
-                        context.InstantiateElement(position, ElementIndex.Wood);
+                        world.InstantiateElement(position, Layer.Foreground, ElementIndex.Wood);
                     }
                     else
                     {
-                        context.ReplaceElement(position, ElementIndex.Wood);
+                        world.ReplaceElement(position, Layer.Foreground, ElementIndex.Wood);
                     }
                 }
             }
@@ -38,13 +39,13 @@ namespace StardustSandbox.Generators
                     {
                         Point position = new(origin.X + x, leavesStartY + y);
 
-                        if (context.IsEmptySlotLayer(position))
+                        if (world.IsEmptySlotLayer(position, Layer.Foreground))
                         {
-                            context.InstantiateElement(position, ElementIndex.TreeLeaf);
+                            world.InstantiateElement(position, Layer.Foreground, ElementIndex.TreeLeaf);
                         }
                         else
                         {
-                            context.ReplaceElement(position, ElementIndex.TreeLeaf);
+                            world.ReplaceElement(position, Layer.Foreground, ElementIndex.TreeLeaf);
                         }
                     }
                 }
