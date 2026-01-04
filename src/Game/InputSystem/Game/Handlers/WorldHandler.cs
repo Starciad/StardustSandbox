@@ -93,7 +93,7 @@ namespace StardustSandbox.InputSystem.Game.Handlers
         {
             Vector3 worldPosition3D = Vector3.Transform(new(screenPosition, 0), Matrix.Invert(SSCamera.GetViewMatrix()));
 
-            return new Vector2(worldPosition3D.X, worldPosition3D.Y);
+            return new(worldPosition3D.X, worldPosition3D.Y);
         }
     }
 }

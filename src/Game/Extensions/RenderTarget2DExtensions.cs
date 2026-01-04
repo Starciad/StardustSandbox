@@ -15,7 +15,7 @@ namespace StardustSandbox.Extensions
 
             for (int i = 0; i < data.Length; i++)
             {
-                data[i] = new Color(
+                data[i] = new(
                     data[i].R,
                     data[i].G,
                     data[i].B,

@@ -15,7 +15,6 @@ namespace StardustSandbox.Generators
 {
     internal static class WorldGenerator
     {
-        // small set of underground elements; readonly to avoid accidental modification
         private static readonly ElementIndex[] undergroundElements =
         [
             ElementIndex.Stone,
@@ -35,7 +34,7 @@ namespace StardustSandbox.Generators
             switch (preset)
             {
                 case WorldGenerationPreset.Plain:
-                    amplitudeRange = new Range(
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
                     );
@@ -43,7 +42,7 @@ namespace StardustSandbox.Generators
                     break;
 
                 default:
-                    amplitudeRange = new Range(
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
                     );
@@ -54,40 +53,24 @@ namespace StardustSandbox.Generators
             // Create a coherent height map first (single pass) and share it between generators.
             int[] heightMap = GenerateHeightMap(in width, in height, in amplitudeRange);
 
-            GenerateTerrain(world, heightMap, in amplitudeRange, in flags);
+            GenerateTerrain(world, heightMap);
             GenerateOceans(world, heightMap);
+
             if (flags.HasFlag(WorldGenerationFlags.HasTrees))
             {
                 GenerateTrees(world, heightMap);
             }
         }
 
-        // Compute the first occupied Y for a column using the precomputed height map.
-        private static int GetTerrainStartIndexFromHeightMap(in int[] heightMap, in int x)
-        {
-            return heightMap[x];
-        }
-
-        // Safe bounds check helper
-        private static bool IsPointInsideWorld(in Point point, World world)
-        {
-            return point.X >= 0 && point.Y >= 0 && point.X < world.Information.Size.X && point.Y < world.Information.Size.Y;
-        }
-
-        // Create a smooth height map using a random walk + smoothing passes.
-        // Uses only integer math and limited allocations.
         private static int[] GenerateHeightMap(in int width, in int height, in Range amplitudeRange)
         {
             int[] heights = new int[width];
-
-            // Start around 60% of height as baseline (same as original)
             int baseline = (int)PercentageMath.PercentageOfValue(height, 60.0f);
-
-            // Random walk to generate rough terrain
             heights[0] = baseline;
+
             for (int x = 1; x < width; x++)
             {
-                int delta = SSRandom.Range(-2, 3); // small step to keep slopes gentle
+                int delta = SSRandom.Range(-2, 2);
                 int candidate = heights[x - 1] + delta;
 
                 if (candidate < amplitudeRange.Start.Value)
@@ -103,16 +86,18 @@ namespace StardustSandbox.Generators
             }
 
             // Apply a few smoothing passes (moving average) to remove jitter
-            const int smoothingPasses = 3;
-            for (int pass = 0; pass < smoothingPasses; pass++)
+            for (int pass = 0; pass < 3; pass++)
             {
                 int[] temp = new int[width];
+
                 for (int x = 0; x < width; x++)
                 {
                     int left = (x - 1 >= 0) ? heights[x - 1] : heights[x];
                     int right = (x + 1 < width) ? heights[x + 1] : heights[x];
+                    
                     // weighted average: center*2 + left + right
                     int smoothed = ((2 * heights[x]) + left + right) / 4;
+
                     if (smoothed < amplitudeRange.Start.Value)
                     {
                         smoothed = amplitudeRange.Start.Value;
@@ -135,8 +120,7 @@ namespace StardustSandbox.Generators
             return heights;
         }
 
-        // Generate column-based terrain using the precalculated height map.
-        private static void GenerateTerrain(World world, int[] heightMap, in Range amplitudeRange, in WorldGenerationFlags flags)
+        private static void GenerateTerrain(World world, int[] heightMap)
         {
             int width = heightMap.Length;
             int height = world.Information.Size.Y;
@@ -168,7 +152,6 @@ namespace StardustSandbox.Generators
                     }
                     else if (relativeDepth <= deepThreshold)
                     {
-                        // pick one underground element for both foreground and background
                         chosen = undergroundElements.GetRandomItem();
                     }
                     else
@@ -176,14 +159,12 @@ namespace StardustSandbox.Generators
                         chosen = ElementIndex.Obsidian;
                     }
 
-                    // Instantiate once and set both layers to the same element to keep consistency.
-                    world.InstantiateElement(new Point(x, y), Layer.Foreground, chosen);
-                    world.InstantiateElement(new Point(x, y), Layer.Background, chosen);
+                    world.InstantiateElement(new(x, y), Layer.Foreground, chosen);
+                    world.InstantiateElement(new(x, y), Layer.Background, chosen);
                 }
             }
         }
 
-        // Place oceans using the height map to find surface positions.
         private static void GenerateOceans(World world, int[] heightMap)
         {
             int width = heightMap.Length;
@@ -195,8 +176,8 @@ namespace StardustSandbox.Generators
             int oceansRadius = (int)PercentageMath.PercentageOfValue(height, 20.0f);
             int sandRadius = oceansRadius + (int)PercentageMath.PercentageOfValue(height, 10.0f);
 
-            int leftStartTerrainIndex = GetTerrainStartIndexFromHeightMap(in heightMap, in leftOceanPointX);
-            int rightStartTerrainIndex = GetTerrainStartIndexFromHeightMap(in heightMap, in rightOceanPointX);
+            int leftStartTerrainIndex = heightMap[leftOceanPointX];
+            int rightStartTerrainIndex = heightMap[rightOceanPointX];
 
             Point leftCenter = new(leftOceanPointX, leftStartTerrainIndex);
             Point rightCenter = new(rightOceanPointX, rightStartTerrainIndex);
@@ -204,7 +185,7 @@ namespace StardustSandbox.Generators
             // Generate sand band first (keeps shoreline consistent)
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(leftCenter, sandRadius))
             {
-                if (IsPointInsideWorld(in point, world))
+                if (world.IsWithinBounds(in point))
                 {
                     world.ReplaceElement(point, Layer.Foreground, ElementIndex.Sand);
                     world.ReplaceElement(point, Layer.Background, ElementIndex.Sand);
@@ -213,7 +194,7 @@ namespace StardustSandbox.Generators
 
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(rightCenter, sandRadius))
             {
-                if (IsPointInsideWorld(in point, world))
+                if (world.IsWithinBounds(in point))
                 {
                     world.ReplaceElement(point, Layer.Foreground, ElementIndex.Sand);
                     world.ReplaceElement(point, Layer.Background, ElementIndex.Sand);
@@ -223,7 +204,7 @@ namespace StardustSandbox.Generators
             // Generate water inside the sand band
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(leftCenter, oceansRadius))
             {
-                if (IsPointInsideWorld(in point, world))
+                if (world.IsWithinBounds(in point))
                 {
                     world.ReplaceElement(point, Layer.Foreground, ElementIndex.Water);
                     world.ReplaceElement(point, Layer.Background, ElementIndex.Water);
@@ -232,7 +213,7 @@ namespace StardustSandbox.Generators
 
             foreach (Point point in ShapePointGenerator.GenerateCirclePoints(rightCenter, oceansRadius))
             {
-                if (IsPointInsideWorld(in point, world))
+                if (world.IsWithinBounds(in point))
                 {
                     world.ReplaceElement(point, Layer.Foreground, ElementIndex.Water);
                     world.ReplaceElement(point, Layer.Background, ElementIndex.Water);
@@ -240,18 +221,14 @@ namespace StardustSandbox.Generators
             }
         }
 
-        // Trees: sample columns and place trees on grass with a probabilistic filter.
         private static void GenerateTrees(World world, int[] heightMap)
         {
             int width = heightMap.Length;
             int height = world.Information.Size.Y;
 
-            // To avoid checking every column, step by a small stride but keep randomness
-            const int stride = 1; // keep stride 1 to maintain similar density to original; increase for fewer candidates
-
-            for (int x = 0; x < width; x += stride)
+            for (int x = 0; x < width; x++)
             {
-                int surfaceY = GetTerrainStartIndexFromHeightMap(in heightMap, in x);
+                int surfaceY = heightMap[x];
 
                 // Ensure we are in world bounds
                 if (surfaceY <= 0 || surfaceY >= height)
@@ -260,21 +237,14 @@ namespace StardustSandbox.Generators
                 }
 
                 // Confirm top element is grass
-                if (world.TryGetElement(new Point(x, surfaceY), Layer.Foreground, out ElementIndex index) &&
-                    index == ElementIndex.Grass)
+                if (SSRandom.Chance(25) && world.TryGetElement(new(x, surfaceY), Layer.Foreground, out ElementIndex index) && index is ElementIndex.Grass)
                 {
-                    // 25% chance to attempt tree placement
-                    if (SSRandom.Chance(25))
-                    {
-                        // Choose tree params with limited ranges
-                        int trunkHeight = SSRandom.Range(6, 12);
-                        int trunkThickness = 1;
-                        int crownRadius = SSRandom.Range(2, 4);
+                    Point origin = new(x, surfaceY - 1);
+                    int trunkHeight = SSRandom.Range(6, 12);
+                    int trunkThickness = 1;
+                    int crownRadius = SSRandom.Range(2, 4);
 
-                        // Pass world point one above surface so tree sits on top
-                        Point treeBase = new(x, surfaceY - 1);
-                        TreeGenerator.Start(world, treeBase, trunkHeight, trunkThickness, crownRadius);
-                    }
+                    TreeGenerator.Start(world, origin, trunkHeight, trunkThickness, crownRadius);
                 }
             }
         }

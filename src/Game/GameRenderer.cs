@@ -258,7 +258,7 @@ namespace StardustSandbox
             mouseX = Math.Clamp(mouseX, 0, ScreenRenderTarget2D.Width - 1);
             mouseY = Math.Clamp(mouseY, 0, ScreenRenderTarget2D.Height - 1);
 
-            return new Vector2(mouseX, mouseY);
+            return new(mouseX, mouseY);
         }
 
         internal static void RequestScreenshot()

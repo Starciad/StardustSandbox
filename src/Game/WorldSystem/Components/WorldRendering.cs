@@ -28,8 +28,8 @@ namespace StardustSandbox.WorldSystem.Components
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 topLeftWorld = SSCamera.ScreenToWorld(new Vector2(0, 0));
-            Vector2 bottomRightWorld = SSCamera.ScreenToWorld(new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
+            Vector2 topLeftWorld = SSCamera.ScreenToWorld(new(0, 0));
+            Vector2 bottomRightWorld = SSCamera.ScreenToWorld(new(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
 
             int minTileX = (int)Math.Clamp(Math.Floor(topLeftWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
             int minTileY = (int)Math.Clamp(Math.Floor(topLeftWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
@@ -46,7 +46,7 @@ namespace StardustSandbox.WorldSystem.Components
 
                     if (gameplaySettings.ShowGrid && this.inputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new Color(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))

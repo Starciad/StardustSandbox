@@ -151,7 +151,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnBuild(Container root)
         {
-            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new Vector2(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.GUIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
+            BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.GUIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
             BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.GUIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, UIDirection.North, true));
             BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.GUIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, UIDirection.North, true));
             BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, UIDirection.South, false);

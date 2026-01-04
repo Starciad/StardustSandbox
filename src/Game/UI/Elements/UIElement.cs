@@ -239,7 +239,7 @@ namespace StardustSandbox.UI.Elements
             x = Math.Clamp(x, rect2.Location.X, rect2.Location.X + Math.Max(0, rect2.Size.X - rect1.Size.X));
             y = Math.Clamp(y, rect2.Location.Y, rect2.Location.Y + Math.Max(0, rect2.Size.Y - rect1.Size.Y));
 
-            return new Vector2(x + margin.X, y + margin.Y);
+            return new(x + margin.X, y + margin.Y);
         }
 
         private void RepositionRelativeToElement(in FloatRectangle targetRectangle)
@@ -255,7 +255,7 @@ namespace StardustSandbox.UI.Elements
 
         private void RepositionRelativeToScreen()
         {
-            RepositionRelativeToElement(new FloatRectangle(Vector2.Zero, new Vector2(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
+            RepositionRelativeToElement(new FloatRectangle(Vector2.Zero, new(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
         }
 
         protected void RepositionRelativeToParent()

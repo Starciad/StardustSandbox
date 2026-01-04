@@ -431,7 +431,7 @@ namespace StardustSandbox.WorldSystem
                         continue;
                     }
 
-                    Point neighborPosition = position + new Point(dx, dy);
+                    Point neighborPosition = new(position.X + dx, position.Y + dy);
 
                     if (!IsWithinBounds(neighborPosition))
                     {

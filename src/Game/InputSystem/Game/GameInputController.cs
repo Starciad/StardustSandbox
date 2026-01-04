@@ -67,22 +67,22 @@ namespace StardustSandbox.InputSystem.Game
                 new([
                     new(controlSettings.MoveCameraUp)
                     {
-                        OnPerformed = _ => SSCamera.Move(new Vector2(0, this.player.MovementSpeed)),
+                        OnPerformed = _ => SSCamera.Move(new(0, this.player.MovementSpeed)),
                     },
 
                     new(controlSettings.MoveCameraRight)
                     {
-                        OnPerformed = _ => SSCamera.Move(new Vector2(this.player.MovementSpeed, 0)),
+                        OnPerformed = _ => SSCamera.Move(new(this.player.MovementSpeed, 0)),
                     },
 
                     new(controlSettings.MoveCameraDown)
                     {
-                        OnPerformed = _ => SSCamera.Move(new Vector2(0, -this.player.MovementSpeed)),
+                        OnPerformed = _ => SSCamera.Move(new(0, -this.player.MovementSpeed)),
                     },
 
                     new(controlSettings.MoveCameraLeft)
                     {
-                        OnPerformed = _ => SSCamera.Move(new Vector2(-this.player.MovementSpeed, 0)),
+                        OnPerformed = _ => SSCamera.Move(new(-this.player.MovementSpeed, 0)),
                     },
                 ]),
 

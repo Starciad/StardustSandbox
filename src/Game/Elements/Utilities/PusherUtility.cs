@@ -14,9 +14,9 @@ namespace StardustSandbox.Elements.Utilities
         internal static void PushingNeighborsUp(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
-                frontDirection: p => new Point(p.X, p.Y - 1),
-                leftDirection: p => new Point(p.X - 1, p.Y),
-                rightDirection: p => new Point(p.X + 1, p.Y),
+                frontDirection: p => new(p.X, p.Y - 1),
+                leftDirection: p => new(p.X - 1, p.Y),
+                rightDirection: p => new(p.X + 1, p.Y),
                 isBehind: (neighbor, pusher) => neighbor.X == pusher.X && (neighbor.Y - 1) == pusher.Y
             );
         }
@@ -24,9 +24,9 @@ namespace StardustSandbox.Elements.Utilities
         internal static void PushingNeighborsRight(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
-                frontDirection: p => new Point(p.X + 1, p.Y),
-                leftDirection: p => new Point(p.X, p.Y - 1),
-                rightDirection: p => new Point(p.X, p.Y + 1),
+                frontDirection: p => new(p.X + 1, p.Y),
+                leftDirection: p => new(p.X, p.Y - 1),
+                rightDirection: p => new(p.X, p.Y + 1),
                 isBehind: (neighbor, pusher) => neighbor.Y == pusher.Y && (neighbor.X + 1) == pusher.X
             );
         }
@@ -34,9 +34,9 @@ namespace StardustSandbox.Elements.Utilities
         internal static void PushingNeighborsDown(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
-                frontDirection: p => new Point(p.X, p.Y + 1),
-                leftDirection: p => new Point(p.X - 1, p.Y),
-                rightDirection: p => new Point(p.X + 1, p.Y),
+                frontDirection: p => new(p.X, p.Y + 1),
+                leftDirection: p => new(p.X - 1, p.Y),
+                rightDirection: p => new(p.X + 1, p.Y),
                 isBehind: (neighbor, pusher) => neighbor.X == pusher.X && (neighbor.Y + 1) == pusher.Y
             );
         }
@@ -44,9 +44,9 @@ namespace StardustSandbox.Elements.Utilities
         internal static void PushingNeighborsLeft(ElementContext context, ElementNeighbors neighbors)
         {
             PushNeighbors(context, neighbors,
-                frontDirection: p => new Point(p.X - 1, p.Y),
-                leftDirection: p => new Point(p.X, p.Y - 1),
-                rightDirection: p => new Point(p.X, p.Y + 1),
+                frontDirection: p => new(p.X - 1, p.Y),
+                leftDirection: p => new(p.X, p.Y - 1),
+                rightDirection: p => new(p.X, p.Y + 1),
                 isBehind: (neighbor, pusher) => neighbor.Y == pusher.Y && (neighbor.X - 1) == pusher.X
             );
         }

@@ -21,31 +21,31 @@ namespace StardustSandbox.Mathematics
                 UIDirection.Center => size / 2f,
 
                 // (↑)
-                UIDirection.North => new Vector2(size.X / 2f, size.Y),
+                UIDirection.North => new(size.X / 2f, size.Y),
 
                 // (↗)
-                UIDirection.Northeast => new Vector2(0f, size.Y),
+                UIDirection.Northeast => new(0f, size.Y),
 
                 // (→)
-                UIDirection.East => new Vector2(0f, size.Y / 2f),
+                UIDirection.East => new(0f, size.Y / 2f),
 
                 // (↘)
-                UIDirection.Southeast => new Vector2(0f, 0f),
+                UIDirection.Southeast => new(0f, 0f),
 
                 // (↓)
-                UIDirection.South => new Vector2(size.X / 2f, 0f),
+                UIDirection.South => new(size.X / 2f, 0f),
 
                 // (↙)
-                UIDirection.Southwest => new Vector2(size.X, 0f),
+                UIDirection.Southwest => new(size.X, 0f),
 
                 // (←)
-                UIDirection.West => new Vector2(size.X, size.Y / 2f),
+                UIDirection.West => new(size.X, size.Y / 2f),
 
                 // (↖)
-                UIDirection.Northwest => new Vector2(size.X, size.Y),
+                UIDirection.Northwest => new(size.X, size.Y),
 
                 // (.)
-                _ => new Vector2(size.X, size.Y),
+                _ => new(size.X, size.Y),
             };
         }
     }

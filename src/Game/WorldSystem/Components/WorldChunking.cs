@@ -35,7 +35,7 @@ namespace StardustSandbox.WorldSystem.Components
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    this.chunks[x, y] = new Chunk(new Point(x * WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE, y * WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE));
+                    this.chunks[x, y] = new Chunk(new(x * WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE, y * WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE));
                 }
             }
         }

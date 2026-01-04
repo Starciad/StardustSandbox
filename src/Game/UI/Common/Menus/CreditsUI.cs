@@ -311,7 +311,7 @@ namespace StardustSandbox.UI.Common.Menus
             UpdateUserInput();
             CheckIfTheCreditsHaveFinished();
 
-            this.rootContainer.Margin = new Vector2(
+            this.rootContainer.Margin = new(
                 this.rootContainer.Margin.X,
                 this.rootContainer.Margin.Y - (SPEED * Convert.ToSingle(gameTime.ElapsedGameTime.TotalMilliseconds))
             );
