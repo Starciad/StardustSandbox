@@ -1,4 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!-- IMPORTS -->
+	<Import Project="../Targets/System.targets" />
+
 	<!-- HEADER -->
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -41,80 +44,10 @@
 		<UseSharedCompilation>false</UseSharedCompilation>
 	</PropertyGroup>
 
+	<!-- APPLICATION -->
 	<PropertyGroup>
 		<ApplicationManifest>Resources\Manifestos\app.manifest</ApplicationManifest>
 		<ApplicationIcon>Resources\Icons\icon.ico</ApplicationIcon>
-	</PropertyGroup>
-
-	<!-- INFORMATIONS -->
-	<PropertyGroup>
-		<Title>Stardust Sandbox</Title>
-		<Authors>Davi "Starciad" Fernandes</Authors>
-		<Company>Davi "Starciad" Fernandes</Company>
-		<Product>Stardust Sandbox</Product>
-		<Description>A particle simulator sandbox game inspired by the classic 'falling sand'.</Description>
-		<Copyright>Copyright © Davi "Starciad" Fernandes. All rights Reserved.</Copyright>
-		<PackageProjectUrl>https://github.com/Starciad/StardustSandbox.git</PackageProjectUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/Starciad/StardustSandbox.git</RepositoryUrl>
-		<PackageReleaseNotes>https://github.com/Starciad/StardustSandbox/releases</PackageReleaseNotes>
-		<RepositoryType>git</RepositoryType>
-		<NeutralLanguage>en-US</NeutralLanguage>
-		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<PackageId>Stardust Sandbox</PackageId>
-		<RepositoryBranch>main</RepositoryBranch>
-	</PropertyGroup>
-
-	<!-- VERSIONS -->
-	<PropertyGroup>
-		<Version>2.1.1.0</Version>
-		<AssemblyVersion>2.1.1.0</AssemblyVersion>
-		<FileVersion>2.1.1.0</FileVersion>
-		<PackageVersion>2.1.1.0</PackageVersion>
-	</PropertyGroup>
-
-	<!-- NBEAUTY -->
-	<PropertyGroup>
-		<!-- Disable NetBeauty (set to True to turn off all features). -->
-		<DisableBeauty>False</DisableBeauty>
-
-		<!-- Enable shared runtime mode (set to True to share libraries across apps). -->
-		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
-
-		<!-- Directory for dependencies; default is 'libraries'. Use quotes if the path contains spaces. -->
-		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../libraries</BeautyLibsDir>
-		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./libraries</BeautyLibsDir>
-
-		<!-- DLLs you want to exclude from being moved (e.g., critical or custom files). -->
-		<BeautyExcludes>SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;</BeautyExcludes>
-
-		<!-- Files to hide from end users (e.g., runtime or config files). Only supported on Windows. -->
-		<BeautyHiddens>StardustSandbox.dll;hostfxr;hostpolicy;*.deps.json;*.runtimeconfig*.json;</BeautyHiddens>
-
-		<!-- Only run NetBeauty on publish (set to True to skip on build). -->
-		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
-
-		<!-- Internal option: do not modify. -->
-		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
-
-		<!-- Loader version policy: auto, with, or without. -->
-		<BeautyNBLoaderVerPolicy>auto</BeautyNBLoaderVerPolicy>
-
-		<!-- Enable debugging support for third-party debuggers (e.g., dnSpy). -->
-		<BeautyEnableDebugging>False</BeautyEnableDebugging>
-
-		<!-- Use the patch to minimize file count (SCD mode only). Set to False to disable. -->
-		<BeautyUsePatch>True</BeautyUsePatch>
-
-		<!-- Log verbosity: Error, Detail, or Info. -->
-		<BeautyLogLevel>Info</BeautyLogLevel>
-
-		<!-- Use a mirror for GitHub resources if needed. -->
-		<BeautyGitCDN>https://gitee.com/liesauer/HostFXRPatcher</BeautyGitCDN>
-
-		<!-- Specify a branch or tag for the patcher repository. -->
-		<BeautyGitTree>master</BeautyGitTree>
-		<StartupObject>StardustSandbox.Program</StartupObject>
 	</PropertyGroup>
 
 	<!-- DEPENDENCIES -->
@@ -224,45 +157,4 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemGroup>
-
-	<!-- FILES IMPORT -->
-	<ItemGroup>
-		<None Include="..\..\LICENSE.txt">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-
-		<None Include="..\..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-
-		<None Include="..\..\CREDITS.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-
-		<None Include="..\..\CHANGELOG.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<!-- TARGETS -->
-	<Target Name="RestoreDotnetTools" BeforeTargets="CollectPackageReferences">
-		<Message Text="Restoring dotnet tools (this might take a while depending on your internet speed and should only happen upon building your project for the first time, or after upgrading MonoGame, or clearing your nuget cache)" Importance="High" />
-		<Exec Command="dotnet tool restore" />
-	</Target>
-
-	<!-- DIRECTORIES -->
-	<Target Name="CreateExtraPublishDirectories" AfterTargets="Publish">
-		<Message Text="Creating extra empty directories in the publish directory." Importance="High" />
-
-		<MakeDir Directories="$(PublishDir)logs" Condition="'$(PublishDir)' != ''" />
-		<MakeDir Directories="$(PublishDir)screenshots" Condition="'$(PublishDir)' != ''" />
-	</Target>
 </Project>
