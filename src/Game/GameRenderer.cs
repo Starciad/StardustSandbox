@@ -235,7 +235,7 @@ namespace StardustSandbox
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
                     screenPosition,
-                    new Rectangle(110, 0, 32, 32),
+                    new(110, 0, 32, 32),
                     gameplaySettings.PreviewAreaColor,
                     0f,
                     Vector2.Zero,

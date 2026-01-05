@@ -11,6 +11,7 @@ using StardustSandbox.Enums.UI;
 using StardustSandbox.InputSystem;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
+using StardustSandbox.Screenshot;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 using StardustSandbox.WorldSystem;
@@ -129,6 +130,9 @@ namespace StardustSandbox
             // Renderer
             GameRenderer.Initialize(this.videoManager);
             this.spriteBatch = new(this.GraphicsDevice);
+
+            // Screenshot
+            ElementScreenshot.Load();
         }
 
         protected override void BeginRun()
@@ -200,6 +204,7 @@ namespace StardustSandbox
         {
             AssetDatabase.Unload();
             GameRenderer.Unload();
+            ElementScreenshot.Unload();
 
             base.UnloadContent();
         }

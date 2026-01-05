@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 
+using SkiaSharp;
+
 using System;
 
 namespace StardustSandbox.Extensions
@@ -12,6 +14,11 @@ namespace StardustSandbox.Extensions
             float dy = value1.Y - value2.Y;
 
             return MathF.Sqrt((dx * dx) + (dy * dy));
+        }
+
+        internal static SKPointI ToSKPointI(this Point point)
+        {
+            return new(point.X, point.Y);
         }
     }
 }

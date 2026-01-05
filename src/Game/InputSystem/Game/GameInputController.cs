@@ -57,6 +57,16 @@ namespace StardustSandbox.InputSystem.Game
                     },
                 ]),
 
+                new([
+                    new(Microsoft.Xna.Framework.Input.Keys.K)
+                    {
+                        OnStarted = _ =>
+                        {
+                            Screenshot.WorldScreenshot.Capture(world);
+                        },
+                    },
+                ]),
+
                 #endregion
             ]);
 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
+using SkiaSharp;
+
 using StardustSandbox.Constants;
 using StardustSandbox.Extensions;
 
@@ -17,15 +19,28 @@ namespace StardustSandbox.IO
 {
     internal static class SSFile
     {
+        private static string GetFileName(string prefix, string extension)
+        {
+            return string.Concat(GameConstants.ID, "_", prefix, "_", DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"), extension).ToLowerInvariant();
+        }
+
+        internal static string WriteWorldScreenshot(SKImage image)
+        {
+            _ = Directory.CreateDirectory(SSDirectory.Screenshots);
+
+            string screenshotFilePath = Path.Combine(SSDirectory.Screenshots, GetFileName("world_screenshot", ".png"));
+            
+            using FileStream fs = new(screenshotFilePath, FileMode.Create, FileAccess.Write);
+            image.Encode(SKEncodedImageFormat.Png, 100).SaveTo(fs);
+
+            return screenshotFilePath;
+        }
+
         internal static string WriteRenderTarget2D(RenderTarget2D value)
         {
             _ = Directory.CreateDirectory(SSDirectory.Screenshots);
 
-            DateTime nowLocal = DateTime.Now;
-
-            string fileStamp = nowLocal.ToString("yyyy_MM_dd_HH_mm_ss");
-            string screenshotFileName = string.Concat(GameConstants.ID, "_screenshot_", fileStamp, ".png").ToLowerInvariant();
-            string screenshotFilePath = Path.Combine(SSDirectory.Screenshots, screenshotFileName);
+            string screenshotFilePath = Path.Combine(SSDirectory.Screenshots, GetFileName("screenshot", ".png"));
 
             value.FlattenAlpha();
 
@@ -43,9 +58,7 @@ namespace StardustSandbox.IO
 
             DateTime nowLocal = DateTime.Now;
             DateTime nowUtc = nowLocal.ToUniversalTime();
-            string fileStamp = nowLocal.ToString("yyyy_MM_dd_HH_mm_ss");
-            string logFileName = string.Concat(GameConstants.ID, "_detailed_log_", fileStamp, ".txt").ToLowerInvariant();
-            string logFilePath = Path.Combine(SSDirectory.Logs, logFileName);
+            string logFilePath = Path.Combine(SSDirectory.Logs, GetFileName("log", ".txt"));
 
             StringBuilder sb = new(32_768);
 
