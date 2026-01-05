@@ -94,7 +94,7 @@ namespace StardustSandbox.Generators
                 {
                     int left = (x - 1 >= 0) ? heights[x - 1] : heights[x];
                     int right = (x + 1 < width) ? heights[x + 1] : heights[x];
-                    
+
                     // weighted average: center*2 + left + right
                     int smoothed = ((2 * heights[x]) + left + right) / 4;
 
@@ -140,24 +140,11 @@ namespace StardustSandbox.Generators
                 for (int y = startY; y < height; y++)
                 {
                     int relativeDepth = y - startY;
-                    ElementIndex chosen;
-
-                    if (relativeDepth <= grassLayer)
-                    {
-                        chosen = ElementIndex.Grass;
-                    }
-                    else if (relativeDepth <= dirtLayer)
-                    {
-                        chosen = ElementIndex.Dirt;
-                    }
-                    else if (relativeDepth <= deepThreshold)
-                    {
-                        chosen = undergroundElements.GetRandomItem();
-                    }
-                    else
-                    {
-                        chosen = ElementIndex.Obsidian;
-                    }
+                    ElementIndex chosen = relativeDepth <= grassLayer
+                        ? ElementIndex.Grass
+                        : relativeDepth <= dirtLayer
+                            ? ElementIndex.Dirt
+                            : relativeDepth <= deepThreshold ? undergroundElements.GetRandomItem() : ElementIndex.Obsidian;
 
                     world.InstantiateElement(new(x, y), Layer.Foreground, chosen);
                     world.InstantiateElement(new(x, y), Layer.Background, chosen);

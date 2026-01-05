@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-using StardustSandbox.Audio;
+﻿using StardustSandbox.Audio;
 using StardustSandbox.Camera;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Generators;
@@ -53,16 +51,6 @@ namespace StardustSandbox.InputSystem.Game
                         {
                             SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                             GameRenderer.RequestScreenshot();
-                        },
-                    },
-                ]),
-
-                new([
-                    new(Microsoft.Xna.Framework.Input.Keys.K)
-                    {
-                        OnStarted = _ =>
-                        {
-                            Screenshot.WorldScreenshot.Capture(world);
                         },
                     },
                 ]),

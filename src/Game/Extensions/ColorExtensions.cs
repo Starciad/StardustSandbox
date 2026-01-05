@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 
-using SkiaSharp;
-
 using StardustSandbox.Randomness;
 
 using System;
@@ -54,11 +52,6 @@ namespace StardustSandbox.Extensions
             int a = (int)(baseColor.A + ((overlayColor.A - baseColor.A) * blendFactor));
 
             return new(r, g, b, a);
-        }
-
-        internal static SKColor ToSKColor(this Color color)
-        {
-            return new(color.R, color.G, color.B, color.A);
         }
     }
 }

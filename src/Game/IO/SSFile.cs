@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-using SkiaSharp;
-
 using StardustSandbox.Constants;
 using StardustSandbox.Extensions;
 
@@ -22,18 +20,6 @@ namespace StardustSandbox.IO
         private static string GetFileName(string prefix, string extension)
         {
             return string.Concat(GameConstants.ID, "_", prefix, "_", DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"), extension).ToLowerInvariant();
-        }
-
-        internal static string WriteWorldScreenshot(SKImage image)
-        {
-            _ = Directory.CreateDirectory(SSDirectory.Screenshots);
-
-            string screenshotFilePath = Path.Combine(SSDirectory.Screenshots, GetFileName("world_screenshot", ".png"));
-            
-            using FileStream fs = new(screenshotFilePath, FileMode.Create, FileAccess.Write);
-            image.Encode(SKEncodedImageFormat.Png, 100).SaveTo(fs);
-
-            return screenshotFilePath;
         }
 
         internal static string WriteRenderTarget2D(RenderTarget2D value)
