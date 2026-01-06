@@ -10,43 +10,42 @@ namespace StardustSandbox.Elements.Solids.Immovables
 {
     internal sealed class Clone : ImmovableSolid
     {
-        private static readonly List<Point> positionBuffer = [];
-        private static readonly List<SlotLayer> layerBuffer = [];
+        private static readonly List<Point> positionScratch = [];
+        private static readonly List<SlotLayer> layerScratch = [];
 
         protected override void OnBeforeStep(ElementContext context)
         {
-            positionBuffer.Clear();
-            layerBuffer.Clear();
+            positionScratch.Clear();
+            layerScratch.Clear();
         }
 
-        protected override void OnAfterStep(ElementContext context)
-        {
-            TryInstantiateStoredElement(context);
-        }
-
-        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
-        {
-            TryDefineStoredElement(context, neighbors);
-        }
-
+        // Instantiate the stored element into a random valid adjacent empty slot
         private static void TryInstantiateStoredElement(ElementContext context)
         {
-            if (context.GetStoredElement() is ElementIndex.None || !TryGetValidPosition(context, out Point validPositon))
+            ElementIndex stored = context.GetStoredElement();
+
+            if (stored == ElementIndex.None)
             {
                 return;
             }
 
-            context.InstantiateElement(validPositon, context.Layer, context.GetStoredElement());
+            if (!TryGetValidPosition(context, out Point validPosition))
+            {
+                return;
+            }
+
+            context.InstantiateElement(validPosition, context.Layer, stored);
         }
 
         private static void TryAddEmptyPosition(ElementContext context, Point position)
         {
             if (context.IsEmptySlotLayer(position, context.Layer))
             {
-                positionBuffer.Add(position);
+                positionScratch.Add(position);
             }
         }
 
+        // Collect neighboring empty positions and pick one at random
         private static bool TryGetValidPosition(ElementContext context, out Point validPosition)
         {
             int centerX = context.Slot.Position.X;
@@ -65,19 +64,20 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 }
             }
 
-            if (positionBuffer.Count == 0)
+            if (positionScratch.Count == 0)
             {
                 validPosition = Point.Zero;
                 return false;
             }
 
-            validPosition = positionBuffer.GetRandomItem();
+            validPosition = positionScratch.GetRandomItem();
             return true;
         }
 
+        // Define the stored element based on the first valid neighboring element found
         private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.GetStoredElement() is not ElementIndex.None)
+            if (context.GetStoredElement() != ElementIndex.None)
             {
                 return;
             }
@@ -89,7 +89,11 @@ namespace StardustSandbox.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                SlotLayer neighborLayer = neighbors.GetSlotLayer(i, context.Layer);
+                ElementIndex index = neighborLayer.ElementIndex;
+
+                // Skip cloning from these element types
+                switch (index)
                 {
                     case ElementIndex.Clone:
                     case ElementIndex.Wall:
@@ -99,18 +103,29 @@ namespace StardustSandbox.Elements.Solids.Immovables
                         continue;
 
                     default:
+                        layerScratch.Add(neighborLayer);
                         break;
                 }
 
-                layerBuffer.Add(neighbors.GetSlotLayer(i, context.Layer));
+                layerScratch.Add(neighborLayer);
             }
 
-            if (layerBuffer.Count == 0)
+            if (layerScratch.Count == 0)
             {
                 return;
             }
 
-            context.SetStoredElement(layerBuffer.GetRandomItem().ElementIndex);
+            context.SetStoredElement(layerScratch.GetRandomItem().ElementIndex);
+        }
+
+        protected override void OnAfterStep(ElementContext context)
+        {
+            TryInstantiateStoredElement(context);
+        }
+
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        {
+            TryDefineStoredElement(context, neighbors);
         }
     }
 }
