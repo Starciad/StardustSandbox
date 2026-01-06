@@ -25,8 +25,6 @@ namespace StardustSandbox.Managers
 
         private int totalActorCount;
 
-        private string currentlySelectedSaveFile;
-
         private float accumulatedTimeSeconds;
         private float delayThresholdSeconds;
 
@@ -288,22 +286,16 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal void SetSaveFile(string name)
-        {
-            this.currentlySelectedSaveFile = name;
-        }
-
         internal void LoadFromSaveFile(string name)
         {
-            SetSaveFile(name);
             Deserialize(SavingSerializer.Load(name, LoadFlags.Content).Content.Actors);
         }
 
         internal void Reload()
         {
-            if (!string.IsNullOrEmpty(this.currentlySelectedSaveFile))
+            if (GameHandler.HasSaveFileLoaded)
             {
-                LoadFromSaveFile(this.currentlySelectedSaveFile);
+                LoadFromSaveFile(GameHandler.LoadedSaveFileName);
                 return;
             }
 
@@ -312,7 +304,6 @@ namespace StardustSandbox.Managers
 
         public void Reset()
         {
-            SetSaveFile(string.Empty);
             Clear();
         }
 

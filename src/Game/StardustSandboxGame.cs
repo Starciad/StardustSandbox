@@ -101,6 +101,8 @@ namespace StardustSandbox
             SongEngine.Initialize();
             SoundEngine.Initialize();
 
+            GameHandler.Initialize(this.Window);
+
             base.Initialize();
         }
 

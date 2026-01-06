@@ -130,8 +130,7 @@ namespace StardustSandbox.UI.Common.HUD
                         {
                             if (status == ConfirmStatus.Confirmed)
                             {
-                                world.Reload();
-                                actorManager.Reload();
+                                GameHandler.ReloadSaveFile(actorManager, world);
                             }
 
                             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);

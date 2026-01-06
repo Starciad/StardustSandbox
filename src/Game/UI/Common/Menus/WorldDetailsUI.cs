@@ -63,10 +63,7 @@ namespace StardustSandbox.UI.Common.Menus
                     uiManager.OpenGUI(UIIndex.Hud);
 
                     GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world);
-
-                    world.LoadFromSaveFile(this.saveFile.Metadata.Name);
-                    actorManager.LoadFromSaveFile(this.saveFile.Metadata.Name);
-
+                    GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
             ];

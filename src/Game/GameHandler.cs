@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Media;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Camera;
@@ -12,13 +13,24 @@ using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Managers;
 using StardustSandbox.WorldSystem;
 
+using System;
+
 namespace StardustSandbox
 {
     internal static class GameHandler
     {
         internal static SimulationSpeed SimulationSpeed { get; private set; }
+        internal static bool HasSaveFileLoaded => !string.IsNullOrWhiteSpace(loadedSaveFileName);
+        internal static string LoadedSaveFileName => loadedSaveFileName;
 
         private static GameStates states;
+        private static string loadedSaveFileName;
+        private static GameWindow gameWindow;
+
+        internal static void Initialize(GameWindow gameWindow)
+        {
+            GameHandler.gameWindow = gameWindow;
+        }
 
         internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
@@ -48,6 +60,7 @@ namespace StardustSandbox
 
         internal static void StopGame(ActorManager actorManager, InputController inputController, World world)
         {
+            UnloadSaveFile();
             SongEngine.StopGameplayMusicCycle();
 
             inputController.Pen.Tool = PenTool.Visualization;
@@ -77,11 +90,45 @@ namespace StardustSandbox
             actorManager.SetSpeed(speed);
         }
 
+        internal static void DefineLoadedSaveFile(string saveFileName)
+        {
+            loadedSaveFileName = saveFileName;
+
+            gameWindow.Title = string.IsNullOrWhiteSpace(saveFileName)
+                ? GameConstants.GetTitleAndVersionString()
+                : string.Concat(saveFileName, " — ", GameConstants.GetTitleAndVersionString());
+        }
+
+        internal static void LoadSaveFile(ActorManager actorManager, World world, string saveFileName)
+        {
+            if (string.IsNullOrWhiteSpace(saveFileName))
+            {
+                throw new ArgumentException("Save file name cannot be null or whitespace.", nameof(saveFileName));
+            }
+
+            actorManager.LoadFromSaveFile(saveFileName);
+            world.LoadFromSaveFile(saveFileName);
+
+            DefineLoadedSaveFile(saveFileName);
+        }
+
+        internal static void UnloadSaveFile()
+        {
+            DefineLoadedSaveFile(string.Empty);
+        }
+
+        internal static void ReloadSaveFile(ActorManager actorManager, World world)
+        {
+            actorManager.Reload();
+            world.Reload();
+        }
+
         internal static void Reset(ActorManager actorManager, World world)
         {
+            UnloadSaveFile();
+
             actorManager.Reset();
             world.Reset();
-
         }
 
         internal static bool HasState(GameStates value)

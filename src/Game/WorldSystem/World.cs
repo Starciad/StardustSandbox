@@ -40,8 +40,6 @@ namespace StardustSandbox.WorldSystem
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
-        private string currentlySelectedSaveFile;
-
         private Slot[,] slots;
 
         private readonly Information information;
@@ -87,8 +85,6 @@ namespace StardustSandbox.WorldSystem
 
         public void Reset()
         {
-            SetSaveFile(string.Empty);
-
             this.information.Reset();
             this.chunking.Reset();
             this.updating.Reset();
@@ -721,11 +717,6 @@ namespace StardustSandbox.WorldSystem
             Reset();
         }
 
-        internal void SetSaveFile(string name)
-        {
-            this.currentlySelectedSaveFile = name;
-        }
-
         internal void LoadFromSaveFile(string name)
         {
             SaveFile saveFile = SavingSerializer.Load(name, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
@@ -734,9 +725,6 @@ namespace StardustSandbox.WorldSystem
 
             // World
             StartNew(saveFile.Properties.Size);
-
-            // Cache
-            SetSaveFile(saveFile.Metadata.Name);
 
             // Metadata
             this.information.Name = saveFile.Metadata.Name;
@@ -785,13 +773,13 @@ namespace StardustSandbox.WorldSystem
 
         internal void Reload()
         {
-            if (string.IsNullOrEmpty(this.currentlySelectedSaveFile))
+            if (GameHandler.HasSaveFileLoaded)
             {
-                Clear();
+                LoadFromSaveFile(GameHandler.LoadedSaveFileName);
                 return;
             }
 
-            LoadFromSaveFile(this.currentlySelectedSaveFile);
+            Clear();
         }
 
         internal bool IsWithinHorizontalBounds(in int x)

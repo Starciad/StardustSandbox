@@ -126,8 +126,7 @@ namespace StardustSandbox.UI.Common.HUD
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
                     SavingSerializer.Save(actorManager, world, this.graphicsDevice);
 
-                    world.SetSaveFile(world.Information.Name);
-                    actorManager.SetSaveFile(world.Information.Name);
+                    GameHandler.DefineLoadedSaveFile(world.Information.Name);
 
                     this.uiManager.CloseGUI();
                 }),
