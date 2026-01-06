@@ -81,8 +81,6 @@ namespace StardustSandbox.UI.Common.Menus
 
         private readonly string titleName = Localization_GUIs.Options_Title;
 
-        private readonly ButtonInfo[] systemButtonInfos;
-        private readonly Label[] systemButtonLabels;
         private readonly TooltipBox tooltipBox;
 
         private readonly CursorManager cursorManager;
@@ -118,6 +116,11 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.optionBuilders = new()
             {
+                [typeof(ButtonOption)] = option =>
+                {
+                    return CreateOptionButtonLabelElement(option.Name);
+                },
+
                 [typeof(ColorOption)] = option =>
                 {
                     Label label = CreateOptionButtonLabelElement(option.Name + ": ");
@@ -152,6 +155,11 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.optionHandlers = new()
             {
+                [typeof(ButtonOption)] = option =>
+                {
+                    ((ButtonOption)option).Click();
+                },
+
                 [typeof(ColorOption)] = option =>
                 {
                     this.colorPicker.Configure(new()
@@ -200,6 +208,11 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.optionSyncHandlers = new()
             {
+                [typeof(ButtonOption)] = (option, element) =>
+                {
+                    // No sync needed
+                },
+
                 [typeof(ColorOption)] = (option, element) =>
                 {
                     ((ColorSlotInfo)element.GetData("color_slot")).Background.Color = (Color)option.GetValue();
@@ -225,38 +238,6 @@ namespace StardustSandbox.UI.Common.Menus
                     ((Image)element.GetData("toogle_preview")).SourceRectangle = (bool)option.GetValue() ? new(352, 171, 32, 32) : new(352, 140, 32, 32);
                 },
             };
-
-            this.systemButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Options_Save_Description, () =>
-                {
-                    Save();
-                    ApplySettings();
-
-                    StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
-
-                    if (!statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed)
-                    {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Message);
-
-                        messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
-                        uiManager.OpenGUI(UIIndex.Message);
-
-                        SettingsSerializer.Save<StatusSettings>(new(statusSettings)
-                        {
-                            TheRestartAfterSavingSettingsWarningWasDisplayed = true,
-                        });
-                    }
-                    else
-                    {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-                    }
-                }),
-                new(TextureIndex.None, null, Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, () =>
-                {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    uiManager.CloseGUI();
-                }),
-            ];
 
             this.root = new([
                 new(Localization_GUIs.Options_General_Name, Localization_GUIs.Options_General_Description,
@@ -303,10 +284,42 @@ namespace StardustSandbox.UI.Common.Menus
                     new SelectorOption(Localization_GUIs.Options_Cursor_Scale_Name, Localization_GUIs.Options_Cursor_Scale_Description, [0.5f, 1f, 1.5f, 2f, 2.5f, 3f]),
                     new SliderOption(Localization_GUIs.Options_Cursor_Opacity_Name, Localization_GUIs.Options_Cursor_Opacity_Description, byte.MinValue, byte.MaxValue)
                 ]),
+                new(string.Empty, string.Empty,
+                [
+                    new ButtonOption(Localization_Statements.Save, Localization_GUIs.Options_Save_Description, () =>
+                    {
+                        Save();
+                        ApplySettings();
+
+                        StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
+
+                        if (!statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed)
+                        {
+                            SoundEngine.Play(SoundEffectIndex.GUI_Message);
+
+                            messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
+                            uiManager.OpenGUI(UIIndex.Message);
+
+                            SettingsSerializer.Save<StatusSettings>(new(statusSettings)
+                            {
+                                TheRestartAfterSavingSettingsWarningWasDisplayed = true,
+                            });
+                        }
+                        else
+                        {
+                            SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                        }
+                    }),
+
+                    new ButtonOption(Localization_Statements.Cancel, Localization_GUIs.Button_Exit_Description, () =>
+                    {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                        uiManager.CloseGUI();
+                    }),
+                ]),
             ]);
 
             this.sectionUIs = new SectionUI[this.root.Sections.Length];
-            this.systemButtonLabels = new Label[this.systemButtonInfos.Length];
         }
 
         private void Save()
@@ -455,8 +468,6 @@ namespace StardustSandbox.UI.Common.Menus
 
             BuildTitle(ref scrollableContainerMarginY);
             BuildSections(ref scrollableContainerMarginY);
-            BuildSystemButtons(ref scrollableContainerMarginY);
-
             BuildScrollBar();
 
             root.AddChild(this.scrollableContainer);
@@ -564,27 +575,6 @@ namespace StardustSandbox.UI.Common.Menus
             label.AddData("toogle_preview", togglePreviewImageElement);
         }
 
-        private void BuildSystemButtons(ref float scrollableContainerMarginY)
-        {
-            scrollableContainerMarginY += 32.0f;
-
-            for (int i = 0; i < this.systemButtonInfos.Length; i++)
-            {
-                scrollableContainerMarginY += 64.0f;
-
-                Label label = new()
-                {
-                    Margin = new(32.0f, scrollableContainerMarginY),
-                    Scale = new(0.11f),
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                    TextContent = this.systemButtonInfos[i].Name
-                };
-
-                this.systemButtonLabels[i] = label;
-                this.scrollableContainer.AddChild(label);
-            }
-        }
-
         private void BuildScrollBar()
         {
             this.scrollbarUpButton = new()
@@ -631,7 +621,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.tooltipBox.CanDraw = false;
             UpdateScrollableContainer();
             UpdateScrollbar();
-            UpdateSystemButtons();
             UpdateSectionLabels();
             UpdateSectionOptions();
             base.Update(gameTime);
@@ -718,38 +707,6 @@ namespace StardustSandbox.UI.Common.Menus
             sliderY = float.Clamp(sliderY, sliderMinY, sliderMaxY);
 
             this.scrollbarSliderButton.Margin = new(this.scrollbarSliderButton.Margin.X, sliderY);
-        }
-
-        private void UpdateSystemButtons()
-        {
-            for (int i = 0; i < this.systemButtonInfos.Length; i++)
-            {
-                Label label = this.systemButtonLabels[i];
-                ButtonInfo button = this.systemButtonInfos[i];
-
-                if (Interaction.OnMouseEnter(label))
-                {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
-                }
-
-                if (Interaction.OnMouseLeftClick(label))
-                {
-                    button.ClickAction?.Invoke();
-                    break;
-                }
-
-                if (Interaction.OnMouseOver(label))
-                {
-                    this.tooltipBox.CanDraw = true;
-                    TooltipBoxContent.SetTitle(button.Name);
-                    TooltipBoxContent.SetDescription(button.Description);
-                    label.Color = AAP64ColorPalette.LemonYellow;
-                }
-                else
-                {
-                    label.Color = AAP64ColorPalette.White;
-                }
-            }
         }
 
         private void UpdateSectionLabels()

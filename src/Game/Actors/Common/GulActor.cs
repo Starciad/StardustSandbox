@@ -29,7 +29,7 @@ namespace StardustSandbox.Actors.Common
 
         private Direction direction;
         private ElementIndex grabbedElementIndex;
-        private Point positionElementPositioned;
+        private Point positionElementPlaced;
 
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
@@ -130,7 +130,7 @@ namespace StardustSandbox.Actors.Common
         {
             this.direction = SSRandom.GetBool() ? Direction.Left : Direction.Right;
             this.grabbedElementIndex = ElementIndex.None;
-            this.positionElementPositioned = new(-1);
+            this.positionElementPlaced = new(-1);
         }
 
         private bool IsBeingSuffocated(Point position)
@@ -228,7 +228,7 @@ namespace StardustSandbox.Actors.Common
             SetFrontPositions(point =>
                 !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
                 this.actorManager.HasEntityAtPosition(point) ||
-                point == this.positionElementPositioned
+                point == this.positionElementPlaced
             );
 
             while (possiblePositions.Count > 0)
@@ -242,7 +242,7 @@ namespace StardustSandbox.Actors.Common
                 }
 
                 this.grabbedElementIndex = ElementIndex.None;
-                this.positionElementPositioned = position;
+                this.positionElementPlaced = position;
 
                 return true;
             }
@@ -349,15 +349,22 @@ namespace StardustSandbox.Actors.Common
                 Index = this.Index,
                 Content = new Dictionary<string, object>()
                 {
+                    ["Direction"] = this.direction,
                     ["Position.X"] = this.Position.X,
                     ["Position.Y"] = this.Position.Y,
                     ["GrabbedElementIndex"] = this.grabbedElementIndex,
+                    ["PositionElementPlaced"] = this.positionElementPlaced,
                 },
             };
         }
 
         internal override void Deserialize(ActorData data)
         {
+            if (data.Content.TryGetValue("Direction", out object directionObj) && directionObj is Direction direction)
+            {
+                this.direction = direction;
+            }
+
             if (data.Content.TryGetValue("Position.X", out object positionXObj) && positionXObj is int positionX)
             {
                 this.Position = new(positionX, this.Position.Y);
@@ -371,6 +378,11 @@ namespace StardustSandbox.Actors.Common
             if (data.Content.TryGetValue("GrabbedElementIndex", out object grabbedElementIndexObj) && grabbedElementIndexObj is ElementIndex grabbedElementIndex)
             {
                 this.grabbedElementIndex = grabbedElementIndex;
+            }
+
+            if (data.Content.TryGetValue("PositionElementPlaced", out object positionElementPlacedObj) && positionElementPlacedObj is Point positionElementPlaced)
+            {
+                this.positionElementPlaced = positionElementPlaced;
             }
         }
     }

@@ -148,7 +148,6 @@ namespace StardustSandbox
             spriteBatch.Draw(screenRenderTarget2D, videoManager.AdjustRenderTargetOnScreen(screenRenderTarget2D), Color.White);
             cursorManager.Draw(spriteBatch);
             spriteBatch.End();
-
         }
 
         private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
