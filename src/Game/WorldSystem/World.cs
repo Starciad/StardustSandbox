@@ -785,14 +785,13 @@ namespace StardustSandbox.WorldSystem
 
         internal void Reload()
         {
-            if (this.currentlySelectedSaveFile != null)
-            {
-                LoadFromSaveFile(this.currentlySelectedSaveFile);
-            }
-            else
+            if (string.IsNullOrEmpty(this.currentlySelectedSaveFile))
             {
                 Clear();
+                return;
             }
+            
+            LoadFromSaveFile(this.currentlySelectedSaveFile);
         }
 
         internal bool IsWithinHorizontalBounds(in int x)
