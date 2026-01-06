@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Generators;
 using StardustSandbox.Randomness;
 
@@ -17,19 +18,20 @@ namespace StardustSandbox.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                if (neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.Water)
                 {
-                    case ElementIndex.Water:
-                        hasWater = true;
-                        context.DestroyElement(neighbors.GetSlot(i).Position);
-                        break;
+                    hasWater = true;
+                    context.DestroyElement(neighbors.GetSlot(i).Position);
+                }
 
-                    case ElementIndex.FertileSoil:
-                        hasFertileSoil = true;
-                        break;
+                if (i == (int)ElementNeighborDirection.South && neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.FertileSoil)
+                {
+                    hasFertileSoil = true;
+                }
 
-                    default:
-                        break;
+                if (hasWater && hasFertileSoil)
+                {
+                    break;
                 }
             }
 

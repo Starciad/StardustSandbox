@@ -1,4 +1,5 @@
-﻿using StardustSandbox.Enums.Elements;
+﻿using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Interfaces;
 using StardustSandbox.WorldSystem;
@@ -9,14 +10,16 @@ namespace StardustSandbox.Elements
     {
         internal int Length => this.slots.Length;
 
-        // [0] Northwest
-        // [1] North
-        // [2] Northeast
-        // [3] East
-        // [4] Southeast
-        // [5] South
-        // [6] Southwest
-        // [7] West
+        /*
+         * [0] Northwest
+         * [1] North
+         * [2] Northeast
+         * [3] West
+         * [4] East
+         * [5] Southwest
+         * [6] South
+         * [7] Southeast
+        */
         private readonly Slot[] slots;
 
         internal ElementNeighbors()
@@ -29,21 +32,39 @@ namespace StardustSandbox.Elements
             this.slots[index] = slot;
         }
 
+        internal void SetNeighbor(in ElementNeighborDirection direction, Slot slot)
+        {
+            SetNeighbor((int)direction, slot);
+        }
+
         internal Slot GetSlot(in int index)
         {
             return this.slots[index];
         }
 
+        internal Slot GetSlot(in ElementNeighborDirection direction)
+        {
+            return GetSlot((int)direction);
+        }
+
         internal SlotLayer GetSlotLayer(in int index, in Layer layer)
         {
-            Slot slot = GetSlot(index);
+            return GetSlot(index)?.GetLayer(layer);
+        }
 
-            return slot?.GetLayer(layer);
+        internal SlotLayer GetSlotLayer(in ElementNeighborDirection direction, in Layer layer)
+        {
+            return GetSlotLayer((int)direction, layer);
         }
 
         internal bool HasNeighbor(in int index)
         {
             return this.slots[index] != null;
+        }
+
+        internal bool HasNeighbor(in ElementNeighborDirection direction)
+        {
+            return HasNeighbor((int)direction);
         }
 
         internal int CountNeighborsByElementIndex(in ElementIndex elementIndex, in Layer layer)
@@ -61,9 +82,14 @@ namespace StardustSandbox.Elements
             return count;
         }
 
-        internal bool IsNeighborLayerOccupied(int index, Layer layer)
+        internal bool IsNeighborLayerOccupied(in int index, in Layer layer)
         {
             return HasNeighbor(index) && !GetSlotLayer(index, layer).IsEmpty;
+        }
+
+        internal bool IsNeighborLayerOccupied(in ElementNeighborDirection direction, in Layer layer)
+        {
+            return IsNeighborLayerOccupied((int)direction, layer);
         }
 
         public void Reset()
