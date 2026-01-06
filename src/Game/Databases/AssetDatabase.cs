@@ -79,9 +79,9 @@ namespace StardustSandbox.Databases
 
             textures = [
                 pixelTexture,
+                contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "actors", "gul")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "ocean")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "celestial_bodies")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "clouds")),
@@ -102,6 +102,7 @@ namespace StardustSandbox.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "size_slider")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "slider_input_ornament")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "text_input_ornament")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "actors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "elements")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "keys")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "tools")),

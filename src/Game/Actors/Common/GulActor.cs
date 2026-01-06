@@ -308,7 +308,7 @@ namespace StardustSandbox.Actors.Common
         internal override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
-                AssetDatabase.GetTexture(TextureIndex.ActorGul),
+                AssetDatabase.GetTexture(TextureIndex.Actors),
                 new(this.Position.X * SpriteConstants.SPRITE_SCALE, this.Position.Y * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
                 new(0, this.direction == Direction.Right ? 0 : 32, 32, 32),
                 Color.White,

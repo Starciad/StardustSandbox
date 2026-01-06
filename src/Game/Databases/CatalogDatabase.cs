@@ -1141,14 +1141,14 @@ namespace StardustSandbox.Databases
                 new(
                     Localization_Catalog.Category_Actors_Name,
                     Localization_Catalog.Category_Actors_Description,
-                    TextureIndex.ActorGul,
+                    TextureIndex.IconActors,
                     sourceRectangle: new(0, 0, 32, 32),
                     [
                         // [0] Creatures
                         new(
                             name: Localization_Catalog.Subcategory_Actors_Creatures_Name,
                             description: Localization_Catalog.Subcategory_Actors_Creatures_Description,
-                            textureIndex: TextureIndex.ActorGul,
+                            textureIndex: TextureIndex.IconActors,
                             sourceRectangle: new(0, 0, 32, 32),
                             [
                                 // [0] Gul
@@ -1157,7 +1157,7 @@ namespace StardustSandbox.Databases
                                     name: Localization_Actors.Gul_Name,
                                     description: Localization_Actors.Gul_Description,
                                     contentType: ItemContentType.Actor,
-                                    textureIndex: TextureIndex.ActorGul,
+                                    textureIndex: TextureIndex.IconActors,
                                     sourceRectangle: new(0, 0, 32, 32)
                                 ),
                             ]

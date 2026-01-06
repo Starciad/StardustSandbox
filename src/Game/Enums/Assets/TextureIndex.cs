@@ -7,14 +7,9 @@
         #region General
 
         Pixel,
+        Actors,
         Cursors,
         Elements,
-
-        #endregion
-
-        #region Actors
-
-        ActorGul,
 
         #endregion
 
@@ -65,6 +60,7 @@
 
         #region Icons
 
+        IconActors,
         IconElements,
         IconKeys,
         IconTools,
