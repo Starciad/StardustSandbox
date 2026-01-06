@@ -185,7 +185,7 @@ namespace StardustSandbox.Actors.Common
 
                 if (!CanWalkTo(position))
                 {
-                    possiblePositions.Remove(position);
+                    _ = possiblePositions.Remove(position);
                     continue;
                 }
 
@@ -210,7 +210,7 @@ namespace StardustSandbox.Actors.Common
 
                 if (this.world.TryGetElement(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
                 {
-                    possiblePositions.Remove(position);
+                    _ = possiblePositions.Remove(position);
                     continue;
                 }
 
@@ -237,7 +237,7 @@ namespace StardustSandbox.Actors.Common
 
                 if (!this.world.TryInstantiateElement(position, Layer.Foreground, this.grabbedElementIndex))
                 {
-                    possiblePositions.Remove(position);
+                    _ = possiblePositions.Remove(position);
                     continue;
                 }
 

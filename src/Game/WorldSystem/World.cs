@@ -790,7 +790,7 @@ namespace StardustSandbox.WorldSystem
                 Clear();
                 return;
             }
-            
+
             LoadFromSaveFile(this.currentlySelectedSaveFile);
         }
 
