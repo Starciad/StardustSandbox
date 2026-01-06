@@ -349,8 +349,8 @@ namespace StardustSandbox.Actors.Common
                 Index = this.Index,
                 Content = new Dictionary<string, object>()
                 {
-                    ["PositionX"] = this.Position.X,
-                    ["PositionY"] = this.Position.Y,
+                    ["Position.X"] = this.Position.X,
+                    ["Position.Y"] = this.Position.Y,
                     ["GrabbedElementIndex"] = this.grabbedElementIndex,
                 },
             };
@@ -358,12 +358,12 @@ namespace StardustSandbox.Actors.Common
 
         internal override void Deserialize(ActorData data)
         {
-            if (data.Content.TryGetValue("PositionX", out object positionXObj) && positionXObj is int positionX)
+            if (data.Content.TryGetValue("Position.X", out object positionXObj) && positionXObj is int positionX)
             {
                 this.Position = new(positionX, this.Position.Y);
             }
 
-            if (data.Content.TryGetValue("PositionY", out object positionYObj) && positionYObj is int positionY)
+            if (data.Content.TryGetValue("Position.Y", out object positionYObj) && positionYObj is int positionY)
             {
                 this.Position = new(this.Position.X, positionY);
             }

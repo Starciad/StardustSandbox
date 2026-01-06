@@ -1,8 +1,6 @@
-﻿using StardustSandbox.Constants;
-using StardustSandbox.IO;
+﻿using StardustSandbox.IO;
 using StardustSandbox.Localization;
 using StardustSandbox.Net;
-using StardustSandbox.OS;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
 
@@ -14,6 +12,8 @@ using System.Windows.Forms;
 #endif
 
 #if !DEBUG
+using StardustSandbox.Constants;
+using StardustSandbox.OS;
 using System.Text;
 #endif
 
