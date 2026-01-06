@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Gul.Name" xml:space="preserve">
+    <value>Gul</value>
+  </data>
+  <data name="Gul.Description" xml:space="preserve">
+    <value>Una criatura curiosa y amigable que recorre el mundo. Puede recoger elementos del mapa y colocarlos en otro lugar.</value>
+  </data>
 </root>

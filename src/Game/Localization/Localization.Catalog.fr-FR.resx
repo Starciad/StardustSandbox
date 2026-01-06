@@ -195,4 +195,16 @@
   <data name="Subcategory.Tools.Inks.Description" xml:space="preserve">
     <value>Outils qui confèrent la capacité de teindre les éléments du monde.</value>
   </data>
+  <data name="Category.Actors.Name" xml:space="preserve">
+    <value>Acteurs</value>
+  </data>
+  <data name="Category.Actors.Description" xml:space="preserve">
+    <value>Tous les êtres vivants qui habitent le monde.</value>
+  </data>
+  <data name="Subcategory.Actors.Creatures.Name" xml:space="preserve">
+    <value>Créatures</value>
+  </data>
+  <data name="Subcategory.Actors.Creatures.Description" xml:space="preserve">
+    <value>Créatures fantastiques et curieuses qui peuvent habiter le monde.</value>
+  </data>
 </root>

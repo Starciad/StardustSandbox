@@ -199,12 +199,12 @@
     <value>Actors</value>
   </data>
   <data name="Category.Actors.Description" xml:space="preserve">
-    <value />
+    <value>All living beings that inhabit the world.</value>
   </data>
   <data name="Subcategory.Actors.Creatures.Name" xml:space="preserve">
     <value>Creatures</value>
   </data>
   <data name="Subcategory.Actors.Creatures.Description" xml:space="preserve">
-    <value />
+    <value>Fantastic and curious creatures that may inhabit the world.</value>
   </data>
 </root>
