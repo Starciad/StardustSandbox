@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿// OptionsUI.cs — versão modificada (adições: constantes e lógica de arraste do scrollbar)
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Audio;
@@ -9,6 +10,7 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
+using StardustSandbox.InputSystem;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics.Primitives;
@@ -59,12 +61,18 @@ namespace StardustSandbox.UI.Common.Menus
             internal Label[] Options => options;
         }
 
+        private const float SCROLL_STEP = 52.0f;
+        private const float ITEM_SPACING = 58.0f;
+
         private Label titleLabel;
         private Image background;
 
         private Image scrollbarUpButton, scrollbarDownButton, scrollbarSliderButton;
 
         private Container scrollableContainer;
+
+        private bool isDraggingScrollbar = false;
+        private float scrollbarDragOffsetY = 0f;
 
         private readonly Root root;
 
@@ -635,15 +643,15 @@ namespace StardustSandbox.UI.Common.Menus
 
             if (Interaction.OnMouseScrollUp())
             {
-                marginY -= 52.0f;
+                marginY -= SCROLL_STEP;
             }
             else if (Interaction.OnMouseScrollDown())
             {
-                marginY += 52.0f;
+                marginY += SCROLL_STEP;
             }
 
             float topLimit = 0.0f;
-            float bottomLimit = this.scrollableContainer.Children.Count * 58.0f * -1;
+            float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
 
             this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, topLimit));
         }
@@ -652,25 +660,61 @@ namespace StardustSandbox.UI.Common.Menus
         {
             if (Interaction.OnMouseLeftClick(this.scrollbarUpButton))
             {
-                float marginY = this.scrollableContainer.Margin.Y + 52.0f;
-                float bottomLimit = this.scrollableContainer.Children.Count * 58.0f * -1;
+                float marginY = this.scrollableContainer.Margin.Y + SCROLL_STEP;
+                float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
             else if (Interaction.OnMouseLeftClick(this.scrollbarDownButton))
             {
-                float marginY = this.scrollableContainer.Margin.Y - 52.0f;
-                float bottomLimit = this.scrollableContainer.Children.Count * 58.0f * -1;
+                float marginY = this.scrollableContainer.Margin.Y - SCROLL_STEP;
+                float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
 
-            float scrollableHeight = this.scrollableContainer.Children.Count * 58.0f;
+            int mouseY = Input.MouseState.Y;
+
+            float scrollableHeight = this.scrollableContainer.Children.Count * ITEM_SPACING;
             float backgroundHeight = this.background.Size.Y;
             float scrollableMarginY = this.scrollableContainer.Margin.Y;
 
             float sliderMinY = this.scrollbarUpButton.Size.Y;
             float sliderMaxY = backgroundHeight - this.scrollbarSliderButton.Size.Y - this.scrollbarDownButton.Size.Y;
-            float sliderY = -scrollableMarginY / scrollableHeight * sliderMaxY;
 
+            // Start dragging by pressing the left mouse button over the slider
+            if (Input.MouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (!this.isDraggingScrollbar && Interaction.OnMouseOver(this.scrollbarSliderButton))
+                {
+                    this.isDraggingScrollbar = true;
+                    // Distance between the click point and the current slider margin
+                    this.scrollbarDragOffsetY = mouseY - this.scrollbarSliderButton.Margin.Y;
+                }
+            }
+            else
+            {
+                // Release
+                this.isDraggingScrollbar = false;
+            }
+
+            if (this.isDraggingScrollbar)
+            {
+                // Calculate the new slider position based on the mouse, applying an offset.
+                float desiredSliderY = mouseY - this.scrollbarDragOffsetY;
+                desiredSliderY = float.Clamp(desiredSliderY, sliderMinY, sliderMaxY);
+
+                this.scrollbarSliderButton.Margin = new(this.scrollbarSliderButton.Margin.X, desiredSliderY);
+
+                // Convert slider position to scrollable content margin (inverse of calculation below)
+                float newScrollableMarginY = -desiredSliderY / sliderMaxY * scrollableHeight;
+                float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
+                this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(newScrollableMarginY, bottomLimit, 0.0f));
+
+                // While dragging, do not recalculate the slider based on the current margin to avoid value "conflicts".
+                return;
+            }
+
+            // Updates the slider's visual position based on the current content margin.
+            float sliderY = -scrollableMarginY / scrollableHeight * sliderMaxY;
             sliderY = float.Clamp(sliderY, sliderMinY, sliderMaxY);
 
             this.scrollbarSliderButton.Margin = new(this.scrollbarSliderButton.Margin.X, sliderY);
