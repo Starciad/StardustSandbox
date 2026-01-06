@@ -101,7 +101,6 @@ namespace StardustSandbox.Actors.Common
             ElementIndex.Smoke,
             ElementIndex.Fire,
             ElementIndex.Void,
-            ElementIndex.Clone,
             ElementIndex.Oil,
             ElementIndex.Salt,
             ElementIndex.Saltwater,
@@ -134,14 +133,15 @@ namespace StardustSandbox.Actors.Common
             this.positionElementPositioned = new(-1);
         }
 
-        private bool IsBeingSuffocated()
+        private bool IsBeingSuffocated(Point position)
         {
-            return !this.world.IsEmptySlotLayer(this.Position, Layer.Foreground);
+            return !this.world.IsEmptySlotLayer(position, Layer.Foreground);
         }
 
-        private bool IsOnTopMortalElement()
+        private bool IsOnTopMortalElement(Point position)
         {
-            return this.world.TryGetElement(new(this.Position.X, this.Position.Y + 1), Layer.Foreground, out ElementIndex index) && mortalElements.Contains(index);
+            return this.world.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
+                   (mortalElements.Contains(slotLayer.ElementIndex) || slotLayer.Temperature < -15.0f || slotLayer.Temperature > 48.0f);
         }
 
         private void TurnAround()
@@ -159,28 +159,37 @@ namespace StardustSandbox.Actors.Common
             return this.world.TryGetElement(new(position.X, position.Y + 1), Layer.Foreground, out ElementIndex index) && ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid;
         }
 
-        private void SetFrontPositions(bool hasDeepPoint, Predicate<Point> removeMatch)
+        private void SetFrontPositions(Predicate<Point> removeMatch)
         {
             possiblePositions.Clear();
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
             _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
-
-            if (hasDeepPoint)
-            {
-                _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 2));
-            }
-
             _ = possiblePositions.RemoveWhere(removeMatch);
+        }
+
+        private bool CanWalkTo(Point position)
+        {
+            return this.world.IsEmptySlotLayer(position, Layer.Foreground) &&
+                   HasGroundBelow(position) &&
+                   !IsOnTopMortalElement(position);
         }
 
         private bool TryWalk()
         {
-            SetFrontPositions(false, point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
 
-            if (possiblePositions.Count > 0)
+            while (possiblePositions.Count > 0)
             {
-                this.Position = possiblePositions.GetRandomItem();
+                Point position = possiblePositions.GetRandomItem();
+
+                if (!CanWalkTo(position))
+                {
+                    possiblePositions.Remove(position);
+                    continue;
+                }
+
+                this.Position = position;
                 return true;
             }
 
@@ -189,17 +198,23 @@ namespace StardustSandbox.Actors.Common
 
         private bool TryGrabElement()
         {
-            SetFrontPositions(false, point =>
+            SetFrontPositions(point =>
                 this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
                 !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)) ||
                 HasEntityAbove(point)
             );
 
-            if (possiblePositions.Count > 0)
+            while (possiblePositions.Count > 0)
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                this.grabbedElementIndex = this.world.GetElement(position, Layer.Foreground);
+                if (this.world.TryGetElement(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
+                {
+                    possiblePositions.Remove(position);
+                    continue;
+                }
+
+                this.grabbedElementIndex = index;
                 this.world.RemoveElement(position, Layer.Foreground);
 
                 return true;
@@ -210,17 +225,22 @@ namespace StardustSandbox.Actors.Common
 
         private bool TryPlaceElement()
         {
-            SetFrontPositions(true, point =>
+            SetFrontPositions(point =>
                 !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
                 this.actorManager.HasEntityAtPosition(point) ||
                 point == this.positionElementPositioned
             );
 
-            if (possiblePositions.Count > 0)
+            while (possiblePositions.Count > 0)
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                this.world.InstantiateElement(position, Layer.Foreground, this.grabbedElementIndex);
+                if (!this.world.TryInstantiateElement(position, Layer.Foreground, this.grabbedElementIndex))
+                {
+                    possiblePositions.Remove(position);
+                    continue;
+                }
+
                 this.grabbedElementIndex = ElementIndex.None;
                 this.positionElementPositioned = position;
 
@@ -233,7 +253,7 @@ namespace StardustSandbox.Actors.Common
         internal override void Update(GameTime gameTime)
         {
             // If spawned inside a non-empty slot, destroy immediately
-            if (IsBeingSuffocated() || IsOnTopMortalElement())
+            if (IsBeingSuffocated(this.Position) || IsOnTopMortalElement(this.Position))
             {
                 this.actorManager.Destroy(this);
                 return;
@@ -267,9 +287,8 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateGrabbedElementBehavior()
         {
-            // 15% chance to act each update
             // Try to walk or place element
-            if (SSRandom.Chance(15) && !TryWalk() && !TryPlaceElement())
+            if (SSRandom.Chance(40) && !TryWalk() && !TryPlaceElement())
             {
                 // Turn around if unable to walk or place element
                 TurnAround();
@@ -278,9 +297,8 @@ namespace StardustSandbox.Actors.Common
 
         private void UpdateNormalBehavior()
         {
-            // 15% chance to act each update
             // Try to walk or grab element
-            if (SSRandom.Chance(15) && !TryWalk() && !TryGrabElement())
+            if (SSRandom.Chance(40) && !TryWalk() && !TryGrabElement())
             {
                 // Turn around if unable to walk or grab element
                 TurnAround();
