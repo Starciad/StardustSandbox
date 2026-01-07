@@ -117,8 +117,7 @@ namespace StardustSandbox.Serialization
         {
             return new()
             {
-                FormatVersion = IOConstants.SAVE_FILE_VERSION,
-                Version = GameConstants.VERSION,
+                GameVersion = GameConstants.VERSION,
                 CreationTimestamp = DateTime.Now
             };
         }

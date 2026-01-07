@@ -98,9 +98,6 @@
 
         #region FILE
 
-        // Versions
-        internal const byte SAVE_FILE_VERSION = 3;
-
         // Settings
         internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";
         internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";

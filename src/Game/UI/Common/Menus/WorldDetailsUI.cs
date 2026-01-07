@@ -252,7 +252,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.worldTitle.TextContent = saveFile.Metadata.Name;
             this.worldDescription.TextContent = saveFile.Metadata.Description;
-            this.worldVersion.TextContent = string.Concat('v', saveFile.Manifest.FormatVersion);
+            this.worldVersion.TextContent = string.Concat('v', saveFile.Manifest.GameVersion);
             this.worldCreationTimestamp.TextContent = saveFile.Manifest.CreationTimestamp.ToString();
         }
 
