@@ -311,7 +311,7 @@ namespace StardustSandbox.UI.Common.Menus
                         }
                     }),
 
-                    new ButtonOption(Localization_Statements.Cancel, Localization_GUIs.Button_Exit_Description, () =>
+                    new ButtonOption(Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, () =>
                     {
                         SoundEngine.Play(SoundEffectIndex.GUI_Click);
                         uiManager.CloseGUI();
