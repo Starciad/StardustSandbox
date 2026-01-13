@@ -17,7 +17,7 @@
 
 using System;
 
-namespace StardustSandbox.Randomness
+namespace StardustSandbox.Core
 {
     /// <summary>
     /// Provides static methods for generating random values of various numeric types and evaluating probabilistic conditions.

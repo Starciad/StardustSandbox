@@ -17,7 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Camera;
+using StardustSandbox.Core;
 using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem.Game.Handlers.Gizmos;

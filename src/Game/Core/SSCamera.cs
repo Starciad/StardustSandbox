@@ -16,7 +16,6 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
 using StardustSandbox.Managers;
@@ -24,12 +23,11 @@ using StardustSandbox.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Camera
+namespace StardustSandbox.Core
 {
     internal static class SSCamera
     {
         internal static Vector2 Position { get; set; }
-        internal static float Rotation { get; set; }
         internal static Vector2 Origin { get; set; }
         internal static float Zoom
         {
@@ -85,19 +83,30 @@ namespace StardustSandbox.Camera
         private static float minimumZoom;
         private static float zoom;
 
-        private static bool isInitialized = false;
+        private static Vector2 targetPosition;
+        private static float targetZoom;
 
         private static VideoManager videoManager;
+        private static World world;
+
+        private static bool isInitialized = false;
+
+        private const float MOVE_LERP_SPEED = 10.0f;
+        private const float ZOOM_LERP_SPEED = 8.0f;
 
         internal static void Reset()
         {
-            Rotation = 0;
-            Zoom = 1;
-            Origin = new Vector2(videoManager.Viewport.Width, videoManager.Viewport.Height) / 2f;
+            Zoom = 1.0f;
+            targetZoom = Zoom;
+
+            Origin = new(ScreenConstants.SCREEN_WIDTH / 2.0f,
+                         ScreenConstants.SCREEN_HEIGHT / 2.0f);
+
             Position = Vector2.Zero;
+            targetPosition = Position;
         }
 
-        internal static void Initialize(VideoManager videoManager)
+        internal static void Initialize(VideoManager videoManager, World world)
         {
             if (isInitialized)
             {
@@ -105,34 +114,61 @@ namespace StardustSandbox.Camera
             }
 
             SSCamera.videoManager = videoManager;
+            SSCamera.world = world;
+
             Reset();
 
             isInitialized = true;
         }
 
-        internal static void Update(World world)
+        private static void ClampTargetPositionInWorld(World world)
         {
-            ClampCameraInTheWorld(world);
+            targetPosition = ClampPositionInWorld(targetPosition, world);
+        }
+
+        internal static void Update(GameTime gameTime)
+        {
+            float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
+
+            // Ensure zoom limits based on world size
+            RecalculateZoomLimitsFromWorld(world);
+
+            // Smooth zoom
+            Zoom = MathHelper.Lerp(
+                Zoom,
+                targetZoom,
+                1f - MathF.Exp(-ZOOM_LERP_SPEED * deltaTime)
+            );
+
+            // Clamp only the target
+            ClampTargetPositionInWorld(world);
+
+            // Smooth movement
+            Position = Vector2.Lerp(
+                Position,
+                targetPosition,
+                1f - MathF.Exp(-MOVE_LERP_SPEED * deltaTime)
+            );
         }
 
         internal static void Move(Vector2 direction)
         {
-            Position += Vector2.Transform(direction, Matrix.CreateRotationZ(-Rotation));
+            targetPosition += Vector2.Transform(direction, Matrix.CreateRotationZ(0.0f));
         }
 
-        internal static void Rotate(float deltaRadians)
+        private static void SetTargetZoom(float value)
         {
-            Rotation += deltaRadians;
+            targetZoom = MathHelper.Clamp(value, MinimumZoom, MaximumZoom);
         }
 
         internal static void ZoomIn(float deltaZoom)
         {
-            ClampZoom(Zoom + deltaZoom);
+            SetTargetZoom(targetZoom + deltaZoom);
         }
 
         internal static void ZoomOut(float deltaZoom)
         {
-            ClampZoom(Zoom - deltaZoom);
+            SetTargetZoom(targetZoom - deltaZoom);
         }
 
         internal static void ClampZoom(float value)
@@ -142,14 +178,12 @@ namespace StardustSandbox.Camera
 
         internal static Vector2 WorldToScreen(Vector2 worldPosition)
         {
-            Viewport viewport = videoManager.Viewport;
-            return Vector2.Transform(worldPosition + new Vector2(viewport.X, viewport.Y), GetViewMatrix());
+            return Vector2.Transform(new(worldPosition.X + videoManager.Viewport.X, worldPosition.Y + videoManager.Viewport.Y), GetViewMatrix());
         }
 
         internal static Vector2 ScreenToWorld(Vector2 screenPosition)
         {
-            Viewport viewport = videoManager.Viewport;
-            return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y), Matrix.Invert(GetViewMatrix()));
+            return Vector2.Transform(new(screenPosition.X - videoManager.Viewport.X, screenPosition.Y - videoManager.Viewport.Y), Matrix.Invert(GetViewMatrix()));
         }
 
         internal static Matrix GetViewMatrix()
@@ -161,7 +195,7 @@ namespace StardustSandbox.Camera
         {
             return Matrix.CreateTranslation(new(-Position.X, Position.Y, 0.0f)) *
                    Matrix.CreateTranslation(new(-Origin, 0.0f)) *
-                   Matrix.CreateRotationZ(Rotation) *
+                   Matrix.CreateRotationZ(0.0f) *
                    Matrix.CreateScale(Zoom, Zoom, 1) *
                    Matrix.CreateTranslation(new(Origin, 0.0f));
         }
@@ -183,30 +217,56 @@ namespace StardustSandbox.Camera
                 screenBottomRight = WorldToScreen(bottomRight);
             }
 
-            return screenBottomRight.X >= 0 && screenTopLeft.X < videoManager.Viewport.Width &&
-                   screenBottomRight.Y >= 0 && screenTopLeft.Y < videoManager.Viewport.Height;
+            return screenBottomRight.X >= 0 && screenTopLeft.X < ScreenConstants.SCREEN_WIDTH &&
+                   screenBottomRight.Y >= 0 && screenTopLeft.Y < ScreenConstants.SCREEN_HEIGHT;
         }
 
-        private static void ClampCameraInTheWorld(World world)
+        private static void RecalculateZoomLimitsFromWorld(World world)
         {
             int totalWorldWidth = world.Information.Size.X * WorldConstants.GRID_SIZE;
             int totalWorldHeight = world.Information.Size.Y * WorldConstants.GRID_SIZE;
 
-            float visibleWidth = ScreenConstants.SCREEN_WIDTH;
-            float visibleHeight = ScreenConstants.SCREEN_HEIGHT;
+            // Proteções simples para evitar divisão por zero
+            if (totalWorldWidth <= 0 || totalWorldHeight <= 0)
+            {
+                return;
+            }
 
-            float worldLeftLimit = 0f;
-            float worldRightLimit = totalWorldWidth - visibleWidth;
+            // Para que a área visível nunca seja maior que o mundo:
+            // ScreenWidth / Zoom <= totalWorldWidth  =>  Zoom >= ScreenWidth / totalWorldWidth
+            float requiredZoomForWidth = ScreenConstants.SCREEN_WIDTH / (float)totalWorldWidth;
+            float requiredZoomForHeight = ScreenConstants.SCREEN_HEIGHT / (float)totalWorldHeight;
 
-            float worldBottomLimit = (totalWorldHeight - visibleHeight) * -1;
-            float worldTopLimit = 0f;
+            // mínimo aceitável para Zoom (impede "zoom out" que mostra espaço vazio)
+            float minAllowedZoom = Math.Max(requiredZoomForWidth, requiredZoomForHeight);
 
-            Vector2 cameraPosition = SSCamera.Position;
+            // Ajusta MinimumZoom para este mundo (preservando a regra de não-negatividade)
+            // Se você preferir não sobrescrever uma MinimumZoom já configurada externamente,
+            // use Math.Max(MinimumZoom, minAllowedZoom) em vez de atribuir diretamente.
+            MinimumZoom = Math.Max(MinimumZoom, minAllowedZoom);
 
-            cameraPosition.X = MathHelper.Clamp(cameraPosition.X, worldLeftLimit, worldRightLimit);
-            cameraPosition.Y = MathHelper.Clamp(cameraPosition.Y, worldBottomLimit, worldTopLimit);
+            // Caso atual do Zoom esteja menor que o novo mínimo, force o ajuste
+            if (Zoom < MinimumZoom)
+            {
+                Zoom = MinimumZoom;
+            }
+        }
 
-            SSCamera.Position = cameraPosition;
+        private static Vector2 ClampPositionInWorld(Vector2 position, World world)
+        {
+            int totalWorldWidth = world.Information.Size.X * WorldConstants.GRID_SIZE;
+            int totalWorldHeight = world.Information.Size.Y * WorldConstants.GRID_SIZE;
+
+            float visibleWidth = ScreenConstants.SCREEN_WIDTH / Zoom;
+            float visibleHeight = ScreenConstants.SCREEN_HEIGHT / Zoom;
+
+            float maxPosX = Math.Max(0f, totalWorldWidth - visibleWidth);
+            float maxPosY = Math.Max(0f, totalWorldHeight - visibleHeight);
+
+            position.X = MathHelper.Clamp(position.X, 0f, maxPosX);
+            position.Y = MathHelper.Clamp(position.Y, 0f, maxPosY);
+
+            return position;
         }
     }
 }

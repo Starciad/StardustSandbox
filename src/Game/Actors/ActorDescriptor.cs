@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Collections;
+using StardustSandbox.Core;
 using StardustSandbox.Enums.Actors;
 using StardustSandbox.Interfaces.Actors;
 using StardustSandbox.Interfaces.Collections;

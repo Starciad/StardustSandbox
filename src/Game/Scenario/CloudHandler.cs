@@ -19,14 +19,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Backgrounds.Clouds;
-using StardustSandbox.Camera;
-using StardustSandbox.Collections;
 using StardustSandbox.Constants;
+using StardustSandbox.Core;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Interfaces.Collections;
-using StardustSandbox.Randomness;
 
 using System.Collections.Generic;
 

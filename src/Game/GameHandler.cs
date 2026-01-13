@@ -19,8 +19,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Audio;
-using StardustSandbox.Camera;
 using StardustSandbox.Constants;
+using StardustSandbox.Core;
 using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.Simulation;

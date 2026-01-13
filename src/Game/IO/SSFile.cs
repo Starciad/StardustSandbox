@@ -25,6 +25,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -231,14 +232,14 @@ namespace StardustSandbox.IO
             {
                 _ = sb.AppendLine("LOADED ASSEMBLIES");
                 _ = sb.AppendLine(new string('-', 60));
-                IOrderedEnumerable<System.Reflection.Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies()
+                IOrderedEnumerable<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies()
                     .OrderBy(a => a.GetName().Name, StringComparer.OrdinalIgnoreCase);
 
-                foreach (System.Reflection.Assembly asm in assemblies)
+                foreach (Assembly asm in assemblies)
                 {
                     try
                     {
-                        System.Reflection.AssemblyName name = asm.GetName();
+                        AssemblyName name = asm.GetName();
                         string location = SafeGet(() => asm.Location, "<dynamic>");
                         string fileVer = "<n/a>";
                         string infoVer = "<n/a>";
@@ -252,8 +253,8 @@ namespace StardustSandbox.IO
                         else
                         {
                             // try assembly attributes
-                            System.Reflection.AssemblyInformationalVersionAttribute aiv = asm.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
-                                         .OfType<System.Reflection.AssemblyInformationalVersionAttribute>()
+                            AssemblyInformationalVersionAttribute aiv = asm.GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
+                                         .OfType<AssemblyInformationalVersionAttribute>()
                                          .FirstOrDefault();
                             if (aiv != null)
                             {
@@ -312,7 +313,7 @@ namespace StardustSandbox.IO
                         for (int i = 0; i < st.FrameCount; i++)
                         {
                             StackFrame f = st.GetFrame(i);
-                            System.Reflection.MethodBase method = f.GetMethod();
+                            MethodBase method = f.GetMethod();
                             string methodStr = method?.DeclaringType != null
                                 ? $"{method.DeclaringType.FullName}.{method.Name}"
                                 : method?.Name ?? "<unknown method>";

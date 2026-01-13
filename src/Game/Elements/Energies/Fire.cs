@@ -18,10 +18,10 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
-using StardustSandbox.Randomness;
 using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Elements.Energies

@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Randomness;
+using StardustSandbox.Core;
 
 using System;
 using System.Collections.Generic;

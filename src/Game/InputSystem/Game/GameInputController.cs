@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Audio;
-using StardustSandbox.Camera;
+using StardustSandbox.Core;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Generators;
 using StardustSandbox.Enums.Inputs;

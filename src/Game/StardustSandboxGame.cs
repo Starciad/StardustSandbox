@@ -20,8 +20,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Audio;
-using StardustSandbox.Camera;
 using StardustSandbox.Constants;
+using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
@@ -113,7 +113,7 @@ namespace StardustSandbox
 
         protected override void Initialize()
         {
-            SSCamera.Initialize(this.videoManager);
+            SSCamera.Initialize(this.videoManager, this.world);
 
             SongEngine.Initialize();
             SoundEngine.Initialize();
@@ -181,7 +181,7 @@ namespace StardustSandbox
 
             // Controllers
             this.inputController.Update();
-            SSCamera.Update(this.world);
+            SSCamera.Update(gameTime);
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);

@@ -15,42 +15,39 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Interfaces.Collections;
+#if SS_WINDOWS
+using System.Windows.Forms;
+#elif SS_LINUX
+using System.Diagnostics;
+#endif
 
-using System.Collections.Generic;
-
-namespace StardustSandbox.Collections
+namespace StardustSandbox.Core
 {
-    internal sealed class ObjectPool
+    internal static class SSMessageBox
     {
-        internal int Count => this.pool.Count;
-
-        private readonly Queue<IPoolableObject> pool = [];
-
-        internal bool TryDequeue(out IPoolableObject value)
+#if SS_LINUX
+        private static void StartProcess(string fileName, string arguments)
         {
-            value = null;
-
-            if (this.pool.TryDequeue(out IPoolableObject result))
+            using Process process = new()
             {
-                result.Reset();
-                value = result;
-
-                return true;
-            }
-
-            return false;
+                StartInfo = new()
+                {
+                    FileName = fileName,
+                    Arguments = arguments,
+                }
+            };
+            _ = process.Start();
         }
+#endif
 
-        internal IPoolableObject Dequeue()
+        internal static void ShowError(string title, string message)
         {
-            _ = TryDequeue(out IPoolableObject value);
-            return value;
-        }
-
-        internal void Enqueue(in IPoolableObject value)
-        {
-            this.pool.Enqueue(value);
+#if SS_WINDOWS
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+#elif SS_LINUX
+            StartProcess("zenity", $"--error --title=\"{title}\" --text=\"{message.Replace("\"", "\\\"")}\"");
+#endif
         }
     }
 }
+
