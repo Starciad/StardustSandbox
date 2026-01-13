@@ -229,7 +229,7 @@ namespace StardustSandbox.UI.Common.HUD
                 // Data
                 if (!background.ContainsData(UIConstants.DATA_CATEGORY))
                 {
-                    background.AddData(UIConstants.DATA_CATEGORY, category);
+                    background.SetData(UIConstants.DATA_CATEGORY, category);
                 }
 
                 // Position
@@ -619,11 +619,11 @@ namespace StardustSandbox.UI.Common.HUD
                     // Add or Update Data
                     if (!subcategorySlot.Background.ContainsData(UIConstants.DATA_SUBCATEGORY))
                     {
-                        subcategorySlot.Background.AddData(UIConstants.DATA_SUBCATEGORY, subcategory);
+                        subcategorySlot.Background.SetData(UIConstants.DATA_SUBCATEGORY, subcategory);
                     }
                     else
                     {
-                        subcategorySlot.Background.UpdateData(UIConstants.DATA_SUBCATEGORY, subcategory);
+                        subcategorySlot.Background.SetData(UIConstants.DATA_SUBCATEGORY, subcategory);
                     }
                 }
                 else
@@ -664,11 +664,11 @@ namespace StardustSandbox.UI.Common.HUD
                     // Add or Update Data
                     if (!itemSlot.Background.ContainsData(UIConstants.DATA_ITEM))
                     {
-                        itemSlot.Background.AddData(UIConstants.DATA_ITEM, item);
+                        itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
                     }
                     else
                     {
-                        itemSlot.Background.UpdateData(UIConstants.DATA_ITEM, item);
+                        itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
                     }
                 }
                 else

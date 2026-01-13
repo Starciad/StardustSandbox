@@ -518,7 +518,7 @@ namespace StardustSandbox.UI.Common.Menus
                     Option option = section.Options[j];
                     Label label = this.optionBuilders[option.GetType()]?.Invoke(option);
 
-                    label.AddData("option", option);
+                    label.SetData("option", option);
                     label.Margin = new(32.0f, scrollableContainerMarginY);
 
                     this.scrollableContainer.AddChild(label);
@@ -555,7 +555,7 @@ namespace StardustSandbox.UI.Common.Menus
             colorSlot.Background.AddChild(colorSlot.Border);
 
             label.AddChild(colorSlot.Background);
-            label.AddData("color_slot", colorSlot);
+            label.SetData("color_slot", colorSlot);
         }
 
         private static void BuildTogglePreview(Label label)
@@ -571,7 +571,7 @@ namespace StardustSandbox.UI.Common.Menus
             };
 
             label.AddChild(togglePreviewImageElement);
-            label.AddData("toogle_preview", togglePreviewImageElement);
+            label.SetData("toogle_preview", togglePreviewImageElement);
         }
 
         private void BuildScrollBar()

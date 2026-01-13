@@ -261,7 +261,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 if (!slot.Background.ContainsData(UIConstants.DATA_ITEM))
                 {
-                    slot.Background.AddData(UIConstants.DATA_ITEM, curentItem);
+                    slot.Background.SetData(UIConstants.DATA_ITEM, curentItem);
                 }
 
                 this.topToolbarBackground.AddChild(slot.Background);
@@ -719,7 +719,7 @@ namespace StardustSandbox.UI.Common.HUD
                 if (currentSlot.Background.ContainsData(UIConstants.DATA_ITEM) &&
                     nextSlot.Background.ContainsData(UIConstants.DATA_ITEM))
                 {
-                    currentSlot.Background.UpdateData(
+                    currentSlot.Background.SetData(
                         UIConstants.DATA_ITEM,
                         nextSlot.Background.GetData(UIConstants.DATA_ITEM)
                     );
@@ -736,7 +736,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             SlotInfo lastSlot = this.toolbarSlots[^1];
 
-            lastSlot.Background.UpdateData(UIConstants.DATA_ITEM, item);
+            lastSlot.Background.SetData(UIConstants.DATA_ITEM, item);
             lastSlot.Icon.Texture = item.Texture;
             lastSlot.Icon.SourceRectangle = item.SourceRectangle;
 

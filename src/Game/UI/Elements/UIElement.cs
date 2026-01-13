@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Actors;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Mathematics.Primitives;
@@ -100,9 +101,6 @@ namespace StardustSandbox.UI.Elements
         private UIDirection alignment;
 
         private readonly List<UIElement> children = [];
-        private readonly Queue<UIElement> childrenToAdd = new();
-        private readonly Queue<UIElement> childrenToRemove = new();
-
         private readonly Dictionary<string, object> data = [];
 
         internal UIElement()
@@ -118,31 +116,8 @@ namespace StardustSandbox.UI.Elements
             this.CanUpdate = true;
         }
 
-        private void FlushPendingHierarchyChanges()
-        {
-            while (this.childrenToAdd.Count > 0)
-            {
-                UIElement actor = this.childrenToAdd.Dequeue();
-                actor.parent = this;
-                actor.RepositionRelativeToParent();
-                this.children.Add(actor);
-            }
-
-            while (this.childrenToRemove.Count > 0)
-            {
-                UIElement actor = this.childrenToRemove.Dequeue();
-
-                if (this.children.Remove(actor))
-                {
-                    actor.parent = null;
-                }
-            }
-        }
-
         internal virtual void Initialize()
         {
-            FlushPendingHierarchyChanges();
-
             OnInitialize();
 
             foreach (UIElement childElement in this.children)
@@ -157,8 +132,6 @@ namespace StardustSandbox.UI.Elements
             {
                 return;
             }
-
-            FlushPendingHierarchyChanges();
 
             OnUpdate(gameTime);
 
@@ -289,25 +262,9 @@ namespace StardustSandbox.UI.Elements
                 return;
             }
 
-            this.childrenToAdd.Enqueue(element);
-        }
-
-        internal void RemoveChild(in UIElement element)
-        {
-            if (element == null)
-            {
-                return;
-            }
-
-            this.childrenToRemove.Enqueue(element);
-        }
-
-        internal void RemoveAllChildren()
-        {
-            foreach (UIElement child in this.children)
-            {
-                this.childrenToRemove.Enqueue(child);
-            }
+            element.parent = this;
+            element.RepositionRelativeToParent();
+            this.children.Add(element);
         }
 
         #endregion
@@ -319,24 +276,14 @@ namespace StardustSandbox.UI.Elements
             return this.data.ContainsKey(name);
         }
 
-        internal void AddData(in string name, in object value)
+        internal void SetData(in string name, in object value)
         {
-            this.data.Add(name, value);
+            this.data[name] = value;
         }
 
         internal object GetData(in string name)
         {
             return this.data[name];
-        }
-
-        internal void UpdateData(in string name, in object value)
-        {
-            this.data[name] = value;
-        }
-
-        internal void RemoveData(in string name)
-        {
-            _ = this.data.Remove(name);
         }
 
         #endregion
