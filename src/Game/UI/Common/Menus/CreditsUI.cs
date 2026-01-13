@@ -345,7 +345,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             this.rootContainer.Margin = new(0.0f, ScreenConstants.SCREEN_HEIGHT / 2.0f);
 
-            this.lastElement ??= this.rootContainer.Children[^1];
+            this.lastElement ??= this.rootContainer.LastChild;
         }
     }
 }

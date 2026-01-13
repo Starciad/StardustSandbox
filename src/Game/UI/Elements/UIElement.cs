@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Actors;
 using StardustSandbox.Constants;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Mathematics.Primitives;
@@ -16,7 +15,8 @@ namespace StardustSandbox.UI.Elements
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
 
-        internal IReadOnlyList<UIElement> Children => this.children.AsReadOnly();
+        internal int ChildCount => this.children.Count;
+        internal UIElement LastChild => this.children.Count > 0 ? this.children[^1] : null;
         internal FloatRectangle SelfFloatRectangle => new(this.Position, this.Size);
 
         internal UIElement Parent
@@ -221,7 +221,7 @@ namespace StardustSandbox.UI.Elements
             RepositionChildren();
         }
 
-        private void RepositionRelativeToElement(in UIElement targetElement)
+        private void RepositionRelativeToElement(UIElement targetElement)
         {
             RepositionRelativeToElement(targetElement.SelfFloatRectangle);
         }
@@ -271,26 +271,21 @@ namespace StardustSandbox.UI.Elements
 
         #region Data
 
-        internal bool ContainsData(in string name)
+        internal bool ContainsData(string name)
         {
             return this.data.ContainsKey(name);
         }
 
-        internal void SetData(in string name, in object value)
+        internal void SetData(string name, object value)
         {
             this.data[name] = value;
         }
 
-        internal object GetData(in string name)
+        internal object GetData(string name)
         {
             return this.data[name];
         }
 
         #endregion
-
-        public override string ToString()
-        {
-            return UIElementTree.ToString(this);
-        }
     }
 }

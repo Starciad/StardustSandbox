@@ -132,7 +132,7 @@ implementation is available to the public in source code form.  A
 (if any) on which the executable work runs, or a compiler used to
 produce the work, or an object code interpreter used to run it.
 
-  The "Corresponding Source" for a work in object code form means all
+  The "Corresponding Source" for a work object code form means all
 the source code needed to generate, install, and (for an executable
 work) run the object code and to modify the work, including scripts to
 control those activities.  However, it does not include the work's
@@ -245,7 +245,7 @@ parts of the aggregate.
 
   6. Conveying Non-Source Forms.
 
-  You may convey a covered work in object code form under the terms
+  You may convey a covered work object code form under the terms
 of sections 4 and 5, provided that you also convey the
 machine-readable Corresponding Source under the terms of this License,
 in one of these ways:

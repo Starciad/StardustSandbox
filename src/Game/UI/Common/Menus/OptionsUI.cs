@@ -638,7 +638,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
 
             float topLimit = 0.0f;
-            float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
+            float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
 
             this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, topLimit));
         }
@@ -648,19 +648,19 @@ namespace StardustSandbox.UI.Common.Menus
             if (Interaction.OnMouseLeftClick(this.scrollbarUpButton))
             {
                 float marginY = this.scrollableContainer.Margin.Y + SCROLL_STEP;
-                float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
+                float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
             else if (Interaction.OnMouseLeftClick(this.scrollbarDownButton))
             {
                 float marginY = this.scrollableContainer.Margin.Y - SCROLL_STEP;
-                float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
+                float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
 
             int mouseY = Input.MouseState.Y;
 
-            float scrollableHeight = this.scrollableContainer.Children.Count * ITEM_SPACING;
+            float scrollableHeight = this.scrollableContainer.ChildCount * ITEM_SPACING;
             float backgroundHeight = this.background.Size.Y;
             float scrollableMarginY = this.scrollableContainer.Margin.Y;
 
@@ -693,7 +693,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 // Convert slider position to scrollable content margin (inverse of calculation below)
                 float newScrollableMarginY = -desiredSliderY / sliderMaxY * scrollableHeight;
-                float bottomLimit = this.scrollableContainer.Children.Count * ITEM_SPACING * -1f;
+                float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(newScrollableMarginY, bottomLimit, 0.0f));
 
                 // While dragging, do not recalculate the slider based on the current margin to avoid value "conflicts".
