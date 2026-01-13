@@ -11,68 +11,110 @@ namespace StardustSandbox.UI
 {
     internal abstract class UIBase
     {
-        internal UIIndex Index => this.index;
+        internal UIIndex Index { get; }
         internal bool IsActive { get; private set; }
+        internal bool IsInitialized { get; private set; }
 
-        private bool isInitialized;
+        protected Container Root { get; }
 
-        private readonly Container root;
-        private readonly UIIndex index;
-
-        internal UIBase(UIIndex index)
+        protected UIBase(UIIndex index)
         {
-            this.index = index;
+            this.Index = index;
 
-            this.root = new()
+            this.Root = new Container
             {
-                CanDraw = true,
-                CanUpdate = true,
+                CanDraw = false,
+                CanUpdate = false,
                 Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2()
             };
         }
 
-        internal virtual void Initialize()
+        internal void Initialize()
         {
-            if (this.isInitialized)
+            if (this.IsInitialized)
             {
-                throw new InvalidOperationException($"{GetType().Name} has already been initialized.");
+                throw new InvalidOperationException($"{GetType().Name} is already initialized.");
             }
 
-            OnBuild(this.root);
-            this.root.Initialize();
+            OnBuild(this.Root);
+            this.Root.Initialize();
 
-            this.isInitialized = true;
-        }
-
-        internal virtual void Update(GameTime gameTime)
-        {
-            this.root.Update(gameTime);
-        }
-
-        internal virtual void Draw(SpriteBatch spriteBatch)
-        {
-            this.root.Draw(spriteBatch);
+            this.IsInitialized = true;
         }
 
         internal void Open()
         {
+            EnsureInitialized();
+
+            if (this.IsActive)
+            {
+                return;
+            }
+
             this.IsActive = true;
+
+            this.Root.CanUpdate = true;
+            this.Root.CanDraw = true;
+
             OnOpened();
         }
 
         internal void Close()
         {
+            if (!this.IsActive)
+            {
+                return;
+            }
+
             this.IsActive = false;
+
+            this.Root.CanUpdate = false;
+            this.Root.CanDraw = false;
+
             OnClosed();
+        }
+
+        internal void Update(GameTime gameTime)
+        {
+            if (!this.IsActive)
+            {
+                return;
+            }
+
+            this.Root.Update(gameTime);
+            OnUpdate(gameTime);
+        }
+
+        internal void Draw(SpriteBatch spriteBatch)
+        {
+            if (!this.IsActive)
+            {
+                return;
+            }
+
+            this.Root.Draw(spriteBatch);
+            OnDraw(spriteBatch);
         }
 
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
+        protected virtual void OnUpdate(GameTime gameTime) { }
+        protected virtual void OnDraw(SpriteBatch spriteBatch) { }
+
+        private void EnsureInitialized()
+        {
+            if (!this.IsInitialized)
+            {
+                throw new InvalidOperationException(
+                    $"{GetType().Name} must be initialized before being opened."
+                );
+            }
+        }
 
         public override string ToString()
         {
-            return this.root.ToString();
+            return $"{GetType().Name} ({this.Index})";
         }
     }
 }

@@ -159,13 +159,11 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             UpdateMenuButtons();
             UpdateSliderButton();
             UpdateSliderButtonPosition();
-
-            base.Update(gameTime);
         }
 
         private void UpdateMenuButtons()

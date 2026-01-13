@@ -1,5 +1,4 @@
-﻿// OptionsUI.cs — versão modificada (adições: constantes e lógica de arraste do scrollbar)
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Audio;
@@ -36,10 +35,10 @@ namespace StardustSandbox.UI.Common.Menus
         private enum ControlSectionOptionIndex : byte { MoveCameraUp, MoveCameraRight, MoveCameraDown, MoveCameraLeft, TogglePause, ClearWorld, Screenshot }
         private enum CursorSectionOptionIndex : byte { Color, BackgroundColor, Scale, Opacity }
 
-        private sealed class Root
+        private sealed class Origin
         {
             internal Section[] Sections { get; }
-            internal Root(Section[] sections) { this.Sections = sections; }
+            internal Origin(Section[] sections) { this.Sections = sections; }
         }
 
         private sealed class Section
@@ -74,7 +73,7 @@ namespace StardustSandbox.UI.Common.Menus
         private bool isDraggingScrollbar = false;
         private float scrollbarDragOffsetY = 0f;
 
-        private readonly Root root;
+        private readonly Origin root;
 
         private readonly ColorPickerUI colorPicker;
         private readonly SliderUI sliderUI;
@@ -616,14 +615,13 @@ namespace StardustSandbox.UI.Common.Menus
             };
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
             UpdateScrollableContainer();
             UpdateScrollbar();
             UpdateSectionLabels();
             UpdateSectionOptions();
-            base.Update(gameTime);
         }
 
         private void UpdateScrollableContainer()

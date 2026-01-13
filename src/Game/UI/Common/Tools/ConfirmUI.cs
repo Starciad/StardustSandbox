@@ -130,7 +130,7 @@ namespace StardustSandbox.UI.Common.Tools
             }
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             for (int i = 0; i < this.buttonInfos.Length; i++)
             {
@@ -150,8 +150,6 @@ namespace StardustSandbox.UI.Common.Tools
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
-
-            base.Update(gameTime);
         }
 
         protected override void OnOpened()

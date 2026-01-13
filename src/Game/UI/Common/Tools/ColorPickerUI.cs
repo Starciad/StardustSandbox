@@ -240,14 +240,12 @@ namespace StardustSandbox.UI.Common.Tools
             root.AddChild(this.exitButtonLabel);
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
             UpdateExitButton();
             UpdateColorButtons();
-
-            base.Update(gameTime);
         }
 
         private void UpdateExitButton()

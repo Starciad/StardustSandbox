@@ -276,14 +276,12 @@ namespace StardustSandbox.UI.Common.HUD
             );
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
             UpdateExitButton();
             UpdateSections();
-
-            base.Update(gameTime);
         }
 
         private void UpdateExitButton()

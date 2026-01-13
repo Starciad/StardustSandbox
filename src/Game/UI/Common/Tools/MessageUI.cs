@@ -82,7 +82,7 @@ namespace StardustSandbox.UI.Common.Tools
             root.AddChild(this.continueButtonLabel);
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
             {
@@ -90,8 +90,6 @@ namespace StardustSandbox.UI.Common.Tools
             }
 
             this.continueButtonLabel.Color = Interaction.OnMouseOver(this.continueButtonLabel) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
-
-            base.Update(gameTime);
         }
 
         internal void SetContent(string text)

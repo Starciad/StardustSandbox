@@ -213,7 +213,7 @@ namespace StardustSandbox.UI.Common.Menus
 
         #region UPDATING
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             for (int i = 0; i < this.worldButtonLabels.Length; i++)
             {
@@ -232,8 +232,6 @@ namespace StardustSandbox.UI.Common.Menus
 
                 slotInfoElement.Color = Interaction.OnMouseOver(slotInfoElement) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
-
-            base.Update(gameTime);
         }
 
         #endregion

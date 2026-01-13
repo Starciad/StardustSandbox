@@ -366,7 +366,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         #region UPDATE
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
@@ -403,8 +403,6 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateDrawerButtons();
 
             this.simulationPausedBackground.CanDraw = GameHandler.HasState(GameStates.IsSimulationPaused);
-
-            base.Update(gameTime);
         }
 
         private void UpdatePlayerInteractionOnToolbarHover()

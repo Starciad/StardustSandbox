@@ -108,7 +108,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
@@ -128,8 +128,6 @@ namespace StardustSandbox.UI.Common.Menus
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
-
-            base.Update(gameTime);
         }
     }
 }

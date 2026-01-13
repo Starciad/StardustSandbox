@@ -161,11 +161,9 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             UpdateMenuButtons();
-
-            base.Update(gameTime);
         }
 
         private void UpdateMenuButtons()

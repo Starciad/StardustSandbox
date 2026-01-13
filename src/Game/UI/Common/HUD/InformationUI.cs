@@ -182,11 +182,10 @@ namespace StardustSandbox.UI.Common.HUD
 
         #endregion
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
             UpdateMenuButtons();
-            base.Update(gameTime);
         }
 
         private void UpdateMenuButtons()

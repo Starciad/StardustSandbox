@@ -306,7 +306,7 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        internal override void Update(GameTime gameTime)
+        protected override void OnUpdate(GameTime gameTime)
         {
             UpdateUserInput();
             CheckIfTheCreditsHaveFinished();
@@ -315,8 +315,6 @@ namespace StardustSandbox.UI.Common.Menus
                 this.rootContainer.Margin.X,
                 this.rootContainer.Margin.Y - (SPEED * Convert.ToSingle(gameTime.ElapsedGameTime.TotalMilliseconds))
             );
-
-            base.Update(gameTime);
         }
 
         private void UpdateUserInput()

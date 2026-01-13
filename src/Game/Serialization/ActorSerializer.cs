@@ -3,7 +3,6 @@ using MessagePack.Resolvers;
 
 using StardustSandbox.Actors;
 using StardustSandbox.Databases;
-using StardustSandbox.Interfaces.Actors;
 using StardustSandbox.Serialization.Saving.Data;
 
 namespace StardustSandbox.Serialization
