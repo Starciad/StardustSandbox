@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2026  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
+ * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ namespace StardustSandbox.Constants
         internal const string ID = "stardust_sandbox";
         internal const string TITLE = "Stardust Sandbox";
         internal const string AUTHOR = "Davi \"Starciad\" Fernandes";
-        internal const ushort YEAR = 2025;
+        internal const ushort YEAR = 2023;
 
         internal static string GetTitleAndVersionString()
         {
