@@ -39,7 +39,7 @@ namespace StardustSandbox.Managers
             this.world = world;
         }
 
-        private IEnumerable<Actor> EnumerateAllActors()
+        internal IEnumerable<Actor> GetActors()
         {
             foreach (Actor actor in this.actorsToAdd)
             {
@@ -57,17 +57,6 @@ namespace StardustSandbox.Managers
             }
         }
 
-        internal IEnumerable<Actor> GetActors()
-        {
-            foreach (Actor actor in EnumerateAllActors())
-            {
-                if (actor.State is not ActorState.Destroyed)
-                {
-                    yield return actor;
-                }
-            }
-        }
-
         internal bool TryCreate(ActorIndex index, out Actor actor)
         {
             if (this.totalActorCount >= ActorConstants.MAX_SIMULTANEOUS_ACTORS)
@@ -76,7 +65,7 @@ namespace StardustSandbox.Managers
                 return false;
             }
 
-            actor = ActorDatabase.GetDescriptor(index).Create();
+            actor = ActorDatabase.GetDescriptor(index).Dequeue();
             this.actorsToAdd.Enqueue(actor);
             this.totalActorCount++;
 
@@ -90,7 +79,7 @@ namespace StardustSandbox.Managers
                 return;
             }
 
-            ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
+            ActorDatabase.GetDescriptor(actor.Index).Enqueue(actor);
             this.actorsToRemove.Enqueue(actor);
             this.totalActorCount--;
         }
@@ -124,7 +113,7 @@ namespace StardustSandbox.Managers
         {
             HashSet<Actor> visited = [];
 
-            foreach (Actor actor in EnumerateAllActors())
+            foreach (Actor actor in GetActors())
             {
                 if (!visited.Add(actor))
                 {
@@ -133,7 +122,7 @@ namespace StardustSandbox.Managers
 
                 if (actor.State is not ActorState.Destroyed)
                 {
-                    ActorDatabase.GetDescriptor(actor.Index).Destroy(actor);
+                    ActorDatabase.GetDescriptor(actor.Index).Enqueue(actor);
                     actor.OnDestroyed();
                 }
             }

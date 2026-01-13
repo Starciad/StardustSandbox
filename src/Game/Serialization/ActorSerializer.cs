@@ -19,7 +19,7 @@ namespace StardustSandbox.Serialization
             ActorData data = MessagePackSerializer.Deserialize<ActorData>(bytes, SavingSerializer.Options);
             IActorDescriptor descriptor = ActorDatabase.GetDescriptor(data.Index);
 
-            Actor actor = descriptor.Create();
+            Actor actor = descriptor.Dequeue();
             actor.Deserialize(data);
 
             return actor;

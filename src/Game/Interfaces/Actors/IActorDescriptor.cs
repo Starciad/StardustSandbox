@@ -7,7 +7,7 @@ namespace StardustSandbox.Interfaces.Actors
     {
         ActorIndex Index { get; }
 
-        Actor Create();
-        void Destroy(Actor actor);
+        Actor Dequeue();
+        void Enqueue(Actor actor);
     }
 }
