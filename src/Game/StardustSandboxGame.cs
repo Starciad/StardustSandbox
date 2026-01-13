@@ -113,7 +113,7 @@ namespace StardustSandbox
 
         protected override void Initialize()
         {
-            SSCamera.Initialize(this.videoManager, this.world);
+            SSCamera.Initialize(this.world);
 
             SongEngine.Initialize();
             SoundEngine.Initialize();

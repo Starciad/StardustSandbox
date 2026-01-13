@@ -110,14 +110,12 @@ namespace StardustSandbox.UI
             }
 
             this.Root.Draw(spriteBatch);
-            OnDraw(spriteBatch);
         }
 
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
         protected virtual void OnUpdate(GameTime gameTime) { }
-        protected virtual void OnDraw(SpriteBatch spriteBatch) { }
 
         private void EnsureInitialized()
         {

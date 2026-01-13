@@ -32,8 +32,6 @@ namespace StardustSandbox.Managers
         internal GraphicsDevice GraphicsDevice => this.graphicsDeviceManager.GraphicsDevice;
         internal GameWindow GameWindow { get; private set; }
 
-        internal Viewport Viewport => this.GraphicsDevice.Viewport;
-
         private readonly GraphicsDeviceManager graphicsDeviceManager;
 
         internal VideoManager(GraphicsDeviceManager graphicsDeviceManager)
