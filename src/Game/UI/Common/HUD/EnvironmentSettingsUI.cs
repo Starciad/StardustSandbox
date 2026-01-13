@@ -199,7 +199,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.timeSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(this.timeStateButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
+                Margin = new(this.timeStateSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.EnvironmentSettings_TimeOfDay_Title

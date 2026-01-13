@@ -33,9 +33,9 @@ namespace StardustSandbox.UI.Elements
         internal bool CanDraw { get; set; }
 
         internal int ChildCount => this.children.Count;
+        internal UIElement FirstChild => this.children.Count > 0 ? this.children[0] : null;
         internal UIElement LastChild => this.children.Count > 0 ? this.children[^1] : null;
-        internal FloatRectangle SelfFloatRectangle => new(this.Position, this.Size);
-
+        internal FloatRectangle Bounds => new(this.Position, this.Size);
         internal UIElement Parent
         {
             get => this.parent;
@@ -234,13 +234,13 @@ namespace StardustSandbox.UI.Elements
 
         private void RepositionRelativeToElement(in FloatRectangle targetRectangle)
         {
-            this.position = GetAnchoredPosition(this.SelfFloatRectangle, targetRectangle, this.Alignment, this.Margin);
+            this.position = GetAnchoredPosition(this.Bounds, targetRectangle, this.Alignment, this.Margin);
             RepositionChildren();
         }
 
         private void RepositionRelativeToElement(UIElement targetElement)
         {
-            RepositionRelativeToElement(targetElement.SelfFloatRectangle);
+            RepositionRelativeToElement(targetElement.Bounds);
         }
 
         private void RepositionRelativeToScreen()
@@ -270,9 +270,42 @@ namespace StardustSandbox.UI.Elements
 
         #endregion
 
+        #region Size Management
+
+        private static FloatRectangle CalculateTotalBounds(UIElement element)
+        {
+            FloatRectangle bounds = element.Bounds;
+
+            foreach (UIElement child in element.children)
+            {
+                FloatRectangle childBounds = CalculateTotalBounds(child);
+
+                Vector2 min = new(
+                    MathF.Min(bounds.Location.X, childBounds.Location.X),
+                    MathF.Min(bounds.Location.Y, childBounds.Location.Y)
+                );
+
+                Vector2 max = new(
+                    MathF.Max(bounds.Location.X + bounds.Size.X, childBounds.Location.X + childBounds.Size.X),
+                    MathF.Max(bounds.Location.Y + bounds.Size.Y, childBounds.Location.Y + childBounds.Size.Y)
+                );
+
+                bounds = new(min, max - min);
+            }
+
+            return bounds;
+        }
+
+        internal FloatRectangle GetLayoutBounds()
+        {
+            return CalculateTotalBounds(this);
+        }
+
+        #endregion
+
         #region Hierarchy Management
 
-        internal void AddChild(in UIElement element)
+        internal void AddChild(UIElement element)
         {
             if (element == null)
             {

@@ -43,7 +43,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the specified mouse button was clicked within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseClick(in MouseButton button, in UIElement element)
+        internal static bool OnMouseClick(in MouseButton button, UIElement element)
         {
             return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseClick(button, element.Position, element.Size);
         }
@@ -62,7 +62,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the specified mouse button is pressed within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseDown(in MouseButton button, in UIElement element)
+        internal static bool OnMouseDown(in MouseButton button, UIElement element)
         {
             return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseDown(button, element.Position, element.Size);
         }
@@ -82,7 +82,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the specified mouse button is released within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseUp(in MouseButton button, in UIElement element)
+        internal static bool OnMouseUp(in MouseButton button, UIElement element)
         {
             return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseUp(button, element.Position, element.Size);
         }
@@ -104,7 +104,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the mouse cursor enters the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseEnter(in UIElement element)
+        internal static bool OnMouseEnter(UIElement element)
         {
             return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseEnter(element.Position, element.Size);
         }
@@ -122,7 +122,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the mouse cursor is over the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseOver(in UIElement element)
+        internal static bool OnMouseOver(UIElement element)
         {
             return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseOver(element.Position, element.Size);
         }
@@ -144,7 +144,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the mouse cursor leaves the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseLeave(in UIElement element)
+        internal static bool OnMouseLeave(UIElement element)
         {
             return element is null ? throw new ArgumentNullException(nameof(element)) : OnMouseLeave(element.Position, element.Size);
         }
@@ -160,7 +160,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the left mouse button was clicked within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseLeftClick(in UIElement element)
+        internal static bool OnMouseLeftClick(UIElement element)
         {
             return OnMouseClick(MouseButton.Left, element);
         }
@@ -176,7 +176,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the left mouse button is pressed within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseLeftDown(in UIElement element)
+        internal static bool OnMouseLeftDown(UIElement element)
         {
             return OnMouseDown(MouseButton.Left, element);
         }
@@ -192,7 +192,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the left mouse button is released within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseLeftUp(in UIElement element)
+        internal static bool OnMouseLeftUp(UIElement element)
         {
             return OnMouseUp(MouseButton.Left, element);
         }
@@ -208,7 +208,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the right mouse button was clicked within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseRightClick(in UIElement element)
+        internal static bool OnMouseRightClick(UIElement element)
         {
             return OnMouseClick(MouseButton.Right, element);
         }
@@ -224,7 +224,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the right mouse button is pressed within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseRightDown(in UIElement element)
+        internal static bool OnMouseRightDown(UIElement element)
         {
             return OnMouseDown(MouseButton.Right, element);
         }
@@ -240,7 +240,7 @@ namespace StardustSandbox.UI
         /// <summary>
         /// Checks if the right mouse button is released within the area of the given <see cref="UIElement"/>.
         /// </summary>
-        internal static bool OnMouseRightUp(in UIElement element)
+        internal static bool OnMouseRightUp(UIElement element)
         {
             return OnMouseUp(MouseButton.Right, element);
         }

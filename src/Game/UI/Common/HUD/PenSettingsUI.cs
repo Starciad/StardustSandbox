@@ -286,7 +286,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Margin = new(this.toolButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
+                Margin = new(this.toolsSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 TextContent = Localization_GUIs.PenSettings_Layer_Title,
             };
 
@@ -347,7 +347,7 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Margin = new(this.layerButtonSlotInfos[^1].Background.Position.X + 96.0f, 0.0f),
+                Margin = new(this.layerSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 TextContent = Localization_GUIs.PenSettings_Shape_Title
             };
 
