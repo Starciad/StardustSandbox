@@ -22,8 +22,6 @@ namespace StardustSandbox.Serialization
 {
     internal static class SavingSerializer
     {
-        internal static MessagePackSerializerOptions Options => options;
-
         private static readonly MessagePackSerializerOptions options =
             MessagePackSerializerOptions.Standard
                 .WithResolver(StandardResolver.Instance)
