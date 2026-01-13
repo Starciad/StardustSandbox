@@ -41,7 +41,7 @@ namespace StardustSandbox.UI.Common.Tools
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
-            this.exitButtonInfo = new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseGUI);
+            this.exitButtonInfo = new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseUI);
 
             this.colorButtonInfos = [
                 new(Localization_Colors.DarkGray, AAP64ColorPalette.DarkGray),
@@ -120,7 +120,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private void SelectColorButtonAction(in Color color)
         {
-            this.uiManager.CloseGUI();
+            this.uiManager.CloseUI();
             this.colorPickerSettings.OnSelectCallback?.Invoke(color);
         }
 

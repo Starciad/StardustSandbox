@@ -48,19 +48,19 @@ namespace StardustSandbox.UI.Common.Menus
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    uiManager.CloseGUI();
+                    uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     SavingSerializer.Delete(this.saveFile.Metadata.Name);
-                    uiManager.CloseGUI();
+                    uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
                 {
                     uiManager.Reset();
-                    uiManager.OpenGUI(UIIndex.MainMenu);
-                    uiManager.OpenGUI(UIIndex.Hud);
+                    uiManager.OpenUI(UIIndex.MainMenu);
+                    uiManager.OpenUI(UIIndex.Hud);
 
                     GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world);
                     GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);

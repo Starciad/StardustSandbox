@@ -57,7 +57,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
             ];
 
             this.fieldButtonInfos = [
@@ -87,7 +87,7 @@ namespace StardustSandbox.UI.Common.HUD
                         },
                     });
 
-                    this.uiManager.OpenGUI(UIIndex.TextInput);
+                    this.uiManager.OpenUI(UIIndex.TextInput);
                 }),
 
                 // Description Field
@@ -115,7 +115,7 @@ namespace StardustSandbox.UI.Common.HUD
                         },
                     });
 
-                    this.uiManager.OpenGUI(UIIndex.TextInput);
+                    this.uiManager.OpenUI(UIIndex.TextInput);
                 })
             ];
 
@@ -128,7 +128,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                     GameHandler.DefineLoadedSaveFile(world.Information.Name);
 
-                    this.uiManager.CloseGUI();
+                    this.uiManager.CloseUI();
                 }),
             ];
 

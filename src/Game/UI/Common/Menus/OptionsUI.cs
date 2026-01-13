@@ -167,7 +167,7 @@ namespace StardustSandbox.UI.Common.Menus
                         OnSelectCallback = result => option.SetValue(result),
                     });
 
-                    this.uiManager.OpenGUI(UIIndex.ColorPicker);
+                    this.uiManager.OpenUI(UIIndex.ColorPicker);
                 },
 
                 [typeof(KeyOption)] = option =>
@@ -178,7 +178,7 @@ namespace StardustSandbox.UI.Common.Menus
                         OnSelectedKey = result => option.SetValue(result),
                     });
 
-                    this.uiManager.OpenGUI(UIIndex.KeySelector);
+                    this.uiManager.OpenUI(UIIndex.KeySelector);
                 },
 
                 [typeof(SelectorOption)] = option =>
@@ -197,7 +197,7 @@ namespace StardustSandbox.UI.Common.Menus
                         OnSendCallback = result => option.SetValue(result),
                     });
 
-                    this.uiManager.OpenGUI(UIIndex.Slider);
+                    this.uiManager.OpenUI(UIIndex.Slider);
                 },
 
                 [typeof(ToggleOption)] = option =>
@@ -298,7 +298,7 @@ namespace StardustSandbox.UI.Common.Menus
                             SoundEngine.Play(SoundEffectIndex.GUI_Message);
 
                             messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
-                            uiManager.OpenGUI(UIIndex.Message);
+                            uiManager.OpenUI(UIIndex.Message);
 
                             SettingsSerializer.Save<StatusSettings>(new(statusSettings)
                             {
@@ -314,7 +314,7 @@ namespace StardustSandbox.UI.Common.Menus
                     new ButtonOption(Localization_Statements.Return, Localization_GUIs.Button_Exit_Description, () =>
                     {
                         SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                        uiManager.CloseGUI();
+                        uiManager.CloseUI();
                     }),
                 ]),
             ]);

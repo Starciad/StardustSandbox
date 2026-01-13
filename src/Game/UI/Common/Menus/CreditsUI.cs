@@ -324,7 +324,7 @@ namespace StardustSandbox.UI.Common.Menus
             if (Input.MouseState.LeftButton == ButtonState.Pressed ||
                 Input.KeyboardState.GetPressedKeyCount() > 0)
             {
-                this.uiManager.CloseGUI();
+                this.uiManager.CloseUI();
             }
         }
 
@@ -332,7 +332,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             if (((this.lastElement.Position.Y + this.lastElement.Size.Y) * this.lastElement.Scale.Y) + 16.0f < 0.0f)
             {
-                this.uiManager.CloseGUI();
+                this.uiManager.CloseUI();
             }
         }
 

@@ -97,7 +97,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
 
-            this.uiManager.CloseGUI();
+            this.uiManager.CloseUI();
             this.settings.OnSelectedKey?.Invoke(inputKeyEventArgs.Key);
         }
     }

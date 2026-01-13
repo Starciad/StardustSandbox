@@ -60,7 +60,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.tooltipBox = tooltipBox;
 
             this.buttonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
             ];
 
             this.paginationButtonInfos = [
@@ -544,7 +544,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.hudUI.AddItemToToolbar(item);
-                    this.uiManager.CloseGUI();
+                    this.uiManager.CloseUI();
                     break;
                 }
 

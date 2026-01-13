@@ -37,7 +37,7 @@ namespace StardustSandbox
             MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
 
-            uiManager.OpenGUI(UIIndex.Hud);
+            uiManager.OpenUI(UIIndex.Hud);
 
             ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 

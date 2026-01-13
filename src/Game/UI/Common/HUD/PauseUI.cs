@@ -39,10 +39,10 @@ namespace StardustSandbox.UI.Common.HUD
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
                 {
-                    this.uiManager.OpenGUI(UIIndex.OptionsMenu);
+                    this.uiManager.OpenUI(UIIndex.OptionsMenu);
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
@@ -56,11 +56,11 @@ namespace StardustSandbox.UI.Common.HUD
                             if (status == ConfirmStatus.Confirmed)
                             {
                                 uiManager.Reset();
-                                uiManager.OpenGUI(UIIndex.MainMenu);
+                                uiManager.OpenUI(UIIndex.MainMenu);
                             }
                         }
                     });
-                    this.uiManager.OpenGUI(UIIndex.Confirm);
+                    this.uiManager.OpenUI(UIIndex.Confirm);
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
             ];

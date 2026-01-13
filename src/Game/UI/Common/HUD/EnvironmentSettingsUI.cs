@@ -41,8 +41,8 @@ namespace StardustSandbox.UI.Common.HUD
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
-                new(TextureIndex.IconTools, new(32, 0, 32, 32), Localization_GUIs.EnvironmentSettings_TemperatureEditor_Name, Localization_GUIs.EnvironmentSettings_TemperatureEditor_Description, () => this.uiManager.OpenGUI(UIIndex.TemperatureSettings)),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
+                new(TextureIndex.IconTools, new(32, 0, 32, 32), Localization_GUIs.EnvironmentSettings_TemperatureEditor_Name, Localization_GUIs.EnvironmentSettings_TemperatureEditor_Description, () => this.uiManager.OpenUI(UIIndex.TemperatureSettings)),
             ];
 
             this.timeStateButtonInfos = [

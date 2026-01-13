@@ -56,7 +56,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
             ];
 
             this.sizeButtonInfos = [
@@ -74,7 +74,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void SetWorldSizeButtonAction(Point size)
         {
-            this.uiManager.CloseGUI();
+            this.uiManager.CloseUI();
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             this.worldTargetSize = size;
 
@@ -98,7 +98,7 @@ namespace StardustSandbox.UI.Common.HUD
                             SoundEngine.Play(SoundEffectIndex.GUI_Message);
 
                             this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
-                            this.uiManager.OpenGUI(UIIndex.Message);
+                            this.uiManager.OpenUI(UIIndex.Message);
 
                             SettingsSerializer.Save<StatusSettings>(new(statusSettings)
                             {
@@ -111,7 +111,7 @@ namespace StardustSandbox.UI.Common.HUD
                 },
             });
 
-            this.uiManager.OpenGUI(UIIndex.Confirm);
+            this.uiManager.OpenUI(UIIndex.Confirm);
         }
 
         #region BUILDER

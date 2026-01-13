@@ -29,8 +29,8 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(0, 32, 32, 32), Localization_Statements.Worlds, string.Empty, () => this.uiManager.OpenGUI(UIIndex.WorldExplorerMenu)),
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Return, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(0, 32, 32, 32), Localization_Statements.Worlds, string.Empty, () => this.uiManager.OpenUI(UIIndex.WorldExplorerMenu)),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Return, string.Empty, this.uiManager.CloseUI),
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];

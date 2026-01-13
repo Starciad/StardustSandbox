@@ -62,7 +62,7 @@ namespace StardustSandbox.UI.Common.Tools
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    uiManager.CloseGUI();
+                    uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
@@ -78,7 +78,7 @@ namespace StardustSandbox.UI.Common.Tools
                         {
                             SoundEngine.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
-                            uiManager.OpenGUI(UIIndex.Message);
+                            uiManager.OpenUI(UIIndex.Message);
                             return;
                         }
                     }
@@ -86,7 +86,7 @@ namespace StardustSandbox.UI.Common.Tools
                     SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     this.settings.OnSendCallback?.Invoke(content);
 
-                    uiManager.CloseGUI();
+                    uiManager.CloseUI();
                 }),
             ];
 

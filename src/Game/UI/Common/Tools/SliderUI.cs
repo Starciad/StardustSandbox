@@ -39,12 +39,12 @@ namespace StardustSandbox.UI.Common.Tools
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Returning);
-                    uiManager.CloseGUI();
+                    uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-                    uiManager.CloseGUI();
+                    uiManager.CloseUI();
                     this.settings.OnSendCallback?.Invoke(this.currentValue);
                 }),
             ];

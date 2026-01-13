@@ -12,9 +12,8 @@ namespace StardustSandbox.UI
     internal abstract class UIBase
     {
         internal UIIndex Index => this.index;
-        internal bool IsActive => this.isActive;
+        internal bool IsActive { get; private set; }
 
-        private bool isActive;
         private bool isInitialized;
 
         private readonly Container root;
@@ -57,13 +56,13 @@ namespace StardustSandbox.UI
 
         internal void Open()
         {
-            this.isActive = true;
+            this.IsActive = true;
             OnOpened();
         }
 
         internal void Close()
         {
-            this.isActive = false;
+            this.IsActive = false;
             OnClosed();
         }
 

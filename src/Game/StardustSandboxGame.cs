@@ -149,7 +149,7 @@ namespace StardustSandbox
             }
             else
             {
-                this.uiManager.OpenGUI(UIIndex.MainMenu);
+                this.uiManager.OpenUI(UIIndex.MainMenu);
             }
         }
 

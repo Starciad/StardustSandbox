@@ -39,12 +39,12 @@ namespace StardustSandbox.UI.Common.Tools
             this.buttonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    this.uiManager.CloseGUI();
+                    this.uiManager.CloseUI();
                     this.confirmSettings.OnConfirmCallback?.Invoke(ConfirmStatus.Cancelled);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, () =>
                 {
-                    this.uiManager.CloseGUI();
+                    this.uiManager.CloseUI();
                     this.confirmSettings.OnConfirmCallback?.Invoke(ConfirmStatus.Confirmed);
                 }),
             ];

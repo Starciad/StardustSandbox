@@ -57,7 +57,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.itemSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
 
             this.headerButtonInfos = [
-                new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseGUI),
+                new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, () =>
                 {
                     LoadAllSaveFiles();
@@ -385,7 +385,7 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, this.loadedSaveFiles[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i].Metadata.Name);
-                    this.uiManager.OpenGUI(UIIndex.WorldDetailsMenu);
+                    this.uiManager.OpenUI(UIIndex.WorldDetailsMenu);
                     break;
                 }
 

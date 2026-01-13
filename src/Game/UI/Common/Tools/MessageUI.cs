@@ -86,7 +86,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
             {
-                this.uiManager.CloseGUI();
+                this.uiManager.CloseUI();
             }
 
             this.continueButtonLabel.Color = Interaction.OnMouseOver(this.continueButtonLabel) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
