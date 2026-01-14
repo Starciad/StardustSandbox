@@ -30,6 +30,7 @@ using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
+using StardustSandbox.Extensions;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
@@ -531,31 +532,13 @@ namespace StardustSandbox.UI.Common.HUD
             if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
             {
                 SoundEngine.Play(SoundEffectIndex.GUI_Click);
-
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
-                {
-                    PenTool.Visualization => PenTool.Pencil,
-                    PenTool.Pencil => PenTool.Eraser,
-                    PenTool.Eraser => PenTool.Fill,
-                    PenTool.Fill => PenTool.Replace,
-                    PenTool.Replace => PenTool.Visualization,
-                    _ => PenTool.Visualization,
-                };
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool.Next();
             }
 
             if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
             {
                 SoundEngine.Play(SoundEffectIndex.GUI_Click);
-
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool switch
-                {
-                    PenTool.Visualization => PenTool.Replace,
-                    PenTool.Pencil => PenTool.Visualization,
-                    PenTool.Eraser => PenTool.Pencil,
-                    PenTool.Fill => PenTool.Eraser,
-                    PenTool.Replace => PenTool.Fill,
-                    _ => PenTool.Visualization,
-                };
+                this.inputController.Pen.Tool = this.inputController.Pen.Tool.Previous();
             }
         }
 

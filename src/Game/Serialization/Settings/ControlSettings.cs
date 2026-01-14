@@ -46,6 +46,9 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("CameraZoomOut", typeof(Keys))]
         public readonly Keys CameraZoomOut { get; init; }
 
+        [XmlElement("CameraRunning", typeof(Keys))]
+        public readonly Keys CameraRunning { get; init; }
+
         #endregion
 
         #region World Controls
@@ -55,6 +58,9 @@ namespace StardustSandbox.Serialization.Settings
 
         [XmlElement("ClearWorld", typeof(Keys))]
         public readonly Keys ClearWorld { get; init; }
+
+        [XmlElement("NextShape", typeof(Keys))]
+        public readonly Keys NextShape { get; init; }
 
         #endregion
 
@@ -74,11 +80,13 @@ namespace StardustSandbox.Serialization.Settings
             this.MoveCameraLeft = Keys.A;
             this.MoveCameraDown = Keys.S;
             this.MoveCameraRight = Keys.D;
-            this.CameraZoomIn = Keys.Q;
-            this.CameraZoomOut = Keys.E;
+            this.CameraZoomIn = Keys.OemPlus;
+            this.CameraZoomOut = Keys.OemMinus;
+            this.CameraRunning = Keys.LeftShift;
 
             this.TogglePause = Keys.Space;
             this.ClearWorld = Keys.R;
+            this.NextShape = Keys.Tab;
 
             this.Screenshot = Keys.F12;
             this.GenerateWorld = Keys.G;

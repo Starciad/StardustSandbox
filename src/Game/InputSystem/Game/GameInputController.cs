@@ -22,6 +22,7 @@ using StardustSandbox.Enums.Generators;
 using StardustSandbox.Enums.Inputs;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.Enums.States;
+using StardustSandbox.Extensions;
 using StardustSandbox.Generators;
 using StardustSandbox.InputSystem.Actions;
 using StardustSandbox.InputSystem.Game.Handlers;
@@ -111,6 +112,13 @@ namespace StardustSandbox.InputSystem.Game
                     {
                         OnPerformed = _ => SSCamera.ZoomOut(this.player.ZoomSpeed),
                     },
+
+                    // Running
+                    new(controlSettings.CameraRunning)
+                    {
+                        OnStarted = _ => this.player.IsRunning = true,
+                        OnCanceled = _ => this.player.IsRunning = false,
+                    },
                 ]),
 
                 // Simulation
@@ -123,6 +131,11 @@ namespace StardustSandbox.InputSystem.Game
                     new(controlSettings.GenerateWorld)
                     {
                         OnStarted = _ => WorldGenerator.Start(actorManager, world, WorldGenerationPreset.Plain),
+                    },
+
+                    new(controlSettings.NextShape)
+                    {
+                        OnStarted = _ => this.pen.Shape = this.pen.Shape.Next(),
                     },
                 ]),
                 
