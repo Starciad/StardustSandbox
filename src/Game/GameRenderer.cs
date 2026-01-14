@@ -49,6 +49,7 @@ namespace StardustSandbox
         private static RenderTarget2D uiRenderTarget2D;
         private static RenderTarget2D worldRenderTarget2D;
         private static RenderTarget2D screenshotRenderTarget2D;
+        private static RenderTarget2D cursorRenderTarget2D;
 
         private static GraphicsDevice graphicsDevice;
 
@@ -90,6 +91,7 @@ namespace StardustSandbox
             backgroundRenderTarget2D = CreateRenderTarget(width, height);
             worldRenderTarget2D = CreateRenderTarget(width, height);
             screenshotRenderTarget2D = CreateRenderTarget(width, height);
+            cursorRenderTarget2D = CreateRenderTarget(width, height);
 
             isInitialized = true;
             isUnloaded = false;
@@ -107,6 +109,7 @@ namespace StardustSandbox
             DisposeRenderTarget(ref backgroundRenderTarget2D);
             DisposeRenderTarget(ref worldRenderTarget2D);
             DisposeRenderTarget(ref screenshotRenderTarget2D);
+            DisposeRenderTarget(ref cursorRenderTarget2D);
 
             isUnloaded = true;
             isInitialized = false;
@@ -130,6 +133,7 @@ namespace StardustSandbox
 
             DrawAmbient(spriteBatch, ambientManager);
             DrawWorld(spriteBatch, actorManager, world);
+            DrawCursorPenActionArea(spriteBatch, inputController);
             DrawGUI(spriteBatch, uiManager);
 
             graphicsDevice.SetRenderTarget(screenRenderTarget2D);
@@ -138,7 +142,7 @@ namespace StardustSandbox
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
             spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
-            DrawCursorPenActionArea(spriteBatch, inputController);
+            spriteBatch.Draw(cursorRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
             spriteBatch.End();
 
@@ -150,7 +154,7 @@ namespace StardustSandbox
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
                 spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
                 spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
-                DrawCursorPenActionArea(spriteBatch, inputController);
+                spriteBatch.Draw(cursorRenderTarget2D, Vector2.Zero, Color.White);
                 spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
                 spriteBatch.End();
 
@@ -222,6 +226,9 @@ namespace StardustSandbox
 
         private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController)
         {
+            graphicsDevice.SetRenderTarget(cursorRenderTarget2D);
+            graphicsDevice.Clear(Color.Transparent);
+
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
             PenTool penTool = inputController.Pen.Tool;
@@ -238,6 +245,8 @@ namespace StardustSandbox
                 (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
                 (int)Math.Floor(worldMousePosition.Y / WorldConstants.GRID_SIZE)
             );
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
 
             foreach (Point point in inputController.Pen.GetShapePoints(alignedPosition))
             {
@@ -260,6 +269,8 @@ namespace StardustSandbox
                     0f
                 );
             }
+
+            spriteBatch.End();
         }
 
         internal static Vector2 CalculateScaledMousePosition(in Vector2 mousePosition, VideoManager videoManager)

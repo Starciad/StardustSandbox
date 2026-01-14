@@ -70,7 +70,7 @@ namespace StardustSandbox.Serialization.Settings
         {
             this.ShowPreviewArea = true;
             this.PreviewAreaColor = AAP64ColorPalette.White;
-            this.PreviewAreaColorA = 25;
+            this.PreviewAreaColorA = 80;
             this.ShowGrid = true;
             this.GridOpacity = 96;
             this.ShowTemperatureColorVariations = true;
