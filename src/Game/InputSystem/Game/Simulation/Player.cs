@@ -22,11 +22,17 @@ namespace StardustSandbox.InputSystem.Game.Simulation
     internal sealed class Player
     {
         internal Item SelectedItem => this.selectedItem;
-        internal float MovementSpeed => this.movementSpeed;
+        internal float MovementSpeed { get; }
+        internal float ZoomSpeed { get; }
         internal bool CanModifyEnvironment { get; set; }
 
-        private readonly float movementSpeed = 10;
         private Item selectedItem;
+
+        internal Player()
+        {
+            this.MovementSpeed = 10.0f;
+            this.ZoomSpeed = 0.1f;
+        }
 
         internal void SelectItem(Item item)
         {

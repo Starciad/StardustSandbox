@@ -26,6 +26,8 @@ namespace StardustSandbox.Serialization.Settings
     [XmlRoot("ControlSettings")]
     public readonly struct ControlSettings : ISettingsModule
     {
+        #region Camera Controls
+
         [XmlElement("MoveCameraUp", typeof(Keys))]
         public readonly Keys MoveCameraUp { get; init; }
 
@@ -38,11 +40,25 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("MoveCameraLeft", typeof(Keys))]
         public readonly Keys MoveCameraLeft { get; init; }
 
+        [XmlElement("CameraZoomIn", typeof(Keys))]
+        public readonly Keys CameraZoomIn { get; init; }
+        
+        [XmlElement("CameraZoomOut", typeof(Keys))]
+        public readonly Keys CameraZoomOut { get; init; }
+
+        #endregion
+
+        #region World Controls
+
         [XmlElement("TogglePause", typeof(Keys))]
         public readonly Keys TogglePause { get; init; }
 
         [XmlElement("ClearWorld", typeof(Keys))]
         public readonly Keys ClearWorld { get; init; }
+
+        #endregion
+
+        #region Tool Controls
 
         [XmlElement("Screenshot", typeof(Keys))]
         public readonly Keys Screenshot { get; init; }
@@ -50,12 +66,16 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("GenerateWorld", typeof(Keys))]
         public readonly Keys GenerateWorld { get; init; }
 
+        #endregion
+
         public ControlSettings()
         {
             this.MoveCameraUp = Keys.W;
             this.MoveCameraLeft = Keys.A;
             this.MoveCameraDown = Keys.S;
             this.MoveCameraRight = Keys.D;
+            this.CameraZoomIn = Keys.Q;
+            this.CameraZoomOut = Keys.E;
 
             this.TogglePause = Keys.Space;
             this.ClearWorld = Keys.R;

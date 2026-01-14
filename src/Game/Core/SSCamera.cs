@@ -75,7 +75,7 @@ namespace StardustSandbox.Core
         }
 
         private static float maximumZoom = float.MaxValue;
-        private static float minimumZoom;
+        private static float minimumZoom = 0.0f;
         private static float zoom;
 
         private static Vector2 targetPosition;
@@ -119,10 +119,9 @@ namespace StardustSandbox.Core
             float zoomAlpha = 1f - (float)Math.Exp(-CameraConstants.ZOOM_LERP_SPEED * deltaTime);
 
             Position = Vector2.Lerp(Position, targetPosition, MathHelper.Clamp(posAlpha, 0f, 1f));
-            float newZoom = MathHelper.Lerp(Zoom, targetZoom, MathHelper.Clamp(zoomAlpha, 0f, 1f));
+            Zoom = MathHelper.Lerp(Zoom, targetZoom, MathHelper.Clamp(zoomAlpha, 0f, 1f));
 
             // Use the property setter to validate ranges
-            ClampZoom(newZoom);
             ClampCameraInTheWorld();
         }
 

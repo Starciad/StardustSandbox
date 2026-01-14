@@ -80,6 +80,7 @@ namespace StardustSandbox.InputSystem.Game
 
                 // Camera
                 new([
+                    // Movement
                     new(controlSettings.MoveCameraUp)
                     {
                         OnPerformed = _ => SSCamera.Move(new(0, this.player.MovementSpeed)),
@@ -98,6 +99,17 @@ namespace StardustSandbox.InputSystem.Game
                     new(controlSettings.MoveCameraLeft)
                     {
                         OnPerformed = _ => SSCamera.Move(new(-this.player.MovementSpeed, 0)),
+                    },
+
+                    // Zoom
+                    new(controlSettings.CameraZoomIn)
+                    {
+                        OnPerformed = _ => SSCamera.ZoomIn(this.player.ZoomSpeed),
+                    },
+
+                    new(controlSettings.CameraZoomOut)
+                    {
+                        OnPerformed = _ => SSCamera.ZoomOut(this.player.ZoomSpeed),
                     },
                 ]),
 
