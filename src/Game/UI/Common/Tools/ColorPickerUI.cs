@@ -50,10 +50,9 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly UIManager uiManager;
 
         internal ColorPickerUI(
-            UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -207,7 +206,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 0, 40, 22),
                         Scale = new(2.0f),
                         Size = textureSize,
@@ -217,7 +216,7 @@ namespace StardustSandbox.UI.Common.Tools
 
                     Image borderElement = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(386, 22, 40, 22),
                         Scale = new(2.0f),
                         Size = textureSize,

@@ -39,9 +39,8 @@ namespace StardustSandbox.UI.Common.Menus
         private readonly UIManager uiManager;
 
         internal PlayUI(
-            UIIndex index,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.uiManager = uiManager;
 

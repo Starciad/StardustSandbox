@@ -56,13 +56,12 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly World world;
 
         internal PenSettingsUI(
-            UIIndex index,
             InputController inputController,
             HudUI hudUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base(index)
+        ) : base()
         {
             this.inputController = inputController;
             this.hudUI = hudUI;
@@ -169,7 +168,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundPenSettings),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -231,7 +230,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.brushSizeSlider = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUISizeSlider),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UISizeSlider),
                 SourceRectangle = new(new(0, 0), new(326, 38)),
                 Size = new(326.0f, 38.0f),
                 Scale = new(2.0f),
@@ -380,7 +379,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.0f),
                 Size = new(32.0f),

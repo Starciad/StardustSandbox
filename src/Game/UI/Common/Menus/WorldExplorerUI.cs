@@ -62,10 +62,9 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal WorldExplorerUI(
             GraphicsDevice graphicsDevice,
-            UIIndex index,
             UIManager uiManager,
             WorldDetailsUI worldDetailsMenuUI
-        ) : base(index)
+        ) : base()
         {
             this.graphicsDevice = graphicsDevice;
             this.uiManager = uiManager;
@@ -182,7 +181,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image buttonBackgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.East,
                     Margin = new(marginX, 0.0f),
@@ -302,7 +301,7 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(0, 0, 386, 140),
                         Size = new(386.0f, 140.0f),
                         Margin = margin

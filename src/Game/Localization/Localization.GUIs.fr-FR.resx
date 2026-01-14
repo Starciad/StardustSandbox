@@ -738,4 +738,7 @@
   <data name="Options.Controls.NextShape.Description" xml:space="preserve">
     <value>Entrez une touche de raccourci pour sélectionner la forme suivante.</value>
   </data>
+  <data name="GeneratorSettings.Title" xml:space="preserve">
+    <value>Generator Settings</value>
+  </data>
 </root>

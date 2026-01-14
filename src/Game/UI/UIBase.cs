@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
-using StardustSandbox.Enums.UI;
 using StardustSandbox.UI.Elements;
 
 using System;
@@ -28,16 +27,13 @@ namespace StardustSandbox.UI
 {
     internal abstract class UIBase
     {
-        internal UIIndex Index { get; }
         internal bool IsActive { get; private set; }
         internal bool IsInitialized { get; private set; }
 
         protected Container Root { get; }
 
-        protected UIBase(UIIndex index)
+        protected UIBase()
         {
-            this.Index = index;
-
             this.Root = new Container
             {
                 CanDraw = false,
@@ -125,11 +121,6 @@ namespace StardustSandbox.UI
                     $"{GetType().Name} must be initialized before being opened."
                 );
             }
-        }
-
-        public override string ToString()
-        {
-            return $"{GetType().Name} ({this.Index})";
         }
     }
 }

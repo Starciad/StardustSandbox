@@ -65,10 +65,9 @@ namespace StardustSandbox.UI.Common.Menus
             ActorManager actorManager,
             AmbientManager ambientManager,
             InputController inputController,
-            UIIndex index,
             UIManager uiManager,
             World world
-        ) : base(index)
+        ) : base()
         {
             this.actorManager = actorManager;
             this.ambientManager = ambientManager;

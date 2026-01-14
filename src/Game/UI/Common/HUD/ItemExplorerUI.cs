@@ -59,11 +59,10 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly UIManager uiManager;
 
         internal ItemExplorerUI(
-            UIIndex index,
             HudUI hudUI,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.uiManager = uiManager;
 
@@ -144,7 +143,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundItemExplorer),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084.0f, 607.0f),
                 Margin = new(0.0f, 32.0f),
                 Alignment = UIDirection.Center,
@@ -183,7 +182,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.Northeast,
                     Scale = new(2.0f),
@@ -226,7 +225,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.Northwest,
                     Scale = new(2.0f),
@@ -279,7 +278,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Alignment = positionAnchor,
                         Scale = new(2.0f),
@@ -320,7 +319,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Alignment = UIDirection.Northwest,
                         Scale = new(2.0f),
@@ -375,7 +374,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(1.6f),
                     Size = new(32.0f),

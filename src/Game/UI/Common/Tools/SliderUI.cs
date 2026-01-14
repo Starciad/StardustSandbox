@@ -48,9 +48,8 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly ButtonInfo[] menuButtonInfos;
 
         internal SliderUI(
-            UIIndex index,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
@@ -118,7 +117,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             this.sliderBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUISliderInputOrnament),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UISliderInputOrnament),
                 SourceRectangle = new(0, 0, 630, 32),
                 Size = new(630.0f, 32.0f),
                 Alignment = UIDirection.Center,
@@ -126,7 +125,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             this.sliderButton = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 172, 32, 32),
                 Size = new(32.0f, 32.0f),
             };

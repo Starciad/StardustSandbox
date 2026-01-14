@@ -738,4 +738,7 @@
   <data name="Options.Controls.NextShape.Description" xml:space="preserve">
     <value>Type a shortcut key to select the next shape.</value>
   </data>
+  <data name="GeneratorSettings.Title" xml:space="preserve">
+    <value>Generator Settings</value>
+  </data>
 </root>

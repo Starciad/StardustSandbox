@@ -65,11 +65,10 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal TextInputUI(
             GameWindow gameWindow,
-            UIIndex index,
             InputController inputController,
             MessageUI messageUI,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.gameWindow = gameWindow;
             this.inputController = inputController;
@@ -178,7 +177,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             this.userInputBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUITextInputOrnament),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
                 Scale = new(1.5f),
                 Size = new(632.0f, 50.0f),
                 Margin = new(0.0f, 64.0f),

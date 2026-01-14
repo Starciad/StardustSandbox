@@ -47,11 +47,10 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly World world;
 
         internal EnvironmentSettingsUI(
-            UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base(index)
+        ) : base()
         {
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -109,7 +108,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundEnvironmentSettings),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -237,7 +236,7 @@ namespace StardustSandbox.UI.Common.HUD
             return new(
                 background: new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(2.0f),
                     Size = new(32.0f),

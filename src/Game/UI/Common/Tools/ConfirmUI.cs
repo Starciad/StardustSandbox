@@ -47,9 +47,8 @@ namespace StardustSandbox.UI.Common.Tools
         private readonly UIManager uiManager;
 
         internal ConfirmUI(
-            UIIndex index,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.uiManager = uiManager;
 

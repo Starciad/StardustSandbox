@@ -44,10 +44,9 @@ namespace StardustSandbox.UI.Common.Tools
 
         internal KeySelectorUI(
             GameWindow gameWindow,
-            UIIndex index,
             InputController inputController,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.gameWindow = gameWindow;
             this.inputController = inputController;

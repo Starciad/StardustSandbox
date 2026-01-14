@@ -141,11 +141,10 @@ namespace StardustSandbox.UI.Common.HUD
         private readonly Section[] sections;
 
         internal TemperatureSettingsUI(
-            UIIndex index,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base(index)
+        ) : base()
         {
             this.tooltipBox = tooltipBox;
 
@@ -187,7 +186,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundTemperatureSettings),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundTemperatureSettings),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -276,7 +275,7 @@ namespace StardustSandbox.UI.Common.HUD
             return new(
                 background: new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(2.0f),
                     Size = new(32.0f),

@@ -42,6 +42,7 @@ namespace StardustSandbox.Enums.UI
         WorldSettings,
         Information,
         TemperatureSettings,
+        GeneratorSettings,
 
         WorldDetailsMenu,
         WorldExplorerMenu,

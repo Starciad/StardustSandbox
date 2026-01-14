@@ -55,11 +55,10 @@ namespace StardustSandbox.UI.Common.Menus
         internal WorldDetailsUI(
             ActorManager actorManager,
             AmbientManager ambientManager,
-            UIIndex index,
             InputController inputController,
             UIManager uiManager,
             World world
-        ) : base(index)
+        ) : base()
         {
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>

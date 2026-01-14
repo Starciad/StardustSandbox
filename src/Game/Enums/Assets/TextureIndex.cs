@@ -55,23 +55,24 @@ namespace StardustSandbox.Enums.Assets
 
         #endregion
 
-        #region GUI
+        #region UI
 
-        GUIBackgroundEnvironmentSettings,
-        GUIBackgroundHudHorizontalToolbar,
-        GUIBackgroundHudVerticalToolbar,
-        GUIBackgroundInformation,
-        GUIBackgroundItemExplorer,
-        GUIBackgroundOptions,
-        GUIBackgroundPause,
-        GUIBackgroundPenSettings,
-        GUIBackgroundSave,
-        GUIBackgroundTemperatureSettings,
-        GUIBackgroundWorldSettings,
-        GUIButtons,
-        GUISizeSlider,
-        GUISliderInputOrnament,
-        GUITextInputOrnament,
+        UIBackgroundEnvironmentSettings,
+        UIBackgroundGeneratorSettings,
+        UIBackgroundHudHorizontalToolbar,
+        UIBackgroundHudVerticalToolbar,
+        UIBackgroundInformation,
+        UIBackgroundItemExplorer,
+        UIBackgroundOptions,
+        UIBackgroundPause,
+        UIBackgroundPenSettings,
+        UIBackgroundSave,
+        UIBackgroundTemperatureSettings,
+        UIBackgroundWorldSettings,
+        UIButtons,
+        UISizeSlider,
+        UISliderInputOrnament,
+        UITextInputOrnament,
 
         #endregion
 

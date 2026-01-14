@@ -48,9 +48,8 @@ namespace StardustSandbox.UI.Common.HUD
 
         internal PauseUI(
             ConfirmUI confirmUI,
-            UIIndex index,
             UIManager uiManager
-        ) : base(index)
+        ) : base()
         {
             this.confirmUI = confirmUI;
             this.uiManager = uiManager;
@@ -106,7 +105,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GUIBackgroundPause),
+                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
                 Size = new(542.0f, 540.0f),
                 Alignment = UIDirection.Center,
             };
@@ -145,7 +144,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.GUIButtons),
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),

@@ -738,4 +738,7 @@
   <data name="Options.Controls.NextShape.Description" xml:space="preserve">
     <value>Digite uma tecla de atalho para selecionar a próxima forma.</value>
   </data>
+  <data name="GeneratorSettings.Title" xml:space="preserve">
+    <value>Generator Settings</value>
+  </data>
 </root>

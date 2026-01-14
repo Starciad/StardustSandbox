@@ -82,10 +82,9 @@ namespace StardustSandbox.UI.Common.Menus
 
         internal CreditsUI(
             AmbientManager ambientManager,
-            UIIndex index,
             UIManager uiManager,
             World world
-        ) : base(index)
+        ) : base()
         {
             this.ambientManager = ambientManager;
             this.uiManager = uiManager;

@@ -178,6 +178,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Generator.
+        /// </summary>
+        internal static string EnvironmentSettings_Generator_Description {
+            get {
+                return ResourceManager.GetString("EnvironmentSettings.Generator.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Generator.
+        /// </summary>
+        internal static string EnvironmentSettings_Generator_Name {
+            get {
+                return ResourceManager.GetString("EnvironmentSettings.Generator.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Change the world&apos;s temperatures..
         /// </summary>
         internal static string EnvironmentSettings_TemperatureEditor_Description {
@@ -381,6 +399,15 @@ namespace StardustSandbox.Localization {
         internal static string EnvironmentSettings_Title {
             get {
                 return ResourceManager.GetString("EnvironmentSettings.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Generator Settings.
+        /// </summary>
+        internal static string GeneratorSettings_Title {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Title", resourceCulture);
             }
         }
         
@@ -736,7 +763,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Move Camera Fast.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to move the camera faster..
         /// </summary>
         internal static string Options_Controls_MoveCameraFast_Description {
             get {
@@ -745,7 +772,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Move Camera Fast.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Move Fast.
         /// </summary>
         internal static string Options_Controls_MoveCameraFast_Name {
             get {
@@ -817,7 +844,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Next Shape.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to select the next shape..
         /// </summary>
         internal static string Options_Controls_NextShape_Description {
             get {
