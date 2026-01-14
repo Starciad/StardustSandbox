@@ -26,6 +26,7 @@ using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces;
 using StardustSandbox.Serialization;
+using StardustSandbox.Serialization.Saving.Data;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -263,30 +264,36 @@ namespace StardustSandbox.Managers
             }
         }
 
-        public byte[][] Serialize()
+        public ActorData[] Serialize()
         {
-            List<byte[]> result = [];
+            List<ActorData> datas = [];
 
             foreach (Actor actor in GetActors())
             {
-                result.Add(ActorSerializer.Serialize(actor));
+                if (actor.State is ActorState.Destroyed)
+                {
+                    continue;
+                }
+
+                datas.Add(actor.Serialize());
             }
 
-            return [.. result];
+            return [.. datas];
         }
 
-        public void Deserialize(byte[][] data)
+        public void Deserialize(ActorData[] datas)
         {
-            if (data == null)
+            if (datas == null)
             {
                 return;
             }
 
             Clear();
 
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < datas.Length; i++)
             {
-                Actor actor = ActorSerializer.Deserialize(data[i]);
+                Actor actor = ActorDatabase.GetDescriptor(datas[i].Index).Dequeue();
+
                 this.actorsToAdd.Enqueue(actor);
                 this.totalActorCount++;
             }

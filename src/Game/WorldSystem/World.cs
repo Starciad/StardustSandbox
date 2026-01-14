@@ -896,6 +896,28 @@ namespace StardustSandbox.WorldSystem
             }
         }
 
+        internal SlotData[] Serialize()
+        {
+            List<SlotData> slots = [];
+
+            for (int y = 0; y < this.Information.Size.Y; y++)
+            {
+                for (int x = 0; x < this.Information.Size.X; x++)
+                {
+                    Point point = new(x, y);
+
+                    if (IsEmptySlot(point))
+                    {
+                        continue;
+                    }
+
+                    slots.Add(new(GetSlot(point)));
+                }
+            }
+
+            return [.. slots];
+        }
+
         #endregion
 
         #endregion

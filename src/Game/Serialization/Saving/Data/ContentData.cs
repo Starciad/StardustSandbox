@@ -29,7 +29,7 @@ namespace StardustSandbox.Serialization.Saving.Data
         public SlotData[] Slots { get; init; }
 
         [Key("Actors")]
-        public byte[][] Actors { get; init; }
+        public ActorData[] Actors { get; init; }
     }
 }
 

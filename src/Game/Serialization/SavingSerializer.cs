@@ -18,7 +18,6 @@
 using MessagePack;
 using MessagePack.Resolvers;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
@@ -41,9 +40,10 @@ namespace StardustSandbox.Serialization
     {
         private static readonly MessagePackSerializerOptions options =
             MessagePackSerializerOptions.Standard
-                .WithResolver(StandardResolver.Instance)
+                .WithResolver(CompositeResolver.Create(StandardResolver.Instance, ContractlessStandardResolver.Instance))
                 .WithSecurity(MessagePackSecurity.UntrustedData)
-                .WithCompression(MessagePackCompression.Lz4BlockArray);
+                .WithCompression(MessagePackCompression.Lz4BlockArray)
+                .WithAllowAssemblyVersionMismatch(true);
 
         internal static void Save(ActorManager actorManager, World world, GraphicsDevice graphicsDevice)
         {
@@ -111,12 +111,26 @@ namespace StardustSandbox.Serialization
 
         private static T LoadPart<T>(ZipArchive zip, string entryName)
         {
-            ZipArchiveEntry entry = zip.GetEntry(entryName);
-            using Stream stream = entry.Open();
+            try
+            {
+                ZipArchiveEntry entry = zip.GetEntry(entryName);
 
-            T value = MessagePackSerializer.Deserialize<T>(stream, options);
+                if (entry == null)
+                {
+                    return default;
+                }
 
-            return value;
+                using Stream stream = entry.Open();
+                return MessagePackSerializer.Deserialize<T>(stream, options);
+            }
+            catch (MessagePackSerializationException)
+            {
+                return default;
+            }
+            catch (Exception)
+            {
+                return default;
+            }
         }
 
         private static Metadata CreateMetadata(World world)
@@ -159,31 +173,9 @@ namespace StardustSandbox.Serialization
         {
             return new()
             {
-                Slots = CreateSlotData(world, world.Information.Size),
+                Slots = world.Serialize(),
                 Actors = actorManager.Serialize(),
             };
-        }
-
-        private static SlotData[] CreateSlotData(World world, in Point size)
-        {
-            List<SlotData> slots = [];
-
-            for (int y = 0; y < size.Y; y++)
-            {
-                for (int x = 0; x < size.X; x++)
-                {
-                    Point point = new(x, y);
-
-                    if (world.IsEmptySlot(point))
-                    {
-                        continue;
-                    }
-
-                    slots.Add(new SlotData(world.GetSlot(point)));
-                }
-            }
-
-            return [.. slots];
         }
     }
 }
