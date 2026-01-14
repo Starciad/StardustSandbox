@@ -72,7 +72,7 @@ namespace StardustSandbox.WorldSystem
         private readonly ObjectPool worldSlotsPool;
         private readonly ObjectPool explosionPool = new();
 
-        private readonly Queue<Explosion> instantiatedExplosions = new(ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT);
+        private readonly Queue<Explosion> instantiatedExplosions = new(ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS);
 
         private readonly ElementNeighbors elementNeighbors;
 
@@ -597,7 +597,7 @@ namespace StardustSandbox.WorldSystem
 
         internal bool TryInstantiateExplosion(in Point position, in Layer layer, in ExplosionBuilder explosionBuilder)
         {
-            if (!IsWithinBounds(position) && this.instantiatedExplosions.Count >= ExplosionConstants.ACTIVE_EXPLOSIONS_LIMIT)
+            if (!IsWithinBounds(position) && this.instantiatedExplosions.Count >= ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS)
             {
                 return false;
             }

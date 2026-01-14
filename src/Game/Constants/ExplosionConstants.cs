@@ -19,8 +19,7 @@ namespace StardustSandbox.Constants
 {
     internal static class ExplosionConstants
     {
-        // Settings
-        internal const byte ACTIVE_EXPLOSIONS_LIMIT = 50;
+        internal const byte MAX_SIMULTANEOUS_EXPLOSIONS = 50;
     }
 }
 
