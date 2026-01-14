@@ -23,7 +23,6 @@ using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.World;
 using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
-using StardustSandbox.WorldSystem.Chunking;
 
 namespace StardustSandbox.WorldSystem.Components
 {

@@ -22,8 +22,8 @@ using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
+using StardustSandbox.Extensions;
 using StardustSandbox.Interfaces;
-using StardustSandbox.WorldSystem.Chunking;
 
 using System.Collections.Generic;
 
@@ -77,6 +77,8 @@ namespace StardustSandbox.WorldSystem.Components
 
         internal void Draw(SpriteBatch spriteBatch)
         {
+            bool chessEffect = false;
+
             for (int x = 0; x < this.worldChunkWidth; x++)
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
@@ -87,8 +89,16 @@ namespace StardustSandbox.WorldSystem.Components
                     Vector2 scale = new(WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE);
                     Color color = chunk.ShouldUpdate ? AAP64ColorPalette.Crimson : AAP64ColorPalette.White;
 
+                    if (chessEffect)
+                    {
+                        color = color.Darken(0.25f);
+                    }
+
                     spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                    chessEffect = !chessEffect;
                 }
+
+                chessEffect = !chessEffect;
             }
         }
 

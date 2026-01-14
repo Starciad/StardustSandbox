@@ -36,7 +36,6 @@ using StardustSandbox.Mathematics;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Saving;
 using StardustSandbox.Serialization.Saving.Data;
-using StardustSandbox.WorldSystem.Chunking;
 using StardustSandbox.WorldSystem.Components;
 
 using System;
