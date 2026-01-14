@@ -113,7 +113,7 @@ namespace StardustSandbox
 
         protected override void Initialize()
         {
-            SSCamera.Initialize(this.world);
+            Camera.Initialize(this.world);
 
             SongEngine.Initialize();
             SoundEngine.Initialize();
@@ -181,7 +181,7 @@ namespace StardustSandbox
 
             // Controllers
             this.inputController.Update();
-            SSCamera.Update(gameTime);
+            Camera.Update(gameTime);
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);

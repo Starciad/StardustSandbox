@@ -15,20 +15,25 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using System;
 
 namespace StardustSandbox.Extensions
 {
-    internal static class PointExtensions
+    internal static class StringExtension
     {
-        internal static float Distance(this Point value1, Point value2)
+        internal static string Truncate(this string value, int maxChars)
         {
-            float dx = value1.X - value2.X;
-            float dy = value1.Y - value2.Y;
+            return value.Length <= maxChars ? value : value[..maxChars] + "...";
+        }
 
-            return MathF.Sqrt((dx * dx) + (dy * dy));
+        internal static string FirstCharToUpper(this string value)
+        {
+            return value switch
+            {
+                null => throw new ArgumentNullException(nameof(value)),
+                "" => throw new ArgumentException($"{nameof(value)} cannot be empty", nameof(value)),
+                _ => value[0].ToString().ToUpper() + value[1..]
+            };
         }
     }
 }

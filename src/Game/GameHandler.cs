@@ -69,7 +69,7 @@ namespace StardustSandbox
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
-            SSCamera.MoveInstant(new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE)));
+            Camera.MoveInstant(new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE)));
 
             inputController.Pen.Tool = PenTool.Pencil;
             inputController.Enable();

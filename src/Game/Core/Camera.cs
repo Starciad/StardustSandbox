@@ -7,7 +7,7 @@ using System;
 
 namespace StardustSandbox.Core
 {
-    internal static class SSCamera
+    internal static class Camera
     {
         internal static Vector2 Position { get; private set; }
         internal static Vector2 Origin { get; set; }
@@ -99,10 +99,10 @@ namespace StardustSandbox.Core
         {
             if (isInitialized)
             {
-                throw new InvalidOperationException($"{nameof(SSCamera)} is already initialized");
+                throw new InvalidOperationException($"{nameof(Camera)} is already initialized");
             }
 
-            SSCamera.world = world;
+            Camera.world = world;
 
             Reset();
 

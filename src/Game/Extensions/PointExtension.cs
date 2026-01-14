@@ -15,21 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Enums.Elements;
+using Microsoft.Xna.Framework;
+
+using System;
 
 namespace StardustSandbox.Extensions
 {
-    internal static class UpdateCycleFlagExtensions
+    internal static class PointExtension
     {
-        internal static UpdateCycleFlag GetNextCycle(this UpdateCycleFlag currentCycle)
+        internal static float Distance(this Point value1, Point value2)
         {
-            return currentCycle switch
-            {
-                UpdateCycleFlag.None => UpdateCycleFlag.Primary,
-                UpdateCycleFlag.Primary => UpdateCycleFlag.Secondary,
-                UpdateCycleFlag.Secondary => UpdateCycleFlag.Primary,
-                _ => UpdateCycleFlag.None,
-            };
+            float dx = value1.X - value2.X;
+            float dy = value1.Y - value2.Y;
+
+            return MathF.Sqrt((dx * dx) + (dy * dy));
         }
     }
 }

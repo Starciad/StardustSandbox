@@ -50,7 +50,7 @@ namespace StardustSandbox.Backgrounds
         internal void Update(GameTime gameTime, in int textureWidth, in int textureHeight)
         {
             float elapsedSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
-            Vector2 cameraPosition = SSCamera.Position;
+            Vector2 cameraPosition = Camera.Position;
 
             if (!this.lockX)
             {

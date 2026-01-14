@@ -2,7 +2,7 @@
 
 namespace StardustSandbox.Extensions
 {
-    internal static class PenToolExtensions
+    internal static class PenToolExtension
     {
         internal static PenTool Next(this PenTool penTool)
         {

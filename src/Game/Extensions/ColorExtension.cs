@@ -23,7 +23,7 @@ using System;
 
 namespace StardustSandbox.Extensions
 {
-    internal static class ColorExtensions
+    internal static class ColorExtension
     {
         internal static Color Vary(this Color baseColor, int variationFactor, bool varyAlpha = false)
         {

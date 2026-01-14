@@ -20,27 +20,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StardustSandbox.Extensions
 {
-    internal static class RenderTarget2DExtensions
+    internal static class Texture2DExtension
     {
-        internal static void FlattenAlpha(this RenderTarget2D renderTarget)
+        internal static Point GetSize(this Texture2D texture)
         {
-            int width = renderTarget.Width;
-            int height = renderTarget.Height;
-
-            Color[] data = new Color[width * height];
-            renderTarget.GetData(data);
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                data[i] = new(
-                    data[i].R,
-                    data[i].G,
-                    data[i].B,
-                    (byte)255
-                );
-            }
-
-            renderTarget.SetData(data);
+            return new(texture.Width, texture.Height);
         }
     }
 }

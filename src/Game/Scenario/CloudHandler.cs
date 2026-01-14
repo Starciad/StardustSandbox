@@ -60,7 +60,7 @@ namespace StardustSandbox.Scenario
                     continue;
                 }
 
-                if (!SSCamera.InsideCameraBounds(cloud.Position, new(cloud.SourceRectangle.Width, cloud.SourceRectangle.Height), false, cloud.SourceRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
+                if (!Camera.InsideCameraBounds(cloud.Position, new(cloud.SourceRectangle.Width, cloud.SourceRectangle.Height), false, cloud.SourceRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
                 {
                     DestroyCloud(cloud);
                     continue;

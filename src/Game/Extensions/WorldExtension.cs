@@ -26,7 +26,7 @@ using StardustSandbox.WorldSystem;
 
 namespace StardustSandbox.Extensions
 {
-    internal static class WorldExtensions
+    internal static class WorldExtension
     {
         internal static Texture2D CreateThumbnail(this World world, GraphicsDevice graphicsDevice)
         {

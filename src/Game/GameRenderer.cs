@@ -208,7 +208,7 @@ namespace StardustSandbox
             graphicsDevice.SetRenderTarget(worldRenderTarget2D);
             graphicsDevice.Clear(Color.Transparent);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, SSCamera.GetViewMatrix());
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Camera.GetViewMatrix());
             world.Draw(spriteBatch);
             actorManager.Draw(spriteBatch);
             spriteBatch.End();
@@ -239,7 +239,7 @@ namespace StardustSandbox
             }
 
             Vector2 mousePosition = Input.GetScaledMousePosition();
-            Vector2 worldMousePosition = SSCamera.ScreenToWorld(mousePosition);
+            Vector2 worldMousePosition = Camera.ScreenToWorld(mousePosition);
 
             Point alignedPosition = new(
                 (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
@@ -255,7 +255,7 @@ namespace StardustSandbox
                     point.Y * WorldConstants.GRID_SIZE
                 );
 
-                Vector2 screenPosition = SSCamera.WorldToScreen(worldPosition);
+                Vector2 screenPosition = Camera.WorldToScreen(worldPosition);
 
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.ShapeSquares),

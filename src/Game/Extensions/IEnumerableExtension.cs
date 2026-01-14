@@ -22,7 +22,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Extensions
 {
-    internal static class IEnumerableExtensions
+    internal static class IEnumerableExtension
     {
         internal static T GetRandomItem<T>(this IEnumerable<T> source)
         {
