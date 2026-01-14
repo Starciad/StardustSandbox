@@ -37,7 +37,7 @@ namespace StardustSandbox.Generators
             ElementIndex.Iron
         ];
 
-        internal static void Start(ActorManager actorManager, World world, in WorldGenerationPreset preset)
+        internal static void Start(ActorManager actorManager, World world, in WorldGenerationPreset preset, in WorldGenerationSettings settings, in WorldGenerationContents contents)
         {
             int width = world.Information.Size.X;
             int height = world.Information.Size.Y;
@@ -45,7 +45,7 @@ namespace StardustSandbox.Generators
             GameHandler.Reset(actorManager, world);
 
             Range amplitudeRange;
-            WorldGenerationFlags flags;
+            WorldGenerationContents flags;
 
             switch (preset)
             {
@@ -54,7 +54,7 @@ namespace StardustSandbox.Generators
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
                     );
-                    flags = WorldGenerationFlags.HasTrees;
+                    flags = WorldGenerationContents.HasTrees;
                     break;
 
                 default:
@@ -62,7 +62,7 @@ namespace StardustSandbox.Generators
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
                     );
-                    flags = WorldGenerationFlags.None;
+                    flags = WorldGenerationContents.None;
                     break;
             }
 
@@ -72,7 +72,7 @@ namespace StardustSandbox.Generators
             GenerateTerrain(world, heightMap);
             GenerateOceans(world, heightMap);
 
-            if (flags.HasFlag(WorldGenerationFlags.HasTrees))
+            if (flags.HasFlag(WorldGenerationContents.HasTrees))
             {
                 GenerateTrees(world, heightMap);
             }

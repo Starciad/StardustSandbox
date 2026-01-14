@@ -214,10 +214,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildExitButton()
         {
-            float marginX = -32.0f;
-
-            ButtonInfo button = this.exitButtonInfo;
-            SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
+            SlotInfo slot = CreateButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;

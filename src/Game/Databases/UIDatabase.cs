@@ -208,6 +208,8 @@ namespace StardustSandbox.Databases
             );
 
             GeneratorSettingsUI generatorSettingsUI = new(
+                actorManager,
+                confirmUI,
                 tooltipBox,
                 uiManager,
                 world

@@ -403,6 +403,24 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Generate.
+        /// </summary>
+        internal static string GeneratorSettings_Generate_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Generate.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Generate.
+        /// </summary>
+        internal static string GeneratorSettings_Generate_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Generate.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Generator Settings.
         /// </summary>
         internal static string GeneratorSettings_Title {

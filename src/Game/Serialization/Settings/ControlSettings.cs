@@ -63,9 +63,6 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("Screenshot", typeof(Keys))]
         public readonly Keys Screenshot { get; init; }
 
-        [XmlElement("GenerateWorld", typeof(Keys))]
-        public readonly Keys GenerateWorld { get; init; }
-
         #endregion
 
         public ControlSettings()
@@ -81,7 +78,6 @@ namespace StardustSandbox.Serialization.Settings
             this.NextShape = Keys.Tab;
 
             this.Screenshot = Keys.F12;
-            this.GenerateWorld = Keys.G;
         }
     }
 }

@@ -747,4 +747,10 @@
   <data name="EnvironmentSettings.Generator.Description" xml:space="preserve">
     <value>Generator</value>
   </data>
+  <data name="GeneratorSettings.Generate.Name" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="GeneratorSettings.Generate.Description" xml:space="preserve">
+    <value>Generate</value>
+  </data>
 </root>

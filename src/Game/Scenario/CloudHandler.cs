@@ -145,7 +145,7 @@ namespace StardustSandbox.Scenario
                 }
             }
 
-            if (Random.Chance(10, 350))
+            if (Random.Chance(1, 350))
             {
                 _ = TryCreate();
             }

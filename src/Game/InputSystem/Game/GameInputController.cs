@@ -117,11 +117,6 @@ namespace StardustSandbox.InputSystem.Game
                         OnStarted = _ => GameHandler.ToggleState(GameStates.IsSimulationPaused),
                     },
 
-                    new(controlSettings.GenerateWorld)
-                    {
-                        OnStarted = _ => WorldGenerator.Start(actorManager, world, WorldGenerationPreset.Plain),
-                    },
-
                     new(controlSettings.NextShape)
                     {
                         OnStarted = _ => this.pen.Shape = this.pen.Shape.Next(),

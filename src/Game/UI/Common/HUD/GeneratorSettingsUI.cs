@@ -23,10 +23,14 @@ using StardustSandbox.Constants;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
+using StardustSandbox.Enums.Generators;
 using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
+using StardustSandbox.Enums.UI.Tools;
+using StardustSandbox.Generators;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
+using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.WorldSystem;
@@ -35,18 +39,23 @@ namespace StardustSandbox.UI.Common.HUD
 {
     internal sealed class GeneratorSettingsUI : UIBase
     {
+        private WorldGenerationPreset selectedPreset;
+        private WorldGenerationSettings selectedSettings;
+        private WorldGenerationContents selectedContents;
+
         private Image background;
         private Label menuTitle;
 
-        private SlotInfo exitButtonSlotInfo;
+        private SlotInfo exitButtonSlotInfo, generateButtonSlotInfo;
 
-        private readonly ButtonInfo exitButtonInfo;
+        private readonly ButtonInfo exitButtonInfo, generateButtonInfo;
 
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
-        private readonly World world;
 
         internal GeneratorSettingsUI(
+            ActorManager actorManager,
+            ConfirmUI confirmUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
@@ -54,9 +63,27 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
-            this.world = world;
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
+            this.generateButtonInfo = new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_GUIs.GeneratorSettings_Generate_Name, Localization_GUIs.GeneratorSettings_Generate_Description, () =>
+            {
+                confirmUI.Configure(new()
+                {
+                    Caption = "Confirm",
+                    Message = "Confirm",
+                    OnConfirmCallback = status =>
+                    {
+                        if (status == ConfirmStatus.Confirmed)
+                        {
+                            WorldGenerator.Start(actorManager, world, this.selectedPreset, this.selectedSettings, this.selectedContents);
+                        }
+
+                        GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+                    },
+                });
+
+                this.uiManager.OpenUI(UIIndex.Confirm);
+            });
         }
 
         protected override void OnBuild(Container root)
@@ -64,6 +91,7 @@ namespace StardustSandbox.UI.Common.HUD
             BuildBackground(root);
             BuildTitle();
             BuildExitButton();
+            BuildGenerateButton();
 
             root.AddChild(this.tooltipBox);
         }
@@ -110,27 +138,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildExitButton()
         {
-            float marginX = -32.0f;
-
-            ButtonInfo button = this.exitButtonInfo;
-            SlotInfo slot = new(
-                background: new()
-                {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                    SourceRectangle = new(320, 140, 32, 32),
-                    Scale = new(2.0f),
-                    Size = new(32.0f),
-                    Margin = new(marginX, -72.0f),
-                },
-
-                icon: new()
-                {
-                    Texture = button.Texture,
-                    SourceRectangle = button.TextureSourceRectangle,
-                    Scale = new(1.5f),
-                    Size = new(32.0f)
-                }
-            );
+            SlotInfo slot = CreateButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -141,11 +149,67 @@ namespace StardustSandbox.UI.Common.HUD
             this.exitButtonSlotInfo = slot;
         }
 
+        private void BuildGenerateButton()
+        {
+            this.generateButtonSlotInfo = new(
+                new()
+                {
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    SourceRectangle = new(0, 140, 320, 80),
+                    Size = new(320.0f, 80.0f),
+                    Margin = new(-32.0f),
+                    Alignment = UIDirection.Southeast,
+                },
+
+                null,
+
+                new()
+                {
+                    Scale = new(0.1f),
+                    Color = AAP64ColorPalette.White,
+                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    Alignment = UIDirection.Center,
+                    TextContent = this.generateButtonInfo.Name,
+
+                    BorderColor = AAP64ColorPalette.DarkGray,
+                    BorderDirections = LabelBorderDirection.All,
+                    BorderOffset = 2.0f,
+                    BorderThickness = 2.0f,
+                }
+            );
+
+            this.background.AddChild(this.generateButtonSlotInfo.Background);
+            this.generateButtonSlotInfo.Background.AddChild(this.generateButtonSlotInfo.Label);
+        }
+
+        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
+        {
+            return new(
+                background: new()
+                {
+                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    SourceRectangle = new(320, 140, 32, 32),
+                    Scale = new(2.0f),
+                    Size = new(32.0f),
+                    Margin = margin,
+                },
+
+                icon: new()
+                {
+                    Texture = button.Texture,
+                    SourceRectangle = button.TextureSourceRectangle,
+                    Scale = new(1.5f),
+                    Size = new(32.0f)
+                }
+            );
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
             UpdateExitButton();
+            UpdateGenerateButton();
         }
 
         private void UpdateExitButton()
@@ -176,8 +240,40 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
+        private void UpdateGenerateButton()
+        {
+            if (Interaction.OnMouseEnter(this.generateButtonSlotInfo.Background))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+            }
+
+            if (Interaction.OnMouseLeftClick(this.generateButtonSlotInfo.Background))
+            {
+                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                this.generateButtonInfo.ClickAction?.Invoke();
+            }
+
+            if (Interaction.OnMouseOver(this.generateButtonSlotInfo.Background))
+            {
+                this.tooltipBox.CanDraw = true;
+                TooltipBoxContent.SetTitle(this.generateButtonInfo.Name);
+                TooltipBoxContent.SetDescription(this.generateButtonInfo.Description);
+
+                this.generateButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
+            }
+            else
+            {
+                this.generateButtonSlotInfo.Background.Color = AAP64ColorPalette.White;
+            }
+        }
+
         protected override void OnOpened()
         {
+            this.selectedPreset = WorldGenerationPreset.Plain;
+            this.selectedSettings = WorldGenerationSettings.GenerateForeground |
+                                    WorldGenerationSettings.GenerateBackground;
+            this.selectedContents = WorldGenerationContents.HasTrees;
+
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
