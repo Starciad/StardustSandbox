@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Constants;
+using StardustSandbox.Mathematics.Primitives;
 using StardustSandbox.WorldSystem;
 
 using System;
@@ -40,43 +41,45 @@ namespace StardustSandbox.Core
             isInitialized = true;
         }
 
-        private static void ClampCameraPositionInTheWorld()
+        private static void ClampCameraInTheWorld()
         {
-            int totalWorldWidth = world.Information.Size.X * WorldConstants.GRID_SIZE;
-            int totalWorldHeight = world.Information.Size.Y * WorldConstants.GRID_SIZE;
+            Vector2 worldSize = new(
+                world.Information.Size.X * WorldConstants.GRID_SIZE,
+                world.Information.Size.Y * WorldConstants.GRID_SIZE
+            );
 
-            // Visible area in world units must account for zoom (screen pixels scaled by zoom)
-            float visibleWidth = ScreenConstants.SCREEN_WIDTH / Zoom;
-            float visibleHeight = ScreenConstants.SCREEN_HEIGHT / Zoom;
+            Vector2 visibleArea = new(
+                ScreenConstants.SCREEN_WIDTH / Zoom,
+                ScreenConstants.SCREEN_HEIGHT / Zoom
+            );
 
-            float worldLeftLimit = 0f;
-            float worldRightLimit = Math.Max(0f, totalWorldWidth - visibleWidth);
+            RectangleF limit = new(
+                0f,
+                0f,
+                worldSize.X - visibleArea.X,
+                visibleArea.Y - worldSize.Y
+            );
+            
+            Position = Clamp(Position);
+            targetPosition = Clamp(targetPosition);
 
-            float worldTopLimit = 0f;
-            float worldBottomLimit = Math.Min(0f, visibleHeight - totalWorldHeight); // keep same sign convention as original
-
-            Vector2 cameraPosition = Position;
-
-            cameraPosition.X = MathHelper.Clamp(cameraPosition.X, worldLeftLimit, worldRightLimit);
-            cameraPosition.Y = MathHelper.Clamp(cameraPosition.Y, worldBottomLimit, worldTopLimit);
-
-            Position = cameraPosition;
-
-            // Also ensure target position respects same clamp, so smoothing doesn't try to reach out-of-bounds target
-            targetPosition.X = MathHelper.Clamp(targetPosition.X, worldLeftLimit, worldRightLimit);
-            targetPosition.Y = MathHelper.Clamp(targetPosition.Y, worldBottomLimit, worldTopLimit);
+            Vector2 Clamp(Vector2 value)
+            {
+                return new(
+                    MathHelper.Clamp(value.X, limit.Left, limit.Right),
+                    MathHelper.Clamp(value.Y, limit.Bottom, limit.Top)
+                );
+            }
         }
 
         internal static void Update(GameTime gameTime)
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            // Smoothly interpolate position and zoom towards targets
             Position = Vector2.Lerp(Position, targetPosition, CameraConstants.MOVEMENT_LERP_SPEED * deltaTime);
             Zoom = MathHelper.Lerp(Zoom, targetZoom, CameraConstants.ZOOM_LERP_SPEED * deltaTime);
 
-            // Use the property setter to validate ranges
-            // ClampCameraPositionInTheWorld();
+            ClampCameraInTheWorld();
         }
 
         internal static void SetPosition(Vector2 newPosition)

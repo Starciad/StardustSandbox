@@ -35,7 +35,7 @@ namespace StardustSandbox.UI.Elements
         internal int ChildCount => this.children.Count;
         internal UIElement FirstChild => this.children.Count > 0 ? this.children[0] : null;
         internal UIElement LastChild => this.children.Count > 0 ? this.children[^1] : null;
-        internal FloatRectangle Bounds => new(this.Position, this.Size);
+        internal RectangleF Bounds => new(this.Position, this.Size);
         internal UIElement Parent
         {
             get => this.parent;
@@ -179,7 +179,7 @@ namespace StardustSandbox.UI.Elements
 
         #region Positioning
 
-        private static Vector2 GetAnchoredPosition(in FloatRectangle rect1, in FloatRectangle rect2, in UIDirection anchor, in Vector2 margin)
+        private static Vector2 GetAnchoredPosition(in RectangleF rect1, in RectangleF rect2, in UIDirection anchor, in Vector2 margin)
         {
             float x = rect2.Location.X;
             float y = rect2.Location.Y;
@@ -232,7 +232,7 @@ namespace StardustSandbox.UI.Elements
             return new(x + margin.X, y + margin.Y);
         }
 
-        private void RepositionRelativeToElement(in FloatRectangle targetRectangle)
+        private void RepositionRelativeToElement(in RectangleF targetRectangle)
         {
             this.position = GetAnchoredPosition(this.Bounds, targetRectangle, this.Alignment, this.Margin);
             RepositionChildren();
@@ -245,7 +245,7 @@ namespace StardustSandbox.UI.Elements
 
         private void RepositionRelativeToScreen()
         {
-            RepositionRelativeToElement(new FloatRectangle(Vector2.Zero, new(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
+            RepositionRelativeToElement(new RectangleF(Vector2.Zero, new(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
         }
 
         protected void RepositionRelativeToParent()
@@ -272,13 +272,13 @@ namespace StardustSandbox.UI.Elements
 
         #region Size Management
 
-        private static FloatRectangle CalculateTotalBounds(UIElement element)
+        private static RectangleF CalculateTotalBounds(UIElement element)
         {
-            FloatRectangle bounds = element.Bounds;
+            RectangleF bounds = element.Bounds;
 
             foreach (UIElement child in element.children)
             {
-                FloatRectangle childBounds = CalculateTotalBounds(child);
+                RectangleF childBounds = CalculateTotalBounds(child);
 
                 Vector2 min = new(
                     MathF.Min(bounds.Location.X, childBounds.Location.X),
@@ -296,7 +296,7 @@ namespace StardustSandbox.UI.Elements
             return bounds;
         }
 
-        internal FloatRectangle GetLayoutBounds()
+        internal RectangleF GetLayoutBounds()
         {
             return CalculateTotalBounds(this);
         }
