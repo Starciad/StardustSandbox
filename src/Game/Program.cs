@@ -15,7 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.IO;
 using StardustSandbox.Localization;
 using StardustSandbox.Net;
 using StardustSandbox.Serialization;
@@ -30,8 +29,10 @@ using System.Windows.Forms;
 
 #if !DEBUG
 using StardustSandbox.Constants;
-using StardustSandbox.OS;
+
 using System.Text;
+
+using StardustSandbox.Core;
 #endif
 
 namespace StardustSandbox
@@ -80,7 +81,7 @@ namespace StardustSandbox
 
         private static void InitializeEnvironment()
         {
-            SSDirectory.Initialize();
+            Directory.Initialize();
             SettingsSerializer.Initialize();
 
             GameCulture gameCulture = SettingsSerializer.Load<GeneralSettings>().GetGameCulture();
@@ -100,7 +101,7 @@ namespace StardustSandbox
 #if !DEBUG
         private static void HandleException(Exception value)
         {
-            string logFilename = SSFile.WriteException(value);
+            string logFilename = File.WriteException(value);
 
             StringBuilder logString = new();
             _ = logString.AppendLine(string.Concat("An unexpected error caused ", GameConstants.TITLE, " to crash!"));
@@ -109,7 +110,7 @@ namespace StardustSandbox
             _ = logString.AppendLine();
             _ = logString.AppendLine($"Exception: {value.Message}");
 
-            SSMessageBox.ShowError($"{GameConstants.GetTitleAndVersionString()} - Fatal Error", logString.ToString());
+            Core.MessageBox.ShowError($"{GameConstants.GetTitleAndVersionString()} - Fatal Error", logString.ToString());
         }
 #endif
 

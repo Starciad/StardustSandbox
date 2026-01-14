@@ -40,7 +40,7 @@ namespace StardustSandbox.Elements.Liquids
                         return;
 
                     case ElementIndex.Stone:
-                        if (SSRandom.Range(0, 150) == 0)
+                        if (Random.Range(0, 150) == 0)
                         {
                             context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
                             context.DestroyElement();
@@ -67,7 +67,7 @@ namespace StardustSandbox.Elements.Liquids
             }
             else if (currentValue >= 110.0f)
             {
-                if (SSRandom.GetBool())
+                if (Random.GetBool())
                 {
                     context.ReplaceElement(ElementIndex.Steam);
                 }

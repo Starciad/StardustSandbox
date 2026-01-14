@@ -77,7 +77,7 @@ namespace StardustSandbox.Elements.Gases
             {
                 context.ReplaceElement(context.GetStoredElement());
             }
-            else if (SSRandom.Chance(15))
+            else if (Random.Chance(15))
             {
                 context.DestroyElement();
             }

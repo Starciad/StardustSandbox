@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
-using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Simulation;
@@ -42,9 +41,9 @@ namespace StardustSandbox.Backgrounds.Clouds
 
         public void Reset()
         {
-            this.position = new(-(WorldConstants.GRID_SIZE * 5), SSRandom.Range(0, WorldConstants.GRID_SIZE * 10));
-            this.speed = SSRandom.Range(10, 50);
-            this.opacity = (SSRandom.GetFloat() * 0.5f) + 0.5f;
+            this.position = new(-(WorldConstants.GRID_SIZE * 5), Core.Random.Range(0, WorldConstants.GRID_SIZE * 10));
+            this.speed = Core.Random.Range(10, 50);
+            this.opacity = (Core.Random.GetFloat() * 0.5f) + 0.5f;
 
             this.color = Color.White;
             this.color.A = Convert.ToByte(255 * this.opacity);

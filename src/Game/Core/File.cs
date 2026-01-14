@@ -31,9 +31,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace StardustSandbox.IO
+namespace StardustSandbox.Core
 {
-    internal static class SSFile
+    internal static class File
     {
         private static string GetFileName(string prefix, string extension)
         {
@@ -42,9 +42,9 @@ namespace StardustSandbox.IO
 
         internal static string WriteRenderTarget2D(RenderTarget2D value)
         {
-            _ = Directory.CreateDirectory(SSDirectory.Screenshots);
+            _ = System.IO.Directory.CreateDirectory(Directory.Screenshots);
 
-            string screenshotFilePath = Path.Combine(SSDirectory.Screenshots, GetFileName("screenshot", ".png"));
+            string screenshotFilePath = Path.Combine(Directory.Screenshots, GetFileName("screenshot", ".png"));
 
             value.FlattenAlpha();
 
@@ -58,11 +58,11 @@ namespace StardustSandbox.IO
         {
             ArgumentNullException.ThrowIfNull(value);
 
-            _ = Directory.CreateDirectory(SSDirectory.Logs);
+            _ = System.IO.Directory.CreateDirectory(Directory.Logs);
 
             DateTime nowLocal = DateTime.Now;
             DateTime nowUtc = nowLocal.ToUniversalTime();
-            string logFilePath = Path.Combine(SSDirectory.Logs, GetFileName("log", ".txt"));
+            string logFilePath = Path.Combine(Directory.Logs, GetFileName("log", ".txt"));
 
             StringBuilder sb = new(32_768);
 
@@ -110,7 +110,7 @@ namespace StardustSandbox.IO
             _ = sb.AppendLine(FormatExceptionDetailed(value));
 
             // Write file
-            File.WriteAllText(logFilePath, sb.ToString(), Encoding.UTF8);
+            System.IO.File.WriteAllText(logFilePath, sb.ToString(), Encoding.UTF8);
 
             return logFilePath;
         }
@@ -244,7 +244,7 @@ namespace StardustSandbox.IO
                         string fileVer = "<n/a>";
                         string infoVer = "<n/a>";
 
-                        if (!string.IsNullOrEmpty(location) && File.Exists(location))
+                        if (!string.IsNullOrEmpty(location) && System.IO.File.Exists(location))
                         {
                             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(location);
                             fileVer = fvi?.FileVersion ?? "<n/a>";

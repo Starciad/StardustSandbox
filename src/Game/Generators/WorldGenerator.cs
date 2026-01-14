@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Generators;
 using StardustSandbox.Enums.World;
@@ -87,7 +86,7 @@ namespace StardustSandbox.Generators
 
             for (int x = 1; x < width; x++)
             {
-                int delta = SSRandom.Range(-2, 2);
+                int delta = Core.Random.Range(-2, 2);
                 int candidate = heights[x - 1] + delta;
 
                 if (candidate < amplitudeRange.Start.Value)
@@ -147,8 +146,8 @@ namespace StardustSandbox.Generators
                 int startY = heightMap[x];
 
                 // Randomize layer thickness per column but keep it bounded
-                int grassLayer = SSRandom.Range(2, 4);
-                int dirtLayer = grassLayer + SSRandom.Range(4, 8);
+                int grassLayer = Core.Random.Range(2, 4);
+                int dirtLayer = grassLayer + Core.Random.Range(4, 8);
 
                 int depthLevelLimit = height - startY;
                 int deepThreshold = (int)PercentageMath.PercentageOfValue(depthLevelLimit, 80.0f);
@@ -241,12 +240,12 @@ namespace StardustSandbox.Generators
                 }
 
                 // Confirm top element is grass
-                if (SSRandom.Chance(25) && world.TryGetElement(new(x, surfaceY), Layer.Foreground, out ElementIndex index) && index is ElementIndex.Grass)
+                if (Core.Random.Chance(25) && world.TryGetElement(new(x, surfaceY), Layer.Foreground, out ElementIndex index) && index is ElementIndex.Grass)
                 {
                     Point origin = new(x, surfaceY - 1);
-                    int trunkHeight = SSRandom.Range(6, 12);
+                    int trunkHeight = Core.Random.Range(6, 12);
                     int trunkThickness = 1;
-                    int crownRadius = SSRandom.Range(2, 4);
+                    int crownRadius = Core.Random.Range(2, 4);
 
                     TreeGenerator.Start(world, origin, trunkHeight, trunkThickness, crownRadius);
                 }

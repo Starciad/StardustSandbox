@@ -30,11 +30,11 @@ namespace StardustSandbox.Elements.Energies
     {
         protected override void OnBeforeStep(ElementContext context)
         {
-            if (SSRandom.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
+            if (Random.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
                 context.DestroyElement();
 
-                if (SSRandom.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
+                if (Random.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
                     context.InstantiateElement(ElementIndex.Smoke);
                 }
@@ -43,7 +43,7 @@ namespace StardustSandbox.Elements.Energies
 
         protected override void OnStep(ElementContext context)
         {
-            Point targetPosition = new(context.Slot.Position.X + SSRandom.Range(-1, 1), context.Slot.Position.Y - 1);
+            Point targetPosition = new(context.Slot.Position.X + Random.Range(-1, 1), context.Slot.Position.Y - 1);
 
             if (context.IsEmptySlot(targetPosition))
             {
@@ -108,7 +108,7 @@ namespace StardustSandbox.Elements.Energies
                 }
 
                 // Attempt combustion based on flammabilityResistance
-                if (SSRandom.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
+                if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
                 {
                     context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
                 }

@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core;
-
 using System;
 using System.Collections.Generic;
 
@@ -43,7 +41,7 @@ namespace StardustSandbox.Extensions
 
             while (enumerator.MoveNext())
             {
-                if (SSRandom.Range(index + 1) == 0)
+                if (Core.Random.Range(index + 1) == 0)
                 {
                     current = enumerator.Current;
                 }
@@ -71,7 +69,7 @@ namespace StardustSandbox.Extensions
 
             for (int i = 0; i < count; i++)
             {
-                int j = SSRandom.Range(i, count - 1);
+                int j = Core.Random.Range(i, count - 1);
                 (list[j], list[i]) = (list[i], list[j]);
             }
 

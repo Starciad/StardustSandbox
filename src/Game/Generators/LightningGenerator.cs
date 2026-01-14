@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.WorldSystem;
@@ -35,17 +34,17 @@ namespace StardustSandbox.Generators
 
         private static void CreateBranchedThunder(ElementContext context, Point origin)
         {
-            int length = SSRandom.Range(3, 6);
+            int length = Core.Random.Range(3, 6);
 
-            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(-30, -10));
-            CreateBranchedThunderBranch(context, origin, length, SSRandom.Range(10, 30));
+            CreateBranchedThunderBranch(context, origin, length, Core.Random.Range(-30, -10));
+            CreateBranchedThunderBranch(context, origin, length, Core.Random.Range(10, 30));
         }
 
         private static void CreateBranchedThunderBranch(ElementContext context, Point origin, int length, int angle)
         {
             float rad = MathF.PI * angle / 180.0f;
-            int dx = (int)MathF.Round((MathF.Sin(rad) * length) + SSRandom.Range(-3, 3));
-            int dy = (int)MathF.Round((MathF.Cos(rad) * length) + SSRandom.Range(2, 4));
+            int dx = (int)MathF.Round((MathF.Sin(rad) * length) + Core.Random.Range(-3, 3));
+            int dy = (int)MathF.Round((MathF.Cos(rad) * length) + Core.Random.Range(2, 4));
 
             Point endPoint = new(
                 origin.X + dx,

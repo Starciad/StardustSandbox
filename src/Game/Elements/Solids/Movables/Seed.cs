@@ -51,7 +51,7 @@ namespace StardustSandbox.Elements.Solids.Movables
                 }
             }
 
-            if (hasWater && hasFertileSoil && SSRandom.Chance(25, 500))
+            if (hasWater && hasFertileSoil && Random.Chance(25, 500))
             {
                 context.ReplaceElement(ElementIndex.Sapling);
             }

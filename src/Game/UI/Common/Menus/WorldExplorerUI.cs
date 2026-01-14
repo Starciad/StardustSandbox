@@ -21,13 +21,13 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
+using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Serialization;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
-using StardustSandbox.IO;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
@@ -84,7 +84,7 @@ namespace StardustSandbox.UI.Common.Menus
                 }),
                 new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>
                 {
-                    SSDirectory.OpenDirectoryInFileExplorer(SSDirectory.Worlds);
+                    Directory.OpenDirectoryInFileExplorer(Directory.Worlds);
                 }),
             ];
 

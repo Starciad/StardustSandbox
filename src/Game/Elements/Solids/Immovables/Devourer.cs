@@ -89,7 +89,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
                 context.SwappingElements(oldPosition, newPosition, context.Layer);
                 context.RemoveElement(oldPosition);
             }
-            else if (SSRandom.Chance(15))
+            else if (Random.Chance(15))
             {
                 context.DestroyElement();
             }

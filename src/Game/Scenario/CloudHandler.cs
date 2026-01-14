@@ -69,7 +69,7 @@ namespace StardustSandbox.Scenario
                 cloud.Update(gameTime, GameHandler.SimulationSpeed);
             }
 
-            if (SSRandom.Chance(BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING, BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING_TOTAL))
+            if (Random.Chance(BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING, BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING_TOTAL))
             {
                 CreateCloud();
             }

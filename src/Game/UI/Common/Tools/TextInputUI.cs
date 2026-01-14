@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Input;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
@@ -298,7 +297,7 @@ namespace StardustSandbox.UI.Common.Tools
 
         private static void PlayTypingSound()
         {
-            SoundEngine.Play((SoundEffectIndex)SSRandom.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+            SoundEngine.Play((SoundEffectIndex)Core.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
         }
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)

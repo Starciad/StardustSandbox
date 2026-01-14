@@ -23,7 +23,7 @@ using System.Diagnostics;
 
 namespace StardustSandbox.Core
 {
-    internal static class SSMessageBox
+    internal static class MessageBox
     {
 #if SS_LINUX
         private static void StartProcess(string fileName, string arguments)
@@ -43,7 +43,7 @@ namespace StardustSandbox.Core
         internal static void ShowError(string title, string message)
         {
 #if SS_WINDOWS
-            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            System.Windows.Forms.MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 #elif SS_LINUX
             StartProcess("zenity", $"--error --title=\"{title}\" --text=\"{message.Replace("\"", "\\\"")}\"");
 #endif

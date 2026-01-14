@@ -21,9 +21,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace StardustSandbox.IO
+namespace StardustSandbox.Core
 {
-    internal static class SSDirectory
+    internal static class Directory
     {
         internal static string Root => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), GameConstants.ID);
         internal static string Local => AppDomain.CurrentDomain.BaseDirectory;
@@ -36,18 +36,18 @@ namespace StardustSandbox.IO
         internal static void Initialize()
         {
             // Local
-            _ = Directory.CreateDirectory(Logs);
-            _ = Directory.CreateDirectory(Screenshots);
+            _ = System.IO.Directory.CreateDirectory(Logs);
+            _ = System.IO.Directory.CreateDirectory(Screenshots);
 
             // AppData
-            _ = Directory.CreateDirectory(Root);
-            _ = Directory.CreateDirectory(Settings);
-            _ = Directory.CreateDirectory(Worlds);
+            _ = System.IO.Directory.CreateDirectory(Root);
+            _ = System.IO.Directory.CreateDirectory(Settings);
+            _ = System.IO.Directory.CreateDirectory(Worlds);
         }
 
         internal static void OpenDirectoryInFileExplorer(string directoryPath)
         {
-            if (string.IsNullOrWhiteSpace(directoryPath) || !Directory.Exists(directoryPath))
+            if (string.IsNullOrWhiteSpace(directoryPath) || !System.IO.Directory.Exists(directoryPath))
             {
                 throw new ArgumentException("The specified path is invalid or nonexistent.", nameof(directoryPath));
             }

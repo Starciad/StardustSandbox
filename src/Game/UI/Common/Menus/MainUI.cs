@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Media;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Backgrounds;
@@ -291,7 +290,7 @@ namespace StardustSandbox.UI.Common.Menus
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 this.menuButtonLabels[i].Margin = Vector2.Zero;
-                this.buttonAnimationOffsets[i] = SSRandom.GetFloat() * MathF.PI * 2.0f;
+                this.buttonAnimationOffsets[i] = Core.Random.GetFloat() * MathF.PI * 2.0f;
             }
 
             if (MediaPlayer.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.Volume_01_Track_01)

@@ -29,7 +29,7 @@ namespace StardustSandbox.Elements.Utilities
     {
         internal static IEnumerable<Point> GetRandomSidePositions(Point targetPosition, Direction direction)
         {
-            int rDirection = SSRandom.GetBool() ? 1 : -1;
+            int rDirection = Random.GetBool() ? 1 : -1;
 
             switch (direction)
             {

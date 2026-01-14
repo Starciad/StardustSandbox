@@ -26,7 +26,6 @@ using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Inputs.Game;
 using StardustSandbox.InputSystem;
 using StardustSandbox.InputSystem.Game;
-using StardustSandbox.IO;
 using StardustSandbox.Managers;
 using StardustSandbox.Serialization;
 using StardustSandbox.Serialization.Settings;
@@ -158,7 +157,7 @@ namespace StardustSandbox
                 spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
                 spriteBatch.End();
 
-                _ = SSFile.WriteRenderTarget2D(screenRenderTarget2D);
+                _ = File.WriteRenderTarget2D(screenRenderTarget2D);
                 hasScreenshotRequest = false;
             }
 

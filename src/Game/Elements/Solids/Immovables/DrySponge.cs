@@ -56,7 +56,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
         {
             if (currentValue >= 180)
             {
-                if (SSRandom.Chance(70))
+                if (Random.Chance(70))
                 {
                     context.ReplaceElement(ElementIndex.Fire);
                 }

@@ -47,7 +47,7 @@ namespace StardustSandbox.Elements.Liquids
                         break;
                 }
 
-                if (SSRandom.GetBool())
+                if (Random.GetBool())
                 {
                     context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
                     context.DestroyElement();

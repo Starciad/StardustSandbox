@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Enums.Elements;
 
 using System;
@@ -101,7 +100,7 @@ namespace StardustSandbox.Elements.Utilities
                 {
                     if (leftEmpty && rightEmpty)
                     {
-                        targetNeighborPosition = SSRandom.GetBool() ? leftPosition : rightPosition;
+                        targetNeighborPosition = Core.Random.GetBool() ? leftPosition : rightPosition;
                     }
                     else if (leftEmpty)
                     {

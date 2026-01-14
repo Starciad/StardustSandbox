@@ -34,7 +34,7 @@ namespace StardustSandbox.Elements.Gases
 
             context.NotifyChunk();
 
-            if (SSRandom.Chance(ElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
+            if (Random.Chance(ElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
                 context.InfectNeighboringElements(neighbors);
             }

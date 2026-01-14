@@ -105,12 +105,12 @@ namespace StardustSandbox.Elements.Liquids
 
             // Choose direction: prefer the side that offers the greater maximum movement.
             // If equal, choose randomly.
-            int chosenDirection = leftMax == rightMax ? SSRandom.GetBool() ? -1 : 1 : leftMax > rightMax ? -1 : 1;
+            int chosenDirection = leftMax == rightMax ? Random.GetBool() ? -1 : 1 : leftMax > rightMax ? -1 : 1;
 
             int chosenMax = chosenDirection == -1 ? leftMax : rightMax;
 
             // Pick a random distance between 1 and chosenMax (inclusive) to avoid predictability
-            int distanceToMove = SSRandom.Range(1, chosenMax);
+            int distanceToMove = Random.Range(1, chosenMax);
 
             // Compute target position moving exactly distanceToMove (or fewer if blocked unexpectedly)
             Point targetPosition = GetHorizontalDispersionPosition(context, chosenDirection, distanceToMove);

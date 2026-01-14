@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Constants;
-using StardustSandbox.Core;
 using StardustSandbox.Databases;
 using StardustSandbox.Elements;
 using StardustSandbox.Enums.Actors;
@@ -145,7 +144,7 @@ namespace StardustSandbox.Actors.Common
 
         public override void Reset()
         {
-            this.direction = SSRandom.GetBool() ? Direction.Left : Direction.Right;
+            this.direction = Core.Random.GetBool() ? Direction.Left : Direction.Right;
             this.grabbedElementIndex = ElementIndex.None;
             this.positionElementPlaced = new(-1);
         }
@@ -305,7 +304,7 @@ namespace StardustSandbox.Actors.Common
         private void UpdateGrabbedElementBehavior()
         {
             // Try to walk or place element
-            if (SSRandom.Chance(40) && !TryWalk() && !TryPlaceElement())
+            if (Core.Random.Chance(40) && !TryWalk() && !TryPlaceElement())
             {
                 // Turn around if unable to walk or place element
                 TurnAround();
@@ -315,7 +314,7 @@ namespace StardustSandbox.Actors.Common
         private void UpdateNormalBehavior()
         {
             // Try to walk or grab element
-            if (SSRandom.Chance(40) && !TryWalk() && !TryGrabElement())
+            if (Core.Random.Chance(40) && !TryWalk() && !TryGrabElement())
             {
                 // Turn around if unable to walk or grab element
                 TurnAround();

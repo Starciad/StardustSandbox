@@ -42,7 +42,7 @@ namespace StardustSandbox.Serialization.Settings
 
         [XmlElement("CameraZoomIn", typeof(Keys))]
         public readonly Keys CameraZoomIn { get; init; }
-        
+
         [XmlElement("CameraZoomOut", typeof(Keys))]
         public readonly Keys CameraZoomOut { get; init; }
 

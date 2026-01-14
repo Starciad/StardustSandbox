@@ -22,12 +22,12 @@ namespace StardustSandbox.Core
     /// <summary>
     /// Provides static methods for generating random values of various numeric types and evaluating probabilistic conditions.
     /// </summary>
-    internal static class SSRandom
+    internal static class Random
     {
         /// <summary>
         /// The underlying <see cref="Random"/> instance used for random number generation.
         /// </summary>
-        private static readonly Random random = new();
+        private static readonly System.Random random = new();
 
         /// <summary>
         /// Returns a random <see cref="byte"/> value within the specified inclusive range.

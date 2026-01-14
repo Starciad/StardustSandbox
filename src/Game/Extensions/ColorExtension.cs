@@ -17,8 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
-
 using System;
 
 namespace StardustSandbox.Extensions
@@ -31,7 +29,7 @@ namespace StardustSandbox.Extensions
 
             int VaryChannel(int channel)
             {
-                int randomOffset = SSRandom.Range(-variationFactor, variationFactor);
+                int randomOffset = Core.Random.Range(-variationFactor, variationFactor);
                 return Math.Clamp(channel + randomOffset, 0, 255);
             }
 
