@@ -51,6 +51,7 @@ namespace StardustSandbox
 
         internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
         {
+            Camera.Reset();
             MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
 
@@ -69,7 +70,7 @@ namespace StardustSandbox
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
-            Camera.MoveInstant(new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE)));
+            Camera.SetPosition(new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE)));
 
             inputController.Pen.Tool = PenTool.Pencil;
             inputController.Enable();

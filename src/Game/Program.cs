@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core;
 using StardustSandbox.Localization;
 using StardustSandbox.Net;
 using StardustSandbox.Serialization;
@@ -29,10 +30,7 @@ using System.Windows.Forms;
 
 #if !DEBUG
 using StardustSandbox.Constants;
-
 using System.Text;
-
-using StardustSandbox.Core;
 #endif
 
 namespace StardustSandbox
