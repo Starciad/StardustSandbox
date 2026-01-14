@@ -40,8 +40,8 @@ namespace StardustSandbox.Serialization.Settings
         [XmlElement("MoveCameraLeft", typeof(Keys))]
         public readonly Keys MoveCameraLeft { get; init; }
 
-        [XmlElement("CameraRunning", typeof(Keys))]
-        public readonly Keys CameraRunning { get; init; }
+        [XmlElement("MoveCameraFast", typeof(Keys))]
+        public readonly Keys MoveCameraFast { get; init; }
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace StardustSandbox.Serialization.Settings
             this.MoveCameraLeft = Keys.A;
             this.MoveCameraDown = Keys.S;
             this.MoveCameraRight = Keys.D;
-            this.CameraRunning = Keys.LeftShift;
+            this.MoveCameraFast = Keys.LeftShift;
 
             this.TogglePause = Keys.Space;
             this.ClearWorld = Keys.R;

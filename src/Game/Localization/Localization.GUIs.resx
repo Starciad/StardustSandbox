@@ -59,10 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root"
-    xmlns=""
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -728,5 +725,17 @@
   </data>
   <data name="Options.Controls.Screenshot.Description" xml:space="preserve">
     <value>Type a shortcut key to capture the screen content and save it to a local image file.</value>
+  </data>
+  <data name="Options.Controls.MoveCameraFast.Name" xml:space="preserve">
+    <value>Move Fast</value>
+  </data>
+  <data name="Options.Controls.MoveCameraFast.Description" xml:space="preserve">
+    <value>Type a shortcut key to move the camera faster.</value>
+  </data>
+  <data name="Options.Controls.NextShape.Name" xml:space="preserve">
+    <value>Next Shape</value>
+  </data>
+  <data name="Options.Controls.NextShape.Description" xml:space="preserve">
+    <value>Type a shortcut key to select the next shape.</value>
   </data>
 </root>

@@ -49,7 +49,7 @@ namespace StardustSandbox.UI.Common.Menus
         private enum GameplaySectionOptionIndex : byte { ShowPreviewArea, PreviewAreaColor, PreviewAreaOpacity, ShowGrid, GridOpacity, ShowTemperatureColorVariations }
         private enum VolumeSectionOptionIndex : byte { MasterVolume, MusicVolume, SFXVolume }
         private enum VideoSectionOptionIndex : byte { Framerate, Resolution, Fullscreen, VSync, Borderless }
-        private enum ControlSectionOptionIndex : byte { MoveCameraUp, MoveCameraRight, MoveCameraDown, MoveCameraLeft, TogglePause, ClearWorld, Screenshot }
+        private enum ControlSectionOptionIndex : byte { MoveCameraUp, MoveCameraRight, MoveCameraDown, MoveCameraLeft, MoveCameraFast, TogglePause, ClearWorld, NextShape, Screenshot }
         private enum CursorSectionOptionIndex : byte { Color, BackgroundColor, Scale, Opacity }
 
         private sealed class Origin
@@ -286,11 +286,13 @@ namespace StardustSandbox.UI.Common.Menus
                 new(Localization_GUIs.Options_Controls_Name, Localization_GUIs.Options_Controls_Description,
                 [
                     new KeyOption(Localization_GUIs.Options_Controls_MoveCameraUp_Name, Localization_GUIs.Options_Controls_MoveCameraUp_Description),
-                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraRight_Name, Localization_GUIs.Options_Controls_MoveCameraRight_Name),
-                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraDown_Name, Localization_GUIs.Options_Controls_MoveCameraDown_Name),
-                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraLeft_Name, Localization_GUIs.Options_Controls_MoveCameraLeft_Name),
-                    new KeyOption(Localization_GUIs.Options_Controls_TogglePause_Name, Localization_GUIs.Options_Controls_TogglePause_Name),
-                    new KeyOption(Localization_GUIs.Options_Controls_ClearWorld_Name, Localization_GUIs.Options_Controls_ClearWorld_Name),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraRight_Name, Localization_GUIs.Options_Controls_MoveCameraRight_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraDown_Name, Localization_GUIs.Options_Controls_MoveCameraDown_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraLeft_Name, Localization_GUIs.Options_Controls_MoveCameraLeft_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_MoveCameraFast_Name, Localization_GUIs.Options_Controls_MoveCameraFast_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_TogglePause_Name, Localization_GUIs.Options_Controls_TogglePause_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_ClearWorld_Name, Localization_GUIs.Options_Controls_ClearWorld_Description),
+                    new KeyOption(Localization_GUIs.Options_Controls_NextShape_Name, Localization_GUIs.Options_Controls_NextShape_Description),
                     new KeyOption(Localization_GUIs.Options_Controls_Screenshot_Name, Localization_GUIs.Options_Controls_Screenshot_Description),
                 ]),
                 new(Localization_GUIs.Options_Cursor_Name, Localization_GUIs.Options_Cursor_Description,
@@ -387,8 +389,10 @@ namespace StardustSandbox.UI.Common.Menus
                 MoveCameraRight = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraRight].GetValue(),
                 MoveCameraDown = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraDown].GetValue(),
                 MoveCameraLeft = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraLeft].GetValue(),
+                MoveCameraFast = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraFast].GetValue(),
                 TogglePause = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.TogglePause].GetValue(),
                 ClearWorld = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.ClearWorld].GetValue(),
+                NextShape = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.NextShape].GetValue(),
                 Screenshot = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.Screenshot].GetValue(),
             });
 
@@ -421,8 +425,10 @@ namespace StardustSandbox.UI.Common.Menus
             controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraRight].SetValue(controlSettings.MoveCameraRight);
             controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraDown].SetValue(controlSettings.MoveCameraDown);
             controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraLeft].SetValue(controlSettings.MoveCameraLeft);
+            controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraFast].SetValue(controlSettings.MoveCameraFast);
             controlSection.Options[(byte)ControlSectionOptionIndex.TogglePause].SetValue(controlSettings.TogglePause);
             controlSection.Options[(byte)ControlSectionOptionIndex.ClearWorld].SetValue(controlSettings.ClearWorld);
+            controlSection.Options[(byte)ControlSectionOptionIndex.NextShape].SetValue(controlSettings.NextShape);
             controlSection.Options[(byte)ControlSectionOptionIndex.Screenshot].SetValue(controlSettings.Screenshot);
 
             cursorSection.Options[(byte)CursorSectionOptionIndex.Color].SetValue(new Color(cursorSettings.Color, 255));

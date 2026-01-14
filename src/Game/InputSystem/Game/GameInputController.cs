@@ -103,7 +103,7 @@ namespace StardustSandbox.InputSystem.Game
                     },
 
                     // Running
-                    new(controlSettings.CameraRunning)
+                    new(controlSettings.MoveCameraFast)
                     {
                         OnStarted = _ => this.player.IsRunning = true,
                         OnCanceled = _ => this.player.IsRunning = false,
