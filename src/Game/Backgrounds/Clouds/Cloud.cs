@@ -23,6 +23,7 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Simulation;
 using StardustSandbox.Interfaces.Collections;
+using StardustSandbox.Mathematics.Primitives;
 
 using System;
 
@@ -30,28 +31,27 @@ namespace StardustSandbox.Backgrounds.Clouds
 {
     internal sealed class Cloud : IPoolableObject
     {
-        internal Rectangle SourceRectangle => this.textureRectangle;
-        internal Vector2 Position => this.position;
+        internal RectangleF SelfRectangle => new(this.position.X, this.position.Y, this.SourceRectangle.Width, this.SourceRectangle.Height);
 
-        private Rectangle textureRectangle;
+        internal Rectangle SourceRectangle { get; set; }
+        internal bool IsDestroyed { get; set; }
+
         private Vector2 position;
         private float speed;
         private float opacity;
         private Color color;
+
+        internal Cloud()
+        {
+            Reset();
+        }
 
         public void Reset()
         {
             this.position = new(-(WorldConstants.GRID_SIZE * 5), Core.Random.Range(0, WorldConstants.GRID_SIZE * 10));
             this.speed = Core.Random.Range(10, 50);
             this.opacity = (Core.Random.GetFloat() * 0.5f) + 0.5f;
-
-            this.color = Color.White;
-            this.color.A = Convert.ToByte(255 * this.opacity);
-        }
-
-        internal Cloud()
-        {
-            Reset();
+            this.color = new(Color.White, Convert.ToByte(255 * this.opacity));
         }
 
         internal void Update(GameTime gameTime, SimulationSpeed simulationSpeed)
@@ -69,12 +69,7 @@ namespace StardustSandbox.Backgrounds.Clouds
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoClouds), this.position, this.textureRectangle, this.color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-        }
-
-        internal void SetTextureRectangle(Rectangle rectangle)
-        {
-            this.textureRectangle = rectangle;
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.BgoClouds), this.position, this.SourceRectangle, this.color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
     }
 }

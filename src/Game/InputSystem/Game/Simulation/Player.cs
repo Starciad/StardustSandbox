@@ -23,14 +23,8 @@ namespace StardustSandbox.InputSystem.Game.Simulation
     {
         internal Item SelectedItem { get; private set; }
         internal float MovementSpeed => this.IsRunning ? 20.0f : 10.0f;
-        internal float ZoomSpeed { get; }
         internal bool CanModifyEnvironment { get; set; }
         internal bool IsRunning { get; set; }
-
-        internal Player()
-        {
-            this.ZoomSpeed = 0.01f;
-        }
 
         internal void SelectItem(Item item)
         {

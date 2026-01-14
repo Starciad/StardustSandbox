@@ -102,17 +102,6 @@ namespace StardustSandbox.InputSystem.Game
                         OnPerformed = _ => Camera.Move(new(-this.player.MovementSpeed, 0)),
                     },
 
-                    // Zoom
-                    new(controlSettings.CameraZoomIn)
-                    {
-                        OnPerformed = _ => Camera.ZoomIn(this.player.ZoomSpeed),
-                    },
-
-                    new(controlSettings.CameraZoomOut)
-                    {
-                        OnPerformed = _ => Camera.ZoomOut(this.player.ZoomSpeed),
-                    },
-
                     // Running
                     new(controlSettings.CameraRunning)
                     {

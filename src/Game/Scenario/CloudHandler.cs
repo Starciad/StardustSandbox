@@ -40,8 +40,85 @@ namespace StardustSandbox.Scenario
             new(128, 64, 128, 64),
         ];
 
-        private readonly List<Cloud> activeClouds = new(BackgroundConstants.ACTIVE_CLOUDS_LIMIT);
+        private int totalCloudCount;
+
+        private readonly List<Cloud> instantiatedClouds = [];
+        private readonly Queue<Cloud> cloudsToAdd = [];
+        private readonly Queue<Cloud> cloudsToRemove = [];
+
         private readonly ObjectPool cloudPool = new();
+
+        internal IEnumerable<Cloud> GetClouds()
+        {
+            foreach (Cloud cloud in this.cloudsToAdd)
+            {
+                yield return cloud;
+            }
+
+            foreach (Cloud cloud in this.instantiatedClouds)
+            {
+                yield return cloud;
+            }
+
+            foreach (Cloud cloud in this.cloudsToRemove)
+            {
+                yield return cloud;
+            }
+        }
+
+        private bool TryCreate()
+        {
+            if (this.totalCloudCount >= BackgroundConstants.MAX_SIMULTANEOUS_CLOUDS)
+            {
+                return false;
+            }
+
+            Cloud cloud = this.cloudPool.TryDequeue(out IPoolableObject value) ? (Cloud)value : new();
+            cloud.SourceRectangle = cloudRectangles.GetRandomItem();
+
+            this.cloudsToAdd.Enqueue(cloud);
+            this.totalCloudCount++;
+
+            return true;
+        }
+
+        private void Destroy(Cloud cloud)
+        {
+            if (cloud.IsDestroyed)
+            {
+                return;
+            }
+
+            cloud.IsDestroyed = true;
+
+            this.cloudPool.Enqueue(cloud);
+            this.cloudsToRemove.Enqueue(cloud);
+
+            this.totalCloudCount--;
+        }
+
+        private void FlushPendingChanges()
+        {
+            FlushAdditions();
+            FlushRemovals();
+        }
+
+        private void FlushAdditions()
+        {
+            while (this.cloudsToAdd.TryDequeue(out Cloud cloud))
+            {
+                this.instantiatedClouds.Add(cloud);
+                cloud.IsDestroyed = false;
+            }
+        }
+
+        private void FlushRemovals()
+        {
+            while (this.cloudsToRemove.TryDequeue(out Cloud cloud))
+            {
+                _ = this.instantiatedClouds.Remove(cloud);
+            }
+        }
 
         internal void Update(GameTime gameTime)
         {
@@ -51,35 +128,34 @@ namespace StardustSandbox.Scenario
                 return;
             }
 
-            for (int i = 0; i < this.activeClouds.Count; i++)
+            FlushPendingChanges();
+
+            foreach (Cloud cloud in GetClouds())
             {
-                Cloud cloud = this.activeClouds[i];
-
-                if (cloud == null)
+                if (cloud.IsDestroyed)
                 {
-                    continue;
-                }
-
-                if (!Camera.InsideCameraBounds(cloud.Position, new(cloud.SourceRectangle.Width, cloud.SourceRectangle.Height), false, cloud.SourceRectangle.Width + (WorldConstants.GRID_SIZE * 2)))
-                {
-                    DestroyCloud(cloud);
                     continue;
                 }
 
                 cloud.Update(gameTime, GameHandler.SimulationSpeed);
+
+                if (!Camera.IsWithinBounds(cloud.SelfRectangle, false, cloud.SourceRectangle.Width * 2.0f))
+                {
+                    Destroy(cloud);
+                }
             }
 
-            if (Random.Chance(BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING, BackgroundConstants.CHANCE_OF_CLOUD_SPAWNING_TOTAL))
+            if (Random.Chance(10, 350))
             {
-                CreateCloud();
+                _ = TryCreate();
             }
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.activeClouds.Count; i++)
+            for (int i = 0; i < this.instantiatedClouds.Count; i++)
             {
-                Cloud cloud = this.activeClouds[i];
+                Cloud cloud = this.instantiatedClouds[i];
 
                 if (cloud == null)
                 {
@@ -90,57 +166,28 @@ namespace StardustSandbox.Scenario
             }
         }
 
-        internal void Clear()
+        public void Reset()
         {
-            for (int i = 0; i < this.activeClouds.Count; i++)
-            {
-                Cloud cloud = this.activeClouds[i];
+            HashSet<Cloud> visited = [];
 
-                if (cloud == null)
+            foreach (Cloud cloud in GetClouds())
+            {
+                if (!visited.Add(cloud))
                 {
                     continue;
                 }
 
-                DestroyCloud(cloud);
-            }
-        }
-
-        public void Reset()
-        {
-            Clear();
-        }
-
-        private void CreateCloud()
-        {
-            if (this.activeClouds.Count > BackgroundConstants.ACTIVE_CLOUDS_LIMIT)
-            {
-                return;
+                if (!cloud.IsDestroyed)
+                {
+                    this.cloudPool.Enqueue(cloud);
+                }
             }
 
-            Cloud target;
-            Rectangle randomCloudRectangle = cloudRectangles.GetRandomItem();
+            this.cloudsToAdd.Clear();
+            this.cloudsToRemove.Clear();
+            this.instantiatedClouds.Clear();
 
-            if (this.cloudPool.TryDequeue(out IPoolableObject value))
-            {
-                target = (Cloud)value;
-                target.SetTextureRectangle(randomCloudRectangle);
-                target.Reset();
-
-                this.activeClouds.Add(target);
-            }
-            else
-            {
-                target = new();
-                target.SetTextureRectangle(randomCloudRectangle);
-
-                this.activeClouds.Add(target);
-            }
-        }
-
-        private void DestroyCloud(Cloud cloud)
-        {
-            _ = this.activeClouds.Remove(cloud);
-            this.cloudPool.Enqueue(cloud);
+            this.totalCloudCount = 0;
         }
     }
 }
