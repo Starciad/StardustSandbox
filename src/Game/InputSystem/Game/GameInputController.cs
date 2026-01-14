@@ -168,6 +168,11 @@ namespace StardustSandbox.InputSystem.Game
 
         private void UpdatePlaceAreaSize()
         {
+            if (GameHandler.HasState(GameStates.IsCriticalMenuOpen))
+            {
+                return;
+            }
+
             if (Input.GetDeltaScrollWheel() > 0)
             {
                 this.pen.Size--;
