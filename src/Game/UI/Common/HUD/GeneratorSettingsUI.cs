@@ -65,48 +65,114 @@ namespace StardustSandbox.UI.Common.HUD
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
-            this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
-            this.generateButtonInfo = new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_GUIs.GeneratorSettings_Generate_Name, Localization_GUIs.GeneratorSettings_Generate_Description, () =>
-            {
-                confirmUI.Configure(new()
+            this.exitButtonInfo = new(
+                TextureIndex.IconUI,
+                new(224, 0, 32, 32),
+                Localization_Statements.Exit,
+                Localization_GUIs.Button_Exit_Description,
+                uiManager.CloseUI
+            );
+
+            this.generateButtonInfo = new(
+                TextureIndex.IconUI,
+                new(192, 0, 32, 32),
+                Localization_GUIs.GeneratorSettings_Generate_Name,
+                Localization_GUIs.GeneratorSettings_Generate_Description,
+                () =>
                 {
-                    Caption = "Confirm",
-                    Message = "Confirm",
-                    OnConfirmCallback = status =>
+                    confirmUI.Configure(new()
                     {
-                        if (status == ConfirmStatus.Confirmed)
+                        Caption = Localization_Messages.GeneratorSettings_Confirm_Title,
+                        Message = Localization_Messages.GeneratorSettings_Confirm_Message,
+
+                        OnConfirmCallback = status =>
                         {
-                            WorldGenerator.Start(actorManager, world, this.selectedTheme, this.selectedSettings, this.selectedContents);
-                        }
+                            if (status == ConfirmStatus.Confirmed)
+                            {
+                                WorldGenerator.Start(
+                                    actorManager,
+                                    world,
+                                    this.selectedTheme,
+                                    this.selectedSettings,
+                                    this.selectedContents
+                                );
+                            }
 
-                        GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                    },
-                });
+                            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+                        },
+                    });
 
-                this.uiManager.OpenUI(UIIndex.Confirm);
-            });
+                    this.uiManager.OpenUI(UIIndex.Confirm);
+                }
+            );
 
             this.themeButtonInfos =
             [
-                new(TextureIndex.IconUI, new(320, 0, 32, 32), "Plain", "A plain world theme.", () => { this.selectedTheme = WorldGenerationTheme.Plain; }),
-                new(TextureIndex.IconUI, new(320, 32, 32, 32), "Desert", "A desert world theme.", () => { this.selectedTheme = WorldGenerationTheme.Desert; }),
-                new(TextureIndex.IconUI, new(320, 64, 32, 32), "Snow", "A snowy world theme.", () => { this.selectedTheme = WorldGenerationTheme.Snow; }),
-                new(TextureIndex.IconUI, new(320, 96, 32, 32), "Volcanic", "A volcanic world theme.", () => { this.selectedTheme = WorldGenerationTheme.Volcanic; }),
-                new(TextureIndex.IconUI, new(320, 128, 32, 32), "Ocean", "A ocean world theme.", () => { this.selectedTheme = WorldGenerationTheme.Ocean; }),
+                new(TextureIndex.IconUI, new(320, 0, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Theme_Plain_Name,
+                    Localization_GUIs.GeneratorSettings_Theme_Plain_Description,
+                    () => { this.selectedTheme = WorldGenerationTheme.Plain; }
+                ),
 
+                new(TextureIndex.IconUI, new(320, 32, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Theme_Desert_Name,
+                    Localization_GUIs.GeneratorSettings_Theme_Desert_Description,
+                    () => { this.selectedTheme = WorldGenerationTheme.Desert; }
+                ),
+
+                new(TextureIndex.IconUI, new(320, 64, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Theme_Snow_Name,
+                    Localization_GUIs.GeneratorSettings_Theme_Snow_Description,
+                    () => { this.selectedTheme = WorldGenerationTheme.Snow; }
+                ),
+
+                new(TextureIndex.IconUI, new(320, 96, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Theme_Volcanic_Name,
+                    Localization_GUIs.GeneratorSettings_Theme_Volcanic_Description,
+                    () => { this.selectedTheme = WorldGenerationTheme.Volcanic; }
+                ),
+
+                new(TextureIndex.IconUI, new(320, 128, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Theme_Ocean_Name,
+                    Localization_GUIs.GeneratorSettings_Theme_Ocean_Description,
+                    () => { this.selectedTheme = WorldGenerationTheme.Ocean; }
+                ),
             ];
 
             this.settingsButtonInfos =
             [
-                new(TextureIndex.IconUI, new(192, 32, 32, 32), "Foreground", "Generate foreground elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateForeground; }),
-                new(TextureIndex.IconUI, new(224, 32, 32, 32), "Background", "Generate background elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateBackground; }),
+                new(TextureIndex.IconUI, new(192, 32, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Settings_Foreground_Name,
+                    Localization_GUIs.GeneratorSettings_Settings_Foreground_Description,
+                    () => { this.selectedSettings ^= WorldGenerationSettings.GenerateForeground; }
+                ),
+
+                new(TextureIndex.IconUI, new(224, 32, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Settings_Background_Name,
+                    Localization_GUIs.GeneratorSettings_Settings_Background_Description,
+                    () => { this.selectedSettings ^= WorldGenerationSettings.GenerateBackground; }
+                ),
             ];
 
             this.contentsButtonInfos =
             [
-                new(TextureIndex.IconElements, new(96, 0, 32, 32), "Oceans", "Include oceans in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasOceans; }),
-                new(TextureIndex.IconElements, new(160, 128, 32, 32), "Vegetation", "Include vegetation in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasVegetation; }),
-                new(TextureIndex.IconElements, new(0, 128, 32, 32), "Clouds", "Include clouds in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasClouds; }),
+                new(TextureIndex.IconElements, new(96, 0, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Contents_Oceans_Name,
+                    Localization_GUIs.GeneratorSettings_Contents_Oceans_Description,
+                    () => { this.selectedContents ^= WorldGenerationContents.HasOceans; }
+                ),
+
+                new(TextureIndex.IconElements, new(160, 128, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Contents_Vegetation_Name,
+                    Localization_GUIs.GeneratorSettings_Contents_Vegetation_Description,
+                    () => { this.selectedContents ^= WorldGenerationContents.HasVegetation; }
+                ),
+
+                new(TextureIndex.IconElements, new(0, 128, 32, 32),
+                    Localization_GUIs.GeneratorSettings_Contents_Clouds_Name,
+                    Localization_GUIs.GeneratorSettings_Contents_Clouds_Description,
+                    () => { this.selectedContents ^= WorldGenerationContents.HasClouds; }
+                ),
             ];
         }
 
@@ -221,12 +287,19 @@ namespace StardustSandbox.UI.Common.HUD
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = "Theme"
+                TextContent = Localization_GUIs.GeneratorSettings_Theme_Title
             };
 
             this.background.AddChild(this.themeSectionTitle);
 
-            this.themeButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.themeSectionTitle, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Northwest);
+            this.themeButtonSlotInfos = UIBuilderUtility.BuildGridButtons(
+                this.themeSectionTitle,
+                this.themeButtonInfos,
+                3,
+                new(0.0f, 52.0f),
+                new(80.0f, 80.0f),
+                UIDirection.Northwest
+            );
         }
 
         private void BuildSettingsSection()
@@ -238,12 +311,19 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(0.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = "Settings"
+                TextContent = Localization_GUIs.GeneratorSettings_Settings_Title
             };
 
             this.background.AddChild(this.settingsSectionTitle);
 
-            this.settingsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.settingsSectionTitle, this.settingsButtonInfos, 3, new((this.settingsSectionTitle.Size.X / 2.0f * -1.0f) + 16.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Northwest);
+            this.settingsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(
+                this.settingsSectionTitle,
+                this.settingsButtonInfos,
+                3,
+                new((this.settingsSectionTitle.Size.X / 2.0f * -1.0f) + 16.0f, 52.0f),
+                new(80.0f, 80.0f),
+                UIDirection.Northwest
+            );
         }
 
         private void BuildContentsSection()
@@ -255,12 +335,19 @@ namespace StardustSandbox.UI.Common.HUD
                 Margin = new(-32.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = "Contents"
+                TextContent = Localization_GUIs.GeneratorSettings_Contents_Title
             };
 
             this.background.AddChild(this.contentsSectionTitle);
 
-            this.contentsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.contentsSectionTitle, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(-80.0f, 80.0f), UIDirection.Northeast);
+            this.contentsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(
+                this.contentsSectionTitle,
+                this.contentsButtonInfos,
+                3,
+                new(0.0f, 52.0f),
+                new(-80.0f, 80.0f),
+                UIDirection.Northeast
+            );
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -294,7 +294,7 @@ namespace StardustSandbox.Generators
             {
                 if (world.IsWithinBounds(in point))
                 {
-                    world.ReplaceElement(point, layer, ElementIndex.Water);
+                    world.ReplaceElement(point, layer, ElementIndex.Saltwater);
                 }
             }
 
@@ -302,7 +302,7 @@ namespace StardustSandbox.Generators
             {
                 if (world.IsWithinBounds(in point))
                 {
-                    world.ReplaceElement(point, layer, ElementIndex.Water);
+                    world.ReplaceElement(point, layer, ElementIndex.Saltwater);
                 }
             }
         }

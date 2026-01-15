@@ -739,6 +739,87 @@
     <value>Escriba una tecla de acceso rápido para seleccionar la forma siguiente.</value>
   </data>
   <data name="GeneratorSettings.Title" xml:space="preserve">
-    <value>Generator Settings</value>
+    <value>Configuración del Generador</value>
+  </data>
+  <data name="EnvironmentSettings.Generator.Name" xml:space="preserve">
+    <value>Generador</value>
+  </data>
+  <data name="EnvironmentSettings.Generator.Description" xml:space="preserve">
+    <value>Genera contenido de forma procedural para tu mundo y ayuda con ideas.</value>
+  </data>
+  <data name="GeneratorSettings.Generate.Name" xml:space="preserve">
+    <value>Generar</value>
+  </data>
+  <data name="GeneratorSettings.Generate.Description" xml:space="preserve">
+    <value>Inicie el proceso de generación del mundo utilizando las opciones seleccionadas.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Title" xml:space="preserve">
+    <value>Temas</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Plain.Name" xml:space="preserve">
+    <value>Llanura</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Plain.Description" xml:space="preserve">
+    <value>Un paisaje natural, con vegetación, tierra, piedras y suelo blando.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Desert.Name" xml:space="preserve">
+    <value>Desierto</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Desert.Description" xml:space="preserve">
+    <value>Un entorno seco y árido, dominado por arena, rocas y vegetación mínima.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Snow.Name" xml:space="preserve">
+    <value>Nieve</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Snow.Description" xml:space="preserve">
+    <value>Un entorno frío y nevado, cubierto de hielo y nieve.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Volcanic.Name" xml:space="preserve">
+    <value>Volcánico</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Volcanic.Description" xml:space="preserve">
+    <value>Un entorno ardiente y volcánico, con flujos de lava y terreno cubierto de ceniza.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Ocean.Name" xml:space="preserve">
+    <value>Océano</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Ocean.Description" xml:space="preserve">
+    <value>Un vasto y profundo entorno oceánico, con agua, olas y vida marina.</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Title" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Foreground.Name" xml:space="preserve">
+    <value>Primer plano</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Foreground.Description" xml:space="preserve">
+    <value>El generador asignará contenido a la capa del primer plano.</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Background.Name" xml:space="preserve">
+    <value>Fondo</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Background.Description" xml:space="preserve">
+    <value>El generador asignará contenido a la capa del fondo.</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Title" xml:space="preserve">
+    <value>Contenidos</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Oceans.Name" xml:space="preserve">
+    <value>Océanos</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Oceans.Description" xml:space="preserve">
+    <value>Se añaden dos océanos en los extremos horizontales del mundo.</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Vegetation.Name" xml:space="preserve">
+    <value>Vegetación</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Vegetation.Description" xml:space="preserve">
+    <value>El mundo será perpetuado por la vida natural. Dependiendo del tema elegido, el tipo de vegetación puede cambiar considerablemente.</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Clouds.Name" xml:space="preserve">
+    <value>Nubes</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Clouds.Description" xml:space="preserve">
+    <value>Las nubes se ubicarán en las capas más altas del mundo.</value>
   </data>
 </root>

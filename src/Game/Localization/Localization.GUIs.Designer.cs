@@ -178,7 +178,7 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Generator.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Generate content procedurally for your world to help with ideas!.
         /// </summary>
         internal static string EnvironmentSettings_Generator_Description {
             get {
@@ -403,7 +403,70 @@ namespace StardustSandbox.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Generate.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Clouds will be located in the highest layers of the world..
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Clouds_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Clouds.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Clouds.
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Clouds_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Clouds.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Two oceans are added at the horizontal extremities of the world..
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Oceans_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Oceans.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Oceans.
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Oceans_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Oceans.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Contents.
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Title {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The world will be perpetuated by natural life. Depending on the chosen theme, the type of vegetation can change considerably..
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Vegetation_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Vegetation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Vegetation.
+        /// </summary>
+        internal static string GeneratorSettings_Contents_Vegetation_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Contents.Vegetation.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Start the world generation process using the selected options..
         /// </summary>
         internal static string GeneratorSettings_Generate_Description {
             get {
@@ -417,6 +480,150 @@ namespace StardustSandbox.Localization {
         internal static string GeneratorSettings_Generate_Name {
             get {
                 return ResourceManager.GetString("GeneratorSettings.Generate.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The generator will allocate content to the background layer..
+        /// </summary>
+        internal static string GeneratorSettings_Settings_Background_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Settings.Background.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Background.
+        /// </summary>
+        internal static string GeneratorSettings_Settings_Background_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Settings.Background.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The generator will allocate content to the foreground layer..
+        /// </summary>
+        internal static string GeneratorSettings_Settings_Foreground_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Settings.Foreground.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Foreground.
+        /// </summary>
+        internal static string GeneratorSettings_Settings_Foreground_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Settings.Foreground.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Settings.
+        /// </summary>
+        internal static string GeneratorSettings_Settings_Title {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Settings.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A dry and arid environment, dominated by sand, rocks, and minimal vegetation..
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Desert_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Desert.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Desert.
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Desert_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Desert.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A vast and deep oceanic environment, with water, waves, and marine life..
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Ocean_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Ocean.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ocean.
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Ocean_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Ocean.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A natural landscape, with vegetation, earth, stones and soft soil..
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Plain_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Plain.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Plain.
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Plain_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Plain.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A cold and snowy environment, covered with ice and snow..
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Snow_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Snow.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Snow.
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Snow_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Snow.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Themes.
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Title {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A fiery and volcanic environment, with lava flows and ash-covered terrain..
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Volcanic_Description {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Volcanic.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Volcanic.
+        /// </summary>
+        internal static string GeneratorSettings_Theme_Volcanic_Name {
+            get {
+                return ResourceManager.GetString("GeneratorSettings.Theme.Volcanic.Name", resourceCulture);
             }
         }
         

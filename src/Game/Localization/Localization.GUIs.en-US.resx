@@ -741,4 +741,85 @@
   <data name="GeneratorSettings.Title" xml:space="preserve">
     <value>Generator Settings</value>
   </data>
+  <data name="EnvironmentSettings.Generator.Name" xml:space="preserve">
+    <value>Generator</value>
+  </data>
+  <data name="EnvironmentSettings.Generator.Description" xml:space="preserve">
+    <value>Generate content procedurally for your world to help with ideas!</value>
+  </data>
+  <data name="GeneratorSettings.Generate.Name" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="GeneratorSettings.Generate.Description" xml:space="preserve">
+    <value>Start the world generation process using the selected options.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Title" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Plain.Name" xml:space="preserve">
+    <value>Plain</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Plain.Description" xml:space="preserve">
+    <value>A natural landscape, with vegetation, earth, stones and soft soil.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Desert.Name" xml:space="preserve">
+    <value>Desert</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Desert.Description" xml:space="preserve">
+    <value>A dry and arid environment, dominated by sand, rocks, and minimal vegetation.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Snow.Name" xml:space="preserve">
+    <value>Snow</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Snow.Description" xml:space="preserve">
+    <value>A cold and snowy environment, covered with ice and snow.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Volcanic.Name" xml:space="preserve">
+    <value>Volcanic</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Volcanic.Description" xml:space="preserve">
+    <value>A fiery and volcanic environment, with lava flows and ash-covered terrain.</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Ocean.Name" xml:space="preserve">
+    <value>Ocean</value>
+  </data>
+  <data name="GeneratorSettings.Theme.Ocean.Description" xml:space="preserve">
+    <value>A vast and deep oceanic environment, with water, waves, and marine life.</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Foreground.Name" xml:space="preserve">
+    <value>Foreground</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Foreground.Description" xml:space="preserve">
+    <value>The generator will allocate content to the foreground layer.</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Background.Name" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="GeneratorSettings.Settings.Background.Description" xml:space="preserve">
+    <value>The generator will allocate content to the background layer.</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Title" xml:space="preserve">
+    <value>Contents</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Oceans.Name" xml:space="preserve">
+    <value>Oceans</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Oceans.Description" xml:space="preserve">
+    <value>Two oceans are added at the horizontal extremities of the world.</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Vegetation.Name" xml:space="preserve">
+    <value>Vegetation</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Vegetation.Description" xml:space="preserve">
+    <value>The world will be perpetuated by natural life. Depending on the chosen theme, the type of vegetation can change considerably.</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Clouds.Name" xml:space="preserve">
+    <value>Clouds</value>
+  </data>
+  <data name="GeneratorSettings.Contents.Clouds.Description" xml:space="preserve">
+    <value>Clouds will be located in the highest layers of the world.</value>
+  </data>
 </root>

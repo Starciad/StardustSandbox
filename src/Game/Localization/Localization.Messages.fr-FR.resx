@@ -168,4 +168,10 @@
   <data name="Tutorial.Move" xml:space="preserve">
     <value>Hé ! Votre monde est maintenant beaucoup plus grand ! Utilisez {0}, {1}, {2} et {3} pour déplacer votre caméra !</value>
   </data>
+  <data name="GeneratorSettings.Confirm.Title" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir continuer ?</value>
+  </data>
+  <data name="GeneratorSettings.Confirm.Message" xml:space="preserve">
+    <value>Si vous continuez le processus de génération du monde, tout le contenu actuel sera restauré et écrasé par le contenu créé par le générateur. Voulez-vous vraiment continuer ?</value>
+  </data>
 </root>
