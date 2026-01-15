@@ -37,48 +37,69 @@ namespace StardustSandbox.Generators
 
             GameHandler.Reset(actorManager, world);
 
-            Range amplitudeRange = theme switch
+            Range amplitudeRange;
+            int smoothness;
+
+            switch (theme)
             {
-                WorldGenerationTheme.Plain =>
-                    new(
+                case WorldGenerationTheme.Plain:
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 25.0f),
                         (int)PercentageMath.PercentageOfValue(height, 45.0f)
-                    ),
+                    );
+                    smoothness = 4;
+                    break;
 
-                WorldGenerationTheme.Desert =>
-                    new(
+                case WorldGenerationTheme.Desert:
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 20.0f),
                         (int)PercentageMath.PercentageOfValue(height, 50.0f)
-                    ),
+                    );
+                    smoothness = 5;
+                    break;
 
-                WorldGenerationTheme.Snow =>
-                    new(
+                case WorldGenerationTheme.Snow:
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 40.0f),
                         (int)PercentageMath.PercentageOfValue(height, 70.0f)
-                    ),
+                    );
+                    smoothness = 3;
+                    break;
 
-                WorldGenerationTheme.Volcanic =>
-                    new(
+                case WorldGenerationTheme.Volcanic:
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 10.0f),
                         (int)PercentageMath.PercentageOfValue(height, 40.0f)
-                    ),
+                    );
+                    smoothness = 2;
+                    break;
 
-                _ =>
-                    new(
+                case WorldGenerationTheme.Ocean:
+                    amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(height, 30.0f),
+                        (int)PercentageMath.PercentageOfValue(height, 50.0f)
+                    );
+                    smoothness = 1;
+                    break;
+
+                default:
+                    amplitudeRange = new(
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
-                    ),
-            };
+                    );
+                    smoothness = 4;
+                    break;
+            }
 
             // Create a coherent height map first (single pass) and share it between generators.
             if (settings.HasFlag(WorldGenerationSettings.GenerateForeground))
             {
-                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange), contents, theme, Layer.Foreground);
+                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange, smoothness), contents, theme, Layer.Foreground);
             }
 
             if (settings.HasFlag(WorldGenerationSettings.GenerateBackground))
             {
-                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange), contents, theme, Layer.Background);
+                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange, smoothness), contents, theme, Layer.Background);
             }
         }
 
@@ -102,7 +123,7 @@ namespace StardustSandbox.Generators
             }
         }
 
-        private static int[] GenerateHeightMap(in int width, in int height, in Range amplitudeRange)
+        private static int[] GenerateHeightMap(in int width, in int height, in Range amplitudeRange, int smoothness)
         {
             int[] heights = new int[width];
             int baseline = (int)PercentageMath.PercentageOfValue(height, 60.0f);
@@ -126,7 +147,7 @@ namespace StardustSandbox.Generators
             }
 
             // Apply a few smoothing passes (moving average) to remove jitter
-            for (int pass = 0; pass < 3; pass++)
+            for (int pass = 0; pass < smoothness; pass++)
             {
                 int[] temp = new int[width];
 
@@ -203,6 +224,13 @@ namespace StardustSandbox.Generators
                         subsurfaceElement = ElementIndex.Obsidian;
                         rockElement = ElementIndex.Lava;
                         abyssElement = ElementIndex.Obsidian;
+                        break;
+
+                    case WorldGenerationTheme.Ocean:
+                        surfaceElement = ElementIndex.Saltwater;
+                        subsurfaceElement = ElementIndex.Saltwater;
+                        rockElement = ElementIndex.Saltwater;
+                        abyssElement = ElementIndex.Stone;
                         break;
 
                     case WorldGenerationTheme.Plain:

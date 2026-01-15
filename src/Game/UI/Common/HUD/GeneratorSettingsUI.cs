@@ -92,6 +92,8 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.IconUI, new(320, 32, 32, 32), "Desert", "A desert world theme.", () => { this.selectedTheme = WorldGenerationTheme.Desert; }),
                 new(TextureIndex.IconUI, new(320, 64, 32, 32), "Snow", "A snowy world theme.", () => { this.selectedTheme = WorldGenerationTheme.Snow; }),
                 new(TextureIndex.IconUI, new(320, 96, 32, 32), "Volcanic", "A volcanic world theme.", () => { this.selectedTheme = WorldGenerationTheme.Volcanic; }),
+                new(TextureIndex.IconUI, new(320, 128, 32, 32), "Ocean", "A ocean world theme.", () => { this.selectedTheme = WorldGenerationTheme.Ocean; }),
+
             ];
 
             this.settingsButtonInfos =

@@ -22,7 +22,8 @@ namespace StardustSandbox.Enums.Generators
         Plain,
         Desert,
         Snow,
-        Volcanic
+        Volcanic,
+        Ocean
     }
 }
 
