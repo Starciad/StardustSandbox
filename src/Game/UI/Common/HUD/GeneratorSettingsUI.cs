@@ -43,7 +43,7 @@ namespace StardustSandbox.UI.Common.HUD
     {
         private WorldGenerationTheme selectedTheme = WorldGenerationTheme.Plain;
         private WorldGenerationSettings selectedSettings = WorldGenerationSettings.GenerateForeground;
-        private WorldGenerationContents selectedContents = WorldGenerationContents.HasOceans | WorldGenerationContents.HasVegetation | WorldGenerationContents.HasClouds;
+        private WorldGenerationContents selectedContents = WorldGenerationContents.None;
 
         private Image background;
         private Label menuTitle, themeSectionTitle, settingsSectionTitle, contentsSectionTitle;
@@ -91,23 +91,23 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.themeButtonInfos =
             [
-                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Plain", "A plain world theme.", () => { this.selectedTheme = WorldGenerationTheme.Plain; }),
-                new(TextureIndex.IconUI, new(32, 32, 32, 32), "Desert", "A desert world theme.", () => { this.selectedTheme = WorldGenerationTheme.Desert; }),
-                new(TextureIndex.IconUI, new(64, 32, 32, 32), "Snow", "A snowy world theme.", () => { this.selectedTheme = WorldGenerationTheme.Snow; }),
-                new(TextureIndex.IconUI, new(96, 32, 32, 32), "Volcanic", "A volcanic world theme.", () => { this.selectedTheme = WorldGenerationTheme.Volcanic; }),
+                new(TextureIndex.IconUI, new(320, 0, 32, 32), "Plain", "A plain world theme.", () => { this.selectedTheme = WorldGenerationTheme.Plain; }),
+                new(TextureIndex.IconUI, new(320, 32, 32, 32), "Desert", "A desert world theme.", () => { this.selectedTheme = WorldGenerationTheme.Desert; }),
+                new(TextureIndex.IconUI, new(320, 64, 32, 32), "Snow", "A snowy world theme.", () => { this.selectedTheme = WorldGenerationTheme.Snow; }),
+                new(TextureIndex.IconUI, new(320, 96, 32, 32), "Volcanic", "A volcanic world theme.", () => { this.selectedTheme = WorldGenerationTheme.Volcanic; }),
             ];
 
             this.settingsButtonInfos =
             [
-                new(TextureIndex.IconUI, new(32, 0, 32, 32), "Foreground", "Generate foreground elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateForeground; }),
-                new(TextureIndex.IconUI, new(64, 0, 32, 32), "Background", "Generate background elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateBackground; }),
+                new(TextureIndex.IconUI, new(192, 32, 32, 32), "Foreground", "Generate foreground elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateForeground; }),
+                new(TextureIndex.IconUI, new(224, 32, 32, 32), "Background", "Generate background elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateBackground; }),
             ];
 
             this.contentsButtonInfos =
             [
-                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Oceans", "Include oceans in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasOceans; }),
-                new(TextureIndex.IconUI, new(128, 0, 32, 32), "Vegetation", "Include vegetation in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasVegetation; }),
-                new(TextureIndex.IconUI, new(160, 0, 32, 32), "Clouds", "Include clouds in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasClouds; }),
+                new(TextureIndex.IconElements, new(96, 0, 32, 32), "Oceans", "Include oceans in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasOceans; }),
+                new(TextureIndex.IconElements, new(160, 128, 32, 32), "Vegetation", "Include vegetation in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasVegetation; }),
+                new(TextureIndex.IconElements, new(0, 128, 32, 32), "Clouds", "Include clouds in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasClouds; }),
             ];
 
             this.themeButtonSlotInfos = new SlotInfo[this.themeButtonInfos.Length];
@@ -240,7 +240,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Alignment = UIDirection.North,
                 Scale = new(0.1f),
-                Margin = new(-48.0f, 128.0f),
+                Margin = new(0.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = "Settings"
@@ -248,7 +248,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.settingsSectionTitle);
 
-            BuildSectionButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f));
+            BuildSectionButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new(this.settingsSectionTitle.Size.X / 2.0f * -1 + 16.0f, 52.0f), new(80.0f, 80.0f));
         }
 
         private void BuildContentsSection()

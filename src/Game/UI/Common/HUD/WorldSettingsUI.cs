@@ -73,7 +73,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
-                new(TextureIndex.IconUI, new(160, 224, 32, 32), Localization_GUIs.EnvironmentSettings_Generator_Name, Localization_GUIs.EnvironmentSettings_Generator_Description, () => this.uiManager.OpenUI(UIIndex.GeneratorSettings)),
+                new(TextureIndex.IconUI, new(288, 0, 32, 32), Localization_GUIs.EnvironmentSettings_Generator_Name, Localization_GUIs.EnvironmentSettings_Generator_Description, () => this.uiManager.OpenUI(UIIndex.GeneratorSettings)),
             ];
 
             this.sizeButtonInfos = [
