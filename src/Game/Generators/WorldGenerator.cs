@@ -245,7 +245,7 @@ namespace StardustSandbox.Generators
             Point rightCenter = new(rightOceanPointX, rightStartTerrainIndex);
 
             // Generate sand band first (keeps shoreline consistent)
-            foreach (Point point in ShapePointGenerator.GenerateCirclePoints(leftCenter, sandRadius))
+            foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(leftCenter, sandRadius))
             {
                 if (world.IsWithinBounds(in point))
                 {
@@ -253,7 +253,7 @@ namespace StardustSandbox.Generators
                 }
             }
 
-            foreach (Point point in ShapePointGenerator.GenerateCirclePoints(rightCenter, sandRadius))
+            foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(rightCenter, sandRadius))
             {
                 if (world.IsWithinBounds(in point))
                 {
@@ -262,7 +262,7 @@ namespace StardustSandbox.Generators
             }
 
             // Generate water inside the sand band
-            foreach (Point point in ShapePointGenerator.GenerateCirclePoints(leftCenter, oceansRadius))
+            foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(leftCenter, oceansRadius))
             {
                 if (world.IsWithinBounds(in point))
                 {
@@ -270,7 +270,7 @@ namespace StardustSandbox.Generators
                 }
             }
 
-            foreach (Point point in ShapePointGenerator.GenerateCirclePoints(rightCenter, oceansRadius))
+            foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(rightCenter, oceansRadius))
             {
                 if (world.IsWithinBounds(in point))
                 {
@@ -319,7 +319,7 @@ namespace StardustSandbox.Generators
                 {
                     Point origin = new(x, cloudBaseY);
 
-                    foreach (Point point in ShapePointGenerator.GenerateCirclePoints(origin, Core.Random.Range(3, 6)))
+                    foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(origin, Core.Random.Range(3, 6)))
                     {
                         world.InstantiateElement(point, layer, ElementIndex.Cloud);
                     }

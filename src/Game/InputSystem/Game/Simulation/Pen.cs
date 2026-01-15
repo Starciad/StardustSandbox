@@ -52,9 +52,9 @@ namespace StardustSandbox.InputSystem.Game.Simulation
         {
             return this.Shape switch
             {
-                PenShape.Circle => ShapePointGenerator.GenerateCirclePoints(position, this.Size),
-                PenShape.Square => ShapePointGenerator.GenerateSquarePoints(position, this.Size),
-                PenShape.Triangle => ShapePointGenerator.GenerateTrianglePoints(position, this.Size),
+                PenShape.Circle => ShapePointGenerator.EnumerateCirclePoints(position, this.Size),
+                PenShape.Square => ShapePointGenerator.EnumerateSquarePoints(position, this.Size),
+                PenShape.Triangle => ShapePointGenerator.EnumerateTrianglePoints(position, this.Size),
                 _ => throw new NotSupportedException($"Shape {this.Shape} is not supported."),
             };
         }

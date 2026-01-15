@@ -17,13 +17,14 @@
 
 using Microsoft.Xna.Framework;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Mathematics
 {
     internal static class ShapePointGenerator
     {
-        internal static IEnumerable<Point> GenerateCirclePoints(Point center, int radius)
+        internal static IEnumerable<Point> EnumerateCirclePoints(Point center, int radius)
         {
             for (int x = -radius; x <= radius; x++)
             {
@@ -37,7 +38,7 @@ namespace StardustSandbox.Mathematics
             }
         }
 
-        internal static IEnumerable<Point> GenerateSquarePoints(Point center, int radius)
+        internal static IEnumerable<Point> EnumerateSquarePoints(Point center, int radius)
         {
             for (int x = -radius; x <= radius; x++)
             {
@@ -48,7 +49,7 @@ namespace StardustSandbox.Mathematics
             }
         }
 
-        internal static IEnumerable<Point> GenerateTrianglePoints(Point center, int height)
+        internal static IEnumerable<Point> EnumerateTrianglePoints(Point center, int height)
         {
             for (int y = 0; y <= height; y++)
             {
@@ -56,6 +57,55 @@ namespace StardustSandbox.Mathematics
                 for (int x = -rowWidth; x <= rowWidth; x++)
                 {
                     yield return new(center.X + x, center.Y - y + (height / 2));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enumerates all integer grid points that form a straight line between two points.
+        /// </summary>
+        /// <remarks>
+        /// This method is based on the classic Bresenham's Line Algorithm,
+        /// originally developed by Jack E. Bresenham in 1962 for efficient
+        /// rasterization of lines on discrete grids using only integer arithmetic.
+        /// </remarks>
+        internal static IEnumerable<Point> EnumerateLinePoints(Point startPoint, Point endPoint)
+        {
+            int currentX = startPoint.X;
+            int currentY = startPoint.Y;
+
+            int targetX = endPoint.X;
+            int targetY = endPoint.Y;
+
+            int deltaX = Math.Abs(targetX - currentX);
+            int deltaY = Math.Abs(targetY - currentY);
+
+            int stepX = currentX < targetX ? 1 : -1;
+            int stepY = currentY < targetY ? 1 : -1;
+
+            int error = deltaX - deltaY;
+
+            while (true)
+            {
+                yield return new(currentX, currentY);
+
+                if (currentX == targetX && currentY == targetY)
+                {
+                    break;
+                }
+
+                int doubledError = error * 2;
+
+                if (doubledError > -deltaY)
+                {
+                    error -= deltaY;
+                    currentX += stepX;
+                }
+
+                if (doubledError < deltaX)
+                {
+                    error += deltaX;
+                    currentY += stepY;
                 }
             }
         }
