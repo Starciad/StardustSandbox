@@ -25,7 +25,6 @@ using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Directions;
-using StardustSandbox.Enums.UI;
 using StardustSandbox.Extensions;
 using StardustSandbox.InputSystem;
 using StardustSandbox.Localization;

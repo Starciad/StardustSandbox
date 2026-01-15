@@ -25,7 +25,7 @@ namespace StardustSandbox.Generators
 {
     internal static class TreeGenerator
     {
-        internal static void Start(World world, in Point origin, in int height, in int trunkWidth, in int leavesRadius)
+        internal static void Start(World world, in Layer layer, in Point origin, in int height, in int trunkWidth, in int leavesRadius)
         {
             // Generate trunk
             for (int y = 0; y < height; y++)
@@ -34,13 +34,13 @@ namespace StardustSandbox.Generators
                 {
                     Point position = new(origin.X + x, origin.Y - y);
 
-                    if (world.IsEmptySlotLayer(position, Layer.Foreground))
+                    if (world.IsEmptySlotLayer(position, layer))
                     {
-                        world.InstantiateElement(position, Layer.Foreground, ElementIndex.Wood);
+                        world.InstantiateElement(position, layer, ElementIndex.Wood);
                     }
                     else
                     {
-                        world.ReplaceElement(position, Layer.Foreground, ElementIndex.Wood);
+                        world.ReplaceElement(position, layer, ElementIndex.Wood);
                     }
                 }
             }
@@ -56,13 +56,13 @@ namespace StardustSandbox.Generators
                     {
                         Point position = new(origin.X + x, leavesStartY + y);
 
-                        if (world.IsEmptySlotLayer(position, Layer.Foreground))
+                        if (world.IsEmptySlotLayer(position, layer))
                         {
-                            world.InstantiateElement(position, Layer.Foreground, ElementIndex.TreeLeaf);
+                            world.InstantiateElement(position, layer, ElementIndex.TreeLeaf);
                         }
                         else
                         {
-                            world.ReplaceElement(position, Layer.Foreground, ElementIndex.TreeLeaf);
+                            world.ReplaceElement(position, layer, ElementIndex.TreeLeaf);
                         }
                     }
                 }

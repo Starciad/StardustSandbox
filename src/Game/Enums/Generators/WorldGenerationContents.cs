@@ -23,7 +23,9 @@ namespace StardustSandbox.Enums.Generators
     internal enum WorldGenerationContents : byte
     {
         None = 0,
-        HasTrees = 1 << 0,
+        HasOceans = 1 << 0,
+        HasVegetation = 1 << 1,
+        HasClouds = 1 << 2,
     }
 }
 

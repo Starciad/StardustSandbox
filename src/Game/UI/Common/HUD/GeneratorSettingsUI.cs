@@ -41,18 +41,18 @@ namespace StardustSandbox.UI.Common.HUD
 {
     internal sealed class GeneratorSettingsUI : UIBase
     {
-        private WorldGenerationPreset selectedPreset;
-        private WorldGenerationSettings selectedSettings;
-        private WorldGenerationContents selectedContents;
+        private WorldGenerationTheme selectedTheme = WorldGenerationTheme.Plain;
+        private WorldGenerationSettings selectedSettings = WorldGenerationSettings.GenerateForeground;
+        private WorldGenerationContents selectedContents = WorldGenerationContents.HasOceans | WorldGenerationContents.HasVegetation;
 
         private Image background;
-        private Label menuTitle, presetSectionTitle, settingsSectionTitle, contentsSectionTitle;
+        private Label menuTitle, themeSectionTitle, settingsSectionTitle, contentsSectionTitle;
 
         private SlotInfo exitButtonSlotInfo, generateButtonSlotInfo;
-        private readonly SlotInfo[] presetButtonSlotInfos, settingsButtonSlotInfos, contentsButtonSlotInfos;
+        private readonly SlotInfo[] themeButtonSlotInfos, settingsButtonSlotInfos, contentsButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo, generateButtonInfo;
-        private readonly ButtonInfo[] presetButtonInfos, settingsButtonInfos, contentsButtonInfos;
+        private readonly ButtonInfo[] themeButtonInfos, settingsButtonInfos, contentsButtonInfos;
 
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
@@ -79,7 +79,7 @@ namespace StardustSandbox.UI.Common.HUD
                     {
                         if (status == ConfirmStatus.Confirmed)
                         {
-                            WorldGenerator.Start(actorManager, world, this.selectedPreset, this.selectedSettings, this.selectedContents);
+                            WorldGenerator.Start(actorManager, world, this.selectedTheme, this.selectedSettings, this.selectedContents);
                         }
 
                         GameHandler.SetState(GameStates.IsCriticalMenuOpen);
@@ -89,9 +89,12 @@ namespace StardustSandbox.UI.Common.HUD
                 this.uiManager.OpenUI(UIIndex.Confirm);
             });
 
-            this.presetButtonInfos =
+            this.themeButtonInfos =
             [
-                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Plain", "A plain world preset.", () => { this.selectedPreset = WorldGenerationPreset.Plain; }),
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Plain", "A plain world theme.", () => { this.selectedTheme = WorldGenerationTheme.Plain; }),
+                new(TextureIndex.IconUI, new(32, 32, 32, 32), "Desert", "A desert world theme.", () => { this.selectedTheme = WorldGenerationTheme.Desert; }),
+                new(TextureIndex.IconUI, new(64, 32, 32, 32), "Snow", "A snowy world theme.", () => { this.selectedTheme = WorldGenerationTheme.Snow; }),
+                new(TextureIndex.IconUI, new(96, 32, 32, 32), "Volcanic", "A volcanic world theme.", () => { this.selectedTheme = WorldGenerationTheme.Volcanic; }),
             ];
 
             this.settingsButtonInfos =
@@ -102,10 +105,12 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.contentsButtonInfos =
             [
-                new(TextureIndex.IconUI, new(96, 0, 32, 32), "Trees", "Include trees in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasTrees; }),
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Oceans", "Include oceans in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasOceans; }),
+                new(TextureIndex.IconUI, new(128, 0, 32, 32), "Vegetation", "Include vegetation in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasVegetation; }),
+                new(TextureIndex.IconUI, new(160, 0, 32, 32), "Clouds", "Include clouds in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasClouds; }),
             ];
 
-            this.presetButtonSlotInfos = new SlotInfo[this.presetButtonInfos.Length];
+            this.themeButtonSlotInfos = new SlotInfo[this.themeButtonInfos.Length];
             this.settingsButtonSlotInfos = new SlotInfo[this.settingsButtonInfos.Length];
             this.contentsButtonSlotInfos = new SlotInfo[this.contentsButtonInfos.Length];
         }
@@ -209,24 +214,24 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildSections()
         {
-            BuildPresetSection();
+            BuildThemeSection();
             BuildSettingsSection();
             BuildContentsSection();
         }
 
-        private void BuildPresetSection()
+        private void BuildThemeSection()
         {
-            this.presetSectionTitle = new()
+            this.themeSectionTitle = new()
             {
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                TextContent = "Preset"
+                TextContent = "Theme"
             };
 
-            this.background.AddChild(this.presetSectionTitle);
+            this.background.AddChild(this.themeSectionTitle);
 
-            BuildSectionButtons(this.presetSectionTitle, this.presetButtonSlotInfos, this.presetButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 64.0f));
+            BuildSectionButtons(this.themeSectionTitle, this.themeButtonSlotInfos, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f));
         }
 
         private void BuildSettingsSection()
@@ -235,7 +240,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Alignment = UIDirection.North,
                 Scale = new(0.1f),
-                Margin = new(0.0f, 128.0f),
+                Margin = new(-48.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = "Settings"
@@ -243,7 +248,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.settingsSectionTitle);
 
-            BuildSectionButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 64.0f));
+            BuildSectionButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f));
         }
 
         private void BuildContentsSection()
@@ -252,7 +257,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Alignment = UIDirection.Northeast,
                 Scale = new(0.1f),
-                Margin = new(-32.0f, 128.0f),
+                Margin = new(-112.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = "Contents"
@@ -260,7 +265,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.contentsSectionTitle);
 
-            BuildSectionButtons(this.contentsSectionTitle, this.contentsButtonSlotInfos, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 64.0f));
+            BuildSectionButtons(this.contentsSectionTitle, this.contentsButtonSlotInfos, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f));
         }
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
@@ -376,16 +381,16 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void UpdateSectionButtons()
         {
-            UpdatePresetButtons();
+            UpdateThemeButtons();
             UpdateSettingsButtons(this.settingsButtonSlotInfos, this.settingsButtonInfos, this.tooltipBox, (int)this.selectedSettings);
             UpdateSettingsButtons(this.contentsButtonSlotInfos, this.contentsButtonInfos, this.tooltipBox, (int)this.selectedContents);
         }
 
-        private void UpdatePresetButtons()
+        private void UpdateThemeButtons()
         {
-            for (int i = 0; i < this.presetButtonInfos.Length; i++)
+            for (int i = 0; i < this.themeButtonInfos.Length; i++)
             {
-                SlotInfo slot = this.presetButtonSlotInfos[i];
+                SlotInfo slot = this.themeButtonSlotInfos[i];
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
@@ -395,7 +400,7 @@ namespace StardustSandbox.UI.Common.HUD
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-                    this.presetButtonInfos[i].ClickAction?.Invoke();
+                    this.themeButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
 
@@ -405,11 +410,11 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.presetButtonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.presetButtonInfos[i].Description);
+                    TooltipBoxContent.SetTitle(this.themeButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.themeButtonInfos[i].Description);
                 }
 
-                slot.Background.Color = i == (int)this.selectedPreset ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = i == (int)this.selectedTheme ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -449,11 +454,6 @@ namespace StardustSandbox.UI.Common.HUD
 
         protected override void OnOpened()
         {
-            this.selectedPreset = WorldGenerationPreset.Plain;
-            this.selectedSettings = WorldGenerationSettings.GenerateForeground |
-                                    WorldGenerationSettings.GenerateBackground;
-            this.selectedContents = WorldGenerationContents.HasTrees;
-
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 

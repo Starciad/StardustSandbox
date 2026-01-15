@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Enums.Elements;
 using StardustSandbox.Enums.Generators;
 using StardustSandbox.Enums.World;
-using StardustSandbox.Extensions;
 using StardustSandbox.Managers;
 using StardustSandbox.Mathematics;
 using StardustSandbox.WorldSystem;
@@ -31,50 +30,70 @@ namespace StardustSandbox.Generators
 {
     internal static class WorldGenerator
     {
-        private static readonly ElementIndex[] undergroundElements =
-        [
-            ElementIndex.Stone,
-            ElementIndex.Iron
-        ];
-
-        internal static void Start(ActorManager actorManager, World world, in WorldGenerationPreset preset, in WorldGenerationSettings settings, in WorldGenerationContents contents)
+        internal static void Start(ActorManager actorManager, World world, in WorldGenerationTheme theme, in WorldGenerationSettings settings, in WorldGenerationContents contents)
         {
             int width = world.Information.Size.X;
             int height = world.Information.Size.Y;
 
             GameHandler.Reset(actorManager, world);
 
-            Range amplitudeRange;
-            WorldGenerationContents flags;
-
-            switch (preset)
+            Range amplitudeRange = theme switch
             {
-                case WorldGenerationPreset.Plain:
-                    amplitudeRange = new(
+                WorldGenerationTheme.Plain =>
+                    new(
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
-                    );
-                    flags = WorldGenerationContents.HasTrees;
-                    break;
+                    ),
 
-                default:
-                    amplitudeRange = new(
+                WorldGenerationTheme.Desert =>
+                    new(
+                        (int)PercentageMath.PercentageOfValue(height, 20.0f),
+                        (int)PercentageMath.PercentageOfValue(height, 50.0f)
+                    ),
+
+                WorldGenerationTheme.Snow =>
+                    new(
+                        (int)PercentageMath.PercentageOfValue(height, 40.0f),
+                        (int)PercentageMath.PercentageOfValue(height, 70.0f)
+                    ),
+
+                WorldGenerationTheme.Volcanic =>
+                    new(
+                        (int)PercentageMath.PercentageOfValue(height, 10.0f),
+                        (int)PercentageMath.PercentageOfValue(height, 40.0f)
+                    ),
+
+                _ =>
+                    new(
                         (int)PercentageMath.PercentageOfValue(height, 30.0f),
                         (int)PercentageMath.PercentageOfValue(height, 60.0f)
-                    );
-                    flags = WorldGenerationContents.None;
-                    break;
-            }
+                    ),
+            };
 
             // Create a coherent height map first (single pass) and share it between generators.
-            int[] heightMap = GenerateHeightMap(in width, in height, in amplitudeRange);
-
-            GenerateTerrain(world, heightMap);
-            GenerateOceans(world, heightMap);
-
-            if (flags.HasFlag(WorldGenerationContents.HasTrees))
+            if (settings.HasFlag(WorldGenerationSettings.GenerateForeground))
             {
-                GenerateTrees(world, heightMap);
+                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange), contents, theme, Layer.Foreground);
+            }
+
+            if (settings.HasFlag(WorldGenerationSettings.GenerateBackground))
+            {
+                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange), contents, theme, Layer.Background);
+            }
+        }
+
+        private static void StartGenerationProcess(World world, int[] heightMap, WorldGenerationContents contents, WorldGenerationTheme theme, Layer layer)
+        {
+            GenerateTerrain(world, heightMap, theme, layer);
+
+            if (contents.HasFlag(WorldGenerationContents.HasOceans))
+            {
+                GenerateOceans(world, heightMap, layer);
+            }
+
+            if (contents.HasFlag(WorldGenerationContents.HasVegetation))
+            {
+                GenerateTrees(world, heightMap, layer);
             }
         }
 
@@ -136,7 +155,7 @@ namespace StardustSandbox.Generators
             return heights;
         }
 
-        private static void GenerateTerrain(World world, int[] heightMap)
+        private static void GenerateTerrain(World world, int[] heightMap, WorldGenerationTheme theme, Layer layer)
         {
             int width = heightMap.Length;
             int height = world.Information.Size.Y;
@@ -146,29 +165,64 @@ namespace StardustSandbox.Generators
                 int startY = heightMap[x];
 
                 // Randomize layer thickness per column but keep it bounded
-                int grassLayer = Core.Random.Range(2, 4);
-                int dirtLayer = grassLayer + Core.Random.Range(4, 8);
+                int surfaceThickness = Core.Random.Range(2, 4);
+                int subsurfaceThickness = surfaceThickness + Core.Random.Range(4, 8);
 
                 int depthLevelLimit = height - startY;
                 int deepThreshold = (int)PercentageMath.PercentageOfValue(depthLevelLimit, 80.0f);
 
-                // Fill column from startY to bottom with appropriate materials
+                // Choose element types according to selected theme
+                ElementIndex surfaceElement;
+                ElementIndex subsurfaceElement;
+                ElementIndex rockElement;
+                ElementIndex abyssElement;
+
+                switch (theme)
+                {
+                    case WorldGenerationTheme.Desert:
+                        surfaceElement = ElementIndex.Sand;
+                        subsurfaceElement = ElementIndex.Sand;
+                        rockElement = ElementIndex.Stone;
+                        abyssElement = ElementIndex.Obsidian;
+                        break;
+
+                    case WorldGenerationTheme.Snow:
+                        surfaceElement = ElementIndex.Snow;
+                        subsurfaceElement = ElementIndex.Snow;
+                        rockElement = ElementIndex.Ice;
+                        abyssElement = ElementIndex.Obsidian;
+                        break;
+
+                    case WorldGenerationTheme.Volcanic:
+                        surfaceElement = ElementIndex.Ash;
+                        subsurfaceElement = ElementIndex.Obsidian;
+                        rockElement = ElementIndex.Lava;
+                        abyssElement = ElementIndex.Obsidian;
+                        break;
+
+                    case WorldGenerationTheme.Plain:
+                    default:
+                        surfaceElement = ElementIndex.Grass;
+                        subsurfaceElement = ElementIndex.Dirt;
+                        rockElement = ElementIndex.Stone;
+                        abyssElement = ElementIndex.Obsidian;
+                        break;
+                }
+
                 for (int y = startY; y < height; y++)
                 {
                     int relativeDepth = y - startY;
-                    ElementIndex chosen = relativeDepth <= grassLayer
-                        ? ElementIndex.Grass
-                        : relativeDepth <= dirtLayer
-                            ? ElementIndex.Dirt
-                            : relativeDepth <= deepThreshold ? undergroundElements.GetRandomItem() : ElementIndex.Obsidian;
+                    ElementIndex chosen =
+                        relativeDepth <= surfaceThickness ? surfaceElement
+                        : relativeDepth <= subsurfaceThickness ? subsurfaceElement
+                        : relativeDepth <= deepThreshold ? rockElement : abyssElement;
 
-                    world.InstantiateElement(new(x, y), Layer.Foreground, chosen);
-                    world.InstantiateElement(new(x, y), Layer.Background, chosen);
+                    world.InstantiateElement(new(x, y), layer, chosen);
                 }
             }
         }
 
-        private static void GenerateOceans(World world, int[] heightMap)
+        private static void GenerateOceans(World world, int[] heightMap, Layer layer)
         {
             int width = heightMap.Length;
             int height = world.Information.Size.Y;
@@ -190,8 +244,7 @@ namespace StardustSandbox.Generators
             {
                 if (world.IsWithinBounds(in point))
                 {
-                    world.ReplaceElement(point, Layer.Foreground, ElementIndex.Sand);
-                    world.ReplaceElement(point, Layer.Background, ElementIndex.Sand);
+                    world.ReplaceElement(point, layer, ElementIndex.Sand);
                 }
             }
 
@@ -199,8 +252,7 @@ namespace StardustSandbox.Generators
             {
                 if (world.IsWithinBounds(in point))
                 {
-                    world.ReplaceElement(point, Layer.Foreground, ElementIndex.Sand);
-                    world.ReplaceElement(point, Layer.Background, ElementIndex.Sand);
+                    world.ReplaceElement(point, layer, ElementIndex.Sand);
                 }
             }
 
@@ -209,8 +261,7 @@ namespace StardustSandbox.Generators
             {
                 if (world.IsWithinBounds(in point))
                 {
-                    world.ReplaceElement(point, Layer.Foreground, ElementIndex.Water);
-                    world.ReplaceElement(point, Layer.Background, ElementIndex.Water);
+                    world.ReplaceElement(point, layer, ElementIndex.Water);
                 }
             }
 
@@ -218,13 +269,12 @@ namespace StardustSandbox.Generators
             {
                 if (world.IsWithinBounds(in point))
                 {
-                    world.ReplaceElement(point, Layer.Foreground, ElementIndex.Water);
-                    world.ReplaceElement(point, Layer.Background, ElementIndex.Water);
+                    world.ReplaceElement(point, layer, ElementIndex.Water);
                 }
             }
         }
 
-        private static void GenerateTrees(World world, int[] heightMap)
+        private static void GenerateTrees(World world, int[] heightMap, Layer layer)
         {
             int width = heightMap.Length;
             int height = world.Information.Size.Y;
@@ -240,14 +290,14 @@ namespace StardustSandbox.Generators
                 }
 
                 // Confirm top element is grass
-                if (Core.Random.Chance(25) && world.TryGetElement(new(x, surfaceY), Layer.Foreground, out ElementIndex index) && index is ElementIndex.Grass)
+                if (Core.Random.Chance(25) && world.TryGetElement(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
                 {
                     Point origin = new(x, surfaceY - 1);
                     int trunkHeight = Core.Random.Range(6, 12);
                     int trunkThickness = 1;
                     int crownRadius = Core.Random.Range(2, 4);
 
-                    TreeGenerator.Start(world, origin, trunkHeight, trunkThickness, crownRadius);
+                    TreeGenerator.Start(world, layer, origin, trunkHeight, trunkThickness, crownRadius);
                 }
             }
         }

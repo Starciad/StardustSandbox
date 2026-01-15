@@ -17,9 +17,12 @@
 
 namespace StardustSandbox.Enums.Generators
 {
-    internal enum WorldGenerationPreset : byte
+    internal enum WorldGenerationTheme : byte
     {
         Plain,
+        Desert,
+        Snow,
+        Volcanic
     }
 }
 
