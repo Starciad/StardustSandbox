@@ -308,7 +308,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Alignment = UIDirection.North,
                 Scale = new(0.1f),
-                Margin = new(0.0f, 128.0f),
+                Margin = new(-56.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.GeneratorSettings_Settings_Title
@@ -320,7 +320,7 @@ namespace StardustSandbox.UI.Common.HUD
                 this.settingsSectionTitle,
                 this.settingsButtonInfos,
                 3,
-                new((this.settingsSectionTitle.Size.X / 2.0f * -1.0f) + 16.0f, 52.0f),
+                new(0.0f, 52.0f),
                 new(80.0f, 80.0f),
                 UIDirection.Northwest
             );
