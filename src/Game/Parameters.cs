@@ -85,7 +85,7 @@ namespace StardustSandbox
             string argKey = value.ToString();
 
             ArgumentDefinition definition = FindArgumentDefinition(argKey);
-            
+
             if (definition is null)
             {
                 return;

@@ -209,7 +209,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
                 this.background,
                 this.menuButtonInfos,
-                new( -32.0f, -72.0f),
+                new(-32.0f, -72.0f),
                 80.0f,
                 UIDirection.Northeast
             );
