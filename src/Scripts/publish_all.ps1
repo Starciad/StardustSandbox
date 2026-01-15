@@ -7,7 +7,7 @@ Clear-Host
 
 # Configuration
 $gameName = 'StardustSandbox'
-$gameVersion = 'v2.2.3.1'
+$gameVersion = 'v2.3.0.0'
 $outputDir = '..\Publish'
 
 # Project definitions
