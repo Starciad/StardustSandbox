@@ -138,14 +138,12 @@ namespace StardustSandbox.InputSystem.Game
                     {
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Started),
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Performed),
-                        OnCanceled = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Canceled),
                     },
 
                     new(MouseButton.Right)
                     {
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Started),
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Performed),
-                        OnCanceled = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Canceled),
                     },
                 ]),
 
