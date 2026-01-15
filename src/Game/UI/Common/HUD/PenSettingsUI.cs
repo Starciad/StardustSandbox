@@ -41,13 +41,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private Image background, brushSizeSlider;
         private Label menuTitle, brushSectionTitle, toolsSectionTitle, layerSectionTitle, shapeSectionTitle;
+        private SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, layerVisibilitySlotInfos, shapeButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
 
         private readonly Rectangle[] brushSizeSliderSourceRectangles;
 
         private readonly ButtonInfo[] menuButtonInfos, toolButtonInfos, layerButtonInfos, layerVisibility, shapeButtonInfos;
-        private readonly SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, layerVisibilitySlotInfos, shapeButtonSlotInfos;
 
         private readonly HudUI hudUI;
 
@@ -119,12 +119,6 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.IconUI, new(64, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Triangle_Name, Localization_GUIs.PenSettings_Shape_Triangle_Description, () => this.inputController.Pen.Shape = PenShape.Triangle),
             ];
 
-            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
-            this.toolButtonSlotInfos = new SlotInfo[this.toolButtonInfos.Length];
-            this.layerButtonSlotInfos = new SlotInfo[this.layerButtonInfos.Length];
-            this.layerVisibilitySlotInfos = new SlotInfo[this.layerVisibility.Length];
-            this.shapeButtonSlotInfos = new SlotInfo[this.shapeButtonInfos.Length];
-
             this.brushSizeSliderSourceRectangles = [
                 new(new(000, 000), new(326, 38)),
                 new(new(000, 038), new(326, 38)),
@@ -193,26 +187,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildMenuButtons()
         {
-            float marginX = -32.0f;
-
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
-
-                slot.Background.Alignment = UIDirection.Northeast;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.background.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.menuButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX -= 80.0f;
-            }
+            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.background,
+                this.menuButtonInfos,
+                new(-32.0f, -72.0f),
+                -80.0f,
+                UIDirection.Northeast
+            );
         }
 
         private void BuildBrushSizeSection()
@@ -252,27 +233,13 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.brushSectionTitle.AddChild(this.toolsSectionTitle);
 
-            // Buttons
-            float marginX = 0.0f;
-
-            for (int i = 0; i < this.toolButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.toolButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.toolsSectionTitle.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.toolButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
-            }
+            this.toolButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.toolsSectionTitle,
+                this.toolButtonInfos,
+                new(0.0f, 52.0f),
+                80.0f,
+                UIDirection.Southwest
+            );
         }
 
         private void BuildLayerSection()
@@ -288,52 +255,21 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.toolsSectionTitle.AddChild(this.layerSectionTitle);
 
-            // Buttons
-            float marginX = 0.0f;
-            float marginY = 52.0f;
+            this.layerButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.layerSectionTitle,
+                this.layerButtonInfos,
+                new(0.0f, 52.0f),
+                80.0f,
+                UIDirection.Southwest
+            );
 
-            // Layer Buttons
-            for (int i = 0; i < this.layerButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.layerButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, marginY), button);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.layerSectionTitle.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.layerButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
-            }
-
-            marginY += 80.0f;
-            marginX = 0.0f;
-
-            // Layer Visibility Buttons
-            for (int i = 0; i < this.layerVisibility.Length; i++)
-            {
-                ButtonInfo button = this.layerVisibility[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, marginY), button);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.layerSectionTitle.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.layerVisibilitySlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
-            }
+            this.layerVisibilitySlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.layerSectionTitle,
+                this.layerVisibility,
+                new(0.0f, 132.0f),
+                80.0f,
+                UIDirection.Southwest
+            );
         }
 
         private void BuildShapeSection()
@@ -349,49 +285,13 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.layerSectionTitle.AddChild(this.shapeSectionTitle);
 
-            // Buttons
-            float marginX = 0.0f;
-
-            for (int i = 0; i < this.shapeButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.shapeButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.shapeSectionTitle.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.shapeButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
-            }
-        }
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
-        {
-            Image background = new()
-            {
-                TextureIndex = TextureIndex.UIButtons,
-                SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(2.0f),
-                Size = new(32.0f),
-                Margin = margin,
-            };
-
-            Image icon = new()
-            {
-                TextureIndex = button.TextureIndex,
-                SourceRectangle = button.TextureSourceRectangle,
-                Scale = new(1.5f),
-                Size = new(32.0f)
-            };
-
-            return new(background, icon);
+            this.shapeButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.shapeSectionTitle,
+                this.shapeButtonInfos,
+                new(0.0f, 52.0f),
+                80.0f,
+                UIDirection.Southwest
+            );
         }
 
         protected override void OnUpdate(GameTime gameTime)

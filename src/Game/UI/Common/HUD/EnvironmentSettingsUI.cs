@@ -36,10 +36,9 @@ namespace StardustSandbox.UI.Common.HUD
     {
         private Image background;
         private Label menuTitle, timeStateSectionTitle, timeSectionTitle;
+        private SlotInfo[] menuButtonSlotInfos, timeStateButtonSlotInfos, timeButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
-
-        private readonly SlotInfo[] menuButtonSlotInfos, timeStateButtonSlotInfos, timeButtonSlotInfos;
         private readonly ButtonInfo[] menuButtonInfos, timeStateButtonInfos, timeButtonInfos;
 
         private readonly UIManager uiManager;
@@ -75,10 +74,6 @@ namespace StardustSandbox.UI.Common.HUD
                 new ButtonInfo(TextureIndex.IconUI, new(160, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Evening_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Evening_Description, () => world.Time.SetTime(new(18, 0, 0))),
                 new ButtonInfo(TextureIndex.IconUI, new(192, 96, 32, 32), Localization_GUIs.EnvironmentSettings_TimeOfDay_Night_Name, Localization_GUIs.EnvironmentSettings_TimeOfDay_Night_Description, () => world.Time.SetTime(new(20, 0, 0))),
             ];
-
-            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
-            this.timeStateButtonSlotInfos = new SlotInfo[this.timeStateButtonInfos.Length];
-            this.timeButtonSlotInfos = new SlotInfo[this.timeButtonInfos.Length];
         }
 
         protected override void OnBuild(Container root)
@@ -133,28 +128,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildMenuButtons()
         {
-            float marginX = -32.0f;
-
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, -72.0f), button);
-
-                slot.Background.Alignment = UIDirection.Northeast;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.background.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.menuButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX -= 80.0f;
-            }
-
-            UIBuilderUtility.BuildHorizontalButtonLine(this.background, this.menuButtonSlotInfos, this.menuButtonInfos, new(-32.0f, -72.0f), -80.0f, UIDirection.Northeast);
+            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(this.background, this.menuButtonInfos, new(-32.0f, -72.0f), -80.0f, UIDirection.Northeast);
         }
 
         private void BuildTimeStateSection()
@@ -169,7 +143,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.timeStateSectionTitle);
 
-            UIBuilderUtility.BuildHorizontalButtonLine(this.timeStateSectionTitle, this.timeStateButtonSlotInfos, this.timeStateButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
+            this.timeStateButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(this.timeStateSectionTitle, this.timeStateButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
         private void BuildTimeSection()
@@ -185,7 +159,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.timeStateSectionTitle.AddChild(this.timeSectionTitle);
 
-            UIBuilderUtility.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonSlotInfos, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
+            this.timeButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
         protected override void OnUpdate(GameTime gameTime)

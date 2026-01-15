@@ -262,14 +262,27 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void CreateTopToolbarSlots()
         {
-            UIBuilderUtility.BuildHorizontalButtonLine(
-                this.topToolbarBackground,
-                this.toolbarSlots,
-                Array.ConvertAll(this.toolbarSlots, slot => (ButtonInfo)new(slot.Icon.TextureIndex, slot.Icon.SourceRectangle, string.Empty, string.Empty, null)),
-                new(0.0f, 0.0f),
-                80.0f,
-                UIDirection.Center
-            );
+            float marginX = UIConstants.ELEMENT_BUTTONS_LENGTH / 2.0f * 73.85f * -1.0f;
+
+            Item[] items = CatalogDatabase.GetItems(UIConstants.ELEMENT_BUTTONS_LENGTH);
+
+            for (int i = 0, length = items.Length; i < length; i++)
+            {
+                Item currentItem = items[i];
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, 0.0f), currentItem.TextureIndex, currentItem.SourceRectangle);
+
+                slot.Background.Alignment = UIDirection.Center;
+
+                if (!slot.Background.ContainsData(UIConstants.DATA_ITEM))
+                {
+                    slot.Background.SetData(UIConstants.DATA_ITEM, currentItem);
+                }
+
+                this.topToolbarBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+                this.toolbarSlots[i] = slot;
+                marginX += 80.0f;
+            }
         }
 
         private void CreateTopToolbarSearchSlot()
@@ -300,8 +313,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildSimulationPausedOverlay(Container root)
         {
-            Color backgroundColor = AAP64ColorPalette.DarkGray;
-            backgroundColor.A = 120;
+            Color backgroundColor = new(AAP64ColorPalette.DarkGray, 120);
 
             this.simulationPausedBackground = new()
             {

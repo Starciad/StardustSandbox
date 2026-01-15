@@ -233,8 +233,6 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        #region EVENTS
-
         protected override void OnOpened()
         {
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
@@ -261,8 +259,6 @@ namespace StardustSandbox.UI.Common.HUD
         {
             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
-
-        #endregion
     }
 }
 

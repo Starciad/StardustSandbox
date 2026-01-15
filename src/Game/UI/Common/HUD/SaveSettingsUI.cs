@@ -43,11 +43,12 @@ namespace StardustSandbox.UI.Common.HUD
 
         private Label menuTitle, nameSectionTitle, descriptionSectionTitle, thumbnailSectionTitle, titleTextualContent, descriptionTextualContent;
         private Image background, titleInputField, descriptionInputField, thumbnailPreviewElement;
+        private SlotInfo[] menuButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
 
         private readonly ButtonInfo[] menuButtonInfos, fieldButtonInfos, footerButtonInfos;
-        private readonly SlotInfo[] menuButtonSlotInfos, fieldButtonSlotInfos, footerButtonSlotInfos;
+        private readonly SlotInfo[] fieldButtonSlotInfos, footerButtonSlotInfos;
 
         private readonly World world;
         private readonly TextInputUI textInputUI;
@@ -147,7 +148,6 @@ namespace StardustSandbox.UI.Common.HUD
                 }),
             ];
 
-            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
             this.fieldButtonSlotInfos = new SlotInfo[this.fieldButtonInfos.Length];
             this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
         }
@@ -206,26 +206,13 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildMenuButtons()
         {
-            float marginX = -32.0f;
-
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
-
-                slot.Background.Alignment = UIDirection.Northeast;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.background.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.menuButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX -= 80.0f;
-            }
+            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.background,
+                this.menuButtonInfos,
+                new( -32.0f, -72.0f),
+                80.0f,
+                UIDirection.Northeast
+            );
         }
 
         private void BuildNameSection()

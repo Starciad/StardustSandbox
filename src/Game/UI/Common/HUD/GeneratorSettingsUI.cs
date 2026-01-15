@@ -46,7 +46,7 @@ namespace StardustSandbox.UI.Common.HUD
         private Label menuTitle, themeSectionTitle, settingsSectionTitle, contentsSectionTitle;
 
         private SlotInfo exitButtonSlotInfo, generateButtonSlotInfo;
-        private readonly SlotInfo[] themeButtonSlotInfos, settingsButtonSlotInfos, contentsButtonSlotInfos;
+        private SlotInfo[] themeButtonSlotInfos, settingsButtonSlotInfos, contentsButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo, generateButtonInfo;
         private readonly ButtonInfo[] themeButtonInfos, settingsButtonInfos, contentsButtonInfos;
@@ -106,10 +106,6 @@ namespace StardustSandbox.UI.Common.HUD
                 new(TextureIndex.IconElements, new(160, 128, 32, 32), "Vegetation", "Include vegetation in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasVegetation; }),
                 new(TextureIndex.IconElements, new(0, 128, 32, 32), "Clouds", "Include clouds in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasClouds; }),
             ];
-
-            this.themeButtonSlotInfos = new SlotInfo[this.themeButtonInfos.Length];
-            this.settingsButtonSlotInfos = new SlotInfo[this.settingsButtonInfos.Length];
-            this.contentsButtonSlotInfos = new SlotInfo[this.contentsButtonInfos.Length];
         }
 
         protected override void OnBuild(Container root)
@@ -228,7 +224,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.themeSectionTitle);
 
-            UIBuilderUtility.BuildGridButtons(this.themeSectionTitle, this.themeButtonSlotInfos, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
+            this.themeButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.themeSectionTitle, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         private void BuildSettingsSection()
@@ -245,7 +241,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.settingsSectionTitle);
 
-            UIBuilderUtility.BuildGridButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new((this.settingsSectionTitle.Size.X / 2.0f * -1) + 16.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
+            this.settingsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.settingsSectionTitle, this.settingsButtonInfos, 3, new((this.settingsSectionTitle.Size.X / 2.0f * -1) + 16.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         private void BuildContentsSection()
@@ -262,7 +258,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.contentsSectionTitle);
 
-            UIBuilderUtility.BuildGridButtons(this.contentsSectionTitle, this.contentsButtonSlotInfos, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
+            this.contentsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.contentsSectionTitle, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         protected override void OnUpdate(GameTime gameTime)

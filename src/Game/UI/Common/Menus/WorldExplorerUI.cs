@@ -46,13 +46,13 @@ namespace StardustSandbox.UI.Common.Menus
 
         private Image headerBackground;
         private Label pageIndexLabel;
+        private SlotInfo[] headerButtonSlotInfos;
 
         private readonly List<SaveFile> loadedSaveFiles = [];
         private readonly ButtonInfo[] headerButtonInfos, footerButtonInfos;
 
-        private readonly Image[] headerButtonImages;
-        private readonly Label[] footerButtonLabels;
-        private readonly SlotInfo[] itemSlotInfos;
+        private readonly Label[] footerButtonLabels = new Label[2];
+        private readonly SlotInfo[] itemButtonSlotInfos;
 
         private readonly WorldDetailsUI worldDetailsMenuUI;
 
@@ -69,7 +69,7 @@ namespace StardustSandbox.UI.Common.Menus
             this.uiManager = uiManager;
             this.worldDetailsMenuUI = worldDetailsMenuUI;
 
-            this.itemSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
+            this.itemButtonSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
 
             this.headerButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
@@ -114,9 +114,6 @@ namespace StardustSandbox.UI.Common.Menus
                     ChangeWorldsCatalog();
                 }),
             ];
-
-            this.headerButtonImages = new Image[this.headerButtonInfos.Length];
-            this.footerButtonLabels = new Label[this.footerButtonInfos.Length];
 
             UpdatePagination();
         }
@@ -170,38 +167,13 @@ namespace StardustSandbox.UI.Common.Menus
             this.headerBackground.AddChild(titleLabelElement);
 
             // Buttons
-            float marginX = -32.0f;
-
-            for (int i = 0; i < this.headerButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.headerButtonInfos[i];
-
-                Image buttonBackgroundElement = new()
-                {
-                    TextureIndex = TextureIndex.UIButtons,
-                    SourceRectangle = new(320, 140, 32, 32),
-                    Alignment = UIDirection.East,
-                    Margin = new(marginX, 0.0f),
-                    Scale = new(2.0f),
-                    Size = new(32.0f),
-                };
-
-                Image buttonIconElement = new()
-                {
-                    Alignment = UIDirection.Center,
-                    TextureIndex = button.TextureIndex,
-                    SourceRectangle = button.TextureSourceRectangle,
-                    Scale = new(1.5f),
-                    Size = new(32.0f),
-                };
-
-                this.headerBackground.AddChild(buttonBackgroundElement);
-                buttonBackgroundElement.AddChild(buttonIconElement);
-
-                this.headerButtonImages[i] = buttonBackgroundElement;
-
-                marginX -= buttonBackgroundElement.Size.X + 16.0f;
-            }
+            this.headerButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.headerBackground,
+                this.headerButtonInfos,
+                new(-32.0f, 0.0f),
+                -80.0f,
+                UIDirection.East
+            );
         }
 
         private void BuildFooter(Container root)
@@ -333,7 +305,7 @@ namespace StardustSandbox.UI.Common.Menus
                     // Spacing
                     margin.X += 418.0f;
 
-                    this.itemSlotInfos[index] = new(background, thumbnail, title);
+                    this.itemButtonSlotInfos[index] = new(background, thumbnail, title);
 
                     index++;
                 }
@@ -352,33 +324,33 @@ namespace StardustSandbox.UI.Common.Menus
 
         private void UpdateHeaderButtons()
         {
-            for (int i = 0; i < this.headerButtonImages.Length; i++)
+            for (int i = 0; i < this.headerButtonSlotInfos.Length; i++)
             {
-                Image buttonBackgroundElement = this.headerButtonImages[i];
+                SlotInfo slotInfo = this.headerButtonSlotInfos[i];
 
-                if (Interaction.OnMouseEnter(buttonBackgroundElement))
+                if (Interaction.OnMouseEnter(slotInfo.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (Interaction.OnMouseLeftClick(buttonBackgroundElement))
+                if (Interaction.OnMouseLeftClick(slotInfo.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.headerButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
 
-                buttonBackgroundElement.Color = Interaction.OnMouseOver(buttonBackgroundElement) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+                slotInfo.Background.Color = Interaction.OnMouseOver(slotInfo.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
         }
 
         private void UpdateSlotButtons()
         {
-            for (int i = 0; i < this.itemSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
             {
-                SlotInfo slotInfoElement = this.itemSlotInfos[i];
+                SlotInfo slotInfoElement = this.itemButtonSlotInfos[i];
 
-                if (!this.itemSlotInfos[i].Background.CanDraw)
+                if (!this.itemButtonSlotInfos[i].Background.CanDraw)
                 {
                     break;
                 }
@@ -434,9 +406,9 @@ namespace StardustSandbox.UI.Common.Menus
         {
             int startIndex = this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE;
 
-            for (int i = 0; i < this.itemSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
             {
-                SlotInfo slotInfoElement = this.itemSlotInfos[i];
+                SlotInfo slotInfoElement = this.itemButtonSlotInfos[i];
                 int worldIndex = startIndex + i;
 
                 if (worldIndex < this.loadedSaveFiles?.Count)
@@ -468,9 +440,9 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.loadedSaveFiles.Clear();
 
-            for (int i = 0; i < this.itemSlotInfos.Length; i++)
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
             {
-                this.itemSlotInfos[i].Icon.DisposeTexture();
+                this.itemButtonSlotInfos[i].Icon.DisposeTexture();
             }
         }
     }

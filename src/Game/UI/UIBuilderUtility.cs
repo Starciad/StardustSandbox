@@ -5,8 +5,6 @@ using StardustSandbox.Enums.Directions;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 
-using System;
-
 namespace StardustSandbox.UI
 {
     internal static class UIBuilderUtility
@@ -25,6 +23,7 @@ namespace StardustSandbox.UI
 
                 icon: new()
                 {
+                    Alignment = UIDirection.Center,
                     TextureIndex = iconTextureIndex,
                     SourceRectangle = iconTextureSourceRectangle,
                     Scale = new(1.5f),
@@ -38,14 +37,11 @@ namespace StardustSandbox.UI
             return BuildButtonSlot(margin, button.TextureIndex, button.TextureSourceRectangle);
         }
 
-        internal static void BuildGridButtons(UIElement parent, SlotInfo[] slotInfos, ButtonInfo[] buttonInfo, int itemsPerRow, Vector2 start, Vector2 spacing, UIDirection backgroundAlignment)
+        internal static SlotInfo[] BuildGridButtons(UIElement parent, ButtonInfo[] buttonInfo, int itemsPerRow, Vector2 start, Vector2 spacing, UIDirection backgroundAlignment)
         {
-            if (slotInfos.Length != buttonInfo.Length)
-            {
-                throw new ArgumentException($"{nameof(slotInfos)} and {nameof(buttonInfo)} arrays must have the same length.");
-            }
+            SlotInfo[] slots = new SlotInfo[buttonInfo.Length];
 
-            for (int i = 0; i < slotInfos.Length; i++)
+            for (int i = 0; i < buttonInfo.Length; i++)
             {
                 int col = i % itemsPerRow;
                 int row = i / itemsPerRow;
@@ -59,18 +55,17 @@ namespace StardustSandbox.UI
                 parent.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
-                slotInfos[i] = slot;
+                slots[i] = slot;
             }
+
+            return slots;
         }
 
-        internal static void BuildHorizontalButtonLine(UIElement parent, SlotInfo[] slotInfos, ButtonInfo[] buttonInfo, Vector2 start, float spacingX, UIDirection backgroundAlignment)
+        internal static SlotInfo[] BuildHorizontalButtonLine(UIElement parent, ButtonInfo[] buttonInfo, Vector2 start, float spacingX, UIDirection backgroundAlignment)
         {
-            if (slotInfos.Length != buttonInfo.Length)
-            {
-                throw new ArgumentException($"{nameof(slotInfos)} and {nameof(buttonInfo)} arrays must have the same length.");
-            }
+            SlotInfo[] slots = new SlotInfo[buttonInfo.Length];
 
-            for (int i = 0; i < slotInfos.Length; i++)
+            for (int i = 0; i < buttonInfo.Length; i++)
             {
                 Vector2 position = new(
                     start.X + (i * spacingX),
@@ -85,18 +80,17 @@ namespace StardustSandbox.UI
                 parent.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
-                slotInfos[i] = slot;
+                slots[i] = slot;
             }
+
+            return slots;
         }
 
-        internal static void BuildVerticalButtonLine(UIElement parent, SlotInfo[] slotInfos, ButtonInfo[] buttonInfo, Vector2 start, float spacingY, UIDirection backgroundAlignment)
+        internal static SlotInfo[] BuildVerticalButtonLine(UIElement parent, ButtonInfo[] buttonInfo, Vector2 start, float spacingY, UIDirection backgroundAlignment)
         {
-            if (slotInfos.Length != buttonInfo.Length)
-            {
-                throw new ArgumentException($"{nameof(slotInfos)} and {nameof(buttonInfo)} arrays must have the same length.");
-            }
+            SlotInfo[] slots = new SlotInfo[buttonInfo.Length];
 
-            for (int i = 0; i < slotInfos.Length; i++)
+            for (int i = 0; i < buttonInfo.Length; i++)
             {
                 Vector2 position = new(
                     start.X,
@@ -111,8 +105,10 @@ namespace StardustSandbox.UI
                 parent.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
-                slotInfos[i] = slot;
+                slots[i] = slot;
             }
+
+            return slots;
         }
     }
 }

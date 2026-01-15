@@ -186,7 +186,7 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, -72.0f), button);
 
                 slot.Background.Alignment = UIDirection.Northeast;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -221,7 +221,7 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.sizeButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, 52.0f), button);
 
                 slot.Background.Alignment = UIDirection.Southwest;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -239,28 +239,6 @@ namespace StardustSandbox.UI.Common.HUD
         }
 
         // =============================================================== //
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
-        {
-            Image background = new()
-            {
-                TextureIndex = TextureIndex.UIButtons,
-                SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(2.0f),
-                Size = new(32.0f),
-                Margin = margin,
-            };
-
-            Image icon = new()
-            {
-                TextureIndex = button.TextureIndex,
-                SourceRectangle = button.TextureSourceRectangle,
-                Scale = new(1.5f),
-                Size = new(32.0f)
-            };
-
-            return new(background, icon);
-        }
 
         protected override void OnUpdate(GameTime gameTime)
         {
