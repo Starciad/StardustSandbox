@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -82,8 +81,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.timeButtonSlotInfos = new SlotInfo[this.timeButtonInfos.Length];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
@@ -99,7 +96,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -108,7 +105,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
+                TextureIndex = TextureIndex.UIBackgroundEnvironmentSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -141,7 +138,7 @@ namespace StardustSandbox.UI.Common.HUD
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, -72.0f), button);
 
                 slot.Background.Alignment = UIDirection.Northeast;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -156,6 +153,8 @@ namespace StardustSandbox.UI.Common.HUD
                 // Spacing
                 marginX -= 80.0f;
             }
+
+            UIBuilderUtility.BuildHorizontalButtonLine(this.background, this.menuButtonSlotInfos, this.menuButtonInfos, new(-32.0f, -72.0f), -80.0f, UIDirection.Northeast);
         }
 
         private void BuildTimeStateSection()
@@ -170,27 +169,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.timeStateSectionTitle);
 
-            // Buttons
-            float marginX = 0.0f;
-
-            for (int i = 0; i < this.timeStateButtonSlotInfos.Length; i++)
-            {
-                ButtonInfo button = this.timeStateButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.timeStateSectionTitle.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.timeStateButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
-            }
+            UIBuilderUtility.BuildHorizontalButtonLine(this.timeStateSectionTitle, this.timeStateButtonSlotInfos, this.timeStateButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
         private void BuildTimeSection()
@@ -206,56 +185,8 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.timeStateSectionTitle.AddChild(this.timeSectionTitle);
 
-            // Buttons
-            float marginX = 0.0f;
-
-            for (int i = 0; i < this.timeButtonSlotInfos.Length; i++)
-            {
-                ButtonInfo button = this.timeButtonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 52.0f), button);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                // Update
-                this.timeSectionTitle.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                // Save
-                this.timeButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
-            }
+            UIBuilderUtility.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonSlotInfos, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
-
-        // =============================================================== //
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
-        {
-            return new(
-                background: new()
-                {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                    SourceRectangle = new(320, 140, 32, 32),
-                    Scale = new(2.0f),
-                    Size = new(32.0f),
-                    Margin = margin,
-                },
-
-                icon: new()
-                {
-                    Texture = button.Texture,
-                    SourceRectangle = button.TextureSourceRectangle,
-                    Scale = new(1.5f),
-                    Size = new(32.0f)
-                }
-            );
-        }
-
-        #endregion
-
-        #region UPDATE
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -376,8 +307,6 @@ namespace StardustSandbox.UI.Common.HUD
                 }
             }
         }
-
-        #endregion
 
         protected override void OnOpened()
         {

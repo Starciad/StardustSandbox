@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Inputs.Game;
@@ -140,8 +139,6 @@ namespace StardustSandbox.UI.Common.HUD
             ];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
@@ -159,7 +156,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -168,7 +165,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings),
+                TextureIndex = TextureIndex.UIBackgroundPenSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -230,7 +227,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.brushSizeSlider = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UISizeSlider),
+                TextureIndex = TextureIndex.UISizeSlider,
                 SourceRectangle = new(new(0, 0), new(326, 38)),
                 Size = new(326.0f, 38.0f),
                 Scale = new(2.0f),
@@ -379,7 +376,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.0f),
                 Size = new(32.0f),
@@ -388,7 +385,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             Image icon = new()
             {
-                Texture = button.Texture,
+                TextureIndex = button.TextureIndex,
                 SourceRectangle = button.TextureSourceRectangle,
                 Scale = new(1.5f),
                 Size = new(32.0f)
@@ -396,10 +393,6 @@ namespace StardustSandbox.UI.Common.HUD
 
             return new(background, icon);
         }
-
-        #endregion
-
-        #region UPDATING
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -627,8 +620,6 @@ namespace StardustSandbox.UI.Common.HUD
             // Shape
             this.shapeButtonSelectedIndex = (byte)this.inputController.Pen.Shape;
         }
-
-        #endregion
 
         protected override void OnOpened()
         {

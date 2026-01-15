@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -55,7 +54,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,

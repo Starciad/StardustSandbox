@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -87,7 +86,7 @@ namespace StardustSandbox.UI.Common.Tools
             // Shadow
             root.AddChild(new Image()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -117,7 +116,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             this.sliderBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UISliderInputOrnament),
+                TextureIndex = TextureIndex.UISliderInputOrnament,
                 SourceRectangle = new(0, 0, 630, 32),
                 Size = new(630.0f, 32.0f),
                 Alignment = UIDirection.Center,
@@ -125,7 +124,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             this.sliderButton = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(320, 172, 32, 32),
                 Size = new(32.0f, 32.0f),
             };

@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Media;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Backgrounds;
 using StardustSandbox.Enums.Directions;
@@ -87,8 +86,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.buttonAnimationOffsets = new float[this.menuButtonLabels.Length];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildMainPanel(root);
@@ -102,7 +99,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(487.0f, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 180),
                 Size = Vector2.One,
@@ -114,7 +111,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.background.AddChild(new Image
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.MiscellaneousTheatricalCurtains),
+                TextureIndex = TextureIndex.MiscellaneousTheatricalCurtains,
                 Scale = new(2.0f)
             });
         }
@@ -164,7 +161,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             this.gameTitle = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.GameTitle),
+                TextureIndex = TextureIndex.GameTitle,
                 Scale = new(1.5f),
                 Size = new(292.0f, 112.0f),
                 Margin = new(0.0f, 32.0f),
@@ -202,10 +199,6 @@ namespace StardustSandbox.UI.Common.Menus
                 marginY += 75.0f;
             }
         }
-
-        #endregion
-
-        #region UPDATING
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -276,8 +269,6 @@ namespace StardustSandbox.UI.Common.Menus
                 this.updateLabel.CanDraw = false;
             }
         }
-
-        #endregion
 
         protected override void OnOpened()
         {

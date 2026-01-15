@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -80,7 +79,7 @@ namespace StardustSandbox.UI.Common.Tools
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)

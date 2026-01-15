@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -120,7 +119,7 @@ namespace StardustSandbox.UI.Common.HUD
                     buttonSlotInfo.Background.Alignment = UIDirection.Southwest;
                     buttonSlotInfo.Icon.Alignment = UIDirection.Center;
 
-                    buttonSlotInfo.Icon.Texture = this.buttonInfos[i].Texture;
+                    buttonSlotInfo.Icon.TextureIndex = this.buttonInfos[i].TextureIndex;
                     buttonSlotInfo.Icon.SourceRectangle = this.buttonInfos[i].TextureSourceRectangle;
 
                     buttonSlotInfo.Background.AddChild(buttonSlotInfo.Icon);
@@ -177,7 +176,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -186,7 +185,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundTemperatureSettings),
+                TextureIndex = TextureIndex.UIBackgroundTemperatureSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -272,7 +271,7 @@ namespace StardustSandbox.UI.Common.HUD
             return new(
                 background: new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(2.0f),
                     Size = new(32.0f),
@@ -281,7 +280,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 icon: new()
                 {
-                    Texture = button.Texture,
+                    TextureIndex = button.TextureIndex,
                     SourceRectangle = button.TextureSourceRectangle,
                     Scale = new(1.5f),
                     Size = new(32.0f)

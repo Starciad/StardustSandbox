@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Input;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -137,7 +136,7 @@ namespace StardustSandbox.UI.Common.Tools
             // Shadow
             root.AddChild(new Image()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -177,7 +176,7 @@ namespace StardustSandbox.UI.Common.Tools
 
             this.userInputBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UITextInputOrnament),
+                TextureIndex = TextureIndex.UITextInputOrnament,
                 Scale = new(1.5f),
                 Size = new(632.0f, 50.0f),
                 Margin = new(0.0f, 64.0f),

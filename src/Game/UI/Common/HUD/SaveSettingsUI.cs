@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -153,8 +152,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
@@ -172,7 +169,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -181,7 +178,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundSave),
+                TextureIndex = TextureIndex.UIBackgroundSave,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -244,7 +241,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.titleInputField = new()
             {
                 Alignment = UIDirection.Southwest,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
                 Size = new(163.0f, 38.0f),
@@ -279,7 +276,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.descriptionInputField = new()
             {
                 Alignment = UIDirection.Southwest,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
                 Size = new(163.0f, 38.0f),
@@ -333,7 +330,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
@@ -370,7 +367,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.0f),
                 Size = new(32.0f),
@@ -379,7 +376,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             Image icon = new()
             {
-                Texture = button.Texture,
+                TextureIndex = button.TextureIndex,
                 SourceRectangle = button.TextureSourceRectangle,
                 Scale = new(1.5f),
                 Size = new(32.0f)
@@ -387,10 +384,6 @@ namespace StardustSandbox.UI.Common.HUD
 
             return new(background, icon);
         }
-
-        #endregion
-
-        #region UPDATING
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -497,8 +490,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.titleTextualContent.TextContent = this.world.Information.Name.Truncate(19);
             this.descriptionTextualContent.TextContent = this.world.Information.Description.Truncate(19);
         }
-
-        #endregion
 
         protected override void OnOpened()
         {

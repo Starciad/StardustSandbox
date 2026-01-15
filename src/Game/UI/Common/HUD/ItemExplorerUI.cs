@@ -116,8 +116,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
@@ -135,7 +133,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -143,7 +141,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
+                TextureIndex = TextureIndex.UIBackgroundItemExplorer,
                 Size = new(1084.0f, 607.0f),
                 Margin = new(0.0f, 32.0f),
                 Alignment = UIDirection.Center,
@@ -182,7 +180,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.Northeast,
                     Scale = new(2.0f),
@@ -192,7 +190,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image icon = new()
                 {
-                    Texture = button.Texture,
+                    TextureIndex = button.TextureIndex,
                     SourceRectangle = button.TextureSourceRectangle,
                     Alignment = UIDirection.Center,
                     Scale = new(1.5f),
@@ -225,7 +223,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.Northwest,
                     Scale = new(2.0f),
@@ -278,7 +276,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        TextureIndex = TextureIndex.UIButtons,
                         SourceRectangle = new(320, 140, 32, 32),
                         Alignment = positionAnchor,
                         Scale = new(2.0f),
@@ -288,7 +286,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                     Image icon = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
+                        TextureIndex = TextureIndex.IconElements,
                         SourceRectangle = new(0, 0, 32, 32),
                         Alignment = UIDirection.Center,
                         Scale = new(1.5f),
@@ -319,7 +317,7 @@ namespace StardustSandbox.UI.Common.HUD
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        TextureIndex = TextureIndex.UIButtons,
                         SourceRectangle = new(320, 140, 32, 32),
                         Alignment = UIDirection.Northwest,
                         Scale = new(2.0f),
@@ -330,7 +328,7 @@ namespace StardustSandbox.UI.Common.HUD
                     Image icon = new()
                     {
                         Alignment = UIDirection.Center,
-                        Texture = AssetDatabase.GetTexture(TextureIndex.IconElements),
+                        TextureIndex = TextureIndex.IconElements,
                         SourceRectangle = new(0, 0, 32, 32),
                         Scale = new(1.5f),
                         Size = new(32.0f)
@@ -374,7 +372,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(1.6f),
                     Size = new(32.0f),
@@ -382,7 +380,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image icon = new()
                 {
-                    Texture = this.paginationButtonInfos[i].Texture,
+                    TextureIndex = this.paginationButtonInfos[i].TextureIndex,
                     SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                     Alignment = UIDirection.Center,
                     Size = new(32.0f)
@@ -412,10 +410,6 @@ namespace StardustSandbox.UI.Common.HUD
                 slot.Background.AddChild(slot.Icon);
             }
         }
-
-        #endregion
-
-        #region UPDATING
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -600,10 +594,6 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        #endregion
-
-        #region UTILITIES
-
         private void SelectItemCatalog(Category category, Subcategory subcategory, int pageIndex)
         {
             this.menuTitle.TextContent = subcategory.Name;
@@ -674,7 +664,7 @@ namespace StardustSandbox.UI.Common.HUD
                         continue;
                     }
 
-                    itemSlot.Icon.Texture = item.Texture;
+                    itemSlot.Icon.TextureIndex = item.TextureIndex;
                     itemSlot.Icon.SourceRectangle = item.SourceRectangle;
 
                     // Add or Update Data
@@ -693,8 +683,6 @@ namespace StardustSandbox.UI.Common.HUD
                 }
             }
         }
-
-        #endregion
 
         protected override void OnOpened()
         {

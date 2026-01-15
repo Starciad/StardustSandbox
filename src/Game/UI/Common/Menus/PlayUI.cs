@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.UI;
@@ -62,7 +61,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 128.0f),
                 Size = Vector2.One,
@@ -109,7 +108,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image icon = new()
                 {
-                    Texture = button.Texture,
+                    TextureIndex = button.TextureIndex,
                     SourceRectangle = button.TextureSourceRectangle,
                     Margin = new(-96.0f, 0.0f),
                     Scale = new(2),

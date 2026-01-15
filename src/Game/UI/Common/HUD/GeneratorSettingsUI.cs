@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Generators;
@@ -34,8 +33,6 @@ using StardustSandbox.UI.Common.Tools;
 using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.WorldSystem;
-
-using System;
 
 namespace StardustSandbox.UI.Common.HUD
 {
@@ -130,7 +127,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -139,7 +136,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.background = new()
             {
                 Alignment = UIDirection.Center,
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundGeneratorSettings),
+                TextureIndex = TextureIndex.UIBackgroundGeneratorSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -168,7 +165,7 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void BuildExitButton()
         {
-            SlotInfo slot = CreateButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
+            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -184,7 +181,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.generateButtonSlotInfo = new(
                 new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(0, 140, 320, 80),
                     Size = new(320.0f, 80.0f),
                     Margin = new(0.0f, -32.0f),
@@ -231,7 +228,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.themeSectionTitle);
 
-            BuildSectionButtons(this.themeSectionTitle, this.themeButtonSlotInfos, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f));
+            UIBuilderUtility.BuildGridButtons(this.themeSectionTitle, this.themeButtonSlotInfos, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         private void BuildSettingsSection()
@@ -248,7 +245,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.settingsSectionTitle);
 
-            BuildSectionButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new(this.settingsSectionTitle.Size.X / 2.0f * -1 + 16.0f, 52.0f), new(80.0f, 80.0f));
+            UIBuilderUtility.BuildGridButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new((this.settingsSectionTitle.Size.X / 2.0f * -1) + 16.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         private void BuildContentsSection()
@@ -265,54 +262,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.contentsSectionTitle);
 
-            BuildSectionButtons(this.contentsSectionTitle, this.contentsButtonSlotInfos, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f));
-        }
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
-        {
-            return new(
-                background: new()
-                {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                    SourceRectangle = new(320, 140, 32, 32),
-                    Scale = new(2.0f),
-                    Size = new(32.0f),
-                    Margin = margin,
-                },
-
-                icon: new()
-                {
-                    Texture = button.Texture,
-                    SourceRectangle = button.TextureSourceRectangle,
-                    Scale = new(1.5f),
-                    Size = new(32.0f)
-                }
-            );
-        }
-
-        private static void BuildSectionButtons(UIElement parent, SlotInfo[] slotInfos, ButtonInfo[] buttonInfo, int itemsPerRow, Vector2 start, Vector2 spacing)
-        {
-            if (slotInfos.Length != buttonInfo.Length)
-            {
-                throw new ArgumentException($"{nameof(slotInfos)} and {nameof(buttonInfo)} arrays must have the same length.");
-            }
-
-            for (int i = 0; i < slotInfos.Length; i++)
-            {
-                int col = i % itemsPerRow;
-                int row = i / itemsPerRow;
-
-                Vector2 position = new(start.X + (col * spacing.X), start.Y + (row * spacing.Y));
-                SlotInfo slot = CreateButtonSlot(position, buttonInfo[i]);
-
-                slot.Background.Alignment = UIDirection.Southwest;
-                slot.Icon.Alignment = UIDirection.Center;
-
-                parent.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-
-                slotInfos[i] = slot;
-            }
+            UIBuilderUtility.BuildGridButtons(this.contentsSectionTitle, this.contentsButtonSlotInfos, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -16,7 +16,6 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Catalog;
@@ -163,8 +162,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.rightPanelBottomButtonSlotInfos = new SlotInfo[this.rightPanelBottomButtonInfos.Length];
         }
 
-        #region BUILD
-
         protected override void OnBuild(Container root)
         {
             BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
@@ -188,7 +185,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             background = new()
             {
-                Texture = AssetDatabase.GetTexture(textureIndex),
+                TextureIndex = textureIndex,
                 SourceRectangle = sourceRectangle,
                 Size = size,
             };
@@ -211,7 +208,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             for (int i = 0; i < buttonInfos.Length; i++)
             {
-                SlotInfo slot = CreateButtonSlot(new(0.0f, marginY), buttonInfos[i]);
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(0.0f, marginY), buttonInfos[i]);
                 slot.Background.Alignment = alignment;
                 container.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
@@ -224,7 +221,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             drawerButton = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = srcRect,
                 Size = size,
                 Margin = margin,
@@ -239,7 +236,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image slotSearchBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.West,
@@ -249,7 +246,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             Image icon = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
+                TextureIndex = TextureIndex.IconUI,
                 SourceRectangle = new(64, 32, 32, 32),
                 Alignment = UIDirection.Center,
                 Scale = new(2.0f),
@@ -265,34 +262,21 @@ namespace StardustSandbox.UI.Common.HUD
 
         private void CreateTopToolbarSlots()
         {
-            float marginX = UIConstants.ELEMENT_BUTTONS_LENGTH / 2.0f * 73.85f * -1.0f;
-
-            Item[] items = CatalogDatabase.GetItems(UIConstants.ELEMENT_BUTTONS_LENGTH);
-
-            for (int i = 0, length = items.Length; i < length; i++)
-            {
-                Item curentItem = items[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, 0.0f), curentItem);
-
-                slot.Background.Alignment = UIDirection.Center;
-
-                if (!slot.Background.ContainsData(UIConstants.DATA_ITEM))
-                {
-                    slot.Background.SetData(UIConstants.DATA_ITEM, curentItem);
-                }
-
-                this.topToolbarBackground.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-                this.toolbarSlots[i] = slot;
-                marginX += 80.0f;
-            }
+            UIBuilderUtility.BuildHorizontalButtonLine(
+                this.topToolbarBackground,
+                this.toolbarSlots,
+                Array.ConvertAll(this.toolbarSlots, slot => (ButtonInfo)new(slot.Icon.TextureIndex, slot.Icon.SourceRectangle, string.Empty, string.Empty, null)),
+                new(0.0f, 0.0f),
+                80.0f,
+                UIDirection.Center
+            );
         }
 
         private void CreateTopToolbarSearchSlot()
         {
             Image slotSearchBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                TextureIndex = TextureIndex.UIButtons,
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.East,
@@ -302,7 +286,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             Image icon = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.IconUI),
+                TextureIndex = TextureIndex.IconUI,
                 SourceRectangle = new(0, 0, 32, 32),
                 Alignment = UIDirection.Center,
                 Scale = new(2.0f),
@@ -314,39 +298,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.toolbarSearchButton = slotSearchBackground;
         }
 
-        private static SlotInfo CreateButtonSlot(Vector2 margin, Texture2D iconTexture, Rectangle? iconTextureRectangle)
-        {
-            Image background = new()
-            {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
-                SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(2.0f),
-                Size = new(32.0f),
-                Margin = margin,
-            };
-
-            Image icon = new()
-            {
-                Texture = iconTexture,
-                SourceRectangle = iconTextureRectangle,
-                Scale = new(1.5f),
-                Size = new(32.0f),
-                Alignment = UIDirection.Center,
-            };
-
-            return new(background, icon);
-        }
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, Item item)
-        {
-            return CreateButtonSlot(margin, item.Texture, item.SourceRectangle);
-        }
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
-        {
-            return CreateButtonSlot(margin, button.Texture, button.TextureSourceRectangle);
-        }
-
         private void BuildSimulationPausedOverlay(Container root)
         {
             Color backgroundColor = AAP64ColorPalette.DarkGray;
@@ -355,7 +306,7 @@ namespace StardustSandbox.UI.Common.HUD
             this.simulationPausedBackground = new()
             {
                 CanDraw = false,
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Size = Vector2.One,
                 Color = backgroundColor,
                 Alignment = UIDirection.Center,
@@ -378,10 +329,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.simulationPausedBackground.AddChild(pauseLabel);
             root.AddChild(this.simulationPausedBackground);
         }
-
-        #endregion
-
-        #region UPDATE
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -677,10 +624,6 @@ namespace StardustSandbox.UI.Common.HUD
             UpdateDrawerButton(this.rightDrawerButton, ref this.isRightToolbarExpanded);
         }
 
-        #endregion
-
-        #region UTILITIES
-
         internal void AddItemToToolbar(Item item)
         {
             if (TryHighlightExistingItem(item))
@@ -723,7 +666,7 @@ namespace StardustSandbox.UI.Common.HUD
                         nextSlot.Background.GetData(UIConstants.DATA_ITEM)
                     );
 
-                    currentSlot.Icon.Texture = nextSlot.Icon.Texture;
+                    currentSlot.Icon.TextureIndex = nextSlot.Icon.TextureIndex;
                     currentSlot.Icon.SourceRectangle = nextSlot.Icon.SourceRectangle;
                 }
             }
@@ -736,7 +679,7 @@ namespace StardustSandbox.UI.Common.HUD
             SlotInfo lastSlot = this.toolbarSlots[^1];
 
             lastSlot.Background.SetData(UIConstants.DATA_ITEM, item);
-            lastSlot.Icon.Texture = item.Texture;
+            lastSlot.Icon.TextureIndex = item.TextureIndex;
             lastSlot.Icon.SourceRectangle = item.SourceRectangle;
 
             SelectItemSlot(Convert.ToByte(this.toolbarSlots.Length - 1), item);
@@ -772,8 +715,6 @@ namespace StardustSandbox.UI.Common.HUD
         {
             SelectItemSlot(slotIndex, CatalogDatabase.GetItem(categoryIndex, subcategoryIndex, itemIndex));
         }
-
-        #endregion
     }
 }
 

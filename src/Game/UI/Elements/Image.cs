@@ -18,16 +18,32 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Databases;
+using StardustSandbox.Enums.Assets;
+
 namespace StardustSandbox.UI.Elements
 {
     internal sealed class Image : UIElement
     {
         internal bool HasTexture => this.texture != null;
 
+        internal TextureIndex TextureIndex
+        {
+            get => this.textureIndex;
+            set
+            {
+                this.textureIndex = value;
+                this.texture = AssetDatabase.GetTexture(value);
+            }
+        }
         internal Texture2D Texture
         {
             get => this.texture;
-            set => this.texture = value;
+            set
+            {
+                this.textureIndex = TextureIndex.None;
+                this.texture = value;
+            }
         }
         internal Rectangle? SourceRectangle
         {
@@ -40,8 +56,9 @@ namespace StardustSandbox.UI.Elements
             set => this.color = value;
         }
 
-        private Color color;
+        private TextureIndex textureIndex;
         private Texture2D texture;
+        private Color color;
         private Rectangle? sourceRectangle;
 
         internal Image()
@@ -50,6 +67,12 @@ namespace StardustSandbox.UI.Elements
             this.CanUpdate = true;
 
             this.color = Color.White;
+        }
+
+        internal void DisposeTexture()
+        {
+            this.texture?.Dispose();
+            this.texture = null;
         }
 
         protected override void OnInitialize()

@@ -22,7 +22,6 @@ using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
 using StardustSandbox.Core;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Serialization;
@@ -132,8 +131,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildHeader(root);
@@ -147,7 +144,7 @@ namespace StardustSandbox.UI.Common.Menus
             // Background
             this.headerBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
@@ -181,7 +178,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                 Image buttonBackgroundElement = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(320, 140, 32, 32),
                     Alignment = UIDirection.East,
                     Margin = new(marginX, 0.0f),
@@ -192,7 +189,7 @@ namespace StardustSandbox.UI.Common.Menus
                 Image buttonIconElement = new()
                 {
                     Alignment = UIDirection.Center,
-                    Texture = button.Texture,
+                    TextureIndex = button.TextureIndex,
                     SourceRectangle = button.TextureSourceRectangle,
                     Scale = new(1.5f),
                     Size = new(32.0f),
@@ -211,7 +208,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
@@ -301,7 +298,7 @@ namespace StardustSandbox.UI.Common.Menus
                 {
                     Image background = new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                        TextureIndex = TextureIndex.UIButtons,
                         SourceRectangle = new(0, 0, 386, 140),
                         Size = new(386.0f, 140.0f),
                         Margin = margin
@@ -345,10 +342,6 @@ namespace StardustSandbox.UI.Common.Menus
                 margin.Y += 172.0f;
             }
         }
-
-        #endregion
-
-        #region UPDATING
 
         protected override void OnUpdate(GameTime gameTime)
         {
@@ -452,7 +445,7 @@ namespace StardustSandbox.UI.Common.Menus
 
                     slotInfoElement.Background.CanDraw = true;
 
-                    slotInfoElement.Icon.Texture?.Dispose();
+                    slotInfoElement.Icon.DisposeTexture();
                     slotInfoElement.Icon.Texture = saveFile.ThumbnailTextureData.ToTexture2D(this.graphicsDevice);
                     slotInfoElement.Label.TextContent = saveFile.Metadata.Name.Truncate(10);
                 }
@@ -464,8 +457,6 @@ namespace StardustSandbox.UI.Common.Menus
 
             UpdatePagination();
         }
-
-        #endregion
 
         protected override void OnOpened()
         {
@@ -479,7 +470,7 @@ namespace StardustSandbox.UI.Common.Menus
 
             for (int i = 0; i < this.itemSlotInfos.Length; i++)
             {
-                this.itemSlotInfos[i].Icon.Texture?.Dispose();
+                this.itemSlotInfos[i].Icon.DisposeTexture();
             }
         }
     }

@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.States;
@@ -84,8 +83,6 @@ namespace StardustSandbox.UI.Common.HUD
             this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
         }
 
-        #region BUILDERS
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
@@ -97,7 +94,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             Image shadow = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -105,7 +102,7 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
+                TextureIndex = TextureIndex.UIBackgroundPause,
                 Size = new(542.0f, 540.0f),
                 Alignment = UIDirection.Center,
             };
@@ -144,7 +141,7 @@ namespace StardustSandbox.UI.Common.HUD
 
                 Image background = new()
                 {
-                    Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
+                    TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
@@ -174,8 +171,6 @@ namespace StardustSandbox.UI.Common.HUD
                 marginY += background.Size.Y + 32.0f;
             }
         }
-
-        #endregion
 
         protected override void OnUpdate(GameTime gameTime)
         {

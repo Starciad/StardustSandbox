@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Audio;
 using StardustSandbox.Colors.Palettes;
 using StardustSandbox.Constants;
-using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
 using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Serialization;
@@ -87,8 +86,6 @@ namespace StardustSandbox.UI.Common.Menus
             this.worldButtonLabels = new Label[this.worldButtonInfos.Length];
         }
 
-        #region BUILDER
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
@@ -104,7 +101,7 @@ namespace StardustSandbox.UI.Common.Menus
         {
             Image background = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -118,7 +115,7 @@ namespace StardustSandbox.UI.Common.Menus
             // Background
             this.headerBackground = new()
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.Pixel),
+                TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
                 Size = Vector2.One,
@@ -225,10 +222,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #endregion
-
-        #region UPDATING
-
         protected override void OnUpdate(GameTime gameTime)
         {
             for (int i = 0; i < this.worldButtonLabels.Length; i++)
@@ -250,10 +243,6 @@ namespace StardustSandbox.UI.Common.Menus
             }
         }
 
-        #endregion
-
-        #region UTILITIES
-
         internal void SetSaveFile(GraphicsDevice graphicsDevice, string saveFilename)
         {
             this.saveFile = SavingSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
@@ -270,11 +259,9 @@ namespace StardustSandbox.UI.Common.Menus
             this.worldCreationTimestamp.TextContent = saveFile.Manifest.CreationTimestamp.ToString();
         }
 
-        #endregion
-
         protected override void OnClosed()
         {
-            this.worldThumbnail.Texture?.Dispose();
+            this.worldThumbnail.DisposeTexture();
         }
     }
 }
