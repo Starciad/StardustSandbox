@@ -35,6 +35,8 @@ using StardustSandbox.UI.Elements;
 using StardustSandbox.UI.Information;
 using StardustSandbox.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.UI.Common.HUD
 {
     internal sealed class GeneratorSettingsUI : UIBase
@@ -44,11 +46,13 @@ namespace StardustSandbox.UI.Common.HUD
         private WorldGenerationContents selectedContents;
 
         private Image background;
-        private Label menuTitle;
+        private Label menuTitle, presetSectionTitle, settingsSectionTitle, contentsSectionTitle;
 
         private SlotInfo exitButtonSlotInfo, generateButtonSlotInfo;
+        private readonly SlotInfo[] presetButtonSlotInfos, settingsButtonSlotInfos, contentsButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo, generateButtonInfo;
+        private readonly ButtonInfo[] presetButtonInfos, settingsButtonInfos, contentsButtonInfos;
 
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
@@ -84,6 +88,26 @@ namespace StardustSandbox.UI.Common.HUD
 
                 this.uiManager.OpenUI(UIIndex.Confirm);
             });
+
+            this.presetButtonInfos =
+            [
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Plain", "A plain world preset.", () => { this.selectedPreset = WorldGenerationPreset.Plain; }),
+            ];
+
+            this.settingsButtonInfos =
+            [
+                new(TextureIndex.IconUI, new(32, 0, 32, 32), "Foreground", "Generate foreground elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateForeground; }),
+                new(TextureIndex.IconUI, new(64, 0, 32, 32), "Background", "Generate background elements.", () => { this.selectedSettings ^= WorldGenerationSettings.GenerateBackground; }),
+            ];
+
+            this.contentsButtonInfos =
+            [
+                new(TextureIndex.IconUI, new(96, 0, 32, 32), "Trees", "Include trees in the world.", () => { this.selectedContents ^= WorldGenerationContents.HasTrees; }),
+            ];
+
+            this.presetButtonSlotInfos = new SlotInfo[this.presetButtonInfos.Length];
+            this.settingsButtonSlotInfos = new SlotInfo[this.settingsButtonInfos.Length];
+            this.contentsButtonSlotInfos = new SlotInfo[this.contentsButtonInfos.Length];
         }
 
         protected override void OnBuild(Container root)
@@ -92,6 +116,7 @@ namespace StardustSandbox.UI.Common.HUD
             BuildTitle();
             BuildExitButton();
             BuildGenerateButton();
+            BuildSections();
 
             root.AddChild(this.tooltipBox);
         }
@@ -157,8 +182,8 @@ namespace StardustSandbox.UI.Common.HUD
                     Texture = AssetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Size = new(320.0f, 80.0f),
-                    Margin = new(-32.0f),
-                    Alignment = UIDirection.Southeast,
+                    Margin = new(0.0f, -32.0f),
+                    Alignment = UIDirection.South,
                 },
 
                 null,
@@ -180,6 +205,62 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.generateButtonSlotInfo.Background);
             this.generateButtonSlotInfo.Background.AddChild(this.generateButtonSlotInfo.Label);
+        }
+
+        private void BuildSections()
+        {
+            BuildPresetSection();
+            BuildSettingsSection();
+            BuildContentsSection();
+        }
+
+        private void BuildPresetSection()
+        {
+            this.presetSectionTitle = new()
+            {
+                Scale = new(0.1f),
+                Margin = new(32.0f, 128.0f),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = "Preset"
+            };
+
+            this.background.AddChild(this.presetSectionTitle);
+
+            BuildSectionButtons(this.presetSectionTitle, this.presetButtonSlotInfos, this.presetButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 64.0f));
+        }
+
+        private void BuildSettingsSection()
+        {
+            this.settingsSectionTitle = new()
+            {
+                Alignment = UIDirection.North,
+                Scale = new(0.1f),
+                Margin = new(0.0f, 128.0f),
+                Color = AAP64ColorPalette.White,
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = "Settings"
+            };
+
+            this.background.AddChild(this.settingsSectionTitle);
+
+            BuildSectionButtons(this.settingsSectionTitle, this.settingsButtonSlotInfos, this.settingsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 64.0f));
+        }
+
+        private void BuildContentsSection()
+        {
+            this.contentsSectionTitle = new()
+            {
+                Alignment = UIDirection.Northeast,
+                Scale = new(0.1f),
+                Margin = new(-32.0f, 128.0f),
+                Color = AAP64ColorPalette.White,
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                TextContent = "Contents"
+            };
+
+            this.background.AddChild(this.contentsSectionTitle);
+
+            BuildSectionButtons(this.contentsSectionTitle, this.contentsButtonSlotInfos, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 64.0f));
         }
 
         private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
@@ -204,12 +285,38 @@ namespace StardustSandbox.UI.Common.HUD
             );
         }
 
+        private static void BuildSectionButtons(UIElement parent, SlotInfo[] slotInfos, ButtonInfo[] buttonInfo, int itemsPerRow, Vector2 start, Vector2 spacing)
+        {
+            if (slotInfos.Length != buttonInfo.Length)
+            {
+                throw new ArgumentException($"{nameof(slotInfos)} and {nameof(buttonInfo)} arrays must have the same length.");
+            }
+
+            for (int i = 0; i < slotInfos.Length; i++)
+            {
+                int col = i % itemsPerRow;
+                int row = i / itemsPerRow;
+
+                Vector2 position = new(start.X + (col * spacing.X), start.Y + (row * spacing.Y));
+                SlotInfo slot = CreateButtonSlot(position, buttonInfo[i]);
+
+                slot.Background.Alignment = UIDirection.Southwest;
+                slot.Icon.Alignment = UIDirection.Center;
+
+                parent.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+
+                slotInfos[i] = slot;
+            }
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
 
             UpdateExitButton();
             UpdateGenerateButton();
+            UpdateSectionButtons();
         }
 
         private void UpdateExitButton()
@@ -264,6 +371,79 @@ namespace StardustSandbox.UI.Common.HUD
             else
             {
                 this.generateButtonSlotInfo.Background.Color = AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateSectionButtons()
+        {
+            UpdatePresetButtons();
+            UpdateSettingsButtons(this.settingsButtonSlotInfos, this.settingsButtonInfos, this.tooltipBox, (int)this.selectedSettings);
+            UpdateSettingsButtons(this.contentsButtonSlotInfos, this.contentsButtonInfos, this.tooltipBox, (int)this.selectedContents);
+        }
+
+        private void UpdatePresetButtons()
+        {
+            for (int i = 0; i < this.presetButtonInfos.Length; i++)
+            {
+                SlotInfo slot = this.presetButtonSlotInfos[i];
+
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                    this.presetButtonInfos[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                bool isOver = Interaction.OnMouseOver(slot.Background);
+
+                if (isOver)
+                {
+                    this.tooltipBox.CanDraw = true;
+
+                    TooltipBoxContent.SetTitle(this.presetButtonInfos[i].Name);
+                    TooltipBoxContent.SetDescription(this.presetButtonInfos[i].Description);
+                }
+
+                slot.Background.Color = i == (int)this.selectedPreset ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+            }
+        }
+
+        private static void UpdateSettingsButtons(SlotInfo[] slotInfos, ButtonInfo[] buttonInfo, TooltipBox tooltipBox, int flags)
+        {
+            for (int i = 0; i < buttonInfo.Length; i++)
+            {
+                SlotInfo slot = slotInfos[i];
+
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                    buttonInfo[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                bool isOver = Interaction.OnMouseOver(slot.Background);
+
+                if (isOver)
+                {
+                    tooltipBox.CanDraw = true;
+                    TooltipBoxContent.SetTitle(buttonInfo[i].Name);
+                    TooltipBoxContent.SetDescription(buttonInfo[i].Description);
+                }
+
+                int settingFlag = 1 << i;
+                bool isSelected = (flags & settingFlag) == settingFlag;
+
+                slot.Background.Color = isSelected ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

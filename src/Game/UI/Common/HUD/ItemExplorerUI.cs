@@ -125,7 +125,7 @@ namespace StardustSandbox.UI.Common.HUD
             BuildMenuButtons();
             BuildCategoryButtons();
             BuildSubcategoryButtons();
-            BuildItemCatalogSlots();
+            BuildItemSlots();
             BuildPagination(root);
 
             root.AddChild(this.tooltipBox);
@@ -307,7 +307,7 @@ namespace StardustSandbox.UI.Common.HUD
             }
         }
 
-        private void BuildItemCatalogSlots()
+        private void BuildItemSlots()
         {
             Vector2 margin = new(68.0f, 168.0f);
 
