@@ -170,7 +170,10 @@ namespace StardustSandbox.Audio
             {
                 while (!token.IsCancellationRequested)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(Core.Random.Range(30, 60)), token);
+                    if (!Parameters.NoMusicDelay)
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(Core.Random.Range(30, 60)), token);
+                    }
 
                     if (token.IsCancellationRequested)
                     {

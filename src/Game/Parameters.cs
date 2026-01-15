@@ -21,25 +21,17 @@ namespace StardustSandbox
 {
     internal static class Parameters
     {
-        private enum ArgumentParameterType : byte
-        {
-            Flag = 0,
-            String = 1,
-            Int = 2,
-            Bool = 3
-        }
-
-        private sealed class ArgumentDefinition(string name, string[] aliases, ArgumentParameterType parameterType, Action<object> callback)
+        private sealed class ArgumentDefinition(string name, string[] aliases, Action callback)
         {
             internal string Name => name;
             internal string[] Aliases => aliases;
-            internal ArgumentParameterType ParameterType => parameterType;
-            internal Action<object> Callback => callback;
+            internal Action Callback => callback;
         }
 
         internal static bool SkipIntro { get; private set; }
         internal static bool ShowChunks { get; private set; }
         internal static bool CreateException { get; private set; }
+        internal static bool NoMusicDelay { get; private set; }
 
         private static int position = 0;
         private static int length;
@@ -93,80 +85,49 @@ namespace StardustSandbox
             string argKey = value.ToString();
 
             ArgumentDefinition definition = FindArgumentDefinition(argKey);
+            
             if (definition is null)
             {
                 return;
             }
 
-            object parameter = null;
-
-            if (definition.ParameterType != ArgumentParameterType.Flag)
-            {
-                if (!MoveNext())
-                {
-                    // Parameter expected but not found
-                    return;
-                }
-
-                ReadOnlySpan<char> paramSpan = GetCurrentArgument();
-
-                switch (definition.ParameterType)
-                {
-                    case ArgumentParameterType.String:
-                        parameter = paramSpan.ToString();
-                        break;
-
-                    case ArgumentParameterType.Int:
-                        if (int.TryParse(paramSpan, out int intValue))
-                        {
-                            parameter = intValue;
-                        }
-
-                        break;
-
-                    case ArgumentParameterType.Bool:
-                        if (bool.TryParse(paramSpan, out bool boolValue))
-                        {
-                            parameter = boolValue;
-                        }
-
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            definition.Callback?.Invoke(parameter);
+            definition.Callback?.Invoke();
         }
 
-        private static ArgumentDefinition CreateArgument(string name, string[] aliases, ArgumentParameterType parameterType, Action<object> callback)
+        private static ArgumentDefinition CreateArgument(string name, string[] aliases, Action callback)
         {
-            return new ArgumentDefinition(name, aliases, parameterType, callback);
+            return new ArgumentDefinition(name, aliases, callback);
         }
 
         private static void RegisterArguments()
         {
             argumentDefinitions =
             [
-                CreateArgument("--skip-intro", ["-si"], ArgumentParameterType.Flag,
-                    (value) =>
+                CreateArgument("--skip-intro", ["-si"],
+                    () =>
                     {
                         SkipIntro = true;
                     }
                 ),
 
-                CreateArgument("--show-chunks", ["-sc"], ArgumentParameterType.Flag,
-                    (value) =>
+                CreateArgument("--show-chunks", ["-sc"],
+                    () =>
                     {
                         ShowChunks = true;
                     }
                 ),
 
-                CreateArgument("--create-exception", ["-ce"], ArgumentParameterType.Flag,
-                    (value) =>
+                CreateArgument("--create-exception", ["-ce"],
+                    () =>
                     {
                         CreateException = true;
+                    }
+                ),
+
+                CreateArgument("--no-music-delay", ["-nmd"],
+                    () =>
+                    {
+                        NoMusicDelay = true;
                     }
                 ),
             ];

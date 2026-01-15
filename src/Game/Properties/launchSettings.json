@@ -6,6 +6,7 @@
     },
     "StardustSandbox (Windows)": {
       "commandName": "Project",
+      "commandLineArgs": "--no-music-delay\r\n",
       "hotReloadEnabled": false
     }
   }
