@@ -52,11 +52,11 @@ namespace StardustSandbox.UI.Common.HUD
         private Image topDrawerButton, leftDrawerButton, rightDrawerButton;
         private Image toolbarSearchButton, toolbarCurrentlySelectedToolBackground, toolbarCurrentlySelectedToolIcon;
         private Image simulationPausedBackground;
+        private SlotInfo[] leftPanelBottomButtonSlotInfos, leftPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
 
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];
-        private readonly SlotInfo[] leftPanelTopButtonSlotInfos, leftPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos;
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
         private readonly InputController inputController;
@@ -155,20 +155,25 @@ namespace StardustSandbox.UI.Common.HUD
                     this.uiManager.OpenUI(UIIndex.Confirm);
                 }),
             ];
-
-            this.leftPanelTopButtonSlotInfos = new SlotInfo[this.leftPanelTopButtonInfos.Length];
-            this.leftPanelBottomButtonSlotInfos = new SlotInfo[this.leftPanelBottomButtonInfos.Length];
-            this.rightPanelTopButtonSlotInfos = new SlotInfo[this.rightPanelTopButtonInfos.Length];
-            this.rightPanelBottomButtonSlotInfos = new SlotInfo[this.rightPanelBottomButtonInfos.Length];
         }
 
         protected override void OnBuild(Container root)
         {
             BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new(ScreenConstants.SCREEN_WIDTH, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.Northwest, BuildTopToolbarContent);
-            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest, c => BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, this.leftPanelTopButtonSlotInfos, UIDirection.North, true));
-            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast, c => BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, this.rightPanelTopButtonSlotInfos, UIDirection.North, true));
-            BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, this.leftPanelBottomButtonSlotInfos, UIDirection.South, false);
-            BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, this.rightPanelBottomButtonSlotInfos, UIDirection.South, false);
+            BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest,
+                c =>
+                {
+                    this.leftPanelTopButtonSlotInfos = BuildPanelToolbarContent(c, this.leftPanelTopButtonInfos, UIDirection.North, true);
+                }
+            );
+            BuildToolbar(ref this.rightToolbarContainer, ref this.rightToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(96, 0, 96, 608), UIDirection.Southeast,
+                c =>
+                {
+                    this.rightPanelTopButtonSlotInfos = BuildPanelToolbarContent(c, this.rightPanelTopButtonInfos, UIDirection.North, true);
+                }
+            );
+            this.leftPanelBottomButtonSlotInfos = BuildPanelToolbarContent(this.leftToolbarContainer, this.leftPanelBottomButtonInfos, UIDirection.South, false);
+            this.rightPanelBottomButtonSlotInfos = BuildPanelToolbarContent(this.rightToolbarContainer, this.rightPanelBottomButtonInfos, UIDirection.South, false);
             BuildDrawerButton(ref this.topDrawerButton, this.topToolbarContainer, new(163, 220, 80, 24), new(80, 24), new(0, 48f), UIDirection.South);
             BuildDrawerButton(ref this.leftDrawerButton, this.leftToolbarContainer, new(243, 220, 24, 80), new(24, 80), new(48f, 0f), UIDirection.East);
             BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), UIDirection.West);
@@ -201,20 +206,11 @@ namespace StardustSandbox.UI.Common.HUD
             CreateTopToolbarSearchSlot();
         }
 
-        private static void BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, SlotInfo[] slots, UIDirection alignment, bool isTop)
+        private static SlotInfo[] BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, UIDirection alignment, bool isTop)
         {
-            float marginY = isTop ? 32.0f : -32.0f;
-            float direction = isTop ? 1.0f : -1.0f;
-
-            for (int i = 0; i < buttonInfos.Length; i++)
-            {
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(0.0f, marginY), buttonInfos[i]);
-                slot.Background.Alignment = alignment;
-                container.AddChild(slot.Background);
-                slot.Background.AddChild(slot.Icon);
-                slots[i] = slot;
-                marginY += direction * 80.0f;
-            }
+            return isTop ?
+                UIBuilderUtility.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, 32.0f), 80.0f, alignment) :
+                UIBuilderUtility.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, -32.0f), -80.0f, alignment);
         }
 
         private static void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)

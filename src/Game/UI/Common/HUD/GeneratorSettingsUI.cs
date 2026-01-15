@@ -217,14 +217,15 @@ namespace StardustSandbox.UI.Common.HUD
             this.themeSectionTitle = new()
             {
                 Scale = new(0.1f),
-                Margin = new(32.0f, 128.0f),
+                Margin = new(128.0f, 128.0f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = "Theme"
             };
 
             this.background.AddChild(this.themeSectionTitle);
 
-            this.themeButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.themeSectionTitle, this.themeButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
+            float offset = (this.themeSectionTitle.Size.X / 2.0f * -1) + 16.0f;
+            this.themeButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.themeSectionTitle, this.themeButtonInfos, 3, new(offset, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         private void BuildSettingsSection()
@@ -241,7 +242,8 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.settingsSectionTitle);
 
-            this.settingsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.settingsSectionTitle, this.settingsButtonInfos, 3, new((this.settingsSectionTitle.Size.X / 2.0f * -1) + 16.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
+            float offset = (this.settingsSectionTitle.Size.X / 2.0f * -1) + 16.0f;
+            this.settingsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.settingsSectionTitle, this.settingsButtonInfos, 3, new(offset, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         private void BuildContentsSection()
@@ -250,7 +252,7 @@ namespace StardustSandbox.UI.Common.HUD
             {
                 Alignment = UIDirection.Northeast,
                 Scale = new(0.1f),
-                Margin = new(-112.0f, 128.0f),
+                Margin = new(-208.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = "Contents"
@@ -258,7 +260,8 @@ namespace StardustSandbox.UI.Common.HUD
 
             this.background.AddChild(this.contentsSectionTitle);
 
-            this.contentsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.contentsSectionTitle, this.contentsButtonInfos, 3, new(0.0f, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
+            float offset = (this.contentsSectionTitle.Size.X / 2.0f * -1) + 16.0f;
+            this.contentsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(this.contentsSectionTitle, this.contentsButtonInfos, 3, new(offset, 52.0f), new(80.0f, 80.0f), UIDirection.Southwest);
         }
 
         protected override void OnUpdate(GameTime gameTime)
