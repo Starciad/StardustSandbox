@@ -43,7 +43,7 @@ namespace StardustSandbox.UI.Common.HUD
     {
         private WorldGenerationTheme selectedTheme = WorldGenerationTheme.Plain;
         private WorldGenerationSettings selectedSettings = WorldGenerationSettings.GenerateForeground;
-        private WorldGenerationContents selectedContents = WorldGenerationContents.HasOceans | WorldGenerationContents.HasVegetation;
+        private WorldGenerationContents selectedContents = WorldGenerationContents.HasOceans | WorldGenerationContents.HasVegetation | WorldGenerationContents.HasClouds;
 
         private Image background;
         private Label menuTitle, themeSectionTitle, settingsSectionTitle, contentsSectionTitle;

@@ -41,8 +41,8 @@ namespace StardustSandbox.Generators
             {
                 WorldGenerationTheme.Plain =>
                     new(
-                        (int)PercentageMath.PercentageOfValue(height, 30.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 60.0f)
+                        (int)PercentageMath.PercentageOfValue(height, 25.0f),
+                        (int)PercentageMath.PercentageOfValue(height, 45.0f)
                     ),
 
                 WorldGenerationTheme.Desert =>
@@ -94,6 +94,11 @@ namespace StardustSandbox.Generators
             if (contents.HasFlag(WorldGenerationContents.HasVegetation))
             {
                 GenerateTrees(world, heightMap, layer);
+            }
+
+            if (contents.HasFlag(WorldGenerationContents.HasClouds))
+            {
+                GenerateClouds(world, heightMap, layer);
             }
         }
 
@@ -298,6 +303,26 @@ namespace StardustSandbox.Generators
                     int crownRadius = Core.Random.Range(2, 4);
 
                     TreeGenerator.Start(world, layer, origin, trunkHeight, trunkThickness, crownRadius);
+                }
+            }
+        }
+
+        private static void GenerateClouds(World world, int[] heightMap, Layer layer)
+        {
+            int width = heightMap.Length;
+            int height = world.Information.Size.Y;
+            int cloudBaseY = (int)PercentageMath.PercentageOfValue(height, 15.0f);
+
+            for (int x = 0; x < width; x++)
+            {
+                if (Core.Random.Chance(10))
+                {
+                    Point origin = new(x, cloudBaseY);
+
+                    foreach (Point point in ShapePointGenerator.GenerateCirclePoints(origin, Core.Random.Range(3, 6)))
+                    {
+                        world.InstantiateElement(point, layer, ElementIndex.Cloud);
+                    }
                 }
             }
         }
