@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Databases;
 using StardustSandbox.Enums.Assets;
@@ -39,6 +40,8 @@ namespace StardustSandbox.Managers
         private Vector2 backgroundPosition;
         private Color backgroundColor;
 
+        private bool canDraw;
+
         private Texture2D cursorTexture;
 
         private static readonly Rectangle[] cursorClipAreas = [
@@ -49,6 +52,8 @@ namespace StardustSandbox.Managers
         internal void Initialize()
         {
             this.cursorTexture = AssetDatabase.GetTexture(TextureIndex.Cursors);
+            this.canDraw = true;
+
             ApplySettings(SettingsSerializer.Load<CursorSettings>());
         }
 
@@ -56,12 +61,23 @@ namespace StardustSandbox.Managers
         {
             Vector2 position = Input.MouseState.Position.ToVector2();
 
+            // Toggle cursor visibility with D2 key
+            if (Parameters.CanHideMouse && Input.KeyboardState.IsKeyDown(Keys.D2) && !Input.PreviousKeyboardState.IsKeyDown(Keys.D2))
+            {
+                this.canDraw = !this.canDraw;
+            }
+
             this.backgroundPosition = position;
             this.position = position;
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
+            if (!this.canDraw)
+            {
+                return;
+            }
+
             spriteBatch.Draw(this.cursorTexture, this.backgroundPosition, cursorClipAreas[1], this.backgroundColor, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
             spriteBatch.Draw(this.cursorTexture, this.position, cursorClipAreas[0], this.color, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
         }

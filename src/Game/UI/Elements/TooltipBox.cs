@@ -111,6 +111,12 @@ namespace StardustSandbox.UI.Elements
 
         protected override void OnUpdate(GameTime gameTime)
         {
+            bool canDraw = !Parameters.HideTooltips;
+
+            this.title.CanDraw = canDraw;
+            this.description.CanDraw = canDraw;
+            this.background.CanDraw = canDraw;
+
             this.title.TextContent = TooltipBoxContent.Title;
             this.description.TextContent = TooltipBoxContent.Description;
 

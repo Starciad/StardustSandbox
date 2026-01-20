@@ -344,7 +344,7 @@ namespace StardustSandbox.UI.Common.HUD
         {
             this.tooltipBox.CanDraw = false;
 
-            // Toggle HUD visibility with Numpad 0 if allowed
+            // Toggle HUD visibility with D1 key
             if (Parameters.CanHideHud && Input.KeyboardState.IsKeyDown(Keys.D1) && !Input.PreviousKeyboardState.IsKeyDown(Keys.D1))
             {
                 this.topToolbarContainer.CanDraw = !this.topToolbarContainer.CanDraw;

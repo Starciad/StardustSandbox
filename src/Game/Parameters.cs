@@ -33,6 +33,8 @@ namespace StardustSandbox
         internal static bool CreateException { get; private set; }
         internal static bool NoMusicDelay { get; private set; }
         internal static bool CanHideHud { get; private set; }
+        internal static bool CanHideMouse { get; private set; }
+        internal static bool HideTooltips { get; private set; }
 
         private static int position = 0;
         private static int length;
@@ -136,6 +138,20 @@ namespace StardustSandbox
                     () =>
                     {
                         CanHideHud = true;
+                    }
+                ),
+
+                CreateArgument("--can-hide-mouse", ["-chm"],
+                    () =>
+                    {
+                        CanHideMouse = true;
+                    }
+                ),
+
+                CreateArgument("--hide-tooltips", ["-ht"],
+                    () =>
+                    {
+                        HideTooltips = true;
                     }
                 ),
             ];
