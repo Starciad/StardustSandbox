@@ -83,11 +83,7 @@ namespace StardustSandbox.Serialization.Saving.Data
             this.States = slotLayer.States;
             this.ColorModifier = slotLayer.ColorModifier;
             this.StepCycleFlag = slotLayer.StepCycleFlag;
-
-            if (slotLayer.StoredElementIndex is not ElementIndex.None)
-            {
-                this.StoredElementIndex = slotLayer.StoredElementIndex;
-            }
+            this.StoredElementIndex = slotLayer.StoredElementIndex;
         }
     }
 }

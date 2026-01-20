@@ -41,12 +41,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
         {
             ElementIndex stored = context.GetStoredElement();
 
-            if (stored == ElementIndex.None)
-            {
-                return;
-            }
-
-            if (!TryGetValidPosition(context, out Point validPosition))
+            if (stored is ElementIndex.None || !TryGetValidPosition(context, out Point validPosition))
             {
                 return;
             }
@@ -94,7 +89,7 @@ namespace StardustSandbox.Elements.Solids.Immovables
         // Define the stored element based on the first valid neighboring element found
         private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.GetStoredElement() != ElementIndex.None)
+            if (context.GetStoredElement() is not ElementIndex.None)
             {
                 return;
             }

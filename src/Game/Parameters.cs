@@ -32,6 +32,7 @@ namespace StardustSandbox
         internal static bool ShowChunks { get; private set; }
         internal static bool CreateException { get; private set; }
         internal static bool NoMusicDelay { get; private set; }
+        internal static bool CanHideHud { get; private set; }
 
         private static int position = 0;
         private static int length;
@@ -128,6 +129,13 @@ namespace StardustSandbox
                     () =>
                     {
                         NoMusicDelay = true;
+                    }
+                ),
+
+                CreateArgument("--can-hide-hud", ["-chh"],
+                    () =>
+                    {
+                        CanHideHud = true;
                     }
                 ),
             ];

@@ -16,6 +16,7 @@
 */
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Audio;
 using StardustSandbox.Catalog;
@@ -30,6 +31,7 @@ using StardustSandbox.Enums.States;
 using StardustSandbox.Enums.UI;
 using StardustSandbox.Enums.UI.Tools;
 using StardustSandbox.Extensions;
+using StardustSandbox.InputSystem;
 using StardustSandbox.InputSystem.Game;
 using StardustSandbox.Localization;
 using StardustSandbox.Managers;
@@ -341,6 +343,14 @@ namespace StardustSandbox.UI.Common.HUD
         protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;
+
+            // Toggle HUD visibility with Numpad 0 if allowed
+            if (Parameters.CanHideHud && Input.KeyboardState.IsKeyDown(Keys.D1) && !Input.PreviousKeyboardState.IsKeyDown(Keys.D1))
+            {
+                this.topToolbarContainer.CanDraw = !this.topToolbarContainer.CanDraw;
+                this.leftToolbarContainer.CanDraw = !this.leftToolbarContainer.CanDraw;
+                this.rightToolbarContainer.CanDraw = !this.rightToolbarContainer.CanDraw;
+            }
 
             UpdatePlayerInteractionOnToolbarHover();
             UpdateSimulationControlIcons();
