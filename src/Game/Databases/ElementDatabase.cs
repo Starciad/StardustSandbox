@@ -632,7 +632,8 @@ namespace StardustSandbox.Databases
                 {
                     Index = ElementIndex.UpwardPusher,
                     Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.IsCorruptible,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(320, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
@@ -642,7 +643,8 @@ namespace StardustSandbox.Databases
                 {
                     Index = ElementIndex.RightwardPusher,
                     Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.IsCorruptible,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(352, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
@@ -652,7 +654,8 @@ namespace StardustSandbox.Databases
                 {
                     Index = ElementIndex.DownwardPusher,
                     Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.IsCorruptible,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(384, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
@@ -662,7 +665,8 @@ namespace StardustSandbox.Databases
                 {
                     Index = ElementIndex.LeftwardPusher,
                     Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.IsCorruptible,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(416, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,

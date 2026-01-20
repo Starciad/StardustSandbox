@@ -26,7 +26,7 @@ namespace StardustSandbox.Elements
     internal sealed class ElementNeighbors : IResettable
     {
         internal int Length => this.slots.Length;
-
+        internal int CountOccupied { get; private set; }
         /*
          * [0] Northwest
          * [1] North
@@ -52,6 +52,11 @@ namespace StardustSandbox.Elements
         internal void SetNeighbor(in ElementNeighborDirection direction, Slot slot)
         {
             SetNeighbor((int)direction, slot);
+        }
+
+        internal void SetNeighborCountOccupied(in int countOccupied)
+        {
+            this.CountOccupied = countOccupied;
         }
 
         internal Slot GetSlot(in int index)
@@ -115,6 +120,8 @@ namespace StardustSandbox.Elements
             {
                 this.slots[i] = null;
             }
+
+            this.CountOccupied = 0;
         }
     }
 }

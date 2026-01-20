@@ -24,6 +24,7 @@ namespace StardustSandbox.Enums.Elements
     {
         None = 0,
         IsFalling = 1 << 0,
+        WasPushed = 1 << 2,
     }
 }
 

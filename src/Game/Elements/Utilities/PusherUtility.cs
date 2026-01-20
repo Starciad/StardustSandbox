@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Enums.Directions;
 using StardustSandbox.Enums.Elements;
 
 using System;
@@ -78,8 +79,12 @@ namespace StardustSandbox.Elements.Utilities
         {
             for (int i = 0; i < neighbors.Length; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsPushable))
+                ElementNeighborDirection direction = (ElementNeighborDirection)i;
+
+                if (direction is not (ElementNeighborDirection.North or ElementNeighborDirection.West or ElementNeighborDirection.East or ElementNeighborDirection.South) ||
+                    !neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
+                    !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsPushable) ||
+                     neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.WasPushed))
                 {
                     continue;
                 }
@@ -116,7 +121,16 @@ namespace StardustSandbox.Elements.Utilities
                     targetNeighborPosition = frontPosition;
                 }
 
-                context.UpdateElementPosition(currentNeighborPosition, targetNeighborPosition);
+                if (context.TryUpdateElementPosition(currentNeighborPosition, targetNeighborPosition))
+                {
+                    context.RemoveElementState(currentNeighborPosition, ElementStates.IsFalling);
+                    context.SetElementState(targetNeighborPosition, ElementStates.WasPushed);
+                }
+            }
+
+            if (neighbors.CountOccupied > 0)
+            {
+                context.NotifyChunk(context.Position);
             }
         }
     }

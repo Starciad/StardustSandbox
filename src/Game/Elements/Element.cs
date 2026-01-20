@@ -91,6 +91,11 @@ namespace StardustSandbox.Elements
             bool hasTemperature = this.Characteristics.HasFlag(ElementCharacteristics.HasTemperature);
             bool affectsNeighbors = this.Characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
 
+            if (this.context.HasElementState(ElementStates.WasPushed))
+            {
+                this.context.RemoveElementState(ElementStates.WasPushed);
+            }
+
             if (hasTemperature || affectsNeighbors)
             {
                 ElementNeighbors neighbors = this.context.GetNeighboringSlots();

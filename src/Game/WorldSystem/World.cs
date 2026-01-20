@@ -455,6 +455,8 @@ namespace StardustSandbox.WorldSystem
                 }
             }
 
+            this.elementNeighbors.SetNeighborCountOccupied(index);
+
             return this.elementNeighbors;
         }
 
