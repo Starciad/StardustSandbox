@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+		<EmbeddedResource Include="Resources\Icons\icon.ico">
+			<LogicalName>Icon.ico</LogicalName>
+		</EmbeddedResource>
+
+		<EmbeddedResource Include="Resources\Icons\icon.bmp">
+			<LogicalName>Icon.bmp</LogicalName>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

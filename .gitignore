@@ -401,6 +401,5 @@ FodyWeavers.xsd
 src/[Pp]ublish/*
 
 # Game
-src/Game/assets/*
-!src/Game/assets/assets.mgcb
-!src/Game/assets/effects/
+src/SteamDesktop/
+

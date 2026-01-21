@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!-- IMPORTS -->
+	<Import Project="../Targets/Application.targets" />
+	<Import Project="../Targets/Directories.targets" />
+	<Import Project="../Targets/Files.targets" />
+	<Import Project="../Targets/Icons.targets" />
+	<Import Project="../Targets/Metadata.targets" />
+	<Import Project="../Targets/NetBeauty.targets" />
+	<Import Project="../Targets/Restore.targets" />
+
+	<!-- HEADER -->
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<RuntimeFrameworkVersion>8.0.0</RuntimeFrameworkVersion>
+		<RollForward>Major</RollForward>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<!-- COMPILATION -->
+	<PropertyGroup>
+		<SelfContained>true</SelfContained>
+		<PublishReadyToRun>false</PublishReadyToRun>
+		<TieredCompilation>false</TieredCompilation>
+		<PublishTrimmed>false</PublishTrimmed>
+		<UseWindowsForms>false</UseWindowsForms>
+		<UseWPF>false</UseWPF>
+		<PublishSelfContained>true</PublishSelfContained>
+		<PublishSingleFile>false</PublishSingleFile>
+		<PublishAot>false</PublishAot>
+		<DefineConstants>SS_LINUX</DefineConstants>
+	</PropertyGroup>
+
+	<!-- SYSTEM -->
+	<PropertyGroup>
+		<AssemblyName>StardustSandbox</AssemblyName>
+		<RootNamespace>StardustSandbox.Desktop</RootNamespace>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+		<PlatformTarget>x64</PlatformTarget>
+		<MonoGamePlatform>Linux</MonoGamePlatform>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>embedded</DebugType>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<Deterministic>true</Deterministic>
+		<UseSharedCompilation>false</UseSharedCompilation>
+	</PropertyGroup>
+
+	<!-- DEPENDENCIES -->
+	<ItemGroup>
+		<PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
+		<PackageReference Include="nulastudio.NetBeauty" Version="2.1.5.0" />
+	</ItemGroup>
+
+	<!-- REFERENCES -->
+	<ItemGroup>
+		<ProjectReference Include="..\Core\SS.Core.Linux.csproj" />
+	</ItemGroup>
+
+	<!-- CONTENT -->
+	<ItemGroup>
+		<MonoGameContentReference Include="..\Core\assets\assets.mgcb">
+			<Link>assets\assets.mgcb</Link>
+		</MonoGameContentReference>
+	</ItemGroup>
+</Project>

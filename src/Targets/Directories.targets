@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="CreateExtraPublishDirectories" AfterTargets="Publish">
+		<Message Text="Creating extra empty directories in the publish directory." Importance="High" />
+
+		<MakeDir Directories="$(PublishDir)logs" Condition="'$(PublishDir)' != ''" />
+		<MakeDir Directories="$(PublishDir)screenshots" Condition="'$(PublishDir)' != ''" />
+	</Target>
+</Project>

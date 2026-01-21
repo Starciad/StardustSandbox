@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!-- IMPORTS -->
+	<Import Project="../Targets/Localization.targets" />
+	<Import Project="../Targets/Metadata.targets" />
+	<Import Project="../Targets/Restore.targets" />
+	
+	<!-- HEADER -->
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<RuntimeFrameworkVersion>8.0.0</RuntimeFrameworkVersion>
+		<RollForward>Major</RollForward>
+		<LangVersion>latest</LangVersion>
+		<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+		<DefineConstants>SS_WINDOWS</DefineConstants>
+	</PropertyGroup>
+
+	<!-- SYSTEM -->
+	<PropertyGroup>
+		<AssemblyName>StardustSandbox.Core</AssemblyName>
+		<RootNamespace>StardustSandbox.Core</RootNamespace>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<PlatformTarget>x64</PlatformTarget>
+		<MonoGamePlatform>Windows</MonoGamePlatform>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>embedded</DebugType>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<Deterministic>true</Deterministic>
+		<UseSharedCompilation>false</UseSharedCompilation>
+	</PropertyGroup>
+
+	<!-- DEPENDENCIES -->
+	<ItemGroup>
+		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.4" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
+		<PackageReference Include="MessagePack" Version="3.1.4" />
+	</ItemGroup>
+</Project>

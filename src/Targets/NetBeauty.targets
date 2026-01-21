@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- NET BEAUTY -->
+	<PropertyGroup>
+		<!-- Disable NetBeauty (set to True to turn off all features). -->
+		<DisableBeauty>False</DisableBeauty>
+
+		<!-- Enable shared runtime mode (set to True to share libraries across apps). -->
+		<BeautySharedRuntimeMode>False</BeautySharedRuntimeMode>
+
+		<!-- Directory for dependencies; default is 'libraries'. Use quotes if the path contains spaces. -->
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) == 'True'">../libraries</BeautyLibsDir>
+		<BeautyLibsDir Condition="$(BeautySharedRuntimeMode) != 'True'">./libraries</BeautyLibsDir>
+
+		<!-- DLLs you want to exclude from being moved (e.g., critical or custom files). -->
+		<BeautyExcludes>SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;</BeautyExcludes>
+
+		<!-- Files to hide from end users (e.g., runtime or config files). Only supported on Windows. -->
+		<BeautyHiddens>StardustSandbox.dll;hostfxr;hostpolicy;*.deps.json;*.runtimeconfig*.json;</BeautyHiddens>
+
+		<!-- Only run NetBeauty on publish (set to True to skip on build). -->
+		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
+
+		<!-- Internal option: do not modify. -->
+		<BeautyNoRuntimeInfo>False</BeautyNoRuntimeInfo>
+
+		<!-- Loader version policy: auto, with, or without. -->
+		<BeautyNBLoaderVerPolicy>auto</BeautyNBLoaderVerPolicy>
+
+		<!-- Enable debugging support for third-party debuggers (e.g., dnSpy). -->
+		<BeautyEnableDebugging>False</BeautyEnableDebugging>
+
+		<!-- Use the patch to minimize file count (SCD mode only). Set to False to disable. -->
+		<BeautyUsePatch>True</BeautyUsePatch>
+
+		<!-- Log verbosity: Error, Detail, or Info. -->
+		<BeautyLogLevel>Info</BeautyLogLevel>
+
+		<!-- Use a mirror for GitHub resources if needed. -->
+		<BeautyGitCDN>https://gitee.com/liesauer/HostFXRPatcher</BeautyGitCDN>
+
+		<!-- Specify a branch or tag for the patcher repository. -->
+		<BeautyGitTree>master</BeautyGitTree>
+	</PropertyGroup>
+</Project>
