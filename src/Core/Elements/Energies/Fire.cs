@@ -17,12 +17,11 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Energies

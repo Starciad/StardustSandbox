@@ -21,7 +21,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 #endif
 
-namespace StardustSandbox.Core
+namespace StardustSandbox.Core.OS
 {
     internal static class MessageBox
     {

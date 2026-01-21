@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal static void Save(ActorManager actorManager, World world, GraphicsDevice graphicsDevice)
         {
-            string filename = Path.Combine(Core.Directory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
+            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
 
             if (System.IO.File.Exists(filename))
             {
@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal static SaveFile Load(string name, LoadFlags flags)
         {
-            string filename = Path.Combine(Core.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
+            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
             using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
             using ZipArchive zip = new(fs, ZipArchiveMode.Read);
@@ -84,7 +84,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal static IEnumerable<SaveFile> LoadAll(LoadFlags flags)
         {
-            foreach (string filename in System.IO.Directory.EnumerateFiles(Core.Directory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
+            foreach (string filename in System.IO.Directory.EnumerateFiles(IO.Directory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
             {
                 yield return Load(Path.GetFileNameWithoutExtension(filename), flags);
             }
@@ -92,7 +92,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal static void Delete(string name)
         {
-            string filename = Path.Combine(Core.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
+            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
             if (System.IO.File.Exists(filename))
             {

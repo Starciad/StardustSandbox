@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
@@ -25,6 +26,7 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;

@@ -17,8 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
-using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Randomness;
 
 namespace StardustSandbox.Core.Elements.Gases
 {

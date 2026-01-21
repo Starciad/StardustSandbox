@@ -18,7 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core;
+using StardustSandbox.Core.Cameras;
 
 using System;
 

@@ -6,7 +6,7 @@ using StardustSandbox.Core.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Core
+namespace StardustSandbox.Core.Cameras
 {
     internal static class Camera
     {

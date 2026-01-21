@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Enums.Inputs;
-using StardustSandbox.Core.InputSystem;
 
 namespace StardustSandbox.Core.InputSystem.Actions
 {

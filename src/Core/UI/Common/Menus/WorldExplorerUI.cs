@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -27,13 +26,13 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.IO;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Saving;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.Localization;
 
 using System;
 using System.Collections.Generic;

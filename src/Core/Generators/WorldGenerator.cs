@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Generators;
 using StardustSandbox.Core.Enums.World;
@@ -132,7 +131,7 @@ namespace StardustSandbox.Core.Generators
 
             for (int x = 1; x < width; x++)
             {
-                int delta = Core.Random.Range(-2, 2);
+                int delta = Randomness.Random.Range(-2, 2);
                 int candidate = heights[x - 1] + delta;
 
                 if (candidate < amplitudeRange.Start.Value)
@@ -192,8 +191,8 @@ namespace StardustSandbox.Core.Generators
                 int startY = heightMap[x];
 
                 // Randomize layer thickness per column but keep it bounded
-                int surfaceThickness = Core.Random.Range(2, 4);
-                int subsurfaceThickness = surfaceThickness + Core.Random.Range(4, 8);
+                int surfaceThickness = Randomness.Random.Range(2, 4);
+                int subsurfaceThickness = surfaceThickness + Randomness.Random.Range(4, 8);
 
                 int depthLevelLimit = height - startY;
                 int deepThreshold = (int)PercentageMath.PercentageOfValue(depthLevelLimit, 80.0f);
@@ -324,12 +323,12 @@ namespace StardustSandbox.Core.Generators
                 }
 
                 // Confirm top element is grass
-                if (Core.Random.Chance(25) && world.TryGetElement(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
+                if (Randomness.Random.Chance(25) && world.TryGetElement(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
                 {
                     Point origin = new(x, surfaceY - 1);
-                    int trunkHeight = Core.Random.Range(6, 12);
+                    int trunkHeight = Randomness.Random.Range(6, 12);
                     int trunkThickness = 1;
-                    int crownRadius = Core.Random.Range(2, 4);
+                    int crownRadius = Randomness.Random.Range(2, 4);
 
                     TreeGenerator.Start(world, layer, origin, trunkHeight, trunkThickness, crownRadius);
                 }
@@ -344,11 +343,11 @@ namespace StardustSandbox.Core.Generators
 
             for (int x = 0; x < width; x++)
             {
-                if (Core.Random.Chance(10))
+                if (Randomness.Random.Chance(10))
                 {
                     Point origin = new(x, cloudBaseY);
 
-                    foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(origin, Core.Random.Range(3, 6)))
+                    foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(origin, Randomness.Random.Range(3, 6)))
                     {
                         world.InstantiateElement(point, layer, ElementIndex.Cloud);
                     }

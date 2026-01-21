@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
@@ -98,7 +97,7 @@ namespace StardustSandbox.Core.Audio
                 // from being the same as the last song in the previous deck
                 if (lastPlayedGameplaySong != SongIndex.None && shuffledSongs.Count > 1 && shuffledSongs[0] == lastPlayedGameplaySong)
                 {
-                    int swapIndex = 1 + Core.Random.Range(0, shuffledSongs.Count - 1);
+                    int swapIndex = 1 + Randomness.Random.Range(0, shuffledSongs.Count - 1);
 
                     (shuffledSongs[0], shuffledSongs[swapIndex]) = (shuffledSongs[swapIndex], shuffledSongs[0]);
                 }
@@ -173,7 +172,7 @@ namespace StardustSandbox.Core.Audio
                 {
                     if (!GameParameters.NoMusicDelay)
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(Core.Random.Range(30, 60)), token);
+                        await Task.Delay(TimeSpan.FromSeconds(Randomness.Random.Range(30, 60)), token);
                     }
 
                     if (token.IsCancellationRequested)

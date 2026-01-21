@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -28,13 +27,12 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Settings;
 using StardustSandbox.Core.UI.States;
-using StardustSandbox.Core.Localization;
 
 using System;
 using System.Text;
@@ -297,7 +295,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
         private static void PlayTypingSound()
         {
-            SoundEngine.Play((SoundEffectIndex)Core.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+            SoundEngine.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
         }
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)

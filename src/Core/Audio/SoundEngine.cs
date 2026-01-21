@@ -19,17 +19,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
 using System;
+
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Serialization.Settings;
-
-
-
-
-
-
 
 #if SS_WINDOWS
 using SharpDX.Multimedia;

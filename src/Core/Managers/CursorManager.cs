@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.InputSystem;

@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Elements.Solids.Movables;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
 

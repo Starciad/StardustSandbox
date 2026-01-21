@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -26,7 +25,6 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.InputSystem.Game;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Settings;
 

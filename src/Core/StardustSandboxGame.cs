@@ -20,21 +20,19 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.InputSystem.Game;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
-using System.Text;
-using System.Threading;
 
 namespace StardustSandbox.Core
 {

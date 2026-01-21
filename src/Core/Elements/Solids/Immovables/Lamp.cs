@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Elements;
-
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Lamp : ImmovableSolid

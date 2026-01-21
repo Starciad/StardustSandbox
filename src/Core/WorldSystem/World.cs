@@ -18,7 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core;
+using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
@@ -36,7 +36,6 @@ using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Saving;
 using StardustSandbox.Core.Serialization.Saving.Data;
-using StardustSandbox.Core.WorldSystem.Components;
 
 using System;
 using System.Collections.Generic;

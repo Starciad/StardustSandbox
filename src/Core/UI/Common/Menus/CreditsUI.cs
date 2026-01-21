@@ -27,11 +27,10 @@ using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.WorldSystem;
-using StardustSandbox.Core.Localization;
 
 using System;
 

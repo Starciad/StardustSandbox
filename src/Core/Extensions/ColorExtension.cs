@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Extensions
 
             int VaryChannel(int channel)
             {
-                int randomOffset = Core.Random.Range(-variationFactor, variationFactor);
+                int randomOffset = Randomness.Random.Range(-variationFactor, variationFactor);
                 return Math.Clamp(channel + randomOffset, 0, 255);
             }
 

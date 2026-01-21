@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors.Palettes;
@@ -34,13 +33,12 @@ using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common.Tools;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
-using StardustSandbox.Core.Localization;
 
 using System;
 

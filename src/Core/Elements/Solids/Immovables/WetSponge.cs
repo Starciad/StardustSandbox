@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables

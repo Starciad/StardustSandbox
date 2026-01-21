@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Tools.Inks

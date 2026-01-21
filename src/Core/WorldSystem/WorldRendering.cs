@@ -18,7 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
@@ -32,7 +32,7 @@ using StardustSandbox.Core.Serialization.Settings;
 
 using System;
 
-namespace StardustSandbox.Core.WorldSystem.Components
+namespace StardustSandbox.Core.WorldSystem
 {
     internal sealed class WorldRendering(InputController inputController, World world)
     {

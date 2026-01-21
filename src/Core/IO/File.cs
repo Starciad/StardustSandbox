@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace StardustSandbox.Core
+namespace StardustSandbox.Core.IO
 {
     internal static class File
     {

@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -32,7 +31,6 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common.Tools;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;

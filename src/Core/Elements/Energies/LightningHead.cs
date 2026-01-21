@@ -15,7 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Generators;
 
 namespace StardustSandbox.Core.Elements.Energies

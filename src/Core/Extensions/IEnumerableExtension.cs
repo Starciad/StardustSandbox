@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Extensions
 
             while (enumerator.MoveNext())
             {
-                if (Core.Random.Range(index + 1) == 0)
+                if (Randomness.Random.Range(index + 1) == 0)
                 {
                     current = enumerator.Current;
                 }
@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Extensions
 
             for (int i = 0; i < count; i++)
             {
-                int j = Core.Random.Range(i, count - 1);
+                int j = Randomness.Random.Range(i, count - 1);
                 (list[j], list[i]) = (list[i], list[j]);
             }
 

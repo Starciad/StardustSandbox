@@ -24,7 +24,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 
-namespace StardustSandbox.Core.WorldSystem.Components
+namespace StardustSandbox.Core.WorldSystem
 {
     internal sealed class WorldUpdating(World world) : IResettable
     {

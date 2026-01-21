@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Actors;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;

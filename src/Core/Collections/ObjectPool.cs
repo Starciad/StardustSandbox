@@ -19,7 +19,7 @@ using StardustSandbox.Core.Interfaces.Collections;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core
+namespace StardustSandbox.Core.Collections
 {
     internal sealed class ObjectPool
     {

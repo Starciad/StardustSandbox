@@ -15,14 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.InputSystem.Actions;
 using StardustSandbox.Core.InputSystem.Game.Handlers;
 using StardustSandbox.Core.InputSystem.Game.Simulation;

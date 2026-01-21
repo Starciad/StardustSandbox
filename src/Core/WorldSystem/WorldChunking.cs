@@ -27,7 +27,7 @@ using StardustSandbox.Core.Interfaces;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.WorldSystem.Components
+namespace StardustSandbox.Core.WorldSystem
 {
     internal sealed class WorldChunking : IResettable
     {

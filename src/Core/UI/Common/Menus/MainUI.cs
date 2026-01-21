@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -27,13 +26,11 @@ using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Net;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
-using StardustSandbox.Core.Localization;
 
 using System;
 
@@ -247,7 +244,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 this.menuButtonLabels[i].Margin = Vector2.Zero;
-                this.buttonAnimationOffsets[i] = Core.Random.GetFloat() * MathF.PI * 2.0f;
+                this.buttonAnimationOffsets[i] = Randomness.Random.GetFloat() * MathF.PI * 2.0f;
             }
 
             if (MediaPlayer.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.Volume_01_Track_01)

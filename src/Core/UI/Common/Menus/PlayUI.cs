@@ -23,11 +23,10 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.UI;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.Localization;
 
 namespace StardustSandbox.Core.UI.Common.Menus
 {

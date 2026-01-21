@@ -16,7 +16,6 @@
 */
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.WorldSystem;

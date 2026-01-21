@@ -21,7 +21,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace StardustSandbox.Core
+namespace StardustSandbox.Core.IO
 {
     internal static class Directory
     {

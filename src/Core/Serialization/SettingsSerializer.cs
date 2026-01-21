@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Serialization
 
             public void LoadOrCreate()
             {
-                string filePath = Path.Combine(Core.Directory.Settings, this.fileName);
+                string filePath = Path.Combine(IO.Directory.Settings, this.fileName);
 
                 if (!System.IO.File.Exists(filePath))
                 {
@@ -74,7 +74,7 @@ namespace StardustSandbox.Core.Serialization
 
             internal void Save(T value)
             {
-                using FileStream stream = new(Path.Combine(Core.Directory.Settings, this.fileName), FileMode.Create, FileAccess.Write);
+                using FileStream stream = new(Path.Combine(IO.Directory.Settings, this.fileName), FileMode.Create, FileAccess.Write);
 
                 this.cache = value;
                 this.serializer.Serialize(stream, value);
@@ -103,7 +103,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal static void Initialize()
         {
-            _ = System.IO.Directory.CreateDirectory(Core.Directory.Settings);
+            _ = System.IO.Directory.CreateDirectory(IO.Directory.Settings);
 
             foreach (ISettingsDescriptor descriptor in descriptors.Values)
             {
@@ -132,7 +132,7 @@ namespace StardustSandbox.Core.Serialization
 
         private static void CreateWarningFile()
         {
-            string filePath = Path.Combine(Core.Directory.Settings, IOConstants.WARNING);
+            string filePath = Path.Combine(IO.Directory.Settings, IOConstants.WARNING);
 
             if (System.IO.File.Exists(filePath))
             {

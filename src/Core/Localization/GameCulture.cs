@@ -19,7 +19,7 @@ using System.Globalization;
 
 namespace StardustSandbox.Core.Localization
 {
-    public class GameCulture
+    public sealed class GameCulture
     {
         public CultureInfo CultureInfo => this.cultureInfo;
         public string Name => string.Concat(this.Language, '-', this.Region);

@@ -48,9 +48,9 @@ namespace StardustSandbox.Core.Backgrounds.Clouds
 
         public void Reset()
         {
-            this.position = new(-(WorldConstants.GRID_SIZE * 5), Core.Random.Range(0, WorldConstants.GRID_SIZE * 10));
-            this.speed = Core.Random.Range(10, 50);
-            this.opacity = (Core.Random.GetFloat() * 0.5f) + 0.5f;
+            this.position = new(-(WorldConstants.GRID_SIZE * 5), Randomness.Random.Range(0, WorldConstants.GRID_SIZE * 10));
+            this.speed = Randomness.Random.Range(10, 50);
+            this.opacity = (Randomness.Random.GetFloat() * 0.5f) + 0.5f;
             this.color = new(Color.White, Convert.ToByte(255 * this.opacity));
         }
 

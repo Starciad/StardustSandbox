@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Elements.Liquids;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Liquids.Paints

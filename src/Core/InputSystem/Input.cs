@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Managers;
 
 using System;

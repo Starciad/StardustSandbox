@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -25,12 +24,11 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
-using StardustSandbox.Core.Localization;
 
 namespace StardustSandbox.Core.UI.Common.HUD
 {
