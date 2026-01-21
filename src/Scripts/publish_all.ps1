@@ -12,8 +12,8 @@ $outputDir = '..\Publish'
 
 # Project definitions
 $projects = @(
-    @{ Name='Windows'; Path='..\Game\SS.Windows.csproj' },
-    @{ Name='Linux'; Path='..\Game\SS.Linux.csproj' }
+    @{ Name='Windows'; Path='..\Desktop\SS.Desktop.Windows.csproj' },
+    @{ Name='Linux'; Path='..\Desktop\SS.Desktop.Linux.csproj' }
 )
 
 # Clean output directory
