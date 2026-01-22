@@ -26,7 +26,6 @@ Clear-Host
 
 # Configuration
 $gameName = 'StardustSandbox'
-$gameVersion = 'v2.3.0.0'
 $outputDir = '..\Publish'
 
 # Project definitions
@@ -47,7 +46,7 @@ function Publish-Project {
         [string]$projectPath
     )
 
-    $publishDir = Join-Path $outputDir "$gameName.$projectName.$gameVersion"
+    $publishDir = Join-Path $outputDir "$gameName.$projectName"
     dotnet publish $projectPath -c Release --output $publishDir
     
 	if ($LASTEXITCODE -ne 0) {

@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Databases
 
             achievements =
             [
-                new("ACH_ALLOCATE_FIRST_ELEMENT", "First Grain", "To insert any element into the world for the first time."),
+                new("ACH_001", "First Grain", "To insert any element into the world for the first time."),
             ];
 
             isLoaded = true;

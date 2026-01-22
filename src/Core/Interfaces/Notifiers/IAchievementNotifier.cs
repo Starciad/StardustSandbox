@@ -15,10 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Managers
-{
-    internal sealed class AchievementManager
-    {
+using StardustSandbox.Core.Achievements;
 
+namespace StardustSandbox.Core.Interfaces.Notifiers
+{
+    public interface IAchievementNotifier
+    {
+        void OnAchievementUnlocked(Achievement achievement);
     }
 }

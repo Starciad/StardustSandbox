@@ -15,22 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Enums.Achievements;
+
 using System;
 
 namespace StardustSandbox.Core.Achievements
 {
     [Serializable]
-    internal sealed class Achievement(string id, string title, string description)
+    public sealed class Achievement(string id, string title, string description)
     {
         public string Id => id;
-        public string Title => title;
-        public string Description => description;
-
-        public bool IsUnlocked { get; private set; }
-
-        internal void Unlock()
-        {
-            this.IsUnlocked = true;
-        }
+        internal string Title => title;
+        internal string Description => description;
     }
 }

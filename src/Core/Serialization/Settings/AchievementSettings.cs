@@ -15,27 +15,33 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Enums.Achievements;
+
 using System;
 using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization.Settings
 {
-    public readonly struct AchievementProgress(bool isUnlocked)
-    {
-        [XmlElement("IsUnlocked", typeof(bool))]
-        public readonly bool IsUnlocked => isUnlocked;
-    }
-
     [Serializable]
     [XmlRoot("ControlSettings")]
     public readonly struct AchievementSettings : ISettingsModule
     {
-        [XmlElement("AchievementProgresses", typeof(AchievementProgress[]))]
-        public readonly AchievementProgress[] AchievementProgresses { get; init; }
+        [XmlElement("AchievementsUnlocked", typeof(bool[]))]
+        public bool[] AchievementsUnlocked { get; } = new bool[(int)AchievementIndex.Length];
 
         public AchievementSettings()
         {
 
+        }
+
+        internal bool IsUnlocked(AchievementIndex index)
+        {
+            return this.AchievementsUnlocked[(int)index];
+        }
+
+        public void Unlock(AchievementIndex achievementIndex)
+        {
+            this.AchievementsUnlocked[(int)achievementIndex] = true;
         }
     }
 }

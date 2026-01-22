@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Enums.Achievements
 {
-    internal enum AchievementIndex : sbyte
+    public enum AchievementIndex : sbyte
     {
         /// <summary>
         /// Indicates that no valid value is specified.
@@ -28,7 +28,13 @@ namespace StardustSandbox.Core.Enums.Achievements
 
         #region Achievements
 
-        ACH_ALLOCATE_FIRST_ELEMENT,
+        /// <summary>
+        /// First Grain
+        /// </summary>
+        /// <remarks>
+        /// To insert any element into the world for the first time.
+        /// </remarks>
+        ACH_001,
 
         #endregion
 

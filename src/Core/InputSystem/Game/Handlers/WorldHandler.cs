@@ -17,7 +17,9 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Cameras;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos;

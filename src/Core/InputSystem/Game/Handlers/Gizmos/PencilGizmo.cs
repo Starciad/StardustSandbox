@@ -17,8 +17,10 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Actors;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Inputs;
@@ -49,6 +51,7 @@ namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
                     {
                         case WorldModificationType.Adding:
                             DrawElements((ElementIndex)contentIndex, this.pen.GetShapePoints(position));
+                            AchievementEngine.Unlock(AchievementIndex.ACH_001);
                             break;
 
                         case WorldModificationType.Removing:
@@ -110,7 +113,7 @@ namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.InstantiateElement(position, this.pen.Layer, elementIndex);
+                this.world.TryInstantiateElement(position, this.pen.Layer, elementIndex);
             }
         }
 

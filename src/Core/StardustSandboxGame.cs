@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
@@ -27,6 +28,7 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
@@ -38,6 +40,9 @@ namespace StardustSandbox.Core
 {
     public sealed class StardustSandboxGame : Game
     {
+        private IAchievementNotifier achievementNotifier;
+        private IGameUpdateNotifier gameUpdateNotifier;
+
         private SpriteBatch spriteBatch;
 
         private readonly World world;
@@ -112,8 +117,12 @@ namespace StardustSandbox.Core
 
         protected override void Initialize()
         {
+            this.achievementNotifier = this.Services.GetService<IAchievementNotifier>();
+            this.gameUpdateNotifier = this.Services.GetService<IGameUpdateNotifier>();
+
             Camera.Initialize(this.world);
 
+            AchievementEngine.Initialize(this.achievementNotifier);
             SongEngine.Initialize();
             SoundEngine.Initialize();
 
@@ -172,6 +181,8 @@ namespace StardustSandbox.Core
 
         protected override void Update(GameTime gameTime)
         {
+            this.gameUpdateNotifier?.OnUpdate();
+
             if (!GameHandler.HasState(GameStates.IsFocused) || GameHandler.HasState(GameStates.IsPaused))
             {
                 return;
