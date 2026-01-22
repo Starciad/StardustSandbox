@@ -128,6 +128,7 @@ namespace StardustSandbox.Core
             Input.Initialize(this.videoManager);
 
             // Databases
+            AchievementDatabase.Load();
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
             ElementDatabase.Load();
             CatalogDatabase.Load();

@@ -65,6 +65,5 @@ namespace StardustSandbox.Desktop
             stardustSandboxGame = new(args);
             stardustSandboxGame.Run();
         }
-
     }
 }

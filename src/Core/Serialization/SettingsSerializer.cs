@@ -92,6 +92,7 @@ namespace StardustSandbox.Core.Serialization
 
         private static readonly Dictionary<Type, ISettingsDescriptor> descriptors = new()
         {
+            [typeof(AchievementSettings)] = new SettingsDescriptor<AchievementSettings>(IOConstants.ACHIEVEMENT_SETTINGS_FILE),
             [typeof(ControlSettings)] = new SettingsDescriptor<ControlSettings>(IOConstants.CONTROL_SETTINGS_FILE),
             [typeof(CursorSettings)] = new SettingsDescriptor<CursorSettings>(IOConstants.CURSOR_SETTINGS_FILE),
             [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
