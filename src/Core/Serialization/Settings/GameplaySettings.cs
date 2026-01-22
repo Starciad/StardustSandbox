@@ -26,38 +26,38 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("GameplaySettings")]
-    public readonly struct GameplaySettings : ISettingsModule
+    public sealed class GameplaySettings : ISettingsModule
     {
         [XmlElement("ShowPreviewArea", typeof(bool))]
-        public readonly bool ShowPreviewArea { get; init; }
+        public bool ShowPreviewArea { get; set; }
 
         [XmlElement("PreviewAreaColorR", typeof(byte))]
-        public readonly byte PreviewAreaColorR { get; init; }
+        public byte PreviewAreaColorR { get; set; }
 
         [XmlElement("PreviewAreaColorG", typeof(byte))]
-        public readonly byte PreviewAreaColorG { get; init; }
+        public byte PreviewAreaColorG { get; set; }
 
         [XmlElement("PreviewAreaColorB", typeof(byte))]
-        public readonly byte PreviewAreaColorB { get; init; }
+        public byte PreviewAreaColorB { get; set; }
 
         [XmlElement("PreviewAreaColorA", typeof(byte))]
-        public readonly byte PreviewAreaColorA { get; init; }
+        public byte PreviewAreaColorA { get; set; }
 
         [XmlElement("ShowGrid", typeof(bool))]
-        public readonly bool ShowGrid { get; init; }
+        public bool ShowGrid { get; set; }
 
         [XmlElement("GridOpacity", typeof(byte))]
-        public readonly byte GridOpacity { get; init; }
+        public byte GridOpacity { get; set; }
 
         [XmlElement("ShowTemperatureColorVariations", typeof(bool))]
-        public readonly bool ShowTemperatureColorVariations { get; init; }
+        public bool ShowTemperatureColorVariations { get; set; }
 
         [XmlIgnore]
         public Color PreviewAreaColor
         {
-            readonly get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
+            get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
 
-            init
+            set
             {
                 this.PreviewAreaColorR = value.R;
                 this.PreviewAreaColorG = value.G;

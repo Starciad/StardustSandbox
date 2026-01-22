@@ -22,24 +22,18 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("VideoSettings")]
-    public readonly struct StatusSettings : ISettingsModule
+    public sealed class StatusSettings : ISettingsModule
     {
         [XmlElement("TheRestartAfterSavingSettingsWarningWasDisplayed", typeof(bool))]
-        public readonly bool TheRestartAfterSavingSettingsWarningWasDisplayed { get; init; }
+        public bool TheRestartAfterSavingSettingsWarningWasDisplayed { get; set; }
 
         [XmlElement("TheMovementTutorialWasDisplayed", typeof(bool))]
-        public readonly bool TheMovementTutorialWasDisplayed { get; init; }
+        public bool TheMovementTutorialWasDisplayed { get; set; }
 
         public StatusSettings()
         {
             this.TheRestartAfterSavingSettingsWarningWasDisplayed = false;
             this.TheMovementTutorialWasDisplayed = false;
-        }
-
-        public StatusSettings(StatusSettings statusSettings)
-        {
-            this.TheRestartAfterSavingSettingsWarningWasDisplayed = statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed;
-            this.TheMovementTutorialWasDisplayed = statusSettings.TheMovementTutorialWasDisplayed;
         }
     }
 }

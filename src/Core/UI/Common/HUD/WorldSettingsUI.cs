@@ -116,10 +116,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
                             this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
                             this.uiManager.OpenUI(UIIndex.Message);
 
-                            SettingsSerializer.Save<StatusSettings>(new(statusSettings)
-                            {
-                                TheMovementTutorialWasDisplayed = true,
-                            });
+                            statusSettings.TheMovementTutorialWasDisplayed = true;
+
+                            SettingsSerializer.Save(statusSettings);
                         }
                     }
 

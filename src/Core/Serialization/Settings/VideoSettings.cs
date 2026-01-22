@@ -27,32 +27,32 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("VideoSettings")]
-    public readonly struct VideoSettings : ISettingsModule
+    public sealed class VideoSettings : ISettingsModule
     {
         [XmlElement("Framerate", typeof(float))]
-        public readonly float Framerate { get; init; }
+        public float Framerate { get; set; }
 
         [XmlElement("Width", typeof(int))]
-        public readonly int Width { get; init; }
+        public int Width { get; set; }
 
         [XmlElement("Height", typeof(int))]
-        public readonly int Height { get; init; }
+        public int Height { get; set; }
 
         [XmlElement("FullScreen", typeof(bool))]
-        public readonly bool FullScreen { get; init; }
+        public bool FullScreen { get; set; }
 
         [XmlElement("VSync", typeof(bool))]
-        public readonly bool VSync { get; init; }
+        public bool VSync { get; set; }
 
         [XmlElement("Borderless", typeof(bool))]
-        public readonly bool Borderless { get; init; }
+        public bool Borderless { get; set; }
 
         [XmlIgnore]
         public Resolution Resolution
         {
-            readonly get => new(this.Width, this.Height);
+            get => new(this.Width, this.Height);
 
-            init
+            set
             {
                 this.Width = value.Width;
                 this.Height = value.Height;

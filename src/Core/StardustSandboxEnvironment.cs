@@ -30,11 +30,14 @@ namespace StardustSandbox.Core
 {
     public static class StardustSandboxEnvironment
     {
-        public static void Initialize()
+        public static void InitializeDirectories()
         {
             Directory.Initialize();
             SettingsSerializer.Initialize();
+        }
 
+        public static void InitializeGameCulture()
+        {
             GameCulture gameCulture = SettingsSerializer.Load<GeneralSettings>().GetGameCulture();
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;

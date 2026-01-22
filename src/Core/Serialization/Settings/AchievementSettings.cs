@@ -23,25 +23,34 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
-    [XmlRoot("ControlSettings")]
-    public readonly struct AchievementSettings : ISettingsModule
+    [XmlRoot("Data")]
+    public sealed class AchievementProgressData
     {
-        [XmlElement("AchievementsUnlocked", typeof(bool[]))]
-        public bool[] AchievementsUnlocked { get; } = new bool[(int)AchievementIndex.Length];
+        [XmlElement("IsUnlocked", typeof(bool))]
+        public bool IsUnlocked { get; set; }
+
+        public AchievementProgressData()
+        {
+            this.IsUnlocked = false;
+        }
+    }
+
+    [Serializable]
+    [XmlRoot("AchievementSettings")]
+    public sealed class AchievementSettings : ISettingsModule
+    {
+        [XmlArray("Datas")]
+        [XmlArrayItem("Data", typeof(AchievementProgressData))]
+        public AchievementProgressData[] Datas { get; set; }
 
         public AchievementSettings()
         {
+            this.Datas = new AchievementProgressData[(int)AchievementIndex.Length];
 
-        }
-
-        internal bool IsUnlocked(AchievementIndex index)
-        {
-            return this.AchievementsUnlocked[(int)index];
-        }
-
-        public void Unlock(AchievementIndex achievementIndex)
-        {
-            this.AchievementsUnlocked[(int)achievementIndex] = true;
+            for (int i = 0; i < this.Datas.Length; i++)
+            {
+                this.Datas[i] = new();
+            }
         }
     }
 }

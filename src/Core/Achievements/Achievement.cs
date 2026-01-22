@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Enums.Achievements;
-
 using System;
 
 namespace StardustSandbox.Core.Achievements

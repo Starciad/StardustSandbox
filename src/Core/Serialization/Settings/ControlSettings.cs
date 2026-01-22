@@ -24,44 +24,44 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("ControlSettings")]
-    public readonly struct ControlSettings : ISettingsModule
+    public sealed class ControlSettings : ISettingsModule
     {
         #region Camera Controls
 
         [XmlElement("MoveCameraUp", typeof(Keys))]
-        public readonly Keys MoveCameraUp { get; init; }
+        public Keys MoveCameraUp { get; set; }
 
         [XmlElement("MoveCameraRight", typeof(Keys))]
-        public readonly Keys MoveCameraRight { get; init; }
+        public Keys MoveCameraRight { get; set; }
 
         [XmlElement("MoveCameraDown", typeof(Keys))]
-        public readonly Keys MoveCameraDown { get; init; }
+        public Keys MoveCameraDown { get; set; }
 
         [XmlElement("MoveCameraLeft", typeof(Keys))]
-        public readonly Keys MoveCameraLeft { get; init; }
+        public Keys MoveCameraLeft { get; set; }
 
         [XmlElement("MoveCameraFast", typeof(Keys))]
-        public readonly Keys MoveCameraFast { get; init; }
+        public Keys MoveCameraFast { get; set; }
 
         #endregion
 
         #region World Controls
 
         [XmlElement("TogglePause", typeof(Keys))]
-        public readonly Keys TogglePause { get; init; }
+        public Keys TogglePause { get; set; }
 
         [XmlElement("ClearWorld", typeof(Keys))]
-        public readonly Keys ClearWorld { get; init; }
+        public Keys ClearWorld { get; set; }
 
         [XmlElement("NextShape", typeof(Keys))]
-        public readonly Keys NextShape { get; init; }
+        public Keys NextShape { get; set; }
 
         #endregion
 
         #region Tool Controls
 
         [XmlElement("Screenshot", typeof(Keys))]
-        public readonly Keys Screenshot { get; init; }
+        public Keys Screenshot { get; set; }
 
         #endregion
 
@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.ClearWorld = Keys.R;
             this.NextShape = Keys.Tab;
 
-            this.Screenshot = Keys.F12;
+            this.Screenshot = Keys.F9;
         }
     }
 }

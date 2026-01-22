@@ -22,16 +22,16 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("VolumeSettings")]
-    public readonly struct VolumeSettings : ISettingsModule
+    public sealed class VolumeSettings : ISettingsModule
     {
         [XmlElement("MasterVolume", typeof(float))]
-        public readonly float MasterVolume { get; init; }
+        public float MasterVolume { get; set; }
 
         [XmlElement("MusicVolume", typeof(float))]
-        public readonly float MusicVolume { get; init; }
+        public float MusicVolume { get; set; }
 
         [XmlElement("SFXVolume", typeof(float))]
-        public readonly float SFXVolume { get; init; }
+        public float SFXVolume { get; set; }
 
         public VolumeSettings()
         {

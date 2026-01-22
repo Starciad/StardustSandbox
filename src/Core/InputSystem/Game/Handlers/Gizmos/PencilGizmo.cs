@@ -113,7 +113,7 @@ namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.TryInstantiateElement(position, this.pen.Layer, elementIndex);
+                _ = this.world.TryInstantiateElement(position, this.pen.Layer, elementIndex);
             }
         }
 

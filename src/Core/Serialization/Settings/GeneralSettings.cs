@@ -26,16 +26,16 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("GeneralSettings")]
-    public readonly struct GeneralSettings : ISettingsModule
+    public sealed class GeneralSettings : ISettingsModule
     {
         [XmlElement("Language", typeof(string))]
-        public readonly string Language { get; init; }
+        public string Language { get; set; }
 
         [XmlElement("Region", typeof(string))]
-        public readonly string Region { get; init; }
+        public string Region { get; set; }
 
         [XmlIgnore]
-        public readonly string Name => string.Concat(this.Language, '-', this.Region);
+        public string Name => string.Concat(this.Language, '-', this.Region);
 
         public GeneralSettings()
         {
@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.Region = gameCulture.Region;
         }
 
-        public readonly GameCulture GetGameCulture()
+        public GameCulture GetGameCulture()
         {
             return LocalizationConstants.GetGameCulture(this.Name) ?? LocalizationConstants.DEFAULT_GAME_CULTURE;
         }

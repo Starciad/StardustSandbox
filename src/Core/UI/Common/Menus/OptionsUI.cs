@@ -316,10 +316,9 @@ namespace StardustSandbox.Core.UI.Common.Menus
                             messageUI.SetContent(Localization_Messages.Settings_RestartRequired);
                             uiManager.OpenUI(UIIndex.Message);
 
-                            SettingsSerializer.Save<StatusSettings>(new(statusSettings)
-                            {
-                                TheRestartAfterSavingSettingsWarningWasDisplayed = true,
-                            });
+                            statusSettings.TheRestartAfterSavingSettingsWarningWasDisplayed = true;
+
+                            SettingsSerializer.Save(statusSettings);
                         }
                         else
                         {
@@ -347,60 +346,56 @@ namespace StardustSandbox.Core.UI.Common.Menus
             Section controlSection = this.root.Sections[(byte)SectionIndex.Control];
             Section cursorSection = this.root.Sections[(byte)SectionIndex.Cursor];
 
+            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+            GeneralSettings generalSettings = SettingsSerializer.Load<GeneralSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
+            VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
+
             GameCulture gameCulture = LocalizationConstants.GetGameCultureFromNativeName(Convert.ToString(generalSection.Options[(byte)GeneralSectionOptionIndex.Language].GetValue()));
 
-            SettingsSerializer.Save<GeneralSettings>(new()
-            {
-                Language = gameCulture.Language,
-                Region = gameCulture.Region,
-            });
+            controlSettings.MoveCameraUp = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraUp].GetValue();
+            controlSettings.MoveCameraRight = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraRight].GetValue();
+            controlSettings.MoveCameraDown = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraDown].GetValue();
+            controlSettings.MoveCameraLeft = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraLeft].GetValue();
+            controlSettings.MoveCameraFast = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraFast].GetValue();
+            controlSettings.TogglePause = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.TogglePause].GetValue();
+            controlSettings.ClearWorld = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.ClearWorld].GetValue();
+            controlSettings.NextShape = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.NextShape].GetValue();
+            controlSettings.Screenshot = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.Screenshot].GetValue();
 
-            SettingsSerializer.Save<GameplaySettings>(new()
-            {
-                ShowPreviewArea = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowPreviewArea].GetValue()),
-                PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue(),
-                PreviewAreaColorA = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].GetValue()),
-                ShowGrid = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowGrid].GetValue()),
-                GridOpacity = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.GridOpacity].GetValue()),
-                ShowTemperatureColorVariations = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowTemperatureColorVariations].GetValue()),
-            });
+            cursorSettings.Color = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.Color].GetValue();
+            cursorSettings.BackgroundColor = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].GetValue();
+            cursorSettings.Alpha = Convert.ToByte(cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].GetValue());
+            cursorSettings.Scale = Convert.ToSingle(cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].GetValue());
 
-            SettingsSerializer.Save<VolumeSettings>(new()
-            {
-                MasterVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MasterVolume].GetValue()) / 100.0f,
-                MusicVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MusicVolume].GetValue()) / 100.0f,
-                SFXVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.SFXVolume].GetValue()) / 100.0f,
-            });
+            gameplaySettings.ShowPreviewArea = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowPreviewArea].GetValue());
+            gameplaySettings.PreviewAreaColor = (Color)gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaColor].GetValue();
+            gameplaySettings.PreviewAreaColorA = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.PreviewAreaOpacity].GetValue());
+            gameplaySettings.ShowGrid = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowGrid].GetValue());
+            gameplaySettings.GridOpacity = Convert.ToByte(gameplaySection.Options[(byte)GameplaySectionOptionIndex.GridOpacity].GetValue());
+            gameplaySettings.ShowTemperatureColorVariations = Convert.ToBoolean(gameplaySection.Options[(byte)GameplaySectionOptionIndex.ShowTemperatureColorVariations].GetValue());
 
-            SettingsSerializer.Save<VideoSettings>(new()
-            {
-                Framerate = Convert.ToSingle(videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue()),
-                Resolution = (Resolution)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue(),
-                FullScreen = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].GetValue()),
-                VSync = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.VSync].GetValue()),
-                Borderless = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].GetValue()),
-            });
+            generalSettings.Language = gameCulture.Language;
+            generalSettings.Region = gameCulture.Region;
 
-            SettingsSerializer.Save<ControlSettings>(new()
-            {
-                MoveCameraUp = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraUp].GetValue(),
-                MoveCameraRight = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraRight].GetValue(),
-                MoveCameraDown = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraDown].GetValue(),
-                MoveCameraLeft = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraLeft].GetValue(),
-                MoveCameraFast = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.MoveCameraFast].GetValue(),
-                TogglePause = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.TogglePause].GetValue(),
-                ClearWorld = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.ClearWorld].GetValue(),
-                NextShape = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.NextShape].GetValue(),
-                Screenshot = (Keys)controlSection.Options[(byte)ControlSectionOptionIndex.Screenshot].GetValue(),
-            });
+            videoSettings.Framerate = Convert.ToSingle(videoSection.Options[(byte)VideoSectionOptionIndex.Framerate].GetValue());
+            videoSettings.Resolution = (Resolution)videoSection.Options[(byte)VideoSectionOptionIndex.Resolution].GetValue();
+            videoSettings.FullScreen = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Fullscreen].GetValue());
+            videoSettings.VSync = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.VSync].GetValue());
+            videoSettings.Borderless = Convert.ToBoolean(videoSection.Options[(byte)VideoSectionOptionIndex.Borderless].GetValue());
 
-            SettingsSerializer.Save<CursorSettings>(new()
-            {
-                Color = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.Color].GetValue(),
-                BackgroundColor = (Color)cursorSection.Options[(byte)CursorSectionOptionIndex.BackgroundColor].GetValue(),
-                Alpha = Convert.ToByte(cursorSection.Options[(byte)CursorSectionOptionIndex.Opacity].GetValue()),
-                Scale = Convert.ToSingle(cursorSection.Options[(byte)CursorSectionOptionIndex.Scale].GetValue()),
-            });
+            volumeSettings.MasterVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MasterVolume].GetValue()) / 100.0f;
+            volumeSettings.MusicVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.MusicVolume].GetValue()) / 100.0f;
+            volumeSettings.SFXVolume = Convert.ToSingle(volumeSection.Options[(byte)VolumeSectionOptionIndex.SFXVolume].GetValue()) / 100.0f;
+
+            SettingsSerializer.Save(controlSettings);
+            SettingsSerializer.Save(cursorSettings);
+            SettingsSerializer.Save(gameplaySettings);
+            SettingsSerializer.Save(generalSettings);
+            SettingsSerializer.Save(videoSettings);
+            SettingsSerializer.Save(volumeSettings);
         }
 
         private void SyncSettingElements()

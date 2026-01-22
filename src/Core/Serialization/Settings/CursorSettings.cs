@@ -26,38 +26,38 @@ namespace StardustSandbox.Core.Serialization.Settings
 {
     [Serializable]
     [XmlRoot("CursorSettings")]
-    public readonly struct CursorSettings : ISettingsModule
+    public sealed class CursorSettings : ISettingsModule
     {
         [XmlElement("ColorR", typeof(byte))]
-        public readonly byte ColorR { get; init; }
+        public byte ColorR { get; set; }
 
         [XmlElement("ColorG", typeof(byte))]
-        public readonly byte ColorG { get; init; }
+        public byte ColorG { get; set; }
 
         [XmlElement("ColorB", typeof(byte))]
-        public readonly byte ColorB { get; init; }
+        public byte ColorB { get; set; }
 
         [XmlElement("BackgroundColorR", typeof(byte))]
-        public readonly byte BackgroundColorR { get; init; }
+        public byte BackgroundColorR { get; set; }
 
         [XmlElement("BackgroundColorG", typeof(byte))]
-        public readonly byte BackgroundColorG { get; init; }
+        public byte BackgroundColorG { get; set; }
 
         [XmlElement("BackgroundColorB", typeof(byte))]
-        public readonly byte BackgroundColorB { get; init; }
+        public byte BackgroundColorB { get; set; }
 
         [XmlElement("Scale", typeof(float))]
-        public readonly float Scale { get; init; }
+        public float Scale { get; set; }
 
         [XmlElement("Alpha", typeof(byte))]
-        public readonly byte Alpha { get; init; }
+        public byte Alpha { get; set; }
 
         [XmlIgnore]
         public Color Color
         {
-            readonly get => new(this.ColorR, this.ColorG, this.ColorB, this.Alpha);
+            get => new(this.ColorR, this.ColorG, this.ColorB, this.Alpha);
 
-            init
+            set
             {
                 this.ColorR = value.R;
                 this.ColorG = value.G;
@@ -68,15 +68,16 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlIgnore]
         public Color BackgroundColor
         {
-            readonly get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.Alpha);
+            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.Alpha);
 
-            init
+            set
             {
                 this.BackgroundColorR = value.R;
                 this.BackgroundColorG = value.G;
                 this.BackgroundColorB = value.B;
             }
         }
+
         public CursorSettings()
         {
             this.Color = AAP64ColorPalette.White;

@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Serialization
         private interface ISettingsDescriptor
         {
             Type SettingsType { get; }
-            void LoadOrCreate();
+            void Load();
         }
 
         private sealed class SettingsDescriptor<T> : ISettingsDescriptor where T : ISettingsModule, new()
@@ -50,11 +50,11 @@ namespace StardustSandbox.Core.Serialization
                 this.serializer = new(typeof(T));
             }
 
-            public void LoadOrCreate()
+            public void Load()
             {
                 string filePath = Path.Combine(IO.Directory.Settings, this.fileName);
 
-                if (!System.IO.File.Exists(filePath))
+                if (!File.Exists(filePath))
                 {
                     CreateAndSaveDefault(filePath);
                     return;
@@ -62,12 +62,12 @@ namespace StardustSandbox.Core.Serialization
 
                 try
                 {
-                    using FileStream stream = System.IO.File.OpenRead(filePath);
+                    using FileStream stream = File.OpenRead(filePath);
                     this.cache = (T)this.serializer.Deserialize(stream);
                 }
                 catch
                 {
-                    System.IO.File.Delete(filePath);
+                    File.Delete(filePath);
                     CreateAndSaveDefault(filePath);
                 }
             }
@@ -104,11 +104,11 @@ namespace StardustSandbox.Core.Serialization
 
         internal static void Initialize()
         {
-            _ = System.IO.Directory.CreateDirectory(IO.Directory.Settings);
+            _ = Directory.CreateDirectory(IO.Directory.Settings);
 
             foreach (ISettingsDescriptor descriptor in descriptors.Values)
             {
-                descriptor.LoadOrCreate();
+                descriptor.Load();
             }
 
             CreateWarningFile();
@@ -135,7 +135,7 @@ namespace StardustSandbox.Core.Serialization
         {
             string filePath = Path.Combine(IO.Directory.Settings, IOConstants.WARNING);
 
-            if (System.IO.File.Exists(filePath))
+            if (File.Exists(filePath))
             {
                 return;
             }
@@ -165,7 +165,7 @@ namespace StardustSandbox.Core.Serialization
             _ = builder.AppendLine("If you proceed to modify these files, you do so at your own risk.");
             _ = builder.AppendLine("Backup your settings regularly to avoid losing important data.");
 
-            System.IO.File.WriteAllText(filePath, builder.ToString());
+            File.WriteAllText(filePath, builder.ToString());
         }
     }
 }
