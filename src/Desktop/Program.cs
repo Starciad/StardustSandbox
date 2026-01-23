@@ -60,7 +60,8 @@ namespace StardustSandbox.Desktop
 
         private static void InitializeGame(string[] args)
         {
-            StardustSandboxEnvironment.Initialize();
+            StardustSandboxEnvironment.InitializeDirectories();
+            StardustSandboxEnvironment.InitializeGameCulture();
 
             stardustSandboxGame = new(args);
             stardustSandboxGame.Run();
