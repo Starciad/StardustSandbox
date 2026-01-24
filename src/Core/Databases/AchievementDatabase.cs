@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Localization;
 
 using System;
 
@@ -37,7 +38,7 @@ namespace StardustSandbox.Core.Databases
 
             achievements =
             [
-                new("ACH_001", new(32, 0, 32, 32), "First Grain", "To insert any element into the world for the first time."),
+                new("ACH_001", new(32, 0, 32, 32), Localization_Achievements.ACH_001_Name, Localization_Achievements.ACH_001_Description),
             ];
 
             isLoaded = true;
