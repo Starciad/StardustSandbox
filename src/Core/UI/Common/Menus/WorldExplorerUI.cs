@@ -247,13 +247,13 @@ namespace StardustSandbox.Core.UI.Common.Menus
             this.footerButtonLabels[0] = previousButtonLabel;
             this.footerButtonLabels[1] = nextButtonLabel;
 
-            footerBackground.AddChild(pageIndexTitleLabel);
-            footerBackground.AddChild(previousButtonLabel);
-            footerBackground.AddChild(nextButtonLabel);
+            this.footerBackground.AddChild(pageIndexTitleLabel);
+            this.footerBackground.AddChild(previousButtonLabel);
+            this.footerBackground.AddChild(nextButtonLabel);
 
             pageIndexTitleLabel.AddChild(this.pageIndexLabel);
 
-            root.AddChild(footerBackground);
+            root.AddChild(this.footerBackground);
         }
 
         private void BuildWorldDisplaySlots()
