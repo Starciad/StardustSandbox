@@ -45,6 +45,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
         private int totalPages = 1;
 
         private Image headerBackground;
+        private Image footerBackground;
+
         private Label pageIndexLabel;
         private SlotInfo[] headerButtonSlotInfos;
 
@@ -52,7 +54,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
         private readonly ButtonInfo[] headerButtonInfos, footerButtonInfos;
 
         private readonly Label[] footerButtonLabels = new Label[2];
-        private readonly SlotInfo[] itemButtonSlotInfos;
+        private readonly SlotInfo[] itemButtonSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
 
         private readonly WorldDetailsUI worldDetailsMenuUI;
 
@@ -69,17 +71,9 @@ namespace StardustSandbox.Core.UI.Common.Menus
             this.uiManager = uiManager;
             this.worldDetailsMenuUI = worldDetailsMenuUI;
 
-            this.itemButtonSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
-
             this.headerButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
-                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, () =>
-                {
-                    LoadAllSaveFiles();
-                    this.currentPage = 0;
-                    UpdatePagination();
-                    ChangeWorldsCatalog();
-                }),
+                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, Reload),
                 new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>
                 {
                     Directory.OpenDirectoryInFileExplorer(Directory.Worlds);
@@ -128,12 +122,19 @@ namespace StardustSandbox.Core.UI.Common.Menus
             }
         }
 
+        private void Reload()
+        {
+            LoadAllSaveFiles();
+            this.currentPage = 0;
+            UpdatePagination();
+            ChangeWorldsCatalog();
+        }
+
         protected override void OnBuild(Container root)
         {
             BuildHeader(root);
             BuildFooter(root);
-
-            BuildingWorldDisplaySlots();
+            BuildWorldDisplaySlots();
         }
 
         private void BuildHeader(Container root)
@@ -178,7 +179,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         private void BuildFooter(Container root)
         {
-            Image background = new()
+            this.footerBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
@@ -246,16 +247,16 @@ namespace StardustSandbox.Core.UI.Common.Menus
             this.footerButtonLabels[0] = previousButtonLabel;
             this.footerButtonLabels[1] = nextButtonLabel;
 
-            background.AddChild(pageIndexTitleLabel);
-            background.AddChild(previousButtonLabel);
-            background.AddChild(nextButtonLabel);
+            footerBackground.AddChild(pageIndexTitleLabel);
+            footerBackground.AddChild(previousButtonLabel);
+            footerBackground.AddChild(nextButtonLabel);
 
             pageIndexTitleLabel.AddChild(this.pageIndexLabel);
 
-            root.AddChild(background);
+            root.AddChild(footerBackground);
         }
 
-        private void BuildingWorldDisplaySlots()
+        private void BuildWorldDisplaySlots()
         {
             Vector2 margin = new(32.0f, 118.0f);
 
@@ -432,8 +433,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         protected override void OnOpened()
         {
-            this.headerButtonInfos[1].ClickAction?.Invoke();
-            ChangeWorldsCatalog();
+            Reload();
         }
 
         protected override void OnClosed()

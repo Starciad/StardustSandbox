@@ -96,6 +96,7 @@ namespace StardustSandbox.Core.Databases
 
             textures = [
                 pixelTexture,
+                contentManager.Load<Texture2D>(Path.Combine("textures", "achievements")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),

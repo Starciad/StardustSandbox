@@ -32,6 +32,7 @@ namespace StardustSandbox.Core.Enums.UI
         PlayMenu,
         OptionsMenu,
         CreditsMenu,
+        AchievementsMenu,
 
         Hud,
         Pause,

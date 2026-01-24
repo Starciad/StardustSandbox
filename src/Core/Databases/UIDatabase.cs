@@ -217,6 +217,12 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
+            AchievementsUI achievementsUI = new(
+                ambientManager,
+                tooltipBox,
+                uiManager
+            );
+
             uis = [
                 messageUI,
                 confirmUI,
@@ -229,6 +235,7 @@ namespace StardustSandbox.Core.Databases
                 playUI,
                 optionsUI,
                 creditsUI,
+                achievementsUI,
 
                 hudUI,
                 pauseUI,

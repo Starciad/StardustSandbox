@@ -24,6 +24,7 @@ namespace StardustSandbox.Core.Enums.Assets
         #region General
 
         Pixel,
+        Achievements,
         Actors,
         Cursors,
         Elements,

@@ -47,6 +47,11 @@ namespace StardustSandbox.Core.Constants
         internal const byte HUD_WORLD_EXPLORER_ITEMS_PER_COLUMN = 3;
         internal const byte HUD_WORLD_EXPLORER_ITEMS_PER_PAGE = HUD_WORLD_EXPLORER_ITEMS_PER_ROW * HUD_WORLD_EXPLORER_ITEMS_PER_COLUMN;
 
+        // Achievements
+        internal const byte ACHIEVEMENTS_PER_ROW = 15;
+        internal const byte ACHIEVEMENTS_PER_COLUMN = 7;
+        internal const byte ACHIEVEMENTS_PER_PAGE = ACHIEVEMENTS_PER_ROW * ACHIEVEMENTS_PER_COLUMN;
+
         #endregion
 
         #endregion

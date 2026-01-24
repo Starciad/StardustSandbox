@@ -515,7 +515,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
                 if (!slot.Background.CanDraw)
                 {
-                    continue;
+                    break;
                 }
 
                 Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);

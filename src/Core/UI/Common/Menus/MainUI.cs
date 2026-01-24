@@ -39,13 +39,14 @@ namespace StardustSandbox.Core.UI.Common.Menus
     internal sealed class MainUI : UIBase
     {
         private Image background, gameTitle;
+        private SlotInfo[] topButtonSlotInfos;
 
         private float animationTime;
 
         private readonly float[] buttonAnimationOffsets;
 
         private readonly Label[] menuButtonLabels;
-        private readonly ButtonInfo[] menuButtonInfos;
+        private readonly ButtonInfo[] menuButtonInfos, topButtonInfos;
 
         private readonly ActorManager actorManager;
         private readonly InputController inputController;
@@ -81,6 +82,10 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, stardustSandboxGame.Quit)
             ];
 
+            this.topButtonInfos = [
+                new(TextureIndex.IconUI, new(320, 160, 32, 32), "Achievements", string.Empty, () => this.uiManager.OpenUI(UIIndex.AchievementsMenu))
+            ];
+
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
             this.buttonAnimationOffsets = new float[this.menuButtonLabels.Length];
         }
@@ -90,7 +95,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
             BuildMainPanel(root);
             BuildDecorations();
             BuildGameTitle();
-            BuildButtons();
+            BuildMenuButtons();
+            BuildTopButtons(root);
             BuildInfos(root);
         }
 
@@ -155,7 +161,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
             this.background.AddChild(this.gameTitle);
         }
 
-        private void BuildButtons()
+        private void BuildMenuButtons()
         {
             float marginY = 0f;
 
@@ -184,10 +190,22 @@ namespace StardustSandbox.Core.UI.Common.Menus
             }
         }
 
+        private void BuildTopButtons(Container root)
+        {
+            this.topButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                root,
+                this.topButtonInfos,
+                new(-16.0f, 16.0f),
+                -80.0f,
+                UIDirection.Northeast
+            );
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             UpdateAnimations(gameTime);
             UpdateMenuButtons();
+            UpdateTopButtons();
         }
 
         private void UpdateAnimations(GameTime gameTime)
@@ -231,6 +249,28 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 }
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateTopButtons()
+        {
+            for (int i = 0; i < this.topButtonInfos.Length; i++)
+            {
+                SlotInfo slotInfo = this.topButtonSlotInfos[i];
+
+                if (Interaction.OnMouseEnter(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.topButtonInfos[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                slotInfo.Background.Color = Interaction.OnMouseOver(slotInfo.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
             }
         }
 
