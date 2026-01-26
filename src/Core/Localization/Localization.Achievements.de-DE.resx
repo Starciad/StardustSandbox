@@ -117,4 +117,154 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACH.001.Name" xml:space="preserve">
+    <value>Und So Beginnt Es!</value>
+  </data>
+  <data name="ACH.001.Description" xml:space="preserve">
+    <value>Füge dein allererstes Element in irgendeine Welt ein.</value>
+  </data>
+  <data name="ACH.002.Name" xml:space="preserve">
+    <value>Verrückter Wissenschaftler in Ausbildung</value>
+  </data>
+  <data name="ACH.002.Description" xml:space="preserve">
+    <value>Füge mindestens 10 verschiedene Elemente in eine einzige Welt ein.</value>
+  </data>
+  <data name="ACH.003.Name" xml:space="preserve">
+    <value>Das Schlechteste Handtuch der Natur</value>
+  </data>
+  <data name="ACH.003.Description" xml:space="preserve">
+    <value>Absorbiere Wasser mit einem Schwamm-Element.</value>
+  </data>
+  <data name="ACH.004.Name" xml:space="preserve">
+    <value>Massenproduktion mit Fatalem Ausgang</value>
+  </data>
+  <data name="ACH.004.Description" xml:space="preserve">
+    <value>Lass Kloner in einer einzigen Welt mehr als 500 Einheiten erzeugen.</value>
+  </data>
+  <data name="ACH.005.Name" xml:space="preserve">
+    <value>Immer Noch Kein Kaffee, Leider</value>
+  </data>
+  <data name="ACH.005.Description" xml:space="preserve">
+    <value>Verdampfe Wasser vollständig durch das Anwenden von Hitze.</value>
+  </data>
+  <data name="ACH.006.Name" xml:space="preserve">
+    <value>Geh Mal Gras Anfassen</value>
+  </data>
+  <data name="ACH.006.Description" xml:space="preserve">
+    <value>Lass einen Baum auf natürliche Weise in deiner Welt wachsen.</value>
+  </data>
+  <data name="ACH.007.Name" xml:space="preserve">
+    <value>Harte Arbeit, Keine Beschwerden</value>
+  </data>
+  <data name="ACH.007.Description" xml:space="preserve">
+    <value>Lass einen Gul mehr als 100 Elemente in einer einzigen Welt aufheben und platzieren.</value>
+  </data>
+  <data name="ACH.008.Name" xml:space="preserve">
+    <value>Phase der Abstrakten Kunst</value>
+  </data>
+  <data name="ACH.008.Description" xml:space="preserve">
+    <value>Male ein beliebiges Element mit dem Pinselwerkzeug.</value>
+  </data>
+  <data name="ACH.009.Name" xml:space="preserve">
+    <value>Das Wirkt Nicht Sehr Sicher</value>
+  </data>
+  <data name="ACH.009.Description" xml:space="preserve">
+    <value>Erhitze ein Element auf 9725 °C.</value>
+  </data>
+  <data name="ACH.010.Name" xml:space="preserve">
+    <value>Fast Absoluter Nullpunkt</value>
+  </data>
+  <data name="ACH.010.Description" xml:space="preserve">
+    <value>Kühle ein Element auf -275 °C ab.</value>
+  </data>
+  <data name="ACH.011.Name" xml:space="preserve">
+    <value>Der Winter Hat Nicht Um Erlaubnis Gefragt</value>
+  </data>
+  <data name="ACH.011.Description" xml:space="preserve">
+    <value>Friere ein beliebiges Element mit dem Gefrierwerkzeug ein.</value>
+  </data>
+  <data name="ACH.012.Name" xml:space="preserve">
+    <value>Globalerwärmung im Speedrun</value>
+  </data>
+  <data name="ACH.012.Description" xml:space="preserve">
+    <value>Erhitze ein beliebiges Element mit dem Heizwerkzeug.</value>
+  </data>
+  <data name="ACH.013.Name" xml:space="preserve">
+    <value>Das Ist Wirklich Edler Sand</value>
+  </data>
+  <data name="ACH.013.Description" xml:space="preserve">
+    <value>Schmelze Sand durch intensive Hitze zu Glas.</value>
+  </data>
+  <data name="ACH.014.Name" xml:space="preserve">
+    <value>Hungrig, Sehr Hungrig</value>
+  </data>
+  <data name="ACH.014.Description" xml:space="preserve">
+    <value>Lass Verschlinger in einer einzigen Welt mehr als 500 Elemente konsumieren.</value>
+  </data>
+  <data name="ACH.015.Name" xml:space="preserve">
+    <value>Alles Ist In Ordnung</value>
+  </data>
+  <data name="ACH.015.Description" xml:space="preserve">
+    <value>Erzeuge einen Gewittersturm in deiner Welt.</value>
+  </data>
+  <data name="ACH.016.Name" xml:space="preserve">
+    <value>Für Die Wissenschaft, Natürlich</value>
+  </data>
+  <data name="ACH.016.Description" xml:space="preserve">
+    <value>Zünde zum ersten Mal irgendeine Art von Sprengstoff.</value>
+  </data>
+  <data name="ACH.017.Name" xml:space="preserve">
+    <value>In Den Abgrund Zurückstarren</value>
+  </data>
+  <data name="ACH.017.Description" xml:space="preserve">
+    <value>Lass das Nichts in einer einzigen Welt mindestens 100 verschiedene Elemente verschlingen.</value>
+  </data>
+  <data name="ACH.018.Name" xml:space="preserve">
+    <value>All-you-can-eat-Apokalypse</value>
+  </data>
+  <data name="ACH.018.Description" xml:space="preserve">
+    <value>Lass die Verderbnis in einer einzigen Welt mehr als 1000 Elemente verschlingen.</value>
+  </data>
+  <data name="ACH.019.Name" xml:space="preserve">
+    <value>Brennender Schwamm (Wahrscheinlich Kein Problem)</value>
+  </data>
+  <data name="ACH.019.Description" xml:space="preserve">
+    <value>Trockne einen Schwamm vollständig, indem du irgendeine Form von Hitze anwendest.</value>
+  </data>
+  <data name="ACH.020.Name" xml:space="preserve">
+    <value>Steinsuppe</value>
+  </data>
+  <data name="ACH.020.Description" xml:space="preserve">
+    <value>Schmelze Stein mit extremer Hitze zu Lava.</value>
+  </data>
+  <data name="ACH.021.Name" xml:space="preserve">
+    <value>Eis, Eis, Definitiv Eis</value>
+  </data>
+  <data name="ACH.021.Description" xml:space="preserve">
+    <value>Friere Wasser vollständig ein.</value>
+  </data>
+  <data name="ACH.022.Name" xml:space="preserve">
+    <value>Physik Ist Optional</value>
+  </data>
+  <data name="ACH.022.Description" xml:space="preserve">
+    <value>Benutze Schieber, um mindestens 1000 Elemente in einer einzigen Welt zu bewegen.</value>
+  </data>
+  <data name="ACH.023.Name" xml:space="preserve">
+    <value>Wer Hat Dem Feuer Freien Willen Gegeben?</value>
+  </data>
+  <data name="ACH.023.Description" xml:space="preserve">
+    <value>Entfache ein großflächiges Feuer in deiner Welt.</value>
+  </data>
+  <data name="ACH.024.Name" xml:space="preserve">
+    <value>Nach Geschmack Gewürzt</value>
+  </data>
+  <data name="ACH.024.Description" xml:space="preserve">
+    <value>Verwandle Wasser durch Hinzufügen von Salz in Salzwasser.</value>
+  </data>
+  <data name="ACH.025.Name" xml:space="preserve">
+    <value>Säure Löst Alles</value>
+  </data>
+  <data name="ACH.025.Description" xml:space="preserve">
+    <value>Ätze mehr als 300 Elemente mit Säure in einer einzigen Welt.</value>
+  </data>
 </root>

@@ -117,4 +117,154 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACH.001.Name" xml:space="preserve">
+    <value>And So It Begins!</value>
+  </data>
+  <data name="ACH.001.Description" xml:space="preserve">
+    <value>Insert your very first element into any world.</value>
+  </data>
+  <data name="ACH.002.Name" xml:space="preserve">
+    <value>Mad Scientist in Training</value>
+  </data>
+  <data name="ACH.002.Description" xml:space="preserve">
+    <value>Insert at least 10 different elements into a single world.</value>
+  </data>
+  <data name="ACH.003.Name" xml:space="preserve">
+    <value>Nature’s Worst Towel</value>
+  </data>
+  <data name="ACH.003.Description" xml:space="preserve">
+    <value>Absorb water by using a sponge element.</value>
+  </data>
+  <data name="ACH.004.Name" xml:space="preserve">
+    <value>Mass Production Gone Wrong</value>
+  </data>
+  <data name="ACH.004.Description" xml:space="preserve">
+    <value>Make cloners generate more than 500 units in a single world.</value>
+  </data>
+  <data name="ACH.005.Name" xml:space="preserve">
+    <value>Still No Coffee, Sadly</value>
+  </data>
+  <data name="ACH.005.Description" xml:space="preserve">
+    <value>Completely vaporize water by applying heat.</value>
+  </data>
+  <data name="ACH.006.Name" xml:space="preserve">
+    <value>Touch Some Grass</value>
+  </data>
+  <data name="ACH.006.Description" xml:space="preserve">
+    <value>Grow a tree naturally in your world.</value>
+  </data>
+  <data name="ACH.007.Name" xml:space="preserve">
+    <value>Hard Work, No Complaints</value>
+  </data>
+  <data name="ACH.007.Description" xml:space="preserve">
+    <value>Make a Gul pick up and place more than 100 elements in a single world.</value>
+  </data>
+  <data name="ACH.008.Name" xml:space="preserve">
+    <value>Abstract Art Phase</value>
+  </data>
+  <data name="ACH.008.Description" xml:space="preserve">
+    <value>Paint any element using the brush tool.</value>
+  </data>
+  <data name="ACH.009.Name" xml:space="preserve">
+    <value>This Seems Unsafe</value>
+  </data>
+  <data name="ACH.009.Description" xml:space="preserve">
+    <value>Heat an element to 9725° Celsius.</value>
+  </data>
+  <data name="ACH.010.Name" xml:space="preserve">
+    <value>Absolute Zero-ish</value>
+  </data>
+  <data name="ACH.010.Description" xml:space="preserve">
+    <value>Cool an element to -275° Celsius.</value>
+  </data>
+  <data name="ACH.011.Name" xml:space="preserve">
+    <value>Winter Didn’t Ask Permission</value>
+  </data>
+  <data name="ACH.011.Description" xml:space="preserve">
+    <value>Freeze any element using the freezing tool.</value>
+  </data>
+  <data name="ACH.012.Name" xml:space="preserve">
+    <value>Global Warming Speedrun</value>
+  </data>
+  <data name="ACH.012.Description" xml:space="preserve">
+    <value>Heat any element using the heating tool.</value>
+  </data>
+  <data name="ACH.013.Name" xml:space="preserve">
+    <value>Now That’s Some Fancy Sand</value>
+  </data>
+  <data name="ACH.013.Description" xml:space="preserve">
+    <value>Melt sand into glass by applying intense heat.</value>
+  </data>
+  <data name="ACH.014.Name" xml:space="preserve">
+    <value>Hungry, Very Hungry</value>
+  </data>
+  <data name="ACH.014.Description" xml:space="preserve">
+    <value>Make devourers consume more than 500 elements in a single world.</value>
+  </data>
+  <data name="ACH.015.Name" xml:space="preserve">
+    <value>This Is Fine</value>
+  </data>
+  <data name="ACH.015.Description" xml:space="preserve">
+    <value>Create a lightning storm in your world.</value>
+  </data>
+  <data name="ACH.016.Name" xml:space="preserve">
+    <value>For Science, Obviously</value>
+  </data>
+  <data name="ACH.016.Description" xml:space="preserve">
+    <value>Detonate, for the first time, any type of explosive.</value>
+  </data>
+  <data name="ACH.017.Name" xml:space="preserve">
+    <value>Staring Back Into the Void</value>
+  </data>
+  <data name="ACH.017.Description" xml:space="preserve">
+    <value>Make the Void consume at least 100 different elements in a single world.</value>
+  </data>
+  <data name="ACH.018.Name" xml:space="preserve">
+    <value>All-You-Can-Eat Apocalypse</value>
+  </data>
+  <data name="ACH.018.Description" xml:space="preserve">
+    <value>Make corruption consume more than 1000 elements in a single world.</value>
+  </data>
+  <data name="ACH.019.Name" xml:space="preserve">
+    <value>Sponge on Fire (Probably Fine)</value>
+  </data>
+  <data name="ACH.019.Description" xml:space="preserve">
+    <value>Completely dry a sponge by applying any form of heat.</value>
+  </data>
+  <data name="ACH.020.Name" xml:space="preserve">
+    <value>Rock Soup</value>
+  </data>
+  <data name="ACH.020.Description" xml:space="preserve">
+    <value>Melt stone into lava using extreme heat.</value>
+  </data>
+  <data name="ACH.021.Name" xml:space="preserve">
+    <value>Ice, Ice, Definitely Ice</value>
+  </data>
+  <data name="ACH.021.Description" xml:space="preserve">
+    <value>Freeze water completely.</value>
+  </data>
+  <data name="ACH.022.Name" xml:space="preserve">
+    <value>Physics Is Optional</value>
+  </data>
+  <data name="ACH.022.Description" xml:space="preserve">
+    <value>Use pushers to move at least 1000 elements in a single world.</value>
+  </data>
+  <data name="ACH.023.Name" xml:space="preserve">
+    <value>Who Gave Fire Free Will?</value>
+  </data>
+  <data name="ACH.023.Description" xml:space="preserve">
+    <value>Start a large-scale fire in your world.</value>
+  </data>
+  <data name="ACH.024.Name" xml:space="preserve">
+    <value>Seasoned to Taste</value>
+  </data>
+  <data name="ACH.024.Description" xml:space="preserve">
+    <value>Transform water into salt water by adding salt.</value>
+  </data>
+  <data name="ACH.025.Name" xml:space="preserve">
+    <value>Acid Solves Everything</value>
+  </data>
+  <data name="ACH.025.Description" xml:space="preserve">
+    <value>Corrode more than 300 elements using acid in a single world.</value>
+  </data>
 </root>
