@@ -19,28 +19,32 @@ namespace StardustSandbox.Core.Enums.Achievements
 {
     public enum AchievementIndex : sbyte
     {
-        /// <summary>
-        /// Indicates that no valid value is specified.
-        /// </summary>
-        /// <remarks>Use this value to represent an undefined or uninitialized state when no other value
-        /// is applicable.</remarks>
         None = -1,
-
-        #region Achievements
-
-        /// <summary>
-        /// First Grain
-        /// </summary>
-        /// <remarks>
-        /// To insert any element into the world for the first time.
-        /// </remarks>
         ACH_001,
-
-        #endregion
-
-        /// <summary>
-        /// Gets the number of elements contained in the collection.
-        /// </summary>
+        ACH_002,
+        ACH_003,
+        ACH_004,
+        ACH_005,
+        ACH_006,
+        ACH_007,
+        ACH_008,
+        ACH_009,
+        ACH_010,
+        ACH_011,
+        ACH_012,
+        ACH_013,
+        ACH_014,
+        ACH_015,
+        ACH_016,
+        ACH_017,
+        ACH_018,
+        ACH_019,
+        ACH_020,
+        ACH_021,
+        ACH_022,
+        ACH_023,
+        ACH_024,
+        ACH_025,
         Length,
     }
 }

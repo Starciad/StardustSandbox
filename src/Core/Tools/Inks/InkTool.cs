@@ -17,6 +17,8 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Tools.Inks
@@ -34,6 +36,7 @@ namespace StardustSandbox.Core.Tools.Inks
             }
 
             context.World.SetElementColorModifier(context.Position, context.Layer, this.InkColor);
+            AchievementEngine.Unlock(AchievementIndex.ACH_008);
         }
     }
 }

@@ -18,6 +18,7 @@
 using StardustSandbox.Core.Enums.Achievements;
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization.Settings
@@ -26,12 +27,20 @@ namespace StardustSandbox.Core.Serialization.Settings
     [XmlRoot("Data")]
     public sealed class AchievementProgressData
     {
+        [XmlElement("Index", typeof(AchievementIndex))]
+        public AchievementIndex Index { get; set; } = AchievementIndex.None;
+
         [XmlElement("IsUnlocked", typeof(bool))]
-        public bool IsUnlocked { get; set; }
+        public bool IsUnlocked { get; set; } = false;
 
         public AchievementProgressData()
         {
-            this.IsUnlocked = false;
+
+        }
+
+        public AchievementProgressData(AchievementIndex index)
+        {
+            this.Index = index;
         }
     }
 
@@ -41,15 +50,42 @@ namespace StardustSandbox.Core.Serialization.Settings
     {
         [XmlArray("Datas")]
         [XmlArrayItem("Data", typeof(AchievementProgressData))]
-        public AchievementProgressData[] Datas { get; set; }
+        public List<AchievementProgressData> Datas { get; set; } = [];
 
         public AchievementSettings()
         {
-            this.Datas = new AchievementProgressData[(int)AchievementIndex.Length];
 
-            for (int i = 0; i < this.Datas.Length; i++)
+        }
+
+        private AchievementProgressData AddData(AchievementIndex index)
+        {
+            AchievementProgressData data = new(index);
+            this.Datas.Add(data);
+            return data;
+        }
+
+        private AchievementProgressData GetData(AchievementIndex index)
+        {
+            return this.Datas.Find(d => d.Index == index);
+        }
+
+        public bool IsUnlocked(AchievementIndex index)
+        {
+            return GetData(index)?.IsUnlocked ?? false;
+        }
+
+        public void Unlock(AchievementIndex index)
+        {
+            AchievementProgressData data = GetData(index);
+
+            if (data is null)
             {
-                this.Datas[i] = new();
+                data = AddData(index);
+                data.IsUnlocked = true;
+            }
+            else
+            {
+                data.IsUnlocked = true;
             }
         }
     }

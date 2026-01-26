@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Randomness;
 
@@ -64,12 +66,14 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 context.ReplaceElement(ElementIndex.Ice);
                 context.SetStoredElement(ElementIndex.Saltwater);
+                AchievementEngine.Unlock(AchievementIndex.ACH_021);
             }
             else if (currentValue >= 110.0f)
             {
                 if (Random.GetBool())
                 {
                     context.ReplaceElement(ElementIndex.Steam);
+                    AchievementEngine.Unlock(AchievementIndex.ACH_005);
                 }
                 else
                 {

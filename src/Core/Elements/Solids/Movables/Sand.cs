@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables
@@ -26,6 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             if (currentValue >= 1500.0f)
             {
                 context.ReplaceElement(ElementIndex.Glass);
+                AchievementEngine.Unlock(AchievementIndex.ACH_013);
             }
         }
     }

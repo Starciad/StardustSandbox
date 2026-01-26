@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Generators;
@@ -56,6 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             {
                 context.DestroyElement();
                 TreeGenerator.Start(context.World, context.Layer, context.Position, Random.Range(5, 8), 1, 2);
+                AchievementEngine.Unlock(AchievementIndex.ACH_006);
             }
         }
 

@@ -18,10 +18,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.Simulation;
@@ -100,6 +102,8 @@ namespace StardustSandbox.Core.WorldSystem
 
         public void Reset()
         {
+            GameStatistics.ResetWorldStatistics();
+
             this.information.Reset();
             this.chunking.Reset();
             this.updating.Reset();
@@ -620,6 +624,11 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void HandleExplosions()
         {
+            if (this.instantiatedExplosions.Count >= 10)
+            {
+                AchievementEngine.Unlock(AchievementIndex.ACH_016);
+            }
+
             while (this.instantiatedExplosions.TryDequeue(out Explosion value))
             {
                 HandleExplosion(value);

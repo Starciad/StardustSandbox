@@ -229,11 +229,13 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                 if (i < (int)AchievementIndex.Length)
                 {
-                    Achievement achievement = AchievementDatabase.GetAchievement((AchievementIndex)i);
+                    AchievementIndex index = (AchievementIndex)i;
+
+                    Achievement achievement = AchievementDatabase.GetAchievement(index);
 
                     image.CanDraw = true;
 
-                    image.SourceRectangle = this.achievementSettings.Datas[i].IsUnlocked ? achievement.SourceRectangle : new(0, 0, 32, 32);
+                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index) ? achievement.SourceRectangle : new(0, 0, 32, 32);
                 }
                 else
                 {

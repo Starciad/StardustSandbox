@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables
@@ -37,6 +39,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     case ElementIndex.Snow:
                         context.DestroyElement();
                         context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Saltwater);
+                        AchievementEngine.Unlock(AchievementIndex.ACH_024);
                         break;
 
                     default:

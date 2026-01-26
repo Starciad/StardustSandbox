@@ -37,12 +37,12 @@ namespace StardustSandbox.Core.Achievements
             Achievement achievement = AchievementDatabase.GetAchievement(index);
             AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
 
-            if (achievementSettings.Datas[(int)index].IsUnlocked)
+            if (achievementSettings.IsUnlocked(index))
             {
                 return;
             }
 
-            achievementSettings.Datas[(int)index].IsUnlocked = true;
+            achievementSettings.Unlock(index);
             notifier?.OnAchievementUnlocked(achievement);
             SettingsSerializer.Save(achievementSettings);
         }

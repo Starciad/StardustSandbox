@@ -15,7 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem;
 
@@ -38,6 +40,7 @@ namespace StardustSandbox.Core.Tools.Environment
             }
 
             context.World.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_HEAT_VALUE));
+            AchievementEngine.Unlock(AchievementIndex.ACH_012);
         }
     }
 }

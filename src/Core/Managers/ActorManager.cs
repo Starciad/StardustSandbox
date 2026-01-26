@@ -317,6 +317,7 @@ namespace StardustSandbox.Core.Managers
 
         public void Reset()
         {
+            GameStatistics.ResetActorsStatistics();
             Clear();
         }
 

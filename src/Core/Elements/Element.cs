@@ -17,7 +17,9 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Mathematics;
@@ -173,6 +175,15 @@ namespace StardustSandbox.Core.Elements
             if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
                 this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
+            }
+
+            if (this.context.SlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
+            {
+                AchievementEngine.Unlock(AchievementIndex.ACH_009);
+            }
+            else if (this.context.SlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
+            {
+                AchievementEngine.Unlock(AchievementIndex.ACH_010);
             }
 
             OnTemperatureChanged(this.context, this.context.SlotLayer.Temperature);
