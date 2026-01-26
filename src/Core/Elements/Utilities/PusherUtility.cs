@@ -100,25 +100,35 @@ namespace StardustSandbox.Core.Elements.Utilities
                 bool frontEmpty = context.IsEmptySlotLayer(frontPosition);
                 bool leftEmpty = context.IsEmptySlotLayer(leftPosition);
                 bool rightEmpty = context.IsEmptySlotLayer(rightPosition);
+                bool wasPushed = false;
 
                 if (isBehind(currentNeighborPosition, pusherPosition))
                 {
                     if (leftEmpty && rightEmpty)
                     {
                         targetNeighborPosition = Randomness.Random.GetBool() ? leftPosition : rightPosition;
+                        wasPushed = true;
                     }
                     else if (leftEmpty)
                     {
                         targetNeighborPosition = leftPosition;
+                        wasPushed = true;
                     }
                     else if (rightEmpty)
                     {
                         targetNeighborPosition = rightPosition;
+                        wasPushed = true;
                     }
                 }
                 else if (frontEmpty)
                 {
                     targetNeighborPosition = frontPosition;
+                    wasPushed = true;
+                }
+
+                if (wasPushed)
+                {
+                    GameStatistics.IncrementWorldPushedElements();
                 }
 
                 if (context.TryUpdateElementPosition(currentNeighborPosition, targetNeighborPosition))

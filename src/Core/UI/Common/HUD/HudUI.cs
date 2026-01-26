@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors.Palettes;
@@ -56,6 +57,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private Image simulationPausedBackground;
         private SlotInfo[] leftPanelBottomButtonSlotInfos, leftPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos;
 
+        private readonly NotificationBox notificationBox;
         private readonly TooltipBox tooltipBox;
 
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];
@@ -80,6 +82,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             ActorManager actorManager,
             ConfirmUI confirmUI,
             InputController inputController,
+            NotificationBox notificationBox,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
@@ -88,6 +91,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             this.inputController = inputController;
             this.guiConfirm = confirmUI;
             this.uiManager = uiManager;
+            this.notificationBox = notificationBox;
             this.tooltipBox = tooltipBox;
 
             SelectItemSlot(0, 0, 0, 0);
@@ -181,6 +185,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             BuildDrawerButton(ref this.rightDrawerButton, this.rightToolbarContainer, new(267, 220, 24, 80), new(24, 80), new(-48f, 0f), UIDirection.West);
 
             root.AddChild(this.tooltipBox);
+            root.AddChild(this.notificationBox);
 
             BuildSimulationPausedOverlay(root);
         }
@@ -311,14 +316,12 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void BuildSimulationPausedOverlay(Container root)
         {
-            Color backgroundColor = new(AAP64ColorPalette.DarkGray, 120);
-
             this.simulationPausedBackground = new()
             {
                 CanDraw = false,
                 TextureIndex = TextureIndex.Pixel,
                 Size = Vector2.One,
-                Color = backgroundColor,
+                Color = new(AAP64ColorPalette.DarkGray, 120),
                 Alignment = UIDirection.Center,
             };
 
@@ -732,6 +735,21 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private void SelectItemSlot(int slotIndex, byte categoryIndex, byte subcategoryIndex, byte itemIndex)
         {
             SelectItemSlot(slotIndex, CatalogDatabase.GetItem(categoryIndex, subcategoryIndex, itemIndex));
+        }
+
+        protected override void OnOpened()
+        {
+            AchievementEngine.AchievementUnlocked += OnAchievementUnlocked;
+        }
+
+        protected override void OnClosed()
+        {
+            AchievementEngine.AchievementUnlocked -= OnAchievementUnlocked;
+        }
+
+        private void OnAchievementUnlocked(Achievement achievement)
+        {
+            this.notificationBox.AppendNotification(TextureIndex.Achievements, achievement.IconSourceRectangle, achievement.Title);
         }
     }
 }

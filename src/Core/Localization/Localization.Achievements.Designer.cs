@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Insert your first element in any world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Insert your very first element into any world..
         /// </summary>
         internal static string ACH_001_Description {
             get {
@@ -70,11 +70,443 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The Beginning of Something New.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a And So It Begins!.
         /// </summary>
         internal static string ACH_001_Name {
             get {
                 return ResourceManager.GetString("ACH.001.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Insert at least 10 different elements into a single world..
+        /// </summary>
+        internal static string ACH_002_Description {
+            get {
+                return ResourceManager.GetString("ACH.002.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mad Scientist in Training.
+        /// </summary>
+        internal static string ACH_002_Name {
+            get {
+                return ResourceManager.GetString("ACH.002.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Create 5 different chemical reactions in a single world..
+        /// </summary>
+        internal static string ACH_003_Description {
+            get {
+                return ResourceManager.GetString("ACH.003.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Definitely Not Alchemy.
+        /// </summary>
+        internal static string ACH_003_Name {
+            get {
+                return ResourceManager.GetString("ACH.003.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Make cloners generate more than 500 units in a single world..
+        /// </summary>
+        internal static string ACH_004_Description {
+            get {
+                return ResourceManager.GetString("ACH.004.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mass Production Gone Wrong.
+        /// </summary>
+        internal static string ACH_004_Name {
+            get {
+                return ResourceManager.GetString("ACH.004.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Completely vaporize water by applying heat..
+        /// </summary>
+        internal static string ACH_005_Description {
+            get {
+                return ResourceManager.GetString("ACH.005.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Still No Coffee, Sadly.
+        /// </summary>
+        internal static string ACH_005_Name {
+            get {
+                return ResourceManager.GetString("ACH.005.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Grow a tree naturally in your world..
+        /// </summary>
+        internal static string ACH_006_Description {
+            get {
+                return ResourceManager.GetString("ACH.006.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Touch Some Grass.
+        /// </summary>
+        internal static string ACH_006_Name {
+            get {
+                return ResourceManager.GetString("ACH.006.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Make a Gul pick up and place more than 100 elements in a single world..
+        /// </summary>
+        internal static string ACH_007_Description {
+            get {
+                return ResourceManager.GetString("ACH.007.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hard Work, No Complaints.
+        /// </summary>
+        internal static string ACH_007_Name {
+            get {
+                return ResourceManager.GetString("ACH.007.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Paint any element using the brush tool..
+        /// </summary>
+        internal static string ACH_008_Description {
+            get {
+                return ResourceManager.GetString("ACH.008.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Abstract Art Phase.
+        /// </summary>
+        internal static string ACH_008_Name {
+            get {
+                return ResourceManager.GetString("ACH.008.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Heat an element to 9725° Celsius..
+        /// </summary>
+        internal static string ACH_009_Description {
+            get {
+                return ResourceManager.GetString("ACH.009.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This Seems Unsafe.
+        /// </summary>
+        internal static string ACH_009_Name {
+            get {
+                return ResourceManager.GetString("ACH.009.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cool an element to -275° Celsius..
+        /// </summary>
+        internal static string ACH_010_Description {
+            get {
+                return ResourceManager.GetString("ACH.010.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Absolute Zero-ish.
+        /// </summary>
+        internal static string ACH_010_Name {
+            get {
+                return ResourceManager.GetString("ACH.010.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Freeze any element using the freezing tool..
+        /// </summary>
+        internal static string ACH_011_Description {
+            get {
+                return ResourceManager.GetString("ACH.011.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Winter Didn’t Ask Permission.
+        /// </summary>
+        internal static string ACH_011_Name {
+            get {
+                return ResourceManager.GetString("ACH.011.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Heat any element using the heating tool..
+        /// </summary>
+        internal static string ACH_012_Description {
+            get {
+                return ResourceManager.GetString("ACH.012.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Global Warming Speedrun.
+        /// </summary>
+        internal static string ACH_012_Name {
+            get {
+                return ResourceManager.GetString("ACH.012.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Melt sand into glass by applying intense heat..
+        /// </summary>
+        internal static string ACH_013_Description {
+            get {
+                return ResourceManager.GetString("ACH.013.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Now That’s Some Fancy Sand.
+        /// </summary>
+        internal static string ACH_013_Name {
+            get {
+                return ResourceManager.GetString("ACH.013.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Make devourers consume more than 500 elements in a single world..
+        /// </summary>
+        internal static string ACH_014_Description {
+            get {
+                return ResourceManager.GetString("ACH.014.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Hungry, Very Hungry.
+        /// </summary>
+        internal static string ACH_014_Name {
+            get {
+                return ResourceManager.GetString("ACH.014.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Create a lightning storm in your world..
+        /// </summary>
+        internal static string ACH_015_Description {
+            get {
+                return ResourceManager.GetString("ACH.015.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This Is Fine.
+        /// </summary>
+        internal static string ACH_015_Name {
+            get {
+                return ResourceManager.GetString("ACH.015.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Detonate at least 10 explosives simultaneously in a chain reaction..
+        /// </summary>
+        internal static string ACH_016_Description {
+            get {
+                return ResourceManager.GetString("ACH.016.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a For Science, Obviously.
+        /// </summary>
+        internal static string ACH_016_Name {
+            get {
+                return ResourceManager.GetString("ACH.016.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Make the Void consume at least 100 different elements in a single world..
+        /// </summary>
+        internal static string ACH_017_Description {
+            get {
+                return ResourceManager.GetString("ACH.017.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Staring Back Into the Void.
+        /// </summary>
+        internal static string ACH_017_Name {
+            get {
+                return ResourceManager.GetString("ACH.017.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Make corruption consume more than 1000 elements in a single world..
+        /// </summary>
+        internal static string ACH_018_Description {
+            get {
+                return ResourceManager.GetString("ACH.018.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a All-You-Can-Eat Apocalypse.
+        /// </summary>
+        internal static string ACH_018_Name {
+            get {
+                return ResourceManager.GetString("ACH.018.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use anti-corruption to completely eliminate corruption from your world..
+        /// </summary>
+        internal static string ACH_019_Description {
+            get {
+                return ResourceManager.GetString("ACH.019.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a We Can Fix This.
+        /// </summary>
+        internal static string ACH_019_Name {
+            get {
+                return ResourceManager.GetString("ACH.019.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Melt stone into lava using extreme heat..
+        /// </summary>
+        internal static string ACH_020_Description {
+            get {
+                return ResourceManager.GetString("ACH.020.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Rock Soup.
+        /// </summary>
+        internal static string ACH_020_Name {
+            get {
+                return ResourceManager.GetString("ACH.020.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Freeze water completely..
+        /// </summary>
+        internal static string ACH_021_Description {
+            get {
+                return ResourceManager.GetString("ACH.021.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ice, Ice, Definitely Ice.
+        /// </summary>
+        internal static string ACH_021_Name {
+            get {
+                return ResourceManager.GetString("ACH.021.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use pushers to move at least 1000 elements in a single world..
+        /// </summary>
+        internal static string ACH_022_Description {
+            get {
+                return ResourceManager.GetString("ACH.022.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Physics Is Optional.
+        /// </summary>
+        internal static string ACH_022_Name {
+            get {
+                return ResourceManager.GetString("ACH.022.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Start a large-scale fire in your world..
+        /// </summary>
+        internal static string ACH_023_Description {
+            get {
+                return ResourceManager.GetString("ACH.023.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Who Gave Fire Free Will?.
+        /// </summary>
+        internal static string ACH_023_Name {
+            get {
+                return ResourceManager.GetString("ACH.023.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Transform water into salt water by adding salt..
+        /// </summary>
+        internal static string ACH_024_Description {
+            get {
+                return ResourceManager.GetString("ACH.024.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Seasoned to Taste.
+        /// </summary>
+        internal static string ACH_024_Name {
+            get {
+                return ResourceManager.GetString("ACH.024.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Corrode more than 300 elements using acid in a single world..
+        /// </summary>
+        internal static string ACH_025_Description {
+            get {
+                return ResourceManager.GetString("ACH.025.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Acid Solves Everything.
+        /// </summary>
+        internal static string ACH_025_Name {
+            get {
+                return ResourceManager.GetString("ACH.025.Name", resourceCulture);
             }
         }
     }

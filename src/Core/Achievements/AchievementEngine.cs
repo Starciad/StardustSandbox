@@ -15,8 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
@@ -25,11 +27,18 @@ namespace StardustSandbox.Core.Achievements
 {
     internal static class AchievementEngine
     {
-        private static IAchievementNotifier notifier;
+        internal delegate void AchievementUnlockedHandler(Achievement achievement);
+
+        internal static event AchievementUnlockedHandler AchievementUnlocked;
 
         internal static void Initialize(IAchievementNotifier notifier)
         {
-            AchievementEngine.notifier = notifier;
+            if (notifier is null)
+            {
+                return;
+            }
+
+            AchievementUnlocked += notifier.OnAchievementUnlocked;
         }
 
         internal static void Unlock(AchievementIndex index)
@@ -43,8 +52,10 @@ namespace StardustSandbox.Core.Achievements
             }
 
             achievementSettings.Unlock(index);
-            notifier?.OnAchievementUnlocked(achievement);
             SettingsSerializer.Save(achievementSettings);
+
+            AchievementUnlocked?.Invoke(achievement);
+            SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
         }
     }
 }

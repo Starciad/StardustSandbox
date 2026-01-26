@@ -27,6 +27,6 @@ namespace StardustSandbox.Core.Achievements
         public string Id => id;
         internal string Title => title;
         internal string Description => description;
-        internal Rectangle? SourceRectangle => sourceRectangle;
+        internal Rectangle? IconSourceRectangle => sourceRectangle;
     }
 }

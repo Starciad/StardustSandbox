@@ -134,6 +134,8 @@ namespace StardustSandbox.Core.WorldSystem
             element.SetContext(this.worldElementContext);
             element.Instantiate();
 
+            GameStatistics.RegisterInstantiatedElement(index);
+
             return true;
         }
 
@@ -624,11 +626,6 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void HandleExplosions()
         {
-            if (this.instantiatedExplosions.Count >= 10)
-            {
-                AchievementEngine.Unlock(AchievementIndex.ACH_016);
-            }
-
             while (this.instantiatedExplosions.TryDequeue(out Explosion value))
             {
                 HandleExplosion(value);
@@ -652,6 +649,8 @@ namespace StardustSandbox.Core.WorldSystem
 
                 InstantiateElement(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
             }
+
+            AchievementEngine.Unlock(AchievementIndex.ACH_016);
         }
 
         private void TryAffectSlotLayer(SlotLayer slotLayer, in Layer layer, in Point targetPosition, Explosion explosion)

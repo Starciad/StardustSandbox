@@ -132,6 +132,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
 
             context.SetStoredElement(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
+            GameStatistics.IncrementWorldElementsConsumedByCorruption();
         }
     }
 }

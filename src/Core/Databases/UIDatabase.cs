@@ -57,6 +57,8 @@ namespace StardustSandbox.Core.Databases
 
             #region Elements
 
+            NotificationBox notificationBox = new();
+
             TooltipBox tooltipBox = new(cursorManager)
             {
                 MinimumSize = new(500f, 0f),
@@ -116,6 +118,7 @@ namespace StardustSandbox.Core.Databases
                 actorManager,
                 confirmUI,
                 inputController,
+                notificationBox,
                 tooltipBox,
                 uiManager,
                 world

@@ -47,6 +47,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             }
 
             context.InstantiateElement(validPosition, context.Layer, stored);
+            GameStatistics.IncrementWorldClonedElements();
         }
 
         private static void TryAddEmptyPosition(ElementContext context, Point position)

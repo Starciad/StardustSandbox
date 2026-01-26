@@ -2,52 +2,52 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <!-- RESOURCES (DESIGNERS) -->
 	<ItemGroup>
-		<Compile Update="Core\Localization\Localization.Achievements.Designer.cs">
+		<Compile Update="Localization\Localization.Achievements.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Localization.Achievements.resx</DependentUpon>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Actors.Designer.cs">
+		<Compile Update="Localization\Localization.Actors.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Localization.Actors.resx</DependentUpon>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Catalog.Designer.cs">
+		<Compile Update="Localization\Localization.Catalog.Designer.cs">
 			<DependentUpon>Localization.Catalog.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Colors.Designer.cs">
+		<Compile Update="Localization\Localization.Colors.Designer.cs">
 			<DependentUpon>Localization.Colors.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Elements.Designer.cs">
+		<Compile Update="Localization\Localization.Elements.Designer.cs">
 			<DependentUpon>Localization.Elements.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.GUIs.Designer.cs">
+		<Compile Update="Localization\Localization.GUIs.Designer.cs">
 			<DependentUpon>Localization.GUIs.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Messages.Designer.cs">
+		<Compile Update="Localization\Localization.Messages.Designer.cs">
 			<DependentUpon>Localization.Messages.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Statements.Designer.cs">
+		<Compile Update="Localization\Localization.Statements.Designer.cs">
 			<DependentUpon>Localization.Statements.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.Tools.Designer.cs">
+		<Compile Update="Localization\Localization.Tools.Designer.cs">
 			<DependentUpon>Localization.Tools.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 		</Compile>
-		<Compile Update="Core\Localization\Localization.WorldGizmos.Designer.cs">
+		<Compile Update="Localization\Localization.WorldGizmos.Designer.cs">
 			<DependentUpon>Localization.WorldGizmos.resx</DependentUpon>
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -101,43 +101,43 @@
 
 	<!-- RESOURCES (RESX) -->
 	<ItemGroup>
-		<EmbeddedResource Update="Core\Localization\Localization.Achievements.resx">
+		<EmbeddedResource Update="Localization\Localization.Achievements.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Achievements.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Actors.resx">
+		<EmbeddedResource Update="Localization\Localization.Actors.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Actors.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Catalog.resx">
+		<EmbeddedResource Update="Localization\Localization.Catalog.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Catalog.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Colors.resx">
+		<EmbeddedResource Update="Localization\Localization.Colors.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Colors.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Elements.resx">
+		<EmbeddedResource Update="Localization\Localization.Elements.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Elements.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.GUIs.resx">
+		<EmbeddedResource Update="Localization\Localization.GUIs.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.GUIs.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Messages.resx">
+		<EmbeddedResource Update="Localization\Localization.Messages.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Messages.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Statements.resx">
+		<EmbeddedResource Update="Localization\Localization.Statements.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Statements.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.Tools.resx">
+		<EmbeddedResource Update="Localization\Localization.Tools.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.Tools.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-		<EmbeddedResource Update="Core\Localization\Localization.WorldGizmos.resx">
+		<EmbeddedResource Update="Localization\Localization.WorldGizmos.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>Localization.WorldGizmos.Designer.cs</LastGenOutput>
 		</EmbeddedResource>

@@ -88,6 +88,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 context.SwappingElements(oldPosition, newPosition, context.Layer);
                 context.RemoveElement(oldPosition);
+
+                GameStatistics.IncrementWorldElementsConsumedByDevourer();
             }
             else if (Random.Chance(15))
             {

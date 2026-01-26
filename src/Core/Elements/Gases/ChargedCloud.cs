@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Randomness;
@@ -59,6 +61,7 @@ namespace StardustSandbox.Core.Elements.Gases
                     else
                     {
                         context.ReplaceElement(ElementIndex.LightningHead);
+                        AchievementEngine.Unlock(AchievementIndex.ACH_015);
                     }
                 }
                 else

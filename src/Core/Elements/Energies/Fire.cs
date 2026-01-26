@@ -17,8 +17,10 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Randomness;
@@ -70,6 +72,9 @@ namespace StardustSandbox.Core.Elements.Energies
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
+            int burnedElements = 0;
+            int aroundElements = 0;
+
             for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.HasNeighbor(i))
@@ -79,17 +84,33 @@ namespace StardustSandbox.Core.Elements.Energies
 
                 if (!neighbors.GetSlotLayer(i, Layer.Foreground).IsEmpty)
                 {
-                    IgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Foreground), Layer.Foreground);
+                    if (TryIgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Foreground), Layer.Foreground))
+                    {
+                        burnedElements++;
+                    }
+
+                    aroundElements++;
                 }
 
                 if (!neighbors.GetSlotLayer(i, Layer.Background).IsEmpty)
                 {
-                    IgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Background), Layer.Background);
+                    if (TryIgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Background), Layer.Background))
+                    {
+                        burnedElements++;
+                    }
+
+                    aroundElements++;
                 }
+            }
+
+            // Unlock achievement if 4 or more elements were burned and there were at least 4 elements around
+            if (burnedElements >= 4 && aroundElements >= 4)
+            {
+                AchievementEngine.Unlock(AchievementIndex.ACH_023);
             }
         }
 
-        private static void IgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
+        private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
         {
             // Increase neighboring temperature by fire's heat value
             context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
@@ -111,8 +132,11 @@ namespace StardustSandbox.Core.Elements.Energies
                 if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
                 {
                     context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
+                    return true;
                 }
             }
+
+            return false;
         }
     }
 }

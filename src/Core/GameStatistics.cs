@@ -17,6 +17,9 @@
 
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Elements;
+
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core
 {
@@ -25,30 +28,19 @@ namespace StardustSandbox.Core
         private const uint MAX_VALUE = 1_000_000;
 
         private static uint actorsElementsPositionedByGul;
-        private static uint worldBurntElements;
         private static uint worldClonedElements;
         private static uint worldCorrodedElements;
-        private static uint worldDistinctElementsInstantiated;
         private static uint worldElementsConsumedByCorruption;
         private static uint worldElementsConsumedByDevourer;
         private static uint worldElementsConsumedByVoid;
-        private static uint worldInstantiatedElements;
         private static uint worldPushedElements;
+
+        private static readonly HashSet<ElementIndex> worldUniqueInstantiatedElements = [];
 
         internal static void IncrementActorsElementsPositionedByGul(uint amount = 1)
         {
-            actorsElementsPositionedByGul = ClampAndIncrement(
-                actorsElementsPositionedByGul,
-                amount
-            );
-
+            actorsElementsPositionedByGul = ClampAndIncrement(actorsElementsPositionedByGul, amount);
             CheckActorsAchievements();
-        }
-
-        internal static void IncrementWorldBurntElements(uint amount = 1)
-        {
-            worldBurntElements = ClampAndIncrement(worldBurntElements, amount);
-            CheckWorldAchievements();
         }
 
         internal static void IncrementWorldClonedElements(uint amount = 1)
@@ -60,12 +52,6 @@ namespace StardustSandbox.Core
         internal static void IncrementWorldCorrodedElements(uint amount = 1)
         {
             worldCorrodedElements = ClampAndIncrement(worldCorrodedElements, amount);
-            CheckWorldAchievements();
-        }
-
-        internal static void IncrementWorldDistinctElementsInstantiated(uint amount = 1)
-        {
-            worldDistinctElementsInstantiated = ClampAndIncrement(worldDistinctElementsInstantiated, amount);
             CheckWorldAchievements();
         }
 
@@ -87,16 +73,15 @@ namespace StardustSandbox.Core
             CheckWorldAchievements();
         }
 
-        internal static void IncrementWorldInstantiatedElements(uint amount = 1)
-        {
-            worldInstantiatedElements = ClampAndIncrement(worldInstantiatedElements, amount);
-            CheckWorldAchievements();
-        }
-
         internal static void IncrementWorldPushedElements(uint amount = 1)
         {
             worldPushedElements = ClampAndIncrement(worldPushedElements, amount);
             CheckWorldAchievements();
+        }
+
+        internal static void RegisterInstantiatedElement(ElementIndex index)
+        {
+            _ = worldUniqueInstantiatedElements.Add(index);
         }
 
         internal static void ResetActorsStatistics()
@@ -106,15 +91,14 @@ namespace StardustSandbox.Core
 
         internal static void ResetWorldStatistics()
         {
-            worldInstantiatedElements = 0;
-            worldDistinctElementsInstantiated = 0;
+            actorsElementsPositionedByGul = 0;
             worldClonedElements = 0;
-            worldElementsConsumedByVoid = 0;
-            worldElementsConsumedByDevourer = 0;
-            worldElementsConsumedByCorruption = 0;
-            worldPushedElements = 0;
             worldCorrodedElements = 0;
-            worldBurntElements = 0;
+            worldElementsConsumedByCorruption = 0;
+            worldElementsConsumedByDevourer = 0;
+            worldElementsConsumedByVoid = 0;
+            worldPushedElements = 0;
+            worldUniqueInstantiatedElements.Clear();
         }
 
         private static uint ClampAndIncrement(uint currentValue, uint increment)
@@ -144,49 +128,39 @@ namespace StardustSandbox.Core
 
         private static void CheckWorldAchievements()
         {
-            // if (worldBurntElements >= 0)
-            // {
-            //     
-            // }
-            
             if (worldClonedElements >= 500)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_004);
             }
-            
+
             if (worldCorrodedElements >= 300)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_025);
             }
-            
-            if (worldDistinctElementsInstantiated >= 10)
-            {
-                AchievementEngine.Unlock(AchievementIndex.ACH_002);
-            }
-            
+
             if (worldElementsConsumedByCorruption >= 1_000)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_018);
             }
-            
+
             if (worldElementsConsumedByDevourer >= 500)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_014);
             }
-            
+
             if (worldElementsConsumedByVoid >= 100)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_017);
             }
-            
-            // if (worldInstantiatedElements >= 0)
-            // {
-            //     
-            // }
-            
+
             if (worldPushedElements >= 1_000)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_022);
+            }
+
+            if (worldUniqueInstantiatedElements.Count >= 10)
+            {
+                AchievementEngine.Unlock(AchievementIndex.ACH_002);
             }
         }
     }

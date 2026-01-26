@@ -260,6 +260,7 @@ namespace StardustSandbox.Core.Actors.Common
                 this.grabbedElementIndex = ElementIndex.None;
                 this.positionElementPlaced = position;
 
+                GameStatistics.IncrementActorsElementsPositionedByGul();
                 return true;
             }
 

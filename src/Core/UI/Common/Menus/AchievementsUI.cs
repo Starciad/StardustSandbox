@@ -207,11 +207,11 @@ namespace StardustSandbox.Core.UI.Common.Menus
                     TooltipBoxContent.SetTitle(achievement.Title);
                     TooltipBoxContent.SetDescription(achievement.Description);
 
-                    image.Color = AAP64ColorPalette.LemonYellow;
+                    image.Scale = Vector2.Lerp(image.Scale, new(2.2f), 0.2f);
                 }
                 else
                 {
-                    image.Color = AAP64ColorPalette.White;
+                    image.Scale = Vector2.Lerp(image.Scale, new(2.0f), 0.2f);
                 }
             }
         }
@@ -235,7 +235,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                     image.CanDraw = true;
 
-                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index) ? achievement.SourceRectangle : new(0, 0, 32, 32);
+                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index) ? achievement.IconSourceRectangle : new(0, 0, 32, 32);
                 }
                 else
                 {
