@@ -17,6 +17,8 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
@@ -46,6 +48,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (currentValue >= 60.0f)
             {
                 context.ReplaceElement(ElementIndex.DrySponge);
+                AchievementEngine.Unlock(AchievementIndex.ACH_019);
             }
         }
     }

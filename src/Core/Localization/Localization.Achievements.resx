@@ -59,10 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root"
-    xmlns=""
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -133,10 +130,10 @@
     <value>Insert at least 10 different elements into a single world.</value>
   </data>
   <data name="ACH.003.Name" xml:space="preserve">
-    <value>Definitely Not Alchemy</value>
+    <value>Nature’s Worst Towel</value>
   </data>
   <data name="ACH.003.Description" xml:space="preserve">
-    <value>Create 5 different chemical reactions in a single world.</value>
+    <value>Absorb water by using a sponge element.</value>
   </data>
   <data name="ACH.004.Name" xml:space="preserve">
     <value>Mass Production Gone Wrong</value>
@@ -229,10 +226,10 @@
     <value>Make corruption consume more than 1000 elements in a single world.</value>
   </data>
   <data name="ACH.019.Name" xml:space="preserve">
-    <value>We Can Fix This</value>
+    <value>Sponge on Fire (Probably Fine)</value>
   </data>
   <data name="ACH.019.Description" xml:space="preserve">
-    <value>Use anti-corruption to completely eliminate corruption from your world.</value>
+    <value>Completely dry a sponge by applying any form of heat.</value>
   </data>
   <data name="ACH.020.Name" xml:space="preserve">
     <value>Rock Soup</value>

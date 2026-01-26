@@ -97,7 +97,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Create 5 different chemical reactions in a single world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Absorb water by using a sponge element..
         /// </summary>
         internal static string ACH_003_Description {
             get {
@@ -106,7 +106,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Definitely Not Alchemy.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nature’s Worst Towel.
         /// </summary>
         internal static string ACH_003_Name {
             get {
@@ -385,7 +385,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Use anti-corruption to completely eliminate corruption from your world..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Completely dry a sponge by applying any form of heat..
         /// </summary>
         internal static string ACH_019_Description {
             get {
@@ -394,7 +394,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a We Can Fix This.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sponge on Fire (Probably Fine).
         /// </summary>
         internal static string ACH_019_Name {
             get {
