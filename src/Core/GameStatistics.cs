@@ -79,7 +79,7 @@ namespace StardustSandbox.Core
 
         internal static void ResetActorsStatistics()
         {
-
+            return;
         }
 
         internal static void ResetWorldStatistics()
