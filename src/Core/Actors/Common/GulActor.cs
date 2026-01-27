@@ -18,9 +18,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Elements;
@@ -43,14 +45,15 @@ namespace StardustSandbox.Core.Actors.Common
             Right = 1,
         }
 
-        private Direction direction;
-        private ElementIndex grabbedElementIndex;
-        private Point positionElementPlaced;
-
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
         private bool IsFalling => !this.IsGrounded;
         private bool IsGrounded => HasGroundBelow(this.Position);
+
+        private Direction direction;
+        private ElementIndex grabbedElementIndex;
+        private Point positionElementPlaced;
+        private uint elementsPlacedCount;
 
         private static readonly HashSet<ElementIndex> grabbableElements =
         [
@@ -239,6 +242,19 @@ namespace StardustSandbox.Core.Actors.Common
             return false;
         }
 
+        private void IncrementElementsPlacedCount()
+        {
+            this.elementsPlacedCount =
+                this.elementsPlacedCount == uint.MaxValue
+                    ? uint.MaxValue
+                    : this.elementsPlacedCount + 1;
+
+            if (this.elementsPlacedCount >= 100)
+            {
+                AchievementEngine.Unlock(AchievementIndex.ACH_007);
+            }
+        }
+
         private bool TryPlaceElement()
         {
             SetFrontPositions(point =>
@@ -260,7 +276,8 @@ namespace StardustSandbox.Core.Actors.Common
                 this.grabbedElementIndex = ElementIndex.None;
                 this.positionElementPlaced = position;
 
-                GameStatistics.IncrementActorsElementsPositionedByGul();
+                IncrementElementsPlacedCount();
+
                 return true;
             }
 

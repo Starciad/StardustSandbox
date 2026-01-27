@@ -27,7 +27,6 @@ namespace StardustSandbox.Core
     {
         private const uint MAX_VALUE = 1_000_000;
 
-        private static uint actorsElementsPositionedByGul;
         private static uint worldClonedElements;
         private static uint worldCorrodedElements;
         private static uint worldElementsConsumedByCorruption;
@@ -36,12 +35,6 @@ namespace StardustSandbox.Core
         private static uint worldPushedElements;
 
         private static readonly HashSet<ElementIndex> worldUniqueInstantiatedElements = [];
-
-        internal static void IncrementActorsElementsPositionedByGul(uint amount = 1)
-        {
-            actorsElementsPositionedByGul = ClampAndIncrement(actorsElementsPositionedByGul, amount);
-            CheckActorsAchievements();
-        }
 
         internal static void IncrementWorldClonedElements(uint amount = 1)
         {
@@ -86,12 +79,11 @@ namespace StardustSandbox.Core
 
         internal static void ResetActorsStatistics()
         {
-            actorsElementsPositionedByGul = 0;
+
         }
 
         internal static void ResetWorldStatistics()
         {
-            actorsElementsPositionedByGul = 0;
             worldClonedElements = 0;
             worldCorrodedElements = 0;
             worldElementsConsumedByCorruption = 0;
@@ -103,27 +95,16 @@ namespace StardustSandbox.Core
 
         private static uint ClampAndIncrement(uint currentValue, uint increment)
         {
-            if (increment == 0)
+            if (currentValue >= MAX_VALUE || increment == 0)
             {
-                return currentValue;
+                return currentValue >= MAX_VALUE ? MAX_VALUE : currentValue;
             }
 
-            if (currentValue >= MAX_VALUE)
-            {
-                return MAX_VALUE;
-            }
+            uint remaining = MAX_VALUE - currentValue;
 
-            uint result = currentValue + increment;
-
-            return result > MAX_VALUE ? MAX_VALUE : result;
-        }
-
-        private static void CheckActorsAchievements()
-        {
-            if (actorsElementsPositionedByGul >= 100)
-            {
-                AchievementEngine.Unlock(AchievementIndex.ACH_007);
-            }
+            return increment >= remaining
+                ? MAX_VALUE
+                : currentValue + increment;
         }
 
         private static void CheckWorldAchievements()
