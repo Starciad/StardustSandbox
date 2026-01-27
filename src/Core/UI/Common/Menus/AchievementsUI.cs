@@ -29,6 +29,7 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
@@ -38,6 +39,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 {
     internal sealed class AchievementsUI : UIBase
     {
+        private Label titleLabelElement;
         private Image headerBackground;
 
         private SlotInfo exitButtonSlotInfo;
@@ -87,7 +89,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
             root.AddChild(this.headerBackground);
 
             // Title
-            Label titleLabelElement = new()
+            this.titleLabelElement = new()
             {
                 Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
@@ -101,7 +103,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 BorderThickness = 2.0f,
             };
 
-            this.headerBackground.AddChild(titleLabelElement);
+            this.headerBackground.AddChild(this.titleLabelElement);
         }
 
         private void BuildExitButton()
@@ -246,6 +248,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         protected override void OnOpened()
         {
+            this.titleLabelElement.TextContent = string.Concat(Localization_GUIs.Achievements_Title, " (", PercentageMath.PercentageFromValue((int)AchievementIndex.Length, this.achievementSettings.GetUnlockedCount()), "%)");
+
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
             ChangeAchievementsCatalog();
         }

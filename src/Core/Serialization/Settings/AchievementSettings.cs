@@ -88,5 +88,20 @@ namespace StardustSandbox.Core.Serialization.Settings
                 data.IsUnlocked = true;
             }
         }
+
+        public uint GetUnlockedCount()
+        {
+            uint count = 0;
+
+            foreach (AchievementProgressData data in this.Datas)
+            {
+                if (data.IsUnlocked)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
     }
 }
