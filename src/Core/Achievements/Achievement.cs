@@ -17,16 +17,14 @@
 
 using Microsoft.Xna.Framework;
 
-using System;
-
 namespace StardustSandbox.Core.Achievements
 {
-    [Serializable]
-    public sealed class Achievement(string id, Rectangle? sourceRectangle, string title, string description)
+    public sealed class Achievement(string id, Rectangle? achievedIconSourceRectangle, Rectangle? notAchievedIconSourceRectangle, string title, string description)
     {
         public string Id => id;
         internal string Title => title;
         internal string Description => description;
-        internal Rectangle? IconSourceRectangle => sourceRectangle;
+        internal Rectangle? AchievedIconSourceRectangle => achievedIconSourceRectangle;
+        internal Rectangle? NotAchievedIconSourceRectangle => notAchievedIconSourceRectangle;
     }
 }

@@ -749,7 +749,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void OnAchievementUnlocked(Achievement achievement)
         {
-            this.notificationBox.AppendNotification(TextureIndex.Achievements, achievement.IconSourceRectangle, achievement.Title);
+            this.notificationBox.EnqueueNotification(TextureIndex.Achievements, achievement.AchievedIconSourceRectangle, achievement.Title);
         }
     }
 }

@@ -25,27 +25,42 @@ using StardustSandbox.Core.Enums.Directions;
 
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class NotificationBox : UIElement
     {
-        private readonly struct NotificationInformation(TextureIndex iconTextureIndex, Rectangle? iconSourceRectangle, string message)
+        private readonly struct NotificationEntry(TextureIndex iconTextureIndex, Rectangle? iconSourceRectangle, string message)
         {
-            internal readonly TextureIndex IconTextureIndex => iconTextureIndex;
-            internal readonly Rectangle? IconSourceRectangle => iconSourceRectangle;
-            internal readonly string Message => message;
+            public TextureIndex IconTextureIndex => iconTextureIndex;
+            public Rectangle? IconSourceRectangle => iconSourceRectangle;
+            public string Message => message;
         }
 
-        private bool isShowingProcess;
-        private bool isShowing;
+        private enum DisplayState : byte
+        {
+            Idle,
+            Showing,
+            Hiding
+        }
 
+        // UI children
         private readonly Image background;
         private readonly Image icon;
         private readonly Label label;
 
-        private readonly Queue<NotificationInformation> notificationQueue = [];
+        // Queue
+        private readonly Queue<NotificationEntry> notifications = new();
+        private readonly object queueLock = new();
+
+        // State machine
+        private DisplayState state = DisplayState.Idle;
+        private float stateTimerSeconds;
+
+        // Visual / timing configuration
+        private const float DisplayDurationSeconds = 5.0f;
+        private const float HideDurationSeconds = 0.5f;
+        private const float MarginLerpFactor = 0.2f;
 
         private static readonly Vector2 HiddenMargin = new(0.0f, 96.0f);
         private static readonly Vector2 VisibleMargin = new(0.0f, -48.0f);
@@ -92,11 +107,57 @@ namespace StardustSandbox.Core.UI.Elements
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            this.Margin = Vector2.Lerp(this.Margin, this.isShowing ? VisibleMargin : HiddenMargin, 0.2f);
+            // Smoothly animate visibility margin
+            this.Margin = Vector2.Lerp(this.Margin, (this.state == DisplayState.Showing) ? VisibleMargin : HiddenMargin, MarginLerpFactor);
 
-            if (!this.isShowingProcess && this.notificationQueue.Count > 0)
+            float deltaSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
+
+            // If idle and there is a pending notification, start it immediately (safely)
+            if (this.state == DisplayState.Idle)
             {
-                _ = Task.Run(ShowNextNotificationAsync);
+                NotificationEntry next;
+                lock (this.queueLock)
+                {
+                    next = this.notifications.Count == 0 ? default : this.notifications.Dequeue();
+                }
+
+                if (!Equals(next, default(NotificationEntry)))
+                {
+                    StartNotification(next);
+                }
+            }
+
+            // State machine timing
+            switch (this.state)
+            {
+                case DisplayState.Showing:
+                    this.stateTimerSeconds -= deltaSeconds;
+                    if (this.stateTimerSeconds <= 0f)
+                    {
+                        // Begin hiding
+                        this.state = DisplayState.Hiding;
+                        this.stateTimerSeconds = HideDurationSeconds;
+                        // Toggle visibility; margin lerp above will animate it out
+                        // keep currentNotification until hiding finishes
+                    }
+
+                    break;
+
+                case DisplayState.Hiding:
+                    this.stateTimerSeconds -= deltaSeconds;
+                    if (this.stateTimerSeconds <= 0f)
+                    {
+                        // Finish current notification
+                        this.state = DisplayState.Idle;
+                        this.stateTimerSeconds = 0f;
+                    }
+
+                    break;
+
+                case DisplayState.Idle:
+                default:
+                    // nothing to do
+                    break;
             }
         }
 
@@ -105,39 +166,34 @@ namespace StardustSandbox.Core.UI.Elements
             return;
         }
 
-        internal void AppendNotification(TextureIndex iconTextureIndex, Rectangle? sourceRectangle, string message)
+        internal void EnqueueNotification(TextureIndex iconTextureIndex, Rectangle? sourceRectangle, string message)
         {
-            this.notificationQueue.Enqueue(new(iconTextureIndex, sourceRectangle, message));
-        }
-
-        private async Task ShowNextNotificationAsync()
-        {
-            if (this.notificationQueue.Count == 0)
+            if (string.IsNullOrEmpty(message))
             {
                 return;
             }
 
-            this.isShowingProcess = true;
+            NotificationEntry entry = new(iconTextureIndex, sourceRectangle, message);
 
-            while (this.notificationQueue.TryDequeue(out NotificationInformation information))
+            lock (this.queueLock)
             {
-                this.isShowing = true;
-
-                this.icon.TextureIndex = information.IconTextureIndex;
-                this.icon.SourceRectangle = information.IconSourceRectangle;
-                this.label.TextContent = information.Message;
-                this.background.Scale = new(this.label.Size.X + this.icon.Size.X + 48.0f, 88.0f);
-
-                await Task.Delay(TimeSpan.FromSeconds(5.0f));
-
-                this.isShowing = false;
-
-                await Task.Delay(TimeSpan.FromSeconds(0.5f));
+                this.notifications.Enqueue(entry);
             }
+        }
 
-            this.isShowingProcess = false;
+        private void StartNotification(in NotificationEntry entry)
+        {
+            // Apply UI values immediately on the game/main thread
+            this.icon.TextureIndex = entry.IconTextureIndex;
+            this.icon.SourceRectangle = entry.IconSourceRectangle;
+            this.label.TextContent = entry.Message;
 
-            await Task.CompletedTask;
+            // Recompute background size based on label/icon sizes.
+            this.background.Scale = new(this.label.Size.X + this.icon.Size.X + 48.0f, 88.0f);
+
+            // Set state to showing and start timer
+            this.state = DisplayState.Showing;
+            this.stateTimerSeconds = DisplayDurationSeconds;
         }
     }
 }

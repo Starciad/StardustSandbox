@@ -93,7 +93,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.West,
                 Margin = new(32.0f, 0.0f),
-                TextContent = "Achievements",
+                TextContent = Localization_GUIs.Achievements_Title,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -235,7 +235,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                     image.CanDraw = true;
 
-                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index) ? achievement.IconSourceRectangle : new(0, 0, 32, 32);
+                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index) ? achievement.AchievedIconSourceRectangle : achievement.NotAchievedIconSourceRectangle;
                 }
                 else
                 {

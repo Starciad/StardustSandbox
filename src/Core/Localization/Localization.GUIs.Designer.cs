@@ -61,6 +61,15 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Achievements.
+        /// </summary>
+        internal static string Achievements_Title {
+            get {
+                return ResourceManager.GetString("Achievements.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Close the current menu..
         /// </summary>
         internal static string Button_Exit_Description {
