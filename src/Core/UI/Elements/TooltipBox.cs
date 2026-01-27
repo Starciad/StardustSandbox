@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -40,12 +39,12 @@ namespace StardustSandbox.Core.UI.Elements
 
         internal static void SetTitle(string value)
         {
-            title = value;
+            title = value ?? string.Empty;
         }
 
         internal static void SetDescription(string value)
         {
-            description = value;
+            description = value ?? string.Empty;
         }
     }
 
@@ -66,56 +65,55 @@ namespace StardustSandbox.Core.UI.Elements
             this.CanUpdate = true;
 
             this.cursorManager = cursorManager;
-
             this.Margin = new(60f);
 
-            this.background = new()
+            this.background = new SliceImage
             {
                 Texture = AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
                 Color = AAP64ColorPalette.DarkPurple,
                 Alignment = UIDirection.Center,
                 Size = new(48f),
-
                 TileSize = new(16),
-                Origin = new(0, 32),
+                Origin = new(0, 32)
             };
 
-            this.title = new()
+            this.title = new Label
             {
                 Scale = new(0.12f),
                 SpriteFontIndex = SpriteFontIndex.DigitalDisco,
-                Margin = new(0, 0f),
+                Margin = Vector2.Zero
             };
 
-            this.description = new()
+            this.description = new Text
             {
                 Scale = new(0.078f),
-                Margin = new(0, 64f),
+                Margin = new(0f, 64f),
                 LineHeight = 1.25f,
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
+                SpriteFontIndex = SpriteFontIndex.PixelOperator
             };
 
             this.background.AddChild(this.title);
             this.background.AddChild(this.description);
-
             AddChild(this.background);
 
             this.MinimumSize = new(48f, 48f);
-            this.MaximumSize = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT);
+            this.MaximumSize = new(
+                ScreenConstants.SCREEN_WIDTH,
+                ScreenConstants.SCREEN_HEIGHT
+            );
         }
 
         protected override void OnInitialize()
         {
-            return;
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            bool canDraw = !GameParameters.HideTooltips;
+            bool visible = !GameParameters.HideTooltips;
 
-            this.title.CanDraw = canDraw;
-            this.description.CanDraw = canDraw;
-            this.background.CanDraw = canDraw;
+            this.background.CanDraw = visible;
+            this.title.CanDraw = visible;
+            this.description.CanDraw = visible;
 
             this.title.TextContent = TooltipBoxContent.Title;
             this.description.TextContent = TooltipBoxContent.Description;
@@ -126,48 +124,71 @@ namespace StardustSandbox.Core.UI.Elements
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            return;
         }
 
         private void UpdateSize()
         {
+            // Determine available width based on text content
+            float contentWidth = Math.Max(this.title.Size.X, this.description.Size.X);
+
+            float finalWidth = Math.Clamp(
+                contentWidth,
+                this.MinimumSize.X,
+                this.MaximumSize.X
+            );
+
+            // Apply text area constraints BEFORE measuring size
+            this.description.TextAreaSize = new(
+                finalWidth,
+                this.MaximumSize.Y
+            );
+
+            // Re-read sizes after layout constraints
             Vector2 titleSize = this.title.Size;
             Vector2 descriptionSize = this.description.Size;
 
-            float finalWidth = Math.Max(this.MinimumSize.X, titleSize.X);
-            float finalHeight = Math.Max(this.MinimumSize.Y, descriptionSize.Y + titleSize.Y + 10.0f);
+            float finalHeight = Math.Max(
+                this.MinimumSize.Y,
+                titleSize.Y + descriptionSize.Y + 10f
+            );
 
-            finalWidth = finalWidth > this.MaximumSize.X ? this.MaximumSize.X : finalWidth;
-            finalHeight = finalHeight > this.MaximumSize.Y ? this.MaximumSize.Y : finalHeight;
+            finalHeight = Math.Min(finalHeight, this.MaximumSize.Y);
 
+            // Apply final background size
             Vector2 finalSize = new(finalWidth, finalHeight);
-            Vector2 finalTextAreaSize = new(finalWidth, descriptionSize.Y);
-
-            this.description.TextAreaSize = finalTextAreaSize;
-
             this.background.Size = finalSize;
             this.background.TileScale = finalSize / this.background.TileSize.ToVector2();
         }
 
         private void UpdatePosition()
         {
-            Vector2 spacing = this.cursorManager.Scale * 16.0f;
-
             Vector2 mousePosition = Input.GetScaledMousePosition();
-            Vector2 newPosition = mousePosition + this.Margin + spacing;
+            Vector2 spacing = this.cursorManager.Scale * 16f;
+            Vector2 position = mousePosition + this.Margin + spacing;
 
-            if ((newPosition.X + this.background.Size.X) > ScreenConstants.SCREEN_WIDTH)
+            if (position.X + this.background.Size.X > ScreenConstants.SCREEN_WIDTH)
             {
-                newPosition.X = mousePosition.X - this.background.Size.X - this.Margin.X - spacing.X;
+                position.X = mousePosition.X - this.background.Size.X - this.Margin.X - spacing.X;
             }
 
-            if ((newPosition.Y + this.background.Size.Y) > ScreenConstants.SCREEN_HEIGHT)
+            if (position.Y + this.background.Size.Y > ScreenConstants.SCREEN_HEIGHT)
             {
-                newPosition.Y = mousePosition.Y - this.background.Size.Y - this.Margin.Y - spacing.Y;
+                position.Y = mousePosition.Y - this.background.Size.Y - this.Margin.Y - spacing.Y;
             }
 
-            this.background.Position = newPosition;
+            position.X = Math.Clamp(
+                position.X,
+                32f,
+                ScreenConstants.SCREEN_WIDTH - this.background.Size.X - 32f
+            );
+
+            position.Y = Math.Clamp(
+                position.Y,
+                32f,
+                ScreenConstants.SCREEN_HEIGHT - this.background.Size.Y - 32f
+            );
+
+            this.background.Position = position;
         }
     }
 }
-
