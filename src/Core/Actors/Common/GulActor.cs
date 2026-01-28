@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.Actors.Common
             ElementIndex.RedBrick,
             ElementIndex.TreeLeaf,
             ElementIndex.MountingBlock,
-            ElementIndex.Lamp,
+            ElementIndex.LampOn,
             ElementIndex.Salt,
             ElementIndex.Bomb,
             ElementIndex.Dynamite,

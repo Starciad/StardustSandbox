@@ -261,10 +261,10 @@
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Rock that resists impacts, melts into lava with extreme heat or turns into sand with erosion.</value>
   </data>
-  <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
-    <value>Lamp</value>
+  <data name="Solid.Immovable.LampOn.Name" xml:space="preserve">
+    <value>Lamp (on)</value>
   </data>
-  <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
+  <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
     <value>Fixed, sturdy lamp used for decoration.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
@@ -638,5 +638,17 @@
   </data>
   <data name="Energy.Electricity.Description" xml:space="preserve">
     <value>Electricity</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
+    <value>Battery</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Description" xml:space="preserve">
+    <value>Battery</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Name" xml:space="preserve">
+    <value>Lamp (off)</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
+    <value>Lamp (off)</value>
   </data>
 </root>

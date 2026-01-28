@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Enums.Elements
         TreeLeaf = 21,
         MountingBlock = 22,
         Fire = 23,
-        Lamp = 24,
+        LampOn = 24,
         Void = 25,
         Clone = 26,
         Oil = 27,
@@ -109,6 +109,8 @@ namespace StardustSandbox.Core.Enums.Elements
         BrownPaint = 85,
         Mercury = 86,
         Electricity = 87,
+        Battery = 88,
+        LampOff = 89
     }
 }
 

@@ -261,10 +261,10 @@
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Rocha resistente a impactos, derrete em lava com calor extremo ou vira areia com erosão.</value>
   </data>
-  <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
+  <data name="Solid.Immovable.LampOn.Name" xml:space="preserve">
     <value>Lâmpada</value>
   </data>
-  <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
+  <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
     <value>Lâmpada fixa e resistente, usada para decoração.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">

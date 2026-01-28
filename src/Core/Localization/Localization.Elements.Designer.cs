@@ -547,6 +547,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Battery.
+        /// </summary>
+        internal static string Solid_Immovable_Battery_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Battery.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Battery.
+        /// </summary>
+        internal static string Solid_Immovable_Battery_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Battery.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Infinitely generates the neighboring element until removed..
         /// </summary>
         internal static string Solid_Immovable_Clone_Description {
@@ -907,20 +925,38 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Fixed, sturdy lamp used for decoration..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lamp (off).
         /// </summary>
-        internal static string Solid_Immovable_Lamp_Description {
+        internal static string Solid_Immovable_LampOff_Description {
             get {
-                return ResourceManager.GetString("Solid.Immovable.Lamp.Description", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.LampOff.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Lamp.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lamp (off).
         /// </summary>
-        internal static string Solid_Immovable_Lamp_Name {
+        internal static string Solid_Immovable_LampOff_Name {
             get {
-                return ResourceManager.GetString("Solid.Immovable.Lamp.Name", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.LampOff.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fixed, sturdy lamp used for decoration..
+        /// </summary>
+        internal static string Solid_Immovable_LampOn_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.LampOn.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Lamp (on).
+        /// </summary>
+        internal static string Solid_Immovable_LampOn_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.LampOn.Name", resourceCulture);
             }
         }
         

@@ -261,10 +261,10 @@
   <data name="Solid.Movable.Stone.Description" xml:space="preserve">
     <value>Stein, der widerstandsfähig gegen Stöße ist, schmilzt bei extremer Hitze in Lava oder wird durch Erosion zu Sand.</value>
   </data>
-  <data name="Solid.Immovable.Lamp.Name" xml:space="preserve">
+  <data name="Solid.Immovable.LampOn.Name" xml:space="preserve">
     <value>Lampe</value>
   </data>
-  <data name="Solid.Immovable.Lamp.Description" xml:space="preserve">
+  <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
     <value>Feste und widerstandsfähige Lampe, wird zur Dekoration verwendet.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">

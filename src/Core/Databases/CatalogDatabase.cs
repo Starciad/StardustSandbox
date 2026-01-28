@@ -528,16 +528,6 @@ namespace StardustSandbox.Core.Databases
                                     sourceRectangle: new(32, 64, 32, 32)
                                 ),
 
-                                // [8] Lamp
-                                new(
-                                    contentIndex: (int)ElementIndex.Lamp,
-                                    name: Localization_Elements.Solid_Immovable_Lamp_Name,
-                                    description: Localization_Elements.Solid_Immovable_Lamp_Description,
-                                    contentType: ItemContentType.Element,
-                                    textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(96, 64, 32, 32)
-                                ),
-
                                 // [9] Dry Sponge
                                 new(
                                     contentIndex: (int)ElementIndex.DrySponge,
@@ -933,6 +923,36 @@ namespace StardustSandbox.Core.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(320, 128, 32, 32)
+                                ),
+
+                                // [6] Battery
+                                new(
+                                    contentIndex: (int)ElementIndex.Battery,
+                                    name: Localization_Elements.Solid_Immovable_Battery_Name,
+                                    description: Localization_Elements.Solid_Immovable_Battery_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(0, 0, 32, 32)
+                                ),
+
+                                // [7] Lamp (on)
+                                new(
+                                    contentIndex: (int)ElementIndex.LampOn,
+                                    name: Localization_Elements.Solid_Immovable_LampOn_Name,
+                                    description: Localization_Elements.Solid_Immovable_LampOn_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(96, 64, 32, 32)
+                                ),
+
+                                // [8] Lamp (off)
+                                new(
+                                    contentIndex: (int)ElementIndex.LampOff,
+                                    name: Localization_Elements.Solid_Immovable_LampOff_Name,
+                                    description: Localization_Elements.Solid_Immovable_LampOff_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(96, 64, 32, 32)
                                 ),
                             ]
                         ),

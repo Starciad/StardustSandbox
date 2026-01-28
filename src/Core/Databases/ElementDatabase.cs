@@ -383,11 +383,12 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 500.0f,
                     DefaultDensity = 0.0f,
                 },
-                new Elements.Solids.Immovables.Lamp()
+                new Elements.Solids.Immovables.LampOn()
                 {
-                    Index = ElementIndex.Lamp,
+                    Index = ElementIndex.LampOn,
                     Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Single,
@@ -1371,9 +1372,7 @@ namespace StardustSandbox.Core.Databases
                     Index = ElementIndex.Electricity,
                     Category = ElementCategory.Energy,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsCorruptible,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(0, 0),
                     ReferenceColor = AAP64ColorPalette.Amber,
@@ -1381,7 +1380,39 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.0f,
                     DefaultExplosionResistance = 0.0f,
                     DefaultDispersionRate = 8,
-                }
+                },
+                new Elements.Solids.Immovables.Battery()
+                {
+                    Index = ElementIndex.Battery,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(0, 0),
+                    ReferenceColor = AAP64ColorPalette.MossGreen,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 25.0f,
+                    DefaultDensity = 1.2f,
+                    DefaultExplosionResistance = 1.0f,
+                },
+                new Elements.Solids.Immovables.LampOff()
+                {
+                    Index = ElementIndex.LampOff,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(0, 0),
+                    ReferenceColor = AAP64ColorPalette.DarkRed,
+                    DefaultTemperature = 20.0f,
+                    DefaultFlammabilityResistance = 20.0f,
+                    DefaultDensity = 1.0f,
+                    DefaultExplosionResistance = 0.5f,
+                },
             ];
 
             isLoaded = true;

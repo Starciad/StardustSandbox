@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,15 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Enums.Elements;
+
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
-    internal sealed class Lamp : ImmovableSolid
+    internal sealed class LampOff : ImmovableSolid
     {
-        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            if (currentValue >= 600.0f)
+            if (neighbors.HasNeighborOfIndex(ElementIndex.Electricity, context.Layer))
             {
-                context.DestroyElement();
+                context.ReplaceElement(ElementIndex.LampOn);
             }
         }
     }

@@ -89,6 +89,19 @@ namespace StardustSandbox.Core.Elements
             return HasNeighbor((int)direction);
         }
 
+        internal bool HasNeighborOfIndex(in ElementIndex elementIndex, in Layer layer)
+        {
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            {
+                if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).ElementIndex == elementIndex)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         internal int CountNeighborsByElementIndex(in ElementIndex elementIndex, in Layer layer)
         {
             int count = 0;
