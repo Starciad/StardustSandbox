@@ -804,7 +804,7 @@ namespace StardustSandbox.Core.Databases
                                     description: Localization_Elements.Energy_Electricity_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(0, 0, 32, 32)
+                                    sourceRectangle: new(192, 224, 32, 32)
                                 ),
                             ]
                         ),
@@ -932,7 +932,7 @@ namespace StardustSandbox.Core.Databases
                                     description: Localization_Elements.Solid_Immovable_Battery_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(0, 0, 32, 32)
+                                    sourceRectangle: new(224, 224, 32, 32)
                                 ),
 
                                 // [7] Lamp (on)
@@ -952,7 +952,7 @@ namespace StardustSandbox.Core.Databases
                                     description: Localization_Elements.Solid_Immovable_LampOff_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(96, 64, 32, 32)
+                                    sourceRectangle: new(160, 224, 32, 32)
                                 ),
                             ]
                         ),

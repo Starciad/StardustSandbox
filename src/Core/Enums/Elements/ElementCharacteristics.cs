@@ -32,6 +32,7 @@ namespace StardustSandbox.Core.Enums.Elements
         IsCorruption = 1 << 7,
         IsPushable = 1 << 8,
         IsConductive = 1 << 9,
+        IsElectrified = 1 << 10,
     }
 }
 

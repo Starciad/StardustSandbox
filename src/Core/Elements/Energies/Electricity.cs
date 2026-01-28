@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem;
 
@@ -57,14 +56,6 @@ namespace StardustSandbox.Core.Elements.Energies
             // Check if any neighbors own electrical wiring.
             // If so, you must create another element of electricity on the conductive surface.
 
-            void ConductElectricity(SlotLayer neighborSlotLayer, in Point neighborPosition, in Layer targetLayer)
-            {
-                ElementIndex neighborElementIndex = neighborSlotLayer.ElementIndex;
-
-                context.ReplaceElement(neighborPosition, ElementIndex.Electricity);
-                context.SetStoredElement(neighborPosition, targetLayer, neighborElementIndex);
-            }
-
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.HasNeighbor(i))
@@ -73,22 +64,16 @@ namespace StardustSandbox.Core.Elements.Energies
                 }
 
                 Slot slot = neighbors.GetSlot(i);
+                SlotLayer layer = slot.GetLayer(context.Layer);
 
-                SlotLayer foregroundLayer = slot.GetLayer(Layer.Foreground);
-                SlotLayer backgroundLayer = slot.GetLayer(Layer.Background);
-
-                if (!foregroundLayer.IsEmpty &&
-                    foregroundLayer.ElementIndex is not ElementIndex.Electricity &&
-                    foregroundLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
+                if (!layer.IsEmpty &&
+                    layer.ElementIndex is not ElementIndex.Electricity &&
+                    layer.Element.HasCharacteristic(ElementCharacteristics.IsConductive))
                 {
-                    ConductElectricity(foregroundLayer, slot.Position, Layer.Foreground);
-                }
+                    ElementIndex neighborElementIndex = layer.ElementIndex;
 
-                if (!backgroundLayer.IsEmpty &&
-                    backgroundLayer.ElementIndex is not ElementIndex.Electricity &&
-                    backgroundLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
-                {
-                    ConductElectricity(backgroundLayer, slot.Position, Layer.Background);
+                    context.ReplaceElement(slot.Position, ElementIndex.Electricity);
+                    context.SetStoredElement(slot.Position, context.Layer, neighborElementIndex);
                 }
             }
         }

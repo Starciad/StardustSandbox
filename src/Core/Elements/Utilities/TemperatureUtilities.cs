@@ -30,7 +30,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                    !neighbors.GetSlotLayer(i, context.Layer).Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }

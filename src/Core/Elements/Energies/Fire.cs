@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.Elements.Energies
             context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
 
             // Check if the element is flammable
-            if (slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
+            if (slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsFlammable))
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;

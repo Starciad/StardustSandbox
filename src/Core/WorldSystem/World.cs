@@ -667,7 +667,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            if (slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsExplosionImmune))
+            if (slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsExplosionImmune))
             {
                 return;
             }

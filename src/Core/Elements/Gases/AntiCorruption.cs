@@ -15,76 +15,59 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem;
-
-using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class AntiCorruption : Gas
     {
-        private static readonly List<Slot> cachedCorruptionNeighborSlots = [];
-
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            cachedCorruptionNeighborSlots.Clear();
+            if (context.HasStoredElement())
+            {
+                if (context.HasElementState(ElementStates.IsDissipating))
+                {
+                    context.ReplaceElement(context.GetStoredElement());
+                    return;
+                }
+                else
+                {
+                    context.SetElementState(ElementStates.IsDissipating);
+                }
+            }
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.HasNeighbor(i))
                 {
                     continue;
                 }
 
                 Slot slot = neighbors.GetSlot(i);
+                SlotLayer layer = slot.GetLayer(context.Layer);
 
-                if (slot.GetLayer(context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsCorruption))
+                if (!layer.IsEmpty &&
+                    layer.ElementIndex is not ElementIndex.AntiCorruption &&
+                    layer.Element.HasCharacteristic(ElementCharacteristics.IsCorruption))
                 {
-                    cachedCorruptionNeighborSlots.Add(slot);
+                    ElementIndex originalElementIndex = layer.StoredElementIndex;
+
+                    context.ReplaceElement(slot.Position, ElementIndex.AntiCorruption);
+                    context.SetStoredElement(slot.Position, context.Layer, originalElementIndex);
                 }
             }
+        }
 
-            if (cachedCorruptionNeighborSlots.Count > 0)
-            {
-                Slot corruptionNeighborSlot = cachedCorruptionNeighborSlots.GetRandomItem();
-                SlotLayer neighborCorruptionSlotLayer = corruptionNeighborSlot.GetLayer(context.Layer);
+        protected override void OnStep(ElementContext context)
+        {
+            base.OnStep(context);
 
-                ElementIndex currentStoredElement = context.GetStoredElement();
-                ElementIndex neighborStoredElement = neighborCorruptionSlotLayer.StoredElementIndex;
-
-                Point oldPosition = context.Slot.Position;
-                Point newPosition = corruptionNeighborSlot.Position;
-
-                context.SwappingElements(oldPosition, newPosition, context.Layer);
-
-                if (currentStoredElement is ElementIndex.None)
-                {
-                    context.ReplaceElement(oldPosition, ElementIndex.AntiCorruption);
-                }
-                else
-                {
-                    context.ReplaceElement(oldPosition, currentStoredElement);
-                }
-
-                context.SetStoredElement(newPosition, neighborStoredElement);
-            }
-            else if (context.GetStoredElement() is not ElementIndex.None)
-            {
-                context.ReplaceElement(context.GetStoredElement());
-            }
-            else if (Random.Chance(15))
+            if (Random.Chance(15))
             {
                 context.DestroyElement();
-            }
-            else
-            {
-                context.NotifyChunk();
             }
         }
     }

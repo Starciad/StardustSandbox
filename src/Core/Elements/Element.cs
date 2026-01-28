@@ -64,6 +64,11 @@ namespace StardustSandbox.Core.Elements
             this.context = context;
         }
 
+        internal bool HasCharacteristic(ElementCharacteristics characteristic)
+        {
+            return this.Characteristics.HasFlag(characteristic);
+        }
+
         #region Virtual Methods
 
         protected virtual void OnInstantiated(ElementContext context) { return; }
@@ -88,8 +93,8 @@ namespace StardustSandbox.Core.Elements
 
         internal void Steps(GameTime gameTime)
         {
-            bool hasTemperature = this.Characteristics.HasFlag(ElementCharacteristics.HasTemperature);
-            bool affectsNeighbors = this.Characteristics.HasFlag(ElementCharacteristics.AffectsNeighbors);
+            bool hasTemperature = this.HasCharacteristic(ElementCharacteristics.HasTemperature);
+            bool affectsNeighbors = this.HasCharacteristic(ElementCharacteristics.AffectsNeighbors);
 
             if (this.context.HasElementState(ElementStates.WasPushed))
             {
@@ -126,7 +131,7 @@ namespace StardustSandbox.Core.Elements
 
             float CalculateHeatTransfer(SlotLayer slotLayer)
             {
-                if (!slotLayer.IsEmpty && slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))
+                if (!slotLayer.IsEmpty && slotLayer.Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
                 {
                     float neighborTemp = slotLayer.Temperature;
                     return TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;

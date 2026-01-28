@@ -390,7 +390,8 @@ namespace StardustSandbox.Core.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsElectrified,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(64, 320),
                     ReferenceColor = AAP64ColorPalette.Sand,
@@ -1372,10 +1373,11 @@ namespace StardustSandbox.Core.Databases
                     Index = ElementIndex.Electricity,
                     Category = ElementCategory.Energy,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible,
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsElectrified,
                     RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 0),
-                    ReferenceColor = AAP64ColorPalette.Amber,
+                    TextureOriginOffset = new(960, 288),
+                    ReferenceColor = AAP64ColorPalette.Gold,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.0f,
                     DefaultExplosionResistance = 0.0f,
@@ -1388,10 +1390,11 @@ namespace StardustSandbox.Core.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
+                                      ElementCharacteristics.IsPushable |
+                                      ElementCharacteristics.IsElectrified,
                     RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(0, 0),
-                    ReferenceColor = AAP64ColorPalette.MossGreen,
+                    TextureOriginOffset = new(576, 320),
+                    ReferenceColor = AAP64ColorPalette.Orange,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 25.0f,
                     DefaultDensity = 1.2f,
@@ -1406,8 +1409,8 @@ namespace StardustSandbox.Core.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(0, 0),
-                    ReferenceColor = AAP64ColorPalette.DarkRed,
+                    TextureOriginOffset = new(544, 320),
+                    ReferenceColor = AAP64ColorPalette.Brown,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 20.0f,
                     DefaultDensity = 1.0f,

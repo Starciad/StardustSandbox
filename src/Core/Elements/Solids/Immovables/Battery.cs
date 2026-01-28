@@ -50,14 +50,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 if (!foregroundLayer.IsEmpty &&
                     foregroundLayer.ElementIndex is not ElementIndex.Electricity &&
-                    foregroundLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
+                    foregroundLayer.Element.HasCharacteristic(ElementCharacteristics.IsConductive))
                 {
                     ConductElectricity(foregroundLayer, slot.Position, Layer.Foreground);
                 }
 
                 if (!backgroundLayer.IsEmpty &&
                     backgroundLayer.ElementIndex is not ElementIndex.Electricity &&
-                    backgroundLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
+                    backgroundLayer.Element.HasCharacteristic(ElementCharacteristics.IsConductive))
                 {
                     ConductElectricity(backgroundLayer, slot.Position, Layer.Background);
                 }

@@ -15,15 +15,43 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class LampOff : ImmovableSolid
     {
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
+        {
+            if (currentValue >= 600.0f)
+            {
+                context.DestroyElement();
+            }
+        }
+
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            if (neighbors.HasNeighborOfIndex(ElementIndex.Electricity, context.Layer))
+            bool electrifiedNeighborFound = false;
+
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            {
+                if (!neighbors.HasNeighbor(i))
+                {
+                    continue;
+                }
+
+                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
+
+                if (!layer.IsEmpty && layer.Element.HasCharacteristic(ElementCharacteristics.IsElectrified))
+                {
+                    electrifiedNeighborFound = true;
+                    break;
+                }
+            }
+
+            if (electrifiedNeighborFound)
             {
                 context.ReplaceElement(ElementIndex.LampOn);
             }

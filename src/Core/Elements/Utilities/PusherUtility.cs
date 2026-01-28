@@ -84,7 +84,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
                 if (direction is not (ElementNeighborDirection.North or ElementNeighborDirection.West or ElementNeighborDirection.East or ElementNeighborDirection.South) ||
                     !neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.IsPushable) ||
+                    !neighbors.GetSlotLayer(i, context.Layer).Element.HasCharacteristic(ElementCharacteristics.IsPushable) ||
                      neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.WasPushed))
                 {
                     continue;
