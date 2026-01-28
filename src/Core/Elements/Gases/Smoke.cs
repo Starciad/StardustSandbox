@@ -25,16 +25,23 @@ namespace StardustSandbox.Core.Elements.Gases
     {
         protected override void OnStep(ElementContext context)
         {
-            if (Random.Chance(75))
+            if (Random.Chance(25))
             {
-                return;
+                Point topPosition = new(context.Slot.Position.X, context.Slot.Position.Y - 1);
+
+                if (context.IsEmptySlotLayer(topPosition, context.Layer))
+                {
+                    context.SetPosition(topPosition);
+                }
+            }
+            else
+            {
+                base.OnStep(context);
             }
 
-            Point topPosition = new(context.Slot.Position.X, context.Slot.Position.Y - 1);
-
-            if (context.IsEmptySlotLayer(topPosition, context.Layer))
+            if (Random.Chance(2))
             {
-                context.SetPosition(topPosition);
+                context.DestroyElement();
             }
         }
     }
