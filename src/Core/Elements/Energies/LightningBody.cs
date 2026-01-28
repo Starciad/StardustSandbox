@@ -41,11 +41,6 @@ namespace StardustSandbox.Core.Elements.Energies
             ]
         };
 
-        protected override void OnAfterStep(ElementContext context)
-        {
-            context.RemoveElement();
-        }
-
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
@@ -88,6 +83,11 @@ namespace StardustSandbox.Core.Elements.Energies
 
                 context.InstantiateExplosion(explosionBuilder);
             }
+        }
+
+        protected override void OnStep(ElementContext context)
+        {
+            context.RemoveElement();
         }
     }
 }

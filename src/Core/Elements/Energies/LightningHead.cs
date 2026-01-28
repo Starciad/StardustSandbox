@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Energies
             LightningGenerator.Start(context, context.Position);
         }
 
-        protected override void OnAfterStep(ElementContext context)
+        protected override void OnStep(ElementContext context)
         {
             context.RemoveElement();
         }

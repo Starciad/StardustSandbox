@@ -23,26 +23,6 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class Cloud : Gas
     {
-        protected override void OnBeforeStep(ElementContext context)
-        {
-            if (Random.Chance(35))
-            {
-                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
-            }
-        }
-
-        protected override void OnStep(ElementContext context)
-        {
-            if (Random.Chance(15))
-            {
-                base.OnStep(context);
-            }
-            else
-            {
-                context.NotifyChunk();
-            }
-        }
-
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             if (context.Position.Y <= PercentageMath.PercentageOfValue(context.World.Information.Size.Y, 15.0f) &&
@@ -50,6 +30,24 @@ namespace StardustSandbox.Core.Elements.Gases
                 Random.Chance(5))
             {
                 context.ReplaceElement(ElementIndex.ChargedCloud);
+            }
+        }
+
+        protected override void OnStep(ElementContext context)
+        {
+            if (Random.Chance(35))
+            {
+                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
+                return;
+            }
+
+            if (Random.Chance(15))
+            {
+                base.OnStep(context);
+            }
+            else
+            {
+                context.NotifyChunk();
             }
         }
     }

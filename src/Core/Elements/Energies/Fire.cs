@@ -30,44 +30,33 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        protected override void OnBeforeStep(ElementContext context)
+        private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
         {
-            if (Random.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
-            {
-                context.DestroyElement();
+            // Increase neighboring temperature by fire's heat value
+            context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
 
-                if (Random.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
+            // Check if the element is flammable
+            if (slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
+            {
+                // Adjust combustion chance based on the element's flammability resistance
+                int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
+                bool isAbove = slot.Position.Y < context.Slot.Position.Y;
+
+                // Increase chance of combustion if the element is directly above
+                if (isAbove)
                 {
-                    context.InstantiateElement(ElementIndex.Smoke);
+                    combustionChance += 10;
+                }
+
+                // Attempt combustion based on flammabilityResistance
+                if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
+                {
+                    context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
+                    return true;
                 }
             }
-        }
 
-        protected override void OnStep(ElementContext context)
-        {
-            Point targetPosition = new(context.Slot.Position.X + Random.Range(-1, 1), context.Slot.Position.Y - 1);
-
-            if (context.IsEmptySlot(targetPosition))
-            {
-                if (context.TrySetPosition(targetPosition, context.Layer))
-                {
-                    return;
-                }
-            }
-            else
-            {
-                if (!context.TryGetElement(targetPosition, context.Layer, out ElementIndex index))
-                {
-                    return;
-                }
-
-                Element targetElement = ElementDatabase.GetElement(index);
-
-                if (index is not ElementIndex.None && (targetElement.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
-                {
-                    context.SwappingElements(targetPosition);
-                }
-            }
+            return false;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -110,33 +99,43 @@ namespace StardustSandbox.Core.Elements.Energies
             }
         }
 
-        private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
+        protected override void OnStep(ElementContext context)
         {
-            // Increase neighboring temperature by fire's heat value
-            context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
-
-            // Check if the element is flammable
-            if (slotLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsFlammable))
+            if (Random.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
-                // Adjust combustion chance based on the element's flammability resistance
-                int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
-                bool isAbove = slot.Position.Y < context.Slot.Position.Y;
+                context.DestroyElement();
 
-                // Increase chance of combustion if the element is directly above
-                if (isAbove)
+                if (Random.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
-                    combustionChance += 10;
+                    context.InstantiateElement(ElementIndex.Smoke);
                 }
 
-                // Attempt combustion based on flammabilityResistance
-                if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
-                {
-                    context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
-                    return true;
-                }
+                return;
             }
 
-            return false;
+            Point targetPosition = new(context.Slot.Position.X + Random.Range(-1, 1), context.Slot.Position.Y - 1);
+
+            if (context.IsEmptySlot(targetPosition))
+            {
+                if (context.TrySetPosition(targetPosition, context.Layer))
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (!context.TryGetElement(targetPosition, context.Layer, out ElementIndex index))
+                {
+                    return;
+                }
+
+                Element targetElement = ElementDatabase.GetElement(index);
+
+                if (index is not ElementIndex.None && (targetElement.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
+                {
+                    context.SwappingElements(targetPosition);
+                }
+            }
         }
     }
 }

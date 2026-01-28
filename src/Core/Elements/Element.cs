@@ -67,9 +67,7 @@ namespace StardustSandbox.Core.Elements
         #region Virtual Methods
 
         protected virtual void OnInstantiated(ElementContext context) { return; }
-        protected virtual void OnBeforeStep(ElementContext context) { return; }
         protected virtual void OnStep(ElementContext context) { return; }
-        protected virtual void OnAfterStep(ElementContext context) { return; }
         protected virtual void OnDestroyed(ElementContext context) { return; }
         protected virtual void OnNeighbors(ElementContext context, ElementNeighbors neighbors) { return; }
         protected virtual void OnTemperatureChanged(ElementContext context, in float currentValue) { return; }
@@ -113,9 +111,7 @@ namespace StardustSandbox.Core.Elements
                 }
             }
 
-            OnBeforeStep(this.context);
             OnStep(this.context);
-            OnAfterStep(this.context);
         }
 
         // Updated temperature transfer using Fourier's law of thermal conduction

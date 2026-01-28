@@ -27,9 +27,21 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Electricity : Energy
     {
-        protected override void OnStep(ElementContext context)
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            if (!context.HasStoredElement())
+            if (context.HasStoredElement())
+            {
+                if (context.HasElementState(ElementStates.IsDissipating))
+                {
+                    context.ReplaceElement(context.GetStoredElement());
+                    return;
+                }
+                else
+                {
+                    context.SetElementState(ElementStates.IsDissipating);
+                }
+            }
+            else
             {
                 // If electricity has no stored element, it means that it is not being conducted.
                 // Then, it will fall until it finds a conductor or disappears.
@@ -41,22 +53,16 @@ namespace StardustSandbox.Core.Elements.Energies
                     context.DestroyElement();
                 }
             }
-        }
 
-        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
-        {
             // Check if any neighbors own electrical wiring.
             // If so, you must create another element of electricity on the conductive surface.
 
-            void ConductElectricity(SlotLayer neighborSlotLayer, Element neighborElement, in Point neighborPosition, in Layer targetLayer)
+            void ConductElectricity(SlotLayer neighborSlotLayer, in Point neighborPosition, in Layer targetLayer)
             {
-                if (neighborElement.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
-                {
-                    ElementIndex neighborElementIndex = neighborSlotLayer.ElementIndex;
+                ElementIndex neighborElementIndex = neighborSlotLayer.ElementIndex;
 
-                    context.ReplaceElement(neighborPosition, ElementIndex.Electricity);
-                    context.SetStoredElement(neighborPosition, targetLayer, neighborElementIndex);
-                }
+                context.ReplaceElement(neighborPosition, ElementIndex.Electricity);
+                context.SetStoredElement(neighborPosition, targetLayer, neighborElementIndex);
             }
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
@@ -71,14 +77,18 @@ namespace StardustSandbox.Core.Elements.Energies
                 SlotLayer foregroundLayer = slot.GetLayer(Layer.Foreground);
                 SlotLayer backgroundLayer = slot.GetLayer(Layer.Background);
 
-                if (!foregroundLayer.IsEmpty)
+                if (!foregroundLayer.IsEmpty &&
+                    foregroundLayer.ElementIndex is not ElementIndex.Electricity &&
+                    foregroundLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
                 {
-                    ConductElectricity(foregroundLayer, foregroundLayer.Element, slot.Position, Layer.Foreground);
+                    ConductElectricity(foregroundLayer, slot.Position, Layer.Foreground);
                 }
 
-                if (!backgroundLayer.IsEmpty && backgroundLayer.ElementIndex is not ElementIndex.Electricity)
+                if (!backgroundLayer.IsEmpty &&
+                    backgroundLayer.ElementIndex is not ElementIndex.Electricity &&
+                    backgroundLayer.Element.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
                 {
-                    ConductElectricity(backgroundLayer, backgroundLayer.Element, slot.Position, Layer.Background);
+                    ConductElectricity(backgroundLayer, slot.Position, Layer.Background);
                 }
             }
         }

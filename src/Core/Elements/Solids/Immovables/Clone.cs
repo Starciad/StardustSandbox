@@ -31,12 +31,6 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         private static readonly List<Point> positionScratch = [];
         private static readonly List<SlotLayer> layerScratch = [];
 
-        protected override void OnBeforeStep(ElementContext context)
-        {
-            positionScratch.Clear();
-            layerScratch.Clear();
-        }
-
         // Instantiate the stored element into a random valid adjacent empty slot
         private static void TryInstantiateStoredElement(ElementContext context)
         {
@@ -132,14 +126,17 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             context.SetStoredElement(layerScratch.GetRandomItem().ElementIndex);
         }
 
-        protected override void OnAfterStep(ElementContext context)
-        {
-            TryInstantiateStoredElement(context);
-        }
-
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             TryDefineStoredElement(context, neighbors);
+        }
+
+        protected override void OnStep(ElementContext context)
+        {
+            positionScratch.Clear();
+            layerScratch.Clear();
+
+            TryInstantiateStoredElement(context);
         }
     }
 }
