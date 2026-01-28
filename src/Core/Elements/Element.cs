@@ -93,15 +93,18 @@ namespace StardustSandbox.Core.Elements
 
         internal void Steps(GameTime gameTime)
         {
-            bool hasTemperature = this.HasCharacteristic(ElementCharacteristics.HasTemperature);
-            bool affectsNeighbors = this.HasCharacteristic(ElementCharacteristics.AffectsNeighbors);
+            bool hasTemperature = HasCharacteristic(ElementCharacteristics.HasTemperature);
+            bool affectsNeighbors = HasCharacteristic(ElementCharacteristics.AffectsNeighbors);
+            bool isPushable = HasCharacteristic(ElementCharacteristics.IsPushable);
 
-            if (this.context.HasElementState(ElementStates.WasPushed))
+            bool anyCharacteristic = hasTemperature || affectsNeighbors || isPushable;
+
+            if (isPushable && this.context.HasElementState(ElementStates.WasPushed))
             {
                 this.context.RemoveElementState(ElementStates.WasPushed);
             }
 
-            if (hasTemperature || affectsNeighbors)
+            if (anyCharacteristic)
             {
                 ElementNeighbors neighbors = this.context.GetNeighboringSlots();
 

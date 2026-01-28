@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Elements.Energies
                     ElementIndex neighborElementIndex = layer.ElementIndex;
 
                     context.ReplaceElement(slot.Position, ElementIndex.Electricity);
-                    context.SetStoredElement(slot.Position, context.Layer, neighborElementIndex);
+                    context.SetStoredElement(slot.Position, neighborElementIndex);
                 }
             }
         }

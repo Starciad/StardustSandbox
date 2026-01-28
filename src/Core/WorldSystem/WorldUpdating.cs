@@ -24,13 +24,12 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 
-using System;
-
 namespace StardustSandbox.Core.WorldSystem
 {
     internal sealed class WorldUpdating(World world) : IResettable
     {
         private UpdateCycleFlag stepCycleFlag;
+        private bool horizontalLeftToRight = true;
 
         private readonly ElementContext elementUpdateContext = new(world);
         private readonly World world = world;
@@ -38,6 +37,7 @@ namespace StardustSandbox.Core.WorldSystem
         public void Reset()
         {
             this.stepCycleFlag = UpdateCycleFlag.None;
+            this.horizontalLeftToRight = true;
         }
 
         private void UpdateSlotLayerTarget(GameTime gameTime, in Point position, in Layer layer, Slot slot)
@@ -56,27 +56,59 @@ namespace StardustSandbox.Core.WorldSystem
             slotLayer.Element.Steps(gameTime);
         }
 
-        private void UpdateChunk(GameTime gameTime, Chunk chunk)
+        private void UpdateChunk(GameTime gameTime, Chunk chunk, bool leftToRight)
         {
-            for (int y = 0; y < WorldConstants.CHUNK_SCALE; y++)
+            int N = WorldConstants.CHUNK_SCALE;
+
+            bool TryUpdateRow(Point position)
             {
-                for (int x = 0; x < WorldConstants.CHUNK_SCALE; x++)
+                if (!this.world.TryGetSlot(position, out Slot slot))
                 {
-                    Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x, (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
+                    return false;
+                }
 
-                    if (!this.world.TryGetSlot(position, out Slot slot))
+                if (!slot.Foreground.IsEmpty)
+                {
+                    UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
+                }
+
+                if (!slot.Background.IsEmpty)
+                {
+                    UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
+                }
+
+                return true;
+            }
+
+            for (int y = 0; y < N; y++)
+            {
+                // Alternates direction by line, combined with global flip by frame.
+                bool leftToRightRow = leftToRight ^ ((y & 1) == 1);
+
+                if (leftToRightRow)
+                {
+                    for (int x = 0; x < N; x++)
                     {
-                        continue;
+                        Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x,
+                                             (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
+
+                        if (!TryUpdateRow(position))
+                        {
+                            continue;
+                        }
                     }
-
-                    if (!slot.Foreground.IsEmpty)
+                }
+                else
+                {
+                    for (int x = N - 1; x >= 0; x--)
                     {
-                        UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
-                    }
+                        Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x,
+                                             (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
 
-                    if (!slot.Background.IsEmpty)
-                    {
-                        UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
+                        if (!TryUpdateRow(position))
+                        {
+                            continue;
+                        }
                     }
                 }
             }
@@ -84,9 +116,11 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void Update(GameTime gameTime)
         {
+            this.horizontalLeftToRight = !this.horizontalLeftToRight;
+
             foreach (Chunk chunk in this.world.GetActiveChunks())
             {
-                UpdateChunk(gameTime, chunk);
+                UpdateChunk(gameTime, chunk, this.horizontalLeftToRight);
             }
 
             this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
