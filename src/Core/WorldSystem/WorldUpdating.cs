@@ -24,6 +24,8 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 
+using System;
+
 namespace StardustSandbox.Core.WorldSystem
 {
     internal sealed class WorldUpdating(World world) : IResettable
@@ -36,37 +38,6 @@ namespace StardustSandbox.Core.WorldSystem
         public void Reset()
         {
             this.stepCycleFlag = UpdateCycleFlag.None;
-        }
-
-        internal void Update(GameTime gameTime)
-        {
-            foreach (Chunk worldChunk in this.world.GetActiveChunks())
-            {
-                for (int y = 0; y < WorldConstants.CHUNK_SCALE; y++)
-                {
-                    for (int x = 0; x < WorldConstants.CHUNK_SCALE; x++)
-                    {
-                        Point position = new((worldChunk.Position.X / WorldConstants.GRID_SIZE) + x, (worldChunk.Position.Y / WorldConstants.GRID_SIZE) + y);
-
-                        if (!this.world.TryGetSlot(position, out Slot slot))
-                        {
-                            continue;
-                        }
-
-                        if (!slot.Foreground.IsEmpty)
-                        {
-                            UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
-                        }
-
-                        if (!slot.Background.IsEmpty)
-                        {
-                            UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
-                        }
-                    }
-                }
-            }
-
-            this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
         private void UpdateSlotLayerTarget(GameTime gameTime, in Point position, in Layer layer, Slot slot)
@@ -83,6 +54,42 @@ namespace StardustSandbox.Core.WorldSystem
 
             slotLayer.NextStepCycle();
             slotLayer.Element.Steps(gameTime);
+        }
+
+        private void UpdateChunk(GameTime gameTime, Chunk chunk)
+        {
+            for (int y = 0; y < WorldConstants.CHUNK_SCALE; y++)
+            {
+                for (int x = 0; x < WorldConstants.CHUNK_SCALE; x++)
+                {
+                    Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x, (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
+
+                    if (!this.world.TryGetSlot(position, out Slot slot))
+                    {
+                        continue;
+                    }
+
+                    if (!slot.Foreground.IsEmpty)
+                    {
+                        UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
+                    }
+
+                    if (!slot.Background.IsEmpty)
+                    {
+                        UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
+                    }
+                }
+            }
+        }
+
+        internal void Update(GameTime gameTime)
+        {
+            foreach (Chunk chunk in this.world.GetActiveChunks())
+            {
+                UpdateChunk(gameTime, chunk);
+            }
+
+            this.stepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
     }
 }
