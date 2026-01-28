@@ -29,14 +29,17 @@ namespace StardustSandbox.Core.Elements.Energies
     {
         protected override void OnStep(ElementContext context)
         {
-            if (context.GetStoredElement() is ElementIndex.None)
+            if (!context.HasStoredElement())
             {
                 // If electricity has no stored element, it means that it is not being conducted.
                 // Then, it will fall until it finds a conductor or disappears.
 
                 Point belowPosition = new(context.Position.X + Random.Range(-1, 1), context.Position.Y + 1);
 
-                context.UpdateElementPosition(belowPosition);
+                if (!context.TryUpdateElementPosition(belowPosition))
+                {
+                    context.DestroyElement();
+                }
             }
         }
 
@@ -47,13 +50,13 @@ namespace StardustSandbox.Core.Elements.Energies
 
             void ConductElectricity(SlotLayer neighborSlotLayer, Element neighborElement, in Point neighborPosition, in Layer targetLayer)
             {
-                if (!neighborElement.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
+                if (neighborElement.Characteristics.HasFlag(ElementCharacteristics.IsConductive))
                 {
-                    return;
-                }
+                    ElementIndex neighborElementIndex = neighborSlotLayer.ElementIndex;
 
-                context.ReplaceElement(neighborPosition, ElementIndex.Electricity);
-                context.SetStoredElement(neighborPosition, targetLayer, neighborSlotLayer.ElementIndex);
+                    context.ReplaceElement(neighborPosition, ElementIndex.Electricity);
+                    context.SetStoredElement(neighborPosition, targetLayer, neighborElementIndex);
+                }
             }
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
@@ -73,7 +76,7 @@ namespace StardustSandbox.Core.Elements.Energies
                     ConductElectricity(foregroundLayer, foregroundLayer.Element, slot.Position, Layer.Foreground);
                 }
 
-                if (!backgroundLayer.IsEmpty)
+                if (!backgroundLayer.IsEmpty && backgroundLayer.ElementIndex is not ElementIndex.Electricity)
                 {
                     ConductElectricity(backgroundLayer, backgroundLayer.Element, slot.Position, Layer.Background);
                 }

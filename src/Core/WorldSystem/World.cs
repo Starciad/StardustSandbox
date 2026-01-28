@@ -487,6 +487,12 @@ namespace StardustSandbox.Core.WorldSystem
             return index;
         }
 
+        internal bool HasStoredElement(in Point position, in Layer layer)
+        {
+            _ = TryGetStoredElement(position, layer, out ElementIndex index);
+            return index is not ElementIndex.None;
+        }
+
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)
         {
             _ = TryHasElementState(position, layer, state, out bool value);

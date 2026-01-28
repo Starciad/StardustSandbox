@@ -426,6 +426,19 @@ namespace StardustSandbox.Core.Elements
             return GetStoredElement(this.Position);
         }
 
+        internal bool HasStoredElement(in Point position, in Layer layer)
+        {
+            return this.world.HasStoredElement(position, layer);
+        }
+        internal bool HasStoredElement(in Point position)
+        {
+            return HasStoredElement(position, this.Layer);
+        }
+        internal bool HasStoredElement()
+        {
+            return HasStoredElement(this.Position);
+        }
+
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)
         {
             return this.world.HasElementState(position, layer, state);
