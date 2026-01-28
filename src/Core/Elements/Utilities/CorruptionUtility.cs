@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
@@ -39,7 +40,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             int count = 0;
             int corruptNeighboringElements = 0;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, layer))
                 {
@@ -76,7 +77,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                 }
             }
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.HasNeighbor(i))
                 {

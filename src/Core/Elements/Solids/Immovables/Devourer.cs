@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Extensions;
@@ -57,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             cachedNeighborSlots.Clear();
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {

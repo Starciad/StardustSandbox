@@ -15,9 +15,6 @@
 		<!-- DLLs you want to exclude from being moved (e.g., critical or custom files). -->
 		<BeautyExcludes>SDL2*;libSDL2*;sdl2*;soft_oal*;openal*;libopenal*;</BeautyExcludes>
 
-		<!-- Files to hide from end users (e.g., runtime or config files). Only supported on Windows. -->
-		<BeautyHiddens>StardustSandbox.dll;hostfxr;hostpolicy;*.deps.json;*.runtimeconfig*.json;</BeautyHiddens>
-
 		<!-- Only run NetBeauty on publish (set to True to skip on build). -->
 		<BeautyOnPublishOnly>True</BeautyOnPublishOnly>
 

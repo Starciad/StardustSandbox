@@ -23,6 +23,12 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class ElementConstants
     {
+        #region GENERAL
+
+        internal const byte NEIGHBORS_ARRAY_LENGTH = 8;
+
+        #endregion
+
         #region SETTINGS
 
         // Corruption

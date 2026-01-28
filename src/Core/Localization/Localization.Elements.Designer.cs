@@ -61,6 +61,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Electricity.
+        /// </summary>
+        internal static string Energy_Electricity_Description {
+            get {
+                return ResourceManager.GetString("Energy.Electricity.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Electricity.
+        /// </summary>
+        internal static string Energy_Electricity_Name {
+            get {
+                return ResourceManager.GetString("Energy.Electricity.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Intense heat that quickly burns flammable materials and spreads destruction..
         /// </summary>
         internal static string Energy_Fire_Description {

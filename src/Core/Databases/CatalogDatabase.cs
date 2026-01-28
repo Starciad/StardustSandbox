@@ -806,6 +806,16 @@ namespace StardustSandbox.Core.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(64, 128, 32, 32)
                                 ),
+
+                                // [2] Electricity
+                                new(
+                                    contentIndex: (int)ElementIndex.Electricity,
+                                    name: Localization_Elements.Energy_Electricity_Name,
+                                    description: Localization_Elements.Energy_Electricity_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(0, 0, 32, 32)
+                                ),
                             ]
                         ),
 

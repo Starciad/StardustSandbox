@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Utilities
     {
         internal static void ModifyNeighborsTemperature(ElementContext context, ElementNeighbors neighbors, in TemperatureModifierMode temperatureModifierMode)
         {
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
                     !neighbors.GetSlotLayer(i, context.Layer).Element.Characteristics.HasFlag(ElementCharacteristics.HasTemperature))

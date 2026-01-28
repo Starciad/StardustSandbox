@@ -108,6 +108,7 @@ namespace StardustSandbox.Core.Enums.Elements
         VioletPaint = 84,
         BrownPaint = 85,
         Mercury = 86,
+        Electricity = 87,
     }
 }
 

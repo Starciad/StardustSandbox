@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Elements.Energies
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {

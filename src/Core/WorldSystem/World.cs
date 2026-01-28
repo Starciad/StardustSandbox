@@ -325,7 +325,8 @@ namespace StardustSandbox.Core.WorldSystem
             }
 
             index = this[position.X, position.Y].GetLayer(layer).StoredElementIndex;
-            return true;
+
+            return index is not ElementIndex.None;
         }
 
         internal bool TryHasElementState(in Point position, in Layer layer, in ElementStates state, out bool value)

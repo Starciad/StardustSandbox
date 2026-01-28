@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables.Wools
@@ -27,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables.Wools
         {
             bool shouldBecomeWet = false;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {

@@ -16,6 +16,7 @@
 */
 
 using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Randomness;
@@ -28,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             bool shouldBecomeWet = false;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {

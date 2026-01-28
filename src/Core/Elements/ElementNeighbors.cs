@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
@@ -25,7 +26,6 @@ namespace StardustSandbox.Core.Elements
 {
     internal sealed class ElementNeighbors : IResettable
     {
-        internal int Length => this.slots.Length;
         internal int CountOccupied { get; private set; }
         /*
          * [0] Northwest
@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementNeighbors()
         {
-            this.slots = new Slot[8];
+            this.slots = new Slot[ElementConstants.NEIGHBORS_ARRAY_LENGTH];
         }
 
         internal void SetNeighbor(in int index, Slot slot)
@@ -93,7 +93,7 @@ namespace StardustSandbox.Core.Elements
         {
             int count = 0;
 
-            for (int i = 0; i < this.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).ElementIndex == elementIndex)
                 {
@@ -116,7 +116,7 @@ namespace StardustSandbox.Core.Elements
 
         public void Reset()
         {
-            for (int i = 0; i < this.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 this.slots[i] = null;
             }

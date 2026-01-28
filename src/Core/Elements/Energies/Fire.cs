@@ -75,7 +75,7 @@ namespace StardustSandbox.Core.Elements.Energies
             int burnedElements = 0;
             int aroundElements = 0;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.HasNeighbor(i))
                 {

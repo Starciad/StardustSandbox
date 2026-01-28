@@ -16,6 +16,7 @@
 */
 
 using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
@@ -30,7 +31,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             bool hasWater = false, hasFertileSoil = false;
 
-            for (int i = 0; i < neighbors.Length; i++)
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
