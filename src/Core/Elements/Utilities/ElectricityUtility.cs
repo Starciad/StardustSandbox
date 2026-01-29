@@ -29,7 +29,8 @@ namespace StardustSandbox.Core.Elements.Utilities
         {
             SlotLayer slotLayer = context.GetSlotLayer(position, layer);
 
-            if (slotLayer.IsEmpty ||
+            if (slotLayer is null ||
+                slotLayer.IsEmpty ||
                 slotLayer.ElementIndex is ElementIndex.Electricity ||
                 !slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsConductive))
             {
@@ -38,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
             ElementIndex originalElementIndex = slotLayer.ElementIndex;
 
-            context.ReplaceElement(position, ElementIndex.Electricity);
+            context.ReplaceElement(position, layer, ElementIndex.Electricity);
             context.SetStoredElement(position, layer, originalElementIndex);
         }
     }

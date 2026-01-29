@@ -954,6 +954,16 @@ namespace StardustSandbox.Core.Databases
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(160, 224, 32, 32)
                                 ),
+
+                                // [9] Energy Transmitter
+                                new(
+                                    contentIndex: (int)ElementIndex.EnergyTransmitter,
+                                    name: Localization_Elements.Solid_Immovable_EnergyTransmitter_Name,
+                                    description: Localization_Elements.Solid_Immovable_EnergyTransmitter_Description,
+                                    contentType: ItemContentType.Element,
+                                    textureIndex: TextureIndex.IconElements,
+                                    sourceRectangle: new(0, 0, 32, 32)
+                                ),
                             ]
                         ),
 

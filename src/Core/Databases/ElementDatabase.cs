@@ -390,8 +390,7 @@ namespace StardustSandbox.Core.Databases
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsElectrified,
+                                      ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(64, 320),
                     ReferenceColor = AAP64ColorPalette.Sand,
@@ -1416,6 +1415,22 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.0f,
                     DefaultExplosionResistance = 0.5f,
                 },
+                new Elements.Solids.Immovables.EnergyTransmitter()
+                {
+                    Index = ElementIndex.EnergyTransmitter,
+                    Category = ElementCategory.ImmovableSolid,
+                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                                      ElementCharacteristics.HasTemperature |
+                                      ElementCharacteristics.IsCorruptible |
+                                      ElementCharacteristics.IsPushable,
+                    RenderingType = ElementRenderingType.Single,
+                    TextureOriginOffset = new(0, 0),
+                    ReferenceColor = AAP64ColorPalette.Brown,
+                    DefaultTemperature = 25.0f,
+                    DefaultFlammabilityResistance = 30.0f,
+                    DefaultDensity = 1.3f,
+                    DefaultExplosionResistance = 1.2f,
+                }
             ];
 
             isLoaded = true;

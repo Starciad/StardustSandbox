@@ -837,18 +837,18 @@ namespace StardustSandbox.Core.Localization {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Device that, upon receiving an energy pulse, transfers electricity to conductive elements in the adjacent layer, activating them remotely..
         /// </summary>
-        internal static string Solid_Immovable_Energizer_Description {
+        internal static string Solid_Immovable_EnergyTransmitter_Description {
             get {
-                return ResourceManager.GetString("Solid.Immovable.Energizer.Description", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.EnergyTransmitter.Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Energizer.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Energy Transmitter.
         /// </summary>
-        internal static string Solid_Immovable_Energizer_Name {
+        internal static string Solid_Immovable_EnergyTransmitter_Name {
             get {
-                return ResourceManager.GetString("Solid.Immovable.Energizer.Name", resourceCulture);
+                return ResourceManager.GetString("Solid.Immovable.EnergyTransmitter.Name", resourceCulture);
             }
         }
         

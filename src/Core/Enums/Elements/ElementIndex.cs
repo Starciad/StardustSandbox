@@ -110,7 +110,8 @@ namespace StardustSandbox.Core.Enums.Elements
         Mercury = 86,
         Electricity = 87,
         Battery = 88,
-        LampOff = 89
+        LampOff = 89,
+        EnergyTransmitter = 90,
     }
 }
 
