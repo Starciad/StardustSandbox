@@ -385,41 +385,56 @@ namespace StardustSandbox.Core.Actors.Common
                 Content = new Dictionary<string, object>()
                 {
                     ["Direction"] = this.direction,
+                    ["GrabbedElementIndex"] = this.grabbedElementIndex,
                     ["Position.X"] = this.Position.X,
                     ["Position.Y"] = this.Position.Y,
-                    ["GrabbedElementIndex"] = this.grabbedElementIndex,
-                    ["PositionElementPlaced"] = this.positionElementPlaced,
+                    ["PositionElementPlaced.X"] = this.positionElementPlaced.X,
+                    ["PositionElementPlaced.Y"] = this.positionElementPlaced.Y,
                 },
             };
         }
 
         internal override void Deserialize(ActorData data)
         {
-            if (data.Content.TryGetValue("Direction", out object directionObj) && directionObj is Direction direction)
+            Direction tempDirection = Randomness.Random.GetBool() ? Direction.Left : Direction.Right;
+            ElementIndex tempGrabbedElementIndex = ElementIndex.None;
+            Point tempPosition = Point.Zero;
+            Point tempPositionElementPlaced = Point.Zero;
+
+            if (data.Content.TryGetValue("Direction", out object value))
             {
-                this.direction = direction;
+                tempDirection = (Direction)value;
             }
 
-            if (data.Content.TryGetValue("Position.X", out object positionXObj) && positionXObj is int positionX)
+            if (data.Content.TryGetValue("GrabbedElementIndex", out value))
             {
-                this.Position = new(positionX, this.Position.Y);
+                tempGrabbedElementIndex = (ElementIndex)value;
             }
 
-            if (data.Content.TryGetValue("Position.Y", out object positionYObj) && positionYObj is int positionY)
+            if (data.Content.TryGetValue("Position.X", out value))
             {
-                this.Position = new(this.Position.X, positionY);
+                tempPosition.X = (int)value;
             }
 
-            if (data.Content.TryGetValue("GrabbedElementIndex", out object grabbedElementIndexObj) && grabbedElementIndexObj is ElementIndex grabbedElementIndex)
+            if (data.Content.TryGetValue("Position.Y", out value))
             {
-                this.grabbedElementIndex = grabbedElementIndex;
+                tempPosition.Y = (int)value;
             }
 
-            if (data.Content.TryGetValue("PositionElementPlaced", out object positionElementPlacedObj) && positionElementPlacedObj is Point positionElementPlaced)
+            if (data.Content.TryGetValue("PositionElementPlaced.X", out value))
             {
-                this.positionElementPlaced = positionElementPlaced;
+                tempPositionElementPlaced.X = (int)value;
             }
+
+            if (data.Content.TryGetValue("PositionElementPlaced.Y", out value))
+            {
+                tempPositionElementPlaced.Y = (int)value;
+            }
+
+            this.direction = tempDirection;
+            this.grabbedElementIndex = tempGrabbedElementIndex;
+            this.Position = tempPosition;
+            this.positionElementPlaced = tempPositionElementPlaced;
         }
     }
 }
-

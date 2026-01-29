@@ -293,6 +293,7 @@ namespace StardustSandbox.Core.Managers
             for (int i = 0; i < datas.Length; i++)
             {
                 Actor actor = ActorDatabase.GetDescriptor(datas[i].Index).Dequeue();
+                actor.Deserialize(datas[i]);
 
                 this.actorsToAdd.Enqueue(actor);
                 this.totalActorCount++;
