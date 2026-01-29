@@ -38,9 +38,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                ElementNeighborDirection direction = (ElementNeighborDirection)i;
-
-                if ((direction is ElementNeighborDirection.Northeast or ElementNeighborDirection.Northwest or ElementNeighborDirection.Southeast or ElementNeighborDirection.Southwest) || !neighbors.HasNeighbor(i))
+                if (neighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
                 {
                     continue;
                 }

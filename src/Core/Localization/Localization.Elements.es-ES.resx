@@ -651,10 +651,10 @@
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
     <value>Lámpara fija y robusta utilizada para decoración. Se enciende cuando está en contacto con cualquier fuente de energía.</value>
   </data>
-  <data name="Solid.Immovable.Energizer.Name" xml:space="preserve">
-    <value>Energizador</value>
+  <data name="Solid.Immovable.EnergyTransmitter.Name" xml:space="preserve">
+    <value>Transmisor de Energía</value>
   </data>
-  <data name="Solid.Immovable.Energizer.Description" xml:space="preserve">
+  <data name="Solid.Immovable.EnergyTransmitter.Description" xml:space="preserve">
     <value>Dispositivo que, al recibir un pulso de energía, transfiere electricidad a los elementos conductores en la capa adyacente, activándolos de forma remota.</value>
   </data>
 </root>

@@ -651,10 +651,10 @@
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
     <value>Feste, robuste Lampe zur Dekoration. Leuchtet auf, wenn sie mit einer Energiequelle in Kontakt kommt.</value>
   </data>
-  <data name="Solid.Immovable.Energizer.Name" xml:space="preserve">
-    <value>Energieverteiler</value>
+  <data name="Solid.Immovable.EnergyTransmitter.Name" xml:space="preserve">
+    <value>Energieüberträger</value>
   </data>
-  <data name="Solid.Immovable.Energizer.Description" xml:space="preserve">
-    <value>Gerät, das bei Empfang eines Energieimpulses Elektrizität an leitfähige Elemente in der benachbarten Schicht überträgt und diese ferngesteuert aktiviert.</value>
+  <data name="Solid.Immovable.EnergyTransmitter.Description" xml:space="preserve">
+    <value>Gerät, das bei Empfang eines Energieimpulses Elektrizität auf leitfähige Elemente in der benachbarten Schicht überträgt und sie aus der Ferne aktiviert.</value>
   </data>
 </root>

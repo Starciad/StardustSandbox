@@ -15,21 +15,21 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Utilities;
-using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
-    internal sealed class Battery : ImmovableSolid
+    internal sealed class EnergyTransmitter : ImmovableSolid
     {
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
+            bool electrifiedNeighborFound = false;
+
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (neighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
@@ -37,9 +37,20 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                Slot slot = neighbors.GetSlot(i);
+                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
 
-                ElectricityUtility.Electrify(context, slot.Position, context.Layer);
+                if (!layer.IsEmpty && layer.Element.HasCharacteristic(ElementCharacteristics.IsElectrified))
+                {
+                    electrifiedNeighborFound = true;
+                    break;
+                }
+            }
+
+            Layer oppositeLayer = context.Layer.GetOppositeLayer();
+
+            if (electrifiedNeighborFound && !context.IsEmptySlotLayer(context.Position, oppositeLayer))
+            {
+                ElectricityUtility.Electrify(context, context.Position, oppositeLayer);
             }
         }
     }

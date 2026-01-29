@@ -114,6 +114,16 @@ namespace StardustSandbox.Core.Elements
             return IsNeighborLayerOccupied((int)direction, layer);
         }
 
+        internal bool IsDiagonalNeighbor(in int index)
+        {
+            return index is (int)ElementNeighborDirection.Northwest or (int)ElementNeighborDirection.Northeast or (int)ElementNeighborDirection.Southwest or (int)ElementNeighborDirection.Southeast;
+        }
+
+        internal bool IsDiagonalNeighbor(in ElementNeighborDirection direction)
+        {
+            return IsDiagonalNeighbor((int)direction);
+        }
+
         public void Reset()
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)

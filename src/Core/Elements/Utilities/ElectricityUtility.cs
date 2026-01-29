@@ -17,30 +17,29 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements.Utilities;
-using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem;
 
-namespace StardustSandbox.Core.Elements.Solids.Immovables
+namespace StardustSandbox.Core.Elements.Utilities
 {
-    internal sealed class Battery : ImmovableSolid
+    internal static class ElectricityUtility
     {
-        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        internal static void Electrify(ElementContext context, in Point position, in Layer layer)
         {
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            SlotLayer slotLayer = context.GetSlotLayer(position, layer);
+
+            if (slotLayer.IsEmpty ||
+                slotLayer.ElementIndex is ElementIndex.Electricity ||
+                !slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsConductive))
             {
-                if (neighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
-                {
-                    continue;
-                }
-
-                Slot slot = neighbors.GetSlot(i);
-
-                ElectricityUtility.Electrify(context, slot.Position, context.Layer);
+                return;
             }
+
+            ElementIndex originalElementIndex = slotLayer.ElementIndex;
+
+            context.ReplaceElement(position, ElementIndex.Electricity);
+            context.SetStoredElement(position, layer, originalElementIndex);
         }
     }
 }

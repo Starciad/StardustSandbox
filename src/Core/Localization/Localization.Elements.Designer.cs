@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Electricity.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a An electrical flow that moves irregularly through conductive materials. When it reaches a conductor, it travels along it indefinitely until it reaches a dead end or dissipates..
         /// </summary>
         internal static string Energy_Electricity_Description {
             get {
@@ -547,7 +547,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Battery.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Device that stores and provides electricity to nearby conductive elements..
         /// </summary>
         internal static string Solid_Immovable_Battery_Description {
             get {
@@ -835,6 +835,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Device that, upon receiving an energy pulse, transfers electricity to conductive elements in the adjacent layer, activating them remotely..
+        /// </summary>
+        internal static string Solid_Immovable_Energizer_Description {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Energizer.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Energizer.
+        /// </summary>
+        internal static string Solid_Immovable_Energizer_Name {
+            get {
+                return ResourceManager.GetString("Solid.Immovable.Energizer.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Device that cools all nearby elements..
         /// </summary>
         internal static string Solid_Immovable_Freezer_Description {
@@ -925,7 +943,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Lamp (off).
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fixed, sturdy lamp used for decoration. Lights up when in contact with any energy source..
         /// </summary>
         internal static string Solid_Immovable_LampOff_Description {
             get {
@@ -943,7 +961,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Fixed, sturdy lamp used for decoration..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fixed, sturdy lamp used for decoration. It will turn off when it is not in contact with any nearby power source..
         /// </summary>
         internal static string Solid_Immovable_LampOn_Description {
             get {
