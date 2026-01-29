@@ -136,6 +136,7 @@ namespace StardustSandbox.Core.Actors.Common
             ElementIndex.VioletPaint,
             ElementIndex.BrownPaint,
             ElementIndex.Mercury,
+            ElementIndex.Electricity,
         ];
 
         private static readonly HashSet<Point> possiblePositions = [];
