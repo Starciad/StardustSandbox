@@ -262,10 +262,10 @@
     <value>Roche résistante aux chocs, fond dans la lave avec une chaleur extrême ou devient du sable par érosion.</value>
   </data>
   <data name="Solid.Immovable.LampOn.Name" xml:space="preserve">
-    <value>Lampe</value>
+    <value>Lampe (allumée)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Lampe fixe et résistante, utilisée pour la décoration.</value>
+    <value>Lampe fixe et résistante, utilisée pour la décoration. S'allume lorsqu'elle est en contact avec une source d'énergie, y compris d'autres lampes allumées.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sel</value>
@@ -632,5 +632,23 @@
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
     <value>Décharge électrique violente qui se propage dans l'air, brûlant et détruisant tout sur son passage.</value>
+  </data>
+  <data name="Energy.Electricity.Name" xml:space="preserve">
+    <value>Électricité</value>
+  </data>
+  <data name="Energy.Electricity.Description" xml:space="preserve">
+    <value>Un flux électrique qui se déplace de manière irrégulière à travers des matériaux conducteurs. Lorsqu'il atteint un conducteur, il voyage le long de celui-ci indéfiniment jusqu'à ce qu'il atteigne une impasse ou se dissipe.</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
+    <value>Batterie</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Description" xml:space="preserve">
+    <value>Dispositif qui stocke et fournit de l'électricité aux éléments conducteurs à proximité.</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Name" xml:space="preserve">
+    <value>Lampe (éteinte)</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
+    <value>Lampe fixe et robuste utilisée pour la décoration. S'allume lorsqu'elle est en contact avec une source d'énergie, y compris d'autres lampes allumées.</value>
   </data>
 </root>

@@ -265,7 +265,7 @@
     <value>Lamp (on)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Fixed, sturdy lamp used for decoration.</value>
+    <value>Fixed, sturdy lamp used for decoration. Lights up when in contact with any energy source, including other lit lamps.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Salt</value>
@@ -637,18 +637,18 @@
     <value>Electricity</value>
   </data>
   <data name="Energy.Electricity.Description" xml:space="preserve">
-    <value>Electricity</value>
+    <value>An electrical flow that moves irregularly through conductive materials. When it reaches a conductor, it travels along it indefinitely until it reaches a dead end or dissipates.</value>
   </data>
   <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
     <value>Battery</value>
   </data>
   <data name="Solid.Immovable.Battery.Description" xml:space="preserve">
-    <value>Battery</value>
+    <value>Device that stores and provides electricity to nearby conductive elements.</value>
   </data>
   <data name="Solid.Immovable.LampOff.Name" xml:space="preserve">
     <value>Lamp (off)</value>
   </data>
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
-    <value>Lamp (off)</value>
+    <value>Fixed, sturdy lamp used for decoration. Lights up when in contact with any energy source, including other lit lamps.</value>
   </data>
 </root>

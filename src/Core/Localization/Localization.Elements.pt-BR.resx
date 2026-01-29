@@ -262,10 +262,10 @@
     <value>Rocha resistente a impactos, derrete em lava com calor extremo ou vira areia com erosão.</value>
   </data>
   <data name="Solid.Immovable.LampOn.Name" xml:space="preserve">
-    <value>Lâmpada</value>
+    <value>Lâmpada (acesa)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Lâmpada fixa e resistente, usada para decoração.</value>
+    <value>Lâmpada fixa e resistente, usada para decoração. Acende ao entrar em contato com qualquer fonte de energia, incluindo outras lâmpadas acesas.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sal</value>
@@ -632,5 +632,23 @@
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
     <value>Descarga elétrica violenta que viaja através do ar, queimando e destruindo tudo em seu caminho.</value>
+  </data>
+  <data name="Energy.Electricity.Name" xml:space="preserve">
+    <value>Eletricidade</value>
+  </data>
+  <data name="Energy.Electricity.Description" xml:space="preserve">
+    <value>Um fluxo elétrico que se move irregularmente através de materiais condutores. Quando alcança um condutor, ele viaja ao longo dele indefinidamente até atingir um beco sem saída ou se dissipar.</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
+    <value>Bateria</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Description" xml:space="preserve">
+    <value>Dispositivo que armazena e fornece eletricidade para elementos condutores próximos.</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Name" xml:space="preserve">
+    <value>Lâmpada (desligada)</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
+    <value>Lâmpada fixa e resistente usada para decoração. Acende quando em contato com qualquer fonte de energia, incluindo outras lâmpadas acesas.</value>
   </data>
 </root>

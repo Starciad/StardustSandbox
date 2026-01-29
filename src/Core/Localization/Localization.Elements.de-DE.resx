@@ -262,10 +262,10 @@
     <value>Stein, der widerstandsfähig gegen Stöße ist, schmilzt bei extremer Hitze in Lava oder wird durch Erosion zu Sand.</value>
   </data>
   <data name="Solid.Immovable.LampOn.Name" xml:space="preserve">
-    <value>Lampe</value>
+    <value>Lampe (an)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Feste und widerstandsfähige Lampe, wird zur Dekoration verwendet.</value>
+    <value>Feste und widerstandsfähige Lampe, wird zur Dekoration verwendet. Leuchtet auf, wenn sie mit einer Energiequelle in Kontakt kommt, einschließlich anderer beleuchteter Lampen.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Salz</value>
@@ -632,5 +632,23 @@
   </data>
   <data name="Energy.Lightning.Description" xml:space="preserve">
     <value>Gewaltsame elektrische Entladung, die durch die Luft fließt und alles in ihrem Weg verbrennt und zerstört.</value>
+  </data>
+  <data name="Energy.Electricity.Name" xml:space="preserve">
+    <value>Elektrizität</value>
+  </data>
+  <data name="Energy.Electricity.Description" xml:space="preserve">
+    <value>Ein elektrischer Fluss, der sich unregelmäßig durch leitfähige Materialien bewegt. Wenn er einen Leiter erreicht, reist er unendlich entlang, bis er auf eine Sackgasse trifft oder sich auflöst.</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
+    <value>Batterie</value>
+  </data>
+  <data name="Solid.Immovable.Battery.Description" xml:space="preserve">
+    <value>Gerät, das Elektrizität speichert und an nahegelegene leitfähige Elemente abgibt.</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Name" xml:space="preserve">
+    <value>Lampe (aus)</value>
+  </data>
+  <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
+    <value>Feste, robuste Lampe zur Dekoration. Leuchtet auf, wenn sie mit einer Energiequelle in Kontakt kommt, einschließlich anderer beleuchteter Lampen.</value>
   </data>
 </root>
