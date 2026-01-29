@@ -200,6 +200,19 @@ namespace StardustSandbox.Core.Elements
             return TrySetElementColorModifier(this.Position, value);
         }
 
+        internal bool TryHasStoredElement(in Point position, in Layer layer, out bool value)
+        {
+            return this.world.TryHasStoredElement(position, layer, out value);
+        }
+        internal bool TryHasStoredElement(in Point position, out bool value)
+        {
+            return TryHasStoredElement(position, this.Layer, out value);
+        }
+        internal bool TryHasStoredElement(out bool value)
+        {
+            return TryHasStoredElement(this.Position, out value);
+        }
+
         internal bool TrySetStoredElement(in Point position, in Layer layer, in ElementIndex index)
         {
             return this.world.TrySetStoredElement(position, layer, index);

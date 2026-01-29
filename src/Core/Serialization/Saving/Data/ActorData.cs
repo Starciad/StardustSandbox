@@ -27,10 +27,10 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class ActorData
     {
         [Key("Index")]
-        public required ActorIndex Index { get; init; }
+        public required ActorIndex Index { get; set; }
 
         [Key("Content")]
-        public IReadOnlyDictionary<string, object> Content { get; init; }
+        public IReadOnlyDictionary<string, object> Content { get; set; }
     }
 }
 

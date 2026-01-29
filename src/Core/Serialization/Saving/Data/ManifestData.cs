@@ -26,10 +26,10 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class ManifestData
     {
         [Key("GameVersion")]
-        public Version GameVersion { get; init; }
+        public Version GameVersion { get; set; }
 
         [Key("CreationTimestamp")]
-        public DateTime CreationTimestamp { get; init; }
+        public DateTime CreationTimestamp { get; set; }
     }
 }
 

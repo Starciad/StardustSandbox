@@ -30,23 +30,23 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class SlotData
     {
         [Key("PositionX")]
-        public int PositionX { get; init; }
+        public int PositionX { get; set; }
 
         [Key("PositionY")]
-        public int PositionY { get; init; }
+        public int PositionY { get; set; }
 
         [Key("ForegroundLayer")]
-        public SlotLayerData ForegroundLayer { get; init; }
+        public SlotLayerData ForegroundLayer { get; set; }
 
         [Key("BackgroundLayer")]
-        public SlotLayerData BackgroundLayer { get; init; }
+        public SlotLayerData BackgroundLayer { get; set; }
 
         [IgnoreMember]
         public Point Position
         {
             get => new(this.PositionX, this.PositionY);
 
-            init
+            set
             {
                 this.PositionX = value.X;
                 this.PositionY = value.Y;

@@ -31,38 +31,38 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class SlotLayerData
     {
         [Key("ElementIndex")]
-        public ElementIndex ElementIndex { get; init; }
+        public ElementIndex ElementIndex { get; set; }
 
         [Key("StoredElementIndex")]
-        public ElementIndex StoredElementIndex { get; init; }
+        public ElementIndex StoredElementIndex { get; set; }
 
         [Key("Temperature")]
-        public float Temperature { get; init; }
+        public float Temperature { get; set; }
 
         [Key("States")]
-        public ElementStates States { get; init; }
+        public ElementStates States { get; set; }
 
         [Key("ColorModifierR")]
-        public byte ColorModifierR { get; init; }
+        public byte ColorModifierR { get; set; }
 
         [Key("ColorModifierG")]
-        public byte ColorModifierG { get; init; }
+        public byte ColorModifierG { get; set; }
 
         [Key("ColorModifierB")]
-        public byte ColorModifierB { get; init; }
+        public byte ColorModifierB { get; set; }
 
         [Key("ColorModifierA")]
-        public byte ColorModifierA { get; init; }
+        public byte ColorModifierA { get; set; }
 
         [Key("StepCycleFlag")]
-        public UpdateCycleFlag StepCycleFlag { get; init; }
+        public UpdateCycleFlag StepCycleFlag { get; set; }
 
         [IgnoreMember]
         public Color ColorModifier
         {
             get => new(this.ColorModifierR, this.ColorModifierG, this.ColorModifierB, this.ColorModifierA);
 
-            init
+            set
             {
                 this.ColorModifierR = value.R;
                 this.ColorModifierG = value.G;
@@ -78,12 +78,12 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         public SlotLayerData(SlotLayer slotLayer)
         {
-            this.ElementIndex = slotLayer.ElementIndex;
-            this.Temperature = slotLayer.Temperature;
-            this.States = slotLayer.States;
             this.ColorModifier = slotLayer.ColorModifier;
+            this.ElementIndex = slotLayer.ElementIndex;
+            this.States = slotLayer.States;
             this.StepCycleFlag = slotLayer.StepCycleFlag;
             this.StoredElementIndex = slotLayer.StoredElementIndex;
+            this.Temperature = slotLayer.Temperature;
         }
     }
 }

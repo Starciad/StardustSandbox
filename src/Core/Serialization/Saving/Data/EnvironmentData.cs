@@ -26,10 +26,10 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class EnvironmentData
     {
         [Key("CurrentTime")]
-        public TimeSpan CurrentTime { get; init; }
+        public TimeSpan CurrentTime { get; set; }
 
         [Key("IsFrozen")]
-        public bool IsFrozen { get; init; }
+        public bool IsFrozen { get; set; }
     }
 }
 

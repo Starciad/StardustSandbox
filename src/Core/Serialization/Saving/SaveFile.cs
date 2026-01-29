@@ -21,12 +21,12 @@ namespace StardustSandbox.Core.Serialization.Saving
 {
     public sealed class SaveFile
     {
-        public Texture2DData ThumbnailTextureData { get; init; }
-        public Metadata Metadata { get; init; }
-        public ManifestData Manifest { get; init; }
-        public PropertyData Properties { get; init; }
-        public EnvironmentData Environment { get; init; }
-        public ContentData Content { get; init; }
+        public Texture2DData ThumbnailTextureData { get; set; }
+        public Metadata Metadata { get; set; }
+        public ManifestData Manifest { get; set; }
+        public PropertyData Properties { get; set; }
+        public EnvironmentData Environment { get; set; }
+        public ContentData Content { get; set; }
     }
 }
 

@@ -26,10 +26,10 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class ContentData
     {
         [Key("Slots")]
-        public SlotData[] Slots { get; init; }
+        public SlotData[] Slots { get; set; }
 
         [Key("Actors")]
-        public ActorData[] Actors { get; init; }
+        public ActorData[] Actors { get; set; }
     }
 }
 

@@ -28,13 +28,21 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     public sealed class PropertyData
     {
         [Key("Width")]
-        public int Width { get; init; }
+        public int Width { get; set; }
 
         [Key("Height")]
-        public int Height { get; init; }
+        public int Height { get; set; }
 
         [IgnoreMember]
-        public Point Size => new(this.Width, this.Height);
+        public Point Size
+        {
+            get => new(this.Width, this.Height);
+            set
+            {
+                this.Width = value.X;
+                this.Height = value.Y;
+            }
+        }
     }
 }
 

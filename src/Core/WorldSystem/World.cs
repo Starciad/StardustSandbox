@@ -304,6 +304,19 @@ namespace StardustSandbox.Core.WorldSystem
             return true;
         }
 
+        internal bool TryHasStoredElement(in Point position, in Layer layer, out bool value)
+        {
+            value = false;
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            value = this[position.X, position.Y].GetLayer(layer).HasStoredElement;
+            return true;
+        }
+
         internal bool TrySetStoredElement(in Point position, in Layer layer, in ElementIndex index)
         {
             if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
@@ -489,8 +502,8 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal bool HasStoredElement(in Point position, in Layer layer)
         {
-            _ = TryGetStoredElement(position, layer, out ElementIndex index);
-            return index is not ElementIndex.None;
+            _ = TryHasStoredElement(position, layer, out bool value);
+            return value;
         }
 
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)
