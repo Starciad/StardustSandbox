@@ -16,7 +16,6 @@
 */
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.WorldSystem;
 

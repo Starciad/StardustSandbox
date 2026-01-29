@@ -19,10 +19,8 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Utilities;
-using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Randomness;
-using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Energies
 {

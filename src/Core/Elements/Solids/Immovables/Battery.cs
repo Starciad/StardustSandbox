@@ -15,13 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements.Utilities;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
