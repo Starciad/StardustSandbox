@@ -649,6 +649,12 @@
     <value>Lamp (off)</value>
   </data>
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
-    <value>Fixed, sturdy lamp used for decoration. Lights up when in contact with any energy source, including other lit lamps.</value>
+    <value>Fixed, sturdy lamp used for decoration. Lights up when in contact with any energy source.</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Name" xml:space="preserve">
+    <value>Energizer</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Description" xml:space="preserve">
+    <value>Device that, upon receiving an energy pulse, transfers electricity to conductive elements in the adjacent layer, activating them remotely.</value>
   </data>
 </root>

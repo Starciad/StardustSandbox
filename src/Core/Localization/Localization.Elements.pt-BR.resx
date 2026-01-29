@@ -649,6 +649,12 @@
     <value>Lâmpada (desligada)</value>
   </data>
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
-    <value>Lâmpada fixa e resistente usada para decoração. Acende quando em contato com qualquer fonte de energia, incluindo outras lâmpadas acesas.</value>
+    <value>Lâmpada fixa e resistente usada para decoração. Acende quando em contato com qualquer fonte de energia.</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Name" xml:space="preserve">
+    <value>Energizador</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Description" xml:space="preserve">
+    <value>Dispositivo que, ao receber um pulso de energia, transfere eletricidade para elementos condutores na camada adjacente, ativando-os remotamente.</value>
   </data>
 </root>

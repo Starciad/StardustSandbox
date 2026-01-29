@@ -649,6 +649,12 @@
     <value>Lampe (aus)</value>
   </data>
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
-    <value>Feste, robuste Lampe zur Dekoration. Leuchtet auf, wenn sie mit einer Energiequelle in Kontakt kommt, einschließlich anderer beleuchteter Lampen.</value>
+    <value>Feste, robuste Lampe zur Dekoration. Leuchtet auf, wenn sie mit einer Energiequelle in Kontakt kommt.</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Name" xml:space="preserve">
+    <value>Energieverteiler</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Description" xml:space="preserve">
+    <value>Gerät, das bei Empfang eines Energieimpulses Elektrizität an leitfähige Elemente in der benachbarten Schicht überträgt und diese ferngesteuert aktiviert.</value>
   </data>
 </root>

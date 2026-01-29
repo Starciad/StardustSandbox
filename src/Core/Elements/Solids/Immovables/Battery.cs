@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem;
@@ -38,7 +39,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.HasNeighbor(i))
+                ElementNeighborDirection direction = (ElementNeighborDirection)i;
+
+                if ((direction is ElementNeighborDirection.Northeast or ElementNeighborDirection.Northwest or ElementNeighborDirection.Southeast or ElementNeighborDirection.Southwest) || !neighbors.HasNeighbor(i))
                 {
                     continue;
                 }

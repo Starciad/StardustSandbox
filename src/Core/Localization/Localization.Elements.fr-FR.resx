@@ -649,6 +649,12 @@
     <value>Lampe (éteinte)</value>
   </data>
   <data name="Solid.Immovable.LampOff.Description" xml:space="preserve">
-    <value>Lampe fixe et robuste utilisée pour la décoration. S'allume lorsqu'elle est en contact avec une source d'énergie, y compris d'autres lampes allumées.</value>
+    <value>Lampe fixe et robuste utilisée pour la décoration. S'allume lorsqu'elle est en contact avec une source d'énergie.</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Name" xml:space="preserve">
+    <value>Énergiseur</value>
+  </data>
+  <data name="Solid.Immovable.Energizer.Description" xml:space="preserve">
+    <value>Appareil qui, en recevant une impulsion énergétique, transfère l'électricité aux éléments conducteurs de la couche adjacente, les activant à distance.</value>
   </data>
 </root>
