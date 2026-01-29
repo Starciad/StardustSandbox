@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         break;
                 }
 
-                context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
+                context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
                 GameStatistics.IncrementWorldElementsConsumedByVoid();
             }
         }

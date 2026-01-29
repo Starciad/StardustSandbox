@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
                 if (Random.GetBool())
                 {
-                    context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
+                    context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
                     context.DestroyElement();
                     GameStatistics.IncrementWorldCorrodedElements();
                 }

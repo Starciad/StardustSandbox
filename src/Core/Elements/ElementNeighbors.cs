@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
@@ -114,14 +116,14 @@ namespace StardustSandbox.Core.Elements
             return IsNeighborLayerOccupied((int)direction, layer);
         }
 
-        internal bool IsDiagonalNeighbor(in int index)
+        internal Point GetNeighborPosition(in int index)
         {
-            return index is (int)ElementNeighborDirection.Northwest or (int)ElementNeighborDirection.Northeast or (int)ElementNeighborDirection.Southwest or (int)ElementNeighborDirection.Southeast;
+            return this.slots[index]?.Position ?? new(-1);
         }
 
-        internal bool IsDiagonalNeighbor(in ElementNeighborDirection direction)
+        internal Point GetNeighborPosition(in ElementNeighborDirection direction)
         {
-            return IsDiagonalNeighbor((int)direction);
+            return GetNeighborPosition((int)direction);
         }
 
         public void Reset()
@@ -132,6 +134,16 @@ namespace StardustSandbox.Core.Elements
             }
 
             this.CountOccupied = 0;
+        }
+
+        internal static bool IsDiagonalNeighbor(in int index)
+        {
+            return index is (int)ElementNeighborDirection.Northwest or (int)ElementNeighborDirection.Northeast or (int)ElementNeighborDirection.Southwest or (int)ElementNeighborDirection.Southeast;
+        }
+
+        internal static bool IsDiagonalNeighbor(in ElementNeighborDirection direction)
+        {
+            return IsDiagonalNeighbor((int)direction);
         }
     }
 }

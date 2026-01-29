@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables.Wools
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:
-                        context.RemoveElement(neighbors.GetSlot(i).Position);
+                        context.RemoveElement(neighbors.GetNeighborPosition(i));
                         shouldBecomeWet = true;
                         break;
 

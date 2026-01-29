@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                     case ElementIndex.Moss:
                     case ElementIndex.Seed:
                     case ElementIndex.Sapling:
-                        context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Fire);
+                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Fire);
                         break;
 
                     default:

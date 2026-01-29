@@ -58,12 +58,12 @@ namespace StardustSandbox.Core.Elements.Energies
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (neighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
+                if (ElementNeighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
                 {
                     continue;
                 }
 
-                ElectricityUtility.Electrify(context, neighbors.GetSlot(i).Position, context.Layer);
+                ElectricityUtility.Electrify(context, neighbors.GetNeighborPosition(i), context.Layer);
             }
         }
     }

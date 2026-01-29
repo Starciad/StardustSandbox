@@ -38,21 +38,21 @@ namespace StardustSandbox.Core.Elements.Liquids
                 {
                     case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
-                        context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Mud);
+                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Mud);
                         context.DestroyElement();
                         return;
 
                     case ElementIndex.Stone:
                         if (Random.Range(0, 150) == 0)
                         {
-                            context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Sand);
+                            context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Sand);
                             context.DestroyElement();
                         }
 
                         return;
 
                     case ElementIndex.Fire:
-                        context.DestroyElement(neighbors.GetSlot(i).Position, context.Layer);
+                        context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
                         break;
 
                     default:

@@ -91,7 +91,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                 }
 
                 Point pusherPosition = context.Position;
-                Point currentNeighborPosition = neighbors.GetSlot(i).Position;
+                Point currentNeighborPosition = neighbors.GetNeighborPosition(i);
                 Point targetNeighborPosition = currentNeighborPosition;
 
                 Point frontPosition = frontDirection(currentNeighborPosition);

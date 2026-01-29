@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     case ElementIndex.Ice:
                     case ElementIndex.Snow:
                         context.DestroyElement();
-                        context.ReplaceElement(neighbors.GetSlot(i).Position, context.Layer, ElementIndex.Saltwater);
+                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Saltwater);
                         AchievementEngine.Unlock(AchievementIndex.ACH_024);
                         break;
 

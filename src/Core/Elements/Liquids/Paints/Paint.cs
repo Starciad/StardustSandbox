@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.Elements.Liquids.Paints
                     continue;
                 }
 
-                context.SetElementColorModifier(neighbors.GetSlot(i).Position, this.DyeingColor);
+                context.SetElementColorModifier(neighbors.GetNeighborPosition(i), this.DyeingColor);
             }
         }
 

@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (neighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
+                if (ElementNeighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
                 {
                     continue;
                 }

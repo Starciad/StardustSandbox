@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                 if (neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.Water)
                 {
                     hasWater = true;
-                    context.DestroyElement(neighbors.GetSlot(i).Position);
+                    context.DestroyElement(neighbors.GetNeighborPosition(i));
                 }
 
                 if (i == (int)ElementNeighborDirection.South && neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.FertileSoil)

@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                     continue;
                 }
 
-                ApplyTemperature(context, neighbors.GetSlot(i).Position, neighbors.GetSlotLayer(i, context.Layer), temperatureModifierMode);
+                ApplyTemperature(context, neighbors.GetNeighborPosition(i), neighbors.GetSlotLayer(i, context.Layer), temperatureModifierMode);
             }
         }
 
