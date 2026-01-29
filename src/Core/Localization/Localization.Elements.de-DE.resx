@@ -265,7 +265,7 @@
     <value>Lampe (an)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Feste und widerstandsfähige Lampe, wird zur Dekoration verwendet. Leuchtet auf, wenn sie mit einer Energiequelle in Kontakt kommt, einschließlich anderer beleuchteter Lampen.</value>
+    <value>Feste, robuste Lampe zur Dekoration. Sie schaltet sich aus, wenn sie nicht in Kontakt mit einer nahegelegenen Stromquelle ist.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Salz</value>

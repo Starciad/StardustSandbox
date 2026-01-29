@@ -265,7 +265,7 @@
     <value>Lámpara (encendida)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Lámpara fija y resistente, usada para decoración. Se enciende al estar en contacto con cualquier fuente de energía, incluyendo otras lámparas encendidas.</value>
+    <value>Lámpara fija y resistente usada para decoración. Se apagará cuando no esté en contacto con ninguna fuente de energía cercana.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sal</value>

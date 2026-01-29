@@ -265,7 +265,7 @@
     <value>Lâmpada (acesa)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Lâmpada fixa e resistente, usada para decoração. Acende ao entrar em contato com qualquer fonte de energia, incluindo outras lâmpadas acesas.</value>
+    <value>Lâmpada fixa e resistente usada para decoração. Apaga quando não está em contato com nenhuma fonte de energia próxima.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sal</value>

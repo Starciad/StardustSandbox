@@ -265,7 +265,7 @@
     <value>Lamp (on)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Fixed, sturdy lamp used for decoration. Lights up when in contact with any energy source, including other lit lamps.</value>
+    <value>Fixed, sturdy lamp used for decoration. It will turn off when it is not in contact with any nearby power source.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Salt</value>

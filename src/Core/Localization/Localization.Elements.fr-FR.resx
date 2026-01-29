@@ -265,7 +265,7 @@
     <value>Lampe (allumée)</value>
   </data>
   <data name="Solid.Immovable.LampOn.Description" xml:space="preserve">
-    <value>Lampe fixe et résistante, utilisée pour la décoration. S'allume lorsqu'elle est en contact avec une source d'énergie, y compris d'autres lampes allumées.</value>
+    <value>Lampe fixe et robuste utilisée pour la décoration. S'éteint lorsqu'elle n'est pas en contact avec une source d'énergie à proximité.</value>
   </data>
   <data name="Solid.Movable.Salt.Name" xml:space="preserve">
     <value>Sel</value>
