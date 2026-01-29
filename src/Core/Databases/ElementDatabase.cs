@@ -1424,7 +1424,7 @@ namespace StardustSandbox.Core.Databases
                                       ElementCharacteristics.IsCorruptible |
                                       ElementCharacteristics.IsPushable,
                     RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(0, 0),
+                    TextureOriginOffset = new(608, 320),
                     ReferenceColor = AAP64ColorPalette.Brown,
                     DefaultTemperature = 25.0f,
                     DefaultFlammabilityResistance = 30.0f,

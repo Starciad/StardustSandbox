@@ -962,7 +962,7 @@ namespace StardustSandbox.Core.Databases
                                     description: Localization_Elements.Solid_Immovable_EnergyTransmitter_Description,
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
-                                    sourceRectangle: new(0, 0, 32, 32)
+                                    sourceRectangle: new(256, 224, 32, 32)
                                 ),
                             ]
                         ),
