@@ -27,14 +27,14 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class Texture2DData
     {
-        [Key("Width")]
-        public int Width { get; set; }
+        [Key("Data")]
+        public byte[] Data { get; set; }
 
         [Key("Height")]
         public int Height { get; set; }
 
-        [Key("Data")]
-        public byte[] Data { get; set; }
+        [Key("Width")]
+        public int Width { get; set; }
 
         public Texture2DData()
         {

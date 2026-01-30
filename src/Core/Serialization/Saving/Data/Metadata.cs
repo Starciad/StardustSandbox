@@ -25,11 +25,11 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class Metadata
     {
-        [Key("Name")]
-        public string Name { get; init; }
-
         [Key("Description")]
-        public string Description { get; init; }
+        public string Description { get; set; }
+
+        [Key("Name")]
+        public string Name { get; set; }
     }
 }
 

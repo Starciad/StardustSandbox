@@ -30,8 +30,26 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class SlotLayerData
     {
+        [Key("ColorModifierA")]
+        public byte ColorModifierA { get; set; }
+
+        [Key("ColorModifierB")]
+        public byte ColorModifierB { get; set; }
+
+        [Key("ColorModifierG")]
+        public byte ColorModifierG { get; set; }
+
+        [Key("ColorModifierR")]
+        public byte ColorModifierR { get; set; }
+
         [Key("ElementIndex")]
         public ElementIndex ElementIndex { get; set; }
+
+        [Key("States")]
+        public ElementStates States { get; set; }
+
+        [Key("StepCycleFlag")]
+        public UpdateCycleFlag StepCycleFlag { get; set; }
 
         [Key("StoredElementIndex")]
         public ElementIndex StoredElementIndex { get; set; }
@@ -39,35 +57,20 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
         [Key("Temperature")]
         public float Temperature { get; set; }
 
-        [Key("States")]
-        public ElementStates States { get; set; }
-
-        [Key("ColorModifierR")]
-        public byte ColorModifierR { get; set; }
-
-        [Key("ColorModifierG")]
-        public byte ColorModifierG { get; set; }
-
-        [Key("ColorModifierB")]
-        public byte ColorModifierB { get; set; }
-
-        [Key("ColorModifierA")]
-        public byte ColorModifierA { get; set; }
-
-        [Key("StepCycleFlag")]
-        public UpdateCycleFlag StepCycleFlag { get; set; }
+        [Key("TicksRemaining")]
+        public int TicksRemaining { get; set; }
 
         [IgnoreMember]
         public Color ColorModifier
         {
-            get => new(this.ColorModifierR, this.ColorModifierG, this.ColorModifierB, this.ColorModifierA);
+            get => new(ColorModifierR, ColorModifierG, ColorModifierB, ColorModifierA);
 
             set
             {
-                this.ColorModifierR = value.R;
-                this.ColorModifierG = value.G;
-                this.ColorModifierB = value.B;
-                this.ColorModifierA = value.A;
+                ColorModifierR = value.R;
+                ColorModifierG = value.G;
+                ColorModifierB = value.B;
+                ColorModifierA = value.A;
             }
         }
 
@@ -78,12 +81,13 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         public SlotLayerData(SlotLayer slotLayer)
         {
-            this.ColorModifier = slotLayer.ColorModifier;
-            this.ElementIndex = slotLayer.ElementIndex;
-            this.States = slotLayer.States;
-            this.StepCycleFlag = slotLayer.StepCycleFlag;
-            this.StoredElementIndex = slotLayer.StoredElementIndex;
-            this.Temperature = slotLayer.Temperature;
+            ColorModifier = slotLayer.ColorModifier;
+            ElementIndex = slotLayer.ElementIndex;
+            States = slotLayer.States;
+            StepCycleFlag = slotLayer.StepCycleFlag;
+            StoredElementIndex = slotLayer.StoredElementIndex;
+            Temperature = slotLayer.Temperature;
+            TicksRemaining = slotLayer.TicksRemaining;
         }
     }
 }

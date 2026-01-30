@@ -26,11 +26,11 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class ActorData
     {
-        [Key("Index")]
-        public required ActorIndex Index { get; set; }
-
         [Key("Content")]
         public IReadOnlyDictionary<string, object> Content { get; set; }
+
+        [Key("Index")]
+        public required ActorIndex Index { get; set; }
     }
 }
 

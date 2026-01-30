@@ -27,9 +27,6 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class PropertyData
     {
-        [Key("Width")]
-        public int Width { get; set; }
-
         [Key("Height")]
         public int Height { get; set; }
 
@@ -43,6 +40,9 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
                 this.Height = value.Y;
             }
         }
+
+        [Key("Width")]
+        public int Width { get; set; }
     }
 }
 
