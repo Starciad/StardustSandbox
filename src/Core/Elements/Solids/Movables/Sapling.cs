@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             if (hasWater && hasFertileSoil && Random.Chance(25, 350))
             {
                 context.DestroyElement();
-                TreeGenerator.Start(context.World, context.Layer, context.Position, Random.Range(5, 8), 1, 2);
+                TreeGenerator.Start(context, Random.Range(5, 8), 1, 2);
                 AchievementEngine.Unlock(AchievementIndex.ACH_006);
             }
         }

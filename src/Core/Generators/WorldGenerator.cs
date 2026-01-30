@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Generators;
 using StardustSandbox.Core.Enums.World;
@@ -30,8 +31,12 @@ namespace StardustSandbox.Core.Generators
 {
     internal static class WorldGenerator
     {
+        private static ElementContext context;
+
         internal static void Start(ActorManager actorManager, World world, in WorldGenerationTheme theme, in WorldGenerationSettings settings, in WorldGenerationContents contents)
         {
+            context ??= new(world);
+
             int width = world.Information.Size.X;
             int height = world.Information.Size.Y;
 
@@ -330,7 +335,9 @@ namespace StardustSandbox.Core.Generators
                     int trunkThickness = 1;
                     int crownRadius = Randomness.Random.Range(2, 4);
 
-                    TreeGenerator.Start(world, layer, origin, trunkHeight, trunkThickness, crownRadius);
+                    context.Initialize(origin, layer, world.GetSlot(origin));
+
+                    TreeGenerator.Start(context, trunkHeight, trunkThickness, crownRadius);
                 }
             }
         }

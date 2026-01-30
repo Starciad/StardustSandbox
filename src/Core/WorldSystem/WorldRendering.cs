@@ -84,7 +84,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Slot slot, Element element, in GameplaySettings gameplaySettings)
         {
-            this.elementRenderingContext.UpdateInformation(position, layer, slot);
+            this.elementRenderingContext.Initialize(position, layer, slot);
 
             ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, element.TextureOriginOffset, gameplaySettings);
         }

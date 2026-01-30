@@ -127,7 +127,7 @@ namespace StardustSandbox.Core.WorldSystem
             slot.SetPosition(position);
             slot.Instantiate(layer, index);
 
-            this.worldElementContext.UpdateInformation(position, layer, slot);
+            this.worldElementContext.Initialize(position, layer, slot);
 
             Element element = ElementDatabase.GetElement(index);
 
@@ -201,7 +201,7 @@ namespace StardustSandbox.Core.WorldSystem
             Slot slot = this[position.X, position.Y];
             SlotLayer slotLayer = slot.GetLayer(layer);
 
-            this.worldElementContext.UpdateInformation(position, layer, slot);
+            this.worldElementContext.Initialize(position, layer, slot);
             slotLayer.Element.SetContext(this.worldElementContext);
             slotLayer.Element.Destroy();
             slotLayer.Destroy();

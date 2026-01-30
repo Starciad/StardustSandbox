@@ -26,31 +26,29 @@ namespace StardustSandbox.Core.Elements
 {
     internal sealed class ElementContext(World world)
     {
-        internal World World => this.world;
-        internal Slot Slot => this.slot;
-        internal SlotLayer SlotLayer => this.slot.GetLayer(this.Layer);
-        internal Point Position => this.slot.Position;
+        internal Information WorldInformation => world.Information;
+        internal Temperature WorldTemperature => world.Temperature;
+
         internal Layer Layer { get; private set; }
+        internal Point Position => this.Slot.Position;
+        internal Slot Slot { get; private set; }
+        internal SlotLayer SlotLayer => this.Slot.GetLayer(this.Layer);
 
-        private Slot slot;
-
-        private readonly World world = world;
-
-        internal void UpdateInformation(in Point position, in Layer layer, Slot slot)
+        internal void Initialize(in Point position, in Layer layer, Slot slot)
         {
             slot.SetPosition(position);
 
             this.Layer = layer;
-            this.slot = slot;
+            this.Slot = slot;
         }
 
         #region ELEMENTS
 
         internal bool TrySetPosition(in Point newPosition, in Layer layer)
         {
-            if (this.world.TryUpdateElementPosition(this.Position, newPosition, layer))
+            if (world.TryUpdateElementPosition(this.Position, newPosition, layer))
             {
-                this.slot = GetSlot(newPosition);
+                this.Slot = GetSlot(newPosition);
                 return true;
             }
 
@@ -63,7 +61,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryInstantiateElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            return this.world.TryInstantiateElement(position, layer, index);
+            return world.TryInstantiateElement(position, layer, index);
         }
         internal bool TryInstantiateElement(in Point position, in ElementIndex index)
         {
@@ -76,7 +74,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryUpdateElementPosition(in Point oldPosition, in Point newPosition, in Layer layer)
         {
-            return this.world.TryUpdateElementPosition(oldPosition, newPosition, layer);
+            return world.TryUpdateElementPosition(oldPosition, newPosition, layer);
         }
         internal bool TryUpdateElementPosition(in Point oldPosition, in Point newPosition)
         {
@@ -89,7 +87,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySwappingElements(in Point element1Position, in Point element2Position, in Layer layer)
         {
-            return this.world.TrySwappingElements(element1Position, element2Position, layer);
+            return world.TrySwappingElements(element1Position, element2Position, layer);
         }
         internal bool TrySwappingElements(in Point element1Position, in Point element2Position)
         {
@@ -102,7 +100,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryDestroyElement(in Point position, in Layer layer)
         {
-            return this.world.TryDestroyElement(position, layer);
+            return world.TryDestroyElement(position, layer);
         }
         internal bool TryDestroyElement(in Point position)
         {
@@ -115,7 +113,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryRemoveElement(in Point position, in Layer layer)
         {
-            return this.world.TryRemoveElement(position, layer);
+            return world.TryRemoveElement(position, layer);
         }
         internal bool TryRemoveElement(in Point position)
         {
@@ -128,7 +126,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryReplaceElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            return this.world.TryReplaceElement(position, layer, index);
+            return world.TryReplaceElement(position, layer, index);
         }
         internal bool TryReplaceElement(in Point position, in ElementIndex index)
         {
@@ -141,7 +139,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetElement(in Point position, in Layer layer, out ElementIndex index)
         {
-            return this.world.TryGetElement(position, layer, out index);
+            return world.TryGetElement(position, layer, out index);
         }
         internal bool TryGetElement(in Point position, out ElementIndex index)
         {
@@ -154,7 +152,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetSlot(in Point position, out Slot value)
         {
-            return this.world.TryGetSlot(position, out value);
+            return world.TryGetSlot(position, out value);
         }
         internal bool TryGetSlot(out Slot value)
         {
@@ -163,7 +161,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetSlotLayer(in Point position, in Layer layer, out SlotLayer value)
         {
-            return this.world.TryGetSlotLayer(position, layer, out value);
+            return world.TryGetSlotLayer(position, layer, out value);
         }
         internal bool TryGetSlotLayer(in Point position, out SlotLayer value)
         {
@@ -176,7 +174,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySetElementTemperature(in Point position, in Layer layer, in float value)
         {
-            return this.world.TrySetElementTemperature(position, layer, value);
+            return world.TrySetElementTemperature(position, layer, value);
         }
         internal bool TrySetElementTemperature(in Point position, in float value)
         {
@@ -189,7 +187,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySetElementColorModifier(in Point position, in Layer layer, in Color value)
         {
-            return this.world.TrySetElementColorModifier(position, layer, value);
+            return world.TrySetElementColorModifier(position, layer, value);
         }
         internal bool TrySetElementColorModifier(in Point position, in Color value)
         {
@@ -202,7 +200,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryHasStoredElement(in Point position, in Layer layer, out bool value)
         {
-            return this.world.TryHasStoredElement(position, layer, out value);
+            return world.TryHasStoredElement(position, layer, out value);
         }
         internal bool TryHasStoredElement(in Point position, out bool value)
         {
@@ -215,7 +213,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySetStoredElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            return this.world.TrySetStoredElement(position, layer, index);
+            return world.TrySetStoredElement(position, layer, index);
         }
         internal bool TrySetStoredElement(in Point position, in ElementIndex index)
         {
@@ -228,7 +226,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetStoredElement(in Point position, in Layer layer, out ElementIndex index)
         {
-            return this.world.TryGetStoredElement(position, layer, out index);
+            return world.TryGetStoredElement(position, layer, out index);
         }
         internal bool TryGetStoredElement(in Point position, out ElementIndex index)
         {
@@ -241,7 +239,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryHasElementState(in Point position, in Layer layer, in ElementStates state, out bool value)
         {
-            return this.world.TryHasElementState(position, layer, state, out value);
+            return world.TryHasElementState(position, layer, state, out value);
         }
         internal bool TryHasElementState(in Point position, in ElementStates state, out bool value)
         {
@@ -253,7 +251,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TrySetElementState(in Point position, in Layer layer, ElementStates state)
         {
-            return this.world.TrySetElementState(position, layer, state);
+            return world.TrySetElementState(position, layer, state);
         }
         internal bool TrySetElementState(in Point position, in ElementStates state)
         {
@@ -265,7 +263,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TryRemoveElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            return this.world.TryRemoveElementState(position, layer, state);
+            return world.TryRemoveElementState(position, layer, state);
         }
         internal bool TryRemoveElementState(in Point position, in ElementStates state)
         {
@@ -277,7 +275,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TryClearElementStates(in Point position, in Layer layer)
         {
-            return this.world.TryClearElementStates(position, layer);
+            return world.TryClearElementStates(position, layer);
         }
         internal bool TryClearElementStates(in Point position)
         {
@@ -289,7 +287,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TryToggleElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            return this.world.TryToggleElementState(position, layer, state);
+            return world.TryToggleElementState(position, layer, state);
         }
         internal bool TryToggleElementState(in Point position, in ElementStates state)
         {
@@ -311,7 +309,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void InstantiateElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            this.world.InstantiateElement(position, layer, index);
+            world.InstantiateElement(position, layer, index);
         }
         internal void InstantiateElement(in Point position, in ElementIndex index)
         {
@@ -324,7 +322,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void UpdateElementPosition(in Point oldPosition, in Point newPosition, in Layer layer)
         {
-            this.world.UpdateElementPosition(oldPosition, newPosition, layer);
+            world.UpdateElementPosition(oldPosition, newPosition, layer);
         }
         internal void UpdateElementPosition(in Point oldPosition, in Point newPosition)
         {
@@ -350,7 +348,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void DestroyElement(in Point position, in Layer layer)
         {
-            this.world.DestroyElement(position, layer);
+            world.DestroyElement(position, layer);
         }
         internal void DestroyElement(in Point position)
         {
@@ -376,7 +374,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void ReplaceElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            this.world.ReplaceElement(position, layer, index);
+            world.ReplaceElement(position, layer, index);
         }
         internal void ReplaceElement(in Point position, in ElementIndex index)
         {
@@ -389,7 +387,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void SetElementTemperature(in Point position, in Layer layer, in float value)
         {
-            this.world.SetElementTemperature(position, layer, value);
+            world.SetElementTemperature(position, layer, value);
         }
         internal void SetElementTemperature(in Point position, in float value)
         {
@@ -402,7 +400,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void SetElementColorModifier(in Point position, in Layer layer, in Color value)
         {
-            this.world.SetElementColorModifier(position, layer, value);
+            world.SetElementColorModifier(position, layer, value);
         }
         internal void SetElementColorModifier(in Point position, in Color value)
         {
@@ -415,7 +413,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void SetStoredElement(in Point position, in Layer layer, in ElementIndex index)
         {
-            this.world.SetStoredElement(position, layer, index);
+            world.SetStoredElement(position, layer, index);
         }
         internal void SetStoredElement(in Point position, in ElementIndex index)
         {
@@ -428,7 +426,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementIndex GetStoredElement(in Point position, in Layer layer)
         {
-            return this.world.GetStoredElement(position, layer);
+            return world.GetStoredElement(position, layer);
         }
         internal ElementIndex GetStoredElement(in Point position)
         {
@@ -441,7 +439,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool HasStoredElement(in Point position, in Layer layer)
         {
-            return this.world.HasStoredElement(position, layer);
+            return world.HasStoredElement(position, layer);
         }
         internal bool HasStoredElement(in Point position)
         {
@@ -454,7 +452,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool HasElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            return this.world.HasElementState(position, layer, state);
+            return world.HasElementState(position, layer, state);
         }
         internal bool HasElementState(in Point position, in ElementStates state)
         {
@@ -466,7 +464,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void SetElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            this.world.SetElementState(position, layer, state);
+            world.SetElementState(position, layer, state);
         }
         internal void SetElementState(in Point position, in ElementStates state)
         {
@@ -478,7 +476,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void RemoveElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            this.world.RemoveElementState(position, layer, state);
+            world.RemoveElementState(position, layer, state);
         }
         internal void RemoveElementState(in Point position, in ElementStates state)
         {
@@ -490,7 +488,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void ClearElementStates(in Point position, in Layer layer)
         {
-            this.world.ClearElementStates(position, layer);
+            world.ClearElementStates(position, layer);
         }
         internal void ClearElementStates(in Point position)
         {
@@ -502,7 +500,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void ToggleElementState(in Point position, in Layer layer, in ElementStates state)
         {
-            this.world.ToggleElementState(position, layer, state);
+            world.ToggleElementState(position, layer, state);
         }
         internal void ToggleElementState(in Point position, in ElementStates state)
         {
@@ -515,7 +513,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementIndex GetElement(in Point position, in Layer layer)
         {
-            return this.world.GetElement(position, layer);
+            return world.GetElement(position, layer);
         }
         internal ElementIndex GetElement(in Point position)
         {
@@ -528,7 +526,7 @@ namespace StardustSandbox.Core.Elements
 
         internal Slot GetSlot(in Point position)
         {
-            return this.world.GetSlot(position);
+            return world.GetSlot(position);
         }
         internal Slot GetSlot()
         {
@@ -537,7 +535,7 @@ namespace StardustSandbox.Core.Elements
 
         internal SlotLayer GetSlotLayer(in Point position, in Layer layer)
         {
-            return this.world.GetSlotLayer(position, layer);
+            return world.GetSlotLayer(position, layer);
         }
         internal SlotLayer GetSlotLayer(in Point position)
         {
@@ -550,7 +548,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementNeighbors GetNeighboringSlots(in Point position)
         {
-            return this.world.GetNeighboringSlots(position);
+            return world.GetNeighboringSlots(position);
         }
         internal ElementNeighbors GetNeighboringSlots()
         {
@@ -559,7 +557,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool IsEmptySlot(in Point position)
         {
-            return this.world.IsEmptySlot(position);
+            return world.IsEmptySlot(position);
         }
         internal bool IsEmptySlot()
         {
@@ -568,7 +566,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool IsEmptySlotLayer(in Point position, in Layer layer)
         {
-            return this.world.IsEmptySlotLayer(position, layer);
+            return world.IsEmptySlotLayer(position, layer);
         }
         internal bool IsEmptySlotLayer(in Point position)
         {
@@ -581,15 +579,15 @@ namespace StardustSandbox.Core.Elements
 
         internal uint GetTotalElementCount()
         {
-            return this.world.GetTotalElementCount();
+            return world.GetTotalElementCount();
         }
         internal uint GetTotalForegroundElementCount()
         {
-            return this.world.GetTotalForegroundElementCount();
+            return world.GetTotalForegroundElementCount();
         }
         internal uint GetTotalBackgroundElementCount()
         {
-            return this.world.GetTotalBackgroundElementCount();
+            return world.GetTotalBackgroundElementCount();
         }
 
         #endregion
@@ -598,7 +596,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryNotifyChunk(in Point position)
         {
-            return this.world.TryNotifyChunk(position);
+            return world.TryNotifyChunk(position);
         }
         internal bool TryNotifyChunk()
         {
@@ -607,7 +605,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void NotifyChunk(in Point position)
         {
-            this.world.NotifyChunk(position);
+            world.NotifyChunk(position);
         }
         internal void NotifyChunk()
         {
@@ -616,11 +614,11 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetChunkUpdateState(in Point position, out bool result)
         {
-            return this.world.TryGetChunkUpdateState(position, out result);
+            return world.TryGetChunkUpdateState(position, out result);
         }
         internal bool GetChunkUpdateState(in Point position)
         {
-            return this.world.GetChunkUpdateState(position);
+            return world.GetChunkUpdateState(position);
         }
 
         #endregion
@@ -629,7 +627,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryInstantiateExplosion(in Point position, in Layer layer, in ExplosionBuilder explosionBuilder)
         {
-            return this.world.TryInstantiateExplosion(position, layer, explosionBuilder);
+            return world.TryInstantiateExplosion(position, layer, explosionBuilder);
         }
         internal bool TryInstantiateExplosion(in Point position, in ExplosionBuilder explosionBuilder)
         {
@@ -642,7 +640,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void InstantiateExplosion(in Point position, in Layer layer, in ExplosionBuilder explosionBuilder)
         {
-            this.world.InstantiateExplosion(position, layer, explosionBuilder);
+            world.InstantiateExplosion(position, layer, explosionBuilder);
         }
         internal void InstantiateExplosion(in Point position, in ExplosionBuilder explosionBuilder)
         {

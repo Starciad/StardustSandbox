@@ -165,9 +165,9 @@ namespace StardustSandbox.Core.Elements
                 }
             }
 
-            if (this.context.World.Temperature.CanApplyTemperature)
+            if (this.context.WorldTemperature.CanApplyTemperature)
             {
-                float worldTemp = this.context.World.Temperature.CurrentTemperature;
+                float worldTemp = this.context.WorldTemperature.CurrentTemperature;
                 float worldHeatTransfer = TemperatureConstants.WORLD_THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (worldTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
 
                 totalHeatTransfer += worldHeatTransfer;

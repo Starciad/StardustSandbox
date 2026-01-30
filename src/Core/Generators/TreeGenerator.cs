@@ -17,36 +17,35 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Generators
 {
     internal static class TreeGenerator
     {
-        internal static void Start(World world, in Layer layer, in Point origin, in int height, in int trunkWidth, in int leavesRadius)
+        internal static void Start(ElementContext context, in int height, in int trunkWidth, in int leavesRadius)
         {
             // Generate trunk
             for (int y = 0; y < height; y++)
             {
                 for (int x = -trunkWidth / 2; x <= trunkWidth / 2; x++)
                 {
-                    Point position = new(origin.X + x, origin.Y - y);
+                    Point position = new(context.Position.X + x, context.Position.Y - y);
 
-                    if (world.IsEmptySlotLayer(position, layer))
+                    if (context.IsEmptySlotLayer(position, context.Layer))
                     {
-                        world.InstantiateElement(position, layer, ElementIndex.Wood);
+                        context.InstantiateElement(position, context.Layer, ElementIndex.Wood);
                     }
                     else
                     {
-                        world.ReplaceElement(position, layer, ElementIndex.Wood);
+                        context.ReplaceElement(position, context.Layer, ElementIndex.Wood);
                     }
                 }
             }
 
             // Generate leaves
-            int leavesStartY = origin.Y - height;
+            int leavesStartY = context.Position.Y - height;
 
             for (int y = -leavesRadius; y <= leavesRadius; y++)
             {
@@ -54,15 +53,15 @@ namespace StardustSandbox.Core.Generators
                 {
                     if ((x * x) + (y * y) <= leavesRadius * leavesRadius)
                     {
-                        Point position = new(origin.X + x, leavesStartY + y);
+                        Point position = new(context.Position.X + x, leavesStartY + y);
 
-                        if (world.IsEmptySlotLayer(position, layer))
+                        if (context.IsEmptySlotLayer(position, context.Layer))
                         {
-                            world.InstantiateElement(position, layer, ElementIndex.TreeLeaf);
+                            context.InstantiateElement(position, context.Layer, ElementIndex.TreeLeaf);
                         }
                         else
                         {
-                            world.ReplaceElement(position, layer, ElementIndex.TreeLeaf);
+                            context.ReplaceElement(position, context.Layer, ElementIndex.TreeLeaf);
                         }
                     }
                 }
