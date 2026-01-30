@@ -637,7 +637,7 @@
     <value>Electricity</value>
   </data>
   <data name="Energy.Electricity.Description" xml:space="preserve">
-    <value>An electrical flow that moves irregularly through conductive materials. When it reaches a conductor, it travels along it indefinitely until it reaches a dead end or dissipates.</value>
+    <value>Flow of energy that propagates through conductors.</value>
   </data>
   <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
     <value>Battery</value>

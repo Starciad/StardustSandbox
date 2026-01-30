@@ -637,7 +637,7 @@
     <value>Electricidad</value>
   </data>
   <data name="Energy.Electricity.Description" xml:space="preserve">
-    <value>Un flujo eléctrico que se mueve de manera irregular a través de materiales conductores. Cuando alcanza un conductor, viaja a lo largo de él indefinidamente hasta que llega a un callejón sin salida o se disipa.</value>
+    <value>Flujo de energía que se propaga a través de conductores.</value>
   </data>
   <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
     <value>Batería</value>
