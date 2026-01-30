@@ -52,8 +52,8 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
+            slotLayer.StepCycleFlag = slotLayer.StepCycleFlag.GetNextCycle();
             slotLayer.Element.Steps(gameTime);
-            slotLayer.StepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
         private void UpdateChunk(GameTime gameTime, Chunk chunk, bool leftToRight)
