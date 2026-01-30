@@ -71,9 +71,6 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
         [Key("Temperature")]
         public float Temperature { get; set; }
 
-        [Key("TicksRemaining")]
-        public int TicksRemaining { get; set; }
-
         public SlotLayerData()
         {
 
@@ -87,7 +84,6 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
             StepCycleFlag = slotLayer.StepCycleFlag;
             StoredElementIndex = slotLayer.StoredElementIndex;
             Temperature = slotLayer.Temperature;
-            TicksRemaining = slotLayer.TicksRemaining;
         }
     }
 }

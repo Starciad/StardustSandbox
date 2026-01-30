@@ -399,24 +399,6 @@ namespace StardustSandbox.Core.WorldSystem
             return true;
         }
 
-        internal bool TrySetElementTicksRemaining(in Point position, in Layer layer, in int value)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            SlotLayer slotLayer = this[position.X, position.Y].GetLayer(layer);
-
-            if (slotLayer.TicksRemaining != value)
-            {
-                NotifyChunk(position);
-                slotLayer.TicksRemaining = value;
-            }
-
-            return true;
-        }
-
         internal void InstantiateElement(in Point position, in Layer layer, in ElementIndex index)
         {
             _ = TryInstantiateElement(position, layer, index);
@@ -548,11 +530,6 @@ namespace StardustSandbox.Core.WorldSystem
         internal void ToggleElementState(in Point position, in Layer layer, in ElementStates state)
         {
             _ = TryToggleElementState(position, layer, state);
-        }
-
-        internal void SetElementTicksRemaining(in Point position, in Layer layer, in int value)
-        {
-            _ = TrySetElementTicksRemaining(position, layer, value);
         }
 
         internal bool IsEmptySlot(in Point position)

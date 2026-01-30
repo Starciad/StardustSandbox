@@ -298,19 +298,6 @@ namespace StardustSandbox.Core.Elements
             return TryToggleElementState(this.Position, state);
         }
 
-        internal bool TrySetElementTicksRemaining(in Point position, in Layer layer, in int ticks)
-        {
-            return world.TrySetElementTicksRemaining(position, layer, ticks);
-        }
-        internal bool TrySetElementTicksRemaining(in Point position, in int ticks)
-        {
-            return TrySetElementTicksRemaining(position, this.Layer, ticks);
-        }
-        internal bool TrySetElementTicksRemaining(in int ticks)
-        {
-            return TrySetElementTicksRemaining(this.Position, ticks);
-        }
-
         internal void SetPosition(in Point newPosition, in Layer layer)
         {
             _ = TrySetPosition(newPosition, layer);
@@ -522,19 +509,6 @@ namespace StardustSandbox.Core.Elements
         internal void ToggleElementState(in ElementStates state)
         {
             ToggleElementState(this.Position, state);
-        }
-
-        internal void SetElementTicksRemaining(in Point position, in Layer layer, in int ticks)
-        {
-            world.SetElementTicksRemaining(position, layer, ticks);
-        }
-        internal void SetElementTicksRemaining(in Point position, in int ticks)
-        {
-            SetElementTicksRemaining(position, this.Layer, ticks);
-        }
-        internal void SetElementTicksRemaining(in int ticks)
-        {
-            SetElementTicksRemaining(this.Position, ticks);
         }
 
         internal ElementIndex GetElement(in Point position, in Layer layer)

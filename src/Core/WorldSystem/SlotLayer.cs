@@ -38,7 +38,6 @@ namespace StardustSandbox.Core.WorldSystem
         internal UpdateCycleFlag StepCycleFlag { get; set; }
         internal ElementIndex StoredElementIndex { get; set; }
         internal float Temperature { get => this.temperature; set => this.temperature = TemperatureMath.Clamp(value); }
-        internal int TicksRemaining { get; set; }
 
         private float temperature;
 
