@@ -72,17 +72,17 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void SetTemperatureValue(in Layer layer, in float value)
         {
-            GetLayer(layer).SetTemperatureValue(value);
+            GetLayer(layer).Temperature = value;
         }
 
         internal void SetColorModifier(in Layer layer, in Color value)
         {
-            GetLayer(layer).SetColorModifier(value);
+            GetLayer(layer).ColorModifier = value;
         }
 
         internal void SetStoredElement(in Layer layer, in ElementIndex index)
         {
-            GetLayer(layer).SetStoredElement(index);
+            GetLayer(layer).StoredElementIndex = index;
         }
 
         internal bool HasState(in Layer layer, in ElementStates value)

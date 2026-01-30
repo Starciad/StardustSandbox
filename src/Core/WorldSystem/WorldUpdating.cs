@@ -52,14 +52,12 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            slotLayer.NextStepCycle();
             slotLayer.Element.Steps(gameTime);
+            slotLayer.StepCycleFlag = this.stepCycleFlag.GetNextCycle();
         }
 
         private void UpdateChunk(GameTime gameTime, Chunk chunk, bool leftToRight)
         {
-            int N = WorldConstants.CHUNK_SCALE;
-
             bool TryUpdateRow(Point position)
             {
                 if (!this.world.TryGetSlot(position, out Slot slot))
@@ -80,14 +78,14 @@ namespace StardustSandbox.Core.WorldSystem
                 return true;
             }
 
-            for (int y = 0; y < N; y++)
+            for (int y = 0; y < WorldConstants.CHUNK_SCALE; y++)
             {
                 // Alternates direction by line, combined with global flip by frame.
                 bool leftToRightRow = leftToRight ^ ((y & 1) == 1);
 
                 if (leftToRightRow)
                 {
-                    for (int x = 0; x < N; x++)
+                    for (int x = 0; x < WorldConstants.CHUNK_SCALE; x++)
                     {
                         Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x,
                                              (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
@@ -100,7 +98,7 @@ namespace StardustSandbox.Core.WorldSystem
                 }
                 else
                 {
-                    for (int x = N - 1; x >= 0; x--)
+                    for (int x = WorldConstants.CHUNK_SCALE - 1; x >= 0; x--)
                     {
                         Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x,
                                              (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);

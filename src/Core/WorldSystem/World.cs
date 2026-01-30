@@ -286,7 +286,7 @@ namespace StardustSandbox.Core.WorldSystem
             if (slotLayer.Temperature != value)
             {
                 NotifyChunk(position);
-                slotLayer.SetTemperatureValue(value);
+                slotLayer.Temperature = value;
             }
 
             return true;
@@ -299,7 +299,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(layer).SetColorModifier(value);
+            this[position.X, position.Y].GetLayer(layer).ColorModifier = value;
 
             return true;
         }
@@ -324,7 +324,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(layer).SetStoredElement(index);
+            this[position.X, position.Y].GetLayer(layer).StoredElementIndex = index;
             return true;
         }
 
@@ -687,7 +687,7 @@ namespace StardustSandbox.Core.WorldSystem
 
             if (slotLayer.Element.DefaultExplosionResistance >= explosion.Power)
             {
-                slotLayer.SetTemperatureValue(slotLayer.Temperature + explosion.Heat);
+                slotLayer.Temperature += explosion.Heat;
             }
             else
             {
