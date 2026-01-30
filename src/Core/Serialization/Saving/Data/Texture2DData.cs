@@ -27,14 +27,14 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class Texture2DData
     {
-        [Key(0)]
+        [Key("Width")]
         public int Width { get; set; }
 
-        [Key(1)]
+        [Key("Height")]
         public int Height { get; set; }
 
-        [Key(2)]
-        public byte[] PixelData { get; set; }
+        [Key("Data")]
+        public byte[] Data { get; set; }
 
         public Texture2DData()
         {
@@ -45,15 +45,15 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
         {
             this.Width = texture2d.Width;
             this.Height = texture2d.Height;
-            this.PixelData = new byte[this.Width * this.Height * 4]; // RGBA
+            this.Data = new byte[this.Width * this.Height * 4]; // RGBA
 
-            texture2d.GetData(this.PixelData);
+            texture2d.GetData(this.Data);
         }
 
         public Texture2D ToTexture2D(GraphicsDevice graphicsDevice)
         {
             Texture2D texture2d = new(graphicsDevice, this.Width, this.Height);
-            texture2d.SetData(this.PixelData);
+            texture2d.SetData(this.Data);
             return texture2d;
         }
     }
