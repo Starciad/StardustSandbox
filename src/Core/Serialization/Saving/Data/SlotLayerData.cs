@@ -30,6 +30,20 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
     [MessagePackObject]
     public sealed class SlotLayerData
     {
+        [IgnoreMember]
+        public Color ColorModifier
+        {
+            get => new(ColorModifierR, ColorModifierG, ColorModifierB, ColorModifierA);
+
+            set
+            {
+                ColorModifierR = value.R;
+                ColorModifierG = value.G;
+                ColorModifierB = value.B;
+                ColorModifierA = value.A;
+            }
+        }
+
         [Key("ColorModifierA")]
         public byte ColorModifierA { get; set; }
 
@@ -59,20 +73,6 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         [Key("TicksRemaining")]
         public int TicksRemaining { get; set; }
-
-        [IgnoreMember]
-        public Color ColorModifier
-        {
-            get => new(ColorModifierR, ColorModifierG, ColorModifierB, ColorModifierA);
-
-            set
-            {
-                ColorModifierR = value.R;
-                ColorModifierG = value.G;
-                ColorModifierB = value.B;
-                ColorModifierA = value.A;
-            }
-        }
 
         public SlotLayerData()
         {
