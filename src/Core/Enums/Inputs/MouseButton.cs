@@ -25,4 +25,3 @@ namespace StardustSandbox.Core.Enums.Inputs
         Right = 3
     }
 }
-

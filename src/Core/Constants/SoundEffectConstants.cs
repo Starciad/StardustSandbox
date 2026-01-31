@@ -22,4 +22,3 @@ namespace StardustSandbox.Core.Constants
         internal const byte MAX_CONCURRENT_INSTANCES = 32;
     }
 }
-

@@ -71,4 +71,3 @@ namespace StardustSandbox.Core.Explosions
         }
     }
 }
-

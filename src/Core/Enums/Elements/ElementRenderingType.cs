@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Enums.Elements
         Blob = 1
     }
 }
-

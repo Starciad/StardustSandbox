@@ -25,4 +25,3 @@ namespace StardustSandbox.Core.Enums.Directions
         Right = 3
     }
 }
-

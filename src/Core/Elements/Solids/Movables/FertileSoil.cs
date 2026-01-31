@@ -30,4 +30,3 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         }
     }
 }
-

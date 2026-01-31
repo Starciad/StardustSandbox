@@ -27,4 +27,3 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables.Pushers
         }
     }
 }
-

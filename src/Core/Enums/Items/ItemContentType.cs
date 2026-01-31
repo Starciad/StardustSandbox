@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Enums.Items
         Actor = 2,
     }
 }
-

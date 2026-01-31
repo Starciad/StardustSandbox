@@ -32,4 +32,3 @@ namespace StardustSandbox.Core.Constants
         internal const float CELESTIAL_BODY_ARC_RADIUS = 500.0f;
     }
 }
-

@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Enums.Inputs
         Canceled = 2
     }
 }
-

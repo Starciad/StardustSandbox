@@ -115,4 +115,3 @@ namespace StardustSandbox.Core.Backgrounds
         }
     }
 }
-

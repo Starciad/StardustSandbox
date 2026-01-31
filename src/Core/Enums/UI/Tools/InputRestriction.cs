@@ -25,4 +25,3 @@ namespace StardustSandbox.Core.Enums.UI.Tools
         Alphanumeric = 3,
     }
 }
-

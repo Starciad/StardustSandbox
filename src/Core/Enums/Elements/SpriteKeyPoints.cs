@@ -50,4 +50,3 @@ namespace StardustSandbox.Core.Enums.Elements
         Gap_Southeast = 19,
     }
 }
-

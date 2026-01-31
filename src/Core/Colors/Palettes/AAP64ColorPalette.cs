@@ -374,4 +374,3 @@ namespace StardustSandbox.Core.Colors.Palettes
         #endregion
     }
 }
-

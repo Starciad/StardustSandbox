@@ -36,4 +36,3 @@ namespace StardustSandbox.Core.Enums.Tools
         BrownInkTool = 11,
     }
 }
-

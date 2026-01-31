@@ -35,4 +35,3 @@ namespace StardustSandbox.Core.Constants
         internal const float SECONDS_IN_A_MINUTE = 60.0f;
     }
 }
-

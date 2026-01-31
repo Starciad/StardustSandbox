@@ -91,4 +91,3 @@ namespace StardustSandbox.Core.Elements.Energies
         }
     }
 }
-

@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Constants
         internal const byte SPRITE_DEFAULT_HEIGHT = 32;
     }
 }
-

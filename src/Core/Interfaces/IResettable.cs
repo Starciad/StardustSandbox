@@ -22,4 +22,3 @@ namespace StardustSandbox.Core.Interfaces
         void Reset();
     }
 }
-

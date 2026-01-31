@@ -28,4 +28,3 @@ namespace StardustSandbox.Core.Enums.Elements
         IsDissipating = 1 << 3,
     }
 }
-

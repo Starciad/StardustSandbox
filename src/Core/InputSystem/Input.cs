@@ -77,4 +77,3 @@ namespace StardustSandbox.Core.InputSystem
         }
     }
 }
-

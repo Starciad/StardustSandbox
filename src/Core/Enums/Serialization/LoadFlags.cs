@@ -33,4 +33,3 @@ namespace StardustSandbox.Core.Enums.Serialization
         All = Thumbnail | Metadata | Manifest | Properties | Environment | Content
     }
 }
-

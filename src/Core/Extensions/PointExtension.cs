@@ -32,4 +32,3 @@ namespace StardustSandbox.Core.Extensions
         }
     }
 }
-

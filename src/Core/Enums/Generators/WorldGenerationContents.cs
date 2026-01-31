@@ -28,4 +28,3 @@ namespace StardustSandbox.Core.Enums.Generators
         HasClouds = 1 << 2,
     }
 }
-

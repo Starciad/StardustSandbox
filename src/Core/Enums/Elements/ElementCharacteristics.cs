@@ -35,4 +35,3 @@ namespace StardustSandbox.Core.Enums.Elements
         IsElectrified = 1 << 10,
     }
 }
-

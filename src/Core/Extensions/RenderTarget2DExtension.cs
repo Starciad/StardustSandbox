@@ -44,4 +44,3 @@ namespace StardustSandbox.Core.Extensions
         }
     }
 }
-

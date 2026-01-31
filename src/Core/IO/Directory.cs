@@ -74,4 +74,3 @@ namespace StardustSandbox.Core.IO
         }
     }
 }
-

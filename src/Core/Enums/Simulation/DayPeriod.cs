@@ -25,4 +25,3 @@ namespace StardustSandbox.Core.Enums.Simulation
         Night = 3
     }
 }
-

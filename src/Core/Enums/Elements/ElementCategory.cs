@@ -27,4 +27,3 @@ namespace StardustSandbox.Core.Enums.Elements
         Energy
     }
 }
-

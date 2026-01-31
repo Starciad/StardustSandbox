@@ -113,4 +113,3 @@ namespace StardustSandbox.Core.Enums.Assets
         #endregion
     }
 }
-

@@ -29,4 +29,3 @@ namespace StardustSandbox.Core.Enums.Directions
         Southeast = 7
     }
 }
-

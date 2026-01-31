@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Constants
         internal const int MAX_SIMULTANEOUS_ACTORS = 1024;
     }
 }
-

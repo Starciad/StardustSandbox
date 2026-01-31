@@ -29,4 +29,3 @@ namespace StardustSandbox.Core.Enums.Directions
         Northwest = 128
     }
 }
-

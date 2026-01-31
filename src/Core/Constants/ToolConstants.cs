@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Constants
         internal const float DEFAULT_FREEZE_VALUE = -5.0f;
     }
 }
-

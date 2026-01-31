@@ -37,4 +37,3 @@ namespace StardustSandbox.Core.Colors
         }
     }
 }
-

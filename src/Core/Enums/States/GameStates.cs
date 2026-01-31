@@ -29,4 +29,3 @@ namespace StardustSandbox.Core.Enums.States
         IsCriticalMenuOpen = 1 << 3,
     }
 }
-

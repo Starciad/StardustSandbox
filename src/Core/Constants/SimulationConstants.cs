@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Constants
         internal const float VERY_FAST_SPEED_DELAY_SECONDS = 0.01f;
     }
 }
-

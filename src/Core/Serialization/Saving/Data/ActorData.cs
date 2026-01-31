@@ -33,4 +33,3 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
         public required ActorIndex Index { get; set; }
     }
 }
-

@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Enums.Actors
         Gul = 0,
     }
 }
-
