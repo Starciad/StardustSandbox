@@ -124,8 +124,8 @@ namespace StardustSandbox.Core
                 throw new ArgumentException("Save file name cannot be null or whitespace.", nameof(saveFileName));
             }
 
-            actorManager.LoadFromSaveFile(saveFileName);
-            world.LoadFromSaveFile(saveFileName);
+            actorManager.Deserialize(saveFileName);
+            world.Deserialize(saveFileName);
 
             DefineLoadedSaveFile(saveFileName);
         }

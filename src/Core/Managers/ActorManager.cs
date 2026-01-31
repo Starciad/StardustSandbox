@@ -264,7 +264,7 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        public ActorData[] Serialize()
+        internal ActorData[] Serialize()
         {
             List<ActorData> datas = [];
 
@@ -281,7 +281,7 @@ namespace StardustSandbox.Core.Managers
             return [.. datas];
         }
 
-        public void Deserialize(ActorData[] datas)
+        internal void Deserialize(ActorData[] datas)
         {
             if (datas == null)
             {
@@ -300,16 +300,16 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        internal void LoadFromSaveFile(string name)
+        internal void Deserialize(string saveFileName)
         {
-            Deserialize(SavingSerializer.Load(name, LoadFlags.Content).Content.Actors);
+            Deserialize(SavingSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
         }
 
         internal void Reload()
         {
             if (GameHandler.HasSaveFileLoaded)
             {
-                LoadFromSaveFile(GameHandler.LoadedSaveFileName);
+                Deserialize(GameHandler.LoadedSaveFileName);
                 return;
             }
 

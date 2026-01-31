@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,22 +17,39 @@
 
 using MessagePack;
 
+using StardustSandbox.Core.WorldSystem;
+
 using System;
 
 namespace StardustSandbox.Core.Serialization.Saving.Data
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class EnvironmentData
+    public sealed class TemperatureData
     {
-        [Key("CurrentTime")]
-        public TimeSpan CurrentTime { get; set; }
+        [Key("StartTime")]
+        public TimeSpan StartTime { get; set; }
 
-        [Key("IsFrozen")]
-        public bool IsFrozen { get; set; }
+        [Key("EndTime")]
+        public TimeSpan EndTime { get; set; }
 
-        [Key("Temperatures")]
-        public TemperatureData[] Temperatures { get; set; }
+        [Key("CanApplyTemperature")]
+        public bool CanApplyTemperature { get; set; }
+
+        [Key("Temperature")]
+        public float Temperature { get; set; }
+
+        public TemperatureData()
+        {
+
+        }
+
+        internal TemperatureData(TemperatureRange temperatureRange)
+        {
+            this.StartTime = temperatureRange.StartTime;
+            this.EndTime = temperatureRange.EndTime;
+            this.CanApplyTemperature = temperatureRange.CanApplyTemperature;
+            this.Temperature = temperatureRange.Temperature;
+        }
     }
 }
-

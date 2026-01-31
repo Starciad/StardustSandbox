@@ -15,33 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Mathematics;
+using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Serialization.Saving.Data;
 
 using System;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    internal sealed class Temperature
+    internal sealed class Temperature : IResettable
     {
-        private sealed class TemperatureRange(TimeSpan startTime, TimeSpan endTime)
-        {
-            internal TimeSpan StartTime => startTime;
-            internal TimeSpan EndTime => endTime;
-            internal float Temperature
-            {
-                get => this.temperature;
-                set => this.temperature = TemperatureMath.Clamp(value);
-            }
-            internal bool CanApplyTemperature
-            {
-                get => this.canApplyTemperature;
-                set => this.canApplyTemperature = value;
-            }
-
-            private float temperature = 30.0f;
-            private bool canApplyTemperature = false;
-        }
-
         private readonly TemperatureRange[] temperatureRanges =
         [
             new(new(0, 0, 0), new(3, 0, 0)),
@@ -55,9 +37,7 @@ namespace StardustSandbox.Core.WorldSystem
         ];
 
         internal bool CanApplyTemperature => GetTemperatureRangeByTime(this.time.CurrentTime).CanApplyTemperature;
-        internal float CurrentTemperature => this.currentTemperature;
-
-        private float currentTemperature;
+        internal float CurrentTemperature { get; set; }
 
         private readonly Time time;
 
@@ -72,7 +52,7 @@ namespace StardustSandbox.Core.WorldSystem
 
             if (currentRange.CanApplyTemperature)
             {
-                this.currentTemperature = float.Lerp(this.currentTemperature, currentRange.Temperature, 0.01f);
+                this.CurrentTemperature = float.Lerp(this.CurrentTemperature, currentRange.Temperature, 0.01f);
             }
         }
 
@@ -84,9 +64,41 @@ namespace StardustSandbox.Core.WorldSystem
             range.CanApplyTemperature = canApplyTemperature;
         }
 
-        private TemperatureRange GetTemperatureRangeByTime(TimeSpan time)
+        internal TemperatureRange GetTemperatureRangeByTime(TimeSpan time)
         {
             return Array.Find(this.temperatureRanges, x => time >= x.StartTime && time < x.EndTime);
+        }
+
+        internal TemperatureData[] Serialize()
+        {
+            TemperatureData[] datas = new TemperatureData[this.temperatureRanges.Length];
+
+            for (int i = 0; i < this.temperatureRanges.Length; i++)
+            {
+                datas[i] = new(this.temperatureRanges[i]);
+            }
+
+            return datas;
+        }
+
+        internal void Deserialize(TemperatureData[] datas)
+        {
+            for (int i = 0; i < datas.Length; i++)
+            {
+                TemperatureData data = datas[i];
+                TemperatureRange range = GetTemperatureRangeByTime(data.StartTime);
+
+                range.CanApplyTemperature = data.CanApplyTemperature;
+                range.Temperature = data.Temperature;
+            }
+        }
+
+        public void Reset()
+        {
+            for (int i = 0; i < this.temperatureRanges.Length; i++)
+            {
+                this.temperatureRanges[i].Reset();
+            }
         }
     }
 }

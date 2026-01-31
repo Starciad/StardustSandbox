@@ -164,7 +164,8 @@ namespace StardustSandbox.Core.Serialization
             return new()
             {
                 CurrentTime = world.Time.CurrentTime,
-                IsFrozen = world.Time.IsFrozen
+                IsFrozen = world.Time.IsFrozen,
+                Temperatures = world.Temperature.Serialize(),
             };
         }
 

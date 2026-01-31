@@ -104,8 +104,9 @@ namespace StardustSandbox.Core.WorldSystem
         {
             GameStatistics.ResetWorldStatistics();
 
-            this.information.Reset();
             this.chunking.Reset();
+            this.information.Reset();
+            this.temperature.Reset();
             this.updating.Reset();
 
             Clear();
@@ -762,9 +763,31 @@ namespace StardustSandbox.Core.WorldSystem
             Reset();
         }
 
-        internal void LoadFromSaveFile(string name)
+        internal SlotData[] Serialize()
         {
-            SaveFile saveFile = SavingSerializer.Load(name, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
+            List<SlotData> slots = [];
+
+            for (int y = 0; y < this.Information.Size.Y; y++)
+            {
+                for (int x = 0; x < this.Information.Size.X; x++)
+                {
+                    Point point = new(x, y);
+
+                    if (IsEmptySlot(point))
+                    {
+                        continue;
+                    }
+
+                    slots.Add(new(GetSlot(point)));
+                }
+            }
+
+            return [.. slots];
+        }
+
+        internal void Deserialize(string saveFileName)
+        {
+            SaveFile saveFile = SavingSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
 
             GameHandler.SetState(GameStates.IsSimulationPaused);
 
@@ -778,6 +801,9 @@ namespace StardustSandbox.Core.WorldSystem
             // Time
             this.time.SetTime(saveFile.Environment.CurrentTime);
             this.time.IsFrozen = saveFile.Environment.IsFrozen;
+
+            // Temperature
+            this.temperature.Deserialize(saveFile.Environment.Temperatures);
 
             // Allocate Slots
             foreach (SlotData slotData in saveFile.Content.Slots)
@@ -820,7 +846,7 @@ namespace StardustSandbox.Core.WorldSystem
         {
             if (GameHandler.HasSaveFileLoaded)
             {
-                LoadFromSaveFile(GameHandler.LoadedSaveFileName);
+                Deserialize(GameHandler.LoadedSaveFileName);
                 return;
             }
 
@@ -922,28 +948,6 @@ namespace StardustSandbox.Core.WorldSystem
                     this[x, y] = null;
                 }
             }
-        }
-
-        internal SlotData[] Serialize()
-        {
-            List<SlotData> slots = [];
-
-            for (int y = 0; y < this.Information.Size.Y; y++)
-            {
-                for (int x = 0; x < this.Information.Size.X; x++)
-                {
-                    Point point = new(x, y);
-
-                    if (IsEmptySlot(point))
-                    {
-                        continue;
-                    }
-
-                    slots.Add(new(GetSlot(point)));
-                }
-            }
-
-            return [.. slots];
         }
 
         #endregion
