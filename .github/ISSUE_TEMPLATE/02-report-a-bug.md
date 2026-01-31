@@ -7,55 +7,34 @@ assignees: ''
 
 ---
 
-# Bug Report
-
 > [!NOTE]  
-> Please follow this template when reporting a bug to help us understand and address the issue effectively.
+> This template is designed to assist you in reporting a bug. You are free to modify, remove, or add sections as needed to best communicate the issue. Delete this line before submitting your issue.
 
-## Problem Description
+## Information
 
-> Provide a clear and concise description of the bug. Explain what you found to be wrong and how it affects the project's functionality.
+- Game Version: [e.g., 1.0.0]
+- Platform: [e.g., Windows, Linux]
+
+## Description
+
+> Provide a clear and concise description of the bug and its impact on functionality.
 
 ## Steps to Reproduce
 
-> Describe step-by-step how to reproduce the incorrect behavior. This helps developers identify the issue.
-> Step-by-step example.
+> List all necessary steps to reproduce the error.
 
-1. Go to '...'
-2. Click on '...'
-3. Scroll down to '...'
-4. Observe the error
+## Expected vs Actual Behavior
 
-## Expected Behavior
+> Describe what you expected to happen and what actually happened.
 
-> Clearly and concisely describe what you expected to happen. This helps distinguish between desired behavior and the actual problem.
+## Log Files (Optional)
 
-## Screenshots
+> Attach relevant log files or error messages, if applicable.
 
-> If possible and applicable, include screenshots or images that illustrate the bug. A picture is worth a thousand words and can be crucial in understanding the problem.
+## Screenshots or Videos (Optional)
 
-## Video Recording
+> Include any screenshots, videos, or logs that illustrate the bug.
 
-> If the bug is difficult to capture in a static screenshot, consider recording a video to demonstrate the incorrect behavior. You can use screen recording software like OBS or vokoscreen.
+## Additional Context (Optional)
 
-## Environment Information
-
-> Provide information about the environment in which you encountered the bug:
-
-- **Operating System:** [e.g., Windows 10]
-- **Browser/Platform:** [if applicable, e.g., Browser, Desktop, Mobile]
-- **Software Version:** [if applicable, e.g., application or game version]
-- **Other Relevant Settings:** [any specific settings that may be related to the bug]
-
-## Additional Context
-
-> Add any additional context that may be helpful in resolving the issue. This could include information about your operating system, specific configurations, or anything you believe might be relevant to understanding and solving the bug.
-
-## Alternative Reproduction Steps
-
-> If you've attempted different approaches to reproduce the bug, provide details about these alternative attempts. This can help identify the root cause of the problem.
-
-## Attachments
-
-> If you have additional files, such as error logs or relevant documents, please attach them here.
-> We appreciate your bug report. Your contribution is crucial to improving the project's quality.
+> Add any other relevant information that might help resolve the issue.
