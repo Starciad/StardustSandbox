@@ -38,7 +38,8 @@ chmod +rwx ./StardustSandbox
 
 ## 📩 Download
 
-Get the latest build on [Itch.io](https://starciad.itch.io/stardust-sandbox).
+- Get the latest build on [Itch.io](https://starciad.itch.io/stardust-sandbox)  
+- The game is now available on [Steam](https://store.steampowered.com/app/4348740/Stardust_Sandbox/), check it out!  
 
 ## 🔗 Connect
 
