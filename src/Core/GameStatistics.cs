@@ -16,7 +16,6 @@
 */
 
 using StardustSandbox.Core.Achievements;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 
