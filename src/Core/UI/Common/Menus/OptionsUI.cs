@@ -76,9 +76,6 @@ namespace StardustSandbox.Core.UI.Common.Menus
             internal Label[] Options => options;
         }
 
-        private const float SCROLL_STEP = 52.0f;
-        private const float ITEM_SPACING = 58.0f;
-
         private Label titleLabel;
         private Image background;
 
@@ -646,15 +643,15 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
             if (Interaction.OnMouseScrollUp())
             {
-                marginY -= SCROLL_STEP;
+                marginY -= UIConstants.OPTIONS_SCROLL_STEP;
             }
             else if (Interaction.OnMouseScrollDown())
             {
-                marginY += SCROLL_STEP;
+                marginY += UIConstants.OPTIONS_SCROLL_STEP;
             }
 
             float topLimit = 0.0f;
-            float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
+            float bottomLimit = this.scrollableContainer.ChildCount * UIConstants.OPTIONS_ITEM_SPACING * -1f;
 
             this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, topLimit));
         }
@@ -663,20 +660,20 @@ namespace StardustSandbox.Core.UI.Common.Menus
         {
             if (Interaction.OnMouseLeftClick(this.scrollbarUpButton))
             {
-                float marginY = this.scrollableContainer.Margin.Y + SCROLL_STEP;
-                float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
+                float marginY = this.scrollableContainer.Margin.Y + UIConstants.OPTIONS_SCROLL_STEP;
+                float bottomLimit = this.scrollableContainer.ChildCount * UIConstants.OPTIONS_ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
             else if (Interaction.OnMouseLeftClick(this.scrollbarDownButton))
             {
-                float marginY = this.scrollableContainer.Margin.Y - SCROLL_STEP;
-                float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
+                float marginY = this.scrollableContainer.Margin.Y - UIConstants.OPTIONS_SCROLL_STEP;
+                float bottomLimit = this.scrollableContainer.ChildCount * UIConstants.OPTIONS_ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
 
             int mouseY = Input.MouseState.Y;
 
-            float scrollableHeight = this.scrollableContainer.ChildCount * ITEM_SPACING;
+            float scrollableHeight = this.scrollableContainer.ChildCount * UIConstants.OPTIONS_ITEM_SPACING;
             float backgroundHeight = this.background.Size.Y;
             float scrollableMarginY = this.scrollableContainer.Margin.Y;
 
@@ -709,7 +706,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                 // Convert slider position to scrollable content margin (inverse of calculation below)
                 float newScrollableMarginY = -desiredSliderY / sliderMaxY * scrollableHeight;
-                float bottomLimit = this.scrollableContainer.ChildCount * ITEM_SPACING * -1f;
+                float bottomLimit = this.scrollableContainer.ChildCount * UIConstants.OPTIONS_ITEM_SPACING * -1f;
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(newScrollableMarginY, bottomLimit, 0.0f));
 
                 // While dragging, do not recalculate the slider based on the current margin to avoid value "conflicts".

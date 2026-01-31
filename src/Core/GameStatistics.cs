@@ -16,6 +16,7 @@
 */
 
 using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 
@@ -25,8 +26,6 @@ namespace StardustSandbox.Core
 {
     internal static class GameStatistics
     {
-        private const uint MAX_VALUE = 1_000_000;
-
         private static uint worldClonedElements;
         private static uint worldCorrodedElements;
         private static uint worldElementsConsumedByCorruption;
@@ -95,15 +94,15 @@ namespace StardustSandbox.Core
 
         private static uint ClampAndIncrement(uint currentValue, uint increment)
         {
-            if (currentValue >= MAX_VALUE || increment == 0)
+            if (currentValue >= uint.MaxValue || increment == 0)
             {
-                return currentValue >= MAX_VALUE ? MAX_VALUE : currentValue;
+                return currentValue >= uint.MaxValue ? uint.MaxValue : currentValue;
             }
 
-            uint remaining = MAX_VALUE - currentValue;
+            uint remaining = uint.MaxValue - currentValue;
 
             return increment >= remaining
-                ? MAX_VALUE
+                ? uint.MaxValue
                 : currentValue + increment;
         }
 
