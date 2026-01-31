@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Constants
         internal const byte CHUNK_DEFAULT_COOLDOWN = 3;
         internal const float BACKGROUND_COLOR_DARKENING_FACTOR = 0.5f;
 
-        internal static Point WORLD_THUMBNAIL_SIZE => new(23);
+        internal static readonly Point WORLD_THUMBNAIL_SIZE = new(23);
 
         internal static readonly Point[] WORLD_SIZES_TEMPLATE =
         [

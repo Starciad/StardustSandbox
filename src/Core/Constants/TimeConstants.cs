@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class TimeConstants
     {
-        internal static TimeSpan DAY_START_TIMESPAN => new(06, 00, 00);
+        internal static readonly TimeSpan DAY_START_TIMESPAN = new(06, 00, 00);
 
         internal const float DEFAULT_SECONDS_PER_FRAMES = 128.0f;
         internal const float DEFAULT_FAST_SECONDS_PER_FRAMES = 512.0f;

@@ -29,8 +29,10 @@ namespace StardustSandbox.Core.Constants
         #endregion
 
         #region APPDATA
+
         internal const string APPDATA_SETTINGS_DIRECTORY = "settings";
         internal const string APPDATA_WORLDS_DIRECTORY = "worlds";
+
         #endregion
 
         #region ASSETS

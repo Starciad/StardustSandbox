@@ -23,10 +23,10 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class LocalizationConstants
     {
-        internal static GameCulture DEFAULT_GAME_CULTURE => gameCultures[0];
-        internal static GameCulture[] AVAILABLE_GAME_CULTURES => gameCultures;
+        internal static GameCulture DEFAULT_GAME_CULTURE => cultures[0];
+        internal static GameCulture[] AVAILABLE_GAME_CULTURES => cultures;
 
-        private static readonly GameCulture[] gameCultures =
+        private static readonly GameCulture[] cultures =
         [
             new("en", "US"),
             new("pt", "BR"),
@@ -37,12 +37,12 @@ namespace StardustSandbox.Core.Constants
 
         internal static GameCulture GetGameCultureFromNativeName(string nativeName)
         {
-            return Array.Find(gameCultures, x => x.CultureInfo.NativeName.Equals(nativeName, StringComparison.OrdinalIgnoreCase)) ?? DEFAULT_GAME_CULTURE;
+            return Array.Find(cultures, x => x.CultureInfo.NativeName.Equals(nativeName, StringComparison.OrdinalIgnoreCase)) ?? DEFAULT_GAME_CULTURE;
         }
 
         internal static GameCulture GetGameCulture(string name)
         {
-            return Array.Find(gameCultures, x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return Array.Find(cultures, x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
